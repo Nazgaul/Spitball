@@ -22,10 +22,10 @@ namespace Cloudents.Infrastructure.Converters
                     image =
                         $"https://maps.googleapis.com/maps/api/place/photo?maxwidth={context.Items["width"]}&photoreference={photo}&key={context.Items["key"]}";
                 }
-                GeoPoint location = null;
+                Core.Models.Location location = null;
                 if (json["geometry"]?["location"] != null)
                 {
-                    location = new GeoPoint
+                    location = new Core.Models.Location
                     {
                         Latitude = json["geometry"]["location"]["lat"].Value<double>(),
                         Longitude = json["geometry"]["location"]["lng"].Value<double>()
@@ -60,10 +60,10 @@ namespace Cloudents.Infrastructure.Converters
                 image =
                     $"https://maps.googleapis.com/maps/api/place/photo?maxwidth={context.Items["width"]}&photoreference={photo}&key={context.Items["key"]}";
             }
-            GeoPoint location = null;
+            Location location = null;
             if (json["geometry"]?["location"] != null)
             {
-                location = new GeoPoint
+                location = new Location
                 {
                     Latitude = json["geometry"]["location"]["lat"].Value<double>(),
                     Longitude = json["geometry"]["location"]["lng"].Value<double>()

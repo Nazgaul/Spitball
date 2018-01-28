@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure.Search.Tutor
@@ -24,7 +23,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
         }
 
         public Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter[] filters,
-            TutorRequestSort sort, GeoPoint location, int page, CancellationToken token)
+            TutorRequestSort sort, Core.Models.Location location, int page, CancellationToken token)
         {
             if (Array.TrueForAll(filters, t => t == TutorRequestFilter.InPerson))
             {

@@ -13,6 +13,7 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write.Job.Entities;
+using Google.Apis.YouTube.v3.Data;
 
 namespace Cloudents.Infrastructure.Write.Job
 {
@@ -64,7 +65,7 @@ namespace Cloudents.Infrastructure.Write.Job
                 DateTime = obj.posted_at,
                 Id = obj.job_reference,
                 JobType = JobTypeConversion(obj.job_type),
-                Location = GeoPoint.ToPoint(location),
+                Location = Location.ToPoint(location),
                 Description = StripHtml(obj.body).RemoveEndOfString(300),
                 State = obj.state,
                 Title = obj.title,

@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             _tutorSearch = tutorSearch;
         }
 
-        public async Task<IEnumerable<TutorDto>> SearchAsync(IEnumerable<string> term, TutorRequestFilter[] filters, TutorRequestSort sort, GeoPoint location, int page,
+        public async Task<IEnumerable<TutorDto>> SearchAsync(IEnumerable<string> term, TutorRequestFilter[] filters, TutorRequestSort sort, Location location, int page,
             CancellationToken token)
         {
             var query = string.Join(" ", term ?? Enumerable.Empty<string>());

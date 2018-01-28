@@ -10,11 +10,11 @@ namespace Cloudents.Core.Interfaces
     public interface IGooglePlacesSearch
     {
         Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(IEnumerable<string> term, PlacesRequestFilter filter,
-            GeoPoint location, string nextPageToken, CancellationToken token);
+            Location location, string nextPageToken, CancellationToken token);
 
         Task<PlaceDto> ByIdAsync(string id, CancellationToken token);
-        Task<GeoPoint> GeoCodingByAddressAsync(string address, CancellationToken token);
-        Task<GeoPoint> GeoCodingByZipAsync(string zip, CancellationToken token);
-        Task<AddressDto> ReverseGeocodingAsync(GeoPoint point, CancellationToken token);
+        Task<Location> GeoCodingByAddressAsync(string address, CancellationToken token);
+        Task<Location> GeoCodingByZipAsync(string zip, CancellationToken token);
+        //Task<AddressDto> ReverseGeocodingAsync(Location point, CancellationToken token);
     }
 }

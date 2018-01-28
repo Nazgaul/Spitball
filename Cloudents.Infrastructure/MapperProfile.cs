@@ -16,17 +16,9 @@ namespace Cloudents.Infrastructure
         public MapperProfile()
         {
             CreateMap<Tutor, TutorDto>();
-                //.ForMember(d => d.Location, o => o.ResolveUsing(p => new GeoPoint
-                //{
-                //    Latitude = p.Location.Latitude,
-                //    Longitude = p.Location.Longitude
-                //}))
-                //.ForMember(d => d.TermCount, o => o.ResolveUsing((t, ts, i, c) =>
-                //{
-                //    var temp = $"{t.City} {t.State} {string.Join(" ", t.Subjects)} {string.Join(" ", t.Extra)}";
-                //    return temp.Split(new[] { c.Items["term"].ToString() },
-                //        StringSplitOptions.RemoveEmptyEntries).Length;
-                //}));
+
+            CreateMap<string, Location>().ConvertUsing<IpConverter>();
+            CreateMap<IpDto, Location>();
 
             CreateMap<DocumentSearchResult<Job>, ResultWithFacetDto<JobDto>>()
                 .ConvertUsing<JobResultConverter>();
@@ -63,12 +55,13 @@ namespace Cloudents.Infrastructure
             CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlacesConverter>();
             CreateMap<JObject, PlaceDto>().ConvertUsing<PlaceConverter>();
             CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
-            CreateMap<JObject, GeoPoint>().ConvertUsing(jo =>
+            //TODO
+            CreateMap<JObject, Location>().ConvertUsing(jo =>
             {
                 if (!string.Equals(jo["status"].Value<string>(), "ok", StringComparison.InvariantCultureIgnoreCase))
                     return null;
                 var geo = jo["results"][0]["geometry"]["location"];
-                return new GeoPoint
+                return new Location
                 {
                     Latitude = geo["lat"].Value<double>(),
                     Longitude = geo["lng"].Value<double>()
@@ -82,7 +75,6 @@ namespace Cloudents.Infrastructure
                 var geo = jo["results"][0]["formatted_address"].Value<string>();
                 return new AddressDto(geo);
             });
-            CreateMap<string, IpDto>().ConvertUsing<IpConverter>();
         }
     }
 }

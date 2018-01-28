@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Test
             var tutorSearch = new TutorAzureSearch(_searchIndexMock.Object, _searchMapper.Object);
             var obj = new PrivateObject(tutorSearch);
             var argument = new List<TutorRequestFilter>() { TutorRequestFilter.None };
-            var location = new GeoPoint();
+            var location = new Location();
             var result = obj.Invoke("ApplyFilter", BindingFlags.Static | BindingFlags.NonPublic, argument, location);
             var resultCast = result as List<string>;
 

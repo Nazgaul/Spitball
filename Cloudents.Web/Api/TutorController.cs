@@ -24,7 +24,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> Get(string[] term,
             TutorRequestFilter[] filter,
             TutorRequestSort? sort,
-            GeoPoint location, int page, CancellationToken token)
+            Location location, int page, CancellationToken token)
         {
             var result = await _tutorSearch.SearchAsync(term, filter, sort.GetValueOrDefault(TutorRequestSort.Price), location, page, token).ConfigureAwait(false);
             return Json(result);

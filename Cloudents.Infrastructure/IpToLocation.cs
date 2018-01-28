@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 
@@ -23,11 +22,11 @@ namespace Cloudents.Infrastructure
 
         [Cache(TimeConst.Year, nameof(IpToLocation))]
 
-        public async Task<IpDto> GetAsync(IPAddress address, CancellationToken token)
+        public async Task<Location> GetAsync(IPAddress address, CancellationToken token)
         {
             var uri = new Uri($"http://freegeoip.net/json/{address}");
             var str = await _restClient.GetAsync(uri, null, token).ConfigureAwait(false);
-            return _mapper.Map<IpDto>(str);
+            return _mapper.Map<Core.Models.Location>(str);
         }
     }
 }

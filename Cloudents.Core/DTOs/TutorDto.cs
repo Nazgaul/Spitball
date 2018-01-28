@@ -24,7 +24,7 @@ namespace Cloudents.Core.DTOs
         //public bool? Online { get; set; }
 
         [DataMember]
-        public GeoPoint Location { get; set; }
+        public Location Location { get; set; }
         [DataMember]
         public string Description { get; set; }
 

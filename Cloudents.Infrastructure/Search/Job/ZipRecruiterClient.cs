@@ -23,20 +23,20 @@ namespace Cloudents.Infrastructure.Search.Job
             _client = client;
         }
 
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term, JobRequestFilter filter, JobRequestSort sort, IEnumerable<string> jobType, GeoPoint location,
+        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term, JobRequestFilter filter, JobRequestSort sort, IEnumerable<string> jobType, Location location,
             int page, CancellationToken token)
         {
-            var address = await _googlePlacesSearch.ReverseGeocodingAsync(location, token);
-            var str = string.Join(" ", term ?? Enumerable.Empty<string>());
-            var nvc = new NameValueCollection
-            {
-                ["location"] = address.Address,
-                ["api_key"] = "x8w8rgmv2dq78dw5wfmwiwexwu3hdfv3",
-                ["search"] = str,
-                ["jobs_per_page"] = JobSearch.PageSize.ToString(),
-                ["page"] = page.ToString()
-            };
-            var result = await _client.GetJsonAsync(new Uri("https://api.ziprecruiter.com/jobs/v1"), nvc, token);
+            //var address = await _googlePlacesSearch.ReverseGeocodingAsync(location, token);
+            //var str = string.Join(" ", term ?? Enumerable.Empty<string>());
+            //var nvc = new NameValueCollection
+            //{
+            //    ["location"] = address.Address,
+            //    ["api_key"] = "x8w8rgmv2dq78dw5wfmwiwexwu3hdfv3",
+            //    ["search"] = str,
+            //    ["jobs_per_page"] = JobSearch.PageSize.ToString(),
+            //    ["page"] = page.ToString()
+            //};
+            //var result = await _client.GetJsonAsync(new Uri("https://api.ziprecruiter.com/jobs/v1"), nvc, token);
             return null;
         }
     }

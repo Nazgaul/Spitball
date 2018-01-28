@@ -92,7 +92,7 @@ namespace Cloudents.Infrastructure.Write.Job
                 DateTime = dateTime,
                 Id = obj.Id,
                 JobType = JobTypeConversion(obj.JobType),
-                Location = GeoPoint.ToPoint(location),
+                Location = Location.ToPoint(location),
                 Description = obj.Responsibilities,
                 State = obj.State,
                 Title = obj.Title,

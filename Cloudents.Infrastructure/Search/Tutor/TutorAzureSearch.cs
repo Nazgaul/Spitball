@@ -25,30 +25,11 @@ namespace Cloudents.Infrastructure.Search.Tutor
         }
 
         public async Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter[] filters,
-            TutorRequestSort sort, GeoPoint location, int page, CancellationToken token)
+            TutorRequestSort sort, Location location, int page, CancellationToken token)
         {
             
             var sortQuery = new List<string>();
             var filterQuery = ApplyFilter(filters, location);
-            var filterResult = TutorFilter.None;
-            foreach (var filter in filters ?? Enumerable.Empty<TutorRequestFilter>())
-            {
-                switch (filter)
-                {
-                    case TutorRequestFilter.Online:
-                        filterResult |= TutorFilter.Online;
-                        //filterQuery.Add($"{nameof(Tutor.)} eq true");
-                        break;
-                    case TutorRequestFilter.InPerson:
-                        filterResult |= TutorFilter.InPerson;
-                        //filterQuery.Add("inPerson eq true");
-                        const double distance = 50 * 1.6;
-                        filterQuery.Add(
-                            $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");
-                        break;
-                }
-                filterQuery.Add($"{nameof(TutorObj.TutorFilter)} eq {(int)filterResult}");
-            }
             switch (sort)
             {
                 case TutorRequestSort.Price:
@@ -89,7 +70,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             return _mapper.Map<IEnumerable<TutorObj>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
         }
 
-        private static List<string> ApplyFilter(IEnumerable<TutorRequestFilter> filters, GeoPoint location)
+        private static List<string> ApplyFilter(IEnumerable<TutorRequestFilter> filters, Location location)
         {
             var filterQuery = new List<string>();
             var filterResult = TutorFilter.None;

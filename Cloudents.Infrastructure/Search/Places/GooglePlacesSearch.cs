@@ -44,7 +44,7 @@ namespace Cloudents.Infrastructure.Search.Places
         }
 
         [Cache(TimeConst.Year, "address")]
-        public async Task<GeoPoint> GeoCodingByAddressAsync(string address, CancellationToken token)
+        public async Task<Location> GeoCodingByAddressAsync(string address, CancellationToken token)
         {
             var nvc = new NameValueCollection
             {
@@ -53,12 +53,12 @@ namespace Cloudents.Infrastructure.Search.Places
             };
 
             var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
-            return _mapper.Map<JObject, GeoPoint>(result);
+            return _mapper.Map<JObject, Location>(result);
         }
 
 
         [Cache(TimeConst.Year, "zip")]
-        public async Task<GeoPoint> GeoCodingByZipAsync(string zip, CancellationToken token)
+        public async Task<Location> GeoCodingByZipAsync(string zip, CancellationToken token)
         {
             var nvc = new NameValueCollection
             {
@@ -67,10 +67,10 @@ namespace Cloudents.Infrastructure.Search.Places
             };
 
             var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
-            return _mapper.Map<JObject, GeoPoint>(result);
+            return _mapper.Map<JObject, Location>(result);
         }
 
-        public async Task<AddressDto> ReverseGeocodingAsync(GeoPoint point, CancellationToken token)
+        public async Task<AddressDto> ReverseGeocodingAsync(Location point, CancellationToken token)
         {
             var nvc = new NameValueCollection
             {
@@ -103,7 +103,7 @@ namespace Cloudents.Infrastructure.Search.Places
         }
 
         public async Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(IEnumerable<string> term, PlacesRequestFilter filter,
-            GeoPoint location, string nextPageToken, CancellationToken token)
+            Location location, string nextPageToken, CancellationToken token)
         {
             var nvc = BuildQuery(term, filter, location, nextPageToken);
 
@@ -116,7 +116,7 @@ namespace Cloudents.Infrastructure.Search.Places
         }
 
         private static NameValueCollection BuildQuery(IEnumerable<string> term, PlacesRequestFilter filter,
-            GeoPoint location, string nextPageToken)
+            Location location, string nextPageToken)
         {
             if (string.IsNullOrEmpty(nextPageToken))
             {

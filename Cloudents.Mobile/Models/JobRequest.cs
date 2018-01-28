@@ -26,11 +26,12 @@ namespace Cloudents.Mobile.Models
         /// <summary>
         /// Location of user
         /// </summary>
-        public GeoPoint Location { get; set; }
+        public Location Location { get; set; }
         /// <summary>
         /// Facet filter got from the api
         /// </summary>
         public string[] Facet { get; set; }
+        /// <inheritdoc />
         /// <summary>
         /// Page of paging
         /// </summary>

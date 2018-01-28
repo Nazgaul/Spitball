@@ -33,7 +33,7 @@ namespace Cloudents.Infrastructure.Search.Job
             JobRequestFilter filter,
             JobRequestSort sort,
             IEnumerable<string> jobType,
-            GeoPoint location,
+            Location location,
             int page,
             CancellationToken token)
         {

@@ -19,6 +19,6 @@ namespace Cloudents.Core.DTOs
 
         public string Location { get; }
         [DataMember]
-        public GeoPoint Cords { get; set; }
+        public Location Cords { get; set; }
     }
 }

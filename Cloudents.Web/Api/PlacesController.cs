@@ -20,9 +20,9 @@ namespace Cloudents.Web.Api
             _placesSearch = placesSearch;
         }
 
-        [TypeFilter(typeof(IpToLocationActionFilter),Arguments = new object[] {"location"})]
+       // [TypeFilter(typeof(IpToLocationActionFilter),Arguments = new object[] {"location"})]
         [HttpGet]
-        public async Task<IActionResult> GetAsync(string[] term, PlacesRequestFilter filter, GeoPoint location, CancellationToken token)
+        public async Task<IActionResult> GetAsync(string[] term, PlacesRequestFilter filter, Location location, CancellationToken token)
         {
             if (location == null) throw new ArgumentNullException(nameof(location));
             var result = await _placesSearch.SearchAsync(term, filter, location, null, token).ConfigureAwait(false);

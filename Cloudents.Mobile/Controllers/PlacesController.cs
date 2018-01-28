@@ -45,8 +45,8 @@ namespace Cloudents.Mobile.Controllers
             if (purchaseRequest.Location == null)
             {
                 var location = Request.GetClientIp();
-                var locationResult = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false);
-                purchaseRequest.Location = locationResult.ConvertToPoint();
+                //var locationResult = 
+                purchaseRequest.Location = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false); 
             }
 
             var result = await _purchaseSearch.SearchAsync(purchaseRequest.Term, purchaseRequest.Filter.GetValueOrDefault(), purchaseRequest.Location, null, token).ConfigureAwait(false);

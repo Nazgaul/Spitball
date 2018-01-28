@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 using Cloudents.Web.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,33 +39,43 @@ namespace Cloudents.Web.Test
         }
 
         [TestMethod]
-        public async Task Index_OfficeIP_ReturnViewAsync()
+        public void Index_OfficeIP_ReturnViewAsync()
         {
             var ip = IPAddress.Parse("31.154.39.170");
             _controller.ControllerContext.HttpContext.Request.Path = "/classnotes";
             _controller.ControllerContext.HttpContext.Request.Host = new HostString("www.spitball.co");
             _controller.ControllerContext.HttpContext.Connection.RemoteIpAddress = ip;
-            _mock.Setup(s => s.GetAsync(ip, default)).Returns(Task.FromResult(new IpDto
+            _mock.Setup(s => s.GetAsync(ip, default)).Returns(Task.FromResult(new Location
             {
                 CountryCode = "IL"
             }));
 
-            var result = await _controller.Index(default);
+            var location = new Location
+            {
+                CountryCode = "IL"
+            };
+
+            var result = _controller.Index(location);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
 
         [TestMethod]
-        public async Task Index_ILIP_ReturnRedirectToOldSiteAsync()
+        public void Index_ILIP_ReturnRedirectToOldSiteAsync()
         {
             var ip = IPAddress.Parse("31.154.39.150");
             _controller.ControllerContext.HttpContext.Request.Path = "/classnotes";
             _controller.ControllerContext.HttpContext.Connection.RemoteIpAddress = ip;
-            _mock.Setup(s => s.GetAsync(ip, default)).Returns(Task.FromResult(new IpDto
+            _mock.Setup(s => s.GetAsync(ip, default)).Returns(Task.FromResult(new Location
             {
                 CountryCode = "IL"
             }));
+            var location = new Location
+            {
+                CountryCode = "IL"
+            };
 
-            var result = await _controller.Index(default);
+
+            var result = _controller.Index(location);
 
 
             Assert.IsInstanceOfType(result, typeof(RedirectResult));
@@ -77,17 +88,23 @@ namespace Cloudents.Web.Test
 
 
         [TestMethod]
-        public async Task Index_USIP_ReturnNewSite()
+        public void Index_USIP_ReturnNewSite()
         {
             var ip = IPAddress.Parse("31.154.39.150");
             _controller.ControllerContext.HttpContext.Request.Path = "/classnotes";
             _controller.ControllerContext.HttpContext.Connection.RemoteIpAddress = ip;
-            _mock.Setup(s => s.GetAsync(ip, default)).Returns(Task.FromResult(new IpDto
+            _mock.Setup(s => s.GetAsync(ip, default)).Returns(Task.FromResult(new Location
             {
                 CountryCode = "US"
             }));
 
-            var result = await _controller.Index(default);
+            var location = new Location
+            {
+                CountryCode = "US"
+            };
+
+
+            var result = _controller.Index(location);
 
 
             Assert.IsInstanceOfType(result, typeof(ViewResult));

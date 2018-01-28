@@ -1,8 +1,6 @@
-﻿using Cloudents.Core.Models;
-
-namespace Cloudents.Core.DTOs
+﻿namespace Cloudents.Infrastructure
 {
-   public class IpDto
+    public class IpDto
     {
         /*    "ip": "72.229.28.185",
     "country_code": "US",
@@ -28,9 +26,9 @@ namespace Cloudents.Core.DTOs
         public string MetroCode { get; set; }
 
 
-        public GeoPoint ConvertToPoint()
-        {
-            return new GeoPoint(Longitude, Latitude);
-        }
+        //public Location ConvertToPoint()
+        //{
+        //    return new Location(Longitude, Latitude, $"{City},{RegionCode}");
+        //}
     }
 }

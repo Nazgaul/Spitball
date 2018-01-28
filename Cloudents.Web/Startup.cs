@@ -46,7 +46,11 @@ namespace Cloudents.Web
                 {
                     DateTimeStyles = DateTimeStyles.AssumeUniversal
                 });
-            }).AddMvcOptions(o => o.Filters.Add(new GlobalExceptionFilter()));
+            }).AddMvcOptions(o =>
+                {
+                    o.Filters.Add(new GlobalExceptionFilter());
+                    o.ModelBinderProviders.Insert(0, new LocationModelBinder());
+                });
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new RequireHttpsAttribute());

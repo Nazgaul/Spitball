@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Search.Places
             _hookedRepository = hookedRepository;
         }
 
-        public async Task<(string token, IEnumerable<PlaceDto> data)> SearchAsync(IEnumerable<string> term, PlacesRequestFilter filter, GeoPoint location, string nextPageToken,
+        public async Task<(string token, IEnumerable<PlaceDto> data)> SearchAsync(IEnumerable<string> term, PlacesRequestFilter filter, Location location, string nextPageToken,
             CancellationToken token)
         {
             var result = await _placesSearch.SearchNearbyAsync(term, filter, location, nextPageToken, token).ConfigureAwait(false);

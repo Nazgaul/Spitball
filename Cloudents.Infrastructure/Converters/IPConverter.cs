@@ -1,18 +1,35 @@
 ﻿using AutoMapper;
-using Cloudents.Core.DTOs;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Converters
 {
-    public class IpConverter :  ITypeConverter<string, IpDto>
+    public class IpConverter : ITypeConverter<string, Core.Models.Location>
     {
-        public IpDto Convert(string source, IpDto destination, ResolutionContext context)
+        public Core.Models.Location Convert(string source, Core.Models.Location destination, ResolutionContext context)
         {
-            return JsonConvert.DeserializeObject<IpDto>(source,
+            var ipDto =  JsonConvert.DeserializeObject<IpDto>(source,
                 new JsonSerializerSettings
                 {
                     ContractResolver = new UnderscorePropertyNamesContractResolver()
                 });
+
+            return context.Mapper.Map<Core.Models.Location>(ipDto);
+
         }
     }
+
+    //public class IpToLocationConverter : ITypeConverter<IpDto, Location>
+    //{
+    //    public Location Convert(IpDto source, Location destination, ResolutionContext context)
+    //    {
+    //        return new Location()
+    //        {
+    //            Longitude = source.Longitude,
+    //            Latitude = source.Latitude,
+    //            City = source.City,
+    //            CountryCode = source.CountryCode,
+    //            RegionCode = source.RegionCode
+    //        };
+    //    }
+    //}
 }

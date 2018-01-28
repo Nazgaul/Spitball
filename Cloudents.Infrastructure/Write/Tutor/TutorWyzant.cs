@@ -78,7 +78,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
                 Description = obj.Title,
                 City = obj.City,
                 State = obj.State,
-                Location = GeoPoint.ToPoint(location),
+                Location = Location.ToPoint(location),
                 Fee = obj.FeePerHour,
                 TutorFilter = filter,
                 InsertDate = DateTime.UtcNow,
