@@ -1,7 +1,7 @@
 import {mapActions} from 'vuex'
 export default{
     name:"sort-and-filter",
-    props:{sortOptions:Array,sortVal:{},filterOptions:{},filterVal:{}},
+    props:{sortOptions:Array,sortVal:{},filterOptions:{},filterVal:{type:Array,default:()=>[]}},
     methods:{
         ...mapActions(['setFilteredCourses']),
         updateSort(val){
