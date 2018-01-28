@@ -90,7 +90,7 @@ describe('luis term store', function () {
         test('set filteredClasses', ()=> {
             let classes=[12345];
             expect($store.state.filterCourses.length).toBeFalsy();
-            $store.dispatch("setFileredCourses",classes);
+            $store.dispatch("setFilteredCourses",classes);
             expect($store.state.filterCourses.length).toBeTruthy();
         });
 

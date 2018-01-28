@@ -42,13 +42,13 @@
         components: { SortAndFilter, DialogToolbar },
         props: { value: { type: Boolean }, sortOptions: {}, filterOptions: {}, filterVal: {}, sortVal: {}, submitCallback: { Function } },
         methods: {
-            ...mapActions(['setFileredCourses']),
+            ...mapActions(['setFilteredCourses']),
             $_applayFilters() {
                 if (this.submitCallback) {
                     this.submitCallback({ filters: this.filters, sort: this.sort });
                 } else {
                     if (this.$route.path.includes('note') || this.$route.path.includes('flashcard'))
-                        this.setFileredCourses(this.filters.course);
+                        this.setFilteredCourses(this.filters.course);
                     this.$router.push({query: {q: this.$route.query.q, sort: this.sort, ...this.filters}});
                 }
                 this.$emit('input', false);
@@ -56,7 +56,7 @@
             $_resetFilters() {
                if(this.submitCallback){this.submitCallback({})}else {
                    if (this.$route.path.includes('note') || this.$route.path.includes('flashcard'))
-                       this.setFileredCourses([]);
+                       this.setFilteredCourses([]);
                    this.$router.push({query: {q: this.$route.query.q}});
                }
                 this.$emit('input', false);

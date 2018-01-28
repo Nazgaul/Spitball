@@ -48,7 +48,7 @@ const actions = {
     getAIDataForVertical(context, val){
       return context.getters[`${val}Data`];
     },
-    setFileredCourses({commit}, data){
+    setFilteredCourses({commit}, data){
         commit(LUIS.UPDATE_FILTER_COURSES,data);
     },
     setCurrentVertical({commit},data){

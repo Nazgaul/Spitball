@@ -25,9 +25,10 @@ export default {
     },
     components: { ResultBook },
     computed: {
+        selectedFilter(){return this.query.filter?[].concat(this.query.filter).map(i=>({key:'filter',value:i})):[]},
         sort:()=>'price',
         filteredList: function () {
-            return !this.pageData.data ? [] : this.filter === all ? this.pageData.data.sort((a, b) => a.price - b.price) : this.pageData.data.filter(item => [].concat(this.filter).includes(item.condition));
+            return !this.pageData.data ? [] : !this.selectedFilter.length ? this.pageData.data: this.pageData.data.filter(item => [].concat(this.query.filter).includes(item.condition));
         }
     },
 
@@ -36,26 +37,18 @@ export default {
             return value.toFixed(a)
         }
     },
-
+    beforeRouteUpdate(to,from,next){
+        if(to.query.sort&&to.query.sort!==this.sortVal){
+           this.updateSort(to.query.sort)
+        }else if(to.query.sort){
+            this.$router.replace({query:{filter:to.query.filter}});
+        }else{
+            next();}
+    },
     methods: {
-        $_updateFilter({ val, type }) {
-            if(this.filter===all){
-                this.filter=[];
-            }
-            if(!type.target.checked){
-                this.filter=this.filter.filter(i=>i!==val);
-            }else{
-               this.filter.push(val);
-            }
-            if(!this.filter.length){this.filter=all}
-        },
-        $_updateSort(val) {
+        updateSort(val) {
             this.sortVal = val;
             this.$_changeTab(val);
-        },
-        submitMobile({filters}){
-            if(filters&&filters.filter&&filters.filter.length){this.filter=filters.filter}
-            else{this.filter=all}
         }
     }
 }
