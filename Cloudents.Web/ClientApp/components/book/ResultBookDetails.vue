@@ -3,12 +3,10 @@
                   :title="(pageData.details?pageData.details.title:'')">
         <template slot="sideBar" v-if="page">
             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
-                       :sortOptions="$vuetify.breakpoint.xsOnly?null:sortOptions" :sortCallback="$_updateSort" :sortVal="sortVal"
+                       :sortOptions="$vuetify.breakpoint.xsOnly?null:sortOptions"  :sortVal="sortVal"
                        v-model="showFilters"
-                       :filterOptions="filterOptions"
-                       :submitCallback="submitMobile"
-                       :filterCallback="$_updateFilter"
-                       :filterVal="filter">
+                       :filterOptions="filterOptions" :filterVal="selectedFilter"
+                       >
                 </component>
         </template>
         <div slot="main" class="book-detail">
