@@ -1,6 +1,5 @@
 import DialogToolbar from '../dialog-toolbar/DialogToolbar.vue'
 import {mapActions} from 'vuex'
-import {RawLocation} from 'vue-router'
 export default {
     model: {
         prop: "value",
@@ -41,6 +40,7 @@ export default {
             this.$router.push({query});
             this.$emit('input', false);
         },
+
         resetFilters() {
             if(this.filterOptions.find(i=>i.modelId==='course')){
                 this.setFilteredCourses([]);
@@ -50,6 +50,7 @@ export default {
             this.$router.push({query: {q: this.$route.query.q}});
             this.$emit('input', false);
         },
+
         $_backAction() {
             this.$emit('input', false)
         }
@@ -60,6 +61,7 @@ export default {
             this.sort=this.sortVal?this.sortVal:this.sortOptions?this.sortOptions[0].id:"";
         }
     },
+
     created() {
         this.initFilters(this.filterVal);
     }

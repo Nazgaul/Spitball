@@ -49,7 +49,7 @@ namespace Cloudents.Infrastructure
             }
         }
 
-        public async Task<(Stream, EntityTagHeaderValue)> DownloadStreamAsync(Uri url, HttpClientHandler handler, CancellationToken token)
+        public async Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url, HttpClientHandler handler, CancellationToken token)
         {
             using (var client = new HttpClient(handler))
             {
