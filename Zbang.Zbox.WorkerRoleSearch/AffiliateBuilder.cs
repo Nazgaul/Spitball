@@ -9,13 +9,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class AffiliateBuilder : ISchedulerProcess
     {
         private readonly IUpdateAffiliate _affiliate;
-        private readonly ILogger _logger;
 
 
-        public AffiliateBuilder(IUpdateAffiliate affiliate, ILogger logger)
+        public AffiliateBuilder(IUpdateAffiliate affiliate)
         {
             _affiliate = affiliate;
-            _logger = logger;
         }
 
         public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync, CancellationToken token)
@@ -31,7 +29,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             catch (Exception ex)
             {
-                _logger.Exception(ex, new Dictionary<string, string> { ["process"] = "AffiliateBuilder" });
+                //_logger.Exception(ex, new Dictionary<string, string> { ["process"] = "AffiliateBuilder" });
                 return false;
                 
             }
