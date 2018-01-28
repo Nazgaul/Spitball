@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Component from './SortAndFilter'
+import Component from './SortAndFilter.vue'
 
 describe('sort and filter component', function () {
     let C;
@@ -10,6 +10,11 @@ describe('sort and filter component', function () {
                 this.query=query;
                 return query;
             }}
+    });
+    test('snapshot', ()=> {
+        let vm=new C();
+        let $mounted=vm.$mount();
+        expect($mounted.$el.outerHTML).toMatchSnapshot()
     });
     test('update sort', ()=> {
         let cc=new C();
