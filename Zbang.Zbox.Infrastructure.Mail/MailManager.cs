@@ -113,7 +113,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             var client = new SendGridClient(ApiKey);
             var result = await client.RequestAsync(SendGridClient.Method.GET, null,
-                $"?limit={500}&offset={500 * page}&start_time={unixDateTime}", requestUrl);
+                $"limit={500}&offset={500 * page}&start_time={unixDateTime}", requestUrl);
             //var result = await client.Get($"{requestUrl}?limit={500}&offset={500 * page}&start_time={unixDateTime}").ConfigureAwait(false);
             
             var data = await result.Body.ReadAsStringAsync().ConfigureAwait(false);
