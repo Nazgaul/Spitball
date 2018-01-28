@@ -19,11 +19,6 @@ namespace Cloudents.Infrastructure
             IEnumerable<KeyValuePair<string, string>> headers,
             CancellationToken token);
 
-
-        //Task<Stream> DownloadStreamAsync(Uri url, string fileName, bool @override, HttpClientHandler handler, CancellationToken token);
-        //Task<Stream> DownloadStreamFileAsync(Uri url, string fileName, bool @override, CancellationToken token);
-
         Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url, HttpClientHandler handler, CancellationToken token);
-       // Task<Stream> DownloadStreamAsync(Uri url, CancellationToken token);
     }
 }

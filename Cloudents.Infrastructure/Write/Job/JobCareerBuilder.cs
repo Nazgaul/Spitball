@@ -63,7 +63,7 @@ namespace Cloudents.Infrastructure.Write.Job
                 Compensation = "paid",
                 DateTime = obj.posted_at,
                 Id = obj.job_reference,
-                JobType2 = JobTypeConversion(obj.job_type),
+                JobType = JobTypeConversion(obj.job_type),
                 Location = GeoPoint.ToPoint(location),
                 Description = StripHtml(obj.body).RemoveEndOfString(300),
                 State = obj.state,
@@ -127,6 +127,7 @@ namespace Cloudents.Infrastructure.Write.Job
         public void Dispose()
         {
             HttpHandler?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

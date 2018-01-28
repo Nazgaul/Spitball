@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;
 
-        public TutorAzureSearch(SearchServiceClient client, IMapper mapper)
+        public TutorAzureSearch(ISearchServiceClient client, IMapper mapper)
         {
             _mapper = mapper;
             _client = client.Indexes.GetClient(TutorSearchWrite.IndexName);
@@ -27,12 +27,12 @@ namespace Cloudents.Infrastructure.Search.Tutor
         public async Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter[] filters,
             TutorRequestSort sort, GeoPoint location, int page, CancellationToken token)
         {
-            var filterQuery = new List<string>();
+            
             var sortQuery = new List<string>();
-
+            var filterQuery = ApplyFilter(filters, location);
+            var filterResult = TutorFilter.None;
             foreach (var filter in filters ?? Enumerable.Empty<TutorRequestFilter>())
             {
-                var filterResult = TutorFilter.None;
                 switch (filter)
                 {
                     case TutorRequestFilter.Online:
@@ -87,6 +87,36 @@ namespace Cloudents.Infrastructure.Search.Tutor
             var retVal = await
                 _client.Documents.SearchAsync<TutorObj>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
             return _mapper.Map<IEnumerable<TutorObj>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
+        }
+
+        private static List<string> ApplyFilter(IEnumerable<TutorRequestFilter> filters, GeoPoint location)
+        {
+            var filterQuery = new List<string>();
+            var filterResult = TutorFilter.None;
+            foreach (var filter in filters ?? Enumerable.Empty<TutorRequestFilter>())
+            {
+                switch (filter)
+                {
+                    case TutorRequestFilter.Online:
+                        filterResult |= TutorFilter.Online;
+                        //filterQuery.Add($"{nameof(Tutor.)} eq true");
+                        break;
+                    case TutorRequestFilter.InPerson:
+                        filterResult |= TutorFilter.InPerson;
+                        //filterQuery.Add("inPerson eq true");
+                        const double distance = 50 * 1.6;
+                        filterQuery.Add(
+                            $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");
+                        break;
+                }
+            }
+
+            if (filterResult != TutorFilter.None)
+            {
+                filterQuery.Add($"{nameof(TutorObj.TutorFilter)} eq {(int)filterResult}");
+            }
+
+            return filterQuery;
         }
     }
 }

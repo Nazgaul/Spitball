@@ -75,6 +75,13 @@ namespace Cloudents.Infrastructure
                 };
 
             });
+            CreateMap<JObject, AddressDto>().ConvertUsing(jo =>
+            {
+                if (!string.Equals(jo["status"].Value<string>(), "ok", StringComparison.InvariantCultureIgnoreCase))
+                    return null;
+                var geo = jo["results"][0]["formatted_address"].Value<string>();
+                return new AddressDto(geo);
+            });
             CreateMap<string, IpDto>().ConvertUsing<IpConverter>();
         }
     }

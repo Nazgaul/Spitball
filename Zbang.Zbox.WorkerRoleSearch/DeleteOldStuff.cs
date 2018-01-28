@@ -2,21 +2,19 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.MediaServices;
 using Cloudents.Core.Interfaces;
-using Zbang.Zbox.WorkerRoleSearch.Mail;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class DeleteOldStuff : ISchedulerProcess
     {
         private readonly IZboxWorkerRoleService _zboxWorkerRoleService;
-        private readonly IMailComponent _mailComponent;
+        private readonly IMailProvider _mailComponent;
         private readonly IMediaServicesProvider _mediaService;
         private readonly ILogger _logger;
 
-        public DeleteOldStuff(IZboxWorkerRoleService zboxWorkerRoleService, IMailComponent mailComponent,
+        public DeleteOldStuff(IZboxWorkerRoleService zboxWorkerRoleService, IMailProvider mailComponent,
             IMediaServicesProvider mediaService, ILogger logger)
         {
             _zboxWorkerRoleService = zboxWorkerRoleService;
@@ -44,7 +42,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 catch (Exception ex)
                 {
                     _logger.Exception(ex);
-                    await _mailComponent.GenerateSystemEmailAsync("delete old stuff", ex.ToString()).ConfigureAwait(false);
+                    await _mailComponent.GenerateSystemEmailAsync("delete old stuff", ex.ToString(), cancellationToken).ConfigureAwait(false);
                     break;
                 }
             }

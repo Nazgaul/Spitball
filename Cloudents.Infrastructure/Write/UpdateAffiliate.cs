@@ -14,6 +14,7 @@ namespace Cloudents.Infrastructure.Write
         private readonly IDownloadFile _downloadFile;
 
 
+
         protected UpdateAffiliate(ILogger logger, IDownloadFile localStorage)
         {
             _logger = logger;
@@ -47,9 +48,8 @@ namespace Cloudents.Infrastructure.Write
                     if (index == 0)
                     {
                         //the data haven't change since last time
-                       // return;
+                        return;
                     }
-                    
                 }
                 else
                 {

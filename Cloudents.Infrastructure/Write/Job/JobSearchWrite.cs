@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Write.Job
 {
     public class JobSearchWrite : SearchServiceWrite<Core.Entities.Search.Job>
     {
-        public const string IndexName = "jobs2";
+        public const string IndexName = "jobs3";
         public JobSearchWrite(SearchServiceClient client)
             : base(client, IndexName)
         {
@@ -52,7 +52,8 @@ namespace Cloudents.Infrastructure.Write.Job
                     },
                     new Field(nameof(Core.Entities.Search.Job.DateTime), DataType.DateTimeOffset)
                     {
-                        IsSortable = true
+                        IsSortable = true,
+                        IsFilterable = true
                     },
                     new Field(nameof(Core.Entities.Search.Job.Location), DataType.GeographyPoint)
                     {

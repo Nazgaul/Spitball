@@ -6,13 +6,15 @@ namespace Cloudents.Core
 {
     public class Logger : ILogger
     {
+       
+
         public void Exception(Exception ex, IDictionary<string, string> properties = null)
         {
             if (ex == null) throw new ArgumentNullException(nameof(ex));
             System.Diagnostics.Trace.TraceError(ex.ToString());
         }
 
-        public void Info(string message)
+        public void Info(string message, bool email = false)
         {
 #if DEBUG
             System.Diagnostics.Debug.WriteLine(message);

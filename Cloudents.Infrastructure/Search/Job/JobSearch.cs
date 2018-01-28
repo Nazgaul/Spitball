@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Search.Job
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;
 
-        private const int PageSize = 30;
+        public const int PageSize = 30;
 
         public JobSearch(ISearchServiceClient client, IMapper mapper)
         {
@@ -47,7 +47,6 @@ namespace Cloudents.Infrastructure.Search.Job
             if (jobType != null)
             {
                 filterQuery.AddRange(jobType.Select(s => $"{nameof(Entity.Job.JobType)} eq '{s}'"));
-                //filterQuery = string.Join(" or ", jobType.Select(s => $"jobType eq '{s}'"));
             }
 
             switch (sort)

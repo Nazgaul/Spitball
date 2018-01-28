@@ -23,9 +23,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public readonly int NumberOfEmailPerSession = int.Parse(ConfigFetcher.Fetch("NumberOfSpamGunEmailBatch"));
 
-        //public const int SpanGunNumberOfQueues = 13;
         private const int NumberOfIps = 4;
-        //private readonly Queue<SpamGunDto>[] _queues = new Queue<SpamGunDto>[SpanGunNumberOfQueues];
 
         private readonly int _limitPerIp = int.Parse(ConfigFetcher.Fetch("NumberOfEmailsPerHour"));
 
@@ -80,33 +78,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             {
                                 break;
                             }
-                            //if (_queues[i].Count == 0)
-                            //{
-                            //    break;
-                            //}
-                            //var message = _queues[i].Dequeue();
-                            //if (message == null)
-                            //{
-                            //    break;
-                            //}
-                            //var greekMessage = email as GreekPartnerDto;
-                            //Task t1;
-                            //if (greekMessage == null)
-                            //{
                             var t1 = _mailComponent.SendSpanGunEmailAsync(email.Email, BuildIpPool(j),
                                    new SpamGunMailParams(email.MailBody,
                                        email.FirstName.UppercaseFirst(), email.MailSubject,
                                        email.MailCategory, htmlBody),
                                    k, token);
-                            //}
-                            //else
-                            //{
-                            //    t1 = _mailComponent.SendSpanGunEmailAsync(greekMessage.Email, BuildIpPool(j),
-                            //       new GreekPartnerMailParams(greekMessage.MailBody,
-                            //           greekMessage.UniversityUrl, greekMessage.FirstName.UppercaseFirst(), greekMessage.MailSubject,
-                            //           greekMessage.MailCategory, greekMessage.School, greekMessage.Chapter),
-                            //           k, token);
-                            //}
                             await _zboxWriteService.UpdateSpamGunSendAsync(email.Id, token).ConfigureAwait(false);
                             counter++;
                             k++;
@@ -120,7 +96,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             catch (Exception ex)
             {
                 _logger.Exception(ex);
-                await _mailComponent.GenerateSystemEmailAsync("spam gun error", $"error {ex}").ConfigureAwait(false);
+                //await _mailComponent.GenerateSystemEmailAsync("spam gun error", $"error {ex}").ConfigureAwait(false);
             }
             if (totalCount > 0)
             {
@@ -130,14 +106,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return true;
         }
 
-        //private async Task BuildQueueDataAsync(Queue<SpamGunDto> queue, int queueUniversityId, CancellationToken token)
-        //{
-        //    queue.Clear();
-        //    foreach (var val in await _zboxReadService.GetSpamGunDataAsync(++queueUniversityId, token).ConfigureAwait(false))
-        //    {
-        //        queue.Enqueue(val);
-        //    }
-        //}
+
 
         private static string BuildIpPool(int i)
         {

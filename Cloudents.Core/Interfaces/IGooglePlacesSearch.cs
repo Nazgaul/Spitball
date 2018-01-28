@@ -15,5 +15,6 @@ namespace Cloudents.Core.Interfaces
         Task<PlaceDto> ByIdAsync(string id, CancellationToken token);
         Task<GeoPoint> GeoCodingByAddressAsync(string address, CancellationToken token);
         Task<GeoPoint> GeoCodingByZipAsync(string zip, CancellationToken token);
+        Task<AddressDto> ReverseGeocodingAsync(GeoPoint point, CancellationToken token);
     }
 }

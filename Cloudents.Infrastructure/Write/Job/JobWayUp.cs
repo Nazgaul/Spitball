@@ -39,14 +39,6 @@ namespace Cloudents.Infrastructure.Write.Job
             return _jobSearchService.DeleteOldJobsAsync(Source, timeToDelete, token);
         }
 
-        //protected override HttpClientHandler HttpHandler()
-        //{
-        //    return new HttpClientHandler
-        //    {
-        //        Credentials = new NetworkCredential("cqSCcVaGdfHVTefIBGCTdLqmYPeboa", "LAGhyQrQdfLumRjMrXVVVISAnrbTZn")
-        //    };
-        //}
-
         protected override string FileLocation => "wayUpJobs.xml";
         protected override Uri Url => new Uri("https://www.wayup.com/integrations/clickcast-feed/");
         protected override string Service => "WayUp jobs";
@@ -99,7 +91,7 @@ namespace Cloudents.Infrastructure.Write.Job
                 Compensation = obj.CompType,
                 DateTime = dateTime,
                 Id = obj.Id,
-                JobType2 = JobTypeConversion(obj.JobType),
+                JobType = JobTypeConversion(obj.JobType),
                 Location = GeoPoint.ToPoint(location),
                 Description = obj.Responsibilities,
                 State = obj.State,
@@ -109,7 +101,7 @@ namespace Cloudents.Infrastructure.Write.Job
                 Company = obj.Company,
                 Source = Source
             };
-            if (job.JobType2 == JobFilter.None && obj.JobType != null)
+            if (job.JobType == JobFilter.None && obj.JobType != null)
             {
                 job.Extra = new[] { obj.JobType };
 
@@ -152,6 +144,7 @@ namespace Cloudents.Infrastructure.Write.Job
         public void Dispose()
         {
             HttpHandler?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

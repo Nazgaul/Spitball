@@ -51,17 +51,18 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 return new AffiliateBuilder(affiliate);
             }).Keyed<ISchedulerProcess>("downloadXml");
 
-            foreach (var i in new[] { 0, 3, -5, -4, -6 })
+            
+            foreach (var utcTimeOffset in new[] { 0, 3/*, -5, -4, -6*/ })
             {
                 builder.RegisterType<DigestEmail>()
-                    .Keyed<ISchedulerProcess>($"digestOnceADay_{i}")
+                    .Keyed<ISchedulerProcess>($"digestOnceADay_{utcTimeOffset}")
                     .WithParameter("hourForEmailDigest", NotificationSetting.OnceADay)
-                    .WithParameter("utcTimeOffset", i);
+                    .WithParameter("utcTimeOffset", utcTimeOffset);
 
                 builder.RegisterType<DigestEmail>()
-                    .Keyed<ISchedulerProcess>($"digestOnceAWeek_{i}")
+                    .Keyed<ISchedulerProcess>($"digestOnceAWeek_{utcTimeOffset}")
                     .WithParameter("hourForEmailDigest", NotificationSetting.OnceAWeek)
-                    .WithParameter("utcTimeOffset", i);
+                    .WithParameter("utcTimeOffset", utcTimeOffset);
             }
 
             builder.RegisterType<SpamGun>().Keyed<ISchedulerProcess>("spamGun");

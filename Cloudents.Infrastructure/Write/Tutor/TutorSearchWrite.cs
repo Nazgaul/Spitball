@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
 {
     public class TutorSearchWrite : SearchServiceWrite<Core.Entities.Search.Tutor>
     {
-        public const string IndexName = "tutors3";
+        public const string IndexName = "tutors4";
         public TutorSearchWrite(SearchServiceClient client)
             : base(client, IndexName)
         {
@@ -53,7 +53,8 @@ namespace Cloudents.Infrastructure.Write.Tutor
                     },
                     new Field(nameof(Core.Entities.Search.Tutor.Fee), DataType.Double)
                     {
-                        IsSortable = true
+                        IsSortable = true,
+                        IsFilterable = true
                     },
                     new Field(nameof(Core.Entities.Search.Tutor.TutorFilter), DataType.Int32)
                     {

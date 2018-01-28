@@ -56,6 +56,7 @@ namespace Cloudents.Infrastructure.Test
             }
             Assert.Fail("Should be searchResult");
         }
+
         [TestMethod]
         public void BuildQuery_Nothing_ReturnDefaultTerm()
         {

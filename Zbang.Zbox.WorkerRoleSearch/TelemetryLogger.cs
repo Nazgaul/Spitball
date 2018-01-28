@@ -15,7 +15,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             _telemetry.TrackException(ex, properties);
         }
 
-        public void Info(string message)
+        public void Info(string message, bool email)
         {
             _telemetry.TrackTrace(message, SeverityLevel.Information);
         }

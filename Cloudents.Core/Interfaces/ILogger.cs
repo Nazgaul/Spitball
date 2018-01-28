@@ -5,9 +5,9 @@ namespace Cloudents.Core.Interfaces
 {
     public interface ILogger
     {
-        void Exception(Exception ex , IDictionary<string, string> properties = null);
+        void Exception(Exception ex, IDictionary<string, string> properties = null);
 
-        void Info(string message);
+        void Info(string message, bool email = false);
 
         void Warning(string message);
 

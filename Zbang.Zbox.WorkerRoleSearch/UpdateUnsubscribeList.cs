@@ -18,80 +18,79 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class UpdateUnsubscribeList : IJob
     {
-        private readonly IZboxWorkerRoleService m_ZboxWorkerRoleService;
+        private readonly IZboxWorkerRoleService _zboxWorkerRoleService;
         private readonly ICloudBlockProvider _cloudBlockProvider;
-        private readonly IIntercomApiManager m_IntercomManager;
-        private DateTime m_DateTime;
-        private string m_LeaseId = string.Empty;
-        private readonly TimeSpan m_SleepTime = TimeSpan.FromMinutes(30);
-        private readonly IMailComponent m_MailComponent;
+        private readonly IIntercomApiManager _intercomManager;
+        private DateTime _dateTime;
+        private string _leaseId = string.Empty;
+        private readonly TimeSpan _sleepTime = TimeSpan.FromMinutes(30);
+        //private readonly IMailComponent _mMailComponent;
         private readonly ILogger _logger;
 
-        private CloudBlockBlob m_Blob;
+        private CloudBlockBlob _mBlob;
 
-        private readonly IEnumerable<JobPerApi> m_Jobs;
+        private readonly IEnumerable<JobPerApi> _mJobs;
 
         public string Name => nameof(UpdateUnsubscribeList);
         public UpdateUnsubscribeList(IMailComponent mailComponent, IZboxWorkerRoleService zboxWorkerRoleService, ICloudBlockProvider cloudBlockProvider, IIntercomApiManager intercomManager, ILogger logger)
         {
-            m_ZboxWorkerRoleService = zboxWorkerRoleService;
+            _zboxWorkerRoleService = zboxWorkerRoleService;
             _cloudBlockProvider = cloudBlockProvider;
-            m_IntercomManager = intercomManager;
+            _intercomManager = intercomManager;
             _logger = logger;
-            m_DateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            _dateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-            m_Jobs = new List<JobPerApi>
+            _mJobs = new List<JobPerApi>
             {
                 new JobPerApi {Func = mailComponent.GetUnsubscribesAsync, Type = EmailSend.Unsubscribe},
                 new JobPerApi {Func = mailComponent.GetInvalidEmailsAsync, Type = EmailSend.Invalid},
                 new JobPerApi {Func = mailComponent.GetBouncesAsync, Type = EmailSend.Bounce},
             };
-            m_MailComponent = mailComponent;
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                m_Blob = await ReadBlobDataAsync(cancellationToken).ConfigureAwait(false);
+                _mBlob = await ReadBlobDataAsync(cancellationToken).ConfigureAwait(false);
                 try
                 {
                     //TraceLog.WriteInfo($"{Prefix} running unsubscribe process");
-                    if (DateTime.UtcNow.AddDays(-1) < m_DateTime.AddHours(6))
+                    if (DateTime.UtcNow.AddDays(-1) < _dateTime.AddHours(6))
                     {
                         //TraceLog.WriteInfo($"{Name} running unsubscribe ran recently going to sleep {DateTime.UtcNow.AddDays(-1)} < {m_DateTime.AddHours(6)}");
-                        await Task.Delay(m_SleepTime, cancellationToken).ConfigureAwait(false);
+                        await Task.Delay(_sleepTime, cancellationToken).ConfigureAwait(false);
                         continue;
                     }
                     try
                     {
-                        m_LeaseId = await m_Blob.AcquireLeaseAsync(TimeSpan.FromSeconds(60), null, cancellationToken).ConfigureAwait(false);
+                        _leaseId = await _mBlob.AcquireLeaseAsync(TimeSpan.FromSeconds(60), null, cancellationToken).ConfigureAwait(false);
                     }
                     catch (StorageException e)
                     {
                         if (e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.Conflict)
                         {
                            // TraceLog.WriteInfo($"{Prefix} running unsubscribe is locked going to sleep");
-                            await Task.Delay(m_SleepTime, cancellationToken).ConfigureAwait(false);
+                            await Task.Delay(_sleepTime, cancellationToken).ConfigureAwait(false);
                             continue;
                         }
                     }
 
-                    _logger.Info($"{Name} update unsubscribe list data {m_DateTime}");
+                    _logger.Info($"{Name} update unsubscribe list data {_dateTime}");
                     var mailContent = new StringBuilder();
-                    foreach (var job in m_Jobs)
+                    foreach (var job in _mJobs)
                     {
                         var page = 0;
                         while (true)
                         {
-                            var result = await job.Func(m_DateTime, page++, cancellationToken).ConfigureAwait(false);
+                            var result = await job.Func(_dateTime, page++, cancellationToken).ConfigureAwait(false);
                             var resultList = result.ToList();
                             if (resultList.Count == 0)
                             {
                                 mailContent.Append(job.Type).Append(" got to page ").AppendLine(page.ToString());
                                 break;
                             }
-                            m_ZboxWorkerRoleService.UpdateUserFromUnsubscribe(
+                            _zboxWorkerRoleService.UpdateUserFromUnsubscribe(
                                 new Domain.Commands.UnsubscribeUsersFromEmailCommand(resultList,
                                     job.Type));
                             await RenewLeaseAsync(cancellationToken).ConfigureAwait(false);
@@ -104,19 +103,19 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     mailContent.AppendLine($"process intercom finish and took {sw.ElapsedMilliseconds}");
                     await RenewLeaseAsync(cancellationToken).ConfigureAwait(false);
                     sw.Restart();
-                    m_ZboxWorkerRoleService.UpdateUniversityStats(m_DateTime);
+                    _zboxWorkerRoleService.UpdateUniversityStats(_dateTime);
                     sw.Stop();
                     mailContent.AppendLine($"update university took {sw.ElapsedMilliseconds}");
                     await RenewLeaseAsync(cancellationToken).ConfigureAwait(false);
 
-                    m_DateTime = DateTime.UtcNow.AddDays(-1);
-                    await m_Blob.UploadTextAsync(m_DateTime.ToFileTimeUtc().ToString(), Encoding.Default, new AccessCondition { LeaseId = m_LeaseId }, new BlobRequestOptions(), new OperationContext(), cancellationToken).ConfigureAwait(false);
+                    _dateTime = DateTime.UtcNow.AddDays(-1);
+                    await _mBlob.UploadTextAsync(_dateTime.ToFileTimeUtc().ToString(), Encoding.Default, new AccessCondition { LeaseId = _leaseId }, new BlobRequestOptions(), new OperationContext(), cancellationToken).ConfigureAwait(false);
                     await ReleaseLeaseAsync(cancellationToken).ConfigureAwait(false);
-                    await Task.Delay(m_SleepTime, cancellationToken).ConfigureAwait(false);
+                    await Task.Delay(_sleepTime, cancellationToken).ConfigureAwait(false);
                 }
                 catch (TaskCanceledException)
                 {
-                    if (!string.IsNullOrEmpty(m_LeaseId))
+                    if (!string.IsNullOrEmpty(_leaseId))
                     {
                         // ReSharper disable once MethodSupportsCancellation task is cancelled so we not transfer that
                         await ReleaseLeaseAsync().ConfigureAwait(false);
@@ -124,7 +123,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    await m_MailComponent.GenerateSystemEmailAsync("sendGrid api", $"{Name} with errors {ex}").ConfigureAwait(false);
+                    //await m_MailComponent.GenerateSystemEmailAsync("sendGrid api", $"{Name} with errors {ex}").ConfigureAwait(false);
                     _logger.Exception(ex);
                 }
             }
@@ -135,7 +134,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var page = 1;
             while (true)
             {
-                var result = await m_IntercomManager.GetUnsubscribesAsync(page++, token).ConfigureAwait(false);
+                var result = await _intercomManager.GetUnsubscribesAsync(page++, token).ConfigureAwait(false);
                 if (result == null)
                 {
                     break;
@@ -145,7 +144,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     break;
                 }
-                m_ZboxWorkerRoleService.UpdateUserFromUnsubscribe(
+                _zboxWorkerRoleService.UpdateUserFromUnsubscribe(
                                new Domain.Commands.UnsubscribeUsersFromEmailCommand(list.Select(s=>s.Email),
                                    EmailSend.Unsubscribe));
                 await RenewLeaseAsync(token).ConfigureAwait(false);
@@ -154,7 +153,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private Task RenewLeaseAsync(CancellationToken cancellationToken)
         {
-            return m_Blob.RenewLeaseAsync(new AccessCondition { LeaseId = m_LeaseId }, cancellationToken);
+            return _mBlob.RenewLeaseAsync(new AccessCondition { LeaseId = _leaseId }, cancellationToken);
         }
 
         private async Task<CloudBlockBlob> ReadBlobDataAsync(CancellationToken cancellationToken)
@@ -163,14 +162,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var blob = _cloudBlockProvider.GetFile("sendGridApiQuery", "zboxidgenerator");
             if (!await blob.ExistsAsync(cancellationToken).ConfigureAwait(false))
             {
-                await blob.UploadTextAsync(m_DateTime.ToFileTimeUtc().ToString(), cancellationToken).ConfigureAwait(false);
+                await blob.UploadTextAsync(_dateTime.ToFileTimeUtc().ToString(), cancellationToken).ConfigureAwait(false);
             }
             else
             {
                 var txt = await blob.DownloadTextAsync(cancellationToken).ConfigureAwait(false);
                 if (long.TryParse(txt, out long num))
                 {
-                    m_DateTime = DateTime.FromFileTimeUtc(num);
+                    _dateTime = DateTime.FromFileTimeUtc(num);
                 }
             }
             return blob;
@@ -178,12 +177,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task ReleaseLeaseAsync( CancellationToken cancellationToken = default(CancellationToken))
         {
-            await m_Blob.ReleaseLeaseAsync(new AccessCondition
+            await _mBlob.ReleaseLeaseAsync(new AccessCondition
             {
-                LeaseId = m_LeaseId
+                LeaseId = _leaseId
             }, cancellationToken).ConfigureAwait(false);
-            m_Blob = null;
-            m_LeaseId = string.Empty;
+            _mBlob = null;
+            _leaseId = string.Empty;
         }
 
         public class JobPerApi

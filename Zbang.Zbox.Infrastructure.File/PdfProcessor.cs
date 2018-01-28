@@ -125,7 +125,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
         }
 
-        private string ExtractPdfText(Document doc)
+        private static string ExtractPdfText(Document doc)
         {
             var textAbsorber = new TextAbsorber
             {
@@ -137,9 +137,9 @@ namespace Zbang.Zbox.Infrastructure.File
                 {
                     doc.Pages[i].Accept(textAbsorber);
                 }
-                catch (ArgumentException ex)
+                catch (ArgumentException)
                 {
-                    m_Logger.Warning($"{nameof(PdfProcessor)} {ex}");
+                    continue;
                 }
                 catch (EndOfStreamException)
                 {
@@ -161,11 +161,15 @@ namespace Zbang.Zbox.Infrastructure.File
                     return ExtractPdfText(pdfDocument);
                 }
             }
-            catch (InvalidPdfFileFormatException)
+            catch (PdfException)
             {
-                m_Logger.Warning($"{nameof(PdfProcessor)} {blobUri} is invalid pdf");
                 return null;
             }
+            //catch (InvalidPdfFileFormatException)
+            //{
+            //    m_Logger.Warning($"{nameof(PdfProcessor)} {blobUri} is invalid pdf");
+            //    return null;
+            //}
         }
 
     }

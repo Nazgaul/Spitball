@@ -13,14 +13,6 @@ namespace Cloudents.Infrastructure.Converters
                 {
                     ContractResolver = new UnderscorePropertyNamesContractResolver()
                 });
-            //return new IpDto
-            //{
-            //    City = source["city"].Value<string>(),
-            //    CountryCode = source["country_code"].Value<string>(),
-            //    CountryName = source["country_name"].Value<string>()
-
-            //}
-            //throw new NotImplementedException();
         }
     }
 }

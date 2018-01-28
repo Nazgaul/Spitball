@@ -16,14 +16,4 @@ namespace Cloudents.Core.DTOs
 
         public bool Hooked { get; set; }
     }
-
-    public class HookedDto : System.IEquatable<HookedDto>
-    {
-        public string Id { get; set; }
-
-        public bool Equals(HookedDto other)
-        {
-            return this.Id == other.Id;
-        }
-    }
 }

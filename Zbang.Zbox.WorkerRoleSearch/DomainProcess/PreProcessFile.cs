@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
 using Cloudents.Core.Interfaces;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -10,23 +9,22 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
 {
     public class PreProcessFile : IFileProcess
     {
-        private readonly IFileProcessorFactory m_FileProcessorFactory;
-        private readonly IMailComponent m_MailComponent;
+        private readonly IFileProcessorFactory _fileProcessorFactory;
+        private readonly IMailProvider _mailComponent;
         private readonly ILogger _logger;
 
-        public PreProcessFile(IFileProcessorFactory fileProcessorFactory, IMailComponent mailComponent, ILogger logger)
+        public PreProcessFile(IFileProcessorFactory fileProcessorFactory, IMailProvider mailComponent, ILogger logger)
         {
-            m_FileProcessorFactory = fileProcessorFactory;
-            m_MailComponent = mailComponent;
+            _fileProcessorFactory = fileProcessorFactory;
+            _mailComponent = mailComponent;
             _logger = logger;
         }
 
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {
-            var parameters = data as ChatFileProcessData;
-            if (parameters == null) return true;// Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
+            if (!(data is ChatFileProcessData parameters)) return true;// Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
 
-            var processor = m_FileProcessorFactory.GetProcessor<PreviewChatContainerName>(parameters.BlobUri);
+            var processor = _fileProcessorFactory.GetProcessor<PreviewChatContainerName>(parameters.BlobUri);
 
             //if (await m_BlobProvider.ExistsAsync(parameters.BlobUri))
             //{
@@ -50,7 +48,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             }
             catch (Exception ex)
             {
-                await m_MailComponent.GenerateSystemEmailAsync("signalR error", ex.Message).ConfigureAwait(false);
+                await _mailComponent.GenerateSystemEmailAsync("signalR error", ex.Message, token).ConfigureAwait(false);
                 _logger.Exception(ex);
             }
 

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -11,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using RestSharp.Authenticators;
 using SendGrid;
+using SendGrid.Helpers.Mail;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -18,19 +17,22 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class MailManager2 : IMailComponent
     {
-        private readonly ILifetimeScope m_ComponentContent;
-        private readonly ILogger m_Logger;
+        private const string ApiKey = "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";
+        private readonly ILifetimeScope _componentContent;
+        private readonly ILogger _logger;
 
         public MailManager2(ILifetimeScope componentContent, ILogger logger)
         {
-            m_ComponentContent = componentContent;
-            m_Logger = logger;
+            _componentContent = componentContent;
+            _logger = logger;
         }
 
-        private static Task SendAsync(ISendGrid message, ICredentials credentials)
+        private static Task SendAsync(SendGridMessage message)
         {
-            var transport = new Web(new NetworkCredential(credentials.UserName, credentials.Password));
-            return transport.DeliverAsync(message);
+            //var transport = new Web(new NetworkCredential(credentials.UserName, credentials.Password));
+            //return transport.DeliverAsync(message);
+            var client = new SendGridClient(ApiKey);
+            return client.SendEmailAsync(message);
         }
 
         public async Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters, CancellationToken cancellationToken = default(CancellationToken), string category = null)
@@ -42,38 +44,43 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
                 var sendGridMail = new SendGridMessage
                 {
-                    From = new MailAddress(parameters.SenderEmail, parameters.SenderName)
+                    From = new EmailAddress(parameters.SenderEmail, parameters.SenderName)
                 };
 
                 sendGridMail.AddTo(/*ConfigFetcher.IsEmulated ? "ram@cloudents.com" :*/ recipient);
 
-                var mail = m_ComponentContent.ResolveNamed<IMailBuilder>(parameters.MailResolver, new NamedParameter("parameters", parameters));
-                sendGridMail.Html = mail.GenerateMail();
+                var mail = _componentContent.ResolveNamed<IMailBuilder>(parameters.MailResolver, new NamedParameter("parameters", parameters));
+                sendGridMail.HtmlContent = mail.GenerateMail();
                 sendGridMail.Subject = mail.AddSubject();
-                sendGridMail.SetCategory(mail.AddCategory());
-                sendGridMail.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: mail.AddCategory());
+                sendGridMail.Categories = new List<string> { mail.AddCategory() };
+                sendGridMail.SetGoogleAnalytics(true, mail.AddCategory());
+                sendGridMail.SetSubscriptionTracking(true, substitutionTag: "{unsubscribeUrl}");
+                sendGridMail.AddSubstitution("{email}",  recipient );
+                sendGridMail.SetClickTracking(true,false);
+                sendGridMail.SetOpenTracking(true,null);
+                //sendGridMail.SetCategory(mail.AddCategory());
+                //sendGridMail.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: mail.AddCategory());
+                //sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
+                //sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
+                //if (!string.IsNullOrEmpty(category))
+                //{
+                //    sendGridMail.SetCategory(category);
+                //}
+                //sendGridMail.EnableClickTracking();
+                //sendGridMail.EnableOpenTracking();
 
-                sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
-                sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
-                if (!string.IsNullOrEmpty(category))
-                {
-                    sendGridMail.SetCategory(category);
-                }
-                sendGridMail.EnableClickTracking();
-                sendGridMail.EnableOpenTracking();
-
-                await SendAsync(sendGridMail, new Credentials()).ConfigureAwait(false);
+                await SendAsync(sendGridMail).ConfigureAwait(false);
             }
             catch (FormatException ex)
             {
-                m_Logger.Exception(ex, new Dictionary<string, string>
+                _logger.Exception(ex, new Dictionary<string, string>
                 {
                     ["recipient"] = recipient
                 });
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex, new Dictionary<string, string>
+                _logger.Exception(ex, new Dictionary<string, string>
                 {
                     ["recipient"] = recipient,
                     ["resolve"] = parameters.MailResolver,
@@ -84,29 +91,32 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public Task<IEnumerable<string>> GetUnsubscribesAsync(DateTime startTime, int page, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return GetEmailListFromApiCallAsync("v3/suppression/unsubscribes", startTime, page);
+            return GetEmailListFromApiCallAsync("suppression/unsubscribes", startTime, page);
         }
 
         public Task<IEnumerable<string>> GetBouncesAsync(DateTime startTime, int page, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return GetEmailListFromApiCallAsync("v3/suppression/bounces", startTime, page);
+            return GetEmailListFromApiCallAsync("suppression/bounces", startTime, page);
         }
 
         public Task<IEnumerable<string>> GetInvalidEmailsAsync(DateTime startTime, int page,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            return GetEmailListFromApiCallAsync("v3/suppression/invalid_emails", startTime, page);
+            return GetEmailListFromApiCallAsync("suppression/invalid_emails", startTime, page);
         }
 
-        private const string ApiKey = "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";
+        //private const string ApiKey = "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";
         private static async Task<IEnumerable<string>> GetEmailListFromApiCallAsync(string requestUrl, DateTime startTime, int page)
         {
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var unixDateTime = (long)(startTime.ToUniversalTime() - epoch).TotalSeconds;
 
-            var client = new Client(ApiKey);
-            var result = await client.Get($"{requestUrl}?limit={500}&offset={500 * page}&start_time={unixDateTime}").ConfigureAwait(false);
-            var data = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var client = new SendGridClient(ApiKey);
+            var result = await client.RequestAsync(SendGridClient.Method.GET, null,
+                $"?limit={500}&offset={500 * page}&start_time={unixDateTime}", requestUrl);
+            //var result = await client.Get($"{requestUrl}?limit={500}&offset={500 * page}&start_time={unixDateTime}").ConfigureAwait(false);
+            
+            var data = await result.Body.ReadAsStringAsync().ConfigureAwait(false);
             var emailArray = JArray.Parse(data);
             return emailArray.Select(s => s["email"].ToString());
         }
@@ -115,25 +125,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             try
             {
-                var client = new Client(ApiKey);
-                await client.GlobalSuppressions.Delete(email).ConfigureAwait(false);
+                var client = new SendGridClient(ApiKey);
+                await client.RequestAsync(SendGridClient.Method.DELETE, urlPath: $"/asm/suppressions/global/{email}").ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex);
+                _logger.Exception(ex);
             }
-        }
-
-        public Task GenerateSystemEmailAsync(string subject, string text, string to = "ram@cloudents.com")
-        {
-            var sendGridMail = new SendGridMessage
-            {
-                From = new MailAddress("no-reply@spitball.co", "spitball system"),
-                Text = text,
-                Subject = $"{subject} {DateTime.UtcNow.ToShortDateString()}"
-            };
-            sendGridMail.AddTo(to);
-            return SendAsync(sendGridMail, new Credentials());
         }
 
         private const string MailGunApiKey = "key-5aea4c42085523a28a112c96d7b016d4";
@@ -144,7 +142,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             int interVal,
             CancellationToken cancellationToken)
         {
-            var mail = m_ComponentContent.ResolveNamed<IMailBuilder>(parameters.MailResolver, new NamedParameter("parameters", parameters));
+            var mail = _componentContent.ResolveNamed<IMailBuilder>(parameters.MailResolver, new NamedParameter("parameters", parameters));
 
             var client = new RestClient
             {

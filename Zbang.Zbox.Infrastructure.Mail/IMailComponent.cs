@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         Task<IEnumerable<string>> GetBouncesAsync(DateTime startTime, int page,
             CancellationToken cancellationToken = default(CancellationToken));
 
-        Task GenerateSystemEmailAsync(string subject, string text, string to = "ram@cloudents.com");
+        //Task GenerateSystemEmailAsync(string subject, string text, string to = "ram@cloudents.com");
 
         Task SendSpanGunEmailAsync(string recipient,
             string ipPool,

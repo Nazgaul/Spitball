@@ -5,6 +5,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Cloudents.Web.Filters
 {
@@ -13,13 +14,15 @@ namespace Cloudents.Web.Filters
     {
         private readonly string _geoLocationArgumentName;
         private readonly IIpToLocation _ipToLocation;
+        private readonly ITempDataDictionary _tempData;
 
         private const string CookieName = "s-l";
 
-        public IpToLocationActionFilter(string geoLocationArgumentName, IIpToLocation ipToLocation)
+        public IpToLocationActionFilter(string geoLocationArgumentName, IIpToLocation ipToLocation, ITempDataDictionary tempData)
         {
             _geoLocationArgumentName = geoLocationArgumentName;
             _ipToLocation = ipToLocation;
+            _tempData = tempData;
         }
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -30,7 +33,7 @@ namespace Cloudents.Web.Filters
             if (context.ActionArguments.TryGetValue(_geoLocationArgumentName, out var b)
                 && b is GeoPoint placeLocation)
             {
-                AppendCookie(context, placeLocation);
+                AppendCookie(placeLocation);
                 await next().ConfigureAwait(false);
                 return;
             }
@@ -55,18 +58,20 @@ namespace Cloudents.Web.Filters
                 Longitude = ipDto.Longitude
             };
             context.ActionArguments[_geoLocationArgumentName] = place;
-            AppendCookie(context, place);
+            AppendCookie(place);
             await next().ConfigureAwait(false);
         }
 
-        private static void AppendCookie(ActionExecutingContext context, GeoPoint place)
+        private void AppendCookie(GeoPoint place)
         {
-            context.HttpContext.Response.Cookies.Append(CookieName, place.ToString(),
-                new Microsoft.AspNetCore.Http.CookieOptions
-                {
-                    HttpOnly = true,
-                    Expires = DateTime.Now.AddDays(1)
-                });
+            _tempData.Add(CookieName, place);
+            //context.Controller.TempData.Add("x", "y");
+            //context.HttpContext.Response.Cookies.Append(CookieName, place.ToString(),
+            //    new Microsoft.AspNetCore.Http.CookieOptions
+            //    {
+            //        HttpOnly = true,
+            //        Expires = DateTime.Now.AddDays(1)
+            //    });
         }
     }
 }

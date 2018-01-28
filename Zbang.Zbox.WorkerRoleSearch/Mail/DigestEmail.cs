@@ -17,33 +17,35 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
     public class DigestEmail : ISchedulerProcess
     {
-        private readonly IMailComponent m_MailComponent;
+        private readonly IMailComponent _mailComponent;
+        private readonly IMailProvider _mailProvider;
         private readonly IZboxReadServiceWorkerRole _zboxReadService;
         private const string ServiceName = "Digest email";
-        private readonly NotificationSetting m_DigestEmailHourBack;
-        private readonly int m_UtcTimeOffset;
+        private readonly NotificationSetting _mDigestEmailHourBack;
+        private readonly int _mUtcTimeOffset;
         private readonly ILogger _logger;
 
-        private readonly HashSet<string> m_EmailHash = new HashSet<string>();
+        private readonly HashSet<string> _emailHash = new HashSet<string>();
 
         public DigestEmail(IMailComponent mailComponent, IZboxReadServiceWorkerRole zboxReadService,
-            NotificationSetting hourForEmailDigest, int utcTimeOffset, ILogger logger)
+            NotificationSetting hourForEmailDigest, int utcTimeOffset, ILogger logger, IMailProvider mailProvider)
         {
-            m_MailComponent = mailComponent;
+            _mailComponent = mailComponent;
             _zboxReadService = zboxReadService;
-            m_DigestEmailHourBack = hourForEmailDigest;
-            m_UtcTimeOffset = utcTimeOffset;
+            _mDigestEmailHourBack = hourForEmailDigest;
+            _mUtcTimeOffset = utcTimeOffset;
             _logger = logger;
+            _mailProvider = mailProvider;
         }
 
         private string GetServiceName()
         {
-            return $"{ServiceName} {m_DigestEmailHourBack}";
+            return $"{ServiceName} {_mDigestEmailHourBack}";
         }
 
         private Task SendEmailStatusAsync(string message)
         {
-            return m_MailComponent.GenerateSystemEmailAsync(GetServiceName(), message);
+            return _mailProvider.GenerateSystemEmailAsync(GetServiceName(), message, CancellationToken.None);
         }
 
         public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync, CancellationToken token)
@@ -62,7 +64,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     {
                         pageSize = 10;
                     }
-                    var usersQuery = new GetUserByNotificationQuery(m_DigestEmailHourBack, page, pageSize, m_UtcTimeOffset);
+                    var usersQuery = new GetUserByNotificationQuery(_mDigestEmailHourBack, page, pageSize, _mUtcTimeOffset);
                     var users =
                         (await
                             _zboxReadService.GetUsersByNotificationSettingsAsync(
@@ -79,7 +81,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                         catch (Exception ex)
                         {
                             await SendEmailStatusAsync($"error digest email {ex}").ConfigureAwait(false);
-                            _logger.Exception(ex,new Dictionary<string,string> {["service"] = GetServiceName() });
+                            _logger.Exception(ex, new Dictionary<string, string> { ["service"] = GetServiceName() });
                         }
                     }
                     await Task.WhenAll(list).ConfigureAwait(false);
@@ -96,7 +98,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     page++;
                     await progressAsync(page, TimeSpan.FromMinutes(5)).ConfigureAwait(false);
                     await SendEmailStatusAsync($"error digest email {ex}").ConfigureAwait(false);
-                    _logger.Exception(ex, new Dictionary<string, string> {["service"] = GetServiceName() });
+                    _logger.Exception(ex, new Dictionary<string, string> { ["service"] = GetServiceName() });
 
                     //return false;
                 }
@@ -112,7 +114,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             {
                 email = "ram@cloudents.com";
             }
-            if (!m_EmailHash.Add(email))
+            if (!_emailHash.Add(email))
             {
                 _logger.Warning($"{email} is already sent");
                 return;
@@ -123,7 +125,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             var updates =
                 await
                     _zboxReadService.GetUserUpdatesAsync(
-                        new GetBoxesLastUpdateQuery(m_DigestEmailHourBack, user.UserId), token).ConfigureAwait(false);
+                        new GetBoxesLastUpdateQuery(_mDigestEmailHourBack, user.UserId), token).ConfigureAwait(false);
 
             var updatesList = updates.ToList();
             var query = new GetUpdatesQuery(
@@ -152,7 +154,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 ProcessBoxUpdates(box, updatesData, updatesEmail, updatesList);
             }
 
-            list.Add(m_MailComponent.GenerateAndSendEmailAsync(
+            list.Add(_mailComponent.GenerateAndSendEmailAsync(
                 email, new UpdateMailParams(updatesEmail,
                     culture, user.UserName,
                     updatesList.Count(
@@ -164,7 +166,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                             && !c.QuizDiscussionId.HasValue),
                     updatesList.Count(c => c.AnswerId.HasValue),
                     updatesList.Count(c => c.ItemId.HasValue),
-                    updatesList.Count), token, $"update {m_DigestEmailHourBack.GetStringValue()} "));
+                    updatesList.Count), token, $"update {_mDigestEmailHourBack.GetStringValue()} "));
         }
 
         private static void ProcessBoxUpdates(BoxDigestDto box, BoxUpdatesDigestDto updatesData, List<UpdateMailParams.BoxUpdate> updatesEmail,

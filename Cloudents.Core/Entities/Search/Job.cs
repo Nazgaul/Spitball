@@ -48,17 +48,17 @@ namespace Cloudents.Core.Entities.Search
         [DataMember]
         public DateTime? InsertDate { get; set; }
 
-        public JobFilter JobType2 { get; set; }
+        public JobFilter JobType { get; set; }
 
-        [DataMember]
-        public string JobType
+        [DataMember(Name = nameof(JobType))]
+        public string JobTypeStr
         {
-            get => JobType2.GetDescription();
+            get => JobType.GetDescription();
             set
             {
                 if (value.TryToEnum(out JobFilter filter))
                 {
-                    JobType2 = filter;
+                    JobType = filter;
                 }
             }
         }

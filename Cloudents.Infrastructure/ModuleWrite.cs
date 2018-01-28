@@ -21,6 +21,7 @@ namespace Cloudents.Infrastructure
             _redisConnection = redisConnection;
             _localStorageData = localStorageData;
         }
+
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);

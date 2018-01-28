@@ -70,6 +70,19 @@ namespace Cloudents.Infrastructure.Search.Places
             return _mapper.Map<JObject, GeoPoint>(result);
         }
 
+        public async Task<AddressDto> ReverseGeocodingAsync(GeoPoint point, CancellationToken token)
+        {
+            var nvc = new NameValueCollection
+            {
+                ["latlng"] = $"{point.Latitude},{point.Longitude}",
+                ["key"] = Key,
+                ["result_type"] = "administrative_area_level_1|locality"
+            };
+
+            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
+            return _mapper.Map<JObject, AddressDto>(result);
+        }
+
         public async Task<PlaceDto> SearchAsync(string term, CancellationToken token)
         {
             if (term == null) throw new ArgumentNullException(nameof(term));
