@@ -4,7 +4,15 @@ import qs from "query-string";
 axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: false });
 axios.defaults.responseType = "json";
 axios.defaults.baseURL = "api/";
-
+let transformLocation=(params)=>{
+    let {location}=params;
+    delete params.location;
+    if(location){
+        params['location.latitude']=location.latitude;
+        params['location.longitude']=location.longitude;
+    }
+    return params;
+};
 let transferResultNote = res => {
     let result = res.result || [];
     return { source: res.facet,facet:res.facet, data: result.map(val => { return { ...val, template: "item" } }) }
@@ -43,11 +51,11 @@ const searchFunctions = {
     getDocument: (params) => axios.get("search/documents", { params, transformResponse: transferResultNote }),
     getQna: (params) => axios.get("ask", { params, transformResponse: transferResultAsk }),
     getFlashcard: (params) => axios.get("search/flashcards", { params, transformResponse: transferResultNote }),
-    getTutor: (params) => axios.get("tutor", { params, transformResponse: transferResultTutor }),
-    getJob: (params) => axios.get("job", { params, transformResponse: transferJob }),
+    getTutor: (params) => axios.get("tutor", { params:transformLocation(params), transformResponse: transferResultTutor}),
+    getJob: (params) => axios.get("job", { params:transformLocation(params),transformResponse: transferJob}),
     getBook: (params) => axios.get("book/search", { params, transformResponse: transferBook }),
     getBookDetails: ({ type, isbn13 }) => axios.get(`book/${type}`, { params: { isbn13 }, transformResponse: transferBookDetails }),
-    getFood: (params) => axios.get("places", { params, transformResponse: transferFood })
+    getFood: (params) => axios.get("places", { params:transformLocation(params), transformResponse: transferFood })
 };
 
 const courseFunctions = {
