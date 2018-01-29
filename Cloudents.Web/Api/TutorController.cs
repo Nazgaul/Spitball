@@ -20,7 +20,7 @@ namespace Cloudents.Web.Api
             _tutorSearch = tutorSearch;
         }
 
-        [TypeFilter(typeof(IpToLocationActionFilter), Arguments = new object[] { "location" })]
+        //[TypeFilter(typeof(IpToLocationActionFilter), Arguments = new object[] { "location" })]
         public async Task<IActionResult> Get(string[] term,
             TutorRequestFilter[] filter,
             TutorRequestSort? sort,

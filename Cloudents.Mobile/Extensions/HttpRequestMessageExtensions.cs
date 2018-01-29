@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.ServiceModel.Channels;
 using System.Web;
 
@@ -6,27 +7,38 @@ namespace Cloudents.Mobile.Extensions
 {
     internal static class HttpRequestMessageExtensions
     {
-        public static string GetClientIp(this HttpRequestMessage request)
+        private static IPAddress Parse(string s)
+        {
+            if (IPAddress.TryParse(s, out var ip))
+            {
+                return ip;
+            }
+
+            return null;
+        }
+        public static IPAddress GetClientIp(this HttpRequestMessage request)
         {
             if (request.IsLocal())
             {
-                return "86.143.189.86";
+                return IPAddress.Parse("86.143.189.86");
             }
             if (request.Properties.ContainsKey("MS_HttpContext"))
             {
-                return ((HttpContextWrapper)request.Properties["MS_HttpContext"]).Request.UserHostAddress;
+                var r = ((HttpContextWrapper)request.Properties["MS_HttpContext"]).Request.UserHostAddress;
+                return Parse(r);
             }
             if (request.Properties.ContainsKey(RemoteEndpointMessageProperty.Name))
             {
                 var prop = (RemoteEndpointMessageProperty)request.Properties[RemoteEndpointMessageProperty.Name];
-                return prop.Address;
+                return Parse(prop.Address);
             }
             if (request.Properties.ContainsKey("MS_OwinContext"))
             {
                 dynamic owinContext = request.Properties["MS_OwinContext"];
                 if (owinContext != null)
                 {
-                    return owinContext.Request.RemoteIpAddress;
+                    var s = owinContext.Request.RemoteIpAddress;
+                    return Parse(s);
                 }
             }
 

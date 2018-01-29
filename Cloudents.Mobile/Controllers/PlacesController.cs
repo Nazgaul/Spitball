@@ -42,13 +42,6 @@ namespace Cloudents.Mobile.Controllers
         public async Task<IHttpActionResult> Get([FromUri]PurchaseRequest purchaseRequest,
             CancellationToken token)
         {
-            if (purchaseRequest.Location == null)
-            {
-                var location = Request.GetClientIp();
-                var locationObj = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false);
-                purchaseRequest.Location = locationObj.Point;
-            }
-
             var result = await _purchaseSearch.SearchAsync(purchaseRequest.Term, purchaseRequest.Filter.GetValueOrDefault(), purchaseRequest.Location, null, token).ConfigureAwait(false);
 
             var nextPageLink = Url.Link("DefaultApis", new

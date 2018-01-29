@@ -41,12 +41,6 @@ namespace Cloudents.Mobile.Controllers
 
         public async Task<IHttpActionResult> Get([FromUri]TutorRequest model, CancellationToken token)
         {
-            if (model.Location == null)
-            {
-                var location = Request.GetClientIp();
-                var locationResult = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false);
-                model.Location = locationResult.Point;
-            }
             var result = await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Price),

@@ -40,15 +40,15 @@ namespace Cloudents.Mobile.Controllers
         /// <returns></returns>
         public async Task<IHttpActionResult> Get([FromUri]JobRequest model, CancellationToken token)
         {
-            var location = Request.GetClientIp();
-            var locationObj = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false);
-            if (model.Location != null)
-            {
-                locationObj.Point = model.Location;
-            }
+            //var location = Request.GetClientIp();
+            //var locationObj = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false);
+            //if (model.Location != null)
+            //{
+            //    locationObj.Point = model.Location;
+            //}
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Filter.GetValueOrDefault(), model.Sort.GetValueOrDefault(JobRequestSort.Distance),
-                model.Facet, locationObj, model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
+                model.Facet, model.Location, model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
 
             var nextPageLink = Url.NextPageLink("DefaultApis", null, model);
             return Ok(

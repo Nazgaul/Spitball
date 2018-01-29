@@ -1,10 +1,15 @@
 ﻿using System.Configuration;
 using System.Reflection;
 using System.Web.Http;
+using System.Web.Http.Controllers;
 using System.Web.Http.ExceptionHandling;
+using System.Web.Http.ModelBinding;
+using System.Web.Http.ModelBinding.Binders;
 using Autofac;
 using Autofac.Integration.WebApi;
+using Cloudents.Core.Models;
 using Cloudents.Infrastructure;
+using Cloudents.Mobile.Filters;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
 using Newtonsoft.Json;
@@ -34,6 +39,8 @@ namespace Cloudents.Mobile
         .ApplyTo(config);
 
 
+
+
             //config.Services.Add(typeof(IExceptionLogger), new AiExceptionLogger());
             var settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
 
@@ -54,12 +61,15 @@ namespace Cloudents.Mobile
 
             var module = new ModuleMobile(
                 ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-              new SearchServiceCredentials(  ConfigurationManager.AppSettings["AzureSearchServiceName"],
+              new SearchServiceCredentials(ConfigurationManager.AppSettings["AzureSearchServiceName"],
                 ConfigurationManager.AppSettings["AzureSearchKey"]),
                 ConfigurationManager.AppSettings["Redis"],
                 ConfigurationManager.AppSettings["Storage"]);
             builder.RegisterModule(module);
 
+            builder.RegisterWebApiModelBinderProvider();
+            builder.RegisterType<LocationEntityBinder>().AsModelBinderForTypes(typeof(Location));
+            builder.RegisterType<GeoPointEntityBinder>().AsModelBinderForTypes(typeof(GeoPoint));
             //builder.RegisterType<JaredSendPush>()
             //    .As<IJaredPushNotification>()
             //    .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
@@ -75,6 +85,12 @@ namespace Cloudents.Mobile
 
             app.UseWebApi(config);
             ConfigureSwagger(config);
+
+            //config.ParameterBindingRules.Add(typeof(Location), p => p.BindWithModelBinding());
+
+            //var provider = new SimpleModelBinderProvider(
+            //    typeof(Location), new LocationEntityBinder());
+            //config.Services.Insert(typeof(ModelBinderProvider), 0, provider);
         }
     }
 

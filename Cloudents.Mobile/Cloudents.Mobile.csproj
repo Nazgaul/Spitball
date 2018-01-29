@@ -38,7 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>default</LangVersion>
+    <LangVersion>7.1</LangVersion>
     <DocumentationFile>bin\Cloudents.Mobile.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -48,7 +48,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>default</LangVersion>
+    <LangVersion>7.1</LangVersion>
     <DocumentationFile>bin\Cloudents.Mobile.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
@@ -99,6 +99,8 @@
     <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Extensions\ModelStateDictionaryExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
+    <Compile Include="Filters\GeoPointEntityBinder.cs" />
+    <Compile Include="Filters\LocationEntityBinder.cs" />
     <Compile Include="Filters\PagingAttribute.cs" />
     <Compile Include="Filters\VersionConstraint.cs" />
     <Compile Include="Filters\VersionedRoute.cs" />

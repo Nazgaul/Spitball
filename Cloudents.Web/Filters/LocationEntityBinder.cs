@@ -45,12 +45,11 @@ namespace Cloudents.Web.Filters
                         bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
                         return;
                     }
-                    locationFromTemp = await _googlePlacesSearch.ReverseGeocodingAsync(point, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
-                    tempData.Put(KeyName, locationFromTemp);
-                    bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
-                    // bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
-                    return;
                 }
+                locationFromTemp = await _googlePlacesSearch.ReverseGeocodingAsync(point, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
+                tempData.Put(KeyName, locationFromTemp);
+                bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
+
 
             }
 
