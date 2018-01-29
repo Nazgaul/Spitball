@@ -35,7 +35,6 @@ namespace Cloudents.Infrastructure
             builder.Register(c =>
                 new TempStorageProvider(c.Resolve<ILogger>(), _localStorageData)).As<ITempStorageProvider>();
 
-
             builder.RegisterType<JobCareerBuilder>().Keyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
             builder.RegisterType<JobWayUp>().Keyed<IUpdateAffiliate>(AffiliateProgram.WayUp);
             builder.RegisterType<TutorWyzant>().Keyed<IUpdateAffiliate>(AffiliateProgram.Wyzant);

@@ -4,6 +4,7 @@ using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Cache;
+using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Places;
 using Microsoft.Azure.Search;
 
@@ -29,9 +30,10 @@ namespace Cloudents.Infrastructure
                 .SingleInstance().AsSelf().As<ISearchServiceClient>();
 
             builder.RegisterType<GooglePlacesSearch>().As<IGooglePlacesSearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor));
+                .InterceptedBy(typeof(LogInterceptor), typeof(CacheResultInterceptor));
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
             builder.RegisterType<CacheResultInterceptor>();
+            builder.RegisterType<LogInterceptor>();
             builder.RegisterType<RestClient>().As<IRestClient>();
 
             var config = MapperConfiguration();

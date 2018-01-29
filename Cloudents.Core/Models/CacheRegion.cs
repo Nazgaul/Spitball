@@ -2,7 +2,7 @@
 
 namespace Cloudents.Core.Models
 {
-    [AttributeUsageAttribute(AttributeTargets.Method, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method)]
     public sealed class CacheAttribute : Attribute
     {
         public CacheAttribute(int duration, string region)
@@ -15,4 +15,13 @@ namespace Cloudents.Core.Models
 
         public string Region { get; }
     }
+
+
+
+    [AttributeUsage(AttributeTargets.Method)]
+    public sealed class LogAttribute : Attribute
+    {
+    }
+
+
 }

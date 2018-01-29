@@ -42,12 +42,8 @@ namespace ConsoleApp
             builder.RegisterModule<IocModule>();
             var container = builder.Build();
 
-            var affiliate = container.ResolveKeyed<IUpdateAffiliate>(AffiliateProgram.Wyzant);
-            await affiliate.ExecuteAsync(0, i =>
-             {
-                 Console.WriteLine(i);
-                 return Task.CompletedTask;
-             }, default);
+            var service = container.Resolve<IGooglePlacesSearch>();
+            var result = await service.GeoCodingByAddressAsync("New York,NY US", default);
             //210ec431-2d6d-45cb-bc01-04e3f687f0ed.docx
             Console.ReadLine();
 
