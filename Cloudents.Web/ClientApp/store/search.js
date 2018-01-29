@@ -41,7 +41,7 @@ const actions = {
             return new Promise((resolve) => {
                 //if AI return cords use it
                 if (params.hasOwnProperty('cords')) {
-                    params.location = `${params.cords.latitude},${params.cords.longitude}`;
+                    params.location = {latitude:params.cords.latitude,longitude:params.cords.longitude};
                     resolve();
                 } else if (LOCATION_VERTICALS.has(currentVertical)) {
                     //if it's vertical that need location get it from my location

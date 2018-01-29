@@ -1,6 +1,6 @@
 ﻿<template v-once>
     <a class="d-block pa-2 tutor-cell" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" :href="item.url">
-        <v-container class="pa-0" @click="$ga.event('Search_Results', 'Tutors',`#${index+1}_www.wyzant.com`)">
+        <v-container class="pa-0" @click="$ga.event('Search_Results', 'Tutors',`#${index+1}_${item.source}`)">
             <v-layout row>
                 <avatar class="mr-2" :fullname="item.name" :image="item.image" :radius="0" :size="88"></avatar>
                 <v-flex>

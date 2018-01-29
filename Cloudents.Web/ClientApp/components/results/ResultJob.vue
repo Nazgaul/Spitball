@@ -1,6 +1,6 @@
 ﻿<template v-once>
     <a class="d-block job-cell" target="_blank" :href="item.url">
-       <span @click="$ga.event('Search_Results', 'Jobs',`#${index+1}_www.careerbuilder.com`)"> <div class="cell-title mb-1">{{item.title}}</div>
+       <span @click="$ga.event('Search_Results', 'Jobs',`#${index+1}_${item.source}`)"> <div class="cell-title mb-1">{{item.title}}</div>
         <div class="desc">
             <div class="desc-title">Job description:</div>
             <p>{{item.responsibilities}}</p>

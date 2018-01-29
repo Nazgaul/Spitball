@@ -45,7 +45,7 @@ const actions = {
             if (!context.getters.location && navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(({ coords }) => {
                     coords = coords || {};
-                    context.commit(USER.UPDATE_USER, { location: `${coords.latitude},${coords.longitude}` });
+                    context.commit(USER.UPDATE_USER, { location: {latitude:coords.latitude,longitude:coords.longitude}});
                     resolve(context.getters.location);
                 }, () => { resolve(context.getters.location) });
             }
