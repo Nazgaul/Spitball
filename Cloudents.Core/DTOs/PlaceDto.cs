@@ -9,7 +9,7 @@ namespace Cloudents.Core.DTOs
         public string Address { get; set; }
         public bool Open { get; set; }
 
-        public Location Location { get; set; }
+        public GeoPoint Location { get; set; }
 
         public string Image { get; set; }
         public string PlaceId { get; set; }

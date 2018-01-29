@@ -25,9 +25,8 @@ namespace Cloudents.Infrastructure.Search.Tutor
         }
 
         public async Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter[] filters,
-            TutorRequestSort sort, Location location, int page, CancellationToken token)
+            TutorRequestSort sort, GeoPoint location, int page, CancellationToken token)
         {
-            
             var sortQuery = new List<string>();
             var filterQuery = ApplyFilter(filters, location);
             switch (sort)
@@ -70,7 +69,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             return _mapper.Map<IEnumerable<TutorObj>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
         }
 
-        private static List<string> ApplyFilter(IEnumerable<TutorRequestFilter> filters, Location location)
+        private static List<string> ApplyFilter(IEnumerable<TutorRequestFilter> filters, GeoPoint location)
         {
             var filterQuery = new List<string>();
             var filterResult = TutorFilter.None;

@@ -10,6 +10,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure.Search.Places
@@ -52,8 +53,20 @@ namespace Cloudents.Infrastructure.Search.Places
                 ["key"] = Key,
             };
 
-            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
-            return _mapper.Map<JObject, Location>(result);
+            var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
+            var result = SerializeResult(str);
+
+
+            return _mapper.Map<GoogleGeoCodeDto, Location>(result);
+        }
+
+        private static GoogleGeoCodeDto SerializeResult(string str)
+        {
+           return JsonConvert.DeserializeObject<GoogleGeoCodeDto>(str,
+                new JsonSerializerSettings
+                {
+                    ContractResolver = new UnderscorePropertyNamesContractResolver()
+                });
         }
 
 
@@ -66,11 +79,12 @@ namespace Cloudents.Infrastructure.Search.Places
                 ["key"] = Key,
             };
 
-            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
-            return _mapper.Map<JObject, Location>(result);
+            var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
+            var result = SerializeResult(str);
+            return _mapper.Map<GoogleGeoCodeDto, Location>(result);
         }
 
-        public async Task<AddressDto> ReverseGeocodingAsync(Location point, CancellationToken token)
+        public async Task<Location> ReverseGeocodingAsync(GeoPoint point, CancellationToken token)
         {
             var nvc = new NameValueCollection
             {
@@ -79,8 +93,9 @@ namespace Cloudents.Infrastructure.Search.Places
                 ["result_type"] = "administrative_area_level_1|locality"
             };
 
-            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
-            return _mapper.Map<JObject, AddressDto>(result);
+            var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
+            var result = SerializeResult(str);
+            return _mapper.Map<GoogleGeoCodeDto, Location>(result);
         }
 
         public async Task<PlaceDto> SearchAsync(string term, CancellationToken token)
@@ -103,7 +118,7 @@ namespace Cloudents.Infrastructure.Search.Places
         }
 
         public async Task<(string token, IEnumerable<PlaceDto> data)> SearchNearbyAsync(IEnumerable<string> term, PlacesRequestFilter filter,
-            Location location, string nextPageToken, CancellationToken token)
+            GeoPoint location, string nextPageToken, CancellationToken token)
         {
             var nvc = BuildQuery(term, filter, location, nextPageToken);
 
@@ -116,7 +131,7 @@ namespace Cloudents.Infrastructure.Search.Places
         }
 
         private static NameValueCollection BuildQuery(IEnumerable<string> term, PlacesRequestFilter filter,
-            Location location, string nextPageToken)
+            GeoPoint location, string nextPageToken)
         {
             if (string.IsNullOrEmpty(nextPageToken))
             {

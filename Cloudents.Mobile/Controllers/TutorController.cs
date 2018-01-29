@@ -44,8 +44,8 @@ namespace Cloudents.Mobile.Controllers
             if (model.Location == null)
             {
                 var location = Request.GetClientIp();
-                //var locationResult = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false);
-                model.Location = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false); 
+                var locationResult = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false);
+                model.Location = locationResult.Point;
             }
             var result = await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,

@@ -22,6 +22,6 @@ namespace Cloudents.Mobile.Models
         /// <summary>
         /// The location of the user
         /// </summary>
-        public Location Location { get; set; }
+        public GeoPoint Location { get; set; }
     }
 }

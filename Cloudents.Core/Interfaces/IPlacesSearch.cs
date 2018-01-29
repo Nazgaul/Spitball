@@ -10,6 +10,6 @@ namespace Cloudents.Core.Interfaces
     public interface IPlacesSearch
     {
         Task<(string token, IEnumerable<PlaceDto> data)> SearchAsync(IEnumerable<string> term, PlacesRequestFilter filter,
-            Location location, string nextPageToken, CancellationToken token);
+            GeoPoint location, string nextPageToken, CancellationToken token);
     }
 }

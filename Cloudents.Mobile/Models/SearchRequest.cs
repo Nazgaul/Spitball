@@ -4,6 +4,7 @@ using Cloudents.Mobile.Filters;
 
 namespace Cloudents.Mobile.Models
 {
+    /// <inheritdoc />
     /// <summary>
     /// Document and flashcard search object
     /// </summary>

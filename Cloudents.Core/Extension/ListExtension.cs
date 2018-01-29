@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Cloudents.Core.Extension
@@ -27,7 +26,7 @@ namespace Cloudents.Core.Extension
         {
             lock (list)
             {
-                T value = list[index];
+                var value = list[index];
                 list.RemoveAt(index);
                 return value;
             }

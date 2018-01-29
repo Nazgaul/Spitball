@@ -3,12 +3,14 @@ using Cloudents.Core.Enum;
 
 namespace Cloudents.Mobile.Models
 {
+    /// <inheritdoc />
     /// <summary>
     /// Ask Question search object
     /// </summary>
     public class AskRequest : IPaging
     {
       
+        /// <inheritdoc />
         /// <summary>
         /// Page for paging
         /// </summary>

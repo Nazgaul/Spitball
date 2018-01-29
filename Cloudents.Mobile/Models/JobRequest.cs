@@ -4,6 +4,7 @@ using Cloudents.Core.Models;
 
 namespace Cloudents.Mobile.Models
 {
+    /// <inheritdoc />
     /// <summary>
     /// Job request api model
     /// </summary>
@@ -26,7 +27,7 @@ namespace Cloudents.Mobile.Models
         /// <summary>
         /// Location of user
         /// </summary>
-        public Location Location { get; set; }
+        public GeoPoint Location { get; set; }
         /// <summary>
         /// Facet filter got from the api
         /// </summary>

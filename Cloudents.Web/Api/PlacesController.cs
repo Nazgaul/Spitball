@@ -25,7 +25,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetAsync(string[] term, PlacesRequestFilter filter, Location location, CancellationToken token)
         {
             if (location == null) throw new ArgumentNullException(nameof(location));
-            var result = await _placesSearch.SearchAsync(term, filter, location, null, token).ConfigureAwait(false);
+            var result = await _placesSearch.SearchAsync(term, filter, location.Point, null, token).ConfigureAwait(false);
             return Json(new
             {
                 result.token,

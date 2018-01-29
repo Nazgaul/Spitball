@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Search
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<UniversityDto>> SearchAsync(string term, Location location,
+        public async Task<IEnumerable<UniversityDto>> SearchAsync(string term, GeoPoint location,
             CancellationToken token)
         {
             if (string.IsNullOrEmpty(term) || term.Length < 3)

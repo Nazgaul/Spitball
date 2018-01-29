@@ -11,7 +11,6 @@ namespace Cloudents.Infrastructure.Converters
     {
         public (string, IEnumerable<PlaceDto>) Convert(JObject source, (string, IEnumerable<PlaceDto>) destination, ResolutionContext context)
         {
-            //var placeConverter = new PlaceConverter();
             var retVal = source["results"].Select(json =>
             {
                 //TODO : this is duplicate as place - need to fix that
@@ -22,10 +21,10 @@ namespace Cloudents.Infrastructure.Converters
                     image =
                         $"https://maps.googleapis.com/maps/api/place/photo?maxwidth={context.Items["width"]}&photoreference={photo}&key={context.Items["key"]}";
                 }
-                Core.Models.Location location = null;
+                GeoPoint location = null;
                 if (json["geometry"]?["location"] != null)
                 {
-                    location = new Core.Models.Location
+                    location = new GeoPoint
                     {
                         Latitude = json["geometry"]["location"]["lat"].Value<double>(),
                         Longitude = json["geometry"]["location"]["lng"].Value<double>()
@@ -60,10 +59,10 @@ namespace Cloudents.Infrastructure.Converters
                 image =
                     $"https://maps.googleapis.com/maps/api/place/photo?maxwidth={context.Items["width"]}&photoreference={photo}&key={context.Items["key"]}";
             }
-            Location location = null;
+            GeoPoint location = null;
             if (json["geometry"]?["location"] != null)
             {
-                location = new Location
+                location = new GeoPoint
                 {
                     Latitude = json["geometry"]["location"]["lat"].Value<double>(),
                     Longitude = json["geometry"]["location"]["lng"].Value<double>()
