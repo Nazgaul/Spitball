@@ -5,6 +5,9 @@
   "engines": {
     "node": "8.9.3"
   },
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
     "aspnet-prerendering": "3.0.1",
     "aspnet-webpack": "^2.0.1",
@@ -59,19 +62,12 @@
     "query-string": "^5.0.1",
     "jest": "^22.1.4",
     "@types/jest": "^22.0.1",
-    "jest-vue-preprocessor": "^1.3.1"
+    "vue-jest": "^2.0.0"
   },
   "jest": {
-    "moduleNameMapper": {
-      "^vue$": "vue/dist/vue.common.js"
-    },
-    "moduleFileExtensions": [
-      "js",
-      "vue"
-    ],
     "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
+      "^.+\\.vue$": "vue-jest",
+      "^.+\\.js$": "babel-jest"
     }
   },
   "dependencies": {}
