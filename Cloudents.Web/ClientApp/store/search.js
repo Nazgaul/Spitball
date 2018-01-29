@@ -15,8 +15,8 @@ const mutations = {
         state.search.page = payload ? 0 : 1;
         state.loading = payload;
     },
-    [SEARCH.UPDATE_SEARCH_PARAMS](state, { term, location }) {
-        state.search = { ...state.search, term, location };
+    [SEARCH.UPDATE_SEARCH_PARAMS](state, { term }) {
+        state.search = { ...state.search, term };
     }
 };
 

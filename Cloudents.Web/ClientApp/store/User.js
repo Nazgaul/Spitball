@@ -21,8 +21,14 @@ const mutations = {
 };
 const getters = {
     isFirst: state => state.user.isFirst,
-    location: state => state.user.location,
-    pinnedCards: state => state.user.pinnedCards,
+    location: state => {
+        let location=state.user.location;
+        if(location&&location.constructor===String){
+            let[latitude,longitude]=location.split(',');
+            return {latitude,longitude}
+        }else{return location}},
+    pinnedCards:
+        state => state.user.pinnedCards,
     getUniversity: state => {
         let obj = state.user.universityId || {};
         return obj.id;
