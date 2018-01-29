@@ -17,19 +17,4 @@ namespace Cloudents.Infrastructure.Converters
 
         }
     }
-
-    //public class IpToLocationConverter : ITypeConverter<IpDto, Location>
-    //{
-    //    public Location Convert(IpDto source, Location destination, ResolutionContext context)
-    //    {
-    //        return new Location()
-    //        {
-    //            Longitude = source.Longitude,
-    //            Latitude = source.Latitude,
-    //            City = source.City,
-    //            CountryCode = source.CountryCode,
-    //            RegionCode = source.RegionCode
-    //        };
-    //    }
-    //}
 }

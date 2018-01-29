@@ -22,7 +22,7 @@ namespace Cloudents.Mobile.Controllers
 
         /// <inheritdoc />
         /// <summary>
-        /// ctor
+        /// Constructor
         /// </summary>
         /// <param name="jobSearch">job search provider</param>
         /// <param name="ipToLocation"></param>

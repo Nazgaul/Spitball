@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -9,7 +8,7 @@ using Castle.DynamicProxy;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 
-namespace Cloudents.Infrastructure.Cache
+namespace Cloudents.Infrastructure.Interceptor
 {
     public class CacheResultInterceptor : IInterceptor
     {
@@ -21,23 +20,7 @@ namespace Cloudents.Infrastructure.Cache
         }
 
 
-        public static CacheAttribute GetCacheResultAttribute(IInvocation invocation)
-        {
-            return Attribute.GetCustomAttribute(
-                    invocation.MethodInvocationTarget,
-                    typeof(CacheAttribute)
-                )
-                as CacheAttribute;
-        }
-
-        //private static bool IsSimple(Type type)
-        //{
-        //    return type.IsPrimitive
-        //           || type.IsEnum
-        //           || type == typeof(string)
-        //           || type == typeof(decimal);
-        //}
-
+       
 
         public static string BuildArgument(object[] argument)
         {
@@ -127,7 +110,7 @@ namespace Cloudents.Infrastructure.Cache
 
         public void Intercept(IInvocation invocation)
         {
-            var cacheAttr = GetCacheResultAttribute(invocation);
+            var cacheAttr = invocation.GetCustomAttribute<CacheAttribute>();
             if (cacheAttr == null)
             {
                 invocation.Proceed();

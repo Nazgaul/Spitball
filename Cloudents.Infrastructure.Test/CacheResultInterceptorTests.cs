@@ -3,6 +3,7 @@ using System.Threading;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Cache;
+using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
