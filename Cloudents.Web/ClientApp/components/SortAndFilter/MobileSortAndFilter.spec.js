@@ -34,6 +34,7 @@ describe('MobileSortAndFilter.vue', function () {
             }};
             filterComp.$route={query:{}};
             filterComp.$emit=jest.fn();
+            filterComp.setFilteredCourses=jest.fn();
         });
         it('should apply sort',function () {
             filterComp.sort="date";
@@ -63,7 +64,6 @@ describe('MobileSortAndFilter.vue', function () {
             expect(filterComp.$router.query.sort).toBe('price');
         });
         it('should apply filter change courses', function () {
-            filterComp.setFilteredCourses=jest.fn();
             filterComp.filters.course=['11','22'];
             filterComp.filterOptions=[{modelId:'course'}];
             filterComp.filterVal=[{key:'course',value:'11'}];
@@ -83,6 +83,13 @@ describe('MobileSortAndFilter.vue', function () {
             filterComp.filters.course=[];
             filterComp.applyFilters();
             expect(filterComp.setFilteredCourses).toBeCalledWith([]);
+        });
+        test('equal size of courses before and after but different', ()=> {
+            filterComp.filterOptions=[{modelId:'course'}];
+            filterComp.filters.course=['11','22'];
+            filterComp.filterVal=[{key:'course',value:'13'},{key:'course',value:'14'}];
+            filterComp.applyFilters();
+            expect(filterComp.setFilteredCourses).toBeCalledWith(['11','22']);
         });
     });
     it('should resetFilters', function () {
@@ -107,9 +114,16 @@ describe('MobileSortAndFilter.vue', function () {
 
 
     });
-    it('should back action', function () {
+    it('should back action reset filters and sort', function () {
         comp.$emit=jest.fn();
+        comp.filterVal=[{key:'source',value:"yifat.com"}];
+        comp.sortVal='maor';
+        comp.sort='yifat';
+        expect(comp.sort).toBe('yifat');
+        expect(comp.filters.source.length).toBeFalsy();
         comp.$_backAction();
+        expect(comp.filters.source.length).toBeTruthy();
+        expect(comp.sort).toBe('maor');
         expect(comp.$emit).toBeCalledWith('input',false);
     });
 });
