@@ -24,6 +24,17 @@ namespace ConsoleApp
     {
         static async Task Main()
         {
+            var point1 = new GeoPoint()
+            {
+                Latitude = 40.71277618408203,
+                Longitude = -74.00597381591797
+            };
+            var point2 = new GeoPoint()
+            {
+                Latitude = 40.71277618408203,
+                Longitude = -74.00597381591791
+            };
+            var c = point1 == point2;
             var builder = new ContainerBuilder();
             //var infrastructureModule = new InfrastructureModule(
             //    ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,

@@ -11,7 +11,7 @@ namespace Cloudents.Web.Extensions
             using (var ms = new MemoryStream())
             {
                 ProtoBuf.Serializer.Serialize(ms, value);
-                tempData.Add(key, Convert.ToBase64String(ms.ToArray()));
+                tempData[key] = Convert.ToBase64String(ms.ToArray());
             }
             //tempData[key] = JsonConvert.SerializeObject(value);
         }
