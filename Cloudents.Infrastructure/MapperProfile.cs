@@ -6,6 +6,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Converters;
+using Cloudents.Infrastructure.Search.Places;
 using Microsoft.Azure.Search.Models;
 using Newtonsoft.Json.Linq;
 
@@ -16,9 +17,9 @@ namespace Cloudents.Infrastructure
         public MapperProfile()
         {
             CreateMap<Tutor, TutorDto>();
-
             CreateMap<string, Location>().ConvertUsing<IpConverter>();
-            CreateMap<IpDto, Location>();
+            CreateMap<IpDto, Location>().ForMember(f => f.Point, opt => opt.MapFrom(src => new GeoPoint { Latitude = src.Latitude, Longitude = src.Longitude }));
+            CreateMap<GoogleGeoCodeDto, Location>().ConvertUsing<GoogleGeoConverter>();
 
             CreateMap<DocumentSearchResult<Job>, ResultWithFacetDto<JobDto>>()
                 .ConvertUsing<JobResultConverter>();
@@ -56,25 +57,28 @@ namespace Cloudents.Infrastructure
             CreateMap<JObject, PlaceDto>().ConvertUsing<PlaceConverter>();
             CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
             //TODO
-            CreateMap<JObject, Location>().ConvertUsing(jo =>
-            {
-                if (!string.Equals(jo["status"].Value<string>(), "ok", StringComparison.InvariantCultureIgnoreCase))
-                    return null;
-                var geo = jo["results"][0]["geometry"]["location"];
-                return new Location
-                {
-                    Latitude = geo["lat"].Value<double>(),
-                    Longitude = geo["lng"].Value<double>()
-                };
+            //CreateMap<JObject, Location>().ConvertUsing(jo =>
+            //{
+            //    if (!string.Equals(jo["status"].Value<string>(), "ok", StringComparison.InvariantCultureIgnoreCase))
+            //        return null;
+            //    var result = jo["results"][0]; //["geometry"]["location"];
+            //    var geo = result["geometry"]["location"];
+            //    var address = result["address_components"].ToArray();
+            //    return new Location
+            //    {
+            //        Latitude = geo["lat"].Value<double>(),
+            //        Longitude = geo["lng"].Value<double>(),
+            //        City = address.Where(w=>w["types"].ToArray())
+            //    };
 
-            });
-            CreateMap<JObject, AddressDto>().ConvertUsing(jo =>
-            {
-                if (!string.Equals(jo["status"].Value<string>(), "ok", StringComparison.InvariantCultureIgnoreCase))
-                    return null;
-                var geo = jo["results"][0]["formatted_address"].Value<string>();
-                return new AddressDto(geo);
-            });
+            //});
+            //CreateMap<JObject, AddressDto>().ConvertUsing(jo =>
+            //{
+            //    if (!string.Equals(jo["status"].Value<string>(), "ok", StringComparison.InvariantCultureIgnoreCase))
+            //        return null;
+            //    var geo = jo["results"][0]["formatted_address"].Value<string>();
+            //    return new AddressDto(geo);
+            //});
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IUniversitySearch
     {
-        Task<IEnumerable<UniversityDto>> SearchAsync(string term, Location location,
+        Task<IEnumerable<UniversityDto>> SearchAsync(string term, GeoPoint location,
             CancellationToken token);
     }
 }

@@ -52,7 +52,7 @@ namespace Cloudents.Infrastructure.Search.Job
             switch (sort)
             {
                 case JobRequestSort.Distance when location != null:
-                    sortQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Longitude} {location.Latitude})')");
+                    sortQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})')");
                     break;
                 case JobRequestSort.Date:
                     sortQuery.Add($"{nameof(Entity.Job.DateTime)} desc");

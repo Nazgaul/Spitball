@@ -130,15 +130,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private IList<IJob> GetJob()
         {
-            if (RoleEnvironment.IsEmulated)
-            {
-                return new List<IJob>
-                {
-                     _ioc.Resolve<IJob>(nameof(TestingJob))
-                    //_ioc.Resolve<IJob>(nameof(SchedulerListener)), //6
+            //if (RoleEnvironment.IsEmulated)
+            //{
+            //    return new List<IJob>
+            //    {
+            //         _ioc.Resolve<IJob>(nameof(TestingJob))
+            //        //_ioc.Resolve<IJob>(nameof(SchedulerListener)), //6
 
-                };
-            }
+            //    };
+            //}
             return new List<IJob>
             {
                 _ioc.Resolve<IJob>(IocFactory.UpdateSearchItem), //0
@@ -146,7 +146,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 _ioc.Resolve<IJob>(IocFactory.UpdateSearchQuiz), //2
                 _ioc.Resolve<IJob>(IocFactory.UpdateSearchUniversity), //3
                 _ioc.Resolve<IJob>(IocFactory.UpdateSearchFlashcard), //4
-                _ioc.Resolve<IJob>(nameof(UpdateUnsubscribeList)), //5
+                //_ioc.Resolve<IJob>(nameof(UpdateUnsubscribeList)), //5 THIS ONE CAUSE ISSUE
                 _ioc.Resolve<IJob>(nameof(SchedulerListener)), //6
                 _ioc.Resolve<IJob>(nameof(MailQueueProcess)), //7
                 _ioc.Resolve<IJob>(nameof(TransactionQueueProcess)), //8

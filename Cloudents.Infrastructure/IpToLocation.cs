@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure
         {
             var uri = new Uri($"http://freegeoip.net/json/{address}");
             var str = await _restClient.GetAsync(uri, null, token).ConfigureAwait(false);
-            return _mapper.Map<Core.Models.Location>(str);
+            return _mapper.Map<Location>(str);
         }
     }
 }

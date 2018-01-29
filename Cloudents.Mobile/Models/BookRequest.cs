@@ -2,6 +2,7 @@
 
 namespace Cloudents.Mobile.Models
 {
+    /// <inheritdoc />
     /// <summary>
     /// Book api search request
     /// </summary>
@@ -11,6 +12,7 @@ namespace Cloudents.Mobile.Models
         /// The term array of Ai parse
         /// </summary>
         public string[] Term { get; set; }
+        /// <inheritdoc />
         /// <summary>
         /// Page for paging
         /// </summary>

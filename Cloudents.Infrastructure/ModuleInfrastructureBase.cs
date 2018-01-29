@@ -42,7 +42,11 @@ namespace Cloudents.Infrastructure
 
         private static MapperConfiguration MapperConfiguration()
         {
-            return new MapperConfiguration(cfg => cfg.AddProfile<MapperProfile>());
+            return new MapperConfiguration(cfg =>
+            {
+                cfg.Advanced.AllowAdditiveTypeMapCreation = true;
+                cfg.AddProfile<MapperProfile>();
+            });
         }
     }
 }

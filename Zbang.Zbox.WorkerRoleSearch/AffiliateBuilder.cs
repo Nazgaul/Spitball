@@ -29,8 +29,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             catch (Exception ex)
             {
-                return false;
                 //_logger.Exception(ex, new Dictionary<string, string> { ["process"] = "AffiliateBuilder" });
+                return false;
+                
             }
 
             return true;

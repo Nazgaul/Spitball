@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Models;
 
 namespace Cloudents.Infrastructure.Search.Tutor
 {
@@ -10,6 +11,6 @@ namespace Cloudents.Infrastructure.Search.Tutor
     {
         Task<IEnumerable<TutorDto>> SearchAsync(string term,
             TutorRequestFilter[] filters, TutorRequestSort sort,
-            Core.Models.Location location, int page, CancellationToken token);
+            GeoPoint location, int page, CancellationToken token);
     }
 }

@@ -6,10 +6,14 @@ namespace Cloudents.Core.Models
     [DataContract]
     public class Location
     {
-        [DataMember(Order = 1)]
-        public double Longitude { get; set; }
-        [DataMember(Order = 2)]
-        public double Latitude { get; set; }
+        //[DataMember(Order = 1)]
+        //public double Longitude { get; set; }
+        //[DataMember(Order = 2)]
+        //public double Latitude { get; set; }
+
+        [DataMember(Order = 6)]
+        public GeoPoint Point { get; set; }
+
         [DataMember(Order = 3)]
         public string City { get; set; }
 
@@ -20,12 +24,23 @@ namespace Cloudents.Core.Models
 
         public static GeographyPoint ToPoint(Location point)
         {
-            if (point == null)
+            if (point?.Point == null)
             {
                 return null;
             }
 
-            return GeographyPoint.Create(point.Latitude, point.Longitude);
+            return GeographyPoint.Create(point.Point.Latitude, point.Point.Longitude);
         }
+    }
+
+
+
+    [DataContract]
+    public class GeoPoint
+    {
+        [DataMember(Order = 1)]
+        public double Longitude { get; set; }
+        [DataMember(Order = 2)]
+        public double Latitude { get; set; }
     }
 }

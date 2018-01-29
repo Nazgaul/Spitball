@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using Cloudents.Core.Models;
+using Microsoft.Spatial;
 
 namespace Cloudents.Core.DTOs
 {
@@ -20,17 +21,13 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public double? Fee { get; set; }
 
-        //[DataMember]
-        //public bool? Online { get; set; }
-
         [DataMember]
-        public Location Location { get; set; }
+        public GeoPoint Location { get; set; }
         [DataMember]
         public string Description { get; set; }
 
         [DataMember]
         public string Source { get; set; }
 
-        //public int TermCount { get; set; }
     }
 }
