@@ -18,18 +18,15 @@ namespace Cloudents.Mobile.Controllers
     public class TutorController : ApiController
     {
         private readonly ITutorSearch _tutorSearch;
-        private readonly IIpToLocation _ipToLocation;
 
         /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="tutorSearch"></param>
-        /// <param name="ipToLocation"></param>
-        public TutorController(ITutorSearch tutorSearch, IIpToLocation ipToLocation)
+        public TutorController(ITutorSearch tutorSearch)
         {
             _tutorSearch = tutorSearch;
-            _ipToLocation = ipToLocation;
         }
 
         /// <summary>

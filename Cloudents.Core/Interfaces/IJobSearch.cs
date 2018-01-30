@@ -10,11 +10,23 @@ namespace Cloudents.Core.Interfaces
     public interface IJobSearch
     {
         Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term,
-            JobRequestFilter filter,
             JobRequestSort sort,
             IEnumerable<string> jobType,
             Location location,
             int page,
+            bool highlight,
+            CancellationToken token);
+    }
+
+
+    public interface IJobProvider
+    {
+        Task<ResultWithFacetDto<JobDto>> SearchAsync(string term,
+            JobRequestSort sort,
+            IEnumerable<string> jobType,
+            Location location,
+            int page,
+            bool highlight,
             CancellationToken token);
     }
 }

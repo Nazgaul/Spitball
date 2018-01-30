@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Enum;
@@ -18,18 +17,15 @@ namespace Cloudents.Mobile.Controllers
     public class JobController : ApiController
     {
         private readonly IJobSearch _jobSearch;
-        private readonly IIpToLocation _ipToLocation;
 
         /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="jobSearch">job search provider</param>
-        /// <param name="ipToLocation"></param>
-        public JobController(IJobSearch jobSearch, IIpToLocation ipToLocation)
+        public JobController(IJobSearch jobSearch)
         {
             _jobSearch = jobSearch;
-            _ipToLocation = ipToLocation;
         }
 
         /// <summary>
@@ -40,15 +36,9 @@ namespace Cloudents.Mobile.Controllers
         /// <returns></returns>
         public async Task<IHttpActionResult> Get([FromUri]JobRequest model, CancellationToken token)
         {
-            //var location = Request.GetClientIp();
-            //var locationObj = await _ipToLocation.GetAsync(IPAddress.Parse(location), token).ConfigureAwait(false);
-            //if (model.Location != null)
-            //{
-            //    locationObj.Point = model.Location;
-            //}
             var result = await _jobSearch.SearchAsync(model.Term,
-                model.Filter.GetValueOrDefault(), model.Sort.GetValueOrDefault(JobRequestSort.Distance),
-                model.Facet, model.Location, model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
+                model.Sort.GetValueOrDefault(JobRequestSort.Distance),
+                model.Facet, model.Location, model.Page.GetValueOrDefault(), model.Highlight, token).ConfigureAwait(false);
 
             var nextPageLink = Url.NextPageLink("DefaultApis", null, model);
             return Ok(

@@ -15,11 +15,6 @@ namespace Cloudents.Mobile.Models
         /// </summary>
         public string[] Term { get; set; }
         /// <summary>
-        /// Filter request
-        /// </summary>
-        [DefaultValue(0)]
-        public JobRequestFilter? Filter { get; set; }
-        /// <summary>
         /// Sort Request
         /// </summary>
         [DefaultValue(0)]
@@ -32,6 +27,11 @@ namespace Cloudents.Mobile.Models
         /// Facet filter got from the api
         /// </summary>
         public string[] Facet { get; set; }
+
+        /// <summary>
+        /// Should highlight the response with <!--b-->
+        /// </summary>
+        public bool Highlight { get; set; }
         /// <inheritdoc />
         /// <summary>
         /// Page of paging

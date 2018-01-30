@@ -24,17 +24,6 @@ namespace ConsoleApp
     {
         static async Task Main()
         {
-            var point1 = new GeoPoint()
-            {
-                Latitude = 40.71277618408203,
-                Longitude = -74.00597381591797
-            };
-            var point2 = new GeoPoint()
-            {
-                Latitude = 40.71277618408203,
-                Longitude = -74.00597381591791
-            };
-            var c = point1 == point2;
             var builder = new ContainerBuilder();
             //var infrastructureModule = new InfrastructureModule(
             //    ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
@@ -44,17 +33,31 @@ namespace ConsoleApp
             //    ConfigurationManager.AppSettings["StorageConnectionString"]);
 
             //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
-            builder.RegisterModule(new ModuleWrite(new SearchServiceCredentials(
-                ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                    ConfigurationManager.AppSettings["AzureSearchKey"])
-                    ,
+            builder.RegisterModule(new ModuleRead(
+                ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 ConfigurationManager.AppSettings["Redis"],
-                new LocalStorageData(Path.Combine(Directory.GetCurrentDirectory(), "Temp"), 500)));
+                ConfigurationManager.AppSettings["StorageConnectionString"],
+                new SearchServiceCredentials(
+
+                    ConfigurationManager.AppSettings["AzureSearchServiceName"],
+                    ConfigurationManager.AppSettings["AzureSearchKey"])));
+
+            // new LocalStorageData(Path.Combine(Directory.GetCurrentDirectory(), "Temp"), 500)));
             builder.RegisterModule<IocModule>();
             var container = builder.Build();
+            var point = new GeoPoint()
+            {
+                Latitude = 40.7127753 ,
+                Longitude = -74.0059728
+            };
 
-            var service = container.Resolve<IGooglePlacesSearch>();
-            var result = await service.GeoCodingByAddressAsync("New York,NY US", default);
+            var places = container.Resolve<IGooglePlacesSearch>();
+            var service = container.Resolve<IJobSearch>();
+            var z = await places.ReverseGeocodingAsync(point, default);
+
+            var p = await service.SearchAsync(new[] { "Marketing" }, JobRequestSort.Date, null, z, 0, false, default);
+
+            //var result = await service.GeoCodingByAddressAsync("New York,NY US", default);
             //210ec431-2d6d-45cb-bc01-04e3f687f0ed.docx
             Console.ReadLine();
 

@@ -6,7 +6,7 @@ using Cloudents.Infrastructure.Search.Places;
 
 namespace Cloudents.Infrastructure.Converters
 {
-    public class GoogleGeoConverter : ITypeConverter<GoogleGeoCodeDto, Location>
+    internal class GoogleGeoConverter : ITypeConverter<GoogleGeoCodeDto, Location>
     {
         public Location Convert(GoogleGeoCodeDto source, Location destination, ResolutionContext context)
         {
