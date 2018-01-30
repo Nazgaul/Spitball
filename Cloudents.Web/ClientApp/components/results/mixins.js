@@ -259,14 +259,13 @@ export const pageMixin =
                 //validate current page have filters
                 if (!this.page || !this.page.filter) { this.filterObject = null }
                 else if (!this.subFilterVertical) {
-                    this.filterObject = [{ title: 'filter', modelId: "filter", data: this.page.filter }];
+                    this.filterObject = [{ title: 'Status', modelId: "filter", data: this.page.filter }];
                 }
                 else {
                     //create filter object as the above structure but from list while the data is computed according to the filter id
                     this.filterObject = this.page.filter.map((i) => {
                         const item = { title: i.name, modelId: i.id };
                         item.data = (i.id === "course") ? this.myCourses : this.pageData[i.id] ? this.pageData[i.id] : this.getFacet ? this.getFacet : [];
-                        if (i.id === "filter" && this.name === "job") item.data = [{ id: "Paid", name: "Paid" }];
                         return item;
                     });
                 }
