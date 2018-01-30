@@ -4,6 +4,7 @@ using Cloudents.Core.Models;
 
 namespace Cloudents.Mobile.Models
 {
+    /// <inheritdoc />
     /// <summary>
     /// Tutor request object
     /// </summary>
@@ -22,11 +23,12 @@ namespace Cloudents.Mobile.Models
         /// The sort option
         /// </summary>
         [DefaultValue(0)]
-        public TutorRequestSort? Sort { get; set; } 
+        public TutorRequestSort? Sort { get; set; }
         /// <summary>
         /// The user location
         /// </summary>
         public GeoPoint Location { get; set; }
+        /// <inheritdoc />
         /// <summary>
         /// Page for paging
         /// </summary>

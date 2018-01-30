@@ -26,7 +26,7 @@ namespace Cloudents.Web.Extensions
             var ipV4 = ip.MapToIPv4();
             if (connection.IsLocal())
             {
-                ipV4 = IPAddress.Parse("162.248.69.68");
+                ipV4 = IPAddress.Parse("31.154.39.170");
             }
 
             return ipV4;

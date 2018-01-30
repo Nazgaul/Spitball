@@ -19,6 +19,7 @@ namespace Cloudents.Mobile.Controllers
     {
         private readonly IBookSearch _booksSearch;
 
+        /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>

@@ -72,7 +72,7 @@ namespace Cloudents.Infrastructure.Interceptor
                     }
 
                     list.Sort();
-                    return string.Join("", list);// sb.ToString();
+                    return string.Concat(list);// sb.ToString();
             }
 
             return null;

@@ -58,7 +58,6 @@ namespace Cloudents.Infrastructure.Search.Tutor
                     //"extra",
                     nameof(TutorObj.Description),
                     nameof(TutorObj.Source)
-                    
                 },
                 Filter = string.Join(" and ", filterQuery),
                 OrderBy = sortQuery
