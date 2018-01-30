@@ -27,7 +27,8 @@ namespace Cloudents.Infrastructure
         private readonly string _storageConnectionString;
 
         public ModuleRead(string sqlConnectionString,
-            string redisConnectionString, string storageConnectionString, SearchServiceCredentials searchServiceCredentials)
+            string redisConnectionString, string storageConnectionString,
+            SearchServiceCredentials searchServiceCredentials)
         {
             _sqlConnectionString = sqlConnectionString;
             _redisConnectionString = redisConnectionString;
@@ -63,7 +64,16 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<TutorAzureSearch>().As<ITutorProvider>();
 
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();
+
+            #region Job
+
+            builder.RegisterType<AzureJobSearch>().As<IJobProvider>();
+            builder.RegisterType<ZipRecruiterClient>().As<IJobProvider>();
             builder.RegisterType<JobSearch>().As<IJobSearch>();
+
+            #endregion
+
+
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
 

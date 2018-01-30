@@ -2,77 +2,112 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
-    public class ZipRecruiterClient : IJobSearch
+    public class ZipRecruiterClient : IJobProvider
     {
-        private readonly IGooglePlacesSearch _googlePlacesSearch;
         private readonly IRestClient _client;
+        private readonly IMapper _mapper;
 
-        public ZipRecruiterClient(IGooglePlacesSearch googlePlacesSearch, IRestClient client)
+        public ZipRecruiterClient(IRestClient client, IMapper mapper)
         {
-            _googlePlacesSearch = googlePlacesSearch;
             _client = client;
+            _mapper = mapper;
         }
 
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term, JobRequestFilter filter, JobRequestSort sort, IEnumerable<string> jobType, Location location,
-            int page, CancellationToken token)
+        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term,
+            JobRequestSort sort, IEnumerable<string> jobType, Location location,
+            int page, bool highlight, CancellationToken token)
         {
-            //var address = await _googlePlacesSearch.ReverseGeocodingAsync(location, token);
-            //var str = string.Join(" ", term ?? Enumerable.Empty<string>());
-            //var nvc = new NameValueCollection
-            //{
-            //    ["location"] = address.Address,
-            //    ["api_key"] = "x8w8rgmv2dq78dw5wfmwiwexwu3hdfv3",
-            //    ["search"] = str,
-            //    ["jobs_per_page"] = JobSearch.PageSize.ToString(),
-            //    ["page"] = page.ToString()
-            //};
-            //var result = await _client.GetJsonAsync(new Uri("https://api.ziprecruiter.com/jobs/v1"), nvc, token);
-            return null;
+            if (jobType?.Any() == true)
+            {
+                return null;
+            }
+
+            if (location == null)
+            {
+                return null;
+            }
+            var nvc = new NameValueCollection
+            {
+                ["location"] = $"{location.City}, {location.RegionCode}",
+                ["api_key"] = "x8w8rgmv2dq78dw5wfmwiwexwu3hdfv3",
+                ["search"] = term,
+                ["jobs_per_page"] = JobSearch.PageSize.ToString(),
+                ["page"] = page.ToString()
+            };
+            var result = await _client.GetAsync(new Uri("https://api.ziprecruiter.com/jobs/v1"), nvc, token).ConfigureAwait(false);
+
+            var p = JsonConvert.DeserializeObject<ZipRecruiterResult>(result,
+                new JsonSerializerSettings
+                {
+                    ContractResolver = new UnderscorePropertyNamesContractResolver()
+                });
+            var jobs = _mapper.Map<IEnumerable<JobDto>>(p);
+
+            if (sort == JobRequestSort.Date)
+            {
+                jobs = jobs.OrderByDescending(o => o.DateTime);
+            }
+
+            return new ResultWithFacetDto<JobDto>
+            {
+                Result = jobs
+            };
+        }
+
+        public class ZipRecruiterResult
+        {
+            public int TotalJobs { get; set; }
+            public int NumPaginableJobs { get; set; }
+            public Job[] Jobs { get; set; }
+            public bool Success { get; set; }
+        }
+
+        public class Job
+        {
+            public int SalaryMax { get; set; }
+            public string Url { get; set; }
+            public string Category { get; set; }
+            public string SalarySource { get; set; }
+            public string Country { get; set; }
+            public string Id { get; set; }
+            public string Snippet { get; set; }
+            public string State { get; set; }
+            public int SalaryMaxAnnual { get; set; }
+            public string HasNonZrUrl { get; set; }
+            public string SalaryInterval { get; set; }
+            public string PostedTimeFriendly { get; set; }
+            public int SalaryMin { get; set; }
+            public string Name { get; set; }
+            public int JobAge { get; set; }
+            public DateTime PostedTime { get; set; }
+            public string City { get; set; }
+            public HiringCompany HiringCompany { get; set; }
+            public string Source { get; set; }
+            public int SalaryMinAnnual { get; set; }
+            public string IndustryName { get; set; }
+            public string Location { get; set; }
+        }
+
+        public class HiringCompany
+        {
+            public object Url { get; set; }
+            public object Description { get; set; }
+            public object Id { get; set; }
+            public string Name { get; set; }
         }
     }
 
-    public class ZipRecruiterDto
-    {
-        public int salary_max_annual { get; set; }
-        public string snippet { get; set; }
-        public string industry_name { get; set; }
-        public string source { get; set; }
-        public string state { get; set; }
-        public Hiring_Company hiring_company { get; set; }
-        public DateTime posted_time { get; set; }
-        public string category { get; set; }
-        public int salary_min { get; set; }
-        public string salary_source { get; set; }
-        public int salary_max { get; set; }
-        public string country { get; set; }
-        public int salary_min_annual { get; set; }
-        public int job_age { get; set; }
-        public string location { get; set; }
-        public string salary_interval { get; set; }
-        public string posted_time_friendly { get; set; }
-        public string name { get; set; }
-        public string has_non_zr_url { get; set; }
-        public string url { get; set; }
-        public string city { get; set; }
-        public string id { get; set; }
-    }
 
-    public class Hiring_Company
-    {
-        public object id { get; set; }
-        public object description { get; set; }
-        public string name { get; set; }
-        public object url { get; set; }
-    }
 
 }

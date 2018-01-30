@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -20,18 +18,15 @@ namespace Cloudents.Mobile.Controllers
     public class PlacesController : ApiController
     {
         private readonly IPlacesSearch _purchaseSearch;
-        private readonly IIpToLocation _ipToLocation;
 
         /// <inheritdoc />
         /// <summary>
-        /// Ctor
+        /// Constructor
         /// </summary>
         /// <param name="purchaseSearch"></param>
-        /// <param name="ipToLocation"></param>
-        public PlacesController(IPlacesSearch purchaseSearch, IIpToLocation ipToLocation)
+        public PlacesController(IPlacesSearch purchaseSearch)
         {
             _purchaseSearch = purchaseSearch;
-            _ipToLocation = ipToLocation;
         }
         /// <summary>
         /// Query to get food and places vertical

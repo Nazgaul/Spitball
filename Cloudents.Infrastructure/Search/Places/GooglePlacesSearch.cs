@@ -55,8 +55,6 @@ namespace Cloudents.Infrastructure.Search.Places
 
             var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
             var result = SerializeResult(str);
-
-
             return _mapper.Map<GoogleGeoCodeDto, Location>(result);
         }
 
@@ -90,13 +88,14 @@ namespace Cloudents.Infrastructure.Search.Places
             var nvc = new NameValueCollection
             {
                 ["latlng"] = $"{point.Latitude},{point.Longitude}",
-                ["key"] = Key,
-                ["result_type"] = "administrative_area_level_1|locality"
+                ["key"] = Key
             };
 
             var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
             var result = SerializeResult(str);
-            return _mapper.Map<GoogleGeoCodeDto, Location>(result);
+            var location = _mapper.Map<GoogleGeoCodeDto, Location>(result);
+            location.Point = point;
+            return location;
         }
 
         public async Task<PlaceDto> SearchAsync(string term, CancellationToken token)
