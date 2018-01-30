@@ -83,8 +83,8 @@ export let page = [];
 export let verticalsNavbar = [];
 export let verticalsName=[];
 
-for (let item of verticals) {
-    // let item = verticals[v];
+for (let v in verticals) {
+    let item = verticals[v];
     verticalsName.push(v);
     names.push({ 'id': item.id, 'name': item.name });
     verticalsNavbar.push(
