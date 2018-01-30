@@ -66,7 +66,7 @@
 .filter-switch {
     .course-empty-state {
         text-align: center;
-        
+
         .btn:not(.btn--icon):not(.btn--flat) {
             background-color: @color-blue;
             color: white;
@@ -151,18 +151,17 @@
 
             .filter {
                 display: flex;
-                align-items: flex-start;
+                align-items: center;
                 justify-content: flex-start;
                 cursor: pointer;
                 position: relative;
 
-                label {
+                .title-label {
                     line-height: 24px;
                     .giveMeEllipsisOne;
                     max-width: 140px;
-                    padding-left: 18px;
+                    padding-left: 6px;
                     cursor: pointer;
-                    z-index: 1;
                 }
 
                 input {
@@ -179,14 +178,10 @@
                 }
 
                 .checkmark {
-                    position: absolute;
-                    top: 6px;
-                    left: 0px;
                     width: 12px;
                     height: 12px;
                     background: #bbbbbb;
                     opacity: 0.8;
-                    z-index: -1;
                 }
 
                 .checkmark:after {

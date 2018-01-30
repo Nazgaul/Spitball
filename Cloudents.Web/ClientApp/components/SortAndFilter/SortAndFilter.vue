@@ -27,8 +27,8 @@
                                 <input type="checkbox" :id="(s.id?s.id:s)" :checked="filterVal.find(i=>i.key===k.modelId&&i.value===(s.id?s.id.toString():s.toString()))"
                                        @change="updateFilter({id:k.modelId,val:(s.id?s.id.toString():s),type:$event})" />
 
-                                <span class="checkmark"></span>
-                                <label :title="s.name?s.name:s" :for="(s.id?s.id:s)">
+                                <label class="checkmark" :for="(s.id?s.id:s)"></label>
+                                <label class="title-label" :title="s.name?s.name:s" :for="(s.id?s.id:s)">
                                     {{s.name?s.name:s | capitalize}}
                                 </label>
                             </div>
