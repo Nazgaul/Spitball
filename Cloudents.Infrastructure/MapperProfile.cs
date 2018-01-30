@@ -6,6 +6,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Converters;
+using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
 using Microsoft.Azure.Search.Models;
 using Newtonsoft.Json.Linq;
@@ -20,22 +21,24 @@ namespace Cloudents.Infrastructure
             CreateMap<string, Location>().ConvertUsing<IpConverter>();
             CreateMap<IpDto, Location>().ForMember(f => f.Point, opt => opt.MapFrom(src => new GeoPoint { Latitude = src.Latitude, Longitude = src.Longitude }));
             CreateMap<GoogleGeoCodeDto, Location>().ConvertUsing<GoogleGeoConverter>();
+            //ZipRecruiterConverter
 
             CreateMap<DocumentSearchResult<Job>, ResultWithFacetDto<JobDto>>()
                 .ConvertUsing<JobResultConverter>();
+
+            CreateMap<ZipRecruiterClient.ZipRecruiterResult, IEnumerable<JobDto>>()
+                .ConvertUsing<ZipRecruiterConverter>();
 
             CreateMap<Job, JobDto>().ConvertUsing(jo => new JobDto
             {
                 Url = jo.Url,
                 CompensationType = jo.Compensation,
                 Company = jo.Company,
-                DateTime = jo.DateTime,
-                City = jo.City,
+                DateTime = jo.DateTime.GetValueOrDefault(),
+                Address = $"{jo.City}, {jo.State}",
                 Title = jo.Title,
-                State = jo.State,
                 Responsibilities = jo.Description,
                 Source = jo.Source
-
             });
             CreateMap<Search.Entities.Course, CourseDto>();
             CreateMap<Search.Entities.University, UniversityDto>();

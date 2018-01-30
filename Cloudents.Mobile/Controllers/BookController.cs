@@ -20,7 +20,7 @@ namespace Cloudents.Mobile.Controllers
         private readonly IBookSearch _booksSearch;
 
         /// <summary>
-        /// Ctor
+        /// Constructor
         /// </summary>
         /// <param name="booksSearch"></param>
         public BookController(IBookSearch booksSearch)

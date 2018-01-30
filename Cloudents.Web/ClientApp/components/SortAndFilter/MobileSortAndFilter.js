@@ -24,9 +24,12 @@ export default {
             //if filters have courses and courses has been changed save the changes
             let courseBefore=this.filterVal.filter(i=>i.key==='course').map(i=>i.value);
             let courseNow=this.filters.course;
-            if(this.filterOptions.find(i=>i.modelId==='course')&&
-                (courseBefore.length!==courseNow.length||courseNow.length===new Set([...courseNow,...courseBefore]).size)
-            ){
+            let mergedCourseSet=new Set([...courseNow,...courseBefore]);
+            let isNotEqual=courseNow.length < mergedCourseSet.size;
+            console.log(isNotEqual);
+            if((this.filterOptions.find(i=>i.modelId==='course'))&&
+                (courseBefore.length!==courseNow.length||isNotEqual))
+            {
                 this.setFilteredCourses(this.filters.course);
             }
             if(this.filters.filter.includes('inPerson')){this.sort="price"}
@@ -52,6 +55,8 @@ export default {
         },
 
         $_backAction() {
+            this.sort=this.sortVal;
+            this.initFilters(this.filterVal);
             this.$emit('input', false)
         }
     },

@@ -1,6 +1,6 @@
 ﻿namespace Cloudents.Infrastructure.Search.Places
 {
-    public class GoogleGeoCodeDto
+    internal class GoogleGeoCodeDto
     {
         public Result[] Results { get; set; }
         public string Status { get; set; }

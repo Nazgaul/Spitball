@@ -52,7 +52,7 @@ export let verticals =
             id: routes.jobRoute,
             name: "Jobs",
             needLocation: true,
-            filter: [{ id: "jobType", name: "job type" },{id: "filter", name: "Filter" }],
+            filter: [{ id: "jobType", name: "job type" }],
             sort: [
                 { id: "distance", name: "distance" },
                 { id: "date", name: "date" }
@@ -83,7 +83,7 @@ export let page = [];
 export let verticalsNavbar = [];
 export let verticalsName=[];
 
-for (var v in verticals) {
+for (let v in verticals) {
     let item = verticals[v];
     verticalsName.push(v);
     names.push({ 'id': item.id, 'name': item.name });

@@ -86,14 +86,6 @@ describe('luis term store', function () {
             $store.dispatch("setCurrentVertical",'gyuj');
             expect($store.state.currentVertical).toBe('gyuj');
         });
-
-        test('set filteredClasses', ()=> {
-            let classes=[12345];
-            expect($store.state.filterCourses.length).toBeFalsy();
-            $store.dispatch("setFilteredCourses",classes);
-            expect($store.state.filterCourses.length).toBeTruthy();
-        });
-
         describe('update term', function () {
             test('update general', ()=> {
                 let term={term:["yifat"],text:"yifat"};
@@ -107,23 +99,31 @@ describe('luis term store', function () {
             let general={text:"general",term:["general"]};
             let food={text:"food",term:["food"]};
             let job={text:"job",term:["job"]};
+            let course_verticals=['note','flashcard'];
             beforeAll(()=>{
                 $store.commit(LUIS.UPDATE_TERM,{vertical:"ask",data:general});
                 $store.commit(LUIS.UPDATE_TERM,{vertical:"job",data:job});
-                $store.commit(LUIS.UPDATE_TERM,{vertical:"food",data:food})
+                $store.commit(LUIS.UPDATE_TERM,{vertical:"food",data:food});
             });
             test('getLuis general', ()=> {
                 aiGeneralTypes.forEach(async (term)=>{
                     let val= await $store.dispatch("getAIDataForVertical",term);
-                    expect(val).toEqual(general);
+                    course_verticals.includes(term)
+                    expect(val).toEqual(course_verticals.includes(term)?{...general,course:""}:general);
                 });
             });
             test('getLuis job and food',async ()=> {
-                    let val= await $store.dispatch("getAIDataForVertical",'food');
-                    expect(val).toEqual(food);
-                    val= await $store.dispatch("getAIDataForVertical",'job');
-                    expect(val).toEqual(job);
+                let val= await $store.dispatch("getAIDataForVertical",'food');
+                expect(val).toEqual(food);
+                val= await $store.dispatch("getAIDataForVertical",'job');
+                expect(val).toEqual(job);
             });
+        });
+        test('set filteredClasses', ()=> {
+            let classes=[12345];
+            expect($store.state.filterCourses.length).toBeFalsy();
+            $store.dispatch("setFilteredCourses",classes);
+            expect($store.state.filterCourses.length).toBeTruthy();
         });
     });
     describe('getters', function () {

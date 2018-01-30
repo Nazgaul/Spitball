@@ -38,7 +38,8 @@ namespace Cloudents.Mobile.Filters
             }
 
             var ipV4 = actionContext.Request.GetClientIp();
-            bindingContext.Model = _ipToLocation.GetAsync(ipV4, default).Result;
+            var location = _ipToLocation.GetAsync(ipV4, default).Result;
+            bindingContext.Model = location.Point;
             return true;
         }
     }
