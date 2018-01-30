@@ -6,7 +6,7 @@
  
         <v-btn class="apply elevation-0" fixed color="color-blue" @click="applyFilters">Apply Filters</v-btn>
         <div class="sort-wrap">
-            <template v-if="sortOptions">
+            <template v-if="sortOptions.length">
                 <h3>Sort</h3>
                 <div class="sort-switch">
                     <template v-for="(o,index) in sortOptions">
@@ -17,7 +17,7 @@
                 </div>
             </template>
         </div>
-        <div class="filter-wrap" v-if="filterOptions">
+        <div class="filter-wrap" v-if="filterOptions.length">
             <h3 class="px-3">Filter</h3>
             <div class="filter-sections" v-if="filterOptions">
                 <div class="filter-section" v-for="k in filterOptions" :key="k.modelId" :value="true">

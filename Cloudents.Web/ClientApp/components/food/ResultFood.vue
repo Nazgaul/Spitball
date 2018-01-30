@@ -5,25 +5,13 @@
 </template>
 <script>
     import StarRating from 'vue-star-rating'
-    import FoodDefault from './../navbar/images/food.svg'
-    import foodCell from "../food/foodCell.vue"
-    import hookedLogo from "../food/svg/hooked-logo.svg"
+    import FoodDefault from './svg/food.svg'
+    import foodCell from "./foodCell.vue"
+    import hookedLogo from "./svg/hooked-logo.svg"
     export default {
         props: { item: { type: Object, required: true },index:{Number} },
         components: { StarRating, FoodDefault, foodCell, hookedLogo },
         data() { return { showMap: false } },
-        computed: {
-            myLocation: function () {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(({ coords }) => {
-                        return { lat: Number(coords.latitude), lng: Number(coords.longitude) }
-                    })
-                }
-                return { lat: this.item.location.latitude, lng: this.item.location.longitude }
-            },
-            //pos: function () { return { lat: this.item.location.latitude, lng: this.item.location.longitude } }
-            //pos: function () { return { lat: 10.0, lng: 10.0 } }
-        },
         methods: {
             $_clickItem() {
             this.$ga.event('Search_Results', 'food',`#${this.index+1}_${this.item.placeId}`);

@@ -3,28 +3,17 @@ import { interpetPromise } from "./../services/resources"
 import searchService from "./../services/searchService"
 const LOCATION_VERTICALS= new Map([["tutor",true],["job",true], ["food",true], ["purchase",true]]);
 const state = {
-    loading: false,
-    search: {
-        page: 0,
-        term: ""
-    }
+    loading: false
 };
 
 const mutations = {
     [SEARCH.UPDATE_LOADING](state, payload) {
-        state.search.page = payload ? 0 : 1;
         state.loading = payload;
-    },
-    [SEARCH.UPDATE_SEARCH_PARAMS](state, { term }) {
-        state.search = { ...state.search, term };
     }
 };
 
 const getters = {
-    items: state => state.pageContent ? state.pageContent.items : null,
-    loading: state => state.loading,
-    searchParams: state => state.search,
-    term: state => state.search.term ? state.search.term[0] : ""
+    loading: state => state.loading
 };
 const actions = {
     //Always update the current route according the flow
@@ -51,7 +40,6 @@ const actions = {
                     });
                 } else { resolve(); }
             }).then(() => {
-                context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...params });
                 return { result: body.vertical, term: body.term, docType: body.docType };
             });
 
@@ -68,7 +56,7 @@ const actions = {
     fetchingData(context, { name, params, page}) {
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
         return context.dispatch('getAIDataForVertical',name).then((aiData)=>{
-            let paramsList = { ...context.getters.searchParams, ...params, university, page, ...aiData};
+            let paramsList = {...params, university, page, ...aiData};
             //get location if needed
             return new Promise((resolve) => {
                 if (LOCATION_VERTICALS.has(name) && !paramsList.location) {
