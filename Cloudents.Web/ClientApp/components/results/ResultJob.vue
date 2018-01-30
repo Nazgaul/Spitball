@@ -7,7 +7,7 @@
         </div>
         <v-layout row wrap class="properties">
             <v-flex class="property" sm4 xs6><company-icon class="mr-2"></company-icon><span class="company" :title="item.company">{{item.company?item.company:'N/A'}}</span></v-flex>
-            <v-flex class="property" sm4 xs6><location-icon class="mr-2"></location-icon><span class="location" v-if="item.city">{{item.city}}, {{item.state}}</span></v-flex>
+            <v-flex class="property" sm4 xs6><location-icon class="mr-2"></location-icon><span class="location" v-if="item.address">{{item.address}}</span></v-flex>
             <v-flex sm4 xs0></v-flex>
             <v-flex class="property mt-3" sm4 xs6><paid-icon class="mr-2"></paid-icon><span>{{item.compensationType}}</span></v-flex>
             <v-flex class="property mt-3" sm4 xs6><caldendar-icon class="mr-2"></caldendar-icon><span>{{formatDate}}</span></v-flex>
