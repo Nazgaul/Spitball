@@ -33,7 +33,7 @@
     }
 }
 
-﻿.sort-switch {
+.sort-switch {
     background: @color-blue;
     display: flex;
     align-items: stretch;
@@ -66,17 +66,7 @@
 .filter-switch {
     .course-empty-state {
         text-align: center;
-
-        @media(max-width: @screen-xs) {
-            padding: 14px 8px 20px 8px;
-
-            .text {
-                font-size: 18px;
-                letter-spacing: -0.3px;
-                padding: 0 36px 24px 36px;
-            }
-        }
-
+        
         .btn:not(.btn--icon):not(.btn--flat) {
             background-color: @color-blue;
             color: white;
@@ -213,29 +203,6 @@
                     -ms-transform: rotate(45deg);
                     transform: rotate(45deg);
                 }
-
-                @media(max-width: @screen-xs) {
-
-                    label {
-                        padding-left: 0;
-                        padding-right: 18px;
-                        width: 100%;
-                    }
-
-                    .checkmark {
-                        top: 15px;
-                        right: 0px;
-                        left: unset;
-                        width: 16px;
-                        height: 16px;
-
-                        &:after {
-                            width: 6px;
-                            height: 11px;
-                            margin-left: 5px;
-                        }
-                    }
-                }
             }
 
             .expansion-panel__body {
@@ -268,130 +235,6 @@
                     overflow-y: scroll;
                 }
             }
-        }
-    }
-}
-
-
-.filter-dialog {
-
-    .apply {
-        bottom: 12px;
-        left: 8px;
-        color: @color-white;
-        width: calc(~"100% - 16px");
-        z-index: 2;
-        height: 48px;
-        font-size: 18px;
-        font-weight: 300;
-        letter-spacing: -0.4px;
-        border-radius: 0;
-
-        .btn__content {
-            text-transform: none;
-        }
-    }
-
-
-    .sort-filter-wrap {
-        padding: 72px 0 60px 0;
-        position: static;
-
-
-        h3 {
-            text-transform: uppercase;
-            color: @color-grey;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .sort-switch {
-            background: #bbbbbb;
-            padding: 1px;
-            margin-bottom: 16px;
-            border-radius: 0;
-            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
-
-            label {
-                cursor: pointer;
-                flex-grow: 1;
-                text-align: center;
-                line-height: 48px;
-                color: black;
-                font-weight: 600;
-            }
-
-            input {
-                &:checked + label {
-                    background: @color-white;
-                }
-
-                &:not(:checked) + label {
-                    background: @color-light-grey;
-                    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2) inset;
-                    border-left: 1px solid #bbbbbb;
-                }
-            }
-        }
-
-
-        .expansion-panel {
-            border-color: #dddddd;
-
-            .expansion-panel__header,
-            .expansion-panel__body .sort-filter {
-                padding-left: 16px;
-                padding-right: 16px;
-            }
-
-            .expansion-panel__container {
-                .expansion-panel__body .sort-filter {
-                    max-height: none;
-                    overflow-y: auto;
-                }
-
-                .filter {
-                    justify-content: space-between;
-                    flex-direction: row-reverse;
-                    cursor: pointer;
-                    align-items: center;
-
-                    label {
-                        margin-left: 0;
-                        line-height: 40px;
-                        max-width: none;
-                        padding-right: 20px;
-                    }
-
-                    input {
-                        margin: 0;
-                    }
-                }
-
-                .expansion-panel__body .sort-filter,
-                .expansion-panel__header {
-                    border-color: #dddddd;
-                }
-
-                .expansion-panel__header {
-                    letter-spacing: -0.6px;
-                    font-weight: normal;
-                    height: 38px;
-
-                    .edit-list {
-                        flex-grow: 0;
-                        color: @color-blue;
-                        font-weight: normal;
-                        letter-spacing: -0.2px;
-                    }
-                }
-            }
-        }
-
-
-        h3, .sort-switch {
-            margin-left: 16px;
-            margin-right: 16px;
         }
     }
 }

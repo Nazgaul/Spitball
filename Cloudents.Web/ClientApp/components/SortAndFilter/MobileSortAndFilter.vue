@@ -5,7 +5,7 @@
         </dialog-toolbar>
  
         <v-btn class="apply elevation-0" fixed color="color-blue" @click="applyFilters">Apply Filters</v-btn>
-        <div class="sort-filter-wrap">
+        <div class="sort-wrap">
             <template v-if="sortOptions">
                 <h3>Sort</h3>
                 <div class="sort-switch">
@@ -17,32 +17,33 @@
                 </div>
             </template>
         </div>
-        <div v-if="filterOptions">
-            <h3>Filter</h3>
-            <div class="filter-switch" v-if="filterOptions">
-                <v-expansion-panel :value="true">
-                    <v-expansion-panel-content v-for="k in filterOptions" :key="k.modelId" :value="true">
-                        <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
-                        <template slot="header">
-                            <div class="icon-wrapper"><slot :name="`${k.modelId}TitlePrefix`"></slot></div>
+        <div class="filter-wrap" v-if="filterOptions">
+            <h3 class="px-3">Filter</h3>
+            <div class="filter-sections" v-if="filterOptions">
+                <div class="filter-section" v-for="k in filterOptions" :key="k.modelId" :value="true">
+                    <v-layout class="filter-header" slot="header">
+                        <v-layout row align-center>
+                            <div class="icon-wrapper">
+                                <slot :name="`${k.modelId}TitlePrefix`"></slot>
+                            </div>
                             <slot name="headerTitle" :title="k.title">
                                 <div>{{k.title}}</div>
                             </slot>
-                            <slot :name="`${k.modelId}MobileExtraState`"></slot>
-                        </template>
-                        <div class="sort-filter">
-                            <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
-                                <input type="checkbox" :id="(s.id?s.id:s)" v-model="filters[k.modelId]" :value="(s.id?s.id:s)"/>
+                        </v-layout>
+                        <slot :name="`${k.modelId}MobileExtraState`"></slot>
+                    </v-layout>
+                    <div class="filter-list">
+                        <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter pl-3">
+                            <input type="checkbox" :id="(s.id?s.id:s)" v-model="filters[k.modelId]" :value="(s.id?s.id:s)"/>
 
-                                <span class="checkmark"></span>
-                                <label :title="s.name?s.name:s" :for="(s.id?s.id:s)">
-                                    {{s.name?s.name:s | capitalize}}
-                                </label>
-                            </div>
-                            <slot :name="`${k.modelId}EmptyState`" v-if="k.data&&k.data.length===0"></slot>
+                            <span class="checkmark"></span>
+                            <label :title="s.name?s.name:s" :for="(s.id?s.id:s)" class="py-2">
+                                {{s.name?s.name:s | capitalize}}
+                            </label>
                         </div>
-                    </v-expansion-panel-content>
-                </v-expansion-panel>
+                        <slot :name="`${k.modelId}EmptyState`" v-if="k.data&&k.data.length===0"></slot>
+                    </div>
+                </div>
             </div>
         </div>
     </v-dialog>
@@ -50,4 +51,4 @@
 
 <script src="./MobileSortAndFilter.js">
 </script>
-<style src="./SortAndFilter.less" lang="less"></style>
+<style src="./MobileSortAndFilter.less" lang="less"></style>
