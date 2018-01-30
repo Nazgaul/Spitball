@@ -193,7 +193,7 @@ export const pageMixin =
                 //if the term for the page is as the page saved term use it else call to luis and update the saved term
                 new Promise((resolve, reject) => {
                     if (!to.query.q || !to.query.q.length) {
-                        resolve();
+                        this.updateSearchText({vertical:toName}).then(()=>resolve());
                     }else {
                         this.getAIDataForVertical(toName).then(({text=""}) => {
                             if (!text || (text !== to.query.q)) {
