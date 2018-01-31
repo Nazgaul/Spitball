@@ -33,11 +33,11 @@
     <Content Include="ClientApp\components\navbar\images\flashcard.svg" />
     <Content Include="ClientApp\components\navbar\images\job.svg" />
     <Content Include="ClientApp\components\navbar\images\tutor.svg" />
-    <Content Include="robots.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\Content\main.less" />
+    <None Include="wwwroot\robots.txt" />
   </ItemGroup>
 
   <ItemGroup>
