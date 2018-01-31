@@ -25,8 +25,8 @@ namespace Cloudents.Infrastructure.Converters
             if (Uri.TryCreate(source.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image))
             {
                 image = image.ChangeToHttps();
-                image = _imageProvider.ChangeImageIfNeeded(url.GetUriDomain(), image);
             }
+            image = _imageProvider.ChangeImageIfNeeded(url.GetUriDomain(), image);
             var result = new SearchResult
             {
                 Url = source.Url,

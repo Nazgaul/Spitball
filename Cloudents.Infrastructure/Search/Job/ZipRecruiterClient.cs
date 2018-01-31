@@ -67,43 +67,43 @@ namespace Cloudents.Infrastructure.Search.Job
 
         public class ZipRecruiterResult
         {
-            public int TotalJobs { get; set; }
-            public int NumPaginableJobs { get; set; }
+           // public int TotalJobs { get; set; }
+           // public int NumPaginableJobs { get; set; }
             public Job[] Jobs { get; set; }
             public bool Success { get; set; }
         }
 
         public class Job
         {
-            public int SalaryMax { get; set; }
+           // public double SalaryMax { get; set; }
             public string Url { get; set; }
-            public string Category { get; set; }
-            public string SalarySource { get; set; }
-            public string Country { get; set; }
-            public string Id { get; set; }
+           // public string Category { get; set; }
+           // public string SalarySource { get; set; }
+           // public string Country { get; set; }
+           // public string Id { get; set; }
             public string Snippet { get; set; }
-            public string State { get; set; }
-            public int SalaryMaxAnnual { get; set; }
-            public string HasNonZrUrl { get; set; }
-            public string SalaryInterval { get; set; }
-            public string PostedTimeFriendly { get; set; }
-            public int SalaryMin { get; set; }
+           // public string State { get; set; }
+           // public int SalaryMaxAnnual { get; set; }
+          //  public string HasNonZrUrl { get; set; }
+           // public string SalaryInterval { get; set; }
+           // public string PostedTimeFriendly { get; set; }
+           // public int SalaryMin { get; set; }
             public string Name { get; set; }
-            public int JobAge { get; set; }
+            //public int JobAge { get; set; }
             public DateTime PostedTime { get; set; }
-            public string City { get; set; }
+            //public string City { get; set; }
             public HiringCompany HiringCompany { get; set; }
-            public string Source { get; set; }
-            public int SalaryMinAnnual { get; set; }
-            public string IndustryName { get; set; }
+            //public string Source { get; set; }
+            //public int SalaryMinAnnual { get; set; }
+            //public string IndustryName { get; set; }
             public string Location { get; set; }
         }
 
         public class HiringCompany
         {
-            public object Url { get; set; }
-            public object Description { get; set; }
-            public object Id { get; set; }
+            //public object Url { get; set; }
+            //public object Description { get; set; }
+            //public object Id { get; set; }
             public string Name { get; set; }
         }
     }

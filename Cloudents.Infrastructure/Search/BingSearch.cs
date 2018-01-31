@@ -60,7 +60,11 @@ namespace Cloudents.Infrastructure.Search
             }
 
             var response = JsonConvert.DeserializeObject<BingCustomSearchResponse>(result);
-            var searchResult = _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(response.WebPages.Value);
+            if (response.WebPages?.Value == null)
+            {
+                return null;
+            }
+            var searchResult = _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(response.WebPages?.Value);
             return Shuffle<SearchResult>.DoShuffle(searchResult);
         }
         

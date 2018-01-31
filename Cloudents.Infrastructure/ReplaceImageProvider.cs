@@ -13,9 +13,9 @@ namespace Cloudents.Infrastructure
             ["courseHero.com"] = "coursehero.png",
             ["Cram.com"] = "cram.png",
             ["Koofers.com"] = "koofers.png",
-            ["Quizlet.com"] = "coursehero.png",
-            ["Studyblue.com"] = "studyBlue.png",
-            ["Studysoup.com"] = "studySoup.png"
+            ["Quizlet.com"] = "quizlet.png",
+            ["Studyblue.com"] = "studyblue.png",
+            ["Studysoup.com"] = "studysoup.png"
         };
 
 
@@ -39,12 +39,12 @@ namespace Cloudents.Infrastructure
             if (!_sources.TryGetValue(host, out var val)) return image;
             if (image == null)
             {
-                return _blobProvider.GetBlobUrl(val, true);
+                return _blobProvider.GetBlobUrl(val.ToLowerInvariant(), true);
             }
 
             if (_invalidImages.Contains(image.AbsoluteUri, StringComparer.InvariantCultureIgnoreCase))
             {
-                return _blobProvider.GetBlobUrl(val, true);
+                return _blobProvider.GetBlobUrl(val.ToLowerInvariant(), true);
             }
 
             return image;
