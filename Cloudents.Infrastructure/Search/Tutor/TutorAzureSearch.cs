@@ -52,6 +52,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
                     nameof(TutorObj.City),
                     nameof(TutorObj.State),
                     nameof(TutorObj.Fee),
+                    nameof(TutorObj.TutorFilter),
                     //"online",
                     nameof(TutorObj.Location),
                     //"subjects",
@@ -78,11 +79,9 @@ namespace Cloudents.Infrastructure.Search.Tutor
                 {
                     case TutorRequestFilter.Online:
                         filterResult |= TutorFilter.Online;
-                        //filterQuery.Add($"{nameof(Tutor.)} eq true");
                         break;
                     case TutorRequestFilter.InPerson:
                         filterResult |= TutorFilter.InPerson;
-                        //filterQuery.Add("inPerson eq true");
                         const double distance = 50 * 1.6;
                         filterQuery.Add(
                             $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})') le {distance}");

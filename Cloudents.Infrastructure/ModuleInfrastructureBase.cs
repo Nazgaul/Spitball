@@ -55,7 +55,6 @@ namespace Cloudents.Infrastructure
                 .As<IMapper>().InstancePerLifetimeScope();
 
 
-            builder.RegisterType<CacheProvider>().AsImplementedInterfaces();
             builder.RegisterType<Logger>().As<ILogger>();
         }
 

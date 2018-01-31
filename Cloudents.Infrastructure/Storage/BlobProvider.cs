@@ -10,16 +10,16 @@ namespace Cloudents.Infrastructure.Storage
 {
     public class BlobProvider : IBlobProvider
     {
-        private readonly CloudStorageProvider _storageProvider;
+        private readonly ICloudStorageProvider _storageProvider;
 
-        public BlobProvider(CloudStorageProvider storageProvider)
+        public BlobProvider(ICloudStorageProvider storageProvider)
         {
             _storageProvider = storageProvider;
         }
 
         private CloudBlockBlob GetBlob(Uri blobUrl)
         {
-            return new CloudBlockBlob(blobUrl, _storageProvider.CloudStorage.Credentials);
+            return new CloudBlockBlob(blobUrl, _storageProvider.GetCredentials());
         }
 
         public async Task<Stream> DownloadFileAsync(Uri blobUrl, CancellationToken token)

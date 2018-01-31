@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cloudents.Core.Storage
+﻿namespace Cloudents.Core.Storage
 {
     public interface IStorageContainer
     {

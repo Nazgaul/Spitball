@@ -48,14 +48,14 @@ namespace ConsoleApp
             var container = builder.Build();
             var point = new GeoPoint()
             {
-                Latitude = 40.7127753 ,
+                Latitude = 40.7127753,
                 Longitude = -74.0059728
             };
 
             var service = container.Resolve<IDocumentCseSearch>();
 
 
-            var s = await service.SearchAsync(SearchQuery.Ask(new[] {"economics"}, 0, null), BingTextFormat.None, default);
+            var s = await service.SearchAsync(SearchQuery.Document(new[] { "economics" }, null, null, null, 0, SearchRequestSort.None, null), BingTextFormat.None, default);
             //var p = await service.SearchAsync(new[] { "Marketing" }, JobRequestSort.Date, null, z, 0, false, default);
 
             //var result = await service.GeoCodingByAddressAsync("New York,NY US", default);

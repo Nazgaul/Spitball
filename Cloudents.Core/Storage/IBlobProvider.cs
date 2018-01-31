@@ -18,7 +18,7 @@ namespace Cloudents.Core.Storage
             string contentDisposition);
 
         Task<bool> ExistsAsync(string blobName, CancellationToken token);
-        Uri GetBlobUrl(string blobName);
+        Uri GetBlobUrl(string blobName, bool cdn = false);
     }
 
     public interface IBlobProvider

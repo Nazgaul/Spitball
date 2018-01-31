@@ -19,9 +19,6 @@ namespace Cloudents.Infrastructure.Interceptor
             _cacheProvider = cacheProvider;
         }
 
-
-       
-
         public static string BuildArgument(object[] argument)
         {
             var sb = new StringBuilder();

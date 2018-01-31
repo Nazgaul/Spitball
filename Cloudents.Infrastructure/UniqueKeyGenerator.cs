@@ -32,6 +32,7 @@ namespace Cloudents.Infrastructure
                                                ame.Message);
             }
         }
+
         private static string ComputeHash(byte[] objectAsBytes)
         {
             using (var md5 = MD5.Create())

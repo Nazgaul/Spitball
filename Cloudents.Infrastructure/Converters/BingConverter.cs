@@ -10,19 +10,23 @@ namespace Cloudents.Infrastructure.Converters
     public class BingConverter : ITypeConverter<BingSearch.WebPage, SearchResult>
     {
         private readonly IKeyGenerator _keyGenerator;
+        private readonly ReplaceImageProvider _imageProvider;
 
-        public BingConverter(IKeyGenerator keyGenerator)
+        public BingConverter(IKeyGenerator keyGenerator, ReplaceImageProvider imageProvider)
         {
             _keyGenerator = keyGenerator;
+            _imageProvider = imageProvider;
         }
 
         public SearchResult Convert(BingSearch.WebPage source, SearchResult destination, ResolutionContext context)
         {
+            var url = new Uri(source.Url);
+
             if (Uri.TryCreate(source.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image))
             {
                 image = image.ChangeToHttps();
+                image = _imageProvider.ChangeImageIfNeeded(url.GetUriDomain(), image);
             }
-            var url = new Uri(source.Url);
             var result = new SearchResult
             {
                 Url = source.Url,
@@ -32,6 +36,7 @@ namespace Cloudents.Infrastructure.Converters
                 Source = url.Host,
                 Title = source.Name,
             };
+
             if (string.Equals(url.Host, "www.courseHero.com", StringComparison.InvariantCultureIgnoreCase))
             {
                 result.Url =

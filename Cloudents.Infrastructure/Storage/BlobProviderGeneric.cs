@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
@@ -12,17 +13,24 @@ namespace Cloudents.Infrastructure.Storage
         private readonly CloudBlobDirectory _blobDirectory;
         private readonly T _container = new T();
 
-        public BlobProvider(CloudStorageProvider storageProvider)
+        private const string CdnHostEndpoint = "az32006.vo.msecnd.net";
+
+        public BlobProvider(ICloudStorageProvider storageProvider)
         {
-            var blobClient = storageProvider.CloudStorage.CreateCloudBlobClient();
-            var container = blobClient.GetContainerReference(_container.Name.ToLowerInvariant());
-            _blobDirectory = container.GetDirectoryReference(_container.RelativePath);
+            _blobDirectory = storageProvider.GetBlobClient(_container);
+            //var container = blobClient.GetContainerReference(_container.Name.ToLowerInvariant());
+            //_blobDirectory = container.GetDirectoryReference(_container.RelativePath ?? string.Empty);
         }
 
-        public Uri GetBlobUrl(string blobName)
+        public Uri GetBlobUrl(string blobName, bool cdn = false)
         {
             var blob = _blobDirectory.GetBlockBlobReference(blobName);
-            return blob.Uri;
+            var uri = blob.Uri;
+            if (cdn)
+            {
+                uri = uri.ChangeHost(CdnHostEndpoint);
+            }
+            return uri;
         }
 
         private CloudBlockBlob GetBlob(string blobName)

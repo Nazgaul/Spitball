@@ -7,13 +7,10 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Storage
 {
-
     public class TempStorageProvider : ITempStorageProvider
     {
         private readonly long _localResourceSize;
-
         private readonly ILogger _logger;
-        //private long m_DirectorySize;
 
         public TempStorageProvider(ILogger logger, LocalStorageData meta)
         {

@@ -1,11 +1,19 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Cloudents.Core.Storage;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Cloudents.Infrastructure.Storage
 {
-    public class CloudStorageProvider : Autofac.IStartable
+    public interface ICloudStorageProvider
     {
-        //private readonly string _connectionString;
-        public CloudStorageAccount CloudStorage { get; }
+        CloudBlobDirectory GetBlobClient(IStorageContainer container);
+        StorageCredentials GetCredentials();
+    }
+
+    public class CloudStorageProvider : ICloudStorageProvider, Autofac.IStartable
+    {
+        private CloudStorageAccount CloudStorage { get; }
 
         public CloudStorageProvider(string connectionString)
         {
@@ -13,6 +21,17 @@ namespace Cloudents.Infrastructure.Storage
             CloudStorage = CloudStorageAccount.Parse(connectionString);
         }
 
+        public CloudBlobDirectory GetBlobClient(IStorageContainer container)
+        {
+            var blobClient = CloudStorage.CreateCloudBlobClient();
+            var con = blobClient.GetContainerReference(container.Name.ToLowerInvariant());
+            return con.GetDirectoryReference(container.RelativePath ?? string.Empty);
+        }
+
+        public StorageCredentials GetCredentials()
+        {
+            return CloudStorage.Credentials;
+        }
 
         public void Start()
         {
