@@ -132,7 +132,7 @@ let strips =
                 svg2: () => import("./svg/headset-icon.svg"),
                 svg3: () => import("./svg/pizza-icon.svg")
             },
-            titleIcon: () => import("./../navbar/images/food.svg"),
+            titleIcon: () => import("../food/svg/food.svg"),
             title: "Food and Deals",
             link:"/food",
             text: "Discover exclusive deals to local businesses, restaurants and bars near campus."

@@ -3,6 +3,7 @@ const homePageHeader = () => import("./components/home/header.vue");
 import * as RouteTypes from "./routeTypes";
 const resultContent = () => import("./components/results/Result.vue");
 const foodDetails = () => import("./components/food/foodDetails.vue");
+const foodResultPage = () => import("./components/food/Result.vue");
 //const foodHeader = () => import("./components/food/foodHeader.vue");
 const dialogToolbar = () =>  import("./components/dialog-toolbar/DialogToolbar.vue");
 const showItem = () => import("./components/preview/Item.vue");
@@ -23,7 +24,6 @@ function dynamicPropsFn(route) {
         name: newName,
         query: route.query,
         params: route.params,
-        hasExtra: newName.includes('food'),
         isPromo:route.query.hasOwnProperty("promo"),
     }
 }
@@ -56,7 +56,11 @@ const resultProps = {
     header: headerResultPageFn
 };
 
-
+const foodPage = {
+    default: foodResultPage,
+    personalize,
+    header: pageHeader,
+};
 
 
 const foodDetailsProps = {
@@ -83,6 +87,9 @@ let routes2 = [
             header: homePageHeader
         }, name: "home"
     },
+    {
+        path: `/${ RouteTypes.foodRoute}`, name: "food", components: foodPage, props: resultProps
+    },
 
     {
         path: "/result", name: "result", alias: [
@@ -91,8 +98,7 @@ let routes2 = [
             "/" + RouteTypes.notesRoute,
             "/" + RouteTypes.tutorRoute,
             "/" + RouteTypes.bookRoute,
-            "/" + RouteTypes.jobRoute,
-            "/" + RouteTypes.foodRoute
+            "/" + RouteTypes.jobRoute
         ], components: resultPage, props: resultProps, meta: {
             isAcademic: true,
             analytics: {

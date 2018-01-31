@@ -1,4 +1,4 @@
-﻿import { sortAndFilterMixin } from '../results/mixins'
+﻿import sortAndFilterMixin from '../mixins/sortAndFilter'
 import ResultBook from './bookCell.vue';
 import TabsSort from "./bookDetailsSort"
 import {details} from "../../data";

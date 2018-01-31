@@ -10,7 +10,7 @@ export default {
             sort: this.sortVal?this.sortVal:this.sortOptions?this.sortOptions[0].id:""}
     },
     components: {  DialogToolbar },
-    props: { value: { type: Boolean }, sortOptions: {}, filterOptions: {type:Array,default:()=>[]}, filterVal: {type:Array,default:()=>[]}, sortVal: {}},
+    props: { value: { type: Boolean }, sortOptions: {type:Array,default:()=>[]}, filterOptions: {type:Array,default:()=>[]}, filterVal: {type:Array,default:()=>[]}, sortVal: {}},
     methods: {
         ...mapActions(['setFilteredCourses']),
 

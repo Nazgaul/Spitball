@@ -9,11 +9,10 @@
 </template>
 
 <script>
-    //import ResultFood from '../results/ResultFood.vue'
     import foodCell from "./foodCell.vue";
-    import FoodMap from '../results/foodExtra.vue'
+    import FoodMap from './foodExtra.vue'
     import StarRating from 'vue-star-rating';
-    import FoodDefault from './../navbar/images/food.svg'
+    import FoodDefault from './svg/food.svg'
     import hookedLogo from "./svg/hooked-logo.svg"
     import { mapMutations } from 'vuex'
     export default {

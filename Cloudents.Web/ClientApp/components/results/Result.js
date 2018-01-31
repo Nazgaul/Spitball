@@ -5,47 +5,13 @@ const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
 import SuggestCard from './suggestCard.vue'
 import studyblueCard from './studyblueCard.vue'
-const ResultFood = () => import('./ResultFood.vue');
-const foodExtra = () => import('./foodExtra.vue');
-const SortAndFilter = () => import('../SortAndFilter/SortAndFilter.vue');
-const MobileSortAndFilter = () => import('../SortAndFilter/MobileSortAndFilter.vue');
-import plusBtn from "../settings/svg/plus-button.svg";
 import emptyState from "./svg/no-match-icon.svg";
-import {page, verticalsName} from '../../data'
+import {verticalsName} from '../../data'
 import { typesPersonalize } from "../settings/consts.js";
-import { mapActions, mapGetters, mapMutations } from 'vuex'
-export const sortAndFilterMixin = {
-    data() {
-        return {
-            filter: ''
-        };
-    },
-    components: { SortAndFilter, plusBtn, MobileSortAndFilter },
+import { mapActions, mapGetters } from 'vuex'
+const ACADEMIC_VERTICALS=['note','ask','flashcard','book','tutor'];
+import sortAndFilterMixin from '../mixins/sortAndFilter'
 
-    props: {
-        name: { type: String },
-        query: { type: Object },
-        params: { type: Object }
-    },
-    computed: {
-        ...mapGetters(['loading']),
-        page(){return page[this.name]},
-        sort(){return this.query.sort},
-        filterSelection(){
-            let filterOptions = [];
-            let filtersList=['jobType','source','course','filter'];
-            Object.entries(this.query).forEach(([key, val])=>{
-                if(val&&val.length&&filtersList.includes(key)) {
-                    [].concat(val).forEach(value=>filterOptions=filterOptions.concat({key,value}));
-                }
-            });
-            return filterOptions;
-        }
-    },
-    methods: {
-        ...mapMutations(['UPDATE_LOADING'])
-    }
-};
 let promotions = {
     note: {
         title: "Study Documents",
@@ -82,7 +48,8 @@ let updateData = function (data, isFilterUpdate = false) {
     facet?this.updateFacet(facet):'';
     this.pageData = {};
     this.content = data;
-    (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
+    this.$emit('dataUpdated',data.data.length?data.data[0]:null)
+    // (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterSelection;
     this.UPDATE_LOADING(false);
 
@@ -98,47 +65,12 @@ export const pageMixin =
         mixins: [sortAndFilterMixin],
         //when go back to home clear the saved term and classes
         beforeRouteLeave(to, from, next) {
-            if (to.name && to.name === 'home') {
-                this.cleanData();
-            }
-                next();
-
+            this.leavePage(to,from,next);
         },
 
         //When route has been updated(query,filter,vertical)
         beforeRouteUpdate(to, from, next) {
-            this.UPDATE_LOADING(true);
-            const toName = to.path.slice(1);
-            this.pageData = {};
-            this.items = [];
-            //if the term for the page is as the page saved term use it else call to luis and update the saved term
-            new Promise((resolve, reject) => {
-                if (!to.query.q || !to.query.q.length) {
-                    resolve();
-                }else {
-                    this.getAIDataForVertical(toName).then(({text=""}) => {
-                        if (!text || (text !== to.query.q)) {
-                            this.updateSearchText({text: to.query.q, vertical: toName}).then(() => {
-                                resolve();
-                            })
-                        }else{resolve()}
-                    });
-                }
-
-            }).then(() => {
-                //After luis return term and optional docType fetch the data
-                const updateFilter = (to.path === from.path && to.query.q === from.query.q);
-                this.fetchingData({ name: toName, params: { ...to.query, ...to.params }})
-                    .then(({ data }) => {
-                        //update data for this page
-                        updateData.call(this, data, updateFilter);
-                    }).catch(reason => {
-                        //when error from fetching data remove the loader
-                        this.UPDATE_LOADING(false);
-                    });
-                //go to the next page
-                next();
-            });
+           this.updatePageData(to,from,next)
         },
 
         watch: {
@@ -153,7 +85,7 @@ export const pageMixin =
         },
         computed: {
             //get data from vuex getters
-            ...mapGetters(['term', 'isFirst', 'myCourses','getFacet']),
+            ...mapGetters(['isFirst', 'myCourses','getFacet']),
             ...mapGetters({ universityImage: 'getUniversityImage', university: 'getUniversity' }),
             currentPromotion(){return promotions[this.name]},
             content: {
@@ -197,7 +129,8 @@ export const pageMixin =
                 return this.name.includes('note') || this.name === 'flashcard' || this.name === 'job'||this.name.includes('ask');
             },
             currentSuggest(){return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]},
-            userText(){return this.query.q}
+            userText(){return this.query.q},
+            isAcademic(){return ACADEMIC_VERTICALS.includes(this.name)}
         },
 
         data() {
@@ -212,10 +145,10 @@ export const pageMixin =
             };
         },
 
-        components: { emptyState, foodExtra, ResultItem, SuggestCard, studyblueCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultFood },
+        components: { emptyState, ResultItem, SuggestCard, studyblueCard, ResultTutor, ResultJob, ResultVideo, ResultBook },
 
         created() {
-            if (!this.isFirst) { this.showPersonalizeField = true }
+            if (this.isAcademic&&!this.isFirst) { this.showPersonalizeField = true }
             this.$root.$on("closePersonalize", () => { this.showPersonalizeField = true });
             //If query have courses save those courses
             if (this.query.course) this.setFilteredCourses(this.query.course);
@@ -252,6 +185,46 @@ export const pageMixin =
 
         },
         methods: {
+            updatePageData(to,from,next){
+                this.UPDATE_LOADING(true);
+                const toName = to.path.slice(1);
+                this.pageData = {};
+                this.items = [];
+                //if the term for the page is as the page saved term use it else call to luis and update the saved term
+                new Promise((resolve, reject) => {
+                    if (!to.query.q || !to.query.q.length) {
+                        this.updateSearchText({vertical:toName}).then(()=>resolve());
+                    }else {
+                        this.getAIDataForVertical(toName).then(({text=""}) => {
+                            if (!text || (text !== to.query.q)) {
+                                this.updateSearchText({text: to.query.q, vertical: toName}).then(() => {
+                                    resolve();
+                                })
+                            }else{resolve()}
+                        });
+                    }
+
+                }).then(() => {
+                    //After luis return term and optional docType fetch the data
+                    const updateFilter = (to.path === from.path && to.query.q === from.query.q);
+                    this.fetchingData({ name: toName, params: { ...to.query, ...to.params }})
+                        .then(({ data }) => {
+                            //update data for this page
+                            updateData.call(this, data, updateFilter);
+                        }).catch(reason => {
+                        //when error from fetching data remove the loader
+                        this.UPDATE_LOADING(false);
+                    });
+                    //go to the next page
+                    next();
+                });
+            },
+            leavePage(to,from,next){
+                if (to.name && to.name === 'home') {
+                    this.cleanData();
+                }
+                next();
+            },
             //Get functions from vuex actions
             ...mapActions(['updateSearchText', 'fetchingData','getAIDataForVertical','setFilteredCourses','cleanData','updateFacet']),
             //Function for update the filter object(when term or vertical change)
@@ -301,8 +274,6 @@ export const pageMixin =
         },
         //Page props come from the route
         props: {
-            hasExtra: { type: Boolean },
             isPromo:  {type:Boolean}
         }
-
     };
