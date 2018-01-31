@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Cloudents.Core.DTOs;
 using Cloudents.Infrastructure.Search;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

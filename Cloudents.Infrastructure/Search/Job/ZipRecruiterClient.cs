@@ -61,7 +61,7 @@ namespace Cloudents.Infrastructure.Search.Job
 
             return new ResultWithFacetDto<JobDto>
             {
-                Result = jobs
+                Result = jobs.ToList()
             };
         }
 

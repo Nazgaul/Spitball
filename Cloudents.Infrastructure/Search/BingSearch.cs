@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Search
         }
 
         [Cache(TimeConst.Day, "bing")]
-        public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model, BingTextFormat format, CancellationToken token)
+        public async Task<IList<SearchResult>> DoSearchAsync(SearchModel model, BingTextFormat format, CancellationToken token)
         {
             //https://docs.microsoft.com/en-us/rest/api/cognitiveservices/bing-custom-search-api-v7-reference#query-parameters
             if (model == null) throw new ArgumentNullException(nameof(model));

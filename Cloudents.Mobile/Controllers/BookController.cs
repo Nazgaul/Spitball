@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Mobile.Extensions;
 using Cloudents.Mobile.Models;
@@ -40,8 +42,13 @@ namespace Cloudents.Mobile.Controllers
         public async Task<IHttpActionResult> Get([FromUri]BookRequest bookRequest, CancellationToken token)
         {
             bookRequest = bookRequest ?? new BookRequest();
-            var result = await _booksSearch.SearchAsync(bookRequest.Term, bookRequest.Thumbnail.GetValueOrDefault(150), bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false);
-            var nextPageLink = Url.NextPageLink("BookSearch", null, bookRequest);
+            var result = (await _booksSearch.SearchAsync(bookRequest.Term, bookRequest.Thumbnail.GetValueOrDefault(150), bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false)).ToListIgnoreNull();
+
+            string nextPageLink = null;
+            if (result.Count > 0)
+            {
+                nextPageLink = Url.NextPageLink("BookSearch", null, bookRequest);
+            }
             return Ok(new
             {
                 result,

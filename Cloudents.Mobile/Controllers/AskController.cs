@@ -49,10 +49,16 @@ namespace Cloudents.Mobile.Controllers
                 tVideo = _videoSearch.SearchAsync(model.Term, token);
             }
             await Task.WhenAll(tResult, tVideo).ConfigureAwait(false);
-            var nextPageLink = Url.NextPageLink("DefaultApis", new
+
+            string nextPageLink = null;
+            if (tResult.Result.Result.Count > 0)
             {
-                controller = "Ask"
-            }, model);
+                nextPageLink = Url.NextPageLink("DefaultApis", new
+                {
+                    controller = "Ask"
+                }, model);
+            }
+
 
             return Ok(new
             {

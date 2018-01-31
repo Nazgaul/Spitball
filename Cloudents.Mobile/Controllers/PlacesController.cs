@@ -38,11 +38,14 @@ namespace Cloudents.Mobile.Controllers
             CancellationToken token)
         {
             var result = await _purchaseSearch.SearchAsync(purchaseRequest.Term, purchaseRequest.Filter.GetValueOrDefault(), purchaseRequest.Location, null, token).ConfigureAwait(false);
-
-            var nextPageLink = Url.Link("DefaultApis", new
+            string nextPageLink = null;
+            if (result.token != null)
             {
-                controller = "Places"
-            }, new { nextPageToken = result.token });
+                nextPageLink = Url.Link("DefaultApis", new
+                {
+                    controller = "Places"
+                }, new {nextPageToken = result.token});
+            }
 
             return Ok(new
             {

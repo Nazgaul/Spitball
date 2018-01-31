@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Infrastructure.Data;
