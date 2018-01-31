@@ -31,7 +31,7 @@ namespace Cloudents.Core.Test
                 Latitude = 40.71277618408203,
                 Longitude = -74.00597381591797
             };
-            GeoPoint point2 = null;
+            const GeoPoint point2 = null;
             var c = point1 == point2;
             Assert.IsFalse(c);
         }

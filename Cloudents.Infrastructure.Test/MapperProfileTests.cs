@@ -27,7 +27,6 @@ namespace Cloudents.Infrastructure.Test
             var data = Mapper.Map<Location>(json);
 
             Assert.AreEqual(data.Point.Latitude, 51.5833);
-
         }
     }
 }

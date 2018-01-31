@@ -27,14 +27,14 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                 {
                     var command = new UpdateStatisticsCommand(new StatisticItemData
                     { ItemId = statisticItemData.Id, Action = (StatisticsAction)statisticItemData.Action }, parameters.UserId);
-                  await  m_ZboxWriteService.StatisticsAsync(command);
+                  await  m_ZboxWriteService.StatisticsAsync(command).ConfigureAwait(false);
                 }
             }
             if (parameters.ItemsId != null)
             {
                 var command = new UpdateStatisticsCommand(new StatisticItemData
                 { ItemId = parameters.ItemsId.Id, Action = (StatisticsAction)parameters.ItemsId.Action }, parameters.UserId);
-               await m_ZboxWriteService.StatisticsAsync(command);
+               await m_ZboxWriteService.StatisticsAsync(command).ConfigureAwait(false);
             }
             return true;
         }

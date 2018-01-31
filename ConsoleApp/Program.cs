@@ -54,14 +54,12 @@ namespace ConsoleApp
 
             var service = container.Resolve<IDocumentCseSearch>();
 
-
             var s = await service.SearchAsync(SearchQuery.Document(new[] { "economics" }, null, null, null, 0, SearchRequestSort.None, null), BingTextFormat.None, default);
             //var p = await service.SearchAsync(new[] { "Marketing" }, JobRequestSort.Date, null, z, 0, false, default);
 
             //var result = await service.GeoCodingByAddressAsync("New York,NY US", default);
             //210ec431-2d6d-45cb-bc01-04e3f687f0ed.docx
             Console.ReadLine();
-
 
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
         }

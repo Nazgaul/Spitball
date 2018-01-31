@@ -71,8 +71,4 @@
             public string[] Types { get; set; }
         }
     }
-
-
-
-
 }

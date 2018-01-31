@@ -11,7 +11,6 @@ namespace Cloudents.Mobile.Filters
         private readonly IIpToLocation _ipToLocation;
         private readonly IGooglePlacesSearch _googlePlacesSearch;
 
-
         public LocationEntityBinder(IIpToLocation ipToLocation, IGooglePlacesSearch googlePlacesSearch)
         {
             _ipToLocation = ipToLocation;

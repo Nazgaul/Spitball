@@ -15,6 +15,5 @@ namespace Cloudents.Infrastructure.Interceptor
                 )
                 as T;
         }
-
     }
 }

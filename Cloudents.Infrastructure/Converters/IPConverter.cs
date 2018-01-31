@@ -14,7 +14,6 @@ namespace Cloudents.Infrastructure.Converters
                 });
 
             return context.Mapper.Map<Core.Models.Location>(ipDto);
-
         }
     }
 }

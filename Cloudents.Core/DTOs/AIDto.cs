@@ -32,8 +32,4 @@ namespace Cloudents.Core.DTOs
         public string Location { get; }
     }
 
-
-   
-
-   
 }

@@ -58,7 +58,5 @@ namespace Cloudents.Mobile.Controllers
                 nextPageLink
             });
         }
-
-
     }
 }

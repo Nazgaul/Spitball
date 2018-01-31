@@ -18,21 +18,19 @@ namespace Cloudents.Infrastructure
             ["Studysoup.com"] = "studysoup.png"
         };
 
-
+        //TODO: make sure this is https - need to figure out how to solve this
         private readonly List<string> _invalidImages = new List<string>
         {
             "https://www.coursehero.com/assets/img/coursehero_logo.png",
             "https://studysoup.com/assets/facebook-message-thumbnail-32320c1969a82f18331270299701b729.jpg",
             "https://classconnection.s3.amazonaws.com/images/fb-og-deck.png",
-            "http://www.studyblue.com/css/images/webprintLogo.jpg"
+            "https://www.studyblue.com/css/images/webprintLogo.jpg",
         };
-
 
         public ReplaceImageProvider(IBlobProvider<SpitballContainer> blobProvider)
         {
             _blobProvider = blobProvider;
         }
-
 
         public Uri ChangeImageIfNeeded(string host, Uri image)
         {

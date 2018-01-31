@@ -18,7 +18,6 @@ namespace Cloudents.Web.Api
             _booksSearch = booksSearch;
         }
 
-
         [Route("search")]
         public async Task<IActionResult> Get(string[] term, int page, CancellationToken token)
         {

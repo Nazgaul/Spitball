@@ -20,7 +20,6 @@ namespace Cloudents.Mobile
         /// <param name="config"></param>
         public static void ConfigureSwagger(HttpConfiguration config)
         {
-
             // Use the custom ApiExplorer that applies constraints. This prevents
             // duplicate routes on /api and /tables from showing in the Swagger doc.
             config.Services.Replace(typeof(IApiExplorer), new MobileAppApiExplorer(config));
@@ -97,5 +96,4 @@ namespace Cloudents.Mobile
             }
         }
     }
-
 }

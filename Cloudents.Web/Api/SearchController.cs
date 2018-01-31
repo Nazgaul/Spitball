@@ -23,7 +23,6 @@ namespace Cloudents.Web.Api
             return Json(result);
         }
 
-
         [Route("flashcards")]
         public async Task<IActionResult> SearchFlashcardsAsync([FromQuery] SearchRequest model,
             CancellationToken token, [FromServices] IFlashcardSearch searchProvider)

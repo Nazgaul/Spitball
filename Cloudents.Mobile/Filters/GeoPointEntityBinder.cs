@@ -10,7 +10,6 @@ namespace Cloudents.Mobile.Filters
     {
         private readonly IIpToLocation _ipToLocation;
 
-
         public GeoPointEntityBinder(IIpToLocation ipToLocation)
         {
             _ipToLocation = ipToLocation;

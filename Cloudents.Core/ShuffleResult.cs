@@ -36,6 +36,4 @@ namespace Cloudents.Core
             return list;
         }
     }
-
-    
 }

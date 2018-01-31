@@ -31,6 +31,5 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public string Source { get; set; }
-
     }
 }

@@ -23,6 +23,5 @@ namespace Cloudents.Mobile.Models
         /// </summary>
         [DefaultValue(150)]
         public int? Thumbnail { get; set; }
-        
     }
 }

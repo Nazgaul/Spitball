@@ -9,7 +9,6 @@ namespace Cloudents.Mobile.Models
     /// </summary>
     public class PurchaseRequest
     {
-        
         /// <summary>
         /// The term array of Ai parse
         /// </summary>

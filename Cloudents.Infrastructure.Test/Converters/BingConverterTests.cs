@@ -32,7 +32,6 @@ namespace Cloudents.Infrastructure.Test.Converters
             Assert.AreEqual(result.Source, "www.coursehero.com");
         }
 
-
         [TestMethod]
         public void ConvertToResult_RegularWebPage_RegularUrl()
         {
@@ -46,6 +45,5 @@ namespace Cloudents.Infrastructure.Test.Converters
             Assert.AreEqual(result.Url, "https://www.spitball.co");
             Assert.AreEqual(result.Source, "www.spitball.co");
         }
-
     }
 }

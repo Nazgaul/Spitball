@@ -13,11 +13,9 @@ namespace Cloudents.Core.DTOs
             Term = term;
         }
 
-
         [DataMember]
         public abstract Vertical Vertical { get; }
         [DataMember]
         public IEnumerable<string> Term { get; }
-
     }
 }

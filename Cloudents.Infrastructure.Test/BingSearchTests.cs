@@ -8,13 +8,6 @@ namespace Cloudents.Infrastructure.Test
     [TestClass]
     public class BingSearchTests
     {
-        private readonly Mock<IRestClient> _clientMock = new Mock<IRestClient>();
-        private readonly Mock<IMapper> _mapperMock = new Mock<IMapper>();
-
-        
-
-
-
         [TestMethod]
         public void BuildQuery_Nothing_ReturnDefaultTerm()
         {
@@ -36,7 +29,7 @@ namespace Cloudents.Infrastructure.Test
         {
             var courses = new[] { "course1", "course2" };
             var result = BingSearch.BuildQuery(null, courses, null, null, "hi");
-            Assert.AreEqual(@"(course1) AND (course2)", result);
+            Assert.AreEqual("(course1) AND (course2)", result);
         }
 
         [TestMethod]
@@ -44,7 +37,7 @@ namespace Cloudents.Infrastructure.Test
         {
             var subject = new[] { "sub1", "sub2" };
             var result = BingSearch.BuildQuery(null, null, subject, null, "hi");
-            Assert.AreEqual(@"(sub1) AND (sub2)", result);
+            Assert.AreEqual("(sub1) AND (sub2)", result);
         }
 
         [TestMethod]
@@ -53,7 +46,7 @@ namespace Cloudents.Infrastructure.Test
             var university = new[] {"uni1", "uni2"};
             var courses = new[] {"course1", "course2"};
             var subject = new[] {"sub1", "sub2"};
-            var docType = "doc1";
+            const string docType = "doc1";
             var result = BingSearch.BuildQuery(university, courses, subject, docType, "hi");
 
             Assert.AreEqual(@"(""uni1"" OR ""uni2"") AND (course1) AND (course2) AND (sub1) AND (sub2) AND (doc1)", result);

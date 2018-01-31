@@ -16,6 +16,4 @@ namespace Cloudents.Core.Interfaces
         /// <returns>modified object to pass along e.g convert iEnumerable to list</returns>
         object Set(string key, string region, object value, int expire);
     }
-
-
 }

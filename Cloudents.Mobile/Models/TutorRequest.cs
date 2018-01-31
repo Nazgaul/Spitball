@@ -34,7 +34,5 @@ namespace Cloudents.Mobile.Models
         /// </summary>
         [DefaultValue(0)]
         public int? Page { get; set; }
-
-
     }
 }

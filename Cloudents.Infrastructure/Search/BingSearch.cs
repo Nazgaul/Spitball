@@ -67,7 +67,6 @@ namespace Cloudents.Infrastructure.Search
             var searchResult = _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(response.WebPages?.Value);
             return Shuffle<SearchResult>.DoShuffle(searchResult);
         }
-        
 
         public static string BuildSources(IEnumerable<string> sources)
         {

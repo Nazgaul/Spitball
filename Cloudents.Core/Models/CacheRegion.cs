@@ -16,12 +16,8 @@ namespace Cloudents.Core.Models
         public string Region { get; }
     }
 
-
-
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class LogAttribute : Attribute
     {
     }
-
-
 }

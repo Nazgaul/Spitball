@@ -4,7 +4,6 @@ namespace Cloudents.Core.Entities.Db
 {
     public class RowDetail
     {
-
         public RowDetail()
         {
             CreationTime = UpdateTime = DateTime.UtcNow;

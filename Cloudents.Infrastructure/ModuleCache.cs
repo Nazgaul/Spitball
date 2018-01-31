@@ -18,7 +18,6 @@ namespace Cloudents.Infrastructure
         {
             base.Load(builder);
 
-
             builder.Register(c => CacheFactory.Build(settings =>
             {
                 //settings.WithMicrosoftMemoryCacheHandle();//.WithExpiration(ExpirationMode.Sliding, TimeSpan.FromHours(1));
@@ -39,8 +38,6 @@ namespace Cloudents.Infrastructure
                     .WithRetryTimeout(100)
                     .WithRedisBackplane("redis")
                     .WithRedisCacheHandle("redis", true);
-
-
             })).AsSelf().SingleInstance().AsImplementedInterfaces();
             //var cache = CacheFactory.Build(settings =>
             //{
@@ -61,8 +58,6 @@ namespace Cloudents.Infrastructure
             //    .SingleInstance();
 
             builder.RegisterType<CacheProvider>().AsImplementedInterfaces();
-
-
         }
     }
 }

@@ -104,7 +104,6 @@ namespace Cloudents.Infrastructure.Write.Job
             if (job.JobType == JobFilter.None && obj.JobType != null)
             {
                 job.Extra = new[] { obj.JobType };
-
             }
 
             return job;
@@ -122,7 +121,6 @@ namespace Cloudents.Infrastructure.Write.Job
                 return JobFilter.None;
             }
             jobType = jobType.ToLowerInvariant();
-
 
             switch (jobType)
             {

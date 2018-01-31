@@ -5,25 +5,21 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Controllers
 {
     public class FlashcardController : Controller
     {
-        private readonly IStringLocalizer<Seo> _localizer;
         private readonly IReadRepositoryAsync<FlashcardSeoDto, long> _repository;
 
-        public FlashcardController(IStringLocalizer<Seo> localizer, IReadRepositoryAsync<FlashcardSeoDto, long> repository)
+        public FlashcardController(IReadRepositoryAsync<FlashcardSeoDto, long> repository)
         {
-            _localizer = localizer;
             _repository = repository;
         }
 
         [Route("flashcard/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Flashcard)]
-        public async Task<IActionResult> Index(long id, CancellationToken token)
+        public async Task<IActionResult> IndexAsync(long id, CancellationToken token)
         {
             //return this.RedirectToOldSite();
             ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/fbFlashcard.png";
@@ -38,7 +34,7 @@ namespace Cloudents.Web.Controllers
                 return this.RedirectToOldSite();
             }
 
-            if (string.IsNullOrEmpty(model.Country)) return View();
+            if (string.IsNullOrEmpty(model.Country)) return View("Index");
 
             //TODO: need to add specific culture base on country - culture not working
             //SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
@@ -48,7 +44,7 @@ namespace Cloudents.Web.Controllers
             ViewBag.metaDescription =
                 $"Practice and improve your knowledge in {model.Name} and test yourself with the {model.BoxName} flashcards your classmates have built. Start getting better grades with Spitball!";
 
-            return View();
+            return View("Index");
         }
     }
 }

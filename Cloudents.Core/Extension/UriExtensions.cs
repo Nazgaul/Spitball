@@ -38,7 +38,6 @@ namespace Cloudents.Core.Extension
             if (secondToLastDot > -1)
                 return host.Substring(secondToLastDot + 1);
             return host;
-
         }
     }
 }

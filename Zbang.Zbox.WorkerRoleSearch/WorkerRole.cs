@@ -130,15 +130,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private IList<IJob> GetJob()
         {
-            //if (RoleEnvironment.IsEmulated)
-            //{
-            //    return new List<IJob>
-            //    {
-            //         _ioc.Resolve<IJob>(nameof(TestingJob))
-            //        //_ioc.Resolve<IJob>(nameof(SchedulerListener)), //6
+            if (RoleEnvironment.IsEmulated)
+            {
+                return new List<IJob>
+                {
+                     _ioc.Resolve<IJob>(nameof(TestingJob))
+                    //_ioc.Resolve<IJob>(nameof(SchedulerListener)), //6
 
-            //    };
-            //}
+                };
+            }
             return new List<IJob>
             {
                 _ioc.Resolve<IJob>(IocFactory.UpdateSearchItem), //0

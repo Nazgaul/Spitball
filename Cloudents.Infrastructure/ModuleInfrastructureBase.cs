@@ -23,7 +23,6 @@ namespace Cloudents.Infrastructure
             _redisConnectionString = redisConnectionString;
         }
 
-
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
@@ -47,13 +46,11 @@ namespace Cloudents.Infrastructure
             {
                 cfg.ConstructServicesUsing(c.Resolve);
                 cfg.AddProfile<MapperProfile>();
-
             })).AsSelf().SingleInstance();
 
             //builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<AutoMapper.IMapper>();
             builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve<IComponentContext>().Resolve))
                 .As<IMapper>().InstancePerLifetimeScope();
-
 
             builder.RegisterType<Logger>().As<ILogger>();
         }

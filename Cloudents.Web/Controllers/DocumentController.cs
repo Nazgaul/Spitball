@@ -9,25 +9,21 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Controllers
 {
     public class DocumentController : Controller
     {
-        private readonly IStringLocalizer<Seo> _localizer;
         private readonly IReadRepositoryAsync<DocumentSeoDto, long> _repository;
         private readonly IReadRepositoryAsync<DocumentDto, long> _repositoryDocument;
         private readonly IBlobProvider<FilesContainerName> _blobProvider;
 
-        public DocumentController(IStringLocalizer<Seo> localizer,
+        public DocumentController(
             IReadRepositoryAsync<DocumentSeoDto, long> repository,
             IReadRepositoryAsync<DocumentDto, long> repositoryDocument,
             IBlobProvider<FilesContainerName> blobProvider)
         {
-            _localizer = localizer;
             _repository = repository;
             _repositoryDocument = repositoryDocument;
             _blobProvider = blobProvider;
@@ -70,7 +66,6 @@ namespace Cloudents.Web.Controllers
             ViewBag.metaDescription = WebUtility.HtmlDecode(ViewBag.metaDescription);
             return View();
         }
-
 
         [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}/download", Name = "ItemDownload")]
         [Route("D/{boxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload2")]

@@ -59,7 +59,6 @@ namespace Cloudents.Mobile.Controllers
                 }, model);
             }
 
-
             return Ok(new
             {
                 result = tResult.Result,

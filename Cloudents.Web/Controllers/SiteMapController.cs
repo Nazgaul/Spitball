@@ -29,7 +29,7 @@ namespace Cloudents.Web.Controllers
 
         [Route("sitemap.xml")]
         [ResponseCache(Duration = 2 * TimeConst.Day)]
-        public async Task<IActionResult> Index(CancellationToken token)
+        public async Task<IActionResult> IndexAsync(CancellationToken token)
         {
             XNamespace nameSpace = "http://www.sitemaps.org/schemas/sitemap/0.9";
             var model = await _readRepository.GetAsync(token).ConfigureAwait(false);
@@ -65,8 +65,6 @@ namespace Cloudents.Web.Controllers
             response.StatusCode = 200;
             response.ContentType = "application/xml";
 
-            XNamespace xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
-            XNamespace xhtml = "http://www.w3.org/1999/xhtml";
             var writer = XmlWriter.Create(Response.Body, new XmlWriterSettings
             {
                 Async = true
@@ -99,7 +97,6 @@ namespace Cloudents.Web.Controllers
             await response.Body.FlushAsync(token).ConfigureAwait(false);
         }
 
-
         private static async Task WriteTagAsync(string priority, string freq,
             string navigation, XmlWriter myWriter)
         {
@@ -123,6 +120,5 @@ namespace Cloudents.Web.Controllers
 
             await myWriter.WriteEndElementAsync().ConfigureAwait(false);
         }
-       
     }
 }
