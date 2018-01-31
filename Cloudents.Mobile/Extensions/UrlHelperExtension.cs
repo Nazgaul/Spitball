@@ -25,7 +25,9 @@ namespace Cloudents.Mobile.Extensions
             var url = urlHelper.Link(routeName, routeValue);
             url = url.Replace("_", "-");
             var builder = new UriBuilder(new Uri(url));
-            builder.AddQuery(AddObject(queryString));
+            var nvc = new NameValueCollection();
+            AddObject(string.Empty, queryString, nvc);
+            builder.AddQuery(nvc);
             return builder.ToString();
         }
 
@@ -45,41 +47,38 @@ namespace Cloudents.Mobile.Extensions
 
         //public static class NameValueCollectionExtension
         //{
-        private static NameValueCollection AddObject(object val)
+        private static void AddObject(string prefix, object val, NameValueCollection nvc)
         {
             if (val == null)
             {
-                return new NameValueCollection();
+                return;// nvc;
             }
-            var builder = new NameValueCollection();
+
+            prefix = prefix.TrimStart('.');
             var valType = val.GetType();
+            if (val.ToString() != val.GetType().ToString())
+            {
+                nvc.Add(prefix, val.ToString());
+                return;
+            }
+            if (val is IEnumerable p)
+            {
+                foreach (var z in p)
+                {
+                    if (z != null)
+                    {
+                        nvc.Add(prefix, z.ToString());
+                    }
+                }
+                return;
+            }
+
             foreach (var property in valType.GetProperties())
             {
-                var propertyValue = property.GetValue(val);
-                if (propertyValue == null)
-                {
-                    continue;
-                }
-                if (propertyValue is string str)
-                {
-                    builder.Add(property.Name, str);
-                    continue;
-                }
-                if (propertyValue is IEnumerable p)
-                {
-                    foreach (var z in p)
-                    {
-                        if (z != null)
-                        {
-                            builder.Add(property.Name, z.ToString());
-                        }
-                    }
-                    continue;
-                }
-                builder.Add(property.Name, propertyValue.ToString());
+                var propertyValue2 = property.GetValue(val);
+
+                AddObject($"{prefix}.{property.Name}", propertyValue2, nvc);
             }
-            return builder;
         }
-        //}
     }
 }
