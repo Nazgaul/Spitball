@@ -25,6 +25,7 @@ export default {
     },
     components: { ResultBook },
     computed: {
+        currentType(){return this.sortVal?this.sortVal.charAt(0).toUpperCase():""},
         selectedFilter(){return this.query.filter?[].concat(this.query.filter).map(i=>({key:'filter',value:i})):[]},
         sort:()=>'price',
         filteredList: function () {
