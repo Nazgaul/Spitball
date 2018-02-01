@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Newtonsoft.Json.Linq;
 

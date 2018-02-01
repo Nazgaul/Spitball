@@ -36,7 +36,8 @@ namespace Cloudents.Infrastructure.Search.Places
                 ["placeid"] = id
             };
 
-            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/details/json"), nvc, token).ConfigureAwait(false);
+            var resultStr = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/place/details/json"), nvc, token).ConfigureAwait(false);
+            var result = JObject.Parse(resultStr);
             return _mapper.Map<JObject, PlaceDto>(result, opt =>
             {
                 opt.Items["width"] = 150;
@@ -108,7 +109,8 @@ namespace Cloudents.Infrastructure.Search.Places
                 ["key"] = Key,
             };
 
-            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/textsearch/json"), nvc, token).ConfigureAwait(false);
+            var resultStr = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/place/textsearch/json"), nvc, token).ConfigureAwait(false);
+            var result = JObject.Parse(resultStr);
             var mapperResult = _mapper.Map<JObject, IEnumerable<PlaceDto>>(result, opt =>
             {
                 opt.Items["width"] = 150;
@@ -122,7 +124,8 @@ namespace Cloudents.Infrastructure.Search.Places
         {
             var nvc = BuildQuery(term, filter, location, nextPageToken);
 
-            var result = await _restClient.GetJsonAsync(new Uri("https://maps.googleapis.com/maps/api/place/nearbysearch/json"), nvc, token).ConfigureAwait(false);
+            var resultStr = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/place/nearbysearch/json"), nvc, token).ConfigureAwait(false);
+            var result = JObject.Parse(resultStr);
             return _mapper.Map<JObject, (string, IEnumerable<PlaceDto>)>(result, opt =>
             {
                 opt.Items["width"] = 150;

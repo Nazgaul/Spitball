@@ -17,6 +17,7 @@
   <ItemGroup>
     <Compile Remove="Search\CseSearch.cs" />
     <Compile Remove="Search\TitleSearch.cs" />
+    <Compile Remove="Search\Tutor\TutorMeSearch.cs" />
   </ItemGroup>
 
   <ItemGroup>
