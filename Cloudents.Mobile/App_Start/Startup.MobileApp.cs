@@ -1,10 +1,6 @@
 ﻿using System.Configuration;
 using System.Reflection;
 using System.Web.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.ExceptionHandling;
-using System.Web.Http.ModelBinding;
-using System.Web.Http.ModelBinding.Binders;
 using Autofac;
 using Autofac.Integration.WebApi;
 using Cloudents.Core.Models;

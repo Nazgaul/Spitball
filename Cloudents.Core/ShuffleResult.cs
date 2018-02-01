@@ -18,6 +18,10 @@ namespace Cloudents.Core
                 return null;
             }
             var listOfResult = result.ToList();
+            if (listOfResult.Count == 0)
+            {
+                return listOfResult;
+            }
             var objectToKeep = listOfResult.RemoveAndGet(0);
 
             var list = new List<T> { objectToKeep };

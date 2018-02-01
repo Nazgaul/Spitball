@@ -114,14 +114,14 @@ namespace Cloudents.Infrastructure.Search
 
         public class BingCustomSearchResponse
         {
-            public string Type { get; set; }
+            //public string Type { get; set; }
             public WebPages WebPages { get; set; }
         }
 
         public class WebPages
         {
-            public string WebSearchUrl { get; set; }
-            public int TotalEstimatedMatches { get; set; }
+           // public string WebSearchUrl { get; set; }
+           // public int TotalEstimatedMatches { get; set; }
             public WebPage[] Value { get; set; }
         }
 
@@ -129,18 +129,18 @@ namespace Cloudents.Infrastructure.Search
         {
             public string Name { get; set; }
             public string Url { get; set; }
-            public string DisplayUrl { get; set; }
+           // public string DisplayUrl { get; set; }
             public string Snippet { get; set; }
-            public DateTime DateLastCrawled { get; set; }
-            public string CachedPageUrl { get; set; }
+          //  public DateTime DateLastCrawled { get; set; }
+           // public string CachedPageUrl { get; set; }
             public OpenGraphImage OpenGraphImage { get; set; }
         }
 
         public class OpenGraphImage
         {
             public string ContentUrl { get; set; }
-            public int Width { get; set; }
-            public int Height { get; set; }
+           // public int Width { get; set; }
+           // public int Height { get; set; }
         }
     }
 }
