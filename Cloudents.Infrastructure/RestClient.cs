@@ -14,7 +14,6 @@ namespace Cloudents.Infrastructure
 {
     public class RestClient : IRestClient
     {
-
         public async Task<JObject> GetJsonAsync(Uri url, NameValueCollection queryString, CancellationToken token)
         {
             var str = await GetAsync(url, queryString, token).ConfigureAwait(false);

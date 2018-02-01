@@ -14,6 +14,7 @@ using Cloudents.Core.Entities.DocumentDb;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Cloudents.Core.Request;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
@@ -47,20 +48,18 @@ namespace ConsoleApp
             var container = builder.Build();
             var point = new GeoPoint()
             {
-                Latitude = 40.7127753 ,
+                Latitude = 40.7127753,
                 Longitude = -74.0059728
             };
 
-            var places = container.Resolve<IGooglePlacesSearch>();
-            var service = container.Resolve<IJobSearch>();
-            var z = await places.ReverseGeocodingAsync(point, default);
+            var service = container.Resolve<IDocumentCseSearch>();
 
-            var p = await service.SearchAsync(new[] { "Marketing" }, JobRequestSort.Date, null, z, 0, false, default);
+            var s = await service.SearchAsync(SearchQuery.Document(new[] { "economics" }, null, null, null, 0, SearchRequestSort.None, null), BingTextFormat.None, default);
+            //var p = await service.SearchAsync(new[] { "Marketing" }, JobRequestSort.Date, null, z, 0, false, default);
 
             //var result = await service.GeoCodingByAddressAsync("New York,NY US", default);
             //210ec431-2d6d-45cb-bc01-04e3f687f0ed.docx
             Console.ReadLine();
-
 
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
         }

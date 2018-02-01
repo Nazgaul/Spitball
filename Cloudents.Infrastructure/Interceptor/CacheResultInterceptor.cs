@@ -19,9 +19,6 @@ namespace Cloudents.Infrastructure.Interceptor
             _cacheProvider = cacheProvider;
         }
 
-
-       
-
         public static string BuildArgument(object[] argument)
         {
             var sb = new StringBuilder();
@@ -119,7 +116,6 @@ namespace Cloudents.Infrastructure.Interceptor
             var key = GetInvocationSignature(invocation);
 
             var method = invocation.MethodInvocationTarget;
-            //var isAsync = method.GetCustomAttribute(typeof(AsyncStateMachineAttribute)) != null;
             var data = _cacheProvider.Get(key, cacheAttr.Region);
 
             if (data != null)

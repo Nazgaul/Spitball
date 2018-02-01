@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Converters;
+using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
 using Microsoft.Azure.Search.Models;
 using Newtonsoft.Json.Linq;
+using SearchResult = Cloudents.Core.DTOs.SearchResult;
 
 namespace Cloudents.Infrastructure
 {
@@ -17,10 +19,11 @@ namespace Cloudents.Infrastructure
     {
         public MapperProfile()
         {
-            CreateMap<Tutor, TutorDto>();
+            CreateMap<Tutor, TutorDto>().ForMember(m => m.Online, opt => opt.MapFrom(src => src.TutorFilter == TutorFilter.Online));
             CreateMap<string, Location>().ConvertUsing<IpConverter>();
             CreateMap<IpDto, Location>().ForMember(f => f.Point, opt => opt.MapFrom(src => new GeoPoint { Latitude = src.Latitude, Longitude = src.Longitude }));
             CreateMap<GoogleGeoCodeDto, Location>().ConvertUsing<GoogleGeoConverter>();
+            CreateMap<BingSearch.WebPage, SearchResult>().ConvertUsing<BingConverter>();
             //ZipRecruiterConverter
 
             CreateMap<DocumentSearchResult<Job>, ResultWithFacetDto<JobDto>>()
@@ -58,30 +61,7 @@ namespace Cloudents.Infrastructure
             CreateMap<JObject, BookDetailsDto>().ConvertUsing<BookDetailConverter>();
             CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlacesConverter>();
             CreateMap<JObject, PlaceDto>().ConvertUsing<PlaceConverter>();
-            CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
-            //TODO
-            //CreateMap<JObject, Location>().ConvertUsing(jo =>
-            //{
-            //    if (!string.Equals(jo["status"].Value<string>(), "ok", StringComparison.InvariantCultureIgnoreCase))
-            //        return null;
-            //    var result = jo["results"][0]; //["geometry"]["location"];
-            //    var geo = result["geometry"]["location"];
-            //    var address = result["address_components"].ToArray();
-            //    return new Location
-            //    {
-            //        Latitude = geo["lat"].Value<double>(),
-            //        Longitude = geo["lng"].Value<double>(),
-            //        City = address.Where(w=>w["types"].ToArray())
-            //    };
-
-            //});
-            //CreateMap<JObject, AddressDto>().ConvertUsing(jo =>
-            //{
-            //    if (!string.Equals(jo["status"].Value<string>(), "ok", StringComparison.InvariantCultureIgnoreCase))
-            //        return null;
-            //    var geo = jo["results"][0]["formatted_address"].Value<string>();
-            //    return new AddressDto(geo);
-            //});
+            //CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
         }
     }
 }

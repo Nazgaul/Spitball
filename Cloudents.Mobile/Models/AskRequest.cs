@@ -9,7 +9,6 @@ namespace Cloudents.Mobile.Models
     /// </summary>
     public class AskRequest : IPaging
     {
-      
         /// <inheritdoc />
         /// <summary>
         /// Page for paging

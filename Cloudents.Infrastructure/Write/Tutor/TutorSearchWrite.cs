@@ -76,7 +76,6 @@ namespace Cloudents.Infrastructure.Write.Tutor
                     }
               }
             };
-            
         }
 
         public async Task DeleteOldTutorsAsync(string source, DateTime timeToDelete, CancellationToken token)

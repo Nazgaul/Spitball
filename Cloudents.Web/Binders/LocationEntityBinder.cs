@@ -5,7 +5,7 @@ using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace Cloudents.Web.Filters
+namespace Cloudents.Web.Binders
 {
     public class LocationEntityBinder : IModelBinder
     {
@@ -13,7 +13,6 @@ namespace Cloudents.Web.Filters
         private readonly ITempDataDictionaryFactory _tempDataFactory;
         private readonly IGooglePlacesSearch _googlePlacesSearch;
         private const string KeyName = "s-l";
-
 
         public LocationEntityBinder(IIpToLocation ipToLocation, ITempDataDictionaryFactory tempDataFactory, IGooglePlacesSearch googlePlacesSearch)
         {
@@ -29,8 +28,8 @@ namespace Cloudents.Web.Filters
             var latitudeStr = bindingContext.ValueProvider.GetValue("location.latitude");
             var longitudeStr = bindingContext.ValueProvider.GetValue("location.longitude");
             var locationFromTemp = tempData.Get<Location>(KeyName);
-            if (double.TryParse(latitudeStr.FirstValue,out var latitude) &&
-                double.TryParse(longitudeStr.FirstValue, out var longitude))
+            if (double.TryParse(latitudeStr.FirstValue, out var latitude)
+                && double.TryParse(longitudeStr.FirstValue, out var longitude))
             {
                 var point = new GeoPoint
                 {
@@ -49,8 +48,6 @@ namespace Cloudents.Web.Filters
                 locationFromTemp = await _googlePlacesSearch.ReverseGeocodingAsync(point, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
                 tempData.Put(KeyName, locationFromTemp);
                 bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
-
-
             }
 
             if (locationFromTemp != null)
@@ -62,7 +59,6 @@ namespace Cloudents.Web.Filters
             locationFromTemp = await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
             tempData.Put(KeyName, locationFromTemp);
             bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
-
         }
     }
 }

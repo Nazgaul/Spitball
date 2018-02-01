@@ -77,7 +77,6 @@ namespace Cloudents.Web.Middleware
 
             return checksum;
         }
-        
     }
     public static class ApplicationBuilderExtensions
     {

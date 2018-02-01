@@ -39,6 +39,5 @@ namespace Cloudents.Core.Entities.Db
         public long? UniversityId { get; set; }
 
         public CoursePrivacySetting PrivacySetting { get; set; }
-
     }
 }

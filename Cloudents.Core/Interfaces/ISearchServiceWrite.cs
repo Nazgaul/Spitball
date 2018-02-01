@@ -11,7 +11,6 @@ namespace Cloudents.Core.Interfaces
         Task UpdateDataAsync(IEnumerable<T> items, CancellationToken token);
 
         Task DeleteDataAsync(IEnumerable<string> ids, CancellationToken token);
-
     }
 
     public interface ISearchObject

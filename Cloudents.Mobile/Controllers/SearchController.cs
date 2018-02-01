@@ -48,7 +48,12 @@ namespace Cloudents.Mobile.Controllers
                 model.Sort.GetValueOrDefault(), model.DocType);
             var result = await _searchProvider.Value.SearchAsync(query, model.Format, token).ConfigureAwait(false);
 
-            var nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
+            string nextPageLink = null;
+            if (result.Result.Count > 0)
+            {
+                nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
+            }
+
             return Ok(new
             {
                 documents = result.Result,
@@ -69,8 +74,13 @@ namespace Cloudents.Mobile.Controllers
         {
             var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault());
-            var nextPageLink = Url.NextPageLink("FlashcardSearch", null, model);
+
             var result = await _flashcardProvider.Value.SearchAsync(query, model.Format, token).ConfigureAwait(false);
+            string nextPageLink = null;
+            if (result.Result.Count > 0)
+            {
+                nextPageLink = Url.NextPageLink("FlashcardSearch", null, model);
+            }
             return Ok(new
             {
                 documents = result.Result,
@@ -78,7 +88,5 @@ namespace Cloudents.Mobile.Controllers
                 nextPageLink
             });
         }
-
-
     }
 }

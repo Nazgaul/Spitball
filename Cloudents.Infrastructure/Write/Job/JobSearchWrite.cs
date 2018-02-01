@@ -104,6 +104,4 @@ namespace Cloudents.Infrastructure.Write.Job
             } while (result.Count == top);
         }
     }
-
-
 }

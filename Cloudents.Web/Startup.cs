@@ -4,6 +4,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Data;
+using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Middleware;
@@ -51,19 +52,12 @@ namespace Cloudents.Web
                     o.Filters.Add(new GlobalExceptionFilter());
                     o.ModelBinderProviders.Insert(0, new LocationModelBinder());
                 });
-            services.Configure<MvcOptions>(options =>
-            {
-                options.Filters.Add(new RequireHttpsAttribute());
-            });
+            services.Configure<MvcOptions>(options => options.Filters.Add(new RequireHttpsAttribute()));
             services.AddResponseCompression();
             services.AddResponseCaching();
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlServer(connection);
-            });
-
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
 
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
             services.AddSingleton(physicalProvider);
@@ -135,7 +129,6 @@ namespace Cloudents.Web
             app.UseWebMarkupMin();
             app.UseMvc(routes =>
             {
-
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

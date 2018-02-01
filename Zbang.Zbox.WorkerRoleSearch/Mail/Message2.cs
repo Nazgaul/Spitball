@@ -59,7 +59,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             }
             return true;
         }
-
        
     }
 }

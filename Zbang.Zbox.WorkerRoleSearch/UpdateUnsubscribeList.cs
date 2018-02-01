@@ -24,7 +24,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private DateTime _dateTime;
         private string _leaseId = string.Empty;
         private readonly TimeSpan _sleepTime = TimeSpan.FromMinutes(30);
-        //private readonly IMailComponent _mMailComponent;
         private readonly ILogger _logger;
 
         private CloudBlockBlob _mBlob;
@@ -100,12 +99,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     sw.Start();
                     await ProcessIntercomAsync(cancellationToken).ConfigureAwait(false);
                     sw.Stop();
-                    mailContent.AppendLine($"process intercom finish and took {sw.ElapsedMilliseconds}");
+                    mailContent.Append("process intercom finish and took ").Append(sw.ElapsedMilliseconds).AppendLine();
                     await RenewLeaseAsync(cancellationToken).ConfigureAwait(false);
                     sw.Restart();
                     _zboxWorkerRoleService.UpdateUniversityStats(_dateTime);
                     sw.Stop();
-                    mailContent.AppendLine($"update university took {sw.ElapsedMilliseconds}");
+                    mailContent.Append("update university took ").Append(sw.ElapsedMilliseconds).AppendLine();
                     await RenewLeaseAsync(cancellationToken).ConfigureAwait(false);
 
                     _dateTime = DateTime.UtcNow.AddDays(-1);

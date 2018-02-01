@@ -19,6 +19,5 @@ namespace Cloudents.Infrastructure.Search.Entities
 
       //  [IsFilterable]
         public long? UniversityId { get; set; }
-
     }
 }

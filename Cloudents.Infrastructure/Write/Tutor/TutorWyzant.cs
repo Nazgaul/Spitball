@@ -35,7 +35,6 @@ namespace Cloudents.Infrastructure.Write.Tutor
         protected override string Service => nameof(WyzantTutor);
         protected override HttpClientHandler HttpHandler { get; }
 
-
         private const string Source = "Wyzant";
         protected override IEnumerable<WyzantTutor> GetT(string location)
         {

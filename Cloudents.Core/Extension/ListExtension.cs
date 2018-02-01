@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cloudents.Core.Extension
 {
@@ -30,6 +31,23 @@ namespace Cloudents.Core.Extension
                 list.RemoveAt(index);
                 return value;
             }
+        }
+    }
+
+    public static class EnumerableExtension
+    {
+        public static List<TSource> ToListIgnoreNull<TSource>(this IEnumerable<TSource> source)
+        {
+            if (source == null)
+            {
+                return new List<TSource>();
+            }
+
+            if (source is List<TSource> p)
+            {
+                return p;
+            }
+            return new List<TSource>(source);
         }
     }
 }

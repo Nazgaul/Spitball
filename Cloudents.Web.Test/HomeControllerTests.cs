@@ -1,9 +1,5 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Web.Controllers;
@@ -21,25 +17,21 @@ namespace Cloudents.Web.Test
     [TestClass]
     public class HomeControllerTests
     {
-
         Mock<IIpToLocation> _mock;
         private Mock<IConfiguration> _configurationMock;
-
 
         private HomeController _controller;
         public HomeControllerTests()
         {
-            _mock = new Mock<IIpToLocation>();
             _configurationMock = new Mock<IConfiguration>();
 
             _configurationMock.Setup(f => f["Ips"]).Returns("31.154.39.170");
-            _controller = new HomeController(_mock.Object, _configurationMock.Object);
+            _controller = new HomeController(_configurationMock.Object);
             _controller.ControllerContext.HttpContext = new DefaultHttpContext();
-
         }
 
         [TestMethod]
-        public void Index_OfficeIP_ReturnViewAsync()
+        public void Index_OfficeIP_ReturnView()
         {
             var ip = IPAddress.Parse("31.154.39.170");
             _controller.ControllerContext.HttpContext.Request.Path = "/classnotes";
@@ -60,7 +52,7 @@ namespace Cloudents.Web.Test
         }
 
         [TestMethod]
-        public void Index_ILIP_ReturnRedirectToOldSiteAsync()
+        public void Index_ILIP_ReturnRedirectToOldSite()
         {
             var ip = IPAddress.Parse("31.154.39.150");
             _controller.ControllerContext.HttpContext.Request.Path = "/classnotes";
@@ -74,18 +66,14 @@ namespace Cloudents.Web.Test
                 CountryCode = "IL"
             };
 
-
             var result = _controller.Index(location);
-
 
             Assert.IsInstanceOfType(result, typeof(RedirectResult));
             if (result is RedirectResult result2)
             {
                 Assert.AreEqual("https://heb.spitball.co/classnotes", result2.Url);
             }
-
         }
-
 
         [TestMethod]
         public void Index_USIP_ReturnNewSite()
@@ -103,13 +91,9 @@ namespace Cloudents.Web.Test
                 CountryCode = "US"
             };
 
-
             var result = _controller.Index(location);
 
-
             Assert.IsInstanceOfType(result, typeof(ViewResult));
-            
-
         }
     }
 }

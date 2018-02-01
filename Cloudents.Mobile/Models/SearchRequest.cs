@@ -46,7 +46,5 @@ namespace Cloudents.Mobile.Models
         /// </summary>
         [DefaultValue(0)]
         public BingTextFormat Format { get; set; }
-
-       
     }
 }

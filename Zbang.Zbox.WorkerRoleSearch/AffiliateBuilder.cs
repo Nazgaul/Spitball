@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
@@ -9,7 +8,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class AffiliateBuilder : ISchedulerProcess
     {
         private readonly IUpdateAffiliate _affiliate;
-
 
         public AffiliateBuilder(IUpdateAffiliate affiliate)
         {
@@ -21,7 +19,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (progressAsync == null) throw new ArgumentNullException(nameof(progressAsync));
             try
             {
-                await _affiliate.ExecuteAsync(index, (i) => progressAsync(i, TimeSpan.FromMinutes(10)), token);
+                await _affiliate.ExecuteAsync(index, (i) => progressAsync(i, TimeSpan.FromMinutes(10)), token).ConfigureAwait(false);
             }
             catch (OperationCanceledException)
             {
@@ -31,7 +29,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 //_logger.Exception(ex, new Dictionary<string, string> { ["process"] = "AffiliateBuilder" });
                 return false;
-                
             }
 
             return true;

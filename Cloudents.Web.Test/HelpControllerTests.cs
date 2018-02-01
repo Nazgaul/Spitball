@@ -15,7 +15,6 @@ namespace Cloudents.Web.Test
             const string xmlFile = "help.xml";
             var resource = $"Cloudents.Web.Test.{xmlFile}";
             return asm.GetManifestResourceStream(resource);
-
         }
 
         [TestMethod]
@@ -30,8 +29,6 @@ namespace Cloudents.Web.Test
                 var firstResult = result.First();
 
                 Assert.AreEqual(firstResult.Question, "What happened to the old Spitball and where did all my documents go?");
-
-
             }
         }
     }

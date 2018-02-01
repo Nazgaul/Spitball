@@ -15,7 +15,6 @@ namespace Cloudents.Infrastructure.Search.Job
         private readonly IEnumerable<IJobProvider> _providers;
         public const int PageSize = 30;
 
-
         public JobSearch(IEnumerable<IJobProvider> providers)
         {
             _providers = providers;
@@ -36,7 +35,6 @@ namespace Cloudents.Infrastructure.Search.Job
                 Result = jobs,
                 Facet = facets
             };
-
         }
     }
 }

@@ -48,7 +48,6 @@ namespace Cloudents.Web.Api
             });
         }
 
-
         [HttpGet]
         public async Task<IActionResult> GetByIdAsync([RequiredFromQuery]string id,
             CancellationToken token, [FromServices] IGooglePlacesSearch places)

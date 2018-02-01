@@ -6,8 +6,6 @@ namespace Cloudents.Core
 {
     public class Logger : ILogger
     {
-       
-
         public void Exception(Exception ex, IDictionary<string, string> properties = null)
         {
             if (ex == null) throw new ArgumentNullException(nameof(ex));

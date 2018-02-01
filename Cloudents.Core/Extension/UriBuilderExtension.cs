@@ -24,17 +24,4 @@ namespace Cloudents.Core.Extension
             }
         }
     }
-
-    public static class UriExtensions
-    {
-        public static Uri ChangeToHttps(this Uri uri)
-        {
-            var uriBuilder = new UriBuilder(uri)
-            {
-                Scheme = Uri.UriSchemeHttps,
-                Port = -1
-            };
-            return uriBuilder.Uri;
-        }
-    }
 }

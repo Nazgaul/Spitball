@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Cloudents.Core;
@@ -28,20 +27,6 @@ namespace Cloudents.Infrastructure.Converters
                 CompensationType = "paid",
                 Responsibilities = RegEx.RemoveHtmlTags.Replace(s.Snippet,string.Empty)
             });
-            //return new ResultWithFacetDto<JobDto>
-            //{
-            //    Result = source.Jobs.Select(s=> new JobDto
-            //    {
-            //        DateTime = s.PostedTime,
-            //        Url = s.Url,
-            //        Source = "ZipRecruiter",
-            //        Company = s.HiringCompany.Name,
-            //        Address = s.Location,
-            //        Title = s.Name,
-            //        CompensationType = "paid",
-            //        Responsibilities = s.Snippet
-            //    })
-            //};
         }
     }
 }

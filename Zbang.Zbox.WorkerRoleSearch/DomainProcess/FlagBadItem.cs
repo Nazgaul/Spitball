@@ -41,7 +41,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
         private async Task<bool> FlagItemAsync(BadItemData parameters)
         {
             await m_TableProvider.InsertUserRequestAsync(
-                new FlagItem(parameters.ItemId, parameters.UserId, parameters.Other, parameters.Reason));
+                new FlagItem(parameters.ItemId, parameters.UserId, parameters.Other, parameters.Reason)).ConfigureAwait(false);
 
             var flagItemDetail = _zboxReadService.GetFlagItemUserDetail(new GetBadItemFlagQuery(parameters.UserId, parameters.ItemId));
 
@@ -51,17 +51,17 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                        flagItemDetail.Name,
                        flagItemDetail.Email,
                        string.Empty
-                       ));
+                       )).ConfigureAwait(false);
             return true;
         }
 
         private async Task<bool> FlagPostAsync(BadPostData parameters)
         {
             await m_TableProvider.InsertUserRequestAsync(
-                 new FlagCommentOrReply(parameters.PostId, parameters.UserId));
+                 new FlagCommentOrReply(parameters.PostId, parameters.UserId)).ConfigureAwait(false);
 
             await m_MailComponent.GenerateAndSendEmailAsync("eidan@cloudents.com",
-                 new FlagItemMailParams("post or reply", " from ios app", "don't know", "don't know", string.Empty));
+                 new FlagItemMailParams("post or reply", " from ios app", "don't know", "don't know", string.Empty)).ConfigureAwait(false);
             return true;
         }
     }

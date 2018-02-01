@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Cloudents.Core.Entities.Db
 {
-
     public partial class University
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -37,7 +36,5 @@ namespace Cloudents.Core.Entities.Db
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Course> Courses { get; set; }
-
-
     }
 }

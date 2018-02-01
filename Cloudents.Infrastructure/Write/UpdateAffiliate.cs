@@ -13,8 +13,6 @@ namespace Cloudents.Infrastructure.Write
         private readonly ILogger _logger;
         private readonly IDownloadFile _downloadFile;
 
-
-
         protected UpdateAffiliate(ILogger logger, IDownloadFile localStorage)
         {
             _logger = logger;
@@ -27,7 +25,6 @@ namespace Cloudents.Infrastructure.Write
         protected abstract string Service { get; }
 
         protected abstract HttpClientHandler HttpHandler { get; }
-        
 
         protected abstract IEnumerable<T> GetT(string location);
         protected abstract Task<TU> ParseTAsync(T obj, CancellationToken token);
@@ -89,7 +86,7 @@ namespace Cloudents.Infrastructure.Write
             {
                 _logger.Exception(ex, new Dictionary<string, string>()
                 {
-                    ["Service"] = Service
+                    [nameof(Service)] = Service
                 });
                 throw;
             }

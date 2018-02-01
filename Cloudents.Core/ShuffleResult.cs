@@ -11,7 +11,7 @@ namespace Cloudents.Core
 
     public static class Shuffle<T> where T : IShuffleable
     {
-       public static IEnumerable<T> DoShuffle(IEnumerable<T> result)
+       public static IList<T> DoShuffle(IEnumerable<T> result)
         {
             if (result == null)
             {
@@ -36,6 +36,4 @@ namespace Cloudents.Core
             return list;
         }
     }
-
-    
 }

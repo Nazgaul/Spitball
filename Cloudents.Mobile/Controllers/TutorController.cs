@@ -1,8 +1,10 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Mobile.Extensions;
 using Cloudents.Mobile.Models;
@@ -38,19 +40,23 @@ namespace Cloudents.Mobile.Controllers
 
         public async Task<IHttpActionResult> Get([FromUri]TutorRequest model, CancellationToken token)
         {
-            var result = await _tutorSearch.SearchAsync(model.Term,
+            var result = (await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Price),
                 model.Location,
-                model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
-            var nextPageLink = Url.NextPageLink("DefaultApis", null, model);
+                model.Page.GetValueOrDefault(), token).ConfigureAwait(false)).ToListIgnoreNull();
+
+            string nextPageLink = null;
+            if (result.Count > 0)
+            {
+                nextPageLink = Url.NextPageLink("DefaultApis", null, model);
+            }
+
             return Ok(new
             {
                 result,
                 nextPageLink
             });
         }
-
-
     }
 }

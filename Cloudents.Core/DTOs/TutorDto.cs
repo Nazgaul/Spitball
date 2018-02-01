@@ -27,7 +27,9 @@ namespace Cloudents.Core.DTOs
         public string Description { get; set; }
 
         [DataMember]
-        public string Source { get; set; }
+        public bool? Online { get; set; }
 
+        [DataMember]
+        public string Source { get; set; }
     }
 }

@@ -56,6 +56,9 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<BingSearch>().As<ISearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
+            builder.RegisterType<ReplaceImageProvider>().AsSelf();
+
+
             builder.RegisterType<DocumentCseSearch>().As<IDocumentCseSearch>();
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
@@ -89,7 +92,7 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
 
-            builder.Register(c => new CloudStorageProvider(_storageConnectionString)).SingleInstance();
+            builder.Register(c => new CloudStorageProvider(_storageConnectionString)).SingleInstance().AsImplementedInterfaces();
             builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
             builder.RegisterGeneric(typeof(BlobProvider<>)).AsImplementedInterfaces();
         }

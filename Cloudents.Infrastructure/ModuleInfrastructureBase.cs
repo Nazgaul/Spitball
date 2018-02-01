@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using Cloudents.Core;
@@ -7,6 +8,7 @@ using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Places;
 using Microsoft.Azure.Search;
+using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
@@ -20,7 +22,6 @@ namespace Cloudents.Infrastructure
             _searchService = searchService;
             _redisConnectionString = redisConnectionString;
         }
-
 
         protected override void Load(ContainerBuilder builder)
         {
@@ -36,19 +37,30 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<LogInterceptor>();
             builder.RegisterType<RestClient>().As<IRestClient>();
 
-            var config = MapperConfiguration();
-            builder.Register(c => config.CreateMapper()).SingleInstance();
-            builder.RegisterType<CacheProvider>().AsImplementedInterfaces();
+            //var config = MapperConfiguration();
+            //builder.Register(c => config.CreateMapper()).SingleInstance();
+
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ITypeConverter<,>));
+
+            builder.Register(c => new MapperConfiguration(cfg =>
+            {
+                cfg.ConstructServicesUsing(c.Resolve);
+                cfg.AddProfile<MapperProfile>();
+            })).AsSelf().SingleInstance();
+
+            //builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<AutoMapper.IMapper>();
+            builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve<IComponentContext>().Resolve))
+                .As<IMapper>().InstancePerLifetimeScope();
+
             builder.RegisterType<Logger>().As<ILogger>();
         }
 
-        private static MapperConfiguration MapperConfiguration()
-        {
-            return new MapperConfiguration(cfg =>
-            {
-                cfg.Advanced.AllowAdditiveTypeMapCreation = true;
-                cfg.AddProfile<MapperProfile>();
-            });
-        }
+        //private static MapperConfiguration MapperConfiguration()
+        //{
+        //    return new MapperConfiguration(cfg =>
+        //    {
+        //        cfg.AddProfile<MapperProfile>();
+        //    });
+        //}
     }
 }

@@ -39,7 +39,6 @@ namespace Cloudents.Core.Models
         [DataMember(Order = 2)]
         public double Latitude { get; set; }
 
-
         public static bool operator ==(GeoPoint obj1, GeoPoint obj2)
         {
             if (ReferenceEquals(obj1, null))
@@ -48,7 +47,6 @@ namespace Cloudents.Core.Models
             }
 
             return obj1.Equals(obj2);
-           
         }
 
         public static bool operator !=(GeoPoint obj1, GeoPoint obj2)

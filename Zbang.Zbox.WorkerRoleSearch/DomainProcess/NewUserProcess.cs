@@ -34,7 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             var t2 =  m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                  new WelcomeMailParams(parameters.UserName,
                      new CultureInfo(parameters.Culture)), token);
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll(t1, t2).ConfigureAwait(false);
             return true;
         }
     }
