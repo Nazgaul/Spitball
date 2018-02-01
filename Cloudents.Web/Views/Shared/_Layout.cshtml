@@ -46,6 +46,7 @@
               asp-fallback-test-class="cdn-only2" asp-fallback-test-property="position"
               asp-fallback-test-value="absolute" />
     </environment>
+    @await RenderSectionAsync("styleSection", required:false).ConfigureAwait(false)
     <meta charset="utf-8">
     <meta name="theme-color" content="@themeColor">
     <meta name="msapplication-navbutton-color" content="@themeColor">

@@ -15,6 +15,8 @@
     {
         public const string Item = "Item";
         public const string Flashcard = "Flashcard";
+        public const string NotFound = "Not Found";
+        public const string ServerError = "Server Error";
        // public const string Quiz = "Quiz";
     }
 }
