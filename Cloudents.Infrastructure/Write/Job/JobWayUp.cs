@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -15,7 +15,7 @@ using Cloudents.Infrastructure.Write.Job.Entities;
 
 namespace Cloudents.Infrastructure.Write.Job
 {
-    public class JobWayUp : UpdateAffiliate<WayUpJob, Core.Entities.Search.Job>, IDisposable
+    public class JobWayUp : UpdateAffiliate<WayUpJob, Core.Entities.Search.Job>
     {
         private readonly JobSearchWrite _jobSearchService;
         private readonly IGooglePlacesSearch _zipToLocation;
@@ -28,10 +28,6 @@ namespace Cloudents.Infrastructure.Write.Job
             _jobSearchService = jobSearchService;
             _zipToLocation = zipToLocation;
             _keyGenerator = keyGenerator;
-            HttpHandler = new HttpClientHandler()
-            {
-                Credentials = new NetworkCredential("cqSCcVaGdfHVTefIBGCTdLqmYPeboa", "LAGhyQrQdfLumRjMrXVVVISAnrbTZn")
-            };
         }
 
         protected override Task DeleteOldItemsAsync(DateTime timeToDelete, CancellationToken token)
@@ -42,7 +38,14 @@ namespace Cloudents.Infrastructure.Write.Job
         protected override string FileLocation => "wayUpJobs.xml";
         protected override Uri Url => new Uri("https://www.wayup.com/integrations/clickcast-feed/");
         protected override string Service => "WayUp jobs";
-        protected override HttpClientHandler HttpHandler { get; }
+        protected override AuthenticationHeaderValue HttpHandler
+        {
+            get
+            {
+                var byteArray = Encoding.ASCII.GetBytes($"cqSCcVaGdfHVTefIBGCTdLqmYPeboa:LAGhyQrQdfLumRjMrXVVVISAnrbTZn");
+                return new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+            }
+        }
 
         protected override IEnumerable<WayUpJob> GetT(string location)
         {
@@ -137,12 +140,6 @@ namespace Cloudents.Infrastructure.Write.Job
             }
 
             return JobFilter.None;// jobType?.Replace("_", " ").ToLowerInvariant();
-        }
-
-        public void Dispose()
-        {
-            HttpHandler?.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

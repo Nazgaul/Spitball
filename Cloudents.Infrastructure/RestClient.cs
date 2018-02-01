@@ -12,8 +12,15 @@ using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure
 {
-    public class RestClient : IRestClient
+    public class RestClient : IRestClient, IDisposable
     {
+        private readonly HttpClient _client;
+
+        public RestClient()
+        {
+            _client = new HttpClient();
+        }
+
         public async Task<JObject> GetJsonAsync(Uri url, NameValueCollection queryString, CancellationToken token)
         {
             var str = await GetAsync(url, queryString, token).ConfigureAwait(false);
@@ -28,35 +35,51 @@ namespace Cloudents.Infrastructure
         public async Task<string> GetAsync(Uri url, NameValueCollection queryString, IEnumerable<KeyValuePair<string, string>> headers,
             CancellationToken token)
         {
-            using (var client = new HttpClient())
+
+            _client.DefaultRequestHeaders.Clear();
+            foreach (var header in headers ?? Enumerable.Empty<KeyValuePair<string, string>>())
             {
-                client.DefaultRequestHeaders.Accept.Clear();
-                foreach (var header in headers ?? Enumerable.Empty<KeyValuePair<string, string>>())
-                {
-                    client.DefaultRequestHeaders.Add(header.Key, header.Value);
-                }
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var uri = new UriBuilder(url);
-
-                uri.AddQuery(queryString);
-
-                var response = await client.GetAsync(uri.Uri, token).ConfigureAwait(false);
-                if (!response.IsSuccessStatusCode)
-                    return null;
-                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                _client.DefaultRequestHeaders.Add(header.Key, header.Value);
             }
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var uri = new UriBuilder(url);
+
+            uri.AddQuery(queryString);
+
+            var response = await _client.GetAsync(uri.Uri, token).ConfigureAwait(false);
+            if (!response.IsSuccessStatusCode)
+                return null;
+            return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
         }
 
-        public async Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url, HttpClientHandler handler, CancellationToken token)
+        public Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url,
+             CancellationToken token)
         {
-            using (var client = new HttpClient(handler))
+            return DownloadStreamAsync(url, default, token);
+        }
+        public async Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url, AuthenticationHeaderValue auth, CancellationToken token)
+        {
+            //using (var client = new HttpClient(handler))
+            //{
+            _client.DefaultRequestHeaders.Clear();
+            if (auth != null)
             {
-                var result = await client.GetAsync(url,
-                    HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
-                result.EnsureSuccessStatusCode();
-                return (await result.Content.ReadAsStreamAsync().ConfigureAwait(false), result.Headers.ETag);
+                _client.DefaultRequestHeaders.Authorization = auth;
             }
+
+            var result = await _client.GetAsync(url,
+                    HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
+            result.EnsureSuccessStatusCode();
+            return (await result.Content.ReadAsStreamAsync().ConfigureAwait(false), result.Headers.ETag);
+            //}
+        }
+
+        public void Dispose()
+        {
+            _client?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

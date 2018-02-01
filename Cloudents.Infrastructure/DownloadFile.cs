@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace Cloudents.Infrastructure
             _client = client;
         }
 
-        public async Task<(string path, DateTime lastWriteTime)> DownloadFileAsync(Uri url, string fileName, HttpClientHandler handler, CancellationToken token)
+        public async Task<(string path, DateTime lastWriteTime)> DownloadFileAsync(Uri url, string fileName, AuthenticationHeaderValue auth, CancellationToken token)
         {
             var tempFileName = Path.GetFileNameWithoutExtension(fileName) + ".temp" + Path.GetExtension(fileName);
             var locationToSave = _localStorage.CombineDirectoryWithFileName(fileName);
@@ -36,7 +37,7 @@ namespace Cloudents.Infrastructure
                 lastWriteTime = p.LastWriteTimeUtc;
             }
 
-            var (stream, etagHeader) = await _client.DownloadStreamAsync(url, handler, token).ConfigureAwait(false);
+            var (stream, etagHeader) = await _client.DownloadStreamAsync(url, auth, token).ConfigureAwait(false);
 
             try
             {
@@ -87,13 +88,10 @@ namespace Cloudents.Infrastructure
             return eTag;
         }
 
-        public async Task<string> DownloadFileAsync(Uri url, string fileName, bool @override, CancellationToken token)
-        {
-            using (var defaultClientHeader = new HttpClientHandler())
-            {
-                var p = await DownloadFileAsync(url, fileName, defaultClientHeader, token).ConfigureAwait(false);
-                return p.path;
-            }
-        }
+        //public async Task<string> DownloadFileAsync(Uri url, string fileName, bool @override, CancellationToken token)
+        //{
+        //    var p = await DownloadFileAsync(url, fileName, null, token).ConfigureAwait(false);
+        //    return p.path;
+        //}
     }
 }

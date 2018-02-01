@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Write
 
         protected abstract string Service { get; }
 
-        protected abstract HttpClientHandler HttpHandler { get; }
+        protected abstract AuthenticationHeaderValue HttpHandler { get; }
 
         protected abstract IEnumerable<T> GetT(string location);
         protected abstract Task<TU> ParseTAsync(T obj, CancellationToken token);

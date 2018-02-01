@@ -4,7 +4,6 @@ using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Places;
 using Microsoft.Azure.Search;
@@ -35,7 +34,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
             builder.RegisterType<CacheResultInterceptor>();
             builder.RegisterType<LogInterceptor>();
-            builder.RegisterType<RestClient>().As<IRestClient>();
+            builder.RegisterType<RestClient>().As<IRestClient>().SingleInstance();
 
             //var config = MapperConfiguration();
             //builder.Register(c => config.CreateMapper()).SingleInstance();
@@ -54,13 +53,5 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<Logger>().As<ILogger>();
         }
-
-        //private static MapperConfiguration MapperConfiguration()
-        //{
-        //    return new MapperConfiguration(cfg =>
-        //    {
-        //        cfg.AddProfile<MapperProfile>();
-        //    });
-        //}
     }
 }

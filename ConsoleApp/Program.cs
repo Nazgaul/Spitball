@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
@@ -52,9 +53,8 @@ namespace ConsoleApp
                 Longitude = -74.0059728
             };
 
-            var service = container.Resolve<IDocumentCseSearch>();
-
-            var s = await service.SearchAsync(SearchQuery.Document(new[] { "economics" }, null, null, null, 0, SearchRequestSort.None, null), BingTextFormat.None, default);
+            var service = container.Resolve<IBookSearch>();
+            var p = await service.SellAsync("9781250158062", 150, default);
             //var p = await service.SearchAsync(new[] { "Marketing" }, JobRequestSort.Date, null, z, 0, false, default);
 
             //var result = await service.GeoCodingByAddressAsync("New York,NY US", default);

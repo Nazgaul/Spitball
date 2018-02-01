@@ -3,37 +3,44 @@ using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
-using Newtonsoft.Json.Linq;
+using Cloudents.Infrastructure.Search;
 
 namespace Cloudents.Infrastructure.Converters
 {
-    internal class BookDetailConverter : ITypeConverter<JObject, BookDetailsDto>
+    internal class BookDetailConverter : ITypeConverter<BookSearch.BookDetailResult, BookDetailsDto>
     {
-        public BookDetailsDto Convert(JObject source, BookDetailsDto destination, ResolutionContext context)
+        private readonly IMapper _mapper;
+
+        public BookDetailConverter(IMapper mapper)
         {
-            var book = source["response"]["page"]["books"]["book"].First;
-            var offers = book["offers"]?["group"]?.SelectMany(json =>
+            _mapper = mapper;
+        }
+
+        public BookDetailsDto Convert(BookSearch.BookDetailResult source, BookDetailsDto destination, ResolutionContext context)
+        {
+            var book = source.Response.Page.Books.Book[0];
+            var offers = book.Offers?.Group?.SelectMany(json =>
             {
-                return json["offer"].Select(s =>
+                return json.Offer.Select(s =>
                 {
-                    var merchantImage = s["merchant"]["image"].Value<string>();
+                    var merchantImage = s.Merchant.Image;
                     var uri = new Uri(merchantImage);
 
                     uri = uri.ChangeToHttps();
                     return new BookPricesDto
                     {
-                        Condition = s["condition"]["condition"].Value<string>(),
+                        Condition = s.Condition.Condition,
                         Image = uri,
-                        Link = s["link"].Value<string>(),
-                        Name = s["merchant"]["name"].Value<string>(),
-                        Price = s["price"].Value<double>()
+                        Link = s.Link,
+                        Name = s.Merchant.Name,
+                        Price = s.Price
                     };
                 });
             });
             return new BookDetailsDto
             {
 
-                Details = context.Mapper.Map<JToken, BookSearchDto>(book), //book.ToObject<BookSearchDto>(),,
+                Details = _mapper.Map<BookSearch.BookDetail, BookSearchDto>(book), //book.ToObject<BookSearchDto>(),,
                 Prices = offers
             };
         }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +18,10 @@ namespace Cloudents.Infrastructure
             IEnumerable<KeyValuePair<string, string>> headers,
             CancellationToken token);
 
-        Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url, HttpClientHandler handler, CancellationToken token);
+        Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url,
+            CancellationToken token);
+
+        Task<(Stream stream, EntityTagHeaderValue etagHeader)> DownloadStreamAsync(Uri url,
+            AuthenticationHeaderValue auth, CancellationToken token);
     }
 }

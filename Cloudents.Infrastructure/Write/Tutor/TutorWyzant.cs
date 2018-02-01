@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Write.Tutor
 {
-    public class TutorWyzant : UpdateAffiliate<WyzantTutor, Core.Entities.Search.Tutor>, IDisposable
+    public class TutorWyzant : UpdateAffiliate<WyzantTutor, Core.Entities.Search.Tutor>
     {
         private readonly TutorSearchWrite _tutorProvider;
         private readonly IGooglePlacesSearch _zipToLocation;
@@ -24,7 +24,6 @@ namespace Cloudents.Infrastructure.Write.Tutor
         {
             _tutorProvider = tutorProvider;
             _zipToLocation = zipToLocation;
-            HttpHandler = new HttpClientHandler();
         }
 
         protected override string FileLocation => "tutor.json";
@@ -33,7 +32,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
             new Uri("https://data.wyzant.com/feeds/downloadFeed?apiKey=286f1896-e056-4376-9747-9f9a5dbcb4d2&feedFormat=json");
 
         protected override string Service => nameof(WyzantTutor);
-        protected override HttpClientHandler HttpHandler { get; }
+        protected override AuthenticationHeaderValue HttpHandler => null;
 
         private const string Source = "Wyzant";
         protected override IEnumerable<WyzantTutor> GetT(string location)
@@ -94,12 +93,6 @@ namespace Cloudents.Infrastructure.Write.Tutor
         protected override Task DeleteOldItemsAsync(DateTime timeToDelete, CancellationToken token)
         {
             return _tutorProvider.DeleteOldTutorsAsync(Source, timeToDelete, token);
-        }
-
-        public void Dispose()
-        {
-            HttpHandler?.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

@@ -46,19 +46,20 @@ namespace Cloudents.Infrastructure
             CreateMap<Search.Entities.Course, CourseDto>();
             CreateMap<Search.Entities.University, UniversityDto>();
 
-            CreateMap<JObject, IEnumerable<BookSearchDto>>().ConvertUsing((jo, bookSearch, c) => jo["response"]["page"]["books"]?["book"]?.Select(json => c.Mapper.Map<JToken, BookSearchDto>(json)));
-            CreateMap<JToken, BookSearchDto>().ConvertUsing(jo => new BookSearchDto
+            CreateMap<BookSearch.BookDetailResult, IEnumerable<BookSearchDto>>()
+                .ConvertUsing((jo, _, c) => jo.Response.Page.Books?.Book.Select(json => c.Mapper.Map<BookSearch.BookDetail, BookSearchDto>(json)));
+            CreateMap<BookSearch.BookDetail, BookSearchDto>().ConvertUsing(jo => new BookSearchDto
             {
-                Image = jo["image"]?["image"].Value<string>(),
-                Author = jo["author"].Value<string>(),
-                Binding = jo["binding"].Value<string>(),
-                Edition = jo["edition"].Value<string>(),
-                Isbn10 = jo["isbn10"].Value<string>(),
-                Isbn13 = jo["isbn13"].Value<string>(),
-                Title = jo["title"].Value<string>()
+                Image = jo.Image?.Image,
+                Author = jo.Author,
+                Binding = jo.Binding,
+                Edition = jo.Edition,
+                Isbn10 = jo.Isbn10,
+                Isbn13 = jo.Isbn13,
+                Title = jo.Title
 
             });
-            CreateMap<JObject, BookDetailsDto>().ConvertUsing<BookDetailConverter>();
+            CreateMap<BookSearch.BookDetailResult, BookDetailsDto>().ConvertUsing<BookDetailConverter>();
             CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlacesConverter>();
             CreateMap<JObject, PlaceDto>().ConvertUsing<PlaceConverter>();
             //CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
