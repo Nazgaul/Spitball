@@ -51,7 +51,7 @@ namespace Cloudents.Mobile.Controllers
             await Task.WhenAll(tResult, tVideo).ConfigureAwait(false);
 
             string nextPageLink = null;
-            if (tResult.Result.Result.Count > 0)
+            if (tResult.Result.Result?.Count > 0)
             {
                 nextPageLink = Url.NextPageLink("DefaultApis", new
                 {

@@ -49,7 +49,7 @@ namespace Cloudents.Mobile.Controllers
             var result = await _searchProvider.Value.SearchAsync(query, model.Format, token).ConfigureAwait(false);
 
             string nextPageLink = null;
-            if (result.Result.Count > 0)
+            if (result.Result?.Count > 0)
             {
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
@@ -77,7 +77,7 @@ namespace Cloudents.Mobile.Controllers
 
             var result = await _flashcardProvider.Value.SearchAsync(query, model.Format, token).ConfigureAwait(false);
             string nextPageLink = null;
-            if (result.Result.Count > 0)
+            if (result.Result?.Count > 0)
             {
                 nextPageLink = Url.NextPageLink("FlashcardSearch", null, model);
             }
