@@ -37,7 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Error\ServerError.cshtml" />
+    <None Include="Views\Error\Error.cshtml" />
     <None Include="wwwroot\Content\ErrorPages\css\error.css" />
     <None Include="wwwroot\Content\ErrorPages\img\404_image.png" />
     <None Include="wwwroot\Content\main.less" />

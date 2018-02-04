@@ -103,7 +103,7 @@ namespace Cloudents.Web
             else
             {
 
-                //     app.UseExceptionHandler("Home/Error");
+                app.UseExceptionHandler("Error");
             }
             app.UseRewriter(new RewriteOptions()
                 .AddRedirectToHttpsPermanent()
