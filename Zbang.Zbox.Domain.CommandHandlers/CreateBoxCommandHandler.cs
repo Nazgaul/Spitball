@@ -3,7 +3,6 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
-using Zbang.Zbox.Infrastructure.Repositories;
 using System;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -14,17 +13,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class CreateBoxCommandHandler : ICommandHandlerAsync<CreateBoxCommand, CreateBoxCommandResult>
     {
         protected readonly IUserRepository UserRepository;
-        protected readonly IRepository<UserBoxRel> UserBoxRelRepository;
         protected readonly IGuidIdGenerator GuidGenerator;
         protected readonly IQueueProvider QueueProvider;
-        private readonly IBoxRepository m_BoxRepository;
+        private readonly IBoxRepository _boxRepository;
 
         public CreateBoxCommandHandler(IBoxRepository boxRepository,
-            IUserRepository userRepository, IRepository<UserBoxRel> userBoxRel, IGuidIdGenerator guidGenerator, IQueueProvider queueProvider)
+            IUserRepository userRepository, IGuidIdGenerator guidGenerator, IQueueProvider queueProvider)
         {
-            m_BoxRepository = boxRepository;
+            _boxRepository = boxRepository;
             UserRepository = userRepository;
-            UserBoxRelRepository = userBoxRel;
             GuidGenerator = guidGenerator;
             QueueProvider = queueProvider;
         }
@@ -38,7 +35,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             var user = UserRepository.Load(command.UserId);
-            var box = m_BoxRepository.GetBoxWithSameName(command.BoxName.Trim().ToLower(), user);
+            var box = _boxRepository.GetBoxWithSameName(command.BoxName.Trim().ToLower(), user);
             if (box != null)
             {
                 throw new BoxNameAlreadyExistsException(box.Id);
@@ -54,14 +51,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             SaveRepositories(user, box);
             box.GenerateUrl();
-            m_BoxRepository.Save(box);
+            _boxRepository.Save(box);
             return box;
         }
 
         protected void SaveRepositories(User user, Box box)
         {
             UserRepository.Save(user);
-            m_BoxRepository.Save(box, true);
+            _boxRepository.Save(box, true);
         }
     }
 }

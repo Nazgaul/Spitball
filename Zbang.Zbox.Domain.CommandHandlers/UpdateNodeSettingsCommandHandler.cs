@@ -9,14 +9,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UpdateNodeSettingsCommandHandler : ICommandHandler<UpdateNodeSettingsCommand>
     {
-        private readonly IRepository<Library> m_LibraryRepository;
-        private readonly IUserRepository m_UserRepository;
-        private readonly IGuidIdGenerator m_GuidGenerator;
+        private readonly IRepository<Library> _libraryRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IGuidIdGenerator _guidGenerator;
         public UpdateNodeSettingsCommandHandler(IRepository<Library> libraryRepository, IUserRepository userRepository, IGuidIdGenerator guidGenerator)
         {
-            m_LibraryRepository = libraryRepository;
-            m_UserRepository = userRepository;
-            m_GuidGenerator = guidGenerator;
+            _libraryRepository = libraryRepository;
+            _userRepository = userRepository;
+            _guidGenerator = guidGenerator;
         }
 
         public void Handle(UpdateNodeSettingsCommand message)
@@ -28,8 +28,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new NullReferenceException();
             }
 
-            var node = m_LibraryRepository.Load(message.NodeId);
-            var user = m_UserRepository.Load(message.UserId);
+            var node = _libraryRepository.Load(message.NodeId);
+            var user = _userRepository.Load(message.UserId);
             if (node.University.Id != user.University.Id)
             {
                 throw new UnauthorizedAccessException();
@@ -42,9 +42,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 //{
                 //    throw new UnauthorizedAccessException();
                 //}
-                node.UpdateSettings(message.Settings.Value, user, m_GuidGenerator.GetId());
+                node.UpdateSettings(message.Settings.Value, user, _guidGenerator.GetId());
             }
-            m_LibraryRepository.Save(node);
+            _libraryRepository.Save(node);
         }
     }
 }

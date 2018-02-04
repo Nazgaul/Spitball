@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using System.Configuration;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Extensions
 {

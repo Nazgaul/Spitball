@@ -18,23 +18,23 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class ShareBoxCommandHandler : ICommandHandlerAsync<ShareBoxCommand>
     {
-        private readonly IQueueProvider m_QueueProvider;
-        private readonly IUserRepository m_UserRepository;
-        private readonly IRepository<Box> m_BoxRepository;
-        private readonly IGuidIdGenerator m_IdGenerator;
+        private readonly IQueueProvider _queueProvider;
+        private readonly IUserRepository _userRepository;
+        private readonly IRepository<Box> _boxRepository;
+        private readonly IGuidIdGenerator _idGenerator;
         private readonly IEmailVerification m_EmailVerification;
-        private readonly IRepository<InviteToBox> m_InviteRepository;
+        private readonly IRepository<InviteToBox> _inviteRepository;
 
         public ShareBoxCommandHandler(IQueueProvider queueProvider, IUserRepository userRepository,
             IRepository<Box> boxRepository,
             IGuidIdGenerator idGenerator,
             IRepository<InviteToBox> inviteRepository, IEmailVerification emailVerification)
         {
-            m_BoxRepository = boxRepository;
-            m_QueueProvider = queueProvider;
-            m_UserRepository = userRepository;
-            m_IdGenerator = idGenerator;
-            m_InviteRepository = inviteRepository;
+            _boxRepository = boxRepository;
+            _queueProvider = queueProvider;
+            _userRepository = userRepository;
+            _idGenerator = idGenerator;
+            _inviteRepository = inviteRepository;
             m_EmailVerification = emailVerification;
         }
 
@@ -42,8 +42,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
 
-            var sender = m_UserRepository.Load(command.InviteeId);
-            var box = m_BoxRepository.Load(command.BoxId);
+            var sender = _userRepository.Load(command.InviteeId);
+            var box = _boxRepository.Load(command.BoxId);
 
             if (box.Actual is AcademicBox)
             {
@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             foreach (var recipientEmail in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
             {
                 var recipientUser = GetUser(recipientEmail);
-                Guid id = m_IdGenerator.GetId();
+                Guid id = _idGenerator.GetId();
                 if (recipientUser == null)
                 {
                     var verified = await m_EmailVerification.VerifyEmailAsync(recipientEmail);
@@ -72,7 +72,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     }
 
                     var inviteToBox = new InviteToBox(id, sender, box, recipientEmail, recipientEmail);
-                    m_InviteRepository.Save(inviteToBox);
+                    _inviteRepository.Save(inviteToBox);
                     tasks.Add(SendInviteAsync(sender.Name, box.Name,
                         id, box.Id,
                         recipientEmail, sender.ImageLarge, sender.Email,
@@ -80,7 +80,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     continue;
                 }
 
-                var userType = m_UserRepository.GetUserToBoxRelationShipType(recipientUser.Id, box.Id);
+                var userType = _userRepository.GetUserToBoxRelationShipType(recipientUser.Id, box.Id);
                 if (userType != UserRelationshipType.None)
                 {
                     continue;
@@ -89,7 +89,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var newInvite = new UserBoxRel(recipientUser, box, UserRelationshipType.Subscribe);
                 box.UserBoxRelationship.Add(newInvite);
                 box.CalculateMembers();
-                m_BoxRepository.Save(box);
+                _boxRepository.Save(box);
 
                 tasks.Add(SendInviteAsync(sender.Name, box.Name,
                     id, box.Id,
@@ -105,7 +105,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             var invId = GuidEncoder.Encode(id);
             var url = UrlConst.BuildInviteUrl(boxUrl, invId);
-            return m_QueueProvider.InsertMessageToMailNewAsync(new InviteMailData(senderName, boxName,
+            return _queueProvider.InsertMessageToMailNewAsync(new InviteMailData(senderName, boxName,
                    url,
                    recipientEmail, culture, senderImage, senderEmail, recipientId, boxId));
         }
@@ -115,9 +115,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             long userid;
             if (long.TryParse(recipient, out userid))
             {
-                return m_UserRepository.Get(userid);
+                return _userRepository.Get(userid);
             }
-            var user = m_UserRepository.GetUserByEmail(recipient);
+            var user = _userRepository.GetUserByEmail(recipient);
             return user;
         }
     }

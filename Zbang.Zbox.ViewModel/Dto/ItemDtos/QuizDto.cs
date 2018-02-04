@@ -4,7 +4,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class QuizDto
     {
-        private DateTime? m_Date;
+        private DateTime? _date;
 
         public long Id { get; set; }
         public long OwnerId { get; set; }
@@ -13,12 +13,12 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public int NumOfViews { get; set; }
         public DateTime? Date
         {
-            get { return m_Date; }
+            get { return _date; }
             set
             {
                 if (value.HasValue)
                 {
-                    m_Date = DateTime.SpecifyKind(value.Value, DateTimeKind.Utc);
+                    _date = DateTime.SpecifyKind(value.Value, DateTimeKind.Utc);
                 }
             }
         }

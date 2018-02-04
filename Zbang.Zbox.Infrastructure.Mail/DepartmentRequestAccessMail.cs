@@ -5,20 +5,20 @@
         private const string Category = "Request access";
         private const string Subject = "Another spitballer requests access";
 
-        private readonly DepartmentRequestAccessMailParams m_Parameters;
+        private readonly DepartmentRequestAccessMailParams _parameters;
 
         public DepartmentRequestAccessMail(MailParameters parameters) : base(parameters)
         {
-            m_Parameters = parameters as DepartmentRequestAccessMailParams;
+            _parameters = parameters as DepartmentRequestAccessMailParams;
         }
 
         public override string GenerateMail()
         {
-            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.RequestDepartmentAccess");
+            var html = LoadMailTempate.LoadMailFromContent(_parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.RequestDepartmentAccess");
             
-            html = html.Replace("{USER_NAME}", m_Parameters.UserName);
-            html = html.Replace("{USER_IMG}", m_Parameters.UserImage);
-            html = html.Replace("{DEP_NAME}", m_Parameters.DepName);
+            html = html.Replace("{USER_NAME}", _parameters.UserName);
+            html = html.Replace("{USER_IMG}", _parameters.UserImage);
+            html = html.Replace("{DEP_NAME}", _parameters.DepName);
             return html;
         }
 

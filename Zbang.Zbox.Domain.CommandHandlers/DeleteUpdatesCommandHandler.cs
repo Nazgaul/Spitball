@@ -7,10 +7,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class DeleteUpdatesCommandHandler : ICommandHandler<DeleteUpdatesCommand>
     {
-        private readonly IUpdatesRepository m_UpdatesRepository;
+        private readonly IUpdatesRepository _updatesRepository;
         public DeleteUpdatesCommandHandler(IUpdatesRepository updatesRepository)
         {
-            m_UpdatesRepository = updatesRepository;
+            _updatesRepository = updatesRepository;
         }
 
         public void Handle(DeleteUpdatesCommand message)
@@ -20,16 +20,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //var feedDelete = message as DeleteUpdatesFeedCommand;
             //if (feedDelete != null)
             //{
-            //    m_UpdatesRepository.DeleteCommentUpdates(message.UserId, message.BoxId, feedDelete.CommentId);
+            //    _updatesRepository.DeleteCommentUpdates(message.UserId, message.BoxId, feedDelete.CommentId);
             //    return;
             //}
             var itemDelete = message as DeleteUpdatesItemCommand;
             if (itemDelete != null)
             {
-                m_UpdatesRepository.DeleteUserItemUpdateByBoxId(message.UserId, message.BoxId);
+                _updatesRepository.DeleteUserItemUpdateByBoxId(message.UserId, message.BoxId);
                 return;
             }
-            m_UpdatesRepository.DeleteUserUpdateByBoxId(message.UserId, message.BoxId);
+            _updatesRepository.DeleteUserUpdateByBoxId(message.UserId, message.BoxId);
         }
     }
 }

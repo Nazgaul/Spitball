@@ -12,33 +12,33 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public class ContentSearchProvider : IContentWriteSearchProvider
     {
-        private readonly ISearchConnection m_Connection;
-        private readonly ISearchIndexClient m_IndexClient;
-        private readonly string m_IndexName = "document";
-        private bool m_CheckIndexExists;
+        private readonly ISearchConnection _connection;
+        private readonly ISearchIndexClient _indexClient;
+        private readonly string _indexName = "document";
+        private bool _checkIndexExists;
 
         internal const string ContentEnglishField = "content_en";
         internal const string ContentHebrewField = "content_he";
 
         public ContentSearchProvider(ISearchConnection connection)
         {
-            m_Connection = connection;
-            if (m_Connection.IsDevelop)
+            _connection = connection;
+            if (_connection.IsDevelop)
             {
-                m_IndexName += "-dev";
+                _indexName += "-dev";
             }
-            m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
+            _indexClient = connection.SearchClient.Indexes.GetClient(_indexName);
         }
 
         public async Task UpdateDataAsync(Document itemToUpload, CancellationToken token)
         {
-            if (!m_CheckIndexExists)
+            if (!_checkIndexExists)
             {
                 await BuildIndexAsync().ConfigureAwait(false);
             }
             if (itemToUpload == null) throw new ArgumentNullException(nameof(itemToUpload));
             var batch = IndexBatch.MergeOrUpload(new[] { itemToUpload });
-            await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token).ConfigureAwait(false);
+            await _indexClient.Documents.IndexAsync(batch, cancellationToken: token).ConfigureAwait(false);
         }
 
         public Task DeleteDataAsync(IEnumerable<string> ids, CancellationToken token)
@@ -48,12 +48,12 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 Id = s
             }));
-            return m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            return _indexClient.Documents.IndexAsync(batch, cancellationToken: token);
         }
 
         public async Task UpdateDataAsync(DocumentSearchDto itemToUpload, IEnumerable<ItemToDeleteSearchDto> itemToDelete, CancellationToken token)
         {
-            if (!m_CheckIndexExists)
+            if (!_checkIndexExists)
             {
                 await BuildIndexAsync().ConfigureAwait(false);
             }
@@ -97,7 +97,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 }
                 var batch = IndexBatch.MergeOrUpload(new[] { uploadBatch });
                 if (batch.Actions.Any())
-                    await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token).ConfigureAwait(false);
+                    await _indexClient.Documents.IndexAsync(batch, cancellationToken: token).ConfigureAwait(false);
             }
             if (itemToDelete != null)
             {
@@ -107,14 +107,14 @@ namespace Zbang.Zbox.Infrastructure.Search
                 });
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
-                    await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token).ConfigureAwait(false);
+                    await _indexClient.Documents.IndexAsync(batch, cancellationToken: token).ConfigureAwait(false);
             }
         }
 
         private async Task BuildIndexAsync()
         {
-            await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
-            m_CheckIndexExists = true;
+            await _connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
+            _checkIndexExists = true;
         }
 
         private const string ScoringProfile = "score";
@@ -122,7 +122,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             var definition = new Index
             {
-                Name = m_IndexName,
+                Name = _indexName,
                 Fields = FieldBuilder.BuildForType<Document>()
             };
 

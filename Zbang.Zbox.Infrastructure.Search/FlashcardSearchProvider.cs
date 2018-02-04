@@ -14,23 +14,21 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public class FlashcardSearchProvider : IFlashcardWriteSearchProvider
     {
-        private readonly string m_IndexName = "flashcard";
-        private readonly ISearchFilterProvider m_FilterProvider;
-        private readonly ISearchConnection m_Connection;
-        private bool m_CheckIndexExists;
-        private readonly ISearchIndexClient m_IndexClient;
-        private readonly ILogger m_Logger;
+        private readonly string _indexName = "flashcard";
+        private readonly ISearchConnection _connection;
+        private bool _checkIndexExists;
+        private readonly ISearchIndexClient _indexClient;
+        private readonly ILogger _logger;
 
-        public FlashcardSearchProvider(ISearchFilterProvider filterProvider, ISearchConnection connection, ILogger logger)
+        public FlashcardSearchProvider( ISearchConnection connection, ILogger logger)
         {
-            m_FilterProvider = filterProvider;
-            m_Connection = connection;
-            m_Logger = logger;
-            if (m_Connection.IsDevelop)
+            _connection = connection;
+            _logger = logger;
+            if (_connection.IsDevelop)
             {
-                m_IndexName = m_IndexName + "-dev";
+                _indexName = _indexName + "-dev";
             }
-            m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
+            _indexClient = connection.SearchClient.Indexes.GetClient(_indexName);
         }
 
         private const string IdField = "id";
@@ -47,7 +45,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private Index GetIndexStructure()
         {
-            var index = new Index(m_IndexName, new[]
+            var index = new Index(_indexName, new[]
             {
                 new Field(IdField, DataType.String) { IsKey = true, IsRetrievable = true},
                 new Field(NameField, DataType.String) { IsSearchable = true, IsRetrievable = true},
@@ -80,18 +78,18 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
+                await _connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex);
+                _logger.Exception(ex);
             }
-            m_CheckIndexExists = true;
+            _checkIndexExists = true;
         }
 
         public async Task<bool> UpdateDataAsync(IEnumerable<FlashcardSearchDto> flashcardToUpload, IEnumerable<long> flashcardToDelete, CancellationToken token)
         {
-            if (!m_CheckIndexExists)
+            if (!_checkIndexExists)
             {
                 await BuildIndexAsync().ConfigureAwait(false);
             }
@@ -115,7 +113,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var batch = IndexBatch.Upload(uploadBatch);
                 if (batch.Actions.Any())
                 {
-                    t1 = m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+                    t1 = _indexClient.Documents.IndexAsync(batch, cancellationToken: token);
                 }
             }
             if (flashcardToDelete != null)
@@ -127,7 +125,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                      });
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
-                    t2 = m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+                    t2 = _indexClient.Documents.IndexAsync(batch, cancellationToken: token);
             }
             await Task.WhenAll(t1, t2).ConfigureAwait(false);
             return true;

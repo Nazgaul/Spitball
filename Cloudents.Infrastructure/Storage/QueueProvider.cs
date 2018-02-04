@@ -21,7 +21,13 @@ namespace Cloudents.Infrastructure.Storage
         {
             var queue = _queueClient.GetQueueReference(name.Key.ToLower());
             var bytes = _serializer.Serialize(message);
-            var cloudMessage = CloudQueueMessage.CreateCloudQueueMessageFromByteArray(bytes);
+            if (bytes.Length == 0)
+            {
+                return Task.CompletedTask;
+            }
+
+            var cloudMessage = new CloudQueueMessage(null);
+            cloudMessage.SetMessageContent(bytes);
             return queue.AddMessageAsync(cloudMessage);
         }
     }

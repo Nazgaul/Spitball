@@ -6,22 +6,22 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class LikesMail : MailBuilder
     {
-        private readonly LikesMailParams m_Parameters;
+        private readonly LikesMailParams _parameters;
 
         public LikesMail(MailParameters parameters) : base(parameters)
         {
-            m_Parameters = parameters as LikesMailParams;
+            _parameters = parameters as LikesMailParams;
         }
 
         public override string GenerateMail()
         {
-            var html = LoadMailTempate.LoadMailFromContentWithDot(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
-            html.Replace("{name}", m_Parameters.Name);
+            var html = LoadMailTempate.LoadMailFromContentWithDot(_parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
+            html.Replace("{name}", _parameters.Name);
 
             var sb = new StringBuilder();
             sb.AppendLine();
-            sb.AppendLine(string.Format(EmailResource.LikesMailTitle, m_Parameters.LikeData.Count()));
-            foreach (var likeData in m_Parameters.LikeData)
+            sb.AppendLine(string.Format(EmailResource.LikesMailTitle, _parameters.LikeData.Count()));
+            foreach (var likeData in _parameters.LikeData)
             {
                 sb.AppendLine(string.Format(EmailResource.LikesMailLineDetails, likeData.UserName, likeData.Type.GetEnumDescription(), likeData.OnLikeText));
             }

@@ -9,12 +9,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class CreateItemTabCommandHandler : ICommandHandler<CreateItemTabCommand>
     {
         private readonly IItemTabRepository m_ItemTabRepository;
-        private readonly IBoxRepository m_BoxRepository;
+        private readonly IBoxRepository _boxRepository;
 
         public CreateItemTabCommandHandler(IItemTabRepository itemTabRepository, IBoxRepository boxRepository)
         {
             m_ItemTabRepository = itemTabRepository;
-            m_BoxRepository = boxRepository;
+            _boxRepository = boxRepository;
         }
 
         public void Handle(CreateItemTabCommand message)
@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new NullReferenceException("message.Name");
             }
 
-            var box = m_BoxRepository.Load(message.BoxId);
+            var box = _boxRepository.Load(message.BoxId);
 
             var existsBoxTab = m_ItemTabRepository.GetTabWithTheSameName(message.Name, box.Id);
             if (existsBoxTab != null)

@@ -12,13 +12,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class DeleteItemCommandHandler : ICommandHandlerAsync<DeleteItemCommand>
     {
-        private readonly IRepository<Box> m_BoxRepository;
-        private readonly IUserRepository m_UserRepository;
-        private readonly IRepository<Item> m_ItemRepository;
+        private readonly IRepository<Box> _boxRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IRepository<Item> _itemRepository;
         private readonly IRepository<CommentReply> m_CommentReplyRepository;
-        private readonly IQueueProvider m_QueueProvider;
+        private readonly IQueueProvider _queueProvider;
         private readonly IItemTabRepository m_ItemTabRepository;
-        private readonly IUpdatesRepository m_UpdatesRepository;
+        private readonly IUpdatesRepository _updatesRepository;
 
         public DeleteItemCommandHandler(
 
@@ -29,21 +29,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IQueueProvider queueProvider,
             IItemTabRepository itemTabRepository, IUpdatesRepository updatesRepository)
         {
-            m_BoxRepository = boxRepository;
-            m_UserRepository = userRepository;
-            m_ItemRepository = itemRepository;
+            _boxRepository = boxRepository;
+            _userRepository = userRepository;
+            _itemRepository = itemRepository;
             m_CommentReplyRepository = commentReplyRepository;
-            m_QueueProvider = queueProvider;
+            _queueProvider = queueProvider;
             m_ItemTabRepository = itemTabRepository;
-            m_UpdatesRepository = updatesRepository;
+            _updatesRepository = updatesRepository;
         }
 
         public Task HandleAsync(DeleteItemCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-            var item = m_ItemRepository.Load(command.ItemId);
-            var user = m_UserRepository.Load(command.UserId);
-            var userType = m_UserRepository.GetUserToBoxRelationShipType(user.Id, item.Box.Id);
+            var item = _itemRepository.Load(command.ItemId);
+            var user = _userRepository.Load(command.UserId);
+            var userType = _userRepository.GetUserToBoxRelationShipType(user.Id, item.Box.Id);
 
             bool isAuthorize = userType == UserRelationshipType.Owner
                 || Equals(item.User, user)
@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (item.CommentReply != null && string.IsNullOrEmpty(item.CommentReply.Text) && item.CommentReply.Items.Count == 1) // only one answer
             {
-                m_UpdatesRepository.DeleteReplyUpdates(item.CommentReply.Id);
+                _updatesRepository.DeleteReplyUpdates(item.CommentReply.Id);
                 m_CommentReplyRepository.Delete(item.CommentReply);
             }
             if (item.Comment != null)
@@ -68,7 +68,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var shouldRemove = item.Comment.RemoveItem(item);
                 if (shouldRemove)
                 {
-                    m_UpdatesRepository.DeleteCommentUpdates(item.Comment.Id);
+                    _updatesRepository.DeleteCommentUpdates(item.Comment.Id);
                 }
             }
             if (item.Tab != null)
@@ -76,15 +76,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 item.Tab.DeleteItemFromTab(item);
                 m_ItemTabRepository.Save(item.Tab);
             }
-            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(item.UploaderId));
-            var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new QuotaData(item.UploaderId));
-            var t4 = m_QueueProvider.InsertMessageToTransactionAsync(new UploadItemsBadgeData(item.UploaderId));
-            var t5 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
+            var t1 = _queueProvider.InsertMessageToTransactionAsync(new ReputationData(item.UploaderId));
+            var t2 = _queueProvider.InsertMessageToTransactionAsync(new QuotaData(item.UploaderId));
+            var t4 = _queueProvider.InsertMessageToTransactionAsync(new UploadItemsBadgeData(item.UploaderId));
+            var t5 = _queueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
-            m_ItemRepository.Delete(item);
+            _itemRepository.Delete(item);
             box.UpdateItemCount();
             command.BoxId = box.Id;
-            m_BoxRepository.Save(box);
+            _boxRepository.Save(box);
 
             return Task.WhenAll(t1, t2, t4, t5);
         }

@@ -17,33 +17,33 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class InviteToSystemCommandHandler : ICommandHandlerAsync<InviteToSystemCommand>
     {
-        private readonly IQueueProvider m_QueueProvider;
-        private readonly IUserRepository m_UserRepository;
+        private readonly IQueueProvider _queueProvider;
+        private readonly IUserRepository _userRepository;
         private readonly IRepository<InviteToSystem> m_InviteToCloudents;
         private readonly IEmailVerification m_EmailVerification;
-        private readonly IGuidIdGenerator m_IdGenerator;
+        private readonly IGuidIdGenerator _idGenerator;
 
         public InviteToSystemCommandHandler(IQueueProvider queueProvider, IUserRepository userRepository,
             IRepository<InviteToSystem> inviteToCloudentsRepository,
             IGuidIdGenerator idGenerator, IEmailVerification emailVerification)
         {
-            m_QueueProvider = queueProvider;
-            m_UserRepository = userRepository;
+            _queueProvider = queueProvider;
+            _userRepository = userRepository;
             m_InviteToCloudents = inviteToCloudentsRepository;
-            m_IdGenerator = idGenerator;
+            _idGenerator = idGenerator;
             m_EmailVerification = emailVerification;
         }
 
         public async Task HandleAsync(InviteToSystemCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-            var sender = m_UserRepository.Load(command.SenderId);
+            var sender = _userRepository.Load(command.SenderId);
 
             var tasks = new List<Task>();
 
             foreach (var recipientEmail in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
             {
-                var recipientUser = m_UserRepository.GetUserByEmail(recipientEmail);
+                var recipientUser = _userRepository.GetUserByEmail(recipientEmail);
                 if (recipientUser != null)
                 {
                     continue;
@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 {
                     continue;
                 }
-                var id = m_IdGenerator.GetId();
+                var id = _idGenerator.GetId();
                 var invite = new InviteToSystem(id, sender, null, recipientEmail, recipientEmail);
                 m_InviteToCloudents.Save(invite);
 
@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var url = UrlConst.BuildInviteCloudentsUrl(invId);
 
                 tasks.Add(
-                    m_QueueProvider.InsertMessageToMailNewAsync(new InviteToCloudentsData(sender.Name, sender.ImageLarge,
+                    _queueProvider.InsertMessageToMailNewAsync(new InviteToCloudentsData(sender.Name, sender.ImageLarge,
                         recipientEmail, sender.Culture, sender.Email, url)));
             }
             await Task.WhenAll(tasks);

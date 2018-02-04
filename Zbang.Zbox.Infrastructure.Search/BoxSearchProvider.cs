@@ -12,22 +12,22 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public class BoxSearchProvider :  IBoxWriteSearchProvider2, IDisposable
     {
-        private readonly string m_IndexName = "box2";
-        private bool m_CheckIndexExists;
-        private readonly ISearchConnection m_Connection;
-        private readonly ISearchIndexClient m_IndexClient;
-        private readonly ILogger m_Logger;
+        private readonly string _indexName = "box2";
+        private bool _checkIndexExists;
+        private readonly ISearchConnection _connection;
+        private readonly ISearchIndexClient _indexClient;
+        private readonly ILogger _logger;
 
         public BoxSearchProvider(ISearchConnection connection, ILogger logger)
         {
-            m_Connection = connection;
-            m_Logger = logger;
+            _connection = connection;
+            _logger = logger;
             if (connection.IsDevelop)
             {
-                m_IndexName = m_IndexName + "-dev";
+                _indexName = _indexName + "-dev";
             }
-            //TraceLog.WriteInfo("index name " + m_IndexName);
-            m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
+            //TraceLog.WriteInfo("index name " + _indexName);
+            _indexClient = connection.SearchClient.Indexes.GetClient(_indexName);
         }
 
         private const string IdField = "id";
@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 nameof(BoxSearch.Name2).ToLowerInvariant(), nameof(BoxSearch.Professor2).ToLowerInvariant(), nameof(BoxSearch.Course2).ToLowerInvariant());
             var index = new Index
             {
-                Name = m_IndexName,
+                Name = _indexName,
                 Fields = FieldBuilder.BuildForType<BoxSearch>(),
                 Suggesters = new[] {suggester}
             };
@@ -58,7 +58,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<bool> UpdateDataAsync(IEnumerable<BoxSearchDto> boxToUpload, IEnumerable<long> boxToDelete)
         {
-            if (!m_CheckIndexExists)
+            if (!_checkIndexExists)
             {
                 await BuildIndexAsync().ConfigureAwait(false);
             }
@@ -93,7 +93,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var batch = IndexBatch.Upload(uploadBatch);
                 if (batch.Actions.Any())
                 {
-                    t1 = m_IndexClient.Documents.IndexAsync(batch);
+                    t1 = _indexClient.Documents.IndexAsync(batch);
                 }
             }
             if (boxToDelete != null)
@@ -106,7 +106,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
                 {
-                    t2 = m_IndexClient.Documents.IndexAsync(batch);
+                    t2 = _indexClient.Documents.IndexAsync(batch);
                 }
             }
             await Task.WhenAll(t1, t2).ConfigureAwait(false);
@@ -117,18 +117,18 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetBoxIndex()).ConfigureAwait(false);
+                await _connection.SearchClient.Indexes.CreateOrUpdateAsync(GetBoxIndex()).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex);
+                _logger.Exception(ex);
             }
-            m_CheckIndexExists = true;
+            _checkIndexExists = true;
         }
 
         public void Dispose()
         {
-            m_IndexClient.Dispose();
+            _indexClient.Dispose();
         }
     }
 }

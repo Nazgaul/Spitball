@@ -8,10 +8,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
     internal class ChangeEmail : IMail2
     {
-        private readonly IMailComponent m_MailComponent;
+        private readonly IMailComponent _mailComponent;
         public ChangeEmail(IMailComponent mailComponent)
         {
-            m_MailComponent = mailComponent;
+            _mailComponent = mailComponent;
         }
 
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
@@ -21,7 +21,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 throw new System.NullReferenceException("parameters");
             }
 
-            await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
+            await _mailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                 new ChangeEmailMailParams(parameters.Code,
                     new CultureInfo(parameters.Culture)), token).ConfigureAwait(false);
 

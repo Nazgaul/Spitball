@@ -57,7 +57,6 @@
     <Compile Include="BoxSearchProvider.cs" />
     <Compile Include="Content.cs" />
     <Compile Include="ContentSearchProvider.cs" />
-    <Compile Include="FilterProvider.cs" />
     <Compile Include="FlashcardSearch.cs" />
     <Compile Include="FlashcardSearchProvider.cs" />
     <Compile Include="IBoxSearchProvider.cs" />

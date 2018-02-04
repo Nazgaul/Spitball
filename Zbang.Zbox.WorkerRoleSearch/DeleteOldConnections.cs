@@ -11,12 +11,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class DeleteOldConnections : IJob
     {
-        private readonly IZboxWriteService m_ZboxWriteService;
+        private readonly IZboxWriteService _zboxWriteService;
         private readonly ILogger _logger;
 
         public DeleteOldConnections(IZboxWriteService zboxWriteService, ILogger logger)
         {
-            m_ZboxWriteService = zboxWriteService;
+            _zboxWriteService = zboxWriteService;
             _logger = logger;
         }
 
@@ -34,7 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 var command = new RemoveOldConnectionCommand();
                 try
                 {
-                    m_ZboxWriteService.RemoveOldConnections(command);
+                    _zboxWriteService.RemoveOldConnections(command);
                 }
                 catch (Exception ex)
                 {

@@ -1,6 +1,4 @@
-﻿using System;
-using SendGrid;
-
+﻿
 namespace Zbang.Zbox.Infrastructure.Mail
 {
     internal class DepartmentApprovedAccessMail : MailBuilder
@@ -8,17 +6,17 @@ namespace Zbang.Zbox.Infrastructure.Mail
         private const string Category = "Request approved";
         private const string Subject = "Approved access";
 
-        private readonly DepartmentApprovedMailParams m_Parameters;
+        private readonly DepartmentApprovedMailParams _parameters;
 
         public DepartmentApprovedAccessMail(MailParameters parameters) : base(parameters)
         {
-            m_Parameters = parameters as DepartmentApprovedMailParams;
+            _parameters = parameters as DepartmentApprovedMailParams;
         }
 
         public override string GenerateMail()
         {
-            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.DepartmentApprovedAccess");
-            return html.Replace("{DEP_NAME}", m_Parameters.DepName);
+            var html = LoadMailTempate.LoadMailFromContent(_parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.DepartmentApprovedAccess");
+            return html.Replace("{DEP_NAME}", _parameters.DepName);
         }
 
         public override string AddSubject()

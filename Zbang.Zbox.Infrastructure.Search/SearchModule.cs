@@ -13,7 +13,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey")).SingleInstance();
 
             builder.RegisterType<UniversitySearchProvider>().As<IUniversityWriteSearchProvider2>().SingleInstance();
-            builder.RegisterType<FilterProvider>().As<ISearchFilterProvider>().SingleInstance();
             builder.RegisterType<BoxSearchProvider>().As<IBoxWriteSearchProvider2>().SingleInstance();
             builder.RegisterType<ItemSearchProvider3>().As<IItemWriteSearchProvider>().SingleInstance();
             builder.RegisterType<QuizSearchProvider2>().As<IQuizWriteSearchProvider2>().SingleInstance();

@@ -11,27 +11,27 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class DeleteReplyCommandHandler : ICommandHandlerAsync<DeleteReplyCommand>
     {
-        private readonly IRepository<CommentReply> m_ReplyRepository;
-        private readonly IQueueProvider m_QueueProvider;
-        private readonly IUserRepository m_UserRepository;
-        private readonly IUpdatesRepository m_UpdatesRepository;
+        private readonly IRepository<CommentReply> _replyRepository;
+        private readonly IQueueProvider _queueProvider;
+        private readonly IUserRepository _userRepository;
+        private readonly IUpdatesRepository _updatesRepository;
 
         public DeleteReplyCommandHandler(
             IRepository<CommentReply> answerRepository,
             IQueueProvider queueProvider, IUserRepository userRepository, IUpdatesRepository updatesRepository)
         {
-            m_ReplyRepository = answerRepository;
-            m_QueueProvider = queueProvider;
-            m_UserRepository = userRepository;
-            m_UpdatesRepository = updatesRepository;
+            _replyRepository = answerRepository;
+            _queueProvider = queueProvider;
+            _userRepository = userRepository;
+            _updatesRepository = updatesRepository;
         }
 
         public Task HandleAsync(DeleteReplyCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
-            var answer = m_ReplyRepository.Load(message.AnswerId);
+            var answer = _replyRepository.Load(message.AnswerId);
             var box = answer.Box;
-            var user = m_UserRepository.Load(message.UserId);
+            var user = _userRepository.Load(message.UserId);
 
             var isAuthorize = answer.User.Id == message.UserId
                 || box.Owner.Id == message.UserId
@@ -42,14 +42,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException();
             }
             answer.Question.ReplyCount--;
-            m_UpdatesRepository.DeleteReplyUpdates(answer.Id);
-            m_ReplyRepository.Delete(answer);
+            _updatesRepository.DeleteReplyUpdates(answer.Id);
+            _replyRepository.Delete(answer);
             var task = Task.CompletedTask;
             if (answer.LikeCount > 0)
             {
-                task = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(answer.User.Id));
+                task = _queueProvider.InsertMessageToTransactionAsync(new ReputationData(answer.User.Id));
             }
-            var t2 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
+            var t2 = _queueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
             return Task.WhenAll(task, t2);
         }

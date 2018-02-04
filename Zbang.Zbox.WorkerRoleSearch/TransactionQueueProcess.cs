@@ -13,13 +13,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class TransactionQueueProcess : IJob
     {
-        private readonly IQueueProviderExtract m_QueueProviderExtract;
+        private readonly IQueueProviderExtract _queueProviderExtract;
         private readonly ILifetimeScope m_LifetimeScope;
         private readonly ILogger _logger;
 
         public TransactionQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope lifetimeScope, ILogger logger)
         {
-            m_QueueProviderExtract = queueProviderExtract;
+            _queueProviderExtract = queueProviderExtract;
             m_LifetimeScope = lifetimeScope;
             _logger = logger;
         }
@@ -33,7 +33,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     var queueName = new UpdateDomainQueueName();
-                    var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
+                    var result = await _queueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
                         var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
                         if (msgData == null)

@@ -11,12 +11,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
 {
     internal class UpdatesProcess : IDomainProcess
     {
-        private readonly IZboxWorkerRoleService m_ZboxWriteService;
+        private readonly IZboxWorkerRoleService _zboxWriteService;
         private readonly ILogger _logger;
 
         public UpdatesProcess(IZboxWorkerRoleService zboxService, ILogger logger)
         {
-            m_ZboxWriteService = zboxService;
+            _zboxWriteService = zboxService;
             _logger = logger;
         }
 
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             if (!(data is UpdateData parameters)) return true;
             try
             {
-               await m_ZboxWriteService.AddNewUpdateAsync(new AddNewUpdatesCommand(
+               await _zboxWriteService.AddNewUpdateAsync(new AddNewUpdatesCommand(
                    parameters.BoxId,
                    parameters.UserWhoMadeActionId,
                    parameters.QuestionId,

@@ -68,7 +68,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         //    //{
         //    return Task.CompletedTask;
         //    //}
-        //    var flashcard = m_FlashcardRepository.Load(flashcardId.Value);
+        //    var flashcard = _flashcardRepository.Load(flashcardId.Value);
         //    DoUpdateLoop(userIds, u => new Updates(u, box, flashcard));
         //    //return m_JaredPush.SendItemPushAsync(flashcard.User.Name, box.Id, flashcard.Id, BuildBoxTag(box.Id),
         //    //Infrastructure.Enums.ItemType.Flashcard);

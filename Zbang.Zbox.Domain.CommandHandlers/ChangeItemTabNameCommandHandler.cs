@@ -9,19 +9,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class ChangeItemTabNameCommandHandler : ICommandHandler<ChangeItemTabNameCommand>
     {
         private readonly IItemTabRepository m_ItemTabRepository;
-        private readonly IUserRepository m_UserRepository;
+        private readonly IUserRepository _userRepository;
 
         public ChangeItemTabNameCommandHandler(IItemTabRepository itemTabRepository,
             IUserRepository userRepository)
         {
             m_ItemTabRepository = itemTabRepository;
-            m_UserRepository = userRepository;
+            _userRepository = userRepository;
         }
 
         public void Handle(ChangeItemTabNameCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
-            var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
+            var userType = _userRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
 
             if (userType == Infrastructure.Enums.UserRelationshipType.None || userType == Infrastructure.Enums.UserRelationshipType.Invite)
             {

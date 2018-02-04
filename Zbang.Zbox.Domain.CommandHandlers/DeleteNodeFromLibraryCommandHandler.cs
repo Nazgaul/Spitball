@@ -7,16 +7,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class DeleteNodeFromLibraryCommandHandler: ICommandHandler<DeleteNodeFromLibraryCommand>
     {
-        private readonly IRepository<Library> m_LibraryRepository;
+        private readonly IRepository<Library> _libraryRepository;
         public DeleteNodeFromLibraryCommandHandler(IRepository<Library> libraryRepository)
         {
-            m_LibraryRepository = libraryRepository;
+            _libraryRepository = libraryRepository;
         }
 
         public void Handle(DeleteNodeFromLibraryCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
-            var node = m_LibraryRepository.Get(message.NodeId);
+            var node = _libraryRepository.Get(message.NodeId);
             if (node == null)
             {
                 throw new NullReferenceException("node");
@@ -42,10 +42,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 parent.AmountOfNodes--;
 
-                m_LibraryRepository.Save(parent);
+                _libraryRepository.Save(parent);
             }
 
-            m_LibraryRepository.Delete(node);
+            _libraryRepository.Delete(node);
         }
     }
 }

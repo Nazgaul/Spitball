@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class ItemDetailDto
     {
-        private DateTime m_Date;
+        private DateTime _date;
         public string Name { get; set; }
 
         public DateTime Date
         {
-            get { return DateTime.SpecifyKind(m_Date, DateTimeKind.Utc); }
-            set { m_Date = value; }
+            get { return DateTime.SpecifyKind(_date, DateTimeKind.Utc); }
+            set { _date = value; }
         }
 
         public string Owner { get; set; }

@@ -10,36 +10,36 @@ namespace Zbang.Zbox.Infrastructure.Mail
         private const string Category = "Update";
         private const string Subject = "Spitball Update";
 
-        private readonly UpdateMailParams m_Parameters;
+        private readonly UpdateMailParams _parameters;
 
         public UpdatesMail(MailParameters parameters) : base(parameters)
         {
-            m_Parameters = parameters as UpdateMailParams;
+            _parameters = parameters as UpdateMailParams;
         }
 
         public override string GenerateMail()
         {
-            Thread.CurrentThread.CurrentUICulture = m_Parameters.UserCulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(m_Parameters.UserCulture.Name);
+            Thread.CurrentThread.CurrentUICulture = _parameters.UserCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(_parameters.UserCulture.Name);
 
-            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Updates1");
+            var html = LoadMailTempate.LoadMailFromContent(_parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Updates1");
 
-            var cube = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.UpdatesList1");
+            var cube = LoadMailTempate.LoadMailFromContent(_parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.UpdatesList1");
 
             var sb = new StringBuilder();
-            foreach (var boxUpdate in m_Parameters.Updates)
+            foreach (var boxUpdate in _parameters.Updates)
             {
-                sb.Append(GenerateBoxCube(boxUpdate, m_Parameters.UserCulture, cube));
+                sb.Append(GenerateBoxCube(boxUpdate, _parameters.UserCulture, cube));
             }
 
             //message.Text = textBody;
 
             html = html.Replace("{UPDATES}", sb.ToString());
-            html = html.Replace("{USERNAME}", m_Parameters.UserName);
-            html = html.Replace("{NUM-UPDATES}", AggregateUpdates(m_Parameters.NoOfUpdates));
-            html = html.Replace("{X-ANSWERS}", AggregateAnswers(m_Parameters.NoOfAnswers));
-            html = html.Replace("{X-QUESTIONS}", AggregateQuestion(m_Parameters.NoOfQuestions));
-            html = html.Replace("{X-NEW-ITEMS}", AggregateItems(m_Parameters.NoOfItems));
+            html = html.Replace("{USERNAME}", _parameters.UserName);
+            html = html.Replace("{NUM-UPDATES}", AggregateUpdates(_parameters.NoOfUpdates));
+            html = html.Replace("{X-ANSWERS}", AggregateAnswers(_parameters.NoOfAnswers));
+            html = html.Replace("{X-QUESTIONS}", AggregateQuestion(_parameters.NoOfQuestions));
+            html = html.Replace("{X-NEW-ITEMS}", AggregateItems(_parameters.NoOfItems));
 
             var spaceInGmail = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
             html = html.Replace(spaceInGmail, string.Empty);

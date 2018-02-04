@@ -75,7 +75,7 @@ namespace Cloudents.Infrastructure.Interceptor
             return null;
         }
 
-        public static string GetInvocationSignature(IInvocation invocation)
+        private static string GetInvocationSignature(IInvocation invocation)
         {
             return
                 $"{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-" +

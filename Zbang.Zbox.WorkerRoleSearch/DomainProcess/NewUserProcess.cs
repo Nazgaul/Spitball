@@ -9,19 +9,16 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
 {
     public class NewUserProcess : IDomainProcess
     {
-        private readonly IMailComponent m_MailComponent;
-        private readonly IIntercomApiManager m_IntercomManager;
+        private readonly IMailComponent _mailComponent;
 
-        public NewUserProcess(IMailComponent mailComponent, IIntercomApiManager intercomManager)
+        public NewUserProcess(IMailComponent mailComponent)
         {
-            m_MailComponent = mailComponent;
-            m_IntercomManager = intercomManager;
+            _mailComponent = mailComponent;
         }
 
         public async Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
         {
-            var parameters = data as NewUserData;
-            if (parameters == null)
+            if (!(data is NewUserData parameters))
             {
                 throw new NullReferenceException("parameters");
             }
@@ -31,7 +28,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
               // t1 =  m_IntercomManager.UpdateUserRefAsync(parameters.UserId, parameters.EmailAddress, parameters.Referrel, token);
             }
 
-            var t2 =  m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
+            var t2 =  _mailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                  new WelcomeMailParams(parameters.UserName,
                      new CultureInfo(parameters.Culture)), token);
             await Task.WhenAll(t1, t2).ConfigureAwait(false);

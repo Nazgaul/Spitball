@@ -6,22 +6,22 @@ namespace Zbang.Zbox.Infrastructure.Mail
         private const string Category = "Flag Bad Item";
         private const string Subject = "Flag Bad Item";
 
-        private readonly FlagItemMailParams m_Parameters;
+        private readonly FlagItemMailParams _parameters;
 
         public FlagItemMail(MailParameters parameters) : base(parameters)
         {
-            m_Parameters = parameters as FlagItemMailParams;
+            _parameters = parameters as FlagItemMailParams;
         }
 
         public override string GenerateMail()
         {
-            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.FlaggedItem");
+            var html = LoadMailTempate.LoadMailFromContent(_parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.FlaggedItem");
 
-            html = html.Replace("{ItemUrl}", m_Parameters.Url);
-            html = html.Replace("{ITEM NAME}", m_Parameters.ItemName);
-            html = html.Replace("{REASON}", m_Parameters.Reason);
-            html = html.Replace("{FLAGGER-USERNAME}", m_Parameters.UserName);
-            html = html.Replace("{FLAGGER-EMAIL}", m_Parameters.Email);
+            html = html.Replace("{ItemUrl}", _parameters.Url);
+            html = html.Replace("{ITEM NAME}", _parameters.ItemName);
+            html = html.Replace("{REASON}", _parameters.Reason);
+            html = html.Replace("{FLAGGER-USERNAME}", _parameters.UserName);
+            html = html.Replace("{FLAGGER-EMAIL}", _parameters.Email);
             return html;
         }
 

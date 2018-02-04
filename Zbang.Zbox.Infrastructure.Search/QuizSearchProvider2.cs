@@ -16,21 +16,21 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public class QuizSearchProvider2 : IQuizWriteSearchProvider2
     {
-        private readonly string m_IndexName = "quiz2";
-        private readonly ISearchConnection m_Connection;
-        private bool m_CheckIndexExists;
-        private readonly ISearchIndexClient m_IndexClient;
-        private readonly ILogger m_Logger;
+        private readonly string _indexName = "quiz2";
+        private readonly ISearchConnection _connection;
+        private bool _checkIndexExists;
+        private readonly ISearchIndexClient _indexClient;
+        private readonly ILogger _logger;
 
         public QuizSearchProvider2(ISearchConnection connection, ILogger logger)
         {
-            m_Connection = connection;
-            m_Logger = logger;
-            if (m_Connection.IsDevelop)
+            _connection = connection;
+            _logger = logger;
+            if (_connection.IsDevelop)
             {
-                m_IndexName = m_IndexName + "-dev";
+                _indexName = _indexName + "-dev";
             }
-            m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
+            _indexClient = connection.SearchClient.Indexes.GetClient(_indexName);
         }
 
         private const string IdField = "id";
@@ -51,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private Index GetIndexStructure()
         {
-            var index = new Index(m_IndexName, new[]
+            var index = new Index(_indexName, new[]
             {
                 new Field(IdField, DataType.String) { IsKey = true, IsRetrievable = true},
                 new Field(NameField, DataType.String) { IsSearchable = true, IsRetrievable = true},
@@ -84,19 +84,19 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                // m_Connection.SearchClient.Indexes.Delete(m_IndexName);
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
+                // _connection.SearchClient.Indexes.Delete(_indexName);
+                await _connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure()).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex);
+                _logger.Exception(ex);
             }
-            m_CheckIndexExists = true;
+            _checkIndexExists = true;
         }
 
         public async Task<bool> UpdateDataAsync(IEnumerable<QuizSearchDto> quizToUpload, IEnumerable<long> quizToDelete)
         {
-            if (!m_CheckIndexExists)
+            if (!_checkIndexExists)
             {
                 await BuildIndexAsync().ConfigureAwait(false);
             }
@@ -120,7 +120,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var batch = IndexBatch.Upload(uploadBatch);
                 if (batch.Actions.Any())
                 {
-                    await m_IndexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
+                    await _indexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
                 }
             }
             if (quizToDelete != null)
@@ -132,7 +132,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                      });
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
-                    await m_IndexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
+                    await _indexClient.Documents.IndexAsync(batch).ConfigureAwait(false);
             }
             return true;
         }

@@ -6,20 +6,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UpdateUniversityStatsCommandHandler : ICommandHandler<UpdateUniversityStatsCommand>
     {
-        private readonly IUniversityRepository m_UniversityRepository;
+        private readonly IUniversityRepository _universityRepository;
 
         public UpdateUniversityStatsCommandHandler(IUniversityRepository universityRepository)
         {
-            m_UniversityRepository = universityRepository;
+            _universityRepository = universityRepository;
         }
 
         public void Handle(UpdateUniversityStatsCommand message)
         {
             foreach (var universityId in message.UniversitiesIds)
             {
-                var university = m_UniversityRepository.Load(universityId);
-                university.AdminScore = m_UniversityRepository.GetAdminScore(universityId);
-                var universityStats = m_UniversityRepository.GetStats(universityId);
+                var university = _universityRepository.Load(universityId);
+                university.AdminScore = _universityRepository.GetAdminScore(universityId);
+                var universityStats = _universityRepository.GetStats(universityId);
 
                 if (university.NoOfUsers != universityStats.UsersCount)
                 {
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 university.UpdateNumberOfBoxes( universityStats.BoxesCount);
                 university.NoOfFlashcards = universityStats.FlashcardCount;
 
-                m_UniversityRepository.Save(university);
+                _universityRepository.Save(university);
             }
         }
     }

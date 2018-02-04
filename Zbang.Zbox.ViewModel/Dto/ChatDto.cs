@@ -4,14 +4,14 @@ namespace Zbang.Zbox.ViewModel.Dto
 {
     public class ChatDto
     {
-        private DateTime m_Date;
+        private DateTime _date;
         public string Text { get; set; }
         public DateTime Time
         {
-            get { return m_Date; }
+            get { return _date; }
             set
             {
-                m_Date = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+                _date = DateTime.SpecifyKind(value, DateTimeKind.Utc);
             }
         }
 

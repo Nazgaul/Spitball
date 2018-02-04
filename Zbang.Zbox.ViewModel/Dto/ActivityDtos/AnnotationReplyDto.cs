@@ -4,16 +4,16 @@ namespace Zbang.Zbox.ViewModel.Dto.ActivityDtos
 {
     public class AnnotationReplyDto
     {
-        private DateTime m_Date;
+        private DateTime _date;
 
         public long Id { get; set; }
         public string Comment { get; set; }
         public DateTime CreationDate
         {
-            get { return m_Date; }
+            get { return _date; }
             set
             {
-                m_Date = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+                _date = DateTime.SpecifyKind(value, DateTimeKind.Utc);
             }
         }
 

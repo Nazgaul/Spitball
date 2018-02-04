@@ -12,13 +12,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<QuizLike> m_QuizLikeRepository;
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
-        private readonly IQueueProvider m_QueueProvider;
+        private readonly IQueueProvider _queueProvider;
 
         public DeleteQuizLikeCommandHandler(IRepository<QuizLike> quizLikeRepository, IRepository<Domain.Quiz> quizRepository, IQueueProvider queueProvider)
         {
             m_QuizLikeRepository = quizLikeRepository;
             m_QuizRepository = quizRepository;
-            m_QueueProvider = queueProvider;
+            _queueProvider = queueProvider;
         }
 
         public Task HandleAsync(DeleteQuizLikeCommand message)
@@ -32,8 +32,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QuizLikeRepository.Delete(like);
             like.Quiz.ShouldMakeDirty = () => true;
             m_QuizRepository.Save(like.Quiz);
-            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(like.Quiz.User.Id));
-            var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new LikesBadgeData(message.UserId));
+            var t1 = _queueProvider.InsertMessageToTransactionAsync(new ReputationData(like.Quiz.User.Id));
+            var t2 = _queueProvider.InsertMessageToTransactionAsync(new LikesBadgeData(message.UserId));
             return Task.WhenAll(t1, t2);
         }
     }

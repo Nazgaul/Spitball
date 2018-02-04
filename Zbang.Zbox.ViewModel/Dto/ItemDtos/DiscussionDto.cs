@@ -4,7 +4,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
     public class DiscussionDto
     {
-        private DateTime m_Date;
+        private DateTime _date;
 
         public Guid Id { get; set; }
         public string UserName { get; set; }
@@ -12,9 +12,9 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         {
             get
             {
-                return m_Date;
+                return _date;
             }
-            set { m_Date = DateTime.SpecifyKind(value, DateTimeKind.Utc); }
+            set { _date = DateTime.SpecifyKind(value, DateTimeKind.Utc); }
         }
         public string UserPicture { get; set; }
         public long UserId { get; set; }

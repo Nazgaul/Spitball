@@ -11,12 +11,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
 {
     public class UpdateQuota : IDomainProcess
     {
-        private readonly IZboxWorkerRoleService m_ZboxWriteService;
+        private readonly IZboxWorkerRoleService _zboxWriteService;
         private readonly ILogger _logger;
 
         public UpdateQuota(IZboxWorkerRoleService zboxWriteService, ILogger logger)
         {
-            m_ZboxWriteService = zboxWriteService;
+            _zboxWriteService = zboxWriteService;
             _logger = logger;
         }
 
@@ -25,7 +25,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             if (!(data is QuotaData parameters)) return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
             try
             {
-                m_ZboxWriteService.UpdateQuota(new UpdateQuotaCommand(parameters.UserIds));
+                _zboxWriteService.UpdateQuota(new UpdateQuotaCommand(parameters.UserIds));
             }
             catch (Exception ex)
             {

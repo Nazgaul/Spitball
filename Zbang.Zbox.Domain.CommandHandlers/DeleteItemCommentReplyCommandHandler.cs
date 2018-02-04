@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             m_ItemCommentReplyRepository.Delete(itemReply);
-            //return m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(itemReply.Author.Id));
+            //return _queueProvider.InsertMessageToTransactionAsync(new ReputationData(itemReply.Author.Id));
         }
     }
 }

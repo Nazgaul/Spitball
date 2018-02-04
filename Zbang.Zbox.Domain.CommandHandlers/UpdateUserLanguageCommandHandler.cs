@@ -7,18 +7,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UpdateUserLanguageCommandHandler : ICommandHandler<UpdateUserLanguageCommand>
     {
-        private readonly IUserRepository m_UserRepository;
+        private readonly IUserRepository _userRepository;
         public UpdateUserLanguageCommandHandler(IUserRepository userRepository)
         {
-            m_UserRepository = userRepository;
+            _userRepository = userRepository;
         }
 
         public void Handle(UpdateUserLanguageCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
-            var user = m_UserRepository.Load(message.UserId);
+            var user = _userRepository.Load(message.UserId);
             user.UpdateLanguage(message.Language);
-            m_UserRepository.Save(user);
+            _userRepository.Save(user);
         }
     }
 }

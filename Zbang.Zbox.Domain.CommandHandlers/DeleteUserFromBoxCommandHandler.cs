@@ -7,8 +7,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class DeleteUserFromBoxCommandHandler : ICommandHandler<DeleteUserFromBoxCommand>
     {
-        private readonly IUserRepository m_UserRepository;
-        private readonly IBoxRepository m_BoxRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IBoxRepository _boxRepository;
         private readonly IUserBoxRelRepository m_UserBoxRelRepository;
 
         public DeleteUserFromBoxCommandHandler(
@@ -16,15 +16,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IBoxRepository boxRepository,
             IUserBoxRelRepository userBoxRelRepository)
         {
-            m_UserRepository = userRepository;
-            m_BoxRepository = boxRepository;
+            _userRepository = userRepository;
+            _boxRepository = boxRepository;
             m_UserBoxRelRepository = userBoxRelRepository;
         }
 
         public void Handle(DeleteUserFromBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-            var box = m_BoxRepository.Load(command.BoxId);
+            var box = _boxRepository.Load(command.BoxId);
             if (box.Owner.Id == command.UserToDeleteId)
             {
                 throw new InvalidOperationException("Cannot remove owner from his own box");
@@ -37,9 +37,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (userBoxRel != null)
             {
                 userBoxRel.User.UserBoxRel.Remove(userBoxRel);
-                m_UserRepository.Save(userBoxRel.User);
+                _userRepository.Save(userBoxRel.User);
                 box.CalculateMembers();
-                m_BoxRepository.Save(box);
+                _boxRepository.Save(box);
             }
         }
     }

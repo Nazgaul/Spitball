@@ -1,5 +1,4 @@
-﻿using SendGrid;
-using Zbang.Zbox.Infrastructure.Mail.Resources;
+﻿using Zbang.Zbox.Infrastructure.Mail.Resources;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {

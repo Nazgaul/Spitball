@@ -6,21 +6,21 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class ReplyToCommentMail : MailBuilder
     {
-        private readonly ReplyToCommentMailParams m_Parameters;
+        private readonly ReplyToCommentMailParams _parameters;
 
         public ReplyToCommentMail(MailParameters parameters) : base(parameters)
         {
-            m_Parameters = parameters as ReplyToCommentMailParams;
+            _parameters = parameters as ReplyToCommentMailParams;
         }
 
         public override string GenerateMail()
         {
-            if (m_Parameters == null) throw new ArgumentNullException(nameof(m_Parameters));
-            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ReplyToCommentMailTemplate");
-            html = html.Replace("{name}", m_Parameters.UserName);
-            html = html.Replace("{UserWhoMadeActionName}", m_Parameters.UserWhoMadeActionName);
-            html = html.Replace("{BoxName}", m_Parameters.BoxName);
-            html = html.Replace("{BoxUrl}", UrlConst.AppendCloudentsUrl(m_Parameters.BoxUrl));
+            if (_parameters == null) throw new ArgumentNullException(nameof(_parameters));
+            var html = LoadMailTempate.LoadMailFromContent(_parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ReplyToCommentMailTemplate");
+            html = html.Replace("{name}", _parameters.UserName);
+            html = html.Replace("{UserWhoMadeActionName}", _parameters.UserWhoMadeActionName);
+            html = html.Replace("{BoxName}", _parameters.BoxName);
+            html = html.Replace("{BoxUrl}", UrlConst.AppendCloudentsUrl(_parameters.BoxUrl));
             return html;
         }
 

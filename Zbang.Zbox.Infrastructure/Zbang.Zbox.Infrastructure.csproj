@@ -132,10 +132,8 @@
     <Compile Include="IdGenerator\GuidIdGenerator.cs" />
     <Compile Include="IdGenerator\IIdGenerator.cs" />
     <Compile Include="IPCheckContainer.cs" />
-    <Compile Include="LocationProvider.cs" />
     <Compile Include="MediaServices\IMediaServicesProvider.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Query\IUniversityWithCode.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="InfrastructureModule.cs" />
     <Compile Include="Repositories\DocumentDbModelAttribute.cs" />

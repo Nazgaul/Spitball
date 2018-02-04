@@ -12,52 +12,52 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class LikeReplyCommandHandler : ICommandHandlerAsync<LikeReplyCommand, LikeReplyCommandResult>
     {
-        private readonly IReplyLikeRepository m_ReplyLikeRepository;
-        private readonly IUserRepository m_UserRepository;
-        private readonly IRepository<CommentReply> m_ReplyRepository;
-        private readonly IGuidIdGenerator m_GuidGenerator;
-        private readonly IQueueProvider m_QueueProvider;
+        private readonly IReplyLikeRepository _replyLikeRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IRepository<CommentReply> _replyRepository;
+        private readonly IGuidIdGenerator _guidGenerator;
+        private readonly IQueueProvider _queueProvider;
 
         public LikeReplyCommandHandler(IReplyLikeRepository replyLikeRepository,
             IUserRepository userRepository,
             IRepository<CommentReply> replyRepository, IGuidIdGenerator guidGenerator, IQueueProvider queueProvider)
         {
-            m_ReplyLikeRepository = replyLikeRepository;
-            m_UserRepository = userRepository;
-            m_ReplyRepository = replyRepository;
-            m_GuidGenerator = guidGenerator;
-            m_QueueProvider = queueProvider;
+            _replyLikeRepository = replyLikeRepository;
+            _userRepository = userRepository;
+            _replyRepository = replyRepository;
+            _guidGenerator = guidGenerator;
+            _queueProvider = queueProvider;
         }
 
         public async Task<LikeReplyCommandResult> ExecuteAsync(LikeReplyCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
-            var replyLike = m_ReplyLikeRepository.GetUserLike(message.UserId, message.ReplyId);
-            var reply = m_ReplyRepository.Load(message.ReplyId);
+            var replyLike = _replyLikeRepository.GetUserLike(message.UserId, message.ReplyId);
+            var reply = _replyRepository.Load(message.ReplyId);
             if (replyLike == null)
             {
                 reply.LikeCount++;
-                var user = m_UserRepository.Load(message.UserId);
-                replyLike = new ReplyLike(reply, user, m_GuidGenerator.GetId());
+                var user = _userRepository.Load(message.UserId);
+                replyLike = new ReplyLike(reply, user, _guidGenerator.GetId());
 
-                m_ReplyRepository.Save(reply);
-                m_ReplyLikeRepository.Save(replyLike);
+                _replyRepository.Save(reply);
+                _replyLikeRepository.Save(replyLike);
                 await CreateQueuesDataAsync(message.UserId, reply.User.Id);
                 return new LikeReplyCommandResult(true);
             }
 
             reply.LikeCount--;
-            m_ReplyRepository.Save(reply);
-            m_ReplyLikeRepository.Delete(replyLike);
+            _replyRepository.Save(reply);
+            _replyLikeRepository.Delete(replyLike);
             await CreateQueuesDataAsync(message.UserId, reply.User.Id);
             return new LikeReplyCommandResult(false);
         }
 
         private async Task CreateQueuesDataAsync(long userWhoMadeAction, long commentUser)
         {
-            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(commentUser));
-            var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new LikesBadgeData(userWhoMadeAction));
+            var t1 = _queueProvider.InsertMessageToTransactionAsync(new ReputationData(commentUser));
+            var t2 = _queueProvider.InsertMessageToTransactionAsync(new LikesBadgeData(userWhoMadeAction));
             await Task.WhenAll(t1, t2);
         }
     }

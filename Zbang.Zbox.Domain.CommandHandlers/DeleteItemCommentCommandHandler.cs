@@ -12,33 +12,33 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class DeleteItemCommentCommandHandler : ICommandHandler<DeleteItemCommentCommand>
     {
-        private readonly IUserRepository m_UserRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IRepository<ItemComment> m_ItemCommentRepository;
-        private readonly IRepository<Item> m_ItemRepository;
-        private readonly IQueueProvider m_QueueProvider;
+        private readonly IRepository<Item> _itemRepository;
+        private readonly IQueueProvider _queueProvider;
 
         public DeleteItemCommentCommandHandler(IUserRepository userRepository,
             IRepository<ItemComment> itemCommentRepository,
             IRepository<Item> itemRepository, IQueueProvider queueProvider)
         {
-            m_UserRepository = userRepository;
+            _userRepository = userRepository;
             m_ItemCommentRepository = itemCommentRepository;
-            m_ItemRepository = itemRepository;
-            m_QueueProvider = queueProvider;
+            _itemRepository = itemRepository;
+            _queueProvider = queueProvider;
         }
 
         public void Handle(DeleteItemCommentCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
-            var user = m_UserRepository.Load(message.UserId);
+            var user = _userRepository.Load(message.UserId);
 
             var itemComment = m_ItemCommentRepository.Load(message.ItemCommentId);
             if (!Equals(itemComment.Author, user))
             {
                 throw new UnauthorizedAccessException("User is unauthorized to delete annotation");
             }
-            m_ItemRepository.Save(itemComment.Item);
+            _itemRepository.Save(itemComment.Item);
             m_ItemCommentRepository.Delete(itemComment);
         }
     }

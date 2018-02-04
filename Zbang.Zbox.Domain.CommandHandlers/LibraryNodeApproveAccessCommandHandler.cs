@@ -11,14 +11,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class LibraryNodeApproveAccessCommandHandler : ICommandHandlerAsync<LibraryNodeApproveAccessCommand>
     {
         private readonly IUserLibraryRelRepository m_UserLibraryRepository;
-        private readonly ILibraryRepository m_LibraryRepository;
-        private readonly IQueueProvider m_QueueProvider;
+        private readonly ILibraryRepository _libraryRepository;
+        private readonly IQueueProvider _queueProvider;
 
         public LibraryNodeApproveAccessCommandHandler(IUserLibraryRelRepository userLibraryRepository, IQueueProvider queueProvider, ILibraryRepository libraryRepository)
         {
             m_UserLibraryRepository = userLibraryRepository;
-            m_QueueProvider = queueProvider;
-            m_LibraryRepository = libraryRepository;
+            _queueProvider = queueProvider;
+            _libraryRepository = libraryRepository;
         }
 
         public async Task HandleAsync(LibraryNodeApproveAccessCommand message)
@@ -42,9 +42,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             userToLibraryRel.UserType = Infrastructure.Enums.UserLibraryRelationType.Subscribe;
             m_UserLibraryRepository.Save(userToLibraryRel, true);
-            m_LibraryRepository.UpdateElementToIsDirty(message.DepartmentId);
-            var library = m_LibraryRepository.Load(message.DepartmentId);
-            await m_QueueProvider.InsertMessageToMailNewAsync(new AccessApprovedData(userToLibraryRel.User.Email, userToLibraryRel.User.Culture, library.Name));
+            _libraryRepository.UpdateElementToIsDirty(message.DepartmentId);
+            var library = _libraryRepository.Load(message.DepartmentId);
+            await _queueProvider.InsertMessageToMailNewAsync(new AccessApprovedData(userToLibraryRel.User.Email, userToLibraryRel.User.Culture, library.Name));
         }
     }
 }

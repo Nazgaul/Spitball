@@ -1,8 +1,6 @@
 ﻿using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 using NHibernate.Criterion;
-using NHibernate.Linq;
-using System.Linq;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
@@ -12,7 +10,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         {
             var query = UnitOfWork.CurrentSession.QueryOver<Box>();
             query.Where(b => b.Owner.Id == user.Id);
-            query.Where(b => b.IsDeleted == false);
+            query.Where(b => !b.IsDeleted);
             query.Where(b => b.Name == name.Trim().Lower());
             return query.SingleOrDefault<Box>();
         }

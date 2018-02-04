@@ -7,25 +7,25 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UpdateUserEmailSubscribeCommandHandler : ICommandHandler<UpdateUserEmailSubscribeCommand>
     {
-        private readonly IUserRepository m_UserRepository;
+        private readonly IUserRepository _userRepository;
 
         public UpdateUserEmailSubscribeCommandHandler(IUserRepository userRepository)
         {
-            m_UserRepository = userRepository;
+            _userRepository = userRepository;
         }
 
         public void Handle(UpdateUserEmailSubscribeCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
-            var user = m_UserRepository.Load(message.UserId);
+            var user = _userRepository.Load(message.UserId);
             if (message.SendSettings != Infrastructure.Enums.EmailSend.CanSend &&
                 message.SendSettings != Infrastructure.Enums.EmailSend.Unsubscribe)
             {
                 throw new ArgumentException("email settings is not valid");
-            };
+            }
             user.UserTime.UpdateUserTime(user.Id);
             user.EmailSendSettings = message.SendSettings;
-            m_UserRepository.Save(user);
+            _userRepository.Save(user);
         }
     }
 }

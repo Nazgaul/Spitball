@@ -11,49 +11,49 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class RateItemCommandHandler : ICommandHandlerAsync<RateItemCommand>
     {
-        private readonly IItemRateRepository m_ItemRateRepository;
-        private readonly IRepository<Item> m_ItemRepository;
-        private readonly IUserRepository m_UserRepository;
-        private readonly IQueueProvider m_QueueProvider;
+        private readonly IItemRateRepository _itemRateRepository;
+        private readonly IRepository<Item> _itemRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IQueueProvider _queueProvider;
 
         public RateItemCommandHandler(
             IItemRateRepository itemRateRepository,
             IRepository<Item> itemRepository,
             IUserRepository userRepository, IQueueProvider queueProvider)
         {
-            m_ItemRateRepository = itemRateRepository;
-            m_ItemRepository = itemRepository;
-            m_UserRepository = userRepository;
-            m_QueueProvider = queueProvider;
+            _itemRateRepository = itemRateRepository;
+            _itemRepository = itemRepository;
+            _userRepository = userRepository;
+            _queueProvider = queueProvider;
         }
 
         public Task HandleAsync(RateItemCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
-            var userRate = m_ItemRateRepository.GetRateOfUser(message.UserId, message.ItemId);
+            var userRate = _itemRateRepository.GetRateOfUser(message.UserId, message.ItemId);
 
-            var item = m_ItemRepository.Load(message.ItemId);
+            var item = _itemRepository.Load(message.ItemId);
             item.ShouldMakeDirty = () => true;
 
             if (userRate != null)
             {
-                m_ItemRateRepository.Delete(userRate);
+                _itemRateRepository.Delete(userRate);
                 item.LikeCount--;
-                m_ItemRepository.Save(item);
+                _itemRepository.Save(item);
                 return ReturnValueAsync(item.UploaderId, message.UserId);
             }
-            var user = m_UserRepository.Load(message.UserId);
+            var user = _userRepository.Load(message.UserId);
             userRate = new ItemRate(user, item, message.Id);
-            m_ItemRateRepository.Save(userRate);
+            _itemRateRepository.Save(userRate);
             item.LikeCount++;
-            m_ItemRepository.Save(item);
+            _itemRepository.Save(item);
             return ReturnValueAsync(item.UploaderId, message.UserId);
         }
 
         private Task ReturnValueAsync(long userId, long userWhoMadeAction)
         {
-            var t2 = m_QueueProvider.InsertMessageToTransactionAsync(new LikesBadgeData(userWhoMadeAction));
-            var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userId));
+            var t2 = _queueProvider.InsertMessageToTransactionAsync(new LikesBadgeData(userWhoMadeAction));
+            var t1 = _queueProvider.InsertMessageToTransactionAsync(new ReputationData(userId));
             return Task.WhenAll(t1, t2);
         }
 

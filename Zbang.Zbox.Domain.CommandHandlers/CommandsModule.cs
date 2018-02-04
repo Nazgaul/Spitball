@@ -9,13 +9,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType(typeof(RemoveTagsFromItemCommandHandler<Item>))
-            .As<ICommandHandler<RemoveTagsFromDocumentCommand>>();
-            builder.RegisterType(typeof(RemoveTagsFromItemCommandHandler<FlashcardMeta>))
-                .As<ICommandHandler<RemoveTagsFromFlashcardCommand>>();
-            builder.RegisterType(typeof(RemoveTagsFromItemCommandHandler<Domain.Quiz>))
-               .As<ICommandHandler<RemoveTagsFromQuizCommand>>();
-
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
 
 
@@ -36,10 +29,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 <ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>, CreateGoogleUserCommandHandler>(
                     CreateGoogleUserCommand.ResolveName);
 
-            builder.RegisterType(typeof(ICommandHandlerAsync<UpdateUserPasswordCommand, UpdateUserCommandResult>),
-                typeof(UpdateUserPasswordCommandHandler));
-            builder.RegisterType(typeof(ICommandHandlerAsync<UpdateUserEmailCommand>),
-                typeof(UpdateUserEmailCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<UpdateUserProfileCommand>),
                 typeof(UpdateUserProfileCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<UpdateUserProfileImageCommand>),
@@ -118,35 +107,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //online + chat
             builder.RegisterType(typeof(ICommandHandler<ChangeUserOnlineStatusCommand>),
                 typeof(ChangeUserOnlineStatusCommandHandler));
-            builder.RegisterType(typeof(ICommandHandlerAsync<ChatAddMessageCommand>),
-                typeof(ChatAddMessageCommandHandler));
 
             builder.RegisterType(typeof(ICommandHandler<ManageConnectionsCommand>),
                 typeof(ManageConnectionsCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<RemoveOldConnectionCommand>),
                 typeof(RemoveOldConnectionCommandHandler));
-
-            builder.RegisterType(typeof(ICommandHandler<ChatMarkAsReadCommand>),
-                typeof(ChatMarkAsReadCommandHandler));
-
-          
-            builder.RegisterType(typeof(ICommandHandlerAsync<UpdateFlashcardCommand>),
-                typeof(UpdateFlashcardCommandHandler));
-            builder.RegisterType(typeof(ICommandHandlerAsync<PublishFlashcardCommand>),
-                typeof(PublishFlashcardCommandHandler));
-
-            builder.RegisterType(typeof(ICommandHandlerAsync<DeleteFlashcardCommand>),
-                typeof(DeleteFlashcardCommandHandler));
-
-           
-            builder.RegisterType(typeof(ICommandHandler<DeleteFlashcardPinCommand>),
-                typeof(DeleteFlashcardPinCommandHandler));
-
-           
-            builder.RegisterType(typeof(ICommandHandlerAsync<DeleteFlashcardLikeCommand>),
-                typeof(DeleteFlashcardLikeCommandHandler));
-            builder.RegisterType(typeof(ICommandHandler<SaveUserFlashcardCommand>),
-                typeof(SaveUserFlashcardCommandHandler));
         }
     }
 }

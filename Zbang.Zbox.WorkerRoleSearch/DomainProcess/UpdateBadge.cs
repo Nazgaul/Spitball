@@ -13,14 +13,14 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
 {
     public class UpdateBadge : IDomainProcess
     {
-        private readonly IZboxWorkerRoleService m_ZboxWriteService;
-        private readonly IQueueProvider m_QueueProvider;
+        private readonly IZboxWorkerRoleService _zboxWriteService;
+        private readonly IQueueProvider _queueProvider;
         private readonly ILogger _logger;
 
         public UpdateBadge(IZboxWorkerRoleService zboxWriteService, IQueueProvider queueProvider, ILogger logger)
         {
-            m_ZboxWriteService = zboxWriteService;
-            m_QueueProvider = queueProvider;
+            _zboxWriteService = zboxWriteService;
+            _queueProvider = queueProvider;
             _logger = logger;
         }
 
@@ -72,7 +72,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
         {
             token.ThrowIfCancellationRequested();
             var command = new UpdateBadgesCommand(userId, badge);
-            m_ZboxWriteService.UpdateBadges(command);
+            _zboxWriteService.UpdateBadges(command);
             if (command.Progress == 100)
             {
                 try
@@ -89,7 +89,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                     });
                 }
 
-                await m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userId), token).ConfigureAwait(false);
+                await _queueProvider.InsertMessageToTransactionAsync(new ReputationData(userId), token).ConfigureAwait(false);
             }
         }
     }

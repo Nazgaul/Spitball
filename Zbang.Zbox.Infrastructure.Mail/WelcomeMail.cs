@@ -6,17 +6,17 @@ namespace Zbang.Zbox.Infrastructure.Mail
     {
         private const string Category = "Welcome";
 
-        private readonly WelcomeMailParams m_Parameters;
+        private readonly WelcomeMailParams _parameters;
 
         public WelcomeMail(MailParameters parameters) : base(parameters)
         {
-            m_Parameters = parameters as WelcomeMailParams;
+            _parameters = parameters as WelcomeMailParams;
         }
 
         public override string GenerateMail()
         {
-            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.Welcome");
-            return html.Replace("{Name}", m_Parameters.Name);
+            var html = LoadMailTempate.LoadMailFromContent(_parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.Welcome");
+            return html.Replace("{Name}", _parameters.Name);
         }
 
         public override string AddSubject()

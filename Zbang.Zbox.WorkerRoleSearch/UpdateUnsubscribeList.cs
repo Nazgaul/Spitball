@@ -122,7 +122,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    //await m_MailComponent.GenerateSystemEmailAsync("sendGrid api", $"{Name} with errors {ex}").ConfigureAwait(false);
+                    //await _mailComponent.GenerateSystemEmailAsync("sendGrid api", $"{Name} with errors {ex}").ConfigureAwait(false);
                     _logger.Exception(ex);
                 }
             }

@@ -10,22 +10,22 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UpdateBadgesCommandHandler : ICommandHandler<UpdateBadgesCommand>
     {
-        private readonly IUserRepository m_UserRepository;
-        private readonly IGamificationRepository m_BadgeRepository;
-        private readonly IGuidIdGenerator m_IdGenerator;
+        private readonly IUserRepository _userRepository;
+        private readonly IGamificationRepository _badgeRepository;
+        private readonly IGuidIdGenerator _idGenerator;
 
         public UpdateBadgesCommandHandler(IUserRepository userRepository,
             IGamificationRepository badgeRepository, IGuidIdGenerator idGenerator)
         {
-            m_UserRepository = userRepository;
-            m_BadgeRepository = badgeRepository;
-            m_IdGenerator = idGenerator;
+            _userRepository = userRepository;
+            _badgeRepository = badgeRepository;
+            _idGenerator = idGenerator;
         }
 
         public void Handle(UpdateBadgesCommand message)
         {
-            var user = m_UserRepository.Load(message.UserId);
-            var badge = m_BadgeRepository.GetBadgeOfUser(message.UserId, message.BadgeType);
+            var user = _userRepository.Load(message.UserId);
+            var badge = _badgeRepository.GetBadgeOfUser(message.UserId, message.BadgeType);
             if (badge?.Progress == 100)
             {
                 return;
@@ -43,15 +43,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     progress.To = 3;
                     break;
                 case BadgeType.CreateQuizzes:
-                    progress.Start = m_UserRepository.QuizCount(user.Id);
+                    progress.Start = _userRepository.QuizCount(user.Id);
                     progress.To = 5;
                     break;
                 case BadgeType.UploadFiles:
-                    progress.Start = m_UserRepository.ItemCount(user.Id);
+                    progress.Start = _userRepository.ItemCount(user.Id);
                     progress.To = 15;
                     break;
                 case BadgeType.Likes:
-                    progress.Start = m_UserRepository.LikesCount(user.Id);
+                    progress.Start = _userRepository.LikesCount(user.Id);
                     progress.To = 50;
                     break;
                 default:
@@ -62,9 +62,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (badge.Progress == 100)
             {
                 user.BadgeCount = user.Badges.Count(w => w.Progress == 100) + 1; //register is virtual
-                m_UserRepository.Save(user);
+                _userRepository.Save(user);
             }
-            m_BadgeRepository.Save(badge);
+            _badgeRepository.Save(badge);
         }
 
         private void CreateOrUpdateBadge(ref Badge badge, BadgeType type, User user, Progress currentNumber)
@@ -72,7 +72,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var progress = (int)Math.Min((float)currentNumber.Start / currentNumber.To * 100, 100);
             if (badge == null)
             {
-                badge = new Badge(m_IdGenerator.GetId(), user, type, progress);
+                badge = new Badge(_idGenerator.GetId(), user, type, progress);
             }
             badge.Progress = progress;
         }

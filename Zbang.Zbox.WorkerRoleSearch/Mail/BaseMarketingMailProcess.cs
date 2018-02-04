@@ -12,12 +12,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
     public abstract class BaseMarketingMailProcess : ISchedulerProcess
     {
-        private readonly IMailComponent m_MailComponent;
+        private readonly IMailComponent _mailComponent;
         private readonly ILogger _logger;
 
         protected BaseMarketingMailProcess(IMailComponent mailComponent, ILogger logger)
         {
-            m_MailComponent = mailComponent;
+            _mailComponent = mailComponent;
             _logger = logger;
         }
 
@@ -64,7 +64,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                             ? new CultureInfo("en-US")
                             : new CultureInfo(user.Culture);
                         var marketingMail = BuildMarketingMail(user.Name, culture);
-                        list.Add(m_MailComponent.GenerateAndSendEmailAsync(email,
+                        list.Add(_mailComponent.GenerateAndSendEmailAsync(email,
                             marketingMail, token));
                     }
                     await Task.WhenAll(list).ConfigureAwait(false);

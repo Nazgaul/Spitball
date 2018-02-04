@@ -6,26 +6,26 @@ namespace Zbang.Zbox.Infrastructure.Mail
     {
         private const string Category = "Invite";
 
-        private readonly InviteMailParams m_Parameters;
+        private readonly InviteMailParams _parameters;
 
         public InviteMail(MailParameters parameters) : base(parameters)
         {
-            m_Parameters = parameters as InviteMailParams;
+            _parameters = parameters as InviteMailParams;
         }
 
         public override string GenerateMail()
         {
-            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCourse");
-            html = html.Replace("{INVITOR}", m_Parameters.Invitor);
-            html = html.Replace("{BOXNAME}", m_Parameters.BoxName);
-            html = html.Replace("{BoxUrl}", m_Parameters.BoxUrl);
-            html = html.Replace("{ImgUrl}", m_Parameters.InvitorImage);
+            var html = LoadMailTempate.LoadMailFromContent(_parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCourse");
+            html = html.Replace("{INVITOR}", _parameters.Invitor);
+            html = html.Replace("{BOXNAME}", _parameters.BoxName);
+            html = html.Replace("{BoxUrl}", _parameters.BoxUrl);
+            html = html.Replace("{ImgUrl}", _parameters.InvitorImage);
             return html;
         }
 
         public override string AddSubject()
         {
-            return string.Format(EmailResource.InviteSubject, m_Parameters.BoxName);
+            return string.Format(EmailResource.InviteSubject, _parameters.BoxName);
         }
 
         public override string AddCategory()

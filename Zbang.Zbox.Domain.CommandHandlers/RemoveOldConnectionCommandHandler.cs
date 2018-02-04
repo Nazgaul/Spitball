@@ -8,18 +8,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class RemoveOldConnectionCommandHandler : ICommandHandler<RemoveOldConnectionCommand>
     {
-        private readonly IConnectionRepository m_ConnectionRepository;
-         private readonly IUserRepository m_UserRepository;
+        private readonly IConnectionRepository _connectionRepository;
+         private readonly IUserRepository _userRepository;
 
         public RemoveOldConnectionCommandHandler(IConnectionRepository connectionRepository, IUserRepository userRepository)
         {
-            m_ConnectionRepository = connectionRepository;
-            m_UserRepository = userRepository;
+            _connectionRepository = connectionRepository;
+            _userRepository = userRepository;
         }
 
         public void Handle(RemoveOldConnectionCommand message)
         {
-            var zombies = m_ConnectionRepository.GetZombies();
+            var zombies = _connectionRepository.GetZombies();
             if (zombies.Count == 0)
             {
                 return;
@@ -41,7 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     user.Connections.Remove(zombie);
                 }
 
-                m_UserRepository.Save(zombie.User);
+                _userRepository.Save(zombie.User);
             }
             message.UserIds = userIds;
         }

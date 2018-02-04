@@ -67,7 +67,6 @@
     <Compile Include="Dto\Emails\SpamGunDto.cs" />
     <Compile Include="Dto\FlashcardUserDto.cs" />
     <Compile Include="Dto\HomePageDataDto.cs" />
-    <Compile Include="Dto\BoxDtos\BoxDto2.cs" />
     <Compile Include="Dto\BoxDtos\BoxNotificationDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxSearchDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxSeoDto.cs" />
@@ -84,7 +83,6 @@
     <Compile Include="Dto\ItemDtos\DiscussionDto.cs" />
     <Compile Include="Dto\ItemDtos\DocumentSearchDto.cs" />
     <Compile Include="Dto\ItemDtos\FlashcardSeoDto.cs" />
-    <Compile Include="Dto\JaredDtos\JaredFavoriteDocumentDto.cs" />
     <Compile Include="Dto\Qna\FeedToUpdateSearchDto.cs" />
     <Compile Include="Dto\ItemDtos\FlashcardDto.cs" />
     <Compile Include="Dto\ItemDtos\FlashcardSearchDto.cs" />
@@ -105,7 +103,6 @@
     <Compile Include="Dto\ItemDtos\QuizWithDetailDto.cs" />
     <Compile Include="Dto\ItemDtos\SolveSheet.cs" />
     <Compile Include="Dto\ItemDtos\ItemNavigationDto.cs" />
-    <Compile Include="Dto\JaredDtos\ItemTagsDto.cs" />
     <Compile Include="Dto\LeaderBoardDto.cs" />
     <Compile Include="Dto\Library\ClosedNodeDto.cs" />
     <Compile Include="Dto\Library\NodeDetails.cs" />
@@ -116,9 +113,7 @@
     <Compile Include="Dto\Library\UniversityWithCodeDto.cs" />
     <Compile Include="Dto\Qna\FeedSearchDto.cs" />
     <Compile Include="Dto\Qna\LikeDto.cs" />
-    <Compile Include="Dto\Qna\ReplyDto.cs" />
     <Compile Include="Dto\Qna\ItemDto.cs" />
-    <Compile Include="Dto\Qna\CommentDto.cs" />
     <Compile Include="Dto\SeoDto.cs" />
     <Compile Include="Dto\TabDto.cs" />
     <Compile Include="Dto\BoxDto.cs" />
@@ -129,7 +124,6 @@
     <Compile Include="Dto\UserDtos\GamificationBoardDto.cs" />
     <Compile Include="Dto\UserDtos\LogInUserDto.cs" />
     <Compile Include="Dto\UserDtos\UserDetailDto.cs" />
-    <Compile Include="Dto\UserDtos\UserDto.cs" />
     <Compile Include="Dto\UserDtos\UserAccountDto.cs" />
     <Compile Include="Dto\UserDtos\UserNotification.cs" />
     <Compile Include="Dto\UserDtos\UserImageNameDto.cs" />
@@ -146,11 +140,9 @@
     <Compile Include="Queries\Emails\MarketingQuery.cs" />
     <Compile Include="Queries\GetBoxQuizesPagedQuery.cs" />
     <Compile Include="Queries\GetBoxIdQuery.cs" />
-    <Compile Include="Queries\GetChatRoomMessagesQuery.cs" />
     <Compile Include="Queries\GetHomeBoxesUniversityQuery.cs" />
     <Compile Include="Queries\GetHomePageQuery.cs" />
     <Compile Include="Queries\GetInviteDetailQuery.cs" />
-    <Compile Include="Queries\GetFileSeoQuery.cs" />
     <Compile Include="Queries\GetBoxLeaderboardQuery.cs" />
     <Compile Include="Queries\GetQuizQuery.cs" />
     <Compile Include="Queries\GetQuizSeoQuery.cs" />

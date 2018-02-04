@@ -7,13 +7,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UpdateReputationCommandHandler : ICommandHandler<UpdateReputationCommand>
     {
-        private readonly IGamificationRepository m_ReputationRepository;
-        private readonly IUserRepository m_UserRepository;
+        private readonly IGamificationRepository _reputationRepository;
+        private readonly IUserRepository _userRepository;
 
         public UpdateReputationCommandHandler(IGamificationRepository reputationRepository, IUserRepository userRepository)
         {
-            m_ReputationRepository = reputationRepository;
-            m_UserRepository = userRepository;
+            _reputationRepository = reputationRepository;
+            _userRepository = userRepository;
         }
 
         public void Handle(UpdateReputationCommand message)
@@ -21,14 +21,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (message == null) throw new ArgumentNullException(nameof(message));
             var userId = message.UserId;
 
-            var user = m_UserRepository.Load(userId);
-            var score = m_ReputationRepository.CalculateReputation(userId);
+            var user = _userRepository.Load(userId);
+            var score = _reputationRepository.CalculateReputation(userId);
             if (user.UserType == Infrastructure.Enums.UserType.TooHighScore)
             {
                 score = score / 20;
             }
             message.Score = score;
-            m_UserRepository.UpdateScore(score, userId);
+            _userRepository.UpdateScore(score, userId);
         }
     }
 }

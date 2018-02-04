@@ -9,7 +9,6 @@ using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Search;
-using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
 using InfrastructureModule = Zbang.Zbox.Infrastructure.InfrastructureModule;
 

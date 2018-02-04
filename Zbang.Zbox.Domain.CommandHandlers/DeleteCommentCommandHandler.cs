@@ -13,10 +13,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class DeleteCommentCommandHandler : ICommandHandlerAsync<DeleteCommentCommand>
     {
         private readonly IRepository<Comment> m_BoxCommentRepository;
-        private readonly IUserRepository m_UserRepository;
-        private readonly IBoxRepository m_BoxRepository;
-        private readonly IQueueProvider m_QueueProvider;
-        private readonly IUpdatesRepository m_UpdatesRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IBoxRepository _boxRepository;
+        private readonly IQueueProvider _queueProvider;
+        private readonly IUpdatesRepository _updatesRepository;
 
         public DeleteCommentCommandHandler(
             IRepository<Comment> boxCommentRepository,
@@ -24,17 +24,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IUserRepository userRepository, IQueueProvider queueProvider, IUpdatesRepository updatesRepository)
         {
             m_BoxCommentRepository = boxCommentRepository;
-            m_BoxRepository = boxRepository;
-            m_UserRepository = userRepository;
-            m_QueueProvider = queueProvider;
-            m_UpdatesRepository = updatesRepository;
+            _boxRepository = boxRepository;
+            _userRepository = userRepository;
+            _queueProvider = queueProvider;
+            _updatesRepository = updatesRepository;
         }
 
         public Task HandleAsync(DeleteCommentCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             var comment = m_BoxCommentRepository.Load(message.CommentId);
-            var user = m_UserRepository.Load(message.UserId);
+            var user = _userRepository.Load(message.UserId);
             var box = comment.Box;
 
             var isAuthorize = comment.User.Id == message.UserId
@@ -45,14 +45,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException();
             }
-            m_UpdatesRepository.DeleteCommentUpdates(comment.Id);
+            _updatesRepository.DeleteCommentUpdates(comment.Id);
             var userIds = box.DeleteComment(comment);
 
             m_BoxCommentRepository.Delete(comment);
-            m_BoxRepository.Save(box);
-            var t2 = m_QueueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
+            _boxRepository.Save(box);
+            var t2 = _queueProvider.InsertFileMessageAsync(new BoxProcessData(box.Id));
 
-            var t1 =  m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userIds.Union(new[] { user.Id })));
+            var t1 =  _queueProvider.InsertMessageToTransactionAsync(new ReputationData(userIds.Union(new[] { user.Id })));
             return Task.WhenAll(t1, t2);
         }
     }

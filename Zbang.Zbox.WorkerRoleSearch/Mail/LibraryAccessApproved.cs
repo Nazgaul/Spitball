@@ -9,11 +9,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
     public class LibraryAccessApproved : IMail2
     {
-        private readonly IMailComponent m_MailComponent;
+        private readonly IMailComponent _mailComponent;
 
         public LibraryAccessApproved(IMailComponent mailComponent)
         {
-            m_MailComponent = mailComponent;
+            _mailComponent = mailComponent;
         }
 
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
@@ -24,7 +24,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             }
             //string depName = parameters.DepName;
 
-            await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
+            await _mailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                 new DepartmentApprovedMailParams(new CultureInfo(parameters.Culture), parameters.DepName), token).ConfigureAwait(false);
 
             return true;

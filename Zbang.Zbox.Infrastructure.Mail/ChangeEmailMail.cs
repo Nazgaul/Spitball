@@ -5,17 +5,17 @@
         private const string Category = "Change Email";
         private const string Subject = "Change Email";
 
-        private readonly ChangeEmailMailParams m_Parameters;
+        private readonly ChangeEmailMailParams _parameters;
 
         public ChangeEmailMail(MailParameters parameters) : base(parameters)
         {
-            m_Parameters = parameters as ChangeEmailMailParams;
+            _parameters = parameters as ChangeEmailMailParams;
         }
 
         public override string GenerateMail()
         {
-            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ChangeEmail");
-            return html.Replace("{CODE}", m_Parameters.Code);
+            var html = LoadMailTempate.LoadMailFromContent(_parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ChangeEmail");
+            return html.Replace("{CODE}", _parameters.Code);
         }
 
         public override string AddSubject()

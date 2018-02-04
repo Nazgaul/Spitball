@@ -10,16 +10,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class ChangeBoxInfoCommandHandler : ICommandHandler<ChangeBoxInfoCommand>
     {
-        private readonly IBoxRepository m_BoxRepository;
+        private readonly IBoxRepository _boxRepository;
         private readonly IRepository<AcademicBox> m_AcademicBoxRepository;
-        private readonly IUserRepository m_UserRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IUserBoxRelRepository m_UserboxRelationshipRepository;
         public ChangeBoxInfoCommandHandler(IBoxRepository boxRepository, IRepository<AcademicBox> academicBoxRepository,
             IUserRepository userRepository,
             IUserBoxRelRepository userBoxRelRepository)
         {
-            m_BoxRepository = boxRepository;
-            m_UserRepository = userRepository;
+            _boxRepository = boxRepository;
+            _userRepository = userRepository;
             m_UserboxRelationshipRepository = userBoxRelRepository;
             m_AcademicBoxRepository = academicBoxRepository;
         }
@@ -28,8 +28,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
 
-            var box = m_BoxRepository.Load(command.BoxId);
-            var user = m_UserRepository.Load(command.UserId);
+            var box = _boxRepository.Load(command.BoxId);
+            var user = _userRepository.Load(command.UserId);
             if (command.BoxName.Length > Box.NameLength)
             {
                 throw new OverflowException("Box Name exceed " + Box.NameLength);
@@ -47,11 +47,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new ArgumentException("box with that name already exists");
 
             box.ChangeBoxName(command.BoxName, user);
-            m_BoxRepository.UpdateItemsToDirty(box.Id);
+            _boxRepository.UpdateItemsToDirty(box.Id);
             //foreach (var item in box.Items)
             //{
             //    item.ShouldMakeDirty = () => true;
-            //    m_ItemRepository.Save(item);
+            //    _itemRepository.Save(item);
             //}
             foreach (var flashcard in box.Flashcards)
             {
@@ -63,7 +63,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             ChangeNotificationSettings(command.UserId, command.BoxId, command.Notification);
 
-            m_BoxRepository.Save(box);
+            _boxRepository.Save(box);
         }
 
         private void ChangeNotificationSettings(long userId, long boxId, NotificationSetting? notificationSettings)

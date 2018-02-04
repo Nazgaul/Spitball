@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         private readonly VerificationEngine m_Engine;
         private readonly VerificationLevel m_VerificationLevel = VerificationLevel.Dns;
         private const string EmailRegex2 = @"^([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*[\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)$";
-        private readonly ILogger m_Logger;
+        private readonly ILogger _logger;
 
         private class MailGunValidationResponse
         {
@@ -24,7 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public EmailVerification(ILogger logger)
         {
-            m_Logger = logger;
+            _logger = logger;
             try
             {
                 //FHbrz2C/8XTEPkmsVzPzPuYvZ2XNoMDfMEdJKJdvGlwPpkAgNwQMVT+Ae1ZSY8QbQpm+7g==
@@ -36,7 +35,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex);
+                _logger.Exception(ex);
             }
         }
 
@@ -62,7 +61,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
             catch (Exception ex)
             {
-                m_Logger.Exception(ex);
+                _logger.Exception(ex);
                 return true;
             }
         }

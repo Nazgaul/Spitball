@@ -12,7 +12,6 @@ namespace Zbang.Zbox.Infrastructure
             builder.RegisterType<Url.EncryptObject>().As<Url.IEncryptObject>();
             builder.RegisterType<CommandHandlers.CommandBus>().As<CommandHandlers.ICommandBus>();
             builder.RegisterType<IdGenerator.GuidIdGenerator>().As<IdGenerator.IGuidIdGenerator>();
-            builder.RegisterType<LocationProvider>().As<ILocationProvider>();
             builder.RegisterType<Logger>().As<ILogger>();
         }
     }

@@ -12,38 +12,38 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class RequestAccessLibraryNodeCommandHandler : ICommandHandlerAsync<RequestAccessLibraryNodeCommand>
     {
-        private readonly IUserRepository m_UserRepository;
-        private readonly IRepository<Library> m_LibraryRepository;
-        private readonly IGuidIdGenerator m_GuidGenerator;
+        private readonly IUserRepository _userRepository;
+        private readonly IRepository<Library> _libraryRepository;
+        private readonly IGuidIdGenerator _guidGenerator;
         private readonly IRepository<UserLibraryRel> m_UserLibraryRelRepository;
-        private readonly IQueueProvider m_QueueProvider;
+        private readonly IQueueProvider _queueProvider;
         public RequestAccessLibraryNodeCommandHandler( IUserRepository userRepository, IRepository<Library> libraryRepository, IGuidIdGenerator guidGenerator, IRepository<UserLibraryRel> userLibraryRelRepository, IQueueProvider queueProvider)
         {
-            m_UserRepository = userRepository;
-            m_LibraryRepository = libraryRepository;
-            m_GuidGenerator = guidGenerator;
+            _userRepository = userRepository;
+            _libraryRepository = libraryRepository;
+            _guidGenerator = guidGenerator;
             m_UserLibraryRelRepository = userLibraryRelRepository;
-            m_QueueProvider = queueProvider;
+            _queueProvider = queueProvider;
         }
 
         public async Task HandleAsync(RequestAccessLibraryNodeCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
-            var userToLibraryRel = m_UserRepository.GetUserToDepartmentRelationShipType(message.UserId, message.DepartmentId);
+            var userToLibraryRel = _userRepository.GetUserToDepartmentRelationShipType(message.UserId, message.DepartmentId);
             if (userToLibraryRel != Infrastructure.Enums.UserLibraryRelationType.None)
             {
                 return;
             }
-            var user = m_UserRepository.Load(message.UserId);
-            var library = m_LibraryRepository.Load(message.DepartmentId);
+            var user = _userRepository.Load(message.UserId);
+            var library = _libraryRepository.Load(message.DepartmentId);
             if (library.Parent != null)
             {
                 throw new ArgumentException();
             }
-            var lib = new UserLibraryRel(m_GuidGenerator.GetId(), user, library,
+            var lib = new UserLibraryRel(_guidGenerator.GetId(), user, library,
                 Infrastructure.Enums.UserLibraryRelationType.Pending);
 
-            await m_QueueProvider.InsertMessageToMailNewAsync(new RequestAccessData(library.CreatedUser.Email,library.CreatedUser.Culture,user.Name, user.ImageLarge, library.Name));
+            await _queueProvider.InsertMessageToMailNewAsync(new RequestAccessData(library.CreatedUser.Email,library.CreatedUser.Culture,user.Name, user.ImageLarge, library.Name));
             m_UserLibraryRelRepository.Save(lib);
         }
     }

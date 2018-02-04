@@ -1,5 +1,4 @@
 ﻿using System;
-using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {

@@ -12,7 +12,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
     public class LikesMailProcess : ISchedulerProcess
     {
-        private readonly IMailComponent m_MailComponent;
+        private readonly IMailComponent _mailComponent;
         private readonly IZboxReadServiceWorkerRole _zboxReadService;
         private const string ServiceName = nameof(LikesMailProcess);
         private readonly ILogger _logger;
@@ -20,7 +20,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         public LikesMailProcess(IZboxReadServiceWorkerRole zboxReadService, IMailComponent mailComponent, ILogger logger)
         {
             _zboxReadService = zboxReadService;
-            m_MailComponent = mailComponent;
+            _mailComponent = mailComponent;
             _logger = logger;
         }
 
@@ -45,7 +45,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     UserName = s.LikePersonName,
                     Type = s.LikeType
                 }));
-                list.Add(m_MailComponent.GenerateAndSendEmailAsync(email,
+                list.Add(_mailComponent.GenerateAndSendEmailAsync(email,
                     marketingMail, token));
             }
             await Task.WhenAll(list).ConfigureAwait(false);

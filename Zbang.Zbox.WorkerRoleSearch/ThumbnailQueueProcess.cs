@@ -14,14 +14,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class ThumbnailQueueProcess : IJob
     {
-        private readonly IQueueProviderExtract m_QueueProviderExtract;
-        private readonly ILifetimeScope m_ComponentContent;
+        private readonly IQueueProviderExtract _queueProviderExtract;
+        private readonly ILifetimeScope _componentContent;
         private readonly ILogger _logger;
 
         public ThumbnailQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope componentContent, ILogger logger)
         {
-            m_QueueProviderExtract = queueProviderExtract;
-            m_ComponentContent = componentContent;
+            _queueProviderExtract = queueProviderExtract;
+            _componentContent = componentContent;
             _logger = logger;
         }
 
@@ -34,7 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     var queueName = new ThumbnailQueueName();
-                    var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
+                    var result = await _queueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
                         //m_FileProcessorFactory.GetProcessor(msg.AsString)
                         var msgData = msg.FromMessageProto<FileProcess>();
@@ -43,7 +43,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             _logger.Error($"{Name} run - msg cannot transfer to FileProcess");
                             return true;
                         }
-                        var process = m_ComponentContent.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);
+                        var process = _componentContent.ResolveOptionalNamed<IFileProcess>(msgData.ProcessResolver);
                         if (process != null) return await process.ExecuteAsync(msgData, cancellationToken).ConfigureAwait(false);
 
                         _logger.Error($"{Name} run - process is null msgData.ProcessResolver: {msgData.ProcessResolver}");

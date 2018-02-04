@@ -11,12 +11,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
 {
     public class UpdateReputation : IDomainProcess
     {
-        private readonly IZboxWorkerRoleService m_ZboxWriteService;
+        private readonly IZboxWorkerRoleService _zboxWriteService;
         private readonly ILogger _logger;
 
         public UpdateReputation(IZboxWorkerRoleService zboxWriteService, ILogger logger)
         {
-            m_ZboxWriteService = zboxWriteService;
+            _zboxWriteService = zboxWriteService;
             _logger = logger;
         }
 
@@ -34,7 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                     {
                         token.ThrowIfCancellationRequested();
                         var command = new UpdateReputationCommand(userId);
-                        m_ZboxWriteService.UpdateReputation(command);
+                        _zboxWriteService.UpdateReputation(command);
                         try
                         {
                             if (proxy != null) await proxy.Invoke("Score", command.Score, userId).ConfigureAwait(false);

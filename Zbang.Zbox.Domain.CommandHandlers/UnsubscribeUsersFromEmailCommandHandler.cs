@@ -6,16 +6,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UnsubscribeUsersFromEmailCommandHandler : ICommandHandler<UnsubscribeUsersFromEmailCommand>
     {
-        private readonly IUserRepository m_UserRepository;
+        private readonly IUserRepository _userRepository;
 
         public UnsubscribeUsersFromEmailCommandHandler(IUserRepository userRepository)
         {
-            m_UserRepository = userRepository;
+            _userRepository = userRepository;
         }
 
         public void Handle(UnsubscribeUsersFromEmailCommand message)
         {
-            m_UserRepository.UnsubscribeUserFromMail(message.Emails,message.Type);
+            _userRepository.UnsubscribeUserFromMail(message.Emails,message.Type);
         }
     }
 }

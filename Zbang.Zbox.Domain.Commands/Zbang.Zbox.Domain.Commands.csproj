@@ -57,12 +57,9 @@
   <ItemGroup>
     <Compile Include="AddNewUpdatesCommand.cs" />
     <Compile Include="ChangeBoxInfoCommand.cs" />
-    <Compile Include="ChangeItemDocTypeCommand.cs" />
     <Compile Include="ChangeItemTabNameCommand.cs" />
     <Compile Include="ChangeNotificationSettingsCommand.cs" />
     <Compile Include="ChangeUserOnlineStatusCommand.cs" />
-    <Compile Include="ChatAddMessageCommand.cs" />
-    <Compile Include="ChatMarkAsReadCommand.cs" />
     <Compile Include="CreateAcademicBoxCommand.cs" />
     <Compile Include="CreateFacebookUserCommand.cs" />
     <Compile Include="CreateFacebookUserCommandResult.cs" />
@@ -73,8 +70,6 @@
     <Compile Include="CreateMembershipUserCommandResult.cs" />
     <Compile Include="CreateUniversityCommand.cs" />
     <Compile Include="DeleteBoxCommand.cs" />
-    <Compile Include="DeleteFlashcardLikeCommand.cs" />
-    <Compile Include="DeleteFlashcardPinCommand.cs" />
     <Compile Include="DeleteItemCommentCommand.cs" />
     <Compile Include="DeleteItemCommentReplyCommand.cs" />
     <Compile Include="DeleteItemTabCommand.cs" />
@@ -96,7 +91,6 @@
     <Compile Include="LikeReplyCommandResult.cs" />
     <Compile Include="ManageConnectionsCommand.cs" />
     <Compile Include="PreviewFailedCommand.cs" />
-    <Compile Include="PublishFlashcardCommand.cs" />
     <Compile Include="Quiz\CreateDiscussionCommand.cs" />
     <Compile Include="Quiz\CreateQuestionCommand.cs" />
     <Compile Include="Quiz\CreateQuizCommand.cs" />
@@ -109,13 +103,10 @@
     <Compile Include="Quiz\UpdateQuizCommand.cs" />
     <Compile Include="RateItemCommand.cs" />
     <Compile Include="RemoveOldConnectionCommand.cs" />
-    <Compile Include="RemoveTagsFromItemCommand.cs" />
     <Compile Include="RequestAccessLibraryNodeCommand.cs" />
-    <Compile Include="SaveUserFlashcardCommand.cs" />
     <Compile Include="SetReviewedCommand.cs" />
     <Compile Include="UnsubscribeUsersFromEmailCommand.cs" />
     <Compile Include="UpdateBadgesCommand.cs" />
-    <Compile Include="UpdateFlashcardCommand.cs" />
     <Compile Include="UpdateNodeSettingsCommand.cs" />
     <Compile Include="UnFollowBoxCommand.cs" />
     <Compile Include="UpdateDirtyToRegularCommand.cs" />
@@ -128,9 +119,6 @@
     <Compile Include="UpdateUserProfileImageCommand.cs" />
     <Compile Include="UpdateUserUniversityCommand.cs" />
     <Compile Include="UpdateUserLanguageCommand.cs" />
-    <Compile Include="UpdateUserPasswordCommand.cs" />
-    <Compile Include="UpdateUserCommandResult.cs" />
-    <Compile Include="UpdateUserEmailCommand.cs" />
     <Compile Include="UpdateUserProfileCommand.cs" />
     <Compile Include="ShareBoxCommand.cs" />
     <Compile Include="DeleteItemCommand.cs" />

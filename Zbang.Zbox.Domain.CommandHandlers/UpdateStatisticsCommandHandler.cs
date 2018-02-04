@@ -13,19 +13,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UpdateStatisticsCommandHandler : ICommandHandlerAsync<UpdateStatisticsCommand>
     {
-        private readonly IRepository<Item> m_ItemRepository;
+        private readonly IRepository<Item> _itemRepository;
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
-        private readonly IRepository<FlashcardMeta> m_FlashcardRepository;
-        private readonly IQueueProvider m_QueueProvider;
+        private readonly IRepository<FlashcardMeta> _flashcardRepository;
+        private readonly IQueueProvider _queueProvider;
         private readonly ILogger m_Logger;
 
         public UpdateStatisticsCommandHandler(IRepository<Item> itemRepository,
             IRepository<Domain.Quiz> quizRepository, IRepository<FlashcardMeta> flashcardRepository, IQueueProvider queueProvider, ILogger logger)
         {
-            m_ItemRepository = itemRepository;
+            _itemRepository = itemRepository;
             m_QuizRepository = quizRepository;
-            m_FlashcardRepository = flashcardRepository;
-            m_QueueProvider = queueProvider;
+            _flashcardRepository = flashcardRepository;
+            _queueProvider = queueProvider;
             m_Logger = logger;
         }
 
@@ -44,13 +44,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 try
                 {
-                    var flashcard = m_FlashcardRepository.Load(itemId.ItemId);
+                    var flashcard = _flashcardRepository.Load(itemId.ItemId);
                     if (flashcard.User.Id == message.UserId)
                     {
                         return t;
                     }
                     flashcard.UpdateNumberOfViews();
-                    m_FlashcardRepository.Save(flashcard);
+                    _flashcardRepository.Save(flashcard);
                     return UpdateReputationAsync(flashcard.User.Id);
                 }
                 catch (ApplicationException ex)
@@ -83,7 +83,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
                 return t;
             }
-            var item = m_ItemRepository.Get(itemId.ItemId); // we use get because we need to cast to File and get proxy
+            var item = _itemRepository.Get(itemId.ItemId); // we use get because we need to cast to File and get proxy
             if (item == null)
             {
                 return t;
@@ -109,13 +109,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     file.IncreaseNumberOfDownloads();
                 }
             }
-            m_ItemRepository.Save(item);
+            _itemRepository.Save(item);
             return UpdateReputationAsync(item.UploaderId);
         }
 
         private Task UpdateReputationAsync(long userId)
         {
-            return m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(userId));
+            return _queueProvider.InsertMessageToTransactionAsync(new ReputationData(userId));
         }
     }
 }

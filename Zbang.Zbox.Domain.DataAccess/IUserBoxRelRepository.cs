@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Zbang.Zbox.Infrastructure.Repositories;
+﻿using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {

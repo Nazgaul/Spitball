@@ -9,11 +9,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
     public class RequestAccess : IMail2
     {
-        private readonly IMailComponent m_MailComponent;
+        private readonly IMailComponent _mailComponent;
 
         public RequestAccess(IMailComponent mailComponent)
         {
-            m_MailComponent = mailComponent;
+            _mailComponent = mailComponent;
         }
 
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             //string userImage =parameters.UserImage;
             //string depName = parameters.DepName;
 
-            await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
+            await _mailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                 new DepartmentRequestAccessMailParams(new CultureInfo(parameters.Culture),
                     parameters.UserName, parameters.UserImage, parameters.DepName), token).ConfigureAwait(false);
 

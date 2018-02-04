@@ -5,20 +5,20 @@
         private const string Category = "InvitationCloudents";
         private const string Subject = "Invite to Spitball";
 
-        private readonly InvitationToCloudentsMailParams m_Parameters;
+        private readonly InvitationToCloudentsMailParams _parameters;
 
         public InvitationToCloudentsMail(MailParameters parameters) : base(parameters)
         {
-            m_Parameters = parameters as InvitationToCloudentsMailParams;
+            _parameters = parameters as InvitationToCloudentsMailParams;
         }
 
         public override string GenerateMail()
         {
-            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCloudents");
+            var html = LoadMailTempate.LoadMailFromContent(_parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCloudents");
 
-            html = html.Replace("{USERNAME}", m_Parameters.SenderName);
-            html = html.Replace("{Image}", m_Parameters.SenderImage);
-            html = html.Replace("{{Url}}", m_Parameters.Url);
+            html = html.Replace("{USERNAME}", _parameters.SenderName);
+            html = html.Replace("{Image}", _parameters.SenderImage);
+            html = html.Replace("{{Url}}", _parameters.Url);
             return html;
         }
 

@@ -63,8 +63,6 @@
     <Compile Include="ChangeItemTabNameCommandHandler.cs" />
     <Compile Include="ChangeNotificationSettingsCommandHandler.cs" />
     <Compile Include="ChangeUserOnlineStatusCommandHandler.cs" />
-    <Compile Include="ChatAddMessageCommandHandler.cs" />
-    <Compile Include="ChatMarkAsReadCommandHandler.cs" />
     <Compile Include="CommandsModule.cs" />
     <Compile Include="CreateAcademicBoxCommandHandler.cs" />
     <Compile Include="CreateFacebookUserCommandHandler.cs" />
@@ -73,9 +71,6 @@
     <Compile Include="CreateMembershipUserCommandHandler.cs" />
     <Compile Include="CreateUniversityCommandHandler.cs" />
     <Compile Include="DeleteBoxCommandHandler.cs" />
-    <Compile Include="DeleteFlashcardCommandHandler.cs" />
-    <Compile Include="DeleteFlashcardLikeCommandHandler.cs" />
-    <Compile Include="DeleteFlashcardPinCommandHandler.cs" />
     <Compile Include="DeleteItemCommentCommandHandler.cs" />
     <Compile Include="DeleteItemCommentReplyCommandHandler.cs" />
     <Compile Include="DeleteItemTabCommandHandler.cs" />
@@ -91,20 +86,16 @@
     <Compile Include="LikeReplyCommandHandler.cs" />
     <Compile Include="ManageConnectionsCommandHandler.cs" />
     <Compile Include="PreviewFailedCommandHandler.cs" />
-    <Compile Include="PublishFlashcardCommandHandler.cs" />
     <Compile Include="RateItemCommandHandler.cs" />
     <Compile Include="RemoveOldConnectionCommandHandler.cs" />
-    <Compile Include="RemoveTagsFromItemCommandHandler.cs" />
     <Compile Include="RequestAccessLibraryNodeCommandHandler.cs" />
     <Compile Include="Resources\CommandHandlerResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CommandHandlerResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SaveUserFlashcardCommandHandler.cs" />
     <Compile Include="UnsubscribeUsersFromEmailCommandHandler.cs" />
     <Compile Include="UpdateBadgesCommandHandler.cs" />
-    <Compile Include="UpdateFlashcardCommandHandler.cs" />
     <Compile Include="UpdateNodeSettingsCommandHandler.cs" />
     <Compile Include="SubscribeToSharedBoxCommandHandler.cs" />
     <Compile Include="ShareBoxCommandHandler.cs" />
@@ -121,8 +112,6 @@
     <Compile Include="UpdateUserProfileImageCommandHandler.cs" />
     <Compile Include="UpdateUserUniversityCommandHandler.cs" />
     <Compile Include="UpdateUserLanguageCommandHandler.cs" />
-    <Compile Include="UpdateUserPasswordCommandHandler.cs" />
-    <Compile Include="UpdateUserEmailCommandHandler.cs" />
     <Compile Include="UpdateUserProfileCommandHandler.cs" />
   </ItemGroup>
   <ItemGroup>

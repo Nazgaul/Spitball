@@ -9,18 +9,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UpdateThumbnailCommandHandler : ICommandHandler<UpdateThumbnailCommand>
     {
-        private readonly IRepository<File> m_ItemRepository;
+        private readonly IRepository<File> _itemRepository;
 
         public UpdateThumbnailCommandHandler(IRepository<File> itemRepository)
         {
-            m_ItemRepository = itemRepository;
+            _itemRepository = itemRepository;
         }
 
         public void Handle(UpdateThumbnailCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
 
-            var file = m_ItemRepository.Load(command.ItemId);
+            var file = _itemRepository.Load(command.ItemId);
             if (!string.IsNullOrWhiteSpace(command.BlobName))
             {
                 file.ItemContentUrl = command.BlobName;
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             //}
             file.Md5 = command.Md5;
-            m_ItemRepository.Save(file);
+            _itemRepository.Save(file);
         }
     }
 }

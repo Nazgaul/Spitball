@@ -5,7 +5,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ActivityDtos
 {
     public class AnnotationDto
     {
-        private DateTime m_Date;
+        private DateTime _date;
         public AnnotationDto()
         {
             Replies = new List<AnnotationReplyDto>();
@@ -16,8 +16,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ActivityDtos
 
         public DateTime CreationDate
         {
-            get => m_Date;
-            set => m_Date = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+            get => _date;
+            set => _date = DateTime.SpecifyKind(value, DateTimeKind.Utc);
         }
 
         public string UserName { get; set; }

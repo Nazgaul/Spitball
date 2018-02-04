@@ -53,14 +53,11 @@ namespace ConsoleApp
                 Longitude = -74.0059728
             };
 
-            var service = container.Resolve<IBookSearch>();
-            var p = await service.SellAsync("9781250158062", 150, default);
-            //var p = await service.SearchAsync(new[] { "Marketing" }, JobRequestSort.Date, null, z, 0, false, default);
+            var _queueProvider = container.Resolve<IQueueProvider>();
+            var message = new UrlRedirectQueueMessage("t", "s", "v", 1);
+            await _queueProvider.InsertMessageAsync(QueueName.UrlRedirect, message, default).ConfigureAwait(false);
 
-            //var result = await service.GeoCodingByAddressAsync("New York,NY US", default);
-            //210ec431-2d6d-45cb-bc01-04e3f687f0ed.docx
             Console.ReadLine();
-
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
         }
     }

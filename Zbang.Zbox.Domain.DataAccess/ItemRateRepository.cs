@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
-using NHibernate.Linq;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {

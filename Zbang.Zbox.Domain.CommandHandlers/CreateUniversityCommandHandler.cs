@@ -14,48 +14,48 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class CreateUniversityCommandHandler : ICommandHandlerAsync<CreateUniversityCommand>
     {
-        private readonly IRepository<University> m_UniversityRepository;
-        private readonly IRepository<User> m_UserRepository;
-        private readonly IIdGenerator m_IdGenerator;
-        private readonly IQueueProvider m_QueueProvider;
+        private readonly IRepository<University> _universityRepository;
+        private readonly IRepository<User> _userRepository;
+        private readonly IIdGenerator _idGenerator;
+        private readonly IQueueProvider _queueProvider;
 
         public CreateUniversityCommandHandler(IRepository<University> universityRepository,
             IRepository<User> userRepository, IIdGenerator idGenerator, IQueueProvider queueProvider)
         {
-            m_UniversityRepository = universityRepository;
-            m_UserRepository = userRepository;
-            m_IdGenerator = idGenerator;
-            m_QueueProvider = queueProvider;
+            _universityRepository = universityRepository;
+            _userRepository = userRepository;
+            _idGenerator = idGenerator;
+            _queueProvider = queueProvider;
         }
 
         public Task HandleAsync(CreateUniversityCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
-            var user = m_UserRepository.Load(message.UserId);
+            var user = _userRepository.Load(message.UserId);
             // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault Nhibernate doesnt support
-            var university = m_UniversityRepository.Query()
+            var university = _universityRepository.Query()
                  .Where(w => w.UniversityName == message.Name)
                  .FirstOrDefault();
             var t1 = Task.CompletedTask;
             if (university == null)
             {
-                var id = m_IdGenerator.GetId(IdContainer.UniversityScope);
+                var id = _idGenerator.GetId(IdContainer.UniversityScope);
                 university = new University(id, message.Name, message.Country,
                     user.Id);
-                t1 = m_QueueProvider.InsertFileMessageAsync(new UniversityProcessData(id));
-                m_UniversityRepository.Save(university);
+                t1 = _queueProvider.InsertFileMessageAsync(new UniversityProcessData(id));
+                _universityRepository.Save(university);
             }
             if (university.IsDeleted)
             {
                 university.IsDeleted = false;
-                m_UniversityRepository.Save(university);
+                _universityRepository.Save(university);
             }
             user.UpdateUniversity(university, null);
             message.Id = university.Id;
-            m_UserRepository.Save(user);
+            _userRepository.Save(user);
             return t1;
-            //m_QueueProvider.InsertMessageToTranaction(new UniversityData(message.Name, message.Id, message.LargeImage));
+            //_queueProvider.InsertMessageToTranaction(new UniversityData(message.Name, message.Id, message.LargeImage));
 
         }
     }

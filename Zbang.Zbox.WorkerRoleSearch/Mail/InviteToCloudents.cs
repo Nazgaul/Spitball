@@ -9,10 +9,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
     internal class InviteToCloudents : IMail2
     {
-        private readonly IMailComponent m_MailComponent;
+        private readonly IMailComponent _mailComponent;
         public InviteToCloudents(IMailComponent mailComponent)
         {
-            m_MailComponent = mailComponent;
+            _mailComponent = mailComponent;
         }
 
         public async Task<bool> ExecuteAsync(BaseMailData data, CancellationToken token)
@@ -29,7 +29,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 inviteeEmail = MailParameters.DefaultEmail;
             }
             var url = string.IsNullOrEmpty(parameters.Url) ? "https://www.spitball.co/" : parameters.Url;
-            await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
+            await _mailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                 new InvitationToCloudentsMailParams(parameters.SenderName, userImage,
                     new CultureInfo(parameters.Culture), inviteeEmail, url), token).ConfigureAwait(false);
 

@@ -1,8 +1,4 @@
-﻿
-using System.Reflection;
-using Zbang.Zbox.Infrastructure.Enums;
-
-namespace Zbang.Zbox.Infrastructure.Consts
+﻿namespace Zbang.Zbox.Infrastructure.Consts
 {
     public static class ReputationConst
     {

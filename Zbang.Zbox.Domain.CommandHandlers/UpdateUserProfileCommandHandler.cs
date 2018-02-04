@@ -7,20 +7,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class UpdateUserProfileCommandHandler : ICommandHandler<UpdateUserProfileCommand>
     {
-        private readonly IUserRepository m_UserRepository;
+        private readonly IUserRepository _userRepository;
 
         public UpdateUserProfileCommandHandler(IUserRepository userRepository)
         {
-            m_UserRepository = userRepository;
+            _userRepository = userRepository;
         }
 
         public void Handle(UpdateUserProfileCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-            var user = m_UserRepository.Load(command.Id);
+            var user = _userRepository.Load(command.Id);
             user.UpdateUserProfile(command.FirstName, command.LastName);
-            m_UserRepository.UpdateUserFeedDetails(user.Id);
-            m_UserRepository.Save(user);
+            _userRepository.UpdateUserFeedDetails(user.Id);
+            _userRepository.Save(user);
         }
     }
 }

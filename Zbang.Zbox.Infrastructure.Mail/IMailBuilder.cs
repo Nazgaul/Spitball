@@ -1,6 +1,4 @@
-﻿using SendGrid;
-
-namespace Zbang.Zbox.Infrastructure.Mail
+﻿namespace Zbang.Zbox.Infrastructure.Mail
 {
     public abstract class MailBuilder : IMailBuilder
     {

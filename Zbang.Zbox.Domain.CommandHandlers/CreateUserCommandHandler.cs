@@ -14,10 +14,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public abstract class CreateUserCommandHandler : ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>
     {
         protected readonly IUserRepository UserRepository;
-        private readonly IQueueProvider m_QueueRepository;
-        private readonly IRepository<University> m_UniversityRepository;
+        private readonly IQueueProvider _queueRepository;
+        private readonly IRepository<University> _universityRepository;
         private readonly IInviteRepository m_InviteToCloudentsRepository;
-        private readonly IRepository<Box> m_BoxRepository;
+        private readonly IRepository<Box> _boxRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
@@ -26,10 +26,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<Box> boxRepository)
         {
             UserRepository = userRepository;
-            m_QueueRepository = queueRepository;
-            m_UniversityRepository = universityRepository;
+            _queueRepository = queueRepository;
+            _universityRepository = universityRepository;
             m_InviteToCloudentsRepository = inviteToCloudentsRepository;
-            m_BoxRepository = boxRepository;
+            _boxRepository = boxRepository;
         }
 
         public abstract Task<CreateUserCommandResult> ExecuteAsync(CreateUserCommand command);
@@ -39,8 +39,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
 
-            //var t4 = m_QueueRepository.InsertMessageToTransactionAsync(new RegisterBadgeData(user.Id));
-            var t1 =  m_QueueRepository.InsertMessageToTransactionAsync(new NewUserData(user.Id, user.Name, user.Culture, user.Email, command.Parameters?["ref"]));
+            //var t4 = _queueRepository.InsertMessageToTransactionAsync(new RegisterBadgeData(user.Id));
+            var t1 =  _queueRepository.InsertMessageToTransactionAsync(new NewUserData(user.Id, user.Name, user.Culture, user.Email, command.Parameters?["ref"]));
             return Task.WhenAll(t1);
         }
 
@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     continue;
                 }
                 //var reputation = invite.Sender.AddReputation(invite.GiveAction());
-                //m_ReputationRepository.Save(reputation);
+                //_reputationRepository.Save(reputation);
                 invite.UsedInvite();
 
                 //UserRepository.Save(invite.Sender);
@@ -116,7 +116,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //long universityId;
 
             if (!command.UniversityId.HasValue) return;
-            var university = m_UniversityRepository.Get(command.UniversityId.Value);
+            var university = _universityRepository.Get(command.UniversityId.Value);
             if (university == null)
             {
                 return;
@@ -138,7 +138,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 return;
             }
 
-            var box = m_BoxRepository.Get(boxId.Value);
+            var box = _boxRepository.Get(boxId.Value);
             if (box == null)
             {
                 return;

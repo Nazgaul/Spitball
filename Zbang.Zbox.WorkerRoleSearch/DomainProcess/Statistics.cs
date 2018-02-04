@@ -9,11 +9,11 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
 {
     public class Statistics : IDomainProcess
     {
-        private readonly IZboxWorkerRoleService m_ZboxWriteService;
+        private readonly IZboxWorkerRoleService _zboxWriteService;
 
         public Statistics(IZboxWorkerRoleService zboxService)
         {
-            m_ZboxWriteService = zboxService;
+            _zboxWriteService = zboxService;
         }
 
         public async Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data, CancellationToken token)
@@ -27,14 +27,14 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                 {
                     var command = new UpdateStatisticsCommand(new StatisticItemData
                     { ItemId = statisticItemData.Id, Action = (StatisticsAction)statisticItemData.Action }, parameters.UserId);
-                  await  m_ZboxWriteService.StatisticsAsync(command).ConfigureAwait(false);
+                  await  _zboxWriteService.StatisticsAsync(command).ConfigureAwait(false);
                 }
             }
             if (parameters.ItemsId != null)
             {
                 var command = new UpdateStatisticsCommand(new StatisticItemData
                 { ItemId = parameters.ItemsId.Id, Action = (StatisticsAction)parameters.ItemsId.Action }, parameters.UserId);
-               await m_ZboxWriteService.StatisticsAsync(command).ConfigureAwait(false);
+               await _zboxWriteService.StatisticsAsync(command).ConfigureAwait(false);
             }
             return true;
         }

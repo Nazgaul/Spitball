@@ -7,12 +7,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class ManageConnectionsCommandHandler : ICommandHandler<ManageConnectionsCommand>
     {
-        private readonly IConnectionRepository m_ConnectionRepository;
+        private readonly IConnectionRepository _connectionRepository;
 
         public ManageConnectionsCommandHandler(IConnectionRepository connectionRepository
             )
         {
-            m_ConnectionRepository = connectionRepository;
+            _connectionRepository = connectionRepository;
         }
 
         public void Handle(ManageConnectionsCommand message)
@@ -20,11 +20,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (message == null) throw new ArgumentNullException(nameof(message));
             foreach (var connectionId in message.ConnectionIds)
             {
-                var connection = m_ConnectionRepository.Get(connectionId);
+                var connection = _connectionRepository.Get(connectionId);
                 if (connection != null)
                 {
                     connection.LastActivity = DateTimeOffset.UtcNow;
-                    m_ConnectionRepository.Save(connection);
+                    _connectionRepository.Save(connection);
                 }
             }
         }

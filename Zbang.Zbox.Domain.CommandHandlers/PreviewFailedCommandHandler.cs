@@ -6,18 +6,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class PreviewFailedCommandHandler : ICommandHandler<PreviewFailedCommand>
     {
-        private readonly IRepository<File> m_ItemRepository;
+        private readonly IRepository<File> _itemRepository;
 
         public PreviewFailedCommandHandler(IRepository<File> itemRepository)
         {
-            m_ItemRepository = itemRepository;
+            _itemRepository = itemRepository;
         }
 
         public void Handle(PreviewFailedCommand message)
         {
-            var item = m_ItemRepository.Load(message.ItemId);
+            var item = _itemRepository.Load(message.ItemId);
             item.PreviewFailed = true;
-            m_ItemRepository.Save(item);
+            _itemRepository.Save(item);
         }
     }
 }
