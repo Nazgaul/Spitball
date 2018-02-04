@@ -9,13 +9,11 @@ using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using System.IO;
-using Microsoft.Rest.Azure;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.ViewModel.Dto.Search;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public class ItemSearchProvider3 : IItemReadSearchProvider, IItemWriteSearchProvider
+    public class ItemSearchProvider3 : IItemWriteSearchProvider
     {
         private readonly string m_IndexName = "item3";
         private bool m_CheckIndexExists;
@@ -140,132 +138,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 if (batch.Actions.Any())
                     await m_IndexClient.Documents.IndexAsync(batch, cancellationToken: token).ConfigureAwait(false);
             }
-        }
-
-        public async Task<IEnumerable<SearchDocument>> SearchItemAsync(
-            ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
-        {
-            if (query == null) throw new ArgumentNullException(nameof(query));
-
-            var filter = await m_FilterProvider.BuildFilterExpressionAsync(
-                query.UniversityId, UniversityIdField, UserIdsField, query.UserId).ConfigureAwait(false);
-
-            var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(query.Term, new SearchParameters
-            {
-                Filter = filter,
-                Top = query.RowsPerPage,
-                Skip = query.RowsPerPage * query.PageNumber,
-                ScoringProfile = ScoringProfileName,
-                ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
-                Select = new[] { SmallContentField, IdField, NameField, BoxIdField, ExtensionField, BlobNameField },
-                HighlightFields = new[] { ContentField, NameField },
-            }, cancellationToken: cancelToken).ConfigureAwait(false);
-
-            return result.Results.Select(s => new SearchDocument
-            {
-                Content = HighLightInField(s, ContentField, s.Document.MetaContent),
-                Id = long.Parse(s.Document.Id),
-                Name = HighLightInField(s, NameField, s.Document.Name),
-                BoxId = s.Document.BoxId.GetValueOrDefault(),
-                Extension = s.Document.Extension,
-                Source = s.Document.BlobName
-            }).ToList();
-        }
-
-        public async Task<IEnumerable<SearchDocument>> SearchItemAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
-        {
-            if (query == null) throw new ArgumentNullException(nameof(query));
-            var term = query.Term;
-            //if we put asterisk highlight is not working
-            //http://stackoverflow.com/questions/35769442/azure-search-highlights-not-returned-for-every-result/35778095
-            //if (!query.Term.Contains(" "))
-            //{
-            //    term += "*";
-            //}
-            var filter = await m_FilterProvider.BuildFilterExpressionAsync(
-                query.UniversityId, UniversityIdField, UserIdsField, query.UserId).ConfigureAwait(false);
-
-            var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(term, new SearchParameters
-            {
-                Filter = filter,
-                Top = query.RowsPerPage,
-                Skip = query.RowsPerPage * query.PageNumber,
-                ScoringProfile = ScoringProfileName,
-                ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
-                Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
-                HighlightFields = new[] { ContentField, NameField }
-            }, cancellationToken: cancelToken).ConfigureAwait(false);
-
-            return result.Results.Select(s => new SearchDocument
-            {
-                Boxname = s.Document.BoxName,
-                Content = HighLightInField(s, ContentField, s.Document.MetaContent),
-                Id = long.Parse(s.Document.Id),
-                //Image = s.Document.Image,
-                Name = HighLightInField(s, NameField, s.Document.Name),
-                UniName = s.Document.UniversityName,
-                Url = s.Document.Url,
-                Source = s.Document.BlobName
-
-            });
-        }
-
-        public async Task<IEnumerable<SearchDocument>> SearchItemAsync(ViewModel.Queries.Search.SearchItemInBox query, CancellationToken cancelToken)
-        {
-            if (query == null) throw new ArgumentNullException(nameof(query));
-            var term = query.Term;
-            if (string.IsNullOrEmpty(term))
-            {
-                return null;
-            }
-
-            var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(term + "*", new SearchParameters
-            {
-                Filter = $"{BoxId2Field} eq {query.BoxId}",
-                Top = query.RowsPerPage,
-                Skip = query.RowsPerPage * query.PageNumber,
-                Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
-            }, cancellationToken: cancelToken).ConfigureAwait(false);
-
-            return result.Results.Select(s => new SearchDocument
-            {
-                Boxname = s.Document.BoxName,
-                Id = long.Parse(s.Document.Id),
-                Name = s.Document.Name,
-                Url = s.Document.Url,
-                Source = s.Document.BlobName
-
-            });
-        }
-
-        public async Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
-        {
-            try
-            {
-                var item =
-                    await
-                        m_IndexClient.Documents.GetAsync<ItemSearch>(itemId.ToString(CultureInfo.InvariantCulture),
-                            new[] { ContentField }, cancellationToken: cancelToken).ConfigureAwait(false);
-                return item.Content;
-            }
-            //item may not exists in the search....
-            catch (CloudException)
-            {
-                return null;
-            }
-        }
-
-        private static string HighLightInField(SearchResult<ItemSearch> record, string field, string defaultValue)
-        {
-            if (record.Highlights == null)
-            {
-                return defaultValue;
-            }
-            if (record.Highlights.TryGetValue(field, out IList<string> highLight))
-            {
-                return String.Join("...", highLight);
-            }
-            return defaultValue;
         }
     }
 }

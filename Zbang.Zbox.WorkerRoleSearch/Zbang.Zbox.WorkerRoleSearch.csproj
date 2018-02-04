@@ -63,7 +63,6 @@
     <Compile Include="DeleteOldConnections.cs" />
     <Compile Include="DeleteOldStuff.cs" />
     <Compile Include="DomainProcess\DeleteBox.cs" />
-    <Compile Include="DomainProcess\FlagBadItem.cs" />
     <Compile Include="DomainProcess\IDomainProcess.cs" />
     <Compile Include="DomainProcess\IFileProcess.cs" />
     <Compile Include="DomainProcess\NewUserProcess.cs" />

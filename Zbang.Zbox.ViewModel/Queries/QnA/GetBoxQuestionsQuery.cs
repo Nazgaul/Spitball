@@ -13,11 +13,6 @@ namespace Zbang.Zbox.ViewModel.Queries.QnA
             BoxId = boxId;
         }
 
-        public static GetBoxQuestionsQuery GetBoxQueryOldVersion(long boxId, int pageNumber, int rowsPerPage)
-        {
-            return new GetBoxQuestionsQuery(boxId, rowsPerPage, pageNumber * rowsPerPage);
-        }
-
         public long BoxId { get; }
 
         public int Top { get; }

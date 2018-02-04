@@ -5,6 +5,7 @@ namespace Zbang.Zbox.Domain
 {
     public class Answer
     {
+        // ReSharper disable once UnusedMember.Global nhibernate use
         protected Answer()
         {
 

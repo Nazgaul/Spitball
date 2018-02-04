@@ -158,61 +158,11 @@ u.GoogleUserId as GoogleId
     from zbox.Users u left join zbox.University v on u.UniversityId = v.Id
     where u.userId = @UserId";
 
-        public const string GetCoursesPageBoxes_en = @"select top 16 b.boxid,
-                                b.BoxName as Name,
-                                b.ItemCount,
-                                b.MembersCount as MembersCount,
-                                b.CourseCode,
-                                b.ProfessorName
-                                
-                                from (
-								select 
-								b.boxid,
-    b.BoxName,
-	b.quizcount + b.itemcount + COALESCE(b.FlashcardCount,0) as ItemCount,
-	b.CourseCode as CourseCode,
-	b.MembersCount as MembersCount,
-	b.ProfessorName,
-	
-	Rank() over (partition BY libraryid order by  b.MembersCount + (b.ItemCount + COALESCE(b.FlashcardCount,0) + b.QuizCount + b.CommentCount) / 4 desc,b.updatetime desc) as x
-	from zbox.box b join zbox.university u on b.university=u.id
-	where Discriminator = 2
-	and MembersCount > 5
-	and b.isdeleted = 0
-	AND country='US' 
-	 and id!=170400
-								) b
-								where x = 1
-order by ItemCount desc ;";
-
-        public const string GetCoursesPageBoxes_he = @"select top 16 b.boxid,
-                                b.BoxName as Name,
-                                b.quizcount + b.itemcount as ItemCount,
-                                b.MembersCount as MembersCount,
-                                b.CourseCode,
-                                b.ProfessorName
-                                
-                                from zbox.box b join zbox.university u on b.university=u.id
-                                where  MembersCount >20
-                                and b.[UpdateTime]> getdate()-30 
-                                and b.Discriminator = 2
-                                and ItemCount> 20
-                                and CommentCount> 10 
-                                and b.[IsDeleted]=0 
-                                and country='IL' 
-                                and id!=170460 
-                                order by b.[UpdateTime];";
+     
 
         public const string LocationByIp = @"select country_code2 from zbox.ip_range
 	where ip_from <= @IP and @IP <= ip_to";
-//        public const string MarketingEmailQuery = @"select email from zbox.users u join zbox.university uu on u.universityid = uu.id
-//and uu.country = 'IL'
-//and u.emailsendsettings = 0
-//and (u.creationtime>'2015' or u.[LastAccessTime] >'2015')
-//and right(userid,1)<>1
-//order by u.userid
-//offset @pageNumber*50 ROWS
-//FETCH NEXT 50 ROWS ONLY;";
+
 
     }
 }

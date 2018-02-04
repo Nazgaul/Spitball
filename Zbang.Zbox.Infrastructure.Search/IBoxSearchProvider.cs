@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
-using Zbang.Zbox.ViewModel.Dto.Search;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
@@ -11,11 +10,4 @@ namespace Zbang.Zbox.Infrastructure.Search
         Task<bool> UpdateDataAsync(IEnumerable<BoxSearchDto> boxToUpload, IEnumerable<long> boxToDelete);
     }
 
-    public interface IBoxReadSearchProvider2
-    {
-        Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
-
-        //Task<IEnumerable<SearchBoxes>> SearchBoxClassChooseAsync(
-        //    ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
-    }
 }

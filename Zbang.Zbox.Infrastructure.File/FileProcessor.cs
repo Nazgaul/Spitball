@@ -11,9 +11,6 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public abstract class FileProcessor : ContentProcessor, IContentProcessor
     {
-        protected const int ThumbnailWidth = 148;
-        protected const int ThumbnailHeight = 187;
-
         protected const string CacheVersionPrefix = "V";
         protected const string PagesInDocsMetaKey = "pageCount";
 

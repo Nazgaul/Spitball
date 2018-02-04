@@ -6,16 +6,7 @@ using Newtonsoft.Json;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    [SerializePropertyNamesAsCamelCase]
-    public class Course
-    {
-        [Key]
-        public string Id { get; set; }
-
-        [IsSearchable]
-
-        public string Name { get; set; }
-    }
+    
 
     [SerializePropertyNamesAsCamelCase]
     public class Document

@@ -68,32 +68,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
         }
 
-        public void AddToCache<T>(CacheRegions region, string key, T value, TimeSpan expiration) where T : class
-        {
-            if (region == null) throw new ArgumentNullException(nameof(region));
-            try
-            {
-                if (!m_CacheExists)
-                {
-                    return;
-                }
-                var cacheKey = BuildCacheKey(region, key);
-                if (!m_IsRedisCacheAvailable && m_IsHttpCacheAvailable)
-                {
-                    HttpContext.Current.Cache.Insert(cacheKey, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
-                        expiration);
-                    return;
-                }
-                var db = Connection.GetDatabase();
-
-                db.StringAppend(region.Region, cacheKey + ";", CommandFlags.FireAndForget);
-                db.Set(cacheKey, value, expiration);
-            }
-            catch (Exception ex)
-            {
-                m_Logger.Exception(ex);
-            }
-        }
+        
 
         private string BuildCacheKey(CacheRegions region, string key)
         {
@@ -137,18 +112,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             await Task.WhenAll(taskList).ConfigureAwait(false);
         }
 
-        public Task RemoveFromCacheAsyncSlowAsync(CacheRegions region)
-        {
-            var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
-            var keys = server.Keys(0, region + "*");
-            var db = Connection.GetDatabase();
-            var taskList = new List<Task>();
-            foreach (var key in keys)
-            {
-                taskList.Add(db.KeyDeleteAsync(key, CommandFlags.FireAndForget));
-            }
-            return Task.WhenAll(taskList);
-        }
+        
 
         public async Task<T> GetFromCacheAsync<T>(CacheRegions region, string key) where T : class
         {
@@ -180,33 +144,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
         }
 
-        public T GetFromCache<T>(CacheRegions region, string key) where T : class
-        {
-            if (!m_CacheExists)
-            {
-                return default(T);
-            }
-            try
-            {
-                var cacheKey = BuildCacheKey(region, key);
-                if (!m_IsRedisCacheAvailable && m_IsHttpCacheAvailable)
-                    return HttpContext.Current.Cache[cacheKey] as T;
-
-                var cache = Connection.GetDatabase();
-
-                var t = cache.Get<T>(cacheKey);
-                if (t != default(T))
-                {
-                    cache.StringAppend(region.Region, cacheKey + ";", CommandFlags.FireAndForget);
-                }
-                return t;
-            }
-            catch (Exception ex)
-            {
-                m_Logger.Exception(ex);
-                return null;
-            }
-        }
+        
 
         private static bool IsAppFabricCache()
         {

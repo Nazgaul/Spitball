@@ -83,23 +83,18 @@
   <ItemGroup>
     <Compile Include="Cache\CacheRegions.cs" />
     <Compile Include="Cache\RedisCacheExtensions.cs" />
-    <Compile Include="Commands\ICommandResolver.cs" />
     <Compile Include="Consts\IdContainer.cs" />
     <Compile Include="Consts\ReputationConsts.cs" />
     <Compile Include="Consts\TimeConsts.cs" />
     <Compile Include="Consts\UrlConsts.cs" />
     <Compile Include="Languages.cs" />
     <Compile Include="Enums\BadgeType.cs" />
-    <Compile Include="Enums\BadItem.cs" />
     <Compile Include="Enums\BoxType.cs" />
     <Compile Include="Enums\EmailSend.cs" />
     <Compile Include="Enums\FeedType.cs" />
     <Compile Include="Enums\ItemType.cs" />
     <Compile Include="Enums\LibraryNodeSetting.cs" />
     <Compile Include="Enums\LikeType.cs" />
-    <Compile Include="Enums\MessageType.cs" />
-    <Compile Include="Enums\MobileOperatingSystem.cs" />
-    <Compile Include="Enums\PushNotificationSettings.cs" />
     <Compile Include="Enums\Resources\EnumResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -124,8 +119,6 @@
     <Compile Include="Exceptions\BoxDoesntExistException.cs" />
     <Compile Include="Exceptions\BoxNameAlreadyExistsException.cs" />
     <Compile Include="Exceptions\FileQuotaExceedException.cs" />
-    <Compile Include="Exceptions\ItemNotFoundException.cs" />
-    <Compile Include="Exceptions\PushFailedException.cs" />
     <Compile Include="Exceptions\UserRegisterFacebookException.cs" />
     <Compile Include="Extensions\AsyncLazy.cs" />
     <Compile Include="Extensions\AutofacContainerBuilderExtenstions.cs" />
@@ -135,19 +128,12 @@
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ResourceDescriptionAttribute.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="Extensions\PrincipalExtension.cs" />
-    <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
-    <Compile Include="GamificationLevels.cs" />
     <Compile Include="IdGenerator\GuidIdGenerator.cs" />
     <Compile Include="IdGenerator\IIdGenerator.cs" />
     <Compile Include="IPCheckContainer.cs" />
     <Compile Include="LocationProvider.cs" />
-    <Compile Include="MD5HashGenerator.cs" />
     <Compile Include="MediaServices\IMediaServicesProvider.cs" />
-    <Compile Include="Profile\IProfilePictureProvider.cs" />
-    <Compile Include="Profile\ProfileImages.cs" />
-    <Compile Include="Profile\ProfilePictureProvider.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Query\IUniversityWithCode.cs" />
     <Compile Include="Range.cs" />
@@ -156,18 +142,12 @@
     <Compile Include="Repositories\IDirty.cs" />
     <Compile Include="Repositories\IDocumentDbRepository.cs" />
     <Compile Include="Repositories\ISoftDelete.cs" />
-    <Compile Include="Security\FacebookAuthenticationService.cs" />
-    <Compile Include="Security\FacebookUserData.cs" />
-    <Compile Include="Security\GoogleAuthenticationService.cs" />
-    <Compile Include="Security\GoogleUserData.cs" />
-    <Compile Include="Security\IFacebookService.cs" />
     <Compile Include="Security\IAccountService.cs" />
     <Compile Include="Security\Resources\Validation.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Validation.resx</DependentUpon>
     </Compile>
-    <Compile Include="Security\Validation.cs" />
     <Compile Include="Storage\Compress.cs" />
     <Compile Include="Storage\IBlobProvider2.cs" />
     <Compile Include="Storage\IContentProcessor.cs" />
@@ -181,6 +161,7 @@
     <Compile Include="TextManipulation.cs" />
     <Compile Include="Trace\ILogger.cs" />
     <Compile Include="Trace\Logger.cs" />
+    <Compile Include="UnitsOfWork\IUnitOfWorkImplementer.cs" />
     <Compile Include="Url\Base62.cs" />
     <Compile Include="Url\EncryptObject.cs" />
     <Compile Include="Url\GuidEncoder.cs" />
@@ -204,7 +185,6 @@
     <Compile Include="UnitsOfWork\ILocalData.cs" />
     <Compile Include="UnitsOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitsOfWork\IUnitOfWorkFactory.cs" />
-    <Compile Include="UnitsOfWork\IUnitOfWorkImplementer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IRepository.cs" />
   </ItemGroup>
@@ -265,14 +245,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Validation.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Profile\Resources\S100X100Lib1.jpg" />
-    <EmbeddedResource Include="Profile\Resources\S50X50Lib1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Profile\Resources\S100X100userpic9.jpg" />
-    <EmbeddedResource Include="Profile\Resources\S50X50userpic9.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

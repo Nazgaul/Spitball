@@ -33,7 +33,6 @@
            // return $"itemComment_{itemId}";
         }
 
-        public static readonly CacheRegions ZipToLocation = new CacheRegions("zip", true);
         public static readonly CacheRegions University = new CacheRegions("university",false);
         public static readonly CacheRegions Search = new CacheRegions("search", false);
         public static readonly CacheRegions Homepage = new CacheRegions("boxesHomePage", false);

@@ -80,7 +80,6 @@
     <Compile Include="IItem.cs" />
     <Compile Include="ItemTag.cs" />
     <Compile Include="QuizLike.cs" />
-    <Compile Include="EqualityAndHashCodeProvider.cs" />
     <Compile Include="File.cs" />
     <Compile Include="InviteToBox.cs" />
     <Compile Include="InviteToSystem.cs" />

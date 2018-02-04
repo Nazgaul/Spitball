@@ -57,7 +57,6 @@
   <ItemGroup>
     <Compile Include="ChangeEmailMail.cs" />
     <Compile Include="ChangeEmailMailParams.cs" />
-    <Compile Include="Credentials.cs" />
     <Compile Include="DepartmentApprovedAccessMail.cs" />
     <Compile Include="DepartmentApprovedMailParams.cs" />
     <Compile Include="DepartmentRequestAccessMail.cs" />

@@ -9,6 +9,7 @@ namespace Zbang.Zbox.Domain
     [DocumentDbModel("Flashcard")]
     public class Flashcard //: IDirty
     {
+        // ReSharper disable once UnusedMember.Global nhibernate use
         protected Flashcard()
         {
 

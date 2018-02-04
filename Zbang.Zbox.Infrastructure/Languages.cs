@@ -39,14 +39,6 @@ namespace Zbang.Zbox.Infrastructure
             }
         }
 
-        public static bool CheckIfLanguageIsSupported(string culture)
-        {
-            if (string.IsNullOrWhiteSpace(culture))
-            {
-                return false;
-            }
-            return SupportedCultures.Any(a => a.Culture.Any(a1 => string.Equals(a1, culture, StringComparison.CurrentCultureIgnoreCase)));
-        }
 
         public static string GetCultureBaseOnCulture(string culture)
         {
@@ -73,7 +65,7 @@ namespace Zbang.Zbox.Infrastructure
             Culture = culture;
         }
 
-        public Language Name { get; set; }
-        public string[] Culture { get; set; }
+        public Language Name { get;  }
+        public string[] Culture { get;  }
     }
 }

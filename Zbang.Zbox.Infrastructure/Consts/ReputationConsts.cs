@@ -25,17 +25,5 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const int BadgeCreateQuizzes = 500;
         public const int BadgeUploadFiles = 500;
         public const int BadgeLikes = 1500;
-
-        public static int GetBadgeScore(BadgeType badge)
-        {
-            foreach (var fi in typeof(ReputationConst).GetFields(BindingFlags.Public | BindingFlags.Static))
-            {
-                if (fi.Name == "Badge" + badge)
-                {
-                    return (int) fi.GetValue(null);
-                }
-            }
-            return 0;
-        }
     }
 }

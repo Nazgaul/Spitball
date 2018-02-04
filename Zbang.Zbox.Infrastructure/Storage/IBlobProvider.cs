@@ -18,21 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         string GenerateSharedAccessReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes);
 
-        Task<Stream> GetFaqQuestionAsync();
-        Task<Stream> GetJobsXmlAsync();
 
         string StorageContainerUrl { get; }
-
-        string GetBlobNameFromUri(Uri blobUri);
-
-        /// <summary>
-        /// Upload image to quiz in create quiz page
-        /// </summary>
-        /// <param name="content">the image itself</param>
-        /// <param name="mimeType">mime type of the image</param>
-        /// <param name="boxId">box id</param>
-        /// <param name="fileName">the image name received from client</param>
-        /// <returns>url to return to client</returns>
-        Task<string> UploadQuizImageAsync(Stream content, string mimeType, long boxId, string fileName);
     }
 }

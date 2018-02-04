@@ -110,8 +110,6 @@ namespace Zbang.Zbox.Domain
 
         public virtual EmailSend EmailSendSettings { get; set; }
 
-        public virtual MobileOperatingSystem MobileDevice { get; set; }
-        public virtual PushNotificationSettings PushNotificationSetting { get; set; }
 
         public virtual void AddConnection(string connectionId)
         {

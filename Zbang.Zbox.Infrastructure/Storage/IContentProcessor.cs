@@ -6,7 +6,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
 {
     public interface IContentProcessor
     {
-        Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri contentUrl, int index, CancellationToken cancelToken = default(CancellationToken));
 
         bool CanProcessFile(Uri contentUrl);
 

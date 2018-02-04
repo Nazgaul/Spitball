@@ -55,31 +55,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddFlashcardCommand.cs" />
-    <Compile Include="AddFlashcardPinCommand.cs" />
-    <Compile Include="AddItemCommentCommand.cs" />
-    <Compile Include="AddLanguageToDocumentCommand.cs" />
-    <Compile Include="AddQuizLikeCommand.cs" />
-    <Compile Include="AddReplyToCommentCommand.cs" />
-    <Compile Include="AddCommentCommandResult.cs" />
-    <Compile Include="AddFileToBoxCommand.cs" />
-    <Compile Include="AddFileToBoxCommandResult.cs" />
-    <Compile Include="AddItemToBoxCommand.cs" />
-    <Compile Include="AddItemToBoxCommandResult.cs" />
-    <Compile Include="AddLinkToBoxCommand.cs" />
-    <Compile Include="AddLinkToBoxCommandResult.cs" />
     <Compile Include="AddNewUpdatesCommand.cs" />
-    <Compile Include="AddCommentCommand.cs" />
-    <Compile Include="AddNodeToLibraryCommand.cs" />
-    <Compile Include="AddItemReplyToCommentCommand.cs" />
-    <Compile Include="AddStudentCommand.cs" />
-    <Compile Include="AddUserLocationActivityCommand.cs" />
-    <Compile Include="AssignItemToTabCommand.cs" />
-    <Compile Include="AssignTagsToItemCommand.cs" />
     <Compile Include="ChangeBoxInfoCommand.cs" />
-    <Compile Include="ChangeBoxLibraryCommand.cs" />
-    <Compile Include="ChangeFileNameCommand.cs" />
-    <Compile Include="ChangeFileNameCommandResult.cs" />
     <Compile Include="ChangeItemDocTypeCommand.cs" />
     <Compile Include="ChangeItemTabNameCommand.cs" />
     <Compile Include="ChangeNotificationSettingsCommand.cs" />
@@ -114,7 +91,6 @@
     <Compile Include="InviteToSystemCommand.cs" />
     <Compile Include="LibraryNodeApproveAccessCommand.cs" />
     <Compile Include="LikeCommentCommand.cs" />
-    <Compile Include="AddFlashcardLikeCommand.cs" />
     <Compile Include="LikeCommentCommandResult.cs" />
     <Compile Include="LikeReplyCommand.cs" />
     <Compile Include="LikeReplyCommandResult.cs" />
@@ -148,7 +124,6 @@
     <Compile Include="UpdateStatisticsCommand.cs" />
     <Compile Include="UpdateThumbnailCommand.cs" />
     <Compile Include="UpdateUniversityStatsCommand.cs" />
-    <Compile Include="RegisterMobileDeviceCommand.cs" />
     <Compile Include="UpdateUserEmailSubscribeCommand.cs" />
     <Compile Include="UpdateUserProfileImageCommand.cs" />
     <Compile Include="UpdateUserUniversityCommand.cs" />
@@ -197,9 +172,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

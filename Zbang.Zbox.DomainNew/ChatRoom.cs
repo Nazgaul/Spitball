@@ -7,6 +7,7 @@ namespace Zbang.Zbox.Domain
 {
     public class ChatRoom
     {
+        // ReSharper disable once UnusedMember.Global nhibernate use
         protected ChatRoom()
         {
 

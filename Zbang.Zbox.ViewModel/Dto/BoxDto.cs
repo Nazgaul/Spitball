@@ -26,13 +26,6 @@ namespace Zbang.Zbox.ViewModel.Dto
             Url = url;
             DepartmentId = departmentId;
         }
-        //public BoxDto(long id, string boxName,
-        //    UserRelationshipType userType, int itemCount, int membersCount, int commentCount,
-        //   string courseCode, string professorName, BoxType boxType, string url, int updates)
-        //    : this(id, boxName, userType, itemCount, membersCount, commentCount, courseCode, professorName, boxType, url)
-        //{
-        //    Updates = updates;
-        //}
 
         public string Name { get; set; }
         public UserRelationshipType UserType { get; set; }
@@ -40,16 +33,12 @@ namespace Zbang.Zbox.ViewModel.Dto
         public int ItemCount { get; set; }
 
         public Guid DepartmentId { get; set; }
-        //obsolete
-        //public int? Updates { get; set; }
 
         public int MembersCount { get; set; }
         public int CommentCount { get; set; }
         public long Id { get; set; }
         public string CourseCode { get; set; }
         public string Professor { get; set; }
-        // public string UniName { get; set; }
-
         public string Url { get; set; }
     }
 }

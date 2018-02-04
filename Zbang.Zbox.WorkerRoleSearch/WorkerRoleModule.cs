@@ -80,7 +80,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<ReplyToComment>().Named<IMail2>(nameof(ReplyToCommentData));
 
             builder.RegisterType<Statistics>().Named<IDomainProcess>(Infrastructure.Transport.DomainProcess.StatisticsResolver);
-            builder.RegisterType<FlagBadItem>().Named<IDomainProcess>(Infrastructure.Transport.DomainProcess.BadItemResolver);
             builder.RegisterType<UpdatesProcess>().Named<IDomainProcess>(Infrastructure.Transport.DomainProcess.UpdateResolver);
             builder.RegisterType<UpdateReputation>().Named<IDomainProcess>(Infrastructure.Transport.DomainProcess.ReputationResolver);
             builder.RegisterType<UpdateBadge>().Named<IDomainProcess>(Infrastructure.Transport.DomainProcess.BadgeResolver);

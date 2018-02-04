@@ -17,7 +17,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
     public class BlobProvider : IBlobProvider, ICloudBlockProvider
     {
-        protected const string LastAccessTimeMetaDataKey = "LastTimeAccess";
         protected readonly string StorageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
 
         public const string AzureBlobContainer = "zboxfiles";
@@ -61,11 +60,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             }
         }
 
-        public string GetBlobNameFromUri(Uri blobUri)
-        {
-            var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            return blobName;
-        }
+      
 
         private CloudBlockBlob ProfilePictureFile(string blobName)
         {
@@ -74,8 +69,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public CloudBlockBlob GetFile(string blobName)
         {
-            var blob = BlobClient.GetContainerReference(AzureBlobContainer.ToLower()).GetBlockBlobReference(blobName);
-            return blob;
+            return BlobClient.GetContainerReference(AzureBlobContainer.ToLower()).GetBlockBlobReference(blobName);
         }
 
         public virtual CloudBlockBlob GetFile(string blobName, string containerName)
@@ -166,45 +160,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         #endregion
 
-        #region Quiz
-
-        public async Task<string> UploadQuizImageAsync(Stream content, string mimeType, long boxId, string fileName)
-        {
-            if (content == null) throw new ArgumentNullException(nameof(content));
-            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
-            if (!mimeType.ToLower().Contains("image"))
-            {
-                throw new ArgumentException("this is not an image. mime type: " + mimeType);
-            }
-            var name = Guid.NewGuid();
-            var container = BlobClient.GetContainerReference(AzureQuizContainer.ToLower());
-            var directory = container.GetDirectoryReference(boxId.ToString(CultureInfo.InvariantCulture));
-            var blob = directory.GetBlockBlobReference(name + Path.GetExtension(fileName));
-
-            blob.Properties.ContentType = mimeType;
-            blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
-
-            await blob.UploadFromStreamAsync(content).ConfigureAwait(false);
-
-            return TransferToCdnEndpoint(blob.Uri);
-        }
-        #endregion
-
-        private string TransferToCdnEndpoint(Uri uri)
-        {
-            if (string.IsNullOrEmpty(StorageCdnEndpoint))
-            {
-                return uri.AbsoluteUri;
-            }
-            var path = uri.PathAndQuery;
-            if (path.StartsWith("/"))
-            {
-                path = path.Remove(0, 1);
-            }
-
-            return VirtualPathUtility.AppendTrailingSlash(StorageCdnEndpoint) + path;
-        }
-
         #region files
 
         private static CloudBlockBlob GetBlob(Uri blobUrl)
@@ -248,35 +203,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             await blob.DownloadToFileAsync(fileSystemLocation,
                 FileMode.Create, cancelToken).ConfigureAwait(false);
             return fileSystemLocation;
-        }
-
-        #endregion
-
-        #region FAQRegion
-        public async Task<Stream> GetFaqQuestionAsync()
-        {
-            try
-            {
-                var blob = m_BlobClient.GetContainerReference(AzureFaqContainer).GetBlockBlobReference("help.xml");
-                return await blob.OpenReadAsync().ConfigureAwait(false); // we need async in here
-            }
-            catch (StorageException)
-            {
-                return null;
-            }
-        }
-
-        public async Task<Stream> GetJobsXmlAsync()
-        {
-            try
-            {
-                var blob = m_BlobClient.GetContainerReference(AzureFaqContainer).GetBlockBlobReference("jobs2.xml");
-                return await blob.OpenReadAsync().ConfigureAwait(false); // we need async in here
-            }
-            catch (StorageException)
-            {
-                return null;
-            }
         }
 
         #endregion

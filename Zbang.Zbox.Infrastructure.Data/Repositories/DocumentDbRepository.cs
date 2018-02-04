@@ -72,27 +72,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
             return DocumentDbUnitOfWork.Client.ReplaceDocumentAsync(
                 DocumentDbUnitOfWork.BuildDocumentUri(GetCollectionId(), id), item);
         }
-
-        //public Task DeleteItemAsync(string id)
-        //{
-        //    return DocumentDbUnitOfWork.Client.DeleteDocumentAsync(
-        //        DocumentDbUnitOfWork.BuildDocumentUri(GetCollectionId(), id));
-        //}
-
-
-        public async Task<IEnumerable<T>> GetItemsAsync(string sql)
-        {
-            var query =
-                DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
-                    DocumentDbUnitOfWork.BuildCollectionUri(GetCollectionId()), sql).AsDocumentQuery();
-            var results = new List<T>();
-            while (query.HasMoreResults)
-            {
-                results.AddRange(await query.ExecuteNextAsync<T>().ConfigureAwait(false));
-            }
-            //
-            return results;
-        }
     }
 
     public static class DocumentDbUnitOfWork

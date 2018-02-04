@@ -4,6 +4,7 @@ namespace Zbang.Zbox.Domain
 {
     public class ItemRate
     {
+        // ReSharper disable once UnusedMember.Global nhibernate use
         protected ItemRate()
         {
 

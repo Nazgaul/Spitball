@@ -4,13 +4,11 @@ namespace Zbang.Zbox.Infrastructure.Transport
 {
     [ProtoContract]
     [ProtoInclude(15, typeof(StatisticsData4))]
-    [ProtoInclude(12, typeof(BadItemData))]
     [ProtoInclude(16, typeof(UpdateData))]
     [ProtoInclude(17, typeof(UniversityData))]
     [ProtoInclude(18, typeof(ReputationData))]
     [ProtoInclude(19, typeof(QuotaData))]
     [ProtoInclude(20, typeof(DeleteBoxData))]
-    [ProtoInclude(21, typeof(BadPostData))]
     [ProtoInclude(22, typeof(NewUserData))]
     [ProtoInclude(23, typeof(BadgeData))]
     public abstract class DomainProcess

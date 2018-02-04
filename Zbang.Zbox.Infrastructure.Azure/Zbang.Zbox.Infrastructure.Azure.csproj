@@ -74,13 +74,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blob\AutoRenewLease.cs" />
     <Compile Include="Blob\BlobProvider.cs" />
     <Compile Include="Blob\BlobProvider2.cs" />
     <Compile Include="Blob\ICloudBlockProvider.cs" />
     <Compile Include="Blob\IdGenerator.cs" />
-    <Compile Include="Entities\FlagCommentOrReply.cs" />
-    <Compile Include="Entities\FlagItem.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="StorageModule.cs" />
     <Compile Include="ITableProvider.cs" />

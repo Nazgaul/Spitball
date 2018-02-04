@@ -8,6 +8,7 @@ namespace Zbang.Zbox.Domain
 {
     public class Connection
     {
+        // ReSharper disable once UnusedMember.Global nhibernate use
         protected Connection()
         {
             

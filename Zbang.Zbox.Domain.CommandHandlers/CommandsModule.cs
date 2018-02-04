@@ -1,7 +1,5 @@
 ﻿using Autofac;
-using Zbang.Zbox.Domain.CommandHandlers.Quiz;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Extensions;
 
@@ -11,22 +9,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType(typeof(AddLanguageToItemCommandHandler<Item>))
-                .As<ICommandHandler<AddLanguageToDocumentCommand>>();
-            builder.RegisterType(typeof(AddLanguageToItemCommandHandler<FlashcardMeta>))
-                .As<ICommandHandler<AddLanguageToFlashcardCommand>>();
-            builder.RegisterType(typeof(AddLanguageToItemCommandHandler<Domain.Quiz>))
-                .As<ICommandHandler<AddLanguageToQuizCommand>>();
-
-            builder.RegisterType(typeof(AssignTagsToItemCommandHandler<Item>))
-               .As<ICommandHandlerAsync<AssignTagsToDocumentCommand>>();
-            builder.RegisterType(typeof(AssignTagsToItemCommandHandler<FlashcardMeta>))
-                .As<ICommandHandlerAsync<AssignTagsToFlashcardCommand>>();
-            builder.RegisterType(typeof(AssignTagsToItemCommandHandler<Domain.Quiz>))
-               .As<ICommandHandlerAsync<AssignTagsToQuizCommand>>();
-            builder.RegisterType(typeof(AssignTagsToItemCommandHandler<Comment>))
-               .As<ICommandHandlerAsync<AssignTagsToFeedCommand>>();
-
             builder.RegisterType(typeof(RemoveTagsFromItemCommandHandler<Item>))
             .As<ICommandHandler<RemoveTagsFromDocumentCommand>>();
             builder.RegisterType(typeof(RemoveTagsFromItemCommandHandler<FlashcardMeta>))
@@ -36,8 +18,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
 
-            builder.RegisterType(typeof(AddFileToBoxCommandHandler)).Named <
-                ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>>(AddItemToBoxCommand.FileResolver);
 
             builder.RegisterType(typeof(CreateAcademicBoxCommandHandler) ).Named<
                 ICommandHandlerAsync<CreateBoxCommand, CreateBoxCommandResult>>("CreateAcademicBoxCommand");
@@ -68,17 +48,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             builder.RegisterType(typeof(ICommandHandler<ChangeBoxInfoCommand>), typeof(ChangeBoxInfoCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<ChangeNotificationSettingsCommand>),
                 typeof(ChangeNotificationSettingsCommandHandler));
-                builder.RegisterType(typeof(ICommandHandler<RegisterMobileDeviceCommand>), typeof(UpdateUserMobileSettings));
 
             builder.RegisterType(typeof(ICommandHandlerAsync<UnFollowBoxCommand>), typeof(UnFollowBoxCommandHandler));
             builder.RegisterType(typeof(ICommandHandlerAsync<DeleteBoxCommand>), typeof(DeleteBoxCommandHandler));
-            builder.RegisterType(typeof(ICommandHandler<ChangeBoxLibraryCommand>), typeof(ChangeBoxLibraryCommandHandler));
 
-            builder
-                .RegisterType
-                <ICommandHandlerAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>, AddLinkToBoxCommandHandler>(
-                    AddItemToBoxCommand.LinkResolver);
-            builder.RegisterType(typeof(ICommandHandler<ChangeFileNameCommand, ChangeFileNameCommandResult>), typeof(ChangeFileNameCommandHandler));
+       
             builder.RegisterType(typeof(ICommandHandler<UpdateThumbnailCommand>), typeof(UpdateThumbnailCommandHandler));
 
             builder.RegisterType(typeof(ICommandHandlerAsync<DeleteItemCommand>), typeof(DeleteItemCommandHandler));
@@ -94,13 +68,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             builder.RegisterType(typeof(ICommandHandler<UnsubscribeUsersFromEmailCommand>), typeof(UnsubscribeUsersFromEmailCommandHandler));
 
             //annotation
-            builder.RegisterType(typeof(ICommandHandlerAsync<AddItemCommentCommand>), typeof(AddItemCommentCommandHandler));
-            builder.RegisterType(typeof(ICommandHandlerAsync<AddItemReplyToCommentCommand>), typeof(AddItemReplyToCommentCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<DeleteItemCommentCommand>), typeof(DeleteItemCommentCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<DeleteItemCommentReplyCommand>), typeof(DeleteItemCommentReplyCommandHandler));
 
             builder.RegisterType(typeof(ICommandHandler<CreateItemTabCommand>), typeof(CreateItemTabCommandHandler));
-            builder.RegisterType(typeof(ICommandHandler<AssignItemToTabCommand>), typeof(AssignItemToTabCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<ChangeItemTabNameCommand>), typeof(ChangeItemTabNameCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<DeleteItemTabCommand>), typeof(DeleteItemTabCommandHandler));
 
@@ -118,8 +89,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             builder.RegisterType(typeof(ICommandHandler<UpdateUniversityStatsCommand>), typeof(UpdateUniversityStatsCommandHandler));
 
             //QnA
-            builder.RegisterType(typeof(ICommandHandlerAsync<AddCommentCommand, AddCommentCommandResult>), typeof(AddCommentCommandHandler));
-            builder.RegisterType(typeof(ICommandHandlerAsync<AddReplyToCommentCommand>), typeof(AddReplyToCommentCommandHandler));
             builder.RegisterType(typeof(ICommandHandlerAsync<DeleteCommentCommand>), typeof(DeleteCommentCommandHandler));
             builder.RegisterType(typeof(ICommandHandlerAsync<DeleteReplyCommand>), typeof(DeleteReplyCommandHandler));
             builder.RegisterType(typeof(ICommandHandlerAsync<LikeCommentCommand, LikeCommentCommandResult>), typeof(LikeCommentCommandHandler));
@@ -135,30 +104,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             builder.RegisterType(typeof(ICommandHandlerAsync<AddNewUpdatesCommand>), typeof(AddNewUpdatesCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<DeleteUpdatesCommand>), typeof(DeleteUpdatesCommandHandler));
 
-            //quiz
-            builder.RegisterType(typeof(ICommandHandler<CreateQuizCommand>), typeof(CreateQuizCommandHandler));
-            builder.RegisterType(typeof(ICommandHandler<UpdateQuizCommand>), typeof(UpdateQuizCommandHandler));
-            builder.RegisterType(typeof(ICommandHandlerAsync<DeleteQuizCommand>), typeof(DeleteQuizCommandHandler));
-            builder.RegisterType(typeof(ICommandHandler<DeleteQuestionCommand>), typeof(DeleteQuestionCommandHandler));
-            builder.RegisterType(typeof(ICommandHandler<CreateQuestionCommand>), typeof(CreateQuestionCommandHandler));
-                builder.RegisterType(typeof(ICommandHandlerAsync<SaveQuizCommand, SaveQuizCommandResult>),
-                    typeof(SaveQuizCommandHandler));
-            builder.RegisterType(typeof(ICommandHandlerAsync<SaveUserQuizCommand>), typeof(SaveUserQuizCommandHandler));
-            builder.RegisterType(typeof(ICommandHandlerAsync<CreateDiscussionCommand>),
-                typeof(CreateDiscussionCommandHandler));
-            builder.RegisterType(typeof(ICommandHandler<DeleteDiscussionCommand>), typeof(DeleteDiscussionCommandHandler));
-
-            builder.RegisterType(typeof(ICommandHandler<AddStudentCommand>), typeof(AddStudentCommandHandler));
-            builder.RegisterType(typeof(ICommandHandlerAsync<AddUserLocationActivityCommand>), typeof(AddUserLocationActivityCommandHandler));
-
-            builder.RegisterType(typeof(ICommandHandlerAsync<AddQuizLikeCommand>),
-                typeof(AddQuizLikeCommandHandler));
+           
+       
             builder.RegisterType(typeof(ICommandHandlerAsync<DeleteQuizLikeCommand>),
                 typeof(DeleteQuizLikeCommandHandler));
 
             //library
-            builder.RegisterType(typeof(ICommandHandler<AddNodeToLibraryCommand>),
-                typeof(AddNodeToLibraryCommandHandler));
             builder.RegisterType(typeof(ICommandHandlerAsync<RequestAccessLibraryNodeCommand>),
                 typeof(RequestAccessLibraryNodeCommandHandler));
             builder.RegisterType(typeof(ICommandHandlerAsync<LibraryNodeApproveAccessCommand>),
@@ -178,9 +129,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             builder.RegisterType(typeof(ICommandHandler<ChatMarkAsReadCommand>),
                 typeof(ChatMarkAsReadCommandHandler));
 
-            //flashcard
-            builder.RegisterType(typeof(ICommandHandlerAsync<AddFlashcardCommand>),
-                typeof(AddFlashcardCommandHandler));
+          
             builder.RegisterType(typeof(ICommandHandlerAsync<UpdateFlashcardCommand>),
                 typeof(UpdateFlashcardCommandHandler));
             builder.RegisterType(typeof(ICommandHandlerAsync<PublishFlashcardCommand>),
@@ -189,13 +138,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             builder.RegisterType(typeof(ICommandHandlerAsync<DeleteFlashcardCommand>),
                 typeof(DeleteFlashcardCommandHandler));
 
-            builder.RegisterType(typeof(ICommandHandler<AddFlashcardPinCommand>),
-                typeof(AddFlashcardPinCommandHandler));
+           
             builder.RegisterType(typeof(ICommandHandler<DeleteFlashcardPinCommand>),
                 typeof(DeleteFlashcardPinCommandHandler));
 
-            builder.RegisterType(typeof(ICommandHandlerAsync<AddFlashcardLikeCommand>),
-                typeof(AddFlashcardLikeCommandHandler));
+           
             builder.RegisterType(typeof(ICommandHandlerAsync<DeleteFlashcardLikeCommand>),
                 typeof(DeleteFlashcardLikeCommandHandler));
             builder.RegisterType(typeof(ICommandHandler<SaveUserFlashcardCommand>),

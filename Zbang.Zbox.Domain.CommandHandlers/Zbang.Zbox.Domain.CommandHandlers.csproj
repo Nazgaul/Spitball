@@ -58,26 +58,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddFlashcardCommandHandler.cs" />
-    <Compile Include="AddFlashcardPinCommandHandler.cs" />
-    <Compile Include="AddItemCommentCommandHandler.cs" />
-    <Compile Include="AddLanguageToDocumentCommandHandler.cs" />
-    <Compile Include="AddQuizLikeCommandHandler.cs" />
-    <Compile Include="AddReplyToCommentCommandHandler.cs" />
-    <Compile Include="AddFileToBoxCommandHandler.cs" />
-    <Compile Include="AddLinkToBoxCommandHandler.cs" />
     <Compile Include="AddNewUpdatesCommandHandler.cs" />
-    <Compile Include="AddNodeToLibraryCommandHandler.cs" />
-    <Compile Include="AddCommentCommandHandler.cs" />
-    <Compile Include="AddItemReplyToCommentCommandHandler.cs" />
-    <Compile Include="AddStudentCommandHandler.cs" />
-    <Compile Include="AddUserLocationActivityCommandHandler.cs" />
-    <Compile Include="AssignItemToTabCommandHandler.cs" />
-    <Compile Include="AssignTagsToItemCommandHandler.cs" />
     <Compile Include="ChangeBoxInfoCommandHandler.cs" />
-    <Compile Include="ChangeBoxLibraryCommandHandler.cs" />
-    <Compile Include="ChangeFileNameCommandHandler.cs" />
-    <Compile Include="ChangeItemDocTypeCommandHandler.cs" />
     <Compile Include="ChangeItemTabNameCommandHandler.cs" />
     <Compile Include="ChangeNotificationSettingsCommandHandler.cs" />
     <Compile Include="ChangeUserOnlineStatusCommandHandler.cs" />
@@ -88,7 +70,6 @@
     <Compile Include="CreateFacebookUserCommandHandler.cs" />
     <Compile Include="CreateGoogleUserCommandHandler.cs" />
     <Compile Include="CreateItemTabCommandHandler.cs" />
-    <Compile Include="CreateJaredUserCommandHandler.cs" />
     <Compile Include="CreateMembershipUserCommandHandler.cs" />
     <Compile Include="CreateUniversityCommandHandler.cs" />
     <Compile Include="DeleteBoxCommandHandler.cs" />
@@ -104,24 +85,13 @@
     <Compile Include="DeleteCommentCommandHandler.cs" />
     <Compile Include="DeleteUpdatesCommandHandler.cs" />
     <Compile Include="DeleteUserFromBoxCommandHandler.cs" />
-    <Compile Include="GetGeneralDepartmentCommandHandler.cs" />
     <Compile Include="InviteToSystemCommandHandler.cs" />
     <Compile Include="LibraryNodeApproveAccessCommandHandler.cs" />
     <Compile Include="LikeCommentCommandHandler.cs" />
-    <Compile Include="AddFlashcardLikeCommandHandler.cs" />
     <Compile Include="LikeReplyCommandHandler.cs" />
     <Compile Include="ManageConnectionsCommandHandler.cs" />
     <Compile Include="PreviewFailedCommandHandler.cs" />
     <Compile Include="PublishFlashcardCommandHandler.cs" />
-    <Compile Include="Quiz\CreateDiscussionCommandHandler.cs" />
-    <Compile Include="Quiz\CreateQuestionCommandHandler.cs" />
-    <Compile Include="Quiz\CreateQuizCommandHandler.cs" />
-    <Compile Include="Quiz\DeleteDiscussionCommandHandler.cs" />
-    <Compile Include="Quiz\DeleteQuestionCommandHandler.cs" />
-    <Compile Include="Quiz\DeleteQuizCommandHandler.cs" />
-    <Compile Include="Quiz\SaveQuizCommandHandler.cs" />
-    <Compile Include="Quiz\SaveUserQuizCommandHandler.cs" />
-    <Compile Include="Quiz\UpdateQuizCommandHandler.cs" />
     <Compile Include="RateItemCommandHandler.cs" />
     <Compile Include="RemoveOldConnectionCommandHandler.cs" />
     <Compile Include="RemoveTagsFromItemCommandHandler.cs" />
@@ -132,7 +102,6 @@
       <DependentUpon>CommandHandlerResources.resx</DependentUpon>
     </Compile>
     <Compile Include="SaveUserFlashcardCommandHandler.cs" />
-    <Compile Include="SetReviewedCommandHandler.cs" />
     <Compile Include="UnsubscribeUsersFromEmailCommandHandler.cs" />
     <Compile Include="UpdateBadgesCommandHandler.cs" />
     <Compile Include="UpdateFlashcardCommandHandler.cs" />
@@ -144,13 +113,11 @@
     <Compile Include="CreateBoxCommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnFollowBoxCommandHandler.cs" />
-    <Compile Include="UpdateQuotaCommandHandler.cs" />
     <Compile Include="UpdateReputationCommandHandler.cs" />
     <Compile Include="UpdateStatisticsCommandHandler.cs" />
     <Compile Include="UpdateThumbnailCommandHandler.cs" />
     <Compile Include="UpdateUniversityStatsCommandHandler.cs" />
     <Compile Include="UpdateUserEmailSubscribeCommandHandler.cs" />
-    <Compile Include="UpdateUserMobileSettings.cs" />
     <Compile Include="UpdateUserProfileImageCommandHandler.cs" />
     <Compile Include="UpdateUserUniversityCommandHandler.cs" />
     <Compile Include="UpdateUserLanguageCommandHandler.cs" />
@@ -220,9 +187,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CommandHandlerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

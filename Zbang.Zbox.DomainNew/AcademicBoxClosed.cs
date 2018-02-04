@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Domain
             ParentDepartment = parentDepartment;
         }
 
+        // ReSharper disable once UnusedMember.Global - nhibernate use
         protected AcademicBoxClosed()
             : base()
         {

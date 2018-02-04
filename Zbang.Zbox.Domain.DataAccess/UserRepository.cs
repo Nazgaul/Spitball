@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Criterion;
-using NHibernate.Linq;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -60,13 +59,7 @@ namespace Zbang.Zbox.Domain.DataAccess
 
 
 
-        public bool IsNotUsedCode(string code, long userId)
-        {
-            var user = UnitOfWork.CurrentSession.QueryOver<User>().
-                Where(w => w.Id != userId)
-               .Where(w => w.StudentId == code).SingleOrDefault();
-            return user == null;
-        }
+       
 
         public IEnumerable<long> GetUsersToUpdate(long boxId, long notIncludeUserId)
         {

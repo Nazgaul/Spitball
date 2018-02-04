@@ -18,9 +18,5 @@ namespace Zbang.Zbox.ViewModel.Dto.JaredDtos
         public IEnumerable<string> Tags { get; set; }
     }
 
-    public class ItemTagDto
-    {
-        public long ItemId { get; set; }
-        public string Tag { get; set; }
-    }
+   
 }

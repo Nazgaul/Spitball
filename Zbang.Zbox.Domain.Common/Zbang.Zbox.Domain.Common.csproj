@@ -59,7 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IZboxServiceBootStrapper.cs" />
     <Compile Include="IZboxWorkerRoleService.cs" />
     <Compile Include="IZboxWriteService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -13,7 +13,7 @@ using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public class UniversitySearchProvider : IUniversityReadSearchProvider, IUniversityWriteSearchProvider2
+    public class UniversitySearchProvider : IUniversityWriteSearchProvider2
     {
         private readonly string _indexName = "universities2";
         private bool _checkIndexExists;

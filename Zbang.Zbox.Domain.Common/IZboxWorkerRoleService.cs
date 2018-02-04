@@ -37,11 +37,9 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateUserFromUnsubscribe(UnsubscribeUsersFromEmailCommand command);
 
 
-        void ChangeBoxDepartment(ChangeBoxLibraryCommand command);
 
 
         Task UpdateSpamGunSendAsync(int id, CancellationToken token);
 
-        void UpdateItemUrl();
     }
 }

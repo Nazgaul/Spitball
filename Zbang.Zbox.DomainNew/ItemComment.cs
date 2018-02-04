@@ -6,6 +6,7 @@ namespace Zbang.Zbox.Domain
 {
     public class ItemComment : ItemCommentBase
     {
+        // ReSharper disable once UnusedMember.Global nhibernate use
         protected ItemComment()
         {
 

@@ -15,7 +15,6 @@ namespace Zbang.Zbox.Domain.DataAccess
             builder.RegisterType<BoxRepository>().As<IBoxRepository>();
             builder.RegisterType<AcademicBoxRepository>().As<IAcademicBoxRepository>();
             builder.RegisterType<ItemTabRepository>().As<IItemTabRepository>();
-            builder.RegisterType<QuestionRepository>().As<IQuestionRepository>();
             builder.RegisterType<ItemRateRepository>().As<IItemRateRepository>();
             builder.RegisterType<InviteRepository>().As<IInviteRepository>();
             builder.RegisterType<UpdatesRepository>().As<IUpdatesRepository>();

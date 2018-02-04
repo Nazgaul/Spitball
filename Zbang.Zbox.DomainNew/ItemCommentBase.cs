@@ -6,8 +6,7 @@ namespace Zbang.Zbox.Domain
     {
         public virtual long Id { get; set; }
         public virtual Item Item { get; set; }
-        //public virtual int ImageId { get; set; }
-
+        
         public virtual string Comment { get; set; }
 
         public virtual UserTimeDetails UserTime { get; set; }

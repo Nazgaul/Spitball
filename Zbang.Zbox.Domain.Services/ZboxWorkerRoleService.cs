@@ -40,14 +40,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void ChangeBoxDepartment(ChangeBoxLibraryCommand command)
-        {
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                unitOfWork.TransactionalFlush();
-            }
-        }
+       
 
         public void OneTimeDbi()
         {
@@ -509,21 +502,6 @@ where id = @id";
                     items = UnitOfWork.CurrentSession.QueryOver<Box>().Where(w => w.Url == null && !w.IsDeleted)
                         .Take(100).List();
                 } while (items.Count > 0);
-            }
-        }
-
-        public void UpdateItemUrl()
-        {
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                var items = UnitOfWork.CurrentSession.QueryOver<Item>().Where(w => w.Url == null && !w.IsDeleted)
-                    .List();
-                foreach (var item in items)
-                {
-                    item.GenerateUrl();
-                    UnitOfWork.CurrentSession.Save(item);
-                }
-                unitOfWork.TransactionalFlush();
             }
         }
     }

@@ -4,10 +4,7 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class UpdateUserCommandResult : ICommandResult
     {
-        public UpdateUserCommandResult(string error)
-        {   
-            Error = error;
-        }
+       
 
         public UpdateUserCommandResult()
         {
@@ -15,7 +12,5 @@ namespace Zbang.Zbox.Domain.Commands
         }
 
         public string Error { get; set; }
-        public string Field { get; set; }
-        public bool HasErrors => !string.IsNullOrWhiteSpace(Error);
     }
 }

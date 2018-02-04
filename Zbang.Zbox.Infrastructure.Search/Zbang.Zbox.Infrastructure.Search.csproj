@@ -61,21 +61,17 @@
     <Compile Include="FlashcardSearch.cs" />
     <Compile Include="FlashcardSearchProvider.cs" />
     <Compile Include="IBoxSearchProvider.cs" />
-    <Compile Include="IFlashcardReadSearchProvider.cs" />
     <Compile Include="IFlashcardWriteSearchProvider.cs" />
-    <Compile Include="IItemReadSearchProvider.cs" />
     <Compile Include="IItemWriteSearchProvider.cs" />
     <Compile Include="ISearchConnection.cs" />
     <Compile Include="ItemSearch.cs" />
     <Compile Include="ItemSearchProvider3.cs" />
-    <Compile Include="IUniversityReadSearchProvider.cs" />
     <Compile Include="IUniversityWriteSearchProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuizSearch.cs" />
     <Compile Include="QuizSearchProvider2.cs" />
     <Compile Include="SearchModule.cs" />
     <Compile Include="SearchConnection.cs" />
-    <Compile Include="SearchServiceWrite.cs" />
     <Compile Include="UniversitySearch.cs" />
     <Compile Include="UniversitySearchProvider.cs" />
   </ItemGroup>

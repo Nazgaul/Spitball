@@ -35,7 +35,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             if (parameters is RegisterBadgeData)
             {
                 return true;
-                //badge = BadgeType.Register;
             }
             if (parameters is FollowClassBadgeData)
             {

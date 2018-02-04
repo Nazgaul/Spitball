@@ -9,6 +9,5 @@ namespace Zbang.Zbox.Infrastructure.Enums
         MembersOnly = 2,
         [ResourceDescription(typeof(EnumResources), "BoxPrivacySettingsAnyoneWithUrl")]
         AnyoneWithUrl = 3,
-        PrivateUniversity = 4
     }
 }

@@ -44,9 +44,6 @@
       <property name="UsedSpace"/>
     </component>
     <many-to-one column="UniversityId" class="University" name="University" foreign-key="UniversityUser2"/>
-    <property name="MobileDevice" />
-    <property name="PushNotificationSetting" />
-    <!--<property name="Theme" />-->
     <property name="EmailSendSettings" />
     <property name="Online" />
     <set name="UserBoxRel" cascade="all-delete-orphan" inverse="true" lazy="true">

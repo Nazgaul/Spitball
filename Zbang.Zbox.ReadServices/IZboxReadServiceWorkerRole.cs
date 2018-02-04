@@ -6,7 +6,6 @@ using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
-using Zbang.Zbox.ViewModel.Dto.Qna;
 using Zbang.Zbox.ViewModel.Queries.Emails;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
@@ -21,10 +20,7 @@ namespace Zbang.Zbox.ReadServices
 
         Task<BoxUpdatesDigestDto> GetUpdatesAsync(GetUpdatesQuery query, CancellationToken token);
 
-        Task<IEnumerable<BoxDigestDto>> GetBoxesLastUpdatesAsync(GetBoxesLastUpdateQuery query);
-        Task<BoxUpdatesDigestDto> GetBoxLastUpdatesAsync(GetBoxLastUpdateQuery query);
 
-        BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query);
 
         Task<UniversityToUpdateSearchDto> GetUniversitiesDirtyUpdatesAsync(int index, int total, int top);
         Task<UniversitySearchDto> GetUniversityDirtyUpdatesAsync(long id);
@@ -61,21 +57,5 @@ namespace Zbang.Zbox.ReadServices
 
        // Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, CancellationToken token);
         Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, int limit, CancellationToken token);
-
-        IEnumerable<long> GetUsersBadgeFollow(int page);
-        IEnumerable<long> GetUsersBadgeQuiz(int page);
-        IEnumerable<long> GetUsersBadgeItem(int page);
-        IEnumerable<long> GetUsersBadgeLike(int page);
-        IEnumerable<long> GetUserReputationUpdate(int page);
-
-        #region feedUpdateSearch
-
-        Task<FeedToUpdateSearchDto> GetFeedDirtyUpdatesAsync(long? version, int page, int size,
-            CancellationToken token);
-
-        Task<long> GetTrackingCurrentVersionAsync();
-
-        #endregion
-
     }
 }

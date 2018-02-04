@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
-using Zbang.Zbox.ViewModel.Dto.Search;
 using Microsoft.Azure.Search.Models;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public class BoxSearchProvider : IBoxReadSearchProvider2, IBoxWriteSearchProvider2, IDisposable
+    public class BoxSearchProvider :  IBoxWriteSearchProvider2, IDisposable
     {
         private readonly string m_IndexName = "box2";
         private bool m_CheckIndexExists;
@@ -127,31 +124,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 m_Logger.Exception(ex);
             }
             m_CheckIndexExists = true;
-        }
-
-        public async Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
-        {
-            if (query == null) throw new ArgumentNullException(nameof(query));
-            var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
-            {
-                Filter =
-                    $"{UniversityIdField} eq {query.UniversityId} or {UserIdsField}/any(t: t eq '{query.UserId}')",
-                Top = query.RowsPerPage,
-                Skip = query.RowsPerPage * query.PageNumber,
-                Select = new[] { IdField, nameof(BoxSearch.Course2).ToLower(), nameof(BoxSearch.Professor2).ToLower(), nameof(BoxSearch.Name2).ToLower(), UrlField, TypeFiled,DepartmentIdField , MembersField ,ItemsField},
-            }, cancellationToken: cancelToken).ConfigureAwait(false);
-            return result.Results.Select(s => new SearchBoxes(
-                SearchConnection.ConvertToType<long>(s.Document.Id),
-                s.Document.Name2,
-                s.Document.Professor2,
-                s.Document.Course2,
-                s.Document.Url,
-                s.Document.DepartmentId,
-                s.Document.ItemsCount.GetValueOrDefault(),
-                s.Document.MembersCount.GetValueOrDefault(),
-                (BoxType)s.Document.Type.GetValueOrDefault()
-                )
-            ).ToList();
         }
 
         public void Dispose()

@@ -7,12 +7,9 @@ namespace Zbang.Zbox.Infrastructure.Trace
     {
         void Exception(Exception ex , IDictionary<string, string> properties = null);
 
-        void Info(string message);
-
         void Warning(string message);
 
         void Error(string message);
 
-        void TrackMetric(string name, double value);
     }
 }

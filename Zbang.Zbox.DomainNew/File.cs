@@ -4,6 +4,7 @@ namespace Zbang.Zbox.Domain
 {
     public class File : Item
     {
+        // ReSharper disable once UnusedMember.Global nhibernate use
         protected File()
         {
            

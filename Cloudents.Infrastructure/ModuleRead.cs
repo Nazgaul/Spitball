@@ -4,7 +4,6 @@ using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.AI;
-using Cloudents.Infrastructure.Cache;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search;

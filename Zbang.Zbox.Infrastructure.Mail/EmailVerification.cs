@@ -98,32 +98,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             return data.Data.Is_Valid;
         }
 
-        public bool VerifyEmail(string email)
-        {
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                return false;
-            }
-            if (m_Engine == null)
-            {
-                return Regex.IsMatch(email, EmailRegex2, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(10));
-            }
-            try
-            {
-                var verificationEmail = new Verification(email);
-                m_Engine.Run(verificationEmail, m_VerificationLevel);
-                if (verificationEmail.State.Result.LastStatus == VerificationStatus.UnhandledException)
-                {
-                    return MailGunValidateEmail(email);
-                }
-                return verificationEmail.State.Result.LastStatus == VerificationStatus.Success;
-            }
-            catch (Exception ex)
-            {
-                m_Logger.Exception(ex, new Dictionary<string, string> {["email"] = email});
-                return true;
-            }
-        }
+        
 
         public void Dispose()
         {

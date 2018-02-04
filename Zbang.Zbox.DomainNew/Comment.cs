@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain
 {
     public class Comment : ITag
     {
+        // ReSharper disable once UnusedMember.Global nhibernate use
         protected Comment()
         {
         }

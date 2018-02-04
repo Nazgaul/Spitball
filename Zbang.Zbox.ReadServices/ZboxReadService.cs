@@ -30,7 +30,7 @@ using Zbang.Zbox.ViewModel.Queries.Jared;
 
 namespace Zbang.Zbox.ReadServices
 {
-    public class ZboxReadService : BaseReadService, IZboxReadService, IUniversityWithCode
+    public class ZboxReadService :  IZboxReadService, IUniversityWithCode
     {
         public async Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query)
         {
@@ -82,21 +82,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<Box.RecommendBoxDto>> GetCoursesPageDataAsync()
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
-            {
-                var fieldInfo = Array.Find(typeof(Sql.Sql).GetFields(BindingFlags.Public | BindingFlags.Static
-                                            | BindingFlags.FlattenHierarchy), fi => fi.IsLiteral && !fi.IsInitOnly && fi.Name == "GetCoursesPageBoxes_" + Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower());
-
-                var coursesQuery = Sql.Sql.GetCoursesPageBoxes_en;
-                if (fieldInfo != null)
-                {
-                    coursesQuery = fieldInfo.GetValue(null).ToString();
-                }
-                return await conn.QueryAsync<Box.RecommendBoxDto>(coursesQuery).ConfigureAwait(false);
-            }
-        }
+       
 
         /// <summary>
         /// used to get the dashboard and the activity and wall in dashboard
@@ -347,29 +333,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<Item.ItemDetailDto> GetItem2Async(GetItemQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
-            {
-                using (
-                    var grid =
-                        await
-                            conn.QueryMultipleAsync(
-                                $"{Sql.Item.ItemDetail} {Sql.Item.Navigation}  {Sql.Item.UserItemRate}",
-                                query).ConfigureAwait(false))
-                {
-                    var retVal = await grid.ReadFirstOrDefaultAsync<Item.ItemDetailDto>().ConfigureAwait(false);
-                    if (retVal == null)
-                    {
-                        throw new ItemNotFoundException();
-                    }
-                    retVal.Navigation = await grid.ReadFirstOrDefaultAsync<Item.ItemNavigationDto>().ConfigureAwait(false);
-
-                    retVal.Like = await grid.ReadFirstOrDefaultAsync<int>().ConfigureAwait(false);
-                    return retVal;
-                }
-            }
-        }
+       
 
         public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetBoxLeaderboardQuery query)
         {
@@ -712,19 +676,6 @@ where ownerId = @UserId and boxId = @BoxId;";
             }
         }
 
-        /// <summary>
-        /// Used in box page to get the members pop up
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        /// 
-        public async Task<IEnumerable<User.UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
-            {
-                return await conn.QueryAsync<User.UserMemberDto>(Sql.Box.BoxMembers, query).ConfigureAwait(false);
-            }
-        }
 
         #endregion
 
@@ -1140,83 +1091,9 @@ from zbox.library l join zbox.box b on l.libraryId = b.libraryId where universit
 
         #endregion
 
-        #region Jared
-
-        public async Task<Tuple<User.UserDetailDto, IEnumerable<BoxDto>>> GetJaredUserDataAsync(
-            QueryBaseUserId query, CancellationToken token)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
-            {
-                using (var grid = await conn.QueryMultipleAsync(
-                    new CommandDefinition(Sql.Sql.UserAuthenticationDetail + Sql.Dashboard.UserBoxes
-                    , new
-                    {
-                        query.UserId,
-                        pageNumber = 0,
-                        rowsperpage = int.MaxValue
-                    }, cancellationToken: token)).ConfigureAwait(false))
-                {
-                    var user = await grid.ReadFirstAsync<User.UserDetailDto>().ConfigureAwait(false);
-                    var boxes = await grid.ReadAsync<BoxDto>().ConfigureAwait(false);
-                    return new Tuple<User.UserDetailDto, IEnumerable<BoxDto>>(user, boxes);
-                }
-            }
-        }
-
-        public async Task<JaredFavoriteDto> JaredFavoritesAsync(JaredFavoritesQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
-            {
-                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.DocumentFavorites
-                    + Sql.Jared.QuizFavorites + Sql.Jared.FlashcardFavorite + Sql.Jared.CommentFavorite,
-                    new { query.DocumentIds, query.FlashcardIds, query.QuizIds, query.CommentIds }).ConfigureAwait(false))
-                {
-                    var retVal = new JaredFavoriteDto
-                    {
-                        Documents = await grid.ReadAsync<JaredFavoriteDocumentDto>().ConfigureAwait(false),
-                        Quizzes = await grid.ReadAsync<JaredFavoriteQuiz>().ConfigureAwait(false),
-                        Flashcards = await grid.ReadAsync<JaredFavoriteFlashcardDto>().ConfigureAwait(false),
-                        Comments = await grid.ReadAsync<JaredFavoriteCommentDto>().ConfigureAwait(false)
-                    };
-                    return retVal;
-                }
-            }
-        }
-
-        public async Task<IEnumerable<User.ChatUserDto>> OnlineUsersByClassAsync(GetBoxIdQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
-            {
-                const string sql =
-                                    @"select u.userId as id,u.userImageLarge as image, u.username as name, online, LastAccessTime as LastSeen
-                from zbox.users u join zbox.userBoxRel ub on u.userId = ub.userId
-               where ub.boxId = @BoxId";
-                return await conn.QueryAsync<User.ChatUserDto>(
-                    new CommandDefinition(sql
-                       , new { query.BoxId })).ConfigureAwait(false);
-            }
-        }
-
-        #endregion
 
         #region JaredSearch
-        public async Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
-            {
-                using (var grid = await conn.QueryMultipleAsync(Sql.Jared.ItemInfo + Sql.Jared.ItemTags, query).ConfigureAwait(false))
-                {
-                    var retVal = (await grid.ReadAsync<ItemTagsDto>().ConfigureAwait(false)).ToList();
-                    var tags = (await grid.ReadAsync<ItemTagDto>().ConfigureAwait(false)).ToList();
-                    foreach (var item in retVal)
-                    {
-                        item.Tags = tags.Where(w => w.ItemId == item.ItemId).Select(s => s.Tag);
-                    }
-
-                    return retVal;
-                }
-            }
-        }
+       
 
         public async Task<IEnumerable<string>> GetUniAsync(SearchTermQuery term)
         {

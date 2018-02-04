@@ -5,6 +5,7 @@ namespace Zbang.Zbox.Domain
 {
     public class Badge
     {
+        // ReSharper disable once UnusedMember.Global nhibernate use
         protected Badge()
         {
             

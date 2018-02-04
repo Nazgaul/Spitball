@@ -23,7 +23,7 @@ using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDto;
 
 namespace Zbang.Zbox.ReadServices
 {
-    public interface IZboxReadService : IBaseReadService
+    public interface IZboxReadService 
     {
         // home page
         Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query);
@@ -32,7 +32,6 @@ namespace Zbang.Zbox.ReadServices
 
         Task<string> GetUniversitySynonymAsync(long id);
 
-        Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync();
         Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query);
         Task<IEnumerable<string>> GetUniAsync(SearchTermQuery term);
         Task<IEnumerable<string>> GetDepartmentAsync(SearchTermQuery term);
@@ -51,7 +50,6 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<FlashcardDto>> GetBoxFlashcardsAsync(GetFlashCardsQuery query);
         Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetBoxLeaderboardQuery query);
 
-        Task<ItemDetailDto> GetItem2Async(GetItemQuery query);
         Task<IEnumerable<AnnotationDto>> GetItemCommentsAsync(ItemCommentQuery query);
         Task<ItemMobileDto> GetItemDetailApiAsync(long itemId);
         Task<FileSeo> GetItemSeoAsync(GetFileSeoQuery query);
@@ -71,7 +69,6 @@ namespace Zbang.Zbox.ReadServices
         Task<UserNotification> GetUserBoxesNotificationAsync(QueryBaseUserId query);
         Task<NotificationSetting> GetUserBoxNotificationSettingsAsync(GetBoxQuery query, long userId);
 
-        Task<IEnumerable<UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query);
 
         Task<UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query);
 
@@ -136,18 +133,7 @@ namespace Zbang.Zbox.ReadServices
 
         #endregion
 
-        #region Jared
-
-       // Task<JaredDto> GetJaredStartupValuesAsync(CancellationToken token);
-
-        Task<Tuple<UserDetailDto, IEnumerable<BoxDto>>> GetJaredUserDataAsync(
-            QueryBaseUserId query, CancellationToken token);
-        Task<IEnumerable<ChatUserDto>> OnlineUsersByClassAsync(GetBoxIdQuery query);
-        Task<IEnumerable<ItemTagsDto>> GetItemsWithTagsAsync(JaredSearchQuery query);
-
-        Task<JaredFavoriteDto> JaredFavoritesAsync(JaredFavoritesQuery query);
-
-        #endregion
+       
 
     }
 }

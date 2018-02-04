@@ -49,8 +49,6 @@
   <ItemGroup>
     <Compile Include="AccessApprovedData.cs" />
     <Compile Include="BadgeData.cs" />
-    <Compile Include="BadItemData.cs" />
-    <Compile Include="BadPostData.cs" />
     <Compile Include="BoxFileProcessData.cs" />
     <Compile Include="BoxProcessData.cs" />
     <Compile Include="ChangeEmailData.cs" />

@@ -6,6 +6,7 @@ namespace Zbang.Zbox.Domain
 {
     public class InviteToSystem : Invite
     {
+        // ReSharper disable once UnusedMember.Global nhibernate use
         protected InviteToSystem()
         {
 

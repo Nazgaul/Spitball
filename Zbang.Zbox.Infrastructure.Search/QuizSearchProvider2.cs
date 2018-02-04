@@ -9,24 +9,21 @@ using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
-using Zbang.Zbox.ViewModel.Dto.Search;
 using Index = Microsoft.Azure.Search.Models.Index;
 using ScoringProfile = Microsoft.Azure.Search.Models.ScoringProfile;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public class QuizSearchProvider2 : IQuizReadSearchProvider2, IQuizWriteSearchProvider2
+    public class QuizSearchProvider2 : IQuizWriteSearchProvider2
     {
         private readonly string m_IndexName = "quiz2";
-        private readonly ISearchFilterProvider m_FilterProvider;
         private readonly ISearchConnection m_Connection;
         private bool m_CheckIndexExists;
         private readonly ISearchIndexClient m_IndexClient;
         private readonly ILogger m_Logger;
 
-        public QuizSearchProvider2(ISearchFilterProvider filterProvider, ISearchConnection connection, ILogger logger)
+        public QuizSearchProvider2(ISearchConnection connection, ILogger logger)
         {
-            m_FilterProvider = filterProvider;
             m_Connection = connection;
             m_Logger = logger;
             if (m_Connection.IsDevelop)
@@ -140,35 +137,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             return true;
         }
 
-        public async Task<IEnumerable<SearchQuizzes>> SearchQuizAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
-        {
-            if (query == null) throw new ArgumentNullException(nameof(query));
-            var filter = await m_FilterProvider.BuildFilterExpressionAsync(
-                query.UniversityId, UniversityIdField, UserIdsField, query.UserId).ConfigureAwait(false);
-
-            //if we put asterisk highlight is not working
-            var result = await m_IndexClient.Documents.SearchAsync<QuizSearch>(query.Term, new SearchParameters
-            {
-                Filter = filter,
-                Top = query.RowsPerPage,
-                Skip = query.RowsPerPage * query.PageNumber,
-                ScoringProfile = "universityTag",
-                ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
-                HighlightFields = new[] { QuestionsField, AnswersField, NameField },
-                Select = new[] { NameField, IdField, BoxNameField, UniversityNameField, UrlField, ContentField }
-            }, cancellationToken: cancelToken).ConfigureAwait(false);
-
-            return result.Results.Select(s => new SearchQuizzes
-            {
-                Boxname = s.Document.BoxName,
-                Content = HighLightInField(s, new[] { QuestionsField, AnswersField }, s.Document.MetaContent),
-                Id = long.Parse(s.Document.Id),
-                Name = HighLightInField(s, new[] { NameField }, s.Document.Name),
-                UniName = s.Document.UniversityName,
-                Url = s.Document.Url
-            });
-        }
-
         private static string HighLightInField(SearchResult<QuizSearch> record, IEnumerable<string> fields, string defaultValue)
         {
             if (record.Highlights == null)
@@ -189,10 +157,5 @@ namespace Zbang.Zbox.Infrastructure.Search
     public interface IQuizWriteSearchProvider2
     {
         Task<bool> UpdateDataAsync(IEnumerable<QuizSearchDto> quizToUpload, IEnumerable<long> itemToDelete);
-    }
-
-    public interface IQuizReadSearchProvider2
-    {
-        Task<IEnumerable<SearchQuizzes>> SearchQuizAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
     }
 }

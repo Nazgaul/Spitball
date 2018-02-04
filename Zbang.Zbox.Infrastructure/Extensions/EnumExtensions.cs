@@ -35,12 +35,6 @@ public static class EnumExtension
         return GetStringValue(value.ToString("G"));
     }
 
-    public static string GetStringValueLowercase(this Enum value)
-    {
-        if (value == null) throw new ArgumentNullException(nameof(value));
-        return value.ToString("G").Substring(0, 1).ToLowerInvariant() + value.ToString("G").Substring(1);
-    }
-
     public static string GetEnumDescription(this Enum value)
     {
         return GetEnumDescription(value, CultureInfo.CurrentCulture);

@@ -12,12 +12,6 @@ namespace Zbang.Zbox.Domain.DataAccess
              Where(w => w.User.Id == userId)
              .Where(w => w.Box.Id == boxId).SingleOrDefault();
         }
-
-        public IEnumerable<long> GetUserIdsConnectedToBox(long boxId)
-        {
-            return UnitOfWork.CurrentSession.QueryOver<UserBoxRel>()
-                .Where(w => w.Box.Id == boxId).Select(s => s.Id).List<long>();
-
-        }
+       
     }
 }

@@ -5,6 +5,7 @@ namespace Zbang.Zbox.Domain
 {
     public class CommentReply //: ISoftDeletable
     {
+        // ReSharper disable once UnusedMember.Global nhibernate use
         protected CommentReply()
         {
 
