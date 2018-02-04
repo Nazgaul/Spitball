@@ -48,7 +48,7 @@ namespace Cloudents.Infrastructure.Storage
                 tasks.Add(queue.CreateIfNotExistsAsync());
             }
 
-            Task.WaitAll(tasks.ToArray(), TimeSpan.MaxValue);
+            Task.WaitAll(tasks.ToArray(), TimeSpan.Zero);
 
             //If we want to create new storage
         }
