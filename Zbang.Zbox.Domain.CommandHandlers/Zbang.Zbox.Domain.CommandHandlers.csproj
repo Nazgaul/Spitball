@@ -59,34 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddNewUpdatesCommandHandler.cs" />
-    <Compile Include="ChangeBoxInfoCommandHandler.cs" />
-    <Compile Include="ChangeItemTabNameCommandHandler.cs" />
-    <Compile Include="ChangeNotificationSettingsCommandHandler.cs" />
-    <Compile Include="ChangeUserOnlineStatusCommandHandler.cs" />
     <Compile Include="CommandsModule.cs" />
-    <Compile Include="CreateAcademicBoxCommandHandler.cs" />
-    <Compile Include="CreateFacebookUserCommandHandler.cs" />
-    <Compile Include="CreateGoogleUserCommandHandler.cs" />
-    <Compile Include="CreateItemTabCommandHandler.cs" />
-    <Compile Include="CreateMembershipUserCommandHandler.cs" />
-    <Compile Include="CreateUniversityCommandHandler.cs" />
     <Compile Include="DeleteBoxCommandHandler.cs" />
-    <Compile Include="DeleteItemCommentCommandHandler.cs" />
-    <Compile Include="DeleteItemCommentReplyCommandHandler.cs" />
-    <Compile Include="DeleteItemTabCommandHandler.cs" />
-    <Compile Include="DeleteNodeFromLibraryCommandHandler.cs" />
-    <Compile Include="DeleteQuizLikeCommandHandler.cs" />
-    <Compile Include="DeleteReplyCommandHandler.cs" />
-    <Compile Include="DeleteCommentCommandHandler.cs" />
-    <Compile Include="DeleteUpdatesCommandHandler.cs" />
-    <Compile Include="DeleteUserFromBoxCommandHandler.cs" />
-    <Compile Include="InviteToSystemCommandHandler.cs" />
-    <Compile Include="LibraryNodeApproveAccessCommandHandler.cs" />
-    <Compile Include="LikeCommentCommandHandler.cs" />
-    <Compile Include="LikeReplyCommandHandler.cs" />
-    <Compile Include="ManageConnectionsCommandHandler.cs" />
-    <Compile Include="PreviewFailedCommandHandler.cs" />
-    <Compile Include="RateItemCommandHandler.cs" />
     <Compile Include="RemoveOldConnectionCommandHandler.cs" />
     <Compile Include="RequestAccessLibraryNodeCommandHandler.cs" />
     <Compile Include="Resources\CommandHandlerResources.Designer.cs">
@@ -99,9 +73,6 @@
     <Compile Include="UpdateNodeSettingsCommandHandler.cs" />
     <Compile Include="SubscribeToSharedBoxCommandHandler.cs" />
     <Compile Include="ShareBoxCommandHandler.cs" />
-    <Compile Include="DeleteItemCommandHandler.cs" />
-    <Compile Include="CreateUserCommandHandler.cs" />
-    <Compile Include="CreateBoxCommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnFollowBoxCommandHandler.cs" />
     <Compile Include="UpdateReputationCommandHandler.cs" />

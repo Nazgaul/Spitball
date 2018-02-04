@@ -24,20 +24,6 @@ namespace Zbang.Zbox.Domain.Services
             //{ }
         }
 
-        
-
-
-        public async Task DeleteItemAsync(DeleteItemCommand command)
-        {
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                var t1 = _mCommandBus.SendAsync(command);
-                var t2 = _mCache.RemoveAsync(command);
-                await Task.WhenAll(t1, t2).ConfigureAwait(true);
-                unitOfWork.TransactionalFlush();
-            }
-        }
-
         public void RemoveOldConnections(RemoveOldConnectionCommand command)
         {
             using (UnitOfWork.Start())

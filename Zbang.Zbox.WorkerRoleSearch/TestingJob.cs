@@ -5,7 +5,6 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
-using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
@@ -42,58 +41,58 @@ namespace Zbang.Zbox.WorkerRoleSearch
             _logger.Info("finish test");
         }
 
-        private async Task RemoveDuplicatesFilesAsync()
-        {
-            IEnumerable<Tuple<long, decimal>> documents;
-            while ((documents = (await _zboxReadService.GetDuplicateDocumentsAsync().ConfigureAwait(false)).ToList())
-                .Any())
-            {
-                foreach (var document in documents.Skip(1))
-                {
-                    var deleteItemCommand = new DeleteItemCommand(document.Item1, 1);
-                    await _zboxWriteService.DeleteItemAsync(deleteItemCommand).ConfigureAwait(false);
-                }
-            }
-        }
+        //private async Task RemoveDuplicatesFilesAsync()
+        //{
+        //    IEnumerable<Tuple<long, decimal>> documents;
+        //    while ((documents = (await _zboxReadService.GetDuplicateDocumentsAsync().ConfigureAwait(false)).ToList())
+        //        .Any())
+        //    {
+        //        foreach (var document in documents.Skip(1))
+        //        {
+        //            var deleteItemCommand = new DeleteItemCommand(document.Item1, 1);
+        //            await _zboxWriteService.DeleteItemAsync(deleteItemCommand).ConfigureAwait(false);
+        //        }
+        //    }
+        //}
 
-        private async Task Md5ProcessAsync(CancellationToken cancellationToken)
-        {
-            IEnumerable<Tuple<long, string>> documents;
-            var lastId = 0L;
-            while ((documents = (await _zboxReadService.GetDocumentsWithoutMd5Async(lastId).ConfigureAwait(false)).ToList())
-                .Any())
-            {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    break;
-                }
+        //private async Task Md5ProcessAsync(CancellationToken cancellationToken)
+        //{
+        //    IEnumerable<Tuple<long, string>> documents;
+        //    var lastId = 0L;
+        //    while ((documents = (await _zboxReadService.GetDocumentsWithoutMd5Async(lastId).ConfigureAwait(false)).ToList())
+        //        .Any())
+        //    {
+        //        if (cancellationToken.IsCancellationRequested)
+        //        {
+        //            break;
+        //        }
 
-                foreach (var document in documents)
-                {
-                    try
-                    {
-                        lastId = document.Item1;
-                        var md5 = await _blobProvider2.MD5Async(document.Item2).ConfigureAwait(false);
-                        var command = new UpdateThumbnailCommand(document.Item1, null,
-                            null, md5);
-                        _zboxWorkerRoleService.UpdateThumbnailPicture(command);
-                    }
-                    catch (StorageException ex)
-                    {
-                        if (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
-                        {
-                            var deleteItemCommand = new DeleteItemCommand(document.Item1, 1);
-                            await _zboxWriteService.DeleteItemAsync(deleteItemCommand).ConfigureAwait(false);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        var properties = new Dictionary<string, string>
-                        {["section"] = "md5",["itemId"] = document.Item1.ToString() };
-                        _logger.Exception(ex, properties);
-                    }
-                }
-            }
-        }
+        //        foreach (var document in documents)
+        //        {
+        //            try
+        //            {
+        //                lastId = document.Item1;
+        //                var md5 = await _blobProvider2.MD5Async(document.Item2).ConfigureAwait(false);
+        //                var command = new UpdateThumbnailCommand(document.Item1, null,
+        //                    null, md5);
+        //                _zboxWorkerRoleService.UpdateThumbnailPicture(command);
+        //            }
+        //            catch (StorageException ex)
+        //            {
+        //                if (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
+        //                {
+        //                    var deleteItemCommand = new DeleteItemCommand(document.Item1, 1);
+        //                    await _zboxWriteService.DeleteItemAsync(deleteItemCommand).ConfigureAwait(false);
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                var properties = new Dictionary<string, string>
+        //                {["section"] = "md5",["itemId"] = document.Item1.ToString() };
+        //                _logger.Exception(ex, properties);
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Net.Http;
 using Cloudents.Core.Storage;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
