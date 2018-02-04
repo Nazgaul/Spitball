@@ -26,6 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserRepository = userRepository;
             m_QueueProvider = queueProvider;
         }
+
         public Task HandleAsync(RateItemCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

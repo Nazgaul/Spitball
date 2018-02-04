@@ -31,6 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_CommentRepository = commentRepository;
             m_UpdatesRepository = updatesRepository;
         }
+
         public Task HandleAsync(DeleteQuizCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

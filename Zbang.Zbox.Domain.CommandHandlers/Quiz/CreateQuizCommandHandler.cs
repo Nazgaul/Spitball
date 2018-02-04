@@ -22,6 +22,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_BoxRepository = boxRepository;
             m_QuizRepository = quizRepository;
         }
+
         public void Handle(CreateQuizCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

@@ -1,18 +1,26 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using NHibernate.Event;
 using NHibernate.Persister.Entity;
 using Zbang.Zbox.Infrastructure.Repositories;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Data.Events
 {
     [Serializable]
     internal class AuditEventListener : IPreUpdateEventListener, IPreInsertEventListener
     {
+        public Task<bool> OnPreInsertAsync(PreInsertEvent @event, CancellationToken cancellationToken)
+        {
+            var retVal = Extensions.TaskExtensions.CompletedTaskFalse;
+            if (!(@event.Entity is IDirty dirty)) return retVal;
+            MakeDirty(@event, @event.State, dirty);
+            return retVal;
+        }
+
         public bool OnPreInsert(PreInsertEvent @event)
         {
-            var dirty = @event.Entity as IDirty;
-            if (dirty == null) return false;
+            if (!(@event.Entity is IDirty dirty)) return false;
             //if (dirty.ShouldMakeDirty == null)
             //{
             //    MakeDirty(@event, @event.State, dirty);
@@ -23,6 +31,22 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
                 MakeDirty(@event, @event.State, dirty);
             //}
             return false;
+        }
+
+        public Task<bool> OnPreUpdateAsync(PreUpdateEvent @event, CancellationToken cancellationToken)
+        {
+            var retVal = Extensions.TaskExtensions.CompletedTaskFalse;
+            var dirty = @event.Entity as IDirty;
+            if (dirty?.ShouldMakeDirty == null)
+            {
+                //MakeDirty(@event, @event.State, dirty);
+                return retVal;
+            }
+            if (dirty.ShouldMakeDirty())
+            {
+                MakeDirty(@event, @event.State, dirty);
+            }
+            return retVal;
         }
 
         public bool OnPreUpdate(PreUpdateEvent @event)
@@ -47,7 +71,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
             Set(@event.Persister, state, "IsDirty", true);
         }
 
-        private void Set(IEntityPersister persister, object[] state, string propertyName, object value)
+        private static void Set(IEntityPersister persister, object[] state, string propertyName, object value)
         {
             var index = Array.IndexOf(persister.PropertyNames, propertyName);
             if (index == -1)

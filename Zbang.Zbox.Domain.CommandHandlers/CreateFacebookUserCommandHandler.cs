@@ -21,6 +21,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
 
         }
+
         public override async Task<CreateUserCommandResult> ExecuteAsync(CreateUserCommand command)
         {
             var facebookCommand = command as CreateFacebookUserCommand;

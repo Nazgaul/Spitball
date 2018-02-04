@@ -76,6 +76,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             await Task.WhenAll(t1, t4, t5);
             return new AddLinkToBoxCommandResult(link);
         }
+
         private void AddItemToTab(Guid? tabid, Item item)
         {
             if (!tabid.HasValue)

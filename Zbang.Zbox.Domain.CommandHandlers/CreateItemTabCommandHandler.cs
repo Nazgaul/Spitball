@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemTabRepository = itemTabRepository;
             m_BoxRepository = boxRepository;
         }
+
         public void Handle(CreateItemTabCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

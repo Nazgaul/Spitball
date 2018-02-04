@@ -13,6 +13,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             m_UserRepository = userRepository;
         }
+
         public void Handle(UpdateUserProfileCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));

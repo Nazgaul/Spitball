@@ -20,6 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                   boxRepository)
         {
         }
+
         public override async Task<CreateUserCommandResult> ExecuteAsync(CreateUserCommand command)
         {
             var membershipCommand = command as CreateMembershipUserCommand;

@@ -21,6 +21,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserRepository = userRepository;
             m_UniversityRepository = universityRepository;
         }
+
         public void Handle(AddNodeToLibraryCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

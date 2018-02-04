@@ -23,6 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserboxRelationshipRepository = userBoxRelRepository;
             m_AcademicBoxRepository = academicBoxRepository;
         }
+
         public void Handle(ChangeBoxInfoCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));

@@ -41,6 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_CommentRepository = commentRepository;
             //m_UserRepository = userRepository;
         }
+
         public async Task<SaveQuizCommandResult> ExecuteAsync(SaveQuizCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

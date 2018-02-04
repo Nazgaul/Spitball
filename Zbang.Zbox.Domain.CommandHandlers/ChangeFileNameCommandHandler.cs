@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserRepository = userRepository;
             m_ItemRepository = itemRepository;
         }
+
         public ChangeFileNameCommandResult Execute(ChangeFileNameCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));

@@ -21,6 +21,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_AccountService = accountService;
             m_Result = new UpdateUserCommandResult();
         }
+
         public async Task<UpdateUserCommandResult> ExecuteAsync(UpdateUserPasswordCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));

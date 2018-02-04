@@ -20,6 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_QuestionRepository = questionRepository;
             m_AnswerRepository = answerRepository;
         }
+
         public void Handle(CreateQuestionCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

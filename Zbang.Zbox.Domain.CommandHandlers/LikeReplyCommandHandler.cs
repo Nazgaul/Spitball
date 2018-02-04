@@ -53,6 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             await CreateQueuesDataAsync(message.UserId, reply.User.Id);
             return new LikeReplyCommandResult(false);
         }
+
         private async Task CreateQueuesDataAsync(long userWhoMadeAction, long commentUser)
         {
             var t1 = m_QueueProvider.InsertMessageToTransactionAsync(new ReputationData(commentUser));

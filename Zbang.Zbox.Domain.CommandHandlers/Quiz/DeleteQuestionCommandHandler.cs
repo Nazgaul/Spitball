@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         {
             m_QuestionRepository = questionRepository;
         }
+
         public void Handle(DeleteQuestionCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

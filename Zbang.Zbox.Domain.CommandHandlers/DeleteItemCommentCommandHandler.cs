@@ -26,6 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemRepository = itemRepository;
             m_QueueProvider = queueProvider;
         }
+
         public void Handle(DeleteItemCommentCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

@@ -31,6 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
            // m_QuizRepository = quizRepository;
             m_QueueProvider = queueProvider;
         }
+
         public Task HandleAsync(CreateDiscussionCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

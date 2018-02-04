@@ -13,6 +13,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             m_UserRepository = userRepository;
         }
+
         public void Handle(UpdateUserProfileImageCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             m_UpdatesRepository = updatesRepository;
         }
+
         public void Handle(DeleteUpdatesCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

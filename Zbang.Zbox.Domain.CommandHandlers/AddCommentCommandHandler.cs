@@ -34,6 +34,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemRepository = itemRepository;
             m_QueueProvider = queueProvider;
         }
+
         public async Task<AddCommentCommandResult> ExecuteAsync(AddCommentCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));

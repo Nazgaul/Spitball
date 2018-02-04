@@ -170,10 +170,6 @@
       <Project>{F5E270CF-6B83-4879-9B04-773B87F80B0E}</Project>
       <Name>Zbang.Zbox.Infrastructure.Mail</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Notification\Zbang.Zbox.Infrastructure.Notifications.csproj">
-      <Project>{20D10149-03BF-4C32-ABE4-D278A46CAD7F}</Project>
-      <Name>Zbang.Zbox.Infrastructure.Notifications</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Search\Zbang.Zbox.Infrastructure.Search.csproj">
       <Project>{d79b5cec-09de-4337-873f-0c65b58d86d3}</Project>
       <Name>Zbang.Zbox.Infrastructure.Search</Name>
@@ -199,9 +195,6 @@
     <PackageReference Include="Autofac">
       <Version>4.6.1</Version>
     </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>2.0.8</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.ApplicationInsights">
       <Version>2.4.0</Version>
     </PackageReference>
@@ -209,9 +202,6 @@
       <Version>2.4.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.ApplicationInsights.DependencyCollector">
-      <Version>2.4.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.ApplicationInsights.Log4NetAppender">
       <Version>2.4.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.ApplicationInsights.PerfCounterCollector">

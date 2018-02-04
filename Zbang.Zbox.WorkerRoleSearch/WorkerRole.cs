@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using log4net.Config;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Cloudents.Core.Interfaces;
@@ -59,7 +58,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
 
             var result = base.OnStart();
-            XmlConfigurator.Configure();
             RoleEnvironment.Changing += RoleEnvironmentChanging;
             RoleEnvironment.StatusCheck += RoleEnvironment_StatusCheck;
             _logger.Info("Zbang.Zbox.WorkerRoleSearch has been started");

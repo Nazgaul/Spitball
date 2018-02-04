@@ -8,7 +8,6 @@ using Zbang.Zbox.Infrastructure.Data;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Mail;
-using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
@@ -41,11 +40,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterModule<WriteServiceModule>();
             builder.RegisterModule<ReadServiceModule>();
             builder.RegisterModule<CommandsModule>();
-            builder.RegisterType<SendPush>()
-            .As<ISendPush>()
-            .WithParameter("connectionString", ConfigFetcher.Fetch("ServiceBusConnectionString"))
-            .WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
-            .InstancePerLifetimeScope();
+            //builder.RegisterType<SendPush>()
+            //.As<ISendPush>()
+            //.WithParameter("connectionString", ConfigFetcher.Fetch("ServiceBusConnectionString"))
+            //.WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
+            //.InstancePerLifetimeScope();
 
             //builder.RegisterType<JaredSendPush>()
             //    .As<IJaredPushNotification>()

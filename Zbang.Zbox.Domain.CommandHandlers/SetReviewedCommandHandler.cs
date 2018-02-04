@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             m_ItemRepository = itemRepository;
         }
+
         public void Handle(SetReviewedCommand message)
         {
             var item = m_ItemRepository.Load(message.ItemId);

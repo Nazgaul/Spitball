@@ -19,6 +19,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_IdGenerator = idGenerator;
             m_User = user;
         }
+
         public GetGeneralDepartmentCommandResult Execute(GetGeneralDepartmentCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));

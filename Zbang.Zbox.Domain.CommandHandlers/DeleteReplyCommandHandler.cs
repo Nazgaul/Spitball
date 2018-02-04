@@ -25,6 +25,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserRepository = userRepository;
             m_UpdatesRepository = updatesRepository;
         }
+
         public Task HandleAsync(DeleteReplyCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

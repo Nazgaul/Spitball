@@ -13,7 +13,6 @@
   <package id="System.ComponentModel.EventBasedAsync" version="4.0.11" targetFramework="net462" />
   <package id="System.Dynamic.Runtime" version="4.0.0" targetFramework="net462" />
   <package id="System.Linq.Queryable" version="4.0.0" targetFramework="net462" />
-  <package id="System.Net.Requests" version="4.0.11" targetFramework="net462" />
   <package id="System.Spatial" version="5.8.3" targetFramework="net462" />
   <package id="TransientFaultHandling.Core" version="5.1.1209.1" targetFramework="net45" />
   <package id="windowsazure.mediaservices" version="3.0.0.7" targetFramework="net45" />

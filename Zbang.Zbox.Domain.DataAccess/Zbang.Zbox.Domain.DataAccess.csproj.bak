@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F1AC4D4D-0633-4343-A657-DA275D33466D}</ProjectGuid>
+    <ProjectGuid>{C2010FF2-7020-4BE7-8CB8-D43C7F9C4363}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Zbang.Zbox.Domain.Services</RootNamespace>
-    <AssemblyName>Zbang.Zbox.Domain.Services</AssemblyName>
+    <RootNamespace>Zbang.Zbox.Domain.DataAccess</RootNamespace>
+    <AssemblyName>Zbang.Zbox.Domain.DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
@@ -53,15 +53,24 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Antlr3.Runtime" Version="3.5.1" />
-    <PackageReference Include="Autofac" Version="4.6.1" />
-    <PackageReference Include="Dapper" Version="1.50.4" />
-    <PackageReference Include="Iesi.Collections" Version="4.0.2" />
-    <PackageReference Include="NHibernate" Version="5.0.3" />
-    <PackageReference Include="Remotion.Linq" Version="2.1.2" />
-    <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.1.0" />
-  </ItemGroup>
-  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.2\lib\net461\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=5.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.5.0.3\lib\net461\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.2.1.2\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq.EagerFetching, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.EagerFetching.2.1.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -73,24 +82,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WriteServiceModule.cs" />
-    <Compile Include="ZboxWriteService.cs" />
+    <Compile Include="AcademicBoxRepository.cs" />
+    <Compile Include="BoxRepository.cs" />
+    <Compile Include="ChatUserRepository.cs" />
+    <Compile Include="CommentLikeRepository.cs" />
+    <Compile Include="ConnectionRepository.cs" />
+    <Compile Include="FlashcardPinRepository.cs" />
+    <Compile Include="IAcademicBoxRepository.cs" />
+    <Compile Include="IBoxRepository.cs" />
+    <Compile Include="ICommentLikeRepository.cs" />
+    <Compile Include="IFlashcardPinRepository.cs" />
+    <Compile Include="IInviteRepository.cs" />
+    <Compile Include="IItemRateRepository.cs" />
+    <Compile Include="IItemRepository.cs" />
+    <Compile Include="IItemTabRepository.cs" />
+    <Compile Include="ILibraryRepository.cs" />
+    <Compile Include="InviteRepository.cs" />
+    <Compile Include="IQuestionRepository.cs" />
+    <Compile Include="IReplyLikeRepository.cs" />
+    <Compile Include="IReputationRepository.cs" />
+    <Compile Include="ItemRepository.cs" />
+    <Compile Include="ItemTabRepository.cs" />
+    <Compile Include="IUniversityRepository.cs" />
+    <Compile Include="IUpdatesRepository.cs" />
+    <Compile Include="IUserBoxRelRepository.cs" />
+    <Compile Include="IUserLibraryRelRepository.cs" />
+    <Compile Include="IUserRepository.cs" />
+    <Compile Include="LibraryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ZboxWorkerRoleService.cs" />
+    <Compile Include="QuestionRepository.cs" />
+    <Compile Include="ItemRateRepository.cs" />
+    <Compile Include="RegisterIoc.cs" />
+    <Compile Include="ReplyLikeRepository.cs" />
+    <Compile Include="GamificationRepository.cs" />
+    <Compile Include="UniversityRepository.cs" />
+    <Compile Include="UpdatesRepository.cs" />
+    <Compile Include="UserBoxRelRepository.cs" />
+    <Compile Include="UserLibraryRelRepository.cs" />
+    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zbang.Zbox.Domain.Commands\Zbang.Zbox.Domain.Commands.csproj">
-      <Project>{0CAEE4F2-421B-4FA3-9A13-1402EA6FCDA8}</Project>
-      <Name>Zbang.Zbox.Domain.Commands</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Domain.Common\Zbang.Zbox.Domain.Common.csproj">
-      <Project>{B4B7F91C-9412-4D6B-93E2-F3B7C4BD9B90}</Project>
-      <Name>Zbang.Zbox.Domain.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zbang.Zbox.Domain.DataAccess\Zbang.Zbox.Domain.DataAccess.csproj">
-      <Project>{C2010FF2-7020-4BE7-8CB8-D43C7F9C4363}</Project>
-      <Name>Zbang.Zbox.Domain.DataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
       <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
       <Name>Zbang.Zbox.Domain</Name>
@@ -128,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

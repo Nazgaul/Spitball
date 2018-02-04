@@ -28,6 +28,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QueueRepository = queueRepository;
             m_IdGenerator = idGenerator;
         }
+
         public Task HandleAsync(AddItemCommentCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));

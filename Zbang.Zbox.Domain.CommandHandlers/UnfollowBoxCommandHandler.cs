@@ -59,6 +59,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository.Save(box);
             return m_QueueProvider.InsertMessageToTransactionAsync(new DeleteBoxData(box.Id));
         }
+
         private Task UnFollowBoxAsync(Box box, long userId)
         {
             box.UnFollowBox(userId);
