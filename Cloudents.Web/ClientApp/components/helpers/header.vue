@@ -71,11 +71,12 @@
             }
         },
         components:{AppLogo},
-        props:{currentSelection:{type:String,default:'ask'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
+        props:{currentSelection:{type:String,default:'note'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
         data(){return {settingMenu,placeholders}},
         methods:{
             submit: function () {
                 this.$router.push({path:this.submitRoute,query:{q:this.msg}});
+                // to remove keyboard on mobile
                 this.$nextTick(() => {
                     this.$el.querySelector('input').blur();
                     this.$el.querySelector('form').blur();

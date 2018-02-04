@@ -1,6 +1,6 @@
 <template>
     <div class="sort-filter-wrap">
-        <template v-if="sortOptions">
+        <template v-if="sortOptions.length">
             <h3>Sort</h3>
             <div class="sort-switch">
                 <template v-for="(o,index) in sortOptions">
@@ -10,9 +10,9 @@
                 </template>
             </div>
         </template>
-        <div v-if="filterOptions">
+        <div v-if="filterOptions.length">
             <h3>Filter</h3>
-            <div class="filter-switch" v-if="filterOptions">
+            <div class="filter-switch">
                 <v-expansion-panel :value="true" expand>
                     <v-expansion-panel-content v-for="k in filterOptions" :key="k.modelId" :value="true">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
