@@ -131,9 +131,6 @@
     <EmbeddedResource Include="MailTemplate\FlaggedItemRu.html" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="MailTemplate\InviteCourse.html" />
     <EmbeddedResource Include="MailTemplate\InviteCourseHe.html" />
     <EmbeddedResource Include="MailTemplate\PersonalMsg.html" />

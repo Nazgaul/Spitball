@@ -95,9 +95,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Transport\Zbang.Zbox.Infrastructure.Transport.csproj">
       <Project>{4f5edc5b-31fa-4904-bd11-2cf1790ae234}</Project>
       <Name>Zbang.Zbox.Infrastructure.Transport</Name>
