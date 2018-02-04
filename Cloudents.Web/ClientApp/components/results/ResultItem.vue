@@ -23,9 +23,9 @@
 </template>
 <script>
 
-    import FlashcardDefault from './../navbar/images/flashcard.svg'
-    import AskDefault from './../navbar/images/ask.svg'
-    import NoteDefault from './../navbar/images/document.svg'
+    import FlashcardDefault from '../home/img/flashcard.svg'
+    import AskDefault from '../home/img/ask.svg'
+    import NoteDefault from '../home/img/document.svg'
 
     //var sourcesImages = {
     //    quizlet: 'quizlet.png',

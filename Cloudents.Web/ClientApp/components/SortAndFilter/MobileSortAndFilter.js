@@ -7,7 +7,7 @@ export default {
     },
     data() {
         return { filters: {source:[],course:[],jobType:[],filter:[]},
-            sort: this.sortVal?this.sortVal:this.sortOptions?this.sortOptions[0].id:""}
+            sort: this.sortVal?this.sortVal:(this.sortOptions&&this.sortOptions.length)?this.sortOptions[0].id:""}
     },
     components: {  DialogToolbar },
     props: { value: { type: Boolean }, sortOptions: {type:Array,default:()=>[]}, filterOptions: {type:Array,default:()=>[]}, filterVal: {type:Array,default:()=>[]}, sortVal: {}},
@@ -63,7 +63,7 @@ export default {
     watch: {
         filterVal(val) {
             this.initFilters(val);
-            this.sort=this.sortVal?this.sortVal:this.sortOptions?this.sortOptions[0].id:"";
+            this.sort=this.sortVal?this.sortVal:(this.sortOptions&&this.sortOptions.length)?this.sortOptions[0].id:"";
         }
     },
 

@@ -48,7 +48,7 @@ let strips =
                 svg2: () => import("./svg/notebook-icon.svg"),
                 svg3: () => import("./svg/bag-icon.svg")
             },
-            titleIcon: () => import("./../navbar/images/document.svg"),
+            titleIcon: () => import("./img/document.svg"),
             title: "Study Documents",
             link:"/note",
             text: "Spitball curates study documents from the best sites on the web. Our notes, study guides and exams populate based on student ratings and are filtered by your school, classes and preferences."
@@ -62,7 +62,7 @@ let strips =
                 svg2: () => import("./svg/flashcard-question-icon.svg"),
                 svg3: () => import("./svg/flashcard-group-icon.svg")
             },
-            titleIcon: () => import("./../navbar/images/flashcard.svg"),
+            titleIcon: () => import("./img/flashcard.svg"),
             title: "Flashcards",
             link:"/flashcard",
             text: "Search millions of study sets and improve your grades by studying with flashcards."
@@ -76,7 +76,7 @@ let strips =
                 svg2: () => import("./svg/discussion-icon.svg"),
                 svg3: () => import("./svg/student-laptop-icon.svg")
             },
-            titleIcon: () => import("./../navbar/images/tutor.svg"),
+            titleIcon: () => import("./img/tutor.svg"),
             title: "Tutors",
             link:"/tutor",
             text: "Spitball has teamed up with the most trusted tutoring services to help you ace your classes."// All of our online and in-person tutors are highly qualified experts with educations from some of the best universities in the world."
@@ -90,7 +90,7 @@ let strips =
                 svg2: () => import("./svg/book-stack-icon.svg"),
                 svg3: () => import("./svg/book-open-icon.svg")
             },
-            titleIcon: () => import("./../navbar/images/book.svg"),
+            titleIcon: () => import("./img/book.svg"),
             title: "Textbooks",
             link:"/book",
             text: "Find the best prices to buy, rent and sell your textbooks by comparing hundreds of sites simultaneously."
@@ -104,7 +104,7 @@ let strips =
                 svg2: () => import("./svg/ask-question-house-icon.svg"),
                 svg3: () => import("./svg/ask-question-rocket-icon.svg")
             },
-            titleIcon: () => import("./../navbar/images/ask.svg"),
+            titleIcon: () => import("./img/ask.svg"),
             title: "Ask A Question",
             link:"/ask",
             text: "Ask any school related question and immediately get answers and information that relates specifically to you, your classes, and your university."
@@ -118,7 +118,7 @@ let strips =
                 svg2: () => import("./svg/jobs-chemistry-icon.svg"),
                 svg3: () => import("./svg/jobs-slide-icon.svg")
             },
-            titleIcon: () => import("./../navbar/images/job.svg"),
+            titleIcon: () => import("./img/job.svg"),
             title: "Jobs",
             link:"/job",
             text: "Easily search and apply to paid internships, part-time jobs and entry-level opportunities from local businesses all the way to Fortune 500 companies."
