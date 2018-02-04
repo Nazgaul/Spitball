@@ -7,7 +7,7 @@ namespace Cloudents.Infrastructure.Search
     {
         public string Key { get; }
 
-        public CustomApiKey(string key)
+        private CustomApiKey(string key)
         {
             Key = key;
         }

@@ -12,7 +12,6 @@ namespace Cloudents.Web.Extensions
         private readonly IFileProvider _provider;
         private readonly ConcurrentDictionary<string, WebPackBundle> _tags = new ConcurrentDictionary<string, WebPackBundle>();
 
-
         public WebPackChunkName(IFileProvider provider)
         {
             _provider = provider;
@@ -36,14 +35,9 @@ namespace Cloudents.Web.Extensions
                     using (var reader = new JsonTextReader(sr))
                     {
                         var obj = JObject.Load(reader);
-                        
+
                         var webPackBundle = new WebPackBundle();
-                        var files = obj[chunk].Values<string>();
-                        foreach (var z in obj.Values())
-                        {
-                            
-                        }
-                        foreach (var file in files)
+                        foreach (var file in obj[chunk].Values<string>())
                         {
                             if (file.EndsWith("js", StringComparison.InvariantCultureIgnoreCase))
                             {
@@ -55,7 +49,6 @@ namespace Cloudents.Web.Extensions
                             }
                         }
                         _tags.AddOrUpdate(chunk, webPackBundle, (key, existingValue) => existingValue);
-                        //_tags.Add(chunk, webPackBundle);
                         return webPackBundle;
                     }
                 }

@@ -18,8 +18,6 @@ namespace Cloudents.Infrastructure.Storage
         public BlobProvider(ICloudStorageProvider storageProvider)
         {
             _blobDirectory = storageProvider.GetBlobClient(_container);
-            //var container = blobClient.GetContainerReference(_container.Name.ToLowerInvariant());
-            //_blobDirectory = container.GetDirectoryReference(_container.RelativePath ?? string.Empty);
         }
 
         public Uri GetBlobUrl(string blobName, bool cdn = false)
@@ -77,7 +75,6 @@ namespace Cloudents.Infrastructure.Storage
             var url = new Uri(blob.Uri, signedUrl);
             return url.AbsoluteUri;
         }
-
 
         public Task<bool> ExistsAsync(string blobName, CancellationToken token)
         {

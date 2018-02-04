@@ -155,6 +155,5 @@ namespace Cloudents.Infrastructure.Search
             public string Image { get; set; }
             public string Notes { get; set; }
         }
-
     }
 }

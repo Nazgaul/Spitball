@@ -1,15 +1,14 @@
-﻿using Cloudents.Core.Enum;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
     public class ErrorController : Controller
     {
-
-        public ActionResult NotFound()
+        [ActionName("NotFound")]
+        public ActionResult Error404()
         {
             //Response.StatusCode = 404;
-            return View();
+            return View("NotFound");
         }
 
         public ActionResult Index()
@@ -18,6 +17,5 @@ namespace Cloudents.Web.Controllers
             return View();
         }
     }
-
 
 }

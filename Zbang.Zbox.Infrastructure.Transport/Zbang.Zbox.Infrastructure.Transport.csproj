@@ -35,7 +35,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="protobuf-net" Version="2.3.5" />
+    <PackageReference Include="protobuf-net" Version="2.3.6" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

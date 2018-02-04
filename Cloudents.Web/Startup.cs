@@ -102,7 +102,6 @@ namespace Cloudents.Web
             }
             else
             {
-
                 app.UseExceptionHandler("Error");
             }
             app.UseRewriter(new RewriteOptions()

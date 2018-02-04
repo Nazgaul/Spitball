@@ -5,11 +5,6 @@ namespace Cloudents.Core.Models
     [DataContract]
     public class GeoPoint
     {
-        //protected bool Equals(GeoPoint other)
-        //{
-        //    return Longitude.Equals(other.Longitude) && Latitude.Equals(other.Latitude);
-        //}
-
         public override bool Equals(object obj)
         {
             if (obj is null) return false;
