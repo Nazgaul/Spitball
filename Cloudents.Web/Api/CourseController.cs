@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
@@ -14,12 +14,12 @@ namespace Cloudents.Web.Api
     public class CourseController : Controller
     {
         private readonly ICourseSearch _courseProvider;
-        private readonly IRepository<Course> _repository;
+        private readonly ICommandBus _command;
 
-        public CourseController(ICourseSearch courseProvider, IRepository<Course> repository)
+        public CourseController(ICourseSearch courseProvider, ICommandBus command)
         {
             _courseProvider = courseProvider;
-            _repository = repository;
+            _command = command;
         }
 
         [HttpGet]
@@ -42,13 +42,11 @@ namespace Cloudents.Web.Api
                 throw new ArgumentNullException(nameof(model.University));
             }
 
-            //var course = new Course(model.Name, model.University.Value);
-
-            //var result = await _repository.AddAsync(course, token).ConfigureAwait(false);
-
+            var command = new CreateCourseCommand(model.Name, model.University.Value);
+            var response = await _command.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(command, token).ConfigureAwait(false);
             return Json( new
             {
-               Id = 1
+                response.Id
             });
         }
     }

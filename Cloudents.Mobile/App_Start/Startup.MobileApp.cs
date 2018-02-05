@@ -5,6 +5,7 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure;
+using Cloudents.Infrastructure.Framework;
 using Cloudents.Mobile.Filters;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
@@ -59,17 +60,11 @@ namespace Cloudents.Mobile
                 ConfigurationManager.AppSettings["Redis"],
                 ConfigurationManager.AppSettings["Storage"]);
             builder.RegisterModule(module);
+            builder.RegisterModule(new ModuleDb(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString));
 
             builder.RegisterWebApiModelBinderProvider();
             builder.RegisterType<LocationEntityBinder>().AsModelBinderForTypes(typeof(Location));
             builder.RegisterType<GeoPointEntityBinder>().AsModelBinderForTypes(typeof(GeoPoint));
-            //builder.RegisterType<JaredSendPush>()
-            //    .As<IJaredPushNotification>()
-            //    .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
-            //    .WithParameter("hubName", "jared-spitball")
-            //    .InstancePerLifetimeScope();
-            // builder.RegisterHubs(Assembly.GetExecutingAssembly());
-            //builder.RegisterType<TelemetryLogger>().As<ILogger>();
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             //ConfigureSignalR(app, container);

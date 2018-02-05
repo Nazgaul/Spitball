@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Mobile.Extensions;
 using Cloudents.Mobile.Models;
@@ -18,18 +18,18 @@ namespace Cloudents.Mobile.Controllers
     public class CourseController : ApiController
     {
         private readonly ICourseSearch _courseProvider;
-        private readonly IRepository<Course> _repository;
+        private readonly ICommandBus _command;
 
         /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="courseProvider"></param>
-        /// <param name="repository"></param>
-        public CourseController(ICourseSearch courseProvider, IRepository<Course> repository)
+        /// <param name="command"></param>
+        public CourseController(ICourseSearch courseProvider, ICommandBus command)
         {
             _courseProvider = courseProvider;
-            _repository = repository;
+            _command = command;
         }
 
         /// <summary>
@@ -66,11 +66,9 @@ namespace Cloudents.Mobile.Controllers
             {
                 return BadRequest();
             }
-
-            //var course = new Course(model.CourseName, model.University.Value);
-
-            //var result = await _repository.AddAsync(course, token).ConfigureAwait(false);
-            return Ok(1);
+            var command = new CreateCourseCommand(model.CourseName, model.University.Value);
+            var response = await _command.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(command, token).ConfigureAwait(false);
+            return Ok(response.Id);
         }
     }
 }

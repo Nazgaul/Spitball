@@ -24,9 +24,9 @@ namespace Cloudents.Core.Command
     {
         public CreateCourseCommandResult(long courseId)
         {
-            CourseId = courseId;
+            Id = courseId;
         }
 
-        public long CourseId { get; private set; }
+        public long Id { get; private set; }
     }
 }

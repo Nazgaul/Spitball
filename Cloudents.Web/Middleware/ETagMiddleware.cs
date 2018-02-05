@@ -63,7 +63,7 @@ namespace Cloudents.Web.Middleware
 
         private static string CalculateChecksum(MemoryStream ms)
         {
-            var checksum = "";
+            string checksum;
 
             using (var algo = SHA1.Create())
             {

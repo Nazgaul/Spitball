@@ -3,7 +3,7 @@ using System.Globalization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Data;
+using Cloudents.Infrastructure.Framework;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
@@ -56,9 +55,6 @@ namespace Cloudents.Web
             services.AddResponseCompression();
             services.AddResponseCaching();
 
-            var connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
-
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
             services.AddSingleton(physicalProvider);
 
@@ -72,7 +68,8 @@ namespace Cloudents.Web
                 Configuration["Storage"]
                 );
             containerBuilder.RegisterModule(infrastructureModule);
-            containerBuilder.RegisterModule<Infrastructure.Framework.ModuleFile>();
+            containerBuilder.RegisterModule<ModuleFile>();
+            containerBuilder.RegisterModule(new ModuleDb(Configuration.GetConnectionString("DefaultConnection")));
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

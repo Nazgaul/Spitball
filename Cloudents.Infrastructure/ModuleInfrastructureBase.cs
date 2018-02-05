@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterModule<ModuleCore>();
+            
             builder.RegisterModule(new ModuleCache(_redisConnectionString));
             builder.Register(_ => new SearchServiceClient(_searchService.Name, new SearchCredentials(_searchService.Key)))
                 .SingleInstance().AsSelf().As<ISearchServiceClient>();

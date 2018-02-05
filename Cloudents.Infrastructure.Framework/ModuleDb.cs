@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Cloudents.Core;
 using Cloudents.Infrastructure.Framework.Database;
 
 namespace Cloudents.Infrastructure.Framework
@@ -15,7 +16,6 @@ namespace Cloudents.Infrastructure.Framework
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register(_ => new UnitOfWorkFactory(_sqlConnectionString)).As<IUnitOfWorkFactory>().SingleInstance();
-            //builder.RegisterType<UnitOfWorkFactory>().As<IUnitOfWorkFactory>().SingleInstance();
             builder.Register(c =>
             {
                 var p = c.Resolve<IUnitOfWorkFactory>().OpenSession();
@@ -23,6 +23,7 @@ namespace Cloudents.Infrastructure.Framework
             }).InstancePerLifetimeScope().As<IUnitOfWork>();
             builder.RegisterGeneric(typeof(NHibernateRepository<>)).AsImplementedInterfaces();
 
+            builder.RegisterModule<ModuleCore>();
             base.Load(builder);
         }
     }

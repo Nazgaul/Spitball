@@ -5,8 +5,6 @@ namespace Cloudents.Infrastructure.Framework
 {
     public class ModuleFile : Module
     {
-        
-
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<FileFactoryProcessor>().AsImplementedInterfaces();

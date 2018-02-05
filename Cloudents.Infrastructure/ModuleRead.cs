@@ -86,7 +86,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
 
-            //builder.RegisterGeneric(typeof(EfRepository<>)).AsImplementedInterfaces();
 
             builder.Register(_ => new CloudStorageProvider(_storageConnectionString)).SingleInstance().AsImplementedInterfaces();
 

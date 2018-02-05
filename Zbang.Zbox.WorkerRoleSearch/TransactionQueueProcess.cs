@@ -14,13 +14,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class TransactionQueueProcess : IJob
     {
         private readonly IQueueProviderExtract _queueProviderExtract;
-        private readonly ILifetimeScope m_LifetimeScope;
+        private readonly ILifetimeScope _lifetimeScope;
         private readonly ILogger _logger;
 
         public TransactionQueueProcess(IQueueProviderExtract queueProviderExtract, ILifetimeScope lifetimeScope, ILogger logger)
         {
             _queueProviderExtract = queueProviderExtract;
-            m_LifetimeScope = lifetimeScope;
+            _lifetimeScope = lifetimeScope;
             _logger = logger;
         }
 
@@ -41,7 +41,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             _logger.Error($"{Name} run - msg cannot transfer to DomainProcess");
                             return true;
                         }
-                        var process = m_LifetimeScope.ResolveNamed<IDomainProcess>(msgData.ProcessResolver);
+                        var process = _lifetimeScope.ResolveNamed<IDomainProcess>(msgData.ProcessResolver);
                         if (process == null)
                         {
                             _logger.Error($"{Name} run - process is null msgData.ProcessResolver: {msgData.ProcessResolver}");
