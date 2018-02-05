@@ -53,7 +53,7 @@ namespace Cloudents.Infrastructure.Search
             return BuyOrSellApiAsync(isbn13, imageWidth, false, token);
         }
 
-        protected async Task<BookDetailsDto> BuyOrSellApiAsync(string isbn13, int imageWidth, bool sell,
+        private async Task<BookDetailsDto> BuyOrSellApiAsync(string isbn13, int imageWidth, bool sell,
             CancellationToken token)
         {
             if (isbn13 == null) throw new ArgumentNullException(nameof(isbn13));
@@ -72,6 +72,10 @@ namespace Cloudents.Infrastructure.Search
             var result = JsonConvert.DeserializeObject<BookDetailResult>(resultStr);
 
             var mappedResult = _mapper.Map<BookDetailResult, BookDetailsDto>(result);
+            if (mappedResult == null)
+            {
+                return null;
+            }
             mappedResult.Prices = mappedResult.Prices?.OrderBy(o => o.Price);
             return mappedResult;
         }
@@ -80,6 +84,10 @@ namespace Cloudents.Infrastructure.Search
         public async Task<BookDetailsDto> SellAsync(string isbn13, int imageWidth, CancellationToken token)
         {
             var result = await BuyOrSellApiAsync(isbn13, imageWidth, true, token).ConfigureAwait(false);
+            if (result == null)
+            {
+                return null;
+            }
             result.Prices = result.Prices?.Where(w => string.Equals(w.Condition, "used", StringComparison.InvariantCultureIgnoreCase));
             return result;
         }
@@ -94,6 +102,7 @@ namespace Cloudents.Infrastructure.Search
         public class Response
         {
             public Page Page { get; set; }
+            public string Status { get; set; }
         }
 
 

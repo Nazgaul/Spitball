@@ -18,6 +18,10 @@ namespace Cloudents.Infrastructure.Converters
 
         public BookDetailsDto Convert(BookSearch.BookDetailResult source, BookDetailsDto destination, ResolutionContext context)
         {
+            if (string.Equals(source.Response.Status, "error", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return null;
+            }
             var book = source.Response.Page.Books.Book[0];
             var offers = book.Offers?.Group?.SelectMany(json =>
             {
