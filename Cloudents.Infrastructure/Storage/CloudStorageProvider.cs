@@ -57,6 +57,10 @@ namespace Cloudents.Infrastructure.Storage
         {
             foreach (var field in typeof(QueueName).GetFields(BindingFlags.Public | BindingFlags.Static))
             {
+                if (field.IsLiteral)
+                {
+                    continue;
+                }
                 yield return (QueueName)field.GetValue(null);
             }
         }

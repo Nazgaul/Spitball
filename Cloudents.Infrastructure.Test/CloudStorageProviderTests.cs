@@ -19,6 +19,10 @@ namespace Cloudents.Infrastructure.Test
             if (val is IEnumerable<QueueName> p)
             {
                 var d = true;
+                foreach(var t in p)
+                {
+
+                }
                 Assert.IsTrue(d);
                 return;
             }
