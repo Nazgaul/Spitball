@@ -79,11 +79,11 @@ namespace Cloudents.Web.Controllers
                 iterator++;
                 var url = Url.RouteUrl(routeName, new
                 {
-                    universityName = entity.UniversityName ?? "my",
+                    universityName = UrlConst.NameToQueryString(entity.UniversityName ?? "my"),
                     boxId = entity.BoxId,
-                    boxName = entity.BoxName,
+                    boxName = UrlConst.NameToQueryString(entity.BoxName),
                     id = entity.Id,
-                    name = entity.Name
+                    name = UrlConst.NameToQueryString(entity.Name)
                 }, Request.GetUri().Scheme);
 
                 await WriteTagAsync("1", "Daily", url, writer).ConfigureAwait(false);
