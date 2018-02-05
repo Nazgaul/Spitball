@@ -53,9 +53,8 @@ namespace ConsoleApp
                 Longitude = -74.0059728
             };
 
-            var _queueProvider = container.Resolve<IQueueProvider>();
-            var message = new UrlRedirectQueueMessage("t", "s", "v", 1);
-            await _queueProvider.InsertMessageAsync(QueueName.UrlRedirect, message, default).ConfigureAwait(false);
+            var provider = container.Resolve<IBookSearch>();
+           var z = await provider.SearchAsync(new[] {"x"}, 150, 0, default);
 
             Console.ReadLine();
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);

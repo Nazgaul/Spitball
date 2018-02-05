@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
@@ -47,7 +48,15 @@ namespace Cloudents.Infrastructure
             CreateMap<Search.Entities.University, UniversityDto>();
 
             CreateMap<BookSearch.BookDetailResult, IEnumerable<BookSearchDto>>()
-                .ConvertUsing((jo, _, c) => jo.Response.Page.Books?.Book.Select(json => c.Mapper.Map<BookSearch.BookDetail, BookSearchDto>(json)));
+                .ConvertUsing((jo, _, c) =>
+                {
+                    if (string.Equals(jo.Response.Status, "error", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return null;
+                    }
+                    return jo.Response.Page.Books?.Book.Select(json =>
+                            c.Mapper.Map<BookSearch.BookDetail, BookSearchDto>(json));
+                });
             CreateMap<BookSearch.BookDetail, BookSearchDto>().ConvertUsing(jo => new BookSearchDto
             {
                 Image = jo.Image?.Image,

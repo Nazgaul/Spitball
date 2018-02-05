@@ -1,6 +1,5 @@
 ﻿using System.Runtime.Serialization;
 using Cloudents.Core.Models;
-using Microsoft.Spatial;
 
 namespace Cloudents.Core.DTOs
 {
