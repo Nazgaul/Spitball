@@ -10,7 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Features.Metadata;
+using Cloudents.Core;
+using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Entities.DocumentDb;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -44,8 +47,10 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"])));
 
+            
             // new LocalStorageData(Path.Combine(Directory.GetCurrentDirectory(), "Temp"), 500)));
-            builder.RegisterModule<IocModule>();
+            builder.RegisterModule<ModuleFile>();
+            builder.RegisterModule(new ModuleDb(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString));
             var container = builder.Build();
             var point = new GeoPoint()
             {
@@ -53,8 +58,10 @@ namespace ConsoleApp
                 Longitude = -74.0059728
             };
 
-            var provider = container.Resolve<IBookSearch>();
-           var z = await provider.SearchAsync(new[] {"x"}, 150, 0, default);
+            var commandBus = container.Resolve<ICommandBus>();
+            var command = new CreateCourseCommand("ram", 322);
+            var z = await commandBus.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(command, default);
+
 
             Console.ReadLine();
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);

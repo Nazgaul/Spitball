@@ -23,6 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\..\.nuget\packages\autofac\4.6.1\lib\netstandard1.1\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System.Collections.Immutable">
       <HintPath>..\..\..\..\.nuget\packages\system.collections.immutable\1.4.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
     </Reference>

@@ -67,10 +67,10 @@ namespace Cloudents.Mobile.Controllers
                 return BadRequest();
             }
 
-            var course = new Course(model.CourseName, model.University.Value);
+            //var course = new Course(model.CourseName, model.University.Value);
 
-            var result = await _repository.AddAsync(course, token).ConfigureAwait(false);
-            return Ok(result.Id);
+            //var result = await _repository.AddAsync(course, token).ConfigureAwait(false);
+            return Ok(1);
         }
     }
 }

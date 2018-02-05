@@ -67,12 +67,12 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterModule(new ModuleRead(_sqlConnectionString, _redisConnectionString,
                 _storageConnectionString, _searchServiceCredentials));
-            builder.Register(_ =>
-            {
-                var x = new DbContextOptionsBuilder<AppDbContext>();
-                x.UseSqlServer(_sqlConnectionString);
-                return new AppDbContext(x.Options);
-            });
+            //builder.Register(_ =>
+            //{
+            //    var x = new DbContextOptionsBuilder<AppDbContext>();
+            //    x.UseSqlServer(_sqlConnectionString);
+            //    return new AppDbContext(x.Options);
+            //});
         }
     }
 }

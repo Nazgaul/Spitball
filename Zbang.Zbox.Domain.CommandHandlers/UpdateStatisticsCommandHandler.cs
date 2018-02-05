@@ -14,13 +14,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class UpdateStatisticsCommandHandler : ICommandHandlerAsync<UpdateStatisticsCommand>
     {
         private readonly IRepository<Item> _itemRepository;
-        private readonly IRepository<Domain.Quiz> m_QuizRepository;
+        private readonly IRepository<Quiz> m_QuizRepository;
         private readonly IRepository<FlashcardMeta> _flashcardRepository;
         private readonly IQueueProvider _queueProvider;
         private readonly ILogger m_Logger;
 
         public UpdateStatisticsCommandHandler(IRepository<Item> itemRepository,
-            IRepository<Domain.Quiz> quizRepository, IRepository<FlashcardMeta> flashcardRepository, IQueueProvider queueProvider, ILogger logger)
+            IRepository<Quiz> quizRepository, IRepository<FlashcardMeta> flashcardRepository, IQueueProvider queueProvider, ILogger logger)
         {
             _itemRepository = itemRepository;
             m_QuizRepository = quizRepository;

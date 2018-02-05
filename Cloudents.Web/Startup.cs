@@ -72,7 +72,7 @@ namespace Cloudents.Web
                 Configuration["Storage"]
                 );
             containerBuilder.RegisterModule(infrastructureModule);
-            containerBuilder.RegisterModule<Infrastructure.Framework.IocModule>();
+            containerBuilder.RegisterModule<Infrastructure.Framework.ModuleFile>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

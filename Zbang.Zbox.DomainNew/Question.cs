@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Domain
             {
                 text = null;
             }
-            Text = text?.Trim(); ;
+            Text = text?.Trim();
             Quiz = quiz;
             DateTimeUser = new UserTimeDetails(quiz.User.Id);
         }

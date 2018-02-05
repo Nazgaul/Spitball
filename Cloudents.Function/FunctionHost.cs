@@ -5,12 +5,12 @@ using Microsoft.Azure.WebJobs.Host;
 
 namespace Cloudents.Function
 {
-    public static class Function1
+    public static class FunctionHost
     {
-        [FunctionName("Function1")]
-        public static void Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, TraceWriter log)
+        [FunctionName("KeepAlive")]
+        public static void Run([TimerTrigger("0 */4 * * * *")]TimerInfo myTimer, TraceWriter log)
         {
-            log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
+            log.Info("Keep-Alive invoked.");
         }
 
         [FunctionName("Url-Redirect")]

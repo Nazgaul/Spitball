@@ -2,42 +2,39 @@ using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities.Db
 {
-    using System;
 
-    public partial class Course
+    public class Course
     {
         protected Course()
         {
 
         }
 
-        public Course(string name, long universityId)
+        public Course(string name, University university)
         {
             RowDetail = new RowDetail();
             Discriminator = CourseType.Academic;
             PrivacySetting = CoursePrivacySetting.AnyoneWithUrl;
-            //IsDeleted = false;
             Name = name.Trim();
-            UniversityId = universityId;
+            University = university;
         }
 
-        public long Id { get; set; }
+        public virtual long Id { get; set; }
 
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public RowDetail RowDetail  { get; set; }
+        public virtual RowDetail RowDetail  { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public virtual bool IsDeleted { get; set; }
 
-        public bool IsDirty { get; set; }
+        public virtual bool IsDirty { get; set; }
 
-        public CourseType Discriminator { get; set; }
+        public virtual CourseType Discriminator { get; set; }
 
-        public string CourseCode { get; set; }
+        public virtual string CourseCode { get; set; }
 
         public virtual University University { get; set; }
-        public long? UniversityId { get; set; }
 
-        public CoursePrivacySetting PrivacySetting { get; set; }
+        public virtual CoursePrivacySetting PrivacySetting { get; set; }
     }
 }

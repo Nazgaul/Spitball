@@ -3,8 +3,10 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class IocModule : Module
+    public class ModuleFile : Module
     {
+        
+
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<FileFactoryProcessor>().AsImplementedInterfaces();
@@ -15,8 +17,6 @@ namespace Cloudents.Infrastructure.Framework
             builder.RegisterType<PowerPoint2007Processor>().As<IPreviewProvider>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, PowerPoint2007Processor.PowerPoint2007Extensions));
             builder.RegisterType<TextProcessor>().As<IPreviewProvider>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, TextProcessor.TxtExtensions));
             builder.RegisterType<TiffProcessor>().As<IPreviewProvider>().WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName, TiffProcessor.TiffExtensions));
-
-            //builder.RegisterType<PdfProcessor>().Keyed()
             base.Load(builder);
         }
     }

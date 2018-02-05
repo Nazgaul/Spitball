@@ -1,12 +1,12 @@
-﻿using System;
-using System.Data;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        Task<T> AddAsync(T entity, CancellationToken token);
+        Task<object> AddAsync(T entity, CancellationToken token);
+        Task<T> LoadAsync(object id, CancellationToken token);
+        Task<T> GetAsync(object id, CancellationToken token);
     }
 }

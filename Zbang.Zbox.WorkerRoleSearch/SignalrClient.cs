@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Client;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Cloudents.Core.Interfaces;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {

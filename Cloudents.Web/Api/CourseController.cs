@@ -42,13 +42,13 @@ namespace Cloudents.Web.Api
                 throw new ArgumentNullException(nameof(model.University));
             }
 
-            var course = new Course(model.Name, model.University.Value);
+            //var course = new Course(model.Name, model.University.Value);
 
-            var result = await _repository.AddAsync(course, token).ConfigureAwait(false);
+            //var result = await _repository.AddAsync(course, token).ConfigureAwait(false);
 
             return Json( new
             {
-                result.Id
+               Id = 1
             });
         }
     }

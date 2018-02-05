@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly Infrastructure.Repositories.IRepository<CommentReply> _replyRepository;
         private readonly Infrastructure.Repositories.IRepository<Comment> _commentRepository;
         private readonly Infrastructure.Repositories.IRepository<Updates> _updatesRepository;
-        private readonly Infrastructure.Repositories.IRepository<Domain.Quiz> _quizRepository;
+        private readonly Infrastructure.Repositories.IRepository<Quiz> _quizRepository;
         private readonly Infrastructure.Repositories.IRepository<ItemComment> _itemCommentRepository;
         private readonly Infrastructure.Repositories.IRepository<ItemCommentReply> _itemCommentReplyRepository;
         private readonly Infrastructure.Repositories.IRepository<QuizDiscussion> _quizDiscussionRepository;
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
         public AddNewUpdatesCommandHandler(
-            IBoxRepository boxRepository, Infrastructure.Repositories.IRepository<Item> itemRepository, Infrastructure.Repositories.IRepository<CommentReply> replyRepository, Infrastructure.Repositories.IRepository<Comment> commentRepository, Infrastructure.Repositories.IRepository<Updates> updatesRepository, Infrastructure.Repositories.IRepository<Domain.Quiz> quizRepository,
+            IBoxRepository boxRepository, Infrastructure.Repositories.IRepository<Item> itemRepository, Infrastructure.Repositories.IRepository<CommentReply> replyRepository, Infrastructure.Repositories.IRepository<Comment> commentRepository, Infrastructure.Repositories.IRepository<Updates> updatesRepository, Infrastructure.Repositories.IRepository<Quiz> quizRepository,
             IUserRepository userRepository, Infrastructure.Repositories.IRepository<ItemComment> itemCommentRepository, Infrastructure.Repositories.IRepository<ItemCommentReply> itemCommentReplyRepository, Infrastructure.Repositories.IRepository<QuizDiscussion> quizDiscussionRepository,
             IQueueProvider queueProvider)
         {
