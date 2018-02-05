@@ -23,7 +23,7 @@ let promotions = {
     },
     ask: {
         title: "Ask A Question",
-        content: "Ask any school related question and immediately get answers relates specifically to you, your classes, and university."
+        content: "Ask any school related question and immediately get answers related specifically to you, your classes, and university."
     },
     tutor: {
         title: "Tutors",
@@ -35,7 +35,7 @@ let promotions = {
     },
     job: {
         title: "Jobs",
-        content: "Easily search and apply to paid internships, part-time jobs and entry-level from local businesses to Fortune 500 companies."
+        content: "Easily search and apply to paid internships, part-time and entry-level jobs from local businesses to Fortune 500 companies."
     },
     food: {
         title: "Food and Deals",
