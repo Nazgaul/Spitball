@@ -71,7 +71,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{AEE91C15-B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Infrastructure.Test", "Cloudents.Infrastructure.Test\Cloudents.Infrastructure.Test.csproj", "{F32AEFE0-37BF-43B4-8A6D-AFF09E082C8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Infrastructure.Framework", "Cloudents.Infrastructure.Framework\Cloudents.Infrastructure.Framework.csproj", "{7144FD3F-2400-40BF-BC67-1864057E371E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Infrastructure.Framework", "Cloudents.Infrastructure.Framework\Cloudents.Infrastructure.Framework.csproj", "{7144FD3F-2400-40BF-BC67-1864057E371E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Web.Test", "Cloudents.Web.Test\Cloudents.Web.Test.csproj", "{222EEBD9-3507-4822-A589-77A2500A38B7}"
 EndProject
@@ -83,7 +83,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Core.Test", "Clou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Mobile.Test", "Cloudents.Mobile.Test\Cloudents.Mobile.Test.csproj", "{3D642F71-C2CE-49C7-B97D-D55DC2E5CE01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Function", "Cloudents.Function\Cloudents.Function.csproj", "{53C054D1-2B67-4BFC-98E4-405CB131B144}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Function", "Cloudents.Function\Cloudents.Function.csproj", "{B10DFAD1-D567-4335-B08E-6CF7D074043F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -909,36 +909,36 @@ Global
 		{3D642F71-C2CE-49C7-B97D-D55DC2E5CE01}.SingleImage|Mixed Platforms.Build.0 = Debug|Any CPU
 		{3D642F71-C2CE-49C7-B97D-D55DC2E5CE01}.SingleImage|x86.ActiveCfg = Debug|Any CPU
 		{3D642F71-C2CE-49C7-B97D-D55DC2E5CE01}.SingleImage|x86.Build.0 = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.CD_ROM|Any CPU.ActiveCfg = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.CD_ROM|Any CPU.Build.0 = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.CD_ROM|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.CD_ROM|Mixed Platforms.Build.0 = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.CD_ROM|x86.ActiveCfg = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.CD_ROM|x86.Build.0 = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.Debug|x86.Build.0 = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.DVD-5|x86.ActiveCfg = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.DVD-5|x86.Build.0 = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.Release|Any CPU.Build.0 = Release|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.Release|x86.ActiveCfg = Release|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.Release|x86.Build.0 = Release|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.SingleImage|Any CPU.ActiveCfg = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.SingleImage|Any CPU.Build.0 = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.SingleImage|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.SingleImage|Mixed Platforms.Build.0 = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.SingleImage|x86.ActiveCfg = Debug|Any CPU
-		{53C054D1-2B67-4BFC-98E4-405CB131B144}.SingleImage|x86.Build.0 = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.CD_ROM|Any CPU.ActiveCfg = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.CD_ROM|Any CPU.Build.0 = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.CD_ROM|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.CD_ROM|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.CD_ROM|x86.ActiveCfg = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.CD_ROM|x86.Build.0 = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.Debug|x86.Build.0 = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.DVD-5|x86.Build.0 = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.Release|x86.ActiveCfg = Release|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.Release|x86.Build.0 = Release|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.SingleImage|Any CPU.ActiveCfg = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.SingleImage|Any CPU.Build.0 = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.SingleImage|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.SingleImage|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.SingleImage|x86.ActiveCfg = Debug|Any CPU
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F}.SingleImage|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -974,12 +974,12 @@ Global
 		{D6F086D9-F99F-4AB0-B396-1880F753C6CB} = {AEE91C15-BC24-464C-9C73-7EBBE61B6044}
 		{420E23A8-9832-4E2B-A6CE-082F5DDBB547} = {AEE91C15-BC24-464C-9C73-7EBBE61B6044}
 		{3D642F71-C2CE-49C7-B97D-D55DC2E5CE01} = {AEE91C15-BC24-464C-9C73-7EBBE61B6044}
-		{53C054D1-2B67-4BFC-98E4-405CB131B144} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
+		{B10DFAD1-D567-4335-B08E-6CF7D074043F} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6A41ACFB-B3D1-4E6A-941F-516155ACC34A}
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
+		SolutionGuid = {6A41ACFB-B3D1-4E6A-941F-516155ACC34A}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

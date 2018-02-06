@@ -4,10 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
-using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
@@ -21,35 +18,13 @@ namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadServiceWorkerRole : IZboxReadServiceWorkerRole
     {
-        private readonly ILogger m_Logger;
-        public ZboxReadServiceWorkerRole(ILogger logger)
-        {
-            m_Logger = logger;
-        }
-
-        private RetryPolicy GetRetryPolicy()
-        {
-            var retryPolicy = RetryManager.Instance.GetDefaultSqlCommandRetryPolicy();
-            retryPolicy.Retrying += (sender, args) =>
-            {
-                // Log details of the retry.
-                var msg = $"Retry - Count:{args.CurrentRetryCount}, Delay:{args.Delay}, Exception:{args.LastException}";
-                m_Logger.Warning(msg);
-            };
-            return retryPolicy;
-        }
-
         public async Task<IEnumerable<UserDigestDto>> GetUsersByNotificationSettingsAsync(
             GetUserByNotificationQuery query, CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token).ConfigureAwait(false))
+            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
-                var policy = GetRetryPolicy();
                 return
                     await
-                        policy.ExecuteAsync(
-                            // ReSharper disable once AccessToDisposedClosure
-                            () =>
                                 conn.QueryAsync<UserDigestDto>(
                                     new CommandDefinition(Email.GetUserListByNotificationSettings,
                                         new
@@ -59,129 +34,63 @@ namespace Zbang.Zbox.ReadServices
                                             query.PageNumber,
                                             query.RowsPerPage,
                                             query.UtcOffset
-                                        }, cancellationToken: token)), token).ConfigureAwait(false);
+                                        }, cancellationToken: token));
             }
         }
 
         public async Task<IEnumerable<UserUpdatesDigestDto>> GetUserUpdatesAsync(GetBoxesLastUpdateQuery query,
             CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token).ConfigureAwait(false))
+            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
-                var policy = GetRetryPolicy();
                 return
                     await
-                        policy.ExecuteAsync(
-                            // ReSharper disable once AccessToDisposedClosure
-                            () =>
+
                                 conn.QueryAsync<UserUpdatesDigestDto>(new CommandDefinition(Email.GetUserUpdates,
                                     new
                                     {
                                         NotificationTime = query.MinutesPerNotificationSettings,
                                         query.UserId
-                                    }, cancellationToken: token)), token).ConfigureAwait(false);
+                                    }, cancellationToken: token));
             }
         }
 
         public async Task<BoxUpdatesDigestDto> GetUpdatesAsync(GetUpdatesQuery query, CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token).ConfigureAwait(false))
+            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
-                var policy = GetRetryPolicy();
-                return await policy.ExecuteAsync(async () =>
-                {
-                    using (
-                        var grid =
-                            await
-                                // ReSharper disable once AccessToDisposedClosure
-                                conn.QueryMultipleAsync(
-                                    $"{Email.GetBoxUpdates} {Email.GetItemUpdates} {Email.GetQuizUpdates} {Email.GetCommentUpdates} {Email.GetRepliesUpdates} {Email.GetQuizDiscussionUpdates}",
-                                    new
-                                    {
-                                        query.BoxIds,
-                                        query.CommentsIds,
-                                        query.DiscussionIds,
-                                        query.ItemIds,
-                                        query.QuizIds,
-                                        query.RepliesIds
-                                    }).ConfigureAwait(false))
-                    {
-                        var retVal = new BoxUpdatesDigestDto
-                        {
-                            Boxes = await grid.ReadAsync<BoxDigestDto>().ConfigureAwait(false),
-                            Items = await grid.ReadAsync<ItemDigestDto>().ConfigureAwait(false),
-                            Quizzes = await grid.ReadAsync<QuizDigestDto>().ConfigureAwait(false),
-                            Comments = await grid.ReadAsync<QnADigestDto>().ConfigureAwait(false),
-                            Replies = await grid.ReadAsync<QnADigestDto>().ConfigureAwait(false),
-                            QuizDiscussions = await grid.ReadAsync<QuizDiscussionDigestDto>().ConfigureAwait(false)
-                        };
-                        return retVal;
-                    }
-                }, token).ConfigureAwait(false);
-            }
-        }
 
-        public async Task<IEnumerable<BoxDigestDto>> GetBoxesLastUpdatesAsync(GetBoxesLastUpdateQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
-            {
-                return await conn.QueryAsync<BoxDigestDto>(Email.GetBoxPossibleUpdateByUser,
-                    new
-                    {
-                        Notification = query.MinutesPerNotificationSettings,
-                        query.UserId
-                    }).ConfigureAwait(false);
-            }
-        }
-
-        public async Task<BoxUpdatesDigestDto> GetBoxLastUpdatesAsync(GetBoxLastUpdateQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
-            {
-                using (var grid = await conn.QueryMultipleAsync(
-                    $"{Email.GetItemUpdateByBox} {Email.GetQuizUpdateByBox} {Email.GetQuizDiscussionUpdateByBox} {Email.GetQuestionUpdateByBox} {Email.GetAnswerUpdateByBox}",
-                    new
-                    {
-                        Notification = query.MinutesPerNotificationSettings,
-                        query.BoxId
-                    }).ConfigureAwait(false))
+                using (
+                    var grid =
+                        await
+                            // ReSharper disable once AccessToDisposedClosure
+                            conn.QueryMultipleAsync(
+                                $"{Email.GetBoxUpdates} {Email.GetItemUpdates} {Email.GetQuizUpdates} {Email.GetCommentUpdates} {Email.GetRepliesUpdates} {Email.GetQuizDiscussionUpdates}",
+                                new
+                                {
+                                    query.BoxIds,
+                                    query.CommentsIds,
+                                    query.DiscussionIds,
+                                    query.ItemIds,
+                                    query.QuizIds,
+                                    query.RepliesIds
+                                }).ConfigureAwait(false))
                 {
                     var retVal = new BoxUpdatesDigestDto
                     {
-
+                        Boxes = await grid.ReadAsync<BoxDigestDto>().ConfigureAwait(false),
                         Items = await grid.ReadAsync<ItemDigestDto>().ConfigureAwait(false),
                         Quizzes = await grid.ReadAsync<QuizDigestDto>().ConfigureAwait(false),
-                        QuizDiscussions = await grid.ReadAsync<QuizDiscussionDigestDto>().ConfigureAwait(false),
                         Comments = await grid.ReadAsync<QnADigestDto>().ConfigureAwait(false),
-                        Replies = await grid.ReadAsync<QnADigestDto>().ConfigureAwait(false)
+                        Replies = await grid.ReadAsync<QnADigestDto>().ConfigureAwait(false),
+                        QuizDiscussions = await grid.ReadAsync<QuizDiscussionDigestDto>().ConfigureAwait(false)
                     };
                     return retVal;
                 }
             }
         }
 
-        public BadItemDto GetFlagItemUserDetail(GetBadItemFlagQuery query)
-        {
-            using (UnitOfWork.Start())
-            {
-                var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBadItemUserDetail");
-                dbQuery.SetInt64("UserId", query.UserId);
-                dbQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<BadItemDto>());
-
-                var itemQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBadItemDetail");
-                itemQuery.SetInt64("ItemId", query.ItemId);
-                itemQuery.SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean<BadItemDto>());
-
-                var fdbQuery = dbQuery.FutureValue<BadItemDto>();
-                var fItemQuery = itemQuery.FutureValue<BadItemDto>();
-
-                var retVal = fdbQuery.Value;
-                var itemVal = fItemQuery.Value;
-
-                retVal.ItemName = itemVal.ItemName;
-                return retVal;
-            }
-        }
+       
 
         public async Task<UniversityToUpdateSearchDto> GetUniversitiesDirtyUpdatesAsync(int index, int total, int top)
         {
@@ -230,64 +139,57 @@ namespace Zbang.Zbox.ReadServices
         public async Task<BoxSearchDto> GetBoxDirtyUpdatesAsync(long id,
             CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token).ConfigureAwait(false))
+            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
-                var retry = GetRetryPolicy();
-                return await retry.ExecuteAsync(async () =>
+                // ReSharper disable once AccessToDisposedClosure
+                using (var grid = await conn.QueryMultipleAsync
+                (Search.GetBoxToUploadToSearch +
+                 Search.GetBoxUsersToUploadToSearch +
+                 Search.GetBoxDepartmentToUploadToSearch +
+                 Search.GetBoxFeedToUploadToSearch
+                    , new { boxId = id }).ConfigureAwait(false))
                 {
-                    // ReSharper disable once AccessToDisposedClosure
-                    using (var grid = await conn.QueryMultipleAsync
-                    (Search.GetBoxToUploadToSearch +
-                     Search.GetBoxUsersToUploadToSearch +
-                     Search.GetBoxDepartmentToUploadToSearch +
-                     Search.GetBoxFeedToUploadToSearch
-                        , new { boxId = id }).ConfigureAwait(false))
-                    {
-                        var retVal = await grid.ReadSingleAsync<BoxSearchDto>().ConfigureAwait(false);
-                        retVal.UserIds = await grid.ReadAsync<long>().ConfigureAwait(false);
-                        retVal.Department = await grid.ReadAsync<string>().ConfigureAwait(false);
-                        retVal.Feed = await grid.ReadAsync<string>().ConfigureAwait(false);
+                    var retVal = await grid.ReadSingleAsync<BoxSearchDto>().ConfigureAwait(false);
+                    retVal.UserIds = await grid.ReadAsync<long>().ConfigureAwait(false);
+                    retVal.Department = await grid.ReadAsync<string>().ConfigureAwait(false);
+                    retVal.Feed = await grid.ReadAsync<string>().ConfigureAwait(false);
 
-                        return retVal;
-                    }
-                }, token).ConfigureAwait(false);
+                    return retVal;
+                }
+
             }
         }
 
         public async Task<BoxToUpdateSearchDto> GetBoxesDirtyUpdatesAsync(int index, int total, int top,
             CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token).ConfigureAwait(false))
+            using (var conn = await DapperConnection.OpenConnectionAsync(token).ConfigureAwait(false))
             {
-                var retry = GetRetryPolicy();
-                return await retry.ExecuteAsync(async () =>
+                // ReSharper disable once AccessToDisposedClosure
+                using (var grid = await conn.QueryMultipleAsync
+                (Search.GetBoxesToUploadToSearch +
+                 Search.GetBoxesUsersToUploadToSearch +
+                 Search.GetBoxesDepartmentToUploadToSearch +
+                 Search.GetBoxesFeedToUploadToSearch +
+                 Search.GetBoxesToDeleteToSearch, new { index, count = total, top }).ConfigureAwait(false))
                 {
-                    // ReSharper disable once AccessToDisposedClosure
-                    using (var grid = await conn.QueryMultipleAsync
-                    (Search.GetBoxesToUploadToSearch +
-                     Search.GetBoxesUsersToUploadToSearch +
-                     Search.GetBoxesDepartmentToUploadToSearch +
-                     Search.GetBoxesFeedToUploadToSearch +
-                     Search.GetBoxesToDeleteToSearch, new { index, count = total, top }).ConfigureAwait(false))
+                    var retVal = new BoxToUpdateSearchDto
                     {
-                        var retVal = new BoxToUpdateSearchDto
-                        {
-                            BoxesToUpdate = await grid.ReadAsync<BoxSearchDto>().ConfigureAwait(false)
-                        };
-                        var usersInBoxes = (await grid.ReadAsync<UsersInBoxSearchDto>().ConfigureAwait(false)).ToList();
-                        var departmentsOfBoxes = (await grid.ReadAsync<DepartmentOfBoxSearchDto>().ConfigureAwait(false)).ToList();
-                        var feedOfBoxes = (await grid.ReadAsync<FeedOfBoxSearchDto>().ConfigureAwait(false)).ToList();
-                        foreach (var box in retVal.BoxesToUpdate)
-                        {
-                            var boxId = box.Id;
-                            box.UserIds = usersInBoxes.Where(w => w.BoxId == boxId).Select(s => s.UserId);
-                            box.Department = departmentsOfBoxes.Where(w => w.BoxId == boxId).Select(s => s.Name);
-                            box.Feed = feedOfBoxes.Where(w => w.BoxId == boxId).Select(s => s.Text);
-                        }
-                        retVal.BoxesToDelete = await grid.ReadAsync<long>().ConfigureAwait(false);
-                        return retVal;
+                        BoxesToUpdate = await grid.ReadAsync<BoxSearchDto>().ConfigureAwait(false)
+                    };
+                    var usersInBoxes = (await grid.ReadAsync<UsersInBoxSearchDto>().ConfigureAwait(false)).ToList();
+                    var departmentsOfBoxes = (await grid.ReadAsync<DepartmentOfBoxSearchDto>().ConfigureAwait(false)).ToList();
+                    var feedOfBoxes = (await grid.ReadAsync<FeedOfBoxSearchDto>().ConfigureAwait(false)).ToList();
+                    foreach (var box in retVal.BoxesToUpdate)
+                    {
+                        var boxId = box.Id;
+                        box.UserIds = usersInBoxes.Where(w => w.BoxId == boxId).Select(s => s.UserId);
+                        box.Department = departmentsOfBoxes.Where(w => w.BoxId == boxId).Select(s => s.Name);
+                        box.Feed = feedOfBoxes.Where(w => w.BoxId == boxId).Select(s => s.Text);
                     }
-                }, token).ConfigureAwait(false);
+                    retVal.BoxesToDelete = await grid.ReadAsync<long>().ConfigureAwait(false);
+                    return retVal;
+                }
             }
         }
 
@@ -380,15 +282,6 @@ namespace Zbang.Zbox.ReadServices
 
                     return retVal;
                 }
-            }
-        }
-
-        public async Task<long> GetTrackingCurrentVersionAsync()
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync().ConfigureAwait(false))
-            {
-                return await conn.QueryFirstAsync<long>(Search.NextVersionChanges).ConfigureAwait(false);
-                //NextVersionChanges
             }
         }
 
@@ -601,45 +494,45 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
         public async Task<IEnumerable<int>> SpamGunUniversityNumberAsync(CancellationToken token)
         {
             using (var conn =
-                await DapperConnection.OpenReliableConnectionAsync(token, "SpamGun").ConfigureAwait(false))
+                await DapperConnection.OpenConnectionAsync(token, "SpamGun").ConfigureAwait(false))
             {
                 return await conn.QueryAsync<int>(new CommandDefinition(@"SELECT DISTINCT UniId FROM dbo.students2
                 WHERE ShouldSend = 1", cancellationToken: token)).ConfigureAwait(false);
             }
         }
 
-//        public async Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, CancellationToken token)
-//        {
-//            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token, "SpamGun").ConfigureAwait(false))
-//            {
-//                const string sql1 = @"select top 500 s.id, FirstName, Email,mailBody as MailBody,s.chapter,
-//mailSubject as MailSubject, mailCategory as MailCategory,u.url as UniversityUrl, u.name as school 
-//from students2 s join universities u on s.uniId = u.id
-//where uniId = @UniId
-//and shouldSend = 1
-//and chapter is not null
-//order by s.id;";
-//                const string sql2 = @"select top 500 s.id, FirstName, LastName, Email,mailBody as MailBody,
-//mailSubject as MailSubject, mailCategory as MailCategory,u.url as UniversityUrl 
-//from students2 s join universities u on s.uniId = u.id
-//where uniId = @UniId
-//and shouldSend = 1
-//and chapter is null
-//order by s.id;";
-//                var policy = GetRetryPolicy();
-//                return await policy.ExecuteAsync(async () =>
-//                {
-//                    // ReSharper disable once AccessToDisposedClosure
-//                    using (var grid = await conn.QueryMultipleAsync(
-//                        new CommandDefinition(
-//                            sql1 + sql2, new { UniId = universityId }, cancellationToken: token)).ConfigureAwait(false))
-//                    {
-//                        var result = await grid.ReadAsync<GreekPartnerDto>().ConfigureAwait(false);
-//                        return result.Union(await grid.ReadAsync<SpamGunDto>().ConfigureAwait(false));
-//                    }
-//                }, token).ConfigureAwait(false);
-//            }
-//        }
+        //        public async Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, CancellationToken token)
+        //        {
+        //            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token, "SpamGun").ConfigureAwait(false))
+        //            {
+        //                const string sql1 = @"select top 500 s.id, FirstName, Email,mailBody as MailBody,s.chapter,
+        //mailSubject as MailSubject, mailCategory as MailCategory,u.url as UniversityUrl, u.name as school 
+        //from students2 s join universities u on s.uniId = u.id
+        //where uniId = @UniId
+        //and shouldSend = 1
+        //and chapter is not null
+        //order by s.id;";
+        //                const string sql2 = @"select top 500 s.id, FirstName, LastName, Email,mailBody as MailBody,
+        //mailSubject as MailSubject, mailCategory as MailCategory,u.url as UniversityUrl 
+        //from students2 s join universities u on s.uniId = u.id
+        //where uniId = @UniId
+        //and shouldSend = 1
+        //and chapter is null
+        //order by s.id;";
+        //                var policy = GetRetryPolicy();
+        //                return await policy.ExecuteAsync(async () =>
+        //                {
+        //                    // ReSharper disable once AccessToDisposedClosure
+        //                    using (var grid = await conn.QueryMultipleAsync(
+        //                        new CommandDefinition(
+        //                            sql1 + sql2, new { UniId = universityId }, cancellationToken: token)).ConfigureAwait(false))
+        //                    {
+        //                        var result = await grid.ReadAsync<GreekPartnerDto>().ConfigureAwait(false);
+        //                        return result.Union(await grid.ReadAsync<SpamGunDto>().ConfigureAwait(false));
+        //                    }
+        //                }, token).ConfigureAwait(false);
+        //            }
+        //        }
 
         public async Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, int limit, CancellationToken token)
         {
@@ -651,10 +544,10 @@ and shouldSend = 1
 and chapter is null
 order by s.id;";
             using (var conn =
-                await DapperConnection.OpenReliableConnectionAsync(token, "SpamGun").ConfigureAwait(false))
+                await DapperConnection.OpenConnectionAsync(token, "SpamGun").ConfigureAwait(false))
             {
                 return await conn.QueryAsync<SpamGunDto>(
-                        new CommandDefinition(sql2, new {UniId = universityId, top = limit}, cancellationToken: token))
+                        new CommandDefinition(sql2, new { UniId = universityId, top = limit }, cancellationToken: token))
                     .ConfigureAwait(false);
             }
         }
@@ -747,27 +640,6 @@ having count(*) > 1
             }
         }
 
-        public IEnumerable<long> GetUserReputationUpdate(int page)
-        {
-            using (var conn = DapperConnection.OpenConnection())
-            {
-                return conn.Query<long>(
-                    @"select * from (
-select userId from zbox.badge
-union 
-select userId from zbox.item where isDeleted = 0 and (NumberOfDownloads > 0 or NumberOfViews > 0 or LikeCount > 0)
-union
-select userId from zbox.Quiz where IsDeleted = 0 and Publish = 1 and (NumberOfViews > 0 or SolveCount > 0 or LikeCount > 0)
-union
-select userId from zbox.Flashcard where IsDeleted = 0 and Publish = 1 and (NumberOfViews > 0  or LikeCount > 0)
-union
-select userId from zbox.Question where LikeCount > 0
-union
-select userId from zbox.Answer where LikeCount > 0) t
-order by userId
-offset @page*100 ROWS
-    FETCH NEXT 100 ROWS ONLY;", new { page });
-            }
-        }
+       
     }
 }

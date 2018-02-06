@@ -10,6 +10,7 @@ namespace Cloudents.Core
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ICommandHandlerAsync<,>)).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ICommandHandlerAsync<>)).AsImplementedInterfaces();
             builder.RegisterType<CommandBus>().As<ICommandBus>();
         }
     }

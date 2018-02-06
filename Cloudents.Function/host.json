@@ -1,12 +1,2 @@
 {
-  "queues": {
-    "batchSize": 32
-  },
-  "applicationInsights": {
-    "sampling": {
-      "isEnabled": true
-    }
-
-
-  }
 }

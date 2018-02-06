@@ -1,8 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.ReadServices;
 using Autofac;
 using Cloudents.Core.Interfaces;
 
@@ -10,20 +7,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class TestingJob : IJob
     {
-        private readonly IZboxWorkerRoleService _zboxWorkerRoleService;
-        private readonly IZboxReadServiceWorkerRole _zboxReadService;
-        private readonly IZboxWriteService _zboxWriteService;
-        private readonly IBlobProvider2<FilesContainerName> _blobProvider2;
         private readonly ILifetimeScope _lifetimeScope;
         private readonly ILogger _logger;
 
-        public TestingJob(IZboxWorkerRoleService zboxWorkerRoleService,
-            IZboxReadServiceWorkerRole zboxReadService, IBlobProvider2<FilesContainerName> blobProvider, IZboxWriteService zboxWriteService, ILifetimeScope lifetimeScope, ILogger logger)
+        public TestingJob(ILifetimeScope lifetimeScope, ILogger logger)
         {
-            _zboxWorkerRoleService = zboxWorkerRoleService;
-            _zboxReadService = zboxReadService;
-            _blobProvider2 = blobProvider;
-            _zboxWriteService = zboxWriteService;
             _lifetimeScope = lifetimeScope;
             _logger = logger;
         }

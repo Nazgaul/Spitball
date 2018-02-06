@@ -86,15 +86,12 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
 
-
             builder.Register(_ => new CloudStorageProvider(_storageConnectionString)).SingleInstance().AsImplementedInterfaces();
 
             builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
             builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
 
             builder.RegisterGeneric(typeof(BlobProvider<>)).AsImplementedInterfaces();
-
-            builder.RegisterType<StreamSerializer>().AsImplementedInterfaces();
         }
     }
 }

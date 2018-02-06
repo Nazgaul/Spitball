@@ -23,8 +23,16 @@ namespace Cloudents.Core
             using (var child = _container.BeginLifetimeScope())
             {
                 var obj = child.Resolve<ICommandHandlerAsync<TCommand, TCommandResult>>();
-                var retVal = await obj.ExecuteAsync(command, token).ConfigureAwait(false);
-                return retVal;
+                return await obj.ExecuteAsync(command, token).ConfigureAwait(false);
+            }
+        }
+
+        public async Task DispatchAsync<TCommand>(TCommand command, CancellationToken token) where TCommand : ICommand
+        {
+            using (var child = _container.BeginLifetimeScope())
+            {
+                var obj = child.Resolve<ICommandHandlerAsync<TCommand>>();
+                await obj.HandleAsync(command, token).ConfigureAwait(false);
             }
         }
     }
