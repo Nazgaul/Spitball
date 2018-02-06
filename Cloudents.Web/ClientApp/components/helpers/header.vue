@@ -34,9 +34,10 @@
                    </v-layout>
                </v-flex>
                <v-flex v-if="$vuetify.breakpoint.smAndDown" class="line search-wrapper">
-                   <form @submit.prevent="submit">
-                       <v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
-                   </form>
+                   <search-input :user-text="userText" :placeholder="placeholders[currentSelection]" :submit-route="submitRoute"></search-input>
+                   <!--<form @submit.prevent="submit">-->
+                       <!--<v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>-->
+                   <!--</form>-->
                </v-flex>
            </div>
         <slot name="extraHeader"></slot>
