@@ -26,8 +26,7 @@ const actions = {
             let params = { ...body };
             let {docType,term}=body;
             let currentVertical=vertical?vertical:body.vertical;
-            context.commit(LUIS.UPDATE_TERM,{vertical:currentVertical,data:{text,term,docType}});
-            return new Promise((resolve) => {
+            let location=new Promise((resolve) => {
                 //if AI return cords use it
                 if (params.hasOwnProperty('cords')) {
                     params.location = {latitude:params.cords.latitude,longitude:params.cords.longitude};
@@ -39,10 +38,12 @@ const actions = {
                         resolve();
                     });
                 } else { resolve(); }
-            }).then(() => {
-                return { result: body.vertical, term: body.term, docType: body.docType };
             });
-
+            let updateTerm=context.dispatch('updateAITerm',{vertical:currentVertical,data:{text,term,docType}});
+            return Promise.all([location,updateTerm]).then(()=> {
+                    return {result: body.vertical, term: body.term, docType: body.docType}
+                }
+            )
         });
     },
 

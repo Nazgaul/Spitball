@@ -12,6 +12,7 @@
                        <v-toolbar-items>
                            <form v-if="$vuetify.breakpoint.mdAndUp" @submit.prevent="submit">
                                <v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
+                                <div v-for="(s,index) in suggestList">{{s}}</div>
                            </form>
                            <v-spacer v-if="$vuetify.breakpoint.smAndDown"></v-spacer>
                            <div class="settings-wrapper d-flex align-center">
@@ -59,8 +60,11 @@
     export default {
         mixins:[micMixin],
         computed: {
-            ...mapGetters(['getUniversityName']),
-            ...mapGetters({'globalTerm':'currentText'})
+            ...mapGetters(['getUniversityName','historyTermSet']),
+            ...mapGetters({'globalTerm':'currentText'}),
+            suggestList(){
+               return this.historyTermSet.filter(i=>i.includes(this.msg)).slice(0,4)
+            }
         },
         watch:{
             userText(val){

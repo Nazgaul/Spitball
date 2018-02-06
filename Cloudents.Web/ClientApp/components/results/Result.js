@@ -10,7 +10,7 @@ import {verticalsName} from '../../data'
 import { typesPersonalize } from "../settings/consts.js";
 import { mapActions, mapGetters } from 'vuex'
 const ACADEMIC_VERTICALS=['note','ask','flashcard','book','tutor'];
-import sortAndFilterMixin from '../mixins/sortAndFilter'
+import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 
 let promotions = {
     note: {

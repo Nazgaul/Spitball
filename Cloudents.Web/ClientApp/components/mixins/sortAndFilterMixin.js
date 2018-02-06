@@ -26,7 +26,7 @@ export default {
             let filterOptions = [];
             let filtersList=['jobType','source','course','filter'];
             Object.entries(this.query).forEach(([key, val])=>{
-                if(val&&val.length&&filtersList.includes(key)) {
+                if(val && val.length && filtersList.includes(key)) {
                     [].concat(val).forEach(value=>filterOptions=filterOptions.concat({key,value}));
                 }
             });

@@ -1,5 +1,7 @@
 ﻿import settingsService from './../services/settingsService'
 import { USER } from './mutation-types'
+import * as consts from "./constants";
+// export const MAX_HISTORY_LENGTH=5;
 const state = {
     user: {
         universityId: null,
@@ -8,18 +10,34 @@ const state = {
         location: null,
         pinnedCards: {}
     },
-    facet:""
+    facet:"",
+    historyTermSet:[]
 };
-
 const mutations = {
     [USER.UPDATE_USER](state, payload) {
         state.user = { ...state.user, ...payload };
     },
     [USER.UPDATE_FACET](state,payload){
         state.facet=payload;
+    },
+    [USER.UPDATE_SEARCH_SET](state,term){
+        if(!term||!term.trim())return;
+        let set = new Set(state.historyTermSet);
+        if(set.has(term)){
+           set.delete(term);
+           state.historyTermSet=[...set];
+        }
+        if(!state.historyTermSet)state.historyTermSet=[];
+        state.historyTermSet.push(term);
+
+        if(state.historyTermSet.length>consts.MAX_HISTORY_LENGTH){
+            state.historyTermSet.reverse().pop();
+            state.historyTermSet.reverse();
+        }
     }
 };
 const getters = {
+    historyTermSet:state=>state.historyTermSet,
     isFirst: state => state.user.isFirst,
     location: state => {
         let location=state.user.location;
@@ -46,6 +64,9 @@ const getters = {
     getFacet:state=>state.facet
 };
 const actions = {
+    updateHistorySet({commit},term){
+      commit(USER.UPDATE_SEARCH_SET,term);
+    },
     updateLocation(context) {
         return new Promise((resolve) => {
             if (!context.getters.location && navigator.geolocation) {
