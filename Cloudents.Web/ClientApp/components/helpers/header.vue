@@ -4,17 +4,15 @@
            <div class="main">
                <v-flex class="line top">
                    <v-layout row>
-                       <v-toolbar-title class="ma-0">
+                       <v-toolbar-title class="ma-0"go-l>
                            <router-link class="logo-link" :to="{name:'home'}">
                                <app-logo class="logo"></app-logo>
                            </router-link>
                        </v-toolbar-title>
                        <v-toolbar-items>
-                           <search-input v-if="$vuetify.breakpoint.mdAndUp" :user-text="userText" :placeholder="placeholders[currentSelection]" :submit-route="submitRoute"></search-input>
-                           <!--<form v-if="$vuetify.breakpoint.mdAndUp" @submit.prevent="submit">-->
-                               <!--<v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>-->
-                                <!--<div v-for="(s,index) in suggestList">{{s}}</div>-->
-                           <!--</form>-->
+                           <form v-if="$vuetify.breakpoint.mdAndUp" @submit.prevent="submit">
+                               <v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
+                           </form>
                            <v-spacer v-if="$vuetify.breakpoint.smAndDown"></v-spacer>
                            <div class="settings-wrapper d-flex align-center">
                                <v-menu bottom left>
@@ -34,10 +32,9 @@
                    </v-layout>
                </v-flex>
                <v-flex v-if="$vuetify.breakpoint.smAndDown" class="line search-wrapper">
-                   <search-input :user-text="userText" :placeholder="placeholders[currentSelection]" :submit-route="submitRoute"></search-input>
-                   <!--<form @submit.prevent="submit">-->
-                       <!--<v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>-->
-                   <!--</form>-->
+                   <form @submit.prevent="submit">
+                       <v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
+                   </form>
                </v-flex>
            </div>
         <slot name="extraHeader"></slot>
@@ -46,7 +43,7 @@
 
 <script>
     import { settingMenu } from '../settings/consts';
-    import SearchInput from '../helpers/searchInput.vue';
+    import { micMixin } from '../helpers/mic';
     import {mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
@@ -60,22 +57,41 @@
         food:"Search for deals..."
     };
     export default {
+        mixins:[micMixin],
         computed: {
-            ...mapGetters(['getUniversityName'])},
+            ...mapGetters(['getUniversityName','historyTermSet']),
+            ...mapGetters({'globalTerm':'currentText'})
+        },
         watch:{
+            userText(val){
+                this.msg=val;
+            },
             toolbarHeight(val) {
                 this.height = val;
             }
         },
-        components:{AppLogo,SearchInput},
+        components:{AppLogo},
         props:{currentSelection:{type:String,default:'note'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
         data(){return {settingMenu,placeholders}},
         methods:{
+            submit: function () {
+                this.$router.push({path:this.submitRoute,query:{q:this.msg}});
+                // to remove keyboard on mobile
+                this.$nextTick(() => {
+                    this.$el.querySelector('input').blur();
+                    this.$el.querySelector('form').blur();
+                });
+            },
+            //callback for mobile submit mic
+            submitMic() {
+                this.submit();
+            },
             $_currentClick(item){
                 this.$root.$emit("personalize", item.id);
             }
         },
         created(){
+            this.msg=this.userText?this.userText:this.globalTerm;
             this.height=this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
         }
     }
