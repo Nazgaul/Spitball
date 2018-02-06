@@ -1,5 +1,6 @@
 {
   "queues": {
     "batchSize": 32
-  }
+  },
+  
 }

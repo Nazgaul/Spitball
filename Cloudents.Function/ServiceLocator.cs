@@ -17,7 +17,7 @@ namespace Cloudents.Function
             this.BuildContainer();
         }
 
-        public IContainer Instance { get; private set; }
+        public IServiceLocator Instance { get; private set; }
 
         private void BuildContainer()
         {
@@ -26,8 +26,8 @@ namespace Cloudents.Function
 
             var container = builder.Build();
 
-            Instance = container;
-            //CreateServiceLocator(container);
+           // Instance = container;
+            CreateServiceLocator(container);
             // Create service locator.
 
 
@@ -36,12 +36,12 @@ namespace Cloudents.Function
 
         }
 
-        //private void CreateServiceLocator(IContainer container)
-        //{
-        //    //var csl = new AutofacServiceLocator(container);
-        //    CommonServiceLocator.ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(null));
-        //    Instance = CommonServiceLocator.ServiceLocator.Current;
-        //}
+        private void CreateServiceLocator(IContainer container)
+        {
+            //var csl = new AutofacServiceLocator(container);
+            CommonServiceLocator.ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(null));
+            Instance = CommonServiceLocator.ServiceLocator.Current;
+        }
 
         private static string GetEnvironmentVariable(string name)
         {

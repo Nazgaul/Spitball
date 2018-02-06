@@ -12,7 +12,15 @@ namespace Cloudents.Function
 {
     public static class FunctionHost
     {
-        static ServiceLocator _locator = new ServiceLocator();
+
+        static FunctionHost()
+        {
+            ApplicationHelper.Startup();
+            _locator = new ServiceLocator();
+        }
+
+
+        private static ServiceLocator _locator;
         [FunctionName("KeepAlive")]
         public static void KeepAlive([TimerTrigger("0 */4 * * * *",RunOnStartup = true)]TimerInfo myTimer, TraceWriter log)
         {
@@ -23,7 +31,7 @@ namespace Cloudents.Function
         [FunctionName("UrlRedirect")]
         public static async Task ProcessLinksAsync([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content, TraceWriter log, CancellationToken token)
         {
-            var bus = _locator.Instance.Resolve<ICommandBus>();
+            var bus = _locator.Instance.GetInstance<ICommandBus>();
             var command = new CreateUrlStatsCommand(content.Host, content.DateTime, content.Url, content.UrlReferrer,
                 content.Location);
 
