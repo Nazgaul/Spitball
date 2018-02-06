@@ -10,10 +10,10 @@
                                               prepend-icon="sbf-search" :append-icon="voiceAppend"
                                               :append-icon-cb="$_voiceDetection"></v-text-field>
                             </span>
-        <v-list>
+        <v-list v-show="showSuggest">
             <v-subheader>Some things you can ask me:</v-subheader>
             <template v-for="(item, index) in suggestList">
-                {{item.type}}
+                <!--{{item.type}}-->
                 <v-list-tile @click="selectos({item:item.text,index})" :key="index">
                     <v-list-tile-action hidden-xs-only>
                         <v-icon>sbf-search</v-icon>
@@ -58,7 +58,8 @@
                 let set=[...new Set([...historyList.reverse(),...homeSuggest])].filter(i=>i.toLowerCase().includes(this.msg.toLowerCase()));
                 return set.slice(0,MAX_SUGGEST_NUM-1).map(i=>({text:i,type:(this.historyTermSet.includes(i)?SUGGEST_TYPE.history:SUGGEST_TYPE.buildIn)}));
             },
-            isHome(){return this.$route.name==='home'}
+            isHome(){return this.$route.name==='home'},
+            showSuggest(){return this.suggestList.length && (this.suggestList.length>1||this.suggestList[0].text!==this.msg)}
         },
         watch: {
             userText(val) {
