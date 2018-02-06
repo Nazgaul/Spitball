@@ -15,7 +15,6 @@ export const micMixin = {
                     this.isRecording=false;
                     this.recognition.stop();
                 }
-    
             }
         },
 

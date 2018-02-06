@@ -27,12 +27,14 @@ const mutations = {
            set.delete(term);
            state.historyTermSet=[...set];
         }
+
         if(!state.historyTermSet)state.historyTermSet=[];
+
         state.historyTermSet.push(term);
 
+        //if we reached to the limit drop the first one
         if(state.historyTermSet.length>consts.MAX_HISTORY_LENGTH){
-            state.historyTermSet.reverse().pop();
-            state.historyTermSet.reverse();
+            state.historyTermSet=state.historyTermSet.slice(1);
         }
     }
 };
