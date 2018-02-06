@@ -1,13 +1,4 @@
-let homeSuggest = [
-    "Flashcards for financial accounting",
-    "Class notes for my Calculus class",
-    "When did World War 2 end?",
-    "Difference between Meiosis and Mitosis",
-    "Tutor for Linear Algebra",
-    "Job in marketing in NYC",
-    "The textbook - Accounting: Tools for Decision Making",
-    "Where can I get a burger near campus?"
-];
+
 let bottomIcons = [
     {
         link: "https://www.facebook.com/spitballstudy/",
@@ -207,5 +198,5 @@ let testimonials = [{
     testimonial: "Spitball is such a great idea! No more searching 100 different sites for class notes and study material. Plus, you can’t beat the textbook prices. Sorry campus bookstore, you’re old news."
 }];
 export {
-    homeSuggest, bottomIcons, strips, features, sites, testimonials
+     bottomIcons, strips, features, sites, testimonials
 }
