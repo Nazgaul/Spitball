@@ -42,8 +42,9 @@ const getters = {
     getAIData:state=>state[getLuisType(state.currentVertical)]
 };
 const actions = {
-    updateAITerm({commit}, {vertical,data}){
-        commit(LUIS.UPDATE_TERM,{vertical,data})
+    updateAITerm({commit,dispatch}, {vertical,data}){
+        commit(LUIS.UPDATE_TERM,{vertical,data});
+        dispatch('updateHistorySet',data.text)
     },
     getAIDataForVertical(context, val){
       return context.getters[`${val}Data`];

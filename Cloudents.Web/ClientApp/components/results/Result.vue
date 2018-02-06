@@ -52,7 +52,7 @@
                                 <empty-state></empty-state>
                             </v-flex>
                             <v-flex>
-                                <h6 class="mb-3">Your search - {{term}} - did not match any records.</h6>
+                                <h6 class="mb-3">Your search - {{userText}} - did not match any records.</h6>
                                 <div class="sug mb-2">Suggestions:</div>
                                 <ul>
                                     <li>Check your spelling.</li>

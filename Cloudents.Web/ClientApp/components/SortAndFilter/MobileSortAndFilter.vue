@@ -17,9 +17,9 @@
                 </div>
             </template>
         </div>
-        <div class="filter-wrap" v-if="filterOptions.length">
+        <div class="filter-wrap" v-if="filterOptions && filterOptions.length">
             <h3 class="px-3">Filter</h3>
-            <div class="filter-sections" v-if="filterOptions">
+            <div class="filter-sections">
                 <div class="filter-section" v-for="k in filterOptions" :key="k.modelId" :value="true">
                     <v-layout class="filter-header" slot="header">
                         <v-layout row align-center>
