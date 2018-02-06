@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
@@ -26,7 +27,7 @@ namespace Cloudents.Infrastructure.Search
             var result = await _search.DoSearchAsync(cseModel, format, token).ConfigureAwait(false);
             return new ResultWithFacetDto<SearchResult>
             {
-                Result = result,
+                Result = result.ToList(),
                 Facet = new[]
                 {
                     "Quizlet.com",

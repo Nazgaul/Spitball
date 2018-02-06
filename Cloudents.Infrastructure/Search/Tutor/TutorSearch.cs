@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -13,10 +14,14 @@ namespace Cloudents.Infrastructure.Search.Tutor
     public class TutorSearch : ITutorSearch
     {
         private readonly IEnumerable<ITutorProvider> _tutorSearch;
+        public const int PageSize = 15;
+        private readonly IUrlRedirectBuilder<TutorDto> _urlRedirectBuilder;
 
-        public TutorSearch(IEnumerable<ITutorProvider> tutorSearch)
+
+        public TutorSearch(IEnumerable<ITutorProvider> tutorSearch, IUrlRedirectBuilder<TutorDto> urlRedirectBuilder)
         {
             _tutorSearch = tutorSearch;
+            _urlRedirectBuilder = urlRedirectBuilder;
         }
 
         public async Task<IEnumerable<TutorDto>> SearchAsync(IEnumerable<string> term, TutorRequestFilter[] filters, TutorRequestSort sort, GeoPoint location, int page,
@@ -36,7 +41,8 @@ namespace Cloudents.Infrastructure.Search.Tutor
             var tasks = _tutorSearch.Select(s =>
                 s.SearchAsync(query, filters, sort, location, page, token)).ToList();
             await Task.WhenAll(tasks).ConfigureAwait(false);
-            return tasks.SelectMany(s => s.Result);//.OrderByDescending(o => o.TermCount);
+            var result = tasks.SelectMany(s => s.Result);//.OrderByDescending(o => o.TermCount);
+            return _urlRedirectBuilder.BuildUrl(page, PageSize, result);
         }
     }
 }

@@ -17,13 +17,13 @@ namespace Cloudents.Infrastructure.Data
             _repository = repository;
         }
 
-        public Task<UniversitySynonymDto> GetAsync(long universityId, CancellationToken token)
+        public Task<UniversitySynonymDto> GetAsync(long query, CancellationToken token)
         {
             return _repository.WithConnectionAsync(async c =>
             {
                 var dbResult = await c.QueryFirstAsync(
-                    new CommandDefinition("select  UniversityName,Extra from zbox.university where id=@universityId", new { universityId }, cancellationToken: token)).ConfigureAwait(false);
-                var result = new List<string> {dbResult.UniversityName.ToString()};
+                    new CommandDefinition("select  UniversityName,Extra from zbox.university where id=@universityId", new { universityId = query }, cancellationToken: token)).ConfigureAwait(false);
+                var result = new List<string> { dbResult.UniversityName.ToString() };
                 string extra = dbResult.Extra?.ToString();
 
                 if (extra != null)

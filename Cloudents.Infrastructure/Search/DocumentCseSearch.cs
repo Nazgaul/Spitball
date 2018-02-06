@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
@@ -26,7 +27,7 @@ namespace Cloudents.Infrastructure.Search
 
             return new ResultWithFacetDto<SearchResult>
             {
-                Result = result,
+                Result = result.ToList(),
                 Facet = new[]
                 {
                     "Spitball.co",

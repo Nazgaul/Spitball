@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Zbang.Zbox.Infrastructure.Enums;
+﻿using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain
 {

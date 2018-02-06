@@ -15,7 +15,7 @@ namespace Zbang.Zbox.Domain
 
         public ChatRoom(IEnumerable<User> users)
         {
-            Id = GuidIdGenerator.GetGuid(); ;
+            Id = GuidIdGenerator.GetGuid();
             Users = users.Select(s => new ChatUser(this, s)).ToList();
             UpdateTime = DateTime.UtcNow;
         }

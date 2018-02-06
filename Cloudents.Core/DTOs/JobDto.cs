@@ -5,7 +5,7 @@ using Cloudents.Core.Extension;
 namespace Cloudents.Core.DTOs
 {
     [DataContract]
-    public class JobDto : IShuffleable
+    public class JobDto : IShuffleable, IUrlRedirect
     {
         private string _responsibilities;
 
@@ -21,7 +21,7 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public DateTime DateTime { get; set; }
-        
+
         [DataMember]
         public string Address { get; set; }
         [DataMember]

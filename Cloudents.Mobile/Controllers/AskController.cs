@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.DTOs;
@@ -51,7 +52,7 @@ namespace Cloudents.Mobile.Controllers
             await Task.WhenAll(tResult, tVideo).ConfigureAwait(false);
 
             string nextPageLink = null;
-            if (tResult.Result.Result?.Count > 0)
+            if (tResult.Result.Result?.Any() == true)
             {
                 nextPageLink = Url.NextPageLink("DefaultApis", new
                 {

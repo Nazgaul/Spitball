@@ -1,21 +1,26 @@
 ﻿using Autofac;
 using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework.Database;
 
 namespace Cloudents.Infrastructure.Framework
 {
     public class ModuleDb : Module
     {
-        private readonly string _sqlConnectionString;
+        //private readonly string _sqlConnectionString;
 
-        public ModuleDb(string sqlConnectionString)
-        {
-            _sqlConnectionString = sqlConnectionString;
-        }
+        //public ModuleDb(string sqlConnectionString)
+        //{
+        //    _sqlConnectionString = sqlConnectionString;
+        //}
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(_ => new UnitOfWorkFactory(_sqlConnectionString)).As<IUnitOfWorkFactory>().SingleInstance();
+            builder.Register(c =>
+            {
+                var key = c.Resolve<IConfigurationKeys>().Db;
+                return new UnitOfWorkFactory(key);
+            }).As<IUnitOfWorkFactory>().SingleInstance();
             builder.Register(c =>
             {
                 var p = c.Resolve<IUnitOfWorkFactory>().OpenSession();

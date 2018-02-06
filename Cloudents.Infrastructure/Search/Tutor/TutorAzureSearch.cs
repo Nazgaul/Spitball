@@ -42,8 +42,8 @@ namespace Cloudents.Infrastructure.Search.Tutor
 
             var searchParams = new SearchParameters
             {
-                Top = 15,
-                Skip = 15 * page,
+                Top = TutorSearch.PageSize,
+                Skip = TutorSearch.PageSize * page,
                 Select = new[]
                 {
                     nameof(TutorObj.Name),
@@ -53,10 +53,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
                     nameof(TutorObj.State),
                     nameof(TutorObj.Fee),
                     nameof(TutorObj.TutorFilter),
-                    //"online",
                     nameof(TutorObj.Location),
-                    //"subjects",
-                    //"extra",
                     nameof(TutorObj.Description),
                     nameof(TutorObj.Source)
                 },
@@ -69,7 +66,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             return _mapper.Map<IEnumerable<TutorObj>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
         }
 
-        private static List<string> ApplyFilter(IEnumerable<TutorRequestFilter> filters, GeoPoint location)
+        private static IEnumerable<string> ApplyFilter(IEnumerable<TutorRequestFilter> filters, GeoPoint location)
         {
             var filterQuery = new List<string>();
             var filterResult = TutorFilter.None;

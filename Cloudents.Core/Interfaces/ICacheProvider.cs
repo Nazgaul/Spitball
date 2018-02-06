@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Cloudents.Core.Interfaces
+﻿namespace Cloudents.Core.Interfaces
 {
     public interface ICacheProvider
     {
