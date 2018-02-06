@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Cloudents.Web.Extensions

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extras.CommonServiceLocator;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
 using CommonServiceLocator;
 
@@ -22,7 +24,12 @@ namespace Cloudents.Function
         private void BuildContainer()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterModule(new ModuleDb(GetEnvironmentVariable("sql")));
+            var keys = new ConfigurationKeys()
+            {
+                Db = GetEnvironmentVariable("sql")
+            };
+            builder.Register(c => keys).As<IConfigurationKeys>();
+            builder.RegisterModule< ModuleDb>();
 
             var container = builder.Build();
 

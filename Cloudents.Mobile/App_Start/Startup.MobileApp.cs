@@ -3,6 +3,8 @@ using System.Reflection;
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
@@ -52,15 +54,17 @@ namespace Cloudents.Mobile
             }
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-
-            var module = new ModuleMobile(
-                ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-              new SearchServiceCredentials(ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                ConfigurationManager.AppSettings["AzureSearchKey"]),
-                ConfigurationManager.AppSettings["Redis"],
-                ConfigurationManager.AppSettings["Storage"]);
-            builder.RegisterModule(module);
-            builder.RegisterModule(new ModuleDb(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString));
+            var keys = new ConfigurationKeys()
+            {
+                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Search = new SearchServiceCredentials(ConfigurationManager.AppSettings["AzureSearchServiceName"],
+                    ConfigurationManager.AppSettings["AzureSearchKey"]),
+                Redis = ConfigurationManager.AppSettings["Redis"],
+                Storage = ConfigurationManager.AppSettings["Storage"]
+            };
+            builder.Register(c => keys).As<IConfigurationKeys>();
+            builder.RegisterModule<ModuleMobile>();
+            builder.RegisterModule<ModuleDb>();
 
             builder.RegisterWebApiModelBinderProvider();
             builder.RegisterType<LocationEntityBinder>().AsModelBinderForTypes(typeof(Location));

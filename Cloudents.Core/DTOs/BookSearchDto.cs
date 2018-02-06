@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Cloudents.Core.DTOs
 {
@@ -20,13 +21,20 @@ namespace Cloudents.Core.DTOs
         public IEnumerable<BookPricesDto> Prices { get; set; }
     }
 
+    [DataContract]
     public class BookPricesDto
     {
+        [DataMember]
         public Uri Image { get; set; }
+        [DataMember]
         public string Name { get; set; }
 
+        [DataMember]
         public string Link { get; set; }
+        [DataMember]
         public string Condition { get; set; } // on ios is enum - no need here i think
+        [DataMember]
         public double Price { get; set; }
+
     }
 }

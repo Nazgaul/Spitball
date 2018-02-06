@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Cloudents.Core.DTOs
 {
     [DataContract]
-    public class SearchResult : IShuffleable
+    public class SearchResult : IShuffleable, IUrlRedirect
     {
         [DataMember]
         public string Id { get; set; }

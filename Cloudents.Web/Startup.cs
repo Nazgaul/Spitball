@@ -2,6 +2,8 @@
 using System.Globalization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Web.Binders;
@@ -60,16 +62,21 @@ namespace Cloudents.Web
 
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
-            var infrastructureModule = new ModuleWeb(
-                Configuration.GetConnectionString("DefaultConnection"),
-                new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
-                Configuration["AzureSearch:SearchServiceAdminApiKey"]),
-                Configuration["Redis"],
-                Configuration["Storage"]
-                );
-            containerBuilder.RegisterModule(infrastructureModule);
+            
+
+            var keys = new ConfigurationKeys
+            {
+                Db = Configuration.GetConnectionString("DefaultConnection"),
+                Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
+                    Configuration["AzureSearch:SearchServiceAdminApiKey"]),
+                Redis = Configuration["Redis"],
+                Storage = Configuration["Storage"],
+                SystemUrl = Configuration["SystemUrl"]
+            };
+            containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
+            containerBuilder.RegisterModule<ModuleWeb>();
             containerBuilder.RegisterModule<ModuleFile>();
-            containerBuilder.RegisterModule(new ModuleDb(Configuration.GetConnectionString("DefaultConnection")));
+            containerBuilder.RegisterModule<ModuleDb>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

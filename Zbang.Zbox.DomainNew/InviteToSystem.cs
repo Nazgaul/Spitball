@@ -1,6 +1,5 @@
 ﻿using System;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain
 {

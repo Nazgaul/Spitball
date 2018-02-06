@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -49,7 +50,7 @@ namespace Cloudents.Mobile.Controllers
             var result = await _searchProvider.Value.SearchAsync(query, model.Format, token).ConfigureAwait(false);
 
             string nextPageLink = null;
-            if (result.Result?.Count > 0)
+            if (result.Result?.Any() == true)
             {
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
@@ -77,7 +78,7 @@ namespace Cloudents.Mobile.Controllers
 
             var result = await _flashcardProvider.Value.SearchAsync(query, model.Format, token).ConfigureAwait(false);
             string nextPageLink = null;
-            if (result.Result?.Count > 0)
+            if (result.Result?.Any() == true)
             {
                 nextPageLink = Url.NextPageLink("FlashcardSearch", null, model);
             }

@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Threading.Tasks;
 using Autofac;
+using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
@@ -23,19 +24,26 @@ namespace ConsoleApp
             //    ConfigurationManager.AppSettings["StorageConnectionString"]);
 
             //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
-            builder.RegisterModule(new ModuleRead(
-                ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-                ConfigurationManager.AppSettings["Redis"],
-                ConfigurationManager.AppSettings["StorageConnectionString"],
-                new SearchServiceCredentials(
+
+            var keys = new ConfigurationKeys
+            {
+                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+
+                Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                    ConfigurationManager.AppSettings["AzureSearchKey"])));
+                    ConfigurationManager.AppSettings["AzureSearchKey"]),
+                Redis = ConfigurationManager.AppSettings["Redis"],
+                Storage = ConfigurationManager.AppSettings["StorageConnectionString"]
+            };
+
+            builder.Register(_ => keys).As<IConfigurationKeys>();
+            builder.RegisterModule<ModuleRead>();
 
             
             // new LocalStorageData(Path.Combine(Directory.GetCurrentDirectory(), "Temp"), 500)));
             builder.RegisterModule<ModuleFile>();
-            builder.RegisterModule(new ModuleDb(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString));
+            builder.RegisterModule<ModuleDb>();
             var container = builder.Build();
             var point = new GeoPoint()
             {

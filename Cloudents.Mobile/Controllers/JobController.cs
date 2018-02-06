@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Enum;
@@ -40,7 +41,7 @@ namespace Cloudents.Mobile.Controllers
                 model.Sort.GetValueOrDefault(JobRequestSort.Distance),
                 model.Facet, model.Location, model.Page.GetValueOrDefault(), model.Highlight, token).ConfigureAwait(false);
             string nextPageLink = null;
-            if (result.Result?.Count > 0)
+            if (result.Result?.Any() == true)
             {
                 nextPageLink = Url.NextPageLink("DefaultApis", null, model);
             }
