@@ -13,6 +13,7 @@ namespace Cloudents.Infrastructure.Storage
         public QueueProvider(ICloudStorageProvider storageProvider)
         {
             _queueClient = storageProvider.GetQueueClient();
+            
         }
 
         public Task InsertMessageAsync<T>(QueueName name, T message, CancellationToken token)

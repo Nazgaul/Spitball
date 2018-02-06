@@ -17,25 +17,31 @@ namespace Cloudents.Function
             this.BuildContainer();
         }
 
-        public IServiceLocator Instance { get; private set; }
+        public IContainer Instance { get; private set; }
 
         private void BuildContainer()
         {
             var builder = new ContainerBuilder();
-            var sql = GetEnvironmentVariable("sql");
-            //builder.RegisterModule(new ModuleDb(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString));
+            builder.RegisterModule(new ModuleDb(GetEnvironmentVariable("sql")));
 
             var container = builder.Build();
 
+            Instance = container;
+            //CreateServiceLocator(container);
             // Create service locator.
-           // var csl = new AutofacServiceLocator(container);
 
 
             // Set the service locator created.
 
-           // CommonServiceLocator.ServiceLocator.SetLocatorProvider(() => csl);
-           // this.Instance = CommonServiceLocator.ServiceLocator.Current;
+
         }
+
+        //private void CreateServiceLocator(IContainer container)
+        //{
+        //    //var csl = new AutofacServiceLocator(container);
+        //    CommonServiceLocator.ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(null));
+        //    Instance = CommonServiceLocator.ServiceLocator.Current;
+        //}
 
         private static string GetEnvironmentVariable(string name)
         {

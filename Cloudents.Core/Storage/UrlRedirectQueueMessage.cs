@@ -17,7 +17,6 @@ namespace Cloudents.Core.Storage
 
         protected UrlRedirectQueueMessage()
         {
-                
         }
 
         [DataMember(Order = 1)]
