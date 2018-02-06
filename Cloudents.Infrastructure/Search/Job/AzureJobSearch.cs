@@ -84,8 +84,7 @@ namespace Cloudents.Infrastructure.Search.Job
 
             var retVal = await
                 _client.Documents.SearchAsync<Entity.Job>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            return _mapper.Map<ResultWithFacetDto<JobDto>>(retVal,
-                opt => opt.Items[JobResultConverter.FacetType] = nameof(Entity.Job.JobType));
+            return _mapper.Map<ResultWithFacetDto<JobDto>>(retVal);
         }
     }
 }
