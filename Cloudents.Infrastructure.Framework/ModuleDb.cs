@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Framework
             {
                 var key = c.Resolve<IConfigurationKeys>().Db;
                 return new UnitOfWorkFactory(key);
-            }).As<IUnitOfWorkFactory>().AutoActivate().SingleInstance();
+            }).As<IUnitOfWorkFactory>().SingleInstance();
             builder.Register(c =>
             {
                 var p = c.Resolve<IUnitOfWorkFactory>().OpenSession();

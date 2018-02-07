@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -14,13 +13,11 @@ namespace Cloudents.Infrastructure.Search.Places
     {
         private readonly IGooglePlacesSearch _placesSearch;
         private readonly IReadRepositoryAsync<IEnumerable<HookedDto>, IEnumerable<string>> _hookedRepository;
-        private readonly IUrlRedirectBuilder<PlaceDto> _urlRedirectBuilder;
 
-        public PlacesSearch(IGooglePlacesSearch placesSearch, IReadRepositoryAsync<IEnumerable<HookedDto>, IEnumerable<string>> hookedRepository, IUrlRedirectBuilder<PlaceDto> urlRedirectBuilder)
+        public PlacesSearch(IGooglePlacesSearch placesSearch, IReadRepositoryAsync<IEnumerable<HookedDto>, IEnumerable<string>> hookedRepository)
         {
             _placesSearch = placesSearch;
             _hookedRepository = hookedRepository;
-            _urlRedirectBuilder = urlRedirectBuilder;
         }
 
         public async Task<(string token, IEnumerable<PlaceDto> data)> SearchAsync(IEnumerable<string> term, PlacesRequestFilter filter, GeoPoint location, string nextPageToken,
@@ -34,10 +31,7 @@ namespace Cloudents.Infrastructure.Search.Places
             {
                 place.Hooked = hash.Contains(place.PlaceId);
             }
-
-            var resultBuilder = _urlRedirectBuilder.BuildUrl(data);
-
-            return (result.token, resultBuilder);
+            return (result.token, data);
         }
     }
 }
