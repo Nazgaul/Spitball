@@ -4,7 +4,7 @@ using Cloudents.Core.Models;
 namespace Cloudents.Core.DTOs
 {
     [DataContract]
-    public class PlaceDto : IUrlRedirect
+    public class PlaceDto 
     {
         [DataMember]
         public string Name { get; set; }
@@ -25,11 +25,11 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public bool Hooked { get; set; }
-        public string Url {
-            get => Name;
-            set => Name = value;
-        }
+        //public string Url {
+        //    get => Name;
+        //    set => Name = value;
+        //}
 
-        public string Source => "Places" + (Hooked ? " Hooked" : string.Empty);
+        //public string Source => "Places" + (Hooked ? " Hooked" : string.Empty);
     }
 }

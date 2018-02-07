@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
@@ -17,7 +18,8 @@ namespace Cloudents.Web.Controllers
         public async Task<IActionResult> Index(string host, string url,int location, CancellationToken token)
         {
             var referer = Request.Headers["Referer"].ToString();
-            var message = new UrlRedirectQueueMessage(host, url, referer, location);
+            var userIp = Request.HttpContext.Connection.GetIpAddress();
+            var message = new UrlRedirectQueueMessage(host, url, referer, location, userIp.ToString());
 
             await _queueProvider.InsertMessageAsync(QueueName.UrlRedirect, message, token).ConfigureAwait(false);
             return Redirect(url);

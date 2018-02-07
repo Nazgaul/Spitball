@@ -51,11 +51,11 @@ namespace ConsoleApp
                 Longitude = -74.0059728
             };
 
-            var commandBus = container.Resolve<ICommandBus>();
-            var command = new CreateUrlStatsCommand("ram", DateTime.UtcNow, "ram", "ram",
-                0);
+            //var commandBus = container.Resolve<ICommandBus>();
+            //var command = new CreateUrlStatsCommand("ram", DateTime.UtcNow, "ram", "ram",
+            //    0,);
 
-            await commandBus.DispatchAsync(command, default).ConfigureAwait(false);
+            //await commandBus.DispatchAsync(command, default).ConfigureAwait(false);
 
             Console.ReadLine();
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);

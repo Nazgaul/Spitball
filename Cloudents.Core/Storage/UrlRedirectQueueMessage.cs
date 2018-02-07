@@ -6,13 +6,15 @@ namespace Cloudents.Core.Storage
     [DataContract]
     public class UrlRedirectQueueMessage
     {
-        public UrlRedirectQueueMessage(string host, string url, string urlReferrer, int location)
+        public UrlRedirectQueueMessage(string host,
+            string url, string urlReferrer, int location, string ip)
         {
             Host = host;
             Url = url;
             DateTime = DateTime.UtcNow;
             UrlReferrer = urlReferrer;
             Location = location;
+            Ip = ip;
         }
 
         protected UrlRedirectQueueMessage()
@@ -32,6 +34,9 @@ namespace Cloudents.Core.Storage
 
         [DataMember(Order = 5)]
         public int Location { get; set; }
+
+        [DataMember(Order = 6)]
+        public string Ip { get; set; }
 
     }
 }

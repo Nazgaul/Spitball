@@ -17,7 +17,12 @@ namespace Cloudents.Core.CommandHandler
 
         public Task HandleAsync(CreateUrlStatsCommand message, CancellationToken token)
         {
-            var urlStats = new UrlStats(message.Host,message.DateTime,message.UrlTarget,message.UrlSource,message.SourceLocation);
+            var urlStats = new UrlStats(message.Host,
+                message.DateTime,
+                message.UrlTarget,
+                message.UrlSource,
+                message.SourceLocation,
+                message.Ip);
 
             return _repository.AddAsync(urlStats, token);
         }

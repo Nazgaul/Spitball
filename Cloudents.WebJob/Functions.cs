@@ -26,7 +26,7 @@ namespace Cloudents.WebJob
         public async Task ProcessQueueMessage([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content, TextWriter log, CancellationToken token)
         {
             var command = new CreateUrlStatsCommand(content.Host, content.DateTime, content.Url, content.UrlReferrer,
-                content.Location);
+                content.Location, content.Ip);
 
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             await log.WriteLineAsync("Finish Process").ConfigureAwait(false);
