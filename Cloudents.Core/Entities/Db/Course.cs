@@ -1,9 +1,10 @@
+using System;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities.Db
 {
 
-    public class Course
+    public class Course : IDirty
     {
         protected Course()
         {
@@ -17,6 +18,7 @@ namespace Cloudents.Core.Entities.Db
             PrivacySetting = CoursePrivacySetting.AnyoneWithUrl;
             Name = name.Trim();
             University = university;
+            ShouldMakeDirty = () => true;
         }
 
         public virtual long Id { get; set; }
@@ -27,7 +29,12 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual bool IsDeleted { get; set; }
 
+        public void DeleteAssociation()
+        {
+        }
+
         public virtual bool IsDirty { get; set; }
+        public virtual Func<bool> ShouldMakeDirty { get; }
 
         public virtual CourseType Discriminator { get; set; }
 

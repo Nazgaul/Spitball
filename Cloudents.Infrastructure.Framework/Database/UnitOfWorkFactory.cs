@@ -2,6 +2,7 @@
 using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Event;
 
 namespace Cloudents.Infrastructure.Framework.Database
 {
@@ -15,6 +16,7 @@ namespace Cloudents.Infrastructure.Framework.Database
                 .Database(FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
                 .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
                 .ExposeConfiguration(BuildSchema);
+            
             _factory = configuration.BuildSessionFactory();
         }
 
@@ -26,6 +28,10 @@ namespace Cloudents.Infrastructure.Framework.Database
         private static void BuildSchema(Configuration config)
         {
             config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
+            config.SetListener(ListenerType.Delete, new DeleteEventListener());
+
+            config.SetListener(ListenerType.PreInsert, new InsertUpdateEventListener());
+            config.SetListener(ListenerType.PreUpdate, new InsertUpdateEventListener());
             // delete the existing db on each run
 
             //config.SetProperty(Environment., "true");
