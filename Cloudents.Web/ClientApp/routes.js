@@ -4,11 +4,9 @@ import * as RouteTypes from "./routeTypes";
 const resultContent = () => import("./components/results/Result.vue");
 const foodDetails = () => import("./components/food/foodDetails.vue");
 const foodResultPage = () => import("./components/food/Result.vue");
-//const foodHeader = () => import("./components/food/foodHeader.vue");
 const dialogToolbar = () =>  import("./components/dialog-toolbar/DialogToolbar.vue");
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
-const personalize = () => import("./components/settings/ResultPersonalize.vue");
 const pageHeader = () => import("./components/header/header.vue");
 const boodDetailsHeader = () => import("./components/book/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
@@ -47,18 +45,15 @@ function headerResultPageFn(route) {
 
 const resultPage = {
     default: resultContent,
-    personalize,
     header: pageHeader,
 };
 const resultProps = {
     default: dynamicPropsFn,
-    personalize,
     header: headerResultPageFn
 };
 
 const foodPage = {
     default: foodResultPage,
-    personalize,
     header: pageHeader,
 };
 
@@ -117,7 +112,6 @@ let routes2 = [
         name: RouteTypes.bookDetailsRoute,
         components: {
             default: bookDetails,
-            personalize,
             header: boodDetailsHeader
         },
         props: bookDetailsProps
@@ -133,13 +127,13 @@ let routes2 = [
     },
     {
         path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item",
-        components: { default: showItem, header: documentPreviewHeader,personalize},
+        components: { default: showItem, header: documentPreviewHeader},
         props: {default:(route)=>({id:route.params.id})}
     },
     {
         path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
         name: "flashcard",
-        components: { default: showFlashcard, header: previewHeader,personalize },
+        components: { default: showFlashcard, header: previewHeader },
         props: {default:(route)=>({id:route.params.id})}
     },
 

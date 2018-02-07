@@ -55,7 +55,9 @@
                </v-flex>
            </div>
         <slot name="extraHeader"></slot>
-    </v-layout></v-toolbar>
+    </v-layout>
+   <personalize-dialog ref="personalize"></personalize-dialog>
+   </v-toolbar>
 </template>
 
 <script>
@@ -63,6 +65,7 @@
     import { micMixin } from '../helpers/mic';
     import {mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
+    import PersonalizeDialog from './ResultPersonalize.vue'
     import ShareIcon from "./img/share-icon.svg";
 
     let placeholders={
@@ -88,7 +91,7 @@
                 this.height = val;
             }
         },
-        components: { AppLogo, ShareIcon},
+        components:{AppLogo,PersonalizeDialog,ShareIcon},
         props:{currentSelection:{type:String,default:'note'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
         data(){return {settingMenu,placeholders}},
         methods:{
@@ -104,8 +107,8 @@
             submitMic() {
                 this.submit();
             },
-            $_currentClick(item){
-                this.$root.$emit("personalize", item.id);
+            $_currentClick({id}) {
+                this.$refs.personalize.openDialog(id);
             },
             facebookShare() {
                 const shareFb = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href);
