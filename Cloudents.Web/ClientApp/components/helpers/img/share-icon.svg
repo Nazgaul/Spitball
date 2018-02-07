@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="24px" viewBox="0 0 23 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>1002457D-1694-4944-877C-FBE22258CCFA</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <circle id="path-1" cx="18.1128205" cy="4.26666667" r="4.26666667"></circle>
+        <circle id="path-2" cx="4.26666667" cy="12" r="4.26666667"></circle>
+        <circle id="path-3" cx="18.1333333" cy="19.7333333" r="4.26666667"></circle>
+    </defs>
+    <g id="Share" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1191.000000, -24.000000)">
+        <g id="Group-7" transform="translate(1191.000000, 24.000000)">
+            <polygon id="Rectangle" fill="#3532D5" transform="translate(10.780952, 8.388141) rotate(58.000000) translate(-10.780952, -8.388141) " points="9.81212199 3.63543103 11.9454553 3.63543103 11.7497828 13.1408506 9.61644944 13.1408506"></polygon>
+            <polygon id="Rectangle-Copy" fill="#3532D5" transform="translate(11.313399, 16.159392) scale(1, -1) rotate(58.000000) translate(-11.313399, -16.159392) " points="10.4201728 11.3572451 12.5535061 11.3572451 12.2066259 20.9615391 10.0732926 20.9615391"></polygon>
+            <g id="Oval-2-Copy">
+                <use fill="#3532D5" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <circle stroke="#3532D5" stroke-width="2" cx="18.1128205" cy="4.26666667" r="3.26666667"></circle>
+            </g>
+            <g id="Oval-2-Copy-3">
+                <use fill="#3532D5" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <circle stroke="#3532D5" stroke-width="2" cx="4.26666667" cy="12" r="3.26666667"></circle>
+            </g>
+            <g id="Oval-2-Copy-2">
+                <use fill="#3532D5" fill-rule="evenodd" xlink:href="#path-3"></use>
+                <circle stroke="#3532D5" stroke-width="2" cx="18.1333333" cy="19.7333333" r="3.26666667"></circle>
+            </g>
+        </g>
+    </g>
+</svg>
