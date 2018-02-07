@@ -4,7 +4,7 @@ using Cloudents.Core.Models;
 namespace Cloudents.Core.DTOs
 {
     [DataContract]
-    public class TutorDto
+    public class TutorDto : IUrlRedirect
     {
         [DataMember]
         public string Name { get; set; }

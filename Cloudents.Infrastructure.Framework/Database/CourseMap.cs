@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
-using FluentNHibernate;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Framework.Database
@@ -36,8 +30,8 @@ namespace Cloudents.Infrastructure.Framework.Database
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(e => e.Host);
             Map(e => e.DateTime);
-            Map(e => e.UrlSource);
-            Map(e => e.UrlTarget);
+            Map(e => e.UrlSource).Length(8000);
+            Map(e => e.UrlTarget).Length(8000);
             Map(e => e.SourceLocation);
             Map(e => e.AggregateCount);
         }

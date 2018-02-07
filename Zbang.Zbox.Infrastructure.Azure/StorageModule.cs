@@ -19,7 +19,6 @@ namespace Zbang.Zbox.Infrastructure.Azure
             builder.RegisterType<TableProvider>().As<ITableProvider>();
             builder.RegisterType<QueueProvider>().As<IQueueProvider>().As<IQueueProviderExtract>();
             builder.RegisterType<LocalStorageProvider>().As<ILocalStorageProvider>();
-            builder.RegisterType<Blob.IdGenerator>().As<IdGenerator.IIdGenerator>().SingleInstance();
             builder.RegisterGeneric(typeof(BlobProvider2<>)).As(typeof(IBlobProvider2<>));
         }
     }

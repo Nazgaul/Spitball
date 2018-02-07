@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
@@ -19,8 +20,9 @@ namespace Cloudents.Infrastructure.Converters
 
             if (source.Facets != null)
             {
-                source.Facets.TryGetValue(context.Items[FacetType].ToString(), out var facets);
-                retVal.Facet = facets?.Select(s => s.AsValueFacetResult<string>().Value);
+                source.Facets.TryGetValue(nameof(Job.JobType), out var facets);
+                retVal.Facet = facets?.Select(s => s.AsValueFacetResult<string>().Value).Where(w => !string.Equals(w,
+                    "none", StringComparison.InvariantCultureIgnoreCase));
             }
 
             return retVal;

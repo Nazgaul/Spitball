@@ -77,6 +77,7 @@ namespace Cloudents.Infrastructure.Search
                 return null;
             }
             mappedResult.Prices = mappedResult.Prices?.OrderBy(o => o.Price);
+            //mappedResult.Prices = UrlRedirectBuilder<BookPricesDto>.BuildUrl(0, 0, mappedResult.Prices);
             return mappedResult;
         }
 
@@ -92,8 +93,6 @@ namespace Cloudents.Infrastructure.Search
             return result;
         }
 
-
-
         public class BookDetailResult
         {
             public Response Response { get; set; }
@@ -104,7 +103,6 @@ namespace Cloudents.Infrastructure.Search
             public Page Page { get; set; }
             public string Status { get; set; }
         }
-
 
         public class Page
         {

@@ -13,21 +13,25 @@ namespace Cloudents.Infrastructure
 {
     public class ModuleInfrastructureBase : Module
     {
-        private readonly SearchServiceCredentials _searchService;
-        private readonly string _redisConnectionString;
+        //private readonly SearchServiceCredentials _searchService;
+        //private readonly string _redisConnectionString;
 
-        public ModuleInfrastructureBase(SearchServiceCredentials searchService, string redisConnectionString)
-        {
-            _searchService = searchService;
-            _redisConnectionString = redisConnectionString;
-        }
+        //public ModuleInfrastructureBase(SearchServiceCredentials searchService, string redisConnectionString)
+        //{
+        //    _searchService = searchService;
+        //    _redisConnectionString = redisConnectionString;
+        //}
 
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            
-            builder.RegisterModule(new ModuleCache(_redisConnectionString));
-            builder.Register(_ => new SearchServiceClient(_searchService.Name, new SearchCredentials(_searchService.Key)))
+
+            builder.RegisterModule<ModuleCache>();
+            builder.Register(c =>
+                {
+                    var key = c.Resolve<IConfigurationKeys>().Search;
+                    return new SearchServiceClient(key.Name, new SearchCredentials(key.Key));
+                })
                 .SingleInstance().AsSelf().As<ISearchServiceClient>();
 
             builder.RegisterType<GooglePlacesSearch>().As<IGooglePlacesSearch>().EnableInterfaceInterceptors()

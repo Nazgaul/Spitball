@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace Cloudents.Core.Entities.Db
 {
     public class University

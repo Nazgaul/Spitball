@@ -18,35 +18,40 @@ namespace Cloudents.Infrastructure
 {
     public sealed class ModuleRead : Module
     {
-        private readonly string _sqlConnectionString;
-        private readonly SearchServiceCredentials _searchServiceCredentials;
+        //private readonly string _sqlConnectionString;
+        //private readonly SearchServiceCredentials _searchServiceCredentials;
 
-        private readonly string _redisConnectionString;
+        //private readonly string _redisConnectionString;
 
-        private readonly string _storageConnectionString;
+        //private readonly string _storageConnectionString;
 
-        public ModuleRead(string sqlConnectionString,
-            string redisConnectionString, string storageConnectionString,
-            SearchServiceCredentials searchServiceCredentials)
-        {
-            _sqlConnectionString = sqlConnectionString;
-            _redisConnectionString = redisConnectionString;
-            _storageConnectionString = storageConnectionString;
-            _searchServiceCredentials = searchServiceCredentials;
-        }
+        //public ModuleRead(string sqlConnectionString,
+        //    string redisConnectionString, string storageConnectionString,
+        //    SearchServiceCredentials searchServiceCredentials)
+        //{
+        //    _sqlConnectionString = sqlConnectionString;
+        //    _redisConnectionString = redisConnectionString;
+        //    _storageConnectionString = storageConnectionString;
+        //    _searchServiceCredentials = searchServiceCredentials;
+        //}
 
         [SuppressMessage("Microsoft.Design", "RCS1163:Unused parameter")]
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterModule(new ModuleInfrastructureBase(_searchServiceCredentials, _redisConnectionString));
+            builder.RegisterModule<ModuleInfrastructureBase>();
+            //builder.RegisterModule(new ModuleInfrastructureBase(_searchServiceCredentials, _redisConnectionString));
 
             builder.RegisterType<LuisAI>().As<IAI>()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
-            builder.RegisterType<AIDecision>().As<IDecision>();
+            builder.RegisterType<AiDecision>().As<IDecision>();
             builder.RegisterType<EngineProcess>().As<IEngineProcess>();
 
-            builder.Register(_ => new DapperRepository(_sqlConnectionString));
+            builder.Register(c =>
+            {
+                var key = c.Resolve<IConfigurationKeys>().Db;
+                return new DapperRepository(key);
+            });
             builder.Register(_ => new LuisClient("a1a0245f-4cb3-42d6-8bb2-62b6cfe7d5a3", "6effb3962e284a9ba73dfb57fa1cfe40")).AsImplementedInterfaces();
 
             builder.RegisterType<DocumentDbRepositoryUnitOfWork>().AsSelf().As<IStartable>().SingleInstance().AutoActivate();
@@ -86,7 +91,11 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
 
-            builder.Register(_ => new CloudStorageProvider(_storageConnectionString)).SingleInstance().AsImplementedInterfaces();
+            builder.Register(c =>
+            {
+                var key = c.Resolve<IConfigurationKeys>().Storage;
+                return new CloudStorageProvider(key);
+            }).SingleInstance().AsImplementedInterfaces();
 
             builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
             builder.RegisterType<QueueProvider>().AsImplementedInterfaces();

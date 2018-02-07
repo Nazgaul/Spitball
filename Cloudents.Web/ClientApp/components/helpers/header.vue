@@ -4,7 +4,7 @@
            <div class="main">
                <v-flex class="line top">
                    <v-layout row>
-                       <v-toolbar-title class="ma-0">
+                       <v-toolbar-title class="ma-0"go-l>
                            <router-link class="logo-link" :to="{name:'home'}">
                                <app-logo class="logo"></app-logo>
                            </router-link>
@@ -12,7 +12,6 @@
                        <v-toolbar-items>
                            <form v-if="$vuetify.breakpoint.mdAndUp" @submit.prevent="submit">
                                <v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
-                                <div v-for="(s,index) in suggestList">{{s}}</div>
                            </form>
                            <v-spacer v-if="$vuetify.breakpoint.smAndDown"></v-spacer>
                            <div class="settings-wrapper d-flex align-center">
@@ -79,10 +78,7 @@
         mixins:[micMixin],
         computed: {
             ...mapGetters(['getUniversityName','historyTermSet']),
-            ...mapGetters({'globalTerm':'currentText'}),
-            suggestList(){
-               return this.historyTermSet.filter(i=>i.includes(this.msg)).slice(0,4)
-            }
+            ...mapGetters({'globalTerm':'currentText'})
         },
         watch:{
             userText(val){

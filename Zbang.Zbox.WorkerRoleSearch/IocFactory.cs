@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.CommandHandlers;
@@ -53,13 +55,18 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             var azureLocalResource = RoleEnvironment.GetLocalResource("ItemPreviewStorage");
 
-            var infrastructureModule = new ModuleWrite(
-                new SearchServiceCredentials(ConfigFetcher.Fetch("AzureSeachServiceName"),
-                    ConfigFetcher.Fetch("AzureSearchKey")), "zboxcache.redis.cache.windows.net,abortConnect=false,allowAdmin=true,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI="
-                ,new LocalStorageData(azureLocalResource.RootPath, azureLocalResource.MaximumSizeInMegabytes));
 
+            var keys = new ConfigurationKeys
+            {
+                Search = new SearchServiceCredentials(ConfigFetcher.Fetch("AzureSeachServiceName"),
+                    ConfigFetcher.Fetch("AzureSearchKey")),
+                Redis = "zboxcache.redis.cache.windows.net,abortConnect=false,allowAdmin=true,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI=",
+                LocalStorageData = new LocalStorageData(azureLocalResource.RootPath, azureLocalResource.MaximumSizeInMegabytes)
+            };
+
+            builder.Register(_ => keys).As<IConfigurationKeys>();
             //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
-            builder.RegisterModule(infrastructureModule);
+            builder.RegisterModule<ModuleWrite>();
 
             builder.RegisterModule<WorkerRoleModule>();
             Container = builder.Build();

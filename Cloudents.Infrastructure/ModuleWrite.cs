@@ -11,21 +11,21 @@ namespace Cloudents.Infrastructure
 {
     public class ModuleWrite : Module
     {
-        private readonly SearchServiceCredentials _searchCredentials;
-        private readonly string _redisConnection;
-        private readonly LocalStorageData _localStorageData;
+        //private readonly SearchServiceCredentials _searchCredentials;
+        //private readonly string _redisConnection;
+        //private readonly LocalStorageData _localStorageData;
 
-        public ModuleWrite(SearchServiceCredentials searchCredentials, string redisConnection, LocalStorageData localStorageData)
-        {
-            _searchCredentials = searchCredentials;
-            _redisConnection = redisConnection;
-            _localStorageData = localStorageData;
-        }
+        //public ModuleWrite(SearchServiceCredentials searchCredentials, string redisConnection, LocalStorageData localStorageData)
+        //{
+        //    _searchCredentials = searchCredentials;
+        //    _redisConnection = redisConnection;
+        //    _localStorageData = localStorageData;
+        //}
 
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterModule(new ModuleInfrastructureBase(_searchCredentials, _redisConnection));
+            builder.RegisterModule<ModuleInfrastructureBase>();
             builder.RegisterModule<ModuleMail>();
 
             builder.RegisterGeneric(typeof(SearchServiceWrite<>));
@@ -33,7 +33,10 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<TutorSearchWrite>().AsSelf().As<ISearchServiceWrite<Tutor>>().As<IStartable>().SingleInstance().AutoActivate();
             builder.RegisterType<DownloadFile>().As<IDownloadFile>();
             builder.Register(c =>
-                new TempStorageProvider(c.Resolve<ILogger>(), _localStorageData)).As<ITempStorageProvider>();
+            {
+                var key = c.Resolve<IConfigurationKeys>().LocalStorageData;
+                return new TempStorageProvider(c.Resolve<ILogger>(), key);
+            }).As<ITempStorageProvider>();
 
             builder.RegisterType<JobCareerBuilder>().Keyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
             builder.RegisterType<JobWayUp>().Keyed<IUpdateAffiliate>(AffiliateProgram.WayUp);

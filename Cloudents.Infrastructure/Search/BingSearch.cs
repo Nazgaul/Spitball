@@ -18,17 +18,20 @@ namespace Cloudents.Infrastructure.Search
     public class BingSearch : ISearch
     {
         private const string SubscriptionKey = "285e26627c874d28be01859b4fb08a58";
+        private const int PageSize = 50;
         private readonly IRestClient _restClient;
         private readonly IMapper _mapper;
+        private readonly IUrlRedirectBuilder<SearchResult> _urlRedirectBuilder;
 
-        public BingSearch(IRestClient restClient,  IMapper mapper)
+        public BingSearch(IRestClient restClient,  IMapper mapper, IUrlRedirectBuilder<SearchResult> urlRedirectBuilder)
         {
             _restClient = restClient;
             _mapper = mapper;
+            _urlRedirectBuilder = urlRedirectBuilder;
         }
 
         [Cache(TimeConst.Day, "bing")]
-        public async Task<IList<SearchResult>> DoSearchAsync(SearchModel model, BingTextFormat format, CancellationToken token)
+        public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model, BingTextFormat format, CancellationToken token)
         {
             //https://docs.microsoft.com/en-us/rest/api/cognitiveservices/bing-custom-search-api-v7-reference#query-parameters
             if (model == null) throw new ArgumentNullException(nameof(model));
@@ -39,9 +42,9 @@ namespace Cloudents.Infrastructure.Search
 
             var nvc = new NameValueCollection
             {
-                ["count"] = 50.ToString(),
+                ["count"] = PageSize.ToString(),
                 ["customConfig"] = model.Key.Key,
-                ["offset"] = (model.Page * 50).ToString(),
+                ["offset"] = (model.Page * PageSize).ToString(),
                 ["q"] = $"{query} {sourceQuery}"
             };
             if (format != BingTextFormat.None)
@@ -66,10 +69,11 @@ namespace Cloudents.Infrastructure.Search
                 return null;
             }
             var searchResult = _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(response.WebPages?.Value);
-            return Shuffle<SearchResult>.DoShuffle(searchResult);
+            searchResult =  Shuffle<SearchResult>.DoShuffle(searchResult);
+            return _urlRedirectBuilder.BuildUrl(model.Page, PageSize, searchResult);
         }
 
-        public static string BuildSources(IEnumerable<string> sources)
+        private static string BuildSources(IEnumerable<string> sources)
         {
             if (sources == null)
             {
@@ -115,14 +119,11 @@ namespace Cloudents.Infrastructure.Search
 
         public class BingCustomSearchResponse
         {
-            //public string Type { get; set; }
             public WebPages WebPages { get; set; }
         }
 
         public class WebPages
         {
-           // public string WebSearchUrl { get; set; }
-           // public int TotalEstimatedMatches { get; set; }
             public WebPage[] Value { get; set; }
         }
 
@@ -130,18 +131,13 @@ namespace Cloudents.Infrastructure.Search
         {
             public string Name { get; set; }
             public string Url { get; set; }
-           // public string DisplayUrl { get; set; }
             public string Snippet { get; set; }
-          //  public DateTime DateLastCrawled { get; set; }
-           // public string CachedPageUrl { get; set; }
             public OpenGraphImage OpenGraphImage { get; set; }
         }
 
         public class OpenGraphImage
         {
             public string ContentUrl { get; set; }
-           // public int Width { get; set; }
-           // public int Height { get; set; }
         }
     }
 }

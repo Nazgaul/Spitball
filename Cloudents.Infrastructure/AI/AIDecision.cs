@@ -9,21 +9,18 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.AI
 {
-    public class AIDecision : IDecision
+    public class AiDecision : IDecision
     {
         [AttributeUsage(AttributeTargets.Method)]
         private sealed class FactoryAttribute : Attribute
         {
-
         }
 
         private readonly List<Func<AiDto, VerticalEngineDto>> _matrix = new List<Func<AiDto, VerticalEngineDto>>();
 
-
-
-        public AIDecision()
+        public AiDecision()
         {
-            var methods = typeof(AIDecision).GetMethods(BindingFlags.NonPublic |BindingFlags.Static).Where(mi =>
+            var methods = typeof(AiDecision).GetMethods(BindingFlags.NonPublic |BindingFlags.Static).Where(mi =>
             {
                 if (mi.ReturnType != typeof(VerticalEngineDto))
                 {

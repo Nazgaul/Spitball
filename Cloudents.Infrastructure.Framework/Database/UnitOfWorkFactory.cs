@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using FluentNHibernate.Cfg;
-using FluentNHibernate.Conventions.Inspections;
 using NHibernate;
 using NHibernate.Cfg;
-using NHibernate.Tool.hbm2ddl;
-using Environment = NHibernate.Cfg.Environment;
 
 namespace Cloudents.Infrastructure.Framework.Database
 {

@@ -12,6 +12,14 @@ namespace Cloudents.Core
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ICommandHandlerAsync<,>)).AsImplementedInterfaces();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ICommandHandlerAsync<>)).AsImplementedInterfaces();
             builder.RegisterType<CommandBus>().As<ICommandBus>();
+
+            builder.Register(c=>
+            {
+                var key = c.Resolve<IConfigurationKeys>().SystemUrl;
+                return new UrlConst(key);
+            }).As<IUrlBuilder>().SingleInstance();
+
+            builder.RegisterGeneric(typeof(UrlRedirectBuilder<>)).As(typeof(IUrlRedirectBuilder<>));
         }
     }
 }
