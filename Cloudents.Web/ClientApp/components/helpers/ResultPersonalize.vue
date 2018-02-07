@@ -16,5 +16,5 @@
 </template>
 <style lang="less" src="./ResultPersonalize.less">
 </style>
-<script src="./ResultPersonalize.js">  
+<script src="./ResultPersonalize.js">
 </script>

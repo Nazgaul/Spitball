@@ -1,4 +1,4 @@
-﻿import searchItem from './searchItem.vue'
+﻿import searchItem from '../settings/searchItem.vue'
 import { settingMenu } from '../settings/consts';
 import { mapGetters, mapActions } from 'vuex'
 
@@ -38,11 +38,12 @@ export default {
 
         },
         isAcademinc(val) {
+            debugger;
             if (val && this.isFirst) {
                 setTimeout(() => {
                     if (this.isAcademinc && !this.$root.$el.querySelector(".dialog__content__active"))
                         this.showDialog = true
-                }, 5000);
+                }, 500);
             }
         }
     },
@@ -60,8 +61,7 @@ export default {
         //}
         this.$root.$on("personalize",
             (type) => {
-                settingMenu.find(i => i.id === type).click.call(this, this.getUniversityName);
-                this.showDialog = true;
+                this.openDialog(type)
             });
     },
     methods: {
@@ -70,7 +70,10 @@ export default {
             this.type = "university";
             this.isSearch = true;
         },
-
+        openDialog(type){
+            settingMenu.find(i => i.id === type).click.call(this, this.getUniversityName);
+            this.showDialog = true;
+        },
         $_isAcademic(to) {
             let newName = to.path.slice(1);
             this.isAcademinc = (newName !== "job" && newName !== "food" && !to.path.includes('result'))
