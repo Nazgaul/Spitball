@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
@@ -21,7 +22,7 @@ namespace Cloudents.WebJob
             builder.RegisterType<Functions>()
                 .InstancePerDependency();
 
-            builder.Register(c => keys).As<IConfigurationKeys>();
+            builder.Register(_ => keys).As<IConfigurationKeys>();
             builder.RegisterModule<ModuleDb>();
 
             _container = builder.Build();

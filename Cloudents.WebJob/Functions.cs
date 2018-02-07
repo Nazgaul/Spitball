@@ -23,6 +23,7 @@ namespace Cloudents.WebJob
             _commandBus = commandBus;
         }
 
+        [FunctionName("UrlProcess")]
         public async Task ProcessQueueMessage([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content, TextWriter log, CancellationToken token)
         {
             var command = new CreateUrlStatsCommand(content.Host, content.DateTime, content.Url, content.UrlReferrer,
