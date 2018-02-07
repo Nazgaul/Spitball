@@ -123,7 +123,7 @@ namespace Cloudents.Infrastructure.Interceptor
 
             if (data != null)
             {
-                if (/*isAsync &&*/ typeof(Task).IsAssignableFrom(method.ReturnType))
+                if (typeof(Task).IsAssignableFrom(method.ReturnType))
                 {
                     var taskReturnType = method.ReturnType; //e.g. Task<int>
 
@@ -141,10 +141,11 @@ namespace Cloudents.Infrastructure.Interceptor
                     return;
                 }
                 invocation.ReturnValue = data;
+                return;
             }
             invocation.Proceed();
 
-            if (/*isAsync &&*/ typeof(Task).IsAssignableFrom(method.ReturnType))
+            if (typeof(Task).IsAssignableFrom(method.ReturnType))
             {
                 invocation.ReturnValue = InterceptAsync(key, cacheAttr, (dynamic)invocation.ReturnValue);
             }

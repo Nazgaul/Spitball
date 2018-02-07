@@ -15,4 +15,25 @@ namespace Cloudents.Core.Models
 
         public string Region { get; }
     }
+
+    public sealed class ShuffleAttribute : Attribute
+    {
+        public ShuffleAttribute(Type type)
+        {
+            Type = type;
+        }
+
+        public Type Type { get; private set; }
+
+    }
+
+    public sealed class BuildLocalUrlAttribute : Attribute
+    {
+        public BuildLocalUrlAttribute(Type type)
+        {
+            Type = type;
+        }
+
+        public Type Type { get; private set; }
+    }
 }
