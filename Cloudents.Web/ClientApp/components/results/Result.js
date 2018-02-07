@@ -12,36 +12,7 @@ import { mapActions, mapGetters } from 'vuex'
 const ACADEMIC_VERTICALS=['note','ask','flashcard','book','tutor'];
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 
-let promotions = {
-    note: {
-        title: "Study Documents",
-        content: "Study documents curated from the best sites on the web filtered by your school, classes and preferences."
-    },
-    flashcard: {
-        title: "Flashcard",
-        content: "Search millions of study sets and improve your grades by studying with flashcards."
-    },
-    ask: {
-        title: "Ask A Question",
-        content: "Ask any school related question and immediately get answers related specifically to you, your classes, and university."
-    },
-    tutor: {
-        title: "Tutors",
-        content: "Spitball has teamed up with the most trusted tutoring services to help you ace your classes."
-    },
-    book: {
-        title: "Textbooks",
-        content: "Find the best prices to buy, rent and sell your textbooks by comparing hundreds of sites simultaneously."
-    },
-    job: {
-        title: "Jobs",
-        content: "Easily search and apply to paid internships, part-time and entry-level jobs from local businesses to Fortune 500 companies."
-    },
-    food: {
-        title: "Food and Deals",
-        content: "Discover exclusive deals to local businesses, restaurants and bars near campus."
-    }
-};
+import {skelatonData,promotions} from './consts'
 //update data function update the page content and selected filters
 let updateData = function (data, isFilterUpdate = false) {
     const { facet } = data;
@@ -153,6 +124,7 @@ export const pageMixin =
             //If query have courses save those courses
             if (this.query.course) this.setFilteredCourses(this.query.course);
             this.UPDATE_LOADING(true);
+            this.items=skelatonData[this.name];
             //if the term is empty fetch the data
             if (!this.query.q || !this.query.q.length) {
                 this.fetchingData({ name: this.name, params: { ...this.query, ...this.params } })
@@ -177,7 +149,7 @@ export const pageMixin =
 
                         })
                             .then(({ data }) => {
-                                updateData.call(this, data);
+                                // updateData.call(this, data);
                             });
                     }
                 });
