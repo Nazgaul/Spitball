@@ -21,17 +21,16 @@ namespace Cloudents.Infrastructure.Search
         private const int PageSize = 50;
         private readonly IRestClient _restClient;
         private readonly IMapper _mapper;
-        private readonly IUrlRedirectBuilder<SearchResult> _urlRedirectBuilder;
 
-        public BingSearch(IRestClient restClient,  IMapper mapper, IUrlRedirectBuilder<SearchResult> urlRedirectBuilder)
+        public BingSearch(IRestClient restClient, IMapper mapper)
         {
             _restClient = restClient;
             _mapper = mapper;
-            _urlRedirectBuilder = urlRedirectBuilder;
         }
 
         [Cache(TimeConst.Day, "bing")]
-        public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model, BingTextFormat format, CancellationToken token)
+        [BuildLocalUrl(null, PageSize, "page")]
+        public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model, int page, BingTextFormat format, CancellationToken token)
         {
             //https://docs.microsoft.com/en-us/rest/api/cognitiveservices/bing-custom-search-api-v7-reference#query-parameters
             if (model == null) throw new ArgumentNullException(nameof(model));
@@ -44,7 +43,7 @@ namespace Cloudents.Infrastructure.Search
             {
                 ["count"] = PageSize.ToString(),
                 ["customConfig"] = model.Key.Key,
-                ["offset"] = (model.Page * PageSize).ToString(),
+                ["offset"] = (page * PageSize).ToString(),
                 ["q"] = $"{query} {sourceQuery}"
             };
             if (format != BingTextFormat.None)
@@ -69,8 +68,8 @@ namespace Cloudents.Infrastructure.Search
                 return null;
             }
             var searchResult = _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(response.WebPages?.Value);
-            searchResult =  Shuffle<SearchResult>.DoShuffle(searchResult);
-            return _urlRedirectBuilder.BuildUrl(model.Page, PageSize, searchResult);
+            searchResult = Shuffle<SearchResult>.DoShuffle(searchResult);
+            return searchResult; //_urlRedirectBuilder.BuildUrl(model.Page, PageSize, searchResult);
         }
 
         private static string BuildSources(IEnumerable<string> sources)

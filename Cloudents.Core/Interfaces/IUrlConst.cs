@@ -7,10 +7,9 @@ namespace Cloudents.Core.Interfaces
         string BuildRedirectUrl(string url, string host, int? location);
     }
 
-    public interface IUrlRedirectBuilder<T> where T : IUrlRedirect
+    public interface IUrlRedirectBuilder
     {
-        IEnumerable<T> BuildUrl(int page, int sizeOfPage, IEnumerable<T> result);
-        IEnumerable<T> BuildUrl(IEnumerable<T> result);
+        IEnumerable<T> BuildUrl<T>(IEnumerable<T> result, int page = 0, int sizeOfPage = 0) where T : IUrlRedirect;
     }
 
     public interface IConfigurationKeys

@@ -13,11 +13,11 @@ namespace Cloudents.Infrastructure.Search.Job
     public class JobSearch : IJobSearch
     {
         private readonly IEnumerable<IJobProvider> _providers;
-        private readonly IUrlRedirectBuilder<JobDto> _urlRedirectBuilder;
+        private readonly IUrlRedirectBuilder _urlRedirectBuilder;
 
         public const int PageSize = 30;
 
-        public JobSearch(IEnumerable<IJobProvider> providers, IUrlRedirectBuilder<JobDto> urlRedirectBuilder)
+        public JobSearch(IEnumerable<IJobProvider> providers, IUrlRedirectBuilder urlRedirectBuilder)
         {
             _providers = providers;
             _urlRedirectBuilder = urlRedirectBuilder;
@@ -33,7 +33,7 @@ namespace Cloudents.Infrastructure.Search.Job
             var result = tasks.Select(s => s.Result).Where(w => w != null).ToList();
             var facets = result.Where(w => w.Facet != null).SelectMany(s => s.Facet).Distinct();
             var jobs = Shuffle<JobDto>.DoShuffle(result.SelectMany(s => s.Result));
-            jobs = _urlRedirectBuilder.BuildUrl(page, PageSize, jobs);
+            jobs = _urlRedirectBuilder.BuildUrl(jobs,page, PageSize );
             return new ResultWithFacetDto<JobDto>
             {
                 Result = jobs,

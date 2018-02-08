@@ -24,13 +24,13 @@ namespace Cloudents.Infrastructure.Test
         [TestMethod]
         public void GetInvocationSignature_BingDifferentTerm_Works()
         {
-            var searchModel1 = new SearchModel(new[] {"biology"}, null, 0, SearchRequestSort.None,
+            var searchModel1 = new SearchModel(new[] { "biology" }, null, SearchRequestSort.None,
                 CustomApiKey.Documents, null, null, "biology", null);
-            var searchModel2 = new SearchModel(new[] { "chemistry" }, null, 0, SearchRequestSort.None,
+            var searchModel2 = new SearchModel(new[] { "chemistry" }, null, SearchRequestSort.None,
                 CustomApiKey.Documents, null, null, "biology", null);
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
-            var bookRequest1 = new object[] { searchModel1, CancellationToken.None };
-            var bookRequest2 = new object[] { searchModel2, CancellationToken.None };
+            var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };
+            var bookRequest2 = new object[] { searchModel2, 0, CancellationToken.None };
             var result1 = CacheResultInterceptor.BuildArgument(bookRequest1);
             var result2 = CacheResultInterceptor.BuildArgument(bookRequest2);
 
@@ -40,13 +40,13 @@ namespace Cloudents.Infrastructure.Test
         [TestMethod]
         public void GetInvocationSignature_DifferentArrayOrder_SameResultWorks()
         {
-            var searchModel1 = new SearchModel(new [] { "Linear Algebra" }, new [] { "spitball", "koofers" }, 0, SearchRequestSort.None,
+            var searchModel1 = new SearchModel(new[] { "Linear Algebra" }, new[] { "spitball", "koofers" }, SearchRequestSort.None,
                 CustomApiKey.Documents, null, null, "biology", null);
-            var searchModel2 = new SearchModel(new[] { "Linear Algebra" }, new[] { "koofers","spitball", }, 0, SearchRequestSort.None,
+            var searchModel2 = new SearchModel(new[] { "Linear Algebra" }, new[] { "koofers", "spitball", }, SearchRequestSort.None,
                 CustomApiKey.Documents, null, null, "biology", null);
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
-            var bookRequest1 = new object[] { searchModel1, CancellationToken.None };
-            var bookRequest2 = new object[] { searchModel2, CancellationToken.None };
+            var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };
+            var bookRequest2 = new object[] { searchModel2, 0, CancellationToken.None };
             var result1 = CacheResultInterceptor.BuildArgument(bookRequest1);
             var result2 = CacheResultInterceptor.BuildArgument(bookRequest2);
 
@@ -56,13 +56,13 @@ namespace Cloudents.Infrastructure.Test
         [TestMethod]
         public void GetInvocationSignature_BingDifferentKey_Works()
         {
-            var searchModel1 = new SearchModel(new[] { "biology" }, null, 0, SearchRequestSort.None,
+            var searchModel1 = new SearchModel(new[] { "biology" }, null, SearchRequestSort.None,
                 CustomApiKey.Documents, null, null, "biology", null);
-            var searchModel2 = new SearchModel(new[] { "biology" }, null, 0, SearchRequestSort.None,
+            var searchModel2 = new SearchModel(new[] { "biology" }, null, SearchRequestSort.None,
                 CustomApiKey.Flashcard, null, null, "biology", null);
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
-            var bookRequest1 = new object[] { searchModel1, CancellationToken.None };
-            var bookRequest2 = new object[] { searchModel2, CancellationToken.None };
+            var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };
+            var bookRequest2 = new object[] { searchModel2, 0, CancellationToken.None };
             var result1 = CacheResultInterceptor.BuildArgument(bookRequest1);
             var result2 = CacheResultInterceptor.BuildArgument(bookRequest2);
 

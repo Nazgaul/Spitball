@@ -22,19 +22,35 @@ namespace Cloudents.Core.DTOs
     }
 
     [DataContract]
-    public class BookPricesDto
+    public class BookPricesDto : IUrlRedirect
     {
         [DataMember]
         public Uri Image { get; set; }
+
         [DataMember]
         public string Name { get; set; }
 
         [DataMember]
         public string Link { get; set; }
         [DataMember]
-        public string Condition { get; set; } // on ios is enum - no need here i think
+        public BookCondition Condition { get; set; } // on ios is enum - no need here i think
         [DataMember]
         public double Price { get; set; }
 
+        public string Url {
+            get => Link;
+            set => Link = value;
+        }
+
+        public string Source => Name;
+    }
+
+    public enum BookCondition
+    {
+        None,
+        New,
+        Rental,
+        EBook,
+        Used
     }
 }

@@ -88,7 +88,7 @@ namespace Cloudents.Infrastructure.Interceptor
         {
         }
 
-        public override void AfterAction<T>(T val, IInvocation invocation)
+        public override void AfterAction<T>(ref T val, IInvocation invocation)
         {
         }
 

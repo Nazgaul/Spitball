@@ -181,13 +181,13 @@ namespace Cloudents.Infrastructure.Interceptor
             }
         }
 
-        public override void AfterAction<T>(T val, IInvocation invocation)
+        public override void AfterAction<T>(ref T val, IInvocation invocation)
         {
             if (val != null)
             {
                 var key = GetInvocationSignature(invocation);
                 var att = invocation.GetCustomAttribute<CacheAttribute>();
-                _cacheProvider.Set(key, att.Region, val, att.Duration); // cacheAttr.Duration);
+                val = (T)_cacheProvider.Set(key, att.Region, val, att.Duration); // cacheAttr.Duration);
             }
         }
     }

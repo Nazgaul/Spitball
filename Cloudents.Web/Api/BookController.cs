@@ -21,7 +21,7 @@ namespace Cloudents.Web.Api
         [Route("search")]
         public async Task<IActionResult> Get(string[] term, int page, CancellationToken token)
         {
-            var result = await _booksSearch.SearchAsync(term, 150, page, token).ConfigureAwait(false);
+            var result = await _booksSearch.SearchAsync(term, page, token).ConfigureAwait(false);
             return Json(result);
         }
 
@@ -29,7 +29,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> BuyAsync(string isbn13, CancellationToken token)
         {
             if (isbn13 == null) throw new ArgumentNullException(nameof(isbn13));
-            var result = await _booksSearch.BuyAsync(isbn13, 150, token).ConfigureAwait(false);
+            var result = await _booksSearch.BuyAsync(isbn13,  token).ConfigureAwait(false);
             result.Prices = result.Prices.Select((s,i) =>
             {
                 s.Link = Url.Action("Index", "Url", new
@@ -47,7 +47,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> SellAsync(string isbn13, CancellationToken token)
         {
             if (isbn13 == null) throw new ArgumentNullException(nameof(isbn13));
-            var result = await _booksSearch.SellAsync(isbn13, 150, token).ConfigureAwait(false);
+            var result = await _booksSearch.SellAsync(isbn13,  token).ConfigureAwait(false);
             return Json(result);
         }
     }

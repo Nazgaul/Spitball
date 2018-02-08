@@ -29,11 +29,23 @@ namespace Cloudents.Core.Models
 
     public sealed class BuildLocalUrlAttribute : Attribute
     {
-        public BuildLocalUrlAttribute(Type type)
+        public BuildLocalUrlAttribute(string listObjectName, int sizeOfPage, string pageArgumentName)
         {
-            Type = type;
+            ListObjectName = listObjectName;
+            SizeOfPage = sizeOfPage;
+            PageArgumentName = pageArgumentName;
         }
 
-        public Type Type { get; private set; }
+        public BuildLocalUrlAttribute(string listObjectName)
+        {
+            ListObjectName = listObjectName;
+        }
+
+        public string ListObjectName { get; private set; }
+
+        public int? SizeOfPage { get; set; }
+
+        public string PageArgumentName { get; set; }
+        
     }
 }

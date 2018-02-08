@@ -15,10 +15,10 @@ namespace Cloudents.Infrastructure.Search.Tutor
     {
         private readonly IEnumerable<ITutorProvider> _tutorSearch;
         public const int PageSize = 15;
-        private readonly IUrlRedirectBuilder<TutorDto> _urlRedirectBuilder;
+        private readonly IUrlRedirectBuilder _urlRedirectBuilder;
 
 
-        public TutorSearch(IEnumerable<ITutorProvider> tutorSearch, IUrlRedirectBuilder<TutorDto> urlRedirectBuilder)
+        public TutorSearch(IEnumerable<ITutorProvider> tutorSearch, IUrlRedirectBuilder urlRedirectBuilder)
         {
             _tutorSearch = tutorSearch;
             _urlRedirectBuilder = urlRedirectBuilder;
@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
                 s.SearchAsync(query, filters, sort, location, page, token)).ToList();
             await Task.WhenAll(tasks).ConfigureAwait(false);
             var result = tasks.SelectMany(s => s.Result);//.OrderByDescending(o => o.TermCount);
-            return _urlRedirectBuilder.BuildUrl(page, PageSize, result);
+            return _urlRedirectBuilder.BuildUrl(result, page, PageSize);
         }
     }
 }

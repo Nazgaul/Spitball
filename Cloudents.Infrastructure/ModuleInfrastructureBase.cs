@@ -37,8 +37,13 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<GooglePlacesSearch>().As<IGooglePlacesSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(LogInterceptor), typeof(CacheResultInterceptor));
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
+
+            #region Interceptors
             builder.RegisterType<CacheResultInterceptor>();
             builder.RegisterType<LogInterceptor>();
+            builder.RegisterType<BuildLocalUrlInterceptor>();
+            #endregion
+
             builder.RegisterType<RestClient>().As<IRestClient>().SingleInstance();
 
             //var config = MapperConfiguration();
@@ -49,7 +54,8 @@ namespace Cloudents.Infrastructure
             builder.Register(c => new MapperConfiguration(cfg =>
             {
                 cfg.ConstructServicesUsing(c.Resolve);
-                cfg.AddProfile<MapperProfile>();
+                cfg.AddProfiles(Assembly.GetExecutingAssembly());
+                //cfg.AddProfile<MapperProfile>();
             })).AsSelf().SingleInstance();
 
             //builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<AutoMapper.IMapper>();

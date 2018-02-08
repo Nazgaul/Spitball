@@ -23,8 +23,8 @@ namespace Cloudents.Infrastructure.Search
         {
             var (universitySynonym, courses) = await _searchConvertRepository.ParseUniversityAndCoursesAsync(model.University, model.Courses, token).ConfigureAwait(false);
 
-            var cseModel = new SearchModel(model.Query, model.Source, model.Page, model.Sort, CustomApiKey.Flashcard, courses, universitySynonym, "accounting", null);
-            var result = await _search.DoSearchAsync(cseModel, format, token).ConfigureAwait(false);
+            var cseModel = new SearchModel(model.Query, model.Source, model.Sort, CustomApiKey.Flashcard, courses, universitySynonym, "accounting", null);
+            var result = await _search.DoSearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
             return new ResultWithFacetDto<SearchResult>
             {
                 Result = result.ToList(),

@@ -6,6 +6,8 @@ namespace Cloudents.Infrastructure.Interceptor
 {
     public abstract class BaseTaskInterceptor<TAtt> : IInterceptor where TAtt : Attribute
     {
+
+
         public void Intercept(IInvocation invocation)
         {
             var attr = invocation.GetCustomAttribute<TAtt>();
@@ -38,7 +40,7 @@ namespace Cloudents.Infrastructure.Interceptor
             try
             {
                 await task;
-                AfterAction<object>(null, invocation);
+                //AfterAction<object>(ref null, invocation);
             }
             catch (Exception ex)
             {
@@ -52,7 +54,7 @@ namespace Cloudents.Infrastructure.Interceptor
             try
             {
                 var result = await task.ConfigureAwait(false);
-                AfterAction(result, invocation);
+                AfterAction(ref result, invocation);
                 return result;
             }
             catch (Exception ex)
@@ -62,8 +64,9 @@ namespace Cloudents.Infrastructure.Interceptor
             }
         }
 
+
         public abstract void BeforeAction(IInvocation invocation);
-        public abstract void AfterAction<T>(T val, IInvocation invocation);
+        public abstract void AfterAction<T>(ref T val, IInvocation invocation);
 
         public virtual void CatchException(Exception ex, IInvocation arg)
         {

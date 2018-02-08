@@ -18,10 +18,5 @@ namespace Cloudents.Mobile.Models
         /// </summary>
         [DefaultValue(0)]
         public int? Page { get; set; }
-        /// <summary>
-        /// size of width of image size
-        /// </summary>
-        [DefaultValue(150)]
-        public int? Thumbnail { get; set; }
     }
 }

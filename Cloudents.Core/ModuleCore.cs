@@ -19,7 +19,8 @@ namespace Cloudents.Core
                 return new UrlConst(key);
             }).As<IUrlBuilder>().SingleInstance();
 
-            builder.RegisterGeneric(typeof(UrlRedirectBuilder<>)).As(typeof(IUrlRedirectBuilder<>));
+            builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
+            //builder.RegisterGeneric(typeof(UrlRedirectBuilder<>)).As(typeof(IUrlRedirectBuilder<>));
         }
     }
 }

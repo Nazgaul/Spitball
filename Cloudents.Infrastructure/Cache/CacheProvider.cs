@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using CacheManager.Core;
 using Cloudents.Core.Interfaces;
 
@@ -10,10 +9,12 @@ namespace Cloudents.Infrastructure.Cache
     public class CacheProvider : ICacheProvider
     {
         private readonly ICacheManager<object> _cache;
+        private readonly ILogger _logger;
 
-        public CacheProvider(ICacheManager<object> cache)
+        public CacheProvider(ICacheManager<object> cache, ILogger logger)
         {
             _cache = cache;
+            _logger = logger;
         }
 
         public object Get(string key, string region)
@@ -24,6 +25,12 @@ namespace Cloudents.Infrastructure.Cache
             }
             catch (Exception ex)
             {
+                _logger.Exception(ex, new Dictionary<string, string>()
+                {
+                    ["Service"] = nameof(Cache),
+                    ["Key"] = key,
+                    ["Region"] = region
+                });
                 _cache.Remove(key, region);
                 return null;
             }
@@ -50,8 +57,7 @@ namespace Cloudents.Infrastructure.Cache
         private static object ConvertEnumerableToList(object val)
         {
             var o = val.GetType();
-            var p = o.GetInterfaces()
-                .FirstOrDefault(t => t.IsGenericType
+            var p = Array.Find(o.GetInterfaces(), t => t.IsGenericType
                           && t.GetGenericTypeDefinition() == typeof(IEnumerable<>));
             if (p != null)
             {

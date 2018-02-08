@@ -7,6 +7,7 @@ using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search;
+using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Search.Tutor;
@@ -18,23 +19,6 @@ namespace Cloudents.Infrastructure
 {
     public sealed class ModuleRead : Module
     {
-        //private readonly string _sqlConnectionString;
-        //private readonly SearchServiceCredentials _searchServiceCredentials;
-
-        //private readonly string _redisConnectionString;
-
-        //private readonly string _storageConnectionString;
-
-        //public ModuleRead(string sqlConnectionString,
-        //    string redisConnectionString, string storageConnectionString,
-        //    SearchServiceCredentials searchServiceCredentials)
-        //{
-        //    _sqlConnectionString = sqlConnectionString;
-        //    _redisConnectionString = redisConnectionString;
-        //    _storageConnectionString = storageConnectionString;
-        //    _searchServiceCredentials = searchServiceCredentials;
-        //}
-
         [SuppressMessage("Microsoft.Design", "RCS1163:Unused parameter")]
         protected override void Load(ContainerBuilder builder)
         {
@@ -58,7 +42,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterGeneric(typeof(DocumentDbRepository<>)).AsImplementedInterfaces();
 
             builder.RegisterType<BingSearch>().As<ISearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor));
+                .InterceptedBy(typeof(CacheResultInterceptor), typeof(BuildLocalUrlInterceptor));
             builder.RegisterType<ReplaceImageProvider>().AsSelf();
 
             builder.RegisterType<DocumentCseSearch>().As<IDocumentCseSearch>();
@@ -78,8 +62,9 @@ namespace Cloudents.Infrastructure
 
             #endregion
 
+
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor));
+                .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
 
             builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();

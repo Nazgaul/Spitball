@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
@@ -47,31 +45,8 @@ namespace Cloudents.Infrastructure
             CreateMap<Search.Entities.Course, CourseDto>();
             CreateMap<Search.Entities.University, UniversityDto>();
 
-            CreateMap<BookSearch.BookDetailResult, IEnumerable<BookSearchDto>>()
-                .ConvertUsing((jo, _, c) =>
-                {
-                    if (string.Equals(jo.Response.Status, "error", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        return null;
-                    }
-                    return jo.Response.Page.Books?.Book.Select(json =>
-                            c.Mapper.Map<BookSearch.BookDetail, BookSearchDto>(json));
-                });
-            CreateMap<BookSearch.BookDetail, BookSearchDto>().ConvertUsing(jo => new BookSearchDto
-            {
-                Image = jo.Image?.Image,
-                Author = jo.Author,
-                Binding = jo.Binding,
-                Edition = jo.Edition,
-                Isbn10 = jo.Isbn10,
-                Isbn13 = jo.Isbn13,
-                Title = jo.Title
-
-            });
-            CreateMap<BookSearch.BookDetailResult, BookDetailsDto>().ConvertUsing<BookDetailConverter>();
             CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlacesConverter>();
             CreateMap<JObject, PlaceDto>().ConvertUsing<PlaceConverter>();
-            //CreateMap<JObject, IEnumerable<TutorDto>>().ConvertUsing<TutorMeConverter>();
         }
     }
 }

@@ -11,7 +11,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Newtonsoft.Json;
 
-namespace Cloudents.Infrastructure.Search
+namespace Cloudents.Infrastructure.Search.Book
 {
     public class BookSearch : IBookSearch
     {
@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure.Search
         }
 
         [Cache(TimeConst.Day, "book")]
-        public async Task<IEnumerable<BookSearchDto>> SearchAsync(IEnumerable<string> term, int imageWidth, int page, CancellationToken token)
+        public async Task<IEnumerable<BookSearchDto>> SearchAsync(IEnumerable<string> term, int page, CancellationToken token)
         {
             var query = string.Join(" ", term ?? Enumerable.Empty<string>()) ?? "textbooks";
 
@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Search
                 ["keywords"] = query,
                 ["page"] = (++page).ToString(),
                 ["f"] = "search",
-                ["image_width"] = imageWidth.ToString(),
+                ["image_width"] = 150.ToString(),
                 ["format"] = "json"
             };
             var resultStr = await _restClient.GetAsync(new Uri("https://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
@@ -47,13 +47,13 @@ namespace Cloudents.Infrastructure.Search
             return _mapper.Map<BookDetailResult, IEnumerable<BookSearchDto>>(result);
         }
 
-        [Cache(TimeConst.Day, "book-buy")]
-        public Task<BookDetailsDto> BuyAsync(string isbn13, int imageWidth, CancellationToken token)
+        [BuildLocalUrl(nameof(BookDetailsDto.Prices))]
+        public Task<BookDetailsDto> BuyAsync(string isbn13, CancellationToken token)
         {
-            return BuyOrSellApiAsync(isbn13, imageWidth, false, token);
+            return BuyOrSellApiAsync(isbn13, false, token);
         }
 
-        private async Task<BookDetailsDto> BuyOrSellApiAsync(string isbn13, int imageWidth, bool sell,
+        private async Task<BookDetailsDto> BuyOrSellApiAsync(string isbn13, bool sell,
             CancellationToken token)
         {
             if (isbn13 == null) throw new ArgumentNullException(nameof(isbn13));
@@ -62,7 +62,7 @@ namespace Cloudents.Infrastructure.Search
                 ["key"] = Key,
                 ["f"] = "search,prices",
                 ["isbn"] = isbn13,
-                ["image_width"] = imageWidth.ToString(),
+                ["image_width"] = 150.ToString(),
                 ["format"] = "json",
                 ["type"] = sell ? "buyback" : "Buy"
             };
@@ -77,19 +77,18 @@ namespace Cloudents.Infrastructure.Search
                 return null;
             }
             mappedResult.Prices = mappedResult.Prices?.OrderBy(o => o.Price);
-            //mappedResult.Prices = UrlRedirectBuilder<BookPricesDto>.BuildUrl(0, 0, mappedResult.Prices);
             return mappedResult;
         }
 
-        [Cache(TimeConst.Day, "book-sell")]
-        public async Task<BookDetailsDto> SellAsync(string isbn13, int imageWidth, CancellationToken token)
+        [BuildLocalUrl(nameof(BookDetailsDto.Prices))]
+        public async Task<BookDetailsDto> SellAsync(string isbn13, CancellationToken token)
         {
-            var result = await BuyOrSellApiAsync(isbn13, imageWidth, true, token).ConfigureAwait(false);
+            var result = await BuyOrSellApiAsync(isbn13, true, token).ConfigureAwait(false);
             if (result == null)
             {
                 return null;
             }
-            result.Prices = result.Prices?.Where(w => string.Equals(w.Condition, "used", StringComparison.InvariantCultureIgnoreCase));
+            result.Prices = result.Prices?.Where(w => w.Condition == Core.DTOs.BookCondition.Used);
             return result;
         }
 
@@ -151,16 +150,16 @@ namespace Cloudents.Infrastructure.Search
 
         public class BookCondition
         {
-            public int Id { get; set; }
+            //public int Id { get; set; }
             public string Condition { get; set; }
         }
 
         public class Merchant
         {
-            public string Id { get; set; }
+            //public string Id { get; set; }
             public string Name { get; set; }
             public string Image { get; set; }
-            public string Notes { get; set; }
+            //public string Notes { get; set; }
         }
     }
 }
