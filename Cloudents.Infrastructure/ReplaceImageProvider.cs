@@ -15,7 +15,9 @@ namespace Cloudents.Infrastructure
             ["Koofers.com"] = "koofers.png",
             ["Quizlet.com"] = "quizlet.png",
             ["Studyblue.com"] = "studyblue.png",
-            ["Studysoup.com"] = "studysoup.png"
+            ["Studysoup.com"] = "studysoup.png",
+            ["Spitball.co"] = "spitball.png",
+            ["Cliffsnotes.com"] = "Cliffsnotes.png"
         };
 
         //TODO: make sure this is https - need to figure out how to solve this

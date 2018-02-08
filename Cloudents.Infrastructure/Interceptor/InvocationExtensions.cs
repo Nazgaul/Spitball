@@ -3,7 +3,7 @@ using Castle.DynamicProxy;
 
 namespace Cloudents.Infrastructure.Interceptor
 {
-    public static class InvocationExceptions
+    public static class InvocationExtensions
     {
         public static T GetCustomAttribute<T>(this IInvocation invocation) where T : class
         {
@@ -13,5 +13,6 @@ namespace Cloudents.Infrastructure.Interceptor
                 )
                 as T;
         }
+        
     }
 }

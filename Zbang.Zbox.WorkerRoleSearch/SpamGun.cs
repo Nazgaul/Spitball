@@ -21,7 +21,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private readonly IBlobProvider2<SpamGunContainerName> _blobProvider;
 
-        public readonly int NumberOfEmailPerSession = int.Parse(ConfigFetcher.Fetch("NumberOfSpamGunEmailBatch"));
+        private readonly int _numberOfEmailPerSession = int.Parse(ConfigFetcher.Fetch("NumberOfSpamGunEmailBatch"));
 
         private const int NumberOfIps = 4;
 
@@ -38,16 +38,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task<bool> ExecuteAsync(int index, Func<int, TimeSpan, Task> progressAsync, CancellationToken token)
         {
-            //if (!NeedToProcess())
-            //{
-            //    return true;
-            //}
             var numberOfUniversities = (await _zboxReadService.SpamGunUniversityNumberAsync(token).ConfigureAwait(false)).ToList();
-            var htmlBody = await _blobProvider.DownloadTextAsync("mail.html").ConfigureAwait(false);
-            //for (var i = 0; i < SpanGunNumberOfQueues; i++)
-            //{
-            //    _queues[i] = new Queue<SpamGunDto>();
-            //}
+            var htmlBody = await _blobProvider.DownloadTextAsync("mail_template.html").ConfigureAwait(false);
             var totalCount = 0;
             try
             {
@@ -66,13 +58,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         {
                             continue;
                         }
-                        var emails = await _zboxReadService.GetSpamGunDataAsync(universityId, NumberOfEmailPerSession, token).ConfigureAwait(false);
+                        var emails = await _zboxReadService.GetSpamGunDataAsync(universityId, _numberOfEmailPerSession, token).ConfigureAwait(false);
 
-                        // await BuildQueueDataAsync(_queues[i], i, token).ConfigureAwait(false);
                         var emailsTask = new List<Task>();
                         var k = 0;
-                        foreach (var email in emails) //{ 
-                        //for (var k = 0; k < NumberOfEmailPerSession; k++)
+                        foreach (var email in emails) //{
                         {
                             if (counter >= _limitPerIp)
                             {
@@ -96,7 +86,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             catch (Exception ex)
             {
                 _logger.Exception(ex);
-                //await _mailComponent.GenerateSystemEmailAsync("spam gun error", $"error {ex}").ConfigureAwait(false);
             }
             if (totalCount > 0)
             {

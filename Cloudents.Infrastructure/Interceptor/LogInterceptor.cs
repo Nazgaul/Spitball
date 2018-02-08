@@ -8,7 +8,7 @@ using Cloudents.Core.Models;
 
 namespace Cloudents.Infrastructure.Interceptor
 {
-    public class LogInterceptor : IInterceptor
+    public class LogInterceptor : BaseTaskInterceptor<LogAttribute>
     {
         private readonly ILogger _logger;
 
@@ -18,70 +18,87 @@ namespace Cloudents.Infrastructure.Interceptor
         }
 
 
-        private async Task InterceptAsync(IInvocation invocation, Task task)
-        {
-            try
-            {
-                await task;
-            }
-            catch (Exception ex)
-            {
-                _logger.Exception(ex, new Dictionary<string, string>
-                {
-                    ["Method"] = invocation.Method.Name,
-                    ["Arg"] = string.Join(", ", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())
-                });
-            }
+        //private async Task InterceptAsync(IInvocation invocation, Task task)
+        //{
+        //    try
+        //    {
+        //        await task;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.Exception(ex, new Dictionary<string, string>
+        //        {
+        //            ["Method"] = invocation.Method.Name,
+        //            ["Arg"] = string.Join(", ", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())
+        //        });
+        //    }
 
-            // do the logging here, as continuation work for Task...
+        //    // do the logging here, as continuation work for Task...
+        //}
+
+        //private async Task<T> InterceptAsync<T>(IInvocation invocation, Task<T> task)
+        //{
+        //    try
+        //    {
+        //        var p = await task.ConfigureAwait(false);
+        //        return p;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.Exception(ex, new Dictionary<string, string>
+        //        {
+        //            ["Method"] = invocation.Method.Name,
+        //            ["Arg"] = string.Join(", ", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())
+        //        });
+        //    }
+
+        //    return default;
+        //    // do the logging here, as continuation work for Task<T>...
+
+        //}
+
+        //public void Intercept(IInvocation invocation)
+        //{
+        //    var attr = invocation.GetCustomAttribute<LogAttribute>();
+        //    if (attr == null)
+        //    {
+        //        invocation.Proceed();
+        //        return;
+        //    }
+        //    try
+        //    {
+        //        invocation.Proceed();
+        //        if (typeof(Task).IsAssignableFrom(invocation.Method.ReturnType))
+        //        {
+        //            invocation.ReturnValue = InterceptAsync(invocation, (dynamic)invocation.ReturnValue);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.Exception(ex, new Dictionary<string, string>
+        //        {
+        //            ["Method"] = invocation.Method.Name,
+        //            ["Arg"] = string.Join(", ", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())
+        //        });
+        //        invocation.ReturnValue = default;
+        //    }
+        //}
+
+        public override void BeforeAction(IInvocation invocation)
+        {
         }
 
-        private async Task<T> InterceptAsync<T>(IInvocation invocation, Task<T> task)
+        public override void AfterAction<T>(T val, IInvocation invocation)
         {
-            try
-            {
-                var p = await task.ConfigureAwait(false);
-                return p;
-            }
-            catch (Exception ex)
-            {
-                _logger.Exception(ex, new Dictionary<string, string>
-                {
-                    ["Method"] = invocation.Method.Name,
-                    ["Arg"] = string.Join(", ", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())
-                });
-            }
-
-            return default;
-            // do the logging here, as continuation work for Task<T>...
-
         }
 
-        public void Intercept(IInvocation invocation)
+        public override void CatchException(Exception ex, IInvocation arg)
         {
-            var attr = invocation.GetCustomAttribute<LogAttribute>();
-            if (attr == null)
+            _logger.Exception(ex, new Dictionary<string, string>
             {
-                invocation.Proceed();
-                return;
-            }
-            try
-            {
-                invocation.Proceed();
-                if (/*isAsync &&*/ typeof(Task).IsAssignableFrom(invocation.Method.ReturnType))
-                {
-                    invocation.ReturnValue = InterceptAsync(invocation, (dynamic)invocation.ReturnValue);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.Exception(ex, new Dictionary<string, string>
-                {
-                    ["Method"] = invocation.Method.Name,
-                    ["Arg"] = string.Join(", ", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())
-                });
-                invocation.ReturnValue = default;
-            }
+                ["Method"] = arg.Method.Name,
+                ["Arg"] = string.Join(", ", arg.Arguments.Select(a => (a ?? "").ToString()).ToArray())
+            });
         }
     }
 }

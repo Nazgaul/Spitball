@@ -41,18 +41,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterModule<WriteServiceModule>();
             builder.RegisterModule<ReadServiceModule>();
             builder.RegisterModule<CommandsModule>();
-            //builder.RegisterType<SendPush>()
-            //.As<ISendPush>()
-            //.WithParameter("connectionString", ConfigFetcher.Fetch("ServiceBusConnectionString"))
-            //.WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
-            //.InstancePerLifetimeScope();
-
-            //builder.RegisterType<JaredSendPush>()
-            //    .As<IJaredPushNotification>()
-            //    .WithParameter("connectionString", "Endpoint=sb://spitball.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=1+AAf2FSzauWHpYhHaoweYT9576paNgmicNSv6jAvKk=")
-            //    .WithParameter("hubName", "jared-spitball")
-            //    .InstancePerLifetimeScope();
-
             var azureLocalResource = RoleEnvironment.GetLocalResource("ItemPreviewStorage");
 
 

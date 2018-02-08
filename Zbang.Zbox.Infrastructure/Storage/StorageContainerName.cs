@@ -17,12 +17,12 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
     public abstract  class StorageContainerName : IStorageContainerName
     {
-        public const string AzureBlobContainer = "zboxfiles";
-        public const string AzureCacheContainer = "zboxCahce";
-        public const string AzurePreviewContainer = "preview";
+        protected const string AzureBlobContainer = "zboxfiles";
+        protected const string AzureCacheContainer = "zboxCahce";
+        protected const string AzurePreviewContainer = "preview";
         // ReSharper disable once InconsistentNaming
-        public const string AzureQuizContainer = "zboxquestion";
-        public const string AzureChatContainer = "zboxchat";
+        //public const string AzureQuizContainer = "zboxquestion";
+        //public const string AzureChatContainer = "zboxchat";
         public const string AzureMailContainer = "mailcontainer";
 
 
@@ -36,8 +36,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
     public class SpamGunContainerName : StorageContainerName
     {
-        public override string Name => AzureMailContainer;
-        public override string RelativePath => "SpamGun";
+        public override string Name => "spamgun";
+        public override string RelativePath => string.Empty;
     }
 
     public class CacheContainerName : StorageContainerName, ICacheContainer

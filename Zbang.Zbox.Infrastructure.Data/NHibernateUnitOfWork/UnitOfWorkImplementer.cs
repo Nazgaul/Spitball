@@ -61,7 +61,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             }
             catch(Exception ex)
             {
-                TraceLog.WriteError(ex);
                 tx.Rollback();
                 throw;
             }

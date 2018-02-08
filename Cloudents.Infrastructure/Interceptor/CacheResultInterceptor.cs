@@ -10,7 +10,7 @@ using Cloudents.Core.Models;
 
 namespace Cloudents.Infrastructure.Interceptor
 {
-    public class CacheResultInterceptor : IInterceptor
+    public class CacheResultInterceptor : BaseTaskInterceptor<CacheAttribute>
     {
         private readonly ICacheProvider _cacheProvider;
         private readonly IConfigurationKeys _configurationKeys;
@@ -86,40 +86,78 @@ namespace Cloudents.Infrastructure.Interceptor
                 $"-{BuildArgument(invocation.Arguments)}";
         }
 
-        private static Task InterceptAsync(string key, CacheAttribute att, Task task)
-        {
-            return task;
-            // do the logging here, as continuation work for Task...
-        }
+        //private static Task InterceptAsync(string key, CacheAttribute att, Task task)
+        //{
+        //    return task;
+        //    // do the logging here, as continuation work for Task...
+        //}
 
-        private async Task<T> InterceptAsync<T>(string key, CacheAttribute att, Task<T> task)
-        {
-            var result = await task.ConfigureAwait(false);
-            if (result != null)
-            {
-                result = (T)_cacheProvider.Set(key, att.Region, result, att.Duration); // cacheAttr.Duration);
-            }
-            // do the logging here, as continuation work for Task<T>...
-            return result;
-        }
+        //private async Task<T> InterceptAsync<T>(string key, CacheAttribute att, Task<T> task)
+        //{
+        //    var result = await task.ConfigureAwait(false);
+        //    if (result != null)
+        //    {
+        //        result = (T)_cacheProvider.Set(key, att.Region, result, att.Duration); // cacheAttr.Duration);
+        //    }
+        //    // do the logging here, as continuation work for Task<T>...
+        //    return result;
+        //}
 
-        public static Task<T> ConvertAsync<T>(T data)
+        private static Task<T> ConvertAsync<T>(T data)
         {
             return Task.FromResult(data);
         }
 
-        public void Intercept(IInvocation invocation)
+        //public void Intercept(IInvocation invocation)
+        //{
+        //    var cacheAttr = invocation.GetCustomAttribute<CacheAttribute>();
+        //    if (cacheAttr == null)
+        //    {
+        //        invocation.Proceed();
+        //        return;
+        //    }
+        //    var key = GetInvocationSignature(invocation);
+
+        //    var method = invocation.MethodInvocationTarget;
+        //    var data = _cacheProvider.Get(key, cacheAttr.Region);
+
+        //    if (data != null)
+        //    {
+        //        if (typeof(Task).IsAssignableFrom(method.ReturnType))
+        //        {
+        //            var taskReturnType = method.ReturnType; //e.g. Task<int>
+
+        //            var type = taskReturnType.GetGenericArguments()[0]; //get the result type, e.g. int
+
+        //            var convertMethod =
+        //                GetType().GetMethod(nameof(ConvertAsync), BindingFlags.Static | BindingFlags.NonPublic)
+        //                    .MakeGenericMethod(type); //Get the closed version of the Convert method, e.g. Convert<int>
+
+        //            var result =
+        //                convertMethod.Invoke(null,
+        //                    new[] { data }); //Call the convert method and return the generic Task, e.g. Task<int>
+
+        //            invocation.ReturnValue = result;
+        //            return;
+        //        }
+        //        invocation.ReturnValue = data;
+        //        return;
+        //    }
+        //    invocation.Proceed();
+
+        //    if (typeof(Task).IsAssignableFrom(method.ReturnType))
+        //    {
+        //        invocation.ReturnValue = InterceptAsync(key, cacheAttr, (dynamic)invocation.ReturnValue);
+        //    }
+        //}
+
+        public override void BeforeAction(IInvocation invocation)
         {
-            var cacheAttr = invocation.GetCustomAttribute<CacheAttribute>();
-            if (cacheAttr == null)
-            {
-                invocation.Proceed();
-                return;
-            }
             var key = GetInvocationSignature(invocation);
 
             var method = invocation.MethodInvocationTarget;
-            var data = _cacheProvider.Get(key, cacheAttr.Region);
+            var att = invocation.GetCustomAttribute<CacheAttribute>();
+            var data = _cacheProvider.Get(key, att.Region);
 
             if (data != null)
             {
@@ -130,24 +168,26 @@ namespace Cloudents.Infrastructure.Interceptor
                     var type = taskReturnType.GetGenericArguments()[0]; //get the result type, e.g. int
 
                     var convertMethod =
-                        GetType().GetMethod(nameof(ConvertAsync))
+                        GetType().GetMethod(nameof(ConvertAsync), BindingFlags.Static | BindingFlags.NonPublic)
                             .MakeGenericMethod(type); //Get the closed version of the Convert method, e.g. Convert<int>
 
-                    var result =
+                    invocation.ReturnValue =
                         convertMethod.Invoke(null,
                             new[] { data }); //Call the convert method and return the generic Task, e.g. Task<int>
 
-                    invocation.ReturnValue = result;
                     return;
                 }
                 invocation.ReturnValue = data;
-                return;
             }
-            invocation.Proceed();
+        }
 
-            if (typeof(Task).IsAssignableFrom(method.ReturnType))
+        public override void AfterAction<T>(T val, IInvocation invocation)
+        {
+            if (val != null)
             {
-                invocation.ReturnValue = InterceptAsync(key, cacheAttr, (dynamic)invocation.ReturnValue);
+                var key = GetInvocationSignature(invocation);
+                var att = invocation.GetCustomAttribute<CacheAttribute>();
+                _cacheProvider.Set(key, att.Region, val, att.Duration); // cacheAttr.Duration);
             }
         }
     }

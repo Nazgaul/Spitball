@@ -51,7 +51,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 return new AffiliateBuilder(affiliate);
             }).Keyed<ISchedulerProcess>("downloadXml");
 
-            
             foreach (var utcTimeOffset in new[] { 0, 3/*, -5, -4, -6*/ })
             {
                 builder.RegisterType<DigestEmail>()

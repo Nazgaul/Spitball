@@ -6,7 +6,6 @@
         public string RelativePath => string.Empty;
     }
 
-
     public class SpitballContainer : IStorageContainer
     {
         public string Name => "spitball";

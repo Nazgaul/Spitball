@@ -65,7 +65,7 @@ namespace Cloudents.Infrastructure.Framework.Database
             return false;
         }
 
-        private void MakeDirty(IPreDatabaseOperationEventArgs @event, object[] state, IDirty dirty)
+        private static void MakeDirty(IPreDatabaseOperationEventArgs @event, object[] state, IDirty dirty)
         {
             dirty.IsDirty = true;
             //TraceLog.WriteInfo($"making dirty count {state.Length} trace: {Environment.StackTrace}");
