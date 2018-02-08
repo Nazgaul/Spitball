@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using Cloudents.Core.Models;
 using Cloudents.Web.Extensions;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -30,14 +31,22 @@ namespace Cloudents.Web.Controllers
         // we can't use that for now.
         // GET
        // [TypeFilter(typeof(IpToLocationActionFilter), Arguments = new object[] { "location" })]
-        public IActionResult Index(Location location)
+        public IActionResult Index(Location location, [FromServices]IHostingEnvironment env)
         {
+            if (string.Equals(env.EnvironmentName, "Development", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return View();
+            }
+
+            if (string.Equals(env.EnvironmentName, "Staging", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return View();
+            }
             var requestIp = HttpContext.Connection.GetIpAddress();
             if (OfficeIps.Contains(requestIp))
             {
                 return View();
             }
-
             if (!string.Equals(location?.CountryCode, "US", StringComparison.InvariantCultureIgnoreCase))
             {
                 return this.RedirectToOldSite();
