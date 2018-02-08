@@ -54,3 +54,34 @@
         box-shadow: 0px 0px 1px @color-grey;
     }
 }
+
+.loading-skeleton {
+    .img-wrap {
+        background: @Site-Background !important;
+        box-shadow: none;
+
+        img {
+            display: none;
+        }
+    }
+
+    .cell-title, .book-info {
+        span {
+            background: @Site-Background;
+            color: transparent;
+            font-size: 7px;
+            line-height: 0;
+        }
+    }
+
+    .cell-title span {
+        font-size: 12px;
+        line-height: 0;
+    }
+
+
+    .bottom {
+        font-size: 7px;
+        line-height: 0;
+    }
+}

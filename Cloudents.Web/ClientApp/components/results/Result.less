@@ -78,6 +78,19 @@
     }
 }
 
+.loading-skeleton {
+    .result-cell {
+        pointer-events: none;
+
+        ::-moz-selection {
+            color: transparent;
+        }
+
+        ::selection {
+            color: transparent;
+        }
+    }
+}
 /*#region item skeleton*/
 @skeletonWidth: 504px;
 @cardHeight: 184px;
@@ -112,7 +125,6 @@
 @mobileTextPosLeft 120px, /* footer line */
 0 0, /* background */
 0 0; /* wrapper */
-
 .skeletonBackgroundImage(@placeholdersColor, @cardColor, @cardHeight, @cardImageHeight,@titleHeight,@textLineHeght) {
     background-image: /**/
     linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0)), /* highlight */
@@ -215,5 +227,4 @@
         @mobileElementsPos;
     }
 }
-
 /*#endregion*/

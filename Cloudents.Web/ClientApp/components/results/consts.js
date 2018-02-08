@@ -1,15 +1,64 @@
-const dummyAskObj={
-    id:"3E84FED64DF8FB7B478F5E52DBB470EB",
-    image:"https://upload.wikimedia.org/wikipedia/commons/5/54/Infobox_collage_for_WWII.PNG",
-    snippet:"World War II (often abbreviated ... Political integration, especially in Europe, emerged as an effort to end pre-war enmities and to create a common ...",
-    source:"en.wikipedia.org",
-    template:"item",
-    title:"World War II - Wikipedia",
-    url:"#aa"
+const dummyItemObj = {
+    id: "3E84FED64DF8FB7B478F5E52DBB470EB",
+    snippet: "______________________________________________________________________________________________ ______________________________________________________________________________________________ ____________________________________________________________________________________  __________________________________________________________ ____________________________________________________________________________________",
+    source: "_______________________________________________________",
+    template: "item",
+    title: "________________________________________________",
+    url: ""
 };
-export const skelatonData={
-    ask:[{template:'video',url:'aa'},dummyAskObj,dummyAskObj,dummyAskObj],
-    note:[]
+const dummyTutorObj = {
+    city: "________________________________________",
+    description: "_______________________________________________________________________________________ _______________________________________________________________________________________",
+    fee: 10,
+    location: null,
+    name: "________________________________",
+    online: false,
+    source: "Wyzant",
+    state: "",
+    template: "tutor",
+    url: ""
+
+};
+const dummyBookObj = {
+    author: "__________________________________________________________________________________________________________",
+    binding: "______________________________________________________________________________________",
+    edition: "_______________________________________________________",
+    isbn10: "______________________________________________________________________________________",
+    isbn13: "_______________________________________________________________________________________________",
+    template: "book",
+    title: "________________________________________________"
+
+};
+const dummyJobObj = {
+    address: "_____________________",
+    company: "_____________________",
+    compensationType: "_____________________",
+    dateTime: "2018-02-02T00:00:00Z",
+    responsibilities: "_______________________________________________________________________________________________________________________________ ____________________________________________________________________________________ ______________________________________________________________________________________________________________________________",
+    source: "CareerBuilder",
+    template: "job",
+    title: "Client Service Representative I",
+    url: ""
+};
+const dummyFoodObj = {
+    address: "__________________________________________________________________________________ ___________________________________________________________________________________________",
+    hooked: false,
+    location: null,
+    name: "__________________________________",
+    open: true,
+    placeId: "ChIJoaWWguy2AhURwxLmvhjuaxI",
+    rating: "___________________________________________________",
+    template: "food"
+};
+let multipleItemSkeletons = [dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj]
+export const skeletonData = {
+    note: multipleItemSkeletons,
+    flashcard: multipleItemSkeletons,
+    tutor: [dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj],
+    book: [dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj],
+    ask: [{ template: 'video-skeleton' }, ...multipleItemSkeletons],
+    job: [dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj],
+    food: [dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj]
 };
 export const promotions = {
     note: {

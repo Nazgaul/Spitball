@@ -9,17 +9,21 @@
                             <v-flex class="pa-0">
                                 <v-container class="pa-0">
                                     <v-layout row>
-                                        <v-flex  class="tutor-title">{{item.name}}</v-flex>
-                                        <v-flex  v-if="item.fee"><div class="price text-xs-right">${{item.fee}} / hour</div></v-flex>
+                                        <v-flex class="tutor-title-wrap">
+                                            <span class="tutor-title">{{item.name}}</span>
+                                        </v-flex>
+                                        <v-flex class="price-wrap" v-if="item.fee"><span class="price text-xs-right">${{item.fee}} / hour</span></v-flex>
                                     </v-layout>
-                                        <div class="description" v-if="item.description">{{item.description}}</div>
-                                    
+                                    <div class="description-wrap" v-if="item.description">
+                                        <span class="description">{{item.description}}</span>
+                                    </div>
+
                                 </v-container>
                             </v-flex>
-                            <v-layout class="bottom" row >
-                                <v-flex class="location text-xs-left" v-if="item.city">{{item.city}}, {{item.state}}</v-flex>
+                            <v-layout class="bottom-wrap" row>
+                                <v-flex class="location text-xs-left" v-if="item.city"><span class="bottom">{{item.city}}, {{item.state}}</span></v-flex>
                                 <v-flex class="pa-0 location text-xs-right" v-if="item.online">
-                                    Offers online lessons
+                                    <span class="bottom">Offers online lessons</span>
                                 </v-flex>
                             </v-layout>
                         </v-layout>
@@ -35,9 +39,9 @@
         components: {
             Avatar
         },
-        props: { item: { type: Object, required: true },index:{Number} }
+        props: { item: { type: Object, required: true }, index: { Number } }
     }
 </script>
 <style src="./ResultTutor.less" lang="less">
-   
+
 </style>

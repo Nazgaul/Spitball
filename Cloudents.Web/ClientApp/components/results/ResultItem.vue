@@ -9,11 +9,15 @@
                 <v-flex class="right-section">
                     <v-layout wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
                         <v-flex class="pa-0 item-data" style="flex-grow:1">
-                            <div class="cell-title" :class="'text-'+$route.path.slice(1)" v-html="item.title"></div>
-                            <p v-html="item.snippet"></p>
+                            <div class="cell-title-wrap">
+                                <span  class="cell-title" :class="'text-'+$route.path.slice(1)" v-html="item.title"></span>
+                            </div>
+                            <div class="snippet-wrap">
+                                <span class="snippet" v-html="item.snippet"></span>
+                            </div>
                         </v-flex>
-                        <v-flex class="pa-0 bottom">
-                            {{item.source}}
+                        <v-flex class="bottom-wrap pa-0">
+                            <span class="bottom">{{item.source}}</span>
                         </v-flex>
                     </v-layout>
                 </v-flex>

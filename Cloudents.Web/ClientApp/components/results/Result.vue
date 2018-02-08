@@ -15,7 +15,7 @@
                     </v-chip>
                 </template>
             </div>
-            <div v-if="!loading">
+            <div :class="{'loading-skeleton': loading}">
                 <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
                     <v-container class="pa-0">
                         <v-layout column>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else class="skeleton"></div>
+            <!--<div v-else class="skeleton"></div>-->
         </div>
         <template slot="sideBar" v-if="page">
             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
