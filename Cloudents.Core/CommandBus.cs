@@ -14,8 +14,6 @@ namespace Cloudents.Core
 
         private readonly ILifetimeScope _container;// = IocFactory.Unity;
 
-      
-
         public async Task<TCommandResult> DispatchAsync<TCommand, TCommandResult>(TCommand command, CancellationToken token)
             where TCommand : ICommand
             where TCommandResult : ICommandResult
