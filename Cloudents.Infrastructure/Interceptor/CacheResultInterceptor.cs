@@ -183,12 +183,9 @@ namespace Cloudents.Infrastructure.Interceptor
 
         protected override void AfterAction<T>(ref T val, IInvocation invocation)
         {
-            if (val != null)
-            {
-                var key = GetInvocationSignature(invocation);
-                var att = invocation.GetCustomAttribute<CacheAttribute>();
-                val = (T)_cacheProvider.Set(key, att.Region, val, att.Duration); // cacheAttr.Duration);
-            }
+            var key = GetInvocationSignature(invocation);
+            var att = invocation.GetCustomAttribute<CacheAttribute>();
+            val = (T)_cacheProvider.Set(key, att.Region, val, att.Duration); // cacheAttr.Duration);
         }
     }
 }

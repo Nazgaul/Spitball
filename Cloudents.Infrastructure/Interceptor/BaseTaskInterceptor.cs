@@ -52,7 +52,11 @@ namespace Cloudents.Infrastructure.Interceptor
             try
             {
                 var result = await task.ConfigureAwait(false);
-                AfterAction(ref result, invocation);
+                if (result != null)
+                {
+                    AfterAction(ref result, invocation);
+                }
+
                 return result;
             }
             catch (Exception ex)

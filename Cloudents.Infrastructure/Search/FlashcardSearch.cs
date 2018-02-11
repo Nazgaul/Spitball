@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Search
             var result = await _search.DoSearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
             return new ResultWithFacetDto<SearchResult>
             {
-                Result = result.ToList(),
+                Result = result,
                 Facet = new[]
                 {
                     "Quizlet.com",
