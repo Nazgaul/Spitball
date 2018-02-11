@@ -13,7 +13,6 @@
         <v-list v-show="showSuggest">
             <v-subheader>Some things you can ask me:</v-subheader>
             <template v-for="(item, index) in suggestList">
-                <!--{{item.type}}-->
                 <v-list-tile @click="selectos({item:item.text,index})" :key="index">
                     <v-list-tile-action hidden-xs-only>
                         <v-icon>sbf-search</v-icon>

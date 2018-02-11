@@ -15,7 +15,7 @@
                     </v-chip>
                 </template>
             </div>
-            <div v-if="!loading">
+            <div :class="{'loading-skeleton': loading}">
                 <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
                     <v-container class="pa-0">
                         <v-layout column>
@@ -39,7 +39,7 @@
                                 <suggest-card :name="currentSuggest"></suggest-card>
                             </router-link>
                             <v-flex v-if="name==='ask'" class="result-cell elevation-1 mb-2 xs-12 order-xs2">
-                                <studyblue-card :searchterm="term"></studyblue-card>
+                                <studyblue-card :searchterm="userText"></studyblue-card>
                             </v-flex>
                        </slot>
                         </v-layout>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else class="skeleton"></div>
+            <!--<div v-else class="skeleton"></div>-->
         </div>
         <template slot="sideBar" v-if="page">
             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
