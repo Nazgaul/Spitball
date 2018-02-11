@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Net;
 using System.Text;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;

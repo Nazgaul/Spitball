@@ -48,58 +48,47 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 switch (filter)
                 {
-                    case JobFilter.None:
-                        break;
                     case JobFilter.FullTime:
                         jobFilter.Add("fulltime");
                         break;
                     case JobFilter.PartTime:
                         jobFilter.Add("parttime");
-
                         break;
                     case JobFilter.Internship:
                         jobFilter.Add("internship");
-
-                        break;
-                    case JobFilter.CampusRep:
                         break;
                     case JobFilter.Contractor:
                         jobFilter.Add("contract");
-
                         break;
                     case JobFilter.Temporary:
                         jobFilter.Add("temporary");
-
+                        break;
+                    case JobFilter.None:
+                        break;
+                    case JobFilter.CampusRep:
                         break;
                     case JobFilter.Remote:
                         break;
                 }
             }
 
-            //switch (fil)
-            //{
 
-            //}
             var nvc = new NameValueCollection
-            {
-                ["v"] = 2.ToString(),
-                ["format"] = "json",
-                ["publisher"] = 5421359041330050.ToString(),
-                ["q"] = term,
-                ["sort"] = sortStr,
-                ["l"] = locationStr,
-                ["limit"] = JobSearch.PageSize.ToString(),
-                ["start"] = (page * JobSearch.PageSize).ToString(),
-                ["highlight"] = 0.ToString(),
-                ["jt"] = string.Join(",", jobFilter)
-            };
+                {
+                    ["v"] = 2.ToString(),
+                    ["format"] = "json",
+                    ["publisher"] = 5421359041330050.ToString(),
+                    ["q"] = term,
+                    ["sort"] = sortStr,
+                    ["l"] = locationStr,
+                    ["limit"] = JobSearch.PageSize.ToString(),
+                    ["start"] = (page * JobSearch.PageSize).ToString(),
+                    ["highlight"] = 0.ToString(),
+                    ["jt"] = string.Join(",", jobFilter)
+                };
             var result = await _client.GetAsync(new Uri("http://api.indeed.com/ads/apisearch"), nvc, token).ConfigureAwait(false);
 
-            var p = JsonConvert.DeserializeObject<IndeedResult>(result,
-                new JsonSerializerSettings
-                {
-                    ContractResolver = new UnderscorePropertyNamesContractResolver()
-                });
+            var p = JsonConvert.DeserializeObject<IndeedResult>(result);
             var jobs = _mapper.Map<IEnumerable<JobDto>>(p);
 
             return new ResultWithFacetDto<JobDto>
