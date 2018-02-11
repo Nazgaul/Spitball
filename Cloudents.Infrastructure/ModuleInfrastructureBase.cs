@@ -2,7 +2,6 @@
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
-using Castle.DynamicProxy;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;

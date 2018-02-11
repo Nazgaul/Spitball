@@ -8,11 +8,11 @@ namespace Cloudents.Infrastructure.AI
 {
     public class EngineProcess : IEngineProcess
     {
-        private readonly IAI _ai;
+        private readonly IAi _ai;
         private readonly IDecision _mDecision;
         private readonly IGooglePlacesSearch _placesSearch;
 
-        public EngineProcess(IAI ai, IDecision mDecision, IGooglePlacesSearch placesSearch)
+        public EngineProcess(IAi ai, IDecision mDecision, IGooglePlacesSearch placesSearch)
         {
             _ai = ai;
             _mDecision = mDecision;

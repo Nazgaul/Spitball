@@ -6,9 +6,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Search;
-using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
-using Microsoft.Azure.Search.Models;
 using Newtonsoft.Json.Linq;
 using SearchResult = Cloudents.Core.DTOs.SearchResult;
 
