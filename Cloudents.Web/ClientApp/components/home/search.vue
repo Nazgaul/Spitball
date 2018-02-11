@@ -87,8 +87,9 @@
 
             },
             //callback for mobile submit mic
-            submitMic(){
-                this.search();
+            submitMic(val){
+                // this.search();
+                this.$router.push({ name: "result", query: { q: val } });
             }
         }
     }
