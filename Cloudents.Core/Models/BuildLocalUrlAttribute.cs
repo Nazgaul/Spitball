@@ -22,6 +22,5 @@ namespace Cloudents.Core.Models
         public int? SizeOfPage { get; }
 
         public string PageArgumentName { get; }
-        
     }
 }

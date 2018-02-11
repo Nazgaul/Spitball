@@ -29,5 +29,4 @@ namespace Cloudents.Core.DTOs
         public IList<string> Subject => new List<string>(_list);
         public string Location { get; }
     }
-
 }

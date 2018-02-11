@@ -50,11 +50,11 @@ namespace Cloudents.Infrastructure.Interceptor
                 return;
             }
             var data = prop.GetValue(val, null);// as IEnumerable<BookPricesDto>;
-            if (data.GetType().GetGenericArguments()[0].GetInterfaces().Contains(typeof(IUrlRedirect)))
-            {
+            //if (data.GetType().GetGenericArguments()[0].GetInterfaces().Contains(typeof(IUrlRedirect)))
+            //{
                 var urls = _urlRedirectBuilder.BuildUrl((dynamic)data, page, pageSize);
                 prop.SetValue(val, urls);
-            }
+            //}
         }
 
         private static PropertyInfo GetPropertyInfo(object src, string propName)
@@ -73,7 +73,6 @@ namespace Cloudents.Infrastructure.Interceptor
                 else
                 {
                     return src.GetType().GetProperty(propName);
-                    //return prop?.GetValue(src, null);
                 }
             }
         }

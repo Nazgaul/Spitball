@@ -27,7 +27,7 @@ namespace Cloudents.Core.Test
 
             public override int GetHashCode()
             {
-                return this.Result.GetHashCode() * 11 + this.Host.GetHashCode() * 13;
+                return Result.GetHashCode() * 11 + Host.GetHashCode() * 13;
             }
         }
 
@@ -45,7 +45,8 @@ namespace Cloudents.Core.Test
                 new ShuffleTestModel {Host = "C", Result = 2},
                 new ShuffleTestModel {Host = "A", Result = 4}
             };
-            var result = Shuffle<ShuffleTestModel>.DoShuffle(list).ToList();
+            var shuffle = new Shuffle();
+            var result = shuffle.DoShuffle(list).ToList();
 
             var expectedList = new List<ShuffleTestModel>
             {
@@ -76,7 +77,8 @@ namespace Cloudents.Core.Test
                 new ShuffleTestModel {Host = "A", Result = 7},
                 new ShuffleTestModel {Host = "A", Result = 8}
             };
-            var result = Shuffle<ShuffleTestModel>.DoShuffle(list).ToList();
+            var shuffle = new Shuffle();
+            var result = shuffle.DoShuffle(list).ToList();
 
             CollectionAssert.AreEqual(result, list);
         }

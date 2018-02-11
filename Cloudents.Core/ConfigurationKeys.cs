@@ -7,7 +7,6 @@ namespace Cloudents.Core
 {
     public class ConfigurationKeys : IConfigurationKeys
     {
-       
 
         public string Db { get; set; }
         public SearchServiceCredentials Search { get; set; }
@@ -16,7 +15,6 @@ namespace Cloudents.Core
         public string SystemUrl { get; set; }
 
         public LocalStorageData LocalStorageData { get; set; }
-
 
     }
 
@@ -43,5 +41,4 @@ namespace Cloudents.Core
         public string Path { get; }
         public int Size { get; }
     }
-
 }

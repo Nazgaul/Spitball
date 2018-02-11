@@ -51,10 +51,10 @@ namespace ConsoleApp
                 Latitude = 40.7127753,
                 Longitude = -74.0059728
             };
-            var t = container.Resolve<ITutorSearch>();
-            var z = await t.SearchAsync(new[] {"math"}, null, TutorRequestSort.Price, null, 0, default);
+            var t = container.Resolve<IJobSearch>();
+            var z = await t.SearchAsync(new[] { "College" }, JobRequestSort.Date, null, null, 0, false, default);
 
-            foreach (var price in z)
+            foreach (var price in z.Result)
             {
                 Console.WriteLine(price.Url);
             }

@@ -23,6 +23,7 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [BuildLocalUrl(nameof(ResultWithFacetDto<JobDto>.Result), PageSize, "page")]
+        [Shuffle(nameof(ResultWithFacetDto<JobDto>.Result))]
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term, JobRequestSort sort, IEnumerable<string> jobType, Location location,
             int page, bool highlight, CancellationToken token)
         {
@@ -32,10 +33,10 @@ namespace Cloudents.Infrastructure.Search.Job
 
             var result = tasks.Select(s => s.Result).Where(w => w != null).ToList();
             var facets = result.Where(w => w.Facet != null).SelectMany(s => s.Facet).Distinct();
-            var jobs = Shuffle<JobDto>.DoShuffle(result.SelectMany(s => s.Result));
+           //var jobs = Shuffle<JobDto>.DoShuffle(result.SelectMany(s => s.Result));
             return new ResultWithFacetDto<JobDto>
             {
-                Result = jobs,
+                Result = result.SelectMany(s => s.Result),
                 Facet = facets
             };
         }

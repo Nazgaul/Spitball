@@ -10,8 +10,11 @@ namespace Cloudents.Core.Models
             ListObjectName = listObjectName;
         }
 
+        public ShuffleAttribute()
+        {
+                
+        }
 
-        string ListObjectName { get; }
-
+        public string ListObjectName { get; }
     }
 }

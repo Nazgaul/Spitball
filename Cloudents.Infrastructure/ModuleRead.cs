@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterGeneric(typeof(DocumentDbRepository<>)).AsImplementedInterfaces();
 
             builder.RegisterType<BingSearch>().As<ISearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor), typeof(BuildLocalUrlInterceptor));
+                .InterceptedBy(typeof(CacheResultInterceptor), typeof(BuildLocalUrlInterceptor), typeof(ShuffleInterceptor));
             builder.RegisterType<ReplaceImageProvider>().AsSelf();
 
             builder.RegisterType<DocumentCseSearch>().As<IDocumentCseSearch>();
@@ -61,7 +61,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<AzureJobSearch>().As<IJobProvider>();
             builder.RegisterType<ZipRecruiterClient>().As<IJobProvider>();
             builder.RegisterType<JobSearch>().As<IJobSearch>()
-                .EnableInterfaceInterceptors().InterceptedBy(typeof(BuildLocalUrlInterceptor));
+                .EnableInterfaceInterceptors().InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(ShuffleInterceptor));
 
             #endregion
 
