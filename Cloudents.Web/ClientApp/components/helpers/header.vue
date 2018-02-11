@@ -38,7 +38,7 @@
                                                 <v-list-tile-title>Twitter</v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile :href="whatsappLink" class="btn-copy hidden-sm-and-up">
+                                        <v-list-tile :href="whatsappLink()" class="btn-copy hidden-sm-and-up">
                                             <v-list-tile-action>
                                                 <whatsapp-icon></whatsapp-icon>
                                             </v-list-tile-action>
@@ -110,11 +110,7 @@
         mixins: [micMixin],
         computed: {
             ...mapGetters(['getUniversityName', 'historyTermSet']),
-            ...mapGetters({ 'globalTerm': 'currentText' }),
-
-            whatsappLink: function () {
-                return "whatsapp://send?text=" + encodeURIComponent(window.location.href);
-            }
+            ...mapGetters({ 'globalTerm': 'currentText' })
 
         },
         watch: {
@@ -133,7 +129,6 @@
             return {
                 settingMenu,
                 placeholders,
-                whatsappLink: "whatsapp://send?text=" + encodeURIComponent(window.location.href)
             }
         },
         methods: {
@@ -172,6 +167,11 @@
                 copyText.value = window.location.href;
                 copyText.select();
                 document.execCommand("Copy");
+            },
+            
+
+            whatsappLink() {
+                return "whatsapp://send?text=" + encodeURIComponent(window.location.href);
             }
         },
         created() {
