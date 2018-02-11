@@ -110,7 +110,12 @@
         mixins: [micMixin],
         computed: {
             ...mapGetters(['getUniversityName', 'historyTermSet']),
-            ...mapGetters({ 'globalTerm': 'currentText' })
+            ...mapGetters({ 'globalTerm': 'currentText' }),
+
+            whatsappLink: function () {
+                return "whatsapp://send?text=" + encodeURIComponent(window.location.href);
+            }
+
         },
         watch: {
             userText(val) {
@@ -142,7 +147,7 @@
             },
             //callback for mobile submit mic
             submitMic(val) {
-                this.$router.push({path:this.submitRoute,query:{q:val}});
+                this.$router.push({ path: this.submitRoute, query: { q: val } });
                 // to remove keyboard on mobile
                 this.$nextTick(() => {
                     this.$el.querySelector('input').blur();
@@ -172,9 +177,6 @@
         created() {
             this.msg = this.userText ? this.userText : this.globalTerm;
             this.height = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
-        },
-        updated() {
-            this.whatsappLink = "whatsapp://send?text=" + encodeURIComponent(window.location.href);
         }
     }
 </script>
