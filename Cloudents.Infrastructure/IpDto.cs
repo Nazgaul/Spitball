@@ -25,7 +25,6 @@
         public double Longitude { get; set; }
         public string MetroCode { get; set; }
 
-
         //public Location ConvertToPoint()
         //{
         //    return new Location(Longitude, Latitude, $"{City},{RegionCode}");

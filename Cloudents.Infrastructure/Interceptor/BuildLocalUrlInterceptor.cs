@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using Castle.DynamicProxy;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 
@@ -35,7 +32,6 @@ namespace Cloudents.Infrastructure.Interceptor
                 var pageArg = invocation.Method.GetParameters().FirstOrDefault(w => w.Name == att.PageArgumentName);
                 page = (int)invocation.Arguments[pageArg.Position];
                 pageSize = att.SizeOfPage.Value;
-
             }
 
             if (string.IsNullOrEmpty(att.ListObjectName))
@@ -59,9 +55,6 @@ namespace Cloudents.Infrastructure.Interceptor
                 prop.SetValue(val, urls);
             }
         }
-
-
-
 
         private static PropertyInfo GetPropertyInfo(object src, string propName)
         {

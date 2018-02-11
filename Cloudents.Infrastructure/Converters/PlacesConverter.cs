@@ -46,7 +46,6 @@ namespace Cloudents.Infrastructure.Converters
         }
     }
 
-
     public class PlaceConverter : ITypeConverter<JObject, PlaceDto>
     {
         public PlaceDto Convert(JObject source, PlaceDto destination, ResolutionContext context)

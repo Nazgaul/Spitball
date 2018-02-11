@@ -58,10 +58,10 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<AzureJobSearch>().As<IJobProvider>();
             builder.RegisterType<ZipRecruiterClient>().As<IJobProvider>();
-            builder.RegisterType<JobSearch>().As<IJobSearch>();
+            builder.RegisterType<JobSearch>().As<IJobSearch>()
+                .EnableInterfaceInterceptors().InterceptedBy(typeof(BuildLocalUrlInterceptor));
 
             #endregion
-
 
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));

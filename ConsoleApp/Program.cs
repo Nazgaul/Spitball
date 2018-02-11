@@ -52,8 +52,8 @@ namespace ConsoleApp
                 Latitude = 40.7127753,
                 Longitude = -74.0059728
             };
-            var t = container.Resolve<IDocumentCseSearch>();
-            var z = await t.SearchAsync(SearchQuery.Ask(null, 0, null), BingTextFormat.None, default);
+            var t = container.Resolve<IJobSearch>();
+            var z = await t.SearchAsync(new[] {"marketing"}, JobRequestSort.Date, null, null, 0, false, default);
 
             foreach (var price in z.Result)
             {

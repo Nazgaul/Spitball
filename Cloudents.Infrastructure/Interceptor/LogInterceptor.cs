@@ -17,7 +17,6 @@ namespace Cloudents.Infrastructure.Interceptor
             _logger = logger;
         }
 
-
         //private async Task InterceptAsync(IInvocation invocation, Task task)
         //{
         //    try

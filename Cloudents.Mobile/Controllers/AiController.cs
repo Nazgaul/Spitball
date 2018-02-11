@@ -18,7 +18,7 @@ namespace Cloudents.Mobile.Controllers
 
         /// <inheritdoc />
         /// <summary>
-        /// ctor
+        /// Constructor
         /// </summary>
         /// <param name="engineProcess"></param>
         public AiController(IEngineProcess engineProcess)

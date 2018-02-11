@@ -35,7 +35,6 @@ namespace Cloudents.Infrastructure.Data
             throw new ArgumentException("no collection Id");
         }
 
-
         //public async Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate)
         //{
         //    IDocumentQuery<T> query = _client.CreateDocumentQuery<T>(
@@ -56,7 +55,6 @@ namespace Cloudents.Infrastructure.Data
         //{
         //    return await _client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, GetCollectionId()), item).ConfigureAwait(false);
         //}
-
 
         //public async Task<Document> UpdateItemAsync(string id, T item)
         //{

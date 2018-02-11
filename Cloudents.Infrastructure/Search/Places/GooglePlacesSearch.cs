@@ -68,7 +68,6 @@ namespace Cloudents.Infrastructure.Search.Places
                 });
         }
 
-
         [Cache(TimeConst.Year, "zip")]
         [Log]
         public async Task<Location> GeoCodingByZipAsync(string zip, CancellationToken token)

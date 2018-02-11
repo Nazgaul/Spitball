@@ -7,7 +7,6 @@ namespace Cloudents.Infrastructure.Interceptor
     public abstract class BaseTaskInterceptor<TAtt> : IInterceptor where TAtt : Attribute
     {
 
-
         public void Intercept(IInvocation invocation)
         {
             var attr = invocation.GetCustomAttribute<TAtt>();
@@ -63,7 +62,6 @@ namespace Cloudents.Infrastructure.Interceptor
                 return default;
             }
         }
-
 
         public abstract void BeforeAction(IInvocation invocation);
         public abstract void AfterAction<T>(ref T val, IInvocation invocation);

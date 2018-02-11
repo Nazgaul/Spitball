@@ -40,7 +40,6 @@ namespace Cloudents.Infrastructure.Storage
         {
             var client = GetQueueClient();
 
-
             var tasks = new List<Task>();
             foreach (var queueName in GetQueues())
             {

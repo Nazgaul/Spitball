@@ -17,7 +17,6 @@ namespace Cloudents.Infrastructure.Search.Tutor
         public const int PageSize = 15;
         private readonly IUrlRedirectBuilder _urlRedirectBuilder;
 
-
         public TutorSearch(IEnumerable<ITutorProvider> tutorSearch, IUrlRedirectBuilder urlRedirectBuilder)
         {
             _tutorSearch = tutorSearch;
