@@ -22,6 +22,7 @@ namespace Cloudents.Infrastructure
         [SuppressMessage("Microsoft.Design", "RCS1163:Unused parameter")]
         protected override void Load(ContainerBuilder builder)
         {
+            var currentAssembly = Assembly.GetExecutingAssembly();
             builder.RegisterModule<ModuleInfrastructureBase>();
             //builder.RegisterModule(new ModuleInfrastructureBase(_searchServiceCredentials, _redisConnectionString));
 
@@ -58,10 +59,13 @@ namespace Cloudents.Infrastructure
 
             #region Job
 
-            builder.RegisterType<AzureJobSearch>().As<IJobProvider>();
-            builder.RegisterType<ZipRecruiterClient>().As<IJobProvider>();
+            //builder.RegisterType<AzureJobSearch>().As<IJobProvider>();
+            //builder.RegisterType<ZipRecruiterClient>().As<IJobProvider>();
+            builder.RegisterAssemblyTypes(currentAssembly)
+                .Where(w=> typeof(IJobProvider).IsAssignableFrom(w)).AsImplementedInterfaces();
             builder.RegisterType<JobSearch>().As<IJobSearch>()
-                .EnableInterfaceInterceptors().InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(ShuffleInterceptor));
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(ShuffleInterceptor));
 
             #endregion
 
@@ -75,8 +79,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();
             builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
+            builder.RegisterAssemblyTypes(currentAssembly).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
+            builder.RegisterAssemblyTypes(currentAssembly).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
 
             builder.Register(c =>
             {

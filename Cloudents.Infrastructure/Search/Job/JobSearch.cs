@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Search.Job
 
         [BuildLocalUrl(nameof(ResultWithFacetDto<JobDto>.Result), PageSize, "page")]
         [Shuffle(nameof(ResultWithFacetDto<JobDto>.Result))]
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term, JobRequestSort sort, IEnumerable<string> jobType, Location location,
+        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location,
             int page, bool highlight, CancellationToken token)
         {
             var str = string.Join(" ", term ?? Enumerable.Empty<string>());

@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Mobile.Extensions;
 using Cloudents.Mobile.Models;
@@ -37,9 +39,16 @@ namespace Cloudents.Mobile.Controllers
         /// <returns></returns>
         public async Task<IHttpActionResult> Get([FromUri]JobRequest model, CancellationToken token)
         {
+            //var facet = model.Facet?.Select(s =>
+            //{
+            //     s.TryToEnum(out JobFilter p);
+
+            //});
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Sort.GetValueOrDefault(JobRequestSort.Distance),
-                model.Facet, model.Location, model.Page.GetValueOrDefault(), model.Highlight, token).ConfigureAwait(false);
+
+
+                null, model.Location, model.Page.GetValueOrDefault(), model.Highlight, token).ConfigureAwait(false);
             string nextPageLink = null;
             if (result.Result?.Any() == true)
             {

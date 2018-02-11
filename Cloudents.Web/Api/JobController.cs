@@ -25,7 +25,7 @@ namespace Cloudents.Web.Api
             var result = await _jobSearch.SearchAsync(
                 term,
                 sort.GetValueOrDefault(JobRequestSort.Distance),
-                facet, location, page.GetValueOrDefault(), true, token).ConfigureAwait(false);
+                null, location, page.GetValueOrDefault(), true, token).ConfigureAwait(false);
             return Json(result);
         }
     }

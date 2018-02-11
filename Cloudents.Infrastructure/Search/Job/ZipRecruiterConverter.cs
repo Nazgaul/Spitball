@@ -3,11 +3,10 @@ using System.Linq;
 using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
-using Cloudents.Infrastructure.Search.Job;
 
-namespace Cloudents.Infrastructure.Converters
+namespace Cloudents.Infrastructure.Search.Job
 {
-    public class ZipRecruiterConverter: ITypeConverter<ZipRecruiterClient.ZipRecruiterResult, IEnumerable<JobDto>>
+    public class ZipRecruiterConverter : ITypeConverter<ZipRecruiterClient.ZipRecruiterResult, IEnumerable<JobDto>>
     {
         public IEnumerable<JobDto> Convert(ZipRecruiterClient.ZipRecruiterResult source, IEnumerable<JobDto> destination, ResolutionContext context)
         {
@@ -25,7 +24,7 @@ namespace Cloudents.Infrastructure.Converters
                 Address = s.Location,
                 Title = s.Name,
                 CompensationType = "paid",
-                Responsibilities = RegEx.RemoveHtmlTags.Replace(s.Snippet,string.Empty)
+                Responsibilities = RegEx.RemoveHtmlTags.Replace(s.Snippet, string.Empty)
             });
         }
     }

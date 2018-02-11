@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Search.Job
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(
             string term,
             JobRequestSort sort,
-            IEnumerable<string> jobType,
+            IEnumerable<JobFilter> jobType,
             Location location,
             int page,
             bool highlight,
