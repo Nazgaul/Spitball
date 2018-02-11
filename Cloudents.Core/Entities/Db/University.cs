@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual long Id { get; set; }
 
         public virtual bool IsDeleted { get; set; }
-        public void DeleteAssociation()
+        public virtual void DeleteAssociation()
         {
         }
 

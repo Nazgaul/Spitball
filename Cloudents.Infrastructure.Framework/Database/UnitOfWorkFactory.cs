@@ -3,6 +3,7 @@ using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Event;
+using NHibernate.Tool.hbm2ddl;
 
 namespace Cloudents.Infrastructure.Framework.Database
 {
@@ -12,12 +13,14 @@ namespace Cloudents.Infrastructure.Framework.Database
 
         public UnitOfWorkFactory(string connectionString)
         {
-            var configuration = Fluently.Configure()
+            _factory = Fluently.Configure()
                 .Database(FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
                 .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
-                .ExposeConfiguration(BuildSchema);
-            
-            _factory = configuration.BuildSessionFactory();
+                .ExposeConfiguration(BuildSchema).BuildSessionFactory();
+
+
+
+            //_factory = configuration;
         }
 
         public ISession OpenSession()
@@ -25,9 +28,9 @@ namespace Cloudents.Infrastructure.Framework.Database
             return _factory.OpenSession();
         }
 
-        private static void BuildSchema(Configuration config)
+        private void BuildSchema(Configuration config)
         {
-            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
+            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Validate);
             config.SetListener(ListenerType.Delete, new DeleteEventListener());
 
             config.SetListener(ListenerType.PreInsert, new InsertUpdateEventListener());
@@ -42,6 +45,6 @@ namespace Cloudents.Infrastructure.Framework.Database
             //    .Create(false, true);
         }
 
-       
+
     }
 }

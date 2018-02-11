@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
@@ -20,11 +21,17 @@ namespace Cloudents.Core.CommandHandler
         public async Task<CreateCourseCommandResult> ExecuteAsync(CreateCourseCommand command, CancellationToken token)
         {
             var university = await _universityRepository.LoadAsync(command.UniversityId, token).ConfigureAwait(false);
-            var course = new Course(command.Name, university);
 
-            var id = await _courseRepository.AddAsync(course, token).ConfigureAwait(false);
+            var course = _courseRepository.GetQueryable()
+                .FirstOrDefault(w => w.Name == command.Name && w.University.Id == command.UniversityId);
+            if (course == null)
+            {
+                course = new Course(command.Name, university);
 
-            return new CreateCourseCommandResult((long)id);
+                var id = await _courseRepository.AddAsync(course, token).ConfigureAwait(false);
+                return new CreateCourseCommandResult((long)id);
+            }
+            return new CreateCourseCommandResult(course.Id);
         }
     }
 }

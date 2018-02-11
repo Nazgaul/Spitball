@@ -1,7 +1,9 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using NHibernate;
+using NHibernate.Persister.Entity;
 
 namespace Cloudents.Infrastructure.Framework.Database
 {
@@ -27,6 +29,10 @@ namespace Cloudents.Infrastructure.Framework.Database
             return _session.GetAsync<T>(id, token);
         }
 
+        public IQueryable<T> GetQueryable()
+        {
+           return _session.Query<T>();
+        }
 
         public Task<object> AddAsync(T entity, CancellationToken token)
         {

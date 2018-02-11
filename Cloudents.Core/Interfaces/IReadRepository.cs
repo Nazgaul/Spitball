@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
@@ -8,5 +9,7 @@ namespace Cloudents.Core.Interfaces
         Task<object> AddAsync(T entity, CancellationToken token);
         Task<T> LoadAsync(object id, CancellationToken token);
         Task<T> GetAsync(object id, CancellationToken token);
+
+        IQueryable<T> GetQueryable();
     }
 }

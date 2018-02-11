@@ -55,13 +55,10 @@ namespace ConsoleApp
             };
 
 
-            var mapper = container.Resolve<IJobSearch>();
-            var z = await mapper.SearchAsync(new[] { "college" }, JobRequestSort.Date, null, null, 0, false, default);
-
-            //foreach (var price in z.Result)
-            //{
-            //    Console.WriteLine(price.Url);
-            //}
+            var mapper = container.Resolve<ICommandBus>();
+            var commnad = new CreateCourseCommand("ram", 920);
+            var p = await mapper.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(commnad, default);
+            var p2 = await mapper.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(commnad, default);
             Console.ReadLine();
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
         }
