@@ -38,7 +38,7 @@
                                                 <v-list-tile-title>Twitter</v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile :href="whatsappLink" class="btn-copy">
+                                        <v-list-tile :href="whatsappLink" class="btn-copy hidden-sm-and-up">
                                             <v-list-tile-action>
                                                 <whatsapp-icon></whatsapp-icon>
                                             </v-list-tile-action>
