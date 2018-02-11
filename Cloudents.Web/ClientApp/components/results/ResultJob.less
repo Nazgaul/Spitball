@@ -28,7 +28,7 @@
         margin-bottom: 0;
         //font-size: 14px;
         //color: #000;
-        max-width:420px;
+        max-width: 420px;
         height: 72px;
         //margin-right: 70px;
         //line-height: 1.29;
@@ -40,15 +40,12 @@
     .properties {
         margin-top: 6px;
         //padding: 0 144px 0 0;
-
         .property {
             display: flex;
             align-items: center;
-
             /*&:nth-child(3), &:nth-child(4) {
                 margin-top: 14px;
             }*/
-
             .company {
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -56,5 +53,36 @@
                 padding-right: 8px;
             }
         }
+    }
+}
+
+
+.loading-skeleton {
+
+    .cell-title, .desc-title, p span, .property span {
+        background: @Site-Background;
+        color: transparent;
+    }
+
+    .cell-title {
+        font-size: 12px;
+        line-height: 0;
+    }
+
+    .desc-title, p span, .property span {
+        font-size: 7px;
+        line-height: 7px;
+    }
+
+    .time {
+        letter-spacing: 3px;
+    }
+
+    .desc-title {
+        letter-spacing: 22px;
+    }
+
+    svg path {
+        fill: @Site-Background;
     }
 }

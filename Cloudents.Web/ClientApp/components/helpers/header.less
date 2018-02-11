@@ -139,11 +139,58 @@
 
     .btn {
         .sbf-3-dot {
-            color: #3293f6;
+            color: #3532D5;
+        }
+    }
+
+    .share-btn {
+        svg {
+            fill: #3532D5;
+            width: 24px;
+            height: 24px;
         }
     }
 }
 
 .settings-list .list__tile__title {
     text-transform: capitalize;
+}
+
+.sharing-list {
+    padding: 0;
+    min-width: 152px;
+    padding: 6px 0;
+
+    .list__tile {
+        padding: 7px 8px;
+        height: auto;
+        color: @color-grey;
+        font-size: 14px;
+        line-height: normal;
+        letter-spacing: -0.2px;
+    }
+
+    .list__tile__action {
+        min-width: 0;
+        margin-right: 8px;
+
+        svg {
+            width: 24px;
+            height: 24px;
+
+            &.facebook-icon {
+                fill: #3b5795;
+            }
+
+            &.twitter-icon {
+                fill: #1ca1f2;
+            }
+        }
+    }
+
+    #input-url {
+        position: absolute;
+        top: -1000px;
+        opacity: 0;
+    }
 }
