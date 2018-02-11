@@ -3,6 +3,7 @@ const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
 import ResultVideo from './ResultVideo.vue'
+import ResultVideoSkeleton from './ResultVideoSkeleton.vue'
 import SuggestCard from './suggestCard.vue'
 import studyblueCard from './studyblueCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
@@ -12,43 +13,14 @@ import { mapActions, mapGetters } from 'vuex'
 const ACADEMIC_VERTICALS=['note','ask','flashcard','book','tutor'];
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 
-let promotions = {
-    note: {
-        title: "Study Documents",
-        content: "Study documents curated from the best sites on the web filtered by your school, classes and preferences."
-    },
-    flashcard: {
-        title: "Flashcard",
-        content: "Search millions of study sets and improve your grades by studying with flashcards."
-    },
-    ask: {
-        title: "Ask A Question",
-        content: "Ask any school related question and immediately get answers related specifically to you, your classes, and university."
-    },
-    tutor: {
-        title: "Tutors",
-        content: "Spitball has teamed up with the most trusted tutoring services to help you ace your classes."
-    },
-    book: {
-        title: "Textbooks",
-        content: "Find the best prices to buy, rent and sell your textbooks by comparing hundreds of sites simultaneously."
-    },
-    job: {
-        title: "Jobs",
-        content: "Easily search and apply to paid internships, part-time and entry-level jobs from local businesses to Fortune 500 companies."
-    },
-    food: {
-        title: "Food and Deals",
-        content: "Discover exclusive deals to local businesses, restaurants and bars near campus."
-    }
-};
+import {skeletonData,promotions} from './consts'
 //update data function update the page content and selected filters
 let updateData = function (data, isFilterUpdate = false) {
     const { facet } = data;
     facet?this.updateFacet(facet):'';
     this.pageData = {};
     this.content = data;
-    this.$emit('dataUpdated',data.data.length?data.data[0]:null)
+    this.$emit('dataUpdated', data.data.length ? data.data[0] : null)
     // (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterSelection;
     this.UPDATE_LOADING(false);
@@ -145,7 +117,7 @@ export const pageMixin =
             };
         },
 
-        components: { emptyState, ResultItem, SuggestCard, studyblueCard, ResultTutor, ResultJob, ResultVideo, ResultBook },
+        components: { emptyState, ResultItem, SuggestCard, studyblueCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultVideoSkeleton },
 
         created() {
             if (this.isAcademic&&!this.isFirst) { this.showPersonalizeField = true }
@@ -153,11 +125,12 @@ export const pageMixin =
             //If query have courses save those courses
             if (this.query.course) this.setFilteredCourses(this.query.course);
             this.UPDATE_LOADING(true);
+            this.items=skeletonData[this.name];
             //if the term is empty fetch the data
             if (!this.query.q || !this.query.q.length) {
                 this.fetchingData({ name: this.name, params: { ...this.query, ...this.params } })
                     .then(({ data }) => {
-                        updateData.call(this, data);
+                        updateData.call(this, data);//irena
                     }).catch(reason => { this.UPDATE_LOADING(false); });
             } else {
                 let vertical=this.name === "result"?"":this.name;
@@ -177,7 +150,7 @@ export const pageMixin =
 
                         })
                             .then(({ data }) => {
-                                updateData.call(this, data);
+                                 updateData.call(this, data);//irena
                             });
                     }
                 });
@@ -190,6 +163,7 @@ export const pageMixin =
                 const toName = to.path.slice(1);
                 this.pageData = {};
                 this.items = [];
+                this.items = skeletonData[toName];
                 //if the term for the page is as the page saved term use it else call to luis and update the saved term
                 new Promise((resolve, reject) => {
                     if (!to.query.q || !to.query.q.length) {

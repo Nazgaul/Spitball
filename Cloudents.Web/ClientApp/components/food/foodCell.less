@@ -12,6 +12,8 @@
         font-weight: 600;
         letter-spacing: -0.4px;
         color: @Food;
+        display: block;
+        .giveMeEllipsisOne();
     }
 
     .rate {
@@ -79,5 +81,42 @@
         iframe {
             max-height: 100vh;
         }
+    }
+}
+
+
+.loading-skeleton {
+
+    .cell-title, .rate-num, .address, .bottom {
+        background: @Site-Background;
+        color: transparent !important;
+    }
+
+    .img-wrap {
+        background: @Site-Background !important;
+        border: none;
+
+        svg {
+            display: none;
+        }
+    }
+
+    .cell-title {
+        font-size: 12px;
+        line-height: 0;
+        display: inline;
+    }
+
+    .rate-num, .address, .bottom {
+        font-size: 7px !important;
+        line-height: 7px;
+    }
+
+    .vue-star-rating {
+        display: none !important;
+    }
+
+    .bottom {
+        display: none;
     }
 }

@@ -25,23 +25,7 @@ namespace Cloudents.Infrastructure
             CreateMap<BingSearch.WebPage, SearchResult>().ConvertUsing<BingConverter>();
             //ZipRecruiterConverter
 
-            CreateMap<DocumentSearchResult<Job>, ResultWithFacetDto<JobDto>>()
-                .ConvertUsing<JobResultConverter>();
-
-            CreateMap<ZipRecruiterClient.ZipRecruiterResult, IEnumerable<JobDto>>()
-                .ConvertUsing<ZipRecruiterConverter>();
-
-            CreateMap<Job, JobDto>().ConvertUsing(jo => new JobDto
-            {
-                Url = jo.Url,
-                CompensationType = jo.Compensation,
-                Company = jo.Company,
-                DateTime = jo.DateTime.GetValueOrDefault(),
-                Address = $"{jo.City}, {jo.State}",
-                Title = jo.Title,
-                Responsibilities = jo.Description,
-                Source = jo.Source
-            });
+           
             CreateMap<Search.Entities.Course, CourseDto>();
             CreateMap<Search.Entities.University, UniversityDto>();
 

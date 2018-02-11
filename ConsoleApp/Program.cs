@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Threading.Tasks;
 using Autofac;
+using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.Enum;
@@ -10,6 +11,7 @@ using Cloudents.Core.Models;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
+using Cloudents.Infrastructure.Search.Job;
 
 namespace ConsoleApp
 {
@@ -51,13 +53,15 @@ namespace ConsoleApp
                 Latitude = 40.7127753,
                 Longitude = -74.0059728
             };
-            var t = container.Resolve<ITutorSearch>();
-            var z = await t.SearchAsync(new[] {"math"}, null, TutorRequestSort.Price, null, 0, default);
 
-            foreach (var price in z)
-            {
-                Console.WriteLine(price.Url);
-            }
+
+            var mapper = container.Resolve<IJobSearch>();
+            var z = await mapper.SearchAsync(new[] { "college" }, JobRequestSort.Date, null, null, 0, false, default);
+
+            //foreach (var price in z.Result)
+            //{
+            //    Console.WriteLine(price.Url);
+            //}
             Console.ReadLine();
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
         }

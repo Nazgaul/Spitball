@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Net;
 using System.Text;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core
 {
-
     public class UrlConst : IUrlBuilder
     {
         //private const string SystemUrl = "https://www.spitball.co";
@@ -20,7 +18,6 @@ namespace Cloudents.Core
 
         public string BuildRedirectUrl(string url, string host, int? location)
         {
-            
             var nvc = new NameValueCollection
             {
                 ["url"] = url,

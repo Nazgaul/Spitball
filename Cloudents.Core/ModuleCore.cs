@@ -20,6 +20,7 @@ namespace Cloudents.Core
             }).As<IUrlBuilder>().SingleInstance();
 
             builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
+            builder.RegisterType<Shuffle>().As<IShuffle>();
             //builder.RegisterGeneric(typeof(UrlRedirectBuilder<>)).As(typeof(IUrlRedirectBuilder<>));
         }
     }

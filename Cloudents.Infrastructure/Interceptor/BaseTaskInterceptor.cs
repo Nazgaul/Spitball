@@ -6,7 +6,6 @@ namespace Cloudents.Infrastructure.Interceptor
 {
     public abstract class BaseTaskInterceptor<TAtt> : IInterceptor where TAtt : Attribute
     {
-
         public void Intercept(IInvocation invocation)
         {
             var attr = invocation.GetCustomAttribute<TAtt>();

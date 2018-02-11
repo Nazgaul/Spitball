@@ -9,9 +9,14 @@ namespace Cloudents.Core
         object Bucket { get; }
     }
 
-    public static class Shuffle<T> where T : IShuffleable
+    public interface IShuffle
     {
-       public static IEnumerable<T> DoShuffle(IEnumerable<T> result)
+        IEnumerable<T> DoShuffle<T>(IEnumerable<T> result) where T : IShuffleable;
+    }
+
+    public class Shuffle : IShuffle
+    {
+        public IEnumerable<T> DoShuffle<T>(IEnumerable<T> result) where T : IShuffleable
         {
             if (result == null)
             {

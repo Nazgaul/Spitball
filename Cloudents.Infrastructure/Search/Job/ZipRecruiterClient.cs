@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term,
-            JobRequestSort sort, IEnumerable<string> jobType, Location location,
+            JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location,
             int page, bool highlight, CancellationToken token)
         {
             if (jobType?.Any() == true)
@@ -61,7 +61,7 @@ namespace Cloudents.Infrastructure.Search.Job
 
             return new ResultWithFacetDto<JobDto>
             {
-                Result = jobs.ToList()
+                Result = jobs
             };
         }
 

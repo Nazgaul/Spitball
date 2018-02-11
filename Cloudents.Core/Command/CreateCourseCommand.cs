@@ -14,7 +14,6 @@ namespace Cloudents.Core.Command
         public string Name { get; private set; }
 
         public long UniversityId { get; private set; }
-
     }
 
     public class CreateCourseCommandResult : ICommandResult

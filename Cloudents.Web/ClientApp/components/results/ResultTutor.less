@@ -15,6 +15,10 @@
         .flexSameSize();
     }
 
+    .price-wrap {
+        text-align: right;
+    }
+
     .price {
         margin-right: 8px;
         font-size: 17px;
@@ -28,23 +32,62 @@
         color: @Feed-Date;
     }
 
-    .description {
-        font-size: 12px;
-        letter-spacing: -0.3px;
-        color: @Book-Info;
-        overflow: hidden;
+    .description-wrap {
         margin-top: 4px;
-        .giveMeEllipsis(4,15px);
-        margin-right: 36px;
 
-        @media(max-width: 600px) {
-            margin-right: 16px;
+        .description {
+            font-size: 12px;
+            letter-spacing: -0.3px;
+            color: @Book-Info;
+            overflow: hidden;
+            .giveMeEllipsis(4,15px);
+            margin-right: 36px;
+
+            @media(max-width: 600px) {
+                margin-right: 16px;
+            }
         }
     }
 
-    .bottom {
+    .bottom-wrap {
         flex-grow: 0;
-        margin-bottom: -4px;
-        margin-right: 8px;
+
+        .bottom {
+            flex-grow: 0;
+            margin-bottom: -4px;
+            margin-right: 8px;
+        }
+    }
+}
+
+.loading-skeleton {
+    .avatar {
+        background: @Site-Background !important;
+        color: transparent !important;
+    }
+
+    .tutor-title, .description, .bottom, .price {
+        background: @Site-Background;
+        color: transparent !important;
+    }
+
+    .tutor-title {
+        font-size: 12px;
+        line-height: 0;
+    }
+
+    .description-wrap .description {
+        font-size: 7px !important;
+        line-height: 0;
+        display: inline;
+    }
+
+    .bottom {
+        font-size: 7px;
+        line-height: 0;
+    }
+
+    .price-wrap {
+        display: none;
     }
 }

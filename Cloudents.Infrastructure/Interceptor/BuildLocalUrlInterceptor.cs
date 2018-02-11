@@ -50,38 +50,37 @@ namespace Cloudents.Infrastructure.Interceptor
                 return;
             }
             var data = prop.GetValue(val, null);// as IEnumerable<BookPricesDto>;
-            if (data.GetType().GetGenericArguments()[0].GetInterfaces().Contains(typeof(IUrlRedirect)))
-            {
+            //if (data.GetType().GetGenericArguments()[0].GetInterfaces().Contains(typeof(IUrlRedirect)))
+            //{
                 var urls = _urlRedirectBuilder.BuildUrl((dynamic)data, page, pageSize);
                 prop.SetValue(val, urls);
-            }
+            //}
         }
 
         private static PropertyInfo GetPropertyInfo(object src, string propName)
         {
             while (true)
             {
-                if (src == null) throw new ArgumentException("Value cannot be null.", "src");
-                if (propName == null) throw new ArgumentException("Value cannot be null.", "propName");
+                if (src == null) throw new ArgumentException("Value cannot be null.", nameof(src));
+                if (propName == null) throw new ArgumentException("Value cannot be null.", nameof(propName));
 
                 if (propName.Contains(".")) //complex type nested
                 {
-                    var temp = propName.Split(new char[] { '.' }, 2);
+                    var temp = propName.Split(new[] { '.' }, 2);
                     src = GetPropertyInfo(src, temp[0]);
                     propName = temp[1];
                 }
                 else
                 {
                     return src.GetType().GetProperty(propName);
-                    //return prop?.GetValue(src, null);
                 }
             }
         }
 
-        private static object GetPropValue(object src, string propName)
-        {
-            var prop = GetPropertyInfo(src, propName);
-            return prop?.GetValue(src, null);
-        }
+        //private static object GetPropValue(object src, string propName)
+        //{
+        //    var prop = GetPropertyInfo(src, propName);
+        //    return prop?.GetValue(src, null);
+        //}
     }
 }
