@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.6.1" />
+    <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="Microsoft.Azure.Search" Version="4.0.1-preview" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.9" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure" Version="3.3.10" />

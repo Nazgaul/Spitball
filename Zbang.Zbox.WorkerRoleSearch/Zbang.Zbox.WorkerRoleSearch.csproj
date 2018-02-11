@@ -192,7 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>4.6.1</Version>
+      <Version>4.6.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.ApplicationInsights">
       <Version>2.4.0</Version>
