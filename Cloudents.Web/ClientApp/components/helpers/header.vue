@@ -141,8 +141,13 @@
                 });
             },
             //callback for mobile submit mic
-            submitMic() {
-                this.submit();
+            submitMic(val) {
+                this.$router.push({path:this.submitRoute,query:{q:val}});
+                // to remove keyboard on mobile
+                this.$nextTick(() => {
+                    this.$el.querySelector('input').blur();
+                    this.$el.querySelector('form').blur();
+                });
             },
             $_currentClick({ id }) {
                 this.$refs.personalize.openDialog(id);

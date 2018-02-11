@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Search
                 Result = result.ToList(),
                 Facet = new[]
                 {
-                    "Spitball.co",
+                    "Cloudents.com",
                     "Studysoup.com",
                     "Coursehero.com",
                     "Cliffsnotes.com",

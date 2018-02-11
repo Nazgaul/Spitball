@@ -80,7 +80,15 @@ namespace Cloudents.Infrastructure.Search
                 return string.Empty;
             }
 
-            return $"({string.Join(" OR ", sources.Select(s => $"site:{s}"))})";
+            var sourceStr = sources.Select(s =>
+            {
+                if (string.Equals(s, "Cloudents.com", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    s = "Spitball.co";
+                }
+                return $"site:{s}";
+            });
+            return $"({string.Join(" OR ", sourceStr)})";
         }
 
         public static string BuildQuery(IEnumerable<string> universitySynonym,

@@ -20,6 +20,8 @@ namespace Cloudents.Infrastructure.Search.Job
 
             CreateMap<IndeedProvider.IndeedResult, IEnumerable<JobDto>>()
                 .ConvertUsing<IndeedConverter>();
+            CreateMap<CareerJetProvider.CareerJetResult, IEnumerable<JobDto>>()
+                .ConvertUsing<CareerJetConverter>();
 
             CreateMap<Core.Entities.Search.Job, JobDto>().ConvertUsing(jo => new JobDto
             {
