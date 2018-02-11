@@ -83,15 +83,15 @@ namespace Cloudents.Infrastructure.Interceptor
         //    }
         //}
 
-        public override void BeforeAction(IInvocation invocation)
+        protected override void BeforeAction(IInvocation invocation)
         {
         }
 
-        public override void AfterAction<T>(ref T val, IInvocation invocation)
+        protected override void AfterAction<T>(ref T val, IInvocation invocation)
         {
         }
 
-        public override void CatchException(Exception ex, IInvocation arg)
+        protected override void CatchException(Exception ex, IInvocation arg)
         {
             _logger.Exception(ex, new Dictionary<string, string>
             {

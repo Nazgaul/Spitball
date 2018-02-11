@@ -63,10 +63,10 @@ namespace Cloudents.Infrastructure.Interceptor
             }
         }
 
-        public abstract void BeforeAction(IInvocation invocation);
-        public abstract void AfterAction<T>(ref T val, IInvocation invocation);
+        protected abstract void BeforeAction(IInvocation invocation);
+        protected abstract void AfterAction<T>(ref T val, IInvocation invocation);
 
-        public virtual void CatchException(Exception ex, IInvocation arg)
+        protected virtual void CatchException(Exception ex, IInvocation arg)
         {
             throw ex;
         }

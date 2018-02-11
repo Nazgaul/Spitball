@@ -42,7 +42,6 @@ namespace ConsoleApp
             builder.Register(_ => keys).As<IConfigurationKeys>();
             builder.RegisterModule<ModuleRead>();
 
-
             // new LocalStorageData(Path.Combine(Directory.GetCurrentDirectory(), "Temp"), 500)));
             builder.RegisterModule<ModuleFile>();
             builder.RegisterModule<ModuleDb>();
@@ -52,10 +51,10 @@ namespace ConsoleApp
                 Latitude = 40.7127753,
                 Longitude = -74.0059728
             };
-            var t = container.Resolve<IJobSearch>();
-            var z = await t.SearchAsync(new[] {"marketing"}, JobRequestSort.Date, null, null, 0, false, default);
+            var t = container.Resolve<ITutorSearch>();
+            var z = await t.SearchAsync(new[] {"math"}, null, TutorRequestSort.Price, null, 0, default);
 
-            foreach (var price in z.Result)
+            foreach (var price in z)
             {
                 Console.WriteLine(price.Url);
             }

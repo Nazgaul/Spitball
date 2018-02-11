@@ -48,9 +48,11 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DocumentCseSearch>().As<IDocumentCseSearch>();
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>();
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
-            builder.RegisterType<TutorSearch>().As<ITutorSearch>();
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
+
             builder.RegisterType<TutorAzureSearch>().As<ITutorProvider>();
+            builder.RegisterType<TutorSearch>().As<ITutorSearch>()
+                .EnableInterfaceInterceptors().InterceptedBy(typeof(BuildLocalUrlInterceptor));
 
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();
 

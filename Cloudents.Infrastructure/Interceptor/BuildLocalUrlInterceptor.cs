@@ -17,12 +17,12 @@ namespace Cloudents.Infrastructure.Interceptor
             _urlRedirectBuilder = urlRedirectBuilder;
         }
 
-        public override void BeforeAction(IInvocation invocation)
+        protected override void BeforeAction(IInvocation invocation)
         {
 
         }
 
-        public override void AfterAction<T>(ref T val, IInvocation invocation)
+        protected override void AfterAction<T>(ref T val, IInvocation invocation)
         {
             var att = invocation.GetCustomAttribute<BuildLocalUrlAttribute>();
             var page = 0;
@@ -36,10 +36,11 @@ namespace Cloudents.Infrastructure.Interceptor
 
             if (string.IsNullOrEmpty(att.ListObjectName))
             {
-                if (val.GetType().GetGenericArguments()[0].GetInterfaces().Contains(typeof(IUrlRedirect)))
-                {
-                    val = _urlRedirectBuilder.BuildUrl((dynamic)val, page, pageSize);
-                }
+                //This check failed in select many
+                // if (val.GetType().GetGenericArguments()[0].GetInterfaces().Contains(typeof(IUrlRedirect)))
+                // {
+                val = _urlRedirectBuilder.BuildUrl((dynamic)val, page, pageSize);
+                // }
 
                 return;
             }

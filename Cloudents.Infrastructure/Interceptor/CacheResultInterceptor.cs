@@ -151,7 +151,7 @@ namespace Cloudents.Infrastructure.Interceptor
         //    }
         //}
 
-        public override void BeforeAction(IInvocation invocation)
+        protected override void BeforeAction(IInvocation invocation)
         {
             var key = GetInvocationSignature(invocation);
 
@@ -181,7 +181,7 @@ namespace Cloudents.Infrastructure.Interceptor
             }
         }
 
-        public override void AfterAction<T>(ref T val, IInvocation invocation)
+        protected override void AfterAction<T>(ref T val, IInvocation invocation)
         {
             if (val != null)
             {
