@@ -39,7 +39,7 @@
                                 <suggest-card :name="currentSuggest"></suggest-card>
                             </router-link>
                             <v-flex v-if="name==='ask'" class="result-cell elevation-1 mb-2 xs-12 order-xs2">
-                                <studyblue-card :searchterm="term"></studyblue-card>
+                                <studyblue-card :searchterm="userText"></studyblue-card>
                             </v-flex>
                        </slot>
                         </v-layout>

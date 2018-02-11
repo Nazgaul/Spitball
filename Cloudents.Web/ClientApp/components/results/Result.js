@@ -184,7 +184,7 @@ export const pageMixin =
                     this.fetchingData({ name: toName, params: { ...to.query, ...to.params }})
                         .then(({ data }) => {
                             //update data for this page
-                            //updateData.call(this, data, updateFilter);
+                            updateData.call(this, data, updateFilter);
                         }).catch(reason => {
                         //when error from fetching data remove the loader
                         this.UPDATE_LOADING(false);
