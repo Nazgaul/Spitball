@@ -17,7 +17,6 @@ namespace Cloudents.Web.Test
     [TestClass]
     public class HomeControllerTests
     {
-        Mock<IIpToLocation> _mock;
         private Mock<IConfiguration> _configurationMock;
 
         private HomeController _controller;

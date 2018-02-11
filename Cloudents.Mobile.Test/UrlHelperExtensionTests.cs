@@ -15,7 +15,7 @@ namespace Cloudents.Mobile.Test
         public void AddObject_SomeObject_ReturnParseOk()
         {
                //UrlHelperExtension();
-            var type = new PrivateType(typeof(UrlHelperExtension));
+           
             
             var prefix = string.Empty;
             var val = new TutorRequest
@@ -28,6 +28,7 @@ namespace Cloudents.Mobile.Test
                 }
             };
             var nvc = new NameValueCollection();
+            var type = new PrivateType(typeof(UrlHelperExtension));
             type.InvokeStatic("AddObject", BindingFlags.Static | BindingFlags.NonPublic, prefix, val, nvc);
 
             var nvcResult = new NameValueCollection

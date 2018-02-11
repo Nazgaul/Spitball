@@ -2,10 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net47</TargetFramework>
-
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>

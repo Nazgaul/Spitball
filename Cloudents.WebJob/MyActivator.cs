@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;

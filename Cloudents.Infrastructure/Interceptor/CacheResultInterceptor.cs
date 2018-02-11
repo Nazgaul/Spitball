@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Interceptor
             _configurationKeys = configurationKeys;
         }
 
-        public static string BuildArgument(object[] argument)
+        private static string BuildArgument(IEnumerable<object> argument)
         {
             var sb = new StringBuilder();
             foreach (var arg in argument)
@@ -80,77 +80,17 @@ namespace Cloudents.Infrastructure.Interceptor
         private string GetInvocationSignature(IInvocation invocation)
         {
             return
-                $"{_configurationKeys.SystemUrl}" +
+                _configurationKeys.SystemUrl +
                 $"{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-" +
                 $"{invocation.TargetType.FullName}-{invocation.Method.Name}" +
                 $"-{BuildArgument(invocation.Arguments)}";
         }
 
-        //private static Task InterceptAsync(string key, CacheAttribute att, Task task)
-        //{
-        //    return task;
-        //    // do the logging here, as continuation work for Task...
-        //}
-
-        //private async Task<T> InterceptAsync<T>(string key, CacheAttribute att, Task<T> task)
-        //{
-        //    var result = await task.ConfigureAwait(false);
-        //    if (result != null)
-        //    {
-        //        result = (T)_cacheProvider.Set(key, att.Region, result, att.Duration); // cacheAttr.Duration);
-        //    }
-        //    // do the logging here, as continuation work for Task<T>...
-        //    return result;
-        //}
-
         private static Task<T> ConvertAsync<T>(T data)
         {
             return Task.FromResult(data);
         }
-
-        //public void Intercept(IInvocation invocation)
-        //{
-        //    var cacheAttr = invocation.GetCustomAttribute<CacheAttribute>();
-        //    if (cacheAttr == null)
-        //    {
-        //        invocation.Proceed();
-        //        return;
-        //    }
-        //    var key = GetInvocationSignature(invocation);
-
-        //    var method = invocation.MethodInvocationTarget;
-        //    var data = _cacheProvider.Get(key, cacheAttr.Region);
-
-        //    if (data != null)
-        //    {
-        //        if (typeof(Task).IsAssignableFrom(method.ReturnType))
-        //        {
-        //            var taskReturnType = method.ReturnType; //e.g. Task<int>
-
-        //            var type = taskReturnType.GetGenericArguments()[0]; //get the result type, e.g. int
-
-        //            var convertMethod =
-        //                GetType().GetMethod(nameof(ConvertAsync), BindingFlags.Static | BindingFlags.NonPublic)
-        //                    .MakeGenericMethod(type); //Get the closed version of the Convert method, e.g. Convert<int>
-
-        //            var result =
-        //                convertMethod.Invoke(null,
-        //                    new[] { data }); //Call the convert method and return the generic Task, e.g. Task<int>
-
-        //            invocation.ReturnValue = result;
-        //            return;
-        //        }
-        //        invocation.ReturnValue = data;
-        //        return;
-        //    }
-        //    invocation.Proceed();
-
-        //    if (typeof(Task).IsAssignableFrom(method.ReturnType))
-        //    {
-        //        invocation.ReturnValue = InterceptAsync(key, cacheAttr, (dynamic)invocation.ReturnValue);
-        //    }
-        //}
-
+        
         protected override void BeforeAction(IInvocation invocation)
         {
             var key = GetInvocationSignature(invocation);

@@ -11,24 +11,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Class2.cs" />
-    <Compile Remove="Entities\Db\CourseContent.cs" />
-    <Compile Remove="Models\GeoPointConverter.cs" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.Spatial" Version="7.2.0" />
+    <PackageReference Include="Autofac" Version="4.6.2" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\..\..\..\.nuget\packages\autofac\4.6.1\lib\netstandard1.1\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Collections.Immutable">
-      <HintPath>..\..\..\..\.nuget\packages\system.collections.immutable\1.4.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
