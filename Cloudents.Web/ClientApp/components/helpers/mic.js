@@ -32,19 +32,18 @@ export const micMixin = {
                 };
                 this.recognition.onerror = function() {
                     console.log('error');
-                    this.isRecording = false;};
+                    _self.isRecording = false;};
                 this.recognition.onend = function() {
                     console.log('end')
-                    this.isRecording = false;};
+                    _self.isRecording = false;};
                 this.recognition.onresult = function (event) {
-                    _self.msg = event.results[0][0].transcript;
-                    this.$nextTick(()=>{
-                        this.$ga.event('Search','Voice', _self.msg);
-                        _self.isRecording = false;
-                        if(_self.$vuetify.breakpoint.smAndDown){
-                            _self.submitMic();
-                        }
-                    });
+                    let msg=event.results[0][0].transcript;
+                    _self.msg = msg;
+                    _self.$ga.event('Search','Voice', msg);
+                    _self.isRecording = false;
+                    if(_self.$vuetify.breakpoint.smAndDown){
+                        _self.submitMic(msg);
+                    }
                 };
             }
         },
