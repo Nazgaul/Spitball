@@ -21,9 +21,9 @@ namespace Cloudents.Infrastructure
             CreateMap<IpDto, Location>().ForMember(f => f.Point, opt => opt.MapFrom(src => new GeoPoint { Latitude = src.Latitude, Longitude = src.Longitude }));
             CreateMap<GoogleGeoCodeDto, Location>().ConvertUsing<GoogleGeoConverter>();
             CreateMap<BingSearch.WebPage, SearchResult>().ConvertUsing<BingConverter>();
+            CreateMap<Suggestions.SuggestionsObject, IEnumerable<string>>().ConvertUsing<SuggestConverter>();
             //ZipRecruiterConverter
 
-           
             CreateMap<Search.Entities.Course, CourseDto>();
             CreateMap<Search.Entities.University, UniversityDto>();
 

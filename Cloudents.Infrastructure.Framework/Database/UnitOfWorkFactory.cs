@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure.Framework.Database
             return _factory.OpenSession();
         }
 
-        private void BuildSchema(Configuration config)
+        private static void BuildSchema(Configuration config)
         {
             config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Validate);
             config.SetListener(ListenerType.Delete, new DeleteEventListener());

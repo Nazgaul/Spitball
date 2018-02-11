@@ -26,7 +26,7 @@ namespace Cloudents.Web.Middleware
             {
                 response.Body = ms;
 
-                await _next(context);
+                await _next(context).ConfigureAwait(false);
 
                 if (IsEtagSupported(response))
                 {
@@ -42,7 +42,7 @@ namespace Cloudents.Web.Middleware
                 }
 
                 ms.Position = 0;
-                await ms.CopyToAsync(originalStream);
+                await ms.CopyToAsync(originalStream).ConfigureAwait(false);
             }
         }
 

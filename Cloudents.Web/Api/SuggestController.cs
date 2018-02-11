@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
 {
@@ -6,14 +9,17 @@ namespace Cloudents.Web.Api
     [Route("api/Suggest")]
     public class SuggestController : Controller
     {
-        public IActionResult Get(string sentence)
+        private readonly ISuggestions _suggestions;
+
+        public SuggestController(ISuggestions suggestions)
         {
-            return Json(new[]
-            {
-                sentence,
-                sentence + "1",
-                sentence + "2"
-            });
+            _suggestions = suggestions;
+        }
+
+        public async Task<IActionResult> Get(string sentence,CancellationToken token)
+        {
+            var result = await _suggestions.SuggestAsync(sentence, token).ConfigureAwait(false);
+            return Json(result);
         }
     }
 }

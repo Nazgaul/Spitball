@@ -48,7 +48,7 @@ namespace ConsoleApp
             builder.RegisterModule<ModuleFile>();
             builder.RegisterModule<ModuleDb>();
             var container = builder.Build();
-            var point = new GeoPoint()
+            var point = new GeoPoint
             {
                 Latitude = 40.7127753,
                 Longitude = -74.0059728
