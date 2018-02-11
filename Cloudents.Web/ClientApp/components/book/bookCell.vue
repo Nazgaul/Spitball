@@ -1,6 +1,6 @@
 ﻿<template functional>
     <v-container class="pa-0 book-cell">
-        <v-layout row>
+        <v-layout row class="result-cell-content">
             <div class="img-wrap">
                 <img :src="props.item.image" alt="">
             </div>

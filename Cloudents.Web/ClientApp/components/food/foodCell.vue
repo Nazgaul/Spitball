@@ -1,5 +1,5 @@
 ﻿<template functional>
-    <v-layout row class="place-cell">
+    <v-layout row class="place-cell result-cell-content">
         <div class="img-wrap spitball-bg-food">
             <img :src="props.item.image" alt="" v-if="props.item.image">
             <food-default v-else class="defaultImage spitball-bg-food"></food-default>

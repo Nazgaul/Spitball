@@ -14,7 +14,8 @@
 </script>
 <style scoped>
     .wrapper {
-        width: 504px;
+        width: 100%;
+        max-width: 504px;
         height: 283px;
         display: flex;
         align-items: center;
