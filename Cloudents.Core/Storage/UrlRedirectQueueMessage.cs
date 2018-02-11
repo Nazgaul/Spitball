@@ -37,6 +37,5 @@ namespace Cloudents.Core.Storage
 
         [DataMember(Order = 6)]
         public string Ip { get; set; }
-
     }
 }

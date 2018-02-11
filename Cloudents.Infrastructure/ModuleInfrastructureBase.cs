@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
+using Castle.DynamicProxy;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
@@ -39,9 +40,11 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
 
             #region Interceptors
-            builder.RegisterType<CacheResultInterceptor>();
-            builder.RegisterType<LogInterceptor>();
-            builder.RegisterType<BuildLocalUrlInterceptor>();
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
+
+            //builder.RegisterType<CacheResultInterceptor>();
+            //builder.RegisterType<LogInterceptor>();
+            //builder.RegisterType<BuildLocalUrlInterceptor>();
             #endregion
 
             builder.RegisterType<RestClient>().As<IRestClient>().SingleInstance();

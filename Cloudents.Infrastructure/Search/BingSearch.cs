@@ -30,6 +30,7 @@ namespace Cloudents.Infrastructure.Search
 
         [Cache(TimeConst.Day, "bing")]
         [BuildLocalUrl(null, PageSize, "page")]
+        [Shuffle]
         public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model, int page, BingTextFormat format, CancellationToken token)
         {
             //https://docs.microsoft.com/en-us/rest/api/cognitiveservices/bing-custom-search-api-v7-reference#query-parameters
@@ -67,9 +68,9 @@ namespace Cloudents.Infrastructure.Search
             {
                 return null;
             }
-            var searchResult = _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(response.WebPages?.Value);
-            searchResult = Shuffle<SearchResult>.DoShuffle(searchResult);
-            return searchResult; //_urlRedirectBuilder.BuildUrl(model.Page, PageSize, searchResult);
+            return _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(response.WebPages?.Value);
+            //searchResult = Shuffle<SearchResult>.DoShuffle(searchResult);
+            //return searchResult; //_urlRedirectBuilder.BuildUrl(model.Page, PageSize, searchResult);
         }
 
         private static string BuildSources(IEnumerable<string> sources)

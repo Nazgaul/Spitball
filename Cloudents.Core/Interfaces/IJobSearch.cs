@@ -11,7 +11,7 @@ namespace Cloudents.Core.Interfaces
     {
         Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term,
             JobRequestSort sort,
-            IEnumerable<string> jobType,
+            IEnumerable<JobFilter> jobType,
             Location location,
             int page,
             bool highlight,
@@ -23,7 +23,7 @@ namespace Cloudents.Core.Interfaces
     {
         Task<ResultWithFacetDto<JobDto>> SearchAsync(string term,
             JobRequestSort sort,
-            IEnumerable<string> jobType,
+            IEnumerable<JobFilter> jobType,
             Location location,
             int page,
             bool highlight,

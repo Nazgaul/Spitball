@@ -27,12 +27,11 @@ namespace Cloudents.Mobile.Filters
             if (double.TryParse(latitudeStr?.RawValue?.ToString(), out var latitude)
                 && double.TryParse(longitudeStr?.RawValue?.ToString(), out var longitude))
             {
-                var point = new GeoPoint
+                bindingContext.Model = new GeoPoint
                 {
                     Longitude = longitude,
                     Latitude = latitude
                 };
-                bindingContext.Model = point;
                 return true;
             }
 

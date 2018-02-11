@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Cloudents.Core.Enum
+﻿namespace Cloudents.Core.Enum
 {
     public enum JobFilter
     {
@@ -19,13 +17,5 @@ namespace Cloudents.Core.Enum
         Temporary,
         [Parse("Remote")]
         Remote
-    }
-
-    [Flags]
-    public enum TutorFilter
-    {
-        None = 0,
-        Online = 1,
-        InPerson = 2,
     }
 }

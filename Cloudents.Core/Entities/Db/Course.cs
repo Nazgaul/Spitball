@@ -3,7 +3,6 @@ using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities.Db
 {
-
     public class Course : IDirty
     {
         protected Course()
