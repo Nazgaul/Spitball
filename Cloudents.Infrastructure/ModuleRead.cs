@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterModule<ModuleInfrastructureBase>();
             //builder.RegisterModule(new ModuleInfrastructureBase(_searchServiceCredentials, _redisConnectionString));
 
-            builder.RegisterType<LuisAI>().As<IAI>()
+            builder.RegisterType<LuisAI>().As<IAi>()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<AiDecision>().As<IDecision>();

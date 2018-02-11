@@ -4,7 +4,7 @@ using Cloudents.Core.DTOs;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IAI
+    public interface IAi
     {
         Task<AiDto> InterpretStringAsync(string sentence, CancellationToken token);
     }

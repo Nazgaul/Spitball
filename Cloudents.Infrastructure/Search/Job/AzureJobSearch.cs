@@ -8,7 +8,6 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Write.Job;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
