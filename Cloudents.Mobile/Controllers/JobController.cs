@@ -39,16 +39,18 @@ namespace Cloudents.Mobile.Controllers
         /// <returns></returns>
         public async Task<IHttpActionResult> Get([FromUri]JobRequest model, CancellationToken token)
         {
-            //var facet = model.Facet?.Select(s =>
-            //{
-            //     s.TryToEnum(out JobFilter p);
+            var facet = model.Facet?.Select(s =>
+            {
+                if (s.TryToEnum(out JobFilter p))
+                {
+                    return p;
+                }
 
-            //});
+                return JobFilter.None;
+            }).Where(w=> w != JobFilter.None);
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Sort.GetValueOrDefault(JobRequestSort.Distance),
-
-
-                null, model.Location, model.Page.GetValueOrDefault(), model.Highlight, token).ConfigureAwait(false);
+                facet, model.Location, model.Page.GetValueOrDefault(), model.Highlight, token).ConfigureAwait(false);
             string nextPageLink = null;
             if (result.Result?.Any() == true)
             {
