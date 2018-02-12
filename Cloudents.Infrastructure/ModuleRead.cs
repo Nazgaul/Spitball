@@ -72,7 +72,7 @@ namespace Cloudents.Infrastructure
             #endregion
 
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
+                .InterceptedBy(typeof(CacheResultInterceptor), typeof(BuildLocalUrlInterceptor));
 
             builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();

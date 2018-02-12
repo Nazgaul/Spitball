@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
@@ -13,10 +12,6 @@ namespace Cloudents.Infrastructure.Search.Book
             CreateMap<BookSearch.BookDetailResult, IEnumerable<BookSearchDto>>()
                     .ConvertUsing((jo, _, c) =>
                     {
-                        if (string.Equals(jo.Response.Status, "error", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            return null;
-                        }
                         return jo.Response.Page.Books?.Book.Select(json =>
                             c.Mapper.Map<BookSearch.BookDetail, BookSearchDto>(json));
                     });
