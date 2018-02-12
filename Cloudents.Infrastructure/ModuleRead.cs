@@ -65,7 +65,7 @@ namespace Cloudents.Infrastructure
                 .Where(w => typeof(IJobProvider).IsAssignableFrom(w)).AsImplementedInterfaces();
             builder.RegisterType<JobSearch>().As<IJobSearch>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor), typeof(BuildLocalUrlInterceptor), typeof(ShuffleInterceptor));
+                .InterceptedBy(typeof(CacheResultInterceptor), typeof(BuildLocalUrlInterceptor));
 
             #endregion
 

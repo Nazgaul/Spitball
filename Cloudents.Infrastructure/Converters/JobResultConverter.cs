@@ -15,7 +15,7 @@ namespace Cloudents.Infrastructure.Converters
         {
             var retVal = new ResultWithFacetDto<JobDto>
             {
-                Result = context.Mapper.Map<IEnumerable<Job>, IList<JobDto>>(source.Results.Select(s => s.Document))
+                Result = context.Mapper.Map<IEnumerable<Job>, IEnumerable<JobDto>>(source.Results.Select(s => s.Document))
             };
 
             if (source.Facets != null)

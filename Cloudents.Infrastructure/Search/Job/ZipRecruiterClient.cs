@@ -15,6 +15,7 @@ namespace Cloudents.Infrastructure.Search.Job
 {
     public class ZipRecruiterClient : IJobProvider
     {
+        //https://docs.google.com/document/d/1PM6pgV06vGbQJoZ1mxeSTZPr1aYemSGoEyTtNTDyt3s/pub
         private readonly IRestClient _client;
         private readonly IMapper _mapper;
 
@@ -34,6 +35,11 @@ namespace Cloudents.Infrastructure.Search.Job
             }
 
             if (location == null)
+            {
+                return null;
+            }
+
+            if (sort == JobRequestSort.Distance)
             {
                 return null;
             }

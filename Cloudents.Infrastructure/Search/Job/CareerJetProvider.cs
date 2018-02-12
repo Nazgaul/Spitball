@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -33,15 +32,10 @@ namespace Cloudents.Infrastructure.Search.Job
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, bool highlight,
             CancellationToken token)
         {
-            var sortStr = string.Empty;
-            switch (sort)
+            if (sort == JobRequestSort.Distance)
             {
-                case JobRequestSort.Date:
-                    sortStr = "date";
-                    break;
-
+                return null;
             }
-
             var contactType = new List<string>();
             var contactPeriod = new List<string>();
             foreach (var filter in jobType ?? Enumerable.Empty<JobFilter>())
@@ -73,7 +67,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["locale_code"] = "en_US",
                 ["pagesize"] = JobSearch.PageSize.ToString(),
                 ["page"] = page.ToString(),
-                ["sort"] = sortStr,
+                ["sort"] = "date",
                 ["contracttype"] = string.Join(",", contactType),
                 ["contractperiod"] = string.Join(",", contactPeriod)
             };
@@ -99,7 +93,8 @@ namespace Cloudents.Infrastructure.Search.Job
 
         public class CareerJetResult
         {
-            public Job[] jobs { get; set; }
+            [JsonProperty("jobs")]
+            public Job[] Jobs { get; set; }
             //public int hits { get; set; }
             //public float response_time { get; set; }
             //public string type { get; set; }
@@ -108,13 +103,19 @@ namespace Cloudents.Infrastructure.Search.Job
 
         public class Job
         {
-            public string locations { get; set; }
+            [JsonProperty("locations")]
+            public string Locations { get; set; }
            // public string site { get; set; }
-            public DateTime date { get; set; }
-            public string url { get; set; }
-            public string title { get; set; }
-            public string description { get; set; }
-            public string company { get; set; }
+            [JsonProperty("date")]
+            public DateTime Date { get; set; }
+            [JsonProperty("url")]
+            public string Url { get; set; }
+            [JsonProperty("title")]
+            public string Title { get; set; }
+            [JsonProperty("description")]
+            public string Description { get; set; }
+            [JsonProperty("company")]
+            public string Company { get; set; }
             //public string salary { get; set; }
             //public string salary_min { get; set; }
             //public string salary_type { get; set; }

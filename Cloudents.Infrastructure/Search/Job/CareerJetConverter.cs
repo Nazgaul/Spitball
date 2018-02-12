@@ -9,16 +9,16 @@ namespace Cloudents.Infrastructure.Search.Job
     {
         public IEnumerable<JobDto> Convert(CareerJetProvider.CareerJetResult source, IEnumerable<JobDto> destination, ResolutionContext context)
         {
-            return source.jobs?.Select(s => new JobDto
+            return source.Jobs?.Select(s => new JobDto
             {
-                DateTime = s.date,
-                Url = s.url,
+                DateTime = s.Date,
+                Url = s.Url,
                 Source = "CareerJet",
-                Address = s.locations,
-                Title = s.title,
-                Company = s.company,
+                Address = s.Locations,
+                Title = s.Title,
+                Company = s.Company,
                 CompensationType = "Paid",
-                Responsibilities = s.description
+                Responsibilities = s.Description
             });
         }
     }

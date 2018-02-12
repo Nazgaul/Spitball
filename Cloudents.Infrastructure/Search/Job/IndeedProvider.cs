@@ -17,6 +17,7 @@ namespace Cloudents.Infrastructure.Search.Job
 {
     public class IndeedProvider : IJobProvider
     {
+        //https://ads.indeed.com/jobroll/xmlfeed
         private readonly IRestClient _client;
         private readonly IMapper _mapper;
 
@@ -72,20 +73,20 @@ namespace Cloudents.Infrastructure.Search.Job
                 }
             }
 
-
             var nvc = new NameValueCollection
-                {
-                    ["v"] = 2.ToString(),
-                    ["format"] = "json",
-                    ["publisher"] = 5421359041330050.ToString(),
-                    ["q"] = term,
-                    ["sort"] = sortStr,
-                    ["l"] = locationStr,
-                    ["limit"] = JobSearch.PageSize.ToString(),
-                    ["start"] = (page * JobSearch.PageSize).ToString(),
-                    ["highlight"] = 0.ToString(),
-                    ["jt"] = string.Join(",", jobFilter)
-                };
+            {
+                ["v"] = 2.ToString(),
+                ["format"] = "json",
+                ["publisher"] = 5421359041330050.ToString(),
+                ["q"] = term,
+                ["sort"] = sortStr,
+                ["l"] = locationStr,
+                ["limit"] = JobSearch.PageSize.ToString(),
+                ["start"] = (page * JobSearch.PageSize).ToString(),
+                ["highlight"] = 0.ToString(),
+                ["jt"] = string.Join(",", jobFilter),
+                ["latlong"] = 1.ToString()
+            };
             var result = await _client.GetAsync(new Uri("http://api.indeed.com/ads/apisearch"), nvc, token).ConfigureAwait(false);
 
             var p = JsonConvert.DeserializeObject<IndeedResult>(result);
@@ -105,42 +106,55 @@ namespace Cloudents.Infrastructure.Search.Job
             };
         }
 
+
         public class IndeedResult
         {
-            //  public int version { get; set; }
-            // public string query { get; set; }
-            // public string location { get; set; }
+           // public int version { get; set; }
+           // public string query { get; set; }
+           // public string location { get; set; }
             //public string paginationPayload { get; set; }
-            //public bool dupefilter { get; set; }
-            // public bool highlight { get; set; }
-            //public int totalResults { get; set; }
+           // public bool dupefilter { get; set; }
+           // public bool highlight { get; set; }
+           // public int totalResults { get; set; }
             //public int start { get; set; }
-            // public int end { get; set; }
-            // public int pageNumber { get; set; }
-            public Result[] results { get; set; }
+            //public int end { get; set; }
+            //public int pageNumber { get; set; }
+            [JsonProperty("results")]
+            public Result[] Results { get; set; }
         }
 
         public class Result
         {
-            public string jobtitle { get; set; }
-            public string company { get; set; }
-            // public string city { get; set; }
-            //public string state { get; set; }
-            // public string country { get; set; }
-            // public string language { get; set; }
-            public string formattedLocation { get; set; }
+            [JsonProperty("jobtitle")]
+            public string JobTitle { get; set; }
+            [JsonProperty("company")]
+            public string Company { get; set; }
+           // public string city { get; set; }
+           // public string state { get; set; }
+           // public string country { get; set; }
+           // public string language { get; set; }
+            [JsonProperty("formattedLocation")]
+            public string FormattedLocation { get; set; }
             //public string source { get; set; }
-            public DateTime date { get; set; }
-            public string snippet { get; set; }
-            public string url { get; set; }
+            [JsonProperty("date")]
+            public DateTime Date { get; set; }
+            [JsonProperty("snippet")]
+            public string Snippet { get; set; }
+            [JsonProperty("url")]
+            public string Url { get; set; }
             //public string onmousedown { get; set; }
+            [JsonProperty("latitude")]
+            public float Latitude { get; set; }
+            [JsonProperty("longitude")]
+            public float Longitude { get; set; }
             //public string jobkey { get; set; }
-            //public bool sponsored { get; set; }
-            // public bool expired { get; set; }
-            // public bool indeedApply { get; set; }
-            // public string formattedLocationFull { get; set; }
-            // public string formattedRelativeTime { get; set; }
-            // public string stations { get; set; }
+           // public bool sponsored { get; set; }
+            //public bool expired { get; set; }
+            //public bool indeedApply { get; set; }
+           // public string formattedLocationFull { get; set; }
+            //public string formattedRelativeTime { get; set; }
+           // public string stations { get; set; }
         }
+
     }
 }
