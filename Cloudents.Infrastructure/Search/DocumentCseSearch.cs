@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Search
 
             return new ResultWithFacetDto<SearchResult>
             {
-                Result = result.ToList(),
+                Result = result,
                 Facet = new[]
                 {
                     "Cloudents.com",
