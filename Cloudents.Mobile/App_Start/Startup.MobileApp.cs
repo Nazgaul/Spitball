@@ -60,7 +60,8 @@ namespace Cloudents.Mobile
                 Search = new SearchServiceCredentials(ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"]),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["Storage"]
+                Storage = ConfigurationManager.AppSettings["Storage"],
+                SystemUrl = ConfigurationManager.AppSettings["SystemUrl"]
             };
             builder.Register(c => keys).As<IConfigurationKeys>();
             builder.RegisterModule<ModuleMobile>();

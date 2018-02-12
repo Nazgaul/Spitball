@@ -16,7 +16,6 @@ namespace Cloudents.Infrastructure.Framework.Database
                 .Database(FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
                 .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
                 .ExposeConfiguration(BuildSchema);
-            
             _factory = configuration.BuildSessionFactory();
         }
 

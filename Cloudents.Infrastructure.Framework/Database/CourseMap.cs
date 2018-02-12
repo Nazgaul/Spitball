@@ -12,7 +12,6 @@ namespace Cloudents.Infrastructure.Framework.Database
             Map(e => e.Name).Length(255).Column("BoxName");
             Map(e => e.IsDeleted);
             Map(e => e.IsDirty);
-            Map(e => e.IsDeleted);
             Map(e => e.CourseCode).Length(255);
             Map(e => e.Discriminator).CustomType<CourseType>();
             Map(e => e.PrivacySetting).CustomType<CoursePrivacySetting>();

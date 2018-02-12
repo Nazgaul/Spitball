@@ -9,7 +9,6 @@ namespace Cloudents.Infrastructure.Framework.Database
         {
             Id(x => x.Id).GeneratedBy.Assigned();
             Map(x => x.IsDeleted);
-            Map(e => e.IsDeleted);
             Schema("Zbox");
         }
     }
