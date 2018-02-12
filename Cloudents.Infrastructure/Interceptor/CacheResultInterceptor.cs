@@ -99,26 +99,24 @@ namespace Cloudents.Infrastructure.Interceptor
             var att = invocation.GetCustomAttribute<CacheAttribute>();
             var data = _cacheProvider.Get(key, att.Region);
 
-            if (data != null)
+            if (data == null) return;
+            if (typeof(Task).IsAssignableFrom(method.ReturnType))
             {
-                if (typeof(Task).IsAssignableFrom(method.ReturnType))
-                {
-                    var taskReturnType = method.ReturnType; //e.g. Task<int>
+                var taskReturnType = method.ReturnType; //e.g. Task<int>
 
-                    var type = taskReturnType.GetGenericArguments()[0]; //get the result type, e.g. int
+                var type = taskReturnType.GetGenericArguments()[0]; //get the result type, e.g. int
 
-                    var convertMethod =
-                        GetType().GetMethod(nameof(ConvertAsync), BindingFlags.Static | BindingFlags.NonPublic)
-                            .MakeGenericMethod(type); //Get the closed version of the Convert method, e.g. Convert<int>
+                var convertMethod =
+                    GetType().GetMethod(nameof(ConvertAsync), BindingFlags.Static | BindingFlags.NonPublic)
+                        .MakeGenericMethod(type); //Get the closed version of the Convert method, e.g. Convert<int>
 
-                    invocation.ReturnValue =
-                        convertMethod.Invoke(null,
-                            new[] { data }); //Call the convert method and return the generic Task, e.g. Task<int>
+                invocation.ReturnValue =
+                    convertMethod.Invoke(null,
+                        new[] { data }); //Call the convert method and return the generic Task, e.g. Task<int>
 
-                    return;
-                }
-                invocation.ReturnValue = data;
+                return;
             }
+            invocation.ReturnValue = data;
         }
 
         protected override void AfterAction<T>(ref T val, IInvocation invocation)
