@@ -128,7 +128,7 @@
         data() {
             return {
                 settingMenu,
-                placeholders,
+                placeholders
             }
         },
         methods: {
@@ -168,7 +168,7 @@
                 copyText.select();
                 document.execCommand("Copy");
             },
-            
+
 
             whatsappLink() {
                 return "whatsapp://send?text=" + encodeURIComponent(window.location.href);

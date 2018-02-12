@@ -19,7 +19,6 @@ namespace Cloudents.Infrastructure.Framework.Database
                 .ExposeConfiguration(BuildSchema).BuildSessionFactory();
 
 
-
             //_factory = configuration;
         }
 
