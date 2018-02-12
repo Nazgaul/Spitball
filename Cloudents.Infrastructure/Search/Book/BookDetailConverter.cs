@@ -17,10 +17,6 @@ namespace Cloudents.Infrastructure.Search.Book
 
         public BookDetailsDto Convert(BookSearch.BookDetailResult source, BookDetailsDto destination, ResolutionContext context)
         {
-            if (string.Equals(source.Response.Status, "error", StringComparison.InvariantCultureIgnoreCase))
-            {
-                return null;
-            }
             var book = source.Response.Page.Books.Book[0];
             var bookDetail = _mapper.Map<BookSearch.BookDetail, BookSearchDto>(book);
             var offers = book.Offers?.Group?.SelectMany(json =>

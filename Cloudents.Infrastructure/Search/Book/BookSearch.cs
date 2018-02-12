@@ -41,10 +41,29 @@ namespace Cloudents.Infrastructure.Search.Book
                 ["image_width"] = 150.ToString(),
                 ["format"] = "json"
             };
-            var resultStr = await _restClient.GetAsync(new Uri("https://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
-            var result = JsonConvert.DeserializeObject<BookDetailResult>(resultStr);
+            var result = await MakeApiCallAsync(nvc, token).ConfigureAwait(false);
+            if (result == null)
+            {
+                return null;
+            }
+            if (result.Response.Page.Books.TotalPages < page)
+            {
+                return null;
+            }
 
             return _mapper.Map<BookDetailResult, IEnumerable<BookSearchDto>>(result);
+        }
+
+        private async Task<BookDetailResult> MakeApiCallAsync(NameValueCollection nvc, CancellationToken token)
+        {
+            var resultStr = await _restClient.GetAsync(new Uri("https://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
+            var result = JsonConvert.DeserializeObject<BookDetailResult>(resultStr);
+            if (string.Equals(result.Response.Status, "error", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return null;
+            }
+
+            return result;
         }
 
         [BuildLocalUrl(nameof(BookDetailsDto.Prices))]
@@ -67,15 +86,17 @@ namespace Cloudents.Infrastructure.Search.Book
                 ["type"] = sell ? "buyback" : "Buy"
             };
             //https://api2.campusbooks.com/13/rest/books?key=sP8C5AHcdiT0tsMsotT&f=search,prices&format=json&isbn=9780446556224&type=buyback
-            var resultStr = await _restClient.GetAsync(new Uri("https://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
 
-            var result = JsonConvert.DeserializeObject<BookDetailResult>(resultStr);
-
-            var mappedResult = _mapper.Map<BookDetailResult, BookDetailsDto>(result);
-            if (mappedResult == null)
+            var result = await MakeApiCallAsync(nvc, token).ConfigureAwait(false);
+            if (result == null)
             {
                 return null;
             }
+            var mappedResult = _mapper.Map<BookDetailResult, BookDetailsDto>(result);
+            //if (mappedResult == null)
+            //{
+            //    return null;
+            //}
             mappedResult.Prices = mappedResult.Prices?.OrderBy(o => o.Price);
             return mappedResult;
         }
@@ -111,6 +132,9 @@ namespace Cloudents.Infrastructure.Search.Book
         public class Books
         {
             public BookDetail[] Book { get; set; }
+            [JsonProperty("total_pages")]
+            public int TotalPages { get; set; }
+
         }
 
         public class BookDetail
