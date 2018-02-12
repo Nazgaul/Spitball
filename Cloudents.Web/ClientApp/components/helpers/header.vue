@@ -38,7 +38,7 @@
                                                 <v-list-tile-title>Twitter</v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile :href="whatsappLink" class="btn-copy hidden-sm-and-up">
+                                        <v-list-tile :href="whatsappLink()" class="btn-copy hidden-sm-and-up">
                                             <v-list-tile-action>
                                                 <whatsapp-icon></whatsapp-icon>
                                             </v-list-tile-action>
@@ -127,8 +127,7 @@
         data() {
             return {
                 settingMenu,
-                placeholders,
-                whatsappLink: "whatsapp://send?text=" + encodeURIComponent(window.location.href)
+                placeholders
             }
         },
         methods: {
@@ -167,14 +166,16 @@
                 copyText.value = window.location.href;
                 copyText.select();
                 document.execCommand("Copy");
+            },
+
+
+            whatsappLink() {
+                return "whatsapp://send?text=" + encodeURIComponent(window.location.href);
             }
         },
         created() {
             this.msg = this.userText ? this.userText : this.globalTerm;
             this.height = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
-        },
-        updated() {
-            this.whatsappLink = "whatsapp://send?text=" + encodeURIComponent(window.location.href);
         }
     }
 </script>
