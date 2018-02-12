@@ -8,6 +8,7 @@ namespace Cloudents.Core.DTOs
     public class JobDto : IShuffleable, IUrlRedirect
     {
         private string _responsibilities;
+        private string _compensation;
 
         [DataMember]
         public string Title { get; set; }
@@ -24,8 +25,13 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public string Address { get; set; }
+
         [DataMember]
-        public string CompensationType { get; set; }
+        public string CompensationType
+        {
+            get => _compensation.UppercaseFirst();
+            set => _compensation = value;
+        }
         [DataMember]
         public string Url { get; set; }
         [DataMember]

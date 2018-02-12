@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 Company = s.HiringCompany.Name,
                 Address = s.Location,
                 Title = s.Name,
-                CompensationType = "paid",
+                CompensationType = "Paid",
                 Responsibilities = RegEx.RemoveHtmlTags.Replace(s.Snippet, string.Empty)
             });
         }
