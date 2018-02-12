@@ -108,9 +108,4 @@ namespace Cloudents.Core
             return sb.ToString().ToLowerInvariant();
         }
     }
-
-    public static class MetadataConst
-    {
-        public const string VideoStatus = "VideoStatus";
-    }
 }

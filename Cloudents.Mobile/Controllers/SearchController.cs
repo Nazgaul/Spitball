@@ -45,6 +45,10 @@ namespace Cloudents.Mobile.Controllers
         public async Task<IHttpActionResult> SearchDocumentAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.GetError());
+            }
             var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault(), model.DocType);
             var result = await _searchProvider.Value.SearchAsync(query, model.Format, token).ConfigureAwait(false);
@@ -73,6 +77,10 @@ namespace Cloudents.Mobile.Controllers
         public async Task<IHttpActionResult> SearchFlashcardAsync([FromUri] SearchRequest model,
             CancellationToken token)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.GetError());
+            }
             var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault());
 

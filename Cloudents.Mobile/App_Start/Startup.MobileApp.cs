@@ -54,13 +54,14 @@ namespace Cloudents.Mobile
             }
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            var keys = new ConfigurationKeys()
+            var keys = new ConfigurationKeys
             {
                 Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 Search = new SearchServiceCredentials(ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"]),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["Storage"]
+                Storage = ConfigurationManager.AppSettings["Storage"],
+                SystemUrl = ConfigurationManager.AppSettings["SystemUrl"]
             };
             builder.Register(c => keys).As<IConfigurationKeys>();
             builder.RegisterModule<ModuleMobile>();

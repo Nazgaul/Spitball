@@ -132,9 +132,6 @@
   <ItemGroup>
     <Content Include="Connected Services\Application Insights\ConnectedService.json" />
     <Content Include="ApplicationInsights.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\PublishProfiles\jared-spitball-mobile-dev - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +196,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.SqlClient">
+      <Version>4.4.0</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Cloudents.Core.Enum;
 using Cloudents.Mobile.Filters;
 
@@ -17,6 +18,7 @@ namespace Cloudents.Mobile.Models
         /// <summary>
         /// User university id
         /// </summary>
+        [Range(1, long.MaxValue)]
         public long? University { get; set; }
         /// <summary>
         /// User courses id - Talk to Ram not implemented

@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Data
             if (university.HasValue)
             {
                 universityTask = _universitySynonymRepository.GetAsync(university.Value, token)
-                    .ContinueWith(f => f.Result.Name, token);
+                    .ContinueWith(f => f.Result?.Name, token);
             }
             if (course != null)
             {
