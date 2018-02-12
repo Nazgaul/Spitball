@@ -6,6 +6,7 @@ using AutoMapper;
 using Entity = Cloudents.Core.Entities.Search;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Converters;
@@ -40,7 +41,7 @@ namespace Cloudents.Infrastructure.Search.Job
 
             if (jobType != null)
             {
-                filterQuery.AddRange(jobType.Select(s => $"{nameof(Entity.Job.JobType)} eq '{s}'"));
+                filterQuery.AddRange(jobType.Select(s => $"{nameof(Entity.Job.JobType)} eq '{s.GetDescription()}'"));
             }
 
             switch (sort)

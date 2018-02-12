@@ -55,8 +55,8 @@ namespace ConsoleApp
             };
 
 
-            var mapper = container.Resolve<IBookSearch>();
-            var z = await mapper.SearchAsync(new[] {"Difference between Meiosis and Mitosis"}, 0, default);
+            var mapper = container.Resolve<IJobSearch>();
+            var z = await mapper.SearchAsync(new[] { "marketing" }, JobRequestSort.Date, new[] { JobFilter.FullTime }, null, 0, false, default);
 
             //foreach (var price in z.Result)
             //{
