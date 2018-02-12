@@ -32,6 +32,7 @@ namespace Cloudents.Core.DTOs
             get => _compensation.UppercaseFirst();
             set => _compensation = value;
         }
+
         [DataMember]
         public string Url { get; set; }
         [DataMember]

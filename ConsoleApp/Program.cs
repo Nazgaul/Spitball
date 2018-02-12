@@ -57,8 +57,6 @@ namespace ConsoleApp
 
             var mapper = container.Resolve<IBookSearch>();
             var z = await mapper.SearchAsync(new[] {"Difference between Meiosis and Mitosis"}, 0, default);
-            var p = await mapper.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(commnad, default);
-            var p2 = await mapper.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(commnad, default);
             Console.ReadLine();
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
         }

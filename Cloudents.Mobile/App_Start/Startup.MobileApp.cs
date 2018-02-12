@@ -78,12 +78,6 @@ namespace Cloudents.Mobile
 
             app.UseWebApi(config);
             ConfigureSwagger(config);
-
-            //config.ParameterBindingRules.Add(typeof(Location), p => p.BindWithModelBinding());
-
-            //var provider = new SimpleModelBinderProvider(
-            //    typeof(Location), new LocationEntityBinder());
-            //config.Services.Insert(typeof(ModelBinderProvider), 0, provider);
         }
     }
 }

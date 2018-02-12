@@ -12,6 +12,7 @@ namespace Cloudents.Core.Storage
         {
             Key = key;
         }
+
         public static readonly QueueName UrlRedirect = new QueueName(UrlRedirectName);
     }
 }
