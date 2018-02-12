@@ -100,6 +100,7 @@ const router = new VueRouter({
 Vue.use(VueAnalytics,
     {
         id: 'UA-100723645-2',
+        disableScriptLoader: true,
         router,
         autoTracking: {
             pageviewTemplate(route) {
