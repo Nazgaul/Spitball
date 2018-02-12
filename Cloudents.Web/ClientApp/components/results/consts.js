@@ -58,7 +58,7 @@ export const skeletonData = {
     book: [dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj],
     ask: [{ template: 'video-skeleton' }, ...multipleItemSkeletons],
     job: [dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj],
-    food: [dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj]
+    food: [dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj]
 };
 export const promotions = {
     note: {
@@ -66,7 +66,7 @@ export const promotions = {
         content: "Study documents curated from the best sites on the web filtered by your school, classes and preferences."
     },
     flashcard: {
-        title: "Flashcard",
+        title: "Flashcards",
         content: "Search millions of study sets and improve your grades by studying with flashcards."
     },
     ask: {
