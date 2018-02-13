@@ -70,26 +70,26 @@ export const pageMixin =
                         this.items = val.data;
                         this.$nextTick(() => {
                             if(!this.items.length){
-                               Promise.resolve(()=>{
-                                   let filters={};
-                                   Object.entries(this.query).forEach(([key, currentVal]) => {
-                                    if(key!=="sort"&&key!=="q"&&currentVal){
-                                        filters[key]=currentVal;
+                                Promise.resolve(()=>{
+                                    let filters={};
+                                    Object.entries(this.query).forEach(([key, currentVal]) => {
+                                        if(key!=="sort"&&key!=="q"&&currentVal){
+                                            filters[key]=currentVal;
+                                        }
+                                    });
+                                    return filters;
+                                }).then(filters=>{
+                                    let myFilters=filters();
+                                    let ExtraContent="";
+                                    if(myFilters&&Object.keys(myFilters).length){
+                                        ExtraContent="#";
+                                        Object.entries(myFilters).forEach(([key, currentVal]) => {
+                                            ExtraContent+=`${key}:[${currentVal}]`;
+                                        });
+                                        ExtraContent+="#";
                                     }
+                                    this.$ga.event("Empty_State",this.name,ExtraContent+this.userText);
                                 });
-                                   return filters;
-                               }).then(filters=>{
-                                   let myFilters=filters();
-                                   let ExtraContent="";
-                                   if(myFilters&&Object.keys(myFilters).length){
-                                       ExtraContent="#";
-                                       Object.entries(myFilters).forEach(([key, currentVal]) => {
-                                           ExtraContent+=`${key}:[${currentVal}]`;
-                                       });
-                                       ExtraContent+="#";
-                                   }
-                                this.$ga.event("Empty_State",this.name,ExtraContent+this.userText);
-                               });
                             }
                             this.UPDATE_LOADING(false);
                         });
@@ -151,7 +151,11 @@ export const pageMixin =
                         })
                             .then(({ data }) => {
                                  updateData.call(this, data);//irena
-                            });
+                            }).catch(reason => {
+                            //when error from fetching data remove the loader
+                            this.UPDATE_LOADING(false);
+                            this.items=[];
+                        });
                     }
                 });
             }
@@ -165,21 +169,7 @@ export const pageMixin =
                 this.items = [];
                 this.items = skeletonData[toName];
                 //if the term for the page is as the page saved term use it else call to luis and update the saved term
-                new Promise((resolve, reject) => {
-                    if (!to.query.q || !to.query.q.length) {
-                        this.updateSearchText({vertical:toName}).then(()=>resolve());
-                    }else {
-                        this.getAIDataForVertical(toName).then(({text=""}) => {
-                            if (!text || (text !== to.query.q)) {
-                                this.updateSearchText({text: to.query.q, vertical: toName}).then(() => {
-                                    resolve();
-                                })
-                            }else{resolve()}
-                        });
-                    }
-
-                }).then(() => {
-                    //After luis return term and optional docType fetch the data
+                this.updateSearchText({text: to.query.q, vertical: toName}).then(() => {
                     const updateFilter = (to.path === from.path && to.query.q === from.query.q);
                     this.fetchingData({ name: toName, params: { ...to.query, ...to.params }})
                         .then(({ data }) => {
@@ -188,10 +178,11 @@ export const pageMixin =
                         }).catch(reason => {
                         //when error from fetching data remove the loader
                         this.UPDATE_LOADING(false);
+                        this.items=[];
                     });
                     //go to the next page
                     next();
-                });
+                })
             },
             leavePage(to,from,next){
                 if (to.name && to.name === 'home') {
@@ -218,14 +209,14 @@ export const pageMixin =
                 }
 
                 let matchValues=this.filterSelection.filter(i=>this.filterObject.find(t=>
-                     (t.modelId===i.key&&
-                         (t.data.find(
-                             k=>i.value.toString()===(k.id?k.id.toString():k.toString()))
-                         ))
+                    (t.modelId===i.key&&
+                        (t.data.find(
+                                k=>i.value.toString()===(k.id?k.id.toString():k.toString()))
+                        ))
                 ));
                 if(matchValues.length!==this.filterSelection.length){
-                        const routeParams = { path: '/' + this.name, query: { q: this.userText } };
-                        this.$router.replace(routeParams);
+                    const routeParams = { path: '/' + this.name, query: { q: this.userText } };
+                    this.$router.replace(routeParams);
                 }
             },
 
