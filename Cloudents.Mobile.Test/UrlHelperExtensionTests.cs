@@ -2,8 +2,8 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using Cloudents.Core.Models;
-using Cloudents.Mobile.Extensions;
-using Cloudents.Mobile.Models;
+using Cloudents.MobileApi.Extensions;
+using Cloudents.MobileApi.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Mobile.Test
