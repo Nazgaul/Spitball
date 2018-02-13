@@ -43,7 +43,7 @@ export default {
                 setTimeout(() => {
                     if (this.isAcademinc && !this.$root.$el.querySelector(".dialog__content__active"))
                         this.showDialog = true
-                }, 500);
+                }, 5000);
             }
         }
     },
