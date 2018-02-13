@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using NHibernate;
-using NHibernate.Persister.Entity;
 
 namespace Cloudents.Infrastructure.Framework.Database
 {
@@ -16,7 +15,6 @@ namespace Cloudents.Infrastructure.Framework.Database
         {
             _session = unitOfWork.Session;
             _unitOfWork = unitOfWork;
-
         }
 
         public Task<T> LoadAsync(object id, CancellationToken token)

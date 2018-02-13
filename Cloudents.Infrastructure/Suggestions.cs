@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -49,7 +48,7 @@ namespace Cloudents.Infrastructure
         {
             //public string _type { get; set; }
             //public Querycontext queryContext { get; set; }
-            public Suggestiongroup[] suggestionGroups { get; set; }
+            public Suggestiongroup[] SuggestionGroups { get; set; }
         }
 
         //public class Querycontext
@@ -60,13 +59,13 @@ namespace Cloudents.Infrastructure
         public class Suggestiongroup
         {
            // public string name { get; set; }
-            public Searchsuggestion[] searchSuggestions { get; set; }
+            public Searchsuggestion[] SearchSuggestions { get; set; }
         }
 
         public class Searchsuggestion
         {
            // public string url { get; set; }
-            public string displayText { get; set; }
+            public string DisplayText { get; set; }
            // public string query { get; set; }
            // public string searchKind { get; set; }
         }

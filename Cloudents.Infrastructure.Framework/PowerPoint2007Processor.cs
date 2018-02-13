@@ -53,9 +53,9 @@ namespace Cloudents.Infrastructure.Framework
                     return ms;
                 }, CacheVersion, "image/jpg", cancelToken
             ).ConfigureAwait(false);
-            if (ppt._instance.IsValueCreated)
+            if (ppt.Instance.IsValueCreated)
             {
-                ppt._instance.Value.Dispose();
+                ppt.Instance.Value.Dispose();
             }
             return retVal;
         }

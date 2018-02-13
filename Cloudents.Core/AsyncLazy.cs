@@ -13,7 +13,7 @@ namespace Cloudents.Core
         /// <summary>
         /// The underlying lazy task.
         /// </summary>
-        public readonly Lazy<Task<T>> _instance;
+        public readonly Lazy<Task<T>> Instance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AsyncLazy&lt;T&gt;"/> class.
@@ -21,7 +21,7 @@ namespace Cloudents.Core
         /// <param name="factory">The delegate that is invoked on a background thread to produce the value when it is needed.</param>
         public AsyncLazy(Func<T> factory)
         {
-            _instance = new Lazy<Task<T>>(() => Task.Run(factory));
+            Instance = new Lazy<Task<T>>(() => Task.Run(factory));
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Cloudents.Core
         /// <param name="factory">The asynchronous delegate that is invoked on a background thread to produce the value when it is needed.</param>
         public AsyncLazy(Func<Task<T>> factory)
         {
-            _instance = new Lazy<Task<T>>(() => Task.Run(factory));
+            Instance = new Lazy<Task<T>>(() => Task.Run(factory));
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Cloudents.Core
         /// </summary>
         public TaskAwaiter<T> GetAwaiter()
         {
-            return _instance.Value.GetAwaiter();
+            return Instance.Value.GetAwaiter();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Cloudents.Core
         /// </summary>
         public void Start()
         {
-            var unused = _instance.Value;
+            var unused = Instance.Value;
         }
     }
 }

@@ -3,7 +3,6 @@ using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Event;
-using NHibernate.Tool.hbm2ddl;
 
 namespace Cloudents.Infrastructure.Framework.Database
 {
@@ -17,7 +16,6 @@ namespace Cloudents.Infrastructure.Framework.Database
                 .Database(FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
                 .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
                 .ExposeConfiguration(BuildSchema).BuildSessionFactory();
-
 
             //_factory = configuration;
         }
@@ -43,7 +41,6 @@ namespace Cloudents.Infrastructure.Framework.Database
             //new SchemaExport(config)
             //    .Create(false, true);
         }
-
 
     }
 }

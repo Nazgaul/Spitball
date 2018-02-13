@@ -58,7 +58,7 @@ namespace Cloudents.Infrastructure.Framework
                 }
                 try
                 {
-                    var activeTiff = await tiff._instance.Value.ConfigureAwait(false);
+                    var activeTiff = await tiff.Instance.Value.ConfigureAwait(false);
                     activeTiff.ActiveFrame = activeTiff.Frames[pageIndex];// tiffFrame;
                     //Load Pixels of TiffFrame into an array of Colors
                     var pixels = activeTiff.LoadPixels(activeTiff.Bounds);
@@ -85,9 +85,9 @@ namespace Cloudents.Infrastructure.Framework
                 }
             }
             await Task.WhenAll(parallelTask).ConfigureAwait(false);
-            if (tiff._instance.IsValueCreated)
+            if (tiff.Instance.IsValueCreated)
             {
-                tiff._instance.Value.Dispose();
+                tiff.Instance.Value.Dispose();
                 blobStr.Dispose();
             }
             return blobsNamesInCache;

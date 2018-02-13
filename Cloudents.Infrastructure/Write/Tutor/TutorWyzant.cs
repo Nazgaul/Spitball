@@ -69,7 +69,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
             var location = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
             return new Core.Entities.Search.Tutor
             {
-                Id = obj.TutorID.ToString(),
+                Id = obj.TutorId.ToString(),
                 Name = obj.Name,
                 Image = obj.TutorPictures.FirstOrDefault(),
                 Url = obj.ProfileLink,

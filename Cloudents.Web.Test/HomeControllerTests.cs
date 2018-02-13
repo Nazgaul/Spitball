@@ -1,10 +1,5 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
-using Cloudents.Web.Controllers;
+﻿using Cloudents.Web.Controllers;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -17,9 +12,9 @@ namespace Cloudents.Web.Test
     [TestClass]
     public class HomeControllerTests
     {
-        private Mock<IConfiguration> _configurationMock;
+        private readonly Mock<IConfiguration> _configurationMock;
 
-        private HomeController _controller;
+        private readonly HomeController _controller;
         public HomeControllerTests()
         {
             _configurationMock = new Mock<IConfiguration>();

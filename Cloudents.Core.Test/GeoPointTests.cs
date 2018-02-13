@@ -32,6 +32,7 @@ namespace Cloudents.Core.Test
                 Longitude = -74.00597381591797
             };
             const GeoPoint point2 = null;
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse test purpose
             var c = point1 == point2;
             Assert.IsFalse(c);
         }

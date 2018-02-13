@@ -56,10 +56,10 @@ namespace Cloudents.Infrastructure.Framework
                     return ms;
                 }, CacheVersion, "image/jpg", cancelToken).ConfigureAwait(false);
             
-            if (pdf._instance.IsValueCreated && blobSr != null)
+            if (pdf.Instance.IsValueCreated && blobSr != null)
             {
                 blobSr.Dispose();
-                pdf._instance.Value.Dispose();
+                pdf.Instance.Value.Dispose();
             }
             return retVal;
         }
