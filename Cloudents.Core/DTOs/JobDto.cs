@@ -42,7 +42,5 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Source { get; set; }
         public object Bucket => Source;
-
-        public GeographyPoint Location { get; set; }
     }
 }

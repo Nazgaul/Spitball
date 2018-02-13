@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure.AI
             if (result is IVerticalLocation location && location.Location != null)
             {
                 var locationResult =  await _placesSearch.GeoCodingByAddressAsync(location.Location, token).ConfigureAwait(false);
-                location.Cords = locationResult.Point;
+                location.Cords = locationResult.point;
             }
 
             return result;

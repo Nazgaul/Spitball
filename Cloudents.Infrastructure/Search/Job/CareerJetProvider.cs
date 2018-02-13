@@ -66,16 +66,16 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["contracttype"] = string.Join(",", contactType),
                 ["contractperiod"] = string.Join(",", contactPeriod)
             };
-            if (sort == JobRequestSort.Distance && location != null)
+            if (sort == JobRequestSort.Distance && location?.Address != null)
             {
-                nvc.Add("location", $"{location.City}, {location.RegionCode}");
+                nvc.Add("location", $"{location.Address.City}, {location.Address.RegionCode}");
             }
 
             var result = await _client.GetAsync(new Uri("http://public.api.careerjet.net/search"), nvc, token).ConfigureAwait(false);
 
             var p = JsonConvert.DeserializeObject<CareerJetResult>(result);
             var jobs = _mapper.Map<IEnumerable<JobDto>>(p);
-            
+
             return new ResultWithFacetDto<JobDto>
             {
                 Result = jobs,
@@ -88,7 +88,6 @@ namespace Cloudents.Infrastructure.Search.Job
                 }
             };
         }
-
 
         public class CareerJetResult
         {
@@ -121,6 +120,5 @@ namespace Cloudents.Infrastructure.Search.Job
             //public string salary_currency_code { get; set; }
             //public string salary_max { get; set; }
         }
-
     }
 }

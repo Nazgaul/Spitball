@@ -24,11 +24,8 @@ namespace Cloudents.Infrastructure.Converters
                 GeoPoint location = null;
                 if (json["geometry"]?["location"] != null)
                 {
-                    location = new GeoPoint
-                    {
-                        Latitude = json["geometry"]["location"]["lat"].Value<double>(),
-                        Longitude = json["geometry"]["location"]["lng"].Value<double>()
-                    };
+                    location = new GeoPoint(json["geometry"]["location"]["lng"].Value<double>(),
+                        json["geometry"]["location"]["lat"].Value<double>());
                 }
                 return new PlaceDto
                 {
@@ -61,11 +58,8 @@ namespace Cloudents.Infrastructure.Converters
             GeoPoint location = null;
             if (json["geometry"]?["location"] != null)
             {
-                location = new GeoPoint
-                {
-                    Latitude = json["geometry"]["location"]["lat"].Value<double>(),
-                    Longitude = json["geometry"]["location"]["lng"].Value<double>()
-                };
+                location = new GeoPoint(json["geometry"]["location"]["lng"].Value<double>(),
+                    json["geometry"]["location"]["lat"].Value<double>());
             }
             return new PlaceDto
             {

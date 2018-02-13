@@ -19,7 +19,6 @@ namespace Cloudents.MobileApi.Filters
 
         public async Task BindModelAsync(ModelBindingContext bindingContext)
         {
-
             var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.latitude").FirstValue ??
                               bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.latitude").FirstValue;
             var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.longitude").FirstValue ??
@@ -27,17 +26,17 @@ namespace Cloudents.MobileApi.Filters
             if (double.TryParse(latitudeStr, out var latitude)
                 && double.TryParse(longitudeStr, out var longitude))
             {
-                var point = new GeoPoint
-                {
-                    Longitude = longitude,
-                    Latitude = latitude
-                };
-                bindingContext.Result = ModelBindingResult.Success(await _googlePlacesSearch.ReverseGeocodingAsync(point, bindingContext.HttpContext.RequestAborted));
+                var point = new GeoPoint(longitude, latitude);
+                var ipResult =
+                    await _googlePlacesSearch.ReverseGeocodingAsync(point, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
+
+                var location = new Location(point,ipResult.address, bindingContext.HttpContext.Connection.GetIpAddress().ToString());
+                bindingContext.Result = ModelBindingResult.Success(location);
                 return;
             }
 
             var ipV4 = bindingContext.HttpContext.Connection.GetIpAddress();
-            bindingContext.Result = ModelBindingResult.Success(await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted));
+            bindingContext.Result = ModelBindingResult.Success(await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false));
         }
     }
 }

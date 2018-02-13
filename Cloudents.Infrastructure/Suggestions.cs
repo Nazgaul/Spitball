@@ -40,7 +40,6 @@ namespace Cloudents.Infrastructure
 
             var result = JsonConvert.DeserializeObject<SuggestionsObject>(resultStr);
             return _mapper.Map<IEnumerable<string>>(result).Take(3);
-
         }
 
 
@@ -69,6 +68,5 @@ namespace Cloudents.Infrastructure
            // public string query { get; set; }
            // public string searchKind { get; set; }
         }
-
     }
 }

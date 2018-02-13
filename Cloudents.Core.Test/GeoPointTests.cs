@@ -9,16 +9,8 @@ namespace Cloudents.Core.Test
         [TestMethod]
         public void OperatorEqual_SameValue_True()
         {
-            var point1 = new GeoPoint()
-            {
-                Latitude = 40.71277618408203,
-                Longitude = -74.00597381591797
-            };
-            var point2 = new GeoPoint()
-            {
-                Latitude = 40.71277618408203,
-                Longitude = -74.00597381591797
-            };
+            var point1 = new GeoPoint(-74.0059738159179, 40.71277618408203);
+            var point2 = new GeoPoint(-74.0059738159179, 40.71277618408203);
             var c = point1 == point2;
             Assert.IsTrue(c);
         }
@@ -26,11 +18,7 @@ namespace Cloudents.Core.Test
         [TestMethod]
         public void OperatorEqual_OneNull_False()
         {
-            var point1 = new GeoPoint()
-            {
-                Latitude = 40.71277618408203,
-                Longitude = -74.00597381591797
-            };
+            var point1 = new GeoPoint(-74.0059738159179, 40.71277618408203);
             const GeoPoint point2 = null;
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse test purpose
             var c = point1 == point2;

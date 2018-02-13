@@ -31,18 +31,10 @@ namespace Cloudents.Infrastructure.Search.Job
             CancellationToken token)
         {
             var locationStr = string.Empty;
-            if (location != null)
+            if (location?.Address != null)
             {
-                locationStr = $"{location.City}, {location.RegionCode}";
+                locationStr = $"{location.Address.City}, {location.Address.RegionCode}";
             }
-
-            //var sortStr = string.Empty;
-            //switch (sort)
-            //{
-            //    case JobRequestSort.Date:
-            //        sortStr = "date";
-            //        break;
-            //}
 
             var jobFilter = new List<string>();
             foreach (var filter in jobType ?? Enumerable.Empty<JobFilter>())
@@ -94,7 +86,7 @@ namespace Cloudents.Infrastructure.Search.Job
             }
             else
             {
-                nvc.Add("radius", JobSearch.RadiusOfFindingJob.ToString(CultureInfo.InvariantCulture));
+                nvc.Add("radius", JobSearch.RadiusOfFindingJobKm.ToString(CultureInfo.InvariantCulture));
             }
             var result = await _client.GetAsync(new Uri("http://api.indeed.com/ads/apisearch"), nvc, token).ConfigureAwait(false);
 
@@ -114,7 +106,6 @@ namespace Cloudents.Infrastructure.Search.Job
                 }
             };
         }
-
 
         public class IndeedResult
         {
@@ -164,6 +155,5 @@ namespace Cloudents.Infrastructure.Search.Job
             //public string formattedRelativeTime { get; set; }
             // public string stations { get; set; }
         }
-
     }
 }

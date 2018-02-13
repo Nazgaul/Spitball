@@ -16,7 +16,8 @@ namespace Cloudents.Infrastructure.Search.Job
         private readonly IShuffle _shuffle;
 
         public const int PageSize = 30;
-        public const double RadiusOfFindingJob = 50 * 1.6;
+        public const double RadiusOfFindingJobKm = RadiusOfFindingJobMiles * 1.6;
+        public const double RadiusOfFindingJobMiles = 50 ;
 
         public JobSearch(IEnumerable<IJobProvider> providers, IShuffle shuffle)
         {

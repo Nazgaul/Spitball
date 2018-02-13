@@ -46,7 +46,7 @@ namespace Cloudents.Infrastructure.Search.Job
             switch (sort)
             {
                 case JobRequestSort.Distance when location?.Point != null:
-                    filterQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJob}");
+                    filterQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
                     break;
                 case JobRequestSort.Date:
                     sortQuery.Add($"{nameof(Entity.Job.DateTime)} desc");
@@ -65,8 +65,7 @@ namespace Cloudents.Infrastructure.Search.Job
                     nameof(Entity.Job.Compensation),
                     nameof(Entity.Job.Url),
                     nameof(Entity.Job.Company),
-                    nameof(Entity.Job.Source),
-                    nameof(Entity.Job.Location)
+                    nameof(Entity.Job.Source)
                 },
                 Facets = filterQuery.Count == 0 ? new[]
                 {

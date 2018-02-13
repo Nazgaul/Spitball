@@ -13,8 +13,8 @@ namespace Cloudents.Core.Interfaces
             GeoPoint location, string nextPageToken, CancellationToken token);
 
         Task<PlaceDto> ByIdAsync(string id, CancellationToken token);
-        Task<Location> GeoCodingByAddressAsync(string address, CancellationToken token);
-        Task<Location> GeoCodingByZipAsync(string zip, CancellationToken token);
-        Task<Location> ReverseGeocodingAsync(GeoPoint point, CancellationToken token);
+        Task<(Address address, GeoPoint point)> GeoCodingByAddressAsync(string address, CancellationToken token);
+        Task<(Address address, GeoPoint point)> GeoCodingByZipAsync(string zip, CancellationToken token);
+        Task<(Address address, GeoPoint point)> ReverseGeocodingAsync(GeoPoint point, CancellationToken token);
     }
 }

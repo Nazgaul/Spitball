@@ -134,7 +134,6 @@ namespace Cloudents.Infrastructure.Search.Book
             public BookDetail[] Book { get; set; }
             [JsonProperty("total_pages")]
             public int TotalPages { get; set; }
-
         }
 
         public class BookDetail

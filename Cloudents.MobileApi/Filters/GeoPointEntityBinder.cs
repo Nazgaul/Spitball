@@ -17,18 +17,12 @@ namespace Cloudents.MobileApi.Filters
 
         public async Task BindModelAsync(ModelBindingContext bindingContext)
         {
-           
-
             var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.latitude");
             var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.longitude");
             if (double.TryParse(latitudeStr.FirstValue, out var latitude)
                 && double.TryParse(longitudeStr.FirstValue, out var longitude))
             {
-                bindingContext.Result = ModelBindingResult.Success(new GeoPoint
-                {
-                    Longitude = longitude,
-                    Latitude = latitude
-                });
+                bindingContext.Result = ModelBindingResult.Success(new GeoPoint(longitude, latitude));
                 return;
             }
 

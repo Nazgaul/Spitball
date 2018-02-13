@@ -24,5 +24,10 @@ namespace Cloudents.Core.Interfaces
             AuthenticationHeaderValue auth, CancellationToken token);
 
         Task<Uri> UrlRedirectAsync(Uri url);
+
+        Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, CancellationToken token);
+        Task<T> GetAsync<T>(Uri url, NameValueCollection queryString,
+            IEnumerable<KeyValuePair<string, string>> headers,
+            CancellationToken token);
     }
 }

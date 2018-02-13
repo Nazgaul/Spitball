@@ -17,9 +17,8 @@ namespace Cloudents.Infrastructure
         public MapperProfile()
         {
             CreateMap<Tutor, TutorDto>().ForMember(m => m.Online, opt => opt.MapFrom(src => src.TutorFilter == TutorFilter.Online));
-            CreateMap<string, Location>().ConvertUsing<IpConverter>();
-            CreateMap<IpDto, Location>().ForMember(f => f.Point, opt => opt.MapFrom(src => new GeoPoint { Latitude = src.Latitude, Longitude = src.Longitude }));
-            CreateMap<GoogleGeoCodeDto, Location>().ConvertUsing<GoogleGeoConverter>();
+            //CreateMap<IpDto, Location>().ForMember(f => f.Point, opt => opt.MapFrom(src => new GeoPoint { Latitude = src.Latitude, Longitude = src.Longitude }));
+            CreateMap<GoogleGeoCodeDto, (Address address, GeoPoint point)>().ConvertUsing<GoogleGeoConverter>();
             CreateMap<BingSearch.WebPage, SearchResult>().ConvertUsing<BingConverter>();
             CreateMap<Suggestions.SuggestionsObject, IEnumerable<string>>().ConvertUsing<SuggestConverter>();
             //ZipRecruiterConverter

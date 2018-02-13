@@ -11,7 +11,6 @@ using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write.Job.Entities;
 
 namespace Cloudents.Infrastructure.Write.Job
@@ -56,7 +55,7 @@ namespace Cloudents.Infrastructure.Write.Job
 
         protected override async Task<Core.Entities.Search.Job> ParseTAsync(CareerBuilderJobs obj, CancellationToken token)
         {
-            var location = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
+            var (_, point) = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
             return new Core.Entities.Search.Job
             {
                 City = obj.City,
@@ -64,7 +63,7 @@ namespace Cloudents.Infrastructure.Write.Job
                 DateTime = obj.posted_at,
                 Id = obj.job_reference,
                 JobType = JobTypeConversion(obj.job_type),
-                Location = Location.ToPoint(location),
+                Location = point.ToPoint(),
                 Description = StripHtml(obj.body).RemoveEndOfString(300),
                 State = obj.state,
                 Title = obj.title,

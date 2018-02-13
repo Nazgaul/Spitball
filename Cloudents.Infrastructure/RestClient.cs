@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure
 {
@@ -77,6 +78,36 @@ namespace Cloudents.Infrastructure
             var response = await _client.GetAsync(url).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
             return response.RequestMessage.RequestUri;
+        }
+
+        public Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, CancellationToken token)
+        {
+            return GetAsync<T>(url, queryString, null, token);
+        }
+
+        public async Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        {
+            _client.DefaultRequestHeaders.Clear();
+            foreach (var header in headers ?? Enumerable.Empty<KeyValuePair<string, string>>())
+            {
+                _client.DefaultRequestHeaders.Add(header.Key, header.Value);
+            }
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var uri = new UriBuilder(url);
+
+            uri.AddQuery(queryString);
+
+            var response = await _client.GetAsync(uri.Uri, token).ConfigureAwait(false);
+            if (!response.IsSuccessStatusCode)
+                return default;
+            using (var s = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
+            using (var sr = new StreamReader(s))
+            using (var reader = new JsonTextReader(sr))
+            {
+                var serializer = new JsonSerializer();
+                return serializer.Deserialize<T>(reader);
+            }
         }
 
         public void Dispose()

@@ -1,10 +1,21 @@
 ﻿using System.Runtime.Serialization;
+using Microsoft.Spatial;
 
 namespace Cloudents.Core.Models
 {
     [DataContract]
     public class GeoPoint
     {
+        public GeoPoint(double longitude, double latitude)
+        {
+            Longitude = longitude;
+            Latitude = latitude;
+        }
+
+        protected GeoPoint()
+        {
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is null) return false;
@@ -47,6 +58,11 @@ namespace Cloudents.Core.Models
         public static bool operator !=(GeoPoint obj1, GeoPoint obj2)
         {
             return !(obj1 == obj2);
+        }
+
+        public GeographyPoint ToPoint()
+        {
+            return GeographyPoint.Create(Latitude, Longitude);
         }
     }
 }

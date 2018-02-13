@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write.Tutor.Entities;
 using Newtonsoft.Json;
 
@@ -66,7 +65,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
             {
                 filter |= TutorFilter.Online;
             }
-            var location = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
+            var (_, point) = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
             return new Core.Entities.Search.Tutor
             {
                 Id = obj.TutorId.ToString(),
@@ -76,7 +75,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
                 Description = obj.Title,
                 City = obj.City,
                 State = obj.State,
-                Location = Location.ToPoint(location),
+                Location = point.ToPoint(),
                 Fee = obj.FeePerHour,
                 TutorFilter = filter,
                 InsertDate = DateTime.UtcNow,

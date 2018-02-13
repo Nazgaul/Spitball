@@ -12,7 +12,7 @@ namespace Cloudents.Web.Binders
         private readonly IIpToLocation _ipToLocation;
         private readonly ITempDataDictionaryFactory _tempDataFactory;
         private readonly IGooglePlacesSearch _googlePlacesSearch;
-        private const string KeyName = "s-l";
+        private const string KeyName = "l1";
 
         public LocationEntityBinder(IIpToLocation ipToLocation, ITempDataDictionaryFactory tempDataFactory,
             IGooglePlacesSearch googlePlacesSearch)
@@ -32,11 +32,7 @@ namespace Cloudents.Web.Binders
             if (double.TryParse(latitudeStr.FirstValue, out var latitude)
                 && double.TryParse(longitudeStr.FirstValue, out var longitude))
             {
-                var point = new GeoPoint
-                {
-                    Longitude = longitude,
-                    Latitude = latitude
-                };
+                var point = new GeoPoint(longitude, latitude);
 
                 if (locationFromTemp != null)
                 {
@@ -46,7 +42,8 @@ namespace Cloudents.Web.Binders
                         return;
                     }
                 }
-                locationFromTemp = await _googlePlacesSearch.ReverseGeocodingAsync(point, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
+                var resultApi = await _googlePlacesSearch.ReverseGeocodingAsync(point, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
+                locationFromTemp = new Location(point,resultApi.address, bindingContext.HttpContext.Connection.GetIpAddress().ToString());
                 tempData.Put(KeyName, locationFromTemp);
                 bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
             }

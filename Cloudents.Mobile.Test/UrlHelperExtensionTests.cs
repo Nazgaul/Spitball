@@ -21,12 +21,9 @@ namespace Cloudents.Mobile.Test
             var val = new TutorRequest
             {
                 Page = 0,
-                Location = new GeoPoint()
-                {
-                    Latitude = 0,
-                    Longitude = 0
-                }
+                Location = new GeoPoint(0,0)
             };
+
             var nvc = new NameValueCollection();
             var type = new PrivateType(typeof(UrlHelperExtension));
             type.InvokeStatic("AddObject", BindingFlags.Static | BindingFlags.NonPublic, prefix, val, nvc);

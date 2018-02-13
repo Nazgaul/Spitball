@@ -10,7 +10,6 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write.Job.Entities;
 
 namespace Cloudents.Infrastructure.Write.Job
@@ -87,7 +86,7 @@ namespace Cloudents.Infrastructure.Write.Job
                 dateTime = p.DateTime;
             }
 
-            var location = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
+            var (_, point) = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
             var job = new Core.Entities.Search.Job
             {
                 City = obj.City,
@@ -95,7 +94,7 @@ namespace Cloudents.Infrastructure.Write.Job
                 DateTime = dateTime,
                 Id = obj.Id,
                 JobType = JobTypeConversion(obj.JobType),
-                Location = Location.ToPoint(location),
+                Location = point.ToPoint(),
                 Description = obj.Responsibilities,
                 State = obj.State,
                 Title = obj.Title,

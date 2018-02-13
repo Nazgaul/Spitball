@@ -20,7 +20,6 @@ namespace Cloudents.Infrastructure.Search.Job
                 Company = s.Company,
                 CompensationType = "Paid",
                 Responsibilities = s.Snippet,
-                Location = GeographyPoint.Create(s.Latitude,s.Longitude)
             });
         }
     }

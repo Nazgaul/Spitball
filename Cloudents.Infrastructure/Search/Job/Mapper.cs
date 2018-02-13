@@ -16,6 +16,9 @@ namespace Cloudents.Infrastructure.Search.Job
             CreateMap<ZipRecruiterClient.ZipRecruiterResult, IEnumerable<JobDto>>()
                 .ConvertUsing<ZipRecruiterConverter>();
 
+            CreateMap<Jobs2CareersProvider.Jobs2CareersResult, IEnumerable<JobDto>>()
+                .ConvertUsing<Jobs2CareersConverter>();
+
             CreateMap<IndeedProvider.IndeedResult, IEnumerable<JobDto>>()
                 .ConvertUsing<IndeedConverter>();
             CreateMap<CareerJetProvider.CareerJetResult, IEnumerable<JobDto>>()
@@ -31,7 +34,6 @@ namespace Cloudents.Infrastructure.Search.Job
                 Title = jo.Title,
                 Responsibilities = jo.Description,
                 Source = jo.Source,
-                Location = jo.Location
             });
         }
     }

@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 return null;
             }
 
-            if (location == null)
+            if (location?.Address == null)
             {
                 return null;
             }
@@ -46,7 +46,7 @@ namespace Cloudents.Infrastructure.Search.Job
             }
             var nvc = new NameValueCollection
             {
-                ["location"] = $"{location.City}, {location.RegionCode}",
+                ["location"] = $"{location.Address.City}, {location.Address.RegionCode}",
                 ["api_key"] = "x8w8rgmv2dq78dw5wfmwiwexwu3hdfv3",
                 ["search"] = term,
                 ["jobs_per_page"] = JobSearch.PageSize.ToString(),
@@ -55,7 +55,7 @@ namespace Cloudents.Infrastructure.Search.Job
 
             if (sort == JobRequestSort.Distance)
             {
-                nvc.Add("radius_miles", JobSearch.RadiusOfFindingJob.ToString(CultureInfo.InvariantCulture));
+                nvc.Add("radius_miles", JobSearch.RadiusOfFindingJobMiles.ToString(CultureInfo.InvariantCulture));
             }
 
             var result = await _client.GetAsync(new Uri("https://api.ziprecruiter.com/jobs/v1"), nvc, token).ConfigureAwait(false);

@@ -46,7 +46,7 @@ namespace Cloudents.Infrastructure.Search.Places
         }
 
         [Cache(TimeConst.Year, "address")]
-        public async Task<Location> GeoCodingByAddressAsync(string address, CancellationToken token)
+        public async Task<(Address address, GeoPoint point)> GeoCodingByAddressAsync(string address, CancellationToken token)
         {
             var nvc = new NameValueCollection
             {
@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure.Search.Places
 
             var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
             var result = SerializeResult(str);
-            return _mapper.Map<GoogleGeoCodeDto, Location>(result);
+            return _mapper.Map<GoogleGeoCodeDto, (Address address, GeoPoint point)>(result);
         }
 
         private static GoogleGeoCodeDto SerializeResult(string str)
@@ -70,7 +70,7 @@ namespace Cloudents.Infrastructure.Search.Places
 
         [Cache(TimeConst.Year, "zip")]
         [Log]
-        public async Task<Location> GeoCodingByZipAsync(string zip, CancellationToken token)
+        public async Task<(Address address, GeoPoint point)> GeoCodingByZipAsync(string zip, CancellationToken token)
         {
             var nvc = new NameValueCollection
             {
@@ -80,10 +80,10 @@ namespace Cloudents.Infrastructure.Search.Places
 
             var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
             var result = SerializeResult(str);
-            return _mapper.Map<GoogleGeoCodeDto, Location>(result);
+            return _mapper.Map<GoogleGeoCodeDto, (Address address, GeoPoint point)>(result);
         }
 
-        public async Task<Location> ReverseGeocodingAsync(GeoPoint point, CancellationToken token)
+        public async Task<(Address address, GeoPoint point)> ReverseGeocodingAsync(GeoPoint point, CancellationToken token)
         {
             var nvc = new NameValueCollection
             {
@@ -93,9 +93,9 @@ namespace Cloudents.Infrastructure.Search.Places
 
             var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
             var result = SerializeResult(str);
-            var location = _mapper.Map<GoogleGeoCodeDto, Location>(result);
-            location.Point = point;
-            return location;
+            return _mapper.Map<GoogleGeoCodeDto, (Address address, GeoPoint point)>(result);
+            //location.Point = point;
+            //return location;
         }
 
         public async Task<PlaceDto> SearchAsync(string term, CancellationToken token)
