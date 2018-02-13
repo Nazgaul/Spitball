@@ -14,7 +14,8 @@ let transformLocation=(params)=>{
     return params;
 };
 let transferResultNote = res => {
-    let result = res.result || [];
+    let result = res?res.result:[];
+    if(!res) return {data:[]};
     return { source: res.facet,facet:res.facet, data: result.map(val => { return { ...val, template: "item" } }) }
 };
 //todo think about error

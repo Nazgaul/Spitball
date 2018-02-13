@@ -151,7 +151,11 @@ export const pageMixin =
                         })
                             .then(({ data }) => {
                                  updateData.call(this, data);//irena
-                            });
+                            }).catch(reason => {
+                            //when error from fetching data remove the loader
+                            this.UPDATE_LOADING(false);
+                            this.items=[];
+                        });
                     }
                 });
             }
@@ -188,6 +192,7 @@ export const pageMixin =
                         }).catch(reason => {
                         //when error from fetching data remove the loader
                         this.UPDATE_LOADING(false);
+                        this.items=[];
                     });
                     //go to the next page
                     next();
