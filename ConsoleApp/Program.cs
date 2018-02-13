@@ -55,13 +55,14 @@ namespace ConsoleApp
             };
 
 
-            var mapper = container.Resolve<IJobSearch>();
-            var z = await mapper.SearchAsync(new[] { "marketing" }, JobRequestSort.Date, new[] { JobFilter.FullTime }, null, 0, false, default);
+            var mapper = container.Resolve<IBookSearch>();
+            var z = await mapper.SellAsync("9781974572083", default);
 
             //foreach (var price in z.Result)
             //{
             //    Console.WriteLine(price.Url);
             //}
+            Console.WriteLine("Finish");
             Console.ReadLine();
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
         }

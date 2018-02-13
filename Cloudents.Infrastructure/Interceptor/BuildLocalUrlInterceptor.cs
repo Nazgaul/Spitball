@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Interceptor
                 pageSize = att.SizeOfPage.Value;
             }
 
-            if (string.IsNullOrEmpty(att.ListObjectName))
+            if (string.IsNullOrEmpty(att.ListObjectName) && val != null)
             {
                 //This check failed in select many
                 // if (val.GetType().GetGenericArguments()[0].GetInterfaces().Contains(typeof(IUrlRedirect)))
@@ -50,10 +50,13 @@ namespace Cloudents.Infrastructure.Interceptor
                 return;
             }
             var data = prop.GetValue(val, null);// as IEnumerable<BookPricesDto>;
-            //if (data.GetType().GetGenericArguments()[0].GetInterfaces().Contains(typeof(IUrlRedirect)))
-            //{
+                                                //if (data.GetType().GetGenericArguments()[0].GetInterfaces().Contains(typeof(IUrlRedirect)))
+                                                //{
+            if (data != null)
+            {
                 var urls = _urlRedirectBuilder.BuildUrl((dynamic)data, page, pageSize);
                 prop.SetValue(val, urls);
+            }
             //}
         }
 
