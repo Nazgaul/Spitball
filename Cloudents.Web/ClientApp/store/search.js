@@ -3,12 +3,16 @@ import { interpetPromise } from "./../services/resources"
 import searchService from "./../services/searchService"
 const LOCATION_VERTICALS= new Map([["tutor",true],["job",true], ["food",true], ["purchase",true]]);
 const state = {
-    loading: false
+    loading: false,
+    search:{}
 };
 
 const mutations = {
     [SEARCH.UPDATE_LOADING](state, payload) {
         state.loading = payload;
+    },
+    [SEARCH.UPDATE_SEARCH_PARAMS](state, updatedDate) {
+        state.search = {...updatedDate};
     }
 };
 
@@ -20,6 +24,7 @@ const actions = {
     updateSearchText(context, {text,vertical}) {
         if (!text) {
             context.commit(LUIS.UPDATE_TERM,{vertical,data:{text,term:""}});
+            context.commit(SEARCH.UPDATE_SEARCH_PARAMS, {});
             return Promise.resolve("");
         }
         return interpetPromise(text).then(({ data: body }) => {
@@ -39,9 +44,10 @@ const actions = {
                     });
                 } else { resolve(); }
             });
-            let updateTerm=context.dispatch('updateAITerm',{vertical:currentVertical,data:{text,term,docType}});
-            return Promise.all([location,updateTerm]).then(()=> {
-                    return {result: body.vertical, term: body.term, docType: body.docType}
+            context.dispatch('updateAITerm',{vertical:currentVertical,data:{text,term,docType}});
+            return Promise.all([location]).then(()=> {
+                context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...params });
+                return {result: body.vertical}
                 }
             )
         });
@@ -57,7 +63,7 @@ const actions = {
     fetchingData(context, { name, params, page}) {
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
         return context.dispatch('getAIDataForVertical',name).then((aiData)=>{
-            let paramsList = {...params, university, page, ...aiData};
+            let paramsList = {...context.state.search,...params, university, page, ...aiData};
             //get location if needed
             return new Promise((resolve) => {
                 if (LOCATION_VERTICALS.has(name) && !paramsList.location) {
