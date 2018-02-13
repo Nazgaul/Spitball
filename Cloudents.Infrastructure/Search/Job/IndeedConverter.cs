@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
+using Microsoft.Spatial;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
@@ -9,16 +10,17 @@ namespace Cloudents.Infrastructure.Search.Job
     {
         public IEnumerable<JobDto> Convert(IndeedProvider.IndeedResult source, IEnumerable<JobDto> destination, ResolutionContext context)
         {
-            return source.results.Select(s => new JobDto
+            return source.Results.Select(s => new JobDto
             {
-                DateTime = s.date,
-                Url = s.url,
+                DateTime = s.Date,
+                Url = s.Url,
                 Source = "Indeed",
-                Address = s.formattedLocation,
-                Title = s.jobtitle,
-                Company = s.company,
+                Address = s.FormattedLocation,
+                Title = s.JobTitle,
+                Company = s.Company,
                 CompensationType = "Paid",
-                Responsibilities = s.snippet
+                Responsibilities = s.Snippet,
+                Location = GeographyPoint.Create(s.Latitude,s.Longitude)
             });
         }
     }

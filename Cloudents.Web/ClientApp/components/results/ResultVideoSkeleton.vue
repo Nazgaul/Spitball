@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="wrapper">
+    <div class="player-wrapper">
         <div class="player">
             <div class="arrow"></div>
         </div>
@@ -13,7 +13,8 @@
     }
 </script>
 <style scoped>
-    .wrapper {
+
+    .loading-skeleton .wrapper {
         width: 100%;
         max-width: 504px;
         height: 283px;
@@ -24,7 +25,7 @@
         border: 8px solid white;
     }
 
-    .player {
+    .loading-skeleton .player {
         width: 78px;
         height: 55px;
         background: white;
@@ -35,7 +36,7 @@
         justify-content: center;
     }
 
-    .arrow {
+    .loading-skeleton .arrow {
         width: 0;
         height: 0;
         border-style: solid;
@@ -43,7 +44,7 @@
         border-color: transparent transparent transparent #eeeeee;
     }
     @media only screen and (max-device-width : 600px) {
-        .wrapper {
+        .loading-skeleton .wrapper {
             width: 360px;
             height: 202px;
         }

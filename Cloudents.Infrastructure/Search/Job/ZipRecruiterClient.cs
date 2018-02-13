@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Cloudents.Infrastructure.Search.Job
 {
     public class ZipRecruiterClient : IJobProvider
     {
+        //https://docs.google.com/document/d/1PM6pgV06vGbQJoZ1mxeSTZPr1aYemSGoEyTtNTDyt3s/pub
         private readonly IRestClient _client;
         private readonly IMapper _mapper;
 
@@ -37,6 +39,11 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 return null;
             }
+
+            if (sort == JobRequestSort.Distance)
+            {
+                return null;
+            }
             var nvc = new NameValueCollection
             {
                 ["location"] = $"{location.City}, {location.RegionCode}",
@@ -45,19 +52,21 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["jobs_per_page"] = JobSearch.PageSize.ToString(),
                 ["page"] = page.ToString()
             };
+
+            if (sort == JobRequestSort.Distance)
+            {
+                nvc.Add("radius_miles", JobSearch.RadiusOfFindingJob.ToString(CultureInfo.InvariantCulture));
+            }
+
             var result = await _client.GetAsync(new Uri("https://api.ziprecruiter.com/jobs/v1"), nvc, token).ConfigureAwait(false);
 
-            var p = JsonConvert.DeserializeObject<ZipRecruiterResult>(result,
-                new JsonSerializerSettings
-                {
-                    ContractResolver = new UnderscorePropertyNamesContractResolver()
-                });
+            var p = JsonConvert.DeserializeObject<ZipRecruiterResult>(result);
             var jobs = _mapper.Map<IEnumerable<JobDto>>(p);
 
-            if (sort == JobRequestSort.Date)
-            {
-                jobs = jobs.OrderByDescending(o => o.DateTime);
-            }
+            //if (sort == JobRequestSort.Date)
+            //{
+            //    jobs = jobs.OrderByDescending(o => o.DateTime);
+            //}
 
             return new ResultWithFacetDto<JobDto>
             {
@@ -67,22 +76,31 @@ namespace Cloudents.Infrastructure.Search.Job
 
         public class ZipRecruiterResult
         {
+            [JsonProperty("jobs")]
             public Job[] Jobs { get; set; }
+            [JsonProperty("success")]
             public bool Success { get; set; }
         }
 
         public class Job
         {
+            [JsonProperty("url")]
             public string Url { get; set; }
+            [JsonProperty("snippet")]
             public string Snippet { get; set; }
+            [JsonProperty("name")]
             public string Name { get; set; }
+            [JsonProperty("posted_time")]
             public DateTime PostedTime { get; set; }
+            [JsonProperty("hiring_company")]
             public HiringCompany HiringCompany { get; set; }
+            [JsonProperty("location")]
             public string Location { get; set; }
         }
 
         public class HiringCompany
         {
+            [JsonProperty("name")]
             public string Name { get; set; }
         }
     }

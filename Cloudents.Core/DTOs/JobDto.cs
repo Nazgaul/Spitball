@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using Cloudents.Core.Extension;
+using Microsoft.Spatial;
 
 namespace Cloudents.Core.DTOs
 {
@@ -41,5 +42,7 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Source { get; set; }
         public object Bucket => Source;
+
+        public GeographyPoint Location { get; set; }
     }
 }

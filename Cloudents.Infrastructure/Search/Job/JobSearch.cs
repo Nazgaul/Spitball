@@ -13,19 +13,19 @@ namespace Cloudents.Infrastructure.Search.Job
     public class JobSearch : IJobSearch
     {
         private readonly IEnumerable<IJobProvider> _providers;
-        //private readonly IUrlRedirectBuilder _urlRedirectBuilder;
+        private readonly IShuffle _shuffle;
 
         public const int PageSize = 30;
+        public const double RadiusOfFindingJob = 50 * 1.6;
 
-        public JobSearch(IEnumerable<IJobProvider> providers)
+        public JobSearch(IEnumerable<IJobProvider> providers, IShuffle shuffle)
         {
             _providers = providers;
+            _shuffle = shuffle;
         }
 
         [BuildLocalUrl(nameof(ResultWithFacetDto<JobDto>.Result), PageSize, "page")]
-        [Shuffle(nameof(ResultWithFacetDto<JobDto>.Result))]
         [Cache(TimeConst.Hour, "job")]
-
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location,
             int page, bool highlight, CancellationToken token)
         {
@@ -35,9 +35,19 @@ namespace Cloudents.Infrastructure.Search.Job
 
             var result = tasks.Select(s => s.Result).Where(w => w != null).ToList();
             var facets = result.Where(w => w.Facet != null).SelectMany(s => s.Facet).Distinct();
+            var jobResults = result.Where(w => w.Result != null).SelectMany(s => s.Result);
+
+            if (sort == JobRequestSort.Date)
+            {
+                jobResults = jobResults.OrderByDescending(o => o.DateTime);
+            }
+            else
+            {
+                jobResults = _shuffle.DoShuffle(jobResults);
+            }
             return new ResultWithFacetDto<JobDto>
             {
-                Result = result.Where(w => w.Result != null).SelectMany(s => s.Result),
+                Result = jobResults,
                 Facet = facets
             };
         }

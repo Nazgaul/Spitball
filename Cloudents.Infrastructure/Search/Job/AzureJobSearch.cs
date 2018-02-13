@@ -6,6 +6,7 @@ using AutoMapper;
 using Entity = Cloudents.Core.Entities.Search;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write.Job;
@@ -39,13 +40,13 @@ namespace Cloudents.Infrastructure.Search.Job
 
             if (jobType != null)
             {
-                filterQuery.AddRange(jobType.Select(s => $"{nameof(Entity.Job.JobType)} eq '{s}'"));
+                filterQuery.AddRange(jobType.Select(s => $"{nameof(Entity.Job.JobType)} eq '{s.GetDescription()}'"));
             }
 
             switch (sort)
             {
                 case JobRequestSort.Distance when location?.Point != null:
-                    sortQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})')");
+                    filterQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJob}");
                     break;
                 case JobRequestSort.Date:
                     sortQuery.Add($"{nameof(Entity.Job.DateTime)} desc");
@@ -64,7 +65,8 @@ namespace Cloudents.Infrastructure.Search.Job
                     nameof(Entity.Job.Compensation),
                     nameof(Entity.Job.Url),
                     nameof(Entity.Job.Company),
-                    nameof(Entity.Job.Source)
+                    nameof(Entity.Job.Source),
+                    nameof(Entity.Job.Location)
                 },
                 Facets = filterQuery.Count == 0 ? new[]
                 {

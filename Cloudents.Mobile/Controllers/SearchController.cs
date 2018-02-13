@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Mobile.Extensions;
@@ -53,15 +54,16 @@ namespace Cloudents.Mobile.Controllers
                 model.Sort.GetValueOrDefault(), model.DocType);
             var result = await _searchProvider.Value.SearchAsync(query, model.Format, token).ConfigureAwait(false);
 
+            var resultList = result.Result.ToListIgnoreNull();
             string nextPageLink = null;
-            if (result.Result?.Any() == true)
+            if (resultList.Count > 0)
             {
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
 
             return Ok(new
             {
-                documents = result.Result,
+                documents = resultList,
                 result.Facet,
                 nextPageLink
             });

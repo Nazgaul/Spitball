@@ -30,7 +30,8 @@ namespace Cloudents.Infrastructure.Search.Job
                 Address = $"{jo.City}, {jo.State}",
                 Title = jo.Title,
                 Responsibilities = jo.Description,
-                Source = jo.Source
+                Source = jo.Source,
+                Location = jo.Location
             });
         }
     }
