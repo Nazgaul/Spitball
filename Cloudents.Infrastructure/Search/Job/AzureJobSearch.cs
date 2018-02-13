@@ -9,7 +9,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Write.Job;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -47,7 +46,7 @@ namespace Cloudents.Infrastructure.Search.Job
             switch (sort)
             {
                 case JobRequestSort.Distance when location?.Point != null:
-                    sortQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})')");
+                    filterQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJob}");
                     break;
                 case JobRequestSort.Date:
                     sortQuery.Add($"{nameof(Entity.Job.DateTime)} desc");

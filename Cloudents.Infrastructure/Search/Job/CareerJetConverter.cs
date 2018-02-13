@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 
 namespace Cloudents.Infrastructure.Search.Job
@@ -18,7 +19,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 Title = s.Title,
                 Company = s.Company,
                 CompensationType = "Paid",
-                Responsibilities = s.Description
+                Responsibilities = RegEx.RemoveHtmlTags.Replace(s.Description,string.Empty)
             });
         }
     }

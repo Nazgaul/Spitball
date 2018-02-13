@@ -7,20 +7,21 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Microsoft.Spatial;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
     public class JobSearch : IJobSearch
     {
         private readonly IEnumerable<IJobProvider> _providers;
-        //private readonly IUrlRedirectBuilder _urlRedirectBuilder;
+        private readonly IShuffle _shuffle;
 
         public const int PageSize = 30;
+        public const double RadiusOfFindingJob = 50 * 1.6;
 
-        public JobSearch(IEnumerable<IJobProvider> providers)
+        public JobSearch(IEnumerable<IJobProvider> providers, IShuffle shuffle)
         {
             _providers = providers;
+            _shuffle = shuffle;
         }
 
         [BuildLocalUrl(nameof(ResultWithFacetDto<JobDto>.Result), PageSize, "page")]
@@ -42,8 +43,7 @@ namespace Cloudents.Infrastructure.Search.Job
             }
             else
             {
-                var point = GeographyPoint.Create(location.Point.Latitude, location.Point.Latitude);
-                jobResults = jobResults.OrderBy(o => point.Distance(o.Location));
+                jobResults = _shuffle.DoShuffle(jobResults);
             }
             return new ResultWithFacetDto<JobDto>
             {

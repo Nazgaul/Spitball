@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
@@ -32,10 +33,6 @@ namespace Cloudents.Infrastructure.Search.Job
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, bool highlight,
             CancellationToken token)
         {
-            if (sort == JobRequestSort.Distance)
-            {
-                return null;
-            }
             var contactType = new List<string>();
             var contactPeriod = new List<string>();
             foreach (var filter in jobType ?? Enumerable.Empty<JobFilter>())
@@ -61,7 +58,6 @@ namespace Cloudents.Infrastructure.Search.Job
 
             var nvc = new NameValueCollection
             {
-                ["location"] = location != null ? $"{location.City}, {location.RegionCode}" : string.Empty,
                 ["affid"] = "c307482e201e09643098fc2b06192f68",
                 ["keywords"] = term,
                 ["locale_code"] = "en_US",
@@ -71,12 +67,16 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["contracttype"] = string.Join(",", contactType),
                 ["contractperiod"] = string.Join(",", contactPeriod)
             };
+            if (sort == JobRequestSort.Distance && location != null)
+            {
+                nvc.Add("location", $"{location.City}, {location.RegionCode}");
+            }
 
             var result = await _client.GetAsync(new Uri("http://public.api.careerjet.net/search"), nvc, token).ConfigureAwait(false);
 
             var p = JsonConvert.DeserializeObject<CareerJetResult>(result);
             var jobs = _mapper.Map<IEnumerable<JobDto>>(p);
-
+            
             return new ResultWithFacetDto<JobDto>
             {
                 Result = jobs,
@@ -105,7 +105,7 @@ namespace Cloudents.Infrastructure.Search.Job
         {
             [JsonProperty("locations")]
             public string Locations { get; set; }
-           // public string site { get; set; }
+            // public string site { get; set; }
             [JsonProperty("date")]
             public DateTime Date { get; set; }
             [JsonProperty("url")]
