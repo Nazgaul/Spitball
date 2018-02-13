@@ -10,7 +10,7 @@
                 </template>
             </div>
         </template>
-        <div v-if="filterOptions.length">
+        <div v-if="filterOptions&&filterOptions.length">
             <h3>Filter</h3>
             <div class="filter-switch">
                 <v-expansion-panel :value="true" expand>
