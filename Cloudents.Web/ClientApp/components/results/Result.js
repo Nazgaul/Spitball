@@ -25,10 +25,10 @@ let updateData = function (data, isFilterUpdate = false) {
     this.filter = this.filterSelection;
     this.UPDATE_LOADING(false);
 
-        //if the vertical or search term has been changed update the optional filters according
-        if (!isFilterUpdate) {
-            this.$_updateFilterObject();
-        }
+    //if the vertical or search term has been changed update the optional filters according
+    if (!isFilterUpdate) {
+        this.$_updateFilterObject();
+    }
 };
 //The vue functionality for result page
 export const pageMixin =
@@ -42,7 +42,7 @@ export const pageMixin =
 
         //When route has been updated(query,filter,vertical)
         beforeRouteUpdate(to, from, next) {
-           this.updatePageData(to,from,next)
+            this.updatePageData(to,from,next)
         },
 
         watch: {
@@ -126,40 +126,31 @@ export const pageMixin =
             if (this.query.course) this.setFilteredCourses(this.query.course);
             this.UPDATE_LOADING(true);
             this.items=skeletonData[this.name];
-            //if the term is empty fetch the data
-            if (!this.query.q || !this.query.q.length) {
-                this.fetchingData({ name: this.name, params: { ...this.query, ...this.params } })
-                    .then(({ data }) => {
-                        updateData.call(this, data);//irena
-                    }).catch(reason => { this.UPDATE_LOADING(false); });
-            } else {
-                let vertical=this.name === "result"?"":this.name;
-                //call luis with the userText
-                this.updateSearchText({text:this.userText,vertical}).then(({ term, result}) => {
-                    //If should update vertical(not book details) and luis return not identical vertical as current vertical replace to luis vertical page
-                    if (this.name === "result") { //from homepage
-                        this.UPDATE_LOADING(false);
-                        const routeParams = { path: '/' + result, query: { ...this.query, q: this.userText } };
-                        this.$router.replace(routeParams);
-                    }
-                    else {
-                        //fetch data with the params
-                        this.fetchingData({
-                            name: this.name,
-                            params: { ...this.query, ...this.params }
+            let vertical=this.name === "result"?"":this.name;
+            //call luis with the userText
+            this.updateSearchText({text:this.userText,vertical}).then(({ term, result}) => {
+                //If should update vertical(not book details) and luis return not identical vertical as current vertical replace to luis vertical page
+                if (this.name === "result") { //from homepage
+                    this.UPDATE_LOADING(false);
+                    const routeParams = { path: '/' + result, query: { ...this.query, q: this.userText } };
+                    this.$router.replace(routeParams);
+                }
+                else {
+                    //fetch data with the params
+                    this.fetchingData({
+                        name: this.name,
+                        params: { ...this.query, ...this.params }
 
-                        })
-                            .then(({ data }) => {
-                                 updateData.call(this, data);//irena
+                    })
+                        .then(({ data }) => {
+                            updateData.call(this, data);//irena
                             }).catch(reason => {
                             //when error from fetching data remove the loader
                             this.UPDATE_LOADING(false);
                             this.items=[];
                         });
-                    }
-                });
-            }
-
+                }
+            });
         },
         methods: {
             updatePageData(to,from,next){

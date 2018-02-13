@@ -47,7 +47,7 @@ const dummyFoodObj = {
     name: "__________________________________",
     open: true,
     placeId: "ChIJoaWWguy2AhURwxLmvhjuaxI",
-    rating: "___________________________________________________",
+    rating: parseInt('5'.repeat(14)),
     template: "food"
 };
 let multipleItemSkeletons = [dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj]

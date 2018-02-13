@@ -1,4 +1,4 @@
-﻿﻿import {SEARCH, LUIS} from "./mutation-types"
+﻿import {SEARCH, LUIS} from "./mutation-types"
 import { interpetPromise } from "./../services/resources"
 import searchService from "./../services/searchService"
 const LOCATION_VERTICALS= new Map([["tutor",true],["job",true], ["food",true], ["purchase",true]]);
@@ -31,7 +31,8 @@ const actions = {
             let params = { ...body };
             let {docType,term}=body;
             let currentVertical=vertical?vertical:body.vertical;
-            let location=new Promise((resolve) => {
+            context.dispatch('updateAITerm',{vertical:currentVertical,data:{text,term,docType}});
+            return new Promise((resolve) => {
                 //if AI return cords use it
                 if (params.hasOwnProperty('cords')) {
                     params.location = {latitude:params.cords.latitude,longitude:params.cords.longitude};
@@ -43,7 +44,7 @@ const actions = {
                         resolve();
                     });
                 } else { resolve(); }
-            });
+            }).then(()=> {
             context.dispatch('updateAITerm',{vertical:currentVertical,data:{text,term,docType}});
             return Promise.all([location]).then(()=> {
                 context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...params });
