@@ -148,8 +148,12 @@
                     this.$el.querySelector('form').blur();
                 });
             },
-            $_currentClick({ id }) {
-                this.$refs.personalize.openDialog(id);
+            $_currentClick({ id,name }) {
+                if(name==='Feedback'){
+                    Intercom('showNewMessage', 'Feedback on the new reports feature:');
+                }else{
+                    this.$refs.personalize.openDialog(id);
+                }
             },
             facebookShare() {
                 const shareFb = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href);
