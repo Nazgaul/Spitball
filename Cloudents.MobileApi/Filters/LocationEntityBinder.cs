@@ -1,0 +1,43 @@
+﻿using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
+using Cloudents.MobileApi.Extensions;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
+namespace Cloudents.MobileApi.Filters
+{
+    internal class LocationEntityBinder : IModelBinder
+    {
+        private readonly IIpToLocation _ipToLocation;
+        private readonly IGooglePlacesSearch _googlePlacesSearch;
+
+        public LocationEntityBinder(IIpToLocation ipToLocation, IGooglePlacesSearch googlePlacesSearch)
+        {
+            _ipToLocation = ipToLocation;
+            _googlePlacesSearch = googlePlacesSearch;
+        }
+
+        public async Task BindModelAsync(ModelBindingContext bindingContext)
+        {
+
+            var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.latitude").FirstValue ??
+                              bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.latitude").FirstValue;
+            var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.longitude").FirstValue ??
+                               bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.longitude").FirstValue;
+            if (double.TryParse(latitudeStr, out var latitude)
+                && double.TryParse(longitudeStr, out var longitude))
+            {
+                var point = new GeoPoint
+                {
+                    Longitude = longitude,
+                    Latitude = latitude
+                };
+                bindingContext.Result = ModelBindingResult.Success(await _googlePlacesSearch.ReverseGeocodingAsync(point, bindingContext.HttpContext.RequestAborted));
+                return;
+            }
+
+            var ipV4 = bindingContext.HttpContext.Connection.GetIpAddress();
+            bindingContext.Result = ModelBindingResult.Success(await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted));
+        }
+    }
+}

@@ -1,11 +1,11 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Http;
 
-namespace Cloudents.Web.Extensions
+namespace Cloudents.MobileApi.Extensions
 {
-    internal static class ConnectionInfoExtension
+    public static class ConnectionInfoExtension
     {
-        private static bool IsLocal(this ConnectionInfo connection)
+        public static bool IsLocal(this ConnectionInfo connection)
         {
             if (connection.RemoteIpAddress != null)
             {
@@ -20,7 +20,7 @@ namespace Cloudents.Web.Extensions
             return false;
         }
 
-        internal static IPAddress GetIpAddress(this ConnectionInfo connection)
+        public static IPAddress GetIpAddress(this ConnectionInfo connection)
         {
             var ip = connection.RemoteIpAddress;
             var ipV4 = ip.MapToIPv4();

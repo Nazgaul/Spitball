@@ -1,0 +1,24 @@
+﻿using System.Collections.Generic;
+
+namespace Cloudents.MobileApi.Filters
+{
+    [System.AttributeUsage(System.AttributeTargets.All, AllowMultiple = false)]
+    internal sealed class VersionedRouteAttribute : RouteFactoryAttribute
+    {
+        public VersionedRouteAttribute(string template)
+            : base(template)
+        {
+
+        }
+        public VersionedRouteAttribute(string template, string allowedVersion)
+            : base(template)
+        {
+            AllowedVersion = allowedVersion;
+        }
+        public string AllowedVersion
+        {
+            get;
+        }
+        public override IDictionary<string, object> Constraints => new HttpRouteValueDictionary { ["version"] = new VersionConstraint(AllowedVersion) };
+    }
+}

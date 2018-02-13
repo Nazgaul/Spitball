@@ -2,7 +2,7 @@
 using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Infrastructure.Framework.Database
+namespace Cloudents.Infrastructure.Framework.Database.Maps
 {
     public class CourseMap : ClassMap<Course>
     {

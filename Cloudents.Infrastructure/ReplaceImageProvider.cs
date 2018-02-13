@@ -27,6 +27,7 @@ namespace Cloudents.Infrastructure
             "https://studysoup.com/assets/facebook-message-thumbnail-32320c1969a82f18331270299701b729.jpg",
             "https://classconnection.s3.amazonaws.com/images/fb-og-deck.png",
             "https://www.studyblue.com/css/images/webprintLogo.jpg",
+            "https://oneclass.com/assets/home/og-home-new-2.jpg"
         };
 
         public ReplaceImageProvider(IBlobProvider<SpitballContainer> blobProvider)

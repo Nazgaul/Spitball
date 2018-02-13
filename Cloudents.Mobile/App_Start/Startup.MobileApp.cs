@@ -75,7 +75,7 @@ namespace Cloudents.Mobile
             //ConfigureSignalR(app, container);
             app.UseAutofacMiddleware(container);
             app.UseAutofacWebApi(config);
-
+            
             app.UseWebApi(config);
             ConfigureSwagger(config);
         }
