@@ -13,6 +13,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             TutorRequestFilter[] filters, TutorRequestSort sort,
             GeoPoint location,
             int page,
+            bool isMobile,
             CancellationToken token);
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Search;
@@ -16,12 +14,9 @@ namespace Cloudents.Infrastructure
     {
         public MapperProfile()
         {
-            CreateMap<Tutor, TutorDto>().ForMember(m => m.Online, opt => opt.MapFrom(src => src.TutorFilter == TutorFilter.Online));
-            //CreateMap<IpDto, Location>().ForMember(f => f.Point, opt => opt.MapFrom(src => new GeoPoint { Latitude = src.Latitude, Longitude = src.Longitude }));
             CreateMap<GoogleGeoCodeDto, (Address address, GeoPoint point)>().ConvertUsing<GoogleGeoConverter>();
             CreateMap<BingSearch.WebPage, SearchResult>().ConvertUsing<BingConverter>();
             CreateMap<Suggestions.SuggestionsObject, IEnumerable<string>>().ConvertUsing<SuggestConverter>();
-            //ZipRecruiterConverter
 
             CreateMap<Search.Entities.Course, CourseDto>();
             CreateMap<Search.Entities.University, UniversityDto>();

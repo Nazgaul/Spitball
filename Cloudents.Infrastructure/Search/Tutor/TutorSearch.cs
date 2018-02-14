@@ -23,28 +23,23 @@ namespace Cloudents.Infrastructure.Search.Tutor
 
         [BuildLocalUrl("", PageSize, "page")]
         public Task<IEnumerable<TutorDto>> SearchAsync(IEnumerable<string> term, TutorRequestFilter[] filters, TutorRequestSort sort, GeoPoint location, int page,
-            CancellationToken token)
+            bool isMobile, CancellationToken token)
         {
             var query = string.Join(" ", term ?? Enumerable.Empty<string>());
             if (string.IsNullOrWhiteSpace(query))
             {
                 query = "economics";
             }
+
+            //TODO: need to check if its relevant in here
             if (sort == TutorRequestSort.Distance && location == null)
             {
                 throw new ArgumentException("Need to location");
             }
             if (filters?.Contains(TutorRequestFilter.InPerson) == true && location == null)
                 throw new ArgumentException("Need to location");
-            //var tasks = _tutorSearch.Select(s =>
-            //    s.SearchAsync(query, filters, sort, location, page, token)).ToList();
-            //await Task.WhenAll(tasks).ConfigureAwait(false);
 
-            return _tutorSearch.SelectManyAsync(s => s.SearchAsync(query, filters, sort, location, page, token));
-            //tasks.SelectManyAsync()
-
-            //return tasks.SelectMany(s => s.Result);//.OrderByDescending(o => o.TermCount);
-            //return _urlRedirectBuilder.BuildUrl(result, page, PageSize);
+            return _tutorSearch.SelectManyAsync(s => s.SearchAsync(query, filters, sort, location, page, isMobile, token));
         }
     }
 }
