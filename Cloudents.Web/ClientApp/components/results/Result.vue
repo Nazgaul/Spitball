@@ -15,7 +15,7 @@
                     </v-chip>
                 </template>
             </div>
-            <div :class="{'loading-skeleton': loading}">
+            <div :class="{'loading-skeleton': showSkelaton}">
                 <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
                     <v-container class="pa-0">
                         <v-layout column>
