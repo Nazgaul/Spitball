@@ -17,8 +17,8 @@ namespace Cloudents.Infrastructure.Test
             var bookRequest1 = new object[] { "make%20war", 150, 0, CancellationToken.None };
             var bookRequest2 = new object[] { "make%20war", 150, 1, CancellationToken.None };
             var type = new PrivateType(typeof(CacheResultInterceptor));
-            var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, bookRequest1);
-            var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, bookRequest2);
+            var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1});
+            var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
 
             Assert.AreNotEqual(result1, result2);
         }
@@ -34,8 +34,8 @@ namespace Cloudents.Infrastructure.Test
             var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };
             var bookRequest2 = new object[] { searchModel2, 0, CancellationToken.None };
             var type = new PrivateType(typeof(CacheResultInterceptor));
-            var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, bookRequest1);
-            var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, bookRequest2);
+            var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1 });
+            var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
 
             Assert.AreNotEqual(result1, result2);
         }
@@ -51,8 +51,8 @@ namespace Cloudents.Infrastructure.Test
             var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };
             var bookRequest2 = new object[] { searchModel2, 0, CancellationToken.None };
             var type = new PrivateType(typeof(CacheResultInterceptor));
-            var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, bookRequest1);
-            var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, bookRequest2);
+            var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1 });
+            var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
 
             Assert.AreEqual(result1, result2);
         }
@@ -69,8 +69,8 @@ namespace Cloudents.Infrastructure.Test
             var bookRequest2 = new object[] { searchModel2, 0, CancellationToken.None };
 
             var type = new PrivateType(typeof(CacheResultInterceptor));
-            var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, bookRequest1);
-            var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, bookRequest2);
+            var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1 });
+            var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
             Assert.AreNotEqual(result1, result2);
         }
     }
