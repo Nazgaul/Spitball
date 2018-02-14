@@ -14,14 +14,12 @@ namespace Cloudents.Mobile.Test
         [TestMethod]
         public void AddObject_SomeObject_ReturnParseOk()
         {
-               //UrlHelperExtension();
-           
-            
+            //UrlHelperExtension();
             var prefix = string.Empty;
             var val = new TutorRequest
             {
                 Page = 0,
-                Location = new GeoPoint(0,0)
+                Location = new GeoPoint(0, 0)
             };
 
             var nvc = new NameValueCollection();
@@ -35,10 +33,31 @@ namespace Cloudents.Mobile.Test
                 ["Location.Longitude"] = 0.ToString()
             };
 
+            var dicExpected = nvcResult.AllKeys.ToDictionary(k => k, k => nvcResult[k]);
+            var dicResult = nvc.AllKeys.ToDictionary(k => k, k => nvc[k]);
 
-            CollectionAssert.AreEquivalent(
-                nvcResult.AllKeys.ToDictionary(k => k, k => nvcResult[k]),
-                nvc.AllKeys.ToDictionary(k => k, k => nvc[k]));
+            CollectionAssert.AreEquivalent(dicExpected, dicResult);
+        }
+
+
+        [TestMethod]
+        public void AddObject_AnonymousObject_ReturnParseOk()
+        {
+            var prefix = string.Empty;
+            var val = new {nextPageToken= "Some_very_very_very_very_very_very_long_token" };
+
+            var nvc = new NameValueCollection();
+            var type = new PrivateType(typeof(UrlHelperExtension));
+            type.InvokeStatic("AddObject", BindingFlags.Static | BindingFlags.NonPublic, prefix, val, nvc);
+
+            var nvcResult = new NameValueCollection
+            {
+                ["nextPageToken"] = "Some_very_very_very_very_very_very_long_token",
+            };
+            var dicExpected = nvcResult.AllKeys.ToDictionary(k => k, k => nvcResult[k]);
+            var dicResult = nvc.AllKeys.ToDictionary(k => k, k => nvc[k]);
+
+            CollectionAssert.AreEquivalent(dicExpected, dicResult);
         }
     }
 }

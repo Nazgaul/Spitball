@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Reflection;
+using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -62,9 +64,17 @@ namespace Cloudents.MobileApi.Extensions
 
             prefix = prefix.TrimStart('.');
             var valType = val.GetType();
-            if (val.ToString() != val.GetType().ToString())
+
+            //MethodInfo methodInfo = valType.GetMethod("ToString", Type.EmptyTypes);
+            //if (methodInfo?.DeclaringType == valType)
+            //{
+            //    nvc.Add(prefix, val.ToString().Trim());
+            //}
+            
+
+            if (val.ToString() != val.GetType().ToString() && IsAnonymous(valType))
             {
-                nvc.Add(prefix, val.ToString());
+                nvc.Add(prefix, val.ToString().Trim());
                 return;
             }
             if (val is IEnumerable p)
@@ -78,13 +88,17 @@ namespace Cloudents.MobileApi.Extensions
                 }
                 return;
             }
-
             foreach (var property in valType.GetProperties())
             {
                 var propertyValue2 = property.GetValue(val);
 
                 AddObject($"{prefix}.{property.Name}", propertyValue2, nvc);
             }
+        }
+
+        private static bool IsAnonymous(Type valType)
+        {
+            return valType.Namespace != null;
         }
     }
 }
