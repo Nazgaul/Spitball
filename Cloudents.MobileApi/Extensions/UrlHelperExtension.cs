@@ -53,24 +53,15 @@ namespace Cloudents.MobileApi.Extensions
             return NextPageLink(urlHelper, routeName, null, queryString);
         }
 
-        //public static class NameValueCollectionExtension
-        //{
         private static void AddObject(string prefix, object val, NameValueCollection nvc)
         {
             if (val == null)
             {
-                return;// nvc;
+                return;
             }
 
             prefix = prefix.TrimStart('.');
             var valType = val.GetType();
-
-            //MethodInfo methodInfo = valType.GetMethod("ToString", Type.EmptyTypes);
-            //if (methodInfo?.DeclaringType == valType)
-            //{
-            //    nvc.Add(prefix, val.ToString().Trim());
-            //}
-            
 
             if (val.ToString() != val.GetType().ToString() && IsAnonymous(valType))
             {
