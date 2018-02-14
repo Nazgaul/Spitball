@@ -31,7 +31,6 @@ namespace Cloudents.Infrastructure
             var point = new GeoPoint(ipDto.Longitude, ipDto.Latitude);
             var address = new Address(ipDto.City, ipDto.RegionCode, ipDto.CountryCode);
             return new Location(point, address, ipAddress.ToString());
-
         }
 
 

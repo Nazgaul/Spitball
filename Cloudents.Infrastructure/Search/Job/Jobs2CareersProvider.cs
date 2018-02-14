@@ -44,7 +44,8 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["start"] = (page * JobSearch.PageSize).ToString(),
                 ["Limit"] = JobSearch.PageSize.ToString(),
                 ["format"] = "json",
-                ["link"] = 1.ToString()
+                ["link"] = 1.ToString(),
+                ["q"] = term
             };
 
             if (sort == JobRequestSort.Date)
@@ -89,7 +90,6 @@ namespace Cloudents.Infrastructure.Search.Job
             };
         }
 
-
         public class Jobs2CareersResult
         {
             [JsonProperty("jobs")]
@@ -98,7 +98,6 @@ namespace Cloudents.Infrastructure.Search.Job
             //public int start { get; set; }
             //public int count { get; set; }
         }
-
 
         public class Job
         {
@@ -121,7 +120,6 @@ namespace Cloudents.Infrastructure.Search.Job
             //public string major_category0 { get; set; }
             //public string minor_category0 { get; set; }
         }
-
 
     }
 }
