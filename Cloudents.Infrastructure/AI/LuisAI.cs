@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.AI
 
             if (sentence.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).Length <= 1)
             {
-                return new AiDto(AiIntent.Search, null, null, new[] { sentence }, null, null, null);
+                return new AiDto(AiIntent.Search, null, null, new[] { sentence }, null, null, null,sentence);
             }
 
             var result = await _client.Predict(sentence).ConfigureAwait(false);
@@ -44,7 +44,7 @@ namespace Cloudents.Infrastructure.AI
             var terms = new List<string>();
             if (entities.Count == 0)
             {
-                return new AiDto(intent, null, null, new[] { sentence }, null, null, null);
+                return new AiDto(intent, null, null, new[] { sentence }, null, null, null, sentence);
             }
             foreach (var entity in entities)
             {
@@ -75,7 +75,7 @@ namespace Cloudents.Infrastructure.AI
                     location = entity.Value;
                 }
             }
-            return new AiDto(intent, searchType, null, terms, location, course, isbn);
+            return new AiDto(intent, searchType, null, terms, location, course, isbn, sentence);
         }
 
         public void Dispose()

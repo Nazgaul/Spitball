@@ -4,9 +4,9 @@ using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
-    public class VerticalEngineSearchDto : VerticalEngineDto
+    public class VerticalEngineDocumentDto : VerticalEngineDto
     {
-        public VerticalEngineSearchDto(IEnumerable<string> term, string university, string docType) : base(term)
+        public VerticalEngineDocumentDto(IEnumerable<string> term, string university, string docType) : base(term)
         {
             University = university;
             DocType = docType;

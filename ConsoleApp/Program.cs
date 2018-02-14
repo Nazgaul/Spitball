@@ -49,6 +49,8 @@ namespace ConsoleApp
             builder.RegisterModule<ModuleDb>();
             var container = builder.Build();
             var client = container.Resolve<IAi>();
+            var mapper = container.Resolve<IEngineProcess>();
+            var z = await mapper.ProcessRequestAsync("burger in tel aviv", default);
 
             var p = client.InterpretStringAsync("      ", default);
             Console.WriteLine("Finish");
