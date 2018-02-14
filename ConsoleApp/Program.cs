@@ -55,8 +55,8 @@ namespace ConsoleApp
             };
 
 
-            var mapper = container.Resolve<IBookSearch>();
-            var z = await mapper.SellAsync("9781974572083", default);
+            var mapper = container.Resolve<IEngineProcess>();
+            var z = await mapper.ProcessRequestAsync("burger in tel aviv", default);
 
             //foreach (var price in z.Result)
             //{

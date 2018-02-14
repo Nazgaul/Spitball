@@ -20,15 +20,15 @@ namespace Cloudents.Infrastructure.AI
 
         public AiDecision()
         {
-            var methods = typeof(AiDecision).GetMethods(BindingFlags.NonPublic |BindingFlags.Static).Where(mi =>
-            {
-                if (mi.ReturnType != typeof(VerticalEngineDto))
-                {
-                    return false;
-                }
-                var t = mi.GetCustomAttributes(typeof(FactoryAttribute), true);
-                return t.Length != 0;
-            });
+            var methods = typeof(AiDecision).GetMethods(BindingFlags.NonPublic | BindingFlags.Static).Where(mi =>
+             {
+                 if (mi.ReturnType != typeof(VerticalEngineDto))
+                 {
+                     return false;
+                 }
+                 var t = mi.GetCustomAttributes(typeof(FactoryAttribute), true);
+                 return t.Length != 0;
+             });
             foreach (var method in methods)
             {
                 var t = (Func<AiDto, VerticalEngineDto>)Delegate.CreateDelegate(typeof(Func<AiDto, VerticalEngineDto>), method);
@@ -46,7 +46,7 @@ namespace Cloudents.Infrastructure.AI
                     return result;
                 }
             }
-            return new VerticalEngineNoneDto();
+            return new VerticalEngineDocumentDto(new[] { aiResult.Sentence }, null, null);
         }
 
         [Factory]
@@ -69,7 +69,7 @@ namespace Cloudents.Infrastructure.AI
             {
                 return null;
             }
-            return new VerticalEngineSearchDto(terms, aiResult.University, aiResult.SearchType?.Value);
+            return new VerticalEngineDocumentDto(terms, aiResult.University, aiResult.SearchType?.Value);
         }
 
         private const string Flashcards = "flashcards";

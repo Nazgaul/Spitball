@@ -9,7 +9,7 @@ namespace Cloudents.Core.DTOs
 
         public AiDto(AiIntent intent, KeyValuePair<string, string>? searchType,
             string university, IEnumerable<string> subject,
-            string location, string course, string isbn)
+            string location, string course, string isbn, string sentence)
         {
             Intent = intent;
             SearchType = searchType;
@@ -18,6 +18,7 @@ namespace Cloudents.Core.DTOs
             Location = location;
             Course = course;
             Isbn = isbn;
+            Sentence = sentence;
         }
 
         public AiIntent Intent { get; }
@@ -28,5 +29,7 @@ namespace Cloudents.Core.DTOs
         public string Isbn { get; }
         public IList<string> Subject => new List<string>(_list);
         public string Location { get; }
+
+        public string Sentence { get; }
     }
 }
