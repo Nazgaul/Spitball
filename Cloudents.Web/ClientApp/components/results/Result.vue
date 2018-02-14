@@ -1,7 +1,7 @@
 ﻿﻿
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
-        <div slot="main">
+        <div slot="main" >
             <div class="d-flex mobile-filter hidden-sm-and-up">
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterObject">
                     <v-icon>sbf-filter</v-icon>
@@ -15,7 +15,7 @@
                     </v-chip>
                 </template>
             </div>
-            <div :class="{'loading-skeleton': loading}">
+            <div :class="{'loading-skeleton': showSkelaton}">
                 <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
                     <v-container class="pa-0">
                         <v-layout column>

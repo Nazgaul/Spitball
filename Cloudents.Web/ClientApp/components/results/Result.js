@@ -24,6 +24,8 @@ let updateData = function (data, isFilterUpdate = false) {
     // (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterSelection;
     this.UPDATE_LOADING(false);
+    (this.isLoad)?this.isLoad=false:this.UPDATE_LOADING(false);
+
 
     //if the vertical or search term has been changed update the optional filters according
     if (!isFilterUpdate) {
@@ -102,7 +104,8 @@ export const pageMixin =
             },
             currentSuggest(){return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]},
             userText(){return this.query.q},
-            isAcademic(){return ACADEMIC_VERTICALS.includes(this.name)}
+            isAcademic(){return ACADEMIC_VERTICALS.includes(this.name)},
+            showSkelaton(){return this.loading||this.isLoad}
         },
 
         data() {
@@ -113,7 +116,8 @@ export const pageMixin =
                 filterObject: null,
                 showFilters: false,
                 showPersonalizeField: false,
-                showPromo:this.isPromo
+                showPromo:this.isPromo,
+                isLoad:false
             };
         },
 
@@ -154,7 +158,7 @@ export const pageMixin =
         },
         methods: {
             updatePageData(to,from,next){
-                this.UPDATE_LOADING(true);
+                (to.path===from.path&&to.q===from.q)?this.isLoad=true:this.UPDATE_LOADING(true);
                 const toName = to.path.slice(1);
                 this.pageData = {};
                 this.items = [];
@@ -168,7 +172,7 @@ export const pageMixin =
                             updateData.call(this, data, updateFilter);
                         }).catch(reason => {
                         //when error from fetching data remove the loader
-                        this.UPDATE_LOADING(false);
+                        (to.path===from.path&&to.q===from.q)?this.isLoad=false:this.UPDATE_LOADING(false);
                         this.items=[];
                     });
                     //go to the next page
