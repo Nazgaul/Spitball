@@ -53,16 +53,19 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
 
-            builder.RegisterType<TutorAzureSearch>().As<ITutorProvider>();
+            #region Tutor
+
+            builder.RegisterAssemblyTypes(currentAssembly)
+                .Where(w => typeof(ITutorProvider).IsAssignableFrom(w)).AsImplementedInterfaces();
             builder.RegisterType<TutorSearch>().As<ITutorSearch>()
                 .EnableInterfaceInterceptors().InterceptedBy(typeof(BuildLocalUrlInterceptor));
+
+            #endregion
 
             builder.RegisterType<VideoSearch>().As<IVideoSearch>();
 
             #region Job
 
-            //builder.RegisterType<AzureJobSearch>().As<IJobProvider>();
-            //builder.RegisterType<ZipRecruiterClient>().As<IJobProvider>();
             builder.RegisterAssemblyTypes(currentAssembly)
                 .Where(w => typeof(IJobProvider).IsAssignableFrom(w)).AsImplementedInterfaces();
             builder.RegisterType<JobSearch>().As<IJobSearch>()

@@ -11,6 +11,6 @@ namespace Cloudents.Core.Interfaces
     {
         Task<IEnumerable<TutorDto>> SearchAsync(IEnumerable<string> term,
             TutorRequestFilter[] filters, TutorRequestSort sort,
-            GeoPoint location, int page, CancellationToken token);
+            GeoPoint location, int page,bool isMobile, CancellationToken token);
     }
 }

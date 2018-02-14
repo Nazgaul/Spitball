@@ -21,7 +21,7 @@ namespace Cloudents.Core.DTOs
         public double? Fee { get; set; }
 
         [DataMember]
-        public GeoPoint Location { get; set; }
+        public GeoPoint Location { get; set; } //mobile application use that
         [DataMember]
         public string Description { get; set; }
 

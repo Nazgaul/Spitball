@@ -33,10 +33,12 @@
                     tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
                 }
                 this.setCurrentVertical(result);
+                let query={};
+                if(this.$route.query.hasOwnProperty("promo")){
+                    query={promo:this.$route.query.promo}
+                }
                 let {text="",course}=this.getVerticalData(result);
-                // this.getAIDataForVertical(result).then(({text="",course})=>{
-                    this.$router.push({ path: '/' + result, query: { q: text,course } });
-                // })
+                    this.$router.push({ path: '/' + result, query: { ...query,q: text,course } });
             }
         }
     }

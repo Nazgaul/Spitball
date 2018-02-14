@@ -25,6 +25,7 @@ namespace Cloudents.Web
 {
     public class Startup
     {
+        public const string IntegrationTestEnvironmentName = "Integration-Test";
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
@@ -53,7 +54,11 @@ namespace Cloudents.Web
                     o.Filters.Add(new GlobalExceptionFilter());
                     o.ModelBinderProviders.Insert(0, new LocationModelBinder());
                 });
-            services.Configure<MvcOptions>(options => options.Filters.Add(new RequireHttpsAttribute()));
+            //if (!HostingEnvironment.IsEnvironment(IntegrationTestEnvironmentName))
+            //{
+            //    services.Configure<MvcOptions>(options => options.Filters.Add(new RequireHttpsAttribute()));
+            //}
+
             services.AddResponseCompression();
             services.AddResponseCaching();
 
@@ -62,17 +67,18 @@ namespace Cloudents.Web
 
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
-            
 
             var keys = new ConfigurationKeys
             {
                 Db = Configuration.GetConnectionString("DefaultConnection"),
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
-                    Configuration["AzureSearch:SearchServiceAdminApiKey"]),
+                       Configuration["AzureSearch:SearchServiceAdminApiKey"]),
                 Redis = Configuration["Redis"],
                 Storage = Configuration["Storage"],
                 SystemUrl = Configuration["SystemUrl"]
             };
+
+
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterModule<ModuleWeb>();
             containerBuilder.RegisterModule<ModuleFile>();
@@ -85,33 +91,44 @@ namespace Cloudents.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
-            var supportedCultures = new[]
-            {
-                new CultureInfo("en-US")
-            };
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture(supportedCultures[0]),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
+            //var supportedCultures = new[]
+            //{
+            //    new CultureInfo("en-US")
+            //};
+            //app.UseRequestLocalization(new RequestLocalizationOptions
+            //{
+            //    DefaultRequestCulture = new RequestCulture(supportedCultures[0]),
+            //    SupportedCultures = supportedCultures,
+            //    SupportedUICultures = supportedCultures
+            //});
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true
                 });
             }
+            if (env.IsDevelopment() || env.IsEnvironment(IntegrationTestEnvironmentName))
+            {
+                app.UseDeveloperExceptionPage();
+            }
             else
             {
                 //app.UseExceptionHandler("Error");
             }
-            app.UseRewriter(new RewriteOptions()
-                .AddRedirectToHttpsPermanent()
-                .Add(new RemoveTrailingSlash())
-            );
+
+            var reWriterOptions = new RewriteOptions()
+                .Add(new RemoveTrailingSlash());
+            if (!env.IsEnvironment(IntegrationTestEnvironmentName))
+            {
+                reWriterOptions.AddRedirectToHttpsPermanent();
+            }
+
+            app.UseRewriter(reWriterOptions);
+
 
             app.UseResponseCompression();
             app.UseResponseCaching();

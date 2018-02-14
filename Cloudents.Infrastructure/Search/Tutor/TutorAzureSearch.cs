@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
         }
 
         public async Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter[] filters,
-            TutorRequestSort sort, GeoPoint location, int page, CancellationToken token)
+            TutorRequestSort sort, GeoPoint location, int page, bool isMobile, CancellationToken token)
         {
             var sortQuery = new List<string>();
             var filterQuery = ApplyFilter(filters, location);
