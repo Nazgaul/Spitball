@@ -9,7 +9,9 @@
 
     .toolbar__items {
         flex-grow: 1;
-        .inTheMiddle();
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .toolbar__content > .layout {
@@ -87,7 +89,8 @@
         }
 
         &.search-wrapper {
-            align-items: flex-end;
+          align-items: flex-end;
+          margin-right: 8px;
         }
 
         flex: 1;
@@ -112,6 +115,15 @@
 
   .search-b-wrapper {
     flex-grow: 1;
+
+      .menu__activator{
+          display: flex;
+          width: 100%;
+
+          span{
+              width: 100%;
+          }
+      }
 
     max-width: 805px;
     .search-b {
