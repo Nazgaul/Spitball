@@ -8,12 +8,16 @@ namespace Cloudents.Web.Extensions
     {
         public static void Put<T>(this ITempDataDictionary tempData, string key, T value) where T : class
         {
+            tempData[key] = Serialize(value);
+        }
+
+        private static string Serialize<T>(T value)
+        {
             using (var ms = new MemoryStream())
             {
                 ProtoBuf.Serializer.Serialize(ms, value);
-                tempData[key] = Convert.ToBase64String(ms.ToArray());
+                return Convert.ToBase64String(ms.ToArray());
             }
-            //tempData[key] = JsonConvert.SerializeObject(value);
         }
 
         public static T Get<T>(this ITempDataDictionary tempData, string key) where T : class

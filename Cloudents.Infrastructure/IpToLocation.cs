@@ -2,7 +2,6 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
@@ -13,26 +12,21 @@ namespace Cloudents.Infrastructure
     public class IpToLocation : IIpToLocation
     {
         private readonly IRestClient _restClient;
-        private readonly IMapper _mapper;
 
-        public IpToLocation(IRestClient restClient, IMapper mapper)
+        public IpToLocation(IRestClient restClient)
         {
             _restClient = restClient;
-            _mapper = mapper;
         }
 
         [Cache(TimeConst.Year, nameof(IpToLocation))]
         public async Task<Location> GetAsync(IPAddress ipAddress, CancellationToken token)
         {
             var uri = new Uri($"http://freegeoip.net/json/{ipAddress}");
-            var str = await _restClient.GetAsync(uri, null, token).ConfigureAwait(false);
-            var ipDto = JsonConvert.DeserializeObject<IpDto>(str);
-
+            var ipDto = await _restClient.GetAsync<IpDto>(uri, null, token).ConfigureAwait(false);
             var point = new GeoPoint(ipDto.Longitude, ipDto.Latitude);
             var address = new Address(ipDto.City, ipDto.RegionCode, ipDto.CountryCode);
             return new Location(point, address, ipAddress.ToString());
         }
-
 
         public class IpDto
         {
@@ -69,11 +63,6 @@ namespace Cloudents.Infrastructure
             public double Longitude { get; set; }
             [JsonProperty("metro_code")]
             public string MetroCode { get; set; }
-
-            //public Location ConvertToPoint()
-            //{
-            //    return new Location(Longitude, Latitude, $"{City},{RegionCode}");
-            //}
         }
     }
 }
