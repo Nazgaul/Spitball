@@ -56,11 +56,16 @@ namespace Cloudents.Mobile.Extensions
 
             prefix = prefix.TrimStart('.');
             var valType = val.GetType();
-            if (val.ToString() != val.GetType().ToString())
+            if (val is string)
             {
                 nvc.Add(prefix, val.ToString());
                 return;
             }
+            //if (val.ToString() != val.GetType().ToString())
+            //{
+            //    //nvc.Add(prefix, val.ToString());
+            //    return;
+            //}
             if (val is IEnumerable p)
             {
                 foreach (var z in p)
