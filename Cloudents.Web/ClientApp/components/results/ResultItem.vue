@@ -4,7 +4,7 @@
             <v-layout row fluid class="result-cell-content">
                 <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1),'spitball-bg-'+$route.path.slice(1)]">
                     <img :src="item.image" v-if="item.image" alt="" class="image-from-source">
-                    <component :is="$route.path.slice(1)+'-default'" v-else :class="'spitball-bg-'+$route.path.slice(1) + 'spitball-border-'+$route.path.slice(1)" class="defaultImage"></component>
+                    <component v-else-if="itemList.includes(currentVertical)" :is="$route.path.slice(1)+'-default'" :class="'spitball-bg-'+$route.path.slice(1) + 'spitball-border-'+$route.path.slice(1)" class="defaultImage"></component>
                 </v-flex>
                 <v-flex class="right-section">
                     <v-layout wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
@@ -30,7 +30,7 @@
     import FlashcardDefault from '../home/img/flashcard.svg'
     import AskDefault from '../home/img/ask.svg'
     import NoteDefault from '../home/img/document.svg'
-
+    const itemList=['note','ask','flashcard'];
     //var sourcesImages = {
     //    quizlet: 'quizlet.png',
     //    cram: 'cram.png',
@@ -45,6 +45,7 @@
 
         props: { item: { type: Object, required: true }, index: { Number } },
         computed: {
+            currentVertical(){return this.$route.path.slice(1)},
             isSpitball() { return this.item.source.includes('spitball') },
             url: function () {
                 return this.isSpitball ? this.item.url.split('.co/')[1] : this.item.source.includes("studyblue") ? this.item.url = `${this.item.url}?utm_source=spitball&utm_medium=referral` : this.item.url
@@ -60,6 +61,7 @@
                 this.$router.push(this.url)
             }
         },
+        data:()=>({itemList})
         //data() {
         //    return {
         //        sourcesImages: sourcesImages
