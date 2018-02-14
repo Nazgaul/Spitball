@@ -16,14 +16,15 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
+    import {mapActions,mapGetters} from 'vuex'
     import {verticalsNavbar as verticals} from '../../data'
     export default {
         name: "verticals-tabs",
+        computed:{...mapGetters(['getVerticalData'])},
         props:{currentSelection:{}},
         data(){return {verticals}},
         methods: {
-            ...mapActions(["setCurrentVertical","getAIDataForVertical"]),
+            ...mapActions(["setCurrentVertical"]),
             $_updateType(result) {
                 this.$ga.event("Vertical_Tab",result);
                 let tabs = this.$el.querySelector('.tabs__wrapper');
@@ -32,9 +33,12 @@
                     tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
                 }
                 this.setCurrentVertical(result);
-                this.getAIDataForVertical(result).then(({text="",course})=>{
-                    this.$router.push({ path: '/' + result, query: { q: text,course } });
-                })
+                let query={};
+                if(this.$route.query.hasOwnProperty("promo")){
+                    query={promo:this.$route.query.promo}
+                }
+                let {text="",course}=this.getVerticalData(result);
+                    this.$router.push({ path: '/' + result, query: { ...query,q: text,course } });
             }
         }
     }

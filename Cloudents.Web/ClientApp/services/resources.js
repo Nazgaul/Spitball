@@ -70,7 +70,7 @@ const getPlacesDetails = ({ id }) => {
     return axios.get("places", { params: { id } });
 }
 export const getUniversity = (params) => axios.get("university", { params });
-export const search = { getBookDetails, ...searchFunctions, getPlacesDetails };
+export const search = { getBookDetails, ...searchFunctions, getPlacesDetails,autoComplete:(term)=>axios.get("suggest",{params:{sentence:term}}) };
 export const course = { ...courseFunctions };
 export const help = {
     getFaq: () => axios.get("help"),

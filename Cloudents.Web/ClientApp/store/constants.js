@@ -1,1 +1,2 @@
 export const MAX_HISTORY_LENGTH = 5;
+export const MAX_VERTICAL_HISTORY_LENGTH = 3;

@@ -23,13 +23,11 @@ namespace Cloudents.Web.Extensions
         internal static IPAddress GetIpAddress(this ConnectionInfo connection)
         {
             var ip = connection.RemoteIpAddress;
-            var ipV4 = ip.MapToIPv4();
             if (connection.IsLocal())
             {
-                ipV4 = IPAddress.Parse("31.154.39.170");
+                return IPAddress.Parse("31.154.39.170");
             }
-
-            return ipV4;
+            return ip.MapToIPv4();
         }
     }
 }

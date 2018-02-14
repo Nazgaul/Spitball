@@ -12,16 +12,13 @@ namespace Cloudents.Web.Test
         public void Serialize_Location_CanSerialize()
         {
             var address = new Location(null, null, null);
-
-            var type = new PrivateType(typeof(TempDataExtensions));
-
-            MethodInfo SerializeMethod = typeof(TempDataExtensions).GetMethod("Serialize", BindingFlags.Static | BindingFlags.NonPublic );
-            if (SerializeMethod == null)
+            var serializeMethod = typeof(TempDataExtensions).GetMethod("Serialize", BindingFlags.Static | BindingFlags.NonPublic );
+            if (serializeMethod == null)
             {
                 Assert.Fail("Could not find method");
             }
-            MethodInfo genericSerializeMethod = SerializeMethod.MakeGenericMethod(typeof(Location));
-            var result1 = (string)genericSerializeMethod.Invoke(typeof(Location), new object[] { address });
+            var genericSerializeMethod = serializeMethod.MakeGenericMethod(typeof(Location));
+            genericSerializeMethod.Invoke(typeof(Location), new object[] { address });
             var success = true;
             Assert.IsTrue(success);
 

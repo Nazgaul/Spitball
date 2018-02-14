@@ -31,23 +31,14 @@ const mutations = {
 };
 
 const getters = {
-    askData:state=>state.academic||{},
-    noteData:state=>({...state.academic,course:state.filterCourses}||{}),
-    flashcardData:state=>({...state.academic,course:state.filterCourses}||{}),
-    tutorData:state=>state.academic||{},
-    bookData:state=>state.academic||{},
-    jobData:state=>state.job||{},
-    foodData:state=>state.food||{},
+    getVerticalData:state=>(vertical)=>state[getLuisType(vertical)]||{},
     currentText:state=>state.currentText,
-    getAIData:state=>state[getLuisType(state.currentVertical)]
+    getCurrentVertical:state=>state.currentVertical
 };
 const actions = {
     updateAITerm({commit,dispatch}, {vertical,data}){
         commit(LUIS.UPDATE_TERM,{vertical,data});
-        dispatch('updateHistorySet',data.text)
-    },
-    getAIDataForVertical(context, val){
-      return context.getters[`${val}Data`];
+        dispatch('updateHistorySetVertical',{term:data.text,vertical})
     },
     setFilteredCourses({commit}, data){
         commit(LUIS.UPDATE_FILTER_COURSES,data);

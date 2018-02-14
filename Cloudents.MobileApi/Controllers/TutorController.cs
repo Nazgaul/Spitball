@@ -13,7 +13,7 @@ namespace Cloudents.MobileApi.Controllers
     /// <summary>
     /// Tutor api controller
     /// </summary>
-    [Route("api/[controller]",Name="Tutor")]
+    [Route("api/[controller]", Name = "Tutor")]
     public class TutorController : Controller
     {
         private readonly ITutorSearch _tutorSearch;
@@ -41,7 +41,7 @@ namespace Cloudents.MobileApi.Controllers
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Price),
                 model.Location,
-                model.Page.GetValueOrDefault(), token).ConfigureAwait(false)).ToListIgnoreNull();
+                model.Page.GetValueOrDefault(), true, token).ConfigureAwait(false)).ToListIgnoreNull();
 
             string nextPageLink = null;
             if (result.Count > 0)

@@ -57,7 +57,7 @@ export const pageMixin =
         },
         computed: {
             //get data from vuex getters
-            ...mapGetters(['isFirst', 'myCourses','getFacet']),
+            ...mapGetters(['isFirst', 'myCourses','getFacet','getVerticalData']),
             ...mapGetters({ universityImage: 'getUniversityImage', university: 'getUniversity' }),
             currentPromotion(){return promotions[this.name]},
             content: {
