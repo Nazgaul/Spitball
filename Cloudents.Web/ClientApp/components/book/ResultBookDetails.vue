@@ -1,7 +1,7 @@
 ﻿<template>
-    <general-page v-if="pageData.details" 
-                  :title="(pageData.details?pageData.details.title:'')">
-        <template slot="sideBar" v-if="page">
+    <general-page
+                  :title="(pageData&&pageData.details?pageData.details.title:'')">
+        <template slot="sideBar">
             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
                        :sortOptions="$vuetify.breakpoint.xsOnly?null:sortOptions"  :sortVal="sortVal"
                        v-model="showFilters"
@@ -18,7 +18,7 @@
                     <v-icon>sbf-filter</v-icon>
                 </v-btn>
             </div>
-            <div class="book-sources pa-2 elevation-1" v-if="filteredList.length">
+            <div class="book-sources pa-2 elevation-1" v-if="filteredList.length&&!isLoad">
                 <a :href="item.link" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" class="price-line" v-for="(item,index) in filteredList" :key="index">
                     <v-layout row justify-space-between class="price-line-content" @click="$ga.event('Search_Results', `Books_Details_${currentType}`,`#${index+1}_${item.name}`)">
                         <v-flex class="image text-xs-left">
