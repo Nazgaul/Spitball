@@ -52,7 +52,7 @@ namespace Cloudents.Infrastructure.Interceptor
             try
             {
                 var result = await task.ConfigureAwait(false);
-                if (result != null)
+                if (!System.Collections.Generic.EqualityComparer<T>.Default.Equals(result, default))
                 {
                     AfterAction(ref result, invocation);
                 }
