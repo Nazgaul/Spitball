@@ -4,31 +4,7 @@
             <v-container>
                 <v-layout row>
                     <v-flex class="tx-input">
-                        <v-menu :allow-overflow="true" offset-y full-width content-class="search-menu" v-model="menuOpen">
-                            <span slot="activator">
-                                <v-text-field slot="inputField" type="search" solo
-                                              @keyup.enter="search" autocomplete="off"
-                                              required name="q"
-                                              :class="{'record':isRecording}"
-                                              id="transcript"
-                                              v-model.trim="msg" :placeholder="placeholder"
-                                              prepend-icon="sbf-search" :append-icon="voiceAppend"
-                                              :append-icon-cb="$_voiceDetection"></v-text-field>
-                            </span>
-                            <v-list>
-                                <v-subheader>Some things you can ask me:</v-subheader>
-                                <template v-for="(item, index) in items">
-                                    <v-list-tile @click="selectos({item:item,index})" :key="index">
-                                        <v-list-tile-action hidden-xs-only>
-                                            <v-icon>sbf-search</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                           <v-list-tile-title v-text="item"></v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                </template>
-                            </v-list>
-                        </v-menu>
+                        <search-input :placeholder="placeholder" :menu-open="menuOpen"></search-input>
                     </v-flex>
                     <v-flex class="f-submit">
                         <button type="submit">
@@ -42,21 +18,11 @@
     </div>
 </template>
 <script>
-    import { micMixin } from '../helpers/mic';
-    const homeSuggest = [
-        "Flashcards for financial accounting",
-        "Class notes for my Calculus class",
-        "When did World War 2 end?",
-        "Difference between Meiosis and Mitosis",
-        "Tutor for Linear Algebra",
-        "Job in marketing in NYC",
-        "The textbook - Accounting: Tools for Decision Making",
-        "Where can I get a burger near campus?"
-    ];
+    import SearchInput from '../helpers/searchInput.vue';
 
     export default {
-        mixins: [micMixin],
         props: ["headerMenu"],
+        components:{SearchInput},
         computed: {
             placeholder: function () {
                 if (this.$vuetify.breakpoint.smAndUp) {
@@ -67,7 +33,6 @@
         },
         data() {
             return {
-                items: homeSuggest,
                 menuOpen:false
             }
         },

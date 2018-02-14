@@ -41,5 +41,6 @@ export default {
                 return search.getFood({ term, filter, location });
             }
         }
-    }
+    },
+    autoComplete:(term)=>search.autoComplete(term)
 }

@@ -11,7 +11,16 @@ const state = {
         pinnedCards: {}
     },
     facet:"",
-    historyTermSet:[]
+    historyTermSet:[],
+    historySet:{
+        job:[],
+        flashcard:[],
+        ask:[],
+        note:[],
+        food:[],
+        tutor:[],
+        book:[]
+    }
 };
 const mutations = {
     [USER.UPDATE_USER](state, payload) {
@@ -19,6 +28,21 @@ const mutations = {
     },
     [USER.UPDATE_FACET](state,payload){
         state.facet=payload;
+    },
+    [USER.UPDATE_SEARCH_SET_VERTICAL](state,{term,vertical}){
+        if(!term||!term.trim())return;
+        if(!state.historySet[vertical]){state.historySet[vertical]=[];}
+        let currentList=state.historySet[vertical];
+        let currentTermIndex=currentList.findIndex(i=>i.term===term);
+        if(currentTermIndex>-1){
+            currentList=[...currentList.slice(0,currentTermIndex),...currentList.slice(currentTermIndex,consts.MAX_HISTORY_LENGTH)];
+        }
+        currentList.push({term,date:new Date().getTime()});
+
+        //if we reached to the limit drop the first one
+        if(currentList.length>consts.MAX_VERTICAL_HISTORY_LENGTH){
+            state.historySet[vertical]=currentList.slice(1);
+        }
     },
     [USER.UPDATE_SEARCH_SET](state,term){
         if(!term||!term.trim())return;
@@ -40,6 +64,11 @@ const mutations = {
 };
 const getters = {
     historyTermSet:state=>state.historyTermSet,
+    allHistorySet:state=>{
+        let sortedList=[].concat(...Object.values(state.historySet)).sort((a, b) => b.date - a.date).map(i=>i.term);
+        return sortedList.filter((val,i,arr)=>arr.findIndex(b=>b===val)===i).slice(0,consts.MAX_HISTORY_LENGTH);
+    },
+    getVerticalHistory:state=>(vertical)=>state.historySet[vertical].map(i=>i.term),
     isFirst: state => state.user.isFirst,
     location: state => {
         let location=state.user.location;
@@ -68,6 +97,9 @@ const getters = {
 const actions = {
     updateHistorySet({commit},term){
       commit(USER.UPDATE_SEARCH_SET,term);
+    },
+    updateHistorySetVertical({commit},term){
+        commit(USER.UPDATE_SEARCH_SET_VERTICAL,term);
     },
     updateLocation(context) {
         return new Promise((resolve) => {

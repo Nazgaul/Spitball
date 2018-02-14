@@ -59,9 +59,14 @@ const actions = {
     foodDetails: (context, { id }) => {
         return searchService.activateFunction["foodDetails"]({ id });
     },
+    getAutocmplete(context, term) {
+        return searchService.autoComplete(term);
+    },
     fetchingData(context, { name, params, page}){
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
-        return context.dispatch('getAIDataForVertical',name).then((aiData)=>{
+        let aiData=context.getters.getVerticalData(name);
+
+        // return context.dispatch('getAIDataForVertical',name).then((aiData)=>{
             let paramsList = {...context.state.search,...params, university, page, ...aiData};
             //get location if needed
             return new Promise((resolve) => {
@@ -74,7 +79,7 @@ const actions = {
             }).then(() => {
                 return searchService.activateFunction[name](paramsList);
             });
-        })
+        // })
     }
 };
 
