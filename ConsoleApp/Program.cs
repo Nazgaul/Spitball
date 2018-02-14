@@ -48,12 +48,9 @@ namespace ConsoleApp
             builder.RegisterModule<ModuleFile>();
             builder.RegisterModule<ModuleDb>();
             var container = builder.Build();
-            var client = container.Resolve<IRestClient>();
-            var mapper = container.Resolve<IMapper>();
+            var client = container.Resolve<IAi>();
 
-            var t = new Jobs2CareersProvider(client, mapper);
-            var address = new Location(null,null,"72.229.28.185");
-            var z = await t.SearchAsync("php", JobRequestSort.Date, null, address, 0, false, default);
+            var p = client.InterpretStringAsync("      ", default);
             Console.WriteLine("Finish");
             Console.ReadLine();
             // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
