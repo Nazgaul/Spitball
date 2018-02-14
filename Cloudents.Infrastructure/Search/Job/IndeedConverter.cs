@@ -2,7 +2,6 @@
 using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
-using Microsoft.Spatial;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
