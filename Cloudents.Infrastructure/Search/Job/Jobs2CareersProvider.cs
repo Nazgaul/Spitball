@@ -120,6 +120,5 @@ namespace Cloudents.Infrastructure.Search.Job
             //public string major_category0 { get; set; }
             //public string minor_category0 { get; set; }
         }
-
     }
 }

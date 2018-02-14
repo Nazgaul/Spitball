@@ -19,13 +19,13 @@ namespace Cloudents.Core.Models
         /// <summary>
         /// Location of user
         /// </summary>
-        [DataMember(Order = 6)]
+        [DataMember(Order = 3)]
         public GeoPoint Point { get; set; }
 
         [DataMember(Order = 1)]
         public Address Address { get; set; }
 
-        [DataMember(Order = 7)]
+        [DataMember(Order = 2)]
         public string Ip { get; set; }
     }
 }
