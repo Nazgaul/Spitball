@@ -17,6 +17,48 @@
                            <!--</form>-->
                            <v-spacer v-if="$vuetify.breakpoint.smAndDown"></v-spacer>
                            <div class="settings-wrapper d-flex align-center">
+                                <v-menu bottom left>
+                                    <v-btn class="share-btn" icon slot="activator">
+                                        <share-icon></share-icon>
+                                    </v-btn>
+                                    <v-list class="sharing-list">
+                                        <v-list-tile @click="facebookShare">
+                                            <v-list-tile-action>
+                                                <facebook-icon class="facebook-icon"></facebook-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    <span>Facebook</span>
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile @click="twitterShare">
+                                            <v-list-tile-action>
+                                                <twitter-icon class="twitter-icon"></twitter-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>Twitter</v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile :href="whatsappLink()" class="btn-copy hidden-sm-and-up">
+                                            <v-list-tile-action>
+                                                <whatsapp-icon></whatsapp-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>Whatsapp</v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile @click="copyToClipboard" class="btn-copy">
+                                            <v-list-tile-action>
+                                                <copy-link-icon></copy-link-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>Copy link</v-list-tile-title>
+                                                <input type="text" id="input-url" value="Copied!">
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                    </v-list>
+                                </v-menu>
                                <v-menu bottom left>
                                    <v-btn icon slot="activator">
                                        <v-icon>sbf-3-dot</v-icon>
@@ -41,7 +83,9 @@
                </v-flex>
            </div>
         <slot name="extraHeader"></slot>
-    </v-layout></v-toolbar>
+    </v-layout>
+       <personalize-dialog ref="personalize"></personalize-dialog>
+   </v-toolbar>
 </template>
 
 <script>
@@ -67,18 +111,46 @@
     };
     export default {
         computed: {
-            ...mapGetters(['getUniversityName'])},
+            ...mapGetters(['getUniversityName']),
+        },
         watch:{
             toolbarHeight(val) {
                 this.height = val;
             }
         },
-        components:{AppLogo,SearchInput},
+        components: {
+            PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput
+        },
         props:{currentSelection:{type:String,default:'note'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
         data(){return {settingMenu,placeholders}},
         methods:{
-            $_currentClick(item){
-                this.$root.$emit("personalize", item.id);
+            $_currentClick({ id,name }) {
+                if(name==='Feedback'){
+                    Intercom('showNewMessage', 'Feedback on the new reports feature:');
+                }else{
+                    this.$refs.personalize.openDialog(id);
+                }
+            },
+            facebookShare() {
+                const shareFb = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href);
+                window.open(shareFb, "pop", "width=600, height=400, scrollbars=no");
+            },
+
+            twitterShare() {
+                const shareTwiiter = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(window.location.href);
+                window.open(shareTwiiter, "pop", "width=600, height=400, scrollbars=no");
+            },
+
+            copyToClipboard() {
+                var copyText = document.getElementById("input-url");
+                copyText.value = window.location.href;
+                copyText.select();
+                document.execCommand("Copy");
+            },
+
+
+            whatsappLink() {
+                return "whatsapp://send?text=" + encodeURIComponent(window.location.href);
             }
         },
         created(){
