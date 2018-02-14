@@ -24,14 +24,13 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.2" />
-    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.3.0" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.4.0" />
     <PackageReference Include="AutoMapper" Version="6.2.2" />
     <PackageReference Include="CacheManager.Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.1.2" />
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.1.2" />
     <PackageReference Include="Dapper" Version="1.50.4" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.32.2.1131" />
-    <PackageReference Include="Microsoft.Azure.DocumentDB" Version="1.19.1" />
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="1.8.1" />
     <PackageReference Include="Microsoft.Azure.Search" Version="4.0.1-preview" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
