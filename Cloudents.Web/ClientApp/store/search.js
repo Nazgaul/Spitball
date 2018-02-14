@@ -45,23 +45,21 @@ const actions = {
                     });
                 } else { resolve(); }
             }).then(()=> {
-            context.dispatch('updateAITerm',{vertical:currentVertical,data:{text,term,docType}});
-            return Promise.all([location]).then(()=> {
-                context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...params });
-                return {result: body.vertical}
-                }
-            )
+                return Promise.all([location]).then(()=> {
+                        context.commit(SEARCH.UPDATE_SEARCH_PARAMS, { ...params });
+                        return {result: body.vertical}
+                    }
+                )
+            });
         });
     },
-
     bookDetails: (context, { pageName, isbn13, type }) => {
         return searchService.activateFunction[pageName]({ isbn13, type });
     },
     foodDetails: (context, { id }) => {
         return searchService.activateFunction["foodDetails"]({ id });
     },
-
-    fetchingData(context, { name, params, page}) {
+    fetchingData(context, { name, params, page}){
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
         return context.dispatch('getAIDataForVertical',name).then((aiData)=>{
             let paramsList = {...context.state.search,...params, university, page, ...aiData};
