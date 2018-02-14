@@ -33,9 +33,12 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Get(string sentence, CancellationToken token)
+        public async Task<IActionResult> GetAsync(string sentence, CancellationToken token)
         {
-            if (sentence == null) throw new ArgumentNullException(nameof(sentence));
+            if (string.IsNullOrWhiteSpace(sentence))
+            {
+                return BadRequest();
+            }
             var result = await _engineProcess.ProcessRequestAsync(sentence, token).ConfigureAwait(false);
             return Ok(result);
         }
