@@ -150,7 +150,7 @@
             },
             $_currentClick({ id,name }) {
                 if(name==='Feedback'){
-                    Intercom('showNewMessage', 'Feedback on the new reports feature:');
+                    Intercom('showNewMessage', '');
                 }else{
                     this.$refs.personalize.openDialog(id);
                 }

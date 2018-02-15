@@ -56,7 +56,7 @@ export let settingMenu = [
         //id: "intercom",
         name: "Feedback",
         click: function () {
-            Intercom('showNewMessage', 'Feedback on the new reports feature:');
+            Intercom('showNewMessage', '');
         }
     }
 ];
