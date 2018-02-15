@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using Cloudents.Core.Extension;
-using Microsoft.Spatial;
 
 namespace Cloudents.Core.DTOs
 {

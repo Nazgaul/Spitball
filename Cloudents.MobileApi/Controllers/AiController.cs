@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;

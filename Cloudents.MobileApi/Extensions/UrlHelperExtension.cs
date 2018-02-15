@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Specialized;
-using System.Reflection;
-using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace Cloudents.MobileApi.Extensions
 {

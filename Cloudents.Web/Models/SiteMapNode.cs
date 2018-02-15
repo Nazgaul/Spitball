@@ -55,7 +55,6 @@ namespace Cloudents.Web.Models
         //    return siteMapNodes;
         //}
 
-
         //public static string GetUrl(RequestContext request, string routeName, object routeValues)
         //{
         //    var routes = RouteTable.Routes;

@@ -12,8 +12,6 @@ using Cloudents.Web.Filters;
 using Cloudents.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
@@ -78,7 +76,6 @@ namespace Cloudents.Web
                 SystemUrl = Configuration["SystemUrl"]
             };
 
-
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterModule<ModuleWeb>();
             containerBuilder.RegisterModule<ModuleFile>();
@@ -91,7 +88,6 @@ namespace Cloudents.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
             //var supportedCultures = new[]
             //{
@@ -105,7 +101,6 @@ namespace Cloudents.Web
             //});
             if (env.IsDevelopment())
             {
-
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true
@@ -128,7 +123,6 @@ namespace Cloudents.Web
             }
 
             app.UseRewriter(reWriterOptions);
-
 
             app.UseResponseCompression();
             app.UseResponseCaching();
