@@ -37,6 +37,9 @@
                     <v-divider></v-divider>
                 </a>
             </div>
+            <div class="loader" v-else>
+                <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
+            </div>
         </div>
     </general-page>
 </template>
