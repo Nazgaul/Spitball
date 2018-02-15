@@ -38,7 +38,7 @@ export let settingMenu = [
             this.showDialog = true;
             this.type = "";
             this.$nextTick(() => this.type = "university");
-            this.keep = false;
+            this.keep = true;
             this.isSearch = true;
         }
     },
@@ -56,7 +56,7 @@ export let settingMenu = [
         //id: "intercom",
         name: "Feedback",
         click: function () {
-            Intercom('showNewMessage', 'Feedback on the new reports feature:');
+            Intercom('showNewMessage', '');
         }
     }
 ];

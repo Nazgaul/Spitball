@@ -13,7 +13,7 @@
         letter-spacing: -0.4px;
         color: @Food;
         display: block;
-        .giveMeEllipsisOne();
+        .giveMeEllipsis(2,19px);
     }
 
     .rate {
@@ -76,7 +76,9 @@
         overflow: hidden;
         box-shadow: 0 0 1px black;
     }
-
+    .cell-data{
+        overflow: hidden;
+    }
     @media(max-width: @screen-xs) {
         iframe {
             max-height: 100vh;
