@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,10 +26,13 @@ namespace Cloudents.Infrastructure.Search
         public async Task<IEnumerable<CourseDto>> SearchAsync(string term, long universityId,
             CancellationToken token)
         {
-            if (!term.Contains(" "))
+            if (term.Length < 4)
             {
                 term += "*";
             }
+
+            //term =Uri.EscapeDataString(term);
+            term = term.Replace(":", @"\:");
 
             var tResult = _client.Documents.SearchAsync<Course>(term, new SearchParameters
             {
