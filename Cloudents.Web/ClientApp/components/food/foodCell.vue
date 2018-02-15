@@ -4,7 +4,7 @@
             <img :src="props.item.image" alt="" v-if="props.item.image">
             <food-default v-else class="defaultImage spitball-bg-food"></food-default>
         </div>
-        <v-flex class="pa-0 ml-2">
+        <v-flex class="cell-data pa-0 ml-2">
             <v-container class="pa-0 full-height">
                 <v-layout wrap column justify-content-space-between align-item-stretch class="full-height ma-0">
                     <v-flex class="pa-0">
