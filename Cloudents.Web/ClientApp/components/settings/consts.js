@@ -38,7 +38,7 @@ export let settingMenu = [
             this.showDialog = true;
             this.type = "";
             this.$nextTick(() => this.type = "university");
-            this.keep = false;
+            this.keep = true;
             this.isSearch = true;
         }
     },
