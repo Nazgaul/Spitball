@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
         }
 
         [BuildLocalUrl("", PageSize, "page")]
-        public Task<IEnumerable<TutorDto>> SearchAsync(IEnumerable<string> term, TutorRequestFilter[] filters, TutorRequestSort sort, GeoPoint location, int page,
+        public async Task<IEnumerable<TutorDto>> SearchAsync(IEnumerable<string> term, TutorRequestFilter[] filters, TutorRequestSort sort, GeoPoint location, int page,
             bool isMobile, CancellationToken token)
         {
             var query = string.Join(" ", term ?? Enumerable.Empty<string>());
@@ -39,7 +39,13 @@ namespace Cloudents.Infrastructure.Search.Tutor
             if (filters?.Contains(TutorRequestFilter.InPerson) == true && location == null)
                 throw new ArgumentException("Need to location");
 
-            return _tutorSearch.SelectManyAsync(s => s.SearchAsync(query, filters, sort, location, page, isMobile, token));
+            var result =await _tutorSearch.SelectManyAsync(s => s.SearchAsync(query, filters, sort, location, page, isMobile, token));
+            if (sort == TutorRequestSort.Price)
+            {
+                return result.OrderBy(o => o.Fee);
+            }
+
+            return result;
         }
     }
 }

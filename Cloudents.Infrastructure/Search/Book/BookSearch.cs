@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Search.Book
         private readonly IRestClient _restClient;
 
         private const string Key = "sP8C5AHcdiT0tsMsotT";
-
+        private const string Url = "https://api2.campusbooks.com/13/rest/books";
         public BookSearch(IMapper mapper, IRestClient restClient)
         {
             _mapper = mapper;
@@ -42,27 +42,35 @@ namespace Cloudents.Infrastructure.Search.Book
                 ["format"] = "json"
             };
             var result = await MakeApiCallAsync(nvc, token).ConfigureAwait(false);
-            if (result == null)
+            if (ValidateSearchResult(page, result))
             {
-                return null;
+                return _mapper.Map<BookDetailResult, IEnumerable<BookSearchDto>>(result);
             }
-            if (result.Response.Page.Books.TotalPages < page)
+            return null;
+        }
+
+        private static bool ValidateSearchResult(int page, BookDetailResult result)
+        {
+            if (result?.Response.Page.Books?.TotalPages == null)
             {
-                return null;
+                return false;
             }
 
-            return _mapper.Map<BookDetailResult, IEnumerable<BookSearchDto>>(result);
+            if (result.Response.Page.Books.TotalPages < page)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private async Task<BookDetailResult> MakeApiCallAsync(NameValueCollection nvc, CancellationToken token)
         {
-            var resultStr = await _restClient.GetAsync(new Uri("https://api2.campusbooks.com/13/rest/books"), nvc, token).ConfigureAwait(false);
-            var result = JsonConvert.DeserializeObject<BookDetailResult>(resultStr);
+            var result = await _restClient.GetAsync<BookDetailResult>(new Uri(Url), nvc, token).ConfigureAwait(false);
             if (string.Equals(result.Response.Status, "error", StringComparison.InvariantCultureIgnoreCase))
             {
                 return null;
             }
-
             return result;
         }
 

@@ -7,36 +7,13 @@ using NHibernate;
 namespace Cloudents.Infrastructure.Framework.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTest1 : InMemoryDatabaseTest
     {
-        InMemoryDatabaseTest db = new InMemoryDatabaseTest();
-
         [TestMethod]
-        public void test_sqlite_database_using_fluent_nhibernate_directly()
+        public void CanCorrectlyMapUrlStats()
         {
-            //using (ISession session = db.OpenSession())
-            //{
-            //    //session.Save(new Teacher() { Name = "Adam" });
-            //    //session.Save(new Teacher() { Name = "Joe" });
-
-            //    //session.Save(new Class() { Name = "MATH 101", TeacherId = 1 });
-
-
-            //    //var query = (from t in session.Query<Teacher>()
-            //    //    join c in session.Query<Class>() on t.Id equals c.TeacherId
-            //    //    select t).ToList();
-
-            //    //Assert.AreEqual(1, query.Count);
-            //}
-        }
-
-        [TestMethod]
-        public void Test_Mapping()
-        {
-            new PersistenceSpecification<Course>(db.SessionFactory)
-                .CheckProperty(c => c.Id, 1)
-                //.CheckProperty(c => c.FirstName, "John")
-                //.CheckProperty(c => c.LastName, "Doe")
+            new PersistenceSpecification<UrlStats>(session)
+                .CheckProperty(c => c.AggregateCount, 1)
                 .VerifyTheMappings();
         }
 
