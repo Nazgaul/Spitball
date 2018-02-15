@@ -68,10 +68,14 @@ namespace Cloudents.Mobile.Controllers
             var result = await _purchaseSearch.SearchAsync(null,
                 PlacesRequestFilter.None, null, nextPageToken, token).ConfigureAwait(false);
 
-            var nextPageLink = Url.Link("DefaultApis", new
+            string nextPageLink = null;
+            if (result.token != null)
             {
-                controller = "Places"
-            }, new { nextPageToken = result.token });
+                nextPageLink = Url.Link("DefaultApis", new
+                {
+                    controller = "Places"
+                }, new { nextPageToken = result.token });
+            }
 
             return Ok(new
             {
