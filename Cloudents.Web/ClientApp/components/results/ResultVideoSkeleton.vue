@@ -14,7 +14,7 @@
 </script>
 <style scoped>
 
-    .loading-skeleton .wrapper {
+    .loading-skeleton .player-wrapper {
         width: 100%;
         max-width: 504px;
         height: 283px;
@@ -44,7 +44,7 @@
         border-color: transparent transparent transparent #eeeeee;
     }
     @media only screen and (max-device-width : 600px) {
-        .loading-skeleton .wrapper {
+        .loading-skeleton .player-wrapper {
             width: 360px;
             height: 202px;
         }

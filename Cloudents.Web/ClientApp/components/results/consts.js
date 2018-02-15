@@ -51,15 +51,15 @@ const dummyFoodObj = {
     rating: parseInt('5'.repeat(14)),
     template: "food"
 };
-let multipleItemSkeletons = [dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj]
+let multipleItemSkeletons = [dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj]
 export const skeletonData = {
     note: multipleItemSkeletons,
     flashcard: multipleItemSkeletons,
-    tutor: [dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj],
-    book: [dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj],
+    tutor: [dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj],
+    book: [dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj],
     ask: [{ template: 'video-skeleton' }, ...multipleItemSkeletons],
-    job: [dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj],
-    food: [dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj]
+    job: [dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj],
+    food: [dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj]
 };
 export const promotions = {
     note: {

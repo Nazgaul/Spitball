@@ -51,21 +51,17 @@ namespace Cloudents.Mobile.Extensions
         {
             if (val == null)
             {
-                return;// nvc;
+                return;
             }
 
             prefix = prefix.TrimStart('.');
             var valType = val.GetType();
-            if (val is string)
+
+            if (val.ToString() != val.GetType().ToString() && IsAnonymous(valType))
             {
-                nvc.Add(prefix, val.ToString());
+                nvc.Add(prefix, val.ToString().Trim());
                 return;
             }
-            //if (val.ToString() != val.GetType().ToString())
-            //{
-            //    //nvc.Add(prefix, val.ToString());
-            //    return;
-            //}
             if (val is IEnumerable p)
             {
                 foreach (var z in p)
@@ -77,13 +73,17 @@ namespace Cloudents.Mobile.Extensions
                 }
                 return;
             }
-
             foreach (var property in valType.GetProperties())
             {
                 var propertyValue2 = property.GetValue(val);
 
                 AddObject($"{prefix}.{property.Name}", propertyValue2, nvc);
             }
+        }
+
+        private static bool IsAnonymous(Type valType)
+        {
+            return valType.Namespace != null;
         }
     }
 }

@@ -38,7 +38,6 @@ export default {
 
         },
         isAcademinc(val) {
-            debugger;
             if (val && this.isFirst) {
                 setTimeout(() => {
                     if (this.isAcademinc && !this.$root.$el.querySelector(".dialog__content__active"))
