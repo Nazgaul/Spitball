@@ -8,7 +8,6 @@ using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure
 {
@@ -23,7 +22,7 @@ namespace Cloudents.Infrastructure
             _mapper = mapper;
         }
 
-        [Cache(TimeConst.Day, "autosuggest")]
+        [Cache(TimeConst.Day, "autoSuggest", true)]
         public async Task<IEnumerable<string>> SuggestAsync(string query, CancellationToken token)
         {
             var nvc = new NameValueCollection
@@ -33,12 +32,10 @@ namespace Cloudents.Infrastructure
             };
             var uri = new Uri("https://api.cognitive.microsoft.com/bing/v7.0/Suggestions");
 
-            var resultStr = await _client.GetAsync(uri, nvc, new[]
+            var result = await _client.GetAsync<SuggestionsObject>(uri, nvc, new[]
             {
                 new KeyValuePair<string,string>("Ocp-Apim-Subscription-Key", "1ac3126fa3714e0089dc9132c0d1c14d")
             }, token).ConfigureAwait(false);
-
-            var result = JsonConvert.DeserializeObject<SuggestionsObject>(resultStr);
             return _mapper.Map<IEnumerable<string>>(result).Take(3);
         }
 
@@ -57,16 +54,16 @@ namespace Cloudents.Infrastructure
 
         public class Suggestiongroup
         {
-           // public string name { get; set; }
+            // public string name { get; set; }
             public Searchsuggestion[] SearchSuggestions { get; set; }
         }
 
         public class Searchsuggestion
         {
-           // public string url { get; set; }
+            // public string url { get; set; }
             public string DisplayText { get; set; }
-           // public string query { get; set; }
-           // public string searchKind { get; set; }
+            // public string query { get; set; }
+            // public string searchKind { get; set; }
         }
     }
 }
