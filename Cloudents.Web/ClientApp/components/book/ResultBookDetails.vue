@@ -1,14 +1,13 @@
 ﻿<template>
-    <general-page
-                  :title="(pageData&&pageData.details?pageData.details.title:'')">
+    <general-page :title="(pageData&&pageData.details?pageData.details.title:'')">
         <template slot="sideBar">
             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
-                       :sortOptions="$vuetify.breakpoint.xsOnly?null:sortOptions"  :sortVal="sortVal"
+                       :sortOptions="$vuetify.breakpoint.xsOnly?null:sortOptions" :sortVal="sortVal"
                        v-model="showFilters"
-                       :filterOptions="filterOptions" :filterVal="selectedFilter"
-                       >
-                </component>
+                       :filterOptions="filterOptions" :filterVal="selectedFilter">
+            </component>
         </template>
+        {{selectedFilter}}
         <div slot="main" class="book-detail">
             <div class="d-cell elevation-1 pa-2">
                 <result-book :item="pageData.details" :isDetails="true"></result-book>
