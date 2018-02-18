@@ -2,8 +2,8 @@
     <general-page :title="(pageData&&pageData.details?pageData.details.title:'')">
         <template slot="sideBar">
             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
-                       :sortOptions="$vuetify.breakpoint.xsOnly?null:sortOptions" :sortVal="sortVal"
-                       v-model="showFilters"
+                       :sortOptions="$vuetify.breakpoint.xsOnly?null:sortOptions" 
+                       :sortVal="sortVal" v-model="showFilters"
                        :filterOptions="filterOptions" :filterVal="selectedFilter">
             </component>
         </template>
