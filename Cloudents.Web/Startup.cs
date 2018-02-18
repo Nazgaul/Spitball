@@ -37,7 +37,7 @@ namespace Cloudents.Web
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddWebMarkupMin().AddHtmlMinification();
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            //services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()
                 .AddJsonOptions(options =>
             {
@@ -112,7 +112,7 @@ namespace Cloudents.Web
             }
             else
             {
-                //app.UseExceptionHandler("Error");
+                app.UseExceptionHandler("/Error");
             }
 
             var reWriterOptions = new RewriteOptions()
