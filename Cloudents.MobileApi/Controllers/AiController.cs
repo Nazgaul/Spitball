@@ -24,7 +24,6 @@ namespace Cloudents.MobileApi.Controllers
             _engineProcess = engineProcess;
         }
 
-
         /// <summary>
         /// interpret user sentence
         /// </summary>
