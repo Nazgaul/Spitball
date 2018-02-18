@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.AI
             _client = client;
         }
 
-        [Cache(TimeConst.Day, "ai")]
+        [Cache(TimeConst.Day, "ai",true)]
         public async Task<AiDto> InterpretStringAsync(string sentence, CancellationToken token)
         {
             if (sentence == null) throw new ArgumentNullException(nameof(sentence));

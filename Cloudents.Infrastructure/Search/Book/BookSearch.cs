@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Search.Book
             _restClient = restClient;
         }
 
-        [Cache(TimeConst.Day, "book")]
+        [Cache(TimeConst.Day, "book", false)]
         public async Task<IEnumerable<BookSearchDto>> SearchAsync(IEnumerable<string> term, int page, CancellationToken token)
         {
             var query = string.Join(" ", term ?? Enumerable.Empty<string>()) ?? "textbooks";

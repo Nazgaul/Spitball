@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Cache
             }
             catch (Exception ex)
             {
-                _logger.Exception(ex, new Dictionary<string, string>()
+                _logger.Exception(ex, new Dictionary<string, string>
                 {
                     ["Service"] = nameof(Cache),
                     ["Key"] = key,
@@ -36,14 +36,14 @@ namespace Cloudents.Infrastructure.Cache
             }
         }
 
-        public object Set(string key, string region, object value, int expire)
+        public object Set(string key, string region, object value, int expire,bool slideExpiration)
         {
             var obj = ConvertEnumerableToList(value);
             if (obj == null)
             {
                 return value;
             }
-            var cacheItem = new CacheItem<object>(key, region, obj, ExpirationMode.Sliding,
+            var cacheItem = new CacheItem<object>(key, region, obj, slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
                 TimeSpan.FromSeconds(expire));
             _cache.Put(cacheItem);
             return obj;

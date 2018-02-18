@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Interceptor
             var pageSize = 0;
             if (att.SizeOfPage.HasValue)
             {
-                var pageArg = invocation.Method.GetParameters().FirstOrDefault(w => w.Name == att.PageArgumentName);
+                var pageArg = Array.Find(invocation.Method.GetParameters(), w => w.Name == att.PageArgumentName);
                 page = (int)invocation.Arguments[pageArg.Position];
                 pageSize = att.SizeOfPage.Value;
             }
