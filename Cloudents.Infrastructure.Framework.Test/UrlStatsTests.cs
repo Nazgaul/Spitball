@@ -1,13 +1,11 @@
-﻿using System;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using FluentNHibernate.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NHibernate;
 
 namespace Cloudents.Infrastructure.Framework.Test
 {
     [TestClass]
-    public class UnitTest1 : InMemoryDatabaseTest
+    public class UrlStatsTests : InMemoryDatabaseTest
     {
         [TestMethod]
         public void CanCorrectlyMapUrlStats()

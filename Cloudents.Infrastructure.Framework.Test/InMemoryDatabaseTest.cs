@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using FluentNHibernate.Testing;
 using NHibernate;
-using NHibernate.Cfg;
-using NHibernate.Dialect;
-using NHibernate.Driver;
 using NHibernate.Tool.hbm2ddl;
-using Environment = NHibernate.Cfg.Environment;
 
 namespace Cloudents.Infrastructure.Framework.Test
 {

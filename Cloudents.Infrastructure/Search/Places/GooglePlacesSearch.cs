@@ -143,7 +143,6 @@ namespace Cloudents.Infrastructure.Search.Places
                 {
                     ["location"] = $"{location.Latitude} {location.Longitude}",
                     ["keyword"] = termStr,
-
                     ["key"] = Key,
                     ["rankby"] = "distance",
                     //["pagetoken"] = nextPageToken
