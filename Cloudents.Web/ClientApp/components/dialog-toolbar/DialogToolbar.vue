@@ -1,5 +1,5 @@
 ﻿<template>
-    <v-toolbar app fixed class="dialog-toolbar elevation-1" :height="height" :extended="extended">
+    <v-toolbar :app="app" fixed class="dialog-toolbar elevation-1" :height="height" :extended="extended">
         <v-btn icon class="back" @click="backAction ? backAction() : $router.go(-1)">
             <i class="sbf icon sbf-chevron-down"></i>
         </v-btn>
@@ -19,7 +19,8 @@
             height: String,
             toolbarTitle: String,
             backAction: Function,
-            extended: Boolean
+            extended: Boolean,
+            app: Boolean
         }
     };
 </script>

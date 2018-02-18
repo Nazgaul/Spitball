@@ -78,9 +78,11 @@
                         <v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>
                     </form>
                 </v-flex>
+
             </div>
             <slot name="extraHeader"></slot>
         </v-layout>
+        <!--TODO: this is not good-->
         <personalize-dialog ref="personalize"></personalize-dialog>
     </v-toolbar>
 </template>
@@ -117,13 +119,19 @@
                 this.msg = val;
             },
             toolbarHeight(val) {
+                console.log(val);
                 this.height = val;
             }
         },
         components: {
             AppLogo, PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon
         },
-        props: { currentSelection: { type: String, default: 'note' }, userText: { type: String }, submitRoute: { type: String, default: '/result' }, toolbarHeight: {}, layoutClass: {} },
+        props: {
+            currentSelection: { type: String, default: 'note' },
+            userText: { type: String },
+            submitRoute: { type: String, default: '/result' },
+            toolbarHeight: {}, layoutClass: {}
+        },
         data() {
             return {
                 settingMenu,
@@ -179,7 +187,8 @@
         },
         created() {
             this.msg = this.userText ? this.userText : this.globalTerm;
-            this.height = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
+            //TODO: duplicate from header.vue
+            this.height = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.mdAndUp ? 120 : 152)
         }
     }
 </script>

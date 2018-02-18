@@ -63,6 +63,7 @@ const foodDetailsProps = {
     header: () => ({
             toolbarTitle: "Food & Deals",
             height: "48",
+            app: true
         })
 };
 const bookDetailsProps = {

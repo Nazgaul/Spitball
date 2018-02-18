@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="value" fullscreen content-class="white filter-dialog" persistent>
-        <dialog-toolbar height="48" toolbarTitle="Filter & Sort" :backAction="$_backAction">
+        <dialog-toolbar :app="false" height="48" toolbarTitle="Filter & Sort" :backAction="$_backAction">
             <v-btn slot="rightElement" flat class="clear-btn" @click="resetFilters">Clear all</v-btn>
         </dialog-toolbar>
  
