@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.MobileApi", "Clou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{D6F086D9-F99F-4AB0-B396-1880F753C6CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Functions", "Cloudents.Functions\Cloudents.Functions.csproj", "{E31692CC-A9F2-44CD-A9FA-5013E61FEA23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{D6F086D9-F99F-4AB0-B396-1880F753C6CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6F086D9-F99F-4AB0-B396-1880F753C6CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6F086D9-F99F-4AB0-B396-1880F753C6CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E31692CC-A9F2-44CD-A9FA-5013E61FEA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E31692CC-A9F2-44CD-A9FA-5013E61FEA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E31692CC-A9F2-44CD-A9FA-5013E61FEA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E31692CC-A9F2-44CD-A9FA-5013E61FEA23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,6 +110,7 @@ Global
 		{B5BFF057-ABD0-43EC-A6EE-6497C202A936} = {974199DB-E3D7-4CAC-BBEA-6A0801E51009}
 		{C9F9FAE7-F630-4646-A877-B64507B060D4} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 		{D6F086D9-F99F-4AB0-B396-1880F753C6CB} = {974199DB-E3D7-4CAC-BBEA-6A0801E51009}
+		{E31692CC-A9F2-44CD-A9FA-5013E61FEA23} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
