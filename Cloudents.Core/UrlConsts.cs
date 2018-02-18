@@ -18,6 +18,10 @@ namespace Cloudents.Core
 
         public string BuildRedirectUrl(string url, string host, int? location)
         {
+            if (host.Contains("spitball", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return url;
+            }
             var nvc = new NameValueCollection
             {
                 ["url"] = url,

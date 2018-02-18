@@ -1,6 +1,6 @@
 <template>
     <div class="book-header">
-        <dialog-toolbar height="48" v-if="$vuetify.breakpoint.xsOnly" toolbarTitle="Textbooks">
+        <dialog-toolbar :app="true" height="48" v-if="$vuetify.breakpoint.xsOnly" toolbarTitle="Textbooks">
             <v-tabs class="mx-2" value="buy" grow slot="extension">
                 <v-tabs-bar>
                     <v-tabs-item v-for="tab in sortOptions" :key="tab.id" :href="tab.id" :id="tab.id" @click="$_changeTab(tab.id)"

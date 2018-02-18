@@ -1,12 +1,12 @@
 <template>
     <v-dialog v-model="value" fullscreen content-class="white filter-dialog" persistent>
-        <dialog-toolbar height="48" toolbarTitle="Filter & Sort" :backAction="$_backAction">
+        <dialog-toolbar :app="false" height="48" toolbarTitle="Filter & Sort" :backAction="$_backAction">
             <v-btn slot="rightElement" flat class="clear-btn" @click="resetFilters">Clear all</v-btn>
         </dialog-toolbar>
- 
+
         <v-btn class="apply elevation-0" fixed color="color-blue" @click="applyFilters">Apply Filters</v-btn>
         <div class="sort-wrap">
-            <template v-if="sortOptions.length">
+            <template v-if="sortOptions && sortOptions.length">
                 <h3>Sort</h3>
                 <div class="sort-switch">
                     <template v-for="(o,index) in sortOptions">
@@ -34,7 +34,7 @@
                     </v-layout>
                     <div class="filter-list">
                         <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter pl-3">
-                            <input type="checkbox" :id="(s.id?s.id:s)" v-model="filters[k.modelId]" :value="(s.id?s.id:s)"/>
+                            <input type="checkbox" :id="(s.id?s.id:s)" v-model="filters[k.modelId]" :value="(s.id?s.id:s)" />
 
                             <span class="checkmark"></span>
                             <label :title="s.name?s.name:s" :for="(s.id?s.id:s)" class="py-2">

@@ -45,7 +45,7 @@ namespace Cloudents.Infrastructure.Search.Places
             });
         }
 
-        [Cache(TimeConst.Year, "address")]
+        [Cache(TimeConst.Year, "address", true)]
         public async Task<(Address address, GeoPoint point)> GeoCodingByAddressAsync(string address, CancellationToken token)
         {
             var nvc = new NameValueCollection
@@ -61,14 +61,14 @@ namespace Cloudents.Infrastructure.Search.Places
 
         private static GoogleGeoCodeDto SerializeResult(string str)
         {
-           return JsonConvert.DeserializeObject<GoogleGeoCodeDto>(str,
-                new JsonSerializerSettings
-                {
-                    ContractResolver = new UnderscorePropertyNamesContractResolver()
-                });
+            return JsonConvert.DeserializeObject<GoogleGeoCodeDto>(str,
+                 new JsonSerializerSettings
+                 {
+                     ContractResolver = new UnderscorePropertyNamesContractResolver()
+                 });
         }
 
-        [Cache(TimeConst.Year, "zip")]
+        [Cache(TimeConst.Year, "zip", true)]
         [Log]
         public async Task<(Address address, GeoPoint point)> GeoCodingByZipAsync(string zip, CancellationToken token)
         {

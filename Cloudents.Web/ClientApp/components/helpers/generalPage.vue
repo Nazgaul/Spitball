@@ -10,7 +10,6 @@
                     <v-flex class="sec-result">
                         <slot name="main"></slot>
                     </v-flex>
-                    <!--v-if="props.breakPointSideBar"-->
                     <v-flex class="ml-2 side-bar" v-if="props.breakPointSideBar">
                         <slot name="rightSide">
                             <div class="side-bar-wrapper">

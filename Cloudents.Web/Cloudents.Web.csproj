@@ -18,6 +18,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ClientApp\components\navbar\**" />
+    <Content Remove="ClientApp\components\navbar\**" />
+    <EmbeddedResource Remove="ClientApp\components\navbar\**" />
+    <None Remove="ClientApp\components\navbar\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Api\TitleController.cs" />
     <Compile Remove="Api\VideoController.cs" />
   </ItemGroup>
@@ -25,15 +32,6 @@
   <ItemGroup>
     <None Remove="ClientApp\components\food\foodheader.vue" />
     <None Remove="ClientApp\components\settings\layout.vue.orig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="ClientApp\components\navbar\images\ask.svg" />
-    <Content Include="ClientApp\components\navbar\images\book.svg" />
-    <Content Include="ClientApp\components\navbar\images\document.svg" />
-    <Content Include="ClientApp\components\navbar\images\flashcard.svg" />
-    <Content Include="ClientApp\components\navbar\images\job.svg" />
-    <Content Include="ClientApp\components\navbar\images\tutor.svg" />
   </ItemGroup>
 
   <ItemGroup>

@@ -40,10 +40,6 @@ namespace Cloudents.Infrastructure
 
             #region Interceptors
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
-
-            //builder.RegisterType<CacheResultInterceptor>();
-            //builder.RegisterType<LogInterceptor>();
-            //builder.RegisterType<BuildLocalUrlInterceptor>();
             #endregion
 
             builder.RegisterType<RestClient>().As<IRestClient>().SingleInstance();

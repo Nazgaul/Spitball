@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure
             _restClient = restClient;
         }
 
-        [Cache(TimeConst.Year, nameof(IpToLocation))]
+        [Cache(TimeConst.Year, nameof(IpToLocation), true)]
         public async Task<Location> GetAsync(IPAddress ipAddress, CancellationToken token)
         {
             var uri = new Uri($"http://freegeoip.net/json/{ipAddress}");

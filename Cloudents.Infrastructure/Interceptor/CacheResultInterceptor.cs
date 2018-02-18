@@ -13,12 +13,10 @@ namespace Cloudents.Infrastructure.Interceptor
     public class CacheResultInterceptor : BaseTaskInterceptor<CacheAttribute>
     {
         private readonly ICacheProvider _cacheProvider;
-        private readonly IConfigurationKeys _configurationKeys;
 
-        public CacheResultInterceptor(ICacheProvider cacheProvider, IConfigurationKeys configurationKeys)
+        public CacheResultInterceptor(ICacheProvider cacheProvider)
         {
             _cacheProvider = cacheProvider;
-            _configurationKeys = configurationKeys;
         }
 
         private static string BuildArgument(IEnumerable<object> argument)
@@ -80,7 +78,6 @@ namespace Cloudents.Infrastructure.Interceptor
         private string GetInvocationSignature(IInvocation invocation)
         {
             return
-                _configurationKeys.SystemUrl +
                 $"{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-" +
                 $"{invocation.TargetType.FullName}-{invocation.Method.Name}" +
                 $"-{BuildArgument(invocation.Arguments)}";
@@ -123,7 +120,7 @@ namespace Cloudents.Infrastructure.Interceptor
         {
             var key = GetInvocationSignature(invocation);
             var att = invocation.GetCustomAttribute<CacheAttribute>();
-            val = (T)_cacheProvider.Set(key, att.Region, val, att.Duration); // cacheAttr.Duration);
+            val = (T)_cacheProvider.Set(key, att.Region, val, att.Duration,att.Slide); // cacheAttr.Duration);
         }
     }
 }

@@ -28,20 +28,20 @@
                                     <p class="mt-1">{{currentPromotion.content}}</p>
                                 </div>
                             </v-flex>
-                       <slot name="resultData" :items="items">
-                           <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university" class="personalize-wrapper pa-3 mb-2 elevation-1">
-                                <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
-                            </v-flex>
-                            <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
-                            </v-flex>
-                            <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
-                                <suggest-card :name="currentSuggest"></suggest-card>
-                            </router-link>
-                            <v-flex v-if="name==='ask' && !loading" class="result-cell elevation-1 mb-2 xs-12 order-xs2">
-                                <studyblue-card :searchterm="userText"></studyblue-card>
-                            </v-flex>
-                       </slot>
+                            <slot name="resultData" :items="items">
+                                <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university" class="personalize-wrapper pa-3 mb-2 elevation-1">
+                                    <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
+                                </v-flex>
+                                <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
+                                    <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
+                                </v-flex>
+                                <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
+                                    <suggest-card :name="currentSuggest"></suggest-card>
+                                </router-link>
+                                <v-flex v-if="name==='ask' && !loading" class="result-cell elevation-1 mb-2 xs-12 order-xs2">
+                                    <studyblue-card :searchterm="userText"></studyblue-card>
+                                </v-flex>
+                            </slot>
                         </v-layout>
                     </v-container>
                 </scroll-list>
@@ -87,7 +87,7 @@
                     </div>
                 </template>
                 <template slot="courseExtraState" v-else>
-                   <button class="add-course" @click="$_openPersonalize" type="button">
+                    <button class="add-course" @click="$_openPersonalize" type="button">
                         <plus-btn></plus-btn><span>Add Course</span>
                     </button>
                 </template>
@@ -95,15 +95,15 @@
             </component>
         </template>
 
-<template slot="rightSide">
-    <slot name="rightSide"></slot>
-</template>
+        <template slot="rightSide">
+            <slot name="rightSide"></slot>
+        </template>
         <!--<component slot="rightSide" v-if="hasExtra&&!isEmpty" :is="name+'-extra'" :place="selectedItem"></component>-->
-       <slot name="suggestCell">
-           <router-link slot="suggestCell"  tag="v-flex" class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 " :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
-            <suggest-card :name="currentSuggest"></suggest-card>
-        </router-link>
-       </slot>
+        <slot name="suggestCell">
+            <router-link slot="suggestCell" tag="v-flex" class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 " :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
+                <suggest-card :name="currentSuggest"></suggest-card>
+            </router-link>
+        </slot>
     </general-page>
 </template>
 <script>
