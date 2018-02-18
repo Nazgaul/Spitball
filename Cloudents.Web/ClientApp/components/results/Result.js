@@ -25,6 +25,7 @@ let updateData = function (data, isFilterUpdate = false) {
     this.filter = this.filterSelection;
     this.UPDATE_LOADING(false);
     (this.isLoad)?this.isLoad=false:this.UPDATE_LOADING(false);
+    if (this.isAcademic&&!this.isFirst) { this.showPersonalizeField = true }
 
 
     //if the vertical or search term has been changed update the optional filters according
@@ -124,7 +125,6 @@ export const pageMixin =
         components: { emptyState, ResultItem, SuggestCard, studyblueCard, ResultTutor, ResultJob, ResultVideo, ResultBook, ResultVideoSkeleton },
 
         created() {
-            if (this.isAcademic&&!this.isFirst) { this.showPersonalizeField = true }
             this.$root.$on("closePersonalize", () => { this.showPersonalizeField = true });
             //If query have courses save those courses
             if (this.query.course) this.setFilteredCourses(this.query.course);
