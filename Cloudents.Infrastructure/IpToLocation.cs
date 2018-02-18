@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure
             _mapper = mapper;
         }
 
-        [Cache(TimeConst.Year, nameof(IpToLocation))]
+        [Cache(TimeConst.Year, nameof(IpToLocation), true)]
 
         public async Task<Location> GetAsync(IPAddress address, CancellationToken token)
         {

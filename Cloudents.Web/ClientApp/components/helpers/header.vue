@@ -82,7 +82,7 @@
             </div>
             <slot name="extraHeader"></slot>
         </v-layout>
-        <!--TODO: this is not good-->
+        <!--TODO: this is not good + it messed item view-->
         <personalize-dialog ref="personalize"></personalize-dialog>
     </v-toolbar>
 </template>
