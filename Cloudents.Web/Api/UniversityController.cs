@@ -18,7 +18,6 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet]
-        //[TypeFilter(typeof(IpToLocationActionFilter), Arguments = new object[] { "location" })]
         public async Task<IActionResult> Get(string term, Location location, CancellationToken token)
         {
             var result = await _universityProvider.SearchAsync(term, location.Point, token).ConfigureAwait(false);

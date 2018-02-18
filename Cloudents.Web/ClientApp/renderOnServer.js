@@ -6,12 +6,6 @@ const path = require('path');
 
 const filePath = path.join(__dirname, './dist/main-server.js')
 const code = fs.readFileSync(filePath, 'utf8');
-
-
-
-
-
-
 const bundleRenderer = require('vue-server-renderer').createBundleRenderer(code);
 
 var prerendering = require('aspnet-prerendering');
@@ -21,10 +15,15 @@ var prerendering = require('aspnet-prerendering');
 module.exports = prerendering.createServerRenderer(function (params) {
 
   return new Promise(function (resolve, reject) {
-    //console.log(params);
+
+
+      //const filePath = path.join(__dirname, './dist/main-server.js')
+      //const code = fs.readFileSync(filePath, 'utf8');
+
     //resolve({
-    //    html:  "<div>" + JSON.stringify(params, null, 2) + "</div>"
-    //});
+    //    html: "<div>" + code + "</div>"
+    //  });
+    //return;
     const context = { url: params.url };
 
 
@@ -44,22 +43,19 @@ module.exports = prerendering.createServerRenderer(function (params) {
         if (err) {
           if (err.code === 404) {
             resolve({
-              html: JSON.stringify(err.router.options.routes),
+              html: "a" + JSON.stringify(err.router.options.routes),
               statusCode: 404
             });
             //res.status(404).end('Page not found')
           } else {
             resolve({
-              html: JSON.stringify(err),
-              statusCode: 500
+                html: "ba" + resultHtml + err,
+              statusCode: 404
             });
-            //res.status(500).end('Internal Server Error')
           }
-        //  html: "<div>Ram</div>"
-        //  reject({ err });
         }
         resolve({
-          html: "<div>Ram</div>" +  JSON.stringify(err)
+            html: "ca" +"<div>Ram</div>" +  JSON.stringify(err)
           //html: result + "<div>" + JSON.stringify(params, null, 2) + "</div>"
           //html: resultHtml,
           //globals: {

@@ -54,7 +54,24 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.js$/,
-                    loader: "babel-loader"
+                    loader: "babel-loader",
+                    // babelrc: false,
+                    options: {
+                        "presets": [["env", {
+                            "targets": {
+                                "node": "8.9.3"
+                            }
+                        }]],
+                        //"plugins": [
+                        //    "syntax-dynamic-import",
+                        //    "transform-object-rest-spread",
+                        //    ["transform-imports", {
+                        //        "vuetify": {
+                        //            "transform": "vuetify/es5/components/${member}",
+                        //            "preventFullImport": true
+                        //        }
+                        //    }]]
+                    },
                 },
                 {
                     test: /\.vue$/,
@@ -64,18 +81,18 @@ module.exports = (env) => {
                         loaders: {
                             css: "vue-style-loader!css-loader",
                             //isDevBuild
-                               // ? "vue-style-loader!css-loader"
-                               // : ExtractTextPlugin.extract({
-                               //     use: "css-loader?minimize",
-                               //     fallback: "vue-style-loader"
-                               // }),
+                            // ? "vue-style-loader!css-loader"
+                            // : ExtractTextPlugin.extract({
+                            //     use: "css-loader?minimize",
+                            //     fallback: "vue-style-loader"
+                            // }),
                             less: "vue-style-loader!css-loader!less-loader"
                             //isDevBuild
-                                //? "vue-style-loader!css-loader!less-loader"
-                                //: ExtractTextPlugin.extract({
-                                //    use: "css-loader?minimize!less-loader",
-                                //    fallback: "vue-style-loader"
-                                //})
+                            //? "vue-style-loader!css-loader!less-loader"
+                            //: ExtractTextPlugin.extract({
+                            //    use: "css-loader?minimize!less-loader",
+                            //    fallback: "vue-style-loader"
+                            //})
                         }
                     }
                 },
@@ -83,8 +100,8 @@ module.exports = (env) => {
                     test: /\.css$/,
                     use: ["style-loader", "css-loader"]
                     //isDevBuild
-                       // ? ["style-loader", "css-loader"]
-                        //: ExtractTextPlugin.extract({ use: "css-loader?minimize" })
+                    // ? ["style-loader", "css-loader"]
+                    //: ExtractTextPlugin.extract({ use: "css-loader?minimize" })
                 },
                 // {
                 //     test: /\.css(\?|$)/,
@@ -94,8 +111,8 @@ module.exports = (env) => {
                 {
                     test: /\.styl$/,
                     loader: "css-loader!stylus-loader"
-                        //ExtractTextPlugin.extract({
-                        //use: isDevBuild ? "css-loader!stylus-loader" : "css-loader?minimize!stylus-loader"
+                    //ExtractTextPlugin.extract({
+                    //use: isDevBuild ? "css-loader!stylus-loader" : "css-loader?minimize!stylus-loader"
                     //})
                 },
                 {
@@ -103,7 +120,7 @@ module.exports = (env) => {
                     exclude: /ClientApp/,
                     use: "css-loader?minimize!less-loader"
                     //ExtractTextPlugin.extract({
-                        //use: isDevBuild ? "css-loader!less-loader" : "css-loader?minimize!less-loader"
+                    //use: isDevBuild ? "css-loader!less-loader" : "css-loader?minimize!less-loader"
                     //})
                 },
                 {
@@ -118,35 +135,14 @@ module.exports = (env) => {
                 }
             ]
         },
-        plugins: [
-            // new ExtractTextPlugin({
-            //     filename: '[name].[contenthash].css'
-            // }),
-            //new PurifyCSSPlugin({
-            //    // Give paths to parse for rules. These should be absolute!
-            //    paths: glob.sync(path.join(__dirname, 'clientapp/**/*.vue')),
-            //    minimize: !isDevBuild,
-            //    purifyOptions: {
-            //        whitelist: ["*spitball*"]
-            //    }
-            //}),
-            new webpack.DefinePlugin({
-                'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
-            }),
-        ].concat(isDevBuild
-            ? [
-            ]
-            : [
-            ]),
-
         target: 'node',
         //resolve: { mainFields: ['main'] },
         entry: { 'main-server': './ClientApp/server.js' },
         output: {
             libraryTarget: 'commonjs2',
-                path: path.join(__dirname, './ClientApp/dist'),
-                filename: '[name].js',
-                publicPath: 'dist/'
+            path: path.join(__dirname, './ClientApp/dist'),
+            filename: '[name].js',
+            // publicPath: 'dist/'
         },
         //module: {
         //    rules: [ { test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] } ]
@@ -166,7 +162,7 @@ module.exports = (env) => {
             // }),
 
         ].concat(isDevBuild ? [
-           // new CleanWebpackPlugin(path.join(__dirname, "ClientApp", "dist"))
+            // new CleanWebpackPlugin(path.join(__dirname, "ClientApp", "dist"))
         ] : [])
     }
 }

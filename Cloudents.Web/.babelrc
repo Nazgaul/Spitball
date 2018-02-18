@@ -1,12 +1,17 @@
 ﻿{
-  "presets": ["env","es2015"],
+  "presets": [ "env", "es2015" ],
   "plugins": [
-  "syntax-dynamic-import",
-  "transform-object-rest-spread",
-	["transform-imports", {
-		  "vuetify": {
-			"transform": "vuetify/es5/components/${member}",
-			"preventFullImport": true
-		  }
-}]]
+    "syntax-dynamic-import",
+    "transform-object-rest-spread",
+    [
+      "transform-imports",
+      {
+        "vuetify": {
+          "transform": "vuetify/es5/components/${member}",
+          "preventFullImport": true
+        }
+      }
+    ]
+  ]
 }
+//TODO: check if we can remove that
