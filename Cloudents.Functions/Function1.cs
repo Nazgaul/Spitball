@@ -26,8 +26,6 @@ namespace Cloudents.Functions
         {
 
             log.Info("C# HTTP trigger function processed a request.");
-            var p = NHibernate.EntityMode.Map;
-            var z = typeof(FluentNHibernate.Member);
             // parse query parameter
             string name = req.GetQueryNameValuePairs()
                 .FirstOrDefault(q => string.Compare(q.Key, "name", true) == 0)

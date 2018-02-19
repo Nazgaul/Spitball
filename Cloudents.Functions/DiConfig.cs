@@ -31,8 +31,7 @@ namespace Cloudents.Functions
 
         private static string GetEnvironmentVariable(string name)
         {
-            return name + ": " +
-                   System.Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
+            return Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
         }
     }
 }

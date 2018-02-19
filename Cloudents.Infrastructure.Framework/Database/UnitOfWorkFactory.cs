@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Cloudents.Infrastructure.Framework.Database.Maps;
 using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Cfg;
@@ -12,11 +13,19 @@ namespace Cloudents.Infrastructure.Framework.Database
 
         public UnitOfWorkFactory(string connectionString)
         {
-            _factory = Fluently.Configure()
+            var assembly = Assembly.GetExecutingAssembly();
+            var configuration = Fluently.Configure()
                 .Database(FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
-                .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
-                .ExposeConfiguration(BuildSchema).BuildSessionFactory();
-
+                .Mappings(m => m.FluentMappings.AddFromAssembly(assembly))
+                //.Mappings(m=>
+                //{
+                //    //m.FluentMappings.Add<RowDetailMap>();
+                //    m.FluentMappings.Add<CourseMap>();
+                //    m.FluentMappings.Add<UniversityMap>();
+                //    m.FluentMappings.Add<UrlStatsMap>();
+                //})
+                .ExposeConfiguration(BuildSchema);
+            _factory = configuration.BuildSessionFactory();
             //_factory = configuration;
         }
 
