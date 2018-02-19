@@ -17,13 +17,6 @@ namespace Cloudents.Infrastructure.Framework.Database
             var configuration = Fluently.Configure()
                 .Database(FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
                 .Mappings(m => m.FluentMappings.AddFromAssembly(assembly))
-                //.Mappings(m=>
-                //{
-                //    //m.FluentMappings.Add<RowDetailMap>();
-                //    m.FluentMappings.Add<CourseMap>();
-                //    m.FluentMappings.Add<UniversityMap>();
-                //    m.FluentMappings.Add<UrlStatsMap>();
-                //})
                 .ExposeConfiguration(BuildSchema);
             _factory = configuration.BuildSessionFactory();
             //_factory = configuration;
