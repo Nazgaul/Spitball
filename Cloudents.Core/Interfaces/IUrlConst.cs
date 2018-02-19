@@ -19,7 +19,7 @@ namespace Cloudents.Core.Interfaces
         string Redis { get; }
         string Storage { get; }
 
-        string SystemUrl { get; }
+       // string SystemUrl { get; }
 
         LocalStorageData LocalStorageData { get; }
     }

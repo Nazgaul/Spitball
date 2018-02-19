@@ -15,8 +15,8 @@ namespace Cloudents.Core
 
             builder.Register(c=>
             {
-                var key = c.Resolve<IConfigurationKeys>().SystemUrl;
-                return new UrlConst(key);
+               // var key = c.Resolve<IConfigurationKeys>().SystemUrl;
+                return new UrlConst();
             }).As<IUrlBuilder>().SingleInstance();
 
             builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
