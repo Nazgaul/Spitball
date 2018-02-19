@@ -38,5 +38,17 @@ namespace Cloudents.Functions
             res.Headers.Add("Location", url);
             return res;
         }
+
+
+        [FunctionName("UrlProcess")]
+        public static async Task ProcessQueueMessage([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,
+            TraceWriter log, CancellationToken token,[Inject] ICommandBus commandBus)
+        {
+            var command = new CreateUrlStatsCommand(content.Host, content.DateTime, content.Url, content.UrlReferrer,
+                content.Location, content.Ip);
+
+            await commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+             log.Info("Finish Process");
+        }
     }
 }
