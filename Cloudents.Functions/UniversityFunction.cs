@@ -83,11 +83,11 @@ namespace Cloudents.Functions
                     GeographyPoint = GeographyPoint.Create(write.Latitude, write.Longitude),
                     Id = write.Id.ToString()
                 };
-                await searchServiceWrite.UpdateDataAsync(new[] { university }, token);
+                await searchServiceWrite.UpdateDataAsync(new[] { university }, token).ConfigureAwait(false);
             }
             else
             {
-                await searchServiceWrite.DeleteDataAsync(new[] { obj.Id.ToString() }, token);
+                await searchServiceWrite.DeleteDataAsync(new[] { obj.Id.ToString() }, token).ConfigureAwait(false);
             }
             //searchServiceWrite.UpdateDataAsync()
         }
