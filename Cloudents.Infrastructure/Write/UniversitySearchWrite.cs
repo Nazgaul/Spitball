@@ -26,8 +26,8 @@ namespace Cloudents.Infrastructure.Write
 
         public override void Start()
         {
-            _synonymWrite.CreateEmpty(SynonymName);
-            base.Start();
+           // _synonymWrite.CreateEmpty(SynonymName);
+           // base.Start();
         }
 
         protected override Index GetIndexStructure(string indexName)
