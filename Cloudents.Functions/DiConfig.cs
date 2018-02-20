@@ -27,7 +27,8 @@ namespace Cloudents.Functions
                 builder.Register(_ => keys).As<IConfigurationKeys>();
                 builder.RegisterModule<ModuleCore>();
                 builder.RegisterModule<ModuleDb>();
-                builder.RegisterModule<ModuleFunctions>();
+                builder.RegisterModule<ModuleReadDb>();
+                builder.RegisterModule<ModuleAzureSearch>();
             });
         }
 

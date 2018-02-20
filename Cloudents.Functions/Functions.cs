@@ -32,7 +32,7 @@ namespace Cloudents.Functions
             var url = queryString.Find(f => f.Key == "url").Value;
             var userIp = req.GetClientIpAddress();
             var message = new UrlRedirectQueueMessage(host, url, referer, location, userIp.ToString());
-            await queue.AddAsync(message, token);
+            await queue.AddAsync(message, token).ConfigureAwait(false);
 
             var res = req.CreateResponse(HttpStatusCode.Redirect);
             res.Headers.Add("Location", url);

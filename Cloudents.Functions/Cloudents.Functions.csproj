@@ -9,6 +9,7 @@
     <PackageReference Include="AzureFunctions.Autofac" Version="2.0.0" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />

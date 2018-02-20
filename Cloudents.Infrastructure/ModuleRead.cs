@@ -32,11 +32,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<AiDecision>().As<IDecision>();
             builder.RegisterType<EngineProcess>().As<IEngineProcess>();
 
-            builder.Register(c =>
-            {
-                var key = c.Resolve<IConfigurationKeys>().Db;
-                return new DapperRepository(key);
-            });
+            
             builder.Register(_ => new LuisClient("a1a0245f-4cb3-42d6-8bb2-62b6cfe7d5a3", "6effb3962e284a9ba73dfb57fa1cfe40")).AsImplementedInterfaces();
 
             builder.RegisterType<DocumentDbRepositoryUnitOfWork>().AsSelf().As<IStartable>().SingleInstance().AutoActivate();
@@ -84,9 +80,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();
             builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
-            builder.RegisterAssemblyTypes(currentAssembly).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
-            builder.RegisterAssemblyTypes(currentAssembly).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
-
+            builder.RegisterModule<ModuleReadDb>();
             builder.Register(c =>
             {
                 var key = c.Resolve<IConfigurationKeys>().Storage;

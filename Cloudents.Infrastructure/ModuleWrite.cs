@@ -1,18 +1,21 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using Autofac;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Write;
 using Cloudents.Infrastructure.Write.Job;
 using Cloudents.Infrastructure.Write.Tutor;
 using Microsoft.Azure.Search;
+using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
     public class ModuleWrite : Module
     {
-       protected override void Load(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
             builder.RegisterModule<ModuleInfrastructureBase>();
@@ -36,7 +39,7 @@ namespace Cloudents.Infrastructure
         }
     }
 
-    public class ModuleFunctions : Module
+    public class ModuleAzureSearch : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -49,6 +52,22 @@ namespace Cloudents.Infrastructure
                     return new SearchServiceClient(key.Name, new SearchCredentials(key.Key));
                 })
                 .SingleInstance().AsSelf().As<ISearchServiceClient>();
+        }
+    }
+
+    public class ModuleReadDb : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            var currentAssembly = Assembly.GetExecutingAssembly();
+            builder.Register(c =>
+            {
+                var key = c.Resolve<IConfigurationKeys>().Db;
+                return new DapperRepository(key);
+            });
+            builder.RegisterAssemblyTypes(currentAssembly).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
+            builder.RegisterAssemblyTypes(currentAssembly).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
+
         }
     }
 }

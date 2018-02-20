@@ -8,7 +8,7 @@ namespace Cloudents.Infrastructure.Write
     public class UniversitySearchWrite : SearchServiceWrite<Core.Entities.Search.University>
     {
         private const string IndexName = "universities3";
-        private const string SynonymName = "university-synonym";
+        public const string SynonymName = "university-synonym";
         private readonly ISynonymWrite _synonymWrite;
         public UniversitySearchWrite(SearchServiceClient client, ISynonymWrite synonymWrite)
             : base(client, IndexName)

@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
