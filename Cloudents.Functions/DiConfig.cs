@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Autofac;
 using AzureFunctions.Autofac.Configuration;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
-using Cloudents.Infrastructure.Search;
 
 namespace Cloudents.Functions
 {
@@ -29,11 +24,10 @@ namespace Cloudents.Functions
                     Redis = GetEnvironmentVariable("Redis"),
                     Storage = GetEnvironmentVariable("AzureWebJobsStorage")
                 };
-
-
                 builder.Register(_ => keys).As<IConfigurationKeys>();
+                builder.RegisterModule<ModuleCore>();
                 builder.RegisterModule<ModuleDb>();
-               // builder.RegisterModule<ModuleWrite>();
+                builder.RegisterModule<ModuleFunctions>();
             });
         }
 

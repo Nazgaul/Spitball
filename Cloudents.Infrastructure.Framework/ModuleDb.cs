@@ -7,13 +7,6 @@ namespace Cloudents.Infrastructure.Framework
 {
     public class ModuleDb : Module
     {
-        //private readonly string _sqlConnectionString;
-
-        //public ModuleDb(string sqlConnectionString)
-        //{
-        //    _sqlConnectionString = sqlConnectionString;
-        //}
-
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register(c =>
@@ -28,7 +21,7 @@ namespace Cloudents.Infrastructure.Framework
             }).InstancePerLifetimeScope().As<IUnitOfWork>();
             builder.RegisterGeneric(typeof(NHibernateRepository<>)).AsImplementedInterfaces();
 
-            builder.RegisterModule<ModuleCore>();
+            //builder.RegisterModule<ModuleCore>();
             base.Load(builder);
         }
     }

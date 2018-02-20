@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
@@ -7,11 +8,14 @@ namespace Cloudents.Infrastructure.Write
     public class UniversitySearchWrite : SearchServiceWrite<Core.Entities.Search.University>
     {
         private const string IndexName = "universities3";
-        public UniversitySearchWrite(SearchServiceClient client)
+        private const string SynonymName = "university-synonym";
+        private readonly ISynonymWrite _synonymWrite;
+        public UniversitySearchWrite(SearchServiceClient client, ISynonymWrite synonymWrite)
             : base(client, IndexName)
         {
+            _synonymWrite = synonymWrite;
 
-           //client.SynonymMaps.Create()
+            //client.SynonymMaps.Create()
         }
 
         //private SynonymMap CreateSynonym()
@@ -19,6 +23,12 @@ namespace Cloudents.Infrastructure.Write
 
         //    return new SynonymMap("University-Synonym",SynonymMapFormat.Solr, );
         //}
+
+        public override void Start()
+        {
+            _synonymWrite.CreateEmpty(SynonymName);
+            base.Start();
+        }
 
         protected override Index GetIndexStructure(string indexName)
         {
@@ -36,15 +46,15 @@ namespace Cloudents.Infrastructure.Write
                         IsSearchable = true,
                         IsSortable = true,
                         Analyzer = AnalyzerName.EnMicrosoft,
-                        SynonymMaps = new []{ "University-Synonym"}
+                        SynonymMaps = new []{ SynonymName }
                     },
                     new Field(nameof(Core.Entities.Search.University.Image), DataType.String),
-                    new Field(nameof(Core.Entities.Search.University.Extra), DataType.String)
+                    new Field(nameof(Core.Entities.Search.University.Extra), DataType.Collection(DataType.String))
                     {
                         IsSearchable = true,
-                        SynonymMaps = new []{ "University-Synonym"}
+                        SynonymMaps = new []{ SynonymName }
                     },
-                    new Field(nameof(Core.Entities.Search.University.GeographyPoint), DataType.String)
+                    new Field(nameof(Core.Entities.Search.University.GeographyPoint), DataType.GeographyPoint)
                     {
                         IsSortable = true,
                         IsFilterable = true
@@ -57,7 +67,9 @@ namespace Cloudents.Infrastructure.Write
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
-                            new DistanceScoringFunction(nameof(Core.Entities.Search.University.GeographyPoint),5,"currentLocation",50,ScoringFunctionInterpolation.Linear)
+                            new DistanceScoringFunction(
+                                nameof(Core.Entities.Search.University.GeographyPoint),
+                                5,"currentLocation",50,ScoringFunctionInterpolation.Linear)
                         }
                     }
                 },

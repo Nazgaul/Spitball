@@ -63,6 +63,7 @@ namespace Cloudents.MobileApi
             };
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterModule<ModuleMobile>();
+            containerBuilder.RegisterModule<ModuleCore>();
             containerBuilder.RegisterModule<ModuleDb>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();

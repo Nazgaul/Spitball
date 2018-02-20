@@ -79,6 +79,7 @@ namespace Cloudents.Web
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterModule<ModuleWeb>();
             containerBuilder.RegisterModule<ModuleFile>();
+            containerBuilder.RegisterModule<ModuleCore>();
             containerBuilder.RegisterModule<ModuleDb>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();

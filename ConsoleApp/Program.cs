@@ -47,6 +47,8 @@ namespace ConsoleApp
             // new LocalStorageData(Path.Combine(Directory.GetCurrentDirectory(), "Temp"), 500)));
             builder.RegisterModule<ModuleFile>();
             builder.RegisterModule<ModuleDb>();
+            builder.RegisterModule<ModuleCore>();
+            
             var container = builder.Build();
             var client = container.Resolve<IAi>();
             var mapper = container.Resolve<IEngineProcess>();

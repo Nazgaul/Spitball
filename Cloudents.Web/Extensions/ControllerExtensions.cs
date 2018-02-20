@@ -7,7 +7,7 @@ namespace Cloudents.Web.Extensions
     {
         public static RedirectResult RedirectToOldSite(this Controller controller)
         {
-            var path = controller.HttpContext.Request.Path.Value.TrimEnd();
+            var path = controller.HttpContext.Request.Path.Value.TrimEnd('/');
             var uriBuilder = new UriBuilder
             {
                 Scheme = "https",

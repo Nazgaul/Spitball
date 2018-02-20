@@ -13,19 +13,10 @@ namespace Cloudents.Infrastructure
 {
     public class ModuleInfrastructureBase : Module
     {
-        //private readonly SearchServiceCredentials _searchService;
-        //private readonly string _redisConnectionString;
-
-        //public ModuleInfrastructureBase(SearchServiceCredentials searchService, string redisConnectionString)
-        //{
-        //    _searchService = searchService;
-        //    _redisConnectionString = redisConnectionString;
-        //}
-
-        protected override void Load(ContainerBuilder builder)
+       protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-
+            var assembly = Assembly.GetExecutingAssembly();
             builder.RegisterModule<ModuleCache>();
             builder.Register(c =>
                 {
@@ -37,23 +28,19 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<GooglePlacesSearch>().As<IGooglePlacesSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(LogInterceptor), typeof(CacheResultInterceptor));
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
-
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
-
+            builder.RegisterAssemblyTypes(assembly)
+                .AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
             builder.RegisterType<RestClient>().As<IRestClient>().SingleInstance();
 
-            //var config = MapperConfiguration();
-            //builder.Register(c => config.CreateMapper()).SingleInstance();
-
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ITypeConverter<,>));
+            builder.RegisterAssemblyTypes(assembly)
+                .AsClosedTypesOf(typeof(ITypeConverter<,>));
 
             builder.Register(c => new MapperConfiguration(cfg =>
             {
                 cfg.ConstructServicesUsing(c.Resolve);
-                cfg.AddProfiles(Assembly.GetExecutingAssembly());
+                cfg.AddProfiles(assembly);
             })).AsSelf().SingleInstance();
 
-            //builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<AutoMapper.IMapper>();
             builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve<IComponentContext>().Resolve))
                 .As<IMapper>().InstancePerLifetimeScope();
 

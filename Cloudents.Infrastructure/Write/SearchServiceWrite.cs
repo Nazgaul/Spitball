@@ -7,6 +7,7 @@ using Autofac;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using Microsoft.Rest.Azure;
 
 namespace Cloudents.Infrastructure.Write
 {
@@ -79,16 +80,18 @@ namespace Cloudents.Infrastructure.Write
         }
 
         protected abstract Index GetIndexStructure(string indexName);
-        public void Start()
+        public virtual void Start()
         {
-            //try
-            //{
-                _client.Indexes.CreateOrUpdate(GetIndexStructure(_indexName));
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                _client.Indexes.Create(GetIndexStructure(_indexName));
+            }
+#pragma warning disable CC0004 // Catch block cannot be empty
+            catch (CloudException)
+            {
                 //Finish for now
-            //}
+            }
+#pragma warning restore CC0004 // Catch block cannot be empty
         }
 
         public void Dispose()
