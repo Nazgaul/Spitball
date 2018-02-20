@@ -39,7 +39,6 @@ namespace Cloudents.Functions
             return res;
         }
 
-
         [FunctionName("UrlProcess")]
         public static async Task ProcessQueueMessage([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,
             TraceWriter log, CancellationToken token,[Inject] ICommandBus commandBus)

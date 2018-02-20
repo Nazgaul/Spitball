@@ -8,7 +8,7 @@ using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
-namespace Cloudents.Infrastructure.Write
+namespace Cloudents.Infrastructure.Search
 {
     public abstract class SearchServiceWrite<T> : IDisposable, IStartable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {

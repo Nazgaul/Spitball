@@ -38,9 +38,7 @@ namespace Cloudents.Infrastructure
                 .InterceptedBy(typeof(LogInterceptor), typeof(CacheResultInterceptor));
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
 
-            #region Interceptors
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
-            #endregion
 
             builder.RegisterType<RestClient>().As<IRestClient>().SingleInstance();
 
@@ -53,7 +51,6 @@ namespace Cloudents.Infrastructure
             {
                 cfg.ConstructServicesUsing(c.Resolve);
                 cfg.AddProfiles(Assembly.GetExecutingAssembly());
-                //cfg.AddProfile<MapperProfile>();
             })).AsSelf().SingleInstance();
 
             //builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<AutoMapper.IMapper>();

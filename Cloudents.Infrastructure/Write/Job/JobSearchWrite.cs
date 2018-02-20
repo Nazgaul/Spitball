@@ -17,7 +17,7 @@ namespace Cloudents.Infrastructure.Write.Job
 
         }
 
-        public override Index GetIndexStructure(string indexName)
+        protected override Index GetIndexStructure(string indexName)
         {
             return new Index
             {

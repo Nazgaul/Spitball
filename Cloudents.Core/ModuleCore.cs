@@ -13,11 +13,7 @@ namespace Cloudents.Core
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ICommandHandlerAsync<>)).AsImplementedInterfaces();
             builder.RegisterType<CommandBus>().As<ICommandBus>();
 
-            builder.Register(c=>
-            {
-               // var key = c.Resolve<IConfigurationKeys>().SystemUrl;
-                return new UrlConst();
-            }).As<IUrlBuilder>().SingleInstance();
+            builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
 
             builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
             builder.RegisterType<Shuffle>().As<IShuffle>();

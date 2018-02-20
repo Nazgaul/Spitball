@@ -31,6 +31,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterGeneric(typeof(SearchServiceWrite<>));
             builder.RegisterType<JobSearchWrite>().AsSelf().As<ISearchServiceWrite<Job>>().As<IStartable>().SingleInstance().AutoActivate();
             builder.RegisterType<TutorSearchWrite>().AsSelf().As<ISearchServiceWrite<Tutor>>().As<IStartable>().SingleInstance().AutoActivate();
+            builder.RegisterType<UniversitySearchWrite>().AsSelf().As<ISearchServiceWrite<University>>().As<IStartable>().SingleInstance().AutoActivate();
             builder.RegisterType<DownloadFile>().As<IDownloadFile>();
             builder.Register(c =>
             {
