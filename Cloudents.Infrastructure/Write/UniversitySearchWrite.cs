@@ -20,11 +20,11 @@ namespace Cloudents.Infrastructure.Write
 
         }
 
-        public override async Task CreateOrUpdateAsync(CancellationToken token)
+        public override Task CreateOrUpdateAsync(CancellationToken token)
         {
             // _synonymWrite.CreateEmpty(SynonymName);
-            await Client.Indexes.DeleteAsync(IndexName, cancellationToken: token);
-            base.CreateOrUpdateAsync(token);
+            //await Client.Indexes.DeleteAsync(IndexName, cancellationToken: token);
+            return base.CreateOrUpdateAsync(token);
         }
 
         protected override Index GetIndexStructure(string indexName)
@@ -106,7 +106,7 @@ namespace Cloudents.Infrastructure.Write
                         {
                             new DistanceScoringFunction(
                                 nameof(Core.Entities.Search.University.GeographyPoint),
-                                5,DistanceScoringParameter,50,ScoringFunctionInterpolation.Linear),
+                                5,DistanceScoringParameter,10,ScoringFunctionInterpolation.Linear),
 
                         }
                     }

@@ -48,26 +48,15 @@ namespace Cloudents.Infrastructure.Search
             {
                 searchParameter.ScoringProfile = UniversitySearchWrite.ScoringProfile;
                 searchParameter.ScoringParameters = new[] {
-                    new ScoringParameter(UniversitySearchWrite.DistanceScoringParameter,GeographyPoint.Create(location.Latitude,location.Longitude))
+                    new ScoringParameter
+                        (UniversitySearchWrite.DistanceScoringParameter
+                        ,GeographyPoint.Create(location.Latitude,location.Longitude))
                 };
             }
 
             var result = await
                 _client.Documents.SearchAsync<University>(term, searchParameter,
                     cancellationToken: token);
-
-            //var tSuggest = CompletedTask;
-            //if (term.Length >= 3)
-            //{
-            //    tSuggest = _client.Documents.SuggestAsync<University>(term, "sg",
-            //        new SuggestParameters
-            //        {
-            //            UseFuzzyMatching = true,
-            //            Select = listOfSelectParams,
-            //            Filter = "geographyPoint ne null"
-            //        }, cancellationToken: token);
-            //}
-            //await Task.WhenAll(tResult, tSuggest).ConfigureAwait(false);
 
             return _mapper.Map<IEnumerable<University>, IList<UniversityDto>>(result.Results.Select(s => s.Document));
             //if (tSuggest.Result != null)

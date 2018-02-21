@@ -45,7 +45,7 @@ namespace Cloudents.Infrastructure
         {
            // builder.RegisterType<SynonymWrite>().As<ISynonymWrite>();
             builder.RegisterGeneric(typeof(SearchServiceWrite<>));
-            builder.RegisterType<UniversitySearchWrite>().AsSelf().As<ISearchServiceWrite<University>>().As<IStartable>().SingleInstance().AutoActivate();
+            builder.RegisterType<UniversitySearchWrite>().AsSelf().As<ISearchServiceWrite<University>>().SingleInstance();
             builder.Register(c =>
                 {
                     var key = c.Resolve<IConfigurationKeys>().Search;

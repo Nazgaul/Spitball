@@ -8,7 +8,6 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Spatial;
