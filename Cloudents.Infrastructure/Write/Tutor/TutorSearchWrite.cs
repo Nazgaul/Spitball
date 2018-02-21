@@ -17,11 +17,11 @@ namespace Cloudents.Infrastructure.Write.Tutor
 
         }
 
-        public override Index GetIndexStructure(string indexName)
+        protected override Index GetIndexStructure(string indexName)
         {
             return new Index
             {
-                Name = IndexName,
+                Name = indexName,
                 Fields = new List<Field>
                 {
                     new Field(nameof(Core.Entities.Search.Tutor.Id), DataType.String)

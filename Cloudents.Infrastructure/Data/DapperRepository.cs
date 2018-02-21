@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public class DapperRepository 
+    public class DapperRepository
     {
         private readonly string _connectionString;
 

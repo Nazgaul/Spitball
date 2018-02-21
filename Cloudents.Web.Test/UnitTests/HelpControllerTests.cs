@@ -13,7 +13,7 @@ namespace Cloudents.Web.Test
         {
             var asm = Assembly.GetExecutingAssembly();
             const string xmlFile = "help.xml";
-            var resource = $"Cloudents.Web.Test.{xmlFile}";
+            var resource = $"Cloudents.Web.Test.UnitTests.{xmlFile}";
             return asm.GetManifestResourceStream(resource);
         }
 

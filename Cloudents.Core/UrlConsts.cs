@@ -8,12 +8,12 @@ namespace Cloudents.Core
 {
     public class UrlConst : IUrlBuilder
     {
-        //private const string SystemUrl = "https://www.spitball.co";
-        private readonly string _systemUrl;
+        private const string SystemUrl = "https://spitball-function.azurewebsites.net/api/redirect";
+        //private readonly string _systemUrl;
 
-        public UrlConst(string systemUrl)
+        public UrlConst()
         {
-            _systemUrl = systemUrl;
+           // _systemUrl = systemUrl;
         }
 
         public string BuildRedirectUrl(string url, string host, int? location)
@@ -32,7 +32,7 @@ namespace Cloudents.Core
             {
                 nvc["location"] = location.ToString();
             }
-            var uri = new UriBuilder(new Uri(_systemUrl))
+            var uri = new UriBuilder(new Uri(SystemUrl))
             {
                 Path = "url"
             };

@@ -38,6 +38,7 @@ namespace Cloudents.WebJob
             }
 
             config.UseTimers();
+            config.UseHttp();
             var host = new JobHost(config);
             // The following code ensures that the WebJob will be running continuously
             host.RunAndBlock();

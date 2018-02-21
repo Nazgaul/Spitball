@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Search;
@@ -19,7 +20,7 @@ namespace Cloudents.Infrastructure
             CreateMap<Suggestions.SuggestionsObject, IEnumerable<string>>().ConvertUsing<SuggestConverter>();
 
             CreateMap<Search.Entities.Course, CourseDto>();
-            CreateMap<Search.Entities.University, UniversityDto>();
+            CreateMap<University, UniversityDto>();
 
             CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlacesConverter>();
             CreateMap<JObject, PlaceDto>().ConvertUsing<PlaceConverter>();

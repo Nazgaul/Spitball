@@ -9,19 +9,15 @@ namespace Cloudents.Core
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ICommandHandlerAsync<,>)).AsImplementedInterfaces();
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ICommandHandlerAsync<>)).AsImplementedInterfaces();
+            var assembly = Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandlerAsync<,>)).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandlerAsync<>)).AsImplementedInterfaces();
             builder.RegisterType<CommandBus>().As<ICommandBus>();
 
-            builder.Register(c=>
-            {
-                var key = c.Resolve<IConfigurationKeys>().SystemUrl;
-                return new UrlConst(key);
-            }).As<IUrlBuilder>().SingleInstance();
+            builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
 
             builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
             builder.RegisterType<Shuffle>().As<IShuffle>();
-            //builder.RegisterGeneric(typeof(UrlRedirectBuilder<>)).As(typeof(IUrlRedirectBuilder<>));
         }
     }
 }
