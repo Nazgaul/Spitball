@@ -11,7 +11,7 @@ using Microsoft.Rest.Azure;
 
 namespace Cloudents.Infrastructure.Write
 {
-    public abstract class SearchServiceWrite<T> : IDisposable, IStartable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
+    public abstract class SearchServiceWrite<T> : IDisposable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
         protected readonly SearchServiceClient Client;
         protected readonly ISearchIndexClient IndexClient;
@@ -51,6 +51,11 @@ namespace Cloudents.Infrastructure.Write
             return IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
         }
 
+        public virtual Task CreateOrUpdateAsync(CancellationToken token)
+        {
+            return Client.Indexes.CreateOrUpdateAsync(GetIndexStructure(_indexName), cancellationToken: token);
+        }
+
         //public Task UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> ids, CancellationToken token)
         //{
         //    if (items == null && ids == null) throw new ArgumentNullException();
@@ -78,19 +83,19 @@ namespace Cloudents.Infrastructure.Write
         //}
 
         protected abstract Index GetIndexStructure(string indexName);
-        public virtual void Start()
-        {
-            try
-            {
-                Client.Indexes.Create(GetIndexStructure(_indexName));
-            }
-#pragma warning disable CC0004 // Catch block cannot be empty
-            catch (CloudException)
-            {
-                //Finish for now
-            }
-#pragma warning restore CC0004 // Catch block cannot be empty
-        }
+//        public virtual void Start()
+//        {
+//            try
+//            {
+//                Client.Indexes.Create(GetIndexStructure(_indexName));
+//            }
+//#pragma warning disable CC0004 // Catch block cannot be empty
+//            catch (CloudException)
+//            {
+//                //Finish for now
+//            }
+//#pragma warning restore CC0004 // Catch block cannot be empty
+//        }
 
         public void Dispose()
         {

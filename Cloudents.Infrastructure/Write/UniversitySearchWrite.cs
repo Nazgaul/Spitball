@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -11,19 +13,18 @@ namespace Cloudents.Infrastructure.Write
         public const string ScoringProfile = "university-default";
         public const string DistanceScoringParameter = "currentLocation";
         public const string SynonymName = "university-synonym";
-        private readonly ISynonymWrite _synonymWrite;
-        public UniversitySearchWrite(SearchServiceClient client, ISynonymWrite synonymWrite)
+        //private readonly ISynonymWrite _synonymWrite;
+        public UniversitySearchWrite(SearchServiceClient client)
             : base(client, IndexName)
         {
-            _synonymWrite = synonymWrite;
 
         }
 
-        public override void Start()
+        public override async Task CreateOrUpdateAsync(CancellationToken token)
         {
             // _synonymWrite.CreateEmpty(SynonymName);
-            Client.Indexes.Delete(IndexName);
-            base.Start();
+            await Client.Indexes.DeleteAsync(IndexName, cancellationToken: token);
+            base.CreateOrUpdateAsync(token);
         }
 
         protected override Index GetIndexStructure(string indexName)

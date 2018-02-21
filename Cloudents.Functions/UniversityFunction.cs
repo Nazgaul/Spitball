@@ -24,12 +24,20 @@ namespace Cloudents.Functions
             [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Read)]  string blobRead,
             [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Write)] TextWriter blobWrite,
             [Inject] IReadRepositoryAsync<(IEnumerable<UniversitySearchWriteDto> update, IEnumerable<UniversitySearchDeleteDto> delete, long version), long> repository,
+            [Inject] ISearchServiceWrite<University> searchServiceWrite,
             [Queue(QueueName.UrlRedirectName, Connection = "TempConnection")] IAsyncCollector<string> queue,
             TraceWriter log,
             CancellationToken token)
         {
             var version = long.Parse(blobRead);
-            var data = await repository.GetAsync(version, token).ConfigureAwait(false);
+            var t1 = Task.CompletedTask;
+            if (version == 0)
+            {
+                t1 = searchServiceWrite.CreateOrUpdateAsync(token);
+            }
+            var dataTask = repository.GetAsync(version, token);
+            await Task.WhenAll(t1, dataTask).ConfigureAwait(false);
+            var data = dataTask.Result;
             var tasks = new List<Task>();
             foreach (var dto in data.update)
             {

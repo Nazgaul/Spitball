@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<JobSearchWrite>().AsSelf().As<ISearchServiceWrite<Job>>().As<IStartable>().SingleInstance().AutoActivate();
             builder.RegisterType<TutorSearchWrite>().AsSelf().As<ISearchServiceWrite<Tutor>>().As<IStartable>().SingleInstance().AutoActivate();
             builder.RegisterType<UniversitySearchWrite>().AsSelf().As<ISearchServiceWrite<University>>().As<IStartable>().SingleInstance().AutoActivate();
-            builder.RegisterType<SynonymWrite>().As<ISynonymWrite>();
+            //builder.RegisterType<SynonymWrite>().As<ISynonymWrite>();
             builder.RegisterType<DownloadFile>().As<IDownloadFile>();
             builder.Register(c =>
             {
@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<SynonymWrite>().As<ISynonymWrite>();
+           // builder.RegisterType<SynonymWrite>().As<ISynonymWrite>();
             builder.RegisterGeneric(typeof(SearchServiceWrite<>));
             builder.RegisterType<UniversitySearchWrite>().AsSelf().As<ISearchServiceWrite<University>>().As<IStartable>().SingleInstance().AutoActivate();
             builder.Register(c =>

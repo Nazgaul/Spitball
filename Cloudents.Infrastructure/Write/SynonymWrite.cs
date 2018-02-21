@@ -7,7 +7,7 @@ using Microsoft.Rest.Azure;
 
 namespace Cloudents.Infrastructure.Write
 {
-    public class SynonymWrite :  ISynonymWrite
+    public class SynonymWrite //:  ISynonymWrite
     {
         private readonly SearchServiceClient _client;
 
