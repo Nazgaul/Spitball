@@ -79,15 +79,15 @@ namespace Cloudents.Infrastructure.Write
                         TokenFilterName.Lowercase,
                         TokenFilterName.Stopwords,
                         TokenFilterName.Create("my_stopWords"),
-                        TokenFilterName.Create("my_nGram")
+                        TokenFilterName.Create("my_edgeNGram")
                     }),
                     new StandardAnalyzer("stopWords",stopwords:stopWordsList)
                 },
                 TokenFilters = new List<TokenFilter>
                 {
                     new StopwordsTokenFilter("my_stopWords",stopWordsList,ignoreCase:true),
-                    new NGramTokenFilterV2("my_nGram",2,20)
-                    //new EdgeNGramTokenFilterV2("my_edgeNGram",2,20)
+                    //new NGramTokenFilterV2("my_nGram",2,20)
+                    new EdgeNGramTokenFilterV2("my_edgeNGram",2,20)
                 },
                 ScoringProfiles = new List<ScoringProfile>
                 {
