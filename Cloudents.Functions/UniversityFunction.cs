@@ -24,7 +24,7 @@ namespace Cloudents.Functions
             [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Write)] TextWriter blobWrite,
             [Inject] IReadRepositoryAsync<(IEnumerable<UniversitySearchWriteDto> update, IEnumerable<UniversitySearchDeleteDto> delete, long version), long> repository,
             [Inject] ISearchServiceWrite<University> searchServiceWrite,
-            [Queue(QueueName.UrlRedirectName, Connection = "TempConnection")] IAsyncCollector<string> queue,
+            [Queue(QueueName.UrlRedirectName)] IAsyncCollector<string> queue,
             TraceWriter log,
             CancellationToken token)
         {
@@ -59,7 +59,7 @@ namespace Cloudents.Functions
 
         [FunctionName("UniversityUpload")]
         public static async Task ProcessQueueAsync(
-            [QueueTrigger(QueueName.UrlRedirectName, Connection = "TempConnection")] string content,
+            [QueueTrigger(QueueName.UrlRedirectName)] string content,
             [Inject] ISearchServiceWrite<University> searchServiceWrite,
             CancellationToken token
             )
@@ -83,19 +83,5 @@ namespace Cloudents.Functions
                 await searchServiceWrite.DeleteDataAsync(new[] { obj.Id.ToString() }, token).ConfigureAwait(false);
             }
         }
-
-        //[FunctionName("SynonymWatch")]
-        //public static async Task SynonymWatchAsync([BlobTrigger("spitball/AzureSearch/{name}")]
-        //    string content, string name, TraceWriter log,
-        //    [Inject] ISynonymWrite synonymWrite,
-        //    CancellationToken token)
-        //{
-        //    var fileName = Path.GetFileNameWithoutExtension(name);
-        //    if (string.Equals(fileName, UniversitySearchWrite.SynonymName, StringComparison.InvariantCultureIgnoreCase))
-        //    {
-        //        await synonymWrite.CreateOrUpdateAsync(fileName, content, token).ConfigureAwait(false);
-        //        log.Info(content);
-        //    }
-        //}
     }
 }
