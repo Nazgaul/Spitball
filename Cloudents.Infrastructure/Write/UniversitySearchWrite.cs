@@ -9,6 +9,7 @@ namespace Cloudents.Infrastructure.Write
     {
         public const string IndexName = "universities3";
         public const string ScoringProfile = "university-default";
+        public const string DistanceScoringParameter = "currentLocation";
         public const string SynonymName = "university-synonym";
         private readonly ISynonymWrite _synonymWrite;
         public UniversitySearchWrite(SearchServiceClient client, ISynonymWrite synonymWrite)
@@ -27,6 +28,12 @@ namespace Cloudents.Infrastructure.Write
 
         protected override Index GetIndexStructure(string indexName)
         {
+            var stopWordsList = new[]{ "university",
+                    "of",
+                    "college",
+                    "school",
+                    "the",
+                    "a"};
             return new Index
             {
                 Name = indexName,
@@ -40,8 +47,8 @@ namespace Cloudents.Infrastructure.Write
                     {
                         IsSearchable = true,
                         IsSortable = true,
-                        Analyzer =  AnalyzerName.Create("stopWords")
-                        //SynonymMaps = new []{ SynonymName }
+                        SearchAnalyzer = AnalyzerName.StandardLucene,
+                        IndexAnalyzer =  AnalyzerName.Create("stopWords")
                     },
                     new Field(nameof(Core.Entities.Search.University.Prefix), DataType.String)
                     {
@@ -49,13 +56,13 @@ namespace Cloudents.Infrastructure.Write
                         //Analyzer = AnalyzerName.EnMicrosoft,
                         SearchAnalyzer = AnalyzerName.StandardLucene,
                         IndexAnalyzer = AnalyzerName.Create("prefix"),
-                        //SynonymMaps = new []{ SynonymName }
                     },
                     new Field(nameof(Core.Entities.Search.University.Extra), DataType.String)
                     {
                         IsSearchable = true,
-                        Analyzer = AnalyzerName.Create("stopWords")
-                        //SynonymMaps = new []{ SynonymName }
+                        //Analyzer = AnalyzerName.Create("stopWords")
+                        SearchAnalyzer = AnalyzerName.StandardLucene,
+                        IndexAnalyzer =  AnalyzerName.Create("stopWords")
                     },
                     new Field(nameof(Core.Entities.Search.University.Image), DataType.String),
 
@@ -67,25 +74,24 @@ namespace Cloudents.Infrastructure.Write
                 },
                 Analyzers = new List<Analyzer>
                 {
-                    new CustomAnalyzer("prefix",TokenizerName.MicrosoftLanguageTokenizer,new List<TokenFilterName>
+                    new CustomAnalyzer("prefix",TokenizerName.Standard,new List<TokenFilterName>
                     {
-                        TokenFilterName.Create("my_edgeNGram")
+                        TokenFilterName.Lowercase,
+                        TokenFilterName.Stopwords,
+                        TokenFilterName.Create("my_stopWords"),
+                        TokenFilterName.Create("my_nGram")
                     }),
-                    new StandardAnalyzer("stopWords",stopwords:new []
-                    {
-                        "university",
-                        "of",
-                        "college",
-                        "school"
-                    })
+                    new StandardAnalyzer("stopWords",stopwords:stopWordsList)
                 },
                 TokenFilters = new List<TokenFilter>
                 {
-                    new EdgeNGramTokenFilterV2("my_edgeNGram",2,20)
+                    new StopwordsTokenFilter("my_stopWords",stopWordsList,ignoreCase:true),
+                    new NGramTokenFilterV2("my_nGram",2,20)
+                    //new EdgeNGramTokenFilterV2("my_edgeNGram",2,20)
                 },
                 ScoringProfiles = new List<ScoringProfile>
                 {
-                    new ScoringProfile("university-default")
+                    new ScoringProfile(ScoringProfile)
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>()
                         {
@@ -100,7 +106,7 @@ namespace Cloudents.Infrastructure.Write
                         {
                             new DistanceScoringFunction(
                                 nameof(Core.Entities.Search.University.GeographyPoint),
-                                5,"currentLocation",50,ScoringFunctionInterpolation.Linear),
+                                5,DistanceScoringParameter,50,ScoringFunctionInterpolation.Linear),
 
                         }
                     }

@@ -25,7 +25,6 @@ namespace Cloudents.Functions
             [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Write)] TextWriter blobWrite,
             [Inject] IReadRepositoryAsync<(IEnumerable<UniversitySearchWriteDto> update, IEnumerable<UniversitySearchDeleteDto> delete, long version), long> repository,
             [Queue(QueueName.UrlRedirectName, Connection = "TempConnection")] IAsyncCollector<string> queue,
-            //[Queue(QueueName.UrlRedirectName, Connection = "TempConnection")] IAsyncCollector<DeleteDto> queueDelete,
             TraceWriter log,
             CancellationToken token)
         {
@@ -78,18 +77,18 @@ namespace Cloudents.Functions
             }
         }
 
-        [FunctionName("SynonymWatch")]
-        public static async Task SynonymWatchAsync([BlobTrigger("spitball/AzureSearch/{name}")]
-            string content, string name, TraceWriter log,
-            [Inject] ISynonymWrite synonymWrite,
-            CancellationToken token)
-        {
-            var fileName = Path.GetFileNameWithoutExtension(name);
-            if (string.Equals(fileName, UniversitySearchWrite.SynonymName, StringComparison.InvariantCultureIgnoreCase))
-            {
-                await synonymWrite.CreateOrUpdateAsync(fileName, content, token).ConfigureAwait(false);
-                log.Info(content);
-            }
-        }
+        //[FunctionName("SynonymWatch")]
+        //public static async Task SynonymWatchAsync([BlobTrigger("spitball/AzureSearch/{name}")]
+        //    string content, string name, TraceWriter log,
+        //    [Inject] ISynonymWrite synonymWrite,
+        //    CancellationToken token)
+        //{
+        //    var fileName = Path.GetFileNameWithoutExtension(name);
+        //    if (string.Equals(fileName, UniversitySearchWrite.SynonymName, StringComparison.InvariantCultureIgnoreCase))
+        //    {
+        //        await synonymWrite.CreateOrUpdateAsync(fileName, content, token).ConfigureAwait(false);
+        //        log.Info(content);
+        //    }
+        //}
     }
 }
