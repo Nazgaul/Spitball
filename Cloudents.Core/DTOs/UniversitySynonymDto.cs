@@ -20,7 +20,7 @@ namespace Cloudents.Core.DTOs
         public double Longitude { get; set; }
         [DataMember]
         public double Latitude { get; set; }
-        public long Version { get; set; }
+        [DataMember] public string Extra { get; set; }
     }
 
     [DataContract]
@@ -28,7 +28,7 @@ namespace Cloudents.Core.DTOs
     {
         public UniversitySearchDeleteDto()
         {
-            
+
         }
 
         public UniversitySearchDeleteDto(long id)
@@ -37,5 +37,7 @@ namespace Cloudents.Core.DTOs
         }
         [DataMember]
         public long Id { get; set; }
+        public long Version { get; set; }
+
     }
 }

@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<AiDecision>().As<IDecision>();
             builder.RegisterType<EngineProcess>().As<IEngineProcess>();
 
-            
+
             builder.Register(_ => new LuisClient("a1a0245f-4cb3-42d6-8bb2-62b6cfe7d5a3", "6effb3962e284a9ba73dfb57fa1cfe40")).AsImplementedInterfaces();
 
             builder.RegisterType<DocumentDbRepositoryUnitOfWork>().AsSelf().As<IStartable>().SingleInstance().AutoActivate();

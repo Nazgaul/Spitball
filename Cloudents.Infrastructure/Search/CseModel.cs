@@ -6,7 +6,7 @@ namespace Cloudents.Infrastructure.Search
     public class SearchModel
     {
         public SearchModel(IEnumerable<string> query, IEnumerable<string> sources,
-            SearchRequestSort sort, 
+            SearchRequestSort sort,
             CustomApiKey key, IEnumerable<string> courses, IEnumerable<string> universitySynonym, string defaultTerm, string docType)
         {
             Query = query;

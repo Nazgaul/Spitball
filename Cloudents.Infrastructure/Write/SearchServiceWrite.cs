@@ -13,15 +13,15 @@ namespace Cloudents.Infrastructure.Write
 {
     public abstract class SearchServiceWrite<T> : IDisposable, IStartable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
-        private readonly SearchServiceClient _client;
+        protected readonly SearchServiceClient Client;
         protected readonly ISearchIndexClient IndexClient;
         private readonly string _indexName;
 
         protected SearchServiceWrite(SearchServiceClient client, string indexName)
         {
-            _client = client;
+            Client = client;
             IndexClient = client.Indexes.GetClient(indexName);
-            _indexName = indexName; 
+            _indexName = indexName;
         }
 
         public Task UpdateDataAsync(IEnumerable<T> items, CancellationToken token)
@@ -82,7 +82,7 @@ namespace Cloudents.Infrastructure.Write
         {
             try
             {
-                _client.Indexes.Create(GetIndexStructure(_indexName));
+                Client.Indexes.Create(GetIndexStructure(_indexName));
             }
 #pragma warning disable CC0004 // Catch block cannot be empty
             catch (CloudException)
@@ -94,7 +94,7 @@ namespace Cloudents.Infrastructure.Write
 
         public void Dispose()
         {
-            _client?.Dispose();
+            Client?.Dispose();
         }
     }
 }

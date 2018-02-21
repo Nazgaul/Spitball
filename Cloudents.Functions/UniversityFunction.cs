@@ -12,7 +12,6 @@ using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Spatial;
-using Newtonsoft.Json;
 
 namespace Cloudents.Functions
 {
@@ -24,28 +23,18 @@ namespace Cloudents.Functions
         public static async Task RunAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Read)]  string blobRead,
             [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Write)] TextWriter blobWrite,
-            [Inject] IReadRepositoryAsync<(List<UniversitySearchWriteDto> update, IEnumerable<UniversitySearchDeleteDto> delete, long version), long> repository,
+            [Inject] IReadRepositoryAsync<(IEnumerable<UniversitySearchWriteDto> update, IEnumerable<UniversitySearchDeleteDto> delete, long version), long> repository,
             [Queue(QueueName.UrlRedirectName, Connection = "TempConnection")] IAsyncCollector<string> queue,
             //[Queue(QueueName.UrlRedirectName, Connection = "TempConnection")] IAsyncCollector<DeleteDto> queueDelete,
             TraceWriter log,
             CancellationToken token)
         {
-            // blob.ReadFromStreamAsync()
-            var version = long.Parse(blobRead);
-            // int.Parse(await blob.DownloadTextAsync(token));
+            var version = 0;// long.Parse(blobRead);
             var data = await repository.GetAsync(version, token).ConfigureAwait(false);
             var tasks = new List<Task>();
             foreach (var dto in data.update)
             {
-                if (dto.IsDeleted)
-                {
-                    var deleted = new UniversitySearchDeleteDto(dto.Id);
-                    tasks.Add(queue.AddAsStringAsync(deleted, token));
-                }
-                else
-                {
-                    tasks.Add(queue.AddAsStringAsync(dto, token));
-                }
+                tasks.Add(queue.AddAsStringAsync(dto, token));
             }
 
             foreach (var d in data.delete)
@@ -69,16 +58,17 @@ namespace Cloudents.Functions
             CancellationToken token
             )
         {
-            var obj = JsonConvert.DeserializeObject<UniversitySearchDeleteDto>(content, AsyncCollectorExtensions.Settings);
+            var obj = JsonConvertInheritance.DeserializeObject<UniversitySearchDeleteDto>(content);
             if (obj is UniversitySearchWriteDto write)
             {
                 var university = new University
                 {
                     Name = write.Name,
                     Image = write.Image,
-                    Extra = null,
+                    Extra = write.Extra,
                     GeographyPoint = GeographyPoint.Create(write.Latitude, write.Longitude),
-                    Id = write.Id.ToString()
+                    Id = write.Id.ToString(),
+                    Prefix = write.Name
                 };
                 await searchServiceWrite.UpdateDataAsync(new[] { university }, token).ConfigureAwait(false);
             }
@@ -86,7 +76,6 @@ namespace Cloudents.Functions
             {
                 await searchServiceWrite.DeleteDataAsync(new[] { obj.Id.ToString() }, token).ConfigureAwait(false);
             }
-            //searchServiceWrite.UpdateDataAsync()
         }
 
         [FunctionName("SynonymWatch")]

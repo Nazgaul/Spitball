@@ -87,7 +87,7 @@ namespace Cloudents.Infrastructure.Interceptor
         {
             return Task.FromResult(data);
         }
-        
+
         protected override void BeforeAction(IInvocation invocation)
         {
             var key = GetInvocationSignature(invocation);

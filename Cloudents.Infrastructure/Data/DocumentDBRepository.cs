@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure.Data
         {
             _client = client.Client;
         }
-        
+
         private static string GetCollectionId()
         {
             return GetCollectionId(typeof(T));

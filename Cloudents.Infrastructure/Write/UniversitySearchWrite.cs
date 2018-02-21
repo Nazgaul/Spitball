@@ -7,7 +7,8 @@ namespace Cloudents.Infrastructure.Write
 {
     public class UniversitySearchWrite : SearchServiceWrite<Core.Entities.Search.University>
     {
-        private const string IndexName = "universities3";
+        public const string IndexName = "universities3";
+        public const string ScoringProfile = "university-default";
         public const string SynonymName = "university-synonym";
         private readonly ISynonymWrite _synonymWrite;
         public UniversitySearchWrite(SearchServiceClient client, ISynonymWrite synonymWrite)
@@ -20,7 +21,8 @@ namespace Cloudents.Infrastructure.Write
         public override void Start()
         {
             // _synonymWrite.CreateEmpty(SynonymName);
-            // base.Start();
+            Client.Indexes.Delete(IndexName);
+            base.Start();
         }
 
         protected override Index GetIndexStructure(string indexName)
@@ -38,20 +40,21 @@ namespace Cloudents.Infrastructure.Write
                     {
                         IsSearchable = true,
                         IsSortable = true,
-                        Analyzer = AnalyzerName.EnMicrosoft,
-                        IndexAnalyzer = AnalyzerName.Create("stopWords")
+                        Analyzer =  AnalyzerName.Create("stopWords")
                         //SynonymMaps = new []{ SynonymName }
                     },
                     new Field(nameof(Core.Entities.Search.University.Prefix), DataType.String)
                     {
                         IsSearchable = true,
-                        Analyzer = AnalyzerName.EnMicrosoft,
+                        //Analyzer = AnalyzerName.EnMicrosoft,
+                        SearchAnalyzer = AnalyzerName.StandardLucene,
                         IndexAnalyzer = AnalyzerName.Create("prefix"),
                         //SynonymMaps = new []{ SynonymName }
                     },
                     new Field(nameof(Core.Entities.Search.University.Extra), DataType.String)
                     {
                         IsSearchable = true,
+                        Analyzer = AnalyzerName.Create("stopWords")
                         //SynonymMaps = new []{ SynonymName }
                     },
                     new Field(nameof(Core.Entities.Search.University.Image), DataType.String),
@@ -64,11 +67,17 @@ namespace Cloudents.Infrastructure.Write
                 },
                 Analyzers = new List<Analyzer>
                 {
-                    new CustomAnalyzer("prefix",TokenizerName.MicrosoftLanguageTokenizer,new List<TokenFilterName>()
+                    new CustomAnalyzer("prefix",TokenizerName.MicrosoftLanguageTokenizer,new List<TokenFilterName>
                     {
                         TokenFilterName.Create("my_edgeNGram")
                     }),
-                    new StandardAnalyzer("stopWords",stopwords:new [] {"university","of","college","school"})
+                    new StandardAnalyzer("stopWords",stopwords:new []
+                    {
+                        "university",
+                        "of",
+                        "college",
+                        "school"
+                    })
                 },
                 TokenFilters = new List<TokenFilter>
                 {
@@ -95,13 +104,13 @@ namespace Cloudents.Infrastructure.Write
 
                         }
                     }
-                },
-                Suggesters = new List<Suggester>
-                {
-                    new Suggester("sg",
-                        nameof(Core.Entities.Search.University.Extra),
-                        nameof(Core.Entities.Search.University.Name))
                 }
+                //Suggesters = new List<Suggester>
+                //{
+                //    new Suggester("sg",
+                //        nameof(Core.Entities.Search.University.Extra),
+                //        nameof(Core.Entities.Search.University.Name))
+                //}
             };
         }
     }
