@@ -28,7 +28,7 @@ namespace Cloudents.Functions
             TraceWriter log,
             CancellationToken token)
         {
-            var version = 0;// long.Parse(blobRead);
+            var version = long.Parse(blobRead);
             var data = await repository.GetAsync(version, token).ConfigureAwait(false);
             var tasks = new List<Task>();
             foreach (var dto in data.update)

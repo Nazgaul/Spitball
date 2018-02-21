@@ -86,7 +86,6 @@ namespace Cloudents.Infrastructure.Write
                 TokenFilters = new List<TokenFilter>
                 {
                     new StopwordsTokenFilter("my_stopWords",stopWordsList,ignoreCase:true),
-                    //new NGramTokenFilterV2("my_nGram",2,20)
                     new EdgeNGramTokenFilterV2("my_edgeNGram",2,20)
                 },
                 ScoringProfiles = new List<ScoringProfile>
