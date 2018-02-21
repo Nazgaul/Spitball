@@ -15,19 +15,12 @@ namespace Cloudents.Infrastructure.Write
         {
             _synonymWrite = synonymWrite;
 
-            //client.SynonymMaps.Create()
         }
-
-        //private SynonymMap CreateSynonym()
-        //{
-
-        //    return new SynonymMap("University-Synonym",SynonymMapFormat.Solr, );
-        //}
 
         public override void Start()
         {
-           // _synonymWrite.CreateEmpty(SynonymName);
-           // base.Start();
+            // _synonymWrite.CreateEmpty(SynonymName);
+            // base.Start();
         }
 
         protected override Index GetIndexStructure(string indexName)
@@ -46,30 +39,60 @@ namespace Cloudents.Infrastructure.Write
                         IsSearchable = true,
                         IsSortable = true,
                         Analyzer = AnalyzerName.EnMicrosoft,
-                        SynonymMaps = new []{ SynonymName }
+                        IndexAnalyzer = AnalyzerName.Create("stopWords")
+                        //SynonymMaps = new []{ SynonymName }
                     },
-                    new Field(nameof(Core.Entities.Search.University.Image), DataType.String),
-                    new Field(nameof(Core.Entities.Search.University.Extra), DataType.Collection(DataType.String))
+                    new Field(nameof(Core.Entities.Search.University.Prefix), DataType.String)
                     {
                         IsSearchable = true,
-                        SynonymMaps = new []{ SynonymName }
+                        Analyzer = AnalyzerName.EnMicrosoft,
+                        IndexAnalyzer = AnalyzerName.Create("prefix"),
+                        //SynonymMaps = new []{ SynonymName }
                     },
+                    new Field(nameof(Core.Entities.Search.University.Extra), DataType.String)
+                    {
+                        IsSearchable = true,
+                        //SynonymMaps = new []{ SynonymName }
+                    },
+                    new Field(nameof(Core.Entities.Search.University.Image), DataType.String),
+
                     new Field(nameof(Core.Entities.Search.University.GeographyPoint), DataType.GeographyPoint)
                     {
                         IsSortable = true,
                         IsFilterable = true
                     }
                 },
+                Analyzers = new List<Analyzer>
+                {
+                    new CustomAnalyzer("prefix",TokenizerName.MicrosoftLanguageTokenizer,new List<TokenFilterName>()
+                    {
+                        TokenFilterName.Create("my_edgeNGram")
+                    }),
+                    new StandardAnalyzer("stopWords",stopwords:new [] {"university","of","college","school"})
+                },
+                TokenFilters = new List<TokenFilter>
+                {
+                    new EdgeNGramTokenFilterV2("my_edgeNGram",2,20)
+                },
                 ScoringProfiles = new List<ScoringProfile>
                 {
-                    new ScoringProfile("university-score-location")
+                    new ScoringProfile("university-default")
                     {
+                        TextWeights = new TextWeights(new Dictionary<string, double>()
+                        {
+                            [nameof(Core.Entities.Search.University.Extra)] = 3,
+                            [nameof(Core.Entities.Search.University.Name)] = 2,
+                            [nameof(Core.Entities.Search.University.Prefix)] = 1,
+
+                        }),
+
                         FunctionAggregation = ScoringFunctionAggregation.Sum,
                         Functions = new List<ScoringFunction>
                         {
                             new DistanceScoringFunction(
                                 nameof(Core.Entities.Search.University.GeographyPoint),
-                                5,"currentLocation",50,ScoringFunctionInterpolation.Linear)
+                                5,"currentLocation",50,ScoringFunctionInterpolation.Linear),
+
                         }
                     }
                 },

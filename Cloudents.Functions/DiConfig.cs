@@ -21,8 +21,8 @@ namespace Cloudents.Functions
                     Search = new SearchServiceCredentials(
                         GetEnvironmentVariable("SearchServiceName"),
                         GetEnvironmentVariable("SearchServiceAdminApiKey")),
-                    Redis = GetEnvironmentVariable("Redis"),
-                    Storage = GetEnvironmentVariable("AzureWebJobsStorage")
+                    //Redis = GetEnvironmentVariable("Redis"),
+                    //Storage = GetEnvironmentVariable("AzureWebJobsStorage")
                 };
                 builder.Register(_ => keys).As<IConfigurationKeys>();
                 builder.RegisterModule<ModuleCore>();

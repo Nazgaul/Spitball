@@ -8,7 +8,8 @@ namespace Cloudents.Core.Entities.Search
         public string Id { get; set; }
         public string Name { get; set; }
 
-        public string[] Extra { get; set; }
+        public string Extra { get; set; }
+        public string Prefix { get; set; }
 
         public string Image { get; set; }
 
