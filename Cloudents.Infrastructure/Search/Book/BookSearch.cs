@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Search.Book
                 ["format"] = "json"
             };
             var result = await MakeApiCallAsync(nvc, token).ConfigureAwait(false);
-            if (result == null)
+            if (result?.Response.Page.Books?.TotalPages == null)
             {
                 return null;
             }
