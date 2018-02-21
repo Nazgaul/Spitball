@@ -2,6 +2,7 @@
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.MobileApi.Extensions;
+using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Cloudents.MobileApi.Filters

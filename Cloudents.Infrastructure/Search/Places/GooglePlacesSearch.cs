@@ -85,6 +85,7 @@ namespace Cloudents.Infrastructure.Search.Places
 
         public async Task<(Address address, GeoPoint point)> ReverseGeocodingAsync(GeoPoint point, CancellationToken token)
         {
+            if (point == null) throw new ArgumentNullException(nameof(point));
             var nvc = new NameValueCollection
             {
                 ["latlng"] = $"{point.Latitude},{point.Longitude}",
@@ -94,8 +95,6 @@ namespace Cloudents.Infrastructure.Search.Places
             var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
             var result = SerializeResult(str);
             return _mapper.Map<GoogleGeoCodeDto, (Address address, GeoPoint point)>(result);
-            //location.Point = point;
-            //return location;
         }
 
         public async Task<PlaceDto> SearchAsync(string term, CancellationToken token)
