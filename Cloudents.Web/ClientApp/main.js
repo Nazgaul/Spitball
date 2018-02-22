@@ -8,6 +8,7 @@ import VueRouter from "vue-router";
 const vueAdsense = () => import("vue-adsense");
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
+import Smartbanner from "smartbanner";
 
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
