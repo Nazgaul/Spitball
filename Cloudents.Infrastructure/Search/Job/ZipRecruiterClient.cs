@@ -62,7 +62,10 @@ namespace Cloudents.Infrastructure.Search.Job
             }
 
             var result = await _client.GetAsync(new Uri("https://api.ziprecruiter.com/jobs/v1"), nvc, token).ConfigureAwait(false);
-
+            if (result == null)
+            {
+                return null;
+            }
             var p = JsonConvert.DeserializeObject<ZipRecruiterResult>(result);
             var jobs = _mapper.Map<IEnumerable<JobDto>>(p);
 

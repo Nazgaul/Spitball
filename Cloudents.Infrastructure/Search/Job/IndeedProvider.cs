@@ -100,7 +100,10 @@ namespace Cloudents.Infrastructure.Search.Job
                 nvc.Add("radius", JobSearch.RadiusOfFindingJob.ToString(CultureInfo.InvariantCulture));
             }
             var result = await _client.GetAsync(new Uri("http://api.indeed.com/ads/apisearch"), nvc, token).ConfigureAwait(false);
-
+            if (result == null)
+            {
+                return null;
+            }
             var p = JsonConvert.DeserializeObject<IndeedResult>(result);
             var jobs = _mapper.Map<IEnumerable<JobDto>>(p);
 
