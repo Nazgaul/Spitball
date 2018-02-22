@@ -26,11 +26,12 @@ namespace Cloudents.Infrastructure
                 .SingleInstance().AsSelf().As<ISearchServiceClient>();
 
             builder.RegisterType<GooglePlacesSearch>().As<IGooglePlacesSearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(LogInterceptor), typeof(CacheResultInterceptor));
+                .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
-            builder.RegisterType<RestClient>().As<IRestClient>().SingleInstance();
+            builder.RegisterType<RestClient>().As<IRestClient>().SingleInstance().EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(LogInterceptor));
 
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(ITypeConverter<,>));
