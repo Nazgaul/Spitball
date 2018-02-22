@@ -22,6 +22,11 @@ namespace Cloudents.Core
             {
                 return url;
             }
+
+            if (url.Contains("spitball", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return url;
+            }
             var nvc = new NameValueCollection
             {
                 ["url"] = url,

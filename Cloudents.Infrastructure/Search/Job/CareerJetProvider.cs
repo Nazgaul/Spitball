@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
@@ -29,6 +30,7 @@ namespace Cloudents.Infrastructure.Search.Job
             _mapper = mapper;
         }
 
+        [Cache(TimeConst.Hour, "job-careerJet", false)]
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, bool highlight,
             CancellationToken token)
         {
@@ -72,6 +74,10 @@ namespace Cloudents.Infrastructure.Search.Job
             }
 
             var result = await _client.GetAsync(new Uri("http://public.api.careerjet.net/search"), nvc, token).ConfigureAwait(false);
+            if (result == null)
+            {
+                return null;
+            }
 
             var p = JsonConvert.DeserializeObject<CareerJetResult>(result);
             var jobs = _mapper.Map<IEnumerable<JobDto>>(p);

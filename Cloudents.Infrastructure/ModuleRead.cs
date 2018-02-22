@@ -39,7 +39,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterGeneric(typeof(DocumentDbRepository<>)).AsImplementedInterfaces();
 
             builder.RegisterType<BingSearch>().As<ISearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor),  typeof(ShuffleInterceptor));
+                .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor), typeof(ShuffleInterceptor));
             builder.RegisterType<Suggestions>().As<ISuggestions>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<ReplaceImageProvider>().AsSelf();
@@ -63,15 +63,17 @@ namespace Cloudents.Infrastructure
             #region Job
 
             builder.RegisterAssemblyTypes(currentAssembly)
-                .Where(w => typeof(IJobProvider).IsAssignableFrom(w)).AsImplementedInterfaces();
+                .Where(w => typeof(IJobProvider).IsAssignableFrom(w)).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors().InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<JobSearch>().As<IJobSearch>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(BuildLocalUrlInterceptor),typeof(CacheResultInterceptor) );
+                .InterceptedBy(typeof(BuildLocalUrlInterceptor));
+            //.InterceptedBy(typeof(CacheResultInterceptor));
 
             #endregion
 
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(BuildLocalUrlInterceptor),typeof(CacheResultInterceptor));
+                .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
 
             builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
