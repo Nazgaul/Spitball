@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 
 namespace Cloudents.Infrastructure
 {
@@ -26,12 +27,13 @@ namespace Cloudents.Infrastructure
         //    var str = await GetAsync(url, queryString, token).ConfigureAwait(false);
         //    return JObject.Parse(str);
         //}
-
+        [Log]
         public Task<string> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token)
         {
             return GetAsync(url, queryString, null, token);
         }
 
+        [Log]
         public async Task<string> GetAsync(Uri url, NameValueCollection queryString, IEnumerable<KeyValuePair<string, string>> headers,
             CancellationToken token)
         {
@@ -43,7 +45,6 @@ namespace Cloudents.Infrastructure
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             var uri = new UriBuilder(url);
-
             uri.AddQuery(queryString);
 
             var response = await _client.GetAsync(uri.Uri, token).ConfigureAwait(false);

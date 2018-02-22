@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Core;
 using Entity = Cloudents.Core.Entities.Search;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
@@ -26,6 +27,7 @@ namespace Cloudents.Infrastructure.Search.Job
             _client = client.Indexes.GetClient(JobSearchWrite.IndexName);
         }
 
+        [Cache(TimeConst.Hour, "job-azure", false)]
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(
             string term,
             JobRequestSort sort,

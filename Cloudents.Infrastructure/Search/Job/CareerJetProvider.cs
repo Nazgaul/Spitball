@@ -30,6 +30,7 @@ namespace Cloudents.Infrastructure.Search.Job
             _mapper = mapper;
         }
 
+        [Cache(TimeConst.Hour, "job-careerJet", false)]
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, bool highlight,
             CancellationToken token)
         {

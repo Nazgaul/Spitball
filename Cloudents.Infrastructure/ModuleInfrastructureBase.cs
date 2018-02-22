@@ -36,14 +36,15 @@ namespace Cloudents.Infrastructure
                 .SingleInstance().AsSelf().As<ISearchServiceClient>();
 
             builder.RegisterType<GooglePlacesSearch>().As<IGooglePlacesSearch>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(LogInterceptor), typeof(CacheResultInterceptor));
+                .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
 
             #region Interceptors
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
             #endregion
 
-            builder.RegisterType<RestClient>().As<IRestClient>().SingleInstance();
+            builder.RegisterType<RestClient>().As<IRestClient>().SingleInstance().EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(LogInterceptor));
 
             //var config = MapperConfiguration();
             //builder.Register(c => config.CreateMapper()).SingleInstance();

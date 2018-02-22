@@ -25,7 +25,6 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [BuildLocalUrl(nameof(ResultWithFacetDto<JobDto>.Result), PageSize, "page")]
-        [Cache(TimeConst.Hour, "job",false)]
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location,
             int page, bool highlight, CancellationToken token)
         {

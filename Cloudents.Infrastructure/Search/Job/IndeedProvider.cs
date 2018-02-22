@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
@@ -28,6 +29,7 @@ namespace Cloudents.Infrastructure.Search.Job
             _mapper = mapper;
         }
 
+        [Cache(TimeConst.Hour, "job-indeed", false)]
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, bool highlight,
             CancellationToken token)
         {

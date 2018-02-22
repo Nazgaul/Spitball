@@ -69,7 +69,6 @@ namespace Cloudents.Infrastructure.Search.Places
         }
 
         [Cache(TimeConst.Year, "zip", true)]
-        [Log]
         public async Task<Location> GeoCodingByZipAsync(string zip, CancellationToken token)
         {
             var nvc = new NameValueCollection
@@ -83,8 +82,10 @@ namespace Cloudents.Infrastructure.Search.Places
             return _mapper.Map<GoogleGeoCodeDto, Location>(result);
         }
 
+        [Cache(TimeConst.Year, "reverse-location", true)]
         public async Task<Location> ReverseGeocodingAsync(GeoPoint point, CancellationToken token)
         {
+            if (point == null) throw new ArgumentNullException(nameof(point));
             var nvc = new NameValueCollection
             {
                 ["latlng"] = $"{point.Latitude},{point.Longitude}",
