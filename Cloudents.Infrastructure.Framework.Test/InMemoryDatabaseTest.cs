@@ -9,10 +9,9 @@ namespace Cloudents.Infrastructure.Framework.Test
 {
     public class InMemoryDatabaseTest
     {
-        private ISessionFactory SessionFactory;
-        protected ISession session;
+        protected readonly ISession Session;
 
-        public InMemoryDatabaseTest()
+        protected InMemoryDatabaseTest()
         {
             var assemblyMapping = Assembly.Load("Cloudents.Infrastructure.Framework");
             var configuration = Fluently.Configure()
@@ -23,9 +22,9 @@ namespace Cloudents.Infrastructure.Framework.Test
                         {
                             // cfg.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Create);
                         });
-            SessionFactory = configuration.BuildSessionFactory();
-            session = SessionFactory.OpenSession();
-            new SchemaExport(configuration.BuildConfiguration()).Execute(true, true, false, session.Connection, Console.Out);
+            var sessionFactory = configuration.BuildSessionFactory();
+            Session = sessionFactory.OpenSession();
+            new SchemaExport(configuration.BuildConfiguration()).Execute(true, true, false, Session.Connection, Console.Out);
         }
 
     }

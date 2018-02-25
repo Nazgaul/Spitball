@@ -16,6 +16,7 @@ namespace Cloudents.Infrastructure.Framework.Database.Maps
             Map(e => e.Discriminator).CustomType<CourseType>();
             Map(e => e.PrivacySetting).CustomType<CoursePrivacySetting>();
 
+            // ReSharper disable once ObjectCreationAsStatement
             Component(e => e.RowDetail,_=> new RowDetailMap());
             References(e => e.University).Column(nameof(University)).ForeignKey("UniversityBoxes");
             Table("Box");

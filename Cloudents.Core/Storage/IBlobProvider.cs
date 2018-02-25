@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Storage
 {
-    public interface IBlobProvider<T> where T : IStorageContainer
+    public interface IBlobProvider<[UsedImplicitly] T> where T : IStorageContainer
     {
         Task UploadByteArrayAsync(string blobName, byte[] fileContent,
             string mimeType, bool fileGziped, int cacheControlMinutes, CancellationToken token);

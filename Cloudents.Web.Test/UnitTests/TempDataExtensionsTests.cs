@@ -3,7 +3,7 @@ using Cloudents.Core.Models;
 using Cloudents.Web.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Cloudents.Web.Test
+namespace Cloudents.Web.Test.UnitTests
 {
     [TestClass]
     public class TempDataExtensionsTests

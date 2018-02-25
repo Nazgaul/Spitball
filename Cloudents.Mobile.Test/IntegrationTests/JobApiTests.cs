@@ -9,7 +9,7 @@ namespace Cloudents.Mobile.Test.IntegrationTests
         [TestMethod]
         public async Task Search_SomeQuery_ReturnResult()
         {
-            var response = await _client.GetAsync("/api/Job?Term=Android&Location.Point.Longitude=40.0&Location.Point.Latitude=-51.&Highlight=true&Page=0").ConfigureAwait(false);
+            var response = await Client.GetAsync("/api/Job?Term=Android&Location.Point.Longitude=40.0&Location.Point.Latitude=-51.&Highlight=true&Page=0").ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
 

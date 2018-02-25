@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Cloudents.Web.Test
+namespace Cloudents.Web.Test.UnitTests
 {
     [TestClass]
     public class DocumentControllerTests
@@ -22,7 +22,7 @@ namespace Cloudents.Web.Test
         private Mock<IBlobProvider<FilesContainerName>> _mockBlobProvider = 
             new Mock<IBlobProvider<FilesContainerName>>();
 
-        private DocumentController _controller;
+        private readonly DocumentController _controller;
         public DocumentControllerTests()
         {
             _controller = new DocumentController(_mockRepository.Object,

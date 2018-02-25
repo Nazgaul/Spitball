@@ -1,15 +1,17 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities.Db
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     public class Course : IDirty
     {
         protected Course()
         {
 
         }
-        
+
         public Course(string name, University university)
         {
             RowDetail = new RowDetail();
@@ -22,9 +24,9 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual long Id { get; set; }
 
-        public virtual string Name { get; set; }
+        public virtual string Name { get; protected set; }
 
-        public virtual RowDetail RowDetail  { get; set; }
+        public virtual RowDetail RowDetail  { get; protected set; }
 
         public virtual bool IsDeleted { get; set; }
 
@@ -35,12 +37,12 @@ namespace Cloudents.Core.Entities.Db
         public virtual bool IsDirty { get; set; }
         public virtual Func<bool> ShouldMakeDirty { get; }
 
-        public virtual CourseType Discriminator { get; set; }
+        public virtual CourseType Discriminator { get; protected set; }
 
         public virtual string CourseCode { get; set; }
 
-        public virtual University University { get; set; }
+        public virtual University University { get; protected set; }
 
-        public virtual CoursePrivacySetting PrivacySetting { get; set; }
+        public virtual CoursePrivacySetting PrivacySetting { get; protected set; }
     }
 }

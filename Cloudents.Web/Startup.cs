@@ -10,6 +10,7 @@ using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Middleware;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Rewrite;
@@ -30,10 +31,11 @@ namespace Cloudents.Web
             HostingEnvironment = env;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
         private IHostingEnvironment HostingEnvironment { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        [UsedImplicitly]
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddWebMarkupMin().AddHtmlMinification();
@@ -49,7 +51,7 @@ namespace Cloudents.Web
                 });
             }).AddMvcOptions(o =>
                 {
-                    o.Filters.Add(new GlobalExceptionFilter());
+                    o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));
                     o.ModelBinderProviders.Insert(0, new LocationModelBinder());
                 });
             //if (!HostingEnvironment.IsEnvironment(IntegrationTestEnvironmentName))
@@ -87,6 +89,7 @@ namespace Cloudents.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [UsedImplicitly]
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");

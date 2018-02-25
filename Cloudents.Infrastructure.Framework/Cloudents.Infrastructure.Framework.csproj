@@ -19,6 +19,7 @@
     <PackageReference Include="Aspose.Words" Version="15.6.0" />
     <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="FluentNHibernate" Version="2.1.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="NHibernate" Version="5.0.3" />
   </ItemGroup>
   <ItemGroup>

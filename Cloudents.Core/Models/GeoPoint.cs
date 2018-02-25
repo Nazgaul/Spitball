@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using JetBrains.Annotations;
 using Microsoft.Spatial;
 
 namespace Cloudents.Core.Models
@@ -38,12 +39,12 @@ namespace Cloudents.Core.Models
         /// Longitude of user
         /// </summary>
         [DataMember(Order = 1)]
-        public double Longitude { get; set; }
+        public double Longitude { get; [UsedImplicitly] set; }
         /// <summary>
         /// Latitude of user
         /// </summary>
         [DataMember(Order = 2)]
-        public double Latitude { get; set; }
+        public double Latitude { get; [UsedImplicitly] set; }
 
         public static bool operator ==(GeoPoint obj1, GeoPoint obj2)
         {

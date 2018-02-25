@@ -10,9 +10,9 @@ namespace Cloudents.Mobile.Test.IntegrationTests
 {
     public class ServerInit
     {
-        protected readonly TestServer _server;
-        protected readonly HttpClient _client;
-        public ServerInit()
+        protected readonly HttpClient Client;
+
+        protected ServerInit()
         {
            // Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", Startup.IntegrationTestEnvironmentName);
 
@@ -22,7 +22,7 @@ namespace Cloudents.Mobile.Test.IntegrationTests
                 AppContext.BaseDirectory,
                 "..", "..", "..", "..", "Cloudents.MobileApi"));
 
-            _server = new TestServer(new WebHostBuilder()
+            var server = new TestServer(new WebHostBuilder()
                 .UseContentRoot(appRootPath)
                 .UseConfiguration(
                     new ConfigurationBuilder()
@@ -30,7 +30,7 @@ namespace Cloudents.Mobile.Test.IntegrationTests
                         .AddJsonFile("appsettings.json")
                         .Build())
                 .UseStartup<Startup>());
-            _client = _server.CreateClient();
+            Client = server.CreateClient();
         }
     }
 }

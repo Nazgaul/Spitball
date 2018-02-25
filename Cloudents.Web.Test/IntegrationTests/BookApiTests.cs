@@ -9,21 +9,21 @@ namespace Cloudents.Web.Test.IntegrationTests
         [TestMethod]
         public async Task Search_Gibrish_ReturnResult()
         {
-            var response = await _client.GetAsync("api/book/search?term=kjhgfd").ConfigureAwait(false);
+            var response = await Client.GetAsync("api/book/search?term=kjhgfd").ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
 
         [TestMethod]
         public async Task Search_Gibrish2_ReturnResult()
         {
-            var response = await _client.GetAsync("api/book/search?term=%2Cmnhbg").ConfigureAwait(false);
+            var response = await Client.GetAsync("api/book/search?term=%2Cmnhbg").ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
 
         [TestMethod]
         public async Task Search_WithSpacePage_ReturnResult()
         {
-            var response = await _client.GetAsync("/api/book/search?page=2&term=super mario 64 ds").ConfigureAwait(false);
+            var response = await Client.GetAsync("/api/book/search?page=2&term=super mario 64 ds").ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
     }
