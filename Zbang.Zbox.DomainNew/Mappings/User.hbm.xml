@@ -156,11 +156,11 @@
     update User c set c.Score = :Score where c.Id = :userid
     ]]>
   </query>
-  <query name="UpdateUserMobileDevice">
+  <!--<query name="UpdateUserMobileDevice">
     <![CDATA[
     update User c set c.MobileDevice = :mobileDevice, c.PushNotificationSetting = 1 where c.Id = :userid
     ]]>
-  </query>
+  </query>-->
   <query name="UpdateUserUnsubscribe">
     <![CDATA[
     update User c set c.EmailSendSettings = :emailSettings, c.UserTime.UpdateTime = :dateTime where c.Email in (:userEmail) and c.EmailSendSettings = 0

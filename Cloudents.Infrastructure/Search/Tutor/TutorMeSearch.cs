@@ -10,7 +10,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure.Search.Tutor
 {

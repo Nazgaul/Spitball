@@ -1,8 +1,6 @@
-using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using AzureFunctions.Autofac;
@@ -31,7 +29,7 @@ namespace Cloudents.Functions
             var location = int.Parse(queryString.Find(f => f.Key == "location").Value);
             var url = queryString.Find(f => f.Key == "url").Value;
             var userIp = req.GetClientIpAddress();
-            var message = new UrlRedirectQueueMessage(host, url, referer, location, userIp.ToString());
+            var message = new UrlRedirectQueueMessage(host, url, referer, location, userIp);
             await queue.AddAsync(message, token).ConfigureAwait(false);
 
             var res = req.CreateResponse(HttpStatusCode.Redirect);

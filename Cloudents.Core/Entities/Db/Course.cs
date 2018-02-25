@@ -9,7 +9,7 @@ namespace Cloudents.Core.Entities.Db
         {
 
         }
-
+        
         public Course(string name, University university)
         {
             RowDetail = new RowDetail();

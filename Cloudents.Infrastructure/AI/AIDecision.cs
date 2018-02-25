@@ -6,6 +6,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.AI
 {
@@ -50,6 +51,7 @@ namespace Cloudents.Infrastructure.AI
         }
 
         [Factory]
+        [UsedImplicitly]
         private static VerticalEngineDto DocumentEngine(AiDto aiResult)
         {
             if (aiResult.Intent != AiIntent.Search)
@@ -75,6 +77,7 @@ namespace Cloudents.Infrastructure.AI
         private const string Flashcards = "flashcards";
 
         [Factory]
+        [UsedImplicitly]
         private static VerticalEngineDto FlashcardEngine(AiDto aiResult)
         {
             if (aiResult.Intent != AiIntent.Search)
@@ -98,7 +101,7 @@ namespace Cloudents.Infrastructure.AI
         }
 
         [Factory]
-
+        [UsedImplicitly]
         private static VerticalEngineDto AskEngine(AiDto aiResult)
         {
             if (aiResult.Intent != AiIntent.None && aiResult.Intent != AiIntent.Question) return null;
@@ -113,7 +116,7 @@ namespace Cloudents.Infrastructure.AI
         }
 
         [Factory]
-
+        [UsedImplicitly]
         private static VerticalEngineDto JobEngine(AiDto aiResult)
         {
             if (aiResult.Intent != AiIntent.Job)
@@ -124,7 +127,7 @@ namespace Cloudents.Infrastructure.AI
         }
 
         [Factory]
-
+        [UsedImplicitly]
         private static VerticalEngineDto TutorEngine(AiDto aiResult)
         {
             if (aiResult.Intent != AiIntent.Tutor)
@@ -139,7 +142,7 @@ namespace Cloudents.Infrastructure.AI
         }
 
         [Factory]
-
+        [UsedImplicitly]
         private static VerticalEngineDto FoodEngine(AiDto aiResult)
         {
             if (aiResult.Intent != AiIntent.Purchase)
@@ -154,6 +157,7 @@ namespace Cloudents.Infrastructure.AI
         }
 
         [Factory]
+        [UsedImplicitly]
         private static VerticalEngineDto BookEngine(AiDto aiResult)
         {
             if (aiResult.Intent != AiIntent.Book)

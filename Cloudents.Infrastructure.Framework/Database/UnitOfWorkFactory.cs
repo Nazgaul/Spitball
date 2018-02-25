@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Cloudents.Infrastructure.Framework.Database.Maps;
 using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Cfg;

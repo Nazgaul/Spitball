@@ -19,12 +19,12 @@ namespace Cloudents.Infrastructure
         {
             base.Load(builder);
             builder.RegisterModule<ModuleInfrastructureBase>();
-            //builder.RegisterModule<ModuleMail>();
+            builder.RegisterModule<ModuleMail>();
 
             builder.RegisterGeneric(typeof(SearchServiceWrite<>));
-            builder.RegisterType<JobSearchWrite>().AsSelf().As<ISearchServiceWrite<Job>>().As<IStartable>().SingleInstance().AutoActivate();
-            builder.RegisterType<TutorSearchWrite>().AsSelf().As<ISearchServiceWrite<Tutor>>().As<IStartable>().SingleInstance().AutoActivate();
-            builder.RegisterType<UniversitySearchWrite>().AsSelf().As<ISearchServiceWrite<University>>().As<IStartable>().SingleInstance().AutoActivate();
+            builder.RegisterType<JobSearchWrite>().AsSelf().As<ISearchServiceWrite<Job>>().SingleInstance();
+            builder.RegisterType<TutorSearchWrite>().AsSelf().As<ISearchServiceWrite<Tutor>>().SingleInstance();
+         //   builder.RegisterType<UniversitySearchWrite>().AsSelf().As<ISearchServiceWrite<University>>().As<IStartable>().SingleInstance().AutoActivate();
             //builder.RegisterType<SynonymWrite>().As<ISynonymWrite>();
             builder.RegisterType<DownloadFile>().As<IDownloadFile>();
             builder.Register(c =>

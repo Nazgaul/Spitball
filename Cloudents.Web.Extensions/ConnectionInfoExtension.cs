@@ -1,12 +1,11 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Extensions
 {
     public static class ConnectionInfoExtension
     {
-        public static bool IsLocal(this ConnectionInfo connection)
+        private static bool IsLocal(this ConnectionInfo connection)
         {
             if (connection.RemoteIpAddress != null)
             {
@@ -28,7 +27,7 @@ namespace Cloudents.Web.Extensions
                 return IPAddress.Parse("31.154.39.170");
             }
             var ip = connection.RemoteIpAddress;
-            return ip.MapToIPv4();
+            return ip?.MapToIPv4();
         }
     }
 }

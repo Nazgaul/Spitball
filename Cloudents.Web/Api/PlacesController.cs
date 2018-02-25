@@ -20,7 +20,6 @@ namespace Cloudents.Web.Api
             _placesSearch = placesSearch;
         }
 
-       // [TypeFilter(typeof(IpToLocationActionFilter),Arguments = new object[] {"location"})]
         [HttpGet]
         public async Task<IActionResult> GetAsync(string[] term, PlacesRequestFilter filter, Location location, CancellationToken token)
         {

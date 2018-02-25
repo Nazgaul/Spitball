@@ -87,6 +87,7 @@
     <Compile Include="Consts\ReputationConsts.cs" />
     <Compile Include="Consts\TimeConsts.cs" />
     <Compile Include="Consts\UrlConsts.cs" />
+    <Compile Include="Enums\MessageType.cs" />
     <Compile Include="Languages.cs" />
     <Compile Include="Enums\BadgeType.cs" />
     <Compile Include="Enums\BoxType.cs" />
