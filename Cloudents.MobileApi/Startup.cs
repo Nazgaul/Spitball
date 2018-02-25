@@ -29,6 +29,7 @@ namespace Cloudents.MobileApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvc().AddMvcOptions(o =>
             {
                 o.ModelBinderProviders.Insert(0, new LocationModelBinder());
@@ -80,7 +81,10 @@ namespace Cloudents.MobileApi
 
             app.UseStaticFiles();
             app.UseSwagger();
-
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("www.spitball.co", "dev.spitball.co");
+            });
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {

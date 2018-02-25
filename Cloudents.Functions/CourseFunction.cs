@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AzureFunctions.Autofac;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
@@ -20,8 +22,8 @@ namespace Cloudents.Functions
 
         [FunctionName("CourseTimer")]
         [UsedImplicitly]
-        public static async Task RunAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-            [Blob("spitball/AzureSearch/course-version.txt", FileAccess.Read)]  string blobRead,
+        public static async Task RunAsync([TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+            [Blob("spitball/AzureSearch/course-version.txt", FileAccess.Read), CanBeNull]  string blobRead,
             [Blob("spitball/AzureSearch/course-version.txt", FileAccess.Write)] TextWriter blobWrite,
             [Inject] IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto> delete, long version), long> repository,
             [Inject] ISearchServiceWrite<Course> searchServiceWrite,
@@ -29,7 +31,7 @@ namespace Cloudents.Functions
             TraceWriter log,
             CancellationToken token)
         {
-            var version = long.Parse(blobRead);
+            var version = long.Parse(blobRead ?? "0");
             var t1 = Task.CompletedTask;
             if (version == 0)
             {
@@ -38,16 +40,9 @@ namespace Cloudents.Functions
             var dataTask = repository.GetAsync(version, token);
             await Task.WhenAll(t1, dataTask).ConfigureAwait(false);
             var data = dataTask.Result;
-            var tasks = new List<Task>();
-            foreach (var dto in data.update)
-            {
-                tasks.Add(queue.AddAsStringAsync(dto, token));
-            }
+            var tasks = data.update.Batch(20).Select(dto => queue.AddAsStringAsync(dto, token));
+            tasks = tasks.Union(data.delete.Batch(20).Select(d => queue.AddAsStringAsync(d, token)));
 
-            foreach (var d in data.delete)
-            {
-                tasks.Add(queue.AddAsStringAsync(d, token));
-            }
 
             await Task.WhenAll(tasks).ConfigureAwait(false);
             if (data.version != version)

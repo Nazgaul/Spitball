@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 namespace Cloudents.MobileApi.Filters
 {
-    public class LocationModelBinder : IModelBinderProvider
+    public class GeoPointModelBinder : IModelBinderProvider
     {
         public IModelBinder GetBinder(ModelBinderProviderContext context)
         {
@@ -14,9 +14,9 @@ namespace Cloudents.MobileApi.Filters
                 throw new ArgumentNullException(nameof(context));
             }
 
-            if (context.Metadata.ModelType == typeof(Location))
+            if (context.Metadata.ModelType == typeof(GeoPoint))
             {
-                return new BinderTypeModelBinder(typeof(LocationEntityBinder));
+                return new BinderTypeModelBinder(typeof(GeoPointEntityBinder));
             }
 
             return null;

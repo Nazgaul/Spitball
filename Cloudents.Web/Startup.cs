@@ -53,6 +53,7 @@ namespace Cloudents.Web
                 {
                     o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));
                     o.ModelBinderProviders.Insert(0, new LocationModelBinder());
+                    o.ModelBinderProviders.Insert(0, new GeoPointModelBinder());
                 });
             //if (!HostingEnvironment.IsEnvironment(IntegrationTestEnvironmentName))
             //{

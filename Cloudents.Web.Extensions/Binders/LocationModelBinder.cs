@@ -3,7 +3,7 @@ using Cloudents.Core.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
-namespace Cloudents.MobileApi.Filters
+namespace Cloudents.Web.Extensions.Binders
 {
     public class LocationModelBinder : IModelBinderProvider
     {

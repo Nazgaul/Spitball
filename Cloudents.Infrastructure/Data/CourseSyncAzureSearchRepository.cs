@@ -10,8 +10,7 @@ namespace Cloudents.Infrastructure.Data
         {
         }
 
-        protected override string WriteSql => @"declare @version int = 0;
-IF (@version > CHANGE_TRACKING_MIN_VALID_VERSION(  
+        protected override string WriteSql => @"IF (@version > CHANGE_TRACKING_MIN_VALID_VERSION(  
                                    OBJECT_ID('zbox.box')))
 select b.boxId as id,b.boxName as name,b.courseCode as code,b.isDeleted, b.university as UniversityId,
 ct.sys_change_version as version

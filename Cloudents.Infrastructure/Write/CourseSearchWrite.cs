@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Write
 {
+    [UsedImplicitly]
     class CourseSearchWrite : SearchServiceWrite<Core.Entities.Search.Course>
     {
         public const string IndexName = "course";
@@ -41,15 +43,14 @@ namespace Cloudents.Infrastructure.Write
                     new Field(nameof(Core.Entities.Search.Course.Prefix), DataType.String)
                     {
                         IsSearchable = true,
-                        //SearchAnalyzer = AnalyzerName.StandardLucene,
+                        SearchAnalyzer = AnalyzerName.StandardLucene,
                         IndexAnalyzer = AnalyzerName.Create("prefix"),
                     },
                     new Field(nameof(Core.Entities.Search.Course.UniversityId), DataType.Int64)
                     {
-                        //IsSearchable = true,
                         //SearchAnalyzer = AnalyzerName.StandardLucene,
                         //IndexAnalyzer =  AnalyzerName.Create("stopWords")
-                        IsSearchable = true
+                        IsFilterable = true
                     }
                 },
                 Analyzers = new List<Analyzer>
@@ -68,7 +69,7 @@ namespace Cloudents.Infrastructure.Write
                 {
                     new ScoringProfile(ScoringProfile)
                     {
-                        TextWeights = new TextWeights(new Dictionary<string, double>()
+                        TextWeights = new TextWeights(new Dictionary<string, double>
                         {
                             [nameof(Core.Entities.Search.Course.Code)] = 3,
                             [nameof(Core.Entities.Search.Course.Name)] = 2,

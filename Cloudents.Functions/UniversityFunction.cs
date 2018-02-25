@@ -19,10 +19,10 @@ namespace Cloudents.Functions
     {
         private const string QueueName = "university-sync";
 
-        [FunctionName("UniversityTimer")]
+        //[FunctionName("UniversityTimer")]
         [UsedImplicitly]
         public static async Task RunAsync([TimerTrigger("0 */30 * * * *")]TimerInfo myTimer,
-            [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Read)]  string blobRead,
+            [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Read),CanBeNull]  string blobRead,
             [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Write)] TextWriter blobWrite,
             [Inject] IReadRepositoryAsync<(IEnumerable<UniversitySearchWriteDto> update, IEnumerable<SearchWriteBaseDto> delete, long version), long> repository,
             [Inject] ISearchServiceWrite<University> searchServiceWrite,
@@ -30,7 +30,7 @@ namespace Cloudents.Functions
             TraceWriter log,
             CancellationToken token)
         {
-            var version = long.Parse(blobRead);
+            var version = long.Parse(blobRead ?? "0");
             var t1 = Task.CompletedTask;
             if (version == 0)
             {
