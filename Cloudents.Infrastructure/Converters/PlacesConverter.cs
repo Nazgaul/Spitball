@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Converters
                     Image = image,
                     Location = location,
                     Name = json["name"].Value<string>(),
-                    Open = json["opening_hours"]?["open_now"].Value<bool?>() ?? false,
+                    Open = json["opening_hours"]?["open_now"]?.Value<bool?>() ?? false,
                     Rating = json["rating"]?.Value<double>() ?? 0,
                     PlaceId = json["place_id"]?.Value<string>()
                 };
@@ -73,7 +73,7 @@ namespace Cloudents.Infrastructure.Converters
                 Image = image,
                 Location = location,
                 Name = json["name"].Value<string>(),
-                Open = json["opening_hours"]?["open_now"].Value<bool?>() ?? false,
+                Open = json["opening_hours"]?["open_now"]?.Value<bool?>() ?? false,
                 Rating = json["rating"]?.Value<double>() ?? 0,
                 PlaceId = json["place_id"]?.Value<string>()
             };
