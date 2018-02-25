@@ -1,27 +1,105 @@
 ﻿@import "../../mixin.less";
 
 .loader {
-    .inTheMiddle();
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    z-index: 3;
+  .inTheMiddle();
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 3;
 
-    .progress-circular {
-        color: #302eb5;
-    }
+  .progress-circular {
+    color: #302eb5;
+  }
 }
 
 .loading {
-    .left-side-bar, .side-bar{
-        opacity: 0;
-    }
+  .left-side-bar, .side-bar {
+    opacity: 0;
+  }
 }
 
 .flex-fix {
-    min-width: 0;
+  min-width: 0;
 }
 
 .cdn-only2 {
-    position: absolute;
+  position: absolute;
+}
+
+.smartbanner {
+  &.smartbanner--android, &.smartbanner--ios {
+    z-index: 3;
+    background: #ffffff;
+    box-shadow: none;
+    box-shadow: 0px 0px 3px black;
+
+  .smartbanner__info__author::before {
+      content: '★★★★';
+      color: #f5a623;
+    }
+    .smartbanner__info__author::after {
+      content: '★';
+      color: #dddddd;
+    }
+    .smartbanner__exit {
+      left: 10px;
+      background: none;
+      box-shadow: none;
+      width: 12px;
+      height: 12px;
+      &::after, &::before {
+        top: 0px;
+        left: 8px;
+        width: 1px;
+        height: 12px;
+      }
+    }
+    .smartbanner__icon {
+      left: 36px;
+    }
+
+    .smartbanner__info {
+      top: 10px;
+      left: 108px;
+      text-shadow: none;
+    }
+    .smartbanner__info__title {
+      font-size: 12px;
+      letter-spacing: -0.4px;
+      color: #000000;
+      font-weight: normal;
+    }
+    .smartbanner__info__author {
+      font-size: 16px;
+      margin-top: 1px;
+      line-height: 1;
+      letter-spacing: -2px;
+    }
+    .smartbanner__info__price {
+      margin-top: 10px;
+      letter-spacing: -0.4px;
+      color: #000000;
+    }
+    a.smartbanner__button {
+      border: 1px solid #3532d5;
+      width: 62px;
+      line-height: 30px;
+      font-size: 18px;
+      border-radius: 7px;
+      top: 26px;
+      right: 16px;
+      color: #3532d5;
+      background: none;
+      box-shadow: none;
+      font-weight: normal;
+
+      .smartbanner__button__label {
+        line-height: 30px;
+      }
+
+      span{
+        background: none;
+      }
+    }
+  }
 }

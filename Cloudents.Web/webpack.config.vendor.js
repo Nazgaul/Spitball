@@ -45,8 +45,6 @@ const allModules = [
     "vuetify/es5/components/VIcon",
     "vuetify/es5/components/VSnackbar",
     "webfontloader",
-    "smartbanner/dist/smartbanner.js",
-    "smartbanner/src/styles/main.scss"
 ];
 
 module.exports = (env) => {
