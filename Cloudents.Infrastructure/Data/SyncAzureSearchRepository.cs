@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +9,7 @@ using Dapper;
 namespace Cloudents.Infrastructure.Data
 {
     // ReSharper disable once PossibleInfiniteInheritance T is where defined
-    public abstract class SyncAzureSearchRepository<T> : IReadRepositoryAsync<(IEnumerable<T> update, IEnumerable<SearchWriteBaseDto> delete, long version), long> 
+    public abstract class SyncAzureSearchRepository<T> : IReadRepositoryAsync<(IEnumerable<T> update, IEnumerable<SearchWriteBaseDto> delete, long version), long>
         where T : SearchWriteIsDeleted
     {
         private readonly DapperRepository _repository;
@@ -26,9 +24,6 @@ namespace Cloudents.Infrastructure.Data
 
         public Task<(IEnumerable<T> update, IEnumerable<SearchWriteBaseDto> delete, long version)> GetAsync(long query, CancellationToken token)
         {
-
-            
-
             return _repository.WithConnectionAsync(async c =>
             {
                 using (var grid = await c.QueryMultipleAsync(WriteSql + ";" + DeleteSql, new { version = query }).ConfigureAwait(false))
