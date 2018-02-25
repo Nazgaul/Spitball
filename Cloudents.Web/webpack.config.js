@@ -85,6 +85,12 @@ module.exports = (env) => {
                                 : ExtractTextPlugin.extract({
                                     use: "css-loader?minimize!less-loader",
                                     fallback: "vue-style-loader"
+                                }),
+                            scss: isDevBuild
+                                ? "vue-style-loader!css-loader!sass-loader"
+                                : ExtractTextPlugin.extract({
+                                    use: "css-loader?minimize!sass-loader",
+                                    fallback: "vue-style-loader"
                                 })
                         }
                     }
