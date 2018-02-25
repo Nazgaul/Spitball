@@ -16,7 +16,7 @@ export default {
             currentUni: ""
         }
     },
-
+    props:{'value':Boolean},
     computed: {
         ...mapGetters(['isFirst', 'getUniversityName']),
     },
@@ -39,7 +39,7 @@ export default {
         },
         isAcademinc(val) {
             if (val && this.isFirst) {
-                setTimeout(() => {
+               this.$options.timeout= setTimeout(() => {
                     if (this.isAcademinc && !this.$root.$el.querySelector(".dialog__content__active"))
                         this.showDialog = true
                 }, 5000);
@@ -52,12 +52,6 @@ export default {
     },
     created() {
         this.$_isAcademic(this.$route);
-        //if ( this.isAcademic) {
-        //setTimeout(() => {
-        //    if(!this.$root.$el.querySelector(".dialog__content__active"))
-        //            this.showDialog = true
-        //}, 5000);
-        //}
         this.$root.$on("personalize",
             (type) => {
                 this.openDialog(type)
@@ -75,7 +69,10 @@ export default {
         },
         $_isAcademic(to) {
             let newName = to.path.slice(1);
-            this.isAcademinc = (newName !== "job" && newName !== "food" && !to.path.includes('result'))
+            this.isAcademinc = (newName !== "job" && newName !== "food" && to.name==='result')
         }
+    },
+    beforeDestroy(){
+        clearTimeout(this.$options.timeout)
     }
 }

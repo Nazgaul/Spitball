@@ -45,7 +45,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(["courseFirstTime", "myCourses", "getUniversityImage", "getUniversityName", "myCoursesId"]),
+        ...mapGetters(["myCourses", "getUniversityImage", "getUniversityName", "myCoursesId"]),
         title() {
             if (this.currentAction) return "Add Class";
             if (this.currentType === "course") return this.getUniversityName;

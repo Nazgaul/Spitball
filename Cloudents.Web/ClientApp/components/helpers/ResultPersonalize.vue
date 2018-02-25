@@ -1,5 +1,5 @@
 ﻿<template>
-     <v-dialog ref="person" v-model="showDialog" max-width="520" :fullscreen="isSearch" :persistent="!isSearch" :content-class="isSearch?'dialog-choose':'ma-3'" :overlay="!isSearch">
+     <v-dialog ref="person" v-model="showDialog" v-if="value" max-width="520" :fullscreen="isSearch" :persistent="!isSearch" :content-class="isSearch?'dialog-choose':'ma-3'" :hide-overlay="!isSearch">
         <v-card class="personalize-wrapper" v-show="!isSearch">
             <v-card-title class="">Personalize Results</v-card-title>
             <v-card-text class="pb-2">
