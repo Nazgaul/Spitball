@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,8 +11,8 @@ using Dapper;
 namespace Cloudents.Infrastructure.Data
 {
     // ReSharper disable once PossibleInfiniteInheritance T is where defined
-    public abstract class SyncAzureSearchRepository<T> : IReadRepositoryAsync<(IEnumerable<T> update, IEnumerable<SearchWriteBaseDto> delete, long version), long> where T : SearchWriteIsDeleted
-
+    public abstract class SyncAzureSearchRepository<T> : IReadRepositoryAsync<(IEnumerable<T> update, IEnumerable<SearchWriteBaseDto> delete, long version), long> 
+        where T : SearchWriteIsDeleted
     {
         private readonly DapperRepository _repository;
 
@@ -24,9 +26,12 @@ namespace Cloudents.Infrastructure.Data
 
         public Task<(IEnumerable<T> update, IEnumerable<SearchWriteBaseDto> delete, long version)> GetAsync(long query, CancellationToken token)
         {
+
+            
+
             return _repository.WithConnectionAsync(async c =>
             {
-                using (var grid = await c.QueryMultipleAsync(WriteSql + DeleteSql, new { version = query }).ConfigureAwait(false))
+                using (var grid = await c.QueryMultipleAsync(WriteSql + ";" + DeleteSql, new { version = query }).ConfigureAwait(false))
                 {
                     var write = (await grid.ReadAsync<T>().ConfigureAwait(false)).ToLookup(p => p.IsDeleted);
                     var delete = await grid.ReadAsync<SearchWriteBaseDto>().ConfigureAwait(false);
@@ -44,7 +49,10 @@ namespace Cloudents.Infrastructure.Data
                     {
                         maxDelete = deleteList.Max(m => m.Version);
                     }
+
+
                     return (update.AsEnumerable(), deleteList.AsEnumerable(), new[] { max, maxDelete, query }.Max());
+                    //return (update.AsEnumerable(), deleteList.AsEnumerable(), max);
                 }
             }, token);
         }
