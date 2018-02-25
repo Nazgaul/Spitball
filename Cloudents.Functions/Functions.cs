@@ -7,6 +7,7 @@ using AzureFunctions.Autofac;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
+using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
@@ -17,19 +18,20 @@ namespace Cloudents.Functions
     public static class Functions
     {
         [FunctionName("UrlRedirect")]
+        [UsedImplicitly]
         public static async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "redirect")]HttpRequestMessage req,
             [Queue(QueueName.UrlRedirectName)] IAsyncCollector<UrlRedirectQueueMessage> queue,
             TraceWriter log,
             CancellationToken token)
         {
-            var referer = req.Headers.Referrer?.ToString();
+            var referrer = req.Headers.Referrer?.ToString();
             var queryString = req.GetQueryNameValuePairs().ToList();
             var host = queryString.Find(f => f.Key == "host").Value;
             var location = int.Parse(queryString.Find(f => f.Key == "location").Value);
             var url = queryString.Find(f => f.Key == "url").Value;
             var userIp = req.GetClientIpAddress();
-            var message = new UrlRedirectQueueMessage(host, url, referer, location, userIp);
+            var message = new UrlRedirectQueueMessage(host, url, referrer, location, userIp);
             await queue.AddAsync(message, token).ConfigureAwait(false);
 
             var res = req.CreateResponse(HttpStatusCode.Redirect);
@@ -38,6 +40,7 @@ namespace Cloudents.Functions
         }
 
         [FunctionName("UrlProcess")]
+        [UsedImplicitly]
         public static async Task ProcessQueueMessage([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,
             TraceWriter log, CancellationToken token,[Inject] ICommandBus commandBus)
         {

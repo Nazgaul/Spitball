@@ -5,7 +5,8 @@ using Cloudents.Core.Enum;
 namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-    public class Course : IDirty
+    // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
+    public class Course 
     {
         protected Course()
         {
@@ -19,7 +20,7 @@ namespace Cloudents.Core.Entities.Db
             PrivacySetting = CoursePrivacySetting.AnyoneWithUrl;
             Name = name.Trim();
             University = university;
-            ShouldMakeDirty = () => true;
+            IsDeleted = false;
         }
 
         public virtual long Id { get; set; }
@@ -28,14 +29,10 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual RowDetail RowDetail  { get; protected set; }
 
-        public virtual bool IsDeleted { get; set; }
+        public virtual bool IsDeleted { get; protected set; }
 
-        public virtual void DeleteAssociation()
-        {
-        }
 
-        public virtual bool IsDirty { get; set; }
-        public virtual Func<bool> ShouldMakeDirty { get; }
+       // public virtual bool IsDirty { get; set; }
 
         public virtual CourseType Discriminator { get; protected set; }
 

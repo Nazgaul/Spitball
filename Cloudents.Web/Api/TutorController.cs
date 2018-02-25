@@ -20,7 +20,8 @@ namespace Cloudents.Web.Api
             _tutorSearch = tutorSearch;
         }
 
-        public async Task<IActionResult> Get(string[] term,
+        [HttpGet]
+        public async Task<IActionResult> GetAsync(string[] term,
             TutorRequestFilter[] filter,
             TutorRequestSort? sort,
             Location location, int page, CancellationToken token)
@@ -35,7 +36,9 @@ namespace Cloudents.Web.Api
                 };
                 isMobile = capabilities.IsMobileDevice;
             }
-            var result = await _tutorSearch.SearchAsync(term, filter, sort.GetValueOrDefault(TutorRequestSort.Price), location.Point, page, isMobile, token).ConfigureAwait(false);
+            var result = await _tutorSearch.SearchAsync(term, filter,
+                sort.GetValueOrDefault(TutorRequestSort.Price), location.Point, page,
+                isMobile, token).ConfigureAwait(false);
             return Json(result);
         }
     }

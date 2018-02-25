@@ -33,7 +33,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Functions", "Cloudents.Functions\Cloudents.Functions.csproj", "{44539E5F-400A-4580-8898-85B283CD64DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Web.Extensions", "Cloudents.Web.Extensions\Cloudents.Web.Extensions.csproj", "{9D82D979-315E-4A67-82ED-ACCF56A0122A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Web.Extensions", "Cloudents.Web.Extensions\Cloudents.Web.Extensions.csproj", "{9D82D979-315E-4A67-82ED-ACCF56A0122A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

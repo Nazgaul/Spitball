@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Framework.Database.Maps
             Id(x => x.Id).Column("BoxId").GeneratedBy.Native();
             Map(e => e.Name).Length(255).Column("BoxName");
             Map(e => e.IsDeleted);
-            Map(e => e.IsDirty);
+            //Map(e => e.IsDirty);
             Map(e => e.CourseCode).Length(255);
             Map(e => e.Discriminator).CustomType<CourseType>();
             Map(e => e.PrivacySetting).CustomType<CoursePrivacySetting>();

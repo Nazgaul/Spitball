@@ -35,7 +35,7 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]TutorRequest model, CancellationToken token)
+        public async Task<IActionResult> GetAsync([FromQuery]TutorRequest model, CancellationToken token)
         {
             var result = (await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,

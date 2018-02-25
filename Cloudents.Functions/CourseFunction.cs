@@ -10,22 +10,21 @@ using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
-using Microsoft.Spatial;
 
 namespace Cloudents.Functions
 {
     [DependencyInjectionConfig(typeof(DiConfig))]
-    public static class UniversityFunction
+    public static class CourseFunction
     {
-        private const string QueueName = "university-sync";
+        private const string QueueName = "course-sync";
 
-        [FunctionName("UniversityTimer")]
+        [FunctionName("CourseTimer")]
         [UsedImplicitly]
-        public static async Task RunAsync([TimerTrigger("0 */30 * * * *")]TimerInfo myTimer,
-            [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Read)]  string blobRead,
-            [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Write)] TextWriter blobWrite,
-            [Inject] IReadRepositoryAsync<(IEnumerable<UniversitySearchWriteDto> update, IEnumerable<SearchWriteBaseDto> delete, long version), long> repository,
-            [Inject] ISearchServiceWrite<University> searchServiceWrite,
+        public static async Task RunAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+            [Blob("spitball/AzureSearch/course-version.txt", FileAccess.Read)]  string blobRead,
+            [Blob("spitball/AzureSearch/course-version.txt", FileAccess.Write)] TextWriter blobWrite,
+            [Inject] IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto> delete, long version), long> repository,
+            [Inject] ISearchServiceWrite<Course> searchServiceWrite,
             [Queue(QueueName)] IAsyncCollector<string> queue,
             TraceWriter log,
             CancellationToken token)
@@ -59,27 +58,26 @@ namespace Cloudents.Functions
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
         }
 
-        [FunctionName("UniversityUpload")]
+        [FunctionName("CourseUpload")]
         [UsedImplicitly]
         public static async Task ProcessQueueAsync(
             [QueueTrigger(QueueName)] string content,
-            [Inject] ISearchServiceWrite<University> searchServiceWrite,
+            [Inject] ISearchServiceWrite<Course> searchServiceWrite,
             CancellationToken token
             )
         {
             var obj = JsonConvertInheritance.DeserializeObject<SearchWriteBaseDto>(content);
-            if (obj is UniversitySearchWriteDto write)
+            if (obj is CourseSearchWriteDto write)
             {
-                var university = new University
+                var course = new Course
                 {
                     Name = write.Name,
-                    Image = write.Image,
-                    Extra = write.Extra,
-                    GeographyPoint = GeographyPoint.Create(write.Latitude, write.Longitude),
+                    Code = write.Code,
+                    UniversityId = write.UniversityId,
                     Id = write.Id.ToString(),
                     Prefix = write.Name
                 };
-                await searchServiceWrite.UpdateDataAsync(new[] { university }, token).ConfigureAwait(false);
+                await searchServiceWrite.UpdateDataAsync(new[] { course }, token).ConfigureAwait(false);
             }
             else
             {
