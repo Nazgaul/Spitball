@@ -40,7 +40,7 @@ export default {
         ...mapActions(['getAutocmplete']),
         selectos({item,index}) {
             this.msg = item.text;
-            this.$ga.event('Search',`Suggest_${item.type}`, `#${index+1}_${item}`);
+            this.$ga.event('Search',`Suggest_${this.getCurrentVertical?this.getCurrentVertical.toUpperCase():'HOME'}_${item.type}`, `#${index+1}_${item}`);
             this.search();
         },
         search() {
