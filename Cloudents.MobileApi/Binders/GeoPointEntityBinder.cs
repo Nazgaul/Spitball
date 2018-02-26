@@ -4,7 +4,7 @@ using Cloudents.Core.Models;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Cloudents.MobileApi.Filters
+namespace Cloudents.MobileApi.Binders
 {
     internal class GeoPointEntityBinder : IModelBinder
     {

@@ -33,7 +33,7 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] UniversityRequest model, CancellationToken token)
+        public async Task<IActionResult> GetAsync([FromQuery] UniversityRequest model, CancellationToken token)
         {
             if (!ModelState.IsValid)
             {

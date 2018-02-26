@@ -32,7 +32,6 @@ namespace Cloudents.MobileApi.Models
         /// <summary>
         /// Page for paging
         /// </summary>
-        [Paging]
         public int? Page { get; set; }
         /// <summary>
         /// User sort option
