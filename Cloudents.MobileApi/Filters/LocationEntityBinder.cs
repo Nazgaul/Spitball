@@ -23,8 +23,8 @@ namespace Cloudents.MobileApi.Filters
                               bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.latitude").FirstValue;
             var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.longitude").FirstValue ??
                                bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.longitude").FirstValue;
-            if (double.TryParse(latitudeStr, out var latitude)
-                && double.TryParse(longitudeStr, out var longitude))
+            if (float.TryParse(latitudeStr, out var latitude)
+                && float.TryParse(longitudeStr, out var longitude))
             {
                 var point = new GeoPoint(longitude, latitude);
                 var ipResult =
@@ -36,7 +36,9 @@ namespace Cloudents.MobileApi.Filters
             }
 
             var ipV4 = bindingContext.HttpContext.Connection.GetIpAddress();
-            bindingContext.Result = ModelBindingResult.Success(await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false));
+            var locationIp = await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted)
+                .ConfigureAwait(false);
+            bindingContext.Result = ModelBindingResult.Success(locationIp);
         }
     }
 }

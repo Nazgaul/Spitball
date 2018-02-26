@@ -29,8 +29,8 @@ namespace Cloudents.Web.Extensions.Binders
             var latitudeStr = bindingContext.ValueProvider.GetValue("location.latitude");
             var longitudeStr = bindingContext.ValueProvider.GetValue("location.longitude");
             var locationFromTemp = tempData.Get<Location>(KeyName);
-            if (double.TryParse(latitudeStr.FirstValue, out var latitude)
-                && double.TryParse(longitudeStr.FirstValue, out var longitude))
+            if (float.TryParse(latitudeStr.FirstValue, out var latitude)
+                && float.TryParse(longitudeStr.FirstValue, out var longitude))
             {
                 var point = new GeoPoint(longitude, latitude);
 

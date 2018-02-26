@@ -22,8 +22,8 @@ namespace Cloudents.Infrastructure
             CreateMap<Search.Entities.Course, CourseDto>();
             CreateMap<University, UniversityDto>();
 
-            CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlacesConverter>();
-            CreateMap<JObject, PlaceDto>().ConvertUsing<PlaceConverter>();
+            //CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlacesConverter>();
+            //CreateMap<JObject, PlaceDto>().ConvertUsing<PlaceConverter>();
         }
     }
 }

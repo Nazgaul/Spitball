@@ -7,7 +7,7 @@ namespace Cloudents.Core.Models
     [DataContract]
     public class GeoPoint
     {
-        public GeoPoint(double longitude, double latitude)
+        public GeoPoint(float longitude, float latitude)
         {
             Longitude = longitude;
             Latitude = latitude;
@@ -39,12 +39,12 @@ namespace Cloudents.Core.Models
         /// Longitude of user
         /// </summary>
         [DataMember(Order = 1)]
-        public double Longitude { get; [UsedImplicitly] set; }
+        public float Longitude { get; [UsedImplicitly] set; }
         /// <summary>
         /// Latitude of user
         /// </summary>
         [DataMember(Order = 2)]
-        public double Latitude { get; [UsedImplicitly] set; }
+        public float Latitude { get; [UsedImplicitly] set; }
 
         public static bool operator ==(GeoPoint obj1, GeoPoint obj2)
         {

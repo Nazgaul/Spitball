@@ -11,7 +11,7 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Name { get; set; }
         [DataMember]
-        public double Rating { get; set; }
+        public float Rating { get; set; }
         [DataMember]
         public string Address { get; set; }
         [DataMember]
@@ -30,7 +30,6 @@ namespace Cloudents.Core.DTOs
     }
 
 
-    [CanBeNull]
     public class PlacesNearbyDto
     {
         [CanBeNull]

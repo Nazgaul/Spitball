@@ -64,9 +64,9 @@ namespace Cloudents.Infrastructure
             [JsonProperty("time_zone")]
             public string TimeZone { get; set; }
             [JsonProperty("latitude")]
-            public double Latitude { get; set; }
+            public float Latitude { get; set; }
             [JsonProperty("longitude")]
-            public double Longitude { get; set; }
+            public float Longitude { get; set; }
             [JsonProperty("metro_code")]
             public string MetroCode { get; set; }
         }

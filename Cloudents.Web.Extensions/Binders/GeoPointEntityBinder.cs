@@ -18,8 +18,8 @@ namespace Cloudents.Web.Extensions.Binders
         {
             var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.latitude");
             var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.longitude");
-            if (double.TryParse(latitudeStr.FirstValue, out var latitude)
-                && double.TryParse(longitudeStr.FirstValue, out var longitude))
+            if (float.TryParse(latitudeStr.FirstValue, out var latitude)
+                && float.TryParse(longitudeStr.FirstValue, out var longitude))
             {
                 bindingContext.Result = ModelBindingResult.Success(new GeoPoint(longitude, latitude));
                 return;

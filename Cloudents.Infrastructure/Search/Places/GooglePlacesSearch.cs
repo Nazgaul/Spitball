@@ -10,11 +10,12 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure.Search.Places
 {
+    [UsedImplicitly]
     public class GooglePlacesSearch : IGooglePlacesSearch
     {
         private const string Key = "AIzaSyAoFR5uWJy1cf76q-J46EoEbFVZCaLk93w";//"AIzaSyAhNIR9O5bBnPZoB0lm5qRNeNN6EzjTTBg";
@@ -36,16 +37,48 @@ namespace Cloudents.Infrastructure.Search.Places
                 ["placeid"] = id
             };
 
-            var resultStr = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/place/details/json"), nvc, token).ConfigureAwait(false);
-            var result = JObject.Parse(resultStr);
-            return _mapper.Map<JObject, PlaceDto>(result, opt =>
+            var resultStr = await _restClient.GetAsync<GooglePlaceDto>(new Uri("https://maps.googleapis.com/maps/api/place/details/json"), nvc, token).ConfigureAwait(false);
+            if (resultStr == null)
             {
-                opt.Items["width"] = 150;
-                opt.Items["key"] = Key;
-            });
+                return null;
+            }
+            if (!string.Equals(resultStr.Status, "ok", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return null;
+            }
+
+            var photo = resultStr.Result.Photos?[0]?.PhotoReference;
+            string image = null;
+            if (!string.IsNullOrEmpty(photo))
+            {
+                image =
+                    $"https://maps.googleapis.com/maps/api/place/photo?maxwidth=150&photoreference={photo}&key={Key}";
+            }
+            GeoPoint location = null;
+            if (resultStr.Result.Geometry.Location != null)
+            {
+                location = new GeoPoint(resultStr.Result.Geometry.Location.Lng,
+                    resultStr.Result.Geometry.Location.Lat);
+            }
+            return new PlaceDto
+            {
+                Address = resultStr.Result.Vicinity,
+                Image = image,
+                Location = location,
+                Name = resultStr.Result.Name,
+                Open = resultStr.Result.OpeningHours?.OpenNow ?? false,
+                Rating = resultStr.Result.Rating,
+                PlaceId = resultStr.Result.PlaceId
+            };
+            //var result = JObject.Parse(resultStr);
+            //return _mapper.Map<JObject, PlaceDto>(result, opt =>
+            //{
+            //    opt.Items["width"] = 150;
+            //    opt.Items["key"] = Key;
+            //});
         }
 
-        [Cache(TimeConst.Year, "address", true)]
+        [Cache(TimeConst.Month, "address", true)]
         public async Task<(Address address, GeoPoint point)> GeoCodingByAddressAsync(string address, CancellationToken token)
         {
             var nvc = new NameValueCollection
@@ -99,26 +132,6 @@ namespace Cloudents.Infrastructure.Search.Places
             return _mapper.Map<GoogleGeoCodeDto, (Address address, GeoPoint point)>(result);
         }
 
-        //public async Task<PlaceDto> SearchAsync(string term, CancellationToken token)
-        //{
-        //    if (term == null) throw new ArgumentNullException(nameof(term));
-
-        //    var nvc = new NameValueCollection
-        //    {
-        //        ["query"] = term,
-        //        ["key"] = Key,
-        //    };
-
-        //    var resultStr = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/place/textsearch/json"), nvc, token).ConfigureAwait(false);
-        //    var result = JObject.Parse(resultStr);
-        //    var mapperResult = _mapper.Map<JObject, IEnumerable<PlaceDto>>(result, opt =>
-        //    {
-        //        opt.Items["width"] = 150;
-        //        opt.Items["key"] = Key;
-        //    });
-        //    return mapperResult.FirstOrDefault();
-        //}
-
         public async Task<PlacesNearbyDto> SearchNearbyAsync(IEnumerable<string> term, PlacesRequestFilter filter,
             GeoPoint location, string nextPageToken, CancellationToken token)
         {
@@ -126,22 +139,45 @@ namespace Cloudents.Infrastructure.Search.Places
 
             var resultStr = await _restClient.GetAsync<GooglePlacesDto>(new Uri("https://maps.googleapis.com/maps/api/place/nearbysearch/json"), nvc, token).ConfigureAwait(false);
             //var result = JObject.Parse(resultStr);
-            if (resultStr?.status != "ok")
+            if (resultStr == null)
+            {
+                return null;
+            }
+            if (!string.Equals(resultStr.Status, "ok", StringComparison.InvariantCultureIgnoreCase))
             {
                 return null;
             }
 
-            var retVal = new PlacesNearbyDto()
+            return new PlacesNearbyDto
             {
-                Token = resultStr.next_page_token
+                Token = resultStr.NextPageToken,
+                Data = resultStr.Results.Select(s =>
+                {
+                    var photo = s.Photos?[0]?.PhotoReference;
+                    string image = null;
+                    if (!string.IsNullOrEmpty(photo))
+                    {
+                        image =
+                            $"https://maps.googleapis.com/maps/api/place/photo?maxwidth=150&photoreference={photo}&key={Key}";
+                    }
+                    GeoPoint placeLocation = null;
+                    if (s.Geometry?.Location != null)
+                    {
+                        placeLocation = new GeoPoint(s.Geometry.Location.Lng,
+                            s.Geometry.Location.Lat);
+                    }
+                    return new PlaceDto
+                    {
+                        Address = s.Vicinity,
+                        Image = image,
+                        Location = placeLocation,
+                        Name = s.Name,
+                        Open = s.OpeningHours?.OpenNow ?? false,
+                        Rating = s.Rating,
+                        PlaceId = s.PlaceId
+                    };
+                })
             };
-            return retVal;
-
-            //return _mapper.Map<JObject, (string, IEnumerable<PlaceDto>)>(result, opt =>
-            //{
-            //    opt.Items["width"] = 150;
-            //    opt.Items["key"] = Key;
-            //});
         }
 
         private static NameValueCollection BuildQuery(IEnumerable<string> term, PlacesRequestFilter filter,
