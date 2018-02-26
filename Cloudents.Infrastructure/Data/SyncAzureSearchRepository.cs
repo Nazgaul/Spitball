@@ -4,12 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 using Dapper;
 
 namespace Cloudents.Infrastructure.Data
 {
     // ReSharper disable once PossibleInfiniteInheritance T is where defined
-    public abstract class SyncAzureSearchRepository<T> : IReadRepositoryAsync<(IEnumerable<T> update, IEnumerable<SearchWriteBaseDto> delete, long version), long>
+    public abstract class SyncAzureSearchRepository<T> : IReadRepositoryAsync<(IEnumerable<T> update, IEnumerable<SearchWriteBaseDto> delete, long version), SyncAzureQuery>
         where T : SearchWriteIsDeleted
     {
         private readonly DapperRepository _repository;
@@ -22,11 +23,11 @@ namespace Cloudents.Infrastructure.Data
         protected abstract string WriteSql { get; }
         protected abstract string DeleteSql { get; }
 
-        public Task<(IEnumerable<T> update, IEnumerable<SearchWriteBaseDto> delete, long version)> GetAsync(long query, CancellationToken token)
+        public Task<(IEnumerable<T> update, IEnumerable<SearchWriteBaseDto> delete, long version)> GetAsync(SyncAzureQuery query, CancellationToken token)
         {
             return _repository.WithConnectionAsync(async c =>
             {
-                using (var grid = await c.QueryMultipleAsync(WriteSql + ";" + DeleteSql, new { version = query }).ConfigureAwait(false))
+                using (var grid = await c.QueryMultipleAsync(WriteSql + ";" + DeleteSql, new { version = query.Version, page = query.Page }).ConfigureAwait(false))
                 {
                     var write = (await grid.ReadAsync<T>().ConfigureAwait(false)).ToLookup(p => p.IsDeleted);
                     var delete = await grid.ReadAsync<SearchWriteBaseDto>().ConfigureAwait(false);
@@ -46,7 +47,7 @@ namespace Cloudents.Infrastructure.Data
                     }
 
 
-                    return (update.AsEnumerable(), deleteList.AsEnumerable(), new[] { max, maxDelete, query }.Max());
+                    return (update.AsEnumerable(), deleteList.AsEnumerable(), new[] { max, maxDelete, query.Version }.Max());
                     //return (update.AsEnumerable(), deleteList.AsEnumerable(), max);
                 }
             }, token);

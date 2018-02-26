@@ -9,6 +9,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
@@ -23,21 +24,24 @@ namespace Cloudents.Functions
         [FunctionName("CourseTimer")]
         [UsedImplicitly]
         public static async Task RunAsync([TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-            [Blob("spitball/AzureSearch/course-version.txt", FileAccess.Read), CanBeNull]  string blobRead,
-            [Blob("spitball/AzureSearch/course-version.txt", FileAccess.Write)] TextWriter blobWrite,
-            [Inject] IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto> delete, long version), long> repository,
+            [Blob("spitball/AzureSearch/course-version.txt", FileAccess.Read), CanBeNull]
+            string blobRead,
+            [Blob("spitball/AzureSearch/course-version.txt", FileAccess.Write)]
+            TextWriter blobWrite,
+            [Inject] IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto> delete, long version), SyncAzureQuery> repository,
             [Inject] ISearchServiceWrite<Course> searchServiceWrite,
             [Queue(QueueName)] IAsyncCollector<string> queue,
             TraceWriter log,
             CancellationToken token)
         {
-            var version = long.Parse(blobRead ?? "0");
+
+            var query = SyncAzureQuery.ConvertFromString(blobRead);
             var t1 = Task.CompletedTask;
-            if (version == 0)
+            if (query.Version == 0)
             {
                 t1 = searchServiceWrite.CreateOrUpdateAsync(token);
             }
-            var dataTask = repository.GetAsync(version, token);
+            var dataTask = repository.GetAsync(query, token);
             await Task.WhenAll(t1, dataTask).ConfigureAwait(false);
             var data = dataTask.Result;
             var tasks = data.update.Batch(20).Select(dto => queue.AddAsStringAsync(dto, token));
@@ -45,7 +49,7 @@ namespace Cloudents.Functions
 
 
             await Task.WhenAll(tasks).ConfigureAwait(false);
-            if (data.version != version)
+            if (data.version != query.Version)
             {
                 await blobWrite.WriteAsync(data.version.ToString()).ConfigureAwait(false);
             }
