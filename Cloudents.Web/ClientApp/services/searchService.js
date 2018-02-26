@@ -1,11 +1,4 @@
 ﻿import { search} from "./resources";
-import axios from "axios";
-import qs from "query-string"
-
-axios.defaults.paramsSerializer = params => {
-    return qs.stringify(params, { indices: false })
-};
-axios.defaults.baseURL = "api/";
 
 export default {
     activateFunction: {
