@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
+using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
@@ -47,19 +48,9 @@ namespace ConsoleApp
             builder.RegisterModule<ModuleAzureSearch>();
 
             var container = builder.Build();
-            var t = container.Resolve<IBinarySerializer>();
-            var p = new CourseSearchWriteDto()
-            {
-                Version = 99999,
-                Name = "Ram",
-                IsDeleted = true,
-                Code = "123",
-                UniversityId = 123,
-                Id = 1
-            };
-            var b = t.Serialize(p);
+            var t = container.Resolve<ICommandHandlerAsync<CreateCourseCommand, CreateCourseCommandResult>>();
+            var result = await t.ExecuteAsync(new CreateCourseCommand("ram", 171885), default);
 
-            var x = t.DeSerialize<CourseSearchWriteDto>(b);
 
           
 
