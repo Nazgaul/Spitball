@@ -2,14 +2,14 @@
 {
     public class SyncAzureQuery
     {
-        private SyncAzureQuery(long version, int page)
+        public SyncAzureQuery(long version, int page)
         {
             Version = version;
             Page = page;
         }
 
         public long Version { get; }
-        public int Page { get; }
+        public int Page { get; set; }
 
         public static SyncAzureQuery ConvertFromString(string str)
         {
@@ -22,6 +22,10 @@
             }
 
             var vals = str.Split('|');
+            if (vals.Length != 2)
+            {
+                return new SyncAzureQuery(version, page);
+            }
             for (var i = 0; i < vals.Length; i++)
             {
                 if (!int.TryParse(vals[i], out var p)) continue;
@@ -36,6 +40,21 @@
                 }
             }
             return new SyncAzureQuery(version, page);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is SyncAzureQuery query
+                   && Version == query.Version
+                   && Page == query.Page;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -2075985307;
+            hashCode = hashCode * -1521134295 + Version.GetHashCode();
+            hashCode = hashCode * -1521134295 + Page.GetHashCode();
+            return hashCode;
         }
 
         public override string ToString()

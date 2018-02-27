@@ -21,7 +21,7 @@ namespace Cloudents.Functions
     {
         private const string QueueName = "course-sync";
 
-        [FunctionName("CourseTimer")]
+        //[FunctionName("CourseTimer")]
         [UsedImplicitly]
         public static async Task RunAsync([TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/course-version.txt", FileAccess.Read), CanBeNull]

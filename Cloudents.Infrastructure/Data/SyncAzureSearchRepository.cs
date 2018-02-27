@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Data
         {
             return _repository.WithConnectionAsync(async c =>
             {
-                using (var grid = await c.QueryMultipleAsync(WriteSql + ";" + DeleteSql, new { version = query.Version, page = query.Page }).ConfigureAwait(false))
+                using (var grid = await c.QueryMultipleAsync(WriteSql + ";" + DeleteSql, new { version = query.Version, PageNumber = query.Page, PageSize = 50 }).ConfigureAwait(false))
                 {
                     var write = (await grid.ReadAsync<T>().ConfigureAwait(false)).ToLookup(p => p.IsDeleted);
                     var delete = await grid.ReadAsync<SearchWriteBaseDto>().ConfigureAwait(false);
@@ -47,7 +47,7 @@ namespace Cloudents.Infrastructure.Data
                     }
 
 
-                    return (update.AsEnumerable(), deleteList.AsEnumerable(), new[] { max, maxDelete, query.Version }.Max());
+                    return (update.AsEnumerable(), deleteList.AsEnumerable(), new[] { max, maxDelete }.Max());
                     //return (update.AsEnumerable(), deleteList.AsEnumerable(), max);
                 }
             }, token);
