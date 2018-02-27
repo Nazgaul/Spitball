@@ -4,7 +4,7 @@ import TabsSort from "./bookDetailsSort"
 import { details } from "../../data";
 const all = "all";
 const filterOptions = [{ title: "Book Type", modelId: "filter", data: details.bookDetails.filter }];
-
+const FILTER_LIST=details.bookDetails.filter;
 export default {
     mixins: [sortAndFilterMixin, TabsSort],
     created() {
@@ -24,6 +24,11 @@ export default {
         };
     },
     components: { ResultBook },
+    watch:{
+        pageData(val){
+            this.filterOptions[0].data=(!val||!val.data||val.data.length===1)?[]:FILTER_LIST.filter(i=>val.data.map(t=>t.condition).includes(i.id));
+        }
+    },
     computed: {
         currentType() { return this.sortVal ? this.sortVal.charAt(0).toUpperCase() : "" },
         selectedFilter() { return this.query.filter ? [].concat(this.query.filter).map(i => ({ key: 'filter', value: i })) : [] },
