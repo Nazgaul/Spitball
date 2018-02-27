@@ -9,10 +9,12 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search.Tutor
 {
+    [UsedImplicitly]
     public class TutorMeSearch : ITutorProvider
     {
         private readonly IMapper _mapper;
@@ -24,7 +26,8 @@ namespace Cloudents.Infrastructure.Search.Tutor
             _restClient = restClient;
         }
 
-        public Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter[] filters,
+        public Task<IEnumerable<TutorDto>> SearchAsync(string term,
+            TutorRequestFilter[] filters,
             TutorRequestSort sort, GeoPoint location, int page, bool isMobile, CancellationToken token)
         {
             if (Array.TrueForAll(filters, t => t == TutorRequestFilter.InPerson))
