@@ -24,7 +24,7 @@ namespace Cloudents.Functions
 
         [FunctionName("CourseTimer")]
         [UsedImplicitly]
-        public static async Task RunAsync([TimerTrigger("0 */5 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+        public static async Task RunAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/course-version.txt", FileAccess.ReadWrite)]
             CloudBlockBlob blob,
             [Inject] IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto> delete, long version), SyncAzureQuery> repository,
