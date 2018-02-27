@@ -11,7 +11,7 @@ namespace Cloudents.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public readonly List<IPAddress> OfficeIps = new List<IPAddress>();
+        private readonly List<IPAddress> _officeIps = new List<IPAddress>();
 
         public HomeController( IConfiguration configuration)
         {
@@ -22,7 +22,7 @@ namespace Cloudents.Web.Controllers
             {
                 if (IPAddress.TryParse(ipStr, out var ip))
                 {
-                    OfficeIps.Add(ip);
+                    _officeIps.Add(ip);
                 }
             }
         }
@@ -30,20 +30,19 @@ namespace Cloudents.Web.Controllers
         //[ResponseCache()]
         // we can't use that for now.
         // GET
-       // [TypeFilter(typeof(IpToLocationActionFilter), Arguments = new object[] { "location" })]
         public IActionResult Index(Location location, [FromServices]IHostingEnvironment env)
         {
-            if (string.Equals(env.EnvironmentName, "Development", StringComparison.InvariantCultureIgnoreCase))
+            if (env.IsDevelopment())
             {
                 return View();
             }
 
-            if (string.Equals(env.EnvironmentName, "Staging", StringComparison.InvariantCultureIgnoreCase))
+            if (env.IsStaging())
             {
                 return View();
             }
             var requestIp = HttpContext.Connection.GetIpAddress();
-            if (OfficeIps.Contains(requestIp))
+            if (_officeIps.Contains(requestIp))
             {
                 return View();
             }

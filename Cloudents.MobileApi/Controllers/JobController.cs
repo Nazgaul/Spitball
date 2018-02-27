@@ -2,10 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.MobileApi.Extensions;
-using Cloudents.MobileApi.Models;
+using Cloudents.Web.Extensions.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.MobileApi.Controllers
@@ -14,7 +13,7 @@ namespace Cloudents.MobileApi.Controllers
     /// <summary>
     /// The controller of job api
     /// </summary>
-    [Route("api/[controller]",Name="Job")]
+    [Route("api/[controller]", Name = "Job")]
     public class JobController : Controller
     {
         private readonly IJobSearch _jobSearch;
@@ -36,20 +35,15 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]JobRequest model, CancellationToken token)
+        public async Task<IActionResult> GetAsync([FromQuery]JobRequest model, CancellationToken token)
         {
-            var facet = model.Facet?.Select(s =>
+            if (model == null)
             {
-                if (s.TryToEnum(out JobFilter p))
-                {
-                    return p;
-                }
-
-                return JobFilter.None;
-            }).Where(w=> w != JobFilter.None);
+                return BadRequest();
+            }
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Sort.GetValueOrDefault(JobRequestSort.Distance),
-                facet, model.Location, model.Page.GetValueOrDefault(), model.Highlight, token).ConfigureAwait(false);
+                model.Facet, model.Location, model.Page.GetValueOrDefault(), model.Highlight, token).ConfigureAwait(false);
             string nextPageLink = null;
             if (result.Result?.Any() == true)
             {

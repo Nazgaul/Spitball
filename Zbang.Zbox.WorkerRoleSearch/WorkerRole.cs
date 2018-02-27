@@ -132,7 +132,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return new List<IJob>
                 {
-                     _ioc.Resolve<IJob>(nameof(TestingJob))
+                    _ioc.Resolve<IJob>(nameof(TestingJob))
                     //_ioc.Resolve<IJob>(nameof(SchedulerListener)), //6
 
                 };

@@ -1,8 +1,6 @@
-using System;
-
 namespace Cloudents.Core.Entities.Db
 {
-    public class University : IDirty
+    public class University 
     {
         protected University()
         {
@@ -11,11 +9,5 @@ namespace Cloudents.Core.Entities.Db
         public virtual long Id { get; set; }
 
         public virtual bool IsDeleted { get; set; }
-        public virtual void DeleteAssociation()
-        {
-        }
-
-        public virtual bool IsDirty { get; set; }
-        public virtual Func<bool> ShouldMakeDirty => () => false;
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Specialized;
 using Cloudents.Core.Extension;
-using Cloudents.MobileApi.Models;
+using Cloudents.Web.Extensions.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.MobileApi.Extensions
@@ -20,7 +20,7 @@ namespace Cloudents.MobileApi.Extensions
         /// <param name="routeValue">route object</param>
         /// <param name="queryString">query string</param>
         /// <returns>link</returns>
-        public static string Link(this IUrlHelper urlHelper, string routeName, object routeValue, object queryString)
+        private static string Link(this IUrlHelper urlHelper, string routeName, object routeValue, object queryString)
         {
             var url = urlHelper.Link(routeName, routeValue);
             url = url.Replace("_", "-");

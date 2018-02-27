@@ -37,7 +37,7 @@ namespace Cloudents.MobileApi.Controllers
         public async Task<IActionResult> Get([FromQuery]PurchaseRequest purchaseRequest,
             CancellationToken token)
         {
-            (string token, IEnumerable<PlaceDto> data) retVal;
+            PlacesNearbyDto retVal;
             if (!string.IsNullOrEmpty(purchaseRequest.NextPageToken))
             {
                 retVal = await _purchaseSearch.SearchAsync(null,
@@ -48,15 +48,15 @@ namespace Cloudents.MobileApi.Controllers
                 retVal = await _purchaseSearch.SearchAsync(purchaseRequest.Term, purchaseRequest.Filter.GetValueOrDefault(), purchaseRequest.Location, null, token).ConfigureAwait(false);
             }
             string nextPageLink = null;
-            if (retVal.token != null)
+            if (retVal?.Token != null)
             {
-                nextPageLink = Url.Link("Places", new { nextPageToken = retVal.token });
+                nextPageLink = Url.Link("Places", new { nextPageToken = retVal.Token });
             }
 
             return Ok(new
             {
                 nextPageLink,
-                retVal.data
+                retVal?.Data
             });
         }
     }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Configuration;
+﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -17,7 +11,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [TestMethod]
         public async Task ReturnResult()
         {
-            var response = await _client.GetAsync("/api/Tutor?term=financial accounting&sort=null&page=0").ConfigureAwait(false);
+            var response = await Client.GetAsync("/api/Tutor?term=financial accounting&sort=null&page=0").ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
     }

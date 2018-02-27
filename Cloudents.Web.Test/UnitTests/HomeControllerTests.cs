@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Cloudents.Web.Test
+namespace Cloudents.Web.Test.UnitTests
 {
     /// <summary>
     /// Summary description for HomeControllerTests
@@ -12,16 +12,13 @@ namespace Cloudents.Web.Test
     [TestClass]
     public class HomeControllerTests
     {
-        private readonly Mock<IConfiguration> _configurationMock;
-
-        private readonly HomeController _controller;
         public HomeControllerTests()
         {
-            _configurationMock = new Mock<IConfiguration>();
+            var configurationMock = new Mock<IConfiguration>();
 
-            _configurationMock.Setup(f => f["Ips"]).Returns("31.154.39.170");
-            _controller = new HomeController(_configurationMock.Object);
-            _controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            configurationMock.Setup(f => f["Ips"]).Returns("31.154.39.170");
+            var controller = new HomeController(configurationMock.Object);
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
         }
     }
 }

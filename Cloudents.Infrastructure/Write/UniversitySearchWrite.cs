@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Write
 {
+    [UsedImplicitly]
     public class UniversitySearchWrite : SearchServiceWrite<Core.Entities.Search.University>
     {
         public const string IndexName = "universities3";
         public const string ScoringProfile = "university-default";
         public const string DistanceScoringParameter = "currentLocation";
-        public const string SynonymName = "university-synonym";
-        //private readonly ISynonymWrite _synonymWrite;
+
         public UniversitySearchWrite(SearchServiceClient client)
             : base(client, IndexName)
         {
-
         }
 
         public override Task CreateOrUpdateAsync(CancellationToken token)
@@ -54,14 +53,12 @@ namespace Cloudents.Infrastructure.Write
                     new Field(nameof(Core.Entities.Search.University.Prefix), DataType.String)
                     {
                         IsSearchable = true,
-                        //Analyzer = AnalyzerName.EnMicrosoft,
                         SearchAnalyzer = AnalyzerName.StandardLucene,
                         IndexAnalyzer = AnalyzerName.Create("prefix"),
                     },
                     new Field(nameof(Core.Entities.Search.University.Extra), DataType.String)
                     {
                         IsSearchable = true,
-                        //Analyzer = AnalyzerName.Create("stopWords")
                         SearchAnalyzer = AnalyzerName.StandardLucene,
                         IndexAnalyzer =  AnalyzerName.Create("stopWords")
                     },

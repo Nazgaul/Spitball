@@ -9,10 +9,12 @@ using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search.Book
 {
+    [UsedImplicitly]
     public class BookSearch : IBookSearch
     {
         //https://partners.campusbooks.com/api.php
@@ -67,6 +69,10 @@ namespace Cloudents.Infrastructure.Search.Book
         private async Task<BookDetailResult> MakeApiCallAsync(NameValueCollection nvc, CancellationToken token)
         {
             var result = await _restClient.GetAsync<BookDetailResult>(new Uri(Url), nvc, token).ConfigureAwait(false);
+            if (result == null)
+            {
+                return null;
+            }
             if (string.Equals(result.Response.Status, "error", StringComparison.InvariantCultureIgnoreCase))
             {
                 return null;
@@ -75,6 +81,8 @@ namespace Cloudents.Infrastructure.Search.Book
         }
 
         [BuildLocalUrl(nameof(BookDetailsDto.Prices))]
+        [Cache(TimeConst.Minute * 5, "book-buy", false)]
+
         public Task<BookDetailsDto> BuyAsync(string isbn13, CancellationToken token)
         {
             return BuyOrSellApiAsync(isbn13, false, token);
@@ -110,6 +118,7 @@ namespace Cloudents.Infrastructure.Search.Book
         }
 
         [BuildLocalUrl(nameof(BookDetailsDto.Prices))]
+        [Cache(TimeConst.Minute * 5, "book-sell", false)]
         public async Task<BookDetailsDto> SellAsync(string isbn13, CancellationToken token)
         {
             var result = await BuyOrSellApiAsync(isbn13, true, token).ConfigureAwait(false);
@@ -129,7 +138,7 @@ namespace Cloudents.Infrastructure.Search.Book
         public class Response
         {
             public Page Page { get; set; }
-            public string Status { get; set; }
+            public string Status { get; [UsedImplicitly] set; }
         }
 
         public class Page
@@ -139,11 +148,12 @@ namespace Cloudents.Infrastructure.Search.Book
 
         public class Books
         {
-            public BookDetail[] Book { get; set; }
+            public BookDetail[] Book { get; [UsedImplicitly] set; }
             [JsonProperty("total_pages")]
             public int TotalPages { get; set; }
         }
 
+        [UsedImplicitly]
         public class BookDetail
         {
             public string Isbn10 { get; set; }
@@ -155,22 +165,24 @@ namespace Cloudents.Infrastructure.Search.Book
             public string Title { get; set; }
             public Offers Offers { get; set; }
         }
-
+        [UsedImplicitly]
         public class BookImage
         {
             public string Image { get; set; }
         }
 
+
+        [UsedImplicitly]
         public class Offers
         {
             public BookGroup[] Group { get; set; }
         }
-
+        [UsedImplicitly]
         public class BookGroup
         {
             public BookOffer[] Offer { get; set; }
         }
-
+        [UsedImplicitly]
         public class BookOffer
         {
             public BookCondition Condition { get; set; }
@@ -178,13 +190,13 @@ namespace Cloudents.Infrastructure.Search.Book
             public double Price { get; set; }
             public string Link { get; set; }
         }
-
+        [UsedImplicitly]
         public class BookCondition
         {
             //public int Id { get; set; }
             public string Condition { get; set; }
         }
-
+        [UsedImplicitly]
         public class Merchant
         {
             //public string Id { get; set; }

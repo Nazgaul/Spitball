@@ -18,7 +18,7 @@ namespace Cloudents.MobileApi.Controllers
 
         /// <inheritdoc />
         /// <summary>
-        /// ctor
+        /// constructor
         /// </summary>
         /// <param name="repository">repository</param>
         public FlashcardController(IReadRepositoryAsync<Flashcard, long> repository)

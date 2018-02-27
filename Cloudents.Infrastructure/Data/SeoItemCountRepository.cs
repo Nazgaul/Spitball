@@ -5,9 +5,11 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Dapper;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Data
 {
+    [UsedImplicitly]
     public class SeoItemCountRepository : IReadRepositoryAsync<IEnumerable<SiteMapCountDto>>
     {
         private readonly DapperRepository _repository;

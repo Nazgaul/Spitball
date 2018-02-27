@@ -19,7 +19,6 @@ namespace Cloudents.Infrastructure.Framework.Database
         public ISession Session
         {
             get;
-            private set;
         }
 
         public void Dispose()

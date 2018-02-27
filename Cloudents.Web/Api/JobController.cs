@@ -1,10 +1,10 @@
-﻿using System.Linq;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
+using Cloudents.Web.Extensions.Models;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -20,22 +20,15 @@ namespace Cloudents.Web.Api
             _jobSearch = jobSearch;
         }
 
-        public async Task<IActionResult> Get(string[] term,
-            JobRequestSort? sort,
-            Location location, string[] facet, int? page, CancellationToken token)
+        [HttpGet]
+        public async Task<IActionResult> GetAsync([NotNull] [FromQuery]JobRequest model,
+             CancellationToken token)
         {
-            var facetEnum = facet.Select(s =>
-            {
-                if (s.TryToEnum(out JobFilter p))
-                {
-                    return p;
-                }
-                return JobFilter.None;
-            }).Where(w => w != JobFilter.None);
+            if (model == null) throw new ArgumentNullException(nameof(model));
             var result = await _jobSearch.SearchAsync(
-                term,
-                sort.GetValueOrDefault(JobRequestSort.Distance),
-                facetEnum, location, page.GetValueOrDefault(), true, token).ConfigureAwait(false);
+                model.Term,
+                model.Sort.GetValueOrDefault(JobRequestSort.Distance),
+                model.Facet, model.Location, model.Page.GetValueOrDefault(), true, token).ConfigureAwait(false);
             return Json(result);
         }
     }

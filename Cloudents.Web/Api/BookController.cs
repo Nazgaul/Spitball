@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
@@ -30,16 +29,16 @@ namespace Cloudents.Web.Api
         {
             if (isbn13 == null) throw new ArgumentNullException(nameof(isbn13));
             var result = await _booksSearch.BuyAsync(isbn13,  token).ConfigureAwait(false);
-            result.Prices = result.Prices.Select((s,i) =>
-            {
-                s.Link = Url.Action("Index", "Url", new
-                {
-                    url = s.Link,
-                    host = "campusbooks",
-                    location = i
-                });
-                return s;
-            });
+            //result.Prices = result.Prices.Select((s,i) =>
+            //{
+            //    s.Link = Url.Action("Index", "Url", new
+            //    {
+            //        url = s.Link,
+            //        host = "campusBooks",
+            //        location = i
+            //    });
+            //    return s;
+            //});
             return Json(result);
         }
 

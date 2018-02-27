@@ -20,17 +20,13 @@ namespace Cloudents.Web.Api
             _placesSearch = placesSearch;
         }
 
-       // [TypeFilter(typeof(IpToLocationActionFilter),Arguments = new object[] {"location"})]
         [HttpGet]
-        public async Task<IActionResult> GetAsync(string[] term, PlacesRequestFilter filter, Location location, CancellationToken token)
+        public async Task<IActionResult> GetAsync(string[] term, PlacesRequestFilter filter,
+            GeoPoint location, CancellationToken token)
         {
             if (location == null) throw new ArgumentNullException(nameof(location));
-            var result = await _placesSearch.SearchAsync(term, filter, location.Point, null, token).ConfigureAwait(false);
-            return Json(new
-            {
-                result.token,
-                result.data
-            });
+            var result = await _placesSearch.SearchAsync(term, filter, location, null, token).ConfigureAwait(false);
+            return Json(result);
         }
 
         [HttpGet]
@@ -41,11 +37,7 @@ namespace Cloudents.Web.Api
             var result = await _placesSearch.SearchAsync(null,
                 PlacesRequestFilter.None, null, nextPageToken, token).ConfigureAwait(false);
 
-            return Json(new
-            {
-                result.token,
-                result.data
-            });
+            return Json(result);
         }
 
         [HttpGet]

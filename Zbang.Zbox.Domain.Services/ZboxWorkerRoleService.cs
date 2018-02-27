@@ -305,9 +305,8 @@ select top(3) id from zbox.university where isDeleted = 1 and updateTime < getUt
                     {
                         try
                         {
-                            var i = 0;
-                            i += await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token)).ConfigureAwait(false);
-                            await Task.Delay(TimeSpan.FromMilliseconds(1000), token).ConfigureAwait(false);
+                            var i = await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token)).ConfigureAwait(false);
+                            await Task.Delay(TimeSpan.FromMilliseconds(500), token).ConfigureAwait(false);
                             needToLoop = i > 0;
                             counter += i;
                         }

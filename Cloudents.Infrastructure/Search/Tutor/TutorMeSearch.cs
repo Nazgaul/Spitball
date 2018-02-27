@@ -10,7 +10,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Infrastructure.Search.Tutor
 {
@@ -51,7 +50,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
                 ["offset"] = (page * 12).ToString()
             };
             var result = await _restClient.GetAsync<TutorMeResult>(new Uri("https://tutorme.com/api/v1/tutors/"), nvc, token).ConfigureAwait(false);
-            if (result.Group == null)
+            if (result?.Group == null)
             {
                 return null;
             }

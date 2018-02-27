@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [Obsolete("will be removed in v13")]
     public class UrlController : Controller
     {
         private readonly IQueueProvider _queueProvider;

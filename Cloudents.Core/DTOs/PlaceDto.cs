@@ -1,5 +1,7 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.DTOs
 {
@@ -9,7 +11,7 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Name { get; set; }
         [DataMember]
-        public double Rating { get; set; }
+        public float Rating { get; set; }
         [DataMember]
         public string Address { get; set; }
         [DataMember]
@@ -25,11 +27,14 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public bool Hooked { get; set; }
-        //public string Url {
-        //    get => Name;
-        //    set => Name = value;
-        //}
+    }
 
-        //public string Source => "Places" + (Hooked ? " Hooked" : string.Empty);
+
+    public class PlacesNearbyDto
+    {
+        [CanBeNull]
+        public IEnumerable<PlaceDto> Data { get; set; }
+        [CanBeNull]
+        public string Token { get; set; }
     }
 }

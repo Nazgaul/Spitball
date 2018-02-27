@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 
@@ -26,11 +27,20 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [BuildLocalUrl(nameof(ResultWithFacetDto<JobDto>.Result), PageSize, "page")]
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location,
+        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term, JobRequestSort sort, IEnumerable<string> jobType, Location location,
             int page, bool highlight, CancellationToken token)
         {
             var str = string.Join(" ", term ?? Enumerable.Empty<string>());
-            var tasks = _providers.Select(s => s.SearchAsync(str.Trim(), sort, jobType, location, page, highlight, token)).ToList();
+
+            var facetEnum = jobType?.Select(s =>
+            {
+                if (s.TryToEnum(out JobFilter p))
+                {
+                    return p;
+                }
+                return JobFilter.None;
+            }).Where(w => w != JobFilter.None);
+            var tasks = _providers.Select(s => s.SearchAsync(str.Trim(), sort, facetEnum, location, page, highlight, token)).ToList();
             await Task.WhenAll(tasks).ConfigureAwait(false);
 
             var result = tasks.Select(s => s.Result).Where(w => w != null).ToList();

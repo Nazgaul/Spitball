@@ -6,7 +6,6 @@ using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Places;
-using Newtonsoft.Json.Linq;
 using SearchResult = Cloudents.Core.DTOs.SearchResult;
 
 namespace Cloudents.Infrastructure
@@ -22,8 +21,8 @@ namespace Cloudents.Infrastructure
             CreateMap<Search.Entities.Course, CourseDto>();
             CreateMap<University, UniversityDto>();
 
-            CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlacesConverter>();
-            CreateMap<JObject, PlaceDto>().ConvertUsing<PlaceConverter>();
+            //CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlacesConverter>();
+            //CreateMap<JObject, PlaceDto>().ConvertUsing<PlaceConverter>();
         }
     }
 }

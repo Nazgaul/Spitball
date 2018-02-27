@@ -10,6 +10,7 @@ namespace Cloudents.Core.Interfaces
 
         Task DeleteDataAsync(IEnumerable<string> ids, CancellationToken token);
         Task CreateOrUpdateAsync(CancellationToken token);
+        Task UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> ids, CancellationToken token);
     }
 
     //public interface ISynonymWrite
