@@ -23,22 +23,22 @@ namespace Cloudents.Functions
         [FunctionName("UniversityTimer")]
         [UsedImplicitly]
         public static async Task RunAsync([TimerTrigger("0 */30 * * * *")]TimerInfo myTimer,
-            [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Read), CanBeNull]  string blobRead,
-            [Blob("spitball/AzureSearch/university-version.txt", FileAccess.Write)]
-            CloudBlockBlob blobWrite,
+            [Blob("spitball/AzureSearch/university-version.txt",FileAccess.ReadWrite)]
+            CloudBlockBlob blob,
             [Inject] IReadRepositoryAsync<(IEnumerable<UniversitySearchWriteDto> update, IEnumerable<SearchWriteBaseDto> delete, long version), SyncAzureQuery> repository,
             [Inject] ISearchServiceWrite<University> searchServiceWrite,
             TraceWriter log,
             CancellationToken token)
         {
-            var query = SyncAzureQuery.ConvertFromString(blobRead);
+            var text = await blob.DownloadTextAsync(token).ConfigureAwait(false);
+            var query = SyncAzureQuery.ConvertFromString(text);
             if (query.Version == 0)
             {
                 await searchServiceWrite.CreateOrUpdateAsync(token).ConfigureAwait(false);
             }
 
             var currentVersion = query.Version;
-            while (token.IsCancellationRequested)
+            while (!token.IsCancellationRequested)
             {
                 var (update, delete, version) = await repository.GetAsync(query, token).ConfigureAwait(false);
                 var universityUpdates = update.Select(s => new University
@@ -51,12 +51,10 @@ namespace Cloudents.Functions
                     Prefix = s.Name
                 }).ToList();
                 var deleteUniversity = delete.Select(s => s.Id.ToString()).ToList();
-                var t1 =  searchServiceWrite.UpdateDataAsync(universityUpdates, deleteUniversity, token);
+                await  searchServiceWrite.UpdateDataAsync(universityUpdates, deleteUniversity, token).ConfigureAwait(false);
                 query.Page++;
                 currentVersion = Math.Max(currentVersion, version);
-                //var t2 =  blobWrite.WriteAsync(query.ToString());
-                await Task.WhenAll(t1/*, t2*/).ConfigureAwait(false);
-                //await blobWrite.FlushAsync().ConfigureAwait(false);
+                await blob.UploadTextAsync(query.ToString(), token).ConfigureAwait(false);
                 if (universityUpdates.Count == 0 && deleteUniversity.Count == 0)
                 {
                     break;
@@ -64,23 +62,7 @@ namespace Cloudents.Functions
             }
 
             var newVersion = new SyncAzureQuery(currentVersion, 0);
-           // await blobWrite.WriteAsync(newVersion.ToString()).ConfigureAwait(false);
-            //var tasks = new List<Task>();
-            //foreach (var dto in update)
-            //{
-            //    tasks.Add(queue.AddAsStringAsync(dto, token));
-            //}
-
-            //foreach (var d in delete)
-            //{
-            //    tasks.Add(queue.AddAsStringAsync(d, token));
-            //}
-
-            //await Task.WhenAll(tasks).ConfigureAwait(false);
-            //if (version != version)
-            //{
-            //    await blobWrite.WriteAsync(version.ToString()).ConfigureAwait(false);
-            //}
+            await blob.UploadTextAsync(newVersion.ToString(), token).ConfigureAwait(false);
 
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
         }

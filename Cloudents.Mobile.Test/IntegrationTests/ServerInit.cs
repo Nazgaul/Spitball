@@ -14,7 +14,7 @@ namespace Cloudents.Mobile.Test.IntegrationTests
 
         protected ServerInit()
         {
-           // Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", Startup.IntegrationTestEnvironmentName);
+            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", Startup.IntegrationTestEnvironmentName);
 
             //var x = Program.BuildWebHost(null);
             //_server = new TestServer(x);

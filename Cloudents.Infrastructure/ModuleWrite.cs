@@ -4,7 +4,6 @@ using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Data;
-using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Write;
 using Cloudents.Infrastructure.Write.Job;
 using Cloudents.Infrastructure.Write.Tutor;
@@ -27,11 +26,7 @@ namespace Cloudents.Infrastructure
          //   builder.RegisterType<UniversitySearchWrite>().AsSelf().As<ISearchServiceWrite<University>>().As<IStartable>().SingleInstance().AutoActivate();
             //builder.RegisterType<SynonymWrite>().As<ISynonymWrite>();
             builder.RegisterType<DownloadFile>().As<IDownloadFile>();
-            builder.Register(c =>
-            {
-                var key = c.Resolve<IConfigurationKeys>().LocalStorageData;
-                return new TempStorageProvider(c.Resolve<ILogger>(), key);
-            }).As<ITempStorageProvider>();
+           
 
             builder.RegisterType<JobCareerBuilder>().Keyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
             builder.RegisterType<JobWayUp>().Keyed<IUpdateAffiliate>(AffiliateProgram.WayUp);

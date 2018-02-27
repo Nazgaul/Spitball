@@ -6,6 +6,7 @@ using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
+using Cloudents.Infrastructure.Storage;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
@@ -83,6 +84,7 @@ namespace Cloudents.Web
             containerBuilder.RegisterModule<ModuleWeb>();
             containerBuilder.RegisterModule<ModuleFile>();
             containerBuilder.RegisterModule<ModuleCore>();
+            containerBuilder.RegisterModule<ModuleStorage>();
             containerBuilder.RegisterModule<ModuleDb>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();

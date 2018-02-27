@@ -7,6 +7,7 @@ using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
+using Cloudents.Infrastructure.Storage;
 using Cloudents.MobileApi.Binders;
 using Cloudents.MobileApi.Filters;
 using JetBrains.Annotations;
@@ -22,6 +23,7 @@ namespace Cloudents.MobileApi
 {
     public class Startup
     {
+        public const string IntegrationTestEnvironmentName = "Integration-Test";
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
@@ -78,6 +80,7 @@ namespace Cloudents.MobileApi
             containerBuilder.RegisterModule<ModuleMobile>();
             containerBuilder.RegisterModule<ModuleCore>();
             containerBuilder.RegisterModule<ModuleDb>();
+            containerBuilder.RegisterModule<ModuleStorage>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
@@ -92,7 +95,14 @@ namespace Cloudents.MobileApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRewriter(new RewriteOptions().AddRedirectToHttpsPermanent());
+            var reWriterOptions = new RewriteOptions();
+                
+            if (!env.IsEnvironment(IntegrationTestEnvironmentName))
+            {
+                reWriterOptions.AddRedirectToHttpsPermanent();
+            }
+
+            app.UseRewriter(reWriterOptions);
 
             app.UseResponseCompression();
             app.UseResponseCaching();
