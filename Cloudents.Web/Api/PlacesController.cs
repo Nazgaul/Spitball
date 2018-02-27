@@ -26,11 +26,7 @@ namespace Cloudents.Web.Api
         {
             if (location == null) throw new ArgumentNullException(nameof(location));
             var result = await _placesSearch.SearchAsync(term, filter, location, null, token).ConfigureAwait(false);
-            return Json(new
-            {
-                result.token,
-                result.data
-            });
+            return Json(result);
         }
 
         [HttpGet]
@@ -41,11 +37,7 @@ namespace Cloudents.Web.Api
             var result = await _placesSearch.SearchAsync(null,
                 PlacesRequestFilter.None, null, nextPageToken, token).ConfigureAwait(false);
 
-            return Json(new
-            {
-                result.token,
-                result.data
-            });
+            return Json(result);
         }
 
         [HttpGet]

@@ -1,5 +1,3 @@
-using System;
-
 namespace Cloudents.Core.Entities.Db
 {
     public class University 

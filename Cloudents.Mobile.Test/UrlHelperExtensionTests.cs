@@ -4,7 +4,6 @@ using System.Reflection;
 using Cloudents.Core.Models;
 using Cloudents.MobileApi.Extensions;
 using Cloudents.MobileApi.Models;
-using Cloudents.Web.Extensions.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Mobile.Test

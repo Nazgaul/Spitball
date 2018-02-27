@@ -4,12 +4,14 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
 {
     public interface IPlacesSearch
     {
-        Task<(string token, IEnumerable<PlaceDto> data)> SearchAsync(IEnumerable<string> term, PlacesRequestFilter filter,
+        [ItemCanBeNull]
+        Task<PlacesNearbyDto> SearchAsync(IEnumerable<string> term, PlacesRequestFilter filter,
             GeoPoint location, string nextPageToken, CancellationToken token);
     }
 }

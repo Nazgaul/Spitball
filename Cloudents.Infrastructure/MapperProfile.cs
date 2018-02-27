@@ -6,7 +6,6 @@ using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Places;
-using Newtonsoft.Json.Linq;
 using SearchResult = Cloudents.Core.DTOs.SearchResult;
 
 namespace Cloudents.Infrastructure

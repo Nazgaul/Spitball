@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;

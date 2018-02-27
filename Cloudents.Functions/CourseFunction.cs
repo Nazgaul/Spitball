@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AzureFunctions.Autofac;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using JetBrains.Annotations;

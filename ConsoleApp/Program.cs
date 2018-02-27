@@ -1,21 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Net;
 using System.Threading.Tasks;
 using Autofac;
-using AutoMapper;
 using Cloudents.Core;
-using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
-using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
-using Cloudents.Infrastructure.Search.Job;
 
 namespace ConsoleApp
 {
