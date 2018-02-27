@@ -62,7 +62,7 @@ namespace Cloudents.MobileApi.Controllers
 
             return Ok(new
             {
-                documents = resultList,
+                result = resultList,
                 result.Facet,
                 nextPageLink
             });
@@ -93,7 +93,7 @@ namespace Cloudents.MobileApi.Controllers
             }
             return Ok(new
             {
-                documents = result.Result,
+                result = result.Result,
                 result.Facet,
                 nextPageLink
             });

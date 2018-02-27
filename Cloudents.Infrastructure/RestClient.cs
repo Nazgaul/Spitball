@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure
@@ -28,6 +29,7 @@ namespace Cloudents.Infrastructure
         //    var str = await GetAsync(url, queryString, token).ConfigureAwait(false);
         //    return JObject.Parse(str);
         //}
+        [CanBeNull]
         [Log]
         public Task<string> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token)
         {
@@ -35,7 +37,8 @@ namespace Cloudents.Infrastructure
         }
 
         [Log]
-        public async Task<string> GetAsync(Uri url, NameValueCollection queryString, IEnumerable<KeyValuePair<string, string>> headers,
+        public async Task<string> GetAsync(Uri url, NameValueCollection queryString,
+            IEnumerable<KeyValuePair<string, string>> headers,
             CancellationToken token)
         {
             _client.DefaultRequestHeaders.Clear();

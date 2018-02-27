@@ -14,26 +14,24 @@ namespace Cloudents.Web
             }
 
             var request = context.HttpContext.Request;
-            if (request.Path.Value != "/" && request.Path.Value.EndsWith("/"))
+            if (request.Path.Value == "/" || !request.Path.Value.EndsWith("/")) return;
+            var uri = new UriBuilder
             {
-                var uri = new UriBuilder
-                {
-                    Query = context.HttpContext.Request.QueryString.Value.TrimStart('?'),
-                    Host = context.HttpContext.Request.Host.Host,
-                    
-                    Path = context.HttpContext.Request.Path.Value.TrimEnd('/'),
-                    Scheme = context.HttpContext.Request.Scheme
+                Query = context.HttpContext.Request.QueryString.Value.TrimStart('?'),
+                Host = context.HttpContext.Request.Host.Host,
 
-                };
-                if (request.Host.Port.HasValue)
-                {
-                    uri.Port = request.Host.Port.Value;
-                }
-                var response = context.HttpContext.Response;
-                response.StatusCode = (int)HttpStatusCode.MovedPermanently;
-                response.Headers.Add("Location", uri.ToString());
-                context.Result = RuleResult.EndResponse;
+                Path = context.HttpContext.Request.Path.Value.TrimEnd('/'),
+                Scheme = context.HttpContext.Request.Scheme
+
+            };
+            if (request.Host.Port.HasValue)
+            {
+                uri.Port = request.Host.Port.Value;
             }
+            var response = context.HttpContext.Response;
+            response.StatusCode = (int)HttpStatusCode.MovedPermanently;
+            response.Headers.Add("Location", uri.ToString());
+            context.Result = RuleResult.EndResponse;
         }
     }
 }

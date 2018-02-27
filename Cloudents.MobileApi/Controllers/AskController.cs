@@ -22,7 +22,7 @@ namespace Cloudents.MobileApi.Controllers
 
         /// <inheritdoc />
         /// <summary>
-        /// Ctor
+        /// Constructor
         /// </summary>
         /// <param name="searchProvider"></param>
         /// <param name="videoSearch"></param>

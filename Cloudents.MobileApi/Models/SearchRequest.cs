@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Cloudents.Core.Enum;
 using Cloudents.MobileApi.Filters;
+using Cloudents.Web.Extensions.Models;
 
 namespace Cloudents.MobileApi.Models
 {
@@ -31,7 +32,6 @@ namespace Cloudents.MobileApi.Models
         /// <summary>
         /// Page for paging
         /// </summary>
-        [Paging]
         public int? Page { get; set; }
         /// <summary>
         /// User sort option

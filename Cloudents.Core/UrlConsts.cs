@@ -3,18 +3,14 @@ using System.Collections.Specialized;
 using System.Text;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core
 {
+    [UsedImplicitly]
     public class UrlConst : IUrlBuilder
     {
         private const string SystemUrl = "https://spitball-function.azurewebsites.net/api/redirect";
-        //private readonly string _systemUrl;
-
-        public UrlConst()
-        {
-           // _systemUrl = systemUrl;
-        }
 
         public string BuildRedirectUrl(string url, string host, int? location)
         {
@@ -37,10 +33,8 @@ namespace Cloudents.Core
             {
                 nvc["location"] = location.ToString();
             }
-            var uri = new UriBuilder(new Uri(SystemUrl))
-            {
-                Path = "url"
-            };
+
+            var uri = new UriBuilder(new Uri(SystemUrl));
             uri.AddQuery(nvc);
             return uri.ToString();
         }

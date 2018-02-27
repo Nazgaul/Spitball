@@ -3,9 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.AI
 {
+    [UsedImplicitly]
     public class EngineProcess : IEngineProcess
     {
         private readonly IAi _ai;
@@ -27,8 +29,8 @@ namespace Cloudents.Infrastructure.AI
 
             if (result is IVerticalLocation location && location.Location != null)
             {
-                var locationResult =  await _placesSearch.GeoCodingByAddressAsync(location.Location, token).ConfigureAwait(false);
-                location.Cords = locationResult.point;
+                var (_, point) =  await _placesSearch.GeoCodingByAddressAsync(location.Location, token).ConfigureAwait(false);
+                location.Cords = point;
             }
 
             return result;

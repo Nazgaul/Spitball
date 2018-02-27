@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Net;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Autofac;
 using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Command;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -45,6 +47,7 @@ namespace ConsoleApp
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
             builder.RegisterModule<ModuleRead>();
+            builder.RegisterType<BinarySerializer>().As<IBinarySerializer>().SingleInstance();
 
             // new LocalStorageData(Path.Combine(Directory.GetCurrentDirectory(), "Temp"), 500)));
             builder.RegisterModule<ModuleFile>();
@@ -53,18 +56,24 @@ namespace ConsoleApp
             builder.RegisterModule<ModuleAzureSearch>();
 
             var container = builder.Build();
-            var client = container.Resolve<IUniversitySearch>();
-            var ipService = container.Resolve<IIpToLocation>();
-            var writeService = container.Resolve<ISearchServiceWrite<University>>();
-            await writeService.CreateOrUpdateAsync(default);
-            var result = await ipService.GetAsync(IPAddress.Parse("107.77.169.2"), default);
-            var t = await client.SearchAsync("*", result.Point, default);
-            //var z = await mapper.ProcessRequestAsync("burger in tel aviv", default);
+            var t = container.Resolve<IBinarySerializer>();
+            var p = new CourseSearchWriteDto()
+            {
+                Version = 99999,
+                Name = "Ram",
+                IsDeleted = true,
+                Code = "123",
+                UniversityId = 123,
+                Id = 1
+            };
+            var b = t.Serialize(p);
 
-           // var p = client.InterpretStringAsync("      ", default);
+            var x = t.DeSerialize<CourseSearchWriteDto>(b);
+
+          
+
             Console.WriteLine("Finish");
             Console.ReadLine();
-            // var model = SearchQuery.Document(new [] {"microsoft"}, null, null, null, 0, SearchRequestSort.None, null);
         }
     }
 }

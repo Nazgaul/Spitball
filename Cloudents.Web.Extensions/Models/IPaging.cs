@@ -1,4 +1,4 @@
-﻿namespace Cloudents.MobileApi.Models
+﻿namespace Cloudents.Web.Extensions.Models
 {
     /// <summary>
     /// Paging interface

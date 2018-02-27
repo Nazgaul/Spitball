@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Framework.Test
         [TestMethod]
         public void CanCorrectlyMapUrlStats()
         {
-            new PersistenceSpecification<UrlStats>(session)
+            new PersistenceSpecification<UrlStats>(Session)
                 .CheckProperty(c => c.AggregateCount, 1)
                 .VerifyTheMappings();
         }

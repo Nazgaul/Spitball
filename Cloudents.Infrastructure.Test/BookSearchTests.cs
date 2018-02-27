@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Autofac.Extras.Moq;
-using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Search.Book;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

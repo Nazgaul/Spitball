@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
+using Cloudents.Web.Extensions.Models;
 
 namespace Cloudents.MobileApi.Models
 {
@@ -8,6 +10,7 @@ namespace Cloudents.MobileApi.Models
     /// <summary>
     /// Tutor request object
     /// </summary>
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public class TutorRequest : IPaging
     {
         /// <summary>
@@ -27,6 +30,7 @@ namespace Cloudents.MobileApi.Models
         /// <summary>
         /// The user location
         /// </summary>
+
         public GeoPoint Location { get; set; }
         /// <inheritdoc />
         /// <summary>

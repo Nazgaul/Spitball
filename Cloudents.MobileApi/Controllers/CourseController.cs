@@ -51,7 +51,7 @@ namespace Cloudents.MobileApi.Controllers
         }
 
         /// <summary>
-        /// Create academic course - note talk to RAM before applying
+        /// Create academic course
         /// </summary>
         /// <param name="model"></param>
         /// <param name="token">Cancellation token</param>
@@ -66,7 +66,10 @@ namespace Cloudents.MobileApi.Controllers
             }
             var command = new CreateCourseCommand(model.CourseName, model.University.Value);
             var response = await _command.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(command, token).ConfigureAwait(false);
-            return Ok(response.Id);
+            return Ok(new
+            {
+                response.Id
+            });
         }
     }
 }

@@ -11,7 +11,6 @@ using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Search.Tutor;
-using Cloudents.Infrastructure.Storage;
 using Microsoft.Cognitive.LUIS;
 using Module = Autofac.Module;
 
@@ -83,16 +82,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
             builder.RegisterModule<ModuleReadDb>();
-            builder.Register(c =>
-            {
-                var key = c.Resolve<IConfigurationKeys>().Storage;
-                return new CloudStorageProvider(key);
-            }).SingleInstance().AsImplementedInterfaces();
-
-            builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
-            builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
-
-            builder.RegisterGeneric(typeof(BlobProvider<>)).AsImplementedInterfaces();
+           
         }
     }
 }

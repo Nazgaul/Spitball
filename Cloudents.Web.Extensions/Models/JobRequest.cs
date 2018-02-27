@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 
-namespace Cloudents.MobileApi.Models
+namespace Cloudents.Web.Extensions.Models
 {
     /// <inheritdoc />
     /// <summary>
@@ -13,19 +14,25 @@ namespace Cloudents.MobileApi.Models
         /// <summary>
         /// The term array of Ai parse
         /// </summary>
+        [CanBeNull]
+        [ItemCanBeNull]
         public string[] Term { get; set; }
         /// <summary>
         /// Sort Request
         /// </summary>
         [DefaultValue(0)]
+        [CanBeNull]
         public JobRequestSort? Sort { get; set; }
         /// <summary>
         /// Location of user
         /// </summary>
+        [CanBeNull]
         public Location Location { get; set; }
         /// <summary>
         /// Facet filter got from the api
         /// </summary>
+        [CanBeNull]
+        [ItemCanBeNull]
         public string[] Facet { get; set; }
 
         /// <summary>
@@ -37,6 +44,7 @@ namespace Cloudents.MobileApi.Models
         /// Page of paging
         /// </summary>
         [DefaultValue(0)]
+        [CanBeNull]
         public int? Page { get; set; }
     }
 }

@@ -60,7 +60,10 @@ namespace Cloudents.MobileApi.Controllers
                 return BadRequest();
             }
             var blobUrl = _blobProviderFiles.GenerateSharedAccessReadPermission(blob, 20);
-            return Ok(blobUrl);
+            return Ok(new
+            {
+                blobUrl
+            });
         }
     }
 }

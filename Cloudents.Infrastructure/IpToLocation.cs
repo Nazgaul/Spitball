@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure
 {
+    [UsedImplicitly]
     public class IpToLocation : IIpToLocation
     {
         private readonly IRestClient _restClient;
@@ -23,6 +25,10 @@ namespace Cloudents.Infrastructure
         {
             var uri = new Uri($"http://freegeoip.net/json/{ipAddress}");
             var ipDto = await _restClient.GetAsync<IpDto>(uri, null, token).ConfigureAwait(false);
+            if (ipDto == null)
+            {
+                return null;
+            }
             var point = new GeoPoint(ipDto.Longitude, ipDto.Latitude);
             var address = new Address(ipDto.City, ipDto.RegionCode, ipDto.CountryCode);
             return new Location(point, address, ipAddress.ToString());
@@ -58,9 +64,9 @@ namespace Cloudents.Infrastructure
             [JsonProperty("time_zone")]
             public string TimeZone { get; set; }
             [JsonProperty("latitude")]
-            public double Latitude { get; set; }
+            public float Latitude { get; set; }
             [JsonProperty("longitude")]
-            public double Longitude { get; set; }
+            public float Longitude { get; set; }
             [JsonProperty("metro_code")]
             public string MetroCode { get; set; }
         }

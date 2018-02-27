@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace Cloudents.MobileApi.Extensions
 {
     /// <summary>
-    /// Extension for modelstate
+    /// Extension for modelState
     /// </summary>
     public static class ModelStateDictionaryExtensions
     {

@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Cloudents.Infrastructure.Search;
+﻿using Cloudents.Infrastructure.Search;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Cloudents.Infrastructure.Test
 {

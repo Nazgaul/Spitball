@@ -19,7 +19,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public string Name => nameof(TestingJob);
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-            var process = _lifetimeScope.ResolveKeyed<ISchedulerProcess>("spamGun");
+            var process = _lifetimeScope.ResolveKeyed<ISchedulerProcess>("deleteOld");
             await process.ExecuteAsync(0, (a, b) => Task.CompletedTask, cancellationToken).ConfigureAwait(false);
             _logger.Info("finish test");
         }
