@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure
             CreateMap<BingSearch.WebPage, SearchResult>().ConvertUsing<BingConverter>();
             CreateMap<Suggestions.SuggestionsObject, IEnumerable<string>>().ConvertUsing<SuggestConverter>();
 
-            CreateMap<Search.Entities.Course, CourseDto>();
+            CreateMap<Course, CourseDto>();
             CreateMap<University, UniversityDto>();
 
             //CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlacesConverter>();

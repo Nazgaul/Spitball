@@ -4,13 +4,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Search.Entities;
+using Cloudents.Infrastructure.Write;
+using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Search
 {
+    [UsedImplicitly]
     public class CourseSearch : ICourseSearch
     {
         private readonly ISearchIndexClient _client;
@@ -18,27 +21,22 @@ namespace Cloudents.Infrastructure.Search
 
         public CourseSearch(ISearchServiceClient client, IMapper mapper)
         {
-            _client = client.Indexes.GetClient("box2");
+            _client = client.Indexes.GetClient(CourseSearchWrite.IndexName);
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CourseDto>> SearchAsync(string term, long universityId,
+        public async Task<IEnumerable<CourseDto>> SearchAsync([CanBeNull]string term, long universityId,
             CancellationToken token)
         {
-            if (term.Length < 4)
-            {
-                term += "*";
-            }
-
-            //term =Uri.EscapeDataString(term);
-            term = term.Replace(":", @"\:");
+            term = term?.Replace(":", @"\:");
 
             var tResult = _client.Documents.SearchAsync<Course>(term, new SearchParameters
             {
-                Select = new[] { "id", "name2" },
+                Select = new[] { nameof(Course.Id), nameof(Course.Name) },
                 Top = 40,
-                SearchFields = new[] { "course2", "name2" },
-                Filter = $"universityId eq {universityId}"
+                Filter = $"{nameof(Course.UniversityId)} eq {universityId}",
+                ScoringProfile = CourseSearchWrite.ScoringProfile
+
             }, cancellationToken: token);
 
             await Task.WhenAll(tResult).ConfigureAwait(false);

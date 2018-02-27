@@ -8,12 +8,14 @@ using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write;
+using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Microsoft.Spatial;
 
 namespace Cloudents.Infrastructure.Search
 {
+    [UsedImplicitly]
     public class UniversitySearch : IUniversitySearch
     {
         private readonly ISearchIndexClient _client;
@@ -55,7 +57,7 @@ namespace Cloudents.Infrastructure.Search
 
             var result = await
                 _client.Documents.SearchAsync<University>(term, searchParameter,
-                    cancellationToken: token);
+                    cancellationToken: token).ConfigureAwait(false);
 
             return _mapper.Map<IEnumerable<University>, IList<UniversityDto>>(result.Results.Select(s => s.Document));
             //if (tSuggest.Result != null)
