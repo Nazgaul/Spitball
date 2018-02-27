@@ -29,6 +29,7 @@ namespace Cloudents.Functions
                 builder.RegisterModule<ModuleDb>();
                 builder.RegisterModule<ModuleReadDb>();
                 builder.RegisterModule<ModuleAzureSearch>();
+                builder.RegisterType<BinarySerializer>().As<IBinarySerializer>().SingleInstance();
             });
         }
 

@@ -1,29 +1,26 @@
 ﻿using System.Runtime.Serialization;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.DTOs
 {
-    [DataContract]
+    [UsedImplicitly]
     public class UniversitySearchWriteDto : SearchWriteIsDeleted
     {
-        [DataMember]
-        public string Name { get; set; }
-        [DataMember]
-        public string Image { get; set; }
-        [DataMember]
-        public double Longitude { get; set; }
-        [DataMember]
-        public double Latitude { get; set; }
-        [DataMember] public string Extra { get; set; }
+        public string Name { get; [UsedImplicitly] set; }
+        public string Image { get; [UsedImplicitly] set; }
+        public double Longitude { get; [UsedImplicitly] set; }
+        public double Latitude { get; [UsedImplicitly] set; }
+        public string Extra { get; [UsedImplicitly] set; }
     }
 
     [DataContract]
     public class CourseSearchWriteDto : SearchWriteIsDeleted
     {
-        [DataMember]
+        [DataMember(Order = 1)]
         public string Name { get; set; }
-        [DataMember]
+        [DataMember(Order = 2)]
         public string Code { get; set; }
-        [DataMember]
+        [DataMember(Order = 3)]
         public long UniversityId { get; set; }
     }
 }

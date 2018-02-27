@@ -8,6 +8,11 @@
             Page = page;
         }
 
+        public static SyncAzureQuery Empty()
+        {
+            return new SyncAzureQuery(0,0);
+        }
+
         public long Version { get; }
         public int Page { get; set; }
 

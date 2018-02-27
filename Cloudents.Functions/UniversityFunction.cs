@@ -30,40 +30,16 @@ namespace Cloudents.Functions
             TraceWriter log,
             CancellationToken token)
         {
-            var text = await blob.DownloadTextAsync(token).ConfigureAwait(false);
-            var query = SyncAzureQuery.ConvertFromString(text);
-            if (query.Version == 0)
+
+            await SyncFunc.SyncAsync(blob, repository, searchServiceWrite, s => new University
             {
-                await searchServiceWrite.CreateOrUpdateAsync(token).ConfigureAwait(false);
-            }
-
-            var currentVersion = query.Version;
-            while (!token.IsCancellationRequested)
-            {
-                var (update, delete, version) = await repository.GetAsync(query, token).ConfigureAwait(false);
-                var universityUpdates = update.Select(s => new University
-                {
-                    Name = s.Name,
-                    Image = s.Image,
-                    Extra = s.Extra,
-                    GeographyPoint = GeographyPoint.Create(s.Latitude, s.Longitude),
-                    Id = s.Id.ToString(),
-                    Prefix = s.Name
-                }).ToList();
-                var deleteUniversity = delete.Select(s => s.Id.ToString()).ToList();
-                await  searchServiceWrite.UpdateDataAsync(universityUpdates, deleteUniversity, token).ConfigureAwait(false);
-                query.Page++;
-                currentVersion = Math.Max(currentVersion, version);
-                await blob.UploadTextAsync(query.ToString(), token).ConfigureAwait(false);
-                if (universityUpdates.Count == 0 && deleteUniversity.Count == 0)
-                {
-                    break;
-                }
-            }
-
-            var newVersion = new SyncAzureQuery(currentVersion, 0);
-            await blob.UploadTextAsync(newVersion.ToString(), token).ConfigureAwait(false);
-
+                Name = s.Name,
+                Image = s.Image,
+                Extra = s.Extra,
+                GeographyPoint = GeographyPoint.Create(s.Latitude, s.Longitude),
+                Id = s.Id.ToString(),
+                Prefix = s.Name
+            }, token).ConfigureAwait(false);
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
         }
 

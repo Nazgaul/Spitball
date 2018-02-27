@@ -37,7 +37,7 @@ namespace Cloudents.Infrastructure.Data
 
                     var update = write[false].ToList();
                     long max = 0, maxDelete = 0;
-                    if (write.Count > 0)
+                    if (update.Count > 0)
                     {
                         max = update.Max(m => m.Version);
                     }
@@ -45,10 +45,7 @@ namespace Cloudents.Infrastructure.Data
                     {
                         maxDelete = deleteList.Max(m => m.Version);
                     }
-
-
                     return (update.AsEnumerable(), deleteList.AsEnumerable(), new[] { max, maxDelete }.Max());
-                    //return (update.AsEnumerable(), deleteList.AsEnumerable(), max);
                 }
             }, token);
         }
