@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
 
 namespace Cloudents.Infrastructure.Data
 {
@@ -13,6 +14,8 @@ namespace Cloudents.Infrastructure.Data
         public DapperRepository(string connectionString)
         {
             _connectionString = connectionString;
+
+            Dapper.SqlMapper.SetTypeMap(typeof(University),new ColumnAttributeTypeMapper<University>());
         }
 
         public async Task<T> WithConnectionAsync<T>(Func<IDbConnection, Task<T>> getData, CancellationToken token)

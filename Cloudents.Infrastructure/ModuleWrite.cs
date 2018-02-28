@@ -55,7 +55,7 @@ namespace Cloudents.Infrastructure
             {
                 var key = c.Resolve<IConfigurationKeys>().Db;
                 return new DapperRepository(key);
-            });
+            }).SingleInstance();
             builder.RegisterAssemblyTypes(currentAssembly).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
             builder.RegisterAssemblyTypes(currentAssembly).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
         }

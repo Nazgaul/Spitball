@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-using JetBrains.Annotations;
 using Microsoft.Spatial;
 
 namespace Cloudents.Core.Models

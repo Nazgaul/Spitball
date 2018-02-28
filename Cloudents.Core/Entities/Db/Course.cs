@@ -5,7 +5,7 @@ namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
-    public class Course 
+    public class Course
     {
         protected Course()
         {

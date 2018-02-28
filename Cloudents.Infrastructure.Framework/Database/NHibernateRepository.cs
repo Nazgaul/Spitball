@@ -38,6 +38,5 @@ namespace Cloudents.Infrastructure.Framework.Database
             return _session.SaveAsync(entity, token);
         }
 
-       
     }
 }

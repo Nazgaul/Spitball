@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Test
         [TestInitialize]
         public void Setup()
         {
-            
+
         }
 
         [TestMethod]

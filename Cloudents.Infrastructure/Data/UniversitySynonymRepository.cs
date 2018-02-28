@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Data
             return _repository.WithConnectionAsync(async c =>
             {
                 var dbResult = await c.QueryFirstOrDefaultAsync<University>(
-                    new CommandDefinition($"select UniversityName as {nameof(University.Name)},{nameof(University.ExtraSearch)} from zbox.university where {nameof(University.Id)}=@universityId", new { universityId = query }, cancellationToken: token)).ConfigureAwait(false);
+                    new CommandDefinition($"select UniversityName ,{nameof(University.ExtraSearch)} from zbox.university where {nameof(University.Id)}=@universityId", new { universityId = query }, cancellationToken: token)).ConfigureAwait(false);
                 if (dbResult == null)
                 {
                     return null;

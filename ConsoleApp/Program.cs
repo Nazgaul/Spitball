@@ -49,7 +49,7 @@ namespace ConsoleApp
             var container = builder.Build();
             var t = container.Resolve<IReadRepositoryAsync<UniversitySynonymDto, long>>();
             var result = await t.GetAsync(1246, default);
-          
+
 
             Console.WriteLine("Finish");
             Console.ReadLine();

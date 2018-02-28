@@ -17,7 +17,7 @@ namespace Cloudents.Web.Test.UnitTests
         private Mock<IReadRepositoryAsync<DocumentDto, long>> _mockRepositoryDocument =
             new Mock<IReadRepositoryAsync<DocumentDto, long>>();
 
-        private Mock<IBlobProvider<FilesContainerName>> _mockBlobProvider = 
+        private Mock<IBlobProvider<FilesContainerName>> _mockBlobProvider =
             new Mock<IBlobProvider<FilesContainerName>>();
 
         public DocumentControllerTests()

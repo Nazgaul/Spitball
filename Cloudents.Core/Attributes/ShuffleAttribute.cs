@@ -12,7 +12,7 @@ namespace Cloudents.Core.Attributes
 
         public ShuffleAttribute()
         {
-                
+
         }
 
         public string ListObjectName { get; }
