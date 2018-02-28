@@ -1,5 +1,5 @@
 ﻿using System;
-using Cloudents.Core.Enum;
+using Cloudents.Core.Attributes;
 
 namespace Cloudents.Core.Extension
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.Enum
+namespace Cloudents.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Field)]
 

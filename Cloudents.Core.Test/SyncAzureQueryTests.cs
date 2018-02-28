@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Request;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Core.Test
@@ -11,7 +12,8 @@ namespace Cloudents.Core.Test
         {
             var result = SyncAzureQuery.ConvertFromString(null);
             var expected = new SyncAzureQuery(0,0);
-            Assert.AreEqual(result,expected);
+            result.Should().BeEquivalentTo(expected);
+            //Assert.AreEqual(result,expected);
         }
 
         [TestMethod]
@@ -19,7 +21,7 @@ namespace Cloudents.Core.Test
         {
             var result = SyncAzureQuery.ConvertFromString(string.Empty);
             var expected = new SyncAzureQuery(0, 0);
-            Assert.AreEqual(result, expected);
+            result.Should().BeEquivalentTo(expected);
         }
 
         [TestMethod]
@@ -28,7 +30,7 @@ namespace Cloudents.Core.Test
             var input = "2|4";
             var result = SyncAzureQuery.ConvertFromString(input);
             var expected = new SyncAzureQuery(2, 4);
-            Assert.AreEqual(result, expected);
+            result.Should().BeEquivalentTo(expected);
         }
 
         [TestMethod]
@@ -36,7 +38,7 @@ namespace Cloudents.Core.Test
         {
             var expected = new SyncAzureQuery(2, 4);
             var result = SyncAzureQuery.ConvertFromString(expected.ToString());
-            Assert.AreEqual(result, expected);
+            result.Should().BeEquivalentTo(expected);
         }
 
         [TestMethod]
@@ -45,7 +47,7 @@ namespace Cloudents.Core.Test
             var input = "2|4|2";
             var result = SyncAzureQuery.ConvertFromString(input);
             var expected = new SyncAzureQuery(0, 0);
-            Assert.AreEqual(result, expected);
+            result.Should().BeEquivalentTo(expected);
         }
 
         [TestMethod]
@@ -54,7 +56,7 @@ namespace Cloudents.Core.Test
             var input = "2&4";
             var result = SyncAzureQuery.ConvertFromString(input);
             var expected = new SyncAzureQuery(0, 0);
-            Assert.AreEqual(result, expected);
+            result.Should().BeEquivalentTo(expected);
         }
     }
 }

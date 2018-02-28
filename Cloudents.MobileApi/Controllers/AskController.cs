@@ -7,7 +7,6 @@ using Cloudents.Core.Request;
 using Cloudents.MobileApi.Extensions;
 using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace Cloudents.MobileApi.Controllers
 {

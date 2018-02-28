@@ -19,7 +19,7 @@ namespace Cloudents.Functions
     [DependencyInjectionConfig(typeof(DiConfig))]
     public static class CourseFunction
     {
-        private const string QueueName = "course-sync";
+       // private const string QueueName = "course-sync";
 
         [FunctionName("CourseTimer")]
         [UsedImplicitly]

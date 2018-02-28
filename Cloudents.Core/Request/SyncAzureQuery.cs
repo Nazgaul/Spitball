@@ -1,6 +1,6 @@
 ﻿namespace Cloudents.Core.Request
 {
-    public class SyncAzureQuery
+    public class SyncAzureQuery //: System.IEquatable<SyncAzureQuery>
     {
         public SyncAzureQuery(long version, int page)
         {
@@ -47,24 +47,30 @@
             return new SyncAzureQuery(version, page);
         }
 
-        public override bool Equals(object obj)
-        {
-            return obj is SyncAzureQuery query
-                   && Version == query.Version
-                   && Page == query.Page;
-        }
+        //public override bool Equals(object obj)
+        //{
+        //    return obj is SyncAzureQuery query
+        //           && Version == query.Version
+        //           && Page == query.Page;
+        //}
 
-        public override int GetHashCode()
-        {
-            var hashCode = -2075985307;
-            hashCode = hashCode * -1521134295 + Version.GetHashCode();
-            hashCode = hashCode * -1521134295 + Page.GetHashCode();
-            return hashCode;
-        }
+        //public override int GetHashCode()
+        //{
+        //    var hashCode = -2075985307;
+        //    hashCode = hashCode * -1521134295 + Version.GetHashCode();
+        //    hashCode = hashCode * -1521134295 + Page.GetHashCode();
+        //    return hashCode;
+        //}
 
         public override string ToString()
         {
             return $"{Version}|{Page}";
         }
+
+        //public bool Equals(SyncAzureQuery other)
+        //{
+        //    return Version == other.Version
+        //               && Page == other.Page;
+        //}
     }
 }
