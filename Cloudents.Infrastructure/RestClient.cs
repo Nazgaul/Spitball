@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
@@ -15,6 +16,7 @@ using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure
 {
+    [UsedImplicitly]
     public class RestClient : IRestClient, IDisposable
     {
         private readonly HttpClient _client;
@@ -24,11 +26,6 @@ namespace Cloudents.Infrastructure
             _client = new HttpClient();
         }
 
-        //public async Task<JObject> GetJsonAsync(Uri url, NameValueCollection queryString, CancellationToken token)
-        //{
-        //    var str = await GetAsync(url, queryString, token).ConfigureAwait(false);
-        //    return JObject.Parse(str);
-        //}
         [CanBeNull]
         [Log]
         public Task<string> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token)
@@ -112,6 +109,26 @@ namespace Cloudents.Infrastructure
                 var serializer = new JsonSerializer();
                 return serializer.Deserialize<T>(reader);
             }
+        }
+
+        public async Task<bool> PostAsync(Uri url, HttpContent body, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        {
+            _client.DefaultRequestHeaders.Clear();
+            foreach (var header in headers ?? Enumerable.Empty<KeyValuePair<string, string>>())
+            {
+                _client.DefaultRequestHeaders.Add(header.Key, header.Value);
+            }
+
+            //var bodyAsJson = JsonConvert.SerializeObject(body);
+            //new FormUrlEncodedContent()
+            //using (var content = new StringContent(bodyAsJson, Encoding.UTF8, "application/json"))
+            //{
+            var p = await _client.PostAsync(url, body, token);
+            var str = await p.Content.ReadAsStringAsync();
+            return p.IsSuccessStatusCode;
+
+            // }
+
         }
 
         public void Dispose()

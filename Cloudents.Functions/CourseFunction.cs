@@ -31,6 +31,7 @@ namespace Cloudents.Functions
             TraceWriter log,
             CancellationToken token)
         {
+            
             await SyncFunc.SyncAsync(blob, repository, searchServiceWrite, write => new Course
             {
                 Name = write.Name,
@@ -38,7 +39,7 @@ namespace Cloudents.Functions
                 UniversityId = write.UniversityId,
                 Id = write.Id.ToString(),
                 Prefix = new[] { write.Name, write.Code }.Where(x => x != null).ToArray()
-            }, token).ConfigureAwait(false);
+            },log, token).ConfigureAwait(false);
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
         }
 

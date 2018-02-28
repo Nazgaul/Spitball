@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Functions", "Clou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Web.Extensions", "Cloudents.Web.Extensions\Cloudents.Web.Extensions.csproj", "{9D82D979-315E-4A67-82ED-ACCF56A0122A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Infrastructure.Storage", "Cloudents.Infrastructure.Storage\Cloudents.Infrastructure.Storage.csproj", "{A9838733-C134-4B25-924D-B15DFB0C077F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Infrastructure.Storage", "Cloudents.Infrastructure.Storage\Cloudents.Infrastructure.Storage.csproj", "{A9838733-C134-4B25-924D-B15DFB0C077F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

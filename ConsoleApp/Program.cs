@@ -5,6 +5,7 @@ using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
 
@@ -44,11 +45,14 @@ namespace ConsoleApp
             builder.RegisterModule<ModuleFile>();
             builder.RegisterModule<ModuleDb>();
             builder.RegisterModule<ModuleCore>();
+            builder.RegisterModule<ModuleMail>();
             builder.RegisterModule<ModuleAzureSearch>();
 
             var container = builder.Build();
-            var t = container.Resolve<IReadRepositoryAsync<UniversitySynonymDto, long>>();
-            var result = await t.GetAsync(1246, default);
+            var t = container.Resolve<IMailProvider>();
+            await t.SendSpanGunEmailAsync("1",
+                new MailGunRequest("ram@cloudents.com", "test", "test", "test", 0),
+                default);
 
 
             Console.WriteLine("Finish");

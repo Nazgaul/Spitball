@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
+using Microsoft.Azure.WebJobs.Host;
 using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Cloudents.Functions
@@ -18,6 +19,7 @@ namespace Cloudents.Functions
                 SyncAzureQuery> repository,
             ISearchServiceWrite<TU> searchServiceWrite,
             Func<T,TU> createObj,
+            TraceWriter log,
             CancellationToken token) where TU : class, ISearchObject, new()
         {
             var query = SyncAzureQuery.Empty();
@@ -26,6 +28,7 @@ namespace Cloudents.Functions
                 var text = await blob.DownloadTextAsync(token).ConfigureAwait(false);
                 query = SyncAzureQuery.ConvertFromString(text);
             }
+            log.Info($"process {query}");
 
             if (query.Version == 0 && query.Page == 0)
             {
