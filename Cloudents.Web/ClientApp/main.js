@@ -103,6 +103,11 @@ Vue.use(VueAnalytics,
         disableScriptLoader: true,
         router,
         autoTracking: {
+            pageviewOnLoad: false,
+            //ignoreRoutes: ['result'],
+            shouldRouterUpdate(to, from) {
+                return to.path != "/result";
+            },
             pageviewTemplate(route) {
                 // let title=route.name.charAt(0).toUpperCase() + route.name.slice(1);
                 return {
