@@ -13,6 +13,7 @@ namespace Cloudents.MobileApi.Controllers
     /// <summary>
     /// Course api controller
     /// </summary>
+    [Route("api/[controller]")]
     public class CourseController : Controller
     {
         private readonly ICourseSearch _courseProvider;
@@ -37,7 +38,7 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="token"></param>
         /// <returns>list of courses filter by input</returns>
         /// <exception cref="ArgumentException">university is empty</exception>
-        [Route("api/course/search")]
+        [Route("search")]
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]  CourseRequest model, CancellationToken token)
         {
@@ -56,13 +57,13 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="model"></param>
         /// <param name="token">Cancellation token</param>
         /// <returns>The id of the course created</returns>
-        [Route("api/course/create")]
+        [Route("create")]
         [HttpPost]
-        public async Task<IActionResult> CreateAcademicBoxAsync(CreateCourseRequest model, CancellationToken token)
+        public async Task<IActionResult> CreateAcademicBoxAsync([FromBody]CreateCourseRequest model, CancellationToken token)
         {
             if (!ModelState.IsValid || !model.University.HasValue)
             {
-                return BadRequest();
+                return BadRequest(ModelState.GetError());
             }
             var command = new CreateCourseCommand(model.CourseName, model.University.Value);
             var response = await _command.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(command, token).ConfigureAwait(false);

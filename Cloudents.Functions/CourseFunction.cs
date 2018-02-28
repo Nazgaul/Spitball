@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AzureFunctions.Autofac;
@@ -27,8 +28,6 @@ namespace Cloudents.Functions
             CloudBlockBlob blob,
             [Inject] IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto> delete, long version), SyncAzureQuery> repository,
             [Inject] ISearchServiceWrite<Course> searchServiceWrite,
-            //[Inject] IBinarySerializer serializer,
-           // [Queue(QueueName)] byte[] queue,
             TraceWriter log,
             CancellationToken token)
         {
@@ -38,10 +37,9 @@ namespace Cloudents.Functions
                 Code = write.Code,
                 UniversityId = write.UniversityId,
                 Id = write.Id.ToString(),
-                Prefix = write.Name
+                Prefix = new[] { write.Name, write.Code }.Where(x => x != null).ToArray()
             }, token).ConfigureAwait(false);
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
-
         }
 
         //[FunctionName("CourseUpload")]

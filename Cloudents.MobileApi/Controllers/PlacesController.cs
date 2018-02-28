@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
@@ -34,7 +33,7 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="token"></param>
         /// <returns>The list of places and token for paging</returns>
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]PurchaseRequest purchaseRequest,
+        public async Task<IActionResult> GetAsync([FromQuery]PurchaseRequest purchaseRequest,
             CancellationToken token)
         {
             PlacesNearbyDto retVal;

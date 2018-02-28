@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.CommandHandler
 {
+    [UsedImplicitly]
     public class CreateCourseCommandHandler : ICommandHandlerAsync<CreateCourseCommand, CreateCourseCommandResult>
     {
         private readonly IRepository<Course> _courseRepository;
@@ -20,18 +22,16 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task<CreateCourseCommandResult> ExecuteAsync(CreateCourseCommand command, CancellationToken token)
         {
-            var university = await _universityRepository.LoadAsync(command.UniversityId, token).ConfigureAwait(false);
+            var university = await _universityRepository.LoadAsync(command.UniversityId, token).ConfigureAwait(true);
 
             var course = _courseRepository.GetQueryable()
-                .FirstOrDefault(w => w.Name == command.Name && w.University.Id == command.UniversityId);
-            if (course == null)
-            {
-                course = new Course(command.Name, university);
+                .Where(w => w.Name == command.Name && w.University.Id == command.UniversityId)
+                .Take(1).ToList().FirstOrDefault();
+            if (course != null) return new CreateCourseCommandResult(course.Id);
+            course = new Course(command.Name, university);
 
-                var id = await _courseRepository.AddAsync(course, token).ConfigureAwait(false);
-                return new CreateCourseCommandResult((long)id);
-            }
-            return new CreateCourseCommandResult(course.Id);
+            var id = await _courseRepository.AddAsync(course, token).ConfigureAwait(true);
+            return new CreateCourseCommandResult((long)id);
         }
     }
 }
