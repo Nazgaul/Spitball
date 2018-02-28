@@ -40,7 +40,7 @@
                                                 <v-list-tile-title>Twitter</v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                          <div @click="$ga.event('Share', 'Whatsapp')">
+                                          <div @click="$ga.social('Whatsapp', 'Share')">
                                         <v-list-tile :href="whatsappLink()" class="btn-copy hidden-sm-and-up" v-if="$vuetify.breakpoint.xs">
                                               <v-list-tile-action>
                                                 <whatsapp-icon></whatsapp-icon>
@@ -137,20 +137,21 @@
                 }
             },
             facebookShare() {
-                this.$ga.event('Share', 'Facebook');
                 const shareFb = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href);
+                this.$ga.social('Facebook', 'Share');
                 window.open(shareFb, "pop", "width=600, height=400, scrollbars=no");
             },
 
             twitterShare() {
-                this.$ga.event('Share', 'Twitter');
                 const shareTwiiter = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(window.location.href);
+                this.$ga.social('Twitter', 'Share');
                 window.open(shareTwiiter, "pop", "width=600, height=400, scrollbars=no");
             },
 
             copyToClipboard() {
                 let copyText = document.getElementById("input-url");
                 copyText.value = window.location.href;
+                this.$ga.event('CopyClipboard');
                 copyText.select();
                 document.execCommand("Copy");
             },
