@@ -7,6 +7,7 @@ using Cloudents.Core.Request;
 using Cloudents.MobileApi.Extensions;
 using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace Cloudents.MobileApi.Controllers
 {
@@ -39,7 +40,7 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] AskRequest model,
+        public async Task<IActionResult> GetAsync([FromQuery] AskRequest model,
             CancellationToken token)
         {
             var query = SearchQuery.Ask(model.Term, model.Page.GetValueOrDefault(), model.Source);

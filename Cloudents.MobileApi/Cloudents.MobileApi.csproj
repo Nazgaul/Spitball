@@ -56,6 +56,8 @@
 
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyVersion>8.2.27.0</AssemblyVersion>
+    <FileVersion>8.2.27.0</FileVersion>
   </PropertyGroup>
 
   <Target Name="IncludeDocFile" BeforeTargets="PrepareForPublish">
