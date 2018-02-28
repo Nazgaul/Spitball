@@ -48,10 +48,8 @@ namespace ConsoleApp
             builder.RegisterModule<ModuleAzureSearch>();
 
             var container = builder.Build();
-            var t = container.Resolve<ICommandHandlerAsync<CreateCourseCommand, CreateCourseCommandResult>>();
-            var result = await t.ExecuteAsync(new CreateCourseCommand("ram", 171885), default);
-
-
+            var t = container.Resolve<IReadRepositoryAsync<UniversitySynonymDto, long>>();
+            var result = await t.GetAsync(1246, default);
           
 
             Console.WriteLine("Finish");

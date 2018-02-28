@@ -4,9 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Data
 {
+    [UsedImplicitly]
     public class SearchConvertRepository : ISearchConvertRepository
     {
         private readonly IReadRepositoryAsync<UniversitySynonymDto, long> _universitySynonymRepository;
