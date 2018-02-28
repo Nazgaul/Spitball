@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Net;
 using System.Threading.Tasks;
 using Autofac;
-using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
-using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
-using Cloudents.Infrastructure.Search.Job;
 
 namespace ConsoleApp
 {
@@ -56,20 +48,8 @@ namespace ConsoleApp
             builder.RegisterModule<ModuleAzureSearch>();
 
             var container = builder.Build();
-            var t = container.Resolve<IBinarySerializer>();
-            var p = new CourseSearchWriteDto()
-            {
-                Version = 99999,
-                Name = "Ram",
-                IsDeleted = true,
-                Code = "123",
-                UniversityId = 123,
-                Id = 1
-            };
-            var b = t.Serialize(p);
-
-            var x = t.DeSerialize<CourseSearchWriteDto>(b);
-
+            var t = container.Resolve<IReadRepositoryAsync<UniversitySynonymDto, long>>();
+            var result = await t.GetAsync(1246, default);
           
 
             Console.WriteLine("Finish");

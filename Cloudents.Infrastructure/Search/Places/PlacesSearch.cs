@@ -22,10 +22,14 @@ namespace Cloudents.Infrastructure.Search.Places
             _hookedRepository = hookedRepository;
         }
 
-        public async Task<(string token, IEnumerable<PlaceDto> data)> SearchAsync(IEnumerable<string> term, PlacesRequestFilter filter, GeoPoint location, string nextPageToken,
+        public async Task<PlacesNearbyDto> SearchAsync(IEnumerable<string> term, PlacesRequestFilter filter, GeoPoint location, string nextPageToken,
             CancellationToken token)
         {
             var result = await _placesSearch.SearchNearbyAsync(term, filter, location, nextPageToken, token).ConfigureAwait(false);
+            if (result == null)
+            {
+                return null;
+            }
             var data = result.Data.ToList();
             var resultHooked = await _hookedRepository.GetAsync(data.Select(s => s.PlaceId), token).ConfigureAwait(false);
             var hash = new HashSet<string>(resultHooked.Select(s => s.Id));
@@ -33,7 +37,12 @@ namespace Cloudents.Infrastructure.Search.Places
             {
                 place.Hooked = hash.Contains(place.PlaceId);
             }
-            return (result.Token, data);
+
+            return new PlacesNearbyDto
+            {
+                Data = data,
+                Token = result.Token
+            };
         }
     }
 }

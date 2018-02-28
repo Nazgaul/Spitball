@@ -16,8 +16,14 @@ namespace Cloudents.Infrastructure.Framework.Database.Maps
             Map(e => e.Discriminator).CustomType<CourseType>();
             Map(e => e.PrivacySetting).CustomType<CoursePrivacySetting>();
 
-            // ReSharper disable once ObjectCreationAsStatement
-            Component(e => e.RowDetail,_=> new RowDetailMap());
+
+            Component(x => x.RowDetail, m =>
+            {
+                m.Map(x => x.CreatedUser).Insert().Not.Update();
+                m.Map(x => x.CreationTime).Insert().Not.Update();
+                m.Map(x => x.UpdateTime).Insert();
+                m.Map(x => x.UpdatedUser).Insert();
+            });
             References(e => e.University).Column(nameof(University)).ForeignKey("UniversityBoxes");
             Table("Box");
             Schema("Zbox");

@@ -19,11 +19,11 @@ namespace Cloudents.Infrastructure.Write
         {
         }
 
-        public override Task CreateOrUpdateAsync(CancellationToken token)
+        public override async Task CreateOrUpdateAsync(CancellationToken token)
         {
             // _synonymWrite.CreateEmpty(SynonymName);
-            //await Client.Indexes.DeleteAsync(IndexName, cancellationToken: token);
-            return base.CreateOrUpdateAsync(token);
+            await Client.Indexes.DeleteAsync(IndexName, cancellationToken: token).ConfigureAwait(false);
+            await base.CreateOrUpdateAsync(token).ConfigureAwait(false);
         }
 
         protected override Index GetIndexStructure(string indexName)
@@ -50,7 +50,7 @@ namespace Cloudents.Infrastructure.Write
                         SearchAnalyzer = AnalyzerName.StandardLucene,
                         IndexAnalyzer =  AnalyzerName.Create("stopWords")
                     },
-                    new Field(nameof(Core.Entities.Search.University.Prefix), DataType.String)
+                    new Field(nameof(Core.Entities.Search.University.Prefix), DataType.Collection(DataType.String))
                     {
                         IsSearchable = true,
                         SearchAnalyzer = AnalyzerName.StandardLucene,

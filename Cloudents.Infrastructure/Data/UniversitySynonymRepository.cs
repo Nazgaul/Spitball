@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Dapper;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Data
 {
+    [UsedImplicitly]
     public class UniversitySynonymRepository : IReadRepositoryAsync<UniversitySynonymDto, long>
     {
         private readonly DapperRepository _repository;
@@ -21,18 +24,17 @@ namespace Cloudents.Infrastructure.Data
         {
             return _repository.WithConnectionAsync(async c =>
             {
-                var dbResult = await c.QueryFirstOrDefaultAsync(
-                    new CommandDefinition("select  UniversityName,Extra from zbox.university where id=@universityId", new { universityId = query }, cancellationToken: token)).ConfigureAwait(false);
+                var dbResult = await c.QueryFirstOrDefaultAsync<University>(
+                    new CommandDefinition($"select UniversityName as {nameof(University.Name)},{nameof(University.ExtraSearch)} from zbox.university where {nameof(University.Id)}=@universityId", new { universityId = query }, cancellationToken: token)).ConfigureAwait(false);
                 if (dbResult == null)
                 {
                     return null;
                 }
-                var result = new List<string> { dbResult.UniversityName.ToString() };
-                string extra = dbResult.Extra?.ToString();
+                var result = new List<string> { dbResult.Name };
 
-                if (extra != null)
+                if (dbResult.ExtraSearch != null)
                 {
-                    result.AddRange(extra.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries));
+                    result.AddRange(dbResult.ExtraSearch.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries));
                 }
                 return new UniversitySynonymDto
                 {

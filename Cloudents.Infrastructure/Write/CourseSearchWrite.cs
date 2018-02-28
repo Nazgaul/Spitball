@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -8,13 +8,19 @@ using Microsoft.Azure.Search.Models;
 namespace Cloudents.Infrastructure.Write
 {
     [UsedImplicitly]
-    class CourseSearchWrite : SearchServiceWrite<Core.Entities.Search.Course>
+    public class CourseSearchWrite : SearchServiceWrite<Core.Entities.Search.Course>
     {
         public const string IndexName = "course";
         public const string ScoringProfile = "course-default";
 
         public CourseSearchWrite(SearchServiceClient client) : base(client, IndexName)
         {
+        }
+
+        public override async Task CreateOrUpdateAsync(CancellationToken token)
+        {
+            await Client.Indexes.DeleteAsync(IndexName, cancellationToken: token).ConfigureAwait(false);
+            await base.CreateOrUpdateAsync(token).ConfigureAwait(false);
         }
 
         protected override Index GetIndexStructure(string indexName)
@@ -40,7 +46,7 @@ namespace Cloudents.Infrastructure.Write
                         IsSortable = true,
                         //SearchAnalyzer = AnalyzerName.StandardLucene,
                     },
-                    new Field(nameof(Core.Entities.Search.Course.Prefix), DataType.String)
+                    new Field(nameof(Core.Entities.Search.Course.Prefix), DataType.Collection(DataType.String))
                     {
                         IsSearchable = true,
                         SearchAnalyzer = AnalyzerName.StandardLucene,

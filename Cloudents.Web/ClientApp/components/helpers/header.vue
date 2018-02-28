@@ -40,14 +40,16 @@
                                                 <v-list-tile-title>Twitter</v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile :href="whatsappLink()" class="btn-copy hidden-sm-and-up">
-                                            <v-list-tile-action>
+                                          <div @click="$ga.event('Share', 'Whatsapp')">
+                                        <v-list-tile :href="whatsappLink()" class="btn-copy hidden-sm-and-up" v-if="$vuetify.breakpoint.xs">
+                                              <v-list-tile-action>
                                                 <whatsapp-icon></whatsapp-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>Whatsapp</v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
+                                          </div>
                                         <v-list-tile @click="copyToClipboard" class="btn-copy">
                                             <v-list-tile-action>
                                                 <copy-link-icon></copy-link-icon>
@@ -135,11 +137,13 @@
                 }
             },
             facebookShare() {
+                this.$ga.event('Share', 'Facebook');
                 const shareFb = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href);
                 window.open(shareFb, "pop", "width=600, height=400, scrollbars=no");
             },
 
             twitterShare() {
+                this.$ga.event('Share', 'Twitter');
                 const shareTwiiter = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(window.location.href);
                 window.open(shareTwiiter, "pop", "width=600, height=400, scrollbars=no");
             },

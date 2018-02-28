@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Cloudents.Core.Enum;
-using Cloudents.MobileApi.Filters;
 using Cloudents.Web.Extensions.Models;
 
 namespace Cloudents.MobileApi.Models

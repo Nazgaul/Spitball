@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
@@ -37,5 +38,7 @@ namespace Cloudents.Infrastructure.Framework.Database
             _unitOfWork.FlagCommit();
             return _session.SaveAsync(entity, token);
         }
+
+       
     }
 }

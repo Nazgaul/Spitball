@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities.Search
         public string Name { [UsedImplicitly] get; set; }
 
         public string Extra { [UsedImplicitly] get; set; }
-        public string Prefix { [UsedImplicitly] get; set; }
+        public string[] Prefix { [UsedImplicitly] get; set; }
 
         public string Image { [UsedImplicitly] get; set; }
 

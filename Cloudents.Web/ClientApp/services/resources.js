@@ -3,7 +3,7 @@ import qs from "query-string";
 
 axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: false });
 axios.defaults.responseType = "json";
-axios.defaults.baseURL = "https://api.spitball.co/api/";
+axios.defaults.baseURL = "api";
 let transformLocation=(params)=>{
     let {location}=params;
     delete params.location;

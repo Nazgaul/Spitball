@@ -3,7 +3,7 @@
     <page-layout :sites="sites" 
                  :bottomIcons="bottomIcons" :testimonials="testimonials">
         <sb-search slot="search"></sb-search>
-        <strips-section slot="stripSection" :strips="strips">
+        <strips-section slot="stripSection" :strips="strips" :analytics="(vertical)=>$ga.event('HP_Links_Verticals',vertical)">
             <component :is="props.type" :class="props.classIcon" slot="stripImage" slot-scope="props"></component>
             <component :is="props.type" slot="stripIcon" slot-scope="props"></component>
         </strips-section>

@@ -20,7 +20,7 @@ namespace Cloudents.Functions
     [DependencyInjectionConfig(typeof(DiConfig))]
     public static class UniversityFunction
     {
-        [FunctionName("UniversityTimer")]
+        //[FunctionName("UniversityTimer")]
         [UsedImplicitly]
         public static async Task RunAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/university-version.txt",FileAccess.ReadWrite)]
@@ -30,7 +30,6 @@ namespace Cloudents.Functions
             TraceWriter log,
             CancellationToken token)
         {
-
             await SyncFunc.SyncAsync(blob, repository, searchServiceWrite, s => new University
             {
                 Name = s.Name,
@@ -38,37 +37,9 @@ namespace Cloudents.Functions
                 Extra = s.Extra,
                 GeographyPoint = GeographyPoint.Create(s.Latitude, s.Longitude),
                 Id = s.Id.ToString(),
-                Prefix = s.Name
+                Prefix = new[] { s.Name, s.Extra }.Where(x => x != null).ToArray()
             }, token).ConfigureAwait(false);
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
         }
-
-        //[FunctionName("UniversityUpload")]
-        //[UsedImplicitly]
-        //public static async Task ProcessQueueAsync(
-        //    [QueueTrigger(QueueName)] string content,
-        //    [Inject] ISearchServiceWrite<University> searchServiceWrite,
-        //    CancellationToken token
-        //    )
-        //{
-        //    var obj = JsonConvertInheritance.DeserializeObject<SearchWriteBaseDto>(content);
-        //    if (obj is UniversitySearchWriteDto write)
-        //    {
-        //        var university = new University
-        //        {
-        //            Name = write.Name,
-        //            Image = write.Image,
-        //            Extra = write.Extra,
-        //            GeographyPoint = GeographyPoint.Create(write.Latitude, write.Longitude),
-        //            Id = write.Id.ToString(),
-        //            Prefix = write.Name
-        //        };
-        //        await searchServiceWrite.UpdateDataAsync(new[] { university }, token).ConfigureAwait(false);
-        //    }
-        //    else
-        //    {
-        //        await searchServiceWrite.DeleteDataAsync(new[] { obj.Id.ToString() }, token).ConfigureAwait(false);
-        //    }
-        //}
     }
 }

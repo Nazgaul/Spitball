@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search.Book
 {
+    [UsedImplicitly]
     public class BookSearch : IBookSearch
     {
         //https://partners.campusbooks.com/api.php
@@ -80,6 +81,8 @@ namespace Cloudents.Infrastructure.Search.Book
         }
 
         [BuildLocalUrl(nameof(BookDetailsDto.Prices))]
+        [Cache(TimeConst.Minute * 5, "book-buy", false)]
+
         public Task<BookDetailsDto> BuyAsync(string isbn13, CancellationToken token)
         {
             return BuyOrSellApiAsync(isbn13, false, token);
@@ -115,6 +118,7 @@ namespace Cloudents.Infrastructure.Search.Book
         }
 
         [BuildLocalUrl(nameof(BookDetailsDto.Prices))]
+        [Cache(TimeConst.Minute * 5, "book-sell", false)]
         public async Task<BookDetailsDto> SellAsync(string isbn13, CancellationToken token)
         {
             var result = await BuyOrSellApiAsync(isbn13, true, token).ConfigureAwait(false);
