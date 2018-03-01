@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Reflection;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using JetBrains.Annotations;
 using ProtoBuf;
 using ProtoBuf.Meta;

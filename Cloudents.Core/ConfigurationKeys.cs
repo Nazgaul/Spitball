@@ -5,10 +5,11 @@ namespace Cloudents.Core
     public class ConfigurationKeys : IConfigurationKeys
     {
         public string Db { get; set; }
+        public string MailGunDb { get; set; }
         public SearchServiceCredentials Search { get; set; }
         public string Redis { get; set; }
         public string Storage { get; set; }
-        public string SystemUrl { get; set; }
+        //public string SystemUrl { get; set; }
 
         public LocalStorageData LocalStorageData { get; set; }
     }

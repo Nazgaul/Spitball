@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Core.Test
@@ -15,20 +16,20 @@ namespace Cloudents.Core.Test
 
             public object Bucket => Host;
 
-            public override bool Equals(object obj)
-            {
-                if (obj is ShuffleTestModel p)
-                {
-                    return p.Host == Host && p.Result == Result;
-                }
+            //public override bool Equals(object obj)
+            //{
+            //    if (obj is ShuffleTestModel p)
+            //    {
+            //        return p.Host == Host && p.Result == Result;
+            //    }
 
-                return false;
-            }
+            //    return false;
+            //}
 
-            public override int GetHashCode()
-            {
-                return Result.GetHashCode() * 11 + Host.GetHashCode() * 13;
-            }
+            //public override int GetHashCode()
+            //{
+            //    return Result.GetHashCode() * 11 + Host.GetHashCode() * 13;
+            //}
         }
 
         [TestMethod]
@@ -59,8 +60,8 @@ namespace Cloudents.Core.Test
                 new ShuffleTestModel {Host = "A", Result = 4},
                 new ShuffleTestModel {Host = "C", Result = 2}
             };
-
-            CollectionAssert.AreEqual(result, expectedList);
+            result.Should().BeEquivalentTo(expectedList);
+            //CollectionAssert.AreEqual(result, expectedList);
         }
 
         [TestMethod]
@@ -79,8 +80,8 @@ namespace Cloudents.Core.Test
             };
             var shuffle = new Shuffle();
             var result = shuffle.DoShuffle(list).ToList();
-
-            CollectionAssert.AreEqual(result, list);
+            result.Should().BeEquivalentTo(list);
+            //CollectionAssert.AreEqual(result, list);
         }
     }
 }

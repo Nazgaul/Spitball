@@ -11,9 +11,9 @@ namespace Cloudents.Core.Command
         }
 
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
-        public long UniversityId { get; private set; }
+        public long UniversityId { get; }
     }
 
     public class CreateCourseCommandResult : ICommandResult
@@ -23,6 +23,6 @@ namespace Cloudents.Core.Command
             Id = courseId;
         }
 
-        public long Id { get; private set; }
+        public long Id { get; }
     }
 }

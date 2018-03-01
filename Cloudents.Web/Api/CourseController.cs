@@ -25,9 +25,10 @@ namespace Cloudents.Web.Api
         [HttpGet]
         public async Task<IActionResult> Get(string term, long universityId, CancellationToken token)
         {
-            if (universityId == 0)
+            if (universityId == default)
             {
-                throw new ArgumentException(nameof(universityId));
+                return BadRequest("university is empty");
+
             }
             var result = await _courseProvider.SearchAsync(term, universityId, token).ConfigureAwait(false);
             return Json(result);

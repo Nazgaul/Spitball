@@ -26,5 +26,12 @@ namespace Cloudents.Web.Test.IntegrationTests
             var response = await Client.GetAsync("/api/book/search?page=2&term=super mario 64 ds").ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
+
+        [TestMethod]
+        public async Task Buy_SomeIsbn_ReturnResult()
+        {
+            var response = await Client.GetAsync("/api/book/buy?isbn13=9781292099170").ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

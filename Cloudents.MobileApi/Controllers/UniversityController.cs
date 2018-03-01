@@ -37,10 +37,13 @@ namespace Cloudents.MobileApi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState.GetError());
+                return BadRequest(ModelState);
             }
             var result = await _universityProvider.SearchAsync(model.Term, model.Location, token).ConfigureAwait(false);
-            return Ok(result);
+            return Ok(new
+            {
+                universities = result
+            });
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,7 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(typeof(VerticalEngineDto), 200)]
         public async Task<IActionResult> GetAsync(string sentence, CancellationToken token)
         {
             if (string.IsNullOrWhiteSpace(sentence))

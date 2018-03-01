@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using JetBrains.Annotations;

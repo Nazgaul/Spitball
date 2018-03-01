@@ -3,9 +3,11 @@ using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.CommandHandler
 {
+    [UsedImplicitly]
     public class CreateUrlStatsCommandHandler : ICommandHandlerAsync<CreateUrlStatsCommand>
     {
         private readonly IRepository<UrlStats> _repository;
@@ -24,7 +26,7 @@ namespace Cloudents.Core.CommandHandler
                 message.SourceLocation,
                 message.Ip);
 
-            return _repository.AddAsync(urlStats, token);
+            return _repository.SaveAsync(urlStats, token);
         }
     }
 }

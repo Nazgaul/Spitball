@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Entity = Cloudents.Core.Entities.Search;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;

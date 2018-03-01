@@ -13,6 +13,11 @@ namespace Cloudents.Core.Interfaces
         T Get(TU query);
     }
 
+    //public interface IWriteRepository<out T>
+    //{
+    //    T Update(TU query);
+    //}
+
     public interface IReadRepositoryAsync<T>
     {
         Task<T> GetAsync(CancellationToken token);

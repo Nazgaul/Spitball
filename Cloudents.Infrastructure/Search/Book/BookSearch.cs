@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
@@ -154,6 +155,7 @@ namespace Cloudents.Infrastructure.Search.Book
         }
 
         [UsedImplicitly]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public class BookDetail
         {
             public string Isbn10 { get; set; }
@@ -165,7 +167,9 @@ namespace Cloudents.Infrastructure.Search.Book
             public string Title { get; set; }
             public Offers Offers { get; set; }
         }
+
         [UsedImplicitly]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public class BookImage
         {
             public string Image { get; set; }
@@ -173,16 +177,21 @@ namespace Cloudents.Infrastructure.Search.Book
 
 
         [UsedImplicitly]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public class Offers
         {
             public BookGroup[] Group { get; set; }
         }
+
         [UsedImplicitly]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public class BookGroup
         {
             public BookOffer[] Offer { get; set; }
         }
+
         [UsedImplicitly]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public class BookOffer
         {
             public BookCondition Condition { get; set; }
@@ -190,13 +199,16 @@ namespace Cloudents.Infrastructure.Search.Book
             public double Price { get; set; }
             public string Link { get; set; }
         }
+
         [UsedImplicitly]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public class BookCondition
         {
             //public int Id { get; set; }
             public string Condition { get; set; }
         }
         [UsedImplicitly]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public class Merchant
         {
             //public string Id { get; set; }

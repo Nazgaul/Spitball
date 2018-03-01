@@ -40,15 +40,18 @@ namespace Cloudents.MobileApi.Controllers
         /// <exception cref="ArgumentException">university is empty</exception>
         [Route("search")]
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]  CourseRequest model, CancellationToken token)
+        public async Task<IActionResult> GetAsync([FromQuery]  CourseRequest model, CancellationToken token)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState.GetError());
+                return BadRequest(ModelState);
             }
 
             var result = await _courseProvider.SearchAsync(model.Term, model.UniversityId.GetValueOrDefault(), token).ConfigureAwait(false);
-            return Ok(result);
+            return Ok(new
+            {
+                courses = result
+            });
         }
 
         /// <summary>
@@ -63,7 +66,7 @@ namespace Cloudents.MobileApi.Controllers
         {
             if (!ModelState.IsValid || !model.University.HasValue)
             {
-                return BadRequest(ModelState.GetError());
+                return BadRequest(ModelState);
             }
             var command = new CreateCourseCommand(model.CourseName, model.University.Value);
             var response = await _command.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(command, token).ConfigureAwait(false);

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Mail;
 
 namespace Cloudents.Infrastructure
@@ -8,7 +9,7 @@ namespace Cloudents.Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterType<MailProvider>().AsImplementedInterfaces();
+            builder.RegisterType<MailProvider>().As<IMailProvider>();
         }
     }
 }

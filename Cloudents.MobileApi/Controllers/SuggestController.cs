@@ -17,12 +17,12 @@ namespace Cloudents.MobileApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string sentence,CancellationToken token)
+        public async Task<IActionResult> GetAsync(string sentence, CancellationToken token)
         {
             var result = await _suggestions.SuggestAsync(sentence, token).ConfigureAwait(false);
             return Json(new
             {
-                result
+                autocomplete = result
             });
         }
     }

@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Dapper;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Data
 {
+    //TODO: duplicate
+    [UsedImplicitly]
     public class SeoDocumentRepository : IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>
     {
         private readonly DapperRepository _repository;
@@ -18,7 +22,7 @@ namespace Cloudents.Infrastructure.Data
         public IEnumerable<SiteMapSeoDto> Get(SeoQuery query)
         {
             const int pageSize = 49950;
-            using (var conn = _repository.OpenConnection())
+            IEnumerable<SiteMapSeoDto> DoQuery(IDbConnection conn)
             {
                 var data = conn.Query<SiteMapSeoDto>(@"WITH boxSeo as (
  select BoxId, BoxName,u.UniversityName from zbox.box b JOIN zbox.University u on u.id = b.University
@@ -39,6 +43,7 @@ FETCH NEXT @rowsPerPage ROWS ONLY", new { rowsPerPage = pageSize, pageNumber = q
                     yield return row;
                 }
             }
+            return _repository.WithConnection(DoQuery);
         }
     }
 }
