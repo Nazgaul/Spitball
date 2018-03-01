@@ -23,7 +23,7 @@ namespace Cloudents.Functions
 
         [FunctionName("MailGunTest")]
         [UsedImplicitly]
-        public static async Task MailGunTestAsync([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer,
+        public static async Task MailGunTestAsync([TimerTrigger("0 * * * * *")]TimerInfo myTimer,
             [Inject] IReadRepositoryAsync<IEnumerable<MailGunDto>, long> dataRepository,
             [Inject] IMailProvider mailProvider,
             [Inject] ICommandBus bus,
@@ -40,7 +40,7 @@ namespace Cloudents.Functions
 
         [FunctionName("MailGunProcess")]
         [UsedImplicitly]
-        public static async Task MailGunProcessAsync([TimerTrigger("0 0 */1 * * *")]TimerInfo myTimer,
+        public static async Task MailGunProcessAsync([TimerTrigger("0 0 * * * *")]TimerInfo myTimer,
             [Inject]IReadRepositoryAsync<IEnumerable<MailGunUniversityDto>> universityRepository,
             [Inject] IReadRepositoryAsync<IEnumerable<MailGunDto>, long> dataRepository,
             [Inject] IMailProvider mailProvider,

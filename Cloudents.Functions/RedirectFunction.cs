@@ -21,10 +21,9 @@ namespace Cloudents.Functions
     {
         [FunctionName("UrlRedirect")]
         [UsedImplicitly]
-        public static async Task<HttpResponseMessage> Run(
+        public static async Task<HttpResponseMessage> RunAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "redirect")]HttpRequestMessage req,
             [Queue(QueueName.UrlRedirectName)] IAsyncCollector<UrlRedirectQueueMessage> queue,
-            TraceWriter log,
             CancellationToken token)
         {
             var referrer = req.Headers.Referrer?.ToString();
@@ -43,7 +42,6 @@ namespace Cloudents.Functions
                 };
                 url = uriBuilder.ToString();
             }
-
 
             var userIp = req.GetClientIpAddress();
             var message = new UrlRedirectQueueMessage(host, url, referrer, location, userIp);
