@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
 using Autofac;
@@ -28,7 +29,7 @@ namespace ConsoleApp
             var keys = new ConfigurationKeys
             {
                 Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-                SystemUrl = "https://dev.spitball.co",
+                MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
@@ -49,10 +50,8 @@ namespace ConsoleApp
             builder.RegisterModule<ModuleAzureSearch>();
 
             var container = builder.Build();
-            var t = container.Resolve<IMailProvider>();
-            await t.SendSpanGunEmailAsync("1",
-                new MailGunRequest("ram@cloudents.com", "test", "test", "test", 0),
-                default);
+            var t = container.Resolve<IReadRepositoryAsync<IEnumerable<MailGunUniversityDto>>>();
+            var r = await t.GetAsync(default);
 
 
             Console.WriteLine("Finish");

@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 
@@ -11,10 +13,11 @@ namespace Cloudents.Infrastructure.Framework.Database
         private readonly ISession _session;
         private readonly IUnitOfWork _unitOfWork;
 
-        public NHibernateRepository(IUnitOfWork unitOfWork)
+        public NHibernateRepository(UnitOfWork.Factory unitOfWork)
         {
-            _session = unitOfWork.Session;
-            _unitOfWork = unitOfWork;
+            var att = typeof(T).GetCustomAttribute<DbAttribute>();
+            _unitOfWork = unitOfWork.Invoke(att?.Database ?? Core.Enum.Database.System);
+            _session = _unitOfWork.Session;
         }
 
         public Task<T> LoadAsync(object id, CancellationToken token)
@@ -32,7 +35,7 @@ namespace Cloudents.Infrastructure.Framework.Database
            return _session.Query<T>();
         }
 
-        public Task<object> AddAsync(T entity, CancellationToken token)
+        public Task<object> SaveAsync(T entity, CancellationToken token)
         {
             _unitOfWork.FlagCommit();
             return _session.SaveAsync(entity, token);

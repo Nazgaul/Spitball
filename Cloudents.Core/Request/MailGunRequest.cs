@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Request
 {
@@ -21,6 +22,7 @@ namespace Cloudents.Core.Request
         [DataMember(Name = "from")] public string From => "no-reply@Spitball.co";
         [DataMember(Name = "to")]
         public string To { get; set; }
+
         [DataMember(Name = "subject")]
         public string Subject { get; set; }
         [DataMember(Name = "html")]
@@ -28,9 +30,11 @@ namespace Cloudents.Core.Request
         [DataMember(Name = "o:tag")]
         public string Tag { get; set; }
 
-        [DataMember(Name = "o:campaign")] public string Campaign => "spamgun";
+        [DataMember(Name = "o:campaign")] [UsedImplicitly]
+        public string Campaign => "spamgun";
 
         [DataMember(Name = "o:deliverytime")]
+        [UsedImplicitly]
         public string DeliverIn => _deliveryTime.ToString("ddd, dd MMM yyyy HH:mm:ss UTC");
     }
 }

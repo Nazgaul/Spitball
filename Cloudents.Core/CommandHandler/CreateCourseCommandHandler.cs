@@ -30,7 +30,7 @@ namespace Cloudents.Core.CommandHandler
             if (course != null) return new CreateCourseCommandResult(course.Id);
             course = new Course(command.Name, university);
 
-            var id = await _courseRepository.AddAsync(course, token).ConfigureAwait(true);
+            var id = await _courseRepository.SaveAsync(course, token).ConfigureAwait(true);
             return new CreateCourseCommandResult((long)id);
         }
     }

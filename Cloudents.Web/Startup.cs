@@ -77,7 +77,6 @@ namespace Cloudents.Web
                        Configuration["AzureSearch:SearchServiceAdminApiKey"]),
                 Redis = Configuration["Redis"],
                 Storage = Configuration["Storage"],
-                SystemUrl = Configuration["SystemUrl"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();

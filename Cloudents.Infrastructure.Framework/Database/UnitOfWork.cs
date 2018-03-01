@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Data;
+using JetBrains.Annotations;
 using NHibernate;
 
 namespace Cloudents.Infrastructure.Framework.Database
 {
-    public class UnitOfWork :  IUnitOfWork, IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly ITransaction _transaction;
         private bool _isAlive = true;
         private bool _isCommitted;
 
-        public UnitOfWork(ISession session)
+        [UsedImplicitly]
+        public delegate UnitOfWork Factory(Core.Enum.Database db);
+
+        public UnitOfWork(Core.Enum.Database db, UnitOfWorkFactory.Factory factory)
         {
-            Session = session;
+            var unitOfFactory = factory.Invoke(db);
+
+            Session = unitOfFactory.OpenSession();
             _transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
         }
 

@@ -119,16 +119,8 @@ namespace Cloudents.Infrastructure
                 _client.DefaultRequestHeaders.Add(header.Key, header.Value);
             }
 
-            //var bodyAsJson = JsonConvert.SerializeObject(body);
-            //new FormUrlEncodedContent()
-            //using (var content = new StringContent(bodyAsJson, Encoding.UTF8, "application/json"))
-            //{
             var p = await _client.PostAsync(url, body, token);
-            var str = await p.Content.ReadAsStringAsync();
             return p.IsSuccessStatusCode;
-
-            // }
-
         }
 
         public void Dispose()

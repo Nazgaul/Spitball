@@ -24,7 +24,7 @@ namespace Cloudents.Core.CommandHandler
                 message.SourceLocation,
                 message.Ip);
 
-            return _repository.AddAsync(urlStats, token);
+            return _repository.SaveAsync(urlStats, token);
         }
     }
 }
