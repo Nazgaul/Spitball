@@ -44,7 +44,7 @@ namespace Cloudents.MobileApi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState.GetError());
+                return BadRequest(ModelState);
             }
 
             var result = await _courseProvider.SearchAsync(model.Term, model.UniversityId.GetValueOrDefault(), token).ConfigureAwait(false);
@@ -66,7 +66,7 @@ namespace Cloudents.MobileApi.Controllers
         {
             if (!ModelState.IsValid || !model.University.HasValue)
             {
-                return BadRequest(ModelState.GetError());
+                return BadRequest(ModelState);
             }
             var command = new CreateCourseCommand(model.CourseName, model.University.Value);
             var response = await _command.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(command, token).ConfigureAwait(false);

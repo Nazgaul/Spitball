@@ -47,7 +47,7 @@ namespace Cloudents.MobileApi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState.GetError());
+                return BadRequest(ModelState);
             }
             var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault(), model.DocType);
@@ -80,7 +80,7 @@ namespace Cloudents.MobileApi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState.GetError());
+                return BadRequest(ModelState);
             }
             var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
                 model.Sort.GetValueOrDefault());
