@@ -9,6 +9,6 @@ namespace Cloudents.Core.Command
             Id = id;
         }
 
-        public int Id { get; private set; }
+        public int Id { get; }
     }
 }

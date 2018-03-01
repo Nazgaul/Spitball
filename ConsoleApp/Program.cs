@@ -4,11 +4,15 @@ using System.Configuration;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
+using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
+using Cloudents.Infrastructure.Framework.Database;
 
 namespace ConsoleApp
 {
@@ -50,9 +54,13 @@ namespace ConsoleApp
             builder.RegisterModule<ModuleAzureSearch>();
 
             var container = builder.Build();
-            var t = container.Resolve<IReadRepositoryAsync<IEnumerable<MailGunUniversityDto>>>();
-            var r = await t.GetAsync(default);
-
+            //z.Invoke(Database.System);
+            var bus = container.Resolve<ICommandBus>();
+            var command = new UpdateMailGunCommand(1533064);
+            await bus.DispatchAsync(command, default).ConfigureAwait(false);
+            var command2 = new CreateCourseCommand("ram", 920);
+            var p = await bus.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(command2, default).ConfigureAwait(false);
+            await bus.DispatchAsync(command, default).ConfigureAwait(false);
 
             Console.WriteLine("Finish");
             Console.ReadLine();

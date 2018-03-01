@@ -1,9 +1,6 @@
 ﻿using Autofac;
-using Autofac.Core;
 using Cloudents.Core;
-using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework.Database;
-using NHibernate;
 
 namespace Cloudents.Infrastructure.Framework
 {
@@ -17,16 +14,16 @@ namespace Cloudents.Infrastructure.Framework
             //    return new UnitOfWorkFactory(key);
             //}).As<IUnitOfWorkFactory>().SingleInstance();
 
-            builder.RegisterType<UnitOfWorkFactory>().As<IUnitOfWorkFactory>().SingleInstance();
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<UnitOfWorkFactory>().AsSelf().As<IUnitOfWorkFactory>();
+            builder.RegisterType<UnitOfWork>().AsSelf().As<IUnitOfWork>().InstancePerLifetimeScope();
             //builder.Register((c,t) =>
             //{
             //    var p = c.Resolve<IUnitOfWorkFactory>().OpenSession();
             //    return new UnitOfWork(p);
             //}).InstancePerLifetimeScope().As<IUnitOfWork>();
+            builder.RegisterType<UnitOfWorkAutofacFactory>().AsSelf().SingleInstance();
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
                 .AsImplementedInterfaces();
-
             builder.RegisterType<DbConnectionStringProvider>().AsSelf();
 
             //builder.RegisterModule<ModuleCore>();

@@ -30,7 +30,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<UniqueKeyGenerator>().As<IKeyGenerator>();
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
-            builder.RegisterType<RestClient>().As<IRestClient>().SingleInstance().EnableInterfaceInterceptors()
+            builder.RegisterType<RestClient>().As<IRestClient>()
+                .SingleInstance().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(LogInterceptor));
 
             builder.RegisterAssemblyTypes(assembly)

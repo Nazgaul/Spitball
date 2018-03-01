@@ -14,9 +14,9 @@ namespace Cloudents.Infrastructure.Framework.Database
         [UsedImplicitly]
         public delegate UnitOfWork Factory(Core.Enum.Database db);
 
-        public UnitOfWork(Core.Enum.Database db, UnitOfWorkFactory.Factory factory)
+        public UnitOfWork(Core.Enum.Database db, UnitOfWorkAutofacFactory factory)
         {
-            var unitOfFactory = factory.Invoke(db);
+            var unitOfFactory = factory.GetInstance(db);
 
             Session = unitOfFactory.OpenSession();
             _transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);

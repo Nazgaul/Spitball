@@ -21,6 +21,7 @@ namespace Cloudents.Functions
                     Search = new SearchServiceCredentials(
                         GetEnvironmentVariable("SearchServiceName"),
                         GetEnvironmentVariable("SearchServiceAdminApiKey")),
+                    MailGunDb = GetEnvironmentVariable("MailGunConnectionString")
                     //Redis = GetEnvironmentVariable("Redis"),
                     //Storage = GetEnvironmentVariable("AzureWebJobsStorage")
                 };
@@ -29,6 +30,10 @@ namespace Cloudents.Functions
                 builder.RegisterModule<ModuleDb>();
                 builder.RegisterModule<ModuleReadDb>();
                 builder.RegisterModule<ModuleAzureSearch>();
+                builder.RegisterModule<ModuleMail>();
+                //builder.RegisterModule<ModuleInfrastructureBase>();
+                builder.RegisterType<RestClient>().As<IRestClient>()
+                    .SingleInstance();
                 builder.RegisterType<BinarySerializer>().As<IBinarySerializer>().SingleInstance();
             });
         }
