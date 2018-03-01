@@ -26,7 +26,10 @@ export default {
     components: { ResultBook },
     watch:{
         pageData(val){
-            this.filterOptions[0].data=(!val||!val.data||val.data.length===1)?[]:FILTER_LIST.filter(i=>val.data.map(t=>t.condition).includes(i.id));
+            if(this.sortVal==='buy') {
+                this.filterOptions=filterOptions;
+                this.filterOptions[0].data = (!val || !val.data || val.data.length === 1) ? [] : FILTER_LIST.filter(i => val.data.map(t => t.condition).includes(i.id));
+            }else{this.filterOptions=[]}
         }
     },
     computed: {
