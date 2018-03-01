@@ -77,7 +77,7 @@ namespace Cloudents.Infrastructure.Mail
 
             using (var body = new FormUrlEncodedContent(serializedParams))
             {
-                await _restClient.Value.PostAsync(uri, body, headers, cancellationToken);
+                await _restClient.Value.PostAsync(uri, body, headers, cancellationToken).ConfigureAwait(false);
             }
         }
     }

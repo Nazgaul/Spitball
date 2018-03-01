@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
@@ -119,7 +118,7 @@ namespace Cloudents.Infrastructure
                 _client.DefaultRequestHeaders.Add(header.Key, header.Value);
             }
 
-            var p = await _client.PostAsync(url, body, token);
+            var p = await _client.PostAsync(url, body, token).ConfigureAwait(false);
             return p.IsSuccessStatusCode;
         }
 
