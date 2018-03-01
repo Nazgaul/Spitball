@@ -7,14 +7,15 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure
 {
+    [UsedImplicitly]
     public class RestClient : IRestClient, IDisposable
     {
         private readonly HttpClient _client;
@@ -24,11 +25,6 @@ namespace Cloudents.Infrastructure
             _client = new HttpClient();
         }
 
-        //public async Task<JObject> GetJsonAsync(Uri url, NameValueCollection queryString, CancellationToken token)
-        //{
-        //    var str = await GetAsync(url, queryString, token).ConfigureAwait(false);
-        //    return JObject.Parse(str);
-        //}
         [CanBeNull]
         [Log]
         public Task<string> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token)
@@ -112,6 +108,18 @@ namespace Cloudents.Infrastructure
                 var serializer = new JsonSerializer();
                 return serializer.Deserialize<T>(reader);
             }
+        }
+
+        public async Task<bool> PostAsync(Uri url, HttpContent body, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        {
+            _client.DefaultRequestHeaders.Clear();
+            foreach (var header in headers ?? Enumerable.Empty<KeyValuePair<string, string>>())
+            {
+                _client.DefaultRequestHeaders.Add(header.Key, header.Value);
+            }
+
+            var p = await _client.PostAsync(url, body, token).ConfigureAwait(false);
+            return p.IsSuccessStatusCode;
         }
 
         public void Dispose()

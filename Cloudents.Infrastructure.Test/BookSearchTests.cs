@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Test
         [TestInitialize]
         public void Setup()
         {
-            
+
         }
 
         [TestMethod]
@@ -24,8 +24,7 @@ namespace Cloudents.Infrastructure.Test
                 // into the SystemUnderTest constructor
                 var sut = mock.Create<BookSearch>();
                 var privateObj = new PrivateObject(sut);
-                BookSearch.BookDetailResult input = null;
-                var result = (bool)privateObj.Invoke("ValidateSearchResult", BindingFlags.Static | BindingFlags.NonPublic, 0, input);
+                var result = (bool)privateObj.Invoke("ValidateSearchResult", BindingFlags.Static | BindingFlags.NonPublic, 0, null);
                 Assert.IsFalse(result);
             }
         }

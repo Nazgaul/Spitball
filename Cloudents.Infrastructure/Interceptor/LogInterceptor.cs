@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Castle.DynamicProxy;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 
 namespace Cloudents.Infrastructure.Interceptor
 {

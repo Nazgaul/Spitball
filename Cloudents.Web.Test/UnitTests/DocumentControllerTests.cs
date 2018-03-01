@@ -2,9 +2,7 @@
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Controllers;
-using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Localization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -13,22 +11,21 @@ namespace Cloudents.Web.Test.UnitTests
     [TestClass]
     public class DocumentControllerTests
     {
-        Mock<IStringLocalizer<Seo>> _mockLocalizer = new Mock<IStringLocalizer<Seo>>();
+        //Mock<IStringLocalizer<Seo>> _mockLocalizer = new Mock<IStringLocalizer<Seo>>();
         Mock<IReadRepositoryAsync<DocumentSeoDto, long>> _mockRepository = new Mock<IReadRepositoryAsync<DocumentSeoDto, long>>();
 
         private Mock<IReadRepositoryAsync<DocumentDto, long>> _mockRepositoryDocument =
             new Mock<IReadRepositoryAsync<DocumentDto, long>>();
 
-        private Mock<IBlobProvider<FilesContainerName>> _mockBlobProvider = 
+        private Mock<IBlobProvider<FilesContainerName>> _mockBlobProvider =
             new Mock<IBlobProvider<FilesContainerName>>();
 
-        private readonly DocumentController _controller;
         public DocumentControllerTests()
         {
-            _controller = new DocumentController(_mockRepository.Object,
+            var controller = new DocumentController(_mockRepository.Object,
                 _mockRepositoryDocument.Object, _mockBlobProvider.Object);
-            _controller.ControllerContext.HttpContext = new DefaultHttpContext();
-            _controller.ControllerContext.HttpContext.Request.Path = "/item/%D7%94%D7%90%D7%95%D7%A0%D7%99%D7%91%D7%A8%D7%A1%D7%99%D7%98%D7%94-%D7%94%D7%A4%D7%AA%D7%95%D7%97%D7%94/5365/%D7%9E%D7%A2%D7%91%D7%93%D7%94-%D7%91%D7%AA%D7%9B%D7%A0%D7%95%D7%AA-%D7%9E%D7%A2%D7%A8%D7%9B%D7%95%D7%AA-%D7%91%D7%A9%D7%A4%D7%AA-c/609395/check-dl-shelon1.pdf/";
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            controller.ControllerContext.HttpContext.Request.Path = "/item/%D7%94%D7%90%D7%95%D7%A0%D7%99%D7%91%D7%A8%D7%A1%D7%99%D7%98%D7%94-%D7%94%D7%A4%D7%AA%D7%95%D7%97%D7%94/5365/%D7%9E%D7%A2%D7%91%D7%93%D7%94-%D7%91%D7%AA%D7%9B%D7%A0%D7%95%D7%AA-%D7%9E%D7%A2%D7%A8%D7%9B%D7%95%D7%AA-%D7%91%D7%A9%D7%A4%D7%AA-c/609395/check-dl-shelon1.pdf/";
         }
 
         //[TestMethod]

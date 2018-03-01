@@ -38,7 +38,7 @@ namespace Cloudents.Functions
                 GeographyPoint = GeographyPoint.Create(s.Latitude, s.Longitude),
                 Id = s.Id.ToString(),
                 Prefix = new[] { s.Name, s.Extra }.Where(x => x != null).ToArray()
-            }, token).ConfigureAwait(false);
+            }, log, token).ConfigureAwait(false);
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
         }
     }

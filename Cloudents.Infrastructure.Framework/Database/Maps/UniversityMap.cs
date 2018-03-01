@@ -9,6 +9,7 @@ namespace Cloudents.Infrastructure.Framework.Database.Maps
         {
             Id(x => x.Id).GeneratedBy.Assigned();
             Map(x => x.IsDeleted);
+            //TODO : this appear twice - need to fix that
             Map(x => x.Name).Column("UniversityName");
             Map(x => x.Extra);
             Map(x => x.ExtraSearch);

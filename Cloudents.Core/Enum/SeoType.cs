@@ -1,4 +1,6 @@
-﻿namespace Cloudents.Core.Enum
+﻿using Cloudents.Core.Attributes;
+
+namespace Cloudents.Core.Enum
 {
     public enum SeoType
     {

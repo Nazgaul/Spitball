@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.Models
+namespace Cloudents.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class BuildLocalUrlAttribute : Attribute

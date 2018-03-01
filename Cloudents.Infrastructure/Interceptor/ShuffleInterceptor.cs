@@ -2,7 +2,7 @@
 using System.Reflection;
 using Castle.DynamicProxy;
 using Cloudents.Core;
-using Cloudents.Core.Models;
+using Cloudents.Core.Attributes;
 
 namespace Cloudents.Infrastructure.Interceptor
 {

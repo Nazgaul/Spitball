@@ -3,16 +3,39 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public class DapperRepository
+    //public interface IDapperRepository
+    //{
+    //    Task<T> WithConnectionAsync<T>(Func<IDbConnection, Task<T>> getData, CancellationToken token);
+    //    T WithConnection<T>(Func<IDbConnection, T> getData);
+    //}
+   
+
+    public class DapperRepository //: IDapperRepository
     {
         private readonly string _connectionString;
 
-        public DapperRepository(string connectionString)
+        public delegate DapperRepository Factory(Database db);
+
+        public DapperRepository(Database db, DbConnectionStringProvider provider)
         {
-            _connectionString = connectionString;
+            _connectionString = provider.GetConnectionString(db);
+            Dapper.SqlMapper.SetTypeMap(typeof(University), new ColumnAttributeTypeMapper<University>());
+
+            //_connectionString = connectionString;
+
+            Dapper.SqlMapper.SetTypeMap(typeof(University), new ColumnAttributeTypeMapper<University>());
+        }
+
+        public DapperRepository(DbConnectionStringProvider provider) : this(Database.System,provider)
+        {
+
         }
 
         public async Task<T> WithConnectionAsync<T>(Func<IDbConnection, Task<T>> getData, CancellationToken token)
@@ -39,12 +62,7 @@ namespace Cloudents.Infrastructure.Data
             }
         }
 
-        public IDbConnection OpenConnection()
-        {
-            var connection = new SqlConnection(_connectionString);
-            connection.Open();
-            return connection;
-        }
+       
 
         public T WithConnection<T>(Func<IDbConnection, T> getData)
         {

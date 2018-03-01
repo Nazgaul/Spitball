@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Cloudents.Core.Enum;
+using Cloudents.Core.Attributes;
 
 namespace Cloudents.Core.Extension
 {

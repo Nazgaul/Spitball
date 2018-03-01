@@ -3,6 +3,7 @@
   "Values": {
     "AzureWebJobsDashboard": "DefaultEndpointsProtocol=https;AccountName=spitballfunctionstorage;AccountKey=3yZiROT9Pivzl4o0dDabbUzjmD671AboBCdy1SjmDUsfEHmi1LmVRh9TPIeVqt2QlEyKn+9a2Xwq8xQtNo94rw==",
     "ConnectionString": "Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew_Develop;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Asynchronous Processing=True;Connection Timeout=30;MultipleActiveResultSets=true;",
+    "MailGunConnectionString": "Server=tcp:on0rodxe8f.database.windows.net;Database=spamgun;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Asynchronous Processing=True;Connection Timeout=30;MultipleActiveResultSets=true;",
     "SearchServiceName": "cloudents",
     "SearchServiceAdminApiKey": "5B0433BFBBE625C9D60F7330CFF103F0",
     "Redis": "zboxcache.redis.cache.windows.net,abortConnect=false,allowAdmin=true,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI=",
