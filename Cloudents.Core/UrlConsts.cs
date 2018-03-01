@@ -14,12 +14,12 @@ namespace Cloudents.Core
 
         public string BuildRedirectUrl(string url, string host, int? location)
         {
-            if (host.Contains("spitball", StringComparison.InvariantCultureIgnoreCase))
+            if (host.Contains("spitball", StringComparison.OrdinalIgnoreCase))
             {
                 return url;
             }
 
-            if (url.Contains("spitball", StringComparison.InvariantCultureIgnoreCase))
+            if (url.Contains("spitball", StringComparison.OrdinalIgnoreCase))
             {
                 return url;
             }
