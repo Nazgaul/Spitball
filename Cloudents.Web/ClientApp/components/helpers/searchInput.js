@@ -25,6 +25,7 @@ export default {
                     historyList.includes(i)?consts.SUGGEST_TYPE.history:
                         consts.SUGGEST_TYPE.buildIn)}));
         },
+
         isHome(){return this.$route.name==='home'},
         maxResults(){return this.isHome?consts.HOME_MAX_SUGGEST_NUM:consts.VERTICAL_MAX_SUGGEST_NUM},
     },
@@ -41,6 +42,7 @@ export default {
         selectos({item,index}) {
             this.msg = item.text;
             this.$ga.event('Search',`Suggest_${this.getCurrentVertical?this.getCurrentVertical.toUpperCase():'HOME'}_${item.type}`, `#${index+1}_${item}`);
+            this.$el.querySelector('#toggler').checked = false;
             this.search();
         },
         search() {
@@ -54,6 +56,11 @@ export default {
             this.$nextTick(() => {
                 this.$el.querySelector('input').blur();
             });
+        },
+        showSuggestions(){
+            var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
+            this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4)+"px";
+            this.$el.querySelector('#toggler').checked = true;
         },
         //callback for mobile submit mic
         submitMic(){

@@ -3,14 +3,16 @@
 @maxWidth959: 768px;
 
 .h-p-header {
-
+z-index: 4;
     &.toolbar {
         background-color: #f0f0f0;
     }
 
     &.scroll {
-        background-color: #ffffff;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5) !important;
+        @media (min-width: @screen-sm) {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5) !important;
+        }
     }
 
     .toolbar__title {

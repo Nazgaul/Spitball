@@ -1,13 +1,53 @@
 ﻿@import "../../mixin.less";
+
 .highlight {
   font-weight: bold;
   color: #0ead91;
 }
+
+.search-b-wrapper {
+  position: relative;
+}
+
+.search-b, .search-menu {
+  z-index: 3;
+}
+
+.menu-toggler {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#toggler {
+  display: none;
+  + .menu-toggler {
+    display: none;
+    z-index: 1;
+    cursor: auto;
+  }
+  &:checked {
+    ~ .search-menu, ~ .menu-toggler {
+      display: block;
+    }
+  }
+}
+
 .search-menu {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
   background: #fff !important;
   border-radius: 4px;
   margin-top: 8px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+
+  @media(max-width: @screen-sm){
+    overflow: scroll;
+  }
 
   .list {
     padding: 6px 0;
@@ -74,9 +114,10 @@
         .icon {
           font-size: 16px;
         }
+
         svg {
           width: 12px;
-         }
+        }
       }
     }
   }

@@ -1,5 +1,5 @@
 ﻿<template>
-    <v-toolbar :height="$vuetify.breakpoint.smAndDown? 64 : 110" flat class="h-p-header" :class="{scroll: scrollTop}" :extended="$vuetify.breakpoint.smAndDown && showText" app fixed v-scroll="onScroll">
+    <v-toolbar :height="$vuetify.breakpoint.smAndDown? 64 : 110" flat class="h-p-header" :class="{scroll: scrollTop}" :extended="$vuetify.breakpoint.smAndDown && showText" app :fixed="$vuetify.breakpoint.mdAndUp" v-scroll="onScroll">
         <v-toolbar-title class="ml-2">
             <logo class="logo"></logo>
         </v-toolbar-title>
