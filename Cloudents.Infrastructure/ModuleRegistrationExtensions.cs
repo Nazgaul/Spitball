@@ -23,8 +23,9 @@ namespace Cloudents.Infrastructure
                     .Where(w => typeof(IModule).IsAssignableFrom(w))
                     .Where(w =>
                     {
-                        var info = w.GetTypeInfo().GetCustomAttribute<ModuleRegistrationAttribute>();
-                        return info?.System == system;
+                        var info = w.GetTypeInfo().GetCustomAttributes<ModuleRegistrationAttribute>();
+                        return info?.FirstOrDefault(f => f.System == system) != null;
+                        //return info?.System == system;
                     });
                 foreach (var module in modules)
                 {
