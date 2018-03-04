@@ -22,7 +22,7 @@ namespace Cloudents.Functions
     {
         [FunctionName("UniversityTimer")]
         [UsedImplicitly]
-        public static async Task RunAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+        public static async Task RunAsync([TimerTrigger("0 */30 * * * *")]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/university-version.txt",FileAccess.ReadWrite)]
             CloudBlockBlob blob,
             [Inject] IReadRepositoryAsync<(IEnumerable<UniversitySearchWriteDto> update, IEnumerable<SearchWriteBaseDto> delete, long version), SyncAzureQuery> repository,
