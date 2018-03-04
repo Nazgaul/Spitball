@@ -28,6 +28,13 @@
                                     <p class="mt-1">{{currentPromotion.content}}</p>
                                 </div>
                             </v-flex>
+                            <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
+                                <v-layout row align-center justify-space-between>
+                                    <img src="./img/emptyFilter.png" alt=""/>
+                                    <p class="mb-0">Filter was not applied, because it will give you no results.</p>
+                                </v-layout>
+                                <button @click="showFilterNotApplied=false">OK</button>
+                            </v-flex>
                             <slot name="resultData" :items="items">
                                 <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading" class="personalize-wrapper pa-3 mb-2 elevation-1">
                                     <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
