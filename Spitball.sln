@@ -37,6 +37,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Web.Extensions", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Infrastructure.Storage", "Cloudents.Infrastructure.Storage\Cloudents.Infrastructure.Storage.csproj", "{A9838733-C134-4B25-924D-B15DFB0C077F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{50278DEE-EB2D-4F76-871C-65FFF8E73D1F}"
+	ProjectSection(SolutionItems) = preProject
+		Cloudents2018.pfx = Cloudents2018.pfx
+		Pass.txt = Pass.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

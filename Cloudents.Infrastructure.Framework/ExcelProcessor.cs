@@ -67,57 +67,11 @@ namespace Cloudents.Infrastructure.Framework
             );
         }
 
-        protected static string CreateCacheFileName(string blobName, int index)
+        private static string CreateCacheFileName(string blobName, int index)
         {
             return $"{Path.GetFileNameWithoutExtension(blobName)}{CacheVersion}_{index}_{Path.GetExtension(blobName)}.jpg";
         }
 
         public static readonly string[] ExcelExtensions = { ".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv" };
-
-        //public override bool CanProcessFile(Uri blobName)
-        //{
-        //    if (blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl))
-        //    {
-        //        return ExcelExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
-        //    }
-        //    return false;
-        //}
-
-        //public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
-        //{
-        //    try
-        //    {
-        //        var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken).ConfigureAwait(false);
-        //        SetLicense();
-        //        var excel = new Workbook(path);
-        //        var wb = excel.Worksheets[0];
-
-        //        return await ProcessFileAsync(blobUri, () =>
-        //        {
-        //            var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
-        //            var sr = new SheetRender(wb, imgOptions);
-        //            using (var img = sr.ToImage(0))
-        //            {
-        //                if (img == null)
-        //                {
-        //                    return null;
-        //                }
-        //                var ms = new MemoryStream();
-        //                img.Save(ms, ImageFormat.Jpeg);
-        //                return ms;
-        //            }
-        //        },  () => excel.Worksheets.Count, CacheVersion, cancelToken).ConfigureAwait(false);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("PreProcessFile excel", ex);
-        //        return null;
-        //    }
-        //}
-
-        //public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
-        //{
-        //    return Extensions.TaskExtensions.CompletedTaskString;
-        //}
     }
 }

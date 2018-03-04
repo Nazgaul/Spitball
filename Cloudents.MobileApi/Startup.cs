@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using Autofac;
@@ -105,8 +106,13 @@ namespace Cloudents.MobileApi
 
             app.UseResponseCompression();
             app.UseResponseCaching();
-            app.UseStatusCodePages();
+            app.UseDefaultFiles(new DefaultFilesOptions {
+                DefaultFileNames = new
+                    List<string> { "default.html" }
+            });
             app.UseStaticFiles();
+            app.UseStatusCodePages();
+
             app.UseSwagger();
 
             app.UseCors(builder =>

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -11,18 +12,18 @@ using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Functions
 {
     [DependencyInjectionConfig(typeof(DiConfig))]
-    public static class Functions
+    public static class RedirectFunction
     {
         [FunctionName("UrlRedirect")]
         [UsedImplicitly]
-        public static async Task<HttpResponseMessage> Run(
+        public static async Task<HttpResponseMessage> RunAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "redirect")]HttpRequestMessage req,
             [Queue(QueueName.UrlRedirectName)] IAsyncCollector<UrlRedirectQueueMessage> queue,
-            TraceWriter log,
             CancellationToken token)
         {
             var referrer = req.Headers.Referrer?.ToString();
@@ -30,6 +31,18 @@ namespace Cloudents.Functions
             var host = queryString.Find(f => f.Key == "host").Value;
             var location = int.Parse(queryString.Find(f => f.Key == "location").Value);
             var url = queryString.Find(f => f.Key == "url").Value;
+
+            if (host.Contains("studyblue", StringComparison.OrdinalIgnoreCase))
+            {
+                var uri = new Uri(url);
+
+                var uriBuilder = new UriBuilder(uri)
+                {
+                    Query = "?utm_source=spitball&utm_medium=referral"
+                };
+                url = uriBuilder.ToString();
+            }
+
             var userIp = req.GetClientIpAddress();
             var message = new UrlRedirectQueueMessage(host, url, referrer, location, userIp);
             await queue.AddAsync(message, token).ConfigureAwait(false);
