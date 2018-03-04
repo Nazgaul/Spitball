@@ -73,7 +73,7 @@ namespace Cloudents.Infrastructure.Cache
                         instance.Add(obj);
                     }
 
-                return instance;
+                return val;
             }
             return val;
         }
