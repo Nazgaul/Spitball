@@ -55,12 +55,15 @@ namespace ConsoleApp
 
             var container = builder.Build();
             //z.Invoke(Database.System);
-            var bus = container.Resolve<ICommandBus>();
-            var command = new UpdateMailGunCommand(1533064);
-            await bus.DispatchAsync(command, default).ConfigureAwait(false);
-            var command2 = new CreateCourseCommand("ram", 920);
-            var p = await bus.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(command2, default).ConfigureAwait(false);
-            await bus.DispatchAsync(command, default).ConfigureAwait(false);
+
+            var resolve1 = container.Resolve<IReadRepositoryAsync<IEnumerable<MailGunDto>, long>>();
+            var t1 = await resolve1.GetAsync(9999, default);
+
+            var resolve2 = container
+                .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>
+                    delete, long version), SyncAzureQuery>>();
+
+            var t2 = await resolve2.GetAsync(new SyncAzureQuery(0, 0), default);
 
             Console.WriteLine("Finish");
             Console.ReadLine();

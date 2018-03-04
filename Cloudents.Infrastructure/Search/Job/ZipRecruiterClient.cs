@@ -12,10 +12,12 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
+    [UsedImplicitly]
     public class ZipRecruiterClient : IJobProvider
     {
         //https://docs.google.com/document/d/1PM6pgV06vGbQJoZ1mxeSTZPr1aYemSGoEyTtNTDyt3s/pub
@@ -34,17 +36,7 @@ namespace Cloudents.Infrastructure.Search.Job
             JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location,
             int page, bool highlight, CancellationToken token)
         {
-            if (jobType?.Any() == true)
-            {
-                return null;
-            }
-
-            if (location?.Address == null)
-            {
-                return null;
-            }
-
-            if (sort == JobRequestSort.Distance)
+            if (jobType?.Any() == true || location?.Address == null || sort == JobRequestSort.Distance)
             {
                 return null;
             }

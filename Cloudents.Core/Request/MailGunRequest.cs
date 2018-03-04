@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Request
 {
     [DataContract]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification="We are going via reflection")]
     public class MailGunRequest
     {
         public MailGunRequest(string to, string subject,
@@ -19,16 +21,17 @@ namespace Cloudents.Core.Request
 
         private DateTime _deliveryTime;
 
-        [DataMember(Name = "from")] public string From => "no-reply@Spitball.co";
+        [DataMember(Name = "from")]
+        public string From => "Olivia Williams <olivia@spitball.co>";
         [DataMember(Name = "to")]
-        public string To { get; set; }
+        public string To { [UsedImplicitly] get; }
 
         [DataMember(Name = "subject")]
-        public string Subject { get; set; }
+        public string Subject { [UsedImplicitly] get; }
         [DataMember(Name = "html")]
-        public string Html { get; set; }
+        public string Html { [UsedImplicitly]get;  }
         [DataMember(Name = "o:tag")]
-        public string Tag { get; set; }
+        public string Tag { [UsedImplicitly] get;  }
 
         [DataMember(Name = "o:campaign")] [UsedImplicitly]
         public string Campaign => "spamgun";

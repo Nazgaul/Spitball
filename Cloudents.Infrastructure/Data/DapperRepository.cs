@@ -33,7 +33,8 @@ namespace Cloudents.Infrastructure.Data
             Dapper.SqlMapper.SetTypeMap(typeof(University), new ColumnAttributeTypeMapper<University>());
         }
 
-        public DapperRepository(DbConnectionStringProvider provider) : this(Database.System,provider)
+        public DapperRepository(DbConnectionStringProvider provider) :
+            this(Database.System,provider)
         {
 
         }

@@ -30,10 +30,10 @@ namespace Cloudents.Functions
             }
             log.Info($"process {query}");
 
-            if (query.Version == 0 && query.Page == 0)
-            {
-                await searchServiceWrite.CreateOrUpdateAsync(token).ConfigureAwait(false);
-            }
+            //if (query.Version == 0 && query.Page == 0)
+            //{
+            //    await searchServiceWrite.CreateOrUpdateAsync(token).ConfigureAwait(false);
+            //}
 
             var currentVersion = query.Version;
             while (!token.IsCancellationRequested)

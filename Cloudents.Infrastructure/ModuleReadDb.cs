@@ -12,7 +12,7 @@ namespace Cloudents.Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
-            builder.RegisterType<DapperRepository>().AsSelf().SingleInstance();
+            builder.RegisterType<DapperRepository>().AsSelf();
             builder.RegisterType<DbConnectionStringProvider>().AsSelf();
             builder.RegisterAssemblyTypes(currentAssembly).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
             builder.RegisterAssemblyTypes(currentAssembly).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
