@@ -13,4 +13,15 @@ namespace Cloudents.Core.Attributes
 
         public Database Database { get; private set; }
     }
+
+    [AttributeUsageAttribute(AttributeTargets.Class, AllowMultiple = true)]
+    public class ModuleRegistrationAttribute : Attribute
+    {
+        public ModuleRegistrationAttribute(Enum.System system)
+        {
+            System = system;
+        }
+
+        public Enum.System System { get; private set; }
+    }
 }

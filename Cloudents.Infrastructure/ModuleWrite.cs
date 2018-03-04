@@ -1,4 +1,7 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using Autofac;
+using Autofac.Core.Registration;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -26,6 +29,8 @@ namespace Cloudents.Infrastructure
         }
     }
 
+    [ModuleRegistration(Core.Enum.System.Console)]
+    [ModuleRegistration(Core.Enum.System.Function)]
     public class ModuleAzureSearch : Module
     {
         protected override void Load(ContainerBuilder builder)

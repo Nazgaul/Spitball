@@ -5,4 +5,12 @@
         System,
         MailGun
     }
+
+    public enum System
+    {
+        Function,
+        Api,
+        Web,
+        Console
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
@@ -80,11 +81,14 @@ namespace Cloudents.Web
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
-            containerBuilder.RegisterModule<ModuleWeb>();
-            containerBuilder.RegisterModule<ModuleFile>();
-            containerBuilder.RegisterModule<ModuleCore>();
-            containerBuilder.RegisterModule<ModuleStorage>();
-            containerBuilder.RegisterModule<ModuleDb>();
+
+            containerBuilder.RegisterSystemModules(
+                Core.Enum.System.Web,
+                Assembly.Load("Cloudents.Infrastructure.Framework"),
+                Assembly.Load("Cloudents.Infrastructure.Storage"),
+                Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Core"));
+           
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

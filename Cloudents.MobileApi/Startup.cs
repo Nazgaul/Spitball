@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
@@ -77,7 +78,14 @@ namespace Cloudents.MobileApi
                 Storage = Configuration["Storage"],
             };
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
-            containerBuilder.RegisterModule<ModuleMobile>();
+
+            containerBuilder.RegisterSystemModules(
+                Core.Enum.System.Api,
+                Assembly.Load("Cloudents.Infrastructure.Framework"),
+                Assembly.Load("Cloudents.Infrastructure.Storage"),
+                Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Core"));
+            
             containerBuilder.RegisterModule<ModuleCore>();
             containerBuilder.RegisterModule<ModuleDb>();
             containerBuilder.RegisterModule<ModuleStorage>();

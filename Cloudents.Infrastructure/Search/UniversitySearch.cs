@@ -21,28 +21,47 @@ namespace Cloudents.Infrastructure.Search
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;
 
+
+        private readonly string[] _listOfSelectParams = {
+            nameof(University.Id),
+            nameof(University.Name),
+            nameof(University.Image)
+        };
+
         public UniversitySearch(ISearchServiceClient client, IMapper mapper)
         {
             _client = client.Indexes.GetClient(UniversitySearchWrite.IndexName);
             _mapper = mapper;
         }
 
+        public async Task<IEnumerable<UniversityDto>> GetApproximateUniversitiesAsync(GeoPoint location,
+            CancellationToken token)
+        {
+            if (location == null)
+            {
+                throw new System.ArgumentNullException(nameof(location));
+            }
+
+            var searchParameter = new SearchParameters
+            {
+                Select = _listOfSelectParams,
+                Filter =
+                    $"geo.distance({nameof(University.GeographyPoint)}, geography'POINT({location.Longitude} {location.Latitude})') le 5"
+            };
+            var result = await
+                _client.Documents.SearchAsync<University>(null, searchParameter,
+                    cancellationToken: token).ConfigureAwait(false);
+
+            return _mapper.Map<IEnumerable<University>, IList<UniversityDto>>(result.Results.Select(s => s.Document));
+        }
+
         public async Task<IEnumerable<UniversityDto>> SearchAsync(string term, GeoPoint location,
             CancellationToken token)
         {
-            //if (string.IsNullOrEmpty(term) || term.Length < 3)
-            //{
-            //    term += "*";
-            //}
-            var listOfSelectParams = new[]
-            {
-                nameof(University.Id),
-                nameof(University.Name),
-                nameof(University.Image)
-            };
+           
             var searchParameter = new SearchParameters
             {
-                Select = listOfSelectParams,
+                Select = _listOfSelectParams,
                 OrderBy = new List<string> { "search.score() desc", nameof(University.Name) }
             };
             if (location != null)
@@ -60,14 +79,6 @@ namespace Cloudents.Infrastructure.Search
                     cancellationToken: token).ConfigureAwait(false);
 
             return _mapper.Map<IEnumerable<University>, IList<UniversityDto>>(result.Results.Select(s => s.Document));
-            //if (tSuggest.Result != null)
-            //{
-            //    var result2 =
-            //        _mapper.Map<IEnumerable<University>, IList<UniversityDto>>(
-            //            tSuggest?.Result?.Results?.Select(s => s.Document));
-            //    return result.Union(result2, new UniversityDtoEquality());
-            //}
-            //return result;
         }
     }
 }

@@ -17,10 +17,13 @@ namespace Cloudents.Infrastructure.Interceptor
 
         protected override void BeforeAction(IInvocation invocation)
         {
+            Console.WriteLine("shuffle before");
+
         }
 
         protected override void AfterAction<T>(ref T val, IInvocation invocation)
         {
+            Console.WriteLine("shuffle after");
             var att = invocation.GetCustomAttribute<ShuffleAttribute>();
             if (string.IsNullOrEmpty(att.ListObjectName))
             {

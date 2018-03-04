@@ -68,6 +68,10 @@
       <Project>{7144FD3F-2400-40BF-BC67-1864057E371E}</Project>
       <Name>Cloudents.Infrastructure.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cloudents.Infrastructure.Storage\Cloudents.Infrastructure.Storage.csproj">
+      <Project>{a9838733-c134-4b25-924d-b15dfb0c077f}</Project>
+      <Name>Cloudents.Infrastructure.Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj">
       <Project>{1464AECE-AAF3-4910-A0DA-153420580A69}</Project>
       <Name>Cloudents.Infrastructure</Name>

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -75,7 +76,7 @@ namespace Cloudents.Infrastructure.Interceptor
             return null;
         }
 
-        private string GetInvocationSignature(IInvocation invocation)
+        private static string GetInvocationSignature(IInvocation invocation)
         {
             return
                 $"{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-" +
@@ -90,6 +91,7 @@ namespace Cloudents.Infrastructure.Interceptor
 
         protected override void BeforeAction(IInvocation invocation)
         {
+            Console.WriteLine("Cache before");
             var key = GetInvocationSignature(invocation);
 
             var method = invocation.MethodInvocationTarget;
@@ -118,6 +120,7 @@ namespace Cloudents.Infrastructure.Interceptor
 
         protected override void AfterAction<T>(ref T val, IInvocation invocation)
         {
+            Console.WriteLine("Cache after");
             var key = GetInvocationSignature(invocation);
             var att = invocation.GetCustomAttribute<CacheAttribute>();
             val = (T)_cacheProvider.Set(key, att.Region, val, att.Duration,att.Slide); // cacheAttr.Duration);

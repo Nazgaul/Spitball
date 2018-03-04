@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Autofac;
 using AzureFunctions.Autofac.Configuration;
 using Cloudents.Core;
@@ -25,16 +26,26 @@ namespace Cloudents.Functions
                     //Redis = GetEnvironmentVariable("Redis"),
                     //Storage = GetEnvironmentVariable("AzureWebJobsStorage")
                 };
+
+
                 builder.Register(_ => keys).As<IConfigurationKeys>();
-                builder.RegisterModule<ModuleCore>();
-                builder.RegisterModule<ModuleDb>();
-                builder.RegisterModule<ModuleReadDb>();
-                builder.RegisterModule<ModuleAzureSearch>();
-                builder.RegisterModule<ModuleMail>();
-                //builder.RegisterModule<ModuleInfrastructureBase>();
+
+                builder.RegisterSystemModules(
+                    Core.Enum.System.Function,
+                    Assembly.Load("Cloudents.Infrastructure.Framework"),
+                    //Assembly.Load("Cloudents.Infrastructure.Storage"),
+                    Assembly.Load("Cloudents.Infrastructure"),
+                    Assembly.Load("Cloudents.Core"));
+
+
+                //builder.RegisterModule<ModuleCore>();
+                //builder.RegisterModule<ModuleDb>();
+                //builder.RegisterModule<ModuleReadDb>();
+                //builder.RegisterModule<ModuleAzureSearch>();
+                //builder.RegisterModule<ModuleMail>();
                 builder.RegisterType<RestClient>().As<IRestClient>()
                     .SingleInstance();
-                builder.RegisterType<BinarySerializer>().As<IBinarySerializer>().SingleInstance();
+                //builder.RegisterType<BinarySerializer>().As<IBinarySerializer>().SingleInstance();
             });
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
@@ -13,6 +14,7 @@ using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Framework.Database;
+using Cloudents.Infrastructure.Search;
 
 namespace ConsoleApp
 {
@@ -21,6 +23,8 @@ namespace ConsoleApp
         static async Task Main()
         {
             var builder = new ContainerBuilder();
+
+            
             //var infrastructureModule = new InfrastructureModule(
             //    ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
             //    ConfigurationManager.AppSettings["AzureSearchServiceName"],
@@ -43,21 +47,16 @@ namespace ConsoleApp
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
-            builder.RegisterModule<ModuleRead>();
-            builder.RegisterType<BinarySerializer>().As<IBinarySerializer>().SingleInstance();
-
-            // new LocalStorageData(Path.Combine(Directory.GetCurrentDirectory(), "Temp"), 500)));
-            builder.RegisterModule<ModuleFile>();
-            builder.RegisterModule<ModuleDb>();
-            builder.RegisterModule<ModuleCore>();
-            builder.RegisterModule<ModuleMail>();
-            builder.RegisterModule<ModuleAzureSearch>();
-
+            builder.RegisterSystemModules(
+                Cloudents.Core.Enum.System.Console,
+                Assembly.Load("Cloudents.Infrastructure.Framework"),
+                Assembly.Load("Cloudents.Infrastructure.Storage"),
+                Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Core"));
             var container = builder.Build();
-            //z.Invoke(Database.System);
 
-            var resolve1 = container.Resolve<IReadRepositoryAsync<IEnumerable<MailGunDto>, long>>();
-            var t1 = await resolve1.GetAsync(9999, default);
+            var resolve1 = container.Resolve<ISearch>();
+            var t1 = await resolve1.DoSearchAsync(new SearchModel(null,null,SearchRequestSort.None,CustomApiKey.Documents, null,null,"war",null),0,BingTextFormat.None,default );
 
             var resolve2 = container
                 .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>

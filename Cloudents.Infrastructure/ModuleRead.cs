@@ -2,6 +2,7 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Data;
@@ -16,6 +17,8 @@ using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
+    [ModuleRegistration(Core.Enum.System.Console)]
+    [ModuleRegistration(Core.Enum.System.Api)]
     public sealed class ModuleRead : Module
     {
         [SuppressMessage("Microsoft.Design", "RCS1163:Unused parameter")]

@@ -1,8 +1,11 @@
 ﻿using Autofac;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Framework
 {
+    [ModuleRegistration(Core.Enum.System.Console)]
+    [ModuleRegistration(Core.Enum.System.Web)]
     public class ModuleFile : Module
     {
         protected override void Load(ContainerBuilder builder)

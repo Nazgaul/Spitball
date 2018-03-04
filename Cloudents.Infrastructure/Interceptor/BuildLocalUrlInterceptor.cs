@@ -17,11 +17,13 @@ namespace Cloudents.Infrastructure.Interceptor
 
         protected override void BeforeAction(IInvocation invocation)
         {
-
+            Console.WriteLine("BuildLocalUrlInterceptor before");
         }
 
         protected override void AfterAction<T>(ref T val, IInvocation invocation)
         {
+            Console.WriteLine("BuildLocalUrlInterceptor after");
+
             var att = invocation.GetCustomAttribute<BuildLocalUrlAttribute>();
             var page = 0;
             var pageSize = 0;

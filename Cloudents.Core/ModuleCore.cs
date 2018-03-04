@@ -1,10 +1,15 @@
 ﻿using System.Reflection;
 using Autofac;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Module = Autofac.Module;
 
 namespace Cloudents.Core
 {
+    [ModuleRegistration(Enum.System.Console)]
+    [ModuleRegistration(Enum.System.Function)]
+    [ModuleRegistration(Enum.System.Api)]
+    [ModuleRegistration(Enum.System.Web)]
     public class ModuleCore : Module
     {
         protected override void Load(ContainerBuilder builder)

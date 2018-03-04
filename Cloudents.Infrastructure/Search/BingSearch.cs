@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
@@ -11,10 +12,11 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Newtonsoft.Json;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search
 {
+    [UsedImplicitly]
     public class BingSearch : ISearch
     {
         private const string SubscriptionKey = "285e26627c874d28be01859b4fb08a58";
@@ -54,23 +56,15 @@ namespace Cloudents.Infrastructure.Search
             }
             var uri = new Uri("https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search");
 
-            var result = await _restClient.GetAsync(uri, nvc, new[]
+            var response = await _restClient.GetAsync<BingCustomSearchResponse>(uri, nvc, new[]
             {
                 new KeyValuePair<string,string>("Ocp-Apim-Subscription-Key", SubscriptionKey)
             }, token).ConfigureAwait(false);
-            if (result == null)
-            {
-                return null;
-            }
-
-            var response = JsonConvert.DeserializeObject<BingCustomSearchResponse>(result);
-            if (response.WebPages?.Value == null)
+            if (response?.WebPages?.Value == null)
             {
                 return null;
             }
             return _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(response.WebPages?.Value);
-            //searchResult = Shuffle<SearchResult>.DoShuffle(searchResult);
-            //return searchResult; //_urlRedirectBuilder.BuildUrl(model.Page, PageSize, searchResult);
         }
 
         private static string BuildSources(IEnumerable<string> sources)
