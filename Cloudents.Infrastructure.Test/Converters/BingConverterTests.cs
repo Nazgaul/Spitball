@@ -1,4 +1,6 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using System.Collections.Generic;
+using AutoMapper;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Search;
@@ -11,8 +13,20 @@ namespace Cloudents.Infrastructure.Test.Converters
     public class BingConverterTests
     {
         private readonly Mock<IKeyGenerator> _keyGenerator = new Mock<IKeyGenerator>();
-//        private readonly Mock<IBlobProvider<SpitballContainer>> _blobMock = new Mock<IBlobProvider<SpitballContainer>>();
+        private readonly Mock<IMappingOperationOptions> _mockOptions = new Mock<IMappingOperationOptions>();
+        private readonly Mock<IRuntimeMapper> _mockMapping = new Mock<IRuntimeMapper>();
+
+        private ResolutionContext context;
+        //private readonly Mock<ReplaceImageProvider> _replaceImageMock = new Mock<ReplaceImageProvider>(new Mock<IBlobProvider<SpitballContainer>>().Object);
+        
         private readonly Mock<ReplaceImageProvider> _replaceImageMock = new Mock<ReplaceImageProvider>(new Mock<IBlobProvider<SpitballContainer>>().Object);
+
+        [TestInitialize]
+        public void Setup()
+        {
+            _mockOptions.Setup(s => s.Items).Returns(new Dictionary<string, object>());
+            context = new ResolutionContext(_mockOptions.Object, _mockMapping.Object);
+        }
 
         [TestMethod]
         public void ConvertToResult_CourseHeroWebPage_ShareSaleUrl()
@@ -25,7 +39,7 @@ namespace Cloudents.Infrastructure.Test.Converters
                 Url = courseHeroLink
 
             };
-            var result = bingConverter.Convert(argument, null, null);
+            var result = bingConverter.Convert(argument, null, context);
             const string resultLink =
                 "http://shareasale.com/r.cfm?b=661825&u=1469379&m=55976&urllink=www.coursehero.com/file/11150425/Calculus-Basics-you-should-know-class-notes/&afftrack=";
             Assert.AreEqual(result.Url, resultLink);
@@ -41,7 +55,7 @@ namespace Cloudents.Infrastructure.Test.Converters
                 Url = "https://www.spitball.co"
 
             };
-            var result = bingConverter.Convert(argument, null, null);
+            var result = bingConverter.Convert(argument, null, context);
             Assert.AreEqual(result.Url, "https://www.spitball.co");
             Assert.AreEqual(result.Source, "www.spitball.co");
         }
