@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using Cloudents.Core.Attributes;
 
 namespace Cloudents.Core.Extension
@@ -53,6 +56,41 @@ namespace Cloudents.Core.Extension
             }
             // Return char and concat substring.
             return char.ToLowerInvariant(str[0]) + str.Substring(1);
+        }
+
+        /// <summary>
+        /// Wraps matched strings in HTML span elements styled with a background-color
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="keywords">Comma-separated list of strings to be highlighted</param>
+        /// <param name="fullMatch">false for returning all matches, true for whole word matches only</param>
+        /// <returns>string</returns>
+        public static string HighlightKeyWords(this string text, string[] keywords,  bool fullMatch)
+        {
+
+            if (text?.Length == 0 /*|| keywords == String.Empty*/)
+                return text;
+            if (keywords?.Length == 0)
+            {
+                return text;
+            }
+            if (!fullMatch)
+            {
+                return keywords.Select(word => word.Trim()).Aggregate(text,
+                   (current, pattern) =>
+                       Regex.Replace(current,
+                           pattern,
+$"<b>{"$0"}</b>",
+                           RegexOptions.IgnoreCase));
+            }
+
+            return keywords.Select(word => "\\b" + word.Trim() + "\\b")
+                .Aggregate(text, (current, pattern) =>
+                    Regex.Replace(current,
+                        pattern,
+$"<b>{"$0"}</b>",
+                        RegexOptions.IgnoreCase));
+
         }
     }
 }

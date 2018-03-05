@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure
             {
                 new KeyValuePair<string,string>("Ocp-Apim-Subscription-Key", "1ac3126fa3714e0089dc9132c0d1c14d")
             }, token).ConfigureAwait(false);
-            return _mapper.Map<IEnumerable<string>>(result).Take(3);
+            return _mapper.Map<IEnumerable<string>>(result).Take(3).ToArray();
         }
 
 

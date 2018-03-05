@@ -24,7 +24,7 @@ namespace ConsoleApp
         {
             var builder = new ContainerBuilder();
 
-            
+
             //var infrastructureModule = new InfrastructureModule(
             //    ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
             //    ConfigurationManager.AppSettings["AzureSearchServiceName"],
@@ -55,8 +55,8 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             var container = builder.Build();
 
-            var resolve1 = container.Resolve<ISearch>();
-            var t1 = await resolve1.DoSearchAsync(new SearchModel(null,null,SearchRequestSort.None,CustomApiKey.Documents, null,null,"war",null),0,BingTextFormat.None,default );
+            var resolve1 = container.Resolve<IFlashcardSearch>();
+            var t1 = await resolve1.SearchAsync(SearchQuery.Flashcard(new[] { "financial accounting" }, 171885, null, null, 0, SearchRequestSort.None),BingTextFormat.Html, default);
 
             var resolve2 = container
                 .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,11 +49,11 @@ namespace Cloudents.Infrastructure.Search
                 ["offset"] = (page * PageSize).ToString(),
                 ["q"] = $"{query} {sourceQuery}"
             };
-            if (format != BingTextFormat.None)
-            {
-                nvc.Add("textFormat", format.GetDescription());
-                nvc.Add("textDecorations", bool.TrueString);
-            }
+            //if (format != BingTextFormat.None)
+            //{
+            //    nvc.Add("textFormat", format.GetDescription());
+            //    nvc.Add("textDecorations", bool.TrueString);
+            //}
             var uri = new Uri("https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search");
 
             var response = await _restClient.GetAsync<BingCustomSearchResponse>(uri, nvc, new[]
@@ -63,7 +64,15 @@ namespace Cloudents.Infrastructure.Search
             {
                 return null;
             }
-            return _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(response.WebPages?.Value);
+
+            return _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(
+                response.WebPages?.Value, a =>
+                {
+                    if (format == BingTextFormat.Html)
+                    {
+                        a.Items["query"] = model.Query;
+                    }
+                });
         }
 
         private static string BuildSources(IEnumerable<string> sources)
@@ -130,11 +139,22 @@ namespace Cloudents.Infrastructure.Search
 
         public class WebPage
         {
+            //public string id { get; set; }
+            //public string urlPingSuffix { get; set; }
+            //public bool isFamilyFriendly { get; set; }
+            //public string displayUrl { get; set; }
+            //public DateTime dateLastCrawled { get; set; }
+            //public bool fixedPosition { get; set; }
+
             public string Name { get; set; }
             public string Url { get; set; }
             public string Snippet { get; set; }
             public OpenGraphImage OpenGraphImage { get; set; }
         }
+
+
+
+
 
         public class OpenGraphImage
         {

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
@@ -21,6 +23,11 @@ namespace Cloudents.Infrastructure.Converters
         public SearchResult Convert(BingSearch.WebPage source, SearchResult destination, ResolutionContext context)
         {
             var url = new Uri(source.Url);
+            var highlight = Enumerable.Empty<string>();
+            if (context.Items.TryGetValue("query", out var p) && p is IEnumerable<string> z)
+            {
+                highlight = z;
+            }
 
             if (Uri.TryCreate(source.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image))
             {
@@ -32,7 +39,7 @@ namespace Cloudents.Infrastructure.Converters
                 Url = source.Url,
                 Id = _keyGenerator.GenerateKey(source.Url),
                 Image = image,
-                Snippet = source.Snippet,
+                Snippet = source.Snippet.HighlightKeyWords(highlight.ToArray(), false),
                 Source = url.Host,
                 Title = source.Name,
             };

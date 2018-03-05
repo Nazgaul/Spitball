@@ -4,9 +4,11 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search
 {
+    [UsedImplicitly]
     public class FlashcardSearch : IFlashcardSearch
     {
         private readonly ISearch _search;
