@@ -21,22 +21,14 @@
   bottom: 0;
 }
 
-#toggler {
-  display: none;
-  + .menu-toggler {
-    display: none;
-    z-index: 1;
-    cursor: auto;
-  }
-  &:checked {
-    ~ .search-menu, ~ .menu-toggler {
-      display: block;
-    }
-  }
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: all .4s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to {
+  opacity: 0;
 }
 
 .search-menu {
-  display: none;
   position: absolute;
   left: 0;
   right: 0;

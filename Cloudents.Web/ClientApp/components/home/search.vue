@@ -1,10 +1,10 @@
 ﻿﻿<template>
     <div class="box-search" ref="search">
-        <form action="." method="get" @submit.prevent="search" v-scroll="onScroll">
+        <form action="." method="get" @submit.prevent="search">
             <v-container>
                 <v-layout row>
                     <v-flex class="tx-input">
-                        <search-input :placeholder="placeholder" :menu-open="menuOpen"></search-input>
+                        <search-input :placeholder="placeholder" :hide-on-scroll="$vuetify.breakpoint.smAndDown"></search-input>
                     </v-flex>
                     <v-flex class="f-submit">
                         <button type="submit">
@@ -31,11 +31,6 @@
                 return "Study documents, textbooks, tutors …";
             }
         },
-        data() {
-            return {
-                menuOpen:false
-            }
-        },
         methods: {
             search() {
                 if (this.msg) {
@@ -46,10 +41,6 @@
                 this.msg = item;
                 this.$ga.event('Search','Suggest', `#${index+1}_${item}`);
                 this.search();
-            },
-            onScroll(e) {
-                this.menuOpen = false;
-
             },
             //callback for mobile submit mic
             submitMic(val){
