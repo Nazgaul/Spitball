@@ -35,7 +35,7 @@ namespace Cloudents.MobileApi.Controllers
         /// <returns>flashcard data</returns>
         /// <exception cref="ArgumentException">the flashcard is deleted or not publish</exception>
         [HttpGet]
-        public async Task<IActionResult> Get(long id, CancellationToken token)
+        public async Task<IActionResult> GetAsync(long id, CancellationToken token)
         {
             var result = await _repository.GetAsync(id, token).ConfigureAwait(false);
             if (!result.Publish)

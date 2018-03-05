@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Autofac;
-using Autofac.Core.Registration;
+﻿using Autofac;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;

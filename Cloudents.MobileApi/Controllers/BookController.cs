@@ -37,7 +37,7 @@ namespace Cloudents.MobileApi.Controllers
         /// <returns>List of book</returns>
         [Route("search", Name = "BookSearch"), HttpGet]
 
-        public async Task<IActionResult> Get([FromQuery]BookRequest bookRequest, CancellationToken token)
+        public async Task<IActionResult> GetAsync([FromQuery]BookRequest bookRequest, CancellationToken token)
         {
             bookRequest = bookRequest ?? new BookRequest();
             var result = (await _booksSearch.SearchAsync(bookRequest.Term,  bookRequest.Page.GetValueOrDefault(), token).ConfigureAwait(false)).ToListIgnoreNull();

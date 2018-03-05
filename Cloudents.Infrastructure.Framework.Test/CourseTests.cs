@@ -1,6 +1,4 @@
-﻿using Cloudents.Core.Entities.Db;
-using FluentNHibernate.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Infrastructure.Framework.Test
 {

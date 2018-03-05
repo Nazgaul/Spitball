@@ -6,8 +6,6 @@ using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Framework;
-using Cloudents.Infrastructure.Storage;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;

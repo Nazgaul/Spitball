@@ -5,7 +5,6 @@ using AzureFunctions.Autofac.Configuration;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Framework;
 
 namespace Cloudents.Functions
 {

@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
-using Cloudents.MobileApi.Extensions;
 using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Infrastructure.Data
 {

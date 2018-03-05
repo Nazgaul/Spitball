@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace Cloudents.Core.DTOs
 {
     public class UniversityDto

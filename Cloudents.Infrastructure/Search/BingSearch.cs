@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;

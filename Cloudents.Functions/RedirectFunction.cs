@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -32,6 +33,10 @@ namespace Cloudents.Functions
             var location = int.Parse(queryString.Find(f => f.Key == "location").Value);
             var url = queryString.Find(f => f.Key == "url").Value;
 
+            if (HostFuncs.TryGetValue("studyblue", out var func))
+            {
+                url = func(url);
+            }
             if (host.Contains("studyblue", StringComparison.OrdinalIgnoreCase))
             {
                 var uri = new Uri(url);
@@ -52,16 +57,33 @@ namespace Cloudents.Functions
             return res;
         }
 
+        private static Dictionary<string, Func<string, string>> HostFuncs = new Dictionary<string, Func<string, string>>(StringComparer.OrdinalIgnoreCase)
+        {
+            {
+                "studyblue" , (url) =>
+                {
+                    var uri = new Uri(url);
+
+                    var uriBuilder = new UriBuilder(uri)
+                    {
+                        Query = "?utm_source=spitball&utm_medium=referral"
+                    };
+                    return uriBuilder.ToString();
+                }
+            }
+        };
+
+
         [FunctionName("UrlProcess")]
         [UsedImplicitly]
         public static async Task ProcessQueueMessage([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,
-            TraceWriter log, CancellationToken token,[Inject] ICommandBus commandBus)
+            TraceWriter log, CancellationToken token, [Inject] ICommandBus commandBus)
         {
             var command = new CreateUrlStatsCommand(content.Host, content.DateTime, content.Url, content.UrlReferrer,
                 content.Location, content.Ip);
 
             await commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-             log.Info("Finish Process");
+            log.Info("Finish Process");
         }
     }
 }
