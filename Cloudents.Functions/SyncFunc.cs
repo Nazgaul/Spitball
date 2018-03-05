@@ -38,15 +38,22 @@ namespace Cloudents.Functions
             var currentVersion = query.Version;
             while (!token.IsCancellationRequested)
             {
-                var (update, delete, version) = await repository.GetAsync(query, token).ConfigureAwait(false);
+                try
+                {
+                    var (update, delete, version) = await repository.GetAsync(query, token).ConfigureAwait(false);
 
-                var updateList = update.Select(createObj).ToList();
-                var deleteCourses = delete.Select(s => s.Id.ToString()).ToList();
-                await searchServiceWrite.UpdateDataAsync(updateList, deleteCourses, token).ConfigureAwait(false);
-                query.Page++;
-                currentVersion = Math.Max(currentVersion, version);
-                await blob.UploadTextAsync(query.ToString(), token).ConfigureAwait(false);
-                if (updateList.Count == 0 && deleteCourses.Count == 0)
+                    var updateList = update.Select(createObj).ToList();
+                    var deleteCourses = delete.Select(s => s.Id.ToString()).ToList();
+                    await searchServiceWrite.UpdateDataAsync(updateList, deleteCourses, token).ConfigureAwait(false);
+                    query.Page++;
+                    currentVersion = Math.Max(currentVersion, version);
+                    await blob.UploadTextAsync(query.ToString(), token).ConfigureAwait(false);
+                    if (updateList.Count == 0 && deleteCourses.Count == 0)
+                    {
+                        break;
+                    }
+                }
+                catch (OperationCanceledException)
                 {
                     break;
                 }

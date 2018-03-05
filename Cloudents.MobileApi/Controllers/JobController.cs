@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.MobileApi.Extensions;
-using Cloudents.Web.Extensions.Models;
+using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.MobileApi.Controllers

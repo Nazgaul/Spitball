@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Mobile.Test.IntegrationTests
 {
     [TestClass]
     public class PlacesApiTests : ServerInit

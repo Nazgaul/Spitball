@@ -33,7 +33,8 @@ namespace Cloudents.MobileApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(VerticalEngineDto), 200)]
-        public async Task<IActionResult> GetAsync(string sentence, CancellationToken token)
+        public async Task<IActionResult> GetAsync(
+            string sentence, CancellationToken token)
         {
             if (string.IsNullOrWhiteSpace(sentence))
             {

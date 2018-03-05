@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using Cloudents.Core.Enum;
-using Cloudents.Web.Extensions.Models;
 
 namespace Cloudents.MobileApi.Models
 {
