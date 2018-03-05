@@ -1,5 +1,5 @@
 ﻿<template v-once>
-    <router-link class="pa-2 d-block" :to="{name:'bookDetails',params:{id:item.isbn13}}">
+    <router-link class="d-block" :to="{name:'bookDetails',params:{id:item.isbn13}}">
         <span @click="$ga.event('Search_Results', 'book',`#${index+1}_click`)">
             <book-cell :item="item"></book-cell>
         </span>

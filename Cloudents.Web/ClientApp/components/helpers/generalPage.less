@@ -31,10 +31,34 @@
     .result-cell {
         border-radius: 4px;
         overflow: hidden;
+        position: relative;
         /*@media(max-width: 599px) {
             margin-left: 8px;
             margin-right: 8px;
         }*/
+
+        .show-btn{
+            display: none;
+        }
+
+        &:hover .show-btn{
+            display: block;
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            padding: 4px 16px;
+            color: white;
+            border-radius: 4px;
+        }
+
+        &:not(:hover){
+            .cell {
+                border-color: #fff !important;
+                .show-btn {
+                    display: none;
+                }
+            }
+        }
     }
 
     .personalize-wrapper .sbf-search {
@@ -45,6 +69,10 @@
         background: #fff;
         border-radius: 4px;
         width: 100%;
+        padding: 6px;
+        &:not(.studyblue) {
+            border: 2px solid;
+        }
     }
 
     .mobile-filter {

@@ -15,7 +15,7 @@
                     </v-chip>
                 </template>
             </div>
-            <div :class="{'loading-skeleton': showSkelaton}">
+            <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
                 <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
                     <v-container class="pa-0">
                         <v-layout column>
@@ -24,8 +24,9 @@
                                     <v-icon right>sbf-close</v-icon>
                                 </button>
                                 <div>
-                                    <div class="promo-title" :class="`color-${name}--text`">{{currentPromotion.title}}</div>
-                                    <p class="mt-1">{{currentPromotion.content}}</p>
+                                    <div class="promo-title">Simplify School with Spitball</div>
+                                    <p class="mt-1">The one-stop-shop for all your school needs.
+                                        From class notes to tutors, textbooks and more, we bring the best that the internet has to offer students, all together in one place.</p>
                                 </div>
                             </v-flex>
                             <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
@@ -40,7 +41,8 @@
                                     <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                                 </v-flex>
                                 <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                    <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell"></component>
+                                    <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" :class="'border-color-'+$route.path.slice(1)"></component>
+                                    <button class="show-btn"  :class="'color-'+$route.path.slice(1)">Show Me</button>
                                 </v-flex>
                                 <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                     <suggest-card :name="currentSuggest"></suggest-card>
