@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Mobile.Test.IntegrationTests
@@ -13,6 +15,14 @@ namespace Cloudents.Mobile.Test.IntegrationTests
             response.EnsureSuccessStatusCode();
         }
 
-       
+
+        [TestMethod]
+        public async Task Search_Null_BadRequest()
+        {
+            var response = await Client.GetAsync("/api/Job").ConfigureAwait(false);
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
+
+
     }
 }

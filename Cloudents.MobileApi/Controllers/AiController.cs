@@ -1,7 +1,10 @@
-﻿using System.Threading;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
+using Cloudents.MobileApi.Filters;
+using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.MobileApi.Controllers
@@ -28,19 +31,17 @@ namespace Cloudents.MobileApi.Controllers
         /// <summary>
         /// interpret user sentence
         /// </summary>
-        /// <param name="sentence">The sentence</param>
+        /// <param name="model">model</param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
+        [ValidateModel]
         [ProducesResponseType(typeof(VerticalEngineDto), 200)]
         public async Task<IActionResult> GetAsync(
-            string sentence, CancellationToken token)
+            AiRequest model,
+           CancellationToken token)
         {
-            if (string.IsNullOrWhiteSpace(sentence))
-            {
-                return BadRequest();
-            }
-            var result = await _engineProcess.ProcessRequestAsync(sentence, token).ConfigureAwait(false);
+            var result = await _engineProcess.ProcessRequestAsync(model.Sentence, token).ConfigureAwait(false);
             return Ok(result);
         }
     }

@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudents.MobileApi.Filters
 {
-    public class ValidateModelAttribute : ActionFilterAttribute
+    [System.AttributeUsageAttribute(System.AttributeTargets.All, AllowMultiple = false)]
+    public sealed class ValidateModelAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
