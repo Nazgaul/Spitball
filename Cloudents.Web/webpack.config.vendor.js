@@ -44,7 +44,7 @@ const allModules = [
     "vuetify/es5/directives/scroll",
     "vuetify/es5/components/VIcon",
     "vuetify/es5/components/VSnackbar",
-    "webfontloader"
+    "webfontloader",
 ];
 
 module.exports = (env) => {
@@ -67,6 +67,11 @@ module.exports = (env) => {
                     use: ExtractTextPlugin.extract({ use: isDevBuild ? "css-loader!less-loader" : "css-loader?minimize!less-loader" })
                 },
                 {
+                    test: /\.scss$/,
+                    exclude: /ClientApp/,
+                    use: ExtractTextPlugin.extract({ use: isDevBuild ? "css-loader!sass-loader" : "css-loader?minimize!sass-loader" })
+                },
+                {
                     test: /\.font\.js/,
                     loader: ExtractTextPlugin.extract({
                         use: [
@@ -74,7 +79,7 @@ module.exports = (env) => {
                             "webfonts-loader"
                         ]
                     })
-                }
+                },
             ]
         },
         plugins: [

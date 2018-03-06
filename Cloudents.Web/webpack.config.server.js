@@ -124,6 +124,14 @@ module.exports = (env) => {
                     //})
                 },
                 {
+                    test: /\.scss$/,
+                    exclude: /ClientApp/,
+                    use: "css-loader?minimize!sass-loader"
+                    //ExtractTextPlugin.extract({
+                    //use: isDevBuild ? "css-loader!less-loader" : "css-loader?minimize!less-loader"
+                    //})
+                },
+                {
                     test: /\.font\.js/,
                     use: "css-loader?minimize!webfonts-loader"
                     // loader: ExtractTextPlugin.extract({
