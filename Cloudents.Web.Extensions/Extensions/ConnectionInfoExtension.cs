@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Http;
 
-namespace Cloudents.Web.Extensions
+namespace Cloudents.Web.Extensions.Extensions
 {
     public static class ConnectionInfoExtension
     {

@@ -8,7 +8,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Filters;
+using Cloudents.Web.Extensions.Filters;
 using Cloudents.Web.Middleware;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
@@ -52,8 +52,8 @@ namespace Cloudents.Web
             }).AddMvcOptions(o =>
                 {
                     o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));
-                    o.ModelBinderProviders.Insert(0, new LocationModelBinder());
-                    o.ModelBinderProviders.Insert(0, new GeoPointModelBinder());
+                    o.ModelBinderProviders.Insert(0, new LocationModelBinder()); //needed at home
+                    //o.ModelBinderProviders.Insert(0, new GeoPointModelBinder());
                 });
             //if (!HostingEnvironment.IsEnvironment(IntegrationTestEnvironmentName))
             //{

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Cloudents.MobileApi.Filters
+namespace Cloudents.Web.Extensions.Filters
 {
     public class GlobalExceptionFilter : IExceptionFilter
     {

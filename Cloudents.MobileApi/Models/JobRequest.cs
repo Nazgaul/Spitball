@@ -3,7 +3,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using JetBrains.Annotations;
 
-namespace Cloudents.Web.Extensions.Models
+namespace Cloudents.MobileApi.Models
 {
     /// <inheritdoc />
     /// <summary>

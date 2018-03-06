@@ -1,8 +1,10 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.MobileApi.Filters;
 using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,6 +59,16 @@ namespace Cloudents.MobileApi.Controllers
                 nextPageLink,
                 retVal?.Data
             });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetByIdAsync([RequiredFromQuery]string id,
+            CancellationToken token, [FromServices] IGooglePlacesSearch places)
+        {
+            if (id == null) throw new ArgumentNullException(nameof(id));
+            var result = await places.ByIdAsync(id, token).ConfigureAwait(false);
+
+            return Json(result);
         }
     }
 }
