@@ -1,6 +1,7 @@
 ﻿<template v-once>
-    <button type="button" class="d-block" @click="$_clickItem">
+    <button type="button" class="d-block border-color-food" @click="$_clickItem">
         <food-cell :item="item"></food-cell>
+        <div class="show-btn"  :class="'color-'+$route.path.slice(1)">Show Me</div>
     </button>
 </template>
 <script>

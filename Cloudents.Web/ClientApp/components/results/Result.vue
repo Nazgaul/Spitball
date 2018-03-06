@@ -41,8 +41,8 @@
                                     <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                                 </v-flex>
                                 <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                    <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" :class="'border-color-'+$route.path.slice(1)"></component>
-                                    <button class="show-btn"  :class="'color-'+$route.path.slice(1)">Show Me</button>
+                                    <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" :class="item.template!='video' ? 'border-color-'+$route.path.slice(1):''"></component>
+                                    <div class="show-btn" v-if="item.template!='video'" :class="'color-'+$route.path.slice(1)">Show Me</div>
                                 </v-flex>
                                 <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                     <suggest-card :name="currentSuggest"></suggest-card>

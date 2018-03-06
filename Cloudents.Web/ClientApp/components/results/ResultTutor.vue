@@ -20,9 +20,9 @@
 
                                 </v-container>
                             </v-flex>
-                            <v-layout class="bottom-wrap" row>
+                            <v-layout class="bottom-wrap" column>
                                 <v-flex class="location text-xs-left" v-if="item.city"><span class="bottom">{{item.city}}, {{item.state}}</span></v-flex>
-                                <v-flex class="pa-0 location text-xs-right" v-if="item.online">
+                                <v-flex class="pa-0 location" v-if="item.online">
                                     <span class="bottom">Offers online lessons</span>
                                 </v-flex>
                             </v-layout>
