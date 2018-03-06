@@ -5,7 +5,7 @@
                 <div class="box-inner-header text-xs-center">
                     <h1 class="box-title">Simplify School</h1>
                     <h4 class="px-5">Curating all of the resources you need. For <b>Free.</b></h4>
-                    <div class="hidden-sm-and-down">
+                    <div  class="hidden-sm-and-down">
                         <slot name="search"></slot>
                     </div>
                 </div>
