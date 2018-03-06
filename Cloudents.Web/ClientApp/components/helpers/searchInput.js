@@ -12,7 +12,7 @@ export default {
         placeholder:{type:String},
         userText:{String},
         submitRoute:{String}},
-    data:()=>({autoSuggestList:[]}),
+    data:()=>({autoSuggestList:[],isFirst:true}),
     computed:{
         ...mapGetters({'globalTerm':'currentText'}),
         ...mapGetters(['allHistorySet','getCurrentVertical','getVerticalHistory']),
@@ -31,9 +31,12 @@ export default {
     watch: {
         userText(val) {
             this.msg = val;
+            this.isFirst=true;
         },
-        msg:debounce(function () {
-            this.getAutocmplete(this.msg).then(({data})=>{this.autoSuggestList=this.msg?data:[]})
+        msg:debounce(function (val) {
+            if(this.msg&&!this.isFirst){
+                this.getAutocmplete(val).then(({data})=>{this.autoSuggestList=val?data:[]})}else{this.autoSuggestList=[];}
+            this.isFirst=false;
         }, 250)
     },
     methods:{
