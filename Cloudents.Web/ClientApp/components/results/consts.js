@@ -53,7 +53,7 @@ const dummyFoodObj = {
 };
 let multipleItemSkeletons = [dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj]
 export const skeletonData = {
-    result:[],
+    result:multipleItemSkeletons,
     note: multipleItemSkeletons,
     flashcard: multipleItemSkeletons,
     tutor: [dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj],

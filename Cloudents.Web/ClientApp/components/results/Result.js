@@ -29,7 +29,6 @@ let updateData = function (data, isFilterUpdate = false) {
         this.showPersonalizeField = true
     }
 
-
     //if the vertical or search term has been changed update the optional filters according
     if (!isFilterUpdate) {
         this.$_updateFilterObject();
@@ -198,8 +197,10 @@ export const pageMixin =
                             .then(({data}) => {
                                 //update data for this page
                                 this.showFilterNotApplied = false;
-                                updateData.call(this, data, updateFilter);
                                 next();
+                                this.$nextTick(()=>{
+                                    updateData.call(this, data, updateFilter);
+                                })
                             }).catch(reason => {
                             //when error from fetching data remove the loader
                             if (to.path === from.path && to.query.q === from.query.q) {
@@ -224,8 +225,7 @@ export const pageMixin =
             }
             ,
 //Get functions from vuex actions
-            ...
-                mapActions(['updateSearchText', 'fetchingData', 'getAIDataForVertical', 'setFilteredCourses', 'cleanData', 'updateFacet']),
+            ...mapActions(['updateSearchText', 'fetchingData', 'getAIDataForVertical', 'setFilteredCourses', 'cleanData', 'updateFacet']),
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject() {
                 //validate current page have filters
