@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cloudents.MobileApi.Controllers
+namespace Cloudents.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]

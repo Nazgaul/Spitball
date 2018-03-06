@@ -2,7 +2,7 @@
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 
-namespace Cloudents.MobileApi.Models
+namespace Cloudents.Api.Models
 {
     /// <summary>
     /// Purchase request model

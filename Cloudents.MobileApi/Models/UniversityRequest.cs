@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Cloudents.Core.Models;
 
-namespace Cloudents.MobileApi.Models
+namespace Cloudents.Api.Models
 {
     /// <summary>
     /// University request object

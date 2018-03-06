@@ -4,14 +4,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Cloudents.Api.Test.IntegrationTests
 {
     [TestClass]
-    public class PlacesApiTests : ServerInit
+    public class UniversityTests : ServerInit
     {
         [TestMethod]
-        public async Task ReturnResult()
+        public async Task GetAsync_Empty_OK()
         {
             var response =
                 await Client.GetAsync(
-                    "/api/places?location.latitude=31.915606900000004&location.longitude=34.80483160000001&term=burger");
+                    "/api/university");
             response.EnsureSuccessStatusCode();
         }
     }

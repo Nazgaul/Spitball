@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Cloudents.Core.Enum;
 
-namespace Cloudents.MobileApi.Models
+namespace Cloudents.Api.Models
 {
     /// <inheritdoc />
     /// <summary>

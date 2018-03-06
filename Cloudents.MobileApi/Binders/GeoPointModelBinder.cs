@@ -3,7 +3,7 @@ using Cloudents.Core.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
-namespace Cloudents.MobileApi.Binders
+namespace Cloudents.Api.Binders
 {
     public class GeoPointModelBinder : IModelBinderProvider
     {

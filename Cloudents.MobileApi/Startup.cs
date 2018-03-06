@@ -5,12 +5,12 @@ using System.IO;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Cloudents.Api.Binders;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
-using Cloudents.MobileApi.Binders;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions.Filters;
 using JetBrains.Annotations;
@@ -22,7 +22,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace Cloudents.MobileApi
+namespace Cloudents.Api
 {
     public class Startup
     {

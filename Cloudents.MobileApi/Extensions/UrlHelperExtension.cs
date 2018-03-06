@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Specialized;
 using Cloudents.Core.Extension;
 using Microsoft.AspNetCore.Mvc;
-using IPaging = Cloudents.MobileApi.Models.IPaging;
+using IPaging = Cloudents.Api.Models.IPaging;
 
-namespace Cloudents.MobileApi.Extensions
+namespace Cloudents.Api.Extensions
 {
     /// <summary>
     /// Extension class for urlHelper

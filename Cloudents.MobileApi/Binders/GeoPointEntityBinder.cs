@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Extensions.Extensions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Cloudents.MobileApi.Binders
+namespace Cloudents.Api.Binders
 {
     internal class GeoPointEntityBinder : IModelBinder
     {

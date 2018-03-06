@@ -1,12 +1,12 @@
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
+using Cloudents.Api.Extensions;
+using Cloudents.Api.Models;
 using Cloudents.Core.Models;
-using Cloudents.MobileApi.Extensions;
-using Cloudents.MobileApi.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Cloudents.Mobile.Test
+namespace Cloudents.Api.Test
 {
     [TestClass]
     public class UrlHelperExtensionTests

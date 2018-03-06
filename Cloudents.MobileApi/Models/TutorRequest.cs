@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 
-namespace Cloudents.MobileApi.Models
+namespace Cloudents.Api.Models
 {
     /// <inheritdoc />
     /// <summary>

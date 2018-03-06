@@ -18,6 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
-    <ProjectReference Include="..\Cloudents.MobileApi\Cloudents.MobileApi.csproj" />
+    <ProjectReference Include="..\Cloudents.MobileApi\Cloudents.Api.csproj" />
   </ItemGroup>
 </Project>

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Api.Extensions;
+using Cloudents.Api.Models;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.MobileApi.Extensions;
-using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cloudents.MobileApi.Controllers
+namespace Cloudents.Api.Controllers
 {
     /// <inheritdoc />
     /// <summary>

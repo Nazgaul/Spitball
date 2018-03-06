@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Api.Filters;
+using Cloudents.Api.Models;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.MobileApi.Filters;
-using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cloudents.MobileApi.Controllers
+namespace Cloudents.Api.Controllers
 {
     /// <inheritdoc />
     /// <summary>
