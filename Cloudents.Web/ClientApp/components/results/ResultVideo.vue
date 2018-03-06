@@ -1,5 +1,5 @@
 ﻿<template>
-    <iframe height="283" :src="item.url" frameborder="0" allowfullscreen></iframe>
+    <iframe class="cell-video" height="283" :src="item.url" frameborder="0" allowfullscreen></iframe>
 </template>
 
 

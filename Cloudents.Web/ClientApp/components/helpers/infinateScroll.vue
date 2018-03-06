@@ -33,7 +33,7 @@
             },
             scrollList() {
                 if (this.keepLoad()) {
-                    debugger;
+                    //debugger;
                     let page = this.token ? (this.currentToken || this.token) : this.page;
                     this.isLoading = true;
                     this.$store.dispatch('fetchingData', { name: this.$route.path.slice(1), params: this.$route.query, page })

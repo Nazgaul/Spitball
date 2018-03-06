@@ -31,10 +31,47 @@
     .result-cell {
         border-radius: 4px;
         overflow: hidden;
+        position: relative;
         /*@media(max-width: 599px) {
             margin-left: 8px;
             margin-right: 8px;
         }*/
+
+        .show-btn {
+
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            padding: 4px 16px;
+            color: white;
+            border-radius: 4px;
+            .responsive-property(font-size, 14px, null, 10px);
+            @media(max-width: @screen-sm){
+                padding: 1px 11px;
+            }
+        }
+
+        .cell-video,
+        &:not(:hover) .cell{
+            border-color: #fff !important;
+        }
+
+        &:not(:hover){
+            .show-btn {
+                display: none;
+            }
+            @media(min-width: @screen-sm) {
+                .cell .show-btn, .show-btn {
+                    display: none;
+                }
+            }
+
+            @media(max-width: @screen-sm) {
+                .cell .show-btn, .show-btn {
+                    display: block;
+                }
+            }
+        }
     }
 
     .personalize-wrapper .sbf-search {
@@ -45,6 +82,14 @@
         background: #fff;
         border-radius: 4px;
         width: 100%;
+        padding: 6px;
+        &:not(.studyblue) {
+            border: 2px solid
+        }
+
+        @media(max-width: @screen-sm){
+            border-color: #fff !important;
+        }
     }
 
     .mobile-filter {
@@ -113,3 +158,8 @@
         color: #bbb;
     }
 }
+
+
+.loading-skeleton .show-btn {
+        display: none !important;
+    }

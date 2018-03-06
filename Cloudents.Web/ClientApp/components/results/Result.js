@@ -13,7 +13,7 @@ import {mapActions, mapGetters} from 'vuex'
 const ACADEMIC_VERTICALS = ['note', 'ask', 'flashcard', 'book', 'tutor'];
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 
-import {skeletonData, promotions} from './consts'
+import {skeletonData} from './consts'
 //update data function update the page content and selected filters
 let updateData = function (data, isFilterUpdate = false) {
     const {facet} = data;

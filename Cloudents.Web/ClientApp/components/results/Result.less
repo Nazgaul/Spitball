@@ -47,22 +47,37 @@
     border-radius: 4px;
     position: relative;
     padding: 20px 60px 10px 12px;
+    padding: 0;
+    border-radius: 4px;
+    overflow: hidden;
 
-    @media(max-width: @screen-xs) {
-        padding: 20px 12px 10px 12px;
-    }
 
     .promo-title {
-        font-size: 34px;
+        .responsive-property(font-size, 34px, null, 24px);
+        line-height: 1.18;
         letter-spacing: -0.5px;
         text-align: left;
+        color: rgba(255, 255, 255, 0.47);
+        background: #3532d5;
+        padding: 20px 14px;
+
+        @media(max-width: @screen-xs){
+            padding: 10px 8px;
+        }
     }
 
     p {
-        font-size: 14px;
-        line-height: 1.43;
+        padding: 8px 14px 12px 14px;
+        .responsive-property(font-size, 18px, null, 14px);
+        line-height: 1.5;
         letter-spacing: -0.3px;
-        color: black;
+        color: #4a4a4a;
+        margin-bottom: 0;
+        max-width: 430px;
+
+        @media(max-width: @screen-xs){
+            padding: 8px 8px 16px 8px;
+        }
     }
 
     .close-btn {
@@ -74,6 +89,7 @@
 
         i {
             font-size: 10px;
+            color: #bbbbbb;
         }
     }
 }

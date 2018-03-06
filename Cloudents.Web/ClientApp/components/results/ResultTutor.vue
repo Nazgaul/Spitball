@@ -1,5 +1,5 @@
 ﻿<template v-once>
-    <a class="d-block pa-2 tutor-cell" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" :href="item.url">
+    <a class="d-block tutor-cell" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" :href="item.url">
         <v-container class="pa-0" @click="$ga.event('Search_Results', 'Tutors',`#${index+1}_${item.source}`)">
             <v-layout row class="result-cell-content">
                 <avatar class="mr-2" :fullname="item.name" :image="item.image" :radius="0" :size="88"></avatar>
@@ -20,9 +20,9 @@
 
                                 </v-container>
                             </v-flex>
-                            <v-layout class="bottom-wrap" row>
+                            <v-layout class="bottom-wrap" column>
                                 <v-flex class="location text-xs-left" v-if="item.city"><span class="bottom">{{item.city}}, {{item.state}}</span></v-flex>
-                                <v-flex class="pa-0 location text-xs-right" v-if="item.online">
+                                <v-flex class="pa-0 location" v-if="item.online">
                                     <span class="bottom">Offers online lessons</span>
                                 </v-flex>
                             </v-layout>
