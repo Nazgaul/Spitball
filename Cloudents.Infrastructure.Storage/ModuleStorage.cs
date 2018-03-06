@@ -6,7 +6,7 @@ namespace Cloudents.Infrastructure.Storage
 {
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Api)]
-    [ModuleRegistration(Core.Enum.System.Web)]
+    //[ModuleRegistration(Core.Enum.System.Web)]
     public class ModuleStorage : Module
     {
         protected override void Load(ContainerBuilder builder)

@@ -1,7 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Autofac.Extras.Moq;
 using Cloudents.Core.Interfaces;
 using Cloudents.MobileApi.Controllers;
+using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -13,20 +15,30 @@ namespace Cloudents.Mobile.Test
     {
         readonly Mock<IEngineProcess> _mock = new Mock<IEngineProcess>();
 
-        [TestMethod]
-        public async Task GetAsync_NullSentence_BadRequest()
-        {
-            var controller = new AiController(_mock.Object);
-            var result = await controller.GetAsync(null, CancellationToken.None);
-            Assert.IsInstanceOfType(result,typeof(BadRequestResult));
-        }
+        //[TestMethod]
+        //public async Task GetAsync_NullSentence_BadRequest()
+        //{
+        //    var controller = new AiController(_mock.Object);
+        //    var result = await controller.GetAsync(null, CancellationToken.None);
+        //    Assert.IsInstanceOfType(result,typeof(BadRequestResult));
+        //}
 
         [TestMethod]
         public async Task GetAsync_EmptySpaces_BadRequest()
         {
-            var controller = new AiController(_mock.Object);
-            var result = await controller.GetAsync("        ", CancellationToken.None);
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            using (var mock = AutoMock.GetLoose())
+            {
+                var controller = mock.Create<AiController>();
+                var model = new AiRequest()
+                {
+                    Sentence = "      "
+                };
+                var result = await controller.GetAsync(model, CancellationToken.None);
+                Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            }
+
+
+
         }
     }
 }

@@ -31,8 +31,7 @@ namespace Cloudents.Web.Extensions.Extensions
             var bytes = Convert.FromBase64String((string)o);
             using (var ms = new MemoryStream(bytes))
             {
-                var result = ProtoBuf.Serializer.Deserialize<T>(ms);
-                return result;
+                return ProtoBuf.Serializer.Deserialize<T>(ms);
             }
         }
     }

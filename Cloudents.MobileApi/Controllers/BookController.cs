@@ -36,7 +36,6 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="token"></param>
         /// <returns>List of book</returns>
         [Route("search", Name = "BookSearch"), HttpGet]
-
         public async Task<IActionResult> GetAsync([FromQuery]BookRequest bookRequest, CancellationToken token)
         {
             bookRequest = bookRequest ?? new BookRequest();
@@ -51,8 +50,7 @@ namespace Cloudents.MobileApi.Controllers
             {
                 result,
                 nextPageLink
-            }
-            );
+            });
         }
 
         /// <summary>

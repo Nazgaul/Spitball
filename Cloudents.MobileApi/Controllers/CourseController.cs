@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
+using Cloudents.MobileApi.Filters;
 using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,14 +39,9 @@ namespace Cloudents.MobileApi.Controllers
         /// <returns>list of courses filter by input</returns>
         /// <exception cref="ArgumentException">university is empty</exception>
         [Route("search")]
-        [HttpGet]
+        [HttpGet, ValidateModel]
         public async Task<IActionResult> GetAsync([FromQuery]  CourseRequest model, CancellationToken token)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var result = await _courseProvider.SearchAsync(model.Term, model.UniversityId.GetValueOrDefault(), token).ConfigureAwait(false);
             return Ok(new
             {

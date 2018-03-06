@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Specialized;
 using Cloudents.Core.Extension;
-using Cloudents.Web.Extensions.Models;
 using Microsoft.AspNetCore.Mvc;
+using IPaging = Cloudents.MobileApi.Models.IPaging;
 
 namespace Cloudents.MobileApi.Extensions
 {
