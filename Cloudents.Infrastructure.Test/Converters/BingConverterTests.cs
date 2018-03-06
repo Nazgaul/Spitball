@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure.Test.Converters
         private readonly Mock<IMappingOperationOptions> _mockOptions = new Mock<IMappingOperationOptions>();
         private readonly Mock<IRuntimeMapper> _mockMapping = new Mock<IRuntimeMapper>();
 
-        private ResolutionContext context;
+        private ResolutionContext _context;
         //private readonly Mock<ReplaceImageProvider> _replaceImageMock = new Mock<ReplaceImageProvider>(new Mock<IBlobProvider<SpitballContainer>>().Object);
         
         private readonly Mock<ReplaceImageProvider> _replaceImageMock = new Mock<ReplaceImageProvider>(new Mock<IBlobProvider<SpitballContainer>>().Object);
@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Test.Converters
         public void Setup()
         {
             _mockOptions.Setup(s => s.Items).Returns(new Dictionary<string, object>());
-            context = new ResolutionContext(_mockOptions.Object, _mockMapping.Object);
+            _context = new ResolutionContext(_mockOptions.Object, _mockMapping.Object);
         }
 
         [TestMethod]
@@ -39,7 +39,7 @@ namespace Cloudents.Infrastructure.Test.Converters
                 Url = courseHeroLink
 
             };
-            var result = bingConverter.Convert(argument, null, context);
+            var result = bingConverter.Convert(argument, null, _context);
             const string resultLink =
                 "http://shareasale.com/r.cfm?b=661825&u=1469379&m=55976&urllink=www.coursehero.com/file/11150425/Calculus-Basics-you-should-know-class-notes/&afftrack=";
             Assert.AreEqual(result.Url, resultLink);
@@ -55,7 +55,7 @@ namespace Cloudents.Infrastructure.Test.Converters
                 Url = "https://www.spitball.co"
 
             };
-            var result = bingConverter.Convert(argument, null, context);
+            var result = bingConverter.Convert(argument, null, _context);
             Assert.AreEqual(result.Url, "https://www.spitball.co");
             Assert.AreEqual(result.Source, "www.spitball.co");
         }

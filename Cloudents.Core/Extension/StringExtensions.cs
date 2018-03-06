@@ -65,6 +65,7 @@ namespace Cloudents.Core.Extension
         /// <param name="keywords">Comma-separated list of strings to be highlighted</param>
         /// <param name="fullMatch">false for returning all matches, true for whole word matches only</param>
         /// <returns>string</returns>
+        /// <remarks>https://www.mikesdotnetting.com/article/139/highlighting-keywords-found-in-search-results</remarks>
         public static string HighlightKeyWords(this string text, string[] keywords,  bool fullMatch)
         {
 
