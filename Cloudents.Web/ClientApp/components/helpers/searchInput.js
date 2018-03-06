@@ -15,8 +15,8 @@ export default {
         placeholder: {type: String},
         userText: {String},
         submitRoute: {String}
+    },
     data:()=>({autoSuggestList:[],isFirst:true, showSuggestions: false}),
-    data: () => ({autoSuggestList: [], showSuggestions: false}),
     computed: {
         ...mapGetters({'globalTerm': 'currentText'}),
         ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
