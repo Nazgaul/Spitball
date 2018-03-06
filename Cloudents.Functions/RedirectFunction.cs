@@ -33,10 +33,10 @@ namespace Cloudents.Functions
             var location = int.Parse(queryString.Find(f => f.Key == "location").Value);
             var url = queryString.Find(f => f.Key == "url").Value;
 
-            if (HostFuncs.TryGetValue("studyblue", out var func))
-            {
-                url = func(url);
-            }
+            //if (HostFuncs.TryGetValue("studyblue", out var func))
+            //{
+            //    url = func(url);
+            //}
             if (host.Contains("studyblue", StringComparison.OrdinalIgnoreCase))
             {
                 var uri = new Uri(url);
