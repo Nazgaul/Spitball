@@ -13,6 +13,7 @@ const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
+const landingTutor = () => import("./components/landing-pages/landingTutor.vue");
 import { staticRoutes } from "./components/satellite/satellite-routes";
 
 function dynamicPropsFn(route) {
@@ -136,6 +137,11 @@ let routes2 = [
         name: "flashcard",
         components: { default: showFlashcard, header: previewHeader },
         props: {default:(route)=>({id:route.params.id})}
+    },
+    {
+        path: "/landing", components: {
+            default: landingTutor,
+        }, name: "landing Tutor"
     },
 
 ];
