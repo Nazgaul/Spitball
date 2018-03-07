@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Search.Job
 
         public const int PageSize = 30;
         public const double RadiusOfFindingJobKm = RadiusOfFindingJobMiles * 1.6;
-        public const double RadiusOfFindingJobMiles = 50 ;
+        public const double RadiusOfFindingJobMiles = 50;
 
         public JobSearch(IEnumerable<IJobProvider> providers, IShuffle shuffle)
         {
@@ -42,9 +42,9 @@ namespace Cloudents.Infrastructure.Search.Job
                 return JobFilter.None;
             }).Where(w => w != JobFilter.None);
             var tasks = _providers.Select(s => s.SearchAsync(str.Trim(), sort, facetEnum, location, page, highlight, token)).ToList();
-            await Task.WhenAll(tasks).ConfigureAwait(false);
+            var tasksResult = await Task.WhenAll(tasks).ConfigureAwait(false);
 
-            var result = tasks.Select(s => s.Result).Where(w => w != null).ToList();
+            var result = tasksResult.Where(w => w != null).ToList();
             var facets = result.Where(w => w.Facet != null).SelectMany(s => s.Facet).Distinct();
             var jobResults = result.Where(w => w.Result != null).SelectMany(s => s.Result);
 
