@@ -139,9 +139,9 @@ let routes2 = [
         props: {default:(route)=>({id:route.params.id})}
     },
     {
-        path: "/landing", components: {
+        path: "/landing/tutor", components: {
             default: landingTutor,
-        }, name: "landing Tutor"
+        }, name: "landingTutor"
     },
 
 ];
