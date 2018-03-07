@@ -141,7 +141,7 @@ let features =
         },
 
         textbook: {
-            title: "Save up to 50% on Textbooks",
+            title: "Save up to 90% on Textbooks",
             text: "A new course load doesn’t have to break the bank! Find the best prices to rent, buy or sell your textbooks.",
             icon: () => import("./svg/book-stack-icon.svg")
         },
