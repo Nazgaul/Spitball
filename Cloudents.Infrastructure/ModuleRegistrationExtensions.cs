@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure
                 catch (ReflectionTypeLoadException ex)
                 {
                     var loaderExceptions = ex.LoaderExceptions;
-                    throw;
+                    throw loaderExceptions[0];
                 }
 
             }
