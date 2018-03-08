@@ -2,7 +2,7 @@
 {
     public enum JobRequestSort
     {
-        Distance,
+        Relevance,
         Date,
     }
 }

@@ -27,7 +27,7 @@ namespace Cloudents.Web.Api
             if (model == null) throw new ArgumentNullException(nameof(model));
             var result = await _jobSearch.SearchAsync(
                 model.Term,
-                model.Sort.GetValueOrDefault(JobRequestSort.Distance),
+                model.Sort.GetValueOrDefault(JobRequestSort.Relevance),
                 model.Facet, model.Location, model.Page.GetValueOrDefault(), true, token).ConfigureAwait(false);
             return Json(result);
         }
