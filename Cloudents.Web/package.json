@@ -6,7 +6,8 @@
     "node": "8.9.3"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "client": "webpack --config webpack.config.vendor.js"
   },
   "devDependencies": {
     "aspnet-prerendering": "3.0.1",
