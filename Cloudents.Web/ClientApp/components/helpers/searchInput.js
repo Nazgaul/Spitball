@@ -24,7 +24,7 @@ export default {
             let currentHistory = this.getCurrentVertical;
             let buildInSuggestList = currentHistory ? consts.buildInSuggest[currentHistory] : consts.buildInSuggest.home;
             let historyList = [...(this.submitRoute && currentHistory ? this.$store.getters.getVerticalHistory(currentHistory) : this.allHistorySet)];
-            let set = [...new Set([...this.autoSuggestList, ...historyList.reverse(), ...buildInSuggestList])];
+            let set = [...new Set([...this.autoSuggestList, ...historyList, ...buildInSuggestList])];
             return set.slice(0, this.maxResults).map(i => ({
                 text: i, type: (this.autoSuggestList.includes(i) ? consts.SUGGEST_TYPE.autoComplete :
                     historyList.includes(i) ? consts.SUGGEST_TYPE.history :

@@ -67,9 +67,9 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["page"] = page.ToString(),
                 ["sort"] = "date",
                 ["contracttype"] = string.Join(",", contactType),
-                ["contractperiod"] = string.Join(",", contactPeriod)
+                ["contractperiod"] = string.Join(",", contactPeriod),
             };
-            if (sort == JobRequestSort.Distance && location?.Address != null)
+            if (/*sort == JobRequestSort.Distance &&*/ location?.Address != null)
             {
                 nvc.Add("location", $"{location.Address.City}, {location.Address.RegionCode}");
             }

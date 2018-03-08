@@ -48,7 +48,7 @@ namespace Cloudents.Infrastructure.Search.Job
 
             switch (sort)
             {
-                case JobRequestSort.Distance when location?.Point != null:
+                case JobRequestSort.Relevance when location?.Point != null:
                     filterQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
                     break;
                 case JobRequestSort.Date:

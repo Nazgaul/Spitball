@@ -2,8 +2,8 @@
 {
     public enum TutorRequestSort
     {
-        //None,
+        Relevance,
         Price,
-        Distance
+        //Distance
     }
 }

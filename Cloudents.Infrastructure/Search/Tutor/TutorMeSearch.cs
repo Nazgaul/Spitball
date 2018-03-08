@@ -34,7 +34,8 @@ namespace Cloudents.Infrastructure.Search.Tutor
             TutorRequestFilter[] filters,
             TutorRequestSort sort, GeoPoint location, int page, bool isMobile, CancellationToken token)
         {
-            if (filters.Length > 0 && Array.TrueForAll(filters, t => t == TutorRequestFilter.InPerson))
+            if (filters.Length > 0 
+                && Array.TrueForAll(filters, t => t == TutorRequestFilter.InPerson))
             {
                 return Task.FromResult<IEnumerable<TutorDto>>(null);
             }
@@ -61,12 +62,11 @@ namespace Cloudents.Infrastructure.Search.Tutor
 
         private static NameValueCollection BuildQueryString(string term, int page)
         {
-            var nvc = new NameValueCollection
+            return new NameValueCollection
             {
                 ["search"] = term,
                 ["offset"] = (page * 12).ToString()
             };
-            return nvc;
         }
 
         public class TutorMeResult

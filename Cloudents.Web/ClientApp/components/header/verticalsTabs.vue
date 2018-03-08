@@ -23,6 +23,11 @@
         computed:{...mapGetters(['getVerticalData'])},
         props:{currentSelection:{}},
         data(){return {verticals,currentVertical:this.currentSelection}},
+        watch:{
+            currentSelection(val){
+                this.currentVertical=val;
+            }
+        },
         methods: {
             ...mapActions(["setCurrentVertical"]),
             $_updateType(result) {
