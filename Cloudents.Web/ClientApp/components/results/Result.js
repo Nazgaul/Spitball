@@ -234,7 +234,6 @@ export const pageMixin =
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject(vertical) {
                 let currentPage=page[vertical];
-                console.log(vertical);
                 //validate current page have filters
                 if (!currentPage || !currentPage.filter) {
                     this.filterObject = null

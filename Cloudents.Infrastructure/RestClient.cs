@@ -99,8 +99,7 @@ namespace Cloudents.Infrastructure
             uri.AddQuery(queryString);
 
             var response = await _client.GetAsync(uri.Uri, token).ConfigureAwait(false);
-            if (!response.IsSuccessStatusCode)
-                return default;
+            response.EnsureSuccessStatusCode();
             using (var s = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
             using (var sr = new StreamReader(s))
             using (var reader = new JsonTextReader(sr))

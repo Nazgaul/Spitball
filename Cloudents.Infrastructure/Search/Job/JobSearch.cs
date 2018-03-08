@@ -9,15 +9,17 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
+    [UsedImplicitly]
     public class JobSearch : IJobSearch
     {
         private readonly IEnumerable<IJobProvider> _providers;
         private readonly IShuffle _shuffle;
 
-        public const int PageSize = 30;
+        public const int PageSize = 10;
         public const double RadiusOfFindingJobKm = RadiusOfFindingJobMiles * 1.6;
         public const double RadiusOfFindingJobMiles = 50;
 
