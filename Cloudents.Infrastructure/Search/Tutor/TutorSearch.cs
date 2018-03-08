@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search.Tutor
 {
+    [UsedImplicitly]
     public class TutorSearch : ITutorSearch
     {
         private readonly IEnumerable<ITutorProvider> _tutorSearch;
         public const int PageSize = 15;
+        private readonly IShuffle _shuffle;
 
-        public TutorSearch(IEnumerable<ITutorProvider> tutorSearch)
+        public TutorSearch(IEnumerable<ITutorProvider> tutorSearch, IShuffle shuffle)
         {
             _tutorSearch = tutorSearch;
+            _shuffle = shuffle;
         }
 
         [BuildLocalUrl("", PageSize, "page")]
@@ -33,10 +37,10 @@ namespace Cloudents.Infrastructure.Search.Tutor
             }
 
             //TODO: need to check if its relevant in here
-            if (sort == TutorRequestSort.Distance && location == null)
-            {
-                throw new ArgumentException("Need to location");
-            }
+            //if (sort == TutorRequestSort.Distance && location == null)
+            //{
+            //    throw new ArgumentException("Need to location");
+            //}
             if (filters?.Contains(TutorRequestFilter.InPerson) == true && location == null)
                 throw new ArgumentException("Need to location");
 
@@ -56,8 +60,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             {
                 return result.OrderBy(o => o.Fee);
             }
-
-            return result;
+            return _shuffle.DoShuffle(result);
         }
     }
 }
