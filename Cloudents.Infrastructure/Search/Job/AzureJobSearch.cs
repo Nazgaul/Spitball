@@ -12,11 +12,13 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write.Job;
+using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
+    [UsedImplicitly]
     public class AzureJobSearch : IJobProvider
     {
         private readonly ISearchIndexClient _client;
