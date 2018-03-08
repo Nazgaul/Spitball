@@ -11,7 +11,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
-using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions.Binders;
 using Cloudents.Web.Extensions.Filters;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
