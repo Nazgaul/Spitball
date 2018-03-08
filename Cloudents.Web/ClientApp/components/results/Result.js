@@ -191,7 +191,7 @@ export const pageMixin =
                 this.pageData = {};
                 this.items = [];
                 this.items = skeletonData[toName];
-                if(!from.path.includes('result')||to.query.q!==from.query.q){
+                if(to.query.q!==from.query.q){
                     this.updateSearchText({text: to.query.q, vertical: toName}).then(() => {
                         this.updateContentOfPage(to,from,next,itemsBeforeUpdate);
                     })
