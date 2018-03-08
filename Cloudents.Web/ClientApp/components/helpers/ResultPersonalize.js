@@ -52,10 +52,6 @@ export default {
     },
     created() {
         this.$_isAcademic(this.$route);
-        this.$root.$on("personalize",
-            (type) => {
-                this.openDialog(type)
-            });
     },
     methods: {
         ...mapActions(["updateFirstTime"]),

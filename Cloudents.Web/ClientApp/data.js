@@ -34,8 +34,9 @@ export let verticals =
                 { id: "inPerson", name: "In Person" }
             ],
             sort: [
-                { id: "price", name: "price" },
-                { id: "distance", name: "distance" }
+                { id: "relevance", name: "relevance" },
+                { id: "price", name: "price" }
+                // { id: "distance", name: "distance" }
             ]
         },
         book: {
@@ -54,7 +55,8 @@ export let verticals =
             needLocation: true,
             filter: [{ id: "jobType", name: "job type" }],
             sort: [
-                { id: "distance", name: "distance" },
+                { id: "relevance", name: "relevance" },
+                // { id: "distance", name: "distance" },
                 { id: "date", name: "date" }
             ]
         },

@@ -11,13 +11,18 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
+    /// <summary>
+    /// <remarks>http://api.jobs2careers.com/api/spec.pdf</remarks>
+    /// </summary>
+    [UsedImplicitly]
     public class Jobs2CareersProvider : IJobProvider
     {
-        //http://api.jobs2careers.com/api/spec.pdf
+        //
         private readonly IRestClient _client;
         private readonly IMapper _mapper;
 
@@ -30,7 +35,7 @@ namespace Cloudents.Infrastructure.Search.Job
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, bool highlight,
             CancellationToken token)
         {
-            if (location == null)
+            if (location?.Address?.City == null || location?.Ip == null)
             {
                 return null;
             }
@@ -40,7 +45,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["id"] = 4538.ToString(),
                 ["pass"] = "PGhLlpYJEEeZjxCd",
                 ["ip"] = location.Ip,
-                ["l"] = $"{location.Address?.City}-{location.Address?.CountryCode}",
+                ["l"] = location.Address?.City,
                 ["start"] = (page * JobSearch.PageSize).ToString(),
                 ["Limit"] = JobSearch.PageSize.ToString(),
                 ["format"] = "json",

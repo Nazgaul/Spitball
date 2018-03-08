@@ -36,7 +36,7 @@
                     <v-divider></v-divider>
                 </a>
             </div>
-            <div class="loader" v-else>
+            <div class="loader" v-else-if="isLoad">
                 <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
             </div>
         </div>

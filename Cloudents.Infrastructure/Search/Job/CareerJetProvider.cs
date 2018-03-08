@@ -12,6 +12,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search.Job
@@ -20,6 +21,7 @@ namespace Cloudents.Infrastructure.Search.Job
     /// Career jet builder
     /// Taken from https://www.careerjet.com/partners/api/php/ - source code
     /// </summary>
+    [UsedImplicitly]
     public class CareerJetProvider : IJobProvider
     {
         private readonly IRestClient _client;
@@ -67,9 +69,9 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["page"] = page.ToString(),
                 ["sort"] = "date",
                 ["contracttype"] = string.Join(",", contactType),
-                ["contractperiod"] = string.Join(",", contactPeriod)
+                ["contractperiod"] = string.Join(",", contactPeriod),
             };
-            if (sort == JobRequestSort.Distance && location?.Address != null)
+            if (/*sort == JobRequestSort.Distance &&*/ location?.Address != null)
             {
                 nvc.Add("location", $"{location.Address.City}, {location.Address.RegionCode}");
             }
