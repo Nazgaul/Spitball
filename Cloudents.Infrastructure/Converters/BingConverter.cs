@@ -13,11 +13,13 @@ namespace Cloudents.Infrastructure.Converters
     {
         private readonly IKeyGenerator _keyGenerator;
         private readonly ReplaceImageProvider _imageProvider;
+        private readonly DomainParser _domainParser;
 
-        public BingConverter(IKeyGenerator keyGenerator, ReplaceImageProvider imageProvider)
+        public BingConverter(IKeyGenerator keyGenerator, ReplaceImageProvider imageProvider, DomainParser domainParser)
         {
             _keyGenerator = keyGenerator;
             _imageProvider = imageProvider;
+            _domainParser = domainParser;
         }
 
         public SearchResult Convert(BingSearch.WebPage source, SearchResult destination, ResolutionContext context)
@@ -33,18 +35,23 @@ namespace Cloudents.Infrastructure.Converters
             {
                 image = image.ChangeToHttps();
             }
-            image = _imageProvider.ChangeImageIfNeeded(url.GetUriDomain(), image);
+
+            var domain = _domainParser.GetDomain(url.Host);
+
+            image = _imageProvider.ChangeImageIfNeeded(domain, image);
             var result = new SearchResult
             {
                 Url = source.Url,
                 Id = _keyGenerator.GenerateKey(source.Url),
                 Image = image,
                 Snippet = source.Snippet.HighlightKeyWords(highlight.ToArray(), false),
-                Source = url.Host,
+                Source = domain,
                 Title = source.Name,
             };
 
-            if (string.Equals(url.Host, "www.courseHero.com", StringComparison.InvariantCultureIgnoreCase))
+
+            
+            if (string.Equals(domain, "courseHero", StringComparison.InvariantCultureIgnoreCase))
             {
                 result.Url =
                     $"http://shareasale.com/r.cfm?b=661825&u=1469379&m=55976&urllink={url.Host + url.PathAndQuery + url.Fragment}&afftrack=";
