@@ -8,7 +8,12 @@ export default {
         const toName = to.path.slice(1);
         let tabs = this.$el.querySelector('.tabs__wrapper');
         let currentItem = this.$el.querySelector(`#${toName}`);
-        this.$refs.mainHeader.$refs.personalize.$_isAcademic(to);
+        if(toName !== "job" && toName !== "food" && to.name==='result'){
+            this.$refs.mainHeader.clickOnce=true;
+            this.$nextTick(()=>{
+                this.$refs.mainHeader.$refs.personalize.$_isAcademic(to);
+            })
+        }
         if (currentItem)
             tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
 

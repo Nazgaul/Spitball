@@ -162,6 +162,13 @@
             }
         },
         created(){
+            this.$root.$on("personalize",
+                (type) => {
+                    this.clickOnce=true;
+                    this.$nextTick(()=>{
+                        this.$refs.personalize.openDialog(type);
+                    })
+                });
             this.height=this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
         }
     }
