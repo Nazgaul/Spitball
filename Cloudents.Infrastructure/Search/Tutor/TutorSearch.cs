@@ -40,7 +40,18 @@ namespace Cloudents.Infrastructure.Search.Tutor
             if (filters?.Contains(TutorRequestFilter.InPerson) == true && location == null)
                 throw new ArgumentException("Need to location");
 
-            var result = await _tutorSearch.SelectManyAsync(s => s.SearchAsync(query, filters ?? new TutorRequestFilter[0], sort, location, page, isMobile, token)).ConfigureAwait(false);
+            var tasks = _tutorSearch.Select(s => s.SearchAsync(query, filters ?? new TutorRequestFilter[0], sort,
+                location, page, isMobile, token));
+
+            var result2 = await Task.WhenAll(tasks);
+            var result = result2.Where(w => w != null).SelectMany(s => s);
+            //var p = result2.Aggregate((b, next) =>
+            //{
+            //    return b.Union(next);
+            //});
+
+
+            //var result = await _tutorSearch.SelectManyAsync(s => s.SearchAsync(query, filters ?? new TutorRequestFilter[0], sort, location, page, isMobile, token)).ConfigureAwait(false);
             if (sort == TutorRequestSort.Price)
             {
                 return result.OrderBy(o => o.Fee);

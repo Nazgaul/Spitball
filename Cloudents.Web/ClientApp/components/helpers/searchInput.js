@@ -56,6 +56,7 @@ export default {
             this.msg = item.text;
             this.$ga.event('Search', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
             this.search();
+            this.closeSuggestions();
         },
         search() {
             if (this.submitRoute) {

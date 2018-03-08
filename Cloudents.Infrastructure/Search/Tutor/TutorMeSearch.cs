@@ -14,9 +14,13 @@ using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search.Tutor
 {
+    /// <summary>
+    /// <remarks>https://gist.github.com/barbuza/4b3666fa88cd326f18f2c464c8e4487c</remarks>
+    /// </summary>
     [UsedImplicitly]
     public class TutorMeSearch : ITutorProvider
     {
+        private const string UrlEndpoint = "https://tutorme.com/api/v1/tutors/";
         private readonly IMapper _mapper;
         private readonly IRestClient _restClient;
 
@@ -30,34 +34,39 @@ namespace Cloudents.Infrastructure.Search.Tutor
             TutorRequestFilter[] filters,
             TutorRequestSort sort, GeoPoint location, int page, bool isMobile, CancellationToken token)
         {
-            if (Array.TrueForAll(filters, t => t == TutorRequestFilter.InPerson))
+            if (filters.Length > 0 && Array.TrueForAll(filters, t => t == TutorRequestFilter.InPerson))
             {
-                return Task.FromResult(Enumerable.Empty<TutorDto>());
+                return Task.FromResult<IEnumerable<TutorDto>>(null);
             }
 
             if (isMobile)
             {
-                return Task.FromResult(Enumerable.Empty<TutorDto>());
+                return Task.FromResult<IEnumerable<TutorDto>>(null);
             }
             return TutorMeApiAsync(term, page, token);
         }
 
         private async Task<IEnumerable<TutorDto>> TutorMeApiAsync(string term, int page, CancellationToken token)
         {
-            //https://gist.github.com/barbuza/4b3666fa88cd326f18f2c464c8e4487c
             // page is 12
-
-            var nvc = new NameValueCollection
-            {
-                ["search"] = term,
-                ["offset"] = (page * 12).ToString()
-            };
-            var result = await _restClient.GetAsync<TutorMeResult>(new Uri("https://tutorme.com/api/v1/tutors/"), nvc, token).ConfigureAwait(false);
+            var nvc = BuildQueryString(term, page);
+            var result = await _restClient.GetAsync<TutorMeResult>(
+                new Uri(UrlEndpoint), nvc, token).ConfigureAwait(false);
             if (result?.Group == null)
             {
                 return null;
             }
             return _mapper.Map<IEnumerable<TutorDto>>(result.Results);
+        }
+
+        private static NameValueCollection BuildQueryString(string term, int page)
+        {
+            var nvc = new NameValueCollection
+            {
+                ["search"] = term,
+                ["offset"] = (page * 12).ToString()
+            };
+            return nvc;
         }
 
         public class TutorMeResult
