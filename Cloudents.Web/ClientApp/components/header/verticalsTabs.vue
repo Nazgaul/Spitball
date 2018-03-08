@@ -8,7 +8,7 @@
                                  class="mr-4 vertical">
                         {{tab.name}}
                     </v-tabs-item>
-                    <v-tabs-slider :color="`color-${currentSelection}`"></v-tabs-slider>
+                    <v-tabs-slider :color="`color-${currentVertical}`"></v-tabs-slider>
                 </v-tabs-bar>
             </v-tabs>
         </v-layout>
@@ -22,10 +22,16 @@
         name: "verticals-tabs",
         computed:{...mapGetters(['getVerticalData'])},
         props:{currentSelection:{}},
-        data(){return {verticals}},
+        data(){return {verticals,currentVertical:this.currentSelection}},
+        watch:{
+            currentSelection(val){
+                this.currentVertical=val;
+            }
+        },
         methods: {
             ...mapActions(["setCurrentVertical"]),
             $_updateType(result) {
+                this.currentVertical=result;
                 this.$ga.event("Vertical_Tab",result);
                 let tabs = this.$el.querySelector('.tabs__wrapper');
                 let currentItem = this.$el.querySelector(`#${result}`);

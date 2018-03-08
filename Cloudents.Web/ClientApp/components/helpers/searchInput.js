@@ -24,7 +24,7 @@ export default {
             let currentHistory = this.getCurrentVertical;
             let buildInSuggestList = currentHistory ? consts.buildInSuggest[currentHistory] : consts.buildInSuggest.home;
             let historyList = [...(this.submitRoute && currentHistory ? this.$store.getters.getVerticalHistory(currentHistory) : this.allHistorySet)];
-            let set = [...new Set([...this.autoSuggestList, ...historyList.reverse(), ...buildInSuggestList])];
+            let set = [...new Set([...this.autoSuggestList, ...historyList, ...buildInSuggestList])];
             return set.slice(0, this.maxResults).map(i => ({
                 text: i, type: (this.autoSuggestList.includes(i) ? consts.SUGGEST_TYPE.autoComplete :
                     historyList.includes(i) ? consts.SUGGEST_TYPE.history :
@@ -56,6 +56,7 @@ export default {
             this.msg = item.text;
             this.$ga.event('Search', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
             this.search();
+            this.closeSuggestions();
         },
         search() {
             if (this.submitRoute) {
@@ -71,9 +72,10 @@ export default {
         },
         openSuggestions() {
             this.showSuggestions = true;
-            var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
-            this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4) + "px";
-
+            if(this.$root.$el.querySelector('.box-search')) { // Limit height Only in home page
+                var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
+                this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4) + "px";
+            }
         },
         closeSuggestions() {
             this.$el.querySelector('.search-b input').blur();

@@ -5,8 +5,9 @@ import { details } from "../../data";
 const all = "all";
 const filterOptions = [{ title: "Book Type", modelId: "filter", data: details.bookDetails.filter }];
 const FILTER_LIST=details.bookDetails.filter;
+import Analytics from '../mixins/googleAnalyticsTracking'
 export default {
-    mixins: [sortAndFilterMixin, TabsSort],
+    mixins: [sortAndFilterMixin, TabsSort,Analytics],
     created() {
         this.filter = all;
         this.UPDATE_LOADING(true);

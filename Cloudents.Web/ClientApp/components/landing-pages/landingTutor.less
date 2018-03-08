@@ -1,0 +1,94 @@
+@import "../../mixin.less";
+
+.landing-page-wrapper {
+  .responsive-property(padding, 32px, 24px, 16px);
+  color: #ffffff;
+  width: 100vw;
+  height: 100vh;
+  background: url('./img/tutor-bg.png') no-repeat center;
+  background-size: cover;
+
+  .landing-page {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .logo-link {
+    display: inline-block;
+    svg {
+      fill: white;
+      .responsive-property(width, 210px, null, 158px);
+      .responsive-property(height, 42px, null, 32px)
+    }
+  }
+  h1 {
+    .responsive-property(font-size, 100px, null, 50px);
+    .responsive-property(margin-left, -6px, 0, null);
+    font-weight: 400;
+    line-height: 0.8;
+    letter-spacing: -0.5px;
+
+    //margin-top: 34px;
+
+  }
+
+  h2 {
+    .responsive-property(font-size, 22px, null, 20px);
+    .responsive-property(line-height, 1.09, null, 20px);
+    font-weight: 100;
+    line-height: 1.09;
+
+    .responsive-property(margin-bottom, 22px, null, 16px);
+    //letter-spacing: -0.3px;
+    @media (max-width: @screen-xs) {
+      max-width: 258px;
+    }
+  }
+  p {
+    font-size: 16px;
+    line-height: 2;
+    //letter-spacing: -0.3px;
+    font-weight: 100;
+    margin-bottom: 24px;
+  }
+  .content-wrapper {
+    padding-left: 8px;
+    .responsive-property(padding-left, 8px, 0, null);
+    margin-top: 20px;
+  }
+  .search-wrapper {
+    max-width: 528px;
+    .search-b {
+      border-radius: 0;
+      .responsive-property(height, 56px, null, 48px);
+      .input-group__input {
+        align-items: center;
+        padding: 8px 24px;
+
+        @media(max-width: @screen-xs){
+          padding: 8px 16px;
+        }
+
+        input {
+          .responsive-property(font-size, 16px, null, 18px);
+          .placeholder-color(#9b9b9b);
+        }
+      }
+    }
+
+    button {
+      width: 100%;
+      padding: 0 8px;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: -0.4px;
+      text-align: center;
+      .responsive-property(line-height, 56px, null, 48px);
+      background-color: #f5a623;
+      .responsive-property(margin-top, 16px, null, 12px);
+    }
+  }
+}

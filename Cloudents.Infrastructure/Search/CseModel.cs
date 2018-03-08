@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Infrastructure.Search
@@ -9,7 +10,7 @@ namespace Cloudents.Infrastructure.Search
             SearchRequestSort sort,
             CustomApiKey key, IEnumerable<string> courses, IEnumerable<string> universitySynonym, string defaultTerm, string docType)
         {
-            Query = query;
+            Query = query.Where(w => w != null);
             Sources = sources;
 
             //if (source != null)
@@ -26,11 +27,11 @@ namespace Cloudents.Infrastructure.Search
 
         public IEnumerable<string> Courses { get; }
         public IEnumerable<string> Query { get; }
-        public IEnumerable<string> UniversitySynonym { get;  }
+        public IEnumerable<string> UniversitySynonym { get; }
 
-        public string DocType { get;  }
+        public string DocType { get; }
 
-        public string DefaultTerm { get;  }
+        public string DefaultTerm { get; }
 
         public IEnumerable<string> Sources { get; }
         public SearchRequestSort Sort { get; }

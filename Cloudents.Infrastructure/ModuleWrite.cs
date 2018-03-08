@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure
 
             //builder.RegisterGeneric(typeof(SearchServiceWrite<>));
             builder.RegisterType<DownloadFile>().As<IDownloadFile>();
-            builder.RegisterType<JobCareerBuilder>().Keyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
+            //builder.RegisterType<JobCareerBuilder>().Keyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
             builder.RegisterType<JobWayUp>().Keyed<IUpdateAffiliate>(AffiliateProgram.WayUp);
             builder.RegisterType<TutorWyzant>().Keyed<IUpdateAffiliate>(AffiliateProgram.Wyzant);
         }
