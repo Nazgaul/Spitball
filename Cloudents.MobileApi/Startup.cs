@@ -15,7 +15,6 @@ using Cloudents.MobileApi.Filters;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,11 +40,27 @@ namespace Cloudents.MobileApi
         [UsedImplicitly]
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolity", builder => 
+                        builder.SetIsOriginAllowed(origin =>
+                    {
+                        if (origin.IndexOf("localhost", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                        {
+                            return true;
+                        }
+
+                        if (origin.IndexOf("spitball", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                        {
+                            return true;
+                        }
+                        return false;
+                    })
+                );
+            });
             services.AddMvc().AddMvcOptions(o =>
             {
                 o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));
-                o.Filters.Add(new CorsAuthorizationFilterFactory("*"));
                 o.ModelBinderProviders.Insert(0, new LocationModelBinder());
                 o.ModelBinderProviders.Insert(0, new GeoPointModelBinder());
             }).AddJsonOptions(options =>
@@ -104,24 +119,7 @@ namespace Cloudents.MobileApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(builder =>
-            {
-                builder.SetIsOriginAllowed(origin =>
-                {
-                    if (origin.IndexOf("localhost", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                    {
-                        return true;
-                    }
-
-                    if (origin.IndexOf("spitball", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                    {
-                        return true;
-                    }
-                    return false;
-                });
-                //builder.WithOrigins("www.spitball.co", "dev.spitball.co");
-                //builder.AllowAnyOrigin();
-            });
+            app.UseCors("CorsPolity");
             var reWriterOptions = new RewriteOptions();
                 
             if (!env.IsEnvironment(IntegrationTestEnvironmentName))
