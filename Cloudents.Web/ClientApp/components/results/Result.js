@@ -24,7 +24,7 @@ let updateData = function (data, isFilterUpdate = false) {
     this.$emit('dataUpdated', data.data.length ? data.data[0] : null);
     // (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterSelection;
-    this.UPDATE_LOADING(false);
+    // this.UPDATE_LOADING(false);
     (this.isLoad) ? this.isLoad = false : this.UPDATE_LOADING(false);
     if (this.isAcademic && !this.isFirst) {
         this.showPersonalizeField = true
@@ -249,17 +249,6 @@ export const pageMixin =
                         item.data = (i.id === "course") ? this.myCourses : this.pageData[i.id] ? this.pageData[i.id] : this.getFacet ? this.getFacet : [];
                         return item;
                     });
-                }
-
-                let matchValues = this.filterSelection.filter(i => this.filterObject.find(t =>
-                    (t.modelId === i.key &&
-                        (t.data.find(
-                                k => i.value.toString() === (k.id ? k.id.toString() : k.toString()))
-                        ))
-                ));
-                if (matchValues.length !== this.filterSelection.length) {
-                    const routeParams = {path: '/' + this.name, query: {q: this.userText}};
-                    this.$router.replace(routeParams);
                 }
             }
             ,
