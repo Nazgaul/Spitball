@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search.Book
 {
-    internal class BookDetailConverter : ITypeConverter<BookSearch.BookDetailResult, BookDetailsDto>
+    [UsedImplicitly]
+    public class BookDetailConverter : ITypeConverter<BookSearch.BookDetailResult, BookDetailsDto>
     {
         private readonly IMapper _mapper;
 
@@ -25,10 +28,8 @@ namespace Cloudents.Infrastructure.Search.Book
                 {
                     var link = s.Link;
                     Enum.TryParse(s.Condition.Condition, true, out BookCondition condition);
-                    if (string.Equals(s.Merchant.Name, "ValoreBooks.com", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        link = BuildValoreBooksLink(bookDetail.Isbn13, condition);
-                    }
+
+                    link = ChangeUrlIfNeeded(s.Merchant.Name, bookDetail.Isbn13, condition) ?? link;
                     var merchantImage = s.Merchant.Image;
                     var uri = new Uri(merchantImage);
 
@@ -51,6 +52,38 @@ namespace Cloudents.Infrastructure.Search.Book
             };
         }
 
+        
+        private string ChangeUrlIfNeeded(string merchantName, string isbn13, BookCondition condition)
+        {
+            var function = _convert.Where(w => merchantName.Contains(w.Key, StringComparison.OrdinalIgnoreCase)).Select(s => s.Value).FirstOrDefault();
+            var newUrl = function?.Invoke(isbn13, condition);
+            return newUrl;
+        }
+
+        private readonly Dictionary<string, Func<string, BookCondition, string>> _convert =
+            new Dictionary<string, Func<string, BookCondition, string>>(StringComparer.OrdinalIgnoreCase)
+            {
+                {"ValoreBooks", BuildValoreBooksLink},
+                {"Chegg", BuildCheggTextBookRental}
+            };
+
+        /// <summary>
+        /// Change to chegg textbook rental
+        /// </summary>
+        /// <param name="isbn13"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        /// <remarks>bug 9923</remarks>
+        private static string BuildCheggTextBookRental(string isbn13, BookCondition condition)
+        {
+            if (condition == BookCondition.Rental)
+            {
+                return $"http://chggtrx.com/click.track?CID=267582&AFID=418708&ADID=1088031&SID=&isbn_ean={isbn13}";
+            }
+
+            return null;
+        }
+
         private static string BuildValoreBooksLink(string isbn13, BookCondition condition)
         {
             var type = string.Empty;
@@ -71,7 +104,7 @@ namespace Cloudents.Infrastructure.Search.Book
                     break;
             }
 
-            var retVal =  $"http://www.valorebooks.com/affiliate/buy/siteID=s7peQB/ISBN={isbn13}";
+            var retVal = $"http://www.valorebooks.com/affiliate/buy/siteID=s7peQB/ISBN={isbn13}";
             if (!string.IsNullOrEmpty(type))
             {
                 retVal += $"?default={type}";

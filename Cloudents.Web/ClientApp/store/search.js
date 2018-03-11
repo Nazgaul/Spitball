@@ -62,6 +62,9 @@ const actions = {
     getAutocmplete(context, term) {
         return searchService.autoComplete(term);
     },
+    nextPage(context, {url,vertical}){
+        return searchService.nextPage({url,vertical});
+    },
     fetchingData(context, { name, params, page}){
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
         let aiData=context.getters.getVerticalData(name);

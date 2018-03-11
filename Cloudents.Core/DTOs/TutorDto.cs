@@ -1,10 +1,13 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
 using Cloudents.Core.Models;
 
 namespace Cloudents.Core.DTOs
 {
     [DataContract]
-    public class TutorDto : IUrlRedirect
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Dto class return as Json")]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class return as Json")]
+    public class TutorDto : IUrlRedirect , IShuffleable
     {
         [DataMember]
         public string Name { get; set; }
@@ -30,5 +33,7 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public string Source { get; set; }
+
+        public object Bucket => Source;
     }
 }

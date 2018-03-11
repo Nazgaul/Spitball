@@ -35,5 +35,6 @@ export default {
             }
         }
     },
-    autoComplete:(term)=>search.autoComplete(term)
+    autoComplete:(term)=>search.autoComplete(term),
+    nextPage:(params)=>search.getNextPage(params)
 }

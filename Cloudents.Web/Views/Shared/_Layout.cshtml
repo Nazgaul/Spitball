@@ -11,7 +11,7 @@
     const string themeColor = "#4190b";
     ViewBag.title = ViewBag.title ?? "Simplify school | Spitball";
     ViewBag.metaDescription = ViewBag.metaDescription ?? " Spitball - Curating all of the resources you need. For Free.";
-    ViewBag.fbImage = ViewBag.fbImage ?? "/images/3rdParty/fbShare.png";
+    ViewBag.fbImage = ViewBag.fbImage ??  "/images/3rdParty/fbShare.png";
     ViewBag.imageSrc = ViewBag.imageSrc ?? "/images/3rdParty/fbShare.png";
     var version = Assembly.GetEntryAssembly().GetName().Version.ToString(4);
     var p = Provider.GetTag("vendor");
@@ -173,6 +173,7 @@ h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
     <script>
         window.version = '@version';
         window.publicPath = '@cdnEndPoint' + '/dist/';
+        window.baseURL = 'https://api.spitball.co/api/';
     </script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>

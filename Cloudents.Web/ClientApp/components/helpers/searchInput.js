@@ -24,12 +24,15 @@ export default {
             let currentHistory = this.getCurrentVertical;
             let buildInSuggestList = currentHistory ? consts.buildInSuggest[currentHistory] : consts.buildInSuggest.home;
             let historyList = [...(this.submitRoute && currentHistory ? this.$store.getters.getVerticalHistory(currentHistory) : this.allHistorySet)];
-            let set = [...new Set([...this.autoSuggestList, ...historyList.reverse(), ...buildInSuggestList])];
-            return set.slice(0, this.maxResults).map(i => ({
+            let historySuggestSet=[...new Set([...historyList.reverse(), ...buildInSuggestList])];
+            let set = currentHistory ? historySuggestSet : [...new Set([...this.autoSuggestList, ...historySuggestSet])];
+            let autoListMap=this.autoSuggestList?this.autoSuggestList.map(i => ({text:i,type:consts.SUGGEST_TYPE.autoComplete})):[];
+            let mapDataSet=set.slice(0, this.maxResults).map(i => ({
                 text: i, type: (this.autoSuggestList.includes(i) ? consts.SUGGEST_TYPE.autoComplete :
                     historyList.includes(i) ? consts.SUGGEST_TYPE.history :
                         consts.SUGGEST_TYPE.buildIn)
             }));
+            return currentHistory ? [...autoListMap,...mapDataSet]:mapDataSet;
         },
 
         isHome() {
@@ -45,8 +48,8 @@ export default {
             this.isFirst=true;
         },
         msg:debounce(function (val) {
-            if(this.msg&&!this.isFirst){
-                this.getAutocmplete(val).then(({data})=>{this.autoSuggestList=val?data:[]})}else{this.autoSuggestList=[];}
+            if(val&&!this.isFirst){
+                this.getAutocmplete(val).then(({data})=>{this.autoSuggestList=data?data.result:[]})}else{this.autoSuggestList=[];}
             this.isFirst=false;
         }, 250)
     },
@@ -56,6 +59,7 @@ export default {
             this.msg = item.text;
             this.$ga.event('Search', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
             this.search();
+            this.closeSuggestions();
         },
         search() {
             if (this.submitRoute) {
@@ -71,9 +75,10 @@ export default {
         },
         openSuggestions() {
             this.showSuggestions = true;
-            var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
-            this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4) + "px";
-
+            if(this.$root.$el.querySelector('.box-search')) { // Limit height Only in home page
+                var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
+                this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4) + "px";
+            }
         },
         closeSuggestions() {
             this.$el.querySelector('.search-b input').blur();
@@ -84,7 +89,7 @@ export default {
         },
         onScroll(e) {
             if (this.hideOnScroll && this.showSuggestions) {
-                var rect = this.$root.$el.querySelector('.search-menu').getBoundingClientRect();
+                let rect = this.$root.$el.querySelector('.search-menu').getBoundingClientRect();
                 if (rect.top < -rect.height) {
                     this.closeSuggestions();
                 }

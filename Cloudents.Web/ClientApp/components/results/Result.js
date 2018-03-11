@@ -2,6 +2,7 @@
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
+import { page } from '../../data';
 import ResultVideo from './ResultVideo.vue'
 import ResultVideoSkeleton from './ResultVideoSkeleton.vue'
 import SuggestCard from './suggestCard.vue'
@@ -20,7 +21,7 @@ let updateData = function (data, isFilterUpdate = false) {
     facet ? this.updateFacet(facet) : '';
     this.pageData = {};
     this.content = data;
-    this.$emit('dataUpdated', data.data.length ? data.data[0] : null)
+    this.$emit('dataUpdated', data.data.length ? data.data[0] : null);
     // (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterSelection;
     this.UPDATE_LOADING(false);
@@ -31,7 +32,7 @@ let updateData = function (data, isFilterUpdate = false) {
 
     //if the vertical or search term has been changed update the optional filters according
     if (!isFilterUpdate) {
-        this.$_updateFilterObject();
+        this.$_updateFilterObject(data.vertical);
     }
 };
 //The vue functionality for result page
@@ -105,9 +106,6 @@ export const pageMixin =
             isEmpty: function () {
                 return this.pageData.data ? !this.pageData.data.length : true
             },
-            subFilterVertical() {
-                return this.name.includes('note') || this.name === 'flashcard' || this.name === 'job' || this.name.includes('ask');
-            },
             currentSuggest() {
                 return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]
             },
@@ -173,7 +171,7 @@ export const pageMixin =
 
                     })
                         .then(({data}) => {
-                            updateData.call(this, data);//irena
+                            updateData.call(this, {...data,vertical:this.name});//irena
                         }).catch(reason => {
                         //when error from fetching data remove the loader
                         this.UPDATE_LOADING(false);
@@ -183,6 +181,9 @@ export const pageMixin =
             });
         },
         methods: {
+            subFilterVertical(val) {
+                return val.includes('note') || val === 'flashcard' || val === 'job' || val.includes('ask');
+            },
             updatePageData(to, from, next) {
                 (to.path === from.path && to.q === from.q) ? this.isLoad = true : this.UPDATE_LOADING(true);
                 const toName = to.path.slice(1);
@@ -190,32 +191,37 @@ export const pageMixin =
                 this.pageData = {};
                 this.items = [];
                 this.items = skeletonData[toName];
-                //if the term for the page is as the page saved term use it else call to luis and update the saved term
-                this.updateSearchText({text: to.query.q, vertical: toName}).then(() => {
-                        const updateFilter = (to.path === from.path && to.query.q === from.query.q);
-                        this.fetchingData({name: toName, params: {...to.query, ...to.params}})
-                            .then(({data}) => {
-                                //update data for this page
-                                this.showFilterNotApplied = false;
-                                next();
-                                this.$nextTick(()=>{
-                                    updateData.call(this, data, updateFilter);
-                                })
-                            }).catch(reason => {
-                            //when error from fetching data remove the loader
-                            if (to.path === from.path && to.query.q === from.query.q) {
-                                this.isLoad = false;
-                                this.showFilterNotApplied = true;
-                                this.items = itemsBeforeUpdate;
-                            }
-                            else {
-                                this.UPDATE_LOADING(false);
-                                this.items = [];
-                                next();
-                            }
-                        });
+                debugger;
+                if(to.query.q!==from.query.q){
+                    this.updateSearchText({text: to.query.q, vertical: toName}).then(() => {
+                        this.updateContentOfPage(to,from,next,itemsBeforeUpdate);
+                    })
+                }else{
+                    this.updateContentOfPage(to,from,next,itemsBeforeUpdate);
+                }
+            },
+            updateContentOfPage(to,from,next,itemsBeforeUpdate){
+                const toName = to.path.slice(1);
+                const updateFilter = (to.path === from.path && to.query.q === from.query.q);
+                this.fetchingData({name: toName, params: {...to.query, ...to.params}})
+                    .then(({data}) => {
+                        //update data for this page
+                        this.showFilterNotApplied = false;
+                        updateData.call(this, {...data,vertical:toName}, updateFilter);
+                        next();
+                    }).catch(reason => {
+                    //when error from fetching data remove the loader
+                    if (to.path === from.path && to.query.q === from.query.q) {
+                        this.isLoad = false;
+                        this.showFilterNotApplied = true;
+                        this.items = itemsBeforeUpdate;
                     }
-                )
+                    else {
+                        this.UPDATE_LOADING(false);
+                        this.items = [];
+                        next();
+                    }
+                });
             },
             leavePage(to, from, next) {
                 if (to.name && to.name === 'home') {
@@ -227,17 +233,18 @@ export const pageMixin =
 //Get functions from vuex actions
             ...mapActions(['updateSearchText', 'fetchingData', 'getAIDataForVertical', 'setFilteredCourses', 'cleanData', 'updateFacet']),
             //Function for update the filter object(when term or vertical change)
-            $_updateFilterObject() {
+            $_updateFilterObject(vertical) {
+                let currentPage=page[vertical];
                 //validate current page have filters
-                if (!this.page || !this.page.filter) {
+                if (!currentPage || !currentPage.filter) {
                     this.filterObject = null
                 }
-                else if (!this.subFilterVertical) {
-                    this.filterObject = [{title: 'Status', modelId: "filter", data: this.page.filter}];
+                else if (!this.subFilterVertical(vertical)) {
+                    this.filterObject = [{title: 'Status', modelId: "filter", data: currentPage.filter}];
                 }
                 else {
                     //create filter object as the above structure but from list while the data is computed according to the filter id
-                    this.filterObject = this.page.filter.map((i) => {
+                    this.filterObject = currentPage.filter.map((i) => {
                         const item = {title: i.name, modelId: i.id};
                         item.data = (i.id === "course") ? this.myCourses : this.pageData[i.id] ? this.pageData[i.id] : this.getFacet ? this.getFacet : [];
                         return item;
@@ -266,13 +273,14 @@ export const pageMixin =
             }
             ,
 //Open the personalize dialog when click on select course in class filter
+
             $_openPersonalize() {
                 this.$root.$emit("personalize", typesPersonalize.course);
             }
             ,
 //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
             $_showSelectedFilter({value, key}) {
-                if (this.page && !this.subFilterVertical) return this.page.filter.find(i => i.id === value).name;
+                if (this.page && !this.subFilterVertical(this.name)) return this.page.filter.find(i => i.id === value).name;
                 return key === 'course' && this.myCourses.find(x => x.id === Number(value)) ? this.myCourses.find(x => x.id === Number(value)).name : value;
             }
         },
