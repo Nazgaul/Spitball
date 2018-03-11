@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure
 {
     [UsedImplicitly]
-    public class ReplaceImageProvider
+    public class ReplaceImageProvider : IReplaceImageProvider
     {
         private readonly IBlobProvider<SpitballContainer> _blobProvider;
         private readonly Dictionary<string,string> _sources = new Dictionary<string,string>(StringComparer.CurrentCultureIgnoreCase)

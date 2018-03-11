@@ -12,10 +12,10 @@ namespace Cloudents.Infrastructure.Converters
     public class BingConverter : ITypeConverter<BingSearch.WebPage, SearchResult>
     {
         private readonly IKeyGenerator _keyGenerator;
-        private readonly ReplaceImageProvider _imageProvider;
+        private readonly IReplaceImageProvider _imageProvider;
         private readonly DomainParser _domainParser;
 
-        public BingConverter(IKeyGenerator keyGenerator, ReplaceImageProvider imageProvider, DomainParser domainParser)
+        public BingConverter(IKeyGenerator keyGenerator, IReplaceImageProvider imageProvider, DomainParser domainParser)
         {
             _keyGenerator = keyGenerator;
             _imageProvider = imageProvider;
