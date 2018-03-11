@@ -1,33 +1,36 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using Cloudents.Core.Storage;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure
 {
+    [UsedImplicitly]
     public class ReplaceImageProvider
     {
         private readonly IBlobProvider<SpitballContainer> _blobProvider;
         private readonly Dictionary<string,string> _sources = new Dictionary<string,string>(StringComparer.CurrentCultureIgnoreCase)
         {
-            ["courseHero.com"] = "coursehero.png",
-            ["Cram.com"] = "cram.png",
-            ["Koofers.com"] = "koofers.png",
-            ["Quizlet.com"] = "quizlet.png",
-            ["Studyblue.com"] = "studyblue.png",
-            ["Studysoup.com"] = "studysoup.png",
-            ["Spitball.co"] = "spitball.png",
-            ["Cliffsnotes.com"] = "Cliffsnotes.png"
+            ["courseHero"] = "courseHero.png",
+            ["Cram"] = "cram.png",
+            ["Koofers"] = "koofers.png",
+            ["Quizlet"] = "quizLet.png",
+            ["Studyblue"] = "studyBlue.png",
+            ["Studysoup"] = "studySoup.png",
+            ["Spitball"] = "spitball.png",
+            ["Cliffsnotes"] = "CliffsNotes.png",
+            ["oneclass"] = "oneClass.png",
+            ["chegg"] = "chegg.png"
         };
 
         //TODO: make sure this is https - need to figure out how to solve this
-        private readonly List<string> _invalidImages = new List<string>
-        {
+        private static readonly SortedSet<string> InvalidImages = new SortedSet<string>(StringComparer.OrdinalIgnoreCase) {
             "https://www.coursehero.com/assets/img/coursehero_logo.png",
             "https://studysoup.com/assets/facebook-message-thumbnail-32320c1969a82f18331270299701b729.jpg",
             "https://classconnection.s3.amazonaws.com/images/fb-og-deck.png",
             "https://www.studyblue.com/css/images/webprintLogo.jpg",
-            "https://oneclass.com/assets/home/og-home-new-2.jpg"
+            "https://oneclass.com/assets/home/og-home-new-2.jpg",
+            "https://c.cheggcdn.com/assets/site/marketing/icons/icon-studenthub-200x200.png"
         };
 
         public ReplaceImageProvider(IBlobProvider<SpitballContainer> blobProvider)
@@ -43,7 +46,7 @@ namespace Cloudents.Infrastructure
                 return _blobProvider.GetBlobUrl(val.ToLowerInvariant(), true);
             }
 
-            if (_invalidImages.Contains(image.AbsoluteUri, StringComparer.InvariantCultureIgnoreCase))
+            if (InvalidImages.Contains(image.AbsoluteUri))
             {
                 return _blobProvider.GetBlobUrl(val.ToLowerInvariant(), true);
             }

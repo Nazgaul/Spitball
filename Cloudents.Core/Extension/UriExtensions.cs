@@ -29,8 +29,7 @@ namespace Cloudents.Core.Extension
 
         public static string GetUriDomain(this Uri value)
         {
-            var uri = new Uri(value.ToString());
-            var host = uri.Host;
+            var host = value.Host;
             var lastDot = host.LastIndexOf('.');
 
             var secondToLastDot = host.Substring(0, lastDot).LastIndexOf('.');

@@ -1,6 +1,6 @@
 ﻿<template>
     <a class="d-block" :target="($vuetify.breakpoint.xsOnly)?'_self':'_blank'" @click="(isSpitball?$_spitball($event):'')" :href="url" :class="'cell-'+$route.path.slice(1)">
-        <v-container class="pa-0" @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
+        <v-container class="pa-0" @click="trackOutBound(()=>$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`))">
             <v-layout row fluid class="result-cell-content">
                 <v-flex class="img-wrap mr-2 pa-0" :class="['border-'+$route.path.slice(1),'spitball-bg-'+$route.path.slice(1)]">
                     <template v-if="!item.skelaton"><img :src="item.image" v-if="item.image" alt="" class="image-from-source">
@@ -30,6 +30,7 @@
     import FlashcardDefault from '../home/img/flashcard.svg'
     import AskDefault from '../home/img/ask.svg'
     import NoteDefault from '../home/img/document.svg'
+    import Analytics from '../mixins/googleAnalyticsTracking'
     //var sourcesImages = {
     //    quizlet: 'quizlet.png',
     //    cram: 'cram.png',
@@ -40,13 +41,14 @@
 
 
     export default {
+        mixins:[Analytics],
         components: { AskDefault, NoteDefault, FlashcardDefault},
 
         props: { item: { type: Object, required: true }, index: { Number } },
         computed: {
             isSpitball() { return this.item.source.includes('spitball') },
             url: function () {
-                return this.isSpitball ? this.item.url.split('.co/')[1] : this.item.source.includes("studyblue") ? this.item.url = `${this.item.url}?utm_source=spitball&utm_medium=referral` : this.item.url
+                return this.isSpitball ? this.item.url.split('.co/')[1] : this.item.url
             },
             //sourceName: function () {
             //    return this.item.source.replace("www.", "").split('.')[0];

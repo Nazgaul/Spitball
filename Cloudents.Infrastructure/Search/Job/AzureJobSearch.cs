@@ -12,11 +12,13 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write.Job;
+using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
+    [UsedImplicitly]
     public class AzureJobSearch : IJobProvider
     {
         private readonly ISearchIndexClient _client;
@@ -48,7 +50,7 @@ namespace Cloudents.Infrastructure.Search.Job
 
             switch (sort)
             {
-                case JobRequestSort.Distance when location?.Point != null:
+                case JobRequestSort.Relevance when location?.Point != null:
                     filterQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
                     break;
                 case JobRequestSort.Date:
