@@ -12,6 +12,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search.Job
@@ -20,6 +21,7 @@ namespace Cloudents.Infrastructure.Search.Job
     /// Career jet builder
     /// Taken from https://www.careerjet.com/partners/api/php/ - source code
     /// </summary>
+    [UsedImplicitly]
     public class CareerJetProvider : IJobProvider
     {
         private readonly IRestClient _client;

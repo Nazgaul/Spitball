@@ -191,7 +191,7 @@ export const pageMixin =
                 this.pageData = {};
                 this.items = [];
                 this.items = skeletonData[toName];
-                if(!from.path.includes('result')||to.query.q!==from.query.q){
+                if(to.query.q!==from.query.q){
                     this.updateSearchText({text: to.query.q, vertical: toName}).then(() => {
                         this.updateContentOfPage(to,from,next,itemsBeforeUpdate);
                     })
@@ -234,7 +234,6 @@ export const pageMixin =
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject(vertical) {
                 let currentPage=page[vertical];
-                console.log(vertical);
                 //validate current page have filters
                 if (!currentPage || !currentPage.filter) {
                     this.filterObject = null

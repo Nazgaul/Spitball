@@ -13,10 +13,12 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
+    [UsedImplicitly]
     public class IndeedProvider : IJobProvider
     {
         //https://ads.indeed.com/jobroll/xmlfeed

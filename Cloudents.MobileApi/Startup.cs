@@ -41,7 +41,24 @@ namespace Cloudents.Api
         [UsedImplicitly]
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolity", builder => 
+                        builder.SetIsOriginAllowed(origin =>
+                    {
+                        if (origin.IndexOf("localhost", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                        {
+                            return true;
+                        }
+
+                        if (origin.IndexOf("spitball", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                        {
+                            return true;
+                        }
+                        return false;
+                    })
+                );
+            });
             services.AddMvc().AddMvcOptions(o =>
             {
                 o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));
@@ -103,7 +120,7 @@ namespace Cloudents.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("CorsPolity");
             var reWriterOptions = new RewriteOptions();
                 
             if (!env.IsEnvironment(IntegrationTestEnvironmentName))
@@ -124,11 +141,7 @@ namespace Cloudents.Api
 
             app.UseSwagger();
 
-            app.UseCors(builder =>
-            {
-                //builder.WithOrigins("www.spitball.co", "dev.spitball.co");
-                builder.AllowAnyOrigin();
-            });
+           
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
