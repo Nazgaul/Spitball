@@ -55,7 +55,7 @@ module.exports = (env) => {
                         {
                             loader: "image-webpack-loader",
                             options: {
-                                bypassOnDebug: true,
+                                bypassOnDebug: false,
                                 optipng: {
                                     enabled: true
                                 }
@@ -137,7 +137,7 @@ module.exports = (env) => {
             output: {
                 path: path.join(__dirname, bundleOutputDir),
                 filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",
-                publicPath: t.getdist(isDevBuild)
+                //publicPath: t.getdist(isDevBuild)
             },
             plugins: [
                 new webpack.DllReferencePlugin({
