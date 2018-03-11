@@ -45,7 +45,13 @@ namespace Cloudents.Infrastructure.Search.Job
 
             if (jobType != null)
             {
-                filterQuery.AddRange(jobType.Select(s => $"{nameof(Entity.Job.JobType)} eq '{s.GetDescription()}'"));
+                var filterStr = string.Join(" or ", jobType.Select(s =>
+                    $"{nameof(Entity.Job.JobType)} eq '{s.GetDescription()}'"));
+                if (!string.IsNullOrWhiteSpace(filterStr))
+                {
+                    filterStr = $"({filterStr})";
+                }
+                filterQuery.Add(filterStr);
             }
 
             switch (sort)
@@ -78,14 +84,9 @@ namespace Cloudents.Infrastructure.Search.Job
                 } : null,
                 Top = JobSearch.PageSize,
                 Skip = JobSearch.PageSize * page,
-                Filter = string.Join(" or ", filterQuery),
+                Filter = string.Join(" and ", filterQuery),
                 OrderBy = sortQuery
-
             };
-            if (string.IsNullOrWhiteSpace(term))
-            {
-                term = "*";
-            }
 
             var retVal = await
                 _client.Documents.SearchAsync<Entity.Job>(term, searchParams, cancellationToken: token).ConfigureAwait(false);

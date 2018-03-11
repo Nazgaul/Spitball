@@ -109,7 +109,7 @@ module.exports = (env) => {
         {
             output: {
                 path: path.join(__dirname, "wwwroot", "dist"),
-                //publicPath: t.getdist(isDevBuild), // isDevBuild ? "/dist/" : "//spitball.azureedge.net/dist/",
+                publicPath: "/dist/", 
                 filename: "[name].[chunkhash].js",
                 library: "[name]"
             },

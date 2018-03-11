@@ -137,7 +137,7 @@ module.exports = (env) => {
             output: {
                 path: path.join(__dirname, bundleOutputDir),
                 filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",
-                //publicPath: t.getdist(isDevBuild)
+                publicPath: "/dist/"
             },
             plugins: [
                 new webpack.DllReferencePlugin({
