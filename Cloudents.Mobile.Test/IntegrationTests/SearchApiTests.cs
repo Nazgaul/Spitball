@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Cloudents.Api.Test.IntegrationTests;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Cloudents.Mobile.Test.IntegrationTests
+namespace Cloudents.Api.Test.IntegrationTests
 {
     [TestClass]
     public class SearchApiTests : ServerInit
