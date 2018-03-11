@@ -15,6 +15,7 @@ using Cloudents.MobileApi.Filters;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,10 +41,11 @@ namespace Cloudents.MobileApi
         [UsedImplicitly]
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            //services.AddCors();
             services.AddMvc().AddMvcOptions(o =>
             {
                 o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));
+                o.Filters.Add(new CorsAuthorizationFilterFactory("*"));
                 o.ModelBinderProviders.Insert(0, new LocationModelBinder());
                 o.ModelBinderProviders.Insert(0, new GeoPointModelBinder());
             }).AddJsonOptions(options =>
@@ -102,7 +104,24 @@ namespace Cloudents.MobileApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(builder =>
+            {
+                builder.SetIsOriginAllowed(origin =>
+                {
+                    if (origin.IndexOf("localhost", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                    {
+                        return true;
+                    }
 
+                    if (origin.IndexOf("spitball", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                });
+                //builder.WithOrigins("www.spitball.co", "dev.spitball.co");
+                //builder.AllowAnyOrigin();
+            });
             var reWriterOptions = new RewriteOptions();
                 
             if (!env.IsEnvironment(IntegrationTestEnvironmentName))
@@ -123,11 +142,7 @@ namespace Cloudents.MobileApi
 
             app.UseSwagger();
 
-            app.UseCors(builder =>
-            {
-                //builder.WithOrigins("www.spitball.co", "dev.spitball.co");
-                builder.AllowAnyOrigin();
-            });
+           
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {

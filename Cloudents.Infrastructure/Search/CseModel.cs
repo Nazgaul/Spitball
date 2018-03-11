@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Search
             SearchRequestSort sort,
             CustomApiKey key, IEnumerable<string> courses, IEnumerable<string> universitySynonym, string defaultTerm, string docType)
         {
-            Query = query.Where(w => w != null);
+            Query = query?.Where(w => w != null);
             Sources = sources;
 
             //if (source != null)
