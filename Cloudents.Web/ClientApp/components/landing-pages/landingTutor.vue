@@ -10,14 +10,14 @@
                 <div class="content-wrapper">
                     <h2>We teamed up with the most trusted <br class="hidden-xs-only"/>
                         tutoring services out there so you can <br class="hidden-xs-only"/>
-                        enjoy it all. In one place.</h2>
+                        find the most affordable and suitable tutor for YOU.</h2>
                     <p class="hidden-xs-only">Fill out the field and start spitballing!</p>
                     <div class="search-wrapper">
                         <v-text-field class="search-b" type="search" solo
                                       @keyup.enter="search" autocomplete="off"
                                       required name="q"
-                                      v-model.trim="msg" placeholder="Enter your subject"></v-text-field>
-                        <button @click="search">Get 30 Minutes Free</button>
+                                      v-model.trim="msg" placeholder="What do you need help with?"></v-text-field>
+                        <button @click="search">Start Spitballing</button>
                     </div>
                 </div>
             </div>
