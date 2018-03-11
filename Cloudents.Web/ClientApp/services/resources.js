@@ -3,7 +3,7 @@ import qs from "query-string";
 
 axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: false });
 axios.defaults.responseType = "json";
-axios.defaults.baseURL = "api";
+axios.defaults.baseURL = "https://api.spitball.co/api/";
 let transformLocation=(params)=>{
     let {location}=params;
     delete params.location;
@@ -18,6 +18,10 @@ let transferResultNote = res => {
     if(!res) return {data:[]};
     return { source: res.facet,facet:res.facet, data: result.map(val => { return { ...val, template: "item" } }) }
 };
+let transferAutoComplete = res => {
+    let result = res?res.autocomplete:[];
+    return {result }
+};
 //todo think about error
 let transferResultAsk = res => {
     const video = res.video;
@@ -27,16 +31,16 @@ let transferResultAsk = res => {
     return { data, source:res.result.facet,facet:res.result.facet}
 };
 let transferResultTutor = data => {
-    let body = data || [];
-    return { data: body.map(val => { return { ...val, template: "tutor" } }) };
+    let body = data || {};
+    return { data: body.result.map(val => { return { ...val, template: "tutor" } }) };
 };
 let transferJob = body => {
     let { result, facet: jobType,facet } = body;
     return { jobType,facet, data: result.map(val => { return { ...val, template: "job" } }) };
 };
 let transferBook = body => {
-    body = body || [];
-    let data = body.map(val => { return { ...val, template: "book" } });
+    body = body || {};
+    let data = body.result.map(val => { return { ...val, template: "book" } });
     return { data }
 };
 let transferFood = body => {
@@ -66,11 +70,10 @@ const courseFunctions = {
 export const interpetPromise = (sentence) => axios.get("AI", { params: { sentence } });
 const getBookDetails = ({ type, isbn13 }) => axios.get(`book/${type}`, { params: { isbn13 } });
 const getPlacesDetails = ({ id }) => {
-    debugger;
     return axios.get("places", { params: { id } });
 }
 export const getUniversity = (params) => axios.get("university", { params });
-export const search = { getBookDetails, ...searchFunctions, getPlacesDetails,autoComplete:(term)=>axios.get("suggest",{params:{sentence:term}}) };
+export const search = { getBookDetails, ...searchFunctions, getPlacesDetails,autoComplete:(term)=>axios.get("suggest",{params:{sentence:term},transformResponse:transferAutoComplete}) };
 export const course = { ...courseFunctions };
 export const help = {
     getFaq: () => axios.get("help"),
