@@ -45,6 +45,8 @@ const allModules = [
     "vuetify/es5/components/VIcon",
     "vuetify/es5/components/VSnackbar",
     "webfontloader",
+    'smartbanner.js/dist/smartbanner',
+    'smartbanner.js/dist/smartbanner.css'
 ];
 
 module.exports = (env) => {
@@ -113,6 +115,7 @@ module.exports = (env) => {
                 filename: "[name].[chunkhash].js",
                 library: "[name]"
             },
+           
             entry: {
                 vendor: allModules
             },

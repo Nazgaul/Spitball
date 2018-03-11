@@ -10,8 +10,6 @@
     </v-app>
 </template>
 <script>
-    import smartBunner from 'smartbanner.js/dist/smartbanner'
-    import smartBunnerCss from 'smartbanner.js/dist/smartbanner.css'
     import { mapGetters } from 'vuex'
     export default {
         computed: {
