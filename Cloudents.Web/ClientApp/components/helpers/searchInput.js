@@ -45,6 +45,7 @@ export default {
             this.isFirst=true;
         },
         msg:debounce(function (val) {
+            this.$emit('input',val);
             if(this.msg&&!this.isFirst){
                 this.getAutocmplete(val).then(({data})=>{this.autoSuggestList=val?data:[]})}else{this.autoSuggestList=[];}
             this.isFirst=false;

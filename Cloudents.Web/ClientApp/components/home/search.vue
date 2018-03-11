@@ -4,7 +4,7 @@
             <v-container>
                 <v-layout row>
                     <v-flex class="tx-input">
-                        <search-input :placeholder="placeholder" :hide-on-scroll="$vuetify.breakpoint.smAndDown"></search-input>
+                        <search-input :placeholder="placeholder" :hide-on-scroll="$vuetify.breakpoint.smAndDown" v-model="msg"></search-input>
                     </v-flex>
                     <v-flex class="f-submit">
                         <button type="submit">
