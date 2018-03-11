@@ -66,6 +66,7 @@ export default {
             else if (this.msg) {
                 this.$router.push({name: "result", query: {q: this.msg}});
             }
+            this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
                 this.$el.querySelector('input').blur();
