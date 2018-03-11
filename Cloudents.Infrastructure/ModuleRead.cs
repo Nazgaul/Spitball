@@ -73,7 +73,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<JobSearch>().As<IJobSearch>()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor));
-            //.InterceptedBy(typeof(CacheResultInterceptor));
 
             #endregion
 

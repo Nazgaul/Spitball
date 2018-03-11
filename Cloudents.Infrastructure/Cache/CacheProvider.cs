@@ -36,17 +36,17 @@ namespace Cloudents.Infrastructure.Cache
             }
         }
 
-        public object Set(string key, string region, object value, int expire,bool slideExpiration)
+        public void Set(string key, string region, object value, int expire,bool slideExpiration)
         {
             var obj = ConvertEnumerableToList(value);
             if (obj == null)
             {
-                return value;
+                return;
             }
             var cacheItem = new CacheItem<object>(key, region, obj, slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
                 TimeSpan.FromSeconds(expire));
             _cache.Put(cacheItem);
-            return obj;
+            //return obj;
         }
 
         /// <summary>
@@ -61,6 +61,7 @@ namespace Cloudents.Infrastructure.Cache
                           && t.GetGenericTypeDefinition() == typeof(IEnumerable<>));
             if (p != null)
             {
+                
                 var t = p.GetGenericArguments()[0];
                 var listType = typeof(List<>);
                 var constructedListType = listType.MakeGenericType(t);
@@ -73,7 +74,7 @@ namespace Cloudents.Infrastructure.Cache
                         instance.Add(obj);
                     }
 
-                return val;
+                return instance;
             }
             return val;
         }
