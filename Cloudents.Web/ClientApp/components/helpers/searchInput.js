@@ -45,6 +45,7 @@ export default {
             this.isFirst=true;
         },
         msg:debounce(function (val) {
+            this.$emit('input',val);
             if(this.msg&&!this.isFirst){
                 this.getAutocmplete(val).then(({data})=>{this.autoSuggestList=val?data:[]})}else{this.autoSuggestList=[];}
             this.isFirst=false;
@@ -65,6 +66,7 @@ export default {
             else if (this.msg) {
                 this.$router.push({name: "result", query: {q: this.msg}});
             }
+            this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
                 this.$el.querySelector('input').blur();

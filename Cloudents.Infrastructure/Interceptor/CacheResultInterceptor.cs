@@ -116,11 +116,11 @@ namespace Cloudents.Infrastructure.Interceptor
             invocation.ReturnValue = data;
         }
 
-        protected override void AfterAction<T>(ref T val, IInvocation invocation)
+        protected override void AfterAction<T>(T val, IInvocation invocation)
         {
             var key = GetInvocationSignature(invocation);
             var att = invocation.GetCustomAttribute<CacheAttribute>();
-            val = (T)_cacheProvider.Set(key, att.Region, val, att.Duration,att.Slide); // cacheAttr.Duration);
+            _cacheProvider.Set(key, att.Region, val, att.Duration,att.Slide); // cacheAttr.Duration);
         }
     }
 }
