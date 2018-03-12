@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.DTOs
 {
     [DataContract]
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "This is dto class format to json")]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "This is dto class format to json")]
     public class JobDto : IShuffleable, IUrlRedirect
     {
         private string _responsibilities;
