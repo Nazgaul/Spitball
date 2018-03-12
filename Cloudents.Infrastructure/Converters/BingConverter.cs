@@ -6,9 +6,11 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Search;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Converters
 {
+    [UsedImplicitly]
     public class BingConverter : ITypeConverter<BingSearch.WebPage, SearchResult>
     {
         private readonly IKeyGenerator _keyGenerator;
@@ -49,9 +51,7 @@ namespace Cloudents.Infrastructure.Converters
                 Title = source.Name,
             };
 
-
-            
-            if (string.Equals(domain, "courseHero", StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(domain, "courseHero", StringComparison.OrdinalIgnoreCase))
             {
                 result.Url =
                     $"http://shareasale.com/r.cfm?b=661825&u=1469379&m=55976&urllink={url.Host + url.PathAndQuery + url.Fragment}&afftrack=";

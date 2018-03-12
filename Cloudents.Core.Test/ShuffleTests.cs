@@ -15,21 +15,7 @@ namespace Cloudents.Core.Test
             public int Result { get; set; }
 
             public object Bucket => Host;
-
-            //public override bool Equals(object obj)
-            //{
-            //    if (obj is ShuffleTestModel p)
-            //    {
-            //        return p.Host == Host && p.Result == Result;
-            //    }
-
-            //    return false;
-            //}
-
-            //public override int GetHashCode()
-            //{
-            //    return Result.GetHashCode() * 11 + Host.GetHashCode() * 13;
-            //}
+           
         }
 
         [TestMethod]

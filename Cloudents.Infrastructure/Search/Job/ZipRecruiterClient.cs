@@ -17,10 +17,12 @@ using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
+    /// <summary>
+    /// <remarks>https://docs.google.com/document/d/1PM6pgV06vGbQJoZ1mxeSTZPr1aYemSGoEyTtNTDyt3s/pub</remarks>
+    /// </summary>
     [UsedImplicitly]
     public class ZipRecruiterClient : IJobProvider
     {
-        //https://docs.google.com/document/d/1PM6pgV06vGbQJoZ1mxeSTZPr1aYemSGoEyTtNTDyt3s/pub
         private readonly IRestClient _client;
         private readonly IMapper _mapper;
 
@@ -30,14 +32,13 @@ namespace Cloudents.Infrastructure.Search.Job
             _mapper = mapper;
         }
 
-
         [Cache(TimeConst.Hour, "job-zipRecruiter", false)]
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term,
             JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location,
             int page, bool highlight, CancellationToken token)
         {
-            if (jobType?.Any() == true 
-                || location?.Address == null/* || sort == JobRequestSort.Distance*/)
+            if (jobType?.Any() == true
+                || location?.Address == null)
             {
                 return null;
             }
@@ -73,6 +74,8 @@ namespace Cloudents.Infrastructure.Search.Job
                 Result = jobs
             };
         }
+
+        
 
         public class ZipRecruiterResult
         {

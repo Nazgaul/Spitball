@@ -48,11 +48,7 @@ namespace Cloudents.Infrastructure.Search
                 ["offset"] = (page * PageSize).ToString(),
                 ["q"] = $"{query} {sourceQuery}"
             };
-            //if (format != BingTextFormat.None)
-            //{
-            //    nvc.Add("textFormat", format.GetDescription());
-            //    nvc.Add("textDecorations", bool.TrueString);
-            //}
+            
             var uri = new Uri("https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search");
 
             var response = await _restClient.GetAsync<BingCustomSearchResponse>(uri, nvc, new[]
@@ -67,6 +63,7 @@ namespace Cloudents.Infrastructure.Search
             return _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(
                 response.WebPages?.Value, a =>
                 {
+                    
                     if (format == BingTextFormat.Html)
                     {
                         a.Items["query"] = model.Query;
