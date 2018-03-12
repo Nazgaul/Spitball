@@ -1,8 +1,10 @@
 ﻿using Cloudents.Core.Entities.Db;
 using FluentNHibernate.Mapping;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Framework.Database.Maps
 {
+    [UsedImplicitly]
     public class UrlStatsMap : ClassMap<UrlStats>
     {
         public UrlStatsMap()

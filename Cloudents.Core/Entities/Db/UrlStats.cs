@@ -15,7 +15,7 @@ namespace Cloudents.Core.Entities.Db
         }
 
         public UrlStats(string host, DateTime dateTime,
-            string urlTarget, string urlSource, int sourceLocation, string ip)
+            string urlTarget, string urlSource, int? sourceLocation, string ip)
             :this()
         {
             Host = host;
@@ -31,7 +31,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual DateTime DateTime { get; [UsedImplicitly] protected set; }
         public virtual string UrlTarget { get; [UsedImplicitly] protected set; }
         public virtual string UrlSource { get; [UsedImplicitly] protected set; }
-        public virtual int SourceLocation { get; [UsedImplicitly] protected set; }
+        public virtual int? SourceLocation { get; [UsedImplicitly] protected set; }
         public virtual int AggregateCount { get; [UsedImplicitly] protected set; }
 
         public virtual string Ip { get; [UsedImplicitly] protected set; }

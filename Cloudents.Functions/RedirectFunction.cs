@@ -30,7 +30,14 @@ namespace Cloudents.Functions
             var referrer = req.Headers.Referrer?.ToString();
             var queryString = req.GetQueryNameValuePairs().ToList();
             var host = queryString.Find(f => f.Key == "host").Value;
-            var location = int.Parse(queryString.Find(f => f.Key == "location").Value);
+
+            int? location = null;
+            
+            if (int.TryParse(queryString.Find(f => f.Key == "location").Value,out var locationInt))
+            {
+                location = locationInt;
+            }
+            //var location = int.Parse(queryString.Find(f => f.Key == "location").Value);
             var url = queryString.Find(f => f.Key == "url").Value;
 
             //if (HostFuncs.TryGetValue("studyblue", out var func))
@@ -76,7 +83,7 @@ namespace Cloudents.Functions
 
         [FunctionName("UrlProcess")]
         [UsedImplicitly]
-        public static async Task ProcessQueueMessage([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,
+        public static async Task ProcessQueueMessageAsync([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,
             TraceWriter log, CancellationToken token, [Inject] ICommandBus commandBus)
         {
             var command = new CreateUrlStatsCommand(content.Host, content.DateTime, content.Url, content.UrlReferrer,
