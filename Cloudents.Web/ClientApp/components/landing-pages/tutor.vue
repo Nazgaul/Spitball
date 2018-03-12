@@ -1,5 +1,5 @@
 <template>
-    <div class="landing-page-wrapper">
+    <div class="landing-page-wrapper" :style="'background-image: url('+ require(`./img/${contentObj.background}`)+')'">
         <div class="landing-page">
 
             <router-link class="logo-link" :to="{name:'home'}">
@@ -47,5 +47,5 @@
         }
     }
 </script>
-<style src="./landingTutor.less" lang="less"></style>
+<style src="./tutor.less" lang="less"></style>
 
