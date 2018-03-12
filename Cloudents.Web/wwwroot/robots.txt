@@ -4,5 +4,6 @@ disallow: */print/$
 disallow: */download/$
 disallow: /d/
 disallow: /new/
+disallow: /landing/
 
 Sitemap: https://www.spitball.co/sitemap.xml/

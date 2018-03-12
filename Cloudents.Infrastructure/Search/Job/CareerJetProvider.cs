@@ -39,25 +39,45 @@ namespace Cloudents.Infrastructure.Search.Job
         {
             var contactType = new List<string>();
             var contactPeriod = new List<string>();
-            foreach (var filter in jobType ?? Enumerable.Empty<JobFilter>())
+
+            var noResult = true;
+            if (jobType == null)
             {
-                switch (filter)
+                noResult = false;
+            }
+            else
+            {
+                foreach (var filter in jobType)
                 {
-                    case JobFilter.None:
-                        break;
-                    case JobFilter.FullTime:
-                        contactPeriod.Add("f");
-                        break;
-                    case JobFilter.PartTime:
-                        contactPeriod.Add("p");
-                        break;
-                    case JobFilter.Contractor:
-                        contactType.Add("c");
-                        break;
-                    case JobFilter.Temporary:
-                        contactType.Add("t");
-                        break;
+                    switch (filter)
+                    {
+                        case JobFilter.None:
+                            noResult = false;
+                            break;
+                        case JobFilter.FullTime:
+                            contactPeriod.Add("f");
+                            noResult = false;
+                            break;
+                        case JobFilter.PartTime:
+                            contactPeriod.Add("p");
+                            noResult = false;
+                            break;
+                        case JobFilter.Contractor:
+                            contactType.Add("c");
+                            noResult = false;
+                            break;
+                        case JobFilter.Temporary:
+                            contactType.Add("t");
+                            noResult = false;
+                            break;
+                    }
                 }
+            }
+            
+
+            if (noResult)
+            {
+                return null;
             }
 
             var nvc = new NameValueCollection

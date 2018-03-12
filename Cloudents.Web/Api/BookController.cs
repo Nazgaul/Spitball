@@ -18,7 +18,7 @@ namespace Cloudents.Web.Api
         }
 
         [Route("search")]
-        public async Task<IActionResult> Get(string[] term, int page, CancellationToken token)
+        public async Task<IActionResult> GetAsync(string[] term, int page, CancellationToken token)
         {
             var result = await _booksSearch.SearchAsync(term, page, token).ConfigureAwait(false);
             return Json(result);
