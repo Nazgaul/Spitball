@@ -35,7 +35,12 @@ namespace Cloudents.Infrastructure.Search.Job
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, bool highlight,
             CancellationToken token)
         {
-            if (location?.Address?.City == null || location?.Ip == null)
+            if (location?.Address?.City == null || location.Ip == null)
+            {
+                return null;
+            }
+
+            if (!string.Equals(location.Address.CountryCode, "us", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
@@ -45,7 +50,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["id"] = 4538.ToString(),
                 ["pass"] = "PGhLlpYJEEeZjxCd",
                 ["ip"] = location.Ip,
-                ["l"] = location.Address?.City,
+                ["l"] = location.Address.City,
                 ["start"] = (page * JobSearch.PageSize).ToString(),
                 ["Limit"] = JobSearch.PageSize.ToString(),
                 ["format"] = "json",
