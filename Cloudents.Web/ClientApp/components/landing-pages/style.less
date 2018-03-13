@@ -9,6 +9,14 @@
   background-position: center;
   background-size: cover;
 
+  &.landing-study-docs, &.landing-jobs{
+    h1{
+      text-shadow: 0 2px 4px #000000;
+      margin-bottom: 40px;
+      margin-left: 6px;
+    }
+  }
+
   .landing-page {
     max-width: 1280px;
     margin: 0 auto;
@@ -63,7 +71,7 @@
   .search-wrapper {
     max-width: 528px;
     .search-b {
-      border-radius: 0;
+      border: solid 1px #302eb5;
       .responsive-property(height, 56px, null, 48px);
       .input-group__input {
         align-items: center;
@@ -90,6 +98,11 @@
       .responsive-property(line-height, 56px, null, 48px);
       background-color: #f5a623;
       .responsive-property(margin-top, 16px, null, 12px);
+    }
+
+
+    .search-b, button {
+      border-radius: 4px;
     }
   }
 }

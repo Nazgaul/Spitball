@@ -1,5 +1,5 @@
 <template>
-    <div class="landing-page-wrapper" :style="'background-image: url('+ require(`./img/${contentObj.background}`)+')'">
+    <div class="landing-page-wrapper" :class="contentObj.wrappingClass" :style="'background-image: url('+ require(`./img/${contentObj.background}`)+')'">
         <div class="landing-page">
 
             <router-link class="logo-link" :to="{name:'home'}">
@@ -8,13 +8,13 @@
             <div class="page-data">
                 <h1 v-html="contentObj.titleHtml"></h1>
                 <div class="content-wrapper">
-                    <h2 v-html="contentObj.bodyHtml"></h2>
+                    <h2 v-html="contentObj.bodyHtml"><</h2>
                     <p class="hidden-xs-only">Fill out the field and start spitballing!</p>
                     <div class="search-wrapper">
                         <v-text-field class="search-b" type="search" solo
                                       @keyup.enter="search" autocomplete="off"
                                       required name="q"
-                                      v-model.trim="msg" placeholder="What do you need help with?"></v-text-field>
+                                      v-model.trim="msg" :placeholder="contentObj.placeholder"></v-text-field>
                         <button @click="search">Start Spitballing</button>
                     </div>
                 </div>
@@ -26,8 +26,7 @@
 
 <script>
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
-    import {tutorV1} from "./consts.js";
-    import {tutorV2} from "./consts.js";
+    import {landingPagesData} from "./consts.js";
 
     export default {
         data: () => ({
@@ -43,9 +42,9 @@
             }
         },
         created() {
-            this.contentObj = this.$route.name === 'landingTutorV1' ? tutorV1 : tutorV2;
+            this.contentObj = landingPagesData[this.$route.name];
         }
     }
 </script>
-<style src="./tutor.less" lang="less"></style>
+<style src="./style.less" lang="less"></style>
 

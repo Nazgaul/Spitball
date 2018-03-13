@@ -13,7 +13,7 @@ const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
-const landingTutor = () => import("./components/landing-pages/tutor.vue");
+const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
 import { staticRoutes } from "./components/satellite/satellite-routes";
 
 function dynamicPropsFn(route) {
@@ -140,13 +140,23 @@ let routes2 = [
     },
     {
         path: "/landing/get_a_tutor_now", components: {
-            default: landingTutor,
-        }, name: "landingTutorV1"
+            default: landingTemplate,
+        }, name: "tutorV1"
     },
     {
         path: "/landing/get_the_tutor_you_need", components: {
-            default: landingTutor,
-        }, name: "landingTutorV2"
+            default: landingTemplate,
+        }, name: "tutorV2"
+    },
+    {
+        path: "/landing/get_the_notes_you_need", components: {
+            default: landingTemplate,
+        }, name: "studyDocs"
+    },
+    {
+        path: "/landing/jobs", components: {
+            default: landingTemplate,
+        }, name: "jobs"
     },
 
 ];
