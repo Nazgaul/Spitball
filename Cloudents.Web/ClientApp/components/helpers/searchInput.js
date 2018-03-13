@@ -107,7 +107,7 @@ export default {
     },
     created() {
         if (!this.isHome) {
-            this.msg = this.userText ? this.userText : this.globalTerm;
+            this.msg = this.userText ? this.userText : this.globalTerm?this.globalTerm:"";
         }
     }
 }
