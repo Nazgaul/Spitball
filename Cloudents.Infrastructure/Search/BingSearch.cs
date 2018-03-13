@@ -44,7 +44,7 @@ namespace Cloudents.Infrastructure.Search
             var nvc = new NameValueCollection
             {
                 ["count"] = PageSize.ToString(),
-                ["customConfig"] = model.Key.Key,
+                ["customConfig"] = model.Key.ToString(),
                 ["offset"] = (page * PageSize).ToString(),
                 ["q"] = $"{query} {sourceQuery}"
             };

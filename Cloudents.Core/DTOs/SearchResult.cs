@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace Cloudents.Core.DTOs
 {
     [DataContract]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "dto class convert to json")]
     public class SearchResult : IShuffleable, IUrlRedirect
     {
         [DataMember]
@@ -20,6 +22,8 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Source { get; set; }
 
-        public object Bucket => Source;
+        //public object Bucket => Source;
+        public PrioritySource PrioritySource { get; set; }
+        public int Order { get; set; }
     }
 }

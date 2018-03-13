@@ -43,6 +43,8 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public string Source { get; set; }
-        public object Bucket => Source;
+       // public object Bucket => Source;
+        public PrioritySource PrioritySource { get; set; }
+        public int Order { get; set; }
     }
 }

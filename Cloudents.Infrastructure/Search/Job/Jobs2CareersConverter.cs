@@ -3,9 +3,11 @@ using System.Linq;
 using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
+    [UsedImplicitly]
     public class Jobs2CareersConverter : ITypeConverter<Jobs2CareersProvider.Jobs2CareersResult, IEnumerable<JobDto>>
     {
         public IEnumerable<JobDto> Convert(Jobs2CareersProvider.Jobs2CareersResult source, IEnumerable<JobDto> destination, ResolutionContext context)

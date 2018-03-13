@@ -15,6 +15,7 @@ using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Framework.Database;
 using Cloudents.Infrastructure.Search;
+using Cloudents.Infrastructure.Search.Tutor;
 
 namespace ConsoleApp
 {
@@ -62,10 +63,11 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"));
+            builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            var resolve1 = container.Resolve<IFlashcardSearch>();
-            var t1 = await resolve1.SearchAsync(SearchQuery.Flashcard(new[] { "financial accounting" }, 171885, null, null, 0, SearchRequestSort.None),BingTextFormat.Html, default);
+            var resolve1 = container.Resolve<TutorMeSearch>();
+            var t1 = await resolve1.SearchAsync("math", new TutorRequestFilter[0], TutorRequestSort.Relevance, null, 0, false, default);
 
             var resolve2 = container
                 .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>

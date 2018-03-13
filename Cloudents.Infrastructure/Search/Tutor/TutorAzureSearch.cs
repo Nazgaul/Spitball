@@ -3,9 +3,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
+using Cloudents.Infrastructure.Extensions;
 using Cloudents.Infrastructure.Write.Tutor;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -34,10 +36,10 @@ namespace Cloudents.Infrastructure.Search.Tutor
                 case TutorRequestSort.Price:
                     sortQuery.Add(nameof(TutorObj.Fee));
                     break;
-                //case TutorRequestSort.Distance:
-                //    sortQuery.Add(
-                //        $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})')");
-                //    break;
+                    //case TutorRequestSort.Distance:
+                    //    sortQuery.Add(
+                    //        $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})')");
+                    //    break;
             }
 
             var searchParams = new SearchParameters
@@ -63,7 +65,18 @@ namespace Cloudents.Infrastructure.Search.Tutor
             };
             var retVal = await
                 _client.Documents.SearchAsync<TutorObj>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            return _mapper.Map<IEnumerable<TutorObj>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
+
+
+
+            //return retVal.Results.Select((s, i) =>
+            //{
+            //    var t = _mapper.Map<TutorDto>(s.Document);
+            //    t.Order = ++i;
+            //    return t;
+            //});
+
+            return _mapper.MapWithPriority<TutorObj, TutorDto>(retVal.Results.Select(s => s.Document),
+                PrioritySource.TutorWyzant);
         }
 
         private static IEnumerable<string> ApplyFilter(IEnumerable<TutorRequestFilter> filters, GeoPoint location)

@@ -39,9 +39,9 @@ namespace Cloudents.Api.Controllers
         {
             var result = (await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
-                model.Sort.GetValueOrDefault(TutorRequestSort.Price),
+                model.Sort.GetValueOrDefault(TutorRequestSort.Relevance),
                 model.Location,
-                model.Page.GetValueOrDefault(), true, token).ConfigureAwait(false)).ToListIgnoreNull();
+                model.Page.GetValueOrDefault(), false, token).ConfigureAwait(false)).ToListIgnoreNull();
 
             string nextPageLink = null;
             if (result.Count > 0)

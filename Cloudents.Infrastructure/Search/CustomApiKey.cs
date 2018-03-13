@@ -5,7 +5,7 @@ namespace Cloudents.Infrastructure.Search
     [Serializable]
     public sealed class CustomApiKey
     {
-        public string Key { get; }
+        private string Key { get; }
 
         private CustomApiKey(string key)
         {

@@ -1,11 +1,18 @@
 ﻿using Cloudents.Core.DTOs;
 using AutoMapper;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search.Tutor
 {
+    [UsedImplicitly]
     public class TutorMeConverter : ITypeConverter<TutorMeSearch.Result, TutorDto>
     {
-        public TutorDto Convert(TutorMeSearch.Result source, TutorDto destination, ResolutionContext context)
+       
+
+        public TutorDto Convert(TutorMeSearch.Result source, TutorDto destination, 
+            ResolutionContext context)
         {
             return new TutorDto
             {
@@ -14,7 +21,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
                 Image = source.Avatar.X300,
                 Name = source.ShortName,
                 Online = source.IsOnline,
-                Source = "TutorMe",
+                Source =  "TutorMe",
                 Url = $"https://tutorme.com/tutors/{source.Id}/"
             };
         }

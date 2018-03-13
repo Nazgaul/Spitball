@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Api.Filters;
 using Cloudents.Api.Models;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
@@ -61,8 +60,8 @@ namespace Cloudents.Api.Controllers
             });
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetByIdAsync([RequiredFromQuery]string id,
+        [HttpGet("id")]
+        public async Task<IActionResult> GetByIdAsync(string id,
             CancellationToken token, [FromServices] IGooglePlacesSearch places)
         {
             if (id == null) throw new ArgumentNullException(nameof(id));
