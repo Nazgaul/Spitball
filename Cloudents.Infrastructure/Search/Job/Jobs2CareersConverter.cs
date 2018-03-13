@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Search.Job
             return source.Jobs.Select(s => new JobDto
             {
                 DateTime = s.Date,
-                Url = s.Url,
+                Url = $"http://www.jobs2careers.com/click.php?id={s.Id}",
                 Source = "Jobs2Careers",
                 Address = s.City.FirstOrDefault(),
                 Title = s.Title,

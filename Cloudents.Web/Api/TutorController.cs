@@ -37,7 +37,7 @@ namespace Cloudents.Web.Api
                 isMobile = capabilities.IsMobileDevice;
             }
             var result = await _tutorSearch.SearchAsync(term, filter,
-                sort.GetValueOrDefault(TutorRequestSort.Price), location.Point, page,
+                sort.GetValueOrDefault(TutorRequestSort.Relevance), location.Point, page,
                 isMobile, token).ConfigureAwait(false);
             return Json(result);
         }
