@@ -45,6 +45,8 @@ const allModules = [
     "vuetify/es5/components/VIcon",
     "vuetify/es5/components/VSnackbar",
     "webfontloader",
+    //'smartbanner.js/dist/smartbanner',
+    //'smartbanner.js/dist/smartbanner.css'
 ];
 
 module.exports = (env) => {
@@ -109,10 +111,11 @@ module.exports = (env) => {
         {
             output: {
                 path: path.join(__dirname, "wwwroot", "dist"),
-                publicPath: t.getdist(isDevBuild), // isDevBuild ? "/dist/" : "//spitball.azureedge.net/dist/",
+                publicPath: "/dist/", 
                 filename: "[name].[chunkhash].js",
                 library: "[name]"
             },
+           
             entry: {
                 vendor: allModules
             },

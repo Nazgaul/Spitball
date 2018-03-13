@@ -250,6 +250,16 @@ export const pageMixin =
                         return item;
                     });
                 }
+                // let matchValues = this.filterSelection.filter(i => this.filterObject.find(t =>
+                //     (t.modelId === i.key &&
+                //         (t.data.find(
+                //                 k => i.value.toString() === (k.id ? k.id.toString() : k.toString()))
+                //         ))
+                // ));
+                // if (matchValues.length !== this.filterSelection.length) {
+                //     const routeParams = {path: '/' + this.name, query: {q: this.userText}};
+                //     this.$router.replace(routeParams);
+                // }
             }
             ,
 

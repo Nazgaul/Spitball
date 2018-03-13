@@ -35,7 +35,12 @@ namespace Cloudents.Infrastructure.Search.Job
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, bool highlight,
             CancellationToken token)
         {
-            if (location?.Address?.City == null || location?.Ip == null)
+            if (location?.Address?.City == null || location.Ip == null)
+            {
+                return null;
+            }
+
+            if (!string.Equals(location.Address.CountryCode, "us", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
@@ -45,7 +50,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["id"] = 4538.ToString(),
                 ["pass"] = "PGhLlpYJEEeZjxCd",
                 ["ip"] = location.Ip,
-                ["l"] = location.Address?.City,
+                ["l"] = location.Address.City,
                 ["start"] = (page * JobSearch.PageSize).ToString(),
                 ["Limit"] = JobSearch.PageSize.ToString(),
                 ["format"] = "json",
@@ -116,14 +121,17 @@ namespace Cloudents.Infrastructure.Search.Job
             public string Company { get; set; }
             [JsonProperty("city")]
             public string[] City { get; set; }
-            //public object[] zipcode { get; set; }
             [JsonProperty("description")]
             public string Description { get; set; }
-            //public string price { get; set; }
-            //public int preview { get; set; }
-            //public string id { get; set; }
+           
+            [JsonProperty("id")]
+            public string Id { get; set; }
             //public string major_category0 { get; set; }
             //public string minor_category0 { get; set; }
+            //public object[] zipcode { get; set; }
+            //public string price { get; set; }
+            //public int preview { get; set; }
+
         }
     }
 }
