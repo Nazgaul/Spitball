@@ -6,7 +6,7 @@ namespace Cloudents.Core
 {
     public interface IShuffleable
     {
-        PrioritySource PrioritySource { get; set; }
+        int Priority { get; }
         int Order { get; set; }
     }
 
@@ -21,7 +21,7 @@ namespace Cloudents.Core
         {
 
             return result.OrderBy(o =>
-                o.PrioritySource.Priority * o.Order).ThenBy(n => n.PrioritySource.Priority);
+                o.Priority * o.Order).ThenBy(n => n.Priority);
             //if (result == null)
             //{
             //    return null;
@@ -52,24 +52,24 @@ namespace Cloudents.Core
 
 
 
-    public class PrioritySource
-    {
-        private string Source { get; }
-        public int Priority { get; }
+    //public class PrioritySource
+    //{
+    //    private string Source { get; }
+    //    public int Priority { get; }
 
-        protected PrioritySource(string source, int priority)
-        {
-            Source = source;
-            Priority = priority;
-        }
+    //    protected PrioritySource(string source, int priority)
+    //    {
+    //        Source = source;
+    //        Priority = priority;
+    //    }
 
-        public override string ToString()
-        {
-            return Source;
-        }
+    //    //public override string ToString()
+    //    //{
+    //    //    return Source;
+    //    //}
 
-        public static readonly PrioritySource TutorWyzant = new PrioritySource("Wyzant", 1);
-        public static readonly PrioritySource TutorChegg = new PrioritySource("Chegg", 2);
-        public static readonly PrioritySource TutorMe = new PrioritySource("TutorMe", 3);
-    }
+    //    public static readonly PrioritySource TutorWyzant = new PrioritySource("Wyzant", 1);
+    //    public static readonly PrioritySource TutorChegg = new PrioritySource("Chegg", 2);
+    //    public static readonly PrioritySource TutorMe = new PrioritySource("TutorMe", 3);
+    //}
 }

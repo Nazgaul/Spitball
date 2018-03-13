@@ -9,7 +9,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
     [UsedImplicitly]
     public class TutorMeConverter : ITypeConverter<TutorMeSearch.Result, TutorDto>
     {
-       
+        private const string Source = "TutorMe";
 
         public TutorDto Convert(TutorMeSearch.Result source, TutorDto destination, 
             ResolutionContext context)
@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
                 Image = source.Avatar.X300,
                 Name = source.ShortName,
                 Online = source.IsOnline,
-                Source =  "TutorMe",
+                Source = Source,
                 Url = $"https://tutorme.com/tutors/{source.Id}/"
             };
         }

@@ -34,10 +34,22 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Source { get; set; }
 
-        //public object Bucket => Source;
-        public PrioritySource PrioritySource { get; set; }
+        public int Priority
+        {
+            get
+            {
+                switch (Source)
+                {
+                    case "TutorMe":
+                        return 3;
+                    case "Wyzant":
+                        return 1;
+                    default:
+                        return 5;
+                }
+            }
+        }
+
         public int Order { get; set; }
-
-
     }
 }

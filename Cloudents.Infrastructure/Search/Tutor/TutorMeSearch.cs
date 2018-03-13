@@ -60,7 +60,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
                 return null;
             }
 
-            return _mapper.MapWithPriority<Result,TutorDto>(result.Results, PrioritySource.TutorMe);
+            return _mapper.MapWithPriority<Result,TutorDto>(result.Results);
            
         }
 

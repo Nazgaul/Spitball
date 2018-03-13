@@ -47,6 +47,7 @@ namespace Cloudents.Infrastructure.Search.Job
             var tasksResult = await Task.WhenAll(tasks).ConfigureAwait(false);
 
             var result = tasksResult.Where(w => w != null).ToList();
+            //TODO: need to fix in here. we are doing 2n and we can do n
             var facets = result.Where(w => w.Facet != null).SelectMany(s => s.Facet).Distinct();
             var jobResults = result.Where(w => w.Result != null).SelectMany(s => s.Result);
 

@@ -75,8 +75,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             //    return t;
             //});
 
-            return _mapper.MapWithPriority<TutorObj, TutorDto>(retVal.Results.Select(s => s.Document),
-                PrioritySource.TutorWyzant);
+            return _mapper.MapWithPriority<TutorObj, TutorDto>(retVal.Results.Select(s => s.Document));
         }
 
         private static IEnumerable<string> ApplyFilter(IEnumerable<TutorRequestFilter> filters, GeoPoint location)

@@ -8,7 +8,9 @@ namespace Cloudents.Infrastructure.Search.Tutor
     {
         public Mapper()
         {
-            CreateMap<Core.Entities.Search.Tutor, TutorDto>().ForMember(m => m.Online, opt => opt.MapFrom(src => src.TutorFilter == TutorFilter.Online));
+            CreateMap<Core.Entities.Search.Tutor, TutorDto>()
+                .ForMember(m => m.Online, opt => 
+                    opt.MapFrom(src => src.TutorFilter == TutorFilter.Online));
             CreateMap<TutorMeSearch.Result, TutorDto>().ConvertUsing<TutorMeConverter>();
         }
     }
