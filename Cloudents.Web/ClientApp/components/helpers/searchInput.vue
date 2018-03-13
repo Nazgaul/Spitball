@@ -6,7 +6,7 @@
                       :class="{'record':isRecording}"
                       id="transcript"
                       v-model.trim="msg" :placeholder="placeholder"
-                      prepend-icon="sbf-search" :append-icon="voiceAppend" :hide-on-scroll="hideOnScroll"
+                      prepend-icon="sbf-search" :append-icon="voiceAppend" :hide-on-scroll="isHome?hideOnScroll:false"
                       :append-icon-cb="$_voiceDetection" @click="openSuggestions"></v-text-field>
         <!--<input type="checkbox" id="toggler"/>-->
         <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
