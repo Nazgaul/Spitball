@@ -116,14 +116,17 @@ namespace Cloudents.Infrastructure.Search.Job
             public string Company { get; set; }
             [JsonProperty("city")]
             public string[] City { get; set; }
-            //public object[] zipcode { get; set; }
             [JsonProperty("description")]
             public string Description { get; set; }
-            //public string price { get; set; }
-            //public int preview { get; set; }
-            //public string id { get; set; }
+           
+            [JsonProperty("id")]
+            public string Id { get; set; }
             //public string major_category0 { get; set; }
             //public string minor_category0 { get; set; }
+            //public object[] zipcode { get; set; }
+            //public string price { get; set; }
+            //public int preview { get; set; }
+
         }
     }
 }
