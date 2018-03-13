@@ -4,13 +4,15 @@ using System.Linq;
 using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
+using JetBrains.Annotations;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Converters
 {
+    [UsedImplicitly]
     internal class JobResultConverter : ITypeConverter<DocumentSearchResult<Job>, ResultWithFacetDto<JobDto>>
     {
-        internal const string FacetType = "facet";
+       // internal const string FacetType = "facet";
         public ResultWithFacetDto<JobDto> Convert(DocumentSearchResult<Job> source, ResultWithFacetDto<JobDto> destination, ResolutionContext context)
         {
             var retVal = new ResultWithFacetDto<JobDto>
@@ -22,7 +24,7 @@ namespace Cloudents.Infrastructure.Converters
             {
                 source.Facets.TryGetValue(nameof(Job.JobType), out var facets);
                 retVal.Facet = facets?.Select(s => s.AsValueFacetResult<string>().Value).Where(w => !string.Equals(w,
-                    "none", StringComparison.InvariantCultureIgnoreCase));
+                    "none", StringComparison.OrdinalIgnoreCase));
             }
 
             return retVal;

@@ -51,7 +51,7 @@ namespace Cloudents.Api
                             return true;
                         }
 
-                        if (origin.IndexOf("spitball", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                        if (origin.IndexOf("spitball", StringComparison.OrdinalIgnoreCase) >= 0)
                         {
                             return true;
                         }
