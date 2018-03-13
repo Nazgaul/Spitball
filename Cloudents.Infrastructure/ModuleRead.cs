@@ -6,6 +6,7 @@ using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Data;
+using Cloudents.Infrastructure.Domain;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Book;
@@ -13,6 +14,7 @@ using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Search.Tutor;
 using Microsoft.Cognitive.LUIS;
+using ICacheProvider = Nager.PublicSuffix.ICacheProvider;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
@@ -44,6 +46,7 @@ namespace Cloudents.Infrastructure
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor), typeof(ShuffleInterceptor));
 
             builder.RegisterType<DomainParser>().AsSelf().SingleInstance();
+            builder.RegisterType<DomainCache>().As<ICacheProvider>();
 
             builder.RegisterType<Suggestions>().As<ISuggestions>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));

@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Nager.PublicSuffix;
 
-namespace Cloudents.Infrastructure
+namespace Cloudents.Infrastructure.Domain
 {
+    [UsedImplicitly]
     public class DomainParser
     {
         private readonly Nager.PublicSuffix.DomainParser _parser;
-        public DomainParser()
+        public DomainParser(ICacheProvider cache)
         {
-            var provider = new WebTldRuleProvider();
+            var provider = new WebTldRuleProvider(cacheProvider: cache);
             _parser = new Nager.PublicSuffix.DomainParser(provider);
         }
 
@@ -23,5 +21,4 @@ namespace Cloudents.Infrastructure
             return domainName?.Domain;
         }
     }
-
 }

@@ -36,6 +36,11 @@ namespace Cloudents.Infrastructure.Cache
             }
         }
 
+        public bool Exists(string key, string region)
+        {
+            return _cache.Exists(key, region);
+        }
+
         public void Set(string key, string region, object value, int expire,bool slideExpiration)
         {
             var obj = ConvertEnumerableToList(value);

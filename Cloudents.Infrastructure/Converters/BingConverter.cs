@@ -5,6 +5,7 @@ using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Domain;
 using Cloudents.Infrastructure.Search;
 using JetBrains.Annotations;
 
