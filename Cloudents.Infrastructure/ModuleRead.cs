@@ -42,9 +42,12 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<BingSearch>().As<ISearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor), typeof(ShuffleInterceptor));
+
+            builder.RegisterType<DomainParser>().AsSelf().SingleInstance();
+
             builder.RegisterType<Suggestions>().As<ISuggestions>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
-            builder.RegisterType<ReplaceImageProvider>().AsSelf();
+            builder.RegisterType<ReplaceImageProvider>().As<IReplaceImageProvider>();
 
             builder.RegisterType<DocumentCseSearch>().As<IDocumentCseSearch>();
             builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>();
@@ -70,7 +73,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<JobSearch>().As<IJobSearch>()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor));
-            //.InterceptedBy(typeof(CacheResultInterceptor));
 
             #endregion
 

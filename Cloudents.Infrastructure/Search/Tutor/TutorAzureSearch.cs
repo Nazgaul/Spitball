@@ -34,10 +34,10 @@ namespace Cloudents.Infrastructure.Search.Tutor
                 case TutorRequestSort.Price:
                     sortQuery.Add(nameof(TutorObj.Fee));
                     break;
-                case TutorRequestSort.Distance:
-                    sortQuery.Add(
-                        $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})')");
-                    break;
+                //case TutorRequestSort.Distance:
+                //    sortQuery.Add(
+                //        $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})')");
+                //    break;
             }
 
             var searchParams = new SearchParameters
