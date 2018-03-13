@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Test
                 var tutuMeSearch = mock.Create<TutorMeSearch>();
 
                 var result = await tutuMeSearch.SearchAsync("Some term", new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance,
-                    new GeoPoint(0, 0), 0, false, default);
+                    new GeoPoint(0, 0), 0, false, default).ConfigureAwait(false);
 
                 result.Should().BeNull();
             }
@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure.Test
                 var tutuMeSearch = Init(mock);
 
                 var result = await tutuMeSearch.SearchAsync("Some term", new[] { TutorRequestFilter.InPerson, TutorRequestFilter.Online }, TutorRequestSort.Relevance,
-                    new GeoPoint(0, 0), 0, false, default);
+                    new GeoPoint(0, 0), 0, false, default).ConfigureAwait(false);
 
                 result.Should().NotBeNull();
             }
@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure.Test
             {
                 var tutuMeSearch = Init(mock);
                 var result = await tutuMeSearch.SearchAsync(Term, new TutorRequestFilter[0], TutorRequestSort.Relevance,
-                    new GeoPoint(0, 0), Page, false, default);
+                    new GeoPoint(0, 0), Page, false, default).ConfigureAwait(false);
                 result.Should().NotBeNull();
             }
         }
