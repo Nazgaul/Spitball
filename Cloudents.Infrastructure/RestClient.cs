@@ -80,11 +80,13 @@ namespace Cloudents.Infrastructure
             return response.RequestMessage.RequestUri;
         }
 
+        [Log]
         public Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, CancellationToken token)
         {
             return GetAsync<T>(url, queryString, null, token);
         }
 
+        [Log]
         public async Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
             _client.DefaultRequestHeaders.Clear();
