@@ -8,7 +8,7 @@
             <div class="page-data">
                 <h1 v-html="contentObj.titleHtml"></h1>
                 <div class="content-wrapper">
-                    <h2 v-html="contentObj.bodyHtml"><</h2>
+                    <h2 v-html="contentObj.bodyHtml"></h2>
                     <p class="hidden-xs-only">Fill out the field and start spitballing!</p>
                     <div class="search-wrapper">
                         <v-text-field class="search-b" type="search" solo
@@ -38,7 +38,7 @@
         },
         methods: {
             search() {
-                this.$router.push({path: "/tutor", query: {q: this.msg}});
+                this.$router.push({path: this.contentObj.resultsPath, query: {q: this.msg}});
             }
         },
         created() {
