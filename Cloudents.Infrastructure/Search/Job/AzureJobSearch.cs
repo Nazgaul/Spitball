@@ -37,7 +37,7 @@ namespace Cloudents.Infrastructure.Search.Job
             IEnumerable<JobFilter> jobType,
             Location location,
             int page,
-            bool highlight,
+            HighlightTextFormat highlight,
             CancellationToken token)
         {
             var filterQuery = new List<string>();

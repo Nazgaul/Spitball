@@ -2,7 +2,7 @@
 
 namespace Cloudents.Core.Enum
 {
-    public enum BingTextFormat
+    public enum HighlightTextFormat
     {
         None,
         //[Parse("Raw")]

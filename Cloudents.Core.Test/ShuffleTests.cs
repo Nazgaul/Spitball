@@ -20,9 +20,9 @@ namespace Cloudents.Core.Test
         //    public static readonly PrioritySource TestC = new TestPrioritySource("C", 3);
 
         //}
-        public static readonly PrioritySource TestA = new PrioritySource("A", 1);
-        public static readonly PrioritySource TestB = new PrioritySource("B", 2);
-        public static readonly PrioritySource TestC = new PrioritySource("C", 3);
+        public static readonly PrioritySource TestA = new PrioritySource(1);
+        public static readonly PrioritySource TestB = new PrioritySource(2);
+        public static readonly PrioritySource TestC = new PrioritySource(3);
 
         private class ShuffleTestModel : IShuffleable
         {

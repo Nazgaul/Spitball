@@ -14,7 +14,7 @@ namespace Cloudents.Core.Interfaces
             IEnumerable<string> jobType,
             Location location,
             int page,
-            bool highlight,
+            HighlightTextFormat highlight,
             CancellationToken token);
     }
 
@@ -26,7 +26,7 @@ namespace Cloudents.Core.Interfaces
             IEnumerable<JobFilter> jobType,
             Location location,
             int page,
-            bool highlight,
+            HighlightTextFormat highlight,
             CancellationToken token);
     }
 }

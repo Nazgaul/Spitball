@@ -22,19 +22,19 @@ namespace Cloudents.Api.Controllers
         /// Search document vertical result
         /// </summary>
         /// <param name="model"></param>
-        /// <param name="token"></param>
         /// <param name="searchProvider"></param>
+        /// <param name="token"></param>
         /// <returns></returns>
         [Route("documents", Name = "DocumentSearch"), HttpGet,ValidateModel]
         public async Task<IActionResult> SearchDocumentAsync([FromQuery] SearchRequest model,
-            CancellationToken token, [FromServices] IDocumentCseSearch searchProvider)
+            [FromServices] IDocumentCseSearch searchProvider, CancellationToken token)
         {
             //if (!ModelState.IsValid)
             //{
             //    return BadRequest(ModelState);
             //}
             var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
-                model.Sort.GetValueOrDefault(), model.DocType);
+                 model.DocType);
             var result = await searchProvider.SearchAsync(query, model.Format, token).ConfigureAwait(false);
 
             var resultList = result.Result.ToListIgnoreNull();
@@ -56,19 +56,18 @@ namespace Cloudents.Api.Controllers
         /// Search flashcard vertical result
         /// </summary>
         /// <param name="model">The model</param>
-        /// <param name="token"></param>
         /// <param name="searchProvider"></param>
+        /// <param name="token"></param>
         /// <returns></returns>
         [Route("flashcards", Name = "FlashcardSearch"), HttpGet, ValidateModel]
         public async Task<IActionResult> SearchFlashcardAsync([FromQuery] SearchRequest model,
-            CancellationToken token, [FromServices] IFlashcardSearch searchProvider)
+            [FromServices] IFlashcardSearch searchProvider, CancellationToken token)
         {
             //if (!ModelState.IsValid)
             //{
             //    return BadRequest(ModelState);
             //}
-            var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
-                model.Sort.GetValueOrDefault());
+            var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault());
 
             var result = await searchProvider.SearchAsync(query, model.Format, token).ConfigureAwait(false);
             string nextPageLink = null;

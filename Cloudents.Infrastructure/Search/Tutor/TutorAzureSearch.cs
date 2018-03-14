@@ -65,15 +65,6 @@ namespace Cloudents.Infrastructure.Search.Tutor
             var retVal = await
                 _client.Documents.SearchAsync<TutorObj>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
 
-
-
-            //return retVal.Results.Select((s, i) =>
-            //{
-            //    var t = _mapper.Map<TutorDto>(s.Document);
-            //    t.Order = ++i;
-            //    return t;
-            //});
-
             return _mapper.MapWithPriority<TutorObj, TutorDto>(retVal.Results.Select(s => s.Document));
         }
 

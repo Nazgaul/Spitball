@@ -8,6 +8,6 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IQuestionSearch
     {
-        Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, BingTextFormat format, CancellationToken token);
+        Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, HighlightTextFormat format, CancellationToken token);
     }
 }

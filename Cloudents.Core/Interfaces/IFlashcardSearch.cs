@@ -11,7 +11,7 @@ namespace Cloudents.Core.Interfaces
         //Task<(IEnumerable<SearchResult> result, string[] facet)> SearchAsync(SearchQuery model,
         //    CancellationToken token);
 
-        Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, BingTextFormat format,
+        Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, HighlightTextFormat format,
             CancellationToken token);
     }
 }

@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Search.Job
         // [Cache(TimeConst.Hour, "job-zipRecruiter", false)]
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term,
             JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location,
-            int page, bool highlight, CancellationToken token)
+            int page, HighlightTextFormat highlight, CancellationToken token)
         {
             if (jobType?.Any() == true
                 || location?.Address == null)

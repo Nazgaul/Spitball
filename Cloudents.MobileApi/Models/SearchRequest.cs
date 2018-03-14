@@ -45,6 +45,6 @@ namespace Cloudents.Api.Models
         /// Format of result
         /// </summary>
         [DefaultValue(0)]
-        public BingTextFormat Format { get; set; }
+        public HighlightTextFormat Format { get; set; }
     }
 }

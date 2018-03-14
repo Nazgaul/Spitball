@@ -22,8 +22,8 @@ namespace Cloudents.Infrastructure.Search.Job
                 Address = $"{jo.City}, {jo.State}",
                 Title = jo.Title,
                 Responsibilities = jo.Description,
-                PrioritySource = PrioritySource.JobWayUp
-                //Source = jo.Source,
+                PrioritySource = PrioritySource.JobWayUp,
+                Source = jo.Source,
             });
 
 
@@ -33,6 +33,7 @@ namespace Cloudents.Infrastructure.Search.Job
                     DateTime = s.Date,
                     Url = $"http://www.jobs2careers.com/click.php?id={s.Id}",
                     PrioritySource = PrioritySource.JobJobs2Careers,
+                    Source = "Jobs2Careers",
                     Address = s.City.FirstOrDefault(),
                     Title = s.Title,
                     Company = s.Company,
@@ -46,7 +47,7 @@ namespace Cloudents.Infrastructure.Search.Job
                     DateTime = s.Date,
                     Url = s.Url,
                     PrioritySource = PrioritySource.JobIndeed,
-                    //Source = "Indeed",
+                    Source = "Indeed",
                     Address = s.FormattedLocation,
                     Title = s.JobTitle,
                     Company = s.Company,
@@ -61,6 +62,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 DateTime = s.PostedTime,
                 Url = s.Url,
                 PrioritySource = PrioritySource.JobZipRecruiter,
+                Source = "ZipRecruiter",
                 Company = s.HiringCompany.Name,
                 Address = s.Location,
                 Title = s.Name,
@@ -73,7 +75,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 DateTime = s.Date,
                 Url = s.Url,
                 PrioritySource = PrioritySource.JobCareerJet,
-                //Source = "CareerJet",
+                Source = "CareerJet",
                 Address = s.Locations,
                 Title = s.Title,
                 Company = s.Company,

@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [Cache(TimeConst.Hour, "job-careerJet", false)]
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, bool highlight,
+        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, HighlightTextFormat highlight,
             CancellationToken token)
         {
             var contactType = new List<string>();

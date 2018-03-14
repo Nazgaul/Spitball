@@ -47,8 +47,8 @@ namespace Cloudents.Infrastructure.Converters
                 Url = source.Url,
                 Id = _keyGenerator.GenerateKey(source.Url),
                 Image = image,
-                Snippet = source.Snippet.HighlightKeyWords(highlight.ToArray(), false),
-                //Source = domain,
+                Snippet = source.Snippet.HighlightKeyWords(highlight, false),
+                Source = domain,
                 Title = source.Name,
             };
 

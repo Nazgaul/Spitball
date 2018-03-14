@@ -18,10 +18,10 @@ namespace Cloudents.Infrastructure.Search
             _searchConvertRepository = searchConvertRepository;
         }
 
-        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, BingTextFormat format, CancellationToken token)
+        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, HighlightTextFormat format, CancellationToken token)
         {
             var (universitySynonym, courses) = await _searchConvertRepository.ParseUniversityAndCoursesAsync(model.University, model.Courses, token).ConfigureAwait(false);
-            var cseModel = new SearchModel(model.Query, model.Source,  model.Sort, CustomApiKey.Documents,courses,universitySynonym,"biology",model.DocType);
+            var cseModel = new SearchModel(model.Query, model.Source, CustomApiKey.Documents, courses, universitySynonym, "biology", model.DocType);
             var result = await _search.DoSearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
 
             return new ResultWithFacetDto<SearchResult>

@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure.Search.Job
 
         [BuildLocalUrl(nameof(ResultWithFacetDto<JobDto>.Result), PageSize, "page")]
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term, JobRequestSort sort, IEnumerable<string> jobType, Location location,
-            int page, bool highlight, CancellationToken token)
+            int page, HighlightTextFormat highlight, CancellationToken token)
         {
             var str = string.Join(" ", term ?? Enumerable.Empty<string>());
 

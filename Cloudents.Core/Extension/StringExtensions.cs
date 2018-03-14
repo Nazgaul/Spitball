@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Cloudents.Core.Attributes;
@@ -65,14 +66,11 @@ namespace Cloudents.Core.Extension
         /// <param name="fullMatch">false for returning all matches, true for whole word matches only</param>
         /// <returns>string</returns>
         /// <remarks>https://www.mikesdotnetting.com/article/139/highlighting-keywords-found-in-search-results</remarks>
-        public static string HighlightKeyWords(this string text, string[] keywords, bool fullMatch)
+        public static string HighlightKeyWords(this string text, IEnumerable<string> keywords, bool fullMatch)
         {
             if (text?.Length == 0 /*|| keywords == String.Empty*/)
                 return text;
-            if (keywords?.Length == 0)
-            {
-                return text;
-            }
+
             if (!fullMatch)
             {
                 return keywords.Select(word => word.Trim()).Aggregate(text,

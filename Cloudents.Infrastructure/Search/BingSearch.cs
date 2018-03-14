@@ -32,7 +32,8 @@ namespace Cloudents.Infrastructure.Search
         [Cache(TimeConst.Day, "bing", false)]
         [BuildLocalUrl(null, PageSize, "page")]
         [Shuffle]
-        public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model, int page, BingTextFormat format, CancellationToken token)
+        public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model,
+            int page, HighlightTextFormat format, CancellationToken token)
         {
             //https://docs.microsoft.com/en-us/rest/api/cognitiveservices/bing-custom-search-api-v7-reference#query-parameters
             if (model == null) throw new ArgumentNullException(nameof(model));
@@ -64,7 +65,7 @@ namespace Cloudents.Infrastructure.Search
                 response.WebPages?.Value, a =>
                 {
                     
-                    if (format == BingTextFormat.Html)
+                    if (format == HighlightTextFormat.Html)
                     {
                         a.Items["query"] = model.Query;
                     }

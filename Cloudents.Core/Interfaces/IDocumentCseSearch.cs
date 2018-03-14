@@ -8,7 +8,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IDocumentCseSearch
     {
-        Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, BingTextFormat format,
+        Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, HighlightTextFormat format,
             CancellationToken token);
     }
 }

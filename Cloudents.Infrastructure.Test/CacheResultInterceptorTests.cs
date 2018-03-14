@@ -26,9 +26,9 @@ namespace Cloudents.Infrastructure.Test
         [TestMethod]
         public void GetInvocationSignature_BingDifferentTerm_Works()
         {
-            var searchModel1 = new SearchModel(new[] { "biology" }, null, SearchRequestSort.None,
+            var searchModel1 = new SearchModel(new[] { "biology" }, null, 
                 CustomApiKey.Documents, null, null, "biology", null);
-            var searchModel2 = new SearchModel(new[] { "chemistry" }, null, SearchRequestSort.None,
+            var searchModel2 = new SearchModel(new[] { "chemistry" }, null, 
                 CustomApiKey.Documents, null, null, "biology", null);
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
             var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };
@@ -43,9 +43,9 @@ namespace Cloudents.Infrastructure.Test
         [TestMethod]
         public void GetInvocationSignature_DifferentArrayOrder_SameResultWorks()
         {
-            var searchModel1 = new SearchModel(new[] { "Linear Algebra" }, new[] { "spitball", "koofers" }, SearchRequestSort.None,
+            var searchModel1 = new SearchModel(new[] { "Linear Algebra" }, new[] { "spitball", "koofers" }, 
                 CustomApiKey.Documents, null, null, "biology", null);
-            var searchModel2 = new SearchModel(new[] { "Linear Algebra" }, new[] { "koofers", "spitball", }, SearchRequestSort.None,
+            var searchModel2 = new SearchModel(new[] { "Linear Algebra" }, new[] { "koofers", "spitball", }, 
                 CustomApiKey.Documents, null, null, "biology", null);
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
             var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };
@@ -60,9 +60,9 @@ namespace Cloudents.Infrastructure.Test
         [TestMethod]
         public void GetInvocationSignature_BingDifferentKey_Works()
         {
-            var searchModel1 = new SearchModel(new[] { "biology" }, null, SearchRequestSort.None,
+            var searchModel1 = new SearchModel(new[] { "biology" }, null,
                 CustomApiKey.Documents, null, null, "biology", null);
-            var searchModel2 = new SearchModel(new[] { "biology" }, null, SearchRequestSort.None,
+            var searchModel2 = new SearchModel(new[] { "biology" }, null, 
                 CustomApiKey.Flashcard, null, null, "biology", null);
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
             var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };

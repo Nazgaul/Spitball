@@ -1,29 +1,28 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Request
 {
     public class SearchQuery
     {
         public static SearchQuery Document(IEnumerable<string> query, long? university,
-            IEnumerable<long> courses, IEnumerable<string> sources, int page, SearchRequestSort sort, string docType)
+            IEnumerable<long> courses, IEnumerable<string> sources, int page, string docType)
         {
-            return new SearchQuery(query, university, courses, sources, page, sort, docType);
+            return new SearchQuery(query, university, courses, sources, page,  docType);
         }
 
         public static SearchQuery Flashcard(IEnumerable<string> query, long? university,
-            IEnumerable<long> courses, IEnumerable<string> sources, int page, SearchRequestSort sort)
+            IEnumerable<long> courses, IEnumerable<string> sources, int page)
         {
-            return new SearchQuery(query, university, courses, sources, page, sort, null);
+            return new SearchQuery(query, university, courses, sources, page, null);
         }
 
         public static SearchQuery Ask(IEnumerable<string> query, int page, IEnumerable<string> sources)
         {
-            return new SearchQuery(query, null, null, sources, page, default, null);
+            return new SearchQuery(query, null, null, sources, page,  null);
         }
 
         private SearchQuery(IEnumerable<string> query, long? university,
-            IEnumerable<long> courses, IEnumerable<string> source, int page, SearchRequestSort sort, string docType)
+            IEnumerable<long> courses, IEnumerable<string> source, int page, string docType)
         {
             Query = query;
 
@@ -31,7 +30,7 @@ namespace Cloudents.Core.Request
             Courses = courses;
             Source = source;
             Page = page;
-            Sort = sort;
+           // Sort = sort;
             DocType = docType;
         }
 
@@ -40,7 +39,7 @@ namespace Cloudents.Core.Request
         public IEnumerable<long> Courses { get; }
         public IEnumerable<string> Query { get; }
         public int Page { get; }
-        public SearchRequestSort Sort { get; }
+       // public SearchRequestSort Sort { get; }
 
         public string DocType { get; }
     }

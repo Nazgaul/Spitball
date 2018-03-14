@@ -8,7 +8,7 @@ namespace Cloudents.Infrastructure.Search
 {
     public interface ISearch
     {
-        Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model,int page, BingTextFormat format,
+        Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model,int page, HighlightTextFormat format,
             CancellationToken token);
     }
 }

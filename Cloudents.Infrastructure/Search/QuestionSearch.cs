@@ -17,9 +17,9 @@ namespace Cloudents.Infrastructure.Search
             _search = search;
         }
 
-        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, BingTextFormat format, CancellationToken token)
+        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, HighlightTextFormat format, CancellationToken token)
         {
-            var cseModel = new SearchModel(model.Query, model.Source,  model.Sort, CustomApiKey.AskQuestion, null, null, QueryString, null);
+            var cseModel = new SearchModel(model.Query, model.Source, CustomApiKey.AskQuestion, null, null, QueryString, null);
             var result = await _search.DoSearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
             return new ResultWithFacetDto<SearchResult>
             {

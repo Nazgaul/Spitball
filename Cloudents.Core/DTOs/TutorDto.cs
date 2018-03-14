@@ -32,7 +32,7 @@ namespace Cloudents.Core.DTOs
         public bool? Online { get; set; }
 
         [DataMember]
-        public string Source => PrioritySource.ToString();
+        public string Source { get; set; }
 
         public PrioritySource PrioritySource { get; set; }
 
