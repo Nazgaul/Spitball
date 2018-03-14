@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.DTOs;
 using AutoMapper;
 using Cloudents.Core;
-using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search.Tutor

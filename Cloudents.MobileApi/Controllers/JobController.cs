@@ -47,7 +47,8 @@ namespace Cloudents.Api.Controllers
                 model.Sort.GetValueOrDefault(JobRequestSort.Relevance),
                 model.Facet, model.Location, model.Page.GetValueOrDefault(), model.Highlight, token).ConfigureAwait(false);
             string nextPageLink = null;
-            if (result.Result?.Any() == true)
+            var p = result.Result?.ToList();
+            if (p?.Any() == true)
             {
                 nextPageLink = Url.NextPageLink("Job", model);
             }
@@ -55,7 +56,7 @@ namespace Cloudents.Api.Controllers
             return Ok(
                 new
                 {
-                    result,
+                    result = p,
                     nextPageLink
                 });
         }

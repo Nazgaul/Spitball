@@ -11,6 +11,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Cloudents.Infrastructure.Extensions;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
@@ -55,17 +56,11 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["Limit"] = JobSearch.PageSize.ToString(),
                 ["format"] = "json",
                 ["link"] = 1.ToString(),
-                ["q"] = term
+                ["q"] = term,
+                ["sort"] = sort == JobRequestSort.Date ? "d" : "r",
+                ["d"] = JobSearch.RadiusOfFindingJobKm.ToString(CultureInfo.InvariantCulture)
             };
 
-            if (sort == JobRequestSort.Date)
-            {
-                nvc.Add("sort", "d");
-            }
-            else
-            {
-                nvc.Add("d", JobSearch.RadiusOfFindingJobKm.ToString(CultureInfo.InvariantCulture));
-            }
             var jobFilter = new List<string>();
             foreach (var filter in jobType ?? Enumerable.Empty<JobFilter>())
             {
@@ -86,7 +81,17 @@ namespace Cloudents.Infrastructure.Search.Job
 
             var result = await _client.GetAsync<Jobs2CareersResult>(new Uri("http://api.jobs2careers.com/api/search.php"), nvc, token).ConfigureAwait(false);
 
-            var jobs = _mapper.Map<IEnumerable<JobDto>>(result);
+            if (result == null)
+            {
+                return null;
+            }
+            if (result.Total == 0)
+            {
+                return null;
+            }
+
+            var jobs = _mapper.MapWithPriority<Job, JobDto>(result.Jobs);
+
 
             return new ResultWithFacetDto<JobDto>
             {
@@ -104,7 +109,8 @@ namespace Cloudents.Infrastructure.Search.Job
         {
             [JsonProperty("jobs")]
             public Job[] Jobs { get; set; }
-            //public int total { get; set; }
+            [JsonProperty("total")]
+            public int Total { get; set; }
             //public int start { get; set; }
             //public int count { get; set; }
         }

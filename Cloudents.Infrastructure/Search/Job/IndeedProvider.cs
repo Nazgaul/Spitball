@@ -13,6 +13,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Cloudents.Infrastructure.Extensions;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
@@ -82,6 +83,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["start"] = (page * JobSearch.PageSize).ToString(),
                 ["highlight"] = 0.ToString(),
                 ["jt"] = string.Join(",", jobFilter),
+                ["radius"] = JobSearch.RadiusOfFindingJobKm.ToString(CultureInfo.InvariantCulture)
                 //["latlong"] = 1.ToString()
             };
 
@@ -89,17 +91,19 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 nvc.Add("sort", "date");
             }
-            else
-            {
-                nvc.Add("radius", JobSearch.RadiusOfFindingJobKm.ToString(CultureInfo.InvariantCulture));
-            }
-            var result = await _client.GetAsync(new Uri("http://api.indeed.com/ads/apisearch"), nvc, token).ConfigureAwait(false);
+
+            var result = await _client.GetAsync<IndeedResult>(new Uri("http://api.indeed.com/ads/apisearch"), nvc, token).ConfigureAwait(false);
             if (result == null)
             {
                 return null;
             }
-            var p = JsonConvert.DeserializeObject<IndeedResult>(result);
-            var jobs = _mapper.Map<IEnumerable<JobDto>>(p);
+
+            if (result.TotalResults == 0)
+            {
+                return null;
+            }
+
+            var jobs = _mapper.MapWithPriority<IndeedProvider.Result, JobDto>(result.Results);
 
             return new ResultWithFacetDto<JobDto>
             {
@@ -123,7 +127,8 @@ namespace Cloudents.Infrastructure.Search.Job
             //public string paginationPayload { get; set; }
             // public bool dupefilter { get; set; }
             // public bool highlight { get; set; }
-            // public int totalResults { get; set; }
+            [JsonProperty("totalResults")]
+             public int TotalResults { get; set; }
             //public int start { get; set; }
             //public int end { get; set; }
             //public int pageNumber { get; set; }

@@ -13,35 +13,39 @@ namespace Cloudents.Core.DTOs
         private string _responsibilities;
         private string _compensation;
 
+        [DataMember]
         public string Title { get; set; }
 
+        [DataMember]
         public string Responsibilities
         {
             get => _responsibilities.RemoveEndOfString(300);
             set => _responsibilities = value;
         }
 
+        [DataMember]
         public DateTime DateTime { get; set; }
 
+        [DataMember]
         public string Address { get; set; }
 
+        [DataMember]
         public string CompensationType
         {
             get => _compensation.UppercaseFirst();
             set => _compensation = value;
         }
 
+        [DataMember]
         public string Url { get; set; }
 
+        [DataMember]
         public string Source => PrioritySource.ToString();
 
         public string Company { get; set; }
 
-
-        [IgnoreDataMember]
         public PrioritySource PrioritySource { get; set; }
 
-        [IgnoreDataMember]
         public int Order { get; set; }
     }
 }

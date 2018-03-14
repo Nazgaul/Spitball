@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -12,6 +11,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Cloudents.Infrastructure.Extensions;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
@@ -73,7 +73,7 @@ namespace Cloudents.Infrastructure.Search.Job
                     }
                 }
             }
-            
+
 
             if (noResult)
             {
@@ -87,23 +87,28 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["locale_code"] = "en_US",
                 ["pagesize"] = JobSearch.PageSize.ToString(),
                 ["page"] = page.ToString(),
-                ["sort"] = "date",
+                ["sort"] = sort == JobRequestSort.Relevance ? "relevance" : "date",
                 ["contracttype"] = string.Join(",", contactType),
                 ["contractperiod"] = string.Join(",", contactPeriod),
             };
-            if (/*sort == JobRequestSort.Distance &&*/ location?.Address != null)
+            if (location?.Address != null)
             {
                 nvc.Add("location", $"{location.Address.City}, {location.Address.RegionCode}");
             }
 
-            var result = await _client.GetAsync(new Uri("http://public.api.careerjet.net/search"), nvc, token).ConfigureAwait(false);
+            var result = await _client.GetAsync<CareerJetResult>(new Uri("http://public.api.careerjet.net/search"), nvc, token).ConfigureAwait(false);
             if (result == null)
             {
                 return null;
             }
 
-            var p = JsonConvert.DeserializeObject<CareerJetResult>(result);
-            var jobs = _mapper.Map<IEnumerable<JobDto>>(p);
+            if (result.Hits == 0)
+            {
+                return null;
+            }
+
+
+            var jobs = _mapper.MapWithPriority<Job, JobDto>(result.Jobs);
 
             return new ResultWithFacetDto<JobDto>
             {
@@ -120,9 +125,10 @@ namespace Cloudents.Infrastructure.Search.Job
 
         public class CareerJetResult
         {
+            [JsonProperty("hits")]
+            public int Hits { get; set; }
             [JsonProperty("jobs")]
             public Job[] Jobs { get; set; }
-            //public int hits { get; set; }
             //public float response_time { get; set; }
             //public string type { get; set; }
             //public int pages { get; set; }

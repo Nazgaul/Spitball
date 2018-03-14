@@ -26,8 +26,8 @@ namespace Cloudents.Web.Extensions.Binders
         {
             var tempData = _tempDataFactory.GetTempData(bindingContext.HttpContext);
 
-            var latitudeStr = bindingContext.ValueProvider.GetValue("location.latitude");
-            var longitudeStr = bindingContext.ValueProvider.GetValue("location.longitude");
+            var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.latitude");
+            var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.longitude");
             var locationFromTemp = tempData.Get<Location>(KeyName);
             if (float.TryParse(latitudeStr.FirstValue, out var latitude)
                 && float.TryParse(longitudeStr.FirstValue, out var longitude))

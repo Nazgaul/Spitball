@@ -54,14 +54,15 @@ namespace Cloudents.Infrastructure.Search.Job
                 filterQuery.Add(filterStr);
             }
 
-            switch (sort)
+            if (location?.Point != null)
             {
-                case JobRequestSort.Relevance when location?.Point != null:
-                    filterQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
-                    break;
-                case JobRequestSort.Date:
-                    sortQuery.Add($"{nameof(Entity.Job.DateTime)} desc");
-                    break;
+                filterQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
+
+            }
+
+            if (sort == JobRequestSort.Date)
+            {
+                sortQuery.Add($"{nameof(Entity.Job.DateTime)} desc");
             }
             var searchParams = new SearchParameters
             {
@@ -90,6 +91,8 @@ namespace Cloudents.Infrastructure.Search.Job
 
             var retVal = await
                 _client.Documents.SearchAsync<Entity.Job>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
+
+
             return _mapper.Map<ResultWithFacetDto<JobDto>>(retVal);
         }
     }
