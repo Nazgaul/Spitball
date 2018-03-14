@@ -7,8 +7,8 @@ namespace Cloudents.Infrastructure.Search
     {
         public SearchModel(IEnumerable<string> query, IEnumerable<string> sources,
             //SearchRequestSort sort,
-            CustomApiKey key, IEnumerable<string> courses, 
-            IEnumerable<string> universitySynonym, 
+            CustomApiKey key, IEnumerable<string> courses,
+            IEnumerable<string> universitySynonym,
             string defaultTerm, string docType)
         {
             Query = query?.Where(w => w != null);

@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
                 Image = source.Avatar.X300,
                 Name = source.ShortName,
                 Online = source.IsOnline,
-                Source = "TutorMe",
+                //Source = "TutorMe",
                 PrioritySource = PrioritySource.TutorMe,
                 Url = $"https://tutorme.com/tutors/{source.Id}/"
             });

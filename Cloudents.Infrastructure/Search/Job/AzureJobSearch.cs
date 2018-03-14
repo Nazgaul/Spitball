@@ -57,7 +57,6 @@ namespace Cloudents.Infrastructure.Search.Job
             if (location?.Point != null)
             {
                 filterQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
-
             }
 
             if (sort == JobRequestSort.Date)
@@ -91,7 +90,6 @@ namespace Cloudents.Infrastructure.Search.Job
 
             var retVal = await
                 _client.Documents.SearchAsync<Entity.Job>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-
 
             return _mapper.Map<ResultWithFacetDto<JobDto>>(retVal);
         }

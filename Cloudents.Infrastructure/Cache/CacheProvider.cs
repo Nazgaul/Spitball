@@ -66,7 +66,6 @@ namespace Cloudents.Infrastructure.Cache
                           && t.GetGenericTypeDefinition() == typeof(IEnumerable<>));
             if (p != null)
             {
-                
                 var t = p.GetGenericArguments()[0];
                 var listType = typeof(List<>);
                 var constructedListType = listType.MakeGenericType(t);

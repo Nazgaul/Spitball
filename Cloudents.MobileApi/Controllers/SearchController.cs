@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Cloudents.Api.Extensions;
 using Cloudents.Api.Filters;
 using Cloudents.Api.Models;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Microsoft.AspNetCore.Mvc;
@@ -37,16 +36,16 @@ namespace Cloudents.Api.Controllers
                  model.DocType);
             var result = await searchProvider.SearchAsync(query, model.Format, token).ConfigureAwait(false);
 
-            var resultList = result.Result.ToListIgnoreNull();
+            var p = result.Result?.ToList();
             string nextPageLink = null;
-            if (resultList.Count > 0)
+            if (p?.Any() == true)
             {
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
 
             return Ok(new
             {
-                result = resultList,
+                result = p,
                 result.Facet,
                 nextPageLink
             });
@@ -71,13 +70,14 @@ namespace Cloudents.Api.Controllers
 
             var result = await searchProvider.SearchAsync(query, model.Format, token).ConfigureAwait(false);
             string nextPageLink = null;
-            if (result.Result?.Any() == true)
+            var p = result.Result?.ToList();
+            if (p?.Any() == true)
             {
                 nextPageLink = Url.NextPageLink("FlashcardSearch", null, model);
             }
             return Ok(new
             {
-                result = result.Result,
+                result = p,
                 result.Facet,
                 nextPageLink
             });

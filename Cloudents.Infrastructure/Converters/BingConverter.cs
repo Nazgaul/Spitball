@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -18,6 +19,9 @@ namespace Cloudents.Infrastructure.Converters
         private readonly IReplaceImageProvider _imageProvider;
         private readonly DomainParser _domainParser;
 
+        public const string KeyTermHighlight = "query";
+        public const string KeyPriority = "priority";
+
         public BingConverter(IKeyGenerator keyGenerator, IReplaceImageProvider imageProvider, DomainParser domainParser)
         {
             _keyGenerator = keyGenerator;
@@ -29,9 +33,18 @@ namespace Cloudents.Infrastructure.Converters
         {
             var url = new Uri(source.Url);
             var highlight = Enumerable.Empty<string>();
-            if (context.Items.TryGetValue("query", out var p) && p is IEnumerable<string> z)
+            if (context.Items.TryGetValue(KeyTermHighlight, out var p) && p is IEnumerable<string> z)
             {
                 highlight = z;
+            }
+            var domain = _domainParser.GetDomain(url.Host);
+
+            var priority = PrioritySource.Unknown;
+
+
+            if (context.Items[KeyPriority] is IReadOnlyDictionary<string, PrioritySource> priorities)
+            {
+                priorities.TryGetValue(domain, out priority);
             }
 
             if (Uri.TryCreate(source.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image))
@@ -39,7 +52,7 @@ namespace Cloudents.Infrastructure.Converters
                 image = image.ChangeToHttps();
             }
 
-            var domain = _domainParser.GetDomain(url.Host);
+            
 
             image = _imageProvider.ChangeImageIfNeeded(domain, image);
             var result = new SearchResult
@@ -50,6 +63,7 @@ namespace Cloudents.Infrastructure.Converters
                 Snippet = source.Snippet.HighlightKeyWords(highlight, false),
                 Source = domain,
                 Title = source.Name,
+                PrioritySource = priority
             };
 
             if (string.Equals(domain, "courseHero", StringComparison.OrdinalIgnoreCase))

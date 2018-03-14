@@ -21,7 +21,6 @@ namespace Cloudents.Infrastructure.Search
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;
 
-
         private readonly string[] _listOfSelectParams = {
             nameof(University.Id),
             nameof(University.Name),
@@ -58,7 +57,6 @@ namespace Cloudents.Infrastructure.Search
         public async Task<IEnumerable<UniversityDto>> SearchAsync(string term, GeoPoint location,
             CancellationToken token)
         {
-           
             var searchParameter = new SearchParameters
             {
                 Select = _listOfSelectParams,

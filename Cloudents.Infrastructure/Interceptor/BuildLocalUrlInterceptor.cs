@@ -21,7 +21,6 @@ namespace Cloudents.Infrastructure.Interceptor
 
         protected override void AfterAction<T>(T val, IInvocation invocation)
         {
-
             var att = invocation.GetCustomAttribute<BuildLocalUrlAttribute>();
             var page = 0;
             var pageSize = 0;

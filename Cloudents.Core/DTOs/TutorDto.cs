@@ -31,8 +31,7 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public bool? Online { get; set; }
 
-        [DataMember]
-        public string Source { get; set; }
+        [DataMember] public string Source => PrioritySource.Source;
 
         public PrioritySource PrioritySource { get; set; }
 

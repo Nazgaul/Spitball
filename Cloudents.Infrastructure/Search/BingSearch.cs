@@ -11,10 +11,15 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Converters;
+using Cloudents.Infrastructure.Extensions;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search
 {
+    /// <summary>
+    /// <remarks>https://docs.microsoft.com/en-us/rest/api/cognitiveservices/bing-custom-search-api-v7-reference#query-parameters</remarks>
+    /// </summary>
     [UsedImplicitly]
     public class BingSearch : ISearch
     {
@@ -29,13 +34,12 @@ namespace Cloudents.Infrastructure.Search
             _mapper = mapper;
         }
 
-        [Cache(TimeConst.Day, "bing", false)]
+        //[Cache(TimeConst.Day, "bing", false)]
         [BuildLocalUrl(null, PageSize, "page")]
         [Shuffle]
         public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model,
             int page, HighlightTextFormat format, CancellationToken token)
         {
-            //https://docs.microsoft.com/en-us/rest/api/cognitiveservices/bing-custom-search-api-v7-reference#query-parameters
             if (model == null) throw new ArgumentNullException(nameof(model));
 
             var query = BuildQuery(model.UniversitySynonym, model.Courses, model.Query, model.DocType,
@@ -45,11 +49,10 @@ namespace Cloudents.Infrastructure.Search
             var nvc = new NameValueCollection
             {
                 ["count"] = PageSize.ToString(),
-                ["customConfig"] = model.Key.ToString(),
+                ["customConfig"] = model.Key.Key,
                 ["offset"] = (page * PageSize).ToString(),
                 ["q"] = $"{query} {sourceQuery}"
             };
-            
             var uri = new Uri("https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search");
 
             var response = await _restClient.GetAsync<BingCustomSearchResponse>(uri, nvc, new[]
@@ -61,14 +64,15 @@ namespace Cloudents.Infrastructure.Search
                 return null;
             }
 
-            return _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(
+            return _mapper.MapWithPriority<WebPage, SearchResult>(
                 response.WebPages?.Value, a =>
                 {
-                    
                     if (format == HighlightTextFormat.Html)
                     {
-                        a.Items["query"] = model.Query;
+                        a.Items[BingConverter.KeyTermHighlight] = model.Query;
                     }
+
+                    a.Items[BingConverter.KeyPriority] = model.Key.Priority;
                 });
         }
 
@@ -124,16 +128,19 @@ namespace Cloudents.Infrastructure.Search
             return string.Join(" AND ", query.Select(s => s));
         }
 
+        [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
         public class BingCustomSearchResponse
         {
             public WebPages WebPages { get; set; }
         }
 
+        [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
         public class WebPages
         {
             public WebPage[] Value { get; set; }
         }
 
+        [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
         public class WebPage
         {
             //public string id { get; set; }
@@ -149,10 +156,7 @@ namespace Cloudents.Infrastructure.Search
             public OpenGraphImage OpenGraphImage { get; set; }
         }
 
-
-
-
-
+        [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
         public class OpenGraphImage
         {
             public string ContentUrl { get; set; }

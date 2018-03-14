@@ -39,8 +39,7 @@ namespace Cloudents.Core.DTOs
         [DataMember]
         public string Url { get; set; }
 
-        [DataMember]
-        public string Source { get; set; }
+        [DataMember] public string Source => PrioritySource.Source;
 
         public string Company { get; set; }
 

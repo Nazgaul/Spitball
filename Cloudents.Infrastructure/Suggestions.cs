@@ -8,9 +8,11 @@ using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure
 {
+    [UsedImplicitly]
     public class Suggestions : ISuggestions
     {
         private readonly IRestClient _client;
@@ -38,7 +40,6 @@ namespace Cloudents.Infrastructure
             }, token).ConfigureAwait(false);
             return _mapper.Map<IEnumerable<string>>(result).Take(3).ToArray();
         }
-
 
         public class SuggestionsObject
         {

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
@@ -23,7 +25,6 @@ namespace Cloudents.Infrastructure.Search.Job
     [UsedImplicitly]
     public class Jobs2CareersProvider : IJobProvider
     {
-        //
         private readonly IRestClient _client;
         private readonly IMapper _mapper;
 
@@ -33,6 +34,7 @@ namespace Cloudents.Infrastructure.Search.Job
             _mapper = mapper;
         }
 
+        [Cache(TimeConst.Hour, nameof(Jobs2CareersProvider), false)]
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, HighlightTextFormat highlight,
             CancellationToken token)
         {
@@ -92,7 +94,6 @@ namespace Cloudents.Infrastructure.Search.Job
 
             var jobs = _mapper.MapWithPriority<Job, JobDto>(result.Jobs);
 
-
             return new ResultWithFacetDto<JobDto>
             {
                 Result = jobs,
@@ -129,7 +130,7 @@ namespace Cloudents.Infrastructure.Search.Job
             public string[] City { get; set; }
             [JsonProperty("description")]
             public string Description { get; set; }
-           
+
             [JsonProperty("id")]
             public string Id { get; set; }
             //public string major_category0 { get; set; }

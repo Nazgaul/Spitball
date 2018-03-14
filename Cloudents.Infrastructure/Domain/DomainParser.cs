@@ -13,7 +13,6 @@ namespace Cloudents.Infrastructure.Domain
             _parser = new Nager.PublicSuffix.DomainParser(provider);
         }
 
-
         [CanBeNull]
         public string GetDomain(string host)
         {

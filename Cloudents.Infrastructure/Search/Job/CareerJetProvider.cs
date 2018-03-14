@@ -74,7 +74,6 @@ namespace Cloudents.Infrastructure.Search.Job
                 }
             }
 
-
             if (noResult)
             {
                 return null;
@@ -106,7 +105,6 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 return null;
             }
-
 
             var jobs = _mapper.MapWithPriority<Job, JobDto>(result.Jobs);
 

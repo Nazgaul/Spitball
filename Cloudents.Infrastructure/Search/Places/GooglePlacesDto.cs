@@ -2,7 +2,6 @@
 
 namespace Cloudents.Infrastructure.Search.Places
 {
-
     public class GooglePlaceDto
     {
         //[JsonProperty("html_attributions")]
@@ -177,7 +176,6 @@ namespace Cloudents.Infrastructure.Search.Places
 
     public class GooglePlacesDto
     {
-
         //[JsonProperty("html_attributions")]
         //public object[] HtmlAttributions { get; set; }
         [JsonProperty("next_page_token")]
