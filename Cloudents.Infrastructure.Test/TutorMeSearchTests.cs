@@ -15,14 +15,11 @@ namespace Cloudents.Infrastructure.Test
     [TestClass]
     public class TutorMeSearchTests
     {
-
-        const string Term = "Some term";
-        const int Page = 0;
-
-
+        private const string Term = "Some term";
+        private const int Page = 0;
 
         [TestMethod]
-        public async Task SearchAsync_InPersonFilter_Null()
+        public async Task SearchAsync_InPersonFilter_NullAsync()
         {
             using (var mock = AutoMock.GetLoose())
             {
@@ -36,7 +33,7 @@ namespace Cloudents.Infrastructure.Test
         }
 
         [TestMethod]
-        public async Task SearchAsync_SeveralFilter_Result()
+        public async Task SearchAsync_SeveralFilter_ResultAsync()
         {
             using (var mock = AutoMock.GetLoose())
             {
@@ -50,12 +47,12 @@ namespace Cloudents.Infrastructure.Test
         }
 
         [TestMethod]
-        public async Task SearchAsync_NoFilter_Result()
+        public async Task SearchAsync_NoFilter_ResultAsync()
         {
             using (var mock = AutoMock.GetLoose())
             {
                 var tutuMeSearch = Init(mock);
-                var result = await tutuMeSearch.SearchAsync(Term, new TutorRequestFilter[0], TutorRequestSort.Relevance,
+                var result = await tutuMeSearch.SearchAsync(Term, Array.Empty<TutorRequestFilter>(), TutorRequestSort.Relevance,
                     new GeoPoint(0, 0), Page, false, default).ConfigureAwait(false);
                 result.Should().NotBeNull();
             }
@@ -63,8 +60,6 @@ namespace Cloudents.Infrastructure.Test
 
         private static TutorMeSearch Init(AutoMock mock)
         {
-
-
             var tutuMeSearch = mock.Create<TutorMeSearch>();
 
             var privateObject = new PrivateObject(tutuMeSearch);
@@ -76,9 +71,10 @@ namespace Cloudents.Infrastructure.Test
             var url = privateObject.GetFieldOrProperty("UrlEndpoint", BindingFlags.NonPublic | BindingFlags.Static) as string;
             mock.Mock<IRestClient>().Setup(x =>
                 x.GetAsync<TutorMeSearch.TutorMeResult>(new Uri(url), nvc, default)).Returns(Task.FromResult(
-                new TutorMeSearch.TutorMeResult()
+                new TutorMeSearch.TutorMeResult
                 {
-                    Group = new TutorMeSearch.Group()
+                    Group = new TutorMeSearch.Group(),
+                    Results = Array.Empty<TutorMeSearch.Result>()
                 }));
             return tutuMeSearch;
         }

@@ -17,12 +17,12 @@ namespace Cloudents.Infrastructure.Converters
     {
         private readonly IKeyGenerator _keyGenerator;
         private readonly IReplaceImageProvider _imageProvider;
-        private readonly DomainParser _domainParser;
+        private readonly IDomainParser _domainParser;
 
         public const string KeyTermHighlight = "query";
         public const string KeyPriority = "priority";
 
-        public BingConverter(IKeyGenerator keyGenerator, IReplaceImageProvider imageProvider, DomainParser domainParser)
+        public BingConverter(IKeyGenerator keyGenerator, IReplaceImageProvider imageProvider, IDomainParser domainParser)
         {
             _keyGenerator = keyGenerator;
             _imageProvider = imageProvider;
@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Converters
             var priority = PrioritySource.Unknown;
 
 
-            if (context.Items[KeyPriority] is IReadOnlyDictionary<string, PrioritySource> priorities)
+            if (context.Items.TryGetValue(KeyPriority, out var val) && val is IReadOnlyDictionary<string, PrioritySource> priorities)
             {
                 priorities.TryGetValue(domain, out priority);
             }
@@ -51,8 +51,6 @@ namespace Cloudents.Infrastructure.Converters
             {
                 image = image.ChangeToHttps();
             }
-
-            
 
             image = _imageProvider.ChangeImageIfNeeded(domain, image);
             var result = new SearchResult

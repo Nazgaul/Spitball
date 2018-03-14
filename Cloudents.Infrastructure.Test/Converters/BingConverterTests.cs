@@ -4,6 +4,7 @@ using AutoMapper;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Converters;
+using Cloudents.Infrastructure.Domain;
 using Cloudents.Infrastructure.Search;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -29,6 +30,9 @@ namespace Cloudents.Infrastructure.Test.Converters
             using (var _autofackMock = AutoMock.GetLoose())
             {
                 var mockOptions = _autofackMock.Mock<IMappingOperationOptions>();
+                var domainParser = _autofackMock.Mock<IDomainParser>();
+                domainParser.Setup(s => s.GetDomain("www.coursehero.com")).Returns("coursehero");
+                domainParser.Setup(s => s.GetDomain("www.spitball.co")).Returns("spitball");
                 mockOptions.Setup(s => s.Items).Returns(new Dictionary<string, object>());
                 _context = new ResolutionContext(mockOptions.Object, _mockMapping.Object);
                 _bingConverter = _autofackMock.Create<BingConverter>();
@@ -43,10 +47,6 @@ namespace Cloudents.Infrastructure.Test.Converters
             const string courseHeroLink =
                 "https://www.coursehero.com/file/11150425/Calculus-Basics-you-should-know-class-notes/";
 
-            // var bingConverter = mock.Create<BingConverter>();
-
-
-            //var bingConverter = new BingConverter(_keyGenerator.Object, _replaceImageMock.Object);
             var argument = new BingSearch.WebPage
             {
                 Url = courseHeroLink
@@ -57,17 +57,12 @@ namespace Cloudents.Infrastructure.Test.Converters
                 "http://shareasale.com/r.cfm?b=661825&u=1469379&m=55976&urllink=www.coursehero.com/file/11150425/Calculus-Basics-you-should-know-class-notes/&afftrack=";
             Assert.AreEqual(result.Url, resultLink);
             result.Source.Should().BeEquivalentTo("coursehero");
-            //Assert.AreEqual(result.Source, "coursehero");
 
         }
 
         [TestMethod]
         public void ConvertToResult_RegularWebPage_RegularUrl()
         {
-            //using (var mock = AutoMock.GetLoose())
-            //{
-            // var bingConverter = mock.Create<BingConverter>();
-            //var bingConverter = new BingConverter(_keyGenerator.Object, _replaceImageMock.Object);
             var argument = new BingSearch.WebPage
             {
                 Url = "https://www.spitball.co"
@@ -76,7 +71,6 @@ namespace Cloudents.Infrastructure.Test.Converters
             var result = _bingConverter.Convert(argument, null, _context);
             Assert.AreEqual(result.Url, "https://www.spitball.co");
             Assert.AreEqual(result.Source, "spitball");
-            //}
         }
     }
 }

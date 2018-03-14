@@ -44,7 +44,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<BingSearch>().As<ISearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor), typeof(ShuffleInterceptor));
 
-            builder.RegisterType<DomainParser>().AsSelf().SingleInstance();
+            builder.RegisterType<DomainParser>().AsSelf().As<IDomainParser>().SingleInstance();
             builder.RegisterType<DomainCache>().As<ICacheProvider>();
 
             builder.RegisterType<Suggestions>().As<ISuggestions>().EnableInterfaceInterceptors()

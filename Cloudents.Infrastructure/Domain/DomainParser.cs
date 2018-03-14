@@ -4,7 +4,7 @@ using Nager.PublicSuffix;
 namespace Cloudents.Infrastructure.Domain
 {
     [UsedImplicitly]
-    public class DomainParser
+    public class DomainParser : IDomainParser
     {
         private readonly Nager.PublicSuffix.DomainParser _parser;
         public DomainParser(ICacheProvider cache)
@@ -19,5 +19,11 @@ namespace Cloudents.Infrastructure.Domain
             var domainName = _parser.Get(host);
             return domainName?.Domain;
         }
+    }
+
+    public interface IDomainParser
+    {
+        [CanBeNull]
+        string GetDomain(string host);
     }
 }

@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [Cache(TimeConst.Hour, nameof(Jobs2CareersProvider), false)]
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, HighlightTextFormat highlight,
+        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, 
             CancellationToken token)
         {
             if (location?.Address?.City == null || location.Ip == null)

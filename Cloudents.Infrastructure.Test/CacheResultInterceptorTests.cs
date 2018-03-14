@@ -64,13 +64,14 @@ namespace Cloudents.Infrastructure.Test
                 CustomApiKey.Documents, null, null, "biology", null);
             var searchModel2 = new SearchModel(new[] { "biology" }, null, 
                 CustomApiKey.Flashcard, null, null, "biology", null);
-            //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
             var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };
             var bookRequest2 = new object[] { searchModel2, 0, CancellationToken.None };
 
             var type = new PrivateType(typeof(CacheResultInterceptor));
             var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1 });
             var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
+
+
             Assert.AreNotEqual(result1, result2);
         }
     }

@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure.Search.Job
 
         [BuildLocalUrl(nameof(ResultWithFacetDto<JobDto>.Result), PageSize, "page")]
         public async Task<ResultWithFacetDto<JobDto>> SearchAsync(IEnumerable<string> term, JobRequestSort sort, IEnumerable<string> jobType, Location location,
-            int page, HighlightTextFormat highlight, CancellationToken token)
+            int page, CancellationToken token)
         {
             var str = string.Join(" ", term ?? Enumerable.Empty<string>());
 
@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 }
                 return JobFilter.None;
             }).Where(w => w != JobFilter.None);
-            var tasks = _providers.Select(s => s.SearchAsync(str.Trim(), sort, facetEnum, location, page, highlight, token)).ToList();
+            var tasks = _providers.Select(s => s.SearchAsync(str.Trim(), sort, facetEnum, location, page,  token)).ToList();
             var tasksResult = await Task.WhenAll(tasks).ConfigureAwait(false);
 
             var result = tasksResult.Where(w => w != null).ToList();

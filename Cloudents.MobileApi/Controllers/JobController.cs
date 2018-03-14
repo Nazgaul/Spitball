@@ -45,7 +45,7 @@ namespace Cloudents.Api.Controllers
             //}
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Sort.GetValueOrDefault(JobRequestSort.Relevance),
-                model.Facet, model.Location, model.Page.GetValueOrDefault(), model.Highlight, token).ConfigureAwait(false);
+                model.Facet, model.Location, model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
             string nextPageLink = null;
             var p = result.Result?.ToList();
             if (p?.Any() == true)

@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Test
                 var address = new Address("Some City", "Some Region", "IL");
                 var location = new Location(null, address, "Some ip");
 
-                var result = await instance.SearchAsync(null, JobRequestSort.Relevance, null, location, 0, HighlightTextFormat.None, default).ConfigureAwait(false);
+                var result = await instance.SearchAsync(null, JobRequestSort.Relevance, null, location, 0, default).ConfigureAwait(false);
 
                 result.Should().BeNull();
             }

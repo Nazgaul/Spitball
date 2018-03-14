@@ -18,7 +18,15 @@ namespace Cloudents.Infrastructure.Search
             Priority = priority;
         }
 
-        
+        /// <summary>
+        /// Used to build cache key
+        /// </summary>
+        /// <returns>The key of the custom api</returns>
+        public override string ToString()
+        {
+            return Key;
+        }
+
 
         public static readonly CustomApiKey Documents = new CustomApiKey("2506829495", PrioritySource.DocumentPriority);
         public static readonly CustomApiKey Flashcard = new CustomApiKey("3768889099", PrioritySource.FlashcardPriority);

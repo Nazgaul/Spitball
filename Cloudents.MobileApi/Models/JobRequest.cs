@@ -38,7 +38,7 @@ namespace Cloudents.Api.Models
         /// <summary>
         /// Should highlight the response with <!--b-->
         /// </summary>
-        public HighlightTextFormat Highlight { get; set; }
+        //public HighlightTextFormat Highlight { get; set; }
         /// <inheritdoc />
         /// <summary>
         /// Page of paging
