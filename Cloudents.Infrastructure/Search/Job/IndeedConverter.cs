@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
+    [UsedImplicitly]
     public class IndeedConverter : ITypeConverter<IndeedProvider.IndeedResult, IEnumerable<JobDto>>
     {
         public IEnumerable<JobDto> Convert(IndeedProvider.IndeedResult source, IEnumerable<JobDto> destination, ResolutionContext context)
@@ -13,7 +16,8 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 DateTime = s.Date,
                 Url = s.Url,
-                Source = "Indeed",
+                PrioritySource = PrioritySource.JobIndeed,
+                //Source = "Indeed",
                 Address = s.FormattedLocation,
                 Title = s.JobTitle,
                 Company = s.Company,

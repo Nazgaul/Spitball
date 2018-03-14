@@ -61,7 +61,6 @@ namespace Cloudents.Infrastructure.Search.Tutor
             }
 
             return _mapper.MapWithPriority<Result,TutorDto>(result.Results);
-           
         }
 
         private static NameValueCollection BuildQueryString(string term, int page)

@@ -6,7 +6,7 @@ namespace Cloudents.Core
 {
     public interface IShuffleable
     {
-        int Priority { get; }
+        PrioritySource PrioritySource { get; }
         int Order { get; set; }
     }
 
@@ -19,9 +19,8 @@ namespace Cloudents.Core
     {
         public IEnumerable<T> DoShuffle<T>(IEnumerable<T> result) where T : IShuffleable
         {
-
             return result.OrderBy(o =>
-                o.Priority * o.Order).ThenBy(n => n.Priority);
+                o.PrioritySource.Priority * o.Order).ThenBy(n => n.PrioritySource.Priority);
             //if (result == null)
             //{
             //    return null;
@@ -52,24 +51,31 @@ namespace Cloudents.Core
 
 
 
-    //public class PrioritySource
-    //{
-    //    private string Source { get; }
-    //    public int Priority { get; }
+    public class PrioritySource
+    {
+        private string Source { get; }
+        public int Priority { get; }
 
-    //    protected PrioritySource(string source, int priority)
-    //    {
-    //        Source = source;
-    //        Priority = priority;
-    //    }
+        public PrioritySource(string source, int priority)
+        {
+            Source = source;
+            Priority = priority;
+        }
 
-    //    //public override string ToString()
-    //    //{
-    //    //    return Source;
-    //    //}
+        public override string ToString()
+        {
+            return Source;
+        }
 
-    //    public static readonly PrioritySource TutorWyzant = new PrioritySource("Wyzant", 1);
-    //    public static readonly PrioritySource TutorChegg = new PrioritySource("Chegg", 2);
-    //    public static readonly PrioritySource TutorMe = new PrioritySource("TutorMe", 3);
-    //}
+        public static readonly PrioritySource TutorWyzant = new PrioritySource("Wyzant", 1);
+        public static readonly PrioritySource TutorChegg = new PrioritySource("Chegg", 2);
+        public static readonly PrioritySource TutorMe = new PrioritySource("TutorMe", 3);
+
+
+        public static readonly PrioritySource JobWayUp = new PrioritySource("WayUp", 1);
+        public static readonly PrioritySource JobZipRecruiter = new PrioritySource("ZipRecruiter", 2);
+        public static readonly PrioritySource JobJobs2Careers = new PrioritySource("Jobs2Careers", 3);
+        public static readonly PrioritySource JobCareerJet = new PrioritySource("CareerJet", 4);
+        public static readonly PrioritySource JobIndeed = new PrioritySource("Indeed", 5);
+    }
 }

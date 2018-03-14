@@ -46,7 +46,7 @@ namespace Cloudents.Api
                 options.AddPolicy("CorsPolity", builder => 
                         builder.SetIsOriginAllowed(origin =>
                     {
-                        if (origin.IndexOf("localhost", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                        if (origin.IndexOf("localhost", StringComparison.OrdinalIgnoreCase) >= 0)
                         {
                             return true;
                         }
@@ -68,7 +68,7 @@ namespace Cloudents.Api
             {
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
-
+                options.SerializerSettings.Converters.Add(new PrioritySourceJsonConverter());
                 options.SerializerSettings.Converters.Add(new IsoDateTimeConverter
                 {
                     DateTimeStyles = DateTimeStyles.AssumeUniversal

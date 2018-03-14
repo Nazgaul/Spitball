@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure.Search.Places
             {
                 return null;
             }
-            if (!string.Equals(resultStr.Status, "ok", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(resultStr.Status, "ok", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
@@ -144,7 +144,7 @@ namespace Cloudents.Infrastructure.Search.Places
             {
                 return null;
             }
-            if (!string.Equals(resultStr.Status, "ok", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(resultStr.Status, "ok", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }

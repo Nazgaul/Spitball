@@ -80,7 +80,7 @@ namespace Cloudents.Infrastructure.Search
 
             var sourceStr = sources.Select(s =>
             {
-                if (string.Equals(s, "Cloudents.com", StringComparison.InvariantCultureIgnoreCase))
+                if (string.Equals(s, "Cloudents.com", StringComparison.OrdinalIgnoreCase))
                 {
                     s = "Spitball.co";
                 }

@@ -70,11 +70,10 @@ namespace Cloudents.Infrastructure
 
             #region Job
 
-            
+
             builder.RegisterAssemblyTypes(currentAssembly)
                 .Where(w => typeof(IJobProvider).IsAssignableFrom(w))
-                .AsSelf()
-                .AsImplementedInterfaces()
+                .As<IJobProvider>()
                 .EnableInterfaceInterceptors().InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<JobSearch>().As<IJobSearch>()
                 .EnableInterfaceInterceptors()
@@ -93,7 +92,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
             builder.RegisterModule<ModuleReadDb>();
-           
+
         }
     }
 }

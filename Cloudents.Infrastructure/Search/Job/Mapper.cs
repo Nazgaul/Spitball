@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Infrastructure.Converters;
 using Microsoft.Azure.Search.Models;
@@ -33,7 +34,8 @@ namespace Cloudents.Infrastructure.Search.Job
                 Address = $"{jo.City}, {jo.State}",
                 Title = jo.Title,
                 Responsibilities = jo.Description,
-                Source = jo.Source,
+                PrioritySource = PrioritySource.JobWayUp
+                //Source = jo.Source,
             });
         }
     }

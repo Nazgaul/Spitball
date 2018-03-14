@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 DateTime = s.Date,
                 Url = $"http://www.jobs2careers.com/click.php?id={s.Id}",
-                Source = "Jobs2Careers",
+                PrioritySource = PrioritySource.JobJobs2Careers,
                 Address = s.City.FirstOrDefault(),
                 Title = s.Title,
                 Company = s.Company,

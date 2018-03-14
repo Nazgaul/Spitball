@@ -11,9 +11,11 @@ using System.Xml.Serialization;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Write.Job.Entities;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Write.Job
 {
+    [UsedImplicitly]
     public class JobWayUp : UpdateAffiliate<WayUpJob, Core.Entities.Search.Job>
     {
         private readonly JobSearchWrite _jobSearchService;

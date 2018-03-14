@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 DateTime = s.PostedTime,
                 Url = s.Url,
-                Source = "ZipRecruiter",
+                PrioritySource = PrioritySource.JobZipRecruiter,
                 Company = s.HiringCompany.Name,
                 Address = s.Location,
                 Title = s.Name,

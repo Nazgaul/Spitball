@@ -14,7 +14,8 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 DateTime = s.Date,
                 Url = s.Url,
-                Source = "CareerJet",
+                PrioritySource = PrioritySource.JobCareerJet,
+                //Source = "CareerJet",
                 Address = s.Locations,
                 Title = s.Title,
                 Company = s.Company,
