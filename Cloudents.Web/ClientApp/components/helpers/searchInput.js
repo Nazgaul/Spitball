@@ -49,8 +49,8 @@ export default {
         },
        msg:debounce(function (val) {
             this.$emit('input',val);
-            if(this.msg&&!this.isFirst){
-                this.getAutocmplete(val).then(({data})=>{this.autoSuggestList=val?data:[]})}else{this.autoSuggestList=[];}
+            if(val&&!this.isFirst){
+                this.getAutocmplete(val).then(({data})=>{this.autoSuggestList=data?data.result:[]})}else{this.autoSuggestList=[];}
             this.isFirst=false;
         }, 250)
     },
