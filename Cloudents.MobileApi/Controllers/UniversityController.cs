@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Cloudents.Api.Filters;
 using Cloudents.Api.Models;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Api.Controllers
@@ -45,6 +46,17 @@ namespace Cloudents.Api.Controllers
             {
                 universities = result
             });
+        }
+
+        [HttpGet("approximate")]
+        public async Task<IActionResult> ByApproximateAsync([FromQuery]GeoPoint point, CancellationToken token)
+        {
+            if (point == null)
+            {
+                return BadRequest();
+            }
+            var result = await _universityProvider.GetApproximateUniversitiesAsync(point, token).ConfigureAwait(false);
+            return Json(result);
         }
     }
 }
