@@ -45,8 +45,9 @@ let transferResultTutor = data => {
     return { data: body.result.map(val => { return { ...val, template: "tutor" } }) ,nextPage:body.nextPageLink};
 };
 let transferJob = body => {
-    let { result, facet: jobType,facet,nextPageLink:nextPage } = body;
-    return { jobType,facet, data: result.map(val => { return { ...val, template: "job" } }),nextPage };
+    let { result,nextPageLink:nextPage } = body;
+    let {result:items, facet: jobType}=result;
+    return { jobType, data: items.map(val => { return { ...val, template: "job" } }),nextPage };
 };
 let transferBook = body => {
     body = body || {};
