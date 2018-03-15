@@ -23,5 +23,12 @@ namespace Cloudents.Web.Api
             var result = await _universityProvider.SearchAsync(term, location.Point, token).ConfigureAwait(false);
             return Json(result);
         }
+
+        [HttpGet("approximate")]
+        public async Task<IActionResult> ByApproximateAsync(GeoPoint point, CancellationToken token)
+        {
+            var result = await _universityProvider.GetApproximateUniversitiesAsync(point, token).ConfigureAwait(false);
+            return Json(result);
+        }
     }
 }
