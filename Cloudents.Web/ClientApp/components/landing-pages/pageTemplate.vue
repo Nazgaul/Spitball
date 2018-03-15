@@ -1,5 +1,6 @@
 <template>
-    <div class="landing-page-wrapper" :class="contentObj.wrappingClass" :style="'background-image: url('+ require(`./img/${contentObj.background}`)+')'">
+    <div class="landing-page-wrapper" :class="contentObj.wrappingClass"
+         :style="'background-image: url('+ require(`./img/${contentObj.background}`)+')'">
         <div class="landing-page">
 
             <router-link class="logo-link" :to="{name:'home'}">
@@ -11,11 +12,16 @@
                     <h2 v-html="contentObj.bodyHtml"></h2>
                     <p class="hidden-xs-only">Fill out the field and start spitballing!</p>
                     <div class="search-wrapper">
-                        <v-text-field class="search-b" type="search" solo
-                                      @keyup.enter="search" autocomplete="off"
-                                      required name="q"
-                                      v-model.trim="msg" :placeholder="contentObj.placeholder"></v-text-field>
-                        <button @click="search">Start Spitballing</button>
+                        <search-input :placeholder="contentObj.placeholder" search-type="uni" v-model="msg"></search-input>
+
+                        <form action="." method="get" @submit.prevent="search">
+                            <search-input :placeholder="contentObj.placeholder" v-model="msg"></search-input>
+                            <button type="submit">
+                                <v-icon class="hidden-md-and-up">sbf-search</v-icon>
+                                <span class="hidden-sm-and-down">Start Spitballing</span>
+                            </button>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -27,6 +33,7 @@
 <script>
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     import {landingPagesData} from "./consts.js";
+    import SearchInput from '../helpers/searchInput.vue';
 
     export default {
         data: () => ({
@@ -34,11 +41,11 @@
             contentObj: null
         }),
         components: {
-            AppLogo
+            AppLogo, SearchInput
         },
         methods: {
             search() {
-                this.$router.push({path: this.contentObj.resultsPath, query: {q: this.msg}});
+                this.contentObj.submissionCallback(this.msg);
             }
         },
         created() {
