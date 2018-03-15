@@ -67,6 +67,9 @@ export const pageMixin =
             currentPromotion() {
                 return promotions[this.name]
             },
+            filterCondition(){
+                return this.filterSelection.length||(this.filterObject&&this.page&&this.items.length)
+            },
             content: {
                 get() {
                     return this.pageData;
