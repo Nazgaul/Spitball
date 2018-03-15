@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Search
             _mapper = mapper;
         }
 
-        //[Cache(TimeConst.Day, "bing", false)]
+        [Cache(TimeConst.Day, "bing", false)]
         [BuildLocalUrl(null, PageSize, "page")]
         [Shuffle]
         public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model,
