@@ -75,8 +75,16 @@
   }
   .search-wrapper {
     max-width: 528px;
+
+    .search-b-wrapper {
+      margin-bottom: 16px;
+    }
     .search-b {
       border: solid 1px #302eb5;
+
+      &.input-group--disabled{
+        background: #dddddd;
+      }
       .responsive-property(height, 56px, null, 48px);
       .input-group__input {
         align-items: center;

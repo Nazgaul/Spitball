@@ -12,16 +12,16 @@
                     <h2 v-html="contentObj.bodyHtml"></h2>
                     <p class="hidden-xs-only">Fill out the field and start spitballing!</p>
                     <div class="search-wrapper">
-                        <search-input :placeholder="contentObj.placeholder" search-type="uni" v-model="msg"></search-input>
-
                         <form action="." method="get" @submit.prevent="search">
-                            <search-input :placeholder="contentObj.placeholder" v-model="msg"></search-input>
+                            <search-input class="term-field" :placeholder="contentObj.placeholders.term" v-model="msg" :search-on-selection="false"></search-input>
+                            <search-input class="uni-field mb-0" :disabled="!msg.length" :placeholder="contentObj.placeholders.uni"
+                                          v-if="contentObj.placeholders.uni" search-type="uni"
+                                          v-model="uni" :search-on-selection="false"></search-input>
                             <button type="submit">
                                 <v-icon class="hidden-md-and-up">sbf-search</v-icon>
                                 <span class="hidden-sm-and-down">Start Spitballing</span>
                             </button>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -38,7 +38,9 @@
     export default {
         data: () => ({
             msg: '',
-            contentObj: null
+            uni: '',
+            contentObj: null,
+            uniDisabled: true
         }),
         components: {
             AppLogo, SearchInput
