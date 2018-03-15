@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 .ConvertUsing(s=> new JobDto
                 {
                     DateTime = s.Date,
-                    Url = $"http://www.jobs2careers.com/click.php?id={s.Id}",
+                    Url = s.Url, // $"http://www.jobs2careers.com/click.php?id={s.Id}",
                     PrioritySource = PrioritySource.JobJobs2Careers,
                     //Source = "Jobs2Careers",
                     Address = s.City.FirstOrDefault(),
