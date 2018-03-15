@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 using Castle.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Interceptor
 {
@@ -78,12 +78,18 @@ namespace Cloudents.Infrastructure.Interceptor
 
         private static string GetInvocationSignature(IInvocation invocation)
         {
+#if DEBUG
+            const string prefix = "Debug";
+#else
+            const string  prefix = "Release";
+#endif
             return
-                $"{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-" +
+                $"{prefix}-{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-" +
                 $"{invocation.TargetType.FullName}-{invocation.Method.Name}" +
                 $"-{BuildArgument(invocation.Arguments)}";
         }
 
+        [UsedImplicitly]
         private static Task<T> ConvertAsync<T>(T data)
         {
             return Task.FromResult(data);
