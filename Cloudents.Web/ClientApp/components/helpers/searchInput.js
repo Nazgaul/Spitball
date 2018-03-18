@@ -20,13 +20,14 @@ export default {
         disabled: {type: Boolean},
         searchOnSelection: {type: Boolean, default: true},
     },
-    data: () => ({autoSuggestList: [], uniAutocompleteList: [], uniSuggestList: [] ,isFirst: true, showSuggestions: false}),
+    data: () => ({autoSuggestList: [], uniAutocompleteList: [], uniSuggestList: [], uniList: [] ,isFirst: true, showSuggestions: false}),
     computed: {
         ...mapGetters({'globalTerm': 'currentText'}),
         ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
         suggestList() {
             if (this.searchType && this.searchType === 'uni') {
-                return this.uniAutocompleteList.slice(0, this.maxResults).map(i => ({
+                this.uniList = [...new Set([...this.uniAutocompleteList, ...this.uniSuggestList])]
+                return this.uniList.slice(0, this.maxResults).map(i => ({
                     text: i.name, type: consts.SUGGEST_TYPE.autoComplete
                 }));
             }
@@ -84,7 +85,7 @@ export default {
             mapActions(['getAutocmplete', 'updateUniversity']),
         selectos({item, index}) {
             if (this.searchType && this.searchType === 'uni') {
-                this.updateUniversity(this.uniAutocompleteList[index]);
+                this.updateUniversity(this.uniList[index]);
             }
             else {
                 this.$ga.event('Search', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
@@ -146,14 +147,18 @@ export default {
         highlightSearch: function (item) {
             let term = this.msg;
             let regex = /(<([^>]+)>)/ig;
-            let aa = item.type === consts.SUGGEST_TYPE.autoComplete ? item.text.replace(term, '<span class=\'highlight\'>' + term + '</span>') : item.text.replace(regex, "");
-            return aa;
+            return item.type === consts.SUGGEST_TYPE.autoComplete ? item.text.replace(term, '<span class=\'highlight\'>' + term + '</span>') : item.text.replace(regex, "");
         }
     }
     ,
     created() {
         if (!this.isHome) {
             this.msg = this.userText ? this.userText : this.globalTerm ? this.globalTerm : "";
+        }
+        if (this.searchType && this.searchType === 'uni') {
+            this.$store.dispatch("getUniversities", {term: ''}).then(({data}) => {
+                this.uniSuggestList = data;
+            });
         }
     }
 }

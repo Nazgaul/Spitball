@@ -14,7 +14,7 @@
         <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
         <transition name="slide-fade">
             <v-list class="search-menu" v-show="showSuggestions" v-if="this.searchType!=='uni' || (this.searchType === 'uni' && suggestList.length)">
-                <v-subheader v-if="!msg.length">Some things you can ask me:</v-subheader>
+                <v-subheader v-if="!msg.length && this.searchType==='term'">Some things you can ask me:</v-subheader>
                 <template v-for="(item, index) in suggestList">
                     <!--{{item.type}}-->
                     <v-list-tile class="suggestion" :class="`type-${item.type}`" @click="selectos({item:item,index})"

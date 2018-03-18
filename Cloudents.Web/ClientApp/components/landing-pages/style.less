@@ -119,8 +119,11 @@
     }
 
     .search-menu{
-      top: -16px;
-      transform: translate(0, -100%);
+      z-index: 999;
+      @media(min-width: @screen-xs) {
+        top: -16px;
+        transform: translate(0, -100%);
+      }
     }
   }
 }
