@@ -18,17 +18,25 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string term, Location location, CancellationToken token)
+        public async Task<IActionResult> GetAsync(string term, GeoPoint location, CancellationToken token)
         {
-            var result = await _universityProvider.SearchAsync(term, location.Point, token).ConfigureAwait(false);
-            return Json(result);
+            if (string.IsNullOrEmpty(term))
+            {
+                var result = await _universityProvider.GetApproximateUniversitiesAsync(location, token).ConfigureAwait(false);
+                return Json(result);
+            }
+            else
+            {
+                var result = await _universityProvider.SearchAsync(term, location, token).ConfigureAwait(false);
+                return Json(result);
+            }
         }
 
-        [HttpGet("approximate")]
-        public async Task<IActionResult> ByApproximateAsync(GeoPoint point, CancellationToken token)
-        {
-            var result = await _universityProvider.GetApproximateUniversitiesAsync(point, token).ConfigureAwait(false);
-            return Json(result);
-        }
+        //[HttpGet("approximate")]
+        //public async Task<IActionResult> ByApproximateAsync(GeoPoint point, CancellationToken token)
+        //{
+        //    var result = await _universityProvider.GetApproximateUniversitiesAsync(point, token).ConfigureAwait(false);
+        //    return Json(result);
+        //}
     }
 }
