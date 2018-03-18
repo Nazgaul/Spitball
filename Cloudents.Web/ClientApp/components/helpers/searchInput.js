@@ -20,16 +20,15 @@ export default {
         disabled: {type: Boolean},
         searchOnSelection: {type: Boolean, default: true},
     },
-    data: () => ({autoSuggestList: [], uniSuggestList: [], isFirst: true, showSuggestions: false}),
+    data: () => ({autoSuggestList: [], uniAutocompleteList: [], uniSuggestList: [] ,isFirst: true, showSuggestions: false}),
     computed: {
         ...mapGetters({'globalTerm': 'currentText'}),
         ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
         suggestList() {
             if (this.searchType && this.searchType === 'uni') {
-                var a = this.uniSuggestList.slice(0, this.maxResults).map(i => ({
+                return this.uniAutocompleteList.slice(0, this.maxResults).map(i => ({
                     text: i.name, type: consts.SUGGEST_TYPE.autoComplete
                 }));
-                return a;
             }
             else {//term
                 let currentHistory = this.getCurrentVertical;
@@ -60,7 +59,7 @@ export default {
                 this.$emit('input', val);
                 if (this.searchType && this.searchType === 'uni') {
                     this.$store.dispatch("getUniversities", {term: val}).then(({data}) => {
-                        this.uniSuggestList = val ? data : [];
+                        this.uniAutocompleteList = val ? data : [];
                     });
                 }
                 else {
@@ -85,7 +84,7 @@ export default {
             mapActions(['getAutocmplete', 'updateUniversity']),
         selectos({item, index}) {
             if (this.searchType && this.searchType === 'uni') {
-                this.updateUniversity(this.uniSuggestList[index]);
+                this.updateUniversity(this.uniAutocompleteList[index]);
             }
             else {
                 this.$ga.event('Search', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
