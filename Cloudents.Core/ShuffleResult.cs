@@ -59,10 +59,19 @@ namespace Cloudents.Core
         public string Source { get; }
         public int Priority { get; }
 
+        public IEnumerable<string> Domains { get; }
+
         public PrioritySource(string source, int priority)
         {
             Source = source;
             Priority = priority;
+        }
+
+        public PrioritySource(string source, int priority, IEnumerable<string> domains)
+        {
+            Source = source;
+            Priority = priority;
+            Domains = domains;
         }
 
         public static readonly PrioritySource TutorWyzant = new PrioritySource("Wyzant", 1);
@@ -79,13 +88,13 @@ namespace Cloudents.Core
 
         public static readonly IReadOnlyDictionary<string, PrioritySource> DocumentPriority = new List<PrioritySource>
         {
-           new PrioritySource("CourseHero" , 1),
-            new PrioritySource("OneClass",  2),
-            new PrioritySource("Spitball",  2),
-            new PrioritySource("StudySoup",  2),
-            new PrioritySource("Cliffsnotes",  3),
-            new PrioritySource("Koofers",  3),
-            new PrioritySource("Studylib",  3)
+            new PrioritySource("CourseHero" , 1,new []{ "coursehero.com/file","www.coursehero.com/subjects", "www.coursehero.com/sitemap/schools"}),
+            new PrioritySource("OneClass",  2, new []{"oneclass.com/note"}),
+            new PrioritySource("Cloudents",  2, new []{"spitball.co/item"}),
+            new PrioritySource("StudySoup",  2 , new []{"studysoup.com/guide"}),
+            new PrioritySource("Cliffsnotes",  3, new []{"cliffsnotes.com/study-guides"}),
+            new PrioritySource("Koofers",  3, new []{"koofers.com/files"})
+            //new PrioritySource("Studylib",  3, new []{})
         }.ToDictionary(f => f.Source, StringComparer.OrdinalIgnoreCase);
 
 
