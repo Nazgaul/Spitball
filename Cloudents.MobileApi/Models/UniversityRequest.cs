@@ -11,7 +11,7 @@ namespace Cloudents.MobileApi.Models
         /// <summary>
         /// the user input
         /// </summary>
-        [StringLength(int.MaxValue, MinimumLength = 3)]
+        //[StringLength(int.MaxValue, MinimumLength = 3)]
         public string Term { get; set; }
         /// <summary>
         /// the user location
