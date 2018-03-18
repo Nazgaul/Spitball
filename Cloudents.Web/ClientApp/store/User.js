@@ -68,7 +68,7 @@ const getters = {
         let sortedList=[].concat(...Object.values(state.historySet)).sort((a, b) => b.date - a.date).map(i=>i.term);
         return sortedList.filter((val,i,arr)=>arr.findIndex(b=>b===val)===i).slice(0,consts.MAX_HISTORY_LENGTH);
     },
-    getVerticalHistory:state=>(vertical)=>state.historySet[vertical].map(i=>i.term),
+    getVerticalHistory:state=>(vertical)=>state.historySet[vertical].map(i=>i.term).reverse(),
     isFirst: state => state.user.isFirst,
     location: state => {
         let location=state.user.location;
