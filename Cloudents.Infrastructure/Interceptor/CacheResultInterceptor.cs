@@ -117,7 +117,7 @@ namespace Cloudents.Infrastructure.Interceptor
             invocation.ReturnValue = data;
         }
 
-        protected override void AfterAction<T>(T val, IInvocation invocation)
+        protected override void AfterAction<T>(ref T val, IInvocation invocation)
         {
             var key = GetInvocationSignature(invocation);
             var att = invocation.GetCustomAttribute<CacheAttribute>();
