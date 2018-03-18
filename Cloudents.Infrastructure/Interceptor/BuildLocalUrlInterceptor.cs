@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Interceptor
         {
         }
 
-        protected override void AfterAction<T>(T val, IInvocation invocation)
+        protected override void AfterAction<T>(ref T val, IInvocation invocation)
         {
             var att = invocation.GetCustomAttribute<BuildLocalUrlAttribute>();
             var page = 0;

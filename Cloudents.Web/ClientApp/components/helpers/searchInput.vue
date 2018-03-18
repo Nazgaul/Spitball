@@ -5,13 +5,15 @@
                       required name="q"
                       :class="{'record':isRecording}"
                       id="transcript"
+                      :disabled="disabled"
+                      @blur="closeSuggestions"
                       v-model.trim="msg" :placeholder="placeholder"
-                      prepend-icon="sbf-search" :append-icon="voiceAppend" :hide-on-scroll="hideOnScroll"
+                      prepend-icon="sbf-search" :append-icon="voiceAppend" :hide-on-scroll="isHome?hideOnScroll:false"
                       :append-icon-cb="$_voiceDetection" @click="openSuggestions"></v-text-field>
         <!--<input type="checkbox" id="toggler"/>-->
         <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
         <transition name="slide-fade">
-            <v-list class="search-menu" v-show="showSuggestions">
+            <v-list class="search-menu" v-show="showSuggestions" v-if="this.searchType!=='uni' || (this.searchType === 'uni' && suggestList.length)">
                 <v-subheader v-if="!msg.length">Some things you can ask me:</v-subheader>
                 <template v-for="(item, index) in suggestList">
                     <!--{{item.type}}-->

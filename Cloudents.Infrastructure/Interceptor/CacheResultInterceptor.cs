@@ -79,13 +79,12 @@ namespace Cloudents.Infrastructure.Interceptor
         private static string GetInvocationSignature(IInvocation invocation)
         {
 #if DEBUG
-            var buildType = "Debug";
-#else 
-            var  buildType = "Release";
+            const string prefix = "Debug";
+#else
+            const string  prefix = "Release";
 #endif
             return
-                buildType +
-                $"{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-" +
+                $"{prefix}-{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-" +
                 $"{invocation.TargetType.FullName}-{invocation.Method.Name}" +
                 $"-{BuildArgument(invocation.Arguments)}";
         }
@@ -124,7 +123,7 @@ namespace Cloudents.Infrastructure.Interceptor
             invocation.ReturnValue = data;
         }
 
-        protected override void AfterAction<T>(T val, IInvocation invocation)
+        protected override void AfterAction<T>(ref T val, IInvocation invocation)
         {
             var key = GetInvocationSignature(invocation);
             var att = invocation.GetCustomAttribute<CacheAttribute>();

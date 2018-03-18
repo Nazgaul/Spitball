@@ -1,18 +1,31 @@
 @import "../../mixin.less";
 
 .landing-page-wrapper {
-  .responsive-property(padding, 32px, 24px, 16px);
+  display: flex;
   color: #ffffff;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  .responsive-property(padding, 32px, 24px, null);
+
+  @media(max-width: @screen-xs){
+    padding: 16px 16px 56px 16px;
+  }
+
+  &.landing-study-docs, &.landing-jobs{
+    h1{
+      text-shadow: 0 2px 4px #000000;
+      margin-bottom: 40px;
+      margin-left: 6px;
+    }
+  }
 
   .landing-page {
+    width: 100%;
     max-width: 1280px;
     margin: 0 auto;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -62,8 +75,16 @@
   }
   .search-wrapper {
     max-width: 528px;
+
+    .search-b-wrapper {
+      margin-bottom: 16px;
+    }
     .search-b {
-      border-radius: 0;
+      border: solid 1px #302eb5;
+
+      &.input-group--disabled{
+        background: #dddddd;
+      }
       .responsive-property(height, 56px, null, 48px);
       .input-group__input {
         align-items: center;
@@ -90,6 +111,16 @@
       .responsive-property(line-height, 56px, null, 48px);
       background-color: #f5a623;
       .responsive-property(margin-top, 16px, null, 12px);
+    }
+
+
+    .search-b, button {
+      border-radius: 4px;
+    }
+
+    .search-menu{
+      top: -16px;
+      transform: translate(0, -100%);
     }
   }
 }

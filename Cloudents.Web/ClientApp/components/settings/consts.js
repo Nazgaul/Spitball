@@ -9,9 +9,9 @@ export let searchObjects = {
         closeText: "done",
         searchApi: "getCorses",
         defaultFilter: 'all',
-        filters: [{ id: 'all', name: 'ALL COURSES' }, { id: 'myCourses', name: 'MY COURSES' }],
+        filters: [{id: 'all', name: 'ALL COURSES'}, {id: 'myCourses', name: 'MY COURSES'}],
         click: function () {
-            this.val="";
+            this.val = "";
             this.$refs.searchText.focus();
         },
         action: "add"
@@ -21,7 +21,9 @@ export let searchObjects = {
         placeholder: 'Where do you go to school?',
         closeText: "X",
         click: function (keep = true) {
-            if (!keep) { this.$parent.$parent.showDialog = false } else {
+            if (!keep) {
+                this.$parent.$parent.showDialog = false
+            } else {
                 this.currentType = "course";
             }
         },

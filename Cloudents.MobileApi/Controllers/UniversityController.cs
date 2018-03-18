@@ -37,26 +37,27 @@ namespace Cloudents.Api.Controllers
         [ValidateModel]
         public async Task<IActionResult> GetAsync([FromQuery] UniversityRequest model, CancellationToken token)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-            var result = await _universityProvider.SearchAsync(model.Term, model.Location, token).ConfigureAwait(false);
-            return Ok(new
+            if (string.IsNullOrEmpty(model.Term))
             {
-                universities = result
-            });
+                var result = await _universityProvider.GetApproximateUniversitiesAsync(model.Location, token).ConfigureAwait(false);
+                return Json(result);
+            }
+            else
+            {
+                var result = await _universityProvider.SearchAsync(model.Term, model.Location, token).ConfigureAwait(false);
+                return Json(result);
+            }
         }
 
-        [HttpGet("approximate")]
-        public async Task<IActionResult> ByApproximateAsync([FromQuery]GeoPoint point, CancellationToken token)
-        {
-            if (point == null)
-            {
-                return BadRequest();
-            }
-            var result = await _universityProvider.GetApproximateUniversitiesAsync(point, token).ConfigureAwait(false);
-            return Json(result);
-        }
+        //[HttpGet("approximate")]
+        //public async Task<IActionResult> ByApproximateAsync([FromQuery]GeoPoint point, CancellationToken token)
+        //{
+        //    if (point == null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    var result = await _universityProvider.GetApproximateUniversitiesAsync(point, token).ConfigureAwait(false);
+        //    return Json(result);
+        //}
     }
 }

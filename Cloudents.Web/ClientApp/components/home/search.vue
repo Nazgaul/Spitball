@@ -6,6 +6,7 @@
                     <v-flex class="tx-input">
                         <search-input :placeholder="placeholder" :hide-on-scroll="$vuetify.breakpoint.smAndDown" v-model="msg"></search-input>
                     </v-flex>
+
                     <v-flex class="f-submit">
                         <button type="submit">
                             <v-icon class="hidden-md-and-up">sbf-search</v-icon>
@@ -22,6 +23,7 @@
 
     export default {
         props: ["headerMenu"],
+        data(){return{msg:""}},
         components:{SearchInput},
         computed: {
             placeholder: function () {

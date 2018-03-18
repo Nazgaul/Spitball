@@ -3,7 +3,7 @@
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
         <div slot="main" >
             <div class="d-flex mobile-filter hidden-sm-and-up">
-                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterObject&&page&&Object.keys(pageData).length">
+                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
                 </v-btn>
             </div>
@@ -76,7 +76,7 @@
             </div>
             <!--<div v-else class="skeleton"></div>-->
         </div>
-        <template slot="sideBar" v-if="page&&Object.keys(pageData).length">
+        <template slot="sideBar" v-if="filterCondition">
             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
                        :sortOptions="page.sort"
                        :sortVal="sort"
