@@ -4,6 +4,7 @@ using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Read;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Domain;
@@ -14,6 +15,7 @@ using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Search.Tutor;
 using Microsoft.Cognitive.LUIS;
+using BingSearch = Cloudents.Infrastructure.Search.BingSearch;
 using ICacheProvider = Nager.PublicSuffix.ICacheProvider;
 using Module = Autofac.Module;
 
@@ -51,9 +53,9 @@ namespace Cloudents.Infrastructure
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<ReplaceImageProvider>().As<IReplaceImageProvider>();
 
-            builder.RegisterType<DocumentCseSearch>().As<IDocumentCseSearch>();
-            builder.RegisterType<FlashcardSearch>().As<IFlashcardSearch>();
-            builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
+
+            builder.RegisterType<WebSearch>();
+
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
 
             #region Tutor

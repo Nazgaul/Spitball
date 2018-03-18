@@ -103,7 +103,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 return null;
             }
 
-            var jobs = _mapper.MapWithPriority<IndeedProvider.Result, JobDto>(result.Results);
+            var jobs = _mapper.MapWithPriority<Result, JobDto>(result.Results);
 
             return new ResultWithFacetDto<JobDto>
             {

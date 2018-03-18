@@ -42,10 +42,11 @@ namespace Cloudents.Infrastructure.Converters
             var priority = PrioritySource.Unknown;
 
 
-            if (context.Items.TryGetValue(KeyPriority, out var val) && val is IReadOnlyDictionary<string, PrioritySource> priorities)
+            if (context.Items.TryGetValue(KeyPriority, out var val) && val is IReadOnlyDictionary<string, PrioritySource> priorities && domain != null && priorities.TryGetValue(domain, out var priorityTemp))
             {
-                priorities.TryGetValue(domain, out priority);
+                priority = priorityTemp;
             }
+
 
             if (Uri.TryCreate(source.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image))
             {

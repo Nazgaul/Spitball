@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
 using System.Threading;
-using Cloudents.Core.Enum;
+using Cloudents.Core.Read;
 using Cloudents.Infrastructure.Interceptor;
-using Cloudents.Infrastructure.Search;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Infrastructure.Test
@@ -27,9 +26,9 @@ namespace Cloudents.Infrastructure.Test
         public void GetInvocationSignature_BingDifferentTerm_Works()
         {
             var searchModel1 = new SearchModel(new[] { "biology" }, null, 
-                CustomApiKey.Documents, null, null, "biology", null);
+                CustomApiKey.Documents, null, null,  null);
             var searchModel2 = new SearchModel(new[] { "chemistry" }, null, 
-                CustomApiKey.Documents, null, null, "biology", null);
+                CustomApiKey.Documents, null, null,  null);
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
             var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };
             var bookRequest2 = new object[] { searchModel2, 0, CancellationToken.None };
@@ -44,9 +43,9 @@ namespace Cloudents.Infrastructure.Test
         public void GetInvocationSignature_DifferentArrayOrder_SameResultWorks()
         {
             var searchModel1 = new SearchModel(new[] { "Linear Algebra" }, new[] { "spitball", "koofers" }, 
-                CustomApiKey.Documents, null, null, "biology", null);
+                CustomApiKey.Documents, null, null,  null);
             var searchModel2 = new SearchModel(new[] { "Linear Algebra" }, new[] { "koofers", "spitball", }, 
-                CustomApiKey.Documents, null, null, "biology", null);
+                CustomApiKey.Documents, null, null,  null);
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
             var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };
             var bookRequest2 = new object[] { searchModel2, 0, CancellationToken.None };
@@ -61,9 +60,9 @@ namespace Cloudents.Infrastructure.Test
         public void GetInvocationSignature_BingDifferentKey_Works()
         {
             var searchModel1 = new SearchModel(new[] { "biology" }, null,
-                CustomApiKey.Documents, null, null, "biology", null);
+                CustomApiKey.Documents, null, null,  null);
             var searchModel2 = new SearchModel(new[] { "biology" }, null, 
-                CustomApiKey.Flashcard, null, null, "biology", null);
+                CustomApiKey.Flashcard, null, null,  null);
             var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };
             var bookRequest2 = new object[] { searchModel2, 0, CancellationToken.None };
 

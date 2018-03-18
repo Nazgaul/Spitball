@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 namespace Cloudents.Infrastructure
 {
     [UsedImplicitly]
-    public class RestClient : IRestClient, IDisposable
+    public sealed class RestClient : IRestClient, IDisposable
     {
         private readonly HttpClient _client;
 
@@ -126,7 +126,6 @@ namespace Cloudents.Infrastructure
         public void Dispose()
         {
             _client?.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

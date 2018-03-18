@@ -9,7 +9,7 @@ namespace Cloudents.Api.Test.IntegrationTests
         [TestMethod]
         public async Task ByApproximateAsync_SomeLocation_Ok()
         {
-            var result = await Client.GetAsync("api/university/approximate?point.Longitude=-74.005&point.Latitude=40.712");
+            var result = await Client.GetAsync("api/university?Location.Longitude=-74.005&Location.Latitude=40.712");
             result.EnsureSuccessStatusCode();
         }
     }

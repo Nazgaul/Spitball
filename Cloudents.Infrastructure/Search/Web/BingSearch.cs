@@ -11,11 +11,11 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Read;
 using Cloudents.Infrastructure.Converters;
 using JetBrains.Annotations;
-using Cloudents.Core.Read;
 
-namespace Cloudents.Infrastructure.Search
+namespace Cloudents.Infrastructure.Search.Web
 {
     /// <summary>
     /// <remarks>https://docs.microsoft.com/en-us/rest/api/cognitiveservices/bing-custom-search-api-v7-reference#query-parameters</remarks>
@@ -35,6 +35,8 @@ namespace Cloudents.Infrastructure.Search
             _mapper = mapper;
             _shuffle = shuffle;
         }
+
+       
 
         [Cache(TimeConst.Day, "bing", false)]
         [BuildLocalUrl(null, PageSize, "page")]
@@ -163,5 +165,7 @@ namespace Cloudents.Infrastructure.Search
         {
             public string ContentUrl { get; set; }
         }
+
+       
     }
 }

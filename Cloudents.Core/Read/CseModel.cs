@@ -1,23 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Cloudents.Infrastructure.Search
+namespace Cloudents.Core.Read
 {
     public class SearchModel
     {
         public SearchModel(IEnumerable<string> query, IEnumerable<string> sources,
-            //SearchRequestSort sort,
             CustomApiKey key, IEnumerable<string> courses,
             IEnumerable<string> universitySynonym,
-            string defaultTerm, string docType)
+             string docType)
         {
             Query = query?.Where(w => w != null);
             Sources = sources;
-            //Sort = sort;
             Key = key;
             Courses = courses;
             UniversitySynonym = universitySynonym;
-            DefaultTerm = defaultTerm;
             DocType = docType;
         }
 
@@ -27,7 +24,6 @@ namespace Cloudents.Infrastructure.Search
 
         public string DocType { get; }
 
-        public string DefaultTerm { get; }
 
         public IEnumerable<string> Sources { get; }
         //public SearchRequestSort Sort { get; }

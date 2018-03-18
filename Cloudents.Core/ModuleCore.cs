@@ -2,6 +2,7 @@
 using Autofac;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Read;
 using Module = Autofac.Module;
 
 namespace Cloudents.Core
@@ -23,6 +24,8 @@ namespace Cloudents.Core
 
             builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
             builder.RegisterType<Shuffle>().As<IShuffle>();
+
+            builder.RegisterType<WebSearch>();
         }
     }
 }

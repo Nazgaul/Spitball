@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Cloudents.Core.Models;
+﻿using Cloudents.Core.Models;
 
 namespace Cloudents.Api.Models
 {

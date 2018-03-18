@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Cloudents.Api.Filters;
 using Cloudents.Api.Models;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Api.Controllers

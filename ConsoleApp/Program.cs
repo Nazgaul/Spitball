@@ -5,16 +5,12 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
-using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Read;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Framework;
-using Cloudents.Infrastructure.Framework.Database;
-using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Tutor;
 
 namespace ConsoleApp
@@ -63,11 +59,12 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"));
-            builder.RegisterType<TutorMeSearch>().AsSelf();
+            //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            var resolve1 = container.Resolve<TutorMeSearch>();
-            var t1 = await resolve1.SearchAsync("math", new TutorRequestFilter[0], TutorRequestSort.Relevance, null, 0, false, default);
+            var resolve1 = container.Resolve<WebSearch.Factory>();
+            var t = resolve1.Invoke(CustomApiKey.Documents);
+            var result = await t.SearchAsync(SearchQuery.Ask(new[] {"war"}, 0, null), HighlightTextFormat.None, default);
 
             var resolve2 = container
                 .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>

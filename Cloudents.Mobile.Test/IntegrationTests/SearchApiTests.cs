@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Cloudents.Api.Test.IntegrationTests;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
