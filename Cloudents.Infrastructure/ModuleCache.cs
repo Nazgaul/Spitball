@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using CacheManager.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Cache;
@@ -23,6 +24,7 @@ namespace Cloudents.Infrastructure
                 var key = c.Resolve<IConfigurationKeys>().Redis;
                 settings
                     .WithMicrosoftMemoryCacheHandle("inProcessCache")
+                    .WithExpiration(ExpirationMode.Sliding,TimeSpan.FromMinutes(5))
                     .And
                     .WithRedisConfiguration("redis", key)
                     .WithJsonSerializer()
