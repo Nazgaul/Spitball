@@ -5,9 +5,11 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Read
 {
+    [UsedImplicitly]
     public class WebSearch
     {
         public delegate WebSearch Factory(CustomApiKey api);
@@ -27,6 +29,7 @@ namespace Cloudents.Core.Read
 
         public async Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model, HighlightTextFormat format, CancellationToken token)
         {
+
             var (universitySynonym, courses) = await _searchConvertRepository.ParseUniversityAndCoursesAsync(model.University, model.Courses, token).ConfigureAwait(false);
 
             var cseModel = new SearchModel(model.Query, model.Source, _api, courses, universitySynonym, model.DocType);
