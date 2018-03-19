@@ -117,6 +117,7 @@ export default {
                 var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
                 this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4) + "px";
             }
+            this.$emit('openedSuggestions', true);
         }
         ,
         closeSuggestions() {
@@ -128,6 +129,7 @@ export default {
                     this.$el.querySelector('.search-menu').scrollTop = 0;
                 }
             }
+            this.$emit('openedSuggestions',false);
         }
         ,
         onScroll(e) {

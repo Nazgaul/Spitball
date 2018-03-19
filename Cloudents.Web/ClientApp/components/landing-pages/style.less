@@ -10,15 +10,32 @@
   background-size: cover;
   .responsive-property(padding, 32px, 24px, null);
 
-  @media(max-width: @screen-xs){
+  @media (max-width: @screen-xs) {
     padding: 16px 16px 56px 16px;
+
+    &.collapse {
+      .landing-page {
+        justify-content: flex-start;
+      }
+      .collapsible {
+        height: 0;
+        overflow: hidden;
+        transition: all 1s ease;
+      }
+    }
+
   }
 
-  &.landing-study-docs, &.landing-jobs{
-    h1{
+  &.landing-study-docs, &.landing-jobs {
+    h1 {
       text-shadow: 0 2px 4px #000000;
-      margin-bottom: 40px;
+      .responsive-property(margin-bottom, 40px, null, 18px);
+      .responsive-property(margin-left, 0, null, -4px);
       margin-left: 6px;
+
+      b{
+        .responsive-property(letter-spacing, -0.5px, null, 0.8px);
+      }
     }
   }
 
@@ -55,7 +72,7 @@
     font-weight: 100;
     line-height: 1.09;
 
-    .responsive-property(margin-bottom, 22px, null, 16px);
+    .responsive-property(margin-bottom, 22px, null, 32px);
     //letter-spacing: -0.3px;
     @media (max-width: @screen-xs) {
       max-width: 258px;
@@ -71,7 +88,7 @@
   .content-wrapper {
     padding-left: 8px;
     .responsive-property(padding-left, 8px, 0, null);
-    margin-top: 20px;
+    //margin-top: 20px;
   }
   .search-wrapper {
     max-width: 528px;
@@ -82,7 +99,7 @@
     .search-b {
       border: solid 1px #302eb5;
 
-      &.input-group--disabled{
+      &.input-group--disabled {
         background: #dddddd;
       }
       .responsive-property(height, 56px, null, 48px);
@@ -90,7 +107,7 @@
         align-items: center;
         padding: 8px 24px;
 
-        @media(max-width: @screen-xs){
+        @media (max-width: @screen-xs) {
           padding: 8px 16px;
         }
 
@@ -110,17 +127,20 @@
       text-align: center;
       .responsive-property(line-height, 56px, null, 48px);
       background-color: #f5a623;
-      .responsive-property(margin-top, 16px, null, 12px);
+      margin-top: 16px;
     }
-
 
     .search-b, button {
       border-radius: 4px;
+      @media (max-width: @screen-xs) {
+        border-radius: 0;
+        border: none;
+      }
     }
 
-    .search-menu{
+    .search-menu {
       z-index: 999;
-      @media(min-width: @screen-xs) {
+      @media (min-width: @screen-xs) {
         top: -16px;
         transform: translate(0, -100%);
       }

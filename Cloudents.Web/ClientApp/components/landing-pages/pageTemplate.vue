@@ -1,5 +1,5 @@
 <template>
-    <div class="landing-page-wrapper" :class="contentObj.wrappingClass"
+    <div class="landing-page-wrapper" :class="[contentObj.wrappingClass, {collapse: collapsePage}]"
          :style="'background-image: url('+ require(`./img/${contentObj.background}`)+')'">
         <div class="landing-page">
 
@@ -13,10 +13,10 @@
                     <p class="hidden-xs-only collapsible">Fill out the field and start spitballing!</p>
                     <div class="search-wrapper">
                         <form action="." method="get" @submit.prevent="search">
-                            <search-input class="term-field" :placeholder="contentObj.placeholders.term" v-model="msg" :search-on-selection="false"></search-input>
-                            <search-input class="uni-field mb-0" :disabled="!msg.length" :placeholder="contentObj.placeholders.uni"
-                                          v-if="contentObj.placeholders.uni" search-type="uni"
-                                          v-model="uni" :search-on-selection="false"></search-input>
+                            <search-input @openedSuggestions="toggleCollapse" class="term-field" :placeholder="contentObj.placeholders.term" v-model="msg" :search-on-selection="contentObj.name !=='note'"></search-input>
+                            <search-input @openedSuggestions="toggleCollapse" class="uni-field mb-0" :disabled="!msg.length" :placeholder="contentObj.placeholders.uni"
+                                          v-if="contentObj.name ==='note'" search-type="uni"
+                                          v-model="uni" :search-on-selection="true"></search-input>
                             <button type="submit">Start Spitballing</button>
                         </form>
                     </div>
@@ -37,7 +37,8 @@
             msg: '',
             uni: '',
             contentObj: null,
-            uniDisabled: true
+            uniDisabled: true,
+            collapsePage: false
         }),
         components: {
             AppLogo, SearchInput
@@ -45,11 +46,14 @@
         methods: {
             search() {
                 this.contentObj.submissionCallback(this.msg);
+            },
+            toggleCollapse(val){
+                this.collapsePage = val;
             }
         },
         created() {
             this.contentObj = landingPagesData[this.$route.name];
-        }
+        },
     }
 </script>
 <style src="./style.less" lang="less"></style>
