@@ -14,14 +14,15 @@
         <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
         <transition name="slide-fade">
             <v-list class="search-menu" v-show="showSuggestions" v-if="this.searchType!=='uni' || (this.searchType === 'uni' && suggestList.length)">
-                <v-subheader v-if="!msg.length && this.searchType==='term'">Some things you can ask me:</v-subheader>
+                <v-subheader v-if="!msg.length" v-html="this.searchType === 'uni' ? 'Universities near by you:':'Some things you can ask me:'"></v-subheader>
                 <template v-for="(item, index) in suggestList">
                     <!--{{item.type}}-->
                     <v-list-tile class="suggestion" :class="`type-${item.type}`" @click="selectos({item:item,index})"
                                  :key="index">
                         <v-list-tile-action hidden-xs-only>
                             <history-icon v-if="item.type==='History'"></history-icon>
-                            <v-icon v-else>sbf-search</v-icon>
+                            <v-icon v-else-if="!item.image">sbf-search</v-icon>
+                            <img class="suggestion-image" v-else :src="item.image"/>
                         </v-list-tile-action>
                         <v-list-tile-content>
                             <v-list-tile-title v-html="highlightSearch(item)"></v-list-tile-title>
