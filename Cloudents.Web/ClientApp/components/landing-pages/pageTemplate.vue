@@ -13,11 +13,11 @@
                     <p class="hidden-xs-only collapsible">Fill out the field and start spitballing!</p>
                     <div class="search-wrapper">
                         <form action="." method="get" @submit.prevent="search">
-                            <search-input @openedSuggestions="toggleCollapse" class="term-field" :placeholder="contentObj.placeholders.term" v-model="msg" :search-on-selection="contentObj.name !=='note'"></search-input>
-                            <search-input @openedSuggestions="toggleCollapse" class="uni-field mb-0" :disabled="!msg.length" :placeholder="contentObj.placeholders.uni"
+                            <search-input @openedSuggestions="toggleCollapse" class="term-field mb-3" :placeholder="contentObj.placeholders.term" v-model="msg" :search-on-selection="contentObj.name !=='note'"></search-input>
+                            <search-input @openedSuggestions="toggleCollapse" class="uni-field mb-3" :disabled="!msg.length" :placeholder="contentObj.placeholders.uni"
                                           v-if="contentObj.name ==='note'" search-type="uni"
                                           v-model="uni" :search-on-selection="true"></search-input>
-                            <button type="submit">Start Spitballing</button>
+                            <button type="submit" class="ma-0">Start Spitballing</button>
                         </form>
                     </div>
                 </div>
