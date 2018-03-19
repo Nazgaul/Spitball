@@ -14,7 +14,7 @@ namespace Cloudents.Core.Interfaces
             CancellationToken token);
 
         [ItemCanBeNull]
-        Task<IEnumerable<UniversityDto>> GetApproximateUniversitiesAsync(GeoPoint location,
+        Task<UniversityDto> GetApproximateUniversitiesAsync(GeoPoint location,
             CancellationToken token);
     }
 }

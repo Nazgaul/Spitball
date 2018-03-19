@@ -35,12 +35,8 @@ namespace Cloudents.Api.Controllers
         public async Task<IActionResult> SearchDocumentAsync([FromQuery] SearchRequest model,
             CancellationToken token)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
             var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
-                 model.DocType);
+                 model.DocType, model.GeoPoint);
             var searchProvider = _factory.Invoke(CustomApiKey.Documents);
             var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
 
@@ -71,7 +67,7 @@ namespace Cloudents.Api.Controllers
         public async Task<IActionResult> SearchFlashcardAsync([FromQuery] SearchRequest model,
             CancellationToken token)
         {
-            var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault());
+            var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(), model.GeoPoint);
             var searchProvider = _factory.Invoke(CustomApiKey.Flashcard);
             var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
             string nextPageLink = null;

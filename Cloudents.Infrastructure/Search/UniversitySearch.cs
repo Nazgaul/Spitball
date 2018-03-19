@@ -33,7 +33,7 @@ namespace Cloudents.Infrastructure.Search
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<UniversityDto>> GetApproximateUniversitiesAsync(GeoPoint location,
+        public async Task<UniversityDto> GetApproximateUniversitiesAsync(GeoPoint location,
             CancellationToken token)
         {
             if (location == null)
@@ -44,6 +44,7 @@ namespace Cloudents.Infrastructure.Search
             var searchParameter = new SearchParameters
             {
                 Select = _listOfSelectParams,
+                Top = 1,
                 Filter =
                     $"geo.distance({nameof(University.GeographyPoint)}, geography'POINT({location.Longitude} {location.Latitude})') le 5"
             };
@@ -51,7 +52,9 @@ namespace Cloudents.Infrastructure.Search
                 _client.Documents.SearchAsync<University>(null, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);
 
-            return _mapper.Map<IEnumerable<University>, IList<UniversityDto>>(result.Results.Select(s => s.Document));
+            var university = result.Results.FirstOrDefault()?.Document;
+
+            return _mapper.Map<UniversityDto>(university);
         }
 
         public async Task<IEnumerable<UniversityDto>> SearchAsync(string term, GeoPoint location,
@@ -76,7 +79,7 @@ namespace Cloudents.Infrastructure.Search
                 _client.Documents.SearchAsync<University>(term, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);
 
-            return _mapper.Map<IEnumerable<University>, IList<UniversityDto>>(result.Results.Select(s => s.Document));
+            return _mapper.Map<IEnumerable<UniversityDto>>(result.Results.Select(s => s.Document));
         }
     }
 }
