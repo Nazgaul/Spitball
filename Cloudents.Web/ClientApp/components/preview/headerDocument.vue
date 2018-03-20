@@ -3,7 +3,7 @@
                 <nav class="item-header elevation-0 mt-2" slot="extraHeader">
                     <div class="item-header-content">
                         <v-layout row align-center justify-space-between>
-                            <div class="item-name">{{item.name}}</div>
+                            <h1 class="item-name">{{item.name}}</h1>
                             <item-actions></item-actions>
                         </v-layout>
                         <v-flex class="item-meta mt-2">
