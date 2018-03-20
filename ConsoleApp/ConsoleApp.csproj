@@ -45,15 +45,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GoogleSheets.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="client_secret.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
       <Version>4.6.2</Version>
+    </PackageReference>
+    <PackageReference Include="Google.Apis.Sheets.v4">
+      <Version>1.32.2.1167</Version>
+    </PackageReference>
+    <PackageReference Include="Google.Gdata.Client.Core">
+      <Version>1.0.2</Version>
     </PackageReference>
     <PackageReference Include="System.Data.SqlClient">
       <Version>4.4.0</Version>
