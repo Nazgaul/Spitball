@@ -37,11 +37,13 @@ namespace Cloudents.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromQuery]TutorRequest model, CancellationToken token)
         {
+            var t =  Request.GetCapabilities();
+            var isMobile = t?.IsMobileDevice ?? true;
             var result = (await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Relevance),
                 model.Location,
-                model.Page.GetValueOrDefault(), false, token).ConfigureAwait(false)).ToListIgnoreNull();
+                model.Page.GetValueOrDefault(), isMobile, token).ConfigureAwait(false)).ToListIgnoreNull();
 
             string nextPageLink = null;
             if (result.Count > 0)

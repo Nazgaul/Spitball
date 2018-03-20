@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Cloudents.Api.Models
 {
@@ -50,6 +51,7 @@ namespace Cloudents.Api.Models
         [Range(1, long.MaxValue)]
         public long? University { get; set; }
 
-        public GeoPoint GeoPoint { get; set; }
+        //[BindNever]
+        //public GeoPoint GeoPoint { get; set; }
     }
 }
