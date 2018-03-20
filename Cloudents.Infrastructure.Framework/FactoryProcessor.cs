@@ -12,9 +12,9 @@ namespace Cloudents.Infrastructure.Framework
     {
         private readonly IBlobProvider<FilesContainerName> _blobProvider;
 
-        private readonly IEnumerable<Meta<Func<Uri,IPreviewProvider>>> _providers;
+        private readonly IEnumerable<Meta<Func<Uri, IPreviewProvider>>> _providers;
 
-        public FileFactoryProcessor(IBlobProvider<FilesContainerName> blobProvider, 
+        public FileFactoryProcessor(IBlobProvider<FilesContainerName> blobProvider,
             IEnumerable<Meta<Func<Uri, IPreviewProvider>>> providers)
         {
             _blobProvider = blobProvider;
@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Framework
             {
                 if (f.Metadata["AppenderName"] is string[] p)
                 {
-                    return p.Contains(Path.GetExtension(uri.AbsoluteUri).ToLower());
+                    return p.Contains(Path.GetExtension(uri.AbsoluteUri), StringComparer.OrdinalIgnoreCase);
                 }
                 return false;
             });

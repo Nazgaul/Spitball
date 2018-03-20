@@ -40,64 +40,67 @@ namespace ConsoleApp
             }
 
             // Create Google Sheets API service.
-            var service = new SheetsService(new BaseClientService.Initializer()
+            using (var service = new SheetsService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
+                ApplicationName = ApplicationName
 
-            // Define request parameters.
-            //String spreadsheetId = "1G5mztkX5w9_JcbR0tQCY9_OvlszsTzh2FXuZFecAosw";
-            //String range = "Subjects!B:C";   
-            SpreadsheetsResource.ValuesResource.GetRequest request =
-                    service.Spreadsheets.Values.Get(spreadsheetId, range);
-            
-            
-            // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit exmple for URL
-            ValueRange response = request.Execute();
-            var Subjectlist = new List<KeyValuePair<string, string>>();
-
-
-            if (response.Values?.Count > 0)
+            }))
             {
-                for (int i = 0; i < response.Values.Count; i++)
+
+                // Define request parameters.
+                //String spreadsheetId = "1G5mztkX5w9_JcbR0tQCY9_OvlszsTzh2FXuZFecAosw";
+                //String range = "Subjects!B:C";   
+                SpreadsheetsResource.ValuesResource.GetRequest request =
+                        service.Spreadsheets.Values.Get(spreadsheetId, range);
+
+
+                // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit exmple for URL
+                ValueRange response = request.Execute();
+                var Subjectlist = new List<KeyValuePair<string, string>>();
+
+
+                if (response.Values?.Count > 0)
                 {
-                    if (response.Values[i].Count == 2)
+                    for (int i = 0; i < response.Values.Count; i++)
                     {
-                        Subjectlist.Add(new KeyValuePair<string, string>(response.Values[i][0].ToString(), response.Values[i][1].ToString()));
+                        if (response.Values[i].Count == 2)
+                        {
+                            Subjectlist.Add(new KeyValuePair<string, string>(response.Values[i][0].ToString(), response.Values[i][1].ToString()));
+                        }
+                        else
+                        {
+                            Subjectlist.Add(new KeyValuePair<string, string>(response.Values[i][0].ToString(), ""));
+                        }
                     }
-                    else
-                    {
-                        Subjectlist.Add(new KeyValuePair<string, string>(response.Values[i][0].ToString(), ""));
-                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("No data found.");
                 }
 
-            }
-            else
-            {
-                Console.WriteLine("No data found.");
-            }
+                //if (response.Values?.Count > 0)
+                //{
+                //   // Console.WriteLine("Subject, Topic");
+                //    foreach (var row in response.Values)
+                //    {
 
-            //if (response.Values?.Count > 0)
-            //{
-            //   // Console.WriteLine("Subject, Topic");
-            //    foreach (var row in response.Values)
-            //    {
-
-            //        if (row.Count==2) {
-            //            Console.WriteLine(row[0] + " " + row[1]);
-            //            continue;
-            //        }
-            //        if (row.Count==1)
-            //        { Console.WriteLine(row[0]); }
-            //    }
-            //}
-            //else
-            //{
-            //    Console.WriteLine("No data found.");
-            //}
-            //Console.Read();
-            return Subjectlist;
+                //        if (row.Count==2) {
+                //            Console.WriteLine(row[0] + " " + row[1]);
+                //            continue;
+                //        }
+                //        if (row.Count==1)
+                //        { Console.WriteLine(row[0]); }
+                //    }
+                //}
+                //else
+                //{
+                //    Console.WriteLine("No data found.");
+                //}
+                //Console.Read();
+                return Subjectlist;
+            }
         }
     }
 }

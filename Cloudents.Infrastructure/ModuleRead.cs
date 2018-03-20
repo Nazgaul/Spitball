@@ -3,6 +3,7 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Data;
@@ -12,6 +13,7 @@ using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Search.Tutor;
+using Cloudents.Infrastructure.Suggest;
 using Microsoft.Cognitive.LUIS;
 using Module = Autofac.Module;
 
@@ -45,8 +47,8 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<DomainParser>().AsSelf().SingleInstance();
 
-            builder.RegisterType<Suggestions>().As<ISuggestions>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor));
+
+           
             builder.RegisterType<ReplaceImageProvider>().As<IReplaceImageProvider>();
 
             builder.RegisterType<DocumentCseSearch>().As<IDocumentCseSearch>();
@@ -87,7 +89,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
             builder.RegisterModule<ModuleReadDb>();
-           
+
         }
     }
 }

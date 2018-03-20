@@ -6,6 +6,7 @@ using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Places;
+using Cloudents.Infrastructure.Suggest;
 using SearchResult = Cloudents.Core.DTOs.SearchResult;
 
 namespace Cloudents.Infrastructure
@@ -16,7 +17,7 @@ namespace Cloudents.Infrastructure
         {
             CreateMap<GoogleGeoCodeDto, (Address address, GeoPoint point)>().ConvertUsing<GoogleGeoConverter>();
             CreateMap<BingSearch.WebPage, SearchResult>().ConvertUsing<BingConverter>();
-            CreateMap<Suggestions.SuggestionsObject, IEnumerable<string>>().ConvertUsing<SuggestConverter>();
+            CreateMap<BingSuggest.SuggestionsObject, IEnumerable<string>>().ConvertUsing<BingSuggestConverter>();
 
             CreateMap<Course, CourseDto>();
             CreateMap<University, UniversityDto>();

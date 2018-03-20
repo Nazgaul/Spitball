@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
@@ -65,7 +69,6 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             var container = builder.Build();
 
-            Console.WriteLine("Hello World");
             //var resolve1 = container.Resolve<IFlashcardSearch>();
             //var t1 = await resolve1.SearchAsync(SearchQuery.Flashcard(new[] { "financial accounting" }, 171885, null, null, 0, SearchRequestSort.None),BingTextFormat.Html, default);
 
@@ -75,15 +78,27 @@ namespace ConsoleApp
 
             //var t2 = await resolve2.GetAsync(new SyncAzureQuery(0, 0), default);
 
-            
-            var SubjectTopiclist = GoogleSheets.GetData("1G5mztkX5w9_JcbR0tQCY9_OvlszsTzh2FXuZFecAosw", "Subjects!B:C");
-           
 
-            foreach (var Row in SubjectTopiclist)
+            var subjectTopicList = GoogleSheets.GetData("1G5mztkX5w9_JcbR0tQCY9_OvlszsTzh2FXuZFecAosw", "Subjects!B2:C");
+            var autocompleteWrite = container.Resolve<ISearchServiceWrite<AutoComplete>>();
+
+            var keyGenerator = container.Resolve<IKeyGenerator>();
+
+            await autocompleteWrite.CreateOrUpdateAsync(default);
+
+            foreach (var batch in subjectTopicList.Where(w => !string.IsNullOrEmpty(w.Value)).Batch(100))
             {
-                Console.WriteLine(Row);
+                var autoCompleteBatch = batch.Select(s => new AutoComplete()
+                {
+                    Key = s.Value,
+                    Id = keyGenerator.GenerateKey(s.Value.ToLowerInvariant()),
+                    Vertical = Vertical.Tutor,
+                    Value = s.Key,
+                    Prefix = s.Value
+                });
+                await autocompleteWrite.UpdateDataAsync(autoCompleteBatch, default);
+
             }
-            Console.Read();
 
             Console.WriteLine("Finish");
             Console.ReadLine();

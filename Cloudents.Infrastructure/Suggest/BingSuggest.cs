@@ -8,15 +8,18 @@ using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
-namespace Cloudents.Infrastructure
+namespace Cloudents.Infrastructure.Suggest
 {
-    public class Suggestions : ISuggestions
+    [UsedImplicitly]
+    public class BingSuggest : ISuggestions
     {
         private readonly IRestClient _client;
         private readonly IMapper _mapper;
+        public const int NumberOfEntries = 3;
 
-        public Suggestions(IRestClient client, IMapper mapper)
+        public BingSuggest(IRestClient client, IMapper mapper)
         {
             _client = client;
             _mapper = mapper;
@@ -36,7 +39,7 @@ namespace Cloudents.Infrastructure
             {
                 new KeyValuePair<string,string>("Ocp-Apim-Subscription-Key", "1ac3126fa3714e0089dc9132c0d1c14d")
             }, token).ConfigureAwait(false);
-            return _mapper.Map<IEnumerable<string>>(result).Take(3).ToArray();
+            return _mapper.Map<IEnumerable<string>>(result).Take(NumberOfEntries).ToArray();
         }
 
 
