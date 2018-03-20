@@ -12,33 +12,65 @@
 
   @media (max-width: @screen-xs) {
     padding: 16px 16px 56px 16px;
-
     &.collapse {
       .landing-page {
         justify-content: flex-start;
       }
       .collapsible {
+        margin: 0;
         height: 0;
         overflow: hidden;
-        transition: all 1s ease;
+        //transition: height 0.3s ease;
       }
     }
 
   }
-
+  &.landing-tutor-v1 {
+    h1 {
+      .responsive-property(margin-bottom, 16px, null, 20px);
+    }
+    h2{
+      @media (max-width: @screen-xs) {
+        margin-bottom: 22px;
+      }
+    }
+  }
   &.landing-study-docs, &.landing-jobs {
     h1 {
       text-shadow: 0 2px 4px #000000;
       .responsive-property(margin-bottom, 40px, null, 18px);
       .responsive-property(margin-left, 0, null, -4px);
-      margin-left: 6px;
+      //margin-left: 6px;
 
-      b{
+      b {
         .responsive-property(letter-spacing, -0.5px, null, 0.8px);
       }
     }
   }
-
+  &.landing-jobs {
+    @media(max-width: @screen-xs){
+      background-position-x: 72%;
+    }
+    h1 {
+      .responsive-property(margin-bottom, 26px, null, 8px);
+      .responsive-property(font-size, 70px, null, 40px);
+      .responsive-property(line-height, 0.93, null, 1);
+    }
+    h2{
+      .responsive-property(margin-bottom, 32px, null, 22px);
+    }
+  }
+  &.landing-study-docs{
+    h1{
+      .responsive-property(margin-bottom, 44px, null, 20px);
+    }
+    h2{
+      .responsive-property(margin-bottom, 16px, null, 32px);
+    }
+    p {
+      margin-bottom: 16px;
+    }
+  }
   .landing-page {
     width: 100%;
     max-width: 1280px;
@@ -85,11 +117,7 @@
     font-weight: 100;
     margin-bottom: 24px;
   }
-  .content-wrapper {
-    padding-left: 8px;
-    .responsive-property(padding-left, 8px, 0, null);
-    //margin-top: 20px;
-  }
+
   .search-wrapper {
     max-width: 528px;
 

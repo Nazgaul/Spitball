@@ -28,7 +28,7 @@ export default {
             if (this.searchType && this.searchType === 'uni') {
                 this.uniList = [...new Set([...this.uniAutocompleteList, ...this.uniSuggestList])]
                 return this.uniList.slice(0, this.maxResults).map(i => ({
-                    text: i.name, type: consts.SUGGEST_TYPE.autoComplete
+                    text: i.name, image: i.image, type: consts.SUGGEST_TYPE.autoComplete
                 }));
             }
             else {//term
@@ -49,7 +49,7 @@ export default {
         },
         maxResults() {
             return this.isHome ? consts.HOME_MAX_SUGGEST_NUM : consts.VERTICAL_MAX_SUGGEST_NUM
-        },
+        }
     },
     watch: {
         userText(val) {
