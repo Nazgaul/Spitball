@@ -4,7 +4,7 @@ process.env.VUE_ENV = 'server';
 const fs = require('fs');
 const path = require('path');
 
-const filePath = path.join(__dirname, './dist/main-server.js')
+const filePath = path.join(__dirname, '../wwwroot/dist/main.js');
 const code = fs.readFileSync(filePath, 'utf8');
 const bundleRenderer = require('vue-server-renderer').createBundleRenderer(code);
 
@@ -43,19 +43,19 @@ module.exports = prerendering.createServerRenderer(function (params) {
         if (err) {
           if (err.code === 404) {
             resolve({
-              html: "a" + JSON.stringify(err.router.options.routes),
+              html: "a" + JSON.stringify(err.router.options),
               statusCode: 404
             });
             //res.status(404).end('Page not found')
           } else {
             resolve({
-                html: "ba" + resultHtml + err,
-              statusCode: 404
+                html: "ba " +  err,
+              statusCode: 500
             });
           }
         }
         resolve({
-            html: "ca" +"<div>Ram</div>" +  JSON.stringify(err)
+            html: resultHtml
           //html: result + "<div>" + JSON.stringify(params, null, 2) + "</div>"
           //html: resultHtml,
           //globals: {
