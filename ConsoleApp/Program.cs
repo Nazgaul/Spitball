@@ -65,14 +65,25 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             var container = builder.Build();
 
-            var resolve1 = container.Resolve<IFlashcardSearch>();
-            var t1 = await resolve1.SearchAsync(SearchQuery.Flashcard(new[] { "financial accounting" }, 171885, null, null, 0, SearchRequestSort.None),BingTextFormat.Html, default);
+            Console.WriteLine("Hello World");
+            //var resolve1 = container.Resolve<IFlashcardSearch>();
+            //var t1 = await resolve1.SearchAsync(SearchQuery.Flashcard(new[] { "financial accounting" }, 171885, null, null, 0, SearchRequestSort.None),BingTextFormat.Html, default);
 
-            var resolve2 = container
-                .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>
-                    delete, long version), SyncAzureQuery>>();
+            //var resolve2 = container
+            //    .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>
+            //        delete, long version), SyncAzureQuery>>();
 
-            var t2 = await resolve2.GetAsync(new SyncAzureQuery(0, 0), default);
+            //var t2 = await resolve2.GetAsync(new SyncAzureQuery(0, 0), default);
+
+            
+            var SubjectTopiclist = GoogleSheets.GetData("1G5mztkX5w9_JcbR0tQCY9_OvlszsTzh2FXuZFecAosw", "Subjects!B:C");
+           
+
+            foreach (var Row in SubjectTopiclist)
+            {
+                Console.WriteLine(Row);
+            }
+            Console.Read();
 
             Console.WriteLine("Finish");
             Console.ReadLine();
