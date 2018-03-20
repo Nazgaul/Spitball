@@ -20,14 +20,15 @@ export default {
         disabled: {type: Boolean},
         searchOnSelection: {type: Boolean, default: true},
     },
-    data: () => ({autoSuggestList: [], uniAutocompleteList: [], uniSuggestList: [] ,isFirst: true, showSuggestions: false}),
+    data: () => ({autoSuggestList: [], uniAutocompleteList: [], uniSuggestList: [], uniList: [] ,isFirst: true, showSuggestions: false}),
     computed: {
         ...mapGetters({'globalTerm': 'currentText'}),
         ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
         suggestList() {
             if (this.searchType && this.searchType === 'uni') {
-                return this.uniAutocompleteList.slice(0, this.maxResults).map(i => ({
-                    text: i.name, type: consts.SUGGEST_TYPE.autoComplete
+                this.uniList = [...new Set([...this.uniAutocompleteList, ...this.uniSuggestList])]
+                return this.uniList.slice(0, this.maxResults).map(i => ({
+                    text: i.name, image: i.image, type: consts.SUGGEST_TYPE.autoComplete
                 }));
             }
             else {//term
@@ -48,7 +49,7 @@ export default {
         },
         maxResults() {
             return this.isHome ? consts.HOME_MAX_SUGGEST_NUM : consts.VERTICAL_MAX_SUGGEST_NUM
-        },
+        }
     },
     watch: {
         userText(val) {
@@ -84,7 +85,7 @@ export default {
             mapActions(['getAutocmplete', 'updateUniversity']),
         selectos({item, index}) {
             if (this.searchType && this.searchType === 'uni') {
-                this.updateUniversity(this.uniAutocompleteList[index]);
+                this.updateUniversity(this.uniList[index]);
             }
             else {
                 this.$ga.event('Search', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
@@ -116,6 +117,7 @@ export default {
                 var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
                 this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4) + "px";
             }
+            this.$emit('openedSuggestions', true);
         }
         ,
         closeSuggestions() {
@@ -127,6 +129,7 @@ export default {
                     this.$el.querySelector('.search-menu').scrollTop = 0;
                 }
             }
+            this.$emit('openedSuggestions',false);
         }
         ,
         onScroll(e) {
@@ -146,14 +149,18 @@ export default {
         highlightSearch: function (item) {
             let term = this.msg;
             let regex = /(<([^>]+)>)/ig;
-            let aa = item.type === consts.SUGGEST_TYPE.autoComplete ? item.text.replace(term, '<span class=\'highlight\'>' + term + '</span>') : item.text.replace(regex, "");
-            return aa;
+            return item.type === consts.SUGGEST_TYPE.autoComplete ? item.text.replace(term, '<span class=\'highlight\'>' + term + '</span>') : item.text.replace(regex, "");
         }
     }
     ,
     created() {
         if (!this.isHome) {
             this.msg = this.userText ? this.userText : this.globalTerm ? this.globalTerm : "";
+        }
+        if (this.searchType && this.searchType === 'uni') {
+            this.$store.dispatch("getUniversities", {term: ''}).then(({data}) => {
+                this.uniSuggestList = data;
+            });
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Read;
 using Cloudents.Infrastructure.AI;
@@ -14,6 +15,7 @@ using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Search.Tutor;
+using Cloudents.Infrastructure.Suggest;
 using Microsoft.Cognitive.LUIS;
 using BingSearch = Cloudents.Infrastructure.Search.BingSearch;
 using ICacheProvider = Nager.PublicSuffix.ICacheProvider;
@@ -49,8 +51,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DomainParser>().AsSelf().As<IDomainParser>().SingleInstance();
             builder.RegisterType<DomainCache>().As<ICacheProvider>();
 
-            builder.RegisterType<Suggestions>().As<ISuggestions>().EnableInterfaceInterceptors()
-                .InterceptedBy(typeof(CacheResultInterceptor));
+
+           
             builder.RegisterType<ReplaceImageProvider>().As<IReplaceImageProvider>();
 
 
@@ -92,6 +94,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
             builder.RegisterModule<ModuleReadDb>();
+
         }
     }
 }

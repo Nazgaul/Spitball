@@ -1,6 +1,7 @@
 import { router } from "../../main";
 export const landingPagesData = {
     tutorV1: {
+        name: 'tutor',
         wrappingClass: 'landing-tutor-v1',
         background: 'tutorBgV1.jpg',
         titleHtml: 'Get <br/>a tutor <br/>now!',
@@ -12,9 +13,10 @@ export const landingPagesData = {
         }
     },
     tutorV2: {
+        name: 'tutor',
         wrappingClass: 'landing-tutor-v2',
         background: 'tutorBgV2.jpg',
-        titleHtml: 'Get <br/>the tutor <br/>you need',
+        titleHtml: 'Get <br/>the tutor <br/>you Need',
         bodyHtml: 'We teamed up with the most trusted <br class="hidden-xs-only"/>tutoring services out there so you can <br class="hidden-xs-only"/>find the perfect tutor for YOU.',
         placeholders: {term: 'What do you need help with?'},
         submissionCallback: (val) => {
@@ -22,6 +24,7 @@ export const landingPagesData = {
         }
     },
     studyDocs: {
+        name: 'note',
         wrappingClass: 'landing-study-docs',
         background: 'studyDocs.jpg',
         titleHtml: 'Get the <br/>Notes <br/><b>you need</b>',
@@ -32,6 +35,7 @@ export const landingPagesData = {
         }
     },
     jobs: {
+        name: 'job',
         wrappingClass: 'landing-jobs',
         background: 'jobs.jpg',
         titleHtml: 'You Don\'t <br/>Have <br/><b>to Be Broke</b>',

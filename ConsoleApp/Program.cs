@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Read;
 using Cloudents.Core.Request;
@@ -66,11 +70,33 @@ namespace ConsoleApp
             var t = resolve1.Invoke(CustomApiKey.Documents);
             var result = await t.SearchAsync(SearchQuery.Ask(new[] {"war"}, 0, null), HighlightTextFormat.None, default);
 
-            var resolve2 = container
-                .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>
-                    delete, long version), SyncAzureQuery>>();
+            //var resolve2 = container
+            //    .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>
+            //        delete, long version), SyncAzureQuery>>();
 
-            var t2 = await resolve2.GetAsync(new SyncAzureQuery(0, 0), default);
+            //var t2 = await resolve2.GetAsync(new SyncAzureQuery(0, 0), default);
+
+
+            var subjectTopicList = GoogleSheets.GetData("1G5mztkX5w9_JcbR0tQCY9_OvlszsTzh2FXuZFecAosw", "Subjects!B2:C");
+            var autocompleteWrite = container.Resolve<ISearchServiceWrite<AutoComplete>>();
+
+            var keyGenerator = container.Resolve<IKeyGenerator>();
+
+            await autocompleteWrite.CreateOrUpdateAsync(default);
+
+            foreach (var batch in subjectTopicList.Where(w => !string.IsNullOrEmpty(w.Value)).Batch(100))
+            {
+                var autoCompleteBatch = batch.Select(s => new AutoComplete()
+                {
+                    Key = s.Value,
+                    Id = keyGenerator.GenerateKey(s.Value.ToLowerInvariant()),
+                    Vertical = Vertical.Tutor,
+                    Value = s.Key,
+                    Prefix = s.Value
+                });
+                await autocompleteWrite.UpdateDataAsync(autoCompleteBatch, default);
+
+            }
 
             Console.WriteLine("Finish");
             Console.ReadLine();

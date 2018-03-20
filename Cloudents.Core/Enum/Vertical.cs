@@ -1,6 +1,6 @@
 ﻿namespace Cloudents.Core.Enum
 {
-    public enum Vertical
+    public enum Vertical : int
     {
         None,
         Note,

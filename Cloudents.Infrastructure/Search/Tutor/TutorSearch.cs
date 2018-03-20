@@ -17,13 +17,15 @@ namespace Cloudents.Infrastructure.Search.Tutor
     public class TutorSearch : ITutorSearch
     {
         private readonly IEnumerable<ITutorProvider> _tutorSearch;
+        private readonly ITutorSuggestion _tutorSuggestion;
         public const int PageSize = 15;
         private readonly IShuffle _shuffle;
 
-        public TutorSearch(IEnumerable<ITutorProvider> tutorSearch, IShuffle shuffle)
+        public TutorSearch(IEnumerable<ITutorProvider> tutorSearch, IShuffle shuffle, ITutorSuggestion tutorSuggestion)
         {
             _tutorSearch = tutorSearch;
             _shuffle = shuffle;
+            _tutorSuggestion = tutorSuggestion;
         }
 
         [BuildLocalUrl("", PageSize, "page")]
@@ -31,9 +33,12 @@ namespace Cloudents.Infrastructure.Search.Tutor
             bool isMobile, CancellationToken token)
         {
             var query = string.Join(" ", term ?? Enumerable.Empty<string>());
+            
+
+            query = await _tutorSuggestion.GetValueAsync(query, token) ?? query;
             if (string.IsNullOrWhiteSpace(query))
             {
-                query = "economics";
+                query = "Physics";
             }
            
             if (filters?.Contains(TutorRequestFilter.InPerson) == true && location == null)
@@ -44,7 +49,6 @@ namespace Cloudents.Infrastructure.Search.Tutor
 
             var result2 = await Task.WhenAll(tasks).ConfigureAwait(false);
             var result = result2.Where(w => w != null).SelectMany(s => s);
-
             if (sort == TutorRequestSort.Price)
             {
                 return result.OrderBy(o => o.Fee);

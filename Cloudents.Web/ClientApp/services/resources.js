@@ -5,12 +5,8 @@ axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: fals
 axios.defaults.responseType = "json";
 axios.defaults.baseURL = "api";
 let transformLocation=(params)=>{
-    debugger;
-    let {location,point}=params;
+    let location=params.location;
     delete params.location;
-    delete params.point;
-    let myLoc=location||point;
-    Object.entries(params).filter(([key,val])=>val.latitude).keys()
     if(location){
         params['location.latitude']=location.latitude;
         params['location.longitude']=location.longitude;
@@ -73,8 +69,7 @@ const getPlacesDetails = ({ id }) => {
     debugger;
     return axios.get("places", { params: { id } });
 }
-export const getUniversity = (params) => axios.get("university", { params });
-export const getApporximateUni = (params) => axios.get("university/approximate", {params:transformLocation(params)})
+export const getUniversity = (params) => axios.get("university", { params:transformLocation(params) });
 
 export const search = { getBookDetails, ...searchFunctions, getPlacesDetails,autoComplete:(term)=>axios.get("suggest",{params:{sentence:term}}) };
 export const course = { ...courseFunctions };
