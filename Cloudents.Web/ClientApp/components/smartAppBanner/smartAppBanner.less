@@ -1,0 +1,73 @@
+@bannerHeight: 84px;
+.smart-app-banner {
+  //padding: 10px 0;
+  background: white;
+  height: @bannerHeight;
+  margin-bottom: 3px; //to give space for drop shadow created by elevation-1 class
+
+  &, .data, .content {
+    display: flex;
+    align-items: center;
+  }
+
+  &, .data {
+    justify-content: flex-start;
+  }
+
+  .content {
+    justify-content: space-between;
+  }
+
+  .close-btn {
+    padding: 12px;
+    outline: none;
+
+    .icon {
+      font-size: 10px;
+    }
+  }
+
+  .app-info {
+    padding-left: 8px;
+
+    .app-name, .app-price {
+      font-size: 12px;
+      letter-spacing: -0.4px;
+      color: #000000;
+    }
+    .app-rating {
+      margin-bottom: 8px;
+      line-height: 16px;
+      font-size: 14px;
+      &:before {
+        content: '★★★★';
+        color: #f5a623;
+      }
+      &:after {
+        content: '★';
+        color: #dddddd;
+      }
+    }
+  }
+  .app-btn{
+    margin-right: 16px;
+    width: 64px;
+    text-align: center;
+    border: 1px solid #3532d5;
+    line-height: 32px;
+    border-radius: 8px;
+    color: #3532d5;
+    letter-spacing: -0.6px;
+    font-weight: 600;
+  }
+}
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to {
+  margin-top: -@bannerHeight;
+  opacity: 0;
+}

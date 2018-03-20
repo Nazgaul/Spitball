@@ -1,5 +1,5 @@
-﻿import settingsService from './../services/settingsService'
-import { USER } from './mutation-types'
+﻿﻿import settingsService from './../services/settingsService'
+import {SEARCH, USER} from './mutation-types'
 import * as consts from "./constants";
 // export const MAX_HISTORY_LENGTH=5;
 const state = {
@@ -8,7 +8,8 @@ const state = {
         myCourses: [],
         isFirst: true,
         location: null,
-        pinnedCards: {}
+        pinnedCards: {},
+        showSmartAppBanner: true
     },
     facet:"",
     historyTermSet:[],
@@ -60,7 +61,11 @@ const mutations = {
         if(state.historyTermSet.length>consts.MAX_HISTORY_LENGTH){
             state.historyTermSet=state.historyTermSet.slice(1);
         }
+    },
+    [USER.HIDE_SMART_BANNER](state) {
+        state.user.showSmartAppBanner = false;
     }
+
 };
 const getters = {
     historyTermSet:state=>state.historyTermSet,
@@ -78,6 +83,8 @@ const getters = {
         }else{return location}},
     pinnedCards:
         state => state.user.pinnedCards,
+    showSmartAppBanner:
+        state => state.user.showSmartAppBanner,
     getUniversity: state => {
         let obj = state.user.universityId || {};
         return obj.id;
@@ -142,6 +149,9 @@ const actions = {
     },
     updateFacet({commit},data){
         commit(USER.UPDATE_FACET,data)
+    },
+    hideSmartAppBanner({commit},data){
+        commit(USER.HIDE_SMART_BANNER);
     }
 
 };
