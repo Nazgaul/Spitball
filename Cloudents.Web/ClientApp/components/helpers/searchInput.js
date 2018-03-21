@@ -1,6 +1,6 @@
 ﻿import debounce from "lodash/debounce"
 
-;
+    ;
 import historyIcon from "./svg/history-icon.svg";
 import {micMixin} from './mic';
 import {mapGetters, mapActions} from 'vuex'
@@ -16,7 +16,7 @@ export default {
         userText: {String},
         submitRoute: {String}
     },
-    data:()=>({autoSuggestList:[],isFirst:true, showSuggestions: false}),
+    data: () => ({autoSuggestList: [], isFirst: true, showSuggestions: false, focusedIndex: -1}),
     computed: {
         ...mapGetters({'globalTerm': 'currentText'}),
         ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
@@ -24,15 +24,18 @@ export default {
             let currentHistory = this.getCurrentVertical;
             let buildInSuggestList = currentHistory ? consts.buildInSuggest[currentHistory] : consts.buildInSuggest.home;
             let historyList = [...(this.submitRoute && currentHistory ? this.$store.getters.getVerticalHistory(currentHistory) : this.allHistorySet)];
-            let historySuggestSet=[...new Set([...historyList, ...buildInSuggestList])];
+            let historySuggestSet = [...new Set([...historyList, ...buildInSuggestList])];
             let set = currentHistory ? historySuggestSet : [...new Set([...this.autoSuggestList, ...historySuggestSet])];
-            let autoListMap=this.autoSuggestList?this.autoSuggestList.map(i => ({text:i,type:consts.SUGGEST_TYPE.autoComplete})):[];
-            let mapDataSet=set.slice(0, this.maxResults).map(i => ({
+            let autoListMap = this.autoSuggestList ? this.autoSuggestList.map((i) => ({
+                text: i,
+                type: consts.SUGGEST_TYPE.autoComplete
+            })) : [];
+            let mapDataSet = set.slice(0, this.maxResults).map(i => ({
                 text: i, type: (this.autoSuggestList.includes(i) ? consts.SUGGEST_TYPE.autoComplete :
                     historyList.includes(i) ? consts.SUGGEST_TYPE.history :
                         consts.SUGGEST_TYPE.buildIn)
             }));
-            return currentHistory ? [...autoListMap,...mapDataSet]:mapDataSet;
+            return currentHistory ? [...autoListMap, ...mapDataSet] : mapDataSet;
         },
 
         isHome() {
@@ -45,13 +48,18 @@ export default {
     watch: {
         userText(val) {
             this.msg = val;
-            this.isFirst=true;
+            this.isFirst = true;
         },
-       msg:debounce(function (val) {
-            this.$emit('input',val);
-            if(val&&!this.isFirst){
-                this.getAutocmplete(val).then(({data})=>{this.autoSuggestList=data?data.result:[]})}else{this.autoSuggestList=[];}
-            this.isFirst=false;
+        msg: debounce(function (val) {
+            this.$emit('input', val);
+            if (val && !this.isFirst) {
+                this.getAutocmplete(val).then(({data}) => {
+                    this.autoSuggestList = data ? data.result : []
+                })
+            } else {
+                this.autoSuggestList = [];
+            }
+            this.isFirst = false;
         }, 250)
     },
     methods: {
@@ -63,6 +71,9 @@ export default {
             this.closeSuggestions();
         },
         search() {
+            if(this.focusedIndex>=0){
+                this.msg=this.suggestList[this.focusedIndex].text;
+            }
             if (this.submitRoute) {
                 this.$router.push({path: this.submitRoute, query: {q: this.msg}});
             }
@@ -77,13 +88,14 @@ export default {
         },
         openSuggestions() {
             this.showSuggestions = true;
-            if(this.$root.$el.querySelector('.box-search')) { // Limit height Only in home page
+            if (this.$root.$el.querySelector('.box-search')) { // Limit height Only in home page
                 var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
                 this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4) + "px";
             }
         },
         closeSuggestions() {
             this.$el.querySelector('.search-b input').blur();
+            this.focusedIndex = -1;
             if (this.showSuggestions) {
                 this.showSuggestions = false;
                 this.$el.querySelector('.search-menu').scrollTop = 0;
@@ -106,11 +118,17 @@ export default {
             let regex = /(<([^>]+)>)/ig;
             let aa = item.type === consts.SUGGEST_TYPE.autoComplete ? item.text.replace(term, '<span class=\'highlight\'>' + term + '</span>') : item.text.replace(regex, "");
             return aa;
+        },
+        arrowNavigation(direction) {
+            if(direction>0 && this.focusedIndex===this.suggestList.length-1 || direction<0 && this.focusedIndex===0){
+                return;
+            }
+            this.focusedIndex = this.focusedIndex+direction
         }
     },
     created() {
         if (!this.isHome) {
-            this.msg = this.userText ? this.userText : this.globalTerm?this.globalTerm:"";
+            this.msg = this.userText ? this.userText : this.globalTerm ? this.globalTerm : "";
         }
     }
 }

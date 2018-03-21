@@ -1,7 +1,7 @@
 <template>
     <div class="search-b-wrapper" v-scroll="onScroll">
         <v-text-field class="search-b" type="search" solo
-                      @keyup.enter="search" autocomplete="off"
+                      @keyup.enter="search" autocomplete="off" @keyup.down="arrowNavigation(1)" @keyup.up="arrowNavigation(-1)"
                       required name="q"
                       :class="{'record':isRecording}"
                       id="transcript"
@@ -15,7 +15,7 @@
                 <v-subheader v-if="!msg.length">Some things you can ask me:</v-subheader>
                 <template v-for="(item, index) in suggestList">
                     <!--{{item.type}}-->
-                    <v-list-tile class="suggestion" :class="`type-${item.type}`" @click="selectos({item:item,index})"
+                    <v-list-tile class="suggestion" @click="selectos({item:item,index})" :class="[`type-${item.type}`,{'list__tile--highlighted': index === focusedIndex}]"
                                  :key="index">
                         <v-list-tile-action hidden-xs-only>
                             <history-icon v-if="item.type==='History'"></history-icon>
