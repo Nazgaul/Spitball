@@ -19,11 +19,12 @@ export default {
         searchType: {String, default: 'term'},
         disabled: {type: Boolean},
         searchOnSelection: {type: Boolean, default: true},
+        customSearch:{}
     },
     data: () => ({autoSuggestList: [], uniAutocompleteList: [], uniSuggestList: [], uniList: [] ,isFirst: true, showSuggestions: false}),
     computed: {
         ...mapGetters({'globalTerm': 'currentText'}),
-        ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
+        ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory','getUniversityName']),
         suggestList() {
             if (this.searchType && this.searchType === 'uni') {
                 this.uniList = [...new Set([...this.uniAutocompleteList, ...this.uniSuggestList])]
@@ -81,8 +82,7 @@ export default {
         )
     },
     methods: {
-        ...
-            mapActions(['getAutocmplete', 'updateUniversity']),
+        ...mapActions(['getAutocmplete', 'updateUniversity']),
         selectos({item, index}) {
             if (this.searchType && this.searchType === 'uni') {
                 this.updateUniversity(this.uniList[index]);
@@ -98,6 +98,10 @@ export default {
         }
         ,
         search() {
+            if(this.customSearch){
+                this.customSearch()
+                return;
+            }
             if (this.submitRoute) {
                 this.$router.push({path: this.submitRoute, query: {q: this.msg}});
             }
@@ -154,13 +158,19 @@ export default {
     }
     ,
     created() {
-        if (!this.isHome) {
+        if (!this.isHome && !(this.searchType && this.searchType === 'uni')) {
             this.msg = this.userText ? this.userText : this.globalTerm ? this.globalTerm : "";
         }
         if (this.searchType && this.searchType === 'uni') {
-            this.$store.dispatch("getUniversities", {term: ''}).then(({data}) => {
-                this.uniSuggestList = data;
-            });
+            let uniName = this.$store.getters.getUniversityName;
+            debugger
+            if(uniName){
+                this.msg = uniName;
+            }else {
+                this.$store.dispatch("getUniversities", {term: ''}).then(({data}) => {
+                    this.uniSuggestList = data;
+                });
+            }
         }
     }
 }

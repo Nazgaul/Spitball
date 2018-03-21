@@ -114,7 +114,7 @@
         },
         computed: {
             ...mapGetters(['getUniversityName']),
-        },
+    },
         watch:{
             toolbarHeight(val) {
                 this.height = val;
