@@ -1,6 +1,6 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using Autofac;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Write;
@@ -34,10 +34,12 @@ namespace Cloudents.Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterGeneric(typeof(SearchServiceWrite<>));
-            builder.RegisterType<UniversitySearchWrite>().AsSelf().As<ISearchServiceWrite<University>>().SingleInstance();
-            builder.RegisterType<CourseSearchWrite>().AsSelf().As<ISearchServiceWrite<Course>>().SingleInstance();
-            builder.RegisterType<JobSearchWrite>().AsSelf().As<ISearchServiceWrite<Job>>().SingleInstance();
-            builder.RegisterType<TutorSearchWrite>().AsSelf().As<ISearchServiceWrite<Tutor>>().SingleInstance();
+            var assembly = Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ISearchServiceWrite<>)).AsImplementedInterfaces();
+            //builder.RegisterType<UniversitySearchWrite>().AsSelf().As<ISearchServiceWrite<University>>().SingleInstance();
+            //builder.RegisterType<CourseSearchWrite>().AsSelf().As<ISearchServiceWrite<Course>>().SingleInstance();
+            //builder.RegisterType<JobSearchWrite>().AsSelf().As<ISearchServiceWrite<Job>>().SingleInstance();
+            //builder.RegisterType<TutorSearchWrite>().AsSelf().As<ISearchServiceWrite<Tutor>>().SingleInstance();
             builder.Register(c =>
                 {
                     var key = c.Resolve<IConfigurationKeys>().Search;

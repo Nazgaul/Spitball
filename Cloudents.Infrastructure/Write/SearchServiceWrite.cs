@@ -81,7 +81,23 @@ namespace Cloudents.Infrastructure.Write
 
         public void Dispose()
         {
-            Client?.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Client?.Dispose();
+            }
+            
+        }
+
+        ~SearchServiceWrite()
+        {
+            // Finalizer calls Dispose(false)  
+            Dispose(false);
         }
     }
 }

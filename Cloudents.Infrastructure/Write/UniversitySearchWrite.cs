@@ -90,7 +90,7 @@ namespace Cloudents.Infrastructure.Write
                 {
                     new ScoringProfile(ScoringProfile)
                     {
-                        TextWeights = new TextWeights(new Dictionary<string, double>()
+                        TextWeights = new TextWeights(new Dictionary<string, double>
                         {
                             [nameof(Core.Entities.Search.University.Extra)] = 3,
                             [nameof(Core.Entities.Search.University.Name)] = 2,
