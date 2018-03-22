@@ -22,11 +22,8 @@ let transferResultNote = res => {
     return { source: res.facet,facet:res.facet, data: result.map(val => { return { ...val, template: 'item' } }),nextPage:res.nextPageLink }
 };
 let transferNextPage=(res)=>{
-    let result = res?res.result:[];
-    if(!res) return {data:[]};
-    console.log(result);
-    console.log(currentVertical);
-    return { data: result.map(val => { return { ...val, template:getTemplate(currentVertical) } }),nextPage:res.nextPageLink }
+    let {data,nextPage}=transferMap[currentVertical](res);
+    return { data,nextPage}
 };
 let transferAutoComplete = res => {
     let result = res?res.autocomplete:[];
@@ -62,7 +59,15 @@ let transferBookDetails = body => {
     let prices = body.prices || [];
     return { details: body.details, data: prices.map(val => { return { ...val, template: "book-price" } }) }
 };
-
+const transferMap={
+    ask:(res)=>transferResultAsk(res),
+    flashcard:(res)=>transferResultNote(res),
+    note:(res)=>transferResultNote(res),
+    job:(res)=>transferJob(res),
+    food:(res)=>transferFood(res),
+    tutor:(res)=>transferResultTutor(res),
+    book:(res)=>transferBook(res)
+}
 const searchFunctions = {
     getDocument: (params) => axios.get("search/documents", {params, transformResponse: transferResultNote }),
     getQna: (params) => axios.get("ask", { params, transformResponse: transferResultAsk }),
