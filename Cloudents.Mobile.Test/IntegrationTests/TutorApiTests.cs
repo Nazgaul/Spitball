@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Api.Test.IntegrationTests

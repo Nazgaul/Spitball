@@ -41,7 +41,6 @@ namespace Cloudents.Api.Controllers
            AiRequest model,
            CancellationToken token)
         {
-            var t = Request.GetCapabilities();
             var result = await _engineProcess.ProcessRequestAsync(model.Sentence, token).ConfigureAwait(false);
             return Ok(result);
         }

@@ -2,8 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Cloudents.Api.Models
 {

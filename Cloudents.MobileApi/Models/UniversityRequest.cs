@@ -1,6 +1,4 @@
-﻿using Cloudents.Core.Models;
-
-namespace Cloudents.Api.Models
+﻿namespace Cloudents.Api.Models
 {
     /// <summary>
     /// University request object

@@ -1,10 +1,6 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Cloudents.Core.Models;
 using JetBrains.Annotations;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Newtonsoft.Json;
 
 namespace Cloudents.Api.Models
 {
@@ -41,14 +37,14 @@ namespace Cloudents.Api.Models
 
     public class Location
     {
-        public GeographicCoordinate Coordinate { get; set; }
+        public GeographicCoordinate Point { get; set; }
 
         internal Address Address { get; set; }
         internal string Ip { get; set; }
 
         public Core.Models.Location ToLocation()
         {
-            return new Core.Models.Location(Coordinate.ToGeoPoint(),Address,Ip);
+            return new Core.Models.Location(Point.ToGeoPoint(),Address,Ip);
         }
     }
 }

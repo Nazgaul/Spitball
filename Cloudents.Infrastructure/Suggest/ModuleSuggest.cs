@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum;

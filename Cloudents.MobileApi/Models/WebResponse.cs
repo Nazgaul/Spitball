@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs;
 
 namespace Cloudents.Api.Models
 {

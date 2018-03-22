@@ -28,7 +28,7 @@ namespace Cloudents.Api.Binders
                 bindingContext.Result = ModelBindingResult.Success(result);
                 return Task.CompletedTask;
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 bindingContext.Result = ModelBindingResult.Success(null);
                 return Task.CompletedTask;

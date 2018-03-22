@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Cloudents.Api.Models;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Web.Extensions.Extensions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 

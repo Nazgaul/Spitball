@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
 
 namespace Cloudents.Api.Models
 {

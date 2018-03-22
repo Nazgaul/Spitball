@@ -11,7 +11,7 @@ namespace Cloudents.Api.Binders
         //private readonly ITempDataDictionaryFactory _tempDataFactory;
         private readonly IIpToLocation _ipToLocation;
         private readonly IGooglePlacesSearch _googlePlacesSearch;
-        private const string KeyName = "l1";
+        //private const string KeyName = "l1";
 
         public LocationEntityBinder(IIpToLocation ipToLocation,
             // ITempDataDictionaryFactory tempDataFactory,
@@ -26,8 +26,8 @@ namespace Cloudents.Api.Binders
         {
             // var tempData = _tempDataFactory.GetTempData(bindingContext.HttpContext);
 
-            var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(Location.Coordinate)}.{nameof(GeographicCoordinate.Latitude)}");
-            var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(Location.Coordinate)}.{nameof(GeographicCoordinate.Longitude)}");
+            var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(Location.Point)}.{nameof(GeographicCoordinate.Latitude)}");
+            var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(Location.Point)}.{nameof(GeographicCoordinate.Longitude)}");
             Location locationFromTemp;// = TempDataExtensions.Get<Location>(tempData, KeyName);
             if (float.TryParse(latitudeStr.FirstValue, out var latitude)
                 && float.TryParse(longitudeStr.FirstValue, out var longitude))
@@ -49,7 +49,7 @@ namespace Cloudents.Api.Binders
                 locationFromTemp = new Location
                 {
                     Address = resultApi.address,
-                    Coordinate = point,
+                    Point = point,
                     Ip = bindingContext.HttpContext.Connection.GetIpAddress().ToString()
                 };
                 //(point,resultApi.address, bindingContext.HttpContext.Connection.GetIpAddress().ToString());
@@ -73,7 +73,7 @@ namespace Cloudents.Api.Binders
             locationFromTemp = new Location
             {
                 Address = retVal.Address,
-                Coordinate = GeographicCoordinate.FromPoint(retVal.Point),
+                Point = GeographicCoordinate.FromPoint(retVal.Point),
                 Ip = bindingContext.HttpContext.Connection.GetIpAddress().ToString()
             };
 

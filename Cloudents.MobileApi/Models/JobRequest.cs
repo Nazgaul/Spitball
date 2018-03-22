@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
 using JetBrains.Annotations;
-using Newtonsoft.Json;
 
 namespace Cloudents.Api.Models
 {
