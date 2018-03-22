@@ -37,16 +37,11 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(ITypeConverter<,>));
 
-            builder.Register(c => new MapperConfiguration(cfg =>
-            {
-                cfg.ConstructServicesUsing(c.Resolve);
-                cfg.AddProfiles(assembly);
-            })).AsSelf().SingleInstance();
-
-            builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve<IComponentContext>().Resolve))
-                .As<IMapper>().InstancePerLifetimeScope();
+          
 
             builder.RegisterType<Logger>().As<ILogger>();
         }
     }
+
+
 }

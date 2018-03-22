@@ -182,7 +182,8 @@ namespace Cloudents.Infrastructure.Search.Places
         }
 
         private static NameValueCollection BuildQuery(IEnumerable<string> term, PlacesRequestFilter filter,
-            GeoPoint location, string nextPageToken)
+         [NotNull]   GeoPoint location, 
+            string nextPageToken)
         {
             if (string.IsNullOrEmpty(nextPageToken))
             {

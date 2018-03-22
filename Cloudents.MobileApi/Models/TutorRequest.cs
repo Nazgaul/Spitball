@@ -19,7 +19,6 @@ namespace Cloudents.Api.Models
         /// <summary>
         /// The filter option
         /// </summary>
-        [DefaultValue(0)]
         public TutorRequestFilter[] Filter { get; set; }
         /// <summary>
         /// The sort option
@@ -29,8 +28,7 @@ namespace Cloudents.Api.Models
         /// <summary>
         /// The user location
         /// </summary>
-
-        public GeoPoint Location { get; set; }
+        public GeographicCoordinate Location { get; set; }
         /// <inheritdoc />
         /// <summary>
         /// Page for paging

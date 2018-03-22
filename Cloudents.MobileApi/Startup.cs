@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -11,7 +12,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
-using Cloudents.Web.Extensions.Binders;
 using Cloudents.Web.Extensions.Filters;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
@@ -43,7 +43,7 @@ namespace Cloudents.Api
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolity", builder => 
+                options.AddPolicy("CorsPolity", builder =>
                         builder.SetIsOriginAllowed(origin =>
                     {
                         if (origin.IndexOf("localhost", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -62,13 +62,12 @@ namespace Cloudents.Api
             services.AddMvc().AddMvcOptions(o =>
             {
                 o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));
-                o.ModelBinderProviders.Insert(0, new LocationModelBinder());
-                o.ModelBinderProviders.Insert(0, new GeoPointModelBinder());
+                //o.ModelBinderProviders.Insert(0, new LocationModelBinder());
+                o.ModelBinderProviders.Insert(0, new ApiBinder());
             }).AddJsonOptions(options =>
             {
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
-                options.SerializerSettings.Converters.Add(new PrioritySourceJsonConverter());
                 options.SerializerSettings.Converters.Add(new IsoDateTimeConverter
                 {
                     DateTimeStyles = DateTimeStyles.AssumeUniversal
@@ -77,11 +76,29 @@ namespace Cloudents.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
-                //Cloudents.MobileApi
                 var basePath = AppContext.BaseDirectory;
                 var xmlPath = Path.Combine(basePath, "Cloudents.MobileApi.xml");
                 c.IncludeXmlComments(xmlPath);
                 c.DescribeAllEnumsAsStrings();
+                c.DescribeAllParametersInCamelCase();
+                c.ResolveConflictingActions(f =>
+                {
+                    var descriptions = f.ToList();
+                    var parameters = descriptions
+                        .SelectMany(desc => desc.ParameterDescriptions)
+                        .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x },
+                            ApiParameterDescriptionEqualityComparer.Instance)
+                        .ToList();
+                    var description = descriptions[0];
+                    description.ParameterDescriptions.Clear();
+                    parameters.ForEach(x =>
+                    {
+                        if (x.Parameter.RouteInfo != null)
+                            x.Parameter.RouteInfo.IsOptional = x.IsOptional;
+                        description.ParameterDescriptions.Add(x.Parameter);
+                    });
+                    return description;
+                });
             });
             services.AddResponseCompression();
             services.AddResponseCaching();
@@ -103,7 +120,7 @@ namespace Cloudents.Api
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"));
-            
+
             containerBuilder.RegisterModule<ModuleCore>();
             containerBuilder.RegisterModule<ModuleDb>();
             containerBuilder.RegisterModule<ModuleStorage>();
@@ -122,7 +139,7 @@ namespace Cloudents.Api
             }
             app.UseCors("CorsPolity");
             var reWriterOptions = new RewriteOptions();
-                
+
             if (!env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 reWriterOptions.AddRedirectToHttpsPermanent();
@@ -132,7 +149,8 @@ namespace Cloudents.Api
 
             app.UseResponseCompression();
             app.UseResponseCaching();
-            app.UseDefaultFiles(new DefaultFilesOptions {
+            app.UseDefaultFiles(new DefaultFilesOptions
+            {
                 DefaultFileNames = new
                     List<string> { "default.html" }
             });
@@ -141,7 +159,7 @@ namespace Cloudents.Api
 
             app.UseSwagger();
 
-           
+
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {

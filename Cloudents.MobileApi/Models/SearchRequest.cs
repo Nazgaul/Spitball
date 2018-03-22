@@ -52,6 +52,6 @@ namespace Cloudents.Api.Models
         public long? University { get; set; }
 
         //[BindNever]
-        //public GeoPoint GeoPoint { get; set; }
+        public GeographicCoordinate GeoPoint { get; set; }
     }
 }

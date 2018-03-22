@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Api.Test.IntegrationTests
@@ -12,6 +14,16 @@ namespace Cloudents.Api.Test.IntegrationTests
             var response =
                 await Client.GetAsync(
                     "/api/places?location.latitude=31.915606900000004&location.longitude=34.80483160000001&term=burger");
+            response.EnsureSuccessStatusCode();
+        }
+
+
+        [TestMethod]
+        public async Task GetAsync_NoLocation_BadRequest()
+        {
+            var response =
+                await Client.GetAsync(
+                    "/api/places?term=burger");
             response.EnsureSuccessStatusCode();
         }
     }

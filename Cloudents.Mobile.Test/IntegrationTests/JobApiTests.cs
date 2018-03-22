@@ -1,5 +1,9 @@
 ﻿using System.Threading.Tasks;
+using Cloudents.Api.Models;
+using Cloudents.Core.DTOs;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 
 namespace Cloudents.Api.Test.IntegrationTests
 {
@@ -26,6 +30,11 @@ namespace Cloudents.Api.Test.IntegrationTests
             var response =
                 await Client.GetAsync("api/job?location.latitude=40.712&location.longitude=-74.005&term=");
             response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadAsStringAsync();
+
+            var obj = JsonConvert.DeserializeObject<WebResponseWithFacet<JobDto>>(result);
+            obj.Result.Should().HaveCountGreaterOrEqualTo(1);
         }
     }
 }

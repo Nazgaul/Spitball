@@ -2,6 +2,7 @@
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace Cloudents.Api.Models
 {
@@ -26,7 +27,6 @@ namespace Cloudents.Api.Models
         /// <summary>
         /// Location of user
         /// </summary>
-        [CanBeNull]
         public Location Location { get; set; }
         /// <summary>
         /// Facet filter got from the api
@@ -35,10 +35,10 @@ namespace Cloudents.Api.Models
         [ItemCanBeNull]
         public string[] Facet { get; set; }
 
-        /// <summary>
-        /// Should highlight the response with <!--b-->
-        /// </summary>
-        //public HighlightTextFormat Highlight { get; set; }
+        /* /// <summary>
+         /// Should highlight the response with <!--b-->
+         /// </summary>
+         //public HighlightTextFormat Highlight { get; set; }*/
         /// <inheritdoc />
         /// <summary>
         /// Page of paging

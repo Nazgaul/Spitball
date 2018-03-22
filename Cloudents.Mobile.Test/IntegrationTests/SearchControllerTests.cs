@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Cloudents.Api.Models;
+using Cloudents.Core.DTOs;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
@@ -17,7 +18,7 @@ namespace Cloudents.Api.Test.IntegrationTests
 
             var result = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<WebResponse>(result);
+            var obj = JsonConvert.DeserializeObject<WebResponseWithFacet<SearchResult>>(result);
             obj.Result.Should().HaveCountGreaterOrEqualTo(1);
         }
 
@@ -28,7 +29,7 @@ namespace Cloudents.Api.Test.IntegrationTests
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<WebResponse>(result);
+            var obj = JsonConvert.DeserializeObject<WebResponseWithFacet<SearchResult>>(result);
             obj.Result.Should().HaveCountGreaterOrEqualTo(1);
         }
     }

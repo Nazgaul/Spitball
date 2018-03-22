@@ -15,6 +15,6 @@ namespace Cloudents.Api.Models
         /// <summary>
         /// the user location
         /// </summary>
-        public GeoPoint Location { get; set; }
+        public GeographicCoordinate Location { get; set; }
     }
 }

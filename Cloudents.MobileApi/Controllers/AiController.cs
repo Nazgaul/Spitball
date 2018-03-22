@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Api.Extensions;
 using Cloudents.Api.Filters;
 using Cloudents.Api.Models;
 using Cloudents.Core.DTOs;
@@ -37,9 +38,10 @@ namespace Cloudents.Api.Controllers
         [ValidateModel]
         [ProducesResponseType(typeof(VerticalEngineDto), 200)]
         public async Task<IActionResult> GetAsync(
-            AiRequest model,
+           AiRequest model,
            CancellationToken token)
         {
+            var t = Request.GetCapabilities();
             var result = await _engineProcess.ProcessRequestAsync(model.Sentence, token).ConfigureAwait(false);
             return Ok(result);
         }

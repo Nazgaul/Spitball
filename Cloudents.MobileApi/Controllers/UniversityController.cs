@@ -36,16 +36,9 @@ namespace Cloudents.Api.Controllers
         [ValidateModel]
         public async Task<IActionResult> GetAsync([FromQuery] UniversityRequest model, CancellationToken token)
         {
-            //if (string.IsNullOrEmpty(model.Term))
-            //{
-            //    var result = await _universityProvider.GetApproximateUniversitiesAsync(model.Location, token).ConfigureAwait(false);
-            //    return Json(result);
-            //}
-            //else
-            //{
-            var result = await _universityProvider.SearchAsync(model.Term, model.Location, token).ConfigureAwait(false);
+            var result = await _universityProvider.SearchAsync(model.Term,
+                model.Location.ToGeoPoint(), token).ConfigureAwait(false);
             return Json(result);
-            //}
         }
     }
 }

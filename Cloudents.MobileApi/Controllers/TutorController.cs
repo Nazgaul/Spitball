@@ -1,7 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Api.Extensions;
+using Cloudents.Api.Filters;
 using Cloudents.Api.Models;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -34,27 +36,28 @@ namespace Cloudents.Api.Controllers
         /// <param name="model">The model to parse</param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet, ValidateModel]
+        [ProducesResponseType(typeof(WebResponseWithFacet<TutorDto>), 200)]
+
         public async Task<IActionResult> GetAsync([FromQuery]TutorRequest model, CancellationToken token)
         {
-            var t =  Request.GetCapabilities();
+            var t = Request.GetCapabilities();
             var isMobile = t?.IsMobileDevice ?? true;
             var result = (await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Relevance),
-                model.Location,
+                model.Location.ToGeoPoint(),
                 model.Page.GetValueOrDefault(), isMobile, token).ConfigureAwait(false)).ToListIgnoreNull();
-
             string nextPageLink = null;
             if (result.Count > 0)
             {
                 nextPageLink = Url.NextPageLink("Tutor", null, model);
             }
 
-            return Ok(new
+            return Ok(new WebResponseWithFacet<TutorDto>
             {
-                result,
-                nextPageLink
+                Result = result,
+                NextPageLink = nextPageLink
             });
         }
     }

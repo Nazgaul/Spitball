@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cloudents.Api.Extensions;
 using Cloudents.Api.Filters;
 using Cloudents.Api.Models;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -37,15 +38,13 @@ namespace Cloudents.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [ValidateModel]
+        [ProducesResponseType(typeof(WebResponseWithFacet<JobDto>), 200)]
+
         public async Task<IActionResult> GetAsync([FromQuery]JobRequest model, CancellationToken token)
         {
-            //if (model == null)
-            //{
-            //    return BadRequest();
-            //}
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Sort.GetValueOrDefault(JobRequestSort.Relevance),
-                model.Facet, model.Location, model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
+                model.Facet, model.Location.ToLocation(), model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
             string nextPageLink = null;
             var p = result.Result?.ToList();
             if (p?.Any() == true)
@@ -54,10 +53,11 @@ namespace Cloudents.Api.Controllers
             }
 
             return Ok(
-                new
+                new WebResponseWithFacet<JobDto>
                 {
-                    result = p,
-                    nextPageLink
+                    Result = p,
+                    Facet = result.Facet,
+                    NextPageLink = nextPageLink
                 });
         }
     }

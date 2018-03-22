@@ -3,9 +3,9 @@ using Cloudents.Core.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
-namespace Cloudents.Api.Binders
+namespace Cloudents.Web.Binders
 {
-    public class GeoPointModelBinder : IModelBinderProvider
+    public class LocationModelBinder : IModelBinderProvider
     {
         public IModelBinder GetBinder(ModelBinderProviderContext context)
         {
@@ -14,9 +14,9 @@ namespace Cloudents.Api.Binders
                 throw new ArgumentNullException(nameof(context));
             }
 
-            if (context.Metadata.ModelType == typeof(GeoPoint))
+            if (context.Metadata.ModelType == typeof(Location))
             {
-                return new BinderTypeModelBinder(typeof(GeoPointEntityBinder));
+                return new BinderTypeModelBinder(typeof(LocationEntityBinder));
             }
 
             return null;

@@ -81,9 +81,11 @@ namespace Cloudents.Infrastructure
         }
 
         [Log]
-        public Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, CancellationToken token)
+        public  Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, CancellationToken token)
         {
             return GetAsync<T>(url, queryString, null, token);
+            //var t = await GetAsync<T>(url, queryString, null, token).ConfigureAwait(false);
+            //return t;
         }
 
         [Log]

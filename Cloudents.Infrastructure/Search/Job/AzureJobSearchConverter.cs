@@ -15,7 +15,8 @@ namespace Cloudents.Infrastructure.Search.Job
         {
             var retVal = new ResultWithFacetDto<JobDto>
             {
-                Result = context.Mapper.MapWithPriority<Core.Entities.Search.Job, JobDto>(source.Results.Select(s => s.Document))
+                Result = context.Mapper.MapWithPriority<Core.Entities.Search.Job, JobDto>(
+                    source.Results.Select(s => s.Document))
             };
 
             if (source.Facets != null)

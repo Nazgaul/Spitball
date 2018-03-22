@@ -4,13 +4,14 @@ using Cloudents.Core.Models;
 using Cloudents.Web.Extensions.Extensions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using TempDataExtensions = Cloudents.Web.Extensions.TempDataExtensions;
 
-namespace Cloudents.Web.Extensions.Binders
+namespace Cloudents.Web.Binders
 {
     public class LocationEntityBinder : IModelBinder
     {
-        private readonly IIpToLocation _ipToLocation;
         private readonly ITempDataDictionaryFactory _tempDataFactory;
+        private readonly IIpToLocation _ipToLocation;
         private readonly IGooglePlacesSearch _googlePlacesSearch;
         private const string KeyName = "l1";
 
@@ -28,7 +29,7 @@ namespace Cloudents.Web.Extensions.Binders
 
             var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.latitude");
             var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.longitude");
-            var locationFromTemp = tempData.Get<Location>(KeyName);
+            var locationFromTemp = TempDataExtensions.Get<Location>(tempData, KeyName);
             if (float.TryParse(latitudeStr.FirstValue, out var latitude)
                 && float.TryParse(longitudeStr.FirstValue, out var longitude))
             {
@@ -44,7 +45,7 @@ namespace Cloudents.Web.Extensions.Binders
                 }
                 var resultApi = await _googlePlacesSearch.ReverseGeocodingAsync(point, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
                 locationFromTemp = new Location(point,resultApi.address, bindingContext.HttpContext.Connection.GetIpAddress().ToString());
-                tempData.Put(KeyName, locationFromTemp);
+                TempDataExtensions.Put(tempData, KeyName, locationFromTemp);
                 bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
             }
 
@@ -55,7 +56,7 @@ namespace Cloudents.Web.Extensions.Binders
             }
             var ipV4 = bindingContext.HttpContext.Connection.GetIpAddress();
             locationFromTemp = await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
-            tempData.Put(KeyName, locationFromTemp);
+            TempDataExtensions.Put(tempData, KeyName, locationFromTemp);
             bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
         }
     }

@@ -52,12 +52,12 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 if (next.Result != null)
                 {
-                    (dto.Result ?? Enumerable.Empty<JobDto>()).Union(next.Result);
+                    dto.Result = (dto.Result ?? Enumerable.Empty<JobDto>()).Union(next.Result);
                 }
 
                 if (next.Facet != null)
                 {
-                    (dto.Facet ?? Enumerable.Empty<string>()).Union(next.Facet);
+                    dto.Facet = (dto.Facet ?? Enumerable.Empty<string>()).Union(next.Facet);
                 }
 
                 return dto;

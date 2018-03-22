@@ -11,21 +11,21 @@ using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
-    public class ModuleWrite : Module
-    {
-        protected override void Load(ContainerBuilder builder)
-        {
-            base.Load(builder);
-            builder.RegisterModule<ModuleInfrastructureBase>();
-            builder.RegisterModule<ModuleMail>();
+    //public class ModuleWrite : Module
+    //{
+    //    protected override void Load(ContainerBuilder builder)
+    //    {
+    //        base.Load(builder);
+    //        builder.RegisterModule<ModuleInfrastructureBase>();
+    //        builder.RegisterModule<ModuleMail>();
 
-            //builder.RegisterGeneric(typeof(SearchServiceWrite<>));
-            builder.RegisterType<DownloadFile>().As<IDownloadFile>();
-            //builder.RegisterType<JobCareerBuilder>().Keyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
-            builder.RegisterType<JobWayUp>().Keyed<IUpdateAffiliate>(AffiliateProgram.WayUp);
-            builder.RegisterType<TutorWyzant>().Keyed<IUpdateAffiliate>(AffiliateProgram.Wyzant);
-        }
-    }
+    //        //builder.RegisterGeneric(typeof(SearchServiceWrite<>));
+    //        builder.RegisterType<DownloadFile>().As<IDownloadFile>();
+    //        //builder.RegisterType<JobCareerBuilder>().Keyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
+    //        builder.RegisterType<JobWayUp>().Keyed<IUpdateAffiliate>(AffiliateProgram.WayUp);
+    //        builder.RegisterType<TutorWyzant>().Keyed<IUpdateAffiliate>(AffiliateProgram.Wyzant);
+    //    }
+    //}
 
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Function)]

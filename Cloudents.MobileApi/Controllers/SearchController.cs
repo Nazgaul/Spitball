@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cloudents.Api.Extensions;
 using Cloudents.Api.Filters;
 using Cloudents.Api.Models;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Read;
 using Cloudents.Core.Request;
 using Microsoft.AspNetCore.Mvc;
@@ -30,13 +31,13 @@ namespace Cloudents.Api.Controllers
         /// <param name="model"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [ProducesResponseType(typeof(WebResponse), 200)]
+        [ProducesResponseType(typeof(WebResponseWithFacet<SearchResult>), 200)]
         [Route("documents", Name = "DocumentSearch"), HttpGet, ValidateModel]
         public async Task<IActionResult> SearchDocumentAsync([FromQuery] SearchRequest model,
             CancellationToken token)
         {
             var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
-                 model.DocType, model.GeoPoint);
+                 model.DocType, model.GeoPoint.ToGeoPoint());
             var searchProvider = _factory.Invoke(CustomApiKey.Documents);
             var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
 
@@ -47,7 +48,7 @@ namespace Cloudents.Api.Controllers
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
 
-            return Ok(new WebResponse
+            return Ok(new WebResponseWithFacet<SearchResult>
             {
                 Result = p,
                 Facet = result.Facet,
@@ -62,12 +63,12 @@ namespace Cloudents.Api.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [Route("flashcards", Name = "FlashcardSearch"), HttpGet, ValidateModel]
-        [ProducesResponseType(typeof(WebResponse), 200)]
+        [ProducesResponseType(typeof(WebResponseWithFacet<SearchResult>), 200)]
 
         public async Task<IActionResult> SearchFlashcardAsync([FromQuery] SearchRequest model,
             CancellationToken token)
         {
-            var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(), model.GeoPoint);
+            var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(), model.GeoPoint.ToGeoPoint());
             var searchProvider = _factory.Invoke(CustomApiKey.Flashcard);
             var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
             string nextPageLink = null;
@@ -76,7 +77,7 @@ namespace Cloudents.Api.Controllers
             {
                 nextPageLink = Url.NextPageLink("FlashcardSearch", null, model);
             }
-            return Ok(new WebResponse
+            return Ok(new WebResponseWithFacet<SearchResult>
             {
                 Result = p,
                 Facet = result.Facet,
