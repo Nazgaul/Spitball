@@ -150,6 +150,7 @@ let routes2 = [
     },
 
 ];
+
 for (let v in staticRoutes) {
     let item = staticRoutes[v];
     routes2.push({

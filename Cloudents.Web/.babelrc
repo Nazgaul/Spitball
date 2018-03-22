@@ -1,6 +1,7 @@
 ﻿{
   "presets": [ "env", "es2015" ],
   "plugins": [
+    "dynamic-import-node",
     "syntax-dynamic-import",
     "transform-object-rest-spread",
     [
@@ -14,4 +15,3 @@
     ]
   ]
 }
-//TODO: check if we can remove that

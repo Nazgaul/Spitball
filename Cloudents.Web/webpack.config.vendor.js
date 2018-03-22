@@ -97,6 +97,7 @@ module.exports = (env) => {
             //    }
             //}),
             new webpack.DefinePlugin({
+                'NICE_FEATURE':false,
                 'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
             }),
 

@@ -1,7 +1,7 @@
 ﻿﻿const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
-const path = require("path");
-
+const path = require("path"),
+glob = require('glob');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -138,7 +138,9 @@ module.exports = (env) => {
         },
         target: 'node',
         //resolve: { mainFields: ['main'] },
-        entry: { 'main': './ClientApp/server.js' },
+        entry: {
+            // 'satellitePages': glob.sync('./ClientApp/satellite/*.vue'),
+            'main': './ClientApp/server.js' },
         devtool: 'sourcemap',
         output: {
             libraryTarget: 'commonjs2',
