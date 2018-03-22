@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -10,13 +11,15 @@ using JetBrains.Annotations;
 namespace Cloudents.Core.Read
 {
     [UsedImplicitly]
-    public class WebSearch
+    public class WebSearch : IWebDocumentSearch, IWebAskSearch, IWebFlashcardSearch
     {
-        public delegate WebSearch Factory(CustomApiKey api);
+        //public delegate WebSearch Factory(CustomApiKey api);
         private readonly ISearch _search;
         private readonly ISearchConvertRepository _searchConvertRepository;
         private readonly IUniversitySearch _universitySearch;
         private readonly CustomApiKey _api;
+
+        
 
         public WebSearch(ISearch search, ISearchConvertRepository searchConvertRepository, CustomApiKey api, IUniversitySearch universitySearch)
         {
@@ -36,7 +39,7 @@ namespace Cloudents.Core.Read
             }
             var (universitySynonym, courses) = await _searchConvertRepository.ParseUniversityAndCoursesAsync(university, model.Courses, token).ConfigureAwait(false);
 
-            var cseModel = new SearchModel(model.Query, model.Source, _api, courses, universitySynonym, model.DocType);
+            var cseModel = new SearchModel(model.Query, BuildSources(model.Source), _api, courses, universitySynonym, model.DocType);
             var result = await _search.SearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
             var facets = _api.Priority.Select(s => s.Key);
             return new ResultWithFacetDto<SearchResult>
@@ -47,10 +50,19 @@ namespace Cloudents.Core.Read
             };
         }
 
+        private IEnumerable<string> BuildSources(IEnumerable<string> sources)
+        {
+            return sources?.Select(s =>
+            {
+                _api.Priority.TryGetValue(s, out var notes);
+                return notes.Domains;
+            }).SelectMany(s => s);
+        }
+
         public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, HighlightTextFormat format, CancellationToken token)
         {
 
-            var cseModel = new SearchModel(model.Query, model.Source, _api, null, null, model.DocType);
+            var cseModel = new SearchModel(model.Query, BuildSources(model.Source), _api, null, null, model.DocType);
             var result = await _search.SearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
             var facets = _api.Priority.Select(s => s.Key);
             return new ResultWithFacetDto<SearchResult>

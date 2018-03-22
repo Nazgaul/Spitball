@@ -11,6 +11,11 @@ namespace Cloudents.Core
 
         public IEnumerable<string> Domains { get; }
 
+        protected PrioritySource()
+        {
+            
+        }
+
         public PrioritySource(string source, int priority)
         {
             Source = source;
@@ -44,50 +49,49 @@ namespace Cloudents.Core
             new PrioritySource("StudySoup",  2 , new []{"studysoup.com/guide"}),
             new PrioritySource("Cliffsnotes",  3, new []{"cliffsnotes.com/study-guides"}),
             new PrioritySource("Koofers",  3, new []{"koofers.com/files"})
-            //new PrioritySource("Studylib",  3, new []{})
         }.ToDictionary(f => f.Source, StringComparer.OrdinalIgnoreCase);
 
 
         public static readonly IReadOnlyDictionary<string, PrioritySource> FlashcardPriority = new List<PrioritySource>
         {
-            new PrioritySource("StudyBlue" , 1),
-            new PrioritySource("BrainScape",  2),
-            new PrioritySource("CourseHero",  3),
-            new PrioritySource("Quizlet",  3),
-            new PrioritySource("Spitball",  4),
-            new PrioritySource("Cram",  5),
-            new PrioritySource("Koofers",  5),
-            new PrioritySource("StudySoup",  5)
+            new PrioritySource("StudyBlue" , 1, new []{"www.studyblue.com/notes/note"}),
+           // new PrioritySource("BrainScape",  2),
+            new PrioritySource("CourseHero",  3,new []{"coursehero.com/flashcards"}),
+            new PrioritySource("Quizlet",  3, new []{"quizlet.com"}),
+            new PrioritySource("Spitball",  4,new [] {"spitball.co/flashcard"}),
+            new PrioritySource("Cram",  5, new []{"cram.com/flashcards"}),
+            new PrioritySource("Koofers",  5,new []{"koofers.com/flashcards"}),
+            new PrioritySource("StudySoup",  5,new []{"studysoup.com/flashcard"})
         }.ToDictionary(f => f.Source, StringComparer.OrdinalIgnoreCase);
 
 
         public static readonly IReadOnlyDictionary<string, PrioritySource> AskPriority = new List<PrioritySource>
         {
-            new PrioritySource("StudyBlue", 1),
-            new PrioritySource("Chegg", 2),
-            new PrioritySource("britannica", 3),
-            new PrioritySource("encyclopedia", 3),
-            new PrioritySource("history", 3),
-            new PrioritySource("khanacademy", 3),
-            new PrioritySource("newworldencyclopedia", 3),
-            new PrioritySource("physics", 3),
-            new PrioritySource("worldatlas", 3),
-            new PrioritySource("yalescientific", 3),
-            new PrioritySource("boundless", 4),
-            new PrioritySource("enotes", 4),
-            new PrioritySource("howstuffworks", 4),
-            new PrioritySource("knowledgedoor", 4),
-            new PrioritySource("livescience", 4),
-            new PrioritySource("lumenlearning", 4),
-            new PrioritySource("quora", 4),
-            new PrioritySource("reference", 4),
-            new PrioritySource("socratic", 4),
-            new PrioritySource("space", 4),
-            new PrioritySource("thoughtco", 4),
-            new PrioritySource("wikihow", 4),
-            new PrioritySource("businessinsider", 5),
-            new PrioritySource("snapguide", 5),
-            new PrioritySource("wired", 5)
+            new PrioritySource("StudyBlue", 1,new []{"studyblue.com/notes/hh"}),
+            new PrioritySource("Chegg", 2,new []{"www.chegg.com/homework-help/questions-and-answers"}),
+            new PrioritySource("britannica", 3,new [] {"britannica.com"}),
+            new PrioritySource("encyclopedia", 3,new []{"encyclopedia.com"}),
+            new PrioritySource("history", 3,new []{"history.com"}),
+            new PrioritySource("khanacademy", 3, new []{"khanacademy.org"}),
+            new PrioritySource("newworldencyclopedia", 3,new []{"newworldencyclopedia.org"}),
+            new PrioritySource("physics", 3,new []{"physics.org"}),
+            new PrioritySource("worldatlas", 3,new [] {"worldatlas.com"}),
+            new PrioritySource("yalescientific", 3,new []{"yalescientific.org"}),
+            new PrioritySource("boundless", 4,new [] {"boundless.com"}),
+            new PrioritySource("enotes", 4,new []{"enotes.com"}),
+            new PrioritySource("howstuffworks", 4,new [] {"howstuffworks.com"}),
+            new PrioritySource("knowledgedoor", 4,new []{"knowledgedoor.com"}),
+            new PrioritySource("livescience", 4,new []{"livescience.com"}),
+            new PrioritySource("lumenlearning", 4,new []{"lumenlearning.com"}),
+            new PrioritySource("quora", 4,new[]{"quora.com"}),
+            new PrioritySource("reference", 4,new []{"reference.com"}),
+            new PrioritySource("socratic", 4,new []{"socratic.org"}),
+            new PrioritySource("space", 4,new[] {"space.com"}),
+            new PrioritySource("thoughtco", 4,new []{"thoughtco.com"}),
+            new PrioritySource("wikihow", 4, new [] {"wikihow.com"}),
+            new PrioritySource("businessinsider", 5,new []{"businessinsider.com"}),
+            new PrioritySource("snapguide", 5,new [] {"snapguide.com"}),
+            new PrioritySource("wired", 5,new []{"wired.com"})
         }.ToDictionary(f => f.Source, StringComparer.OrdinalIgnoreCase);
 
         //public static readonly IReadOnlyDictionary<string, int> DocumentPriority = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)

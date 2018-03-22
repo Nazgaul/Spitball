@@ -66,9 +66,8 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            var resolve1 = container.Resolve<WebSearch.Factory>();
-            var t = resolve1.Invoke(CustomApiKey.Documents);
-            var result = await t.SearchAsync(SearchQuery.Ask(new[] {"war"}, 0, null), HighlightTextFormat.None, default);
+            var t = container.Resolve<IWebDocumentSearch>();
+            var result = await t.SearchWithUniversityAndCoursesAsync(SearchQuery.Ask(new[] {"war"}, 0, null), HighlightTextFormat.None, default);
 
             //var resolve2 = container
             //    .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>

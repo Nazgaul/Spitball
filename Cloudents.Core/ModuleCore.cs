@@ -25,7 +25,11 @@ namespace Cloudents.Core
             builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
             builder.RegisterType<Shuffle>().As<IShuffle>();
 
-            builder.RegisterType<WebSearch>();
+            //builder.RegisterType<WebSearch>();
+
+            builder.RegisterType<WebSearch>().As<IWebDocumentSearch>().WithParameter("api", CustomApiKey.Documents);
+            builder.RegisterType<WebSearch>().As<IWebFlashcardSearch>().WithParameter("api", CustomApiKey.Flashcard);
+            builder.RegisterType<WebSearch>().As<IWebAskSearch>().WithParameter("api", CustomApiKey.AskQuestion);
         }
     }
 }

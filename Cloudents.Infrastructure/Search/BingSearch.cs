@@ -85,15 +85,16 @@ namespace Cloudents.Infrastructure.Search
                 return string.Empty;
             }
 
-            var sourceStr = sources.Select(s =>
-            {
-                if (string.Equals(s, "Cloudents.com", StringComparison.OrdinalIgnoreCase))
-                {
-                    s = "Spitball.co";
-                }
-                return $"site:{s}";
-            });
-            return $"({string.Join(" OR ", sourceStr)})";
+            //var sourceStr = sources.Select(s =>
+            //{
+
+            //    //if (string.Equals(s, "Cloudents.com", StringComparison.OrdinalIgnoreCase))
+            //    //{
+            //    //    s = "Spitball.co";
+            //    //}
+            //    //return $"site:{s}";
+            //});
+            return $"({string.Join(" OR ", sources)})";
         }
 
         public static string BuildQuery(IEnumerable<string> universitySynonym,

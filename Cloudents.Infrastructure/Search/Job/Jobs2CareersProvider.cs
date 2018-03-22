@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [Cache(TimeConst.Hour, nameof(Jobs2CareersProvider), false)]
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, 
+        public async Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, 
             CancellationToken token)
         {
             if (location?.Address?.City == null || location.Ip == null)
@@ -92,9 +92,9 @@ namespace Cloudents.Infrastructure.Search.Job
                 return null;
             }
 
-            var jobs = _mapper.MapWithPriority<Job, JobDto>(result.Jobs);
+            var jobs = _mapper.MapWithPriority<Job, JobProviderDto>(result.Jobs);
 
-            return new ResultWithFacetDto<JobDto>
+            return new ResultWithFacetDto<JobProviderDto>
             {
                 Result = jobs,
                 Facet = new[]

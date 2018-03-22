@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [Cache(TimeConst.Hour, "job-azure", false)]
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(
+        public async Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(
             string term,
             JobRequestSort sort,
             IEnumerable<JobFilter> jobType,
@@ -93,7 +93,7 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 return null;
             }
-            return _mapper.Map<ResultWithFacetDto<JobDto>>(retVal);
+            return _mapper.Map<ResultWithFacetDto<JobProviderDto>>(retVal);
         }
     }
 }

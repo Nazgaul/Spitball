@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Read
 {
@@ -20,13 +21,13 @@ namespace Cloudents.Core.Read
 
         public IEnumerable<string> Courses { get; }
         public IEnumerable<string> Query { get; }
+        [CanBeNull, ItemCanBeNull]
         public IEnumerable<string> UniversitySynonym { get; }
 
         public string DocType { get; }
 
-
+        [CanBeNull, ItemCanBeNull]
         public IEnumerable<string> Sources { get; }
-        //public SearchRequestSort Sort { get; }
         public CustomApiKey Key { get; }
     }
 }

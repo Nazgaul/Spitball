@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
@@ -18,15 +19,18 @@ namespace Cloudents.Infrastructure.Search.Job
     {
         private readonly IEnumerable<IJobProvider> _providers;
         private readonly IShuffle _shuffle;
+        private readonly IMapper _mapper;
+
 
         public const int PageSize = 10;
         public const double RadiusOfFindingJobKm = RadiusOfFindingJobMiles * 1.6;
         public const double RadiusOfFindingJobMiles = 50;
 
-        public JobSearch(IEnumerable<IJobProvider> providers, IShuffle shuffle)
+        public JobSearch(IEnumerable<IJobProvider> providers, IShuffle shuffle, IMapper mapper)
         {
             _providers = providers;
             _shuffle = shuffle;
+            _mapper = mapper;
         }
 
         [BuildLocalUrl(nameof(ResultWithFacetDto<JobDto>.Result), PageSize, "page")]
@@ -48,11 +52,13 @@ namespace Cloudents.Infrastructure.Search.Job
 
             var result = tasksResult.Where(w => w != null).ToList();
 
-            var retVal = result.Aggregate((dto, next) =>
+
+            var retVal = result.Aggregate(new ResultWithFacetDto<JobDto>(), (dto,  next) =>
             {
                 if (next.Result != null)
                 {
-                    dto.Result = (dto.Result ?? Enumerable.Empty<JobDto>()).Union(next.Result);
+                    var resultNext = _mapper.Map<IEnumerable<JobDto>>(next.Result);
+                    dto.Result = (dto.Result ?? Enumerable.Empty<JobDto>()).Union(resultNext);
                 }
 
                 if (next.Facet != null)
@@ -65,15 +71,14 @@ namespace Cloudents.Infrastructure.Search.Job
             //var facets = result.Where(w => w.Facet != null).SelectMany(s => s.Facet).Distinct();
             //var jobResults = result.Where(w => w.Result != null).SelectMany(s => s.Result);
             retVal.Facet = retVal.Facet?.Distinct();
+
             if (sort == JobRequestSort.Date)
             {
                 retVal.Result = retVal.Result.OrderByDescending(o => o.DateTime);
-                //jobResults = jobResults.OrderByDescending(o => o.DateTime);
             }
             else
             {
                 retVal.Result = _shuffle.DoShuffle(retVal.Result);
-                //jobResults = _shuffle.DoShuffle(jobResults);
             }
 
             return retVal;

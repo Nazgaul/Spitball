@@ -12,10 +12,12 @@ namespace Cloudents.Infrastructure.Search.Job
     {
         public Mapper()
         {
-            CreateMap<DocumentSearchResult<Core.Entities.Search.Job>, ResultWithFacetDto<JobDto>>()
+            CreateMap<DocumentSearchResult<Core.Entities.Search.Job>, ResultWithFacetDto<JobProviderDto>>()
                 .ConvertUsing<AzureJobSearchConverter>();
 
-            CreateMap<Core.Entities.Search.Job, JobDto>().ConvertUsing(jo => new JobDto
+            CreateMap<JobProviderDto, JobDto>();
+
+            CreateMap<Core.Entities.Search.Job, JobProviderDto>().ConvertUsing(jo => new JobProviderDto
             {
                 Url = jo.Url,
                 CompensationType = jo.Compensation,
@@ -28,8 +30,8 @@ namespace Cloudents.Infrastructure.Search.Job
                 //Source = jo.Source,
             });
 
-            CreateMap<Jobs2CareersProvider.Job, JobDto>()
-                .ConvertUsing(s=> new JobDto
+            CreateMap<Jobs2CareersProvider.Job, JobProviderDto>()
+                .ConvertUsing(s=> new JobProviderDto
                 {
                     DateTime = s.Date,
                     Url = s.Url, // $"http://www.jobs2careers.com/click.php?id={s.Id}",
@@ -42,8 +44,8 @@ namespace Cloudents.Infrastructure.Search.Job
                     Responsibilities = RegEx.RemoveHtmlTags.Replace(s.Description, string.Empty)
                 });
 
-            CreateMap<IndeedProvider.Result, JobDto>()
-                .ConvertUsing(s => new JobDto
+            CreateMap<IndeedProvider.Result, JobProviderDto>()
+                .ConvertUsing(s => new JobProviderDto
                 {
                     DateTime = s.Date,
                     Url = s.Url,
@@ -56,7 +58,7 @@ namespace Cloudents.Infrastructure.Search.Job
                     Responsibilities = s.Snippet,
                 });
 
-            CreateMap<ZipRecruiterClient.Job, JobDto>().ConvertUsing(s => new JobDto
+            CreateMap<ZipRecruiterClient.Job, JobProviderDto>().ConvertUsing(s => new JobProviderDto
             {
                 DateTime = s.PostedTime,
                 Url = s.Url,
@@ -69,7 +71,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 Responsibilities = RegEx.RemoveHtmlTags.Replace(s.Snippet, string.Empty)
             });
 
-            CreateMap<CareerJetProvider.Job, JobDto>().ConvertUsing(s => new JobDto
+            CreateMap<CareerJetProvider.Job, JobProviderDto>().ConvertUsing(s => new JobProviderDto
             {
                 DateTime = s.Date,
                 Url = s.Url,

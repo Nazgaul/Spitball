@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [Cache(TimeConst.Hour, "job-zipRecruiter", false)]
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term,
+        public async Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(string term,
             JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location,
             int page, CancellationToken token)
         {
@@ -64,9 +64,9 @@ namespace Cloudents.Infrastructure.Search.Job
                 return null;
             }
 
-            var jobs = _mapper.MapWithPriority<Job, JobDto>(result.Jobs);
+            var jobs = _mapper.MapWithPriority<Job, JobProviderDto>(result.Jobs);
 
-            return new ResultWithFacetDto<JobDto>
+            return new ResultWithFacetDto<JobProviderDto>
             {
                 Result = jobs
             };

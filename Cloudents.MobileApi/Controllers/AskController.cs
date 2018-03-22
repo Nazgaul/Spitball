@@ -5,7 +5,6 @@ using Cloudents.Api.Extensions;
 using Cloudents.Api.Models;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Read;
 using Cloudents.Core.Request;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +17,7 @@ namespace Cloudents.Api.Controllers
     [Route("api/[controller]", Name = "Ask")]
     public class AskController : Controller
     {
-        private readonly WebSearch _searchProvider;
+        private readonly IWebAskSearch _searchProvider;
         private readonly IVideoSearch _videoSearch;
 
         /// <inheritdoc />
@@ -27,9 +26,9 @@ namespace Cloudents.Api.Controllers
         /// </summary>
         /// <param name="searchFactory"></param>
         /// <param name="videoSearch"></param>
-        public AskController(WebSearch.Factory searchFactory, IVideoSearch videoSearch)
+        public AskController(IWebAskSearch searchFactory, IVideoSearch videoSearch)
         {
-            _searchProvider = searchFactory.Invoke(CustomApiKey.AskQuestion);
+            _searchProvider = searchFactory;
             _videoSearch = videoSearch;
         }
 

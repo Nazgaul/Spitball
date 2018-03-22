@@ -9,13 +9,13 @@ using Microsoft.Azure.Search.Models;
 namespace Cloudents.Infrastructure.Search.Job
 {
     [UsedImplicitly]
-    internal class AzureJobSearchConverter : ITypeConverter<DocumentSearchResult<Core.Entities.Search.Job>, ResultWithFacetDto<JobDto>>
+    internal class AzureJobSearchConverter : ITypeConverter<DocumentSearchResult<Core.Entities.Search.Job>, ResultWithFacetDto<JobProviderDto>>
     {
-        public ResultWithFacetDto<JobDto> Convert(DocumentSearchResult<Core.Entities.Search.Job> source, ResultWithFacetDto<JobDto> destination, ResolutionContext context)
+        public ResultWithFacetDto<JobProviderDto> Convert(DocumentSearchResult<Core.Entities.Search.Job> source, ResultWithFacetDto<JobProviderDto> destination, ResolutionContext context)
         {
-            var retVal = new ResultWithFacetDto<JobDto>
+            var retVal = new ResultWithFacetDto<JobProviderDto>
             {
-                Result = context.Mapper.MapWithPriority<Core.Entities.Search.Job, JobDto>(
+                Result = context.Mapper.MapWithPriority<Core.Entities.Search.Job, JobProviderDto>(
                     source.Results.Select(s => s.Document))
             };
 
