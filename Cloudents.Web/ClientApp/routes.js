@@ -144,6 +144,11 @@ let routes2 = [
         }, name: "tutorV1"
     },
     {
+        path: "/landing/tutor", components: {
+            default: landingTemplate,
+        }, name: "tutorV2"
+    },
+    {
         path: "/landing/get_the_tutor_you_need", components: {
             default: landingTemplate,
         }, name: "tutorV2"
