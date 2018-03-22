@@ -59,7 +59,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 return null;
             }
 
-            if (result.Success)
+            if (!result.Success)
             {
                 return null;
             }
