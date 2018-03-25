@@ -103,7 +103,7 @@ export default {
                 return;
             }
             if (this.submitRoute) {
-                this.$router.push({path: this.submitRoute, query: {q: this.msg}});
+                this.$router.push({path: this.submitRoute, query: {q: this.searchType === 'uni' ? '' : this.msg} );
             }
             else if (this.msg) {
                 this.$router.push({name: "result", query: {q: this.msg}});

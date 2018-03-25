@@ -41,7 +41,7 @@
   margin-top: 8px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
 
-  @media(max-width: @screen-sm){
+  @media(max-width: @screen-xs){
     overflow: scroll;
   }
 
@@ -58,7 +58,7 @@
     padding-left: 10px;
     margin-bottom: 12px;
 
-    @media (max-width: @screen-sm) {
+    @media (max-width: @screen-xs) {
       font-size: 14px;
       height: 24px;
       margin-bottom: 8px;
@@ -71,8 +71,10 @@
     font-size: 18px;
     line-height: 2;
     letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
 
-    @media (max-width: @screen-sm) {
+    @media (max-width: @screen-xs) {
       font-size: 12px;
       letter-spacing: -0.2px;
     }
@@ -83,7 +85,7 @@
   .list__tile {
     height: 36px;
 
-    @media (max-width: @screen-sm) {
+    @media (max-width: @screen-xs) {
       height: 27px;
     }
   }
@@ -91,7 +93,7 @@
   .list__tile--link {
     padding-left: 10px;
 
-    @media (max-width: @screen-sm) {
+    @media (max-width: @screen-xs) {
       padding-left: 8px;
     }
 
@@ -104,7 +106,7 @@
         margin: 0 auto;
       }
 
-      @media (max-width: @screen-sm) {
+      @media (max-width: @screen-xs) {
         min-width: 24px;
 
         .icon {

@@ -1,10 +1,11 @@
 ﻿const HomePage = () => import("./components/home/home.vue");
 const homePageHeader = () => import("./components/home/header.vue");
 import * as RouteTypes from "./routeTypes";
+
 const resultContent = () => import("./components/results/Result.vue");
 const foodDetails = () => import("./components/food/foodDetails.vue");
 const foodResultPage = () => import("./components/food/Result.vue");
-const dialogToolbar = () =>  import("./components/dialog-toolbar/DialogToolbar.vue");
+const dialogToolbar = () => import("./components/dialog-toolbar/DialogToolbar.vue");
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const pageHeader = () => import("./components/header/header.vue");
@@ -14,7 +15,7 @@ const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
 const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
-import { staticRoutes } from "./components/satellite/satellite-routes";
+import {staticRoutes} from "./components/satellite/satellite-routes";
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -23,9 +24,10 @@ function dynamicPropsFn(route) {
         name: newName,
         query: route.query,
         params: route.params,
-        isPromo:route.query.hasOwnProperty("promo"),
+        isPromo: route.query.hasOwnProperty("promo"),
     }
 }
+
 function dynamicDetailsPropsFn(route) {
     return {
         name: route.name,
@@ -38,7 +40,7 @@ function dynamicDetailsPropsFn(route) {
 function headerResultPageFn(route) {
     return {
         userText: route.query.q,
-        submitRoute:route.path,
+        submitRoute: route.path,
         currentSelection: route.path.slice(1)
     }
 }
@@ -62,10 +64,10 @@ const foodPage = {
 const foodDetailsProps = {
     default: true,
     header: () => ({
-            toolbarTitle: "Food & Deals",
-            height: "48", // TODO: why this is string.
-            app: true
-        })
+        toolbarTitle: "Food & Deals",
+        height: "48", // TODO: why this is string.
+        app: true
+    })
 };
 const bookDetailsProps = {
     default: dynamicDetailsPropsFn,
@@ -129,14 +131,14 @@ let routes2 = [
     },
     {
         path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item",
-        components: { default: showItem, header: documentPreviewHeader},
-        props: {default:(route)=>({id:route.params.id})}
+        components: {default: showItem, header: documentPreviewHeader},
+        props: {default: (route) => ({id: route.params.id})}
     },
     {
         path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
         name: "flashcard",
-        components: { default: showFlashcard, header: previewHeader },
-        props: {default:(route)=>({id:route.params.id})}
+        components: {default: showFlashcard, header: previewHeader},
+        props: {default: (route) => ({id: route.params.id})}
     },
     {
         path: "/landing/get_a_tutor_now", components: {
@@ -149,19 +151,25 @@ let routes2 = [
         }, name: "tutorV2"
     },
     {
-        path: "/landing/get_the_tutor_you_need", components: {
-            default: landingTemplate,
-        }, name: "tutorV2"
-    },
-    {
         path: "/landing/get_the_notes_you_need", components: {
             default: landingTemplate,
-        }, name: "studyDocs"
+        }, name: "notesV1"
+    },
+    {
+        path: "/landing/notes", components: {
+            default: landingTemplate,
+        }, name: "notesV2"
+    },
+    {
+        path: "/landing/You_Don't_Have_to_Be_Broke",
+        components: {
+            default: landingTemplate,
+        }, name: "jobsV1"
     },
     {
         path: "/landing/jobs", components: {
             default: landingTemplate,
-        }, name: "jobs"
+        }, name: "jobsV2"
     },
 
 ];

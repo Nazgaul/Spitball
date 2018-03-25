@@ -1,42 +1,50 @@
 <template>
-    <div class="landing-page-wrapper" :class="[contentObj.wrappingClass, {collapse: collapsePage}, {'no-bg':!contentObj.background}]">
-        <div class="top" :style="contentObj.background ? 'background-image: url('+ require(`./img/${contentObj.background}`)+')': ''">
-        <router-link class="logo-link collapsible" :to="{name:'home'}">
-            <app-logo class="logo"></app-logo>
-        </router-link>
-        <div class="landing-page">
+    <div class="landing-page-wrapper"
+         :class="['landing-'+contentObj.type, contentObj.wrappingClass, {collapse: collapsePage}, {'no-bg':!contentObj.background}]">
+        <div class="top"
+             :style="contentObj.background ? 'background-image: url('+ require(`./img/${contentObj.background}`)+')': ''">
+            <router-link class="logo-link collapsible" :to="{name:'home'}">
+                <app-logo class="logo"></app-logo>
+            </router-link>
+            <div class="landing-page">
 
-            <div class="page-data">
-                <h1 v-html="contentObj.titleHtml" class="collapsible"></h1>
-                <div class="search-wrapper">
-                    <form action="." method="get" @submit.prevent="search">
-                        <search-input @openedSuggestions="toggleCollapse" class="term-field mr-3"
-                                      :placeholder="contentObj.placeholder" v-model="msg"
-                                      :search-on-selection="contentObj.name !=='note'"></search-input>
-                        <button type="submit" class="ma-0">{{contentObj.submitButtonText}}</button>
-                    </form>
-                </div>
-                <div class="content-wrapper">
-                    <h2 v-html="contentObj.bodyHtml" class="collapsible"></h2>
+                <div class="page-data">
+                    <h1 v-html="contentObj.titleHtml" class="collapsible"></h1>
+                    <div class="search-wrapper">
+                        <form action="." method="get" @submit.prevent="search">
+                            <search-input v-if="contentObj.type !== 'notes'" class="term-field"
+                                          :placeholder="contentObj.placeholder" v-model="msg"
+                                          :search-on-selection="contentObj.name !=='note'"></search-input>
+                            <search-input v-else class="uni-field" :placeholder="contentObj.placeholder" search-type="uni"
+                                          v-model="uni" submitRoute = "/note"></search-input>
+                            <button type="submit" class="ma-0">
+                                <v-icon class="hidden-md-and-up">sbf-search</v-icon>
+                                <span class="hidden-sm-and-down">{{contentObj.submitButtonText}}</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="content-wrapper">
+                        <h2 v-html="contentObj.bodyHtml" class="collapsible"></h2>
+                    </div>
                 </div>
             </div>
-        </div>
+            <img class="bottom-image" :src="require(`./img/${contentObj.bottomImage}`)"/>
         </div>
         <footer>
             <div class="partners">
-                <img :src="contentObj.background ? require('./img/partners.png'): require('./img/partners2.png')"/>
                 <div class="text">Our Partners</div>
                 <div class="logos">
-                    <img v-for="image in contentObj.partnersImages" :src="image"/>
+                    <img v-for="image in contentObj.partnersImages" :class="image.name" :src="image.source"/>
                 </div>
             </div>
             <div class="subfooter">
-                <span class="copyright">Copyright</span><span class="c-icon">©</span><span>Cloudents 2018</span>
-                <router-link to="/work">How Spitball Works</router-link>
-                <router-link to="/privacy">Privacy Policy</router-link>
-                <router-link to="/terms">Terms of Service</router-link>
-                <router-link to="/faq">FAQ</router-link>
-
+                <span class="copyright">Copyright <span class="c-icon">©</span> Cloudents 2018</span>
+                <div class="links">
+                    <router-link to="/work">How Spitball Works</router-link>
+                    <router-link to="/privacy">Privacy Policy</router-link>
+                    <router-link to="/terms">Terms of Service</router-link>
+                    <router-link to="/faq">FAQ</router-link>
+                </div>
             </div>
         </footer>
     </div>
@@ -63,9 +71,6 @@
             search() {
                 debugger;
                 this.contentObj.submissionCallback(this.msg);
-            },
-            toggleCollapse(val) {
-                this.collapsePage = val;
             }
         },
         created() {
