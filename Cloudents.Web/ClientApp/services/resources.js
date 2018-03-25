@@ -90,11 +90,11 @@ export const getUniversity = (params) => axios.get("university", { params });
 export const search = { getBookDetails, ...searchFunctions, getPlacesDetails,autoComplete:(term)=>axios.get("suggest",{params:{sentence:term},transformResponse:transferAutoComplete}) };
 export const course = { ...courseFunctions };
 export const help = {
-    getFaq: () => axios.get("help"),
-    getUniData: (id) => axios.get("blog", { params: { id: id } })
+    getFaq: () => axios.get("help",{baseURL:'api/'}),
+    getUniData: (id) => axios.get("blog", {baseURL:'api/', params: { id: id } })
 };
 
 export const spitballPreview = {
-    getFlashcard: ({ id }) => axios.get("flashcard", { params: { id: Number(id) } }),
-    getDocument: ({ id }) => axios.get("document", { params: { id: Number(id) } })
+    getFlashcard: ({ id }) => axios.get("flashcard", { baseURL:'api/', params: { id: Number(id) } }),
+    getDocument: ({ id }) => axios.get("document", { baseURL:'api/', params: { id: Number(id) } })
 };

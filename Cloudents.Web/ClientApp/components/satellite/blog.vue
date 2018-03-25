@@ -10,27 +10,28 @@
 
 
 <script>
-    import generalPage from "./general.vue";
-    import help from "../../services/satelliteService";
+
+    const help = import("../../services/satelliteService");
     export default {
-        components: { generalPage },
         data() {
             return {
-                uni: null,
+                uni:null,
                 src: "https://spitballco.wordpress.com/"
             }
         },
+        props:{path:String,university:{}},
         created() {
-            let append = this.$route.query.path || "";
-            append.replace("https://spitballco.wordpress.com/", "")
-            append.replace("http://spitballco.wordpress.com/", "")
+            let append = this.path || "";
+            append.replace("https://spitballco.wordpress.com/", "");
+            append.replace("http://spitballco.wordpress.com/", "");
             this.src += append;
-            if (this.$route.query.uni) {
-                help.getBlog(this.$route.query.uni).then(val => {
-                    this.uni = val;
+            if (this.university) {
+                help.then(({default:aa}) => {
+                    aa.getBlog(this.university).then(val => {
+                        this.uni = val;
+                    });
                 });
             }
-
         }
     }
 </script>
@@ -38,7 +39,7 @@
     .blog-wrap {
         background:#f0f0f0;
         padding-top:22px;
-       
+
 
 
      iframe {
@@ -47,7 +48,7 @@
         border: 0;
     }
 
-    
+
 
     img {
         width: 56px;
@@ -66,6 +67,6 @@
     .uni {
         margin: 0 auto 5px;
     }
-    
+
     }
 </style>

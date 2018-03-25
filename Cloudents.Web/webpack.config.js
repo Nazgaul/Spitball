@@ -133,6 +133,7 @@ module.exports = (env) => {
     });
 
         const clientBundleConfig = merge(sharedConfig(), {
+            target: 'web',
             entry: { 'main': './ClientApp/client.js' },
             output: {
                 path: path.join(__dirname, bundleOutputDir),

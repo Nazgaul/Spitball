@@ -140,7 +140,7 @@ module.exports = (env) => {
         //resolve: { mainFields: ['main'] },
         entry: {
             // 'satellitePages': glob.sync('./ClientApp/satellite/*.vue'),
-            'main': './ClientApp/server.js' },
+            'main-server': './ClientApp/server.js' },
         devtool: 'sourcemap',
         output: {
             libraryTarget: 'commonjs2',

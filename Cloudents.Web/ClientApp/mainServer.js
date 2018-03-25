@@ -12,7 +12,8 @@ let pages=[];
 staticRoutes.forEach((item)=>pages.push({
     path: "/"+item.name,
     name: item.name,
-    component:item.import,alias:[item.name]
+    component:item.import,alias:[item.name],
+    props:item.params
 }));
 
 function createRouter() {

@@ -159,7 +159,8 @@ for (let v in staticRoutes) {
         components: {
             header: satelliteHeader,
             default: item.import
-        }
+        },
+        props:{default:(route)=>item.params?item.params(route):{}}
     })
 }
 
