@@ -3,9 +3,11 @@
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
 @using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.Extensions.Configuration
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 @inject IHostingEnvironment Environment
 @inject WebPackChunkName Provider
+@inject IConfiguration Configuration 
 
 @{
     const string themeColor = "#4190b";
@@ -157,7 +159,7 @@ h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
     <script>
         window.version = '@version';
         window.publicPath = '@cdnEndPoint' + '/dist/';
-        window.baseURL = 'https://api.spitball.co/api/';
+        window.baseURL = '@Configuration["ApiEndpoint"]';
     </script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>
