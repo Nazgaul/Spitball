@@ -60,13 +60,14 @@ namespace Cloudents.Infrastructure.Search.Tutor
 
             return _mapper.MapWithPriority<Result,TutorDto>(result.Results);
         }
-
+        public const int TutorMePage = 12;
         private static NameValueCollection BuildQueryString(string term, int page)
         {
+            
             return new NameValueCollection
             {
                 ["search"] = term,
-                ["offset"] = (page * 12).ToString()
+                ["offset"] = (page * TutorMePage).ToString()
             };
         }
 

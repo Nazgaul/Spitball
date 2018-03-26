@@ -22,7 +22,7 @@ namespace Cloudents.Core
             Priority = priority;
         }
 
-        public PrioritySource(string source, int priority, IEnumerable<string> domains)
+        private PrioritySource(string source, int priority, IEnumerable<string> domains)
         {
             Source = source;
             Priority = priority;
@@ -93,25 +93,5 @@ namespace Cloudents.Core
             new PrioritySource("snapguide", 5,new [] {"snapguide.com"}),
             new PrioritySource("wired", 5,new []{"wired.com"})
         }.ToDictionary(f => f.Source, StringComparer.OrdinalIgnoreCase);
-
-        //public static readonly IReadOnlyDictionary<string, int> DocumentPriority = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
-        //{
-        //    {"CourseHero" , 1},
-        //    {"OneClass",  2},
-        //    {"Spitball",  2},
-        //    {"StudySoup",  2},
-        //    {"Cliffsnotes",  3},
-        //    {"Koofers",  3},
-        //    {"Studylib",  3},
-        //};
-
-        //public static readonly PrioritySource DocumentCourseHero = new PrioritySource(1);
-        //public static readonly PrioritySource DocumentOneClass = new PrioritySource(2);
-        //public static readonly PrioritySource DocumentSpitball = new PrioritySource(2);
-        //public static readonly PrioritySource DocumentStudySoup = new PrioritySource(2);
-        //public static readonly PrioritySource DocumentCliffsNotes = new PrioritySource(3);
-        //public static readonly PrioritySource DocumentKoofers = new PrioritySource(3);
-        //public static readonly PrioritySource DocumentStudyLib = new PrioritySource(3);
-
     }
 }

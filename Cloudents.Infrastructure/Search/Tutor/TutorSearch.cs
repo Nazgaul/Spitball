@@ -33,18 +33,15 @@ namespace Cloudents.Infrastructure.Search.Tutor
             bool isMobile, CancellationToken token)
         {
             var query = string.Join(" ", term ?? Enumerable.Empty<string>());
-            
-
-            query = await _tutorSuggestion.GetValueAsync(query, token) ?? query;
+            query = await _tutorSuggestion.GetValueAsync(query, token).ConfigureAwait(false) ?? query;
             if (string.IsNullOrWhiteSpace(query))
             {
                 query = "Physics";
             }
-           
             if (filters?.Contains(TutorRequestFilter.InPerson) == true && location == null)
                 throw new ArgumentException("Need to location");
 
-            var tasks = _tutorSearch.Select(s => s.SearchAsync(query, filters ?? new TutorRequestFilter[0], sort,
+            var tasks = _tutorSearch.Select(s => s.SearchAsync(query, filters ?? Array.Empty<TutorRequestFilter>(), sort,
                 location, page, isMobile, token));
 
             var result2 = await Task.WhenAll(tasks).ConfigureAwait(false);
