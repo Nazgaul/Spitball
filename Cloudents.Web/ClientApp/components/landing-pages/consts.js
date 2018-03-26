@@ -85,13 +85,13 @@ export const landingPagesData = {
         ...notesGeneralData
     },
     jobsV1: {
-        type: 'jobs',
+        type: 'job',
         wrappingClass: 'v1',
         background: 'jobs.jpg',
         ...jobsGeneralData
     },
     jobsV2: {
-        type: 'jobs',
+        type: 'job',
         wrappingClass: 'v2',
         background: '',
         ...jobsGeneralData
