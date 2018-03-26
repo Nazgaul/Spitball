@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
@@ -18,6 +19,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
     {
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;
+        private static int PageSize = (int)PrioritySource.TutorMe.Priority * TutorMeSearch.TutorMePage;
 
         public TutorAzureSearch(ISearchServiceClient client, IMapper mapper)
         {
@@ -41,10 +43,11 @@ namespace Cloudents.Infrastructure.Search.Tutor
                     //    break;
             }
 
+
             var searchParams = new SearchParameters
             {
-                Top = TutorSearch.PageSize,
-                Skip = TutorSearch.PageSize * page,
+                Top = PageSize,
+                Skip = PageSize * page,
                 Select = new[]
                 {
                     nameof(TutorObj.Name),
