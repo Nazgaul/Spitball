@@ -55,7 +55,9 @@ export default {
     },
     watch: {
         userText(val) {
-            this.msg = val;
+            if(this.searchType !=='uni' || (this.searchType ==='uni' && this.suggestList.contains(val))) {
+                this.msg = val;
+            }
             this.isFirst = true;
         },
         msg: debounce(function (val) {
@@ -164,7 +166,6 @@ export default {
         }
         if (this.searchType && this.searchType === 'uni') {
             let uniName = this.$store.getters.getUniversityName;
-            debugger
             if(uniName){
                 this.msg = uniName;
             }else {

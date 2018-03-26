@@ -3,10 +3,12 @@
          :class="['landing-'+contentObj.type, contentObj.wrappingClass, {collapse: collapsePage}, {'no-bg':!contentObj.background}]">
         <div class="top"
              :style="contentObj.background ? 'background-image: url('+ require(`./img/${contentObj.background}`)+')': ''">
-            <router-link class="logo-link collapsible" :to="{name:'home'}">
-                <app-logo class="logo"></app-logo>
-            </router-link>
-            <div class="landing-page">
+            <div class="limited-width logo-wrap">
+                <router-link class="logo-link collapsible" :to="{name:'home'}">
+                    <app-logo class="logo"></app-logo>
+                </router-link>
+            </div>
+            <div class="limited-width landing-page">
 
                 <div class="page-data">
                     <h1 v-html="contentObj.titleHtml" class="collapsible"></h1>
@@ -14,9 +16,11 @@
                         <form action="." method="get" @submit.prevent="search">
                             <search-input v-if="contentObj.type !== 'notes'" class="term-field"
                                           :placeholder="contentObj.placeholder" v-model="msg"
-                                          :search-on-selection="contentObj.name !=='note'" :searchVertical="contentObj.type"></search-input>
-                            <search-input v-else class="uni-field" :placeholder="contentObj.placeholder" search-type="uni"
-                                          v-model="uni" submitRoute = "/note"></search-input>
+                                          :search-on-selection="contentObj.name !=='note'"
+                                          :searchVertical="contentObj.type" :submitRoute="'/'+contentObj.name"></search-input>
+                            <search-input v-else class="uni-field" :placeholder="contentObj.placeholder"
+                                          search-type="uni"
+                                          v-model="uni" submitRoute="/note"></search-input>
                             <button type="submit" class="ma-0">
                                 <v-icon class="hidden-md-and-up">sbf-search</v-icon>
                                 <span class="hidden-sm-and-down">{{contentObj.submitButtonText}}</span>
@@ -55,6 +59,7 @@
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     import {landingPagesData} from "./consts.js";
     import SearchInput from '../helpers/searchInput.vue';
+    import { router } from "../../main";
 
     export default {
         data: () => ({
@@ -69,8 +74,9 @@
         },
         methods: {
             search() {
-                debugger;
-                this.contentObj.submissionCallback(this.msg);
+                if (this.msg) {
+                    router.push({path: "/"+this.contentObj.name, query: {q: this.msg}});
+                }
             }
         },
         created() {

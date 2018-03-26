@@ -4,12 +4,13 @@
   display: flex;
   flex-direction: column;
   color: #ffffff;
-  width: 100vw;
   min-height: 100vh;
 
   &.no-bg {
-    .logo-link svg {
-      fill: @color-main-purple;
+    .logo-wrap {
+      .logo-link svg {
+        fill: @color-main-purple;
+      }
     }
     h1, h2 {
       text-shadow: none;
@@ -25,9 +26,6 @@
       }
       button {
         background: @color-main-purple;
-        i {
-          color: white;
-        }
       }
     }
   }
@@ -134,20 +132,24 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    flex-grow: 1;
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 130px;
     position: relative;
-    padding: 0 16px 130px 16px;
 
     @media (max-width: @screen-xs) {
       padding: 0 8px 60px 8px;
     }
 
-    position: relative;
-
     .bottom-image {
       position: absolute;
+    }
+    .limited-width {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
     }
   }
   .landing-page {
@@ -158,17 +160,30 @@
     flex-direction: column;
     justify-content: space-between;
     flex-grow: 1;
-  }
-  .logo-link {
-    align-self: flex-start;
-    padding: 22px 0 0 16px;
-    @media (max-width: @screen-xs) {
-      padding: 12px 0 0 8px;
+    @media (min-width: @screen-xs) {
+      padding: 0 16px;
     }
-    svg {
-      fill: white;
-      .responsive-property(width, 210px, null, 158px);
-      .responsive-property(height, 42px, null, 32px)
+  }
+  .logo-wrap {
+    padding-left: 20px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    @media (max-width: @screen-xs) {
+      padding: 0;
+      height: 64px;
+    }
+    .logo-link {
+      margin-left: 8px;
+      @media (max-width: @screen-xs) {
+        padding: 0;
+        margin: 0;
+      }
+      svg {
+        fill: white;
+        .responsive-property(width, 165px, null, 114px);
+        .responsive-property(height, 33px, null, 23px)
+      }
     }
   }
 
@@ -273,6 +288,11 @@
       .responsive-property(line-height, 48px, null, 40px);
       background-color: #f5a623;
       margin-top: 16px;
+      z-index: 1;
+
+      i {
+        color: white;
+      }
     }
 
     .search-b, button {

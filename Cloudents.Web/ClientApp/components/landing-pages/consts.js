@@ -16,9 +16,6 @@ const tutorGeneralData = {
     bodyHtml: 'Qualified tutors at an affordable price, just for you.',
     submitButtonText: "Get help",
     placeholder: 'What do you need help with?',
-    submissionCallback: (val) => {
-        router.push({path: "/tutor", query: {q: val}});
-    },
     partnersImages:[
         {name: 'tutorMe', source: tutorMeImg},
         {name: 'wyzant', source:wyzantImg},
@@ -32,9 +29,6 @@ const notesGeneralData = {
     bodyHtml: 'Notes, study guides, exams and more from students at your school.',
     submitButtonText: "Search",
     placeholder: 'Where do you go to school?',
-    submissionCallback: (val) => {
-        router.push({path: "/note", query: {q: val}});
-    },
     partnersImages:[
         {name: 'courseHero', source: courseHeroImg},
         {name: 'studyBlue', source: studyBlueImg},
@@ -47,9 +41,6 @@ const jobsGeneralData = {
     bodyHtml: 'Thousands of companies are hiring students right now.',
     submitButtonText: "Get paid",
     placeholder: 'What do you want to do?',
-    submissionCallback: (val) => {
-        router.push({path: "/job", query: {q: val}});
-    },
     partnersImages:[
         {name: 'zipRecruiter', source: zipRecruiterImg},
         {name: 'jobs2careers', source: jobs2careersImg},
