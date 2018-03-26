@@ -17,16 +17,4 @@ namespace Cloudents.Core.Interfaces
             bool highlight,
             CancellationToken token);
     }
-
-
-    public interface IJobProvider
-    {
-        Task<ResultWithFacetDto<JobDto>> SearchAsync(string term,
-            JobRequestSort sort,
-            IEnumerable<JobFilter> jobType,
-            Location location,
-            int page,
-            bool highlight,
-            CancellationToken token);
-    }
 }
