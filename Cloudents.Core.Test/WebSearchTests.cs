@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using Autofac;
-using Autofac.Core;
 using Autofac.Extras.Moq;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
 using Cloudents.Core.Read;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

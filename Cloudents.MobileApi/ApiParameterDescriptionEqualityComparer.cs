@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Newtonsoft.Json;
-using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Cloudents.Api
 {
@@ -22,11 +18,10 @@ namespace Cloudents.Api
             unchecked
             {
                 var hash = 17;
-                hash = hash * 23 + obj.ModelMetadata.GetHashCode();
-                hash = hash * 23 + obj.Name.GetHashCode();
-                hash = hash * 23 + obj.Source.GetHashCode();
-                hash = hash * 23 + obj.Type.GetHashCode();
-                return hash;
+                hash = (hash * 23) + obj.ModelMetadata.GetHashCode();
+                hash = (hash * 23) + obj.Name.GetHashCode();
+                hash = (hash * 23) + obj.Source.GetHashCode();
+                return (hash * 23) + obj.Type.GetHashCode();
             }
         }
 
@@ -37,34 +32,6 @@ namespace Cloudents.Api
             if (!x.Source.Equals(y.Source)) return false;
             if (!x.Type.Equals(y.Type)) return false;
             return true;
-        }
-    }
-
-    internal class ApplySchemaVendorExtensions : ISchemaFilter
-    {
-
-
-        public void Apply(Schema model, SchemaFilterContext context)
-        {
-            if (model?.Properties == null)
-            {
-                return;
-            }
-
-            var p = context.SystemType.GetCustomAttribute<JsonIgnoreAttribute>();
-            if (p != null)
-            {
-               // model.Properties.Remove(p);
-            }
-
-            //var excludedProperties = context.SystemType.GetProperties().Where(t => t.GetCustomAttribute<JsonIgnoreAttribute>() != null);
-            //foreach (var excludedProperty in excludedProperties)
-            //{
-            //    if (model.Properties.ContainsKey(excludedProperty.Name))
-            //    {
-            //        model.Properties.Remove(excludedProperty.Name);
-            //    }
-            //}
         }
     }
 }

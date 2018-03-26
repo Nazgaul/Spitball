@@ -26,17 +26,17 @@ namespace Cloudents.Infrastructure.Interceptor
             foreach (var arg in argument)
             {
                 var result = BuildSimpleArgument(arg);
-                if (result == null)
-                {
-                    foreach (var prop in arg.GetType().GetProperties())
-                    {
-                        sb.Append(prop.Name).Append("=").Append(BuildSimpleArgument(prop.GetValue(arg)) ?? string.Empty);
-                    }
-                }
-                else
-                {
+                //if (result == null)
+                //{
+                //    foreach (var prop in arg.GetType().GetProperties())
+                //    {
+                //        sb.Append(prop.Name).Append("=").Append(BuildSimpleArgument(prop.GetValue(arg)) ?? string.Empty);
+                //    }
+                //}
+                //else
+                //{
                     sb.Append(result);
-                }
+                //}
             }
 
             return sb.ToString();
@@ -72,8 +72,12 @@ namespace Cloudents.Infrastructure.Interceptor
                     list.Sort();
                     return string.Concat(list);// sb.ToString();
             }
-
-            return null;
+            var sb = new StringBuilder();
+            foreach (var prop in arg.GetType().GetProperties())
+            {
+                sb.Append(prop.Name).Append("=").Append(BuildSimpleArgument(prop.GetValue(arg)) ?? string.Empty);
+            }
+            return sb.ToString();
         }
 
         private static string GetInvocationSignature(IInvocation invocation)

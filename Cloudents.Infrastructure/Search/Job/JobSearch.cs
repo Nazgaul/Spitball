@@ -47,7 +47,8 @@ namespace Cloudents.Infrastructure.Search.Job
                 }
                 return JobFilter.None;
             }).Where(w => w != JobFilter.None);
-            var tasks = _providers.Select(s => s.SearchAsync(str.Trim(), sort, facetEnum, location, page, token)).ToList();
+            var jobRequest = new JobProviderRequest(str.Trim(), sort, facetEnum, location, page);
+            var tasks = _providers.Select(s => s.SearchAsync(jobRequest, token));
             var tasksResult = await Task.WhenAll(tasks).ConfigureAwait(false);
 
             var result = tasksResult.Where(w => w != null).ToList();

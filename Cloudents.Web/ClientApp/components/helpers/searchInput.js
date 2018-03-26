@@ -19,11 +19,13 @@ export default {
         searchType: {String, default: 'term'},
         disabled: {type: Boolean},
         searchOnSelection: {type: Boolean, default: true},
+        customSearch:{},
+        searchVertical: {type: String, default:""}
     },
     data: () => ({autoSuggestList: [], uniAutocompleteList: [], uniSuggestList: [], uniList: [] ,isFirst: true, showSuggestions: false}),
     computed: {
         ...mapGetters({'globalTerm': 'currentText'}),
-        ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
+        ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory','getUniversityName']),
         suggestList() {
             if (this.searchType && this.searchType === 'uni') {
                 this.uniList = [...new Set([...this.uniAutocompleteList, ...this.uniSuggestList])]
@@ -32,7 +34,7 @@ export default {
                 }));
             }
             else {//term
-                let currentHistory = this.getCurrentVertical;
+                let currentHistory = this.getCurrentVertical ? this.getCurrentVertical : this.searchVertical;
                 let buildInSuggestList = currentHistory ? consts.buildInSuggest[currentHistory] : consts.buildInSuggest.home;
                 let historyList = [...(this.submitRoute && currentHistory ? this.$store.getters.getVerticalHistory(currentHistory) : this.allHistorySet)];
                 let set = [...new Set([...this.autoSuggestList, ...historyList, ...buildInSuggestList])];
@@ -81,8 +83,7 @@ export default {
         )
     },
     methods: {
-        ...
-            mapActions(['getAutocmplete', 'updateUniversity']),
+        ...mapActions(['getAutocmplete', 'updateUniversity']),
         selectos({item, index}) {
             if (this.searchType && this.searchType === 'uni') {
                 this.updateUniversity(this.uniList[index]);
@@ -98,8 +99,12 @@ export default {
         }
         ,
         search() {
+            if(this.customSearch){
+                this.customSearch()
+                return;
+            }
             if (this.submitRoute) {
-                this.$router.push({path: this.submitRoute, query: {q: this.msg}});
+                this.$router.push({path: this.submitRoute, query: {q: this.searchType === 'uni' ? '' : this.msg}} );
             }
             else if (this.msg) {
                 this.$router.push({name: "result", query: {q: this.msg}});
@@ -154,13 +159,19 @@ export default {
     }
     ,
     created() {
-        if (!this.isHome) {
+        if (!this.isHome && !(this.searchType && this.searchType === 'uni')) {
             this.msg = this.userText ? this.userText : this.globalTerm ? this.globalTerm : "";
         }
         if (this.searchType && this.searchType === 'uni') {
-            this.$store.dispatch("getUniversities", {term: ''}).then(({data}) => {
-                this.uniSuggestList = data;
-            });
+            let uniName = this.$store.getters.getUniversityName;
+            debugger
+            if(uniName){
+                this.msg = uniName;
+            }else {
+                this.$store.dispatch("getUniversities", {term: ''}).then(({data}) => {
+                    this.uniSuggestList = data;
+                });
+            }
         }
     }
 }

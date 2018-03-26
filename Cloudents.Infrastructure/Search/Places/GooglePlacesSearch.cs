@@ -139,7 +139,6 @@ namespace Cloudents.Infrastructure.Search.Places
             var nvc = BuildQuery(term, filter, location, nextPageToken);
 
             var resultStr = await _restClient.GetAsync<GooglePlacesDto>(new Uri("https://maps.googleapis.com/maps/api/place/nearbysearch/json"), nvc, token).ConfigureAwait(false);
-            //var result = JObject.Parse(resultStr);
             if (resultStr == null)
             {
                 return null;
@@ -182,7 +181,7 @@ namespace Cloudents.Infrastructure.Search.Places
         }
 
         private static NameValueCollection BuildQuery(IEnumerable<string> term, PlacesRequestFilter filter,
-         [NotNull]   GeoPoint location, 
+            GeoPoint location, 
             string nextPageToken)
         {
             if (string.IsNullOrEmpty(nextPageToken))

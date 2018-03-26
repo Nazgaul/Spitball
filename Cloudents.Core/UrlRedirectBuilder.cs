@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core
 {
+    [UsedImplicitly]
     public class UrlRedirectBuilder : IUrlRedirectBuilder
     {
         private readonly IUrlBuilder _urlBuilder;
@@ -15,10 +17,9 @@ namespace Cloudents.Core
 
         public IEnumerable<T> BuildUrl<T>(IEnumerable<T> result, int page = 0, int sizeOfPage = 0) where T : IUrlRedirect
         {
-            return result;
             return result.Select((s, i) =>
             {
-                s.Url = _urlBuilder.BuildRedirectUrl(s.Url, s.Source, page * sizeOfPage + i);
+                s.Url = _urlBuilder.BuildRedirectUrl(s.Url, s.Source, (page * sizeOfPage) + i);
                 return s;
             });
         }

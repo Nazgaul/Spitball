@@ -6,7 +6,6 @@ using Cloudents.Api.Filters;
 using Cloudents.Api.Models;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Read;
 using Cloudents.Core.Request;
 using Microsoft.AspNetCore.Mvc;
 

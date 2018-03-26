@@ -45,11 +45,11 @@ namespace Cloudents.Infrastructure.Suggest
             try
             {
                 var result = await _client.Documents
-                    .GetAsync<AutoComplete>(key, new[] {nameof(AutoComplete.Value)}, cancellationToken: token)
+                    .GetAsync<AutoComplete>(key, new[] { nameof(AutoComplete.Value) }, cancellationToken: token)
                     .ConfigureAwait(false);
                 return result?.Value;
             }
-            catch (Microsoft.Rest.Azure.CloudException ex) when(ex.Response.StatusCode == HttpStatusCode.NotFound)
+            catch (Microsoft.Rest.Azure.CloudException ex) when (ex.Response.StatusCode == HttpStatusCode.NotFound)
             {
                 return null;
             }

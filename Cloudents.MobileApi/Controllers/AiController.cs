@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Api.Extensions;
 using Cloudents.Api.Filters;
 using Cloudents.Api.Models;
 using Cloudents.Core.DTOs;

@@ -12,7 +12,6 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Extensions;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -35,15 +34,14 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [Cache(TimeConst.Hour, nameof(Jobs2CareersProvider), false)]
-        public async Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, 
-            CancellationToken token)
+        public async Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(JobProviderRequest jobProviderRequest, CancellationToken token)
         {
-            if (location?.Address?.City == null || location.Ip == null)
+            if (jobProviderRequest.Location?.Address?.City == null || jobProviderRequest.Location.Ip == null)
             {
                 return null;
             }
 
-            if (!string.Equals(location.Address.CountryCode, "us", StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(jobProviderRequest.Location.Address.CountryCode, "us", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
@@ -52,19 +50,19 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 ["id"] = 4538.ToString(),
                 ["pass"] = "PGhLlpYJEEeZjxCd",
-                ["ip"] = location.Ip,
-                ["l"] = location.Address.City,
-                ["start"] = (page * JobSearch.PageSize).ToString(),
+                ["ip"] = jobProviderRequest.Location.Ip,
+                ["l"] = jobProviderRequest.Location.Address.City,
+                ["start"] = (jobProviderRequest.Page * JobSearch.PageSize).ToString(),
                 ["Limit"] = JobSearch.PageSize.ToString(),
                 ["format"] = "json",
                 ["link"] = 1.ToString(),
-                ["q"] = term,
-                ["sort"] = sort == JobRequestSort.Date ? "d" : "r",
+                ["q"] = jobProviderRequest.Term,
+                ["sort"] = jobProviderRequest.Sort == JobRequestSort.Date ? "d" : "r",
                 ["d"] = JobSearch.RadiusOfFindingJobKm.ToString(CultureInfo.InvariantCulture)
             };
 
             var jobFilter = new List<string>();
-            foreach (var filter in jobType ?? Enumerable.Empty<JobFilter>())
+            foreach (var filter in jobProviderRequest.JobType ?? Enumerable.Empty<JobFilter>())
             {
                 switch (filter)
                 {

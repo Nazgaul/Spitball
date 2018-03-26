@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
@@ -9,9 +8,7 @@ using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Extensions;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -34,22 +31,20 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [Cache(TimeConst.Hour, "job-zipRecruiter", false)]
-        public async Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(string term,
-            JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location,
-            int page, CancellationToken token)
+        public async Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(JobProviderRequest jobProviderRequest,CancellationToken token)
         {
-            if (jobType?.Any() == true
-                || location?.Address == null)
+            if (jobProviderRequest.JobType?.Any() == true 
+                || jobProviderRequest.Location?.Address == null/* || sort == JobRequestSort.Distance*/)
             {
                 return null;
             }
             var nvc = new NameValueCollection
             {
-                ["location"] = $"{location.Address.City}, {location.Address.RegionCode}",
+                ["location"] = $"{jobProviderRequest.Location.Address.City}, {jobProviderRequest.Location.Address.RegionCode}",
                 ["api_key"] = "x8w8rgmv2dq78dw5wfmwiwexwu3hdfv3",
-                ["search"] = term,
+                ["search"] = jobProviderRequest.Term,
                 ["jobs_per_page"] = JobSearch.PageSize.ToString(),
-                ["page"] = page.ToString(),
+                ["page"] = jobProviderRequest.Page.ToString(),
                 ["radius_miles"] = JobSearch.RadiusOfFindingJobMiles.ToString(CultureInfo.InvariantCulture)
             };
 
