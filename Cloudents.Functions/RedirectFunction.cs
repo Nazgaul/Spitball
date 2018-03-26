@@ -13,7 +13,6 @@ using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Functions
 {
@@ -30,30 +29,21 @@ namespace Cloudents.Functions
             var referrer = req.Headers.Referrer?.ToString();
             var queryString = req.GetQueryNameValuePairs().ToList();
             var host = queryString.Find(f => f.Key == "host").Value;
-
             int? location = null;
-            
-            if (int.TryParse(queryString.Find(f => f.Key == "location").Value,out var locationInt))
+            if (int.TryParse(queryString.Find(f => f.Key == "location").Value, out var locationInt))
             {
                 location = locationInt;
             }
             //var location = int.Parse(queryString.Find(f => f.Key == "location").Value);
             var url = queryString.Find(f => f.Key == "url").Value;
-
+            if (HostFuncs.TryGetValue("studyBlue", out var func))
+            {
+                url = func(url);
+            }
             //if (HostFuncs.TryGetValue("studyblue", out var func))
             //{
             //    url = func(url);
             //}
-            if (host.Contains("studyblue", StringComparison.OrdinalIgnoreCase))
-            {
-                var uri = new Uri(url);
-
-                var uriBuilder = new UriBuilder(uri)
-                {
-                    Query = "?utm_source=spitball&utm_medium=referral"
-                };
-                url = uriBuilder.ToString();
-            }
 
             var userIp = req.GetClientIpAddress();
             var message = new UrlRedirectQueueMessage(host, url, referrer, location, userIp);
@@ -64,13 +54,14 @@ namespace Cloudents.Functions
             return res;
         }
 
-        private static Dictionary<string, Func<string, string>> HostFuncs = new Dictionary<string, Func<string, string>>(StringComparer.OrdinalIgnoreCase)
+        private static readonly Dictionary<string, Func<string, string>> HostFuncs = new Dictionary<string, Func<string, string>>(StringComparer.OrdinalIgnoreCase)
         {
+            
             {
-                "studyblue" , (url) =>
+                "studyBlue" , url =>
                 {
                     var uri = new Uri(url);
-
+                    
                     var uriBuilder = new UriBuilder(uri)
                     {
                         Query = "?utm_source=spitball&utm_medium=referral"
