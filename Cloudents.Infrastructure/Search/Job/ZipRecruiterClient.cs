@@ -32,22 +32,20 @@ namespace Cloudents.Infrastructure.Search.Job
 
 
         [Cache(TimeConst.Hour, "job-zipRecruiter", false)]
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term,
-            JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location,
-            int page, bool highlight, CancellationToken token)
+        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(JobProviderRequest jobProviderRequest,CancellationToken token)
         {
-            if (jobType?.Any() == true 
-                || location?.Address == null/* || sort == JobRequestSort.Distance*/)
+            if (jobProviderRequest.JobType?.Any() == true 
+                || jobProviderRequest.Location?.Address == null/* || sort == JobRequestSort.Distance*/)
             {
                 return null;
             }
             var nvc = new NameValueCollection
             {
-                ["location"] = $"{location.Address.City}, {location.Address.RegionCode}",
+                ["location"] = $"{jobProviderRequest.Location.Address.City}, {jobProviderRequest.Location.Address.RegionCode}",
                 ["api_key"] = "x8w8rgmv2dq78dw5wfmwiwexwu3hdfv3",
-                ["search"] = term,
+                ["search"] = jobProviderRequest.Term,
                 ["jobs_per_page"] = JobSearch.PageSize.ToString(),
-                ["page"] = page.ToString()
+                ["page"] = jobProviderRequest.Page.ToString()
             };
 
             //if (sort == JobRequestSort.Distance)

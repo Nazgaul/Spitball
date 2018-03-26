@@ -34,20 +34,19 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [Cache(TimeConst.Hour, "job-careerJet", false)]
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, bool highlight,
-            CancellationToken token)
+        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(JobProviderRequest jobProviderRequest, CancellationToken token)
         {
             var contactType = new List<string>();
             var contactPeriod = new List<string>();
 
             var noResult = true;
-            if (jobType == null)
+            if (jobProviderRequest.JobType == null)
             {
                 noResult = false;
             }
             else
             {
-                foreach (var filter in jobType)
+                foreach (var filter in jobProviderRequest.JobType)
                 {
                     switch (filter)
                     {
@@ -83,17 +82,17 @@ namespace Cloudents.Infrastructure.Search.Job
             var nvc = new NameValueCollection
             {
                 ["affid"] = "c307482e201e09643098fc2b06192f68",
-                ["keywords"] = term,
+                ["keywords"] = jobProviderRequest.Term,
                 ["locale_code"] = "en_US",
                 ["pagesize"] = JobSearch.PageSize.ToString(),
-                ["page"] = page.ToString(),
+                ["page"] = jobProviderRequest.Page.ToString(),
                 ["sort"] = "date",
                 ["contracttype"] = string.Join(",", contactType),
                 ["contractperiod"] = string.Join(",", contactPeriod),
             };
-            if (/*sort == JobRequestSort.Distance &&*/ location?.Address != null)
+            if (/*sort == JobRequestSort.Distance &&*/ jobProviderRequest.Location?.Address != null)
             {
-                nvc.Add("location", $"{location.Address.City}, {location.Address.RegionCode}");
+                nvc.Add("location", $"{jobProviderRequest.Location.Address.City}, {jobProviderRequest.Location.Address.RegionCode}");
             }
 
             var result = await _client.GetAsync(new Uri("http://public.api.careerjet.net/search"), nvc, token).ConfigureAwait(false);

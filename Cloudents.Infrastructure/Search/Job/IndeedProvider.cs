@@ -32,17 +32,16 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [Cache(TimeConst.Hour, "job-indeed", false)]
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(string term, JobRequestSort sort, IEnumerable<JobFilter> jobType, Location location, int page, bool highlight,
-            CancellationToken token)
+        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(JobProviderRequest jobProviderRequest, CancellationToken token)
         {
             var locationStr = string.Empty;
-            if (location?.Address != null)
+            if (jobProviderRequest.Location?.Address != null)
             {
-                locationStr = $"{location.Address.City}, {location.Address.RegionCode}";
+                locationStr = $"{jobProviderRequest.Location.Address.City}, {jobProviderRequest.Location.Address.RegionCode}";
             }
 
             var jobFilter = new List<string>();
-            foreach (var filter in jobType ?? Enumerable.Empty<JobFilter>())
+            foreach (var filter in jobProviderRequest.JobType ?? Enumerable.Empty<JobFilter>())
             {
                 switch (filter)
                 {
@@ -75,17 +74,17 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["v"] = 2.ToString(),
                 ["format"] = "json",
                 ["publisher"] = 5421359041330050.ToString(),
-                ["q"] = term,
-                ["sort"] = sort == JobRequestSort.Date ? "date" : string.Empty,
+                ["q"] = jobProviderRequest.Term,
+                ["sort"] = jobProviderRequest.Sort == JobRequestSort.Date ? "date" : string.Empty,
                 ["l"] = locationStr,
                 ["limit"] = JobSearch.PageSize.ToString(),
-                ["start"] = (page * JobSearch.PageSize).ToString(),
+                ["start"] = (jobProviderRequest.Page * JobSearch.PageSize).ToString(),
                 ["highlight"] = 0.ToString(),
                 ["jt"] = string.Join(",", jobFilter),
                 //["latlong"] = 1.ToString()
             };
 
-            if (sort == JobRequestSort.Date)
+            if (jobProviderRequest.Sort == JobRequestSort.Date)
             {
                 nvc.Add("sort", "date");
             }
