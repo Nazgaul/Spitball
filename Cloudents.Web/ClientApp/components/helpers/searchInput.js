@@ -19,7 +19,8 @@ export default {
         searchType: {String, default: 'term'},
         disabled: {type: Boolean},
         searchOnSelection: {type: Boolean, default: true},
-        customSearch:{}
+        customSearch:{},
+        searchVertical: {type: String, default:""}
     },
     data: () => ({autoSuggestList: [], uniAutocompleteList: [], uniSuggestList: [], uniList: [] ,isFirst: true, showSuggestions: false}),
     computed: {
@@ -33,7 +34,7 @@ export default {
                 }));
             }
             else {//term
-                let currentHistory = this.getCurrentVertical;
+                let currentHistory = this.getCurrentVertical ? this.getCurrentVertical : this.searchVertical;
                 let buildInSuggestList = currentHistory ? consts.buildInSuggest[currentHistory] : consts.buildInSuggest.home;
                 let historyList = [...(this.submitRoute && currentHistory ? this.$store.getters.getVerticalHistory(currentHistory) : this.allHistorySet)];
                 let set = [...new Set([...this.autoSuggestList, ...historyList, ...buildInSuggestList])];
@@ -103,7 +104,7 @@ export default {
                 return;
             }
             if (this.submitRoute) {
-                this.$router.push({path: this.submitRoute, query: {q: this.searchType === 'uni' ? '' : this.msg} );
+                this.$router.push({path: this.submitRoute, query: {q: this.searchType === 'uni' ? '' : this.msg}} );
             }
             else if (this.msg) {
                 this.$router.push({name: "result", query: {q: this.msg}});

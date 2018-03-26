@@ -14,7 +14,7 @@
                         <form action="." method="get" @submit.prevent="search">
                             <search-input v-if="contentObj.type !== 'notes'" class="term-field"
                                           :placeholder="contentObj.placeholder" v-model="msg"
-                                          :search-on-selection="contentObj.name !=='note'"></search-input>
+                                          :search-on-selection="contentObj.name !=='note'" :searchVertical="contentObj.type"></search-input>
                             <search-input v-else class="uni-field" :placeholder="contentObj.placeholder" search-type="uni"
                                           v-model="uni" submitRoute = "/note"></search-input>
                             <button type="submit" class="ma-0">
