@@ -161,7 +161,7 @@ let routes2 = [
         }, name: "notesV2"
     },
     {
-        path: "/landing/You_Don't_Have_to_Be_Broke",
+        path: "/landing/You_Dont_Have_to_Be_Broke",
         components: {
             default: landingTemplate,
         }, name: "jobsV1"
