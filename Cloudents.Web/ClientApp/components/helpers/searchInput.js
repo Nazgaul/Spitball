@@ -19,13 +19,19 @@ export default {
         searchType: {String, default: 'term'},
         disabled: {type: Boolean},
         searchOnSelection: {type: Boolean, default: true},
-        customSearch:{},
-        searchVertical: {type: String, default:""}
+        searchVertical: {type: String, default: ""}
     },
-    data: () => ({autoSuggestList: [], uniAutocompleteList: [], uniSuggestList: [], uniList: [] ,isFirst: true, showSuggestions: false}),
+    data: () => ({
+        autoSuggestList: [],
+        uniAutocompleteList: [],
+        uniSuggestList: [],
+        uniList: [],
+        isFirst: true,
+        showSuggestions: false
+    }),
     computed: {
         ...mapGetters({'globalTerm': 'currentText'}),
-        ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory','getUniversityName']),
+        ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory', 'getUniversityName']),
         suggestList() {
             if (this.searchType && this.searchType === 'uni') {
                 this.uniList = [...new Set([...this.uniAutocompleteList, ...this.uniSuggestList])]
@@ -57,7 +63,7 @@ export default {
         userText(val) {
             // debugger;
             // if(this.searchType !=='uni' || (this.searchType ==='uni' && this.suggestList.filter(suggestion => (suggestion.text === this.msg)).length)) {
-                this.msg = val;
+            this.msg = val;
             // }
             this.isFirst = true;
         },
@@ -96,29 +102,28 @@ export default {
             }
             this.msg = item.text;
             this.closeSuggestions();
-            if(this.searchOnSelection) {
+            if (this.searchOnSelection) {
                 this.search();
             }
         }
         ,
         search() {
-            if(this.customSearch){
-                this.customSearch()
+            if (!this.msg){
                 return;
             }
             if (this.submitRoute) {
-                if(this.searchType !== 'uni') {
-                    this.$router.push({path: this.submitRoute, query: {q: this.msg}});
+                if (this.searchType !== 'uni') {
+                        this.$router.push({path: this.submitRoute, query: {q: this.msg}});
                 }
-                else{
+                else {
                     let matchingSuggestions = this.suggestList.filter(suggestion => (suggestion.text === this.msg))
-                    if(matchingSuggestions.length) {
+                    if (matchingSuggestions.length) {
                         this.updateUniversity(matchingSuggestions[0]);
                         this.$router.push({path: this.submitRoute, query: {q: ''}});
                     }
                 }
             }
-            else if (this.msg) {
+            else {
                 this.$router.push({name: "result", query: {q: this.msg}});
             }
             this.closeSuggestions();
@@ -146,7 +151,7 @@ export default {
                     this.$el.querySelector('.search-menu').scrollTop = 0;
                 }
             }
-            this.$emit('openedSuggestions',false);
+            this.$emit('openedSuggestions', false);
         }
         ,
         onScroll(e) {
@@ -176,9 +181,9 @@ export default {
         }
         if (this.searchType && this.searchType === 'uni') {
             let uniName = this.$store.getters.getUniversityName;
-            if(uniName){
+            if (uniName) {
                 this.msg = uniName;
-            }else {
+            } else {
                 this.$store.dispatch("getUniversities", {term: ''}).then(({data}) => {
                     this.uniSuggestList = data;
                 });
