@@ -17,7 +17,8 @@
                             <search-input v-if="contentObj.name !== 'note'" class="term-field"
                                           :placeholder="contentObj.placeholder" v-model="msg"
                                           :search-on-selection="contentObj.name !=='note'"
-                                          :searchVertical="contentObj.name" :submitRoute="'/'+contentObj.name"></search-input>
+                                          :searchVertical="contentObj.name"
+                                          :submitRoute="'/'+contentObj.name"></search-input>
                             <search-input v-else class="uni-field" :placeholder="contentObj.placeholder"
                                           search-type="uni"
                                           v-model="uni" submitRoute="/note"></search-input>
@@ -59,7 +60,7 @@
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     import {landingPagesData} from "./consts.js";
     import SearchInput from '../helpers/searchInput.vue';
-    import { router } from "../../main";
+    import {router} from "../../main";
 
     export default {
         data: () => ({
@@ -75,8 +76,9 @@
         methods: {
             search() {
                 if (this.msg) {
-                    router.push({path: "/"+this.contentObj.name, query: {q: this.msg}});
+                    router.push({path: "/" + this.contentObj.name, query: {q: this.msg}});
                 }
+
             }
         },
         created() {

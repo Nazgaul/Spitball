@@ -55,9 +55,10 @@ export default {
     },
     watch: {
         userText(val) {
-            if(this.searchType !=='uni' || (this.searchType ==='uni' && this.suggestList.contains(val))) {
+            // debugger;
+            // if(this.searchType !=='uni' || (this.searchType ==='uni' && this.suggestList.filter(suggestion => (suggestion.text === this.msg)).length)) {
                 this.msg = val;
-            }
+            // }
             this.isFirst = true;
         },
         msg: debounce(function (val) {
@@ -106,7 +107,16 @@ export default {
                 return;
             }
             if (this.submitRoute) {
-                this.$router.push({path: this.submitRoute, query: {q: this.searchType === 'uni' ? '' : this.msg}} );
+                if(this.searchType !== 'uni') {
+                    this.$router.push({path: this.submitRoute, query: {q: this.msg}});
+                }
+                else{
+                    let matchingSuggestions = this.suggestList.filter(suggestion => (suggestion.text === this.msg))
+                    if(matchingSuggestions.length) {
+                        this.updateUniversity(matchingSuggestions[0]);
+                        this.$router.push({path: this.submitRoute, query: {q: ''}});
+                    }
+                }
             }
             else if (this.msg) {
                 this.$router.push({name: "result", query: {q: this.msg}});
