@@ -118,7 +118,7 @@ export default {
                 else {
                     let matchingSuggestions = this.suggestList.filter(suggestion => (suggestion.text === this.msg))
                     if (matchingSuggestions.length) {
-                        this.updateUniversity(matchingSuggestions[0]);
+                        this.updateUniversity(this.uniList[this.suggestList.indexOf(matchingSuggestions[0])]);
                         this.$router.push({path: this.submitRoute, query: {q: ''}});
                     }
                 }
