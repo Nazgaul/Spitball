@@ -31,6 +31,16 @@
   }
 
   &.landing-tutor {
+    .top{
+      @media(max-width: @screen-xs) {
+        background-position: 54% center;
+      }
+    }
+    h2{
+      @media(max-width: @screen-xs){
+        max-width: 250px;
+      }
+    }
     .tutorMe {
       .responsive-property(width, 107px, null, 80px);
     }
@@ -57,7 +67,15 @@
     }
   }
 
-  &.landing-notes {
+  &.landing-note {
+    .top{
+      @media(max-width: @screen-xs) {
+        background-position: 69% center;
+      }
+    }
+    h2{
+      .responsive-property(max-width, 480px, null, 300px);
+    }
     .courseHero {
       .responsive-property(width, 64px, null, 48px);
     }
@@ -81,6 +99,11 @@
   }
 
   &.landing-job {
+    .top{
+      @media(max-width: @screen-xs) {
+        background-position: 81% center;
+      }
+    }
     .zipRecruiter {
       .responsive-property(width, 150px, null, 109px);
     }
@@ -333,11 +356,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-wrap: wrap;
         @media (min-width: @screen-xs+1) {
           padding: 0 44px;
-        }
-        @media (max-width: @screen-xs) {
-          flex-wrap: wrap;
         }
 
         img {

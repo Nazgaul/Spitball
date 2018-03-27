@@ -1,6 +1,6 @@
 <template>
     <div class="landing-page-wrapper"
-         :class="['landing-'+contentObj.type, contentObj.wrappingClass, {collapse: collapsePage}, {'no-bg':!contentObj.background}]">
+         :class="['landing-'+contentObj.name, contentObj.wrappingClass, {collapse: collapsePage}, {'no-bg':!contentObj.background}]">
         <div class="top"
              :style="contentObj.background ? 'background-image: url('+ require(`./img/${contentObj.background}`)+')': ''">
             <div class="limited-width logo-wrap">
@@ -14,10 +14,10 @@
                     <h1 v-html="contentObj.titleHtml" class="collapsible"></h1>
                     <div class="search-wrapper">
                         <form action="." method="get" @submit.prevent="search">
-                            <search-input v-if="contentObj.type !== 'notes'" class="term-field"
+                            <search-input v-if="contentObj.name !== 'note'" class="term-field"
                                           :placeholder="contentObj.placeholder" v-model="msg"
                                           :search-on-selection="contentObj.name !=='note'"
-                                          :searchVertical="contentObj.type" :submitRoute="'/'+contentObj.name"></search-input>
+                                          :searchVertical="contentObj.name" :submitRoute="'/'+contentObj.name"></search-input>
                             <search-input v-else class="uni-field" :placeholder="contentObj.placeholder"
                                           search-type="uni"
                                           v-model="uni" submitRoute="/note"></search-input>

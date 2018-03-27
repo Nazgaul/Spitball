@@ -37,6 +37,7 @@ const notesGeneralData = {
 };
 
 const jobsGeneralData = {
+    name: 'job',
     titleHtml: 'You Don\'t Have to <br class="hidden-sm-and-up"/><b>Be Broke</b>',
     bodyHtml: 'Thousands of companies are hiring students right now.',
     submitButtonText: "Get paid",
@@ -52,37 +53,31 @@ const jobsGeneralData = {
 
 export const landingPagesData = {
     tutorV1: {
-        type: 'tutor',
         wrappingClass: 'v1',
         background: 'tutorBgV1.jpg',
         ...tutorGeneralData
     },
     tutorV2: {
-        type: 'tutor',
         wrappingClass: 'v2',
         background: '',
         ...tutorGeneralData
     },
     notesV1: {
-        type: 'notes',
         wrappingClass: 'v1',
         background: 'studyDocs.jpg',
         ...notesGeneralData
     },
     notesV2: {
-        type: 'notes',
         wrappingClass: 'v2',
         background: '',
         ...notesGeneralData
     },
     jobsV1: {
-        type: 'job',
         wrappingClass: 'v1',
         background: 'jobs.jpg',
         ...jobsGeneralData
     },
     jobsV2: {
-        type: 'job',
         wrappingClass: 'v2',
         background: '',
         ...jobsGeneralData
