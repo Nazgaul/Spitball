@@ -12,7 +12,7 @@ import indeedImg from './img/partners/indeed.png'
 
 const tutorGeneralData = {
     name: 'tutor',
-    titleHtml: 'Get a Tutor <br class="hidden-sm-and-up"/><b>Now!</b>',
+    titleHtml: 'Get a Tutor <br class="hidden-sm-and-up"/><b>Now</b>',
     bodyHtml: 'Qualified tutors at an affordable price, just for you.',
     submitButtonText: "Get help",
     placeholder: 'What do you need help with?',
@@ -38,7 +38,7 @@ const notesGeneralData = {
 
 const jobsGeneralData = {
     name: 'job',
-    titleHtml: 'You Don\'t Have to <br class="hidden-sm-and-up"/><b>Be Broke</b>',
+    titleHtml: 'You Don\'t Have to <br class="hidden-sm-and-up"/>Be <b>Broke</b>',
     bodyHtml: 'Thousands of companies are hiring students right now.',
     submitButtonText: "Get paid",
     placeholder: 'What do you want to do?',
