@@ -207,6 +207,15 @@
     margin: 0 auto !important;
 }
 
+.clear-field-btn(){ // Note: this is not supported by Firefox yet.
+    &::-webkit-search-cancel-button {
+        -webkit-appearance: searchfield-cancel-button;
+    }
+    &::-ms-clear{
+        display: block;
+    }
+}
+
 // Size constants
 @navBarHeightMdAndUp: 120px;
 @mainNavHeightXsOnly: 120px;//TODO: fix to actual size (seperated from the verticals bar)
