@@ -32,10 +32,10 @@ namespace Cloudents.Mobile.Test.IntegrationTests
         }
         
          [TestMethod]
-        public async Task Search_Null_BadRequest()
+        public async Task Search_Null_Ok()
         {
             var response = await Client.GetAsync("/api/Job").ConfigureAwait(false);
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            response.EnsureSuccessStatusCode();
         }
 
 
