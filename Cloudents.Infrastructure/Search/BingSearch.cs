@@ -23,16 +23,17 @@ namespace Cloudents.Infrastructure.Search
         private const int PageSize = 50;
         private readonly IRestClient _restClient;
         private readonly IMapper _mapper;
+        private readonly IShuffle _shuffle;
 
-        public BingSearch(IRestClient restClient, IMapper mapper)
+        public BingSearch(IRestClient restClient, IMapper mapper, IShuffle shuffle)
         {
             _restClient = restClient;
             _mapper = mapper;
+            _shuffle = shuffle;
         }
 
         [Cache(TimeConst.Day, "bing", false)]
         [BuildLocalUrl(null, PageSize, "page")]
-        [Shuffle]
         public async Task<IEnumerable<SearchResult>> DoSearchAsync(SearchModel model, int page, BingTextFormat format, CancellationToken token)
         {
             //https://docs.microsoft.com/en-us/rest/api/cognitiveservices/bing-custom-search-api-v7-reference#query-parameters
@@ -65,7 +66,7 @@ namespace Cloudents.Infrastructure.Search
                 return null;
             }
 
-            return _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(
+            var retVal =  _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(
                 response.WebPages?.Value, a =>
                 {
                     if (format == BingTextFormat.Html)
@@ -73,6 +74,7 @@ namespace Cloudents.Infrastructure.Search
                         a.Items["query"] = model.Query;
                     }
                 });
+            return _shuffle.DoShuffle(retVal);
         }
 
         private static string BuildSources(IEnumerable<string> sources)

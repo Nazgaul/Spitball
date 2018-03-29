@@ -8,7 +8,7 @@ let currentVertical='item';
 const itemVerticals=['ask','flashcard','note'];
 const getTemplate=(val)=>itemVerticals.includes(val)?'item':val;
 let transformLocation=(params)=>{
-    let {location}=params;
+    let location=params.location;
     delete params.location;
     if(location){
         params['location.latitude']=location.latitude;
@@ -91,7 +91,7 @@ const getBookDetails = ({ type, isbn13 }) => axios.get(`book/${type}`, { params:
 const getPlacesDetails = ({ id }) => {
     return axios.get("places", { params: { id } });
 }
-export const getUniversity = (params) => axios.get("university", { params });
+export const getUniversity = (params) => axios.get("university", { params:transformLocation(params) });
 export const search = { getBookDetails, ...searchFunctions, getPlacesDetails,autoComplete:(term)=>axios.get("suggest",{params:{sentence:term},transformResponse:transferAutoComplete}) };
 export const course = { ...courseFunctions };
 export const help = {

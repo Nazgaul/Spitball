@@ -13,9 +13,13 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
+    <Compile Include="GoogleSheets.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="client_secret.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +28,9 @@
     <ProjectReference Include="..\Cloudents.Infrastructure.Storage\Cloudents.Infrastructure.Storage.csproj" />
     <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj" />
     <ProjectReference Include="..\Cloudents.Web.Extensions\Cloudents.Web.Extensions.csproj" />
+    </PackageReference>
+    <PackageReference Include="Google.Gdata.Client.Core">
+      <Version>1.0.2</Version>
   </ItemGroup>
 
   <ItemGroup>

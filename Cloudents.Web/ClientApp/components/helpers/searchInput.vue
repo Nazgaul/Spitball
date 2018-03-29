@@ -5,21 +5,24 @@
                       required name="q"
                       :class="{'record':isRecording}"
                       id="transcript"
+                      :disabled="disabled"
+                      @blur="closeSuggestions"
                       v-model.trim="msg" :placeholder="placeholder"
                       prepend-icon="sbf-search" :append-icon="voiceAppend" :hide-on-scroll="isHome?hideOnScroll:false"
                       :append-icon-cb="$_voiceDetection" @click="openSuggestions"></v-text-field>
         <!--<input type="checkbox" id="toggler"/>-->
         <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
         <transition name="slide-fade">
-            <v-list class="search-menu" v-show="showSuggestions">
-                <v-subheader v-if="!msg.length">Some things you can ask me:</v-subheader>
+            <v-list class="search-menu" v-show="showSuggestions" v-if="this.searchType!=='uni' || (this.searchType === 'uni' && suggestList.length)">
+                <v-subheader v-if="!msg.length" v-html="this.searchType === 'uni' ? 'Universities near you:':'Some things you can ask me:'"></v-subheader>
                 <template v-for="(item, index) in suggestList">
                     <!--{{item.type}}-->
                     <v-list-tile class="suggestion" @click="selectos({item:item,index})" :class="[`type-${item.type}`,{'list__tile--highlighted': index === focusedIndex}]"
                                  :key="index">
                         <v-list-tile-action hidden-xs-only>
                             <history-icon v-if="item.type==='History'"></history-icon>
-                            <v-icon v-else>sbf-search</v-icon>
+                            <v-icon v-else-if="!item.image">sbf-search</v-icon>
+                            <img class="suggestion-image" v-else :src="item.image"/>
                         </v-list-tile-action>
                         <v-list-tile-content>
                             <v-list-tile-title v-html="highlightSearch(item)"></v-list-tile-title>

@@ -1,8 +1,10 @@
 ﻿using System.Reflection;
 using System.Threading;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search;
+using Cloudents.Infrastructure.Search.Job;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Infrastructure.Test
@@ -67,6 +69,24 @@ namespace Cloudents.Infrastructure.Test
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
             var bookRequest1 = new object[] { searchModel1, 0, CancellationToken.None };
             var bookRequest2 = new object[] { searchModel2, 0, CancellationToken.None };
+
+            var type = new PrivateType(typeof(CacheResultInterceptor));
+            var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1 });
+            var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
+            Assert.AreNotEqual(result1, result2);
+        }
+
+
+        [TestMethod]
+        public void GetInvocationSignature_DifferentLocation_DifferentResult()
+        {
+            var location = new Location(new GeoPoint(41.878f,-87.629f),new Address("Chicago","IL","US"),"31.154.39.170"  );
+            var location2 = new Location(new GeoPoint(42.878f,-86.629f),new Address("Chicago","IL","US"),"31.154.39.170"  );
+            var model1 = new JobProviderRequest("marketing", JobRequestSort.Relevance, null, location, 0);
+            var model2 = new JobProviderRequest("marketing", JobRequestSort.Relevance, null, location2, 0);
+            //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
+            var bookRequest1 = new object[] { model1, CancellationToken.None };
+            var bookRequest2 = new object[] { model2, CancellationToken.None };
 
             var type = new PrivateType(typeof(CacheResultInterceptor));
             var result1 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest1 });

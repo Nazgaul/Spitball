@@ -58,7 +58,6 @@ namespace Cloudents.Infrastructure.Search
         public async Task<IEnumerable<UniversityDto>> SearchAsync(string term, GeoPoint location,
             CancellationToken token)
         {
-           
             var searchParameter = new SearchParameters
             {
                 Select = _listOfSelectParams,

@@ -3,9 +3,11 @@ using System.Linq;
 using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
+    [UsedImplicitly]
     public class Jobs2CareersConverter : ITypeConverter<Jobs2CareersProvider.Jobs2CareersResult, IEnumerable<JobDto>>
     {
         public IEnumerable<JobDto> Convert(Jobs2CareersProvider.Jobs2CareersResult source, IEnumerable<JobDto> destination, ResolutionContext context)
@@ -13,7 +15,7 @@ namespace Cloudents.Infrastructure.Search.Job
             return source.Jobs.Select(s => new JobDto
             {
                 DateTime = s.Date,
-                Url = $"http://www.jobs2careers.com/click.php?id={s.Id}",
+                Url = s.Url,
                 Source = "Jobs2Careers",
                 Address = s.City.FirstOrDefault(),
                 Title = s.Title,

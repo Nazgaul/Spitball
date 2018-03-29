@@ -40,11 +40,21 @@ namespace Cloudents.MobileApi.Controllers
             //{
             //    return BadRequest(ModelState);
             //}
+
             var result = await _universityProvider.SearchAsync(model.Term, model.Location, token).ConfigureAwait(false);
-            return Ok(new
-            {
-                universities = result
-            });
+            return Json(result);
+
         }
+
+        //[HttpGet("approximate")]
+        //public async Task<IActionResult> ByApproximateAsync([FromQuery]GeoPoint point, CancellationToken token)
+        //{
+        //    if (point == null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    var result = await _universityProvider.GetApproximateUniversitiesAsync(point, token).ConfigureAwait(false);
+        //    return Json(result);
+        //}
     }
 }

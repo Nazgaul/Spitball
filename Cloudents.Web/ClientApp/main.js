@@ -157,6 +157,9 @@ router.onReady(() => {
     });
 
     function intercom(to) {
+        if (to.path.indexOf('/landing/') && window.innerWidth < 960) {
+            intercomSettings.hide_default_launcher = true;
+        }
         if (window.innerWidth < 600) {
             let hideLauncher = true
             if (to.name === "home") {

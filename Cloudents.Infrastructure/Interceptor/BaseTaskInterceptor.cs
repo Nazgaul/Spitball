@@ -54,7 +54,7 @@ namespace Cloudents.Infrastructure.Interceptor
                 var result = await task.ConfigureAwait(false);
                 if (!System.Collections.Generic.EqualityComparer<T>.Default.Equals(result, default))
                 {
-                    AfterAction(result, invocation);
+                    AfterAction(ref result, invocation);
                 }
 
                 return result;
@@ -67,7 +67,13 @@ namespace Cloudents.Infrastructure.Interceptor
         }
 
         protected abstract void BeforeAction(IInvocation invocation);
-        protected abstract void AfterAction<T>(T val, IInvocation invocation);
+        /// <summary>
+        /// After invocation action
+        /// </summary>
+        /// <typeparam name="T">The object</typeparam>
+        /// <param name="val">the value - ref because we change the object</param>
+        /// <param name="invocation"></param>
+        protected abstract void AfterAction<T>(ref T val, IInvocation invocation);
 
         protected virtual void CatchException(Exception ex, IInvocation arg)
         {
