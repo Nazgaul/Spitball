@@ -1,6 +1,6 @@
 <template>
     <div class="landing-page-wrapper"
-         :class="['landing-'+contentObj.name, contentObj.wrappingClass, {collapse: collapsePage}, {'no-bg':!contentObj.background}]">
+         :class="['landing-'+contentObj.name, contentObj.wrappingClass, {'no-bg':!contentObj.background}]">
         <div class="top"
              :style="contentObj.background ? 'background-image: url('+ require(`./img/${contentObj.background}`)+')': ''">
             <div class="limited-width logo-wrap">
@@ -19,9 +19,7 @@
                                           :search-on-selection="contentObj.name !=='note'"
                                           :searchVertical="contentObj.name"
                                           :submitRoute="'/'+contentObj.name"></search-input>
-                            <search-input v-else class="uni-field" :placeholder="contentObj.placeholder"
-                                          search-type="uni"
-                                          v-model="uni" submitRoute="/note"></search-input>
+                            <uni-search-input v-else class="uni-field" :placeholder="contentObj.placeholder" v-model="msg"></uni-search-input>
                             <button type="submit" class="ma-0">
                                 <v-icon class="hidden-md-and-up">sbf-search</v-icon>
                                 <span class="hidden-sm-and-down">{{contentObj.submitButtonText}}</span>
@@ -60,26 +58,16 @@
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     import {landingPagesData} from "./consts.js";
     import SearchInput from '../helpers/searchInput.vue';
-    import {router} from "../../main";
+    import UniSearchInput from '../helpers/uniSearchInput.vue';
+    //import {router} from "../../main";
 
     export default {
         data: () => ({
-            msg: '',
-            uni: '',
             contentObj: null,
-            uniDisabled: true,
-            collapsePage: false
+            msg:''
         }),
         components: {
-            AppLogo, SearchInput
-        },
-        methods: {
-            search() {
-                if (this.msg) {
-                    router.push({path: "/" + this.contentObj.name, query: {q: this.msg}});
-                }
-
-            }
+            AppLogo, SearchInput, UniSearchInput
         },
         created() {
             this.contentObj = landingPagesData[this.$route.name];
