@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Cloudents.Mobile.Test.IntegrationTests
+namespace Cloudents.Web.Test.IntegrationTests
 {
     [TestClass]
     public class DocumentControllerTests : ServerInit
