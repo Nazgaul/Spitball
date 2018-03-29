@@ -153,7 +153,6 @@ module.exports = (env) => {
         //},
         plugins: [
             new webpack.DefinePlugin({
-                'NICE_FEATURE':true,
                 'process.env': {
                     NODE_ENV: JSON.stringify(isDevBuild ? "development" : "production")
                 }

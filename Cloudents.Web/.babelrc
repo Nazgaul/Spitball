@@ -1,7 +1,12 @@
 ﻿{
+  "env":{
+    "ssr":{
+      "plugins": [
+        "dynamic-import-node"]
+    }
+  },
   "presets": [ "env", "es2015" ],
   "plugins": [
-    "dynamic-import-node",
     "syntax-dynamic-import",
     "transform-object-rest-spread",
     [
