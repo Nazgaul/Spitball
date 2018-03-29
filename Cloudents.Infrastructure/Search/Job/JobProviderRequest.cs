@@ -4,8 +4,6 @@ using Cloudents.Core.Models;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
-
-
     public class JobProviderRequest
     {
         public JobProviderRequest(string term, JobRequestSort sort,
