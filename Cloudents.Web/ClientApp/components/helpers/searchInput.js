@@ -16,7 +16,7 @@ export default {
         userText: {String},
         submitRoute: {String}
     },
-    data: () => ({autoSuggestList: [], isFirst: true, showSuggestions: false, focusedIndex: -1}),
+    data: () => ({autoSuggestList: [], isFirst: true, showSuggestions: false, focusedIndex: -1, originalMsg: ''}),
     computed: {
         ...mapGetters({'globalTerm': 'currentText'}),
         ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
@@ -51,15 +51,20 @@ export default {
             this.isFirst = true;
         },
         msg: debounce(function (val) {
-            this.$emit('input', val);
-            if (val && !this.isFirst) {
-                this.getAutocmplete(val).then(({data}) => {
-                    this.autoSuggestList = data ? data.result : []
-                })
-            } else {
-                this.autoSuggestList = [];
+            if(this.focusedIndex >= 0 && this.msg !== this.suggestList[this.focusedIndex].text){
+                this.focusedIndex = -1;
             }
-            this.isFirst = false;
+            if (this.focusedIndex < 0) {
+                this.$emit('input', val);
+                if (val && !this.isFirst) {
+                    this.getAutocmplete(val).then(({data}) => {
+                        this.autoSuggestList = data ? data.result : []
+                    })
+                } else {
+                    this.autoSuggestList = [];
+                }
+                this.isFirst = false;
+            }
         }, 250)
     },
     methods: {
@@ -71,8 +76,8 @@ export default {
             this.closeSuggestions();
         },
         search() {
-            if(this.focusedIndex>=0){
-                this.msg=this.suggestList[this.focusedIndex].text;
+            if (this.focusedIndex >= 0) {
+                this.msg = this.suggestList[this.focusedIndex].text;
             }
             if (this.submitRoute) {
                 this.$router.push({path: this.submitRoute, query: {q: this.msg}});
@@ -96,6 +101,7 @@ export default {
         closeSuggestions() {
             this.$el.querySelector('.search-b input').blur();
             this.focusedIndex = -1;
+            this.msg = this.originalMsg;
             if (this.showSuggestions) {
                 this.showSuggestions = false;
                 this.$el.querySelector('.search-menu').scrollTop = 0;
@@ -120,10 +126,30 @@ export default {
             return aa;
         },
         arrowNavigation(direction) {
-            if(direction>0 && this.focusedIndex===this.suggestList.length-1 || direction<0 && this.focusedIndex===0){
-                return;
+            // When to save user's typed text
+            if (this.focusedIndex === -1) {
+                this.originalMsg = this.msg;
             }
-            this.focusedIndex = this.focusedIndex+direction
+
+            // Handling arrows:
+            if (this.focusedIndex < 0 && direction < 0) {
+                this.focusedIndex = this.suggestList.length - 1;
+            }
+            else {
+                this.focusedIndex = this.focusedIndex + direction;
+            }
+
+            // Out of bounds - set index to be -1:
+            if (this.focusedIndex === this.suggestList.length || this.focusedIndex < 0) {
+                this.focusedIndex = -1;
+                this.msg = this.originalMsg;
+            }
+
+            // In bounds - set input to be the highlighted suggestion
+            else {
+                this.msg = this.suggestList[this.focusedIndex].text;
+            }
+
         }
     },
     created() {

@@ -63,30 +63,30 @@
     import {landingPagesData} from "./consts.js";
     import SearchInput from '../helpers/searchInput.vue';
     import UniSearchInput from '../helpers/uniSearchInput.vue';
-    import {router} from "../../main";
+    // import {router} from "../../main";
 
     export default {
         data: () => ({
-            contentObj: null,
             msg: ''
         }),
         components: {
             AppLogo, SearchInput, UniSearchInput
         },
+        // props:{name:{String}},
         methods: {
             search() {
                 if (this.msg) {
                     if (this.contentObj.name === 'note') {
-                        router.push({path: "/" + this.contentObj.name, query: ''});
+                        this.$router.push({path: "/" + this.contentObj.name, query: ''});
                     }
                     else {
-                        router.push({path: "/" + this.contentObj.name, query: {q: this.msg}});
+                        this.$router.push({path: "/" + this.contentObj.name, query: {q: this.msg}});
                     }
                 }
             }
         },
-        created() {
-            this.contentObj = landingPagesData[this.$route.name];
+        computed: {
+            contentObj(){return landingPagesData[this.$route.name];}
         },
     }
 </script>
