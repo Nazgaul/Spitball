@@ -1,6 +1,5 @@
 import debounce from "lodash/debounce";
 import {mapGetters, mapActions} from 'vuex'
-import * as consts from "./consts";
 
 export default {
     name: "uni-search-input",
@@ -8,25 +7,20 @@ export default {
         placeholder: {type: String},
     },
     data: () => ({
-        msg:"",
+        msg: "",
         uniSuggestList: [],
         showSuggestions: false,
-        focusedIndex: -1
+        focusedIndex: -1,
     }),
     computed: {
         ...mapGetters(['getUniversityName']),
         suggestList() {
             return this.uniSuggestList.slice(0, 3);
-            // this.uniList = [...new Set([...this.uniAutocompleteList, ...this.uniSuggestList])]
-            // let aa = this.uniList.slice(0, 3);
-            // return aa;
         },
     },
     watch: {
-        // userText(val) {
-        //     this.msg = val;
-        // },
         msg: debounce(function (val) {
+            debugger;
             this.$emit('input', val);
             this.$store.dispatch("getUniversities", {term: val}).then(({data}) => {
                 let {universities} = data;
@@ -39,22 +33,21 @@ export default {
         selectos({item, index}) {
             this.updateUniversity(this.uniSuggestList[index]);
             this.closeSuggestions();
-            this.search();
-        },
-        search() {
-            if (!this.msg){
-                return;
-            }
-            let matchingSuggestions = this.uniSuggestList.filter(suggestion => (suggestion.text === this.msg))
-            if (matchingSuggestions.length) {
-                this.updateUniversity(matchingSuggestions);
-                this.$router.push({path: this.submitRoute, query: {q: ''}});
-            }
-            this.closeSuggestions();
+            this.$router.push({path: '/note', query: {q: ''}});
             // to remove keyboard on mobile
             this.$nextTick(() => {
                 this.$el.querySelector('input').blur();
             });
+        },
+        search() {
+            debugger;
+            if (!this.msg) {
+                return;
+            }
+            var index = this.uniSuggestList.findIndex(uni => uni.name == this.msg);
+            if(index >= 0) {
+                this.selectos({index: index});
+            }
         },
         openSuggestions() {
             this.showSuggestions = true;
@@ -70,9 +63,9 @@ export default {
         },
         highlightSearch: function (item) {
             let term = this.msg;
-            let uniLower= item.name.toLowerCase();
+            let uniLower = item.name.toLowerCase();
             let matchStartIndex = uniLower.indexOf(term);
-            if(!matchStartIndex < 0){
+            if (!matchStartIndex < 0) {
                 return item.name;
             }
             let matchEndIndex = matchStartIndex + term.length;
@@ -96,6 +89,7 @@ export default {
             this.$store.dispatch("getUniversities", {term: ''}).then(({data}) => {
                 let {universities} = data;
                 this.uniSuggestList = universities;
+
             });
         }
     }
