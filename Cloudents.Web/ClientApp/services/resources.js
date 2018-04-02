@@ -25,10 +25,6 @@ let transferNextPage=(res)=>{
     let {data,nextPage}=transferMap[currentVertical](res);
     return { data,nextPage}
 };
-let transferAutoComplete = res => {
-    let result = res?res.autocomplete:[];
-    return {result }
-};
 //todo think about error
 let transferResultAsk = res => {
     const video = res.video;
@@ -92,7 +88,7 @@ const getPlacesDetails = ({ id }) => {
     return axios.get("places", { params: { id } });
 }
 export const getUniversity = (params) => axios.get("university", { params:transformLocation(params) });
-export const search = { getBookDetails, ...searchFunctions, getPlacesDetails,autoComplete:(term)=>axios.get("suggest",{params:{sentence:term},transformResponse:transferAutoComplete}) };
+export const search = { getBookDetails, ...searchFunctions, getPlacesDetails,autoComplete:(term)=>axios.get("suggest",{params:{sentence:term}}) };
 export const course = { ...courseFunctions };
 export const help = {
     getFaq: () => axios.get("help",{baseURL:"api/"}),

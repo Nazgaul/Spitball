@@ -58,7 +58,7 @@ export default {
                 this.$emit('input', val);
                 if (val && !this.isFirst) {
                     this.getAutocmplete(val).then(({data}) => {
-                        this.autoSuggestList = data ? data.result : []
+                        this.autoSuggestList = data
                     })
                 } else {
                     this.autoSuggestList = [];
