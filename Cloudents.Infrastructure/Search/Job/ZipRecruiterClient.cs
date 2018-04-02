@@ -34,7 +34,12 @@ namespace Cloudents.Infrastructure.Search.Job
         public async Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(JobProviderRequest jobProviderRequest,CancellationToken token)
         {
             if (jobProviderRequest.JobType?.Any() == true 
-                || jobProviderRequest.Location?.Address == null/* || sort == JobRequestSort.Distance*/)
+                || jobProviderRequest.Location?.Address == null)
+            {
+                return null;
+            }
+
+            if (string.Equals(jobProviderRequest.Location.Address.CountryCode, "us", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
