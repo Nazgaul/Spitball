@@ -14,7 +14,8 @@
     {
         name: "blog",
         display: "Blog",
-        import: () => import("./blog.vue")
+        import: ()=>import("./blog.vue"),
+        params:(route)=>({university:route.query.uni,path:route.query.path})
 
     },
     {
