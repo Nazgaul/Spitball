@@ -14,7 +14,8 @@ export default {
         hideOnScroll: {type: Boolean, default: false},
         placeholder: {type: String},
         userText: {String},
-        submitRoute: {String}
+        submitRoute: {String},
+        suggestionVertical: {String}
     },
     data: () => ({autoSuggestList: [], isFirst: true, showSuggestions: false, focusedIndex: -1, originalMsg: ''}),
     computed: {
@@ -57,7 +58,7 @@ export default {
             if (this.focusedIndex < 0) {
                 this.$emit('input', val);
                 if (val && !this.isFirst) {
-                    this.getAutocmplete(val).then(({data}) => {
+                    this.getAutocmplete({term: val, vertical:this.suggestionVertical ? this.suggestionVertical : this.getCurrentVertical}).then(({data}) => {
                         this.autoSuggestList = data
                     })
                 } else {

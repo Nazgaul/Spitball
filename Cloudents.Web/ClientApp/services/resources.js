@@ -88,7 +88,7 @@ const getPlacesDetails = ({ id }) => {
     return axios.get("places", { params: { id } });
 }
 export const getUniversity = (params) => axios.get("university", { params:transformLocation(params) });
-export const search = { getBookDetails, ...searchFunctions, getPlacesDetails,autoComplete:(term)=>axios.get("suggest",{params:{sentence:term}}) };
+export const search = { getBookDetails, ...searchFunctions, getPlacesDetails,autoComplete:(data)=>axios.get("suggest",{params:{sentence:data.term, vertical: data.vertical}}) };
 export const course = { ...courseFunctions };
 export const help = {
     getFaq: () => axios.get("help",{baseURL:"api/"}),

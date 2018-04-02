@@ -15,7 +15,7 @@
                     <div class="search-wrapper">
                         <search-input v-if="pageData.name !== 'note'" class="term-field"
                                       :placeholder="pageData.placeholder" v-model="msg"
-                                      :submitRoute="'/'+pageData.name">
+                                      :submitRoute="'/'+pageData.name" :suggestion-vertical="pageData.name">
                             <button slot="searchBtn" slot-scope="props" @click="props.search">
                                 <v-icon class="hidden-md-and-up">sbf-search</v-icon>
                                 <span class="hidden-sm-and-down">{{pageData.submitButtonText}}</span>
