@@ -11,6 +11,7 @@ export default {
         uniSuggestList: [],
         showSuggestions: false,
         focusedIndex: -1,
+        originalMsg: ''
     }),
     computed: {
         ...mapGetters(['getUniversityName']),
@@ -20,13 +21,25 @@ export default {
     },
     watch: {
         msg: debounce(function (val) {
-            debugger;
-            this.$emit('input', val);
-            this.$store.dispatch("getUniversities", {term: val}).then(({data}) => {
-                let {universities} = data;
-                this.uniSuggestList = val ? universities : [];
-            });
-        }, 250)
+            if(this.focusedIndex >= 0 && this.msg !== this.suggestList[this.focusedIndex].text){
+                this.focusedIndex = -1;
+            }
+                if (this.focusedIndex < 0) {
+                    this.$emit('input', val);
+                    this.$store.dispatch("getUniversities", {term: val}).then(({data}) => {
+                        let {universities} = data;
+                        this.uniSuggestList = val ? universities : [];
+                    });
+                }
+        }, 250),
+        focusedIndex(val){
+            if(val < 0){
+                this.msg = this.originalMsg;
+            }
+            else {
+                this.msg = this.suggestList[this.focusedIndex].text;
+            }
+        }
     },
     methods: {
         ...mapActions(['getAutocmplete', 'updateUniversity']),
@@ -75,10 +88,24 @@ export default {
 
         },
         arrowNavigation(direction) {
-            if (direction > 0 && this.focusedIndex === this.uniSuggestList.length - 1 || direction < 0 && this.focusedIndex === 0) {
-                return;
+            // When to save user's typed text
+            if (this.focusedIndex === -1) {
+                this.originalMsg = this.msg;
             }
-            this.focusedIndex = this.focusedIndex + direction
+
+            // Handling arrows:
+            if (this.focusedIndex < 0 && direction < 0) {
+                this.focusedIndex = this.suggestList.length - 1;
+            }
+            else {
+                this.focusedIndex = this.focusedIndex + direction;
+            }
+
+            // Out of bounds - set index to be -1:
+            if (this.focusedIndex === this.suggestList.length || this.focusedIndex < 0) {
+                this.focusedIndex = -1;
+            }
+
         }
     },
     created() {
