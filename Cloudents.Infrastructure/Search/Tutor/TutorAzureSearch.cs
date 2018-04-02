@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
     {
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;
-        private static int PageSize = (int)PrioritySource.TutorMe.Priority * TutorMeSearch.TutorMePage;
+        private static readonly int PageSize = (int)PrioritySource.TutorMe.Priority * TutorMeSearch.TutorMePage;
 
         public TutorAzureSearch(ISearchServiceClient client, IMapper mapper)
         {
