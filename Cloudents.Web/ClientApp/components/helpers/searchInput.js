@@ -65,7 +65,15 @@ export default {
                 }
                 this.isFirst = false;
             }
-        }, 250)
+        }, 250),
+        focusedIndex(val){
+            if(val < 0){
+                this.msg = this.originalMsg;
+            }
+            else {
+                this.msg = this.suggestList[this.focusedIndex].text;
+            }
+        }
     },
     methods: {
         ...mapActions(['getAutocmplete']),
@@ -76,9 +84,6 @@ export default {
             this.closeSuggestions();
         },
         search() {
-            if (this.focusedIndex >= 0) {
-                this.msg = this.suggestList[this.focusedIndex].text;
-            }
             if (this.submitRoute) {
                 this.$router.push({path: this.submitRoute, query: {q: this.msg}});
             }
@@ -142,12 +147,6 @@ export default {
             // Out of bounds - set index to be -1:
             if (this.focusedIndex === this.suggestList.length || this.focusedIndex < 0) {
                 this.focusedIndex = -1;
-                this.msg = this.originalMsg;
-            }
-
-            // In bounds - set input to be the highlighted suggestion
-            else {
-                this.msg = this.suggestList[this.focusedIndex].text;
             }
 
         }

@@ -12,7 +12,7 @@
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
             <transition name="slide-fade">
                 <v-list class="search-menu" v-show="showSuggestions">
-                    <v-subheader v-if="!msg.length">Universities near by you:</v-subheader>
+                    <v-subheader v-if="!msg.length || (focusedIndex >= 0 && !originalMsg.length)">Universities near by you:</v-subheader>
                     <template v-for="(item, index) in suggestList">
                         <!--{{item.type}}-->
                         <v-list-tile class="suggestion" @click="selectos({item:item,index})"
