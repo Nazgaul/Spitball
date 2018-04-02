@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
 using Cloudents.Core.Attributes;
 
 namespace Cloudents.Core.Extension
@@ -88,5 +89,21 @@ namespace Cloudents.Core.Extension
 "<b>$0</b>",
                         RegexOptions.IgnoreCase));
         }
+
+
+        private  static string DecodeHtmlEntities(this string text)
+        {
+            return HttpUtility.HtmlDecode(text);
+        }
+
+        public static string StripAndDecode(this string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return text;
+            }
+            return RegEx.RemoveHtmlTags.Replace(text, string.Empty).DecodeHtmlEntities();
+        }
+       
     }
 }

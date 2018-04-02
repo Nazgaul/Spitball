@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Cloudents.Core
@@ -12,7 +13,11 @@ namespace Cloudents.Core
         public IEnumerable<string> Domains { get; }
 
 
-      
+        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "We need that for serialization")]
+        protected PrioritySource()
+        {
+
+        }
 
         public PrioritySource(string source, float priority)
 
@@ -22,7 +27,7 @@ namespace Cloudents.Core
         }
 
 
-        public PrioritySource(string source, float priority, IEnumerable<string> domains)
+        private PrioritySource(string source, float priority, IEnumerable<string> domains)
 
         {
             Source = source;

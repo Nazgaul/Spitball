@@ -108,7 +108,10 @@ namespace Cloudents.Infrastructure
             using (var sr = new StreamReader(s))
             using (var reader = new JsonTextReader(sr))
             {
-                var serializer = new JsonSerializer();
+                var serializer = new JsonSerializer
+                {
+                    DefaultValueHandling = DefaultValueHandling.Ignore
+                };
                 return serializer.Deserialize<T>(reader);
             }
         }

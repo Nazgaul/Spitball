@@ -38,7 +38,7 @@ namespace Cloudents.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [ValidateModel]
-        [ProducesResponseType(typeof(WebResponseWithFacet<JobDto>), 200)]
+        // [ProducesResponseType(typeof(WebResponseWithFacet<JobDto>), 200)]
 
         public async Task<IActionResult> GetAsync([FromQuery]JobRequest model, CancellationToken token)
         {
@@ -46,18 +46,19 @@ namespace Cloudents.Api.Controllers
                 model.Sort.GetValueOrDefault(JobRequestSort.Relevance),
                 model.Facet, model.Location.ToLocation(), model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
             string nextPageLink = null;
-            var p = result.Result?.ToList();
-            if (p?.Any() == true)
+            result.Result = result.Result?.ToList();
+            if (result.Result?.Any() == true)
             {
                 nextPageLink = Url.NextPageLink("Job", model);
             }
 
             return Ok(
-                new WebResponseWithFacet<JobDto>
+                new
                 {
-                    Result = p,
-                    Facet = result.Facet,
-                    NextPageLink = nextPageLink
+                    //Result = p,
+                    //Facet = result.Facet,
+                    result,
+                    nextPageLink
                 });
         }
     }

@@ -2,6 +2,7 @@
 using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Extension;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search.Models;
 
@@ -27,21 +28,19 @@ namespace Cloudents.Infrastructure.Search.Job
                 Title = jo.Title,
                 Responsibilities = jo.Description,
                 PrioritySource = PrioritySource.JobWayUp,
-                //Source = jo.Source,
             });
 
             CreateMap<Jobs2CareersProvider.Job, JobProviderDto>()
                 .ConvertUsing(s=> new JobProviderDto
                 {
                     DateTime = s.Date,
-                    Url = s.Url, // $"http://www.jobs2careers.com/click.php?id={s.Id}",
+                    Url = s.Url,
                     PrioritySource = PrioritySource.JobJobs2Careers,
-                    //Source = "Jobs2Careers",
                     Address = s.City.FirstOrDefault(),
                     Title = s.Title,
                     Company = s.Company,
                     CompensationType = "Paid",
-                    Responsibilities = RegEx.RemoveHtmlTags.Replace(s.Description, string.Empty)
+                    Responsibilities = s.Description.StripAndDecode()
                 });
 
             CreateMap<IndeedProvider.Result, JobProviderDto>()
@@ -68,7 +67,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 Address = s.Location,
                 Title = s.Name,
                 CompensationType = "Paid",
-                Responsibilities = RegEx.RemoveHtmlTags.Replace(s.Snippet, string.Empty)
+                Responsibilities = s.Snippet.StripAndDecode()
             });
 
             CreateMap<CareerJetProvider.Job, JobProviderDto>().ConvertUsing(s => new JobProviderDto
@@ -76,12 +75,11 @@ namespace Cloudents.Infrastructure.Search.Job
                 DateTime = s.Date,
                 Url = s.Url,
                 PrioritySource = PrioritySource.JobCareerJet,
-                //Source = "CareerJet",
                 Address = s.Locations,
                 Title = s.Title,
                 Company = s.Company,
                 CompensationType = "Paid",
-                Responsibilities = RegEx.RemoveHtmlTags.Replace(s.Description, string.Empty)
+                Responsibilities = s.Description.StripAndDecode()
             });
         }
     }

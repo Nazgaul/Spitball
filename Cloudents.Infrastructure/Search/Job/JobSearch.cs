@@ -53,7 +53,6 @@ namespace Cloudents.Infrastructure.Search.Job
 
             var result = tasksResult.Where(w => w != null).ToList();
 
-
             var retVal = result.Aggregate(new ResultWithFacetDto<JobDto>(), (dto,  next) =>
             {
                 if (next.Result != null)
@@ -69,10 +68,8 @@ namespace Cloudents.Infrastructure.Search.Job
 
                 return dto;
             });
-            //var facets = result.Where(w => w.Facet != null).SelectMany(s => s.Facet).Distinct();
-            //var jobResults = result.Where(w => w.Result != null).SelectMany(s => s.Result);
-            retVal.Facet = retVal.Facet?.Distinct();
 
+            retVal.Facet = retVal.Facet?.Distinct();
             if (sort == JobRequestSort.Date)
             {
                 retVal.Result = retVal.Result.OrderByDescending(o => o.DateTime);
@@ -83,11 +80,6 @@ namespace Cloudents.Infrastructure.Search.Job
             }
 
             return retVal;
-            //return new ResultWithFacetDto<JobDto>
-            //{
-            //    Result = jobResults,
-            //    Facet = facets
-            //};
         }
     }
 }

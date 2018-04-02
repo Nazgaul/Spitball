@@ -4,6 +4,7 @@ using Cloudents.Core.DTOs;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Api.Test.IntegrationTests
 {
@@ -32,9 +33,13 @@ namespace Cloudents.Api.Test.IntegrationTests
             response.EnsureSuccessStatusCode();
 
             var result = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonConvert.DeserializeObject<WebResponseWithFacet<JobDto>>(result);
-            obj.Result.Should().HaveCountGreaterOrEqualTo(1);
+            var d = JObject.Parse(result);
+            var p = d["result"]["result"].Values();
+            p.Should().HaveCountGreaterOrEqualTo(1);
+            //var p = d.result;
+            //p.Should().HaveCountGreaterOrEqualTo(1);
+            //var obj = JsonConvert.DeserializeObject<WebResponseWithFacet<JobDto>>(result);
+            //obj.Result.Should().HaveCountGreaterOrEqualTo(1);
         }
     }
 }
