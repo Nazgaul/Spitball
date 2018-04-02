@@ -13,7 +13,6 @@ export default context => {
         router.push(url);
 
         router.onReady(() => {
-            console.log(this);
             const matchedComponents = router.getMatchedComponents()
             // no matched routes, reject with 404
             if (!matchedComponents.length) {

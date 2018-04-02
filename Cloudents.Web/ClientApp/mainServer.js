@@ -1,9 +1,6 @@
 import Vue from "vue";
 import App from "./components/app/appServer.vue";
 import Router from "vue-router";
-const Foo= require('./components/Foo.vue').default;
-import Bar from './../ClientApp/components/Bar.vue';
-import {ssrPages} from "./routes";
 import {staticRoutes} from "./components/satellite/satellite-routes";
 
 Vue.use(Router);
@@ -20,9 +17,7 @@ function createRouter() {
     return new Router({
         mode: "history",
         routes:  [
-            ...pages,
-            { path: '/foo', component: Foo,alias:['foo'] },
-            { path: '/bar', component: Bar,alias:['bar','yifat','/yifat'] }
+            ...pages.filter(t=>t.name!=='faq')
         ]
     });
 }

@@ -1,7 +1,6 @@
-﻿﻿const ExtractTextPlugin = require("extract-text-webpack-plugin");
+﻿﻿﻿const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
-const path = require("path"),
-glob = require('glob');
+const path = require("path");
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -62,6 +61,7 @@ module.exports = (env) => {
                                 "node": "8.9.3"
                             }
                         }]],
+                        plugins: ["dynamic-import-node"]
                         //"plugins": [
                         //    "syntax-dynamic-import",
                         //    "transform-object-rest-spread",
@@ -144,7 +144,7 @@ module.exports = (env) => {
         devtool: 'sourcemap',
         output: {
             libraryTarget: 'commonjs2',
-            path:  path.join(__dirname, 'wwwroot/dist'),
+            path:  path.join(__dirname, './ClientApp/dist'),
             filename: '[name].js',
             // publicPath: 'dist/'
         },
