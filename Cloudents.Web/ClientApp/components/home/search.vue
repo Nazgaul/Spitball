@@ -24,7 +24,7 @@
     import SearchInput from '../helpers/searchInput.vue';
 
     export default {
-        props: ["headerMenu"],
+        // props: ["headerMenu"],
         components: {SearchInput},
         computed: {
             placeholder: function () {

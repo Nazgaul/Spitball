@@ -1,8 +1,8 @@
 <template>
     <div class="landing-page-wrapper"
-         :class="['landing-'+contentObj.name, contentObj.wrappingClass, {'no-bg':!contentObj.background}]">
+         :class="['landing-'+pageData.name, pageData.wrappingClass, {'no-bg':!pageData.background}]">
         <div class="top"
-             :style="contentObj.background ? 'background-image: url('+ require(`./img/${contentObj.background}`)+')': ''">
+             :style="pageData.background ? 'background-image: url('+ require(`./img/${pageData.background}`)+')': ''">
             <div class="limited-width logo-wrap">
                 <router-link class="logo-link collapsible" :to="{name:'home'}">
                     <app-logo class="logo"></app-logo>
@@ -11,37 +11,35 @@
             <div class="limited-width landing-page">
 
                 <div class="page-data">
-                    <h1 v-html="contentObj.titleHtml" class="collapsible"></h1>
+                    <h1 v-html="pageData.titleHtml" class="collapsible"></h1>
                     <div class="search-wrapper">
-                        <search-input v-if="contentObj.name !== 'note'" class="term-field"
-                                      :placeholder="contentObj.placeholder" v-model="msg"
-                                      :search-on-selection="contentObj.name !=='note'"
-                                      :searchVertical="contentObj.name"
-                                      :submitRoute="'/'+contentObj.name">
+                        <search-input v-if="pageData.name !== 'note'" class="term-field"
+                                      :placeholder="pageData.placeholder" v-model="msg"
+                                      :submitRoute="'/'+pageData.name">
                             <button slot="searchBtn" slot-scope="props" @click="props.search">
                                 <v-icon class="hidden-md-and-up">sbf-search</v-icon>
-                                <span class="hidden-sm-and-down">{{contentObj.submitButtonText}}</span>
+                                <span class="hidden-sm-and-down">{{pageData.submitButtonText}}</span>
                             </button>
                         </search-input>
-                        <uni-search-input v-else class="uni-field" submitRoute="/note" :placeholder="contentObj.placeholder" v-model="msg">
+                        <uni-search-input v-else class="uni-field" submitRoute="/note" :placeholder="pageData.placeholder" v-model="msg">
                             <button slot="searchBtn" slot-scope="props" @click="props.search">
-                                <v-icon class="hidden-md-and-up">sbf-search</v-icon>
-                                <span class="hidden-sm-and-down">{{contentObj.submitButtonText}}</span>
+                                <v-icon class="hidden-sm-and-up">sbf-search</v-icon>
+                                <span class="hidden-xs-only">{{pageData.submitButtonText}}</span>
                             </button>
                         </uni-search-input>
                     </div>
                     <div class="content-wrapper">
-                        <h2 v-html="contentObj.bodyHtml" class="collapsible"></h2>
+                        <h2 v-html="pageData.bodyHtml" class="collapsible"></h2>
                     </div>
                 </div>
             </div>
-            <img class="bottom-image" :src="require(`./img/${contentObj.bottomImage}`)"/>
+            <img class="bottom-image" :src="require(`./img/${pageData.bottomImage}`)"/>
         </div>
         <footer>
             <div class="partners">
                 <div class="text">Our Partners</div>
                 <div class="logos">
-                    <img v-for="image in contentObj.partnersImages" :class="image.name" :src="image.source"/>
+                    <img v-for="image in pageData.partnersImages" :class="image.name" :src="image.source"/>
                 </div>
             </div>
             <div class="subfooter">
@@ -76,17 +74,17 @@
         methods: {
             search() {
                 if (this.msg) {
-                    if (this.contentObj.name === 'note') {
-                        this.$router.push({path: "/" + this.contentObj.name, query: ''});
+                    if (this.pageData.name === 'note') {
+                        this.$router.push({path: "/" + this.pageData.name, query: ''});
                     }
                     else {
-                        this.$router.push({path: "/" + this.contentObj.name, query: {q: this.msg}});
+                        this.$router.push({path: "/" + this.pageData.name, query: {q: this.msg}});
                     }
                 }
             }
         },
         computed: {
-            contentObj(){return landingPagesData[this.$route.name];}
+            pageData(){return landingPagesData[this.$route.name];}
         },
     }
 </script>
