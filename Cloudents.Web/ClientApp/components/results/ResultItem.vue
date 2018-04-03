@@ -40,7 +40,6 @@
 
 
     export default {
-        mixins:[Analytics],
         components: { AskDefault, NoteDefault, FlashcardDefault},
 
         props: { item: { type: Object, required: true }, index: { Number } },
