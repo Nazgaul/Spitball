@@ -29,9 +29,9 @@ const actions = {
         }
         return interpetPromise(text).then(({ data: body }) => {
             let params = { ...body };
-            let {docType,term}=body;
+            let {docType,term,cords}=body;
             let currentVertical=vertical?vertical:body.vertical;
-            context.dispatch('updateAITerm',{vertical:currentVertical,data:{text,term,docType}});
+            context.dispatch('updateAITerm',{vertical:currentVertical,data:{text,term,docType,location:cords}});
             return new Promise((resolve) => {
                 //if AI return cords use it
                 if (params.hasOwnProperty('cords')) {
