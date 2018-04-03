@@ -76,7 +76,7 @@ export default {
                 }
                 else {
                     if (this.msg && !this.isFirst) {
-                        this.getAutocmplete(val).then(({data}) => {
+                        this.getAutocmplete({term: val, vertical:this.searchVertical ? this.searchVertical : this.getCurrentVertical}).then(({data}) => {
                             this.autoSuggestList = val ? data : [];
                         });
 
