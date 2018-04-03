@@ -15,7 +15,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Converters;
 using JetBrains.Annotations;
 using Cloudents.Core.Read;
-using Cloudents.Infrastructure.Extensions;
 
 namespace Cloudents.Infrastructure.Search
 {
@@ -38,7 +37,7 @@ namespace Cloudents.Infrastructure.Search
             _shuffle = shuffle;
         }
 
-        //[Cache(TimeConst.Day, "bing", false)]
+        [Cache(TimeConst.Day, "bing", false)]
         [BuildLocalUrl(null, PageSize, "page")]
         public async Task<IEnumerable<SearchResult>> SearchAsync(SearchModel model,
             int page, HighlightTextFormat format, CancellationToken token)
