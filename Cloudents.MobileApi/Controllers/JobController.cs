@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Cloudents.Api.Extensions;
 using Cloudents.Api.Filters;
 using Cloudents.Api.Models;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;

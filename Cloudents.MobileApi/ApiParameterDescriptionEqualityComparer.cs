@@ -6,10 +6,10 @@ namespace Cloudents.Api
 {
     internal sealed class ApiParameterDescriptionEqualityComparer : IEqualityComparer<ApiParameterDescription>
     {
-        private static readonly Lazy<ApiParameterDescriptionEqualityComparer> _instance
+        private static readonly Lazy<ApiParameterDescriptionEqualityComparer> PrivateInstance
             = new Lazy<ApiParameterDescriptionEqualityComparer>(() => new ApiParameterDescriptionEqualityComparer());
         public static ApiParameterDescriptionEqualityComparer Instance
-            => _instance.Value;
+            => PrivateInstance.Value;
 
         private ApiParameterDescriptionEqualityComparer() { }
 
@@ -30,7 +30,7 @@ namespace Cloudents.Api
             if (!x.ModelMetadata.Equals(y.ModelMetadata)) return false;
             if (!x.Name.Equals(y.Name)) return false;
             if (!x.Source.Equals(y.Source)) return false;
-            if (!x.Type.Equals(y.Type)) return false;
+            if (x.Type != y.Type) return false;
             return true;
         }
     }

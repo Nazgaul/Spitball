@@ -13,13 +13,12 @@ namespace Cloudents.Core.Read
     [UsedImplicitly]
     public class WebSearch : IWebDocumentSearch, IWebAskSearch, IWebFlashcardSearch
     {
-        //public delegate WebSearch Factory(CustomApiKey api);
         private readonly ISearch _search;
         private readonly ISearchConvertRepository _searchConvertRepository;
         private readonly IUniversitySearch _universitySearch;
         private readonly CustomApiKey _api;
 
-        
+
 
         public WebSearch(ISearch search, ISearchConvertRepository searchConvertRepository, CustomApiKey api, IUniversitySearch universitySearch)
         {
@@ -54,9 +53,13 @@ namespace Cloudents.Core.Read
         {
             return sources?.Select(s =>
             {
-                _api.Priority.TryGetValue(s, out var notes);
-                return notes.Domains;
-            }).SelectMany(s => s);
+                if (_api.Priority.TryGetValue(s, out var notes))
+                {
+                    return notes?.Domains;
+                }
+
+                return null;
+            }).Where(w => w != null).SelectMany(s => s);
         }
 
         public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, HighlightTextFormat format, CancellationToken token)
@@ -69,7 +72,6 @@ namespace Cloudents.Core.Read
             {
                 Result = result,
                 Facet = facets
-
             };
         }
     }

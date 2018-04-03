@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core
 {
@@ -10,6 +11,7 @@ namespace Cloudents.Core
 
     public interface IShuffle
     {
+        [CanBeNull]
         IEnumerable<T> DoShuffle<T>(IEnumerable<T> result) where T : IShuffleable;
     }
 }

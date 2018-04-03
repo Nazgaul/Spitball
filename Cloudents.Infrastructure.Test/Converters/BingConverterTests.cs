@@ -53,7 +53,7 @@ namespace Cloudents.Infrastructure.Test.Converters
             const string courseHeroLink =
                 "https://www.coursehero.com/file/11150425/Calculus-Basics-you-should-know-class-notes/";
 
-            var argument = new BingSearch.WebPage
+            var argument = new BingWebPage
             {
                 Url = courseHeroLink
 
@@ -69,7 +69,7 @@ namespace Cloudents.Infrastructure.Test.Converters
         [TestMethod]
         public void ConvertToResult_RegularWebPage_RegularUrl()
         {
-            var argument = new BingSearch.WebPage
+            var argument = new BingWebPage
             {
                 Url = "https://www.spitball.co"
 
@@ -82,7 +82,7 @@ namespace Cloudents.Infrastructure.Test.Converters
         [TestMethod]
         public void ConvertToResult_SomeWebPageWithNullDomain_HasPriority()
         {
-            var argument = new BingSearch.WebPage
+            var argument = new BingWebPage
             {
                 Url = "https://www.someUrl2.com"
 
@@ -95,7 +95,7 @@ namespace Cloudents.Infrastructure.Test.Converters
         [TestMethod]
         public void ConvertToResult_SomeWebPage_HasPriority()
         {
-            var argument = new BingSearch.WebPage
+            var argument = new BingWebPage
             {
                 Url = "https://www.someUrl.com"
 

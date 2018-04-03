@@ -1,9 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Cloudents.Api.Models;
-using Cloudents.Core.DTOs;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Api.Test.IntegrationTests

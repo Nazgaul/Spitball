@@ -63,6 +63,7 @@ namespace Cloudents.Infrastructure.Interceptor
                 case CancellationToken _:
                     return string.Empty;
                 case IEnumerable collection:
+                   
                     var list = new List<string>();
                     foreach (var collectionArg in collection)
                     {

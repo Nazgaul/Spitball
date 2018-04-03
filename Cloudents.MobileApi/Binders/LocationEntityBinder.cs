@@ -26,11 +26,15 @@ namespace Cloudents.Api.Binders
         {
             // var tempData = _tempDataFactory.GetTempData(bindingContext.HttpContext);
 
-            var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(Location.Point)}.{nameof(GeographicCoordinate.Latitude)}");
-            var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(Location.Point)}.{nameof(GeographicCoordinate.Longitude)}");
+            var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(GeographicCoordinate.Latitude)}").FirstValue ??
+                              bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(Location.Point)}.{nameof(GeographicCoordinate.Latitude)}").FirstValue;
+            var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(GeographicCoordinate.Longitude)}").FirstValue ??
+                               bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(Location.Point)}.{nameof(GeographicCoordinate.Longitude)}").FirstValue;
+
+
             Location locationFromTemp;// = TempDataExtensions.Get<Location>(tempData, KeyName);
-            if (float.TryParse(latitudeStr.FirstValue, out var latitude)
-                && float.TryParse(longitudeStr.FirstValue, out var longitude))
+            if (float.TryParse(latitudeStr, out var latitude)
+                && float.TryParse(longitudeStr, out var longitude))
             {
                 var point = new GeographicCoordinate
                 {

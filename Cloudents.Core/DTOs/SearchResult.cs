@@ -8,23 +8,23 @@ namespace Cloudents.Core.DTOs
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "dto class convert to json")]
     public class SearchResult : IShuffleable, IUrlRedirect
     {
-       [DataMember]
-       public string Id { get; set; }
-       [DataMember]
+        [DataMember]
+        public string Id { get; set; }
+        [DataMember]
         public Uri Image { get; set; }
-       [DataMember]
+        [DataMember]
         public string Title { get; set; }
-       [DataMember]
+        [DataMember]
         public string Snippet { get; set; }
-       [DataMember]
+        [DataMember]
         public string Url { get; set; }
 
-       [DataMember]
+        [DataMember]
         public string Source { get; set; }
 
         public PrioritySource PrioritySource { get; set; }
 
-       [DataMember]
+        //[DataMember]
         public int Order { get; set; }
     }
 }

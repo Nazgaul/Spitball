@@ -13,7 +13,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Infrastructure.Converters
 {
     [UsedImplicitly]
-    public class BingConverter : ITypeConverter<BingSearch.WebPage, SearchResult>
+    public class BingConverter : ITypeConverter<BingWebPage, SearchResult>
     {
         private readonly IKeyGenerator _keyGenerator;
         private readonly IReplaceImageProvider _imageProvider;
@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Converters
             _domainParser = domainParser;
         }
 
-        public SearchResult Convert(BingSearch.WebPage source, SearchResult destination, ResolutionContext context)
+        public SearchResult Convert(BingWebPage source, SearchResult destination, ResolutionContext context)
         {
             var url = new Uri(source.Url);
             var highlight = Enumerable.Empty<string>();
@@ -62,7 +62,8 @@ namespace Cloudents.Infrastructure.Converters
                 Snippet = source.Snippet.HighlightKeyWords(highlight, false),
                 Source = domain,
                 Title = source.Name,
-                PrioritySource = priority
+                PrioritySource = priority,
+               
             };
 
             if (string.Equals(domain, "courseHero", StringComparison.OrdinalIgnoreCase))

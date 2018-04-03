@@ -14,6 +14,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Converters;
 using JetBrains.Annotations;
 using Cloudents.Core.Read;
+using Cloudents.Infrastructure.Extensions;
 
 namespace Cloudents.Infrastructure.Search
 {
@@ -64,9 +65,8 @@ namespace Cloudents.Infrastructure.Search
             {
                 return null;
             }
-
-            var retVal =  _mapper.Map<IEnumerable<WebPage>, IEnumerable<SearchResult>>(
-                response.WebPages?.Value, a =>
+            var retVal = _mapper.MapWithPriority<BingWebPage, SearchResult>(
+                response.WebPages.Value, a =>
                 {
                     if (format == HighlightTextFormat.Html)
                     {
@@ -85,19 +85,15 @@ namespace Cloudents.Infrastructure.Search
                 return string.Empty;
             }
 
-            //var sourceStr = sources.Select(s =>
-            //{
-
-            //    //if (string.Equals(s, "Cloudents.com", StringComparison.OrdinalIgnoreCase))
-            //    //{
-            //    //    s = "Spitball.co";
-            //    //}
-            //    //return $"site:{s}";
-            //});
-            return $"({string.Join(" OR ", sources)})";
+            var sites = string.Join(" OR ", sources);
+            if (string.IsNullOrEmpty(sites))
+            {
+                return string.Empty;
+            }
+            return $"site:({sites})";
         }
 
-        public static string BuildQuery(IEnumerable<string> universitySynonym,
+        private static string BuildQuery(IEnumerable<string> universitySynonym,
             IEnumerable<string> courses,
             IEnumerable<string> terms,
             string docType,
@@ -131,38 +127,41 @@ namespace Cloudents.Infrastructure.Search
             return string.Join(" AND ", query.Select(s => s));
         }
 
-        [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-        public class BingCustomSearchResponse
-        {
-            public WebPages WebPages { get; set; }
-        }
+        
+    }
 
-        [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-        public class WebPages
-        {
-            public WebPage[] Value { get; set; }
-        }
 
-        [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-        public class WebPage
-        {
-            //public string id { get; set; }
-            //public string urlPingSuffix { get; set; }
-            //public bool isFamilyFriendly { get; set; }
-            //public string displayUrl { get; set; }
-            //public DateTime dateLastCrawled { get; set; }
-            //public bool fixedPosition { get; set; }
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    public class BingCustomSearchResponse
+    {
+        public BingWebPages WebPages { get; set; }
+    }
 
-            public string Name { get; set; }
-            public string Url { get; set; }
-            public string Snippet { get; set; }
-            public OpenGraphImage OpenGraphImage { get; set; }
-        }
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    public class BingWebPages
+    {
+        public BingWebPage[] Value { get; set; }
+    }
 
-        [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-        public class OpenGraphImage
-        {
-            public string ContentUrl { get; set; }
-        }
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    public class BingWebPage
+    {
+        //public string id { get; set; }
+        //public string urlPingSuffix { get; set; }
+        //public bool isFamilyFriendly { get; set; }
+        //public string displayUrl { get; set; }
+        //public DateTime dateLastCrawled { get; set; }
+        //public bool fixedPosition { get; set; }
+
+        public string Name { get; set; }
+        public string Url { get; set; }
+        public string Snippet { get; set; }
+        public OpenGraphImage OpenGraphImage { get; set; }
+    }
+
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    public class OpenGraphImage
+    {
+        public string ContentUrl { get; set; }
     }
 }

@@ -39,7 +39,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 return null;
             }
 
-            if (string.Equals(jobProviderRequest.Location.Address.CountryCode, "us", StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(jobProviderRequest.Location.Address.CountryCode, "us", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
