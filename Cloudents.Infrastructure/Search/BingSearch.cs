@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -37,7 +38,7 @@ namespace Cloudents.Infrastructure.Search
             _shuffle = shuffle;
         }
 
-        [Cache(TimeConst.Day, "bing", false)]
+        //[Cache(TimeConst.Day, "bing", false)]
         [BuildLocalUrl(null, PageSize, "page")]
         public async Task<IEnumerable<SearchResult>> SearchAsync(SearchModel model,
             int page, HighlightTextFormat format, CancellationToken token)
@@ -65,17 +66,28 @@ namespace Cloudents.Infrastructure.Search
             {
                 return null;
             }
-            var retVal = _mapper.MapWithPriority<BingWebPage, SearchResult>(
-                response.WebPages.Value, a =>
-                {
-                    if (format == HighlightTextFormat.Html)
-                    {
-                        a.Items[BingConverter.KeyTermHighlight] = model.Query;
-                    }
 
-                    a.Items[BingConverter.KeyPriority] = model.Key.Priority;
-                });
-            return _shuffle.DoShuffle(retVal);
+            var retVal = _mapper.Map<IEnumerable<BingWebPage>, IEnumerable<SearchResult>>(response.WebPages.Value, a =>
+             {
+                 if (format == HighlightTextFormat.Html)
+                 {
+                     a.Items[BingConverter.KeyTermHighlight] = model.Query;
+                 }
+
+                 a.Items[BingConverter.KeyPriority] = model.Key.Priority;
+             });
+            retVal = _shuffle.ShuffleBySource(retVal);
+            //var retVal = _mapper.MapWithPriority<BingWebPage, SearchResult>(
+            //    response.WebPages.Value, a =>
+            //    {
+            //        if (format == HighlightTextFormat.Html)
+            //        {
+            //            a.Items[BingConverter.KeyTermHighlight] = model.Query;
+            //        }
+
+            //        a.Items[BingConverter.KeyPriority] = model.Key.Priority;
+            //    });
+            return _shuffle.ShuffleByPriority(retVal);
         }
 
         private static string BuildSources(IEnumerable<string> sources)
@@ -127,7 +139,7 @@ namespace Cloudents.Infrastructure.Search
             return string.Join(" AND ", query.Select(s => s));
         }
 
-        
+
     }
 
 
@@ -146,7 +158,7 @@ namespace Cloudents.Infrastructure.Search
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public class BingWebPage
     {
-        //public string id { get; set; }
+        public string Id { get; set; }
         //public string urlPingSuffix { get; set; }
         //public bool isFamilyFriendly { get; set; }
         //public string displayUrl { get; set; }
@@ -157,6 +169,23 @@ namespace Cloudents.Infrastructure.Search
         public string Url { get; set; }
         public string Snippet { get; set; }
         public OpenGraphImage OpenGraphImage { get; set; }
+
+        public int Order
+        {
+            get
+            {
+                if (Uri.TryCreate(Id, UriKind.Absolute, out var p))
+                {
+                    var match = Regex.Match(p.Fragment, "[0-9]{1,}", RegexOptions.Compiled);
+                    if (int.TryParse(match.Value, out var o))
+                    {
+                        return o;
+                    }
+                }
+
+                return 999;
+            }
+        }
     }
 
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]

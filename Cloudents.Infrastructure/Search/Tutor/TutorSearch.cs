@@ -52,7 +52,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             {
                 return result.OrderBy(o => o.Fee);
             }
-            return _shuffle.DoShuffle(result);
+            return _shuffle.ShuffleByPriority(result);
         }
     }
 }

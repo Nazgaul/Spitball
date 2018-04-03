@@ -48,7 +48,7 @@ namespace Cloudents.Core.Test
                 new ShuffleTestModel {PrioritySource = TestA, Order = 7}
             };
             var shuffle = new Shuffle();
-            var result = shuffle.DoShuffle(list).ToList();
+            var result = shuffle.ShuffleByPriority(list).ToList();
 
             var expectedList = new List<ShuffleTestModel>
             {
@@ -80,7 +80,7 @@ namespace Cloudents.Core.Test
                 new ShuffleTestModel {PrioritySource = TestA, Order = 7}
             };
             var shuffle = new Shuffle();
-            var result = shuffle.DoShuffle(list).ToList();
+            var result = shuffle.ShuffleByPriority(list).ToList();
             result.Should().BeEquivalentTo(list);
             //CollectionAssert.AreEqual(result, list);
         }

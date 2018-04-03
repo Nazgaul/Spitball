@@ -63,7 +63,6 @@ namespace Cloudents.Infrastructure.Converters
                 Source = domain,
                 Title = source.Name,
                 PrioritySource = priority,
-               
             };
 
             if (string.Equals(domain, "courseHero", StringComparison.OrdinalIgnoreCase))

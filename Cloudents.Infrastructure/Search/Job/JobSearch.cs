@@ -76,7 +76,7 @@ namespace Cloudents.Infrastructure.Search.Job
             }
             else
             {
-                retVal.Result = _shuffle.DoShuffle(retVal.Result);
+                retVal.Result = _shuffle.ShuffleByPriority(retVal.Result);
             }
 
             return retVal;
