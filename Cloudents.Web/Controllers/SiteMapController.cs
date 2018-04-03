@@ -59,7 +59,7 @@ namespace Cloudents.Web.Controllers
         public async Task DetailIndexAsync(SeoType type, int index, CancellationToken token)
         {
             var query = new SeoQuery(index);
-            var entities = _seoRepositories[type].Get(query);
+            //var entities = _seoRepositories[type].Get(query);
             var routeName = type.GetDescription();
             var response = HttpContext.Response;
             response.StatusCode = 200;
@@ -72,7 +72,7 @@ namespace Cloudents.Web.Controllers
             await writer.WriteStartDocumentAsync().ConfigureAwait(false);
             writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
             var iterator = 0;
-            foreach (var entity in entities)
+            foreach (var entity in _seoRepositories[type].Get(query))
             {
                 iterator++;
                 var url = Url.RouteUrl(routeName, new
