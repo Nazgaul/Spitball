@@ -21,7 +21,8 @@ namespace Cloudents.Infrastructure
             ["Spitball"] = "spitball.png",
             ["Cliffsnotes"] = "CliffsNotes.png",
             ["oneclass"] = "oneClass.png",
-            ["chegg"] = "chegg.png"
+            ["chegg"] = "chegg.png",
+            ["brainscape"] = "brainscape.png"
         };
 
         //TODO: make sure this is https - need to figure out how to solve this

@@ -66,7 +66,7 @@ namespace Cloudents.Core
         public static readonly IReadOnlyDictionary<string, PrioritySource> FlashcardPriority = new List<PrioritySource>
         {
             new PrioritySource("StudyBlue" , 1,new []{"www.studyblue.com/notes/note"}),
-            //new PrioritySource("BrainScape",  1),
+            new PrioritySource("brainscape",  1,new []{"brainscape.com/flashcards"}),
             new PrioritySource("CourseHero",  1,new []{"coursehero.com/flashcards"}),
             new PrioritySource("Quizlet",  2,new []{"quizlet.com"}),
             new PrioritySource("Cloudents",  4,new []{"spitball.co/flashcard"}),
