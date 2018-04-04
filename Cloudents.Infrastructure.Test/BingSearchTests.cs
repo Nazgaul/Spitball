@@ -113,7 +113,7 @@ namespace Cloudents.Infrastructure.Test
                 var result = (string)privateObj.Invoke("BuildSources",
                     BindingFlags.Static | BindingFlags.NonPublic, subject);
 
-                result.Should().StartWith("site:");
+                result.Should().StartWith("(site:someDomain.com)");
             }
         }
 
@@ -130,6 +130,22 @@ namespace Cloudents.Infrastructure.Test
                     BindingFlags.Static | BindingFlags.NonPublic, subject);
 
                 result.Should().BeEmpty();
+            }
+        }
+
+
+        [TestMethod]
+        public void BuildSources_SomeInput_RightInput()
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                var sut = mock.Create<BingSearch>();
+                var privateObj = new PrivateObject(sut);
+                var subject = new List<string>() { "bbc.co.uk", "cnn.com" };
+                var result = (string)privateObj.Invoke("BuildSources",
+                    BindingFlags.Static | BindingFlags.NonPublic, subject);
+
+                result.Should().Be("(site:bbc.co.uk OR site:cnn.com)");
             }
         }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -48,11 +47,12 @@ namespace Cloudents.Infrastructure.Search
                 model.Key.DefaultPhrase);
             var sourceQuery = BuildSources(model.Sources);
 
+            var offset = (page * PageSize);
             var nvc = new NameValueCollection
             {
                 ["count"] = PageSize.ToString(),
                 ["customConfig"] = model.Key.Key,
-                ["offset"] = (page * PageSize).ToString(),
+                ["offset"] = offset.ToString(),
                 ["q"] = $"{query} {sourceQuery}"
             };
             var uri = new Uri("https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search");
@@ -62,6 +62,11 @@ namespace Cloudents.Infrastructure.Search
                 new KeyValuePair<string,string>("Ocp-Apim-Subscription-Key", SubscriptionKey)
             }, token).ConfigureAwait(false);
             if (response?.WebPages?.Value == null)
+            {
+                return null;
+            }
+
+            if (response.WebPages.TotalEstimatedMatches < offset)
             {
                 return null;
             }
@@ -76,16 +81,6 @@ namespace Cloudents.Infrastructure.Search
                  a.Items[BingConverter.KeyPriority] = model.Key.Priority;
              });
             retVal = _shuffle.ShuffleBySource(retVal);
-            //var retVal = _mapper.MapWithPriority<BingWebPage, SearchResult>(
-            //    response.WebPages.Value, a =>
-            //    {
-            //        if (format == HighlightTextFormat.Html)
-            //        {
-            //            a.Items[BingConverter.KeyTermHighlight] = model.Query;
-            //        }
-
-            //        a.Items[BingConverter.KeyPriority] = model.Key.Priority;
-            //    });
             return _shuffle.ShuffleByPriority(retVal);
         }
 
@@ -96,12 +91,13 @@ namespace Cloudents.Infrastructure.Search
                 return string.Empty;
             }
 
-            var sites = string.Join(" OR ", sources);
+            var sites = string.Join(" OR ", sources.Select(s=> $"site:{s}"));
             if (string.IsNullOrEmpty(sites))
             {
                 return string.Empty;
             }
-            return $"site:({sites})";
+
+            return $"({sites})";
         }
 
         private static string BuildQuery(IEnumerable<string> universitySynonym,
@@ -137,10 +133,7 @@ namespace Cloudents.Infrastructure.Search
 
             return string.Join(" AND ", query.Select(s => s));
         }
-
-
     }
-
 
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public class BingCustomSearchResponse
@@ -152,39 +145,23 @@ namespace Cloudents.Infrastructure.Search
     public class BingWebPages
     {
         public BingWebPage[] Value { get; set; }
+        public long TotalEstimatedMatches { get; set; }
     }
 
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public class BingWebPage
     {
         public string Id { get; set; }
-        //public string urlPingSuffix { get; set; }
-        //public bool isFamilyFriendly { get; set; }
-        //public string displayUrl { get; set; }
-        //public DateTime dateLastCrawled { get; set; }
-        //public bool fixedPosition { get; set; }
+        /*public string urlPingSuffix { get; set; }
+        public bool isFamilyFriendly { get; set; }
+        public string displayUrl { get; set; }
+        public DateTime dateLastCrawled { get; set; }
+        public bool fixedPosition { get; set; }*/
 
         public string Name { get; set; }
         public string Url { get; set; }
         public string Snippet { get; set; }
         public OpenGraphImage OpenGraphImage { get; set; }
-
-        public int Order
-        {
-            get
-            {
-                if (Uri.TryCreate(Id, UriKind.Absolute, out var p))
-                {
-                    var match = Regex.Match(p.Fragment, "[0-9]{1,}", RegexOptions.Compiled);
-                    if (int.TryParse(match.Value, out var o))
-                    {
-                        return o;
-                    }
-                }
-
-                return 999;
-            }
-        }
     }
 
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
