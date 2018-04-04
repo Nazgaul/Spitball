@@ -56,6 +56,7 @@ export default {
                 this.focusedIndex = -1;
             }
             if (this.focusedIndex < 0) {
+                this.originalMsg = this.msg;
                 this.$emit('input', val);
                 if (val && !this.isFirst) {
                     this.getAutocmplete({term: val, vertical:this.suggestionVertical ? this.suggestionVertical : this.getCurrentVertical}).then(({data}) => {
