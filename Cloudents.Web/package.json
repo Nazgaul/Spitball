@@ -39,7 +39,6 @@
     "purifycss-webpack": "0.7.0",
     "query-string": "^5.0.1",
     "sass-loader": "^6.0.6",
-    "smartbanner.js": "^1.9.1",
     "style-loader": "^0.19.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
