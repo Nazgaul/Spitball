@@ -28,8 +28,9 @@ namespace Cloudents.Infrastructure.Suggest
             
             //builder.RegisterType<TutorSuggest>()
             //.WithMetadata<SuggestMetadata>(m => m.For(am => am.AppenderName, new[] { Vertical.Tutor }));
-            builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Tutor).Keyed<ISuggestions>(Vertical.Job);
-            builder.RegisterType<TutorSuggest>().As<ITutorSuggestion>();
+            builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Tutor).WithParameter("vertical",Vertical.Tutor);
+            builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Job).WithParameter("vertical",Vertical.Job);
+            builder.RegisterType<TutorSuggest>().As<ITutorSuggestion>().WithParameter("vertical", Vertical.Tutor);
             //builder.RegisterType<BingSuggest>().
             //.EnableInterfaceInterceptors()
             //.InterceptedBy(typeof(CacheResultInterceptor));

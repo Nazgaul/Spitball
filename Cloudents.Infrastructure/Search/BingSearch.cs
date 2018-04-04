@@ -47,7 +47,7 @@ namespace Cloudents.Infrastructure.Search
                 model.Key.DefaultPhrase);
             var sourceQuery = BuildSources(model.Sources);
 
-            var offset = (page * PageSize);
+            var offset = page * PageSize;
             var nvc = new NameValueCollection
             {
                 ["count"] = PageSize.ToString(),

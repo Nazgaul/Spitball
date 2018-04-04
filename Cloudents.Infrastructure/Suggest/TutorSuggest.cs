@@ -18,10 +18,12 @@ namespace Cloudents.Infrastructure.Suggest
     {
         private readonly ISearchIndexClient _client;
         private readonly IKeyGenerator _generator;
+        private readonly Vertical _vertical;
 
-        public TutorSuggest(ISearchServiceClient client, IKeyGenerator generator)
+        public TutorSuggest(ISearchServiceClient client, IKeyGenerator generator, Vertical vertical)
         {
             _generator = generator;
+            _vertical = vertical;
             _client = client.Indexes.GetClient(AutoCompleteSearchWrite.IndexName);
         }
 
@@ -30,7 +32,7 @@ namespace Cloudents.Infrastructure.Suggest
             var searchParameter = new SearchParameters
             {
                 Select = new List<string> { nameof(AutoComplete.Key) },
-                Filter = $"{nameof(AutoComplete.Vertical)} eq {(int)Vertical.Tutor}",
+                Filter = $"{nameof(AutoComplete.Vertical)} eq {(int)_vertical}",
                 Top = BingSuggest.NumberOfEntries,
                 ScoringProfile = AutoCompleteSearchWrite.ScoringProfile
             };
