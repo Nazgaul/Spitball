@@ -127,7 +127,7 @@ const actions = {
             return settingsService.getUniversity({ term: data.term, location });
         });
     },
-    getCorses(context, { term }) {
+    getCourses(context, { term }) {
         return settingsService.getCourse({ term, universityId: context.getters.getUniversity });
     },
 

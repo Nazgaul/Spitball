@@ -7,7 +7,7 @@ export let searchObjects = {
         id: typesPersonalize.course,
         placeholder: 'What class are you taking?',
         closeText: "done",
-        searchApi: "getCorses",
+        searchApi: "getCourses",
         defaultFilter: 'all',
         filters: [{id: 'all', name: 'ALL COURSES'}, {id: 'myCourses', name: 'MY COURSES'}],
         click: function () {
