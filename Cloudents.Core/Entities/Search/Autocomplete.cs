@@ -10,12 +10,18 @@ namespace Cloudents.Core.Entities.Search
         [DataMember]
         public string Id { get; set; }
 
+        /// <summary>
+        /// The auto suggest list for the user
+        /// </summary>
         [DataMember]
         public string Key { get; set; }
 
         [DataMember]
         public string Prefix { get; set; }
 
+        /// <summary>
+        /// The End result to search given a key
+        /// </summary>
         [DataMember]
         public string Value { get; set; }
 

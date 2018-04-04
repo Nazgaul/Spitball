@@ -90,12 +90,11 @@ namespace ConsoleApp
                 {
                     Key = s.Value,
                     Id = keyGenerator.GenerateKey(s.Value.ToLowerInvariant()),
-                    Vertical = Vertical.Tutor,
+                    Vertical = Vertical.Job,
                     Value = s.Key,
                     Prefix = s.Value
                 });
                 await autocompleteWrite.UpdateDataAsync(autoCompleteBatch, default);
-
             }
 
             Console.WriteLine("Finish");
