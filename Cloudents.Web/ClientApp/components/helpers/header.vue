@@ -1,6 +1,7 @@
 <template>
     <v-toolbar app fixed :height="height" class="header">
         <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
+            <smart-app-banner class="fixed-top" v-if="showSmartAppBanner && $vuetify.breakpoint.xsOnly"></smart-app-banner>
             <div class="main">
                 <v-flex class="line top">
                     <v-layout row>
@@ -93,6 +94,7 @@
 <script>
     import { settingMenu } from '../settings/consts';
     import SearchInput from '../helpers/searchInput.vue';
+    import smartAppBanner from "../smartAppBanner/smartAppBanner.vue"
     import {mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     const PersonalizeDialog=()=> import('./ResultPersonalize.vue');
@@ -113,15 +115,19 @@
             food:"Search for deals..."
         },
         computed: {
-            ...mapGetters(['getUniversityName']),
+            ...mapGetters(['getUniversityName', 'showSmartAppBanner']),
     },
         watch:{
             toolbarHeight(val) {
                 this.height = val;
+            },
+            showSmartAppBanner(val){
+                let headerHeight =this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
+                this.height =  this.$vuetify.breakpoint.xsOnly && val? headerHeight + 84 : headerHeight;
             }
         },
         components: {
-            PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput
+            PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput,smartAppBanner
         },
         props:{currentSelection:{type:String,default:'note'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
         data(){return {settingMenu,clickOnce:false}},
@@ -169,7 +175,8 @@
                         this.$refs.personalize.openDialog(type);
                     })
                 });
-            this.height=this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
+            let headerHeight =this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
+            this.height =  this.$vuetify.breakpoint.xsOnly && this.showSmartAppBanner? headerHeight + 84 : headerHeight;
         }
     }
 </script>
