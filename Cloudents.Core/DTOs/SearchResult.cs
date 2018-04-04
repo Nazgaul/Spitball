@@ -24,7 +24,6 @@ namespace Cloudents.Core.DTOs
 
         public PrioritySource PrioritySource { get; set; }
 
-        //[DataMember]
         public int Order { get; set; }
     }
 }

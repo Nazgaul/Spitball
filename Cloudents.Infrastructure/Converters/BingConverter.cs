@@ -38,22 +38,18 @@ namespace Cloudents.Infrastructure.Converters
                 highlight = z;
             }
             var domain = _domainParser.GetDomain(url.Host);
-
             var priority = PrioritySource.Unknown;
-
-
-            if (context.Items.TryGetValue(KeyPriority, out var val) && val is IReadOnlyDictionary<string, PrioritySource> priorities && domain != null && priorities.TryGetValue(domain, out var priorityTemp))
-            {
-                priority = priorityTemp;
-            }
-
-
             if (Uri.TryCreate(source.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image))
             {
                 image = image.ChangeToHttps();
+                image = _imageProvider.ChangeImageIfNeeded(domain, image);
+            }
+            if (context.Items.TryGetValue(KeyPriority, out var val) && val is IReadOnlyDictionary<string, PrioritySource> priorities && domain != null && priorities.TryGetValue(domain, out var priorityTemp))
+            {
+                priority = priorityTemp;
+                domain = priority.Source;
             }
 
-            image = _imageProvider.ChangeImageIfNeeded(domain, image);
             var result = new SearchResult
             {
                 Url = source.Url,
