@@ -27,8 +27,7 @@ export default {
                 if (this.focusedIndex < 0) {
                     this.$emit('input', val);
                     this.$store.dispatch("getUniversities", {term: val}).then(({data}) => {
-                        let {universities} = data;
-                        this.uniSuggestList = val ? universities : [];
+                        this.uniSuggestList = val ? data : [];
                     });
                 }
         }, 250),
@@ -114,9 +113,7 @@ export default {
             this.msg = uniName;
         } else {
             this.$store.dispatch("getUniversities", {term: ''}).then(({data}) => {
-                let {universities} = data;
-                this.uniSuggestList = universities;
-
+                this.uniSuggestList = data;
             });
         }
     }
