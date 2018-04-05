@@ -40,7 +40,7 @@ namespace Cloudents.Core.Read
 
             var cseModel = new SearchModel(model.Query, BuildSources(model.Source), _api, courses, universitySynonym, model.DocType);
             var result = await _search.SearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
-            var facets = _api.Priority.Select(s => s.Key);
+            var facets = _api.Priority.Select(s => s.Key).OrderBy(s => s);
             return new ResultWithFacetDto<SearchResult>
             {
                 Result = result,
@@ -67,7 +67,7 @@ namespace Cloudents.Core.Read
 
             var cseModel = new SearchModel(model.Query, BuildSources(model.Source), _api, null, null, model.DocType);
             var result = await _search.SearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
-            var facets = _api.Priority.Select(s => s.Key);
+            var facets = _api.Priority.Select(s => s.Key).OrderBy(s => s);
             return new ResultWithFacetDto<SearchResult>
             {
                 Result = result,
