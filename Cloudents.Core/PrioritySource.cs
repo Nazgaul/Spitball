@@ -101,10 +101,10 @@ namespace Cloudents.Core
             new PrioritySource("space", 10,new [] {"space.com"}),
             new PrioritySource("thoughtco", 10,new [] {"thoughtco.com"}),
             new PrioritySource("wikihow", 10,new [] {"wikihow.com"}),
+            new PrioritySource("wikipedia",10, new [] {"en.wikipedia.org","simple.wikipedia.org"}),
             new PrioritySource("businessinsider", 10,new [] {"businessinsider.com"}),
             new PrioritySource("snapguide", 10,new [] {"snapguide.com"}),
             new PrioritySource("wired", 10,new [] {"wired.com"})
-
         }.ToDictionary(f => f.Source, StringComparer.OrdinalIgnoreCase);
     }
 }
