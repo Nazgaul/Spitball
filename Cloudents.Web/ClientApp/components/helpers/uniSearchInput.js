@@ -27,7 +27,7 @@ export default {
                 if (this.focusedIndex < 0) {
                     this.$emit('input', val);
                     this.$store.dispatch("getUniversities", {term: val}).then(({data}) => {
-                        this.uniSuggestList = val ? data : [];
+                        this.uniSuggestList = data;
                     });
                 }
         }, 250),
@@ -74,10 +74,10 @@ export default {
             }
         },
         highlightSearch: function (item) {
-            let term = this.msg;
-            let uniLower = item.name.toLowerCase();
-            let matchStartIndex = uniLower.indexOf(term);
-            if (!matchStartIndex < 0) {
+            let term = this.msg.toLowerCase();
+            let itemLower = item.name.toLowerCase();
+            let matchStartIndex = itemLower.indexOf(term);
+            if (matchStartIndex < 0) {
                 return item.name;
             }
             let matchEndIndex = matchStartIndex + term.length;
