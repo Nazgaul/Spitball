@@ -60,13 +60,17 @@ namespace Cloudents.Infrastructure.Search
         public async Task<IEnumerable<UniversityDto>> SearchAsync(string term, GeoPoint location,
             CancellationToken token)
         {
+            //geo.distance({nameof(University.GeographyPoint)}, geography'POINT({location.Longitude} {location.Latitude})')
+            var sort = new List<string> {"search.score() desc"};
             var searchParameter = new SearchParameters
             {
                 Select = _listOfSelectParams,
-                OrderBy = new List<string> { "search.score() desc", nameof(University.Name) }
+                Top = 15,
+                //OrderBy = new List<string> { "search.score() desc", nameof(University.Name) }
             };
             if (location != null)
             {
+                sort.Add($"geo.distance({nameof(University.GeographyPoint)}, geography'POINT({location.Longitude} {location.Latitude})')");
                 searchParameter.ScoringProfile = UniversitySearchWrite.ScoringProfile;
                 searchParameter.ScoringParameters = new[] {
                     new ScoringParameter
@@ -74,6 +78,8 @@ namespace Cloudents.Infrastructure.Search
                         ,GeographyPoint.Create(location.Latitude,location.Longitude))
                 };
             }
+            sort.Add(nameof(University.Name));
+            searchParameter.OrderBy = sort;
 
             var result = await
                 _client.Documents.SearchAsync<University>(term, searchParameter,
