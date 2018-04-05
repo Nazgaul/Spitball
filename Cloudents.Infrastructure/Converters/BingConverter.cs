@@ -42,8 +42,12 @@ namespace Cloudents.Infrastructure.Converters
             if (Uri.TryCreate(source.OpenGraphImage?.ContentUrl, UriKind.Absolute, out var image))
             {
                 image = image.ChangeToHttps();
-                image = _imageProvider.ChangeImageIfNeeded(domain, image);
+                //image = _imageProvider.ChangeImageIfNeeded(domain, image);
             }
+            //else
+            //{
+            //    image = _imageProvider.ChangeImageIfNeeded(domain, image);
+            //}
             if (context.Items.TryGetValue(KeyPriority, out var val) && val is IReadOnlyDictionary<string, PrioritySource> priorities && domain != null && priorities.TryGetValue(domain, out var priorityTemp))
             {
                 priority = priorityTemp;
@@ -54,7 +58,7 @@ namespace Cloudents.Infrastructure.Converters
             {
                 Url = source.Url,
                 Id = _keyGenerator.GenerateKey(source.Url),
-                Image = image,
+                Image = _imageProvider.ChangeImageIfNeeded(domain, image),
                 Snippet = source.Snippet.HighlightKeyWords(highlight, false),
                 Source = domain,
                 Title = source.Name,
