@@ -20,6 +20,8 @@ namespace Cloudents.Infrastructure.Suggest
         private readonly IKeyGenerator _generator;
         private readonly Vertical _vertical;
 
+        public const string VerticalParameter = "vertical";
+
         public TutorSuggest(ISearchServiceClient client, IKeyGenerator generator, Vertical vertical)
         {
             _generator = generator;

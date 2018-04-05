@@ -25,17 +25,17 @@ namespace Cloudents.Infrastructure.Suggest
                 .InterceptedBy(typeof(CacheResultInterceptor));
 
 
-            
+
             //builder.RegisterType<TutorSuggest>()
             //.WithMetadata<SuggestMetadata>(m => m.For(am => am.AppenderName, new[] { Vertical.Tutor }));
-            builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Tutor).WithParameter("vertical",Vertical.Tutor);
-            builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Job).WithParameter("vertical",Vertical.Job);
-            builder.RegisterType<TutorSuggest>().As<ITutorSuggestion>().WithParameter("vertical", Vertical.Tutor);
+            builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Tutor).WithParameter(TutorSuggest.VerticalParameter, Vertical.Tutor);
+            builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Job).WithParameter(TutorSuggest.VerticalParameter, Vertical.Job);
+            builder.RegisterType<TutorSuggest>().As<ITutorSuggestion>().WithParameter(TutorSuggest.VerticalParameter, Vertical.Tutor);
             //builder.RegisterType<BingSuggest>().
             //.EnableInterfaceInterceptors()
             //.InterceptedBy(typeof(CacheResultInterceptor));
 
-           
+
         }
     }
 }
