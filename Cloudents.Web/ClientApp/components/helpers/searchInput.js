@@ -50,10 +50,11 @@ export default {
             this.isFirst = true;
         },
         msg: debounce(function (val) {
-            if(this.focusedIndex >= 0 && this.msg !== this.suggestList[this.focusedIndex].text){
+            if (this.focusedIndex >= 0 && this.msg !== this.suggestList[this.focusedIndex].text) {
                 this.focusedIndex = -1;
             }
             if (this.focusedIndex < 0) {
+                this.originalMsg = this.msg;
                 this.$emit('input', val);
                 if (val && !this.isFirst) {
                     this.getAutocmplete({term: val, vertical:this.suggestionVertical ? this.suggestionVertical : this.getCurrentVertical}).then(({data}) => {
@@ -65,8 +66,8 @@ export default {
                 this.isFirst = false;
             }
         }, 250),
-        focusedIndex(val){
-            if(val < 0){
+        focusedIndex(val) {
+            if (val < 0) {
                 this.msg = this.originalMsg;
             }
             else {
@@ -124,10 +125,21 @@ export default {
             this.search();
         },
         highlightSearch: function (item) {
-            let term = this.msg;
-            let regex = /(<([^>]+)>)/ig;
-            let aa = item.type === consts.SUGGEST_TYPE.autoComplete ? item.text.replace(term, '<span class=\'highlight\'>' + term + '</span>') : item.text.replace(regex, "");
-            return aa;
+            if (!item.type === consts.SUGGEST_TYPE.autoComplete || !this.msg) {
+                return item.text
+            }
+            else {
+                let term = this.msg.toLowerCase();
+                let itemLower = item.text.toLowerCase();
+                let matchStartIndex = itemLower.indexOf(term);
+                if (matchStartIndex < 0) {
+                    return item.text;
+                }
+                let matchEndIndex = matchStartIndex + term.length;
+                return item.text.slice(0, matchStartIndex)
+                    + '<span class=\'highlight\'>' + item.text.slice(matchStartIndex, matchEndIndex) + '</span>'
+                    + item.text.slice(matchEndIndex, item.text.length);
+            }
         },
         arrowNavigation(direction) {
             // When to save user's typed text
