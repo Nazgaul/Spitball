@@ -76,11 +76,11 @@ const searchFunctions = {
     getNextPage:({url,vertical})=>{
         currentVertical=vertical;
         return axios.get(url,{baseURL:"",transformResponse:transferNextPage})}
-};
+}
 
 const courseFunctions = {
-    getCourse: (params) => axios.get("course", { params }),
-    createCourse: (data) => axios.post('course', qs.stringify(data))
+    getCourse: (params) => axios.get("course/search", { params }),
+    createCourse: (data) => axios.post("course/create", qs.stringify(data))
 };
 export const interpetPromise = (sentence) => axios.get("AI", { params: { sentence } });
 const getBookDetails = ({ type, isbn13 }) => axios.get(`book/${type}`, { params: { isbn13 } });

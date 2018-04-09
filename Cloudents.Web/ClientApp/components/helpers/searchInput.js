@@ -26,17 +26,15 @@ export default {
             let buildInSuggestList = currentHistory ? consts.buildInSuggest[currentHistory] : consts.buildInSuggest.home;
             let historyList = [...(this.submitRoute && currentHistory ? this.$store.getters.getVerticalHistory(currentHistory) : this.allHistorySet)];
             let historySuggestSet = [...new Set([...historyList, ...buildInSuggestList])];
-            let set = currentHistory ? historySuggestSet : [...new Set([...this.autoSuggestList, ...historySuggestSet])];
             let autoListMap = this.autoSuggestList ? this.autoSuggestList.map((i) => ({
                 text: i,
                 type: consts.SUGGEST_TYPE.autoComplete
             })) : [];
-            let mapDataSet = set.slice(0, this.maxResults).map(i => ({
-                text: i, type: (this.autoSuggestList.includes(i) ? consts.SUGGEST_TYPE.autoComplete :
-                    historyList.includes(i) ? consts.SUGGEST_TYPE.history :
+            let mapDataSet = historySuggestSet.slice(0, this.maxResults).map(i => ({
+                text: i, type: (historyList.includes(i) ? consts.SUGGEST_TYPE.history :
                         consts.SUGGEST_TYPE.buildIn)
             }));
-            return currentHistory ? [...autoListMap, ...mapDataSet] : mapDataSet;
+            return [...autoListMap, ...mapDataSet];
         },
 
         isHome() {

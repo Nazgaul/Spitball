@@ -39,7 +39,6 @@
         components: {
             Avatar
         },
-        mixins:[Analytics],
         props: { item: { type: Object, required: true }, index: { Number } }
     }
 </script>
