@@ -48,7 +48,10 @@ namespace Cloudents.Infrastructure.Converters
             //{
             //    image = _imageProvider.ChangeImageIfNeeded(domain, image);
             //}
-            if (context.Items.TryGetValue(KeyPriority, out var val) && val is IReadOnlyDictionary<string, PrioritySource> priorities && domain != null && priorities.TryGetValue(domain, out var priorityTemp))
+            if (context.Items.TryGetValue(KeyPriority, out var val) 
+                && val is IReadOnlyDictionary<string, PrioritySource> priorities 
+                && domain != null 
+                && priorities.TryGetValue(domain, out var priorityTemp))
             {
                 priority = priorityTemp;
                 domain = priority.Source;
