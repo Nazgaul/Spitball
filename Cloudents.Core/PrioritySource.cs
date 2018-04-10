@@ -54,7 +54,7 @@ namespace Cloudents.Core
         {
             new PrioritySource("CourseHero" , 1,new []{ "coursehero.com/file","www.coursehero.com/subjects", "www.coursehero.com/sitemap/schools"}),
             new PrioritySource("OneClass",  3, new []{"oneclass.com/note"}),
-            new PrioritySource("Cloudents",  3, new []{"spitball.co/item"}),
+            new PrioritySource(CloudentsSource,  3, new []{"spitball.co/item"}),
             new PrioritySource("StudySoup",  3 , new []{"studysoup.com/guide"}),
             new PrioritySource("Cliffsnotes",  10, new []{"cliffsnotes.com/study-guides"}),
             new PrioritySource("Koofers",  10, new []{"koofers.com/files"})
@@ -62,6 +62,7 @@ namespace Cloudents.Core
 
         }.ToDictionary(f => f.Source, StringComparer.OrdinalIgnoreCase);
 
+        public const string CloudentsSource = "Cloudents";
 
         public static readonly IReadOnlyDictionary<string, PrioritySource> FlashcardPriority = new List<PrioritySource>
         {
@@ -69,7 +70,7 @@ namespace Cloudents.Core
             new PrioritySource("brainscape",  1,new []{"brainscape.com/flashcards"}),
             new PrioritySource("CourseHero",  1,new []{"coursehero.com/flashcards"}),
             new PrioritySource("Quizlet",  2,new []{"quizlet.com"}),
-            new PrioritySource("Cloudents",  4,new []{"spitball.co/flashcard"}),
+            new PrioritySource(CloudentsSource,  4,new []{"spitball.co/flashcard"}),
             new PrioritySource("Cram",  4,new [] {"cram.com/flashcards"}),
             new PrioritySource("Koofers",  4,new [] {"koofers.com/flashcards"}),
             new PrioritySource("StudySoup",  10,new [] {"studysoup.com/flashcard"})
