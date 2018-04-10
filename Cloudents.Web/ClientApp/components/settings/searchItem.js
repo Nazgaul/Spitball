@@ -118,7 +118,7 @@ export default {
             //    debounce(function (val) {
             this.$store.dispatch(this.currentItem.searchApi, { term: this.val }).then(({ data: body }) => {
                 debugger;
-                this.items = body;
+                this.items = body.courses||body;
                 this.noResults= !this.items||!this.items.length;
                 this.isLoading = false;
             });
