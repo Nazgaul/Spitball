@@ -38,7 +38,10 @@ namespace Cloudents.Api.Controllers
         {
             var result = await _universityProvider.SearchAsync(model.Term,
                 model.Location.ToGeoPoint(), token).ConfigureAwait(false);
-            return Json(result);
+            return Ok(new
+            {
+                universities = result
+            });
         }
     }
 }
