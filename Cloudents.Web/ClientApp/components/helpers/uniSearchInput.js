@@ -21,13 +21,13 @@ export default {
     },
     watch: {
         msg: debounce(function (val) {
-            if(this.focusedIndex >= 0 && this.msg !== this.suggestList[this.focusedIndex].text){
+            if(this.focusedIndex >= 0 && this.msg !== this.suggestList[this.focusedIndex].name){
                 this.focusedIndex = -1;
             }
                 if (this.focusedIndex < 0) {
                     this.$emit('input', val);
                     this.$store.dispatch("getUniversities", {term: val}).then(({data}) => {
-                        this.uniSuggestList = data;
+                        this.uniSuggestList = data["universities"];
                     });
                 }
         }, 250),
@@ -36,7 +36,7 @@ export default {
                 this.msg = this.originalMsg;
             }
             else {
-                this.msg = this.suggestList[this.focusedIndex].text;
+                this.msg = this.suggestList[this.focusedIndex].name;
             }
         }
     },
@@ -52,7 +52,6 @@ export default {
             });
         },
         search() {
-            debugger;
             if (!this.msg) {
                 return;
             }
@@ -113,7 +112,7 @@ export default {
             this.msg = uniName;
         } else {
             this.$store.dispatch("getUniversities", {term: ''}).then(({data}) => {
-                this.uniSuggestList = data;
+                this.uniSuggestList = data["universities"];
             });
         }
     }
