@@ -85,7 +85,7 @@ const courseFunctions = {
 export const interpetPromise = (sentence) => axios.get("AI", { params: { sentence } });
 const getBookDetails = ({ type, isbn13 }) => axios.get(`book/${type}`, { params: { isbn13 } });
 const getPlacesDetails = ({ id }) => {
-    return axios.get("places", { params: { id } });
+    return axios.get("places/id", { params: { id } });
 }
 export const getUniversity = (params) => axios.get("university", { params:transformLocation(params) });
 export const search = { getBookDetails, ...searchFunctions, getPlacesDetails,autoComplete:(data)=>axios.get("suggest",{params:{sentence:data.term, vertical: data.vertical}}) };
