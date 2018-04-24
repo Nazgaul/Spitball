@@ -44,7 +44,7 @@
 
         props: { item: { type: Object, required: true }, index: { Number } },
         computed: {
-            isSpitball() { return this.item.source.includes('spitball') },
+            isSpitball() { return this.item.source.includes('Cloudents') },
             url: function () {
                 return this.isSpitball ? this.item.url.split('.co/')[1] : this.item.url
             },
