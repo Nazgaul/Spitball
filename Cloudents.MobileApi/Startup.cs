@@ -57,6 +57,9 @@ namespace Cloudents.Api
                         }
                         return false;
                     })
+                   //need that for 204 - browser trigger that when we want to do post
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
                 );
             });
             services.AddMvc().AddMvcOptions(o =>
