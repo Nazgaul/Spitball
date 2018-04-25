@@ -69,14 +69,31 @@ namespace Cloudents.Infrastructure.Test.Converters
         [TestMethod]
         public void ConvertToResult_RegularWebPage_RegularUrl()
         {
+            const string someDomainUrl = "https://www.someUrl.com";
             var argument = new BingWebPage
             {
-                Url = "https://www.spitball.co"
+                Url = someDomainUrl
 
             };
             var result = _bingConverter.Convert(argument, null, _context);
-            Assert.AreEqual(result.Url, "https://www.spitball.co");
-            Assert.AreEqual(result.Source, "spitball");
+            Assert.AreEqual(result.Url, someDomainUrl);
+            result.Source.Should().BeEquivalentTo("someurl");
+        }
+
+
+        [TestMethod]
+        public void ConvertToResult_SpitballWebPage_CloudentsSource()
+        {
+            const string spitballDomainUrl = "https://www.spitball.co";
+            var argument = new BingWebPage
+            {
+                Url = spitballDomainUrl
+
+            };
+            var result = _bingConverter.Convert(argument, null, _context);
+            Assert.AreEqual(result.Url, spitballDomainUrl);
+            result.Source.Should().BeEquivalentTo("cloudents");
+            //Assert.AreEqual(result.Source, "cloudents");
         }
 
         [TestMethod]
