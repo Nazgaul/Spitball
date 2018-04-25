@@ -131,9 +131,9 @@ const actions = {
         return settingsService.getCourse({ term, universityId: context.getters.getUniversity });
     },
 
-    createCourse(context, { name, code }) {
+    createCourse(context, { name}) {
         const university = context.getters.getUniversity;
-        return settingsService.createCourse({ courseName:name, code, university }).then(({ data: body }) => {
+        return settingsService.createCourse({ courseName:name, university }).then(({ data: body }) => {
             context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: name }] });
         });
     },
