@@ -28,6 +28,11 @@ namespace Cloudents.Core
 
     public class LocalStorageData
     {
+        /// <summary>
+        /// Class represent location storage
+        /// </summary>
+        /// <param name="path">path of the temp storage</param>
+        /// <param name="size">the size in megabytes</param>
         public LocalStorageData(string path, int size)
         {
             Path = path;

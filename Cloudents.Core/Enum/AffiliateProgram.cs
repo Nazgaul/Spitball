@@ -3,7 +3,7 @@
     public enum AffiliateProgram
     {
         None,
-        CareerBuilder,
+        //CareerBuilder,
         WayUp,
         Wyzant
     }

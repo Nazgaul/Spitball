@@ -11,6 +11,7 @@
         Function,
         Api,
         Web,
-        Console
+        Console,
+        WorkerRole
     }
 }

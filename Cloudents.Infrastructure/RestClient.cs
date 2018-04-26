@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
@@ -70,7 +71,13 @@ namespace Cloudents.Infrastructure
             var result = await _client.GetAsync(url,
                     HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
             result.EnsureSuccessStatusCode();
-            return (await result.Content.ReadAsStreamAsync().ConfigureAwait(false), result.Headers.ETag);
+            var stream = await result.Content.ReadAsStreamAsync().ConfigureAwait(false);
+            if (result.Content.Headers.ContentType.MediaType.Contains("gzip", StringComparison.OrdinalIgnoreCase))
+            {
+                stream = await Compress.DecompressFromGzipAsync(stream).ConfigureAwait(false);
+            }
+
+            return (stream, result.Headers.ETag);
         }
 
         public async Task<Uri> UrlRedirectAsync(Uri url)
@@ -81,7 +88,7 @@ namespace Cloudents.Infrastructure
         }
 
         [Log]
-        public  Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, CancellationToken token)
+        public Task<T> GetAsync<T>(Uri url, NameValueCollection queryString, CancellationToken token)
         {
             return GetAsync<T>(url, queryString, null, token);
             //var t = await GetAsync<T>(url, queryString, null, token).ConfigureAwait(false);

@@ -3,6 +3,7 @@ using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Places;
@@ -11,6 +12,9 @@ using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
+    [ModuleRegistration(Core.Enum.System.Console)]
+    [ModuleRegistration(Core.Enum.System.Api)]
+    [ModuleRegistration(Core.Enum.System.WorkerRole)]
     public class ModuleInfrastructureBase : Module
     {
        protected override void Load(ContainerBuilder builder)

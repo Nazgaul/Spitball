@@ -64,7 +64,7 @@ namespace Cloudents.Infrastructure.Search.Job
                     nameof(Entity.Job.City),
                     nameof(Entity.Job.State),
                     nameof(Entity.Job.JobType),
-                    nameof(Entity.Job.Compensation),
+                    //nameof(Entity.Job.Compensation),
                     nameof(Entity.Job.Url),
                     nameof(Entity.Job.Company),
                     nameof(Entity.Job.Source)

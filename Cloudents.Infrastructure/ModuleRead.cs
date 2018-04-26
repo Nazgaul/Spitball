@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
-            builder.RegisterModule<ModuleInfrastructureBase>();
+            //builder.RegisterModule<ModuleInfrastructureBase>();
             //builder.RegisterModule(new ModuleInfrastructureBase(_searchServiceCredentials, _redisConnectionString));
 
             builder.RegisterType<LuisAI>().As<IAi>()
