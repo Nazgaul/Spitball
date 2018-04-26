@@ -117,7 +117,6 @@ export default {
             this.isLoading = true;
             //    debounce(function (val) {
             this.$store.dispatch(this.currentItem.searchApi, { term: this.val }).then(({ data: body }) => {
-                debugger;
                 this.items = body.courses||body.universities;
                 this.noResults= !this.items||!this.items.length;
                 this.isLoading = false;
