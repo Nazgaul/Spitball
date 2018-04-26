@@ -93,7 +93,6 @@
             }
         },
         mounted(){
-            debugger;
             let elm=this.$el;
             this.previewOptions={...this.previewOptions,safeWidth:elm.clientWidth,previewHeight:elm.clientHeight};
             // this.$nextTick(()=>{
