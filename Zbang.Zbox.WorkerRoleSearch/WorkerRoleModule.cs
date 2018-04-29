@@ -33,11 +33,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             builder.RegisterType<LikesMailProcess>().Keyed<ISchedulerProcess>("likesReport");
 
             builder.RegisterType<DeleteOldStuff>().Keyed<ISchedulerProcess>("deleteOld");
-            builder.Register(c=>
-            {
-                var affiliate = c.ResolveKeyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
-                return new AffiliateBuilder(affiliate);
-            }).Keyed<ISchedulerProcess>("careerBuilder");
+            //builder.Register(c=>
+            //{
+            //    var affiliate = c.ResolveKeyed<IUpdateAffiliate>(AffiliateProgram.CareerBuilder);
+            //    return new AffiliateBuilder(affiliate);
+            //}).Keyed<ISchedulerProcess>("careerBuilder");
 
             builder.Register(c =>
             {

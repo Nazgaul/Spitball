@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Search.Job
             CreateMap<Core.Entities.Search.Job, JobProviderDto>().ConvertUsing(jo => new JobProviderDto
             {
                 Url = jo.Url,
-                CompensationType = jo.Compensation,
+                CompensationType = "Paid",
                 Company = jo.Company,
                 DateTime = jo.DateTime.GetValueOrDefault(),
                 Address = $"{jo.City}, {jo.State}",
