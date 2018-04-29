@@ -10,13 +10,13 @@
         }
     }
 
-    public class AddressDto
-    {
-        public AddressDto(string address)
-        {
-            Address = address;
-        }
+    //public class AddressDto
+    //{
+    //    public AddressDto(string address)
+    //    {
+    //        Address = address;
+    //    }
 
-        public string Address { get;  }
-    }
+    //    public string Address { get;  }
+    //}
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using Cloudents.Core.Models;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Extensions.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;

@@ -2,7 +2,7 @@
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
 
-namespace Cloudents.Infrastructure.Framework.Database.Maps
+namespace Cloudents.Infrastructure.Database.Maps
 {
     [UsedImplicitly]
     public class UrlStatsMap : ClassMap<UrlStats>

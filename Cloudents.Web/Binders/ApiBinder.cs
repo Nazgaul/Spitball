@@ -1,11 +1,11 @@
 ﻿using System;
-using Cloudents.Core.Models;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 namespace Cloudents.Web.Binders
 {
-    public class LocationModelBinder : IModelBinderProvider
+    public class ApiBinder : IModelBinderProvider
     {
         public IModelBinder GetBinder(ModelBinderProviderContext context)
         {
@@ -14,9 +14,21 @@ namespace Cloudents.Web.Binders
                 throw new ArgumentNullException(nameof(context));
             }
 
+            if (context.Metadata.ModelType == typeof(GeographicCoordinate))
+            {
+                
+                return new BinderTypeModelBinder(typeof(GeoPointEntityBinder));
+            }
+
             if (context.Metadata.ModelType == typeof(Location))
             {
+
                 return new BinderTypeModelBinder(typeof(LocationEntityBinder));
+            }
+
+            if (Nullable.GetUnderlyingType(context.Metadata.ModelType)?.IsEnum == true)
+            {
+                return new BinderTypeModelBinder(typeof(NullableEnumEntityBinder));
             }
 
             return null;

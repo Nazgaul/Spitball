@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Web.Extensions.Extensions;
+using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using TempDataExtensions = Cloudents.Web.Extensions.TempDataExtensions;

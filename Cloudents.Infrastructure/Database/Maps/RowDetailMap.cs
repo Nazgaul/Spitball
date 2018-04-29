@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.Entities.Db;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Infrastructure.Framework.Database.Maps
+namespace Cloudents.Infrastructure.Database.Maps
 {
     public class RowDetailMap : ComponentMap<RowDetail>
     {

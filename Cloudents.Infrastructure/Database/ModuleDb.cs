@@ -1,9 +1,8 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
-using Cloudents.Infrastructure.Framework.Database;
 
-namespace Cloudents.Infrastructure.Framework
+namespace Cloudents.Infrastructure.Database
 {
 
     [ModuleRegistration(Core.Enum.System.Console)]

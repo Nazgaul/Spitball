@@ -18,9 +18,7 @@
     <PackageReference Include="Aspose.Slides.NET" Version="15.5.0" />
     <PackageReference Include="Aspose.Words" Version="15.6.0" />
     <PackageReference Include="Autofac" Version="4.8.0" />
-    <PackageReference Include="FluentNHibernate" Version="2.1.2" />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
-    <PackageReference Include="NHibernate" Version="5.1.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup>

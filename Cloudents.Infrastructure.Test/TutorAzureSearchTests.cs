@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using Autofac.Extras.Moq;
 using AutoMapper;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
@@ -27,6 +28,8 @@ namespace Cloudents.Infrastructure.Test
         [TestMethod]
         public void ApplyFilter_filterNone_NoFilter()
         {
+            
+
             var tutorSearch = new TutorAzureSearch(_searchIndexMock.Object, _searchMapper.Object);
             var obj = new PrivateObject(tutorSearch);
             var argument = new List<TutorRequestFilter> { TutorRequestFilter.None };

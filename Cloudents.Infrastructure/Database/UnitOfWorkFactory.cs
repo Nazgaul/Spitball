@@ -1,11 +1,11 @@
 ﻿using Cloudents.Core;
-using Cloudents.Infrastructure.Framework.Database.Maps;
+using Cloudents.Infrastructure.Database.Maps;
 using FluentNHibernate.Cfg;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Cfg;
 
-namespace Cloudents.Infrastructure.Framework.Database
+namespace Cloudents.Infrastructure.Database
 {
     [UsedImplicitly]
     public class UnitOfWorkFactory : IUnitOfWorkFactory

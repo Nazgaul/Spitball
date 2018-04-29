@@ -10,7 +10,7 @@ using Cloudents.Api.Binders;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Framework;
+using Cloudents.Infrastructure.Database;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Web.Extensions.Filters;
 using JetBrains.Annotations;

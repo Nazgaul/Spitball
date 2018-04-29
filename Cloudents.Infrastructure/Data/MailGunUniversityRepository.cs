@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure.Data
 
         public MailGunUniversityRepository(DapperRepository.Factory dapper)
         {
-            _dapper = dapper.Invoke(Database.MailGun);
+            _dapper = dapper.Invoke(Core.Enum.Database.MailGun);
         }
 
         public Task<IEnumerable<MailGunUniversityDto>> GetAsync(CancellationToken token)

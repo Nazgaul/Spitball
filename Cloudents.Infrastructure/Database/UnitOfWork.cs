@@ -3,7 +3,7 @@ using System.Data;
 using JetBrains.Annotations;
 using NHibernate;
 
-namespace Cloudents.Infrastructure.Framework.Database
+namespace Cloudents.Infrastructure.Database
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

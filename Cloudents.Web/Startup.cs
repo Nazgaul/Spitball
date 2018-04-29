@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -8,7 +10,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Extensions.Filters;
+using Cloudents.Web.Filters;
 using Cloudents.Web.Middleware;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +20,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
+using Swashbuckle.AspNetCore.Swagger;
 using WebMarkupMin.AspNetCore2;
 
 namespace Cloudents.Web
@@ -52,9 +55,35 @@ namespace Cloudents.Web
             }).AddMvcOptions(o =>
                 {
                     o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));
-                    o.ModelBinderProviders.Insert(0, new LocationModelBinder()); //needed at home
+                    o.ModelBinderProviders.Insert(0, new ApiBinder()); //needed at home
                 });
-
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                var basePath = AppContext.BaseDirectory;
+                var xmlPath = Path.Combine(basePath, "Cloudents.Web.xml");
+                c.IncludeXmlComments(xmlPath);
+                c.DescribeAllEnumsAsStrings();
+                c.DescribeAllParametersInCamelCase();
+                c.ResolveConflictingActions(f =>
+                {
+                    var descriptions = f.ToList();
+                    var parameters = descriptions
+                        .SelectMany(desc => desc.ParameterDescriptions)
+                        .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x },
+                            ApiParameterDescriptionEqualityComparer.Instance)
+                        .ToList();
+                    var description = descriptions[0];
+                    description.ParameterDescriptions.Clear();
+                    parameters.ForEach(x =>
+                    {
+                        if (x.Parameter.RouteInfo != null)
+                            x.Parameter.RouteInfo.IsOptional = x.IsOptional;
+                        description.ParameterDescriptions.Add(x.Parameter);
+                    });
+                    return description;
+                });
+            });
             services.AddResponseCompression();
             services.AddResponseCaching();
 
@@ -144,6 +173,14 @@ namespace Cloudents.Web
                 }
             });
             app.UseWebMarkupMin();
+            app.UseSwagger();
+
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

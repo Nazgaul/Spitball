@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Storage;
-using Cloudents.Web.Extensions.Extensions;
+using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
