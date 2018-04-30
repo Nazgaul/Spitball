@@ -13,6 +13,7 @@ namespace Cloudents.Web.Api
     /// <summary>
     /// The food and places api controller
     /// </summary>
+    [Produces("application/json")]
     [Route("api/[controller]", Name = "Places")]
     public class PlacesController : Controller
     {

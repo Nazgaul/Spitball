@@ -9,8 +9,8 @@ namespace Cloudents.Core
 {
     [ModuleRegistration(Enum.System.Console)]
     [ModuleRegistration(Enum.System.Function)]
-    [ModuleRegistration(Enum.System.Api)]
-    //[ModuleRegistration(Enum.System.Web)]
+    //[ModuleRegistration(Enum.System.Api)]
+    [ModuleRegistration(Enum.System.Web)]
     public class ModuleCore : Module
     {
         protected override void Load(ContainerBuilder builder)

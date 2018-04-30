@@ -22,7 +22,8 @@ using Module = Autofac.Module;
 namespace Cloudents.Infrastructure
 {
     [ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.Api)]
+    //[ModuleRegistration(Core.Enum.System.Api)]
+    [ModuleRegistration(Core.Enum.System.Web)]
     public sealed class ModuleRead : Module
     {
         [SuppressMessage("Microsoft.Design", "RCS1163:Unused parameter")]

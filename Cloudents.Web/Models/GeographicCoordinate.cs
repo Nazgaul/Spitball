@@ -1,16 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using Cloudents.Core.Models;
 using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
 {
-   
+    [DataContract]
     public class GeographicCoordinate
     {
-        [Range(-90, 90)]
+        [Range(-90, 90), DataMember(Order = 1)]
         public float? Latitude { get;  set; }
 
-        [Range(-180, 180)]
+        [Range(-180, 180), DataMember(Order = 2)]
         public float? Longitude { get; set; }
 
 
@@ -25,6 +26,18 @@ namespace Cloudents.Web.Models
             return null;
         }
 
+        public static bool operator ==(GeographicCoordinate obj1, GeographicCoordinate obj2)
+        {
+            return Equals(obj1?.Latitude, obj2?.Latitude)
+                    && Equals(obj1?.Longitude, obj2?.Longitude);
+        }
+
+        public static bool operator !=(GeographicCoordinate obj1, GeographicCoordinate obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+
         public static GeographicCoordinate FromPoint(GeoPoint point)
         {
             return new GeographicCoordinate()
@@ -32,19 +45,6 @@ namespace Cloudents.Web.Models
                 Latitude = point.Latitude,
                 Longitude = point.Longitude
             };
-        }
-    }
-
-    public class Location
-    {
-        public GeographicCoordinate Point { get; set; }
-
-        internal Address Address { get; set; }
-        internal string Ip { get; set; }
-
-        public Core.Models.Location ToLocation()
-        {
-            return new Core.Models.Location(Point.ToGeoPoint(),Address,Ip);
         }
     }
 }

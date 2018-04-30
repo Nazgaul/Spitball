@@ -14,6 +14,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var response = await Client.GetAsync("/api/Job?Term=Android&Location.Point.Longitude=40.0&Location.Point.Latitude=-51.&Highlight=true&Page=0").ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
+
         [TestMethod]
         public async Task Search_OnlyLocationILEmptyTerm_ReturnResult()
         {

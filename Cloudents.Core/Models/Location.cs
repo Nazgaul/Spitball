@@ -12,10 +12,6 @@ namespace Cloudents.Core.Models
             Ip = ip;
         }
 
-        protected Location()
-        {
-        }
-
         /// <summary>
         /// Location of user
         /// </summary>

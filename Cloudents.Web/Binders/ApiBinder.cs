@@ -20,7 +20,7 @@ namespace Cloudents.Web.Binders
                 return new BinderTypeModelBinder(typeof(GeoPointEntityBinder));
             }
 
-            if (context.Metadata.ModelType == typeof(Location))
+            if (context.Metadata.ModelType == typeof(LocationQuery))
             {
 
                 return new BinderTypeModelBinder(typeof(LocationEntityBinder));

@@ -25,7 +25,7 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// Location of user
         /// </summary>
-        public Location Location { get; set; }
+        public LocationQuery Location { get; set; }
         /// <summary>
         /// Facet filter got from the api
         /// </summary>

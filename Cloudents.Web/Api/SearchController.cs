@@ -15,6 +15,7 @@ namespace Cloudents.Web.Api
     /// <summary>
     /// Search Cse controller for flashcard and document
     /// </summary>
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class SearchController : Controller
     {

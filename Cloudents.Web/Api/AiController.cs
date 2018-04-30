@@ -12,6 +12,7 @@ namespace Cloudents.Web.Api
     /// <summary>
     /// Get a sentence the user enter and interpret it
     /// </summary>
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class AiController : Controller
     {

@@ -8,7 +8,8 @@ namespace Cloudents.Infrastructure
 {
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
-    [ModuleRegistration(Core.Enum.System.Api)]
+    //[ModuleRegistration(Core.Enum.System.Api)]
+    [ModuleRegistration(Core.Enum.System.Web)]
     public class ModuleMapper : Module
     {
         protected override void Load(ContainerBuilder builder)

@@ -14,6 +14,7 @@ namespace Cloudents.Web.Api
     /// <summary>
     /// Perform Ask question search
     /// </summary>
+    [Produces("application/json")]
     [Route("api/[controller]", Name = "Ask")]
     public class AskController : Controller
     {

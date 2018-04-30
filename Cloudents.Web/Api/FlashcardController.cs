@@ -11,6 +11,7 @@ namespace Cloudents.Web.Api
     /// <summary>
     /// Flashcard controller
     /// </summary>
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class FlashcardController : Controller
     {

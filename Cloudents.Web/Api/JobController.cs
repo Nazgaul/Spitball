@@ -14,6 +14,7 @@ namespace Cloudents.Web.Api
     /// <summary>
     /// The controller of job api
     /// </summary>
+    [Produces("application/json")]
     [Route("api/[controller]", Name = "Job")]
     public class JobController : Controller
     {

@@ -15,6 +15,7 @@ namespace Cloudents.Web.Api
     /// <summary>
     /// Tutor api controller
     /// </summary>
+    [Produces("application/json")]
     [Route("api/[controller]", Name = "Tutor")]
     public class TutorController : Controller
     {

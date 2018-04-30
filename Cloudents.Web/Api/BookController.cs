@@ -15,6 +15,7 @@ namespace Cloudents.Web.Api
     /// The book api controller
     /// </summary>
 
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class BookController : Controller
     {
