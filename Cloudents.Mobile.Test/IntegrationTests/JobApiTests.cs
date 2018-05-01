@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Mobile.Test.IntegrationTests
@@ -28,5 +30,14 @@ namespace Cloudents.Mobile.Test.IntegrationTests
                 await Client.GetAsync("api/job?location.latitude=40.712&location.longitude=-74.005&term=");
             response.EnsureSuccessStatusCode();
         }
+        
+         [TestMethod]
+        public async Task Search_Null_Ok()
+        {
+            var response = await Client.GetAsync("/api/Job").ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+        }
+
+
     }
 }

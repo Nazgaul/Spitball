@@ -9,7 +9,7 @@ namespace Cloudents.Infrastructure.Framework
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Api)]
     [ModuleRegistration(Core.Enum.System.Function)]
-    [ModuleRegistration(Core.Enum.System.Web)]
+    //[ModuleRegistration(Core.Enum.System.Web)]
     public class ModuleDb : Module
     {
         protected override void Load(ContainerBuilder builder)

@@ -12,7 +12,6 @@
             ...mapActions(['updateUniversity']),
             $_universitySelected(val) {
                 this.$ga.event("Uni_Select",val.name);
-                debugger;
                 this.updateUniversity(val);
             }
         }

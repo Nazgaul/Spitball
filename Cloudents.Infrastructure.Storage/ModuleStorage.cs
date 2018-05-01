@@ -21,12 +21,6 @@ namespace Cloudents.Infrastructure.Storage
             builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
 
             builder.RegisterGeneric(typeof(BlobProvider<>)).AsImplementedInterfaces();
-
-            //builder.Register(c =>
-            //{
-            //    var key = c.Resolve<IConfigurationKeys>().LocalStorageData;
-            //    return new TempStorageProvider(c.Resolve<ILogger>(), key);
-            //}).As<ITempStorageProvider>();
         }
     }
 }

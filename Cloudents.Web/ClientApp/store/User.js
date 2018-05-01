@@ -1,5 +1,5 @@
-﻿import settingsService from './../services/settingsService'
-import { USER } from './mutation-types'
+﻿﻿import settingsService from './../services/settingsService'
+import {SEARCH, USER} from './mutation-types'
 import * as consts from "./constants";
 // export const MAX_HISTORY_LENGTH=5;
 const state = {
@@ -8,7 +8,8 @@ const state = {
         myCourses: [],
         isFirst: true,
         location: null,
-        pinnedCards: {}
+        pinnedCards: {},
+        showSmartAppBanner: true
     },
     facet:"",
     historyTermSet:[],
@@ -60,7 +61,11 @@ const mutations = {
         if(state.historyTermSet.length>consts.MAX_HISTORY_LENGTH){
             state.historyTermSet=state.historyTermSet.slice(1);
         }
+    },
+    [USER.HIDE_SMART_BANNER](state) {
+        state.user.showSmartAppBanner = false;
     }
+
 };
 const getters = {
     historyTermSet:state=>state.historyTermSet,
@@ -68,7 +73,7 @@ const getters = {
         let sortedList=[].concat(...Object.values(state.historySet)).sort((a, b) => b.date - a.date).map(i=>i.term);
         return sortedList.filter((val,i,arr)=>arr.findIndex(b=>b===val)===i).slice(0,consts.MAX_HISTORY_LENGTH);
     },
-    getVerticalHistory:state=>(vertical)=>state.historySet[vertical].map(i=>i.term),
+    getVerticalHistory:state=>(vertical)=>state.historySet[vertical].map(i=>i.term).reverse(),
     isFirst: state => state.user.isFirst,
     location: state => {
         let location=state.user.location;
@@ -78,6 +83,8 @@ const getters = {
         }else{return location}},
     pinnedCards:
         state => state.user.pinnedCards,
+    showSmartAppBanner:
+        state => state.user.showSmartAppBanner,
     getUniversity: state => {
         let obj = state.user.universityId || {};
         return obj.id;
@@ -120,13 +127,13 @@ const actions = {
             return settingsService.getUniversity({ term: data.term, location });
         });
     },
-    getCorses(context, { term }) {
+    getCourses(context, { term }) {
         return settingsService.getCourse({ term, universityId: context.getters.getUniversity });
     },
 
-    createCourse(context, { name, code }) {
+    createCourse(context, { name}) {
         const university = context.getters.getUniversity;
-        return settingsService.createCourse({ name, code, university }).then(({ data: body }) => {
+        return settingsService.createCourse({ courseName:name, university }).then(({ data: body }) => {
             context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: name }] });
         });
     },
@@ -142,6 +149,9 @@ const actions = {
     },
     updateFacet({commit},data){
         commit(USER.UPDATE_FACET,data)
+    },
+    hideSmartAppBanner({commit},data){
+        commit(USER.HIDE_SMART_BANNER);
     }
 
 };

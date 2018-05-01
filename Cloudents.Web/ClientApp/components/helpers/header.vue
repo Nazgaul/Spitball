@@ -1,6 +1,7 @@
 <template>
     <v-toolbar app fixed :height="height" class="header">
         <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
+            <smart-app-banner class="fixed-top" v-if="showSmartAppBanner && $vuetify.breakpoint.xsOnly"></smart-app-banner>
             <div class="main">
                 <v-flex class="line top">
                     <v-layout row>
@@ -93,6 +94,7 @@
 <script>
     import { settingMenu } from '../settings/consts';
     import SearchInput from '../helpers/searchInput.vue';
+    import smartAppBanner from "../smartAppBanner/smartAppBanner.vue"
     import {mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     const PersonalizeDialog=()=> import('./ResultPersonalize.vue');
@@ -113,15 +115,19 @@
             food:"Search for deals..."
         },
         computed: {
-            ...mapGetters(['getUniversityName']),
+            ...mapGetters(['getUniversityName', 'showSmartAppBanner']),
     },
         watch:{
             toolbarHeight(val) {
                 this.height = val;
+            },
+            showSmartAppBanner(val){
+                let headerHeight =this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
+                this.height =  this.$vuetify.breakpoint.xsOnly && val? headerHeight + 84 : headerHeight;
             }
         },
         components: {
-            PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput
+            PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput,smartAppBanner
         },
         props:{currentSelection:{type:String,default:'note'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
         data(){return {settingMenu,clickOnce:false}},
@@ -149,11 +155,32 @@
             },
 
             copyToClipboard() {
-                let copyText = document.getElementById("input-url");
-                copyText.value = window.location.href;
+                let el = document.getElementById("input-url");
+                el.value = window.location.href;
                 this.$ga.event('CopyClipboard');
-                copyText.select();
-                document.execCommand("Copy");
+
+                // handle iOS as a special case
+                if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+                    // convert to editable with readonly to stop iOS keyboard opening
+                    el.contentEditable = true;
+                    el.readOnly = true;
+
+                    // create a selectable range
+                    var range = document.createRange();
+                    range.selectNodeContents(el);
+
+                    // select the range
+                    var selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    el.setSelectionRange(0, 999999);
+                }
+                else {
+                    el.select();
+                }
+
+                // execute copy command
+                document.execCommand('copy');
             },
 
 
@@ -169,7 +196,8 @@
                         this.$refs.personalize.openDialog(type);
                     })
                 });
-            this.height=this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
+            let headerHeight =this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
+            this.height =  this.$vuetify.breakpoint.xsOnly && this.showSmartAppBanner? headerHeight + 84 : headerHeight;
         }
     }
 </script>

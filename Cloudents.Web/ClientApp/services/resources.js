@@ -3,7 +3,10 @@ import qs from "query-string";
 
 axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: false });
 axios.defaults.responseType = "json";
-axios.defaults.baseURL = "api";
+axios.defaults.baseURL = window.baseURL;
+let currentVertical='item';
+const itemVerticals=['ask','flashcard','note'];
+const getTemplate=(val)=>itemVerticals.includes(val)?'item':val;
 let transformLocation=(params)=>{
     let location=params.location;
     delete params.location;
@@ -16,7 +19,11 @@ let transformLocation=(params)=>{
 let transferResultNote = res => {
     let result = res?res.result:[];
     if(!res) return {data:[]};
-    return { source: res.facet,facet:res.facet, data: result.map(val => { return { ...val, template: "item" } }) }
+    return { source: res.facet,facet:res.facet, data: result.map(val => { return { ...val, template: 'item' } }),nextPage:res.nextPageLink }
+};
+let transferNextPage=(res)=>{
+    let {data,nextPage}=transferMap[currentVertical](res);
+    return { data,nextPage}
 };
 //todo think about error
 let transferResultAsk = res => {
@@ -24,30 +31,39 @@ let transferResultAsk = res => {
     const itemResult = res.result.result || [];
     const items = itemResult.map(val => { return { ...val, template: "item" } });
     const data = video ? [{ ...video, template: "video" }, ...items] : items;
-    return { data, source:res.result.facet,facet:res.result.facet}
+    return { data, source:res.result.facet,facet:res.result.facet,nextPage:res.nextPageLink}
 };
 let transferResultTutor = data => {
-    let body = data || [];
-    return { data: body.map(val => { return { ...val, template: "tutor" } }) };
+    let body = data || {};
+    return { data: body.result.map(val => { return { ...val, template: "tutor" } }) ,nextPage:body.nextPageLink};
 };
 let transferJob = body => {
-    let { result, facet: jobType,facet } = body;
-    return { jobType,facet, data: result.map(val => { return { ...val, template: "job" } }) };
+    let { result,nextPageLink:nextPage } = body;
+    let {result:items, facet: jobType}=result;
+    return { jobType, data: items.map(val => { return { ...val, template: "job" } }),nextPage };
 };
 let transferBook = body => {
-    body = body || [];
-    let data = body.map(val => { return { ...val, template: "book" } });
-    return { data }
+    body = body || {};
+    let data = body.result.map(val => { return { ...val, template: "book" } });
+    return { data,nextPage:body.nextPageLink }
 };
 let transferFood = body => {
     const data = body.data || [];
-    return { token: body.token, data: data.map(val => { return { ...val, template: "food" } }) };
+    return { token: body.token, data: data.map(val => { return { ...val, template: "food" } }),nextPage:body.nextPageLink };
 };
 let transferBookDetails = body => {
     let prices = body.prices || [];
     return { details: body.details, data: prices.map(val => { return { ...val, template: "book-price" } }) }
 };
-
+const transferMap={
+    ask:(res)=>transferResultAsk(res),
+    flashcard:(res)=>transferResultNote(res),
+    note:(res)=>transferResultNote(res),
+    job:(res)=>transferJob(res),
+    food:(res)=>transferFood(res),
+    tutor:(res)=>transferResultTutor(res),
+    book:(res)=>transferBook(res)
+}
 const searchFunctions = {
     getDocument: (params) => axios.get("search/documents", {params, transformResponse: transferResultNote }),
     getQna: (params) => axios.get("ask", { params, transformResponse: transferResultAsk }),
@@ -57,28 +73,28 @@ const searchFunctions = {
     getBook: (params) => axios.get("book/search", { params, transformResponse: transferBook }),
     getBookDetails: ({ type, isbn13 }) => axios.get(`book/${type}`, { params: { isbn13 }, transformResponse: transferBookDetails }),
     getFood: (params) => axios.get("places", {params:transformLocation(params), transformResponse: transferFood }),
-};
+    getNextPage:({url,vertical})=>{
+        currentVertical=vertical;
+        return axios.get(url,{baseURL:"",transformResponse:transferNextPage})}
+}
 
 const courseFunctions = {
-    getCourse: (params) => axios.get("course", { params }),
-    createCourse: (data) => axios.post('course', qs.stringify(data))
+    getCourse: (params) => axios.get("course/search", { params }),
+    createCourse: (data) => axios.post("course/create", data)
 };
 export const interpetPromise = (sentence) => axios.get("AI", { params: { sentence } });
 const getBookDetails = ({ type, isbn13 }) => axios.get(`book/${type}`, { params: { isbn13 } });
 const getPlacesDetails = ({ id }) => {
-    debugger;
-    return axios.get("places", { params: { id } });
+    return axios.get("places/id", { params: { id } });
 }
 export const getUniversity = (params) => axios.get("university", { params:transformLocation(params) });
-
 export const search = { getBookDetails, ...searchFunctions, getPlacesDetails,autoComplete:(data)=>axios.get("suggest",{params:{sentence:data.term, vertical: data.vertical}}) };
 export const course = { ...courseFunctions };
 export const help = {
-    getFaq: () => axios.get("help"),
-    getUniData: (id) => axios.get("blog", { params: { id: id } })
+    getFaq: () => axios.get("help",{baseURL:"api/"}),
+    getUniData: (id) => axios.get("blog", {baseURL:"api/", params: { id: id } })
 };
 
 export const spitballPreview = {
-    getFlashcard: ({ id }) => axios.get("flashcard", { params: { id: Number(id) } }),
-    getDocument: ({ id }) => axios.get("document", { params: { id: Number(id) } })
-};
+    getFlashcard: ({ id }) => axios.get("flashcard", {params: { id: Number(id) } }),
+    getDocument: ({ id }) => axios.get("document", {baseURL:"api/", params: { id: Number(id) } })};

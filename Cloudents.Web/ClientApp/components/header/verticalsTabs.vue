@@ -4,7 +4,9 @@
             <div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>
             <v-tabs class="verticals-bar" :value="currentSelection" :scrollable="false">
                 <v-tabs-bar>
-                    <v-tabs-item v-for="tab in verticals" :key="tab.id" :href="tab.id" :id="tab.id" @click="$_updateType(tab.id)" :class="['spitball-text-'+tab.id,tab.id===currentSelection?'tabs__item--active':'']"
+                    <v-tabs-item v-for="tab in verticals" :key="tab.id" :href="tab.id" :id="tab.id"
+                                 @click="$_updateType(tab.id)"
+                                 :class="['spitball-text-'+tab.id,tab.id===currentSelection?'tabs__item--active':'']"
                                  class="mr-4 vertical">
                         {{tab.name}}
                     </v-tabs-item>
@@ -16,35 +18,41 @@
 </template>
 
 <script>
-    import {mapActions,mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
     import {verticalsNavbar as verticals} from '../../data'
+
     export default {
         name: "verticals-tabs",
-        computed:{...mapGetters(['getVerticalData'])},
-        props:{currentSelection:{}},
-        data(){return {verticals,currentVertical:this.currentSelection}},
-        watch:{
-            currentSelection(val){
-                this.currentVertical=val;
+        computed: {...mapGetters(['getVerticalData'])},
+        props: {currentSelection: {}},
+        data() {
+            return {verticals, currentVertical: this.currentSelection}
+        },
+        watch: {
+            currentSelection(val) {
+                this.currentVertical = val;
             }
         },
         methods: {
             ...mapActions(["setCurrentVertical"]),
             $_updateType(result) {
-                this.currentVertical=result;
-                this.$ga.event("Vertical_Tab",result);
+                this.currentVertical = result;
+                this.$ga.event("Vertical_Tab", result);
                 let tabs = this.$el.querySelector('.tabs__wrapper');
                 let currentItem = this.$el.querySelector(`#${result}`);
                 if (currentItem) {
                     tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
                 }
                 this.setCurrentVertical(result);
-                let query={};
-                if(this.$route.query.hasOwnProperty("promo")){
-                    query={promo:this.$route.query.promo}
+                let query = {};
+                if (this.$route.query.hasOwnProperty("promo")) {
+                    query = {promo: this.$route.query.promo}
                 }
-                let {text="",course}=this.getVerticalData(result);
-                    this.$router.push({ path: '/' + result, query: { ...query,q: text,course } });
+                let {text = "", course} = this.getVerticalData(result);
+                if ((result == 'flashcard' && this.$route.path.includes('note') || result == 'note' && this.$route.path.includes('flashcard')) && this.$route.query.course) {
+                    course = this.$route.query.course;
+                }
+                this.$router.push({path: '/' + result, query: {...query, q: text, course}});
             }
         }
     }

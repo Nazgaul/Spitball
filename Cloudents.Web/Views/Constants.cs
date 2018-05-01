@@ -7,16 +7,15 @@ namespace Cloudents.Web.Views
     {
         public  static string GetCdnEndpoint(IHostingEnvironment env)
         {
-            if (string.Equals(env.EnvironmentName, "Development", StringComparison.InvariantCultureIgnoreCase))
+            if (env.IsDevelopment())
             {
                 return string.Empty;
             }
 
-            if (string.Equals(env.EnvironmentName, "Staging", StringComparison.InvariantCultureIgnoreCase))
+            if (env.IsStaging())
             {
                 return string.Empty;
             }
-
             return "//spitball.azureedge.net";
         }
     }

@@ -5,6 +5,7 @@
             <div class="d-flex mobile-filter hidden-sm-and-up">
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
+                    <div :class="'counter color-'+$route.path.slice(1)" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
                 </v-btn>
             </div>
             <div v-if="filterSelection.length" class="pb-3">
@@ -16,7 +17,7 @@
                 </template>
             </div>
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
-                <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
+                <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical">
                     <v-container class="pa-0">
                         <v-layout column>
                             <v-flex class="promo-cell mb-2 elevation-1" order-xs1 v-if="showPromo">

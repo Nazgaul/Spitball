@@ -14,50 +14,38 @@ namespace Cloudents.Infrastructure
         {
             if (builder == null)
             {
-                throw new ArgumentNullException("builder");
+                throw new ArgumentNullException(nameof(builder));
             }
 
             foreach (var assembly in assemblies)
             {
-                var modules = assembly.GetTypes()
-                    .Where(w => typeof(IModule).IsAssignableFrom(w))
-                    .Where(w =>
-                    {
-                        var info = w.GetTypeInfo().GetCustomAttributes<ModuleRegistrationAttribute>();
-                        return info?.FirstOrDefault(f => f.System == system) != null;
-                        //return info?.System == system;
-                    });
-                foreach (var module in modules)
+                try
                 {
-                    var p2 = Activator.CreateInstance(module);
-                    if (p2 is IModule p)
+                    var modules = assembly.GetTypes()
+                        .Where(w => typeof(IModule).IsAssignableFrom(w))
+                        .Where(w =>
+                        {
+                            var info = w.GetTypeInfo().GetCustomAttributes<ModuleRegistrationAttribute>();
+                            return info?.FirstOrDefault(f => f.System == system) != null;
+                            //return info?.System == system;
+                        });
+                    foreach (var module in modules)
                     {
-                        builder.RegisterModule(p);
+                        var p2 = Activator.CreateInstance(module);
+                        if (p2 is IModule p)
+                        {
+                            builder.RegisterModule(p);
+                        }
+
                     }
-
                 }
+                catch (ReflectionTypeLoadException ex)
+                {
+                    var loaderExceptions = ex.LoaderExceptions;
+                    throw;
+                }
+
             }
-
-            //var modules = builder.RegisterAssemblyTypes(assemblies).Where(w =>
-            // {
-            //     var info = w.GetTypeInfo().GetCustomAttribute<ModuleRegistrationAttribute>();
-            //     return info?.System == system;
-            // }).As<IModule>();
-            
-            //ContainerBuilder expr_39 = new ContainerBuilder();
-            //using (IContainer container = expr_39.Build(ContainerBuildOptions.None))
-            //{
-            //    foreach (IModule current in container.Resolve<IEnumerable<IModule>>())
-            //    {
-            //        registrar.RegisterModule(current);
-            //    }
-            //}
-            //foreach (var module in modules)
-            //{
-            //    builder.RegisterModule(module);
-            //}
-
-            // return new ModuleRegistrar(builder).RegisterAssemblyModules(assemblies);
         }
     }
 }

@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.MobileApi.Extensions;
-using Cloudents.Web.Extensions.Models;
+using Cloudents.MobileApi.Filters;
+using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.MobileApi.Controllers
@@ -35,12 +36,13 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
+        [ValidateModel]
         public async Task<IActionResult> GetAsync([FromQuery]JobRequest model, CancellationToken token)
         {
-            if (model == null)
-            {
-                return BadRequest();
-            }
+            //if (model == null)
+            //{
+            //    return BadRequest();
+            //}
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Sort.GetValueOrDefault(JobRequestSort.Relevance),
                 model.Facet, model.Location, model.Page.GetValueOrDefault(), model.Highlight, token).ConfigureAwait(false);

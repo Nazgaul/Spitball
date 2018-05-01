@@ -1,8 +1,8 @@
 <template>
     <div class="landing-page-wrapper"
-         :class="['landing-'+contentObj.name, contentObj.wrappingClass, {collapse: collapsePage}, {'no-bg':!contentObj.background}]">
+         :class="['landing-'+pageData.name, pageData.wrappingClass, {'no-bg':!pageData.background}]">
         <div class="top"
-             :style="contentObj.background ? 'background-image: url('+ require(`./img/${contentObj.background}`)+')': ''">
+             :style="pageData.background ? 'background-image: url('+ require(`./img/${pageData.background}`)+')': ''">
             <div class="limited-width logo-wrap">
                 <router-link class="logo-link collapsible" :to="{name:'home'}">
                     <app-logo class="logo"></app-logo>
@@ -11,35 +11,35 @@
             <div class="limited-width landing-page">
 
                 <div class="page-data">
-                    <h1 v-html="contentObj.titleHtml" class="collapsible"></h1>
+                    <h1 v-html="pageData.titleHtml" class="collapsible"></h1>
                     <div class="search-wrapper">
-                        <form action="." method="get" @submit.prevent="search">
-                            <search-input v-if="contentObj.name !== 'note'" class="term-field"
-                                          :placeholder="contentObj.placeholder" v-model="msg"
-                                          :search-on-selection="contentObj.name !=='note'"
-                                          :searchVertical="contentObj.name"
-                                          :submitRoute="'/'+contentObj.name"></search-input>
-                            <search-input v-else class="uni-field" :placeholder="contentObj.placeholder"
-                                          search-type="uni"
-                                          v-model="uni" submitRoute="/note"></search-input>
-                            <button type="submit" class="ma-0">
+                        <search-input v-if="pageData.name !== 'note'" class="term-field"
+                                      :placeholder="pageData.placeholder" v-model="msg"
+                                      :submitRoute="'/'+pageData.name" :suggestion-vertical="pageData.name">
+                            <button slot="searchBtn" slot-scope="props" @click="props.search">
                                 <v-icon class="hidden-md-and-up">sbf-search</v-icon>
-                                <span class="hidden-sm-and-down">{{contentObj.submitButtonText}}</span>
+                                <span class="hidden-sm-and-down">{{pageData.submitButtonText}}</span>
                             </button>
-                        </form>
+                        </search-input>
+                        <uni-search-input v-else class="uni-field" submitRoute="/note" :placeholder="pageData.placeholder" v-model="msg">
+                            <button slot="searchBtn" slot-scope="props" @click="props.search">
+                                <v-icon class="hidden-sm-and-up">sbf-search</v-icon>
+                                <span class="hidden-xs-only">{{pageData.submitButtonText}}</span>
+                            </button>
+                        </uni-search-input>
                     </div>
                     <div class="content-wrapper">
-                        <h2 v-html="contentObj.bodyHtml" class="collapsible"></h2>
+                        <h2 v-html="pageData.bodyHtml" class="collapsible"></h2>
                     </div>
                 </div>
             </div>
-            <img class="bottom-image" :src="require(`./img/${contentObj.bottomImage}`)"/>
+            <img class="bottom-image" :src="require(`./img/${pageData.bottomImage}`)"/>
         </div>
         <footer>
             <div class="partners">
                 <div class="text">Our Partners</div>
                 <div class="logos">
-                    <img v-for="image in contentObj.partnersImages" :class="image.name" :src="image.source"/>
+                    <img v-for="image in pageData.partnersImages" :class="image.name" :src="image.source"/>
                 </div>
             </div>
             <div class="subfooter">
@@ -60,29 +60,31 @@
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     import {landingPagesData} from "./consts.js";
     import SearchInput from '../helpers/searchInput.vue';
-    import {router} from "../../main";
+    import UniSearchInput from '../helpers/uniSearchInput.vue';
+    // import {router} from "../../main";
 
     export default {
         data: () => ({
-            msg: '',
-            uni: '',
-            contentObj: null,
-            uniDisabled: true,
-            collapsePage: false
+            msg: ''
         }),
         components: {
-            AppLogo, SearchInput
+            AppLogo, SearchInput, UniSearchInput
         },
+        // props:{name:{String}},
         methods: {
             search() {
                 if (this.msg) {
-                    router.push({path: "/" + this.contentObj.name, query: {q: this.msg}});
+                    if (this.pageData.name === 'note') {
+                        this.$router.push({path: "/" + this.pageData.name, query: ''});
+                    }
+                    else {
+                        this.$router.push({path: "/" + this.pageData.name, query: {q: this.msg}});
+                    }
                 }
-
             }
         },
-        created() {
-            this.contentObj = landingPagesData[this.$route.name];
+        computed: {
+            pageData(){return landingPagesData[this.$route.name];}
         },
     }
 </script>

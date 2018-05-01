@@ -4,6 +4,7 @@
             <img src="./img/study-blue-logo.png" alt="">
             <div class="cell-text">Not finding what you're looking for? <br class="hidden-xs-only"/>Click here to ask StudyBlue's Homework Help</div>
         </v-layout>
+        <span>Show more</span>
     </a>
 </template>
 <style src="./studyblueCard.less" lang="less"></style>

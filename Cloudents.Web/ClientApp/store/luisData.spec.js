@@ -67,7 +67,7 @@ describe('luis term store', function () {
 
         beforeAll(()=>{
             Vue.use(Vuex);
-            store.actions.updateHistorySet=jest.fn();
+            store.actions.updateHistorySetVertical=jest.fn();
             $store=new Vuex.Store(store)
         });
 
@@ -92,7 +92,8 @@ describe('luis term store', function () {
                 let term={term:["yifat"],text:"yifat"};
                 $store.dispatch('updateAITerm',{vertical:'ask',data:term});
                 expect($store.state.academic.text).toBe('yifat');
-                expect(store.actions.updateHistorySet.mock.calls[0][1]).toBe('yifat');
+                expect(store.actions.updateHistorySetVertical).toHaveBeenCalledTimes(1);
+                expect(store.actions.updateHistorySetVertical.mock.calls[0][1]).toEqual({term:'yifat',vertical:'ask'});
                 $store.dispatch('updateAITerm',{vertical:'flashcard',data:{...term,text:'flashcard'}});
                 expect($store.state.academic.text).toBe('flashcard')
             });
@@ -149,9 +150,10 @@ describe('luis term store', function () {
             });
             test('getLuis job and food',()=> {
                 $store.commit(LUIS.UPDATE_TERM,{vertical:"food",data:food});
-                expect($store.getters.getAIData).toEqual(food);
+                let value= $store.getters.getVerticalData("food");
+                expect(value).toEqual(food);
                 $store.commit(LUIS.UPDATE_TERM,{vertical:"job",data:job});
-                expect($store.getters.getAIData).toEqual(job);
+                expect($store.getters.getVerticalData("job")).toEqual(job);
             });
         });
     });

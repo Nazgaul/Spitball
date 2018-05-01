@@ -3,15 +3,17 @@
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
 @using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.Extensions.Configuration
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 @inject IHostingEnvironment Environment
 @inject WebPackChunkName Provider
+@inject IConfiguration Configuration 
 
 @{
     const string themeColor = "#4190b";
     ViewBag.title = ViewBag.title ?? "Simplify school | Spitball";
     ViewBag.metaDescription = ViewBag.metaDescription ?? " Spitball - Curating all of the resources you need. For Free.";
-    ViewBag.fbImage = ViewBag.fbImage ?? "/images/3rdParty/fbShare.png";
+    ViewBag.fbImage = ViewBag.fbImage ??  "/images/3rdParty/fbShare.png";
     ViewBag.imageSrc = ViewBag.imageSrc ?? "/images/3rdParty/fbShare.png";
     var version = Assembly.GetEntryAssembly().GetName().Version.ToString(4);
     var p = Provider.GetTag("vendor");
@@ -65,20 +67,20 @@
     <meta property="og:type" content="website" />
     <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
 
-    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_114.png" />
-    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="@cdnEndPoint/images/favicons/favicon_60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="@cdnEndPoint/images/favicons/favicon_72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="@cdnEndPoint/images/favicons/favicon_76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="@cdnEndPoint/images/favicons/favicon_114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="@cdnEndPoint/images/favicons/favicon_120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="@cdnEndPoint/images/favicons/favicon_144.png">
-    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_16.png" sizes="16x16">
+    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_114.png?v=2" />
+    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_57.png?v=2">
+    <link rel="apple-touch-icon" sizes="60x60" href="@cdnEndPoint/images/favicons/favicon_60.png?v=2">
+    <link rel="apple-touch-icon" sizes="72x72" href="@cdnEndPoint/images/favicons/favicon_72.png?v=2">
+    <link rel="apple-touch-icon" sizes="76x76" href="@cdnEndPoint/images/favicons/favicon_76.png?v=2">
+    <link rel="apple-touch-icon" sizes="114x114" href="@cdnEndPoint/images/favicons/favicon_114.png?v=2">
+    <link rel="apple-touch-icon" sizes="120x120" href="@cdnEndPoint/images/favicons/favicon_120.png?v=2">
+    <link rel="apple-touch-icon" sizes="144x144" href="@cdnEndPoint/images/favicons/favicon_144.png?v=2">
+    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_32.png" sizes="32x32?v=2">
+    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_96.png" sizes="96x96?v=2">
+    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_16.png" sizes="16x16?v=2">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="@cdnEndPoint/images/favicons/mstile-144x144.png">
-    <link rel="SHORTCUT ICON" href="@cdnEndPoint/favicon.ico" />
+    <meta name="msapplication-TileImage" content="@cdnEndPoint/images/favicons/favicon_144.png?v=2">
+    <link rel="SHORTCUT ICON" href="@cdnEndPoint/favicon.ico?v=2" />
     @Html.Raw(JavaScriptSnippet.FullScript)
     
     <style>.async-hide { opacity: 0 !important} </style>
@@ -166,6 +168,7 @@ h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
     <script>
         window.version = '@version';
         window.publicPath = '@cdnEndPoint' + '/dist/';
+        window.baseURL = '@Configuration["ApiEndpoint"]';
     </script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>

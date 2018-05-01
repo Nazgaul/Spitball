@@ -1,7 +1,6 @@
-﻿const ExtractTextPlugin = require("extract-text-webpack-plugin");
+﻿﻿﻿const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
 const path = require("path");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -62,6 +61,7 @@ module.exports = (env) => {
                                 "node": "8.9.3"
                             }
                         }]],
+                        plugins: ["dynamic-import-node"]
                         //"plugins": [
                         //    "syntax-dynamic-import",
                         //    "transform-object-rest-spread",
@@ -77,6 +77,7 @@ module.exports = (env) => {
                     test: /\.vue$/,
                     loader: "vue-loader",
                     options: {
+                        optimizeSSR: false,
                         preserveWhitespace: isDevBuild ? false : true,
                         loaders: {
                             css: "vue-style-loader!css-loader",
@@ -124,14 +125,6 @@ module.exports = (env) => {
                     //})
                 },
                 {
-                    test: /\.scss$/,
-                    exclude: /ClientApp/,
-                    use: "css-loader?minimize!sass-loader"
-                    //ExtractTextPlugin.extract({
-                    //use: isDevBuild ? "css-loader!less-loader" : "css-loader?minimize!less-loader"
-                    //})
-                },
-                {
                     test: /\.font\.js/,
                     use: "css-loader?minimize!webfonts-loader"
                     // loader: ExtractTextPlugin.extract({
@@ -145,10 +138,13 @@ module.exports = (env) => {
         },
         target: 'node',
         //resolve: { mainFields: ['main'] },
-        entry: { 'main-server': './ClientApp/server.js' },
+        entry: {
+            // 'satellitePages': glob.sync('./ClientApp/satellite/*.vue'),
+            'main-server': './ClientApp/server.js' },
+        devtool: 'sourcemap',
         output: {
             libraryTarget: 'commonjs2',
-            path: path.join(__dirname, './ClientApp/dist'),
+            path:  path.join(__dirname, './ClientApp/dist'),
             filename: '[name].js',
             // publicPath: 'dist/'
         },

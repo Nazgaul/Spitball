@@ -173,6 +173,7 @@ let routes2 = [
     },
 
 ];
+
 for (let v in staticRoutes) {
     let item = staticRoutes[v];
     routes2.push({
@@ -181,7 +182,8 @@ for (let v in staticRoutes) {
         components: {
             header: satelliteHeader,
             default: item.import
-        }
+        },
+        props:{default:(route)=>item.params?item.params(route):{}}
     })
 }
 

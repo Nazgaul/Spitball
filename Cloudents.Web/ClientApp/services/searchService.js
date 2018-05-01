@@ -6,10 +6,10 @@ export default {
             return search.getQna({ source, university, course, term, page, sort, userText });
         },
         note({ source, university, course, term="", page, sort, docType }) {
-            return search.getDocument({ source, university, course, term, page, sort, docType });
+            return search.getDocument({ source, university, course, query:term, page, sort, docType });
         },
         flashcard({ source, university, course, term="", page, sort }) {
-            return search.getFlashcard({ source, university, course, term, page, sort });
+            return search.getFlashcard({ source, university, course, query:term, page, sort });
         },
         tutor({ term="", filter, sort, page, location }) {
             return search.getTutor({ term, filter, sort, location, page });
@@ -26,14 +26,11 @@ export default {
         foodDetails({ id }) {
             return search.getPlacesDetails({ id });
         },
-        food({ term="", filter, page: nextPageToken, location }) {
-
-            if (nextPageToken) {
-                return search.getFood({ nextPageToken });
-            } else {
+        food({ term="", filter,  location }) {
                 return search.getFood({ term, filter, location });
-            }
+
         }
     },
-    autoComplete:(term)=>search.autoComplete(term)
+    autoComplete:(term)=>search.autoComplete(term),
+    nextPage:(params)=>search.getNextPage(params)
 }
