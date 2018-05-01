@@ -15,6 +15,7 @@ const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
 const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
+const registration = () => import("./components/registration/registration.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
 
 function dynamicPropsFn(route) {
@@ -170,6 +171,11 @@ let routes2 = [
         path: "/landing/jobs", components: {
             default: landingTemplate,
         }, name: "jobsV2"
+    },
+    {
+        path: "/register", components: {
+            default: registration,
+        }, name: "registration"
     },
 
 ];
