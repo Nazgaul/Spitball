@@ -81,16 +81,11 @@ namespace Cloudents.Infrastructure
             using (var md5 = MD5.Create())
             {
                 var hash = md5.ComputeHash(stream);
-                eTag = $"\"{BitConverter.ToString(hash).Replace("-", string.Empty).ToLower()}\"";
+                eTag = BitConverter.ToString(hash).Replace("-", string.Empty).ToLower();
             }
 
             return eTag;
         }
 
-        //public async Task<string> DownloadFileAsync(Uri url, string fileName, bool @override, CancellationToken token)
-        //{
-        //    var p = await DownloadFileAsync(url, fileName, null, token).ConfigureAwait(false);
-        //    return p.path;
-        //}
     }
 }

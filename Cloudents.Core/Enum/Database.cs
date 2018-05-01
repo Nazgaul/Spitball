@@ -9,8 +9,9 @@
     public enum System
     {
         Function,
-        Api,
+       // Api,
         Web,
-        Console
+        Console,
+        WorkerRole
     }
 }

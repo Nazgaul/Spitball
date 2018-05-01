@@ -1,0 +1,30 @@
+﻿using System;
+using Microsoft.AspNetCore.Hosting;
+
+namespace Cloudents.Web.Views
+{
+    public static class Constants
+    {
+        public static string GetCdnEndpoint(IHostingEnvironment env)
+        {
+<<<<<<< HEAD
+            if (env.IsDevelopment())
+=======
+            if (string.Equals(env.EnvironmentName, "Development", StringComparison.OrdinalIgnoreCase))
+>>>>>>> B14
+            {
+                return string.Empty;
+            }
+
+<<<<<<< HEAD
+            if (env.IsStaging())
+=======
+            if (string.Equals(env.EnvironmentName, "Staging", StringComparison.OrdinalIgnoreCase))
+>>>>>>> B14
+            {
+                return string.Empty;
+            }
+            return "//spitball.azureedge.net";
+        }
+    }
+}

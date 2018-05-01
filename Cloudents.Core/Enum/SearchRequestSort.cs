@@ -3,6 +3,7 @@
     public enum SearchRequestSort
     {
         None,
-        Date
+        Date,
+        Relevance
     }
 }

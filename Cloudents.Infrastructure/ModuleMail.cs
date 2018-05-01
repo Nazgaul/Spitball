@@ -7,6 +7,7 @@ namespace Cloudents.Infrastructure
 {
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Function)]
+    [ModuleRegistration(Core.Enum.System.WorkerRole)]
     public class ModuleMail : Module
     {
         protected override void Load(ContainerBuilder builder)

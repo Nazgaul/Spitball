@@ -59,7 +59,7 @@ namespace Cloudents.Infrastructure.AI
                 return null;
             }
             if (aiResult.SearchType.HasValue && string.Equals(aiResult.SearchType.Value.Key, Flashcards,
-                    StringComparison.InvariantCultureIgnoreCase))
+                    StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
@@ -85,7 +85,7 @@ namespace Cloudents.Infrastructure.AI
                 return null;
             }
             if (!aiResult.SearchType.HasValue || !string.Equals(aiResult.SearchType.Value.Key, Flashcards,
-                    StringComparison.InvariantCultureIgnoreCase))
+                    StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }

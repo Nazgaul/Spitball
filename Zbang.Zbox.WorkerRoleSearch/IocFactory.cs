@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
@@ -49,12 +50,18 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Search = new SearchServiceCredentials(ConfigFetcher.Fetch("AzureSeachServiceName"),
                     ConfigFetcher.Fetch("AzureSearchKey")),
                 Redis = "zboxcache.redis.cache.windows.net,abortConnect=false,allowAdmin=true,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI=",
-                LocalStorageData = new LocalStorageData(azureLocalResource.RootPath, azureLocalResource.MaximumSizeInMegabytes)
+                LocalStorageData = new LocalStorageData(azureLocalResource.RootPath, azureLocalResource.MaximumSizeInMegabytes),
+                Storage = ConfigFetcher.Fetch("StorageConnectionString")
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
-            //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
-            builder.RegisterModule<ModuleWrite>();
+
+            builder.RegisterSystemModules(
+                Cloudents.Core.Enum.System.WorkerRole,
+                Assembly.Load("Cloudents.Infrastructure.Framework"),
+                Assembly.Load("Cloudents.Infrastructure.Storage"),
+                Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Core"));
 
             builder.RegisterModule<WorkerRoleModule>();
             Container = builder.Build();

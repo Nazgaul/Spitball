@@ -39,12 +39,12 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (!string.Equals(model.Country, "us", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(model.Country, "us", StringComparison.OrdinalIgnoreCase))
             {
                 return this.RedirectToOldSite();
             }
 
-            if (!model.Discriminator.Equals("file", StringComparison.InvariantCultureIgnoreCase))
+            if (!model.Discriminator.Equals("file", StringComparison.OrdinalIgnoreCase))
             {
                 return View();
             }

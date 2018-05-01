@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/Document")]
+    [Route("api/[controller]")]
     public class DocumentController : Controller
     {
         private readonly IReadRepositoryAsync<DocumentDto, long> _repository;

@@ -42,7 +42,6 @@ namespace Cloudents.Infrastructure.Suggest
             return _mapper.Map<IEnumerable<string>>(result).Take(NumberOfEntries).ToArray();
         }
 
-
         public class SuggestionsObject
         {
             //public string _type { get; set; }

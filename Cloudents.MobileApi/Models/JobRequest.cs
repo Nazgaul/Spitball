@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
 using JetBrains.Annotations;
 
-namespace Cloudents.MobileApi.Models
+namespace Cloudents.Api.Models
 {
     /// <inheritdoc />
     /// <summary>
@@ -26,7 +25,6 @@ namespace Cloudents.MobileApi.Models
         /// <summary>
         /// Location of user
         /// </summary>
-        [CanBeNull]
         public Location Location { get; set; }
         /// <summary>
         /// Facet filter got from the api
@@ -35,10 +33,10 @@ namespace Cloudents.MobileApi.Models
         [ItemCanBeNull]
         public string[] Facet { get; set; }
 
-        /// <summary>
-        /// Should highlight the response with <!--b-->
-        /// </summary>
-        public bool Highlight { get; set; }
+        /* /// <summary>
+         /// Should highlight the response with <!--b-->
+         /// </summary>
+         //public HighlightTextFormat Highlight { get; set; }*/
         /// <inheritdoc />
         /// <summary>
         /// Page of paging
