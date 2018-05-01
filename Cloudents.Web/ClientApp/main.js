@@ -175,3 +175,4 @@ router.onReady(() => {
 //This is for cdn fallback do not touch
 global.mainCdn = true;
 export { app, router };
+//
