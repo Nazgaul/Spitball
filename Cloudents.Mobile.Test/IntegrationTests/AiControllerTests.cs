@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Cloudents.Mobile.Test.IntegrationTests
+namespace Cloudents.Api.Test.IntegrationTests
 {
     [TestClass]
     public class AiControllerTests : ServerInit

@@ -8,7 +8,7 @@ namespace Cloudents.Web
     {
         public void ApplyRule(RewriteContext context)
         {
-            if (!string.Equals(context.HttpContext.Request.Method, "Get", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(context.HttpContext.Request.Method, "Get", StringComparison.OrdinalIgnoreCase))
             {
                 return;
             }

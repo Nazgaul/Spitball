@@ -36,15 +36,13 @@ namespace Cloudents.Infrastructure
                         {
                             builder.RegisterModule(p);
                         }
-
                     }
                 }
                 catch (ReflectionTypeLoadException ex)
                 {
                     var loaderExceptions = ex.LoaderExceptions;
-                    throw;
+                    throw loaderExceptions[0];
                 }
-
             }
         }
     }

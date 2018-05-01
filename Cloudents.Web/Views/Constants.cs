@@ -5,7 +5,7 @@ namespace Cloudents.Web.Views
 {
     public static class Constants
     {
-        public  static string GetCdnEndpoint(IHostingEnvironment env)
+        public static string GetCdnEndpoint(IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {

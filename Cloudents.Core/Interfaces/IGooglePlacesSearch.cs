@@ -11,8 +11,10 @@ namespace Cloudents.Core.Interfaces
     public interface IGooglePlacesSearch
     {
         [ItemCanBeNull]
-        Task<PlacesNearbyDto> SearchNearbyAsync(IEnumerable<string> term, PlacesRequestFilter filter,
-            GeoPoint location, string nextPageToken, CancellationToken token);
+        Task<PlacesNearbyDto> SearchNearbyAsync(IEnumerable<string> term,
+            PlacesRequestFilter filter,
+            [NotNull] GeoPoint location,
+            string nextPageToken, CancellationToken token);
 
         [ItemCanBeNull]
         Task<PlaceDto> ByIdAsync(string id, CancellationToken token);

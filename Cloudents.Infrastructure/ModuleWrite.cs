@@ -11,13 +11,13 @@ using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
+    [ModuleRegistration(Core.Enum.System.Console)]
+    [ModuleRegistration(Core.Enum.System.WorkerRole)]
     public class ModuleWrite : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterModule<ModuleInfrastructureBase>();
-            builder.RegisterModule<ModuleMail>();
 
             //builder.RegisterGeneric(typeof(SearchServiceWrite<>));
             builder.RegisterType<DownloadFile>().As<IDownloadFile>();
@@ -28,6 +28,7 @@ namespace Cloudents.Infrastructure
     }
 
     [ModuleRegistration(Core.Enum.System.Console)]
+    [ModuleRegistration(Core.Enum.System.WorkerRole)]
     [ModuleRegistration(Core.Enum.System.Function)]
     public class ModuleAzureSearch : Module
     {

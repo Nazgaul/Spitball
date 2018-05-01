@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure
         public MapperProfile()
         {
             CreateMap<GoogleGeoCodeDto, (Address address, GeoPoint point)>().ConvertUsing<GoogleGeoConverter>();
-            CreateMap<BingSearch.WebPage, SearchResult>().ConvertUsing<BingConverter>();
+            CreateMap<BingWebPage, SearchResult>().ConvertUsing<BingConverter>();
             CreateMap<BingSuggest.SuggestionsObject, IEnumerable<string>>().ConvertUsing<BingSuggestConverter>();
 
             CreateMap<Course, CourseDto>();

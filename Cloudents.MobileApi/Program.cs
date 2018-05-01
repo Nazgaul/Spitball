@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Cloudents.MobileApi
+namespace Cloudents.Api
 {
     public class Program
     {

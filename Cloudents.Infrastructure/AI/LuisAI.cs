@@ -58,19 +58,19 @@ namespace Cloudents.Infrastructure.AI
                     searchType = new KeyValuePair<string, string>(entity.Name, entity.Value);
                     continue;
                 }
-                if (entity.Name.Equals("subject", StringComparison.InvariantCultureIgnoreCase))
+                if (entity.Name.Equals("subject", StringComparison.OrdinalIgnoreCase))
                 {
                     terms.Add(entity.Value);
                 }
-                if (entity.Name.Equals("class", StringComparison.InvariantCultureIgnoreCase))
+                if (entity.Name.Equals("class", StringComparison.OrdinalIgnoreCase))
                 {
                     course = entity.Value;
                 }
-                if (entity.Name.Equals("isbn", StringComparison.InvariantCultureIgnoreCase))
+                if (entity.Name.Equals("isbn", StringComparison.OrdinalIgnoreCase))
                 {
                     isbn = entity.Value;
                 }
-                if (entity.Name.Equals("Weather.Location", StringComparison.InvariantCultureIgnoreCase))
+                if (entity.Name.Equals("Weather.Location", StringComparison.OrdinalIgnoreCase))
                 {
                     location = entity.Value;
                 }

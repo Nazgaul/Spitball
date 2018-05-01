@@ -21,13 +21,8 @@ namespace Cloudents.Infrastructure
                 foreach (var att in type.GetCustomAttributes<BinaryIncludeSerializeAttribute>())
                 {
                     RuntimeTypeModel.Default.Add(type, true).AddSubType(att.Tag, att.KnownType);
-
                 }
-
-
             }
-
-
         }
         public byte[] Serialize<T>(T value)
         {

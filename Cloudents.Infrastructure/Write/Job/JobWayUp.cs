@@ -11,9 +11,11 @@ using System.Xml.Serialization;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Write.Job.Entities;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Write.Job
 {
+    [UsedImplicitly]
     public class JobWayUp : UpdateAffiliate<WayUpJob, Core.Entities.Search.Job>
     {
         private readonly JobSearchWrite _jobSearchService;
@@ -35,16 +37,16 @@ namespace Cloudents.Infrastructure.Write.Job
         }
 
         protected override string FileLocation => "wayUpJobs.xml";
-        protected override Uri Url => new Uri("https://www.wayup.com/integrations/clickcast-feed/");
+        protected override Uri Url => new Uri("https://clickcastfeeds.s3.amazonaws.com/714559ba13ba9675ace7233a8b08eb48/feed.xml.gz");
         protected override string Service => "WayUp jobs";
-        protected override AuthenticationHeaderValue HttpHandler
-        {
-            get
-            {
-                var byteArray = Encoding.ASCII.GetBytes($"cqSCcVaGdfHVTefIBGCTdLqmYPeboa:LAGhyQrQdfLumRjMrXVVVISAnrbTZn");
-                return new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-            }
-        }
+        protected override AuthenticationHeaderValue HttpHandler => null;
+        //{
+        //    get
+        //    {
+        //        var byteArray = Encoding.ASCII.GetBytes($"cqSCcVaGdfHVTefIBGCTdLqmYPeboa:LAGhyQrQdfLumRjMrXVVVISAnrbTZn");
+        //        return new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+        //    }
+        //}
 
         protected override IEnumerable<WayUpJob> GetT(string location)
         {
@@ -78,30 +80,33 @@ namespace Cloudents.Infrastructure.Write.Job
 
         protected override async Task<Core.Entities.Search.Job> ParseTAsync(WayUpJob obj, CancellationToken token)
         {
-            var dateTimeStr = obj.PostedDate.Replace("UTC", string.Empty).Trim();
+
+            //var dateTimeStr = obj.PostedDate.Replace("UTC", string.Empty).Trim();
 
             DateTime? dateTime = null;
-            if (DateTimeOffset.TryParse(dateTimeStr, out var p))
+            if (DateTime.TryParse(obj.PostedDate, out var p))
             {
-                dateTime = p.DateTime;
+                dateTime = p;
             }
+
 
             var (_, point) = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
             var job = new Core.Entities.Search.Job
             {
                 City = obj.City,
-                Compensation = obj.CompType,
+                //Compensation = obj.CompType,
                 DateTime = dateTime,
                 Id = obj.Id,
                 JobType = JobTypeConversion(obj.JobType),
-                Location = point.ToPoint(),
-                Description = obj.Responsibilities,
+                Location = point?.ToPoint(),
+                Description = obj.Body,
                 State = obj.State,
                 Title = obj.Title,
                 InsertDate = DateTime.UtcNow,
                 Url = obj.Url,
                 Company = obj.Company,
                 Source = Source
+                
             };
             if (job.JobType == JobFilter.None && obj.JobType != null)
             {

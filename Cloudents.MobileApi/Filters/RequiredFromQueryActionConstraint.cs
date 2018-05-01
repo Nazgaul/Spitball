@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ActionConstraints;
 
-namespace Cloudents.MobileApi.Filters
+namespace Cloudents.Api.Filters
 {
     public class RequiredFromQueryActionConstraint : IActionConstraint
     {

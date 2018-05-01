@@ -13,6 +13,5 @@ namespace Cloudents.Core.Interfaces
             MailGunRequest parameters,
             CancellationToken cancellationToken);
     }
-
     
 }

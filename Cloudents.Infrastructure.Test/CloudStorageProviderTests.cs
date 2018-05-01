@@ -19,6 +19,7 @@ namespace Cloudents.Infrastructure.Test
             if (val is IEnumerable<QueueName> p)
             {
                 var d = true;
+                // ReSharper disable once UnusedVariable - used for test
                 foreach (var t in p)
                 {
 

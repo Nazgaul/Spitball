@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Autofac.Extras.Moq;
 using AutoMapper;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
+using Cloudents.Core;
 using Cloudents.Infrastructure.Converters;
+using Cloudents.Infrastructure.Domain;
 using Cloudents.Infrastructure.Search;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,12 +26,22 @@ namespace Cloudents.Infrastructure.Test.Converters
         [TestInitialize]
         public void Setup()
         {
-            using (var _autofackMock = AutoMock.GetLoose())
+            using (var autofackMock = AutoMock.GetLoose())
             {
-                var mockOptions = _autofackMock.Mock<IMappingOperationOptions>();
-                mockOptions.Setup(s => s.Items).Returns(new Dictionary<string, object>());
+                var mockOptions = autofackMock.Mock<IMappingOperationOptions>();
+                var domainParser = autofackMock.Mock<IDomainParser>();
+                domainParser.Setup(s => s.GetDomain("www.coursehero.com")).Returns("coursehero");
+                domainParser.Setup(s => s.GetDomain("www.spitball.co")).Returns("spitball");
+                domainParser.Setup(s => s.GetDomain("www.someurl.com")).Returns("someUrl");
+
+                IReadOnlyDictionary<string, PrioritySource> priorities = new Dictionary<string, PrioritySource>();
+
+                mockOptions.Setup(s => s.Items).Returns(new Dictionary<string, object>
+                {
+                    [BingConverter.KeyPriority] = priorities
+                });
                 _context = new ResolutionContext(mockOptions.Object, _mockMapping.Object);
-                _bingConverter = _autofackMock.Create<BingConverter>();
+                _bingConverter = autofackMock.Create<BingConverter>();
             }
         }
 
@@ -43,11 +53,7 @@ namespace Cloudents.Infrastructure.Test.Converters
             const string courseHeroLink =
                 "https://www.coursehero.com/file/11150425/Calculus-Basics-you-should-know-class-notes/";
 
-            // var bingConverter = mock.Create<BingConverter>();
-
-
-            //var bingConverter = new BingConverter(_keyGenerator.Object, _replaceImageMock.Object);
-            var argument = new BingSearch.WebPage
+            var argument = new BingWebPage
             {
                 Url = courseHeroLink
 
@@ -57,26 +63,62 @@ namespace Cloudents.Infrastructure.Test.Converters
                 "http://shareasale.com/r.cfm?b=661825&u=1469379&m=55976&urllink=www.coursehero.com/file/11150425/Calculus-Basics-you-should-know-class-notes/&afftrack=";
             Assert.AreEqual(result.Url, resultLink);
             result.Source.Should().BeEquivalentTo("coursehero");
-            //Assert.AreEqual(result.Source, "coursehero");
 
         }
 
         [TestMethod]
         public void ConvertToResult_RegularWebPage_RegularUrl()
         {
-            //using (var mock = AutoMock.GetLoose())
-            //{
-            // var bingConverter = mock.Create<BingConverter>();
-            //var bingConverter = new BingConverter(_keyGenerator.Object, _replaceImageMock.Object);
-            var argument = new BingSearch.WebPage
+            const string someDomainUrl = "https://www.someUrl.com";
+            var argument = new BingWebPage
             {
-                Url = "https://www.spitball.co"
+                Url = someDomainUrl
 
             };
             var result = _bingConverter.Convert(argument, null, _context);
-            Assert.AreEqual(result.Url, "https://www.spitball.co");
-            Assert.AreEqual(result.Source, "spitball");
-            //}
+            Assert.AreEqual(result.Url, someDomainUrl);
+            result.Source.Should().BeEquivalentTo("someurl");
+        }
+
+
+        [TestMethod]
+        public void ConvertToResult_SpitballWebPage_CloudentsSource()
+        {
+            const string spitballDomainUrl = "https://www.spitball.co";
+            var argument = new BingWebPage
+            {
+                Url = spitballDomainUrl
+
+            };
+            var result = _bingConverter.Convert(argument, null, _context);
+            Assert.AreEqual(result.Url, spitballDomainUrl);
+            result.Source.Should().BeEquivalentTo("cloudents");
+            //Assert.AreEqual(result.Source, "cloudents");
+        }
+
+        [TestMethod]
+        public void ConvertToResult_SomeWebPageWithNullDomain_HasPriority()
+        {
+            var argument = new BingWebPage
+            {
+                Url = "https://www.someUrl2.com"
+
+            };
+            var result = _bingConverter.Convert(argument, null, _context);
+            result.PrioritySource.Should().NotBeNull();
+        }
+
+
+        [TestMethod]
+        public void ConvertToResult_SomeWebPage_HasPriority()
+        {
+            var argument = new BingWebPage
+            {
+                Url = "https://www.someUrl.com"
+
+            };
+            var result = _bingConverter.Convert(argument, null, _context);
+            result.PrioritySource.Should().NotBeNull();
         }
     }
 }

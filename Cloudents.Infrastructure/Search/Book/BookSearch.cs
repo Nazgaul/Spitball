@@ -74,7 +74,7 @@ namespace Cloudents.Infrastructure.Search.Book
             {
                 return null;
             }
-            if (string.Equals(result.Response.Status, "error", StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(result.Response.Status, "error", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }

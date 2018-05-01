@@ -14,7 +14,6 @@ namespace Cloudents.Core.Interfaces
             IEnumerable<string> jobType,
             Location location,
             int page,
-            bool highlight,
             CancellationToken token);
     }
 }

@@ -1,0 +1,40 @@
+﻿using Autofac;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Interfaces;
+
+namespace Cloudents.Infrastructure.Storage
+{
+    [ModuleRegistration(Core.Enum.System.Console)]
+<<<<<<< HEAD
+    [ModuleRegistration(Core.Enum.System.Api)]
+=======
+    [ModuleRegistration(Core.Enum.System.WorkerRole)]
+    //[ModuleRegistration(Core.Enum.System.Api)]
+>>>>>>> B14
+    [ModuleRegistration(Core.Enum.System.Web)]
+    public class ModuleStorage : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.Register(c =>
+            {
+                var key = c.Resolve<IConfigurationKeys>().Storage;
+                return new CloudStorageProvider(key);
+            }).SingleInstance().AsImplementedInterfaces();
+
+            builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
+            builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
+
+            builder.RegisterGeneric(typeof(BlobProvider<>)).AsImplementedInterfaces();
+<<<<<<< HEAD
+=======
+
+            builder.Register(c =>
+            {
+                var key = c.Resolve<IConfigurationKeys>().LocalStorageData;
+                return new TempStorageProvider(c.Resolve<ILogger>(), key);
+            }).As<ITempStorageProvider>();
+>>>>>>> B14
+        }
+    }
+}

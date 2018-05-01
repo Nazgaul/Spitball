@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum;
@@ -11,7 +9,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Infrastructure.Suggest
 {
     [ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.Api)]
+    //[ModuleRegistration(Core.Enum.System.Api)]
     [ModuleRegistration(Core.Enum.System.Web)]
     [UsedImplicitly]
     public class ModuleSuggest : Module
@@ -27,16 +25,17 @@ namespace Cloudents.Infrastructure.Suggest
                 .InterceptedBy(typeof(CacheResultInterceptor));
 
 
-            
+
             //builder.RegisterType<TutorSuggest>()
             //.WithMetadata<SuggestMetadata>(m => m.For(am => am.AppenderName, new[] { Vertical.Tutor }));
-            builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Tutor).Keyed<ISuggestions>(Vertical.Job);
-            builder.RegisterType<TutorSuggest>().As<ITutorSuggestion>();
+            builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Tutor).WithParameter(TutorSuggest.VerticalParameter, Vertical.Tutor);
+            builder.RegisterType<TutorSuggest>().Keyed<ISuggestions>(Vertical.Job).WithParameter(TutorSuggest.VerticalParameter, Vertical.Job);
+            builder.RegisterType<TutorSuggest>().As<ITutorSuggestion>().WithParameter(TutorSuggest.VerticalParameter, Vertical.Tutor);
             //builder.RegisterType<BingSuggest>().
             //.EnableInterfaceInterceptors()
             //.InterceptedBy(typeof(CacheResultInterceptor));
 
-           
+
         }
     }
 }

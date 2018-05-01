@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace Cloudents.MobileApi.Filters
+namespace Cloudents.Api.Filters
 {
     [System.AttributeUsage(System.AttributeTargets.All)]
     public sealed class RequiredFromQueryAttribute : FromQueryAttribute, IParameterModelConvention

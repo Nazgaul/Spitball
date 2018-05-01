@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Api.Filters;
+using Cloudents.Api.Models;
 using Cloudents.Core.Interfaces;
-using Cloudents.MobileApi.Filters;
-using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cloudents.MobileApi.Controllers
+namespace Cloudents.Api.Controllers
 {
     /// <inheritdoc />
     /// <summary>
@@ -36,25 +36,12 @@ namespace Cloudents.MobileApi.Controllers
         [ValidateModel]
         public async Task<IActionResult> GetAsync([FromQuery] UniversityRequest model, CancellationToken token)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-
-            var result = await _universityProvider.SearchAsync(model.Term, model.Location, token).ConfigureAwait(false);
-            return Json(result);
-
+            var result = await _universityProvider.SearchAsync(model.Term,
+                model.Location.ToGeoPoint(), token).ConfigureAwait(false);
+            return Ok(new
+            {
+                universities = result
+            });
         }
-
-        //[HttpGet("approximate")]
-        //public async Task<IActionResult> ByApproximateAsync([FromQuery]GeoPoint point, CancellationToken token)
-        //{
-        //    if (point == null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    var result = await _universityProvider.GetApproximateUniversitiesAsync(point, token).ConfigureAwait(false);
-        //    return Json(result);
-        //}
     }
 }

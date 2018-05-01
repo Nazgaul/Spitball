@@ -48,7 +48,6 @@ namespace Cloudents.Infrastructure.Data
         }
     }
 
-
     public class FallbackTypeMapper : SqlMapper.ITypeMap
     {
         private readonly IEnumerable<SqlMapper.ITypeMap> _mappers;

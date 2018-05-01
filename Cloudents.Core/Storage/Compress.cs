@@ -35,19 +35,16 @@ namespace Cloudents.Core.Storage
         //    }
         //}
 
-        //public static byte[] DecompressFromGzip(byte[] byteArray)
-        //{
-        //    using (var input = new MemoryStream(byteArray))
-        //    using (var output = new MemoryStream())
-        //    {
-        //        using (Stream cs = new GZipStream(input, CompressionMode.Decompress))
-        //        {
-        //            cs.CopyTo(output);
-        //        }
+        public static async Task<Stream> DecompressFromGzipAsync(Stream stream)
+        {
+            var output = new MemoryStream();
+            using (Stream cs = new GZipStream(stream, CompressionMode.Decompress))
+            {
+                await cs.CopyToAsync(output).ConfigureAwait(false);
+            }
 
-        //        return output.ToArray();
-        //    }
-        //}
+            return output;
+        }
 
         public static async Task<byte[]> CompressToGzipAsync(Stream stream, CancellationToken token = default(CancellationToken))
         {

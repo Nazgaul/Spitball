@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using Cloudents.Core.Models;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Extensions.Extensions;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -31,7 +30,7 @@ namespace Cloudents.Web.Controllers
         //[ResponseCache()]
         // we can't use that for now.
         // GET
-        public IActionResult Index(Location location, [FromServices]IHostingEnvironment env)
+        public IActionResult Index(LocationQuery location, [FromServices]IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -47,7 +46,7 @@ namespace Cloudents.Web.Controllers
             {
                 return View();
             }
-            if (!string.Equals(location?.Address?.CountryCode, "US", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(location?.Address?.CountryCode, "US", StringComparison.OrdinalIgnoreCase))
             {
                 return this.RedirectToOldSite();
             }

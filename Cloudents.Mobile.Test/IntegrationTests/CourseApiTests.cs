@@ -1,15 +1,17 @@
-﻿using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Cloudents.MobileApi.Models;
+﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 
-namespace Cloudents.Mobile.Test.IntegrationTests
+namespace Cloudents.Api.Test.IntegrationTests
 {
     [TestClass]
     public class CourseApiTests : ServerInit
     {
+        public async Task Get_SomeCourse_ReturnResult()
+        {
+            var response = await Client.GetAsync("api/course/search");
+            response.EnsureSuccessStatusCode();
+        }
+
         //TODO: not sure why this fails.
         //[TestMethod]
         //public async Task Create_SomeNewCourse_ReturnResult()

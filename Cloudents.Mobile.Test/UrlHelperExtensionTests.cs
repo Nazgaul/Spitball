@@ -1,12 +1,11 @@
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
-using Cloudents.Core.Models;
-using Cloudents.MobileApi.Extensions;
-using Cloudents.MobileApi.Models;
+using Cloudents.Api.Extensions;
+using Cloudents.Api.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Cloudents.Mobile.Test
+namespace Cloudents.Api.Test
 {
     [TestClass]
     public class UrlHelperExtensionTests
@@ -19,7 +18,11 @@ namespace Cloudents.Mobile.Test
             var val = new TutorRequest
             {
                 Page = 0,
-                Location = new GeoPoint(0, 0)
+                Location = new GeographicCoordinate
+                {
+                    Latitude = 0,
+                    Longitude = 0
+                }
             };
 
             var nvc = new NameValueCollection();
