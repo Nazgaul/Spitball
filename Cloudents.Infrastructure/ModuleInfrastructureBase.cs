@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure
         {
             base.Load(builder);
             var assembly = Assembly.GetExecutingAssembly();
-            builder.RegisterModule<ModuleCache>();
+            //builder.RegisterModule<ModuleCache>();
             builder.Register(c =>
                 {
                     var key = c.Resolve<IConfigurationKeys>().Search;

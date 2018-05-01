@@ -12,6 +12,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7.1</LangVersion>
     <DocumentationFile>bin\Debug\net47\Cloudents.Web.xml</DocumentationFile>
+    <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -19,6 +20,7 @@
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <DocumentationFile>bin\Release\net47\Cloudents.Web.xml</DocumentationFile>
+    <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,11 +28,6 @@
     <Content Remove="ClientApp\components\navbar\**" />
     <EmbeddedResource Remove="ClientApp\components\navbar\**" />
     <None Remove="ClientApp\components\navbar\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Api\TitleController.cs" />
-    <Compile Remove="Api\VideoController.cs" />
   </ItemGroup>
 
   <ItemGroup>

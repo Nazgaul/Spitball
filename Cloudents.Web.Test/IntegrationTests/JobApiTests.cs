@@ -33,6 +33,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var result = await response.Content.ReadAsStringAsync();
             var d = JObject.Parse(result);
             var p = d["result"]["result"].Values();
+            
             p.Should().HaveCountGreaterOrEqualTo(1);
             //var p = d.result;
             //p.Should().HaveCountGreaterOrEqualTo(1);

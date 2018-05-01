@@ -16,6 +16,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Read;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
+using Cloudents.Infrastructure.Mail;
 using Cloudents.Infrastructure.Search.Tutor;
 
 namespace ConsoleApp
@@ -48,8 +49,9 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            var t = container.ResolveKeyed<IUpdateAffiliate>(AffiliateProgram.WayUp);
-            await t.ExecuteAsync(0, (_) => Task.CompletedTask, default);
+            var sms = new SmsSender();
+            await sms.SendSmsAsync("+972528830686", "Hi Eidan. this is creepy");
+
 
             //var resolve2 = container
             //    .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>

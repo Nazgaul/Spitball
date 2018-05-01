@@ -1,11 +1,16 @@
 ﻿using System;
 using Autofac;
 using CacheManager.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Cache;
 
 namespace Cloudents.Infrastructure
 {
+    [ModuleRegistration(Core.Enum.System.Console)]
+    //[ModuleRegistration(Core.Enum.System.Api)]
+    [ModuleRegistration(Core.Enum.System.Web)]
+    [ModuleRegistration(Core.Enum.System.WorkerRole)]
     public class ModuleCache : Module
     {
         //private readonly string _redisConnectionString;

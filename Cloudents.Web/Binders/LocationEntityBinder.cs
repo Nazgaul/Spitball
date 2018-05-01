@@ -4,7 +4,6 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using TempDataExtensions = Cloudents.Web.Extensions.TempDataExtensions;
 
 namespace Cloudents.Web.Binders
 {
@@ -29,7 +28,7 @@ namespace Cloudents.Web.Binders
 
             var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.latitude");
             var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.longitude");
-            var locationFromTemp = TempDataExtensions.Get<LocationQuery>(tempData, KeyName);
+            var locationFromTemp = tempData.Get<LocationQuery>(KeyName);
             if (float.TryParse(latitudeStr.FirstValue, out var latitude)
                 && float.TryParse(longitudeStr.FirstValue, out var longitude))
             {
