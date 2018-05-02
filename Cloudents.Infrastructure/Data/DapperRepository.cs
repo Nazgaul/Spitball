@@ -61,7 +61,10 @@ namespace Cloudents.Infrastructure.Data
             }
         }
 
-       
+        public IDbConnection OpenConnection()
+        {
+            return new SqlConnection(_connectionString);
+        }
 
         public T WithConnection<T>(Func<IDbConnection, T> getData)
         {
@@ -85,5 +88,7 @@ namespace Cloudents.Infrastructure.Data
                 throw;
             }
         }
+
+
     }
 }
