@@ -29,6 +29,7 @@ const allModules = [
     "vuetify/es5/components/VExpansionPanel",
     "vuetify/es5/components/VList",
     "vuetify/es5/components/VTextField",
+    "vuetify/es5/components/VSelect",
     "vuetify/es5/components/VCard",
     "vuetify/es5/components/VCarousel",
     "vuetify/es5/components/VProgressCircular",

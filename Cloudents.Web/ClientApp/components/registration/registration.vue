@@ -1,13 +1,14 @@
 <template>
-    <span>woop</span>
+    <div class="registration">
+        <div class="form-wrap">
+            <register-email v-if="step===0"></register-email>
+            <register-phone v-else-if="step===1" @next="step++"></register-phone>
+            <register-username v-else-if="step===2" @next="step++"></register-username>
+            <register-account v-else-if="step===3"></register-account>
+        </div>
+        <div class="img-wrap"></div>
+    </div>
 </template>
 
-<script>
-    export default {
-        name: "registration"
-    }
-</script>
-
-<style scoped>
-
-</style>
+<style src="./registration.less" lang="less"></style>
+<script src="./registration.js"></script>
