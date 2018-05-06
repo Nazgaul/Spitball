@@ -33,7 +33,7 @@ namespace Cloudents.Infrastructure.Search.Book
         [Cache(TimeConst.Day, "book", false)]
         public async Task<IEnumerable<BookSearchDto>> SearchAsync(IEnumerable<string> term, int page, CancellationToken token)
         {
-            var query = string.Join(" ", term ?? Enumerable.Empty<string>()) ?? "textbooks";
+            var query = string.Join(" ", term ?? new [] { "textbooks" });
 
             var nvc = new NameValueCollection
             {

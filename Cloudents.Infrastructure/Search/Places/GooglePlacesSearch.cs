@@ -186,7 +186,7 @@ namespace Cloudents.Infrastructure.Search.Places
         {
             if (string.IsNullOrEmpty(nextPageToken))
             {
-                var termStr = string.Join(" ", term ?? Enumerable.Empty<string>()) ?? string.Empty;
+                var termStr = string.Join(" ", term ?? Enumerable.Empty<string>());
                 if (location == null) throw new ArgumentNullException(nameof(location));
                 var nvc = new NameValueCollection
                 {

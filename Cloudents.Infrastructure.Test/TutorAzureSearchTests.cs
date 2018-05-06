@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure.Test
     public class TutorAzureSearchTests
     {
         private readonly Mock<ISearchServiceClient> _searchIndexMock = new Mock<ISearchServiceClient>();
-        private readonly Mock<IMapper> _searchMapper = new Mock<IMapper>();
+        //private readonly Mock<IMapper> _searchMapper = new Mock<IMapper>();
 
 
         //[TestInitialize]

@@ -21,7 +21,8 @@ namespace Cloudents.Web.Api
             _factoryProcessor = factoryProcessor;
         }
 
-        public async Task<IActionResult> Get(long id, bool? firstTime, CancellationToken token)
+        [HttpGet]
+        public async Task<IActionResult> GetAsync(long id, bool? firstTime, CancellationToken token)
         {
             var tModel = _repository.GetAsync(id, token);
             var tContent = firstTime.GetValueOrDefault() ?

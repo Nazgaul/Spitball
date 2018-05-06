@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class SiteMapController : Controller
     {
         private readonly IReadRepositoryAsync<IEnumerable<SiteMapCountDto>> _readRepository;
