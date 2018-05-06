@@ -72,7 +72,7 @@ module.exports = (env) => {
                     test: /\.vue$/,
                     loader: "vue-loader",
                     options: {
-                        preserveWhitespace: isDevBuild ? false : true,
+                        preserveWhitespace: isDevBuild ? true : false,
                         loaders: {
                             css: isDevBuild
                                 ? "vue-style-loader!css-loader"
