@@ -8,7 +8,7 @@ export default {
     components: { InvisibleRecaptcha, registerEmail, registerPhone, registerUsername, registerAccount },
     data(){
         return {
-            step: this.$route.query.hasOwnProperty("emailVerified") ? 1 : 0
+            step: this.$route.query.hasOwnProperty("emailVerified") ? 3 : 0
         }
     }
 }

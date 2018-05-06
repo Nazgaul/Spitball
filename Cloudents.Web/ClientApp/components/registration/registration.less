@@ -1,0 +1,75 @@
+.step-wrapper {
+  text-align: center;
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
+
+  .side-wrapper {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-grow: 1;
+    &.data{
+      background: white;
+    }
+  }
+
+  .step-title {
+    font-size: 26px;
+    font-weight: bold;
+  }
+  p {
+    font-size: 18px;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #4a4a4a;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+
+  .continue-btn{
+    background: #3532d5;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.39;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    width: 400px;
+    height: 48px;
+  }
+
+  /*#region email*/
+  .google-signin{
+    background: #4285f4;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #ffffff;
+    width: 400px;
+    height: 48px;
+  }
+
+  .seperator-text{
+    display: flex;
+    align-items: center;
+
+    &:before, &:after{
+      content: '';
+      width: 100%;
+      background: black;
+      height: 1px;
+      display: block;
+    }
+
+    span{
+      flex-shrink: 0;
+      padding: 0 12px;
+    }
+  }
+  /*#endregion*/
+}

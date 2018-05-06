@@ -1,23 +1,31 @@
 <template>
     <div>
-        <div v-if="!showSummary">
-            <h1>Your Account Number</h1>
-            <p>Here is your account number, don’t lose it! Save it in a place you remember, or screenshot this page.</p>
-            <account-num></account-num>
-            <button @click="next">Continue</button>
-        </div>
-        <div v-else>
-            <h1>CONGRATS!</h1>
-            <p>You just earned your first 10 tokens.</p>
-            <button @click="finishRegistration">Lets shop</button>
-        </div>
+        <step-template v-if="!showSummary">
+            <div slot="step-data">
+                <h1>Your Account Number</h1>
+                <p>Here is your account number, don’t lose it! Save it in a place you remember, or screenshot this
+                    page.</p>
+                <account-num></account-num>
+                <button class="continue-btn" @click="next">Continue</button>
+            </div>
+            <img slot="step-image" :src="require(`../img/account.png`)"/>
+        </step-template>
+        <step-template v-else>
+            <div slot="step-data">
+                <h1>CONGRATS!</h1>
+                <p>You just earned your first 10 tokens.</p>
+                <button class="continue-btn" @click="finishRegistration">Lets shop</button>
+            </div>
+            <img slot="step-image" :src="require(`../img/registerEmail.png`)"/>
+        </step-template>
 
 
         <v-dialog v-model="openDialog" max-width="500px">
             <v-card>
                 <v-card-text>
                     <h1>Your Account Number</h1>
-                    <p>Here is your account number, don’t lose it! Save it in a place you remember, or screenshot this page.</p>
+                    <p>Here is your account number, don’t lose it! Save it in a place you remember, or screenshot this
+                        page.</p>
                     <account-num></account-num>
                 </v-card-text>
                 <v-card-actions>
@@ -31,14 +39,15 @@
 
 <script>
     import accountNum from "./accountNum.vue";
+    import stepTemplate from './stepTemplate.vue'
 
     export default {
-        components: {accountNum},
-        data(){
+        components: {accountNum, stepTemplate},
+        data() {
             return {
                 openDialog: false,
                 dialogWasViewed: false,
-                showSummary: false
+                showSummary: false,
             }
         },
         methods: {
@@ -46,15 +55,15 @@
                 if (!this.dialogWasViewed) {
                     this.openDialog = true;
                 }
-                else{
+                else {
                     this.showSummary = true;
                 }
             },
-            closeDialog(){
-                this.openDialog=false;
-                this.dialogWasViewed=true
+            closeDialog() {
+                this.openDialog = false;
+                this.dialogWasViewed = true
             },
-            finishRegistration(){
+            finishRegistration() {
                 this.$router.push({path: '/note', query: {q: ''}});
             }
         }
