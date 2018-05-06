@@ -5,6 +5,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,8 +50,12 @@ namespace Cloudents.Web.Api
             }
 
             return BadRequest(p.Errors);
-            //await _signInManager.SignInAsync(user, true).ConfigureAwait(false);
-            //return Ok();
         }
+
+        //[Authorize]
+        //public async Task<IActionResult> SmsUserAsync()
+        //{
+
+        //}
     }
 }

@@ -104,17 +104,16 @@ namespace Cloudents.Web
             services.AddIdentity<User, ApplicationRole>(options =>
                 {
                     options.SignIn.RequireConfirmedEmail = true;
-
-                    options.Password.RequiredLength = 1;
-                    options.Password.RequireDigit = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequiredUniqueChars = 0;
-
                     options.User.RequireUniqueEmail = true;
+                    options.SignIn.RequireConfirmedPhoneNumber = true;
+                    //options.Password.RequiredLength = 1;
+                    //options.Password.RequireDigit = false;
+                    //options.Password.RequireLowercase = false;
+                    //options.Password.RequireNonAlphanumeric = false;
+                    //options.Password.RequireUppercase = false;
+                    //options.Password.RequiredUniqueChars = 0;
+
                 })
-                
                 .AddDefaultTokenProviders();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();

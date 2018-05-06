@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("[controller]", Name = "ConfirmEmail")]
     public class ConfirmEmailController : Controller
     {
@@ -36,7 +37,7 @@ namespace Cloudents.Web.Controllers
                 throw new ApplicationException($"Error confirming email for user with ID '{id}':");
             }
 
-            return View();
+            return View(nameof(Index), "ConfirmEmail");
         }
     }
 }
