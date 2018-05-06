@@ -59,9 +59,10 @@ namespace Cloudents.Web.Identity
             return IdentityResult.Success;
         }
 
-        public Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
+        public async Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var t = await _userRepository.SaveAsync(user, cancellationToken).ConfigureAwait(false);
+            return IdentityResult.Success;
         }
 
         public Task<IdentityResult> DeleteAsync(User user, CancellationToken cancellationToken)
@@ -71,7 +72,8 @@ namespace Cloudents.Web.Identity
 
         public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var p = long.Parse(userId);
+            return _userRepository.LoadAsync(p, cancellationToken);
         }
 
         public Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)

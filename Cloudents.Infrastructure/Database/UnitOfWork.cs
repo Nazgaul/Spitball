@@ -40,6 +40,8 @@ namespace Cloudents.Infrastructure.Database
                 if (_isCommitted)
                 {
                     _transaction.Commit();
+                    _isCommitted = false;
+
                 }
             }
             finally

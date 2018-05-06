@@ -103,6 +103,8 @@ namespace Cloudents.Web
             services.AddScoped<IPasswordHasher<User>, PasswordHasher>();
             services.AddIdentity<User, ApplicationRole>(options =>
                 {
+                    options.SignIn.RequireConfirmedEmail = true;
+
                     options.Password.RequiredLength = 1;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
@@ -116,7 +118,7 @@ namespace Cloudents.Web
                 .AddDefaultTokenProviders();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
-
+            
 
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();

@@ -11,7 +11,7 @@ namespace Cloudents.Web.Identity
     {
         public void Dispose()
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
         public Task<IdentityResult> CreateAsync(ApplicationRole role, CancellationToken cancellationToken)

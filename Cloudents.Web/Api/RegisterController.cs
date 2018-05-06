@@ -1,5 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Encodings.Web;
+using System.Threading;
+using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
@@ -13,18 +16,20 @@ namespace Cloudents.Web.Api
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly IMailProvider _mailProvider;
 
         public RegisterController(
-            SignInManager<User> signInManager, 
-            UserManager<User> userManager)
+            SignInManager<User> signInManager,
+            UserManager<User> userManager, IMailProvider mailProvider)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _mailProvider = mailProvider;
         }
 
         [HttpPost]
         [ValidateModel]
-        public async Task<IActionResult> CreateUserAsync(RegisterEmailRequest model)
+        public async Task<IActionResult> CreateUserAsync(RegisterEmailRequest model, CancellationToken token)
         {
             var user = new User
             {
@@ -33,13 +38,19 @@ namespace Cloudents.Web.Api
             };
 
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
-            if (!p.Succeeded)
+            if (p.Succeeded)
             {
-                return BadRequest(p.Errors);
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+                var link = Url.Link("ConfirmEmail", new { user.Id, code });
+                await _mailProvider.SendEmailAsync(model.Email, "Confirm your email",
+                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(link)}'>clicking here</a>.", token).ConfigureAwait(false);
+
+                return Ok();
             }
 
-            await _signInManager.SignInAsync(user, true).ConfigureAwait(false);
-            return Ok();
+            return BadRequest(p.Errors);
+            //await _signInManager.SignInAsync(user, true).ConfigureAwait(false);
+            //return Ok();
         }
     }
 }
