@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using System;
+using NHibernate;
 
 namespace Cloudents.Infrastructure.Database
 {
@@ -7,7 +8,7 @@ namespace Cloudents.Infrastructure.Database
         ISession OpenSession();
     }
 
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         ISession Session { get; }
 

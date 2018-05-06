@@ -49,6 +49,8 @@
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCaching" Version="2.0.2" />
@@ -56,6 +58,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.0.2" />
     <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
     <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.4.2" />
@@ -73,6 +76,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Account\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
 

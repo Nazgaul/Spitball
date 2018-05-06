@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure
                         .Where(w =>
                         {
                             var info = w.GetTypeInfo().GetCustomAttributes<ModuleRegistrationAttribute>();
-                            return info?.FirstOrDefault(f => f.System == system) != null;
+                            return info.FirstOrDefault(f => f.System == system) != null;
                             //return info?.System == system;
                         });
                     foreach (var module in modules)

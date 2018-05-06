@@ -2,6 +2,7 @@
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ErrorController : Controller
     {
         [ActionName("NotFound")]

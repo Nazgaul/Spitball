@@ -12,9 +12,11 @@ namespace Cloudents.Web
             {
                 return;
             }
+            
 
             var request = context.HttpContext.Request;
             if (request.Path.Value == "/" || !request.Path.Value.EndsWith("/")) return;
+            if (string.Equals(request.Path.Value, "/swagger/", StringComparison.OrdinalIgnoreCase)) return;
             var uri = new UriBuilder
             {
                 Query = context.HttpContext.Request.QueryString.Value.TrimStart('?'),

@@ -6,7 +6,7 @@
 
         public bool Equals(HookedDto other)
         {
-            return Id == other.Id;
+            return Id == other?.Id;
         }
     }
 

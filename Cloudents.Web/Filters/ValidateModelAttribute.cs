@@ -1,8 +1,5 @@
-﻿using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Filters
 {

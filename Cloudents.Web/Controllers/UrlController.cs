@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Web.Controllers
 {
     [Obsolete("will be removed in v13")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class UrlController : Controller
     {
         private readonly IQueueProvider _queueProvider;

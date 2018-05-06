@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class FlashcardController : Controller
     {
         private readonly IReadRepositoryAsync<FlashcardSeoDto, long> _repository;

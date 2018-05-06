@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core;
 using Cloudents.Infrastructure.Database.Maps;
+using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using JetBrains.Annotations;
 using NHibernate;
@@ -27,6 +28,7 @@ namespace Cloudents.Infrastructure.Database
                     m.FluentMappings.Add<CourseMap>();
                     m.FluentMappings.Add<UniversityMap>();
                     m.FluentMappings.Add<UrlStatsMap>();
+                    m.FluentMappings.Add<UserMap>();
                 });
             }
             else

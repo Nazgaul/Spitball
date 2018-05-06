@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class HomeController : Controller
     {
         private readonly List<IPAddress> _officeIps = new List<IPAddress>();

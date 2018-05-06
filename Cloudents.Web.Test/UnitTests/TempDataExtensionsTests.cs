@@ -16,6 +16,7 @@ namespace Cloudents.Web.Test.UnitTests
             if (serializeMethod == null)
             {
                 Assert.Fail("Could not find method");
+                return;
             }
             var genericSerializeMethod = serializeMethod.MakeGenericMethod(typeof(Location));
             genericSerializeMethod.Invoke(typeof(Location), new object[] { address });

@@ -6,15 +6,18 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
@@ -97,6 +100,24 @@ namespace Cloudents.Web
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
             services.AddSingleton(physicalProvider);
 
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher>();
+            services.AddIdentity<User, ApplicationRole>(options =>
+                {
+                    options.Password.RequiredLength = 1;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredUniqueChars = 0;
+
+                    options.User.RequireUniqueEmail = true;
+                })
+                
+                .AddDefaultTokenProviders();
+            services.AddTransient<IUserStore<User>, UserStore>();
+            services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
+
+
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
 
@@ -148,6 +169,7 @@ namespace Cloudents.Web
             if (env.IsDevelopment() || env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 app.UseDeveloperExceptionPage();
+                
             }
             else
             {
@@ -179,12 +201,13 @@ namespace Cloudents.Web
                     ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
                 }
             });
+            app.UseAuthentication();
             app.UseWebMarkupMin();
             if (env.IsDevelopment())
             {
                 app.UseSwagger();
                 // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-                app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
             }
 
             app.UseMvc(routes =>

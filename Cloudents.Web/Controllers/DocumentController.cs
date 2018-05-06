@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class DocumentController : Controller
     {
         private readonly IReadRepositoryAsync<DocumentSeoDto, long> _repository;
