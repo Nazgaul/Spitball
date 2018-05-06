@@ -9,6 +9,8 @@
     justify-content: center;
     display: flex;
     flex-grow: 1;
+    width: 100%;
+
     &.data{
       background: white;
     }
@@ -17,6 +19,8 @@
   .step-title {
     font-size: 26px;
     font-weight: bold;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
   }
   p {
     font-size: 18px;
@@ -25,7 +29,8 @@
     text-align: center;
     color: #4a4a4a;
     max-width: 350px;
-    margin: 0 auto;
+    margin: 0 auto 28px auto;
+
   }
 
   .continue-btn{
@@ -35,10 +40,14 @@
     line-height: 1.39;
     letter-spacing: -0.5px;
     color: #ffffff;
-    width: 400px;
+    width: 100%;
     height: 48px;
   }
 
+  .limited-width{
+    max-width: 400px;
+    width: 100%;
+  }
   /*#region email*/
   .google-signin{
     background: #4285f4;
@@ -50,18 +59,24 @@
     letter-spacing: -0.5px;
     text-align: center;
     color: #ffffff;
-    width: 400px;
+    width: 100%;
     height: 48px;
   }
 
   .seperator-text{
     display: flex;
     align-items: center;
+    margin: 26px 0 30px 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: -0.3px;
+    color: #888b8e;
+
 
     &:before, &:after{
       content: '';
       width: 100%;
-      background: black;
+      background: #888b8e;
       height: 1px;
       display: block;
     }
@@ -69,6 +84,28 @@
     span{
       flex-shrink: 0;
       padding: 0 12px;
+    }
+  }
+
+  .email-field{
+    width: 100%;
+    height: 48px;
+    border: 1px solid #979797;
+    padding-left: 54px;
+    margin-bottom: 16px;
+    font-size: 18px;
+  }
+
+  .signin-strip{
+    color: #888b8e;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #888b8e;
+    margin-top: 20px;
+
+    button{
+      color: #3293f6;
     }
   }
   /*#endregion*/

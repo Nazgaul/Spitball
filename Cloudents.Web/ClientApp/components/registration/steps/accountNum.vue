@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="text" id="input-url" :value="accountNum" readonly>
+        <input type="text"  ref="grid" id="input-url" :value="accountNum" readonly>
         <button @click="copyToClipboard">Copy number</button>
     </div>
 </template>
@@ -14,7 +14,8 @@
         },
         methods: {
             copyToClipboard() {
-                let el = this.$el("input-url");
+                debugger;
+                let el = this.$el.querySelector("#input-url");
 
                 // handle iOS as a special case
                 if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
@@ -35,10 +36,10 @@
                 else {
                     el.select();
                 }
-                debugger;
 
                 // execute copy command
                 document.execCommand('copy');
+                el.blur();
             },
 
         }
