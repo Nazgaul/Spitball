@@ -57,23 +57,27 @@ namespace Cloudents.Web.Api
         [Authorize]
         public async Task<IActionResult> SmsUserAsync(string phoneNumber, [FromServices] ISmsProvider smsProvider)
         {
-            //var user3 = User;
-            ////_signInManager.GetTwoFactorAuthenticationUserAsync()
-            //// Ensure the user has gone through the username & password screen first
-            //var p = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            //var p2 = _signInManager.IsSignedIn(User);
             var user = await _userManager.GetUserAsync(User);
             await _userManager.SetPhoneNumberAsync(user, phoneNumber);
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber);
             await smsProvider.SendSmsAsync(phoneNumber, code);
-
-            // _userManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
-            //var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            //if (user == null)
-            //{
-            //    throw new ApplicationException($"Unable to load two-factor authentication user.");
-            //}
             return Ok();
+        }
+
+
+        [HttpPost("sms/verify")]
+        [Authorize]
+        public async Task<IActionResult> VerifySmsAsync(string code, string phoneNumber)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var verify = await _userManager.VerifyChangePhoneNumberTokenAsync(user, code, phoneNumber);
+
+            if (verify)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
     }
 }
