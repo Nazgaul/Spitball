@@ -1,11 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 
 namespace Cloudents.Infrastructure.Mail
 {
-    public class SmsSender
+    public class SmsProvider : ISmsProvider
     {
         public Task SendSmsAsync(string number, string message)
         {

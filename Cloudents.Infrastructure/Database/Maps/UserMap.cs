@@ -18,6 +18,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.PhoneNumberConfirmed);
             Map(e => e.NormalizedName);
             Map(e => e.NormalizedEmail);
+            Map(e => e.SecurityStamp);
         }
     }
 }

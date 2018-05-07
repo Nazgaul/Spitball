@@ -1,9 +1,8 @@
 ﻿using Autofac;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Mail;
 
-namespace Cloudents.Infrastructure
+namespace Cloudents.Infrastructure.Mail
 {
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Function)]
@@ -15,6 +14,7 @@ namespace Cloudents.Infrastructure
         {
             base.Load(builder);
             builder.RegisterType<MailProvider>().As<IMailProvider>();
+            builder.RegisterType<SmsProvider>().As<ISmsProvider>();
         }
     }
 }

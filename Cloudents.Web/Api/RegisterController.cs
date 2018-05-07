@@ -1,4 +1,5 @@
-﻿using System.Text.Encodings.Web;
+﻿using System;
+using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -45,17 +46,34 @@ namespace Cloudents.Web.Api
                 var link = Url.Link("ConfirmEmail", new { user.Id, code });
                 await _mailProvider.SendEmailAsync(model.Email, "Confirm your email",
                      $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(link)}'>clicking here</a>.", token).ConfigureAwait(false);
-
                 return Ok();
             }
 
+            //await _signInManager.SignInAsync(user, false);
             return BadRequest(p.Errors);
         }
 
-        //[Authorize]
-        //public async Task<IActionResult> SmsUserAsync()
-        //{
+        [HttpPost("sms")]
+        [Authorize]
+        public async Task<IActionResult> SmsUserAsync(string phoneNumber, [FromServices] ISmsProvider smsProvider)
+        {
+            //var user3 = User;
+            ////_signInManager.GetTwoFactorAuthenticationUserAsync()
+            //// Ensure the user has gone through the username & password screen first
+            //var p = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            //var p2 = _signInManager.IsSignedIn(User);
+            var user = await _userManager.GetUserAsync(User);
+            await _userManager.SetPhoneNumberAsync(user, phoneNumber);
+            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber);
+            await smsProvider.SendSmsAsync(phoneNumber, code);
 
-        //}
+            // _userManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
+            //var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            //if (user == null)
+            //{
+            //    throw new ApplicationException($"Unable to load two-factor authentication user.");
+            //}
+            return Ok();
+        }
     }
 }

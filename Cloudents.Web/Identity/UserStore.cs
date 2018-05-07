@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -11,7 +8,11 @@ using NHibernate.Linq;
 
 namespace Cloudents.Web.Identity
 {
-    public class UserStore : IUserStore<User>, IUserPasswordStore<User>, IUserEmailStore<User>
+    public class UserStore : IUserStore<User>,
+        IUserPasswordStore<User>,
+        IUserEmailStore<User>,
+        IUserSecurityStampStore<User>,
+        IUserPhoneNumberStore<User>
     {
         private readonly IRepository<User> _userRepository;
 
@@ -55,13 +56,15 @@ namespace Cloudents.Web.Identity
 
         public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
         {
-            var t = await _userRepository.SaveAsync(user, cancellationToken).ConfigureAwait(false);
+            await _userRepository.SaveAsync(user, cancellationToken).ConfigureAwait(false);
+           // await _userRepository.FlushAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
         public async Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
         {
-            var t = await _userRepository.SaveAsync(user, cancellationToken).ConfigureAwait(false);
+            await _userRepository.SaveAsync(user, cancellationToken).ConfigureAwait(false);
+           // await _userRepository.FlushAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
@@ -133,6 +136,39 @@ namespace Cloudents.Web.Identity
         public Task SetNormalizedEmailAsync(User user, string normalizedEmail, CancellationToken cancellationToken)
         {
             user.NormalizedEmail = normalizedEmail;
+            return Task.CompletedTask;
+        }
+
+        public Task SetSecurityStampAsync(User user, string stamp, CancellationToken cancellationToken)
+        {
+            user.SecurityStamp = stamp;
+            return Task.CompletedTask;
+        }
+
+        public Task<string> GetSecurityStampAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.SecurityStamp);
+        }
+
+        public Task SetPhoneNumberAsync(User user, string phoneNumber, CancellationToken cancellationToken)
+        {
+            user.PhoneNumberHash = phoneNumber;
+            return Task.CompletedTask;
+        }
+
+        public Task<string> GetPhoneNumberAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.PhoneNumberHash);
+        }
+
+        public Task<bool> GetPhoneNumberConfirmedAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.PhoneNumberConfirmed);
+        }
+
+        public Task SetPhoneNumberConfirmedAsync(User user, bool confirmed, CancellationToken cancellationToken)
+        {
+            user.PhoneNumberConfirmed = confirmed;
             return Task.CompletedTask;
         }
     }

@@ -49,7 +49,7 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            var sms = new SmsSender();
+            var sms = new SmsProvider();
             await sms.SendSmsAsync("+972528830686", "Hi Eidan. this is creepy");
 
 

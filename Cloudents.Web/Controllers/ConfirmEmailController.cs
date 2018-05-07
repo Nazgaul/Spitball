@@ -11,10 +11,13 @@ namespace Cloudents.Web.Controllers
     public class ConfirmEmailController : Controller
     {
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public ConfirmEmailController(UserManager<User> userManager)
+
+        public ConfirmEmailController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET
@@ -36,6 +39,7 @@ namespace Cloudents.Web.Controllers
             {
                 throw new ApplicationException($"Error confirming email for user with ID '{id}':");
             }
+            await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
 
             return View(nameof(Index), "ConfirmEmail");
         }
