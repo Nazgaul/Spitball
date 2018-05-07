@@ -16,15 +16,12 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class RegisterController : Controller
     {
-        private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IMailProvider _mailProvider;
 
         public RegisterController(
-            SignInManager<User> signInManager,
             UserManager<User> userManager, IMailProvider mailProvider)
         {
-            _signInManager = signInManager;
             _userManager = userManager;
             _mailProvider = mailProvider;
         }
@@ -57,10 +54,10 @@ namespace Cloudents.Web.Api
         [Authorize]
         public async Task<IActionResult> SmsUserAsync(string phoneNumber, [FromServices] ISmsProvider smsProvider)
         {
-            var user = await _userManager.GetUserAsync(User);
-            await _userManager.SetPhoneNumberAsync(user, phoneNumber);
-            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber);
-            await smsProvider.SendSmsAsync(phoneNumber, code);
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
+            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber).ConfigureAwait(false);
+            await smsProvider.SendSmsAsync(phoneNumber, code).ConfigureAwait(false);
             return Ok();
         }
 
@@ -69,14 +66,55 @@ namespace Cloudents.Web.Api
         [Authorize]
         public async Task<IActionResult> VerifySmsAsync(string code, string phoneNumber)
         {
-            var user = await _userManager.GetUserAsync(User);
-            var verify = await _userManager.VerifyChangePhoneNumberTokenAsync(user, code, phoneNumber);
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
 
-            if (verify)
+            var v = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, code).ConfigureAwait(false);
+            if (v.Succeeded)
+            {
+
+                return Ok();
+            }
+            return BadRequest();
+        }
+
+        [HttpGet("userName")]
+        [Authorize]
+        public IActionResult GetUserName()
+        {
+            var name = _userManager.GetUserName(User);
+            return Ok(new { name });
+        }
+
+        [HttpPost("userName")]
+        [Authorize]
+        public async Task<IActionResult> ChangeUserNameAsync(string userName)
+        {
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            var result = await _userManager.SetUserNameAsync(user, userName);
+            if (result.Succeeded)
             {
                 return Ok();
             }
+            return BadRequest();
+        }
 
+
+        [HttpPost("password")]
+        [Authorize]
+        public async Task<IActionResult> GeneratePasswordAsync()
+        {
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            //TODO: generate private key in here
+            var newPassword = "maybe some phrase to put in here";
+            var result = await _userManager.AddPasswordAsync(user, newPassword);
+            if (result.Succeeded)
+            {
+                return Ok(
+                new
+                {
+                    password = newPassword
+                });
+            }
             return BadRequest();
         }
     }

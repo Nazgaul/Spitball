@@ -11,7 +11,7 @@ namespace Cloudents.Web.Identity
     {
         public string HashPassword(User user, string password)
         {
-            return password; // TODO: Generate user private key
+            return password; // TODO: hash to do public key
         }
 
         public PasswordVerificationResult VerifyHashedPassword(User user, string hashedPassword, string providedPassword)

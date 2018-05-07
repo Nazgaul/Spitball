@@ -113,11 +113,12 @@ namespace Cloudents.Web
                     //options.Password.RequireUppercase = false;
                     //options.Password.RequiredUniqueChars = 0;
 
-                })
-                .AddDefaultTokenProviders();
+                    
+
+                }).AddDefaultTokenProviders();
+
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
-            
 
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
