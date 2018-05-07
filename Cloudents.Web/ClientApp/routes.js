@@ -177,6 +177,14 @@ let routes2 = [
             default: registration,
         }, name: "registration"
     },
+    {
+        path: "/confirmEmail",
+        components: {
+            default: registration,
+        },
+        name: "registration",
+        meta: { step: 1}
+    },
 
 ];
 

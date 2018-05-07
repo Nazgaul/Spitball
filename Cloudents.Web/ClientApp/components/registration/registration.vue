@@ -7,6 +7,7 @@
             <register-account v-else-if="step===3"></register-account>
         </div>
         <div class="img-wrap"></div>
+        <div>Step: {{step}}</div>
     </div>
 </template>
 
