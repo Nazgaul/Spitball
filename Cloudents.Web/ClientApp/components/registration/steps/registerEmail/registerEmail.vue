@@ -4,7 +4,13 @@
             <div slot="step-data" class="limited-width">
                 <h1 class="step-title">Get started</h1>
                 <p>Start with your email. We need to know how to contact you.</p>
-                <button class="google-signin">Sign in with google</button>
+                <!--<button class="google-signin">Sign in with google</button>-->
+                <g-signin-button
+                        :params="googleSignInParams"
+                        @success="onSignInSuccess"
+                        @error="onSignInError">
+                    Sign in with Google
+                </g-signin-button>
                 <div class="seperator-text"><span>or use your email</span></div>
                 <form @submit.prevent="next">
                     <input class="email-field" name="email" v-model="userEmail" type="email"
@@ -13,7 +19,7 @@
                 </form>
                 <div class="signin-strip">Do you already have an account? <button>Sign in</button></div>
             </div>
-            <img slot="step-image" :src="require(`../img/registerEmail.png`)"/>
+            <img slot="step-image" :src="require(`../../img/registerEmail.png`)"/>
         </step-template>
 
         <step-template v-else>
@@ -24,31 +30,9 @@
                 <p>Check your email and click the email validation link.</p>
                 <p>Didn’t get our email? <button @click="emailSent=false">Resend</button></p>
             </div>
-            <img slot="step-image" :src="require(`../img/checkEmail.png`)"/>
+            <img slot="step-image" :src="require(`../../img/checkEmail.png`)"/>
         </step-template>
     </div>
 </template>
-<script>
-    import {mapGetters, mapActions} from 'vuex'
-    import stepTemplate from './stepTemplate.vue'
-
-    export default {
-        components:{stepTemplate},
-        data() {
-            return {
-                userEmail: this.$store.getters.getEmail || '',
-                emailSent: false,
-            }
-        },
-        computed: {
-            ...mapGetters(['getEmail']),
-        },
-        methods: {
-            ...mapActions(['updateEmail']),
-            next() {
-                this.updateEmail(this.userEmail);
-                this.emailSent = true;
-            }
-        }
-    }
-</script>
+<script src="./registerEmail.js"></script>
+<style src="./registerEmail.less" lang="less"></style>
