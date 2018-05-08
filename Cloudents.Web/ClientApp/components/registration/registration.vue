@@ -1,5 +1,8 @@
 <template>
     <div class="registration">
+        <button class="back-button" @click="$_back" v-if="$vuetify.breakpoint.xsOnly">
+            <v-icon right>sbf-close</v-icon>
+        </button>
         <div class="form-wrap">
             <register-email v-if="step===0"></register-email>
             <register-phone v-else-if="step===1" @next="step++"></register-phone>

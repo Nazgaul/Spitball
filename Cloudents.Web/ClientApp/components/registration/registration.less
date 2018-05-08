@@ -1,112 +1,73 @@
-.step-wrapper {
-  text-align: center;
-  display: flex;
-  align-items: stretch;
-  min-height: 100vh;
+@import "../../mixin.less";
 
-  .side-wrapper {
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-grow: 1;
-    width: 100%;
+.registration {
+  .back-button {
+    position: absolute;
+    top: 12px;
+    right: 4px;
+    padding: 8px;
 
-    &.data{
-      background: white;
+    .sbf-close {
+      font-size: 16px;
     }
   }
-
-  .step-title {
-    font-size: 26px;
-    font-weight: bold;
-    letter-spacing: -0.5px;
-    margin-bottom: 6px;
-  }
-  p {
-    font-size: 18px;
-    line-height: normal;
-    letter-spacing: -0.5px;
+  .step-wrapper {
     text-align: center;
-    color: #4a4a4a;
-    max-width: 350px;
-    margin: 0 auto 28px auto;
-
-  }
-
-  .continue-btn{
-    background: #3532d5;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1.39;
-    letter-spacing: -0.5px;
-    color: #ffffff;
-    width: 100%;
-    height: 48px;
-  }
-
-  .limited-width{
-    max-width: 400px;
-    width: 100%;
-  }
-  /*#region email*/
-  .google-signin{
-    background: #4285f4;
-    font-size: 18px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: -0.5px;
-    text-align: center;
-    color: #ffffff;
-    width: 100%;
-    height: 48px;
-  }
-
-  .seperator-text{
     display: flex;
-    align-items: center;
-    margin: 26px 0 30px 0;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: -0.3px;
-    color: #888b8e;
+    align-items: stretch;
+    min-height: 100vh;
 
-
-    &:before, &:after{
-      content: '';
+    .side-wrapper {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      flex-grow: 1;
       width: 100%;
-      background: #888b8e;
-      height: 1px;
-      display: block;
+
+      &.image {
+        @media (max-width: @screen-xs) {
+          display: none;
+        }
+      }
+      &.data {
+        background: white;;
+        @media (max-width: @screen-xs) {
+          padding: 20px 16px;
+        }
+      }
     }
 
-    span{
-      flex-shrink: 0;
-      padding: 0 12px;
+    .step-title {
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    p {
+      font-size: 18px;
+      line-height: normal;
+      letter-spacing: -0.5px;
+      text-align: center;
+      color: #4a4a4a;
+      max-width: 350px;
+      margin: 0 auto 28px auto;
+
+    }
+
+    .continue-btn {
+      background: #3532d5;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.39;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      width: 100%;
+      height: @registrationFieldHeight;
+    }
+
+    .limited-width {
+      max-width: 400px;
+      width: 100%;
     }
   }
-
-  .email-field{
-    width: 100%;
-    height: 48px;
-    border: 1px solid #979797;
-    padding-left: 54px;
-    margin-bottom: 16px;
-    font-size: 18px;
-  }
-
-  .signin-strip{
-    color: #888b8e;
-    font-size: 18px;
-    letter-spacing: -0.5px;
-    text-align: center;
-    color: #888b8e;
-    margin-top: 20px;
-
-    button{
-      color: #3293f6;
-    }
-  }
-  /*#endregion*/
 }
