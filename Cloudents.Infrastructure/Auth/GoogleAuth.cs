@@ -1,48 +1,43 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
-using Google.Apis.Oauth2.v2;
+using Google.Apis.Auth;
 
 namespace Cloudents.Infrastructure.Auth
 {
-    public sealed class GoogleAuth : IGoogleAuth, IDisposable
+    public sealed class GoogleAuth : IGoogleAuth
     {
-        private readonly Oauth2Service _service;
+        private readonly IMapper _mapper;
 
-        public GoogleAuth()
+        public GoogleAuth(IMapper mapper)
         {
-            _service = new Oauth2Service();
+            _mapper = mapper;
         }
 
 
-        public async Task<string> LogInAsync(string token, CancellationToken cancellationToken)
+        public async Task<AuthDto> LogInAsync(string token, CancellationToken cancellationToken)
         {
-            //var request = new Google.Apis.Oauth2.v2.UserinfoResource();
-            //var tokeninfoRequest = _service.Tokeninfo();
-            //tokeninfoRequest.IdToken = token;
-
-            
-            //var result = await tokeninfoRequest.ExecuteAsync(cancellationToken).ConfigureAwait(false);
-            
-            //if (result == null)
-            //{
-            //    return null;
-            //}
-            //if (result.aud)
-
-            //if (result.VerifiedEmail.GetValueOrDefault())
-            //{
+            var result = await GoogleJsonWebSignature.ValidateAsync(token).ConfigureAwait(false);
+            if (result == null)
+            {
                 return null;
-            //}
-            //result.
-            //return result.Email;
+            }
 
-        }
+            if (!result.EmailVerified)
+            {
+                return null;
+            }
 
-        public void Dispose()
-        {
-            _service?.Dispose();
+            if (!string.Equals(result.Audience.ToString(),
+                "997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com", StringComparison.OrdinalIgnoreCase))
+            {
+                return null;
+            }
+
+            return _mapper.Map<AuthDto>(result);
         }
     }
 }

@@ -49,9 +49,10 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            var sms = new SmsProvider();
-            await sms.SendSmsAsync("+972528830686", "Hi Eidan. this is creepy");
-
+            var t = container.Resolve<IGoogleAuth>();
+            var z = await t.LogInAsync(
+                            "eyJhbGciOiJSUzI1NiIsImtpZCI6IjNmM2VmOWM3ODAzY2QwYjhkNzUyNDdlZTBkMzFmZGQ1YzJjZjM4MTIifQ.eyJhenAiOiI5OTc4MjMzODQwNDYtZGRocnBoaWd1MGhzZ2trMWRnbGFqYWlmY2cycmdnYm0uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI5OTc4MjMzODQwNDYtZGRocnBoaWd1MGhzZ2trMWRnbGFqYWlmY2cycmdnYm0uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTE5Njg5NTkyNTg0Mjg1ODE2OTQiLCJlbWFpbCI6InlhYXJpLnJhbUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6Ilplc2o1bXBKUWRGYnYyT3RUUkUxMkEiLCJleHAiOjE1MjU3NzY5NDksImlzcyI6ImFjY291bnRzLmdvb2dsZS5jb20iLCJqdGkiOiI5ZjJiODE1M2MwMjE0MDUyNzI2ZDU1MTQzNGYyMGVkM2IyNGZiMjdmIiwiaWF0IjoxNTI1NzczMzQ5LCJuYW1lIjoiUmFtIFlhYXJpIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS8tUktRWEdWdXJxODAvQUFBQUFBQUFBQUkvQUFBQUFBQUFDSzAvdVY0VE1aNDdxMjgvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6IlJhbSIsImZhbWlseV9uYW1lIjoiWWFhcmkiLCJsb2NhbGUiOiJlbiJ9.SfLbhq_eg_b73RexoPefyoVVkrxwZ_8NZBpOPP3PXdFkO7nz4RJd-Wanz7enlViHqoavjnz-W3Cc5zFHF8sK4utU63DBUMtjgiKYIhs9Zp8QpfMqSq6SJGO4Xs1hv4gINkdUPBXE-HOx6ss_06Hes083GXy1RC1pGoOL6AHcg9ZtLZSeR1UP0Qa3TVzeDp52xwoO1A72bzPyk2Z1tZDqsAIZdTGhzugzbQ9QQ_HN2GGf8gRfzD66JDZag67vIj4f5nHCjveXhg2t6v9PIvNRhPr_Ku0miRoA7Sys1e2y96WZnVBi-QtdqIB3I8tLyP6pCRrYOKdlEIVdS4lo3S5QuQ",
+                            default);
 
             //var resolve2 = container
             //    .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>

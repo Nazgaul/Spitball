@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using AzureFunctions.Autofac;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
+using Cloudents.Functions.Di;
 using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
 namespace Cloudents.Functions
 {
-    [DependencyInjectionConfig(typeof(DiConfig))]
+   // [DependencyInjectionConfig(typeof(DiConfig))]
     public static class MailGunFunction
     {
         private const string MailGunMailTemplateHtml = "spamgun/mail_template.html";

@@ -22,8 +22,11 @@ namespace Cloudents.Infrastructure
             CreateMap<Course, CourseDto>();
             CreateMap<University, UniversityDto>();
 
-            //CreateMap<JObject, (string, IEnumerable<PlaceDto>)>().ConvertUsing<PlacesConverter>();
-            //CreateMap<JObject, PlaceDto>().ConvertUsing<PlaceConverter>();
+            CreateMap<Google.Apis.Auth.GoogleJsonWebSignature.Payload,AuthDto>().ConvertUsing(o => new AuthDto
+            {
+                Name = o.Name,
+                Email = o.Email
+            });
         }
     }
 }

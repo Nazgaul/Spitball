@@ -52,25 +52,33 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("google")]
-        public async Task<IActionResult> GoogleSigninAsync([NotNull] string token, [FromServices] IGoogleAuth service, CancellationToken cancellationToken)
+        public async Task<IActionResult> GoogleSigninAsync([NotNull] string token, 
+            [FromServices] IGoogleAuth service, 
+            [FromServices] SignInManager<User> signInManager,
+            CancellationToken cancellationToken)
         {
             if (token == null) throw new ArgumentNullException(nameof(token));
 
-            //var result = await service.LogInAsync(token, cancellationToken).ConfigureAwait(false);
-            //if (result == null)
-            //{
-            //    return BadRequest();
+            var result = await service.LogInAsync(token, cancellationToken).ConfigureAwait(false);
+            if (result == null)
+            {
+                return BadRequest();
 
-            //}
+            }
 
-            return Ok(token);
-            //var user = new User
-            //{
-            //    Email = result,
-            //    Name = model.Email
-            //};
-
-            //var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
+            var user = new User
+            {
+                Email = result.Email,
+                Name = result.Name,
+                EmailConfirmed = true
+            };
+            var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
+            if (p.Succeeded)
+            {
+                await signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
+                return Ok();
+            }
+            return BadRequest(p.Errors);
         }
 
         [HttpPost("sms")]

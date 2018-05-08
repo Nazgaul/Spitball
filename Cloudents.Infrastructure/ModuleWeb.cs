@@ -24,7 +24,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SeoDocumentRepository>()
                 .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item).WithParameter("query", SeoDbQuery.Document);
 
-            builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
         }
     }
 }

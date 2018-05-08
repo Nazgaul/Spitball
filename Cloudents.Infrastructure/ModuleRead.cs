@@ -6,6 +6,7 @@ using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Read;
 using Cloudents.Infrastructure.AI;
+using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Domain;
 using Cloudents.Infrastructure.Interceptor;
@@ -92,7 +93,9 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();
             builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
-            builder.RegisterModule<ModuleReadDb>();
+
+            builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
+
 
         }
     }

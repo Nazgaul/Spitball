@@ -9,6 +9,8 @@ using Module = Autofac.Module;
 namespace Cloudents.Infrastructure
 {
     [ModuleRegistration(Core.Enum.System.Function)]
+    [ModuleRegistration(Core.Enum.System.Web)]
+    [ModuleRegistration(Core.Enum.System.Console)]
     public class ModuleReadDb : Module
     {
         protected override void Load(ContainerBuilder builder)
