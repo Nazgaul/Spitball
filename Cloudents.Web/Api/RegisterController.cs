@@ -56,14 +56,14 @@ namespace Cloudents.Web.Api
         {
             if (token == null) throw new ArgumentNullException(nameof(token));
 
-            var result = await service.LogInAsync(token, cancellationToken).ConfigureAwait(false);
-            if (result == null)
-            {
-                return BadRequest();
+            //var result = await service.LogInAsync(token, cancellationToken).ConfigureAwait(false);
+            //if (result == null)
+            //{
+            //    return BadRequest();
 
-            }
+            //}
 
-            return Ok();
+            return Ok(token);
             //var user = new User
             //{
             //    Email = result,
