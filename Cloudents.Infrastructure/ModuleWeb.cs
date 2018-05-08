@@ -5,6 +5,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
+using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Data;
 using JetBrains.Annotations;
 
@@ -18,11 +19,12 @@ namespace Cloudents.Infrastructure
         {
             base.Load(builder);
 
-            builder.RegisterModule<ModuleRead>();
             builder.RegisterType<SeoDocumentRepository>()
                 .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Flashcard).WithParameter("query", SeoDbQuery.Flashcard);
             builder.RegisterType<SeoDocumentRepository>()
                 .Keyed<IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>>(SeoType.Item).WithParameter("query", SeoDbQuery.Document);
+
+            builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
         }
     }
 }

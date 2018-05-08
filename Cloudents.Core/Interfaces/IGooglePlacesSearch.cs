@@ -22,4 +22,10 @@ namespace Cloudents.Core.Interfaces
         Task<(Address address, GeoPoint point)> GeoCodingByZipAsync(string zip, CancellationToken token);
         Task<(Address address, GeoPoint point)> ReverseGeocodingAsync(GeoPoint point, CancellationToken token);
     }
+
+    public interface IGoogleAuth
+    {
+        [ItemCanBeNull]
+        Task<string> LogInAsync(string token, CancellationToken cancellationToken);
+    }
 }

@@ -17,6 +17,7 @@ using Cloudents.Web.Middleware;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -117,6 +118,14 @@ namespace Cloudents.Web
 
                 }).AddDefaultTokenProviders();
 
+            services.AddAuthentication().AddCookie(o =>
+            {
+                o.Cookie.Name = "sb1";
+                o.LoginPath = new PathString("/account/login");
+                o.LogoutPath = new PathString("/account/logout");
+                
+            });
+
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
 
@@ -204,6 +213,7 @@ namespace Cloudents.Web
                 }
             });
             app.UseAuthentication();
+           
             app.UseWebMarkupMin();
             if (env.IsDevelopment())
             {

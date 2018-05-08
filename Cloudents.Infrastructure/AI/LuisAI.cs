@@ -13,7 +13,7 @@ using Microsoft.Cognitive.LUIS;
 namespace Cloudents.Infrastructure.AI
 {
     // ReSharper disable once InconsistentNaming - AI is Shorthand
-    public class LuisAI : IAi, IDisposable
+    public sealed class LuisAI : IAi, IDisposable
     {
         private readonly ILuisClient _client;
 
@@ -81,7 +81,6 @@ namespace Cloudents.Infrastructure.AI
         public void Dispose()
         {
             _client?.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

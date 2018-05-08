@@ -9,7 +9,7 @@ using NHibernate;
 
 namespace Cloudents.Infrastructure.Database
 {
-    public class NHibernateRepository<T> : IRepository<T>, IDisposable where T : class
+    public sealed class NHibernateRepository<T> : IRepository<T>, IDisposable where T : class
     {
         private readonly ISession _session;
         private readonly IUnitOfWork _unitOfWork;

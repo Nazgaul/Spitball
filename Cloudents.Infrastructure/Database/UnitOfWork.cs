@@ -6,7 +6,7 @@ using NHibernate;
 namespace Cloudents.Infrastructure.Database
 {
     [UsedImplicitly]
-    public class UnitOfWork : IUnitOfWork
+    public sealed class UnitOfWork : IUnitOfWork
     {
         private readonly ITransaction _transaction;
         private bool _isAlive = true;

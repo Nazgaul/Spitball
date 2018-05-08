@@ -30,6 +30,7 @@
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.1.2" />
     <PackageReference Include="Dapper" Version="1.50.4" />
     <PackageReference Include="FluentNHibernate" Version="2.1.2" />
+    <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.25.0.672" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.25.0.760" />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="1.8.1" />
