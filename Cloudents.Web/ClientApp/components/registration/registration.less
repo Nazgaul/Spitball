@@ -70,4 +70,34 @@
       width: 100%;
     }
   }
+
+  .progress{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    position: absolute;
+    left: 0;
+    bottom: 52px;
+
+    @media(max-width: @screen-xs){
+      bottom: 16px;
+      width: 100%;
+    }
+
+    div{
+      background: #d8d8d8;
+      width: 12px;
+      height: 12px;
+      border-radius: 100%;
+      margin: 6px;
+
+
+      &.highlighted{
+        background: #3532d5;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
 }
