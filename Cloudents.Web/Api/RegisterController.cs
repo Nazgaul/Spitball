@@ -19,14 +19,16 @@ namespace Cloudents.Web.Api
     public class RegisterController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly IMailProvider _mailProvider;
+        //private readonly IMailProvider _mailProvider;
+        private readonly IConfigurationKeys _configuration;
         private readonly IQueueProvider _queueProvider;
 
+
         public RegisterController(
-            UserManager<User> userManager, IMailProvider mailProvider, IQueueProvider queueProvider)
+            UserManager<User> userManager, IConfigurationKeys configuration, IQueueProvider queueProvider)
         {
             _userManager = userManager;
-            _mailProvider = mailProvider;
+            _configuration = configuration;
             _queueProvider = queueProvider;
         }
 
@@ -45,8 +47,17 @@ namespace Cloudents.Web.Api
             {
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
                 var link = Url.Link("ConfirmEmail", new { user.Id, code });
-                await _mailProvider.SendEmailAsync(model.Email, "Confirm your email",
-                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(link)}'>clicking here</a>.", token).ConfigureAwait(false);
+
+                var message = new EmailMessage
+                {
+                    To = model.Email,
+                    PlaceHolders = new[] {HtmlEncoder.Default.Encode(link)},
+                    Template = "register",
+                    Subject = "welcome to spitball"
+                };
+                await _queueProvider.InsertMessageAsync(message, token);
+                //await _mailProvider.SendEmailAsync(model.Email, "Confirm your email",
+                //     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(link)}'>clicking here</a>.", token).ConfigureAwait(false);
                 return Ok();
             }
 
@@ -97,7 +108,7 @@ namespace Cloudents.Web.Api
                 Message = code
             };
             //TODO: change url
-            var result = await client.PostJsonAsync(new Uri("http://localhost:7071/api/sms"), message, null, token);
+            var result = await client.PostJsonAsync(new Uri($"{_configuration.FunctionEndpoint}/api/sms"), message, null, token);
             if (result)
             {
                 return Ok();
