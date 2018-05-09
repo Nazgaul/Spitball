@@ -23,6 +23,5 @@ namespace Cloudents.Web.Models
         /// </summary>
         [Required]
         public GeographicCoordinate Location { get; set; }
-
     }
 }

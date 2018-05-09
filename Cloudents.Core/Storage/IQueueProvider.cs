@@ -5,6 +5,6 @@ namespace Cloudents.Core.Storage
 {
     public interface IQueueProvider
     {
-        Task InsertMessageAsync<T>(QueueName name,T message, CancellationToken token);
+        Task InsertMessageAsync<T>(T message, CancellationToken token) where T : IQueueName;
     }
 }

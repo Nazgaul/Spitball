@@ -10,7 +10,14 @@ namespace Cloudents.Core
     [UsedImplicitly]
     public class UrlConst : IUrlBuilder
     {
-        private const string SystemUrl = "https://functions.spitball.co/api/redirect";
+        private readonly IConfigurationKeys _configuration;
+
+        public UrlConst(IConfigurationKeys configuration)
+        {
+            SystemUrl = _configuration.FunctionEndpoint + "/api/redirect";
+        }
+
+        private readonly string SystemUrl;// = "https://functions.spitball.co/api/redirect";
 
         public string BuildRedirectUrl(string url, string host, int? location)
         {

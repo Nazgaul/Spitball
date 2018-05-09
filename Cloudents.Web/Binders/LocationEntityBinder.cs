@@ -69,7 +69,6 @@ namespace Cloudents.Web.Binders
             {
                 bindingContext.Result = ModelBindingResult.Failed();
                 return;
-                
             }
             locationFromTemp = new LocationQuery
             {

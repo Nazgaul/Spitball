@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
@@ -133,6 +134,14 @@ namespace Cloudents.Infrastructure
 
             var p = await _client.PostAsync(url, body, token).ConfigureAwait(false);
             return p.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> PostJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        {
+            var jsonInString = JsonConvert.SerializeObject(obj);
+            var p = await _client.PostAsync(url, new StringContent(jsonInString, Encoding.UTF8, "application/json"), token);
+            return p.IsSuccessStatusCode;
+
         }
 
         public void Dispose()

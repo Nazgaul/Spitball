@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 
 namespace Cloudents.Web.Filters
 {
-
     public sealed class ValidateRecaptchaAttribule : TypeFilterAttribute
     {
         public ValidateRecaptchaAttribule() : base(typeof(ValidateRecaptchaImpl))
@@ -64,5 +63,4 @@ namespace Cloudents.Web.Filters
             }
         }
     }
-
 }

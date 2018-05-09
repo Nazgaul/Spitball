@@ -26,7 +26,7 @@ namespace Cloudents.Web.Controllers
             var referer = Request.Headers["Referer"].ToString();
             var userIp = Request.HttpContext.Connection.GetIpAddress();
             var message = new UrlRedirectQueueMessage(host, url, referer, location, userIp.ToString());
-            await _queueProvider.InsertMessageAsync(QueueName.UrlRedirect, message, token).ConfigureAwait(false);
+            await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
             return Redirect(url);
         }
     }

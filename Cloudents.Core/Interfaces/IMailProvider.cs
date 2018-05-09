@@ -16,10 +16,4 @@ namespace Cloudents.Core.Interfaces
 
         Task SendEmailAsync(string email, string subject, string message, CancellationToken token);
     }
-
-    public interface ISmsProvider
-    {
-        Task SendSmsAsync(string number, string message);
-    }
-    
 }

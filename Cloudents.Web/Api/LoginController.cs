@@ -25,18 +25,23 @@ namespace Cloudents.Web.Api
         [ValidateModel]
         public async Task<IActionResult> Post(LoginRequest model)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
-            if (user == null)
-            {
-                return BadRequest();
-            }
-            var result = await _signInManager.PasswordSignInAsync(user, model.Key, false, false).ConfigureAwait(false);
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            await _signInManager.SignInAsync(user, false);
 
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-            return BadRequest();
+            return Ok();
+
+            //var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
+            //if (user == null)
+            //{
+            //    return BadRequest();
+            //}
+            //var result = await _signInManager.PasswordSignInAsync(user, model.Key, false, false).ConfigureAwait(false);
+
+            //if (result.Succeeded)
+            //{
+            //    return Ok();
+            //}
+            //return BadRequest();
         }
     }
 }
