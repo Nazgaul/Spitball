@@ -1,4 +1,3 @@
-import {mapGetters, mapActions} from 'vuex'
 import stepTemplate from '../stepTemplate.vue'
 
 export default {
@@ -8,14 +7,13 @@ export default {
             countryCodesList: ['001', '002', '003'],
             codeSent: false,
             confirmationCode: '',
-            phone: {}
+            phone: {
+                phoneNum: '',
+                countryCode: ''
+            }
         }
     },
-    computed: {
-        ...mapGetters(['getPhone']),
-    },
     methods: {
-        ...mapActions(['updatePhone']),
         updateEmail() {
             this.$emit('updateEmail');
         },
@@ -28,10 +26,4 @@ export default {
 
         }
     },
-    created: function () {
-        this.phone = {
-            phoneNum: this.getPhone.phoneNum || '',
-            countryCode: this.getPhone.countryCode || ''
-        }
-    }
 }

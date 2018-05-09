@@ -10,9 +10,6 @@ const state = {
         location: null,
         pinnedCards: {},
         showSmartAppBanner: true,
-        email:'',
-        phone: {},
-        userName:''
     },
     facet:"",
     historyTermSet:[],
@@ -67,15 +64,6 @@ const mutations = {
     },
     [USER.HIDE_SMART_BANNER](state) {
         state.user.showSmartAppBanner = false;
-    },
-    [USER.UPDATE_EMAIL](state, val) {
-        state.user.email = val;
-    },
-    [USER.UPDATE_PHONE](state, val) {
-        state.user.phone = val;
-    },
-    [USER.UPDATE_USERNAME](state, val) {
-        state.user.userName = val;
     }
 
 };
@@ -97,12 +85,6 @@ const getters = {
         state => state.user.pinnedCards,
     showSmartAppBanner:
         state => state.user.showSmartAppBanner,
-    getEmail:
-        state=>state.user.email,
-    getPhone:
-        state=>state.user.phone,
-    getUserName:
-        state=>state.user.userName,
     getUniversity: state => {
         let obj = state.user.universityId || {};
         return obj.id;
@@ -170,15 +152,6 @@ const actions = {
     },
     hideSmartAppBanner({commit},data){
         commit(USER.HIDE_SMART_BANNER);
-    },
-    updateEmail({commit},data){
-        commit(USER.UPDATE_EMAIL,data)
-    },
-    updatePhone({commit},data){
-        commit(USER.UPDATE_PHONE,data)
-    },
-    updateUserName({commit},data){
-        commit(USER.UPDATE_USERNAME,data)
     }
 
 };
