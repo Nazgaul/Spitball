@@ -1,20 +1,14 @@
 import {mapGetters, mapActions} from 'vuex'
 import stepTemplate from '../stepTemplate.vue'
+﻿import registrationService from '../../../../services/registrationService'
+var auth2;
 
 export default {
-    components:{stepTemplate},
+    components: {stepTemplate},
     data() {
         return {
             userEmail: this.$store.getters.getEmail || '',
-            emailSent: false,
-            googleSignInParams: {
-                client_id: '997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com',
-                scope: [
-                    'https://www.google.com/m8/feeds/contacts/default/full',
-                    'https://www.googleapis.com/auth/drive.readonly'
-                ],
-                immediate: false
-            }
+            emailSent: false
         }
     },
     computed: {
@@ -26,15 +20,28 @@ export default {
             this.updateEmail(this.userEmail);
             this.emailSent = true;
         },
-        onSignInSuccess (googleUser) {
-            // `googleUser` is the GoogleUser object that represents the just-signed-in user.
-            // See https://developers.google.com/identity/sign-in/web/reference#users
-            const profile = googleUser.getBasicProfile() // etc etc
-            debugger;
-        },
-        onSignInError (error) {
-            // `error` contains any error occurred.
-            console.log('OH NOES', error)
+        googleLogIn() {
+            var self = this;
+            auth2.grantOfflineAccess().then(function (authResult) {
+                if (authResult['code']) {
+                    registrationService.googleRegistration({token: authResult['code']})
+                        .then(function () {
+                            self.$emit('next');
+                        });
+                } else {
+                    //TODO: handle the error
+                }
+            });
+
         }
+    },
+    beforeCreate() {
+        gapi.load('auth2', function () {
+            auth2 = gapi.auth2.init({
+                client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
+            });
+        });
     }
 }
+
+

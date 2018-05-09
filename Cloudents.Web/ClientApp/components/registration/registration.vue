@@ -4,9 +4,9 @@
             <v-icon right>sbf-close</v-icon>
         </button>
         <div class="form-wrap">
-            <register-email v-if="step===0"></register-email>
-            <register-phone v-else-if="step===1" @next="step++"></register-phone>
-            <register-username v-else-if="step===2" @next="step++"></register-username>
+            <register-email v-if="step===0" @next="nextStep"></register-email>
+            <register-phone v-else-if="step===1" @next="nextStep"></register-phone>
+            <register-username v-else-if="step===2" @next="nextStep"></register-username>
             <register-account v-else-if="step===3"></register-account>
         </div>
         <div class="img-wrap"></div>

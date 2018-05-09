@@ -3,7 +3,7 @@ import qs from "query-string";
 
 axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: false });
 axios.defaults.responseType = "json";
-axios.defaults.baseURL = window.baseURL;
+axios.defaults.baseURL = '/api';
 let currentVertical='item';
 const itemVerticals=['ask','flashcard','note'];
 const getTemplate=(val)=>itemVerticals.includes(val)?'item':val;
@@ -98,3 +98,5 @@ export const help = {
 export const spitballPreview = {
     getFlashcard: ({ id }) => axios.get("flashcard", {params: { id: Number(id) } }),
     getDocument: ({ id }) => axios.get("document", {baseURL:"api/", params: { id: Number(id) } })};
+
+export const googleRegistration = (data) => axios.post("/Register/google", qs.stringify(data));

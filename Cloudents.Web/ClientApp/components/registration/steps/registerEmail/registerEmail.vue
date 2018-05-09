@@ -4,13 +4,7 @@
             <div slot="step-data" class="limited-width">
                 <h1 class="step-title">Get started</h1>
                 <p>Start with your email. We need to know how to contact you.</p>
-                <!--<button class="google-signin">Sign in with google</button>-->
-                <g-signin-button
-                        :params="googleSignInParams"
-                        @success="onSignInSuccess"
-                        @error="onSignInError">
-                    Sign in with Google
-                </g-signin-button>
+                <button class="google-signin" @click="googleLogIn">Sign in with google</button>
                 <div class="seperator-text"><span>or use your email</span></div>
                 <form @submit.prevent="next">
                     <input class="email-field" name="email" v-model="userEmail" type="email"
@@ -36,3 +30,4 @@
 </template>
 <script src="./registerEmail.js"></script>
 <style src="./registerEmail.less" lang="less"></style>
+
