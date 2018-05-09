@@ -20,7 +20,6 @@ namespace Cloudents.Web.Api
     public class SearchController : Controller
     {
 
-
         /// <summary>
         /// Search document vertical result
         /// </summary>

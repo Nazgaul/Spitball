@@ -121,9 +121,6 @@ namespace Cloudents.Web
             services.AddAuthentication().AddCookie(o =>
             {
                 o.Cookie.Name = "sb1";
-                o.LoginPath = new PathString("/account/login");
-                o.LogoutPath = new PathString("/account/logout");
-                
             });
 
             services.AddTransient<IUserStore<User>, UserStore>();
@@ -139,6 +136,7 @@ namespace Cloudents.Web
                        Configuration["AzureSearch:SearchServiceAdminApiKey"]),
                 Redis = Configuration["Redis"],
                 Storage = Configuration["Storage"],
+                FunctionEndpoint= Configuration["FunctionEndpoint"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
@@ -180,7 +178,6 @@ namespace Cloudents.Web
             if (env.IsDevelopment() || env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 app.UseDeveloperExceptionPage();
-                
             }
             else
             {

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Filters;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,12 +23,25 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         [ValidateModel]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post(LoginRequest model)
         {
-            var user = await _userManager.FindByEmailAsync("ram@cloudents.com");
+            var user = await _userManager.FindByEmailAsync(model.Email);
             await _signInManager.SignInAsync(user, false);
 
             return Ok();
+
+            //var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
+            //if (user == null)
+            //{
+            //    return BadRequest();
+            //}
+            //var result = await _signInManager.PasswordSignInAsync(user, model.Key, false, false).ConfigureAwait(false);
+
+            //if (result.Succeeded)
+            //{
+            //    return Ok();
+            //}
+            //return BadRequest();
         }
     }
 }

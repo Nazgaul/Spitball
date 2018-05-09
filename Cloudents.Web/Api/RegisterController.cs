@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using JetBrains.Annotations;
@@ -19,12 +20,14 @@ namespace Cloudents.Web.Api
     {
         private readonly UserManager<User> _userManager;
         private readonly IMailProvider _mailProvider;
+        private readonly IQueueProvider _queueProvider;
 
         public RegisterController(
-            UserManager<User> userManager, IMailProvider mailProvider)
+            UserManager<User> userManager, IMailProvider mailProvider, IQueueProvider queueProvider)
         {
             _userManager = userManager;
             _mailProvider = mailProvider;
+            _queueProvider = queueProvider;
         }
 
         [HttpPost]
@@ -52,38 +55,56 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("google")]
-        public async Task<IActionResult> GoogleSigninAsync([NotNull] string token, [FromServices] IGoogleAuth service, CancellationToken cancellationToken)
+        public async Task<IActionResult> GoogleSigninAsync([NotNull] string token,
+            [FromServices] IGoogleAuth service,
+            [FromServices] SignInManager<User> signInManager,
+            CancellationToken cancellationToken)
         {
             if (token == null) throw new ArgumentNullException(nameof(token));
 
-            //var result = await service.LogInAsync(token, cancellationToken).ConfigureAwait(false);
-            //if (result == null)
-            //{
-            //    return BadRequest();
+            var result = await service.LogInAsync(token, cancellationToken).ConfigureAwait(false);
+            if (result == null)
+            {
+                return BadRequest();
+            }
 
-            //}
-
-            return Ok(token);
-            //var user = new User
-            //{
-            //    Email = result,
-            //    Name = model.Email
-            //};
-
-            //var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
+            var user = new User
+            {
+                Email = result.Email,
+                Name = result.Name,
+                EmailConfirmed = true
+            };
+            var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
+            if (p.Succeeded)
+            {
+                await signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
+                return Ok();
+            }
+            return BadRequest(p.Errors);
         }
 
         [HttpPost("sms")]
         [Authorize]
-        public async Task<IActionResult> SmsUserAsync(string phoneNumber, [FromServices] ISmsProvider smsProvider)
+        public async Task<IActionResult> SmsUserAsync(string phoneNumber, [FromServices] IRestClient client, CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber).ConfigureAwait(false);
-            await smsProvider.SendSmsAsync(phoneNumber, code).ConfigureAwait(false);
-            return Ok();
-        }
 
+            var message = new SmsMessage
+            {
+                PhoneNumber = phoneNumber,
+                Message = code
+            };
+            //TODO: change url
+            var result = await client.PostJsonAsync(new Uri("http://localhost:7071/api/sms"), message, null, token);
+            if (result)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
 
         [HttpPost("sms/verify")]
         [Authorize]
@@ -94,7 +115,6 @@ namespace Cloudents.Web.Api
             var v = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, code).ConfigureAwait(false);
             if (v.Succeeded)
             {
-
                 return Ok();
             }
             return BadRequest();
@@ -120,7 +140,6 @@ namespace Cloudents.Web.Api
             }
             return BadRequest();
         }
-
 
         [HttpPost("password")]
         [Authorize]

@@ -49,9 +49,6 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            var sms = new SmsProvider();
-            await sms.SendSmsAsync("+972528830686", "Hi Eidan. this is creepy");
-
 
             //var resolve2 = container
             //    .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>

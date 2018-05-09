@@ -6,6 +6,8 @@ namespace Cloudents.Core.Storage
     public sealed class QueueName
     {
         public const string UrlRedirectName = "url-redirect2";
+        public const string SmsName = "sms";
+        public const string EmailName = "email";
         public string Key { get; }
 
         private QueueName(string key)
@@ -14,5 +16,12 @@ namespace Cloudents.Core.Storage
         }
 
         public static readonly QueueName UrlRedirect = new QueueName(UrlRedirectName);
+        public static readonly QueueName Sms = new QueueName(SmsName);
+        public static readonly QueueName Email = new QueueName(EmailName);
+    }
+
+    public interface IQueueName
+    {
+        QueueName QueueName { get; }
     }
 }

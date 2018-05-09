@@ -23,9 +23,9 @@ namespace Cloudents.Functions
             CancellationToken token) where TU : class, ISearchObject, new()
         {
             var query = SyncAzureQuery.Empty();
-            if (await blob.ExistsAsync(token).ConfigureAwait(false))
+            if (await blob.ExistsAsync().ConfigureAwait(false))
             {
-                var text = await blob.DownloadTextAsync(token).ConfigureAwait(false);
+                var text = await blob.DownloadTextAsync().ConfigureAwait(false);
                 query = SyncAzureQuery.ConvertFromString(text);
             }
             log.Info($"process {query}");
@@ -47,7 +47,7 @@ namespace Cloudents.Functions
                     await searchServiceWrite.UpdateDataAsync(updateList, deleteCourses, token).ConfigureAwait(false);
                     query.Page++;
                     currentVersion = Math.Max(currentVersion, version);
-                    await blob.UploadTextAsync(query.ToString(), token).ConfigureAwait(false);
+                    await blob.UploadTextAsync(query.ToString()).ConfigureAwait(false);
                     if (updateList.Count == 0 && deleteCourses.Count == 0)
                     {
                         break;
@@ -62,7 +62,7 @@ namespace Cloudents.Functions
             if (!token.IsCancellationRequested)
             {
                 var newVersion = new SyncAzureQuery(currentVersion, 0);
-                await blob.UploadTextAsync(newVersion.ToString(), token).ConfigureAwait(false);
+                await blob.UploadTextAsync(newVersion.ToString()).ConfigureAwait(false);
             }
         }
     }

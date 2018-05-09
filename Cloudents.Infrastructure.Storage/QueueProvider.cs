@@ -1,11 +1,13 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Storage;
+using JetBrains.Annotations;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Storage
 {
+    [UsedImplicitly]
     public class QueueProvider : IQueueProvider
     {
         private readonly CloudQueueClient _queueClient;
@@ -15,9 +17,9 @@ namespace Cloudents.Infrastructure.Storage
             _queueClient = storageProvider.GetQueueClient();
         }
 
-        public Task InsertMessageAsync<T>(QueueName name, T message, CancellationToken token)
+        public Task InsertMessageAsync<T>(T message, CancellationToken token) where T : IQueueName
         {
-            var queue = _queueClient.GetQueueReference(name.Key.ToLower());
+            var queue = _queueClient.GetQueueReference(message.QueueName.Key.ToLower());
             //TODO: is it right?
             var json = JsonConvert.SerializeObject(message);
             var cloudMessage = new CloudQueueMessage(json);
