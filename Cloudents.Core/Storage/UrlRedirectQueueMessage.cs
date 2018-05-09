@@ -59,8 +59,11 @@ namespace Cloudents.Core.Storage
         public string To { get; set; }
         [DataMember]
         public string Template { get; set; }
+
         [DataMember]
-        public string[] PlaceHolders { get; set; }
+        public string Subject { get; set; }
+        [DataMember]
+        public object[] PlaceHolders { get; set; }
         public QueueName QueueName => QueueName.Email;
     }
 }

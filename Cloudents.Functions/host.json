@@ -4,5 +4,5 @@
     "maxPollingInterval": 5000
   },
   "functionTimeout": "00:10:00",
-  "functions": [ "SmsHttp" ]
+  "functions": [ "FunctionEmail" ]
 }

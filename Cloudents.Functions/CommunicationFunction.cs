@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Storage;
@@ -7,7 +6,6 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json;
@@ -22,18 +20,39 @@ namespace Cloudents.Functions
     public static class CommunicationFunction
     {
         [FunctionName("FunctionEmail")]
-        [return: SendGrid(ApiKey = "SendgridKey", From = "no-reply@spitball.co")]
-        public static SendGridMessage EmailFunction([TimerTrigger("0 */1 * * * *")]TimerInfo myQueueItem, TraceWriter log)
+        public static async Task EmailFunction(
+            [QueueTrigger(QueueName.EmailName, Connection = "TempConnection")] EmailMessage queueMessage,
+            [SendGrid(ApiKey = "SendgridKey", From = "no-reply@spitball.co")] IAsyncCollector<SendGridMessage> emailProvider,
+            IBinder binder,
+            TraceWriter log,
+            CancellationToken token)
         {
-            var message = new SendGridMessage()
+            var template = queueMessage.Template;
+            if (string.IsNullOrEmpty(queueMessage.Subject))
             {
-                Subject = "hi",
-                HtmlContent = "hi ram",
+                log.Error("can't send email without subject template is:" + template);
+                return;
 
+            }
+            var dynamicBlobAttribute = new BlobAttribute("mailcontainer/Spitball/{template}-mail.html");
 
+            var htmlTemplate = await binder.BindAsync<string>(dynamicBlobAttribute, token).ConfigureAwait(false);
+            if (htmlTemplate == null)
+            {
+                log.Error("error with template name" + template);
+                return;
+            }
+            var place = queueMessage.PlaceHolders;
+
+            var content = string.Format(htmlTemplate, place);
+
+            var message = new SendGridMessage
+            {
+                Subject = queueMessage.Subject,
+                HtmlContent = content,
             };
-            message.AddTo("ram@cloudents.com");
-            return message;
+            message.AddTo(queueMessage.To);
+            await emailProvider.AddAsync(message, token);
         }
 
         [FunctionName("Temp")]
@@ -48,8 +67,8 @@ namespace Cloudents.Functions
                 PhoneNumber = "+972542642202",
                 Message = "820909"
             };
-            await queue.AddAsync(message);
-            await queue.FlushAsync();
+            await queue.AddAsync(message).ConfigureAwait(false);
+            await queue.FlushAsync().ConfigureAwait(false);
             log.Info("ok");
         }
 
@@ -59,12 +78,12 @@ namespace Cloudents.Functions
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "(203) 347-4577")] IAsyncCollector<CreateMessageOptions> options,
             CancellationToken token)
         {
-            var result = await BuildAndValidateSmsAsync(queueMessage);
+            var result = await BuildAndValidateSmsAsync(queueMessage).ConfigureAwait(false);
             if (result == null)
             {
                 return;
             }
-            await options.AddAsync(result, token);
+            await options.AddAsync(result, token).ConfigureAwait(false);
         }
 
         [FunctionName("SmsHttp")]
@@ -73,15 +92,15 @@ namespace Cloudents.Functions
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "(203) 347-4577")] IAsyncCollector<CreateMessageOptions> options,
             CancellationToken token)
         {
-            var jsonContent = await req.ReadAsStringAsync();
+            var jsonContent = await req.ReadAsStringAsync().ConfigureAwait(false);
             var message = JsonConvert.DeserializeObject<SmsMessage>(jsonContent);
 
-            var result = await BuildAndValidateSmsAsync(message);
+            var result = await BuildAndValidateSmsAsync(message).ConfigureAwait(false);
             if (result == null)
             {
                 return new BadRequestResult();
             }
-            await options.AddAsync(result, token);
+            await options.AddAsync(result, token).ConfigureAwait(false);
             return new OkResult();
 
         }
