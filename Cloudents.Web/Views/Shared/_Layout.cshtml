@@ -170,7 +170,7 @@ h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
         window.publicPath = '@cdnEndPoint' + '/dist/';
         window.baseURL = '@Configuration["ApiEndpoint"]';
     </script>
-    <script src="https://apis.google.com/js/api:client.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>
 </html>

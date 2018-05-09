@@ -14,6 +14,13 @@ export default {
     methods: {
         $_back() {
             this.$router.go(-1);
+        },
+        nextStep(){
+            if(this.step === 3){
+                this.$router.this.$router.push({path: '/note', query: {q: ''}}); //TODO: change to the market place when we'll build it.
+                return;
+            }
+            this.step++;
         }
     },
 }

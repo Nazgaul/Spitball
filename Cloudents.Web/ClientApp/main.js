@@ -63,7 +63,6 @@ import {
 } from "vuetify"
 import * as route from "./routes";
 import VueLazyload from 'vue-lazyload'
-import GSignInButton from 'vue-google-signin-button'
 
 //TODO: server side fix
 WebFont.load({
@@ -123,7 +122,6 @@ Vue.use(VueAnalytics,
             exception: true
         }
     });
-Vue.use(GSignInButton);
 //#region yifat
 Vue.filter('capitalize',
     function (value) {
