@@ -1,13 +1,14 @@
 import stepTemplate from '../stepTemplate.vue'
 import codesJson from './CountryCallingCodes'
+
 ﻿import registrationService from '../../../../services/registrationService'
 
 export default {
     components: {stepTemplate},
     data() {
         return {
-            countryCodesList: codesJson,
-            codeSent: false,
+            countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
+            codeSent: true,
             confirmationCode: '',
             phone: {
                 phoneNum: '',
@@ -20,13 +21,17 @@ export default {
             this.$emit('updateEmail');
         },
         sendCode() {
+            var self = this
             registrationService.smsRegistration(this.phone.countryCode + '' + this.phone.phoneNum)
                 .then(function () {
-                    this.codeSent = true;
+                    self.codeSent = true;
                 });
         },
         next() {
-            this.$emit('next');
+            registrationService.smsCodeVerification(this.confirmationCode)
+                .then(function () {
+                    this.$emit('next');
+                });
 
         }
     },
