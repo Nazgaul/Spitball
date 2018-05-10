@@ -37,8 +37,7 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchKey"]),
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
-                LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                BlockChainNetwork = "http://s256cw-dns-reg1.northeurope.cloudapp.azure.com:8545"
+                LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200)
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
@@ -86,7 +85,14 @@ namespace ConsoleApp
             //var z = await t.SendTxAsync(senderAddress, senderPK, recipientAddress, azureUrl);
             //var Test = t.GetAddress(senderPK);
             var T = await t.MessageContractAsync<string>(transactionHash, azureUrl, abi, "symbol");
+<<<<<<< HEAD
             //var S = await t.TxContract(operation, string senderAddress, string senderPK, string contractHash, string abi, string azureUrl)
+=======
+            string[] parameters = new string[2];
+            parameters[0] = recipientAddress;
+            parameters[1] = "100000000000000000";
+            var S = await t.TxContractAsync("transfer", senderAddress, senderPK, transactionHash, abi, azureUrl, parameters);
+>>>>>>> edc8862aa9d315a5dba5c2745ecb58e0f0a50e06
 
             //var resolve2 = container
             //    .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>
@@ -98,6 +104,7 @@ namespace ConsoleApp
 
             Console.WriteLine("Finish");
             Console.ReadLine();
+
         }
 
 
