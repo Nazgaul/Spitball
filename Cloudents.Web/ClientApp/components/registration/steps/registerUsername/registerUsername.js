@@ -1,4 +1,3 @@
-import {mapGetters, mapActions} from 'vuex'
 import stepTemplate from '../stepTemplate.vue'
 
 export default {
@@ -7,20 +6,13 @@ export default {
         return {
             countryCodesList: ['001', '002', '003'],
             codeSent: false,
-            username: ''
+            username: 'test123'
         }
     },
-    computed: {
-        ...mapGetters(['getUserName']),
-    },
     methods: {
-        ...mapActions(['updateUserName']),
         next() {
             this.updateUserName(this.username);
             this.$emit('next');
         }
     },
-    created: function () {
-        this.username = this.getUserName
-    }
 }

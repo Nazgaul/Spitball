@@ -1,4 +1,3 @@
-import {mapGetters, mapActions} from 'vuex'
 import stepTemplate from '../stepTemplate.vue'
 ﻿import registrationService from '../../../../services/registrationService'
 var auth2;
@@ -11,20 +10,20 @@ export default {
             emailSent: false
         }
     },
-    computed: {
-        ...mapGetters(['getEmail']),
-    },
     methods: {
-        ...mapActions(['updateEmail']),
         next() {
-            this.updateEmail(this.userEmail);
-            this.emailSent = true;
+            registrationService.emailRegistration(this.userEmail)
+                .then(function () {
+                    this.emailSent = true
+                }, function(reason) {
+                    alert(reason.response.data["0"].description); //TODO: handle duplicates and other errors
+                });
         },
         googleLogIn() {
             var self = this;
             auth2.grantOfflineAccess().then(function (authResult) {
                 if (authResult['code']) {
-                    registrationService.googleRegistration({token: authResult['code']})
+                    registrationService.googleRegistration(authResult['code'])
                         .then(function () {
                             self.$emit('next');
                         });

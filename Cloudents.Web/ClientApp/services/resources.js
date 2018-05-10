@@ -99,4 +99,6 @@ export const spitballPreview = {
     getFlashcard: ({ id }) => axios.get("flashcard", {params: { id: Number(id) } }),
     getDocument: ({ id }) => axios.get("document", {baseURL:"api/", params: { id: Number(id) } })};
 
-export const googleRegistration = (data) => axios.post("/Register/google", qs.stringify(data));
+export const googleRegistration = (data) => axios.post("/Register/google", qs.stringify({token: data}));
+export const emailRegistration = (data) => axios.post("/Register", qs.stringify({email: data}));
+export const smsRegistration = (data) => axios.post("/Register/sms", qs.stringify({phoneNumber: data}));
