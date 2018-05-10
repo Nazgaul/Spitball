@@ -10,7 +10,7 @@ namespace Cloudents.Core.Interfaces
         string CreateAccount(); //return privete to user
         Task<int> SendTxAsync(string senderAddress, string senderPK, string recipientAddress, string azureUrl);
         Task<T> MessageContractAsync<T>(string contractHash, string azureUrl, string abi, string functionName);
-        Task<string> TxContractAsync(string operation, string senderAddress, string senderPK, string contractHash, string abi, string azureUrl, string[] parameters);
+        Task<string> TxContractAsync(string operation, string senderAddress, string senderPK, string contractHash, string abi, string azureUrl, string toAddress, BigInteger amount);
         string GetPublicAddress(string privateKey); //Get Public from from privete
 
         

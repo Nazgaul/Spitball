@@ -67,7 +67,7 @@ namespace Cloudents.Infrastructure.Blockchain
         }
 
 
-        public async Task<string> TxContractAsync(string operation, string senderAddress, string senderPK, string contractHash, string abi, string azureUrl, string[] parameters)
+        public async Task<string> TxContractAsync(string operation, string senderAddress, string senderPK, string contractHash, string abi, string azureUrl, string toAddress, BigInteger amount)
         {
             
             Account account = new Account(senderPK);
@@ -82,8 +82,8 @@ namespace Cloudents.Infrastructure.Blockchain
             var contract = web3.Eth.GetContract(abi, contractAddress);
             var operationToExe = contract.GetFunction(operation);
             
-            var result = await operationToExe.SendTransactionAsync(senderAddress, new HexBigInteger(70000), new HexBigInteger(1), parameters); //Working
-            return result;
+            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(senderAddress, new HexBigInteger(70000), null, null, toAddress, amount);
+            return receiptFirstAmountSend.BlockHash;
         }
 
         public string GetPublicAddress(string privateKey)

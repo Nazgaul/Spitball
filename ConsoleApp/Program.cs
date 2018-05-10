@@ -81,12 +81,12 @@ namespace ConsoleApp
                             'type': 'function'},{'constant': true,'inputs': [],'name': 'owner','outputs': [{'name': '',	'type': 'address'}],'payable': false,'stateMutability': 'view','type': 'function'},{'constant': true,'inputs': [],'name': 'sellPrice',
                             'outputs': [{'name': '','type': 'uint256'}],'payable': false,'stateMutability': 'view','type': 'function'},{'constant': true,'inputs': [],'name': 'symbol','outputs': [{'name': '','type': 'string'}],'payable': false,'stateMutability'
                             : 'view','type': 'function'},{'constant': true,'inputs': [],'name': 'totalSupply','outputs': [{'name': '','type': 'uint256'}],'payable': false,'stateMutability': 'view','type': 'function'}]";
-                            //ICO abi
+            //ICO abi
 
             //var z = await t.SendTxAsync(senderAddress, senderPK, recipientAddress, azureUrl);
             //var Test = t.GetAddress(senderPK);
-            var T = await t.MessageContractAsync<string>(transactionHash, azureUrl, abi, "symbol");
-            //var S = await t.TxContract(operation, string senderAddress, string senderPK, string contractHash, string abi, string azureUrl)
+            //var T = await t.MessageContractAsync<string>(transactionHash, azureUrl, abi, "symbol");
+            var S = await t.TxContractAsync("transfer", senderAddress, senderPK, transactionHash, abi, azureUrl, recipientAddress, 10000000000000000000);
 
             //var resolve2 = container
             //    .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>
