@@ -5,7 +5,7 @@
                 <h1>Enter your phone number</h1>
                 <p>Last step, we need to send you a confirmation code.</p>
                 <select v-model="phone.countryCode">
-                    <option v-for="item in countryCodesList" :value="item.callingCode">{{item.name}} {{item.callingCode}}</option>
+                    <option v-for="item in countryCodesList" :value="item.callingCode">{{item.name}} ({{item.callingCode}})</option>
                 </select>
                 <v-text-field v-model="phone.phoneNum" placeholder="Enter phone number"></v-text-field>
                 <button class="continue-btn" @click="sendCode">Continue</button>

@@ -1,7 +1,9 @@
 import stepTemplate from '../stepTemplate.vue'
 
+﻿import registrationService from '../../../../services/registrationService'
+
 export default {
-    components:{stepTemplate},
+    components: {stepTemplate},
     data() {
         return {
             countryCodesList: ['001', '002', '003'],
@@ -11,8 +13,13 @@ export default {
     },
     methods: {
         next() {
-            this.updateUserName(this.username);
-            this.$emit('next');
-        }
+            registrationService.getUserName(this.userName)
+                .then(function () {
+                    this.$emit('next');
+                });
+        },
     },
+    created() {
+        this.username = registrationService.getUserName();
+    }
 }

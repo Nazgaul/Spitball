@@ -9,6 +9,7 @@ const dialogToolbar = () => import("./components/dialog-toolbar/DialogToolbar.vu
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const pageHeader = () => import("./components/header/header.vue");
+//const pageHeaderBasic = () => import("./components/helpers/header.vue");
 const boodDetailsHeader = () => import("./components/book/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
@@ -16,6 +17,7 @@ const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
 const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
 const registration = () => import("./components/registration/registration.vue");
+//const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
 
 function dynamicPropsFn(route) {
