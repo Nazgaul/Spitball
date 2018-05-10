@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +23,7 @@ namespace Cloudents.Web.Controllers
         }
 
         // GET
+        [Authorize]
         public async Task<IActionResult> Index(string id, string code)
         {
             if (id == null || code == null)

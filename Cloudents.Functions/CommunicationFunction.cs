@@ -73,17 +73,16 @@ namespace Cloudents.Functions
         }
 
         [FunctionName("SmsQueue")]
-        public static async Task SmsQueue(
-            [QueueTrigger(QueueName.SmsName, Connection = "TempConnection")] SmsMessage queueMessage,
-            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "(203) 347-4577")] IAsyncCollector<CreateMessageOptions> options,
-            CancellationToken token)
+        [return: TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "(203) 347-4577")]
+        public static CreateMessageOptions SmsQueue(
+            [QueueTrigger(QueueName.SmsName, Connection = "TempConnection")] SmsMessage queueMessage)
         {
-            var result = await BuildAndValidateSmsAsync(queueMessage).ConfigureAwait(false);
-            if (result == null)
+            //TODO: no need for validation
+            return new CreateMessageOptions(new PhoneNumber(queueMessage.PhoneNumber))
             {
-                return;
-            }
-            await options.AddAsync(result, token).ConfigureAwait(false);
+                //message.To = new PhoneNumber("+972542642202");
+                Body = queueMessage.Message
+            };
         }
 
         [FunctionName("SmsHttp")]
