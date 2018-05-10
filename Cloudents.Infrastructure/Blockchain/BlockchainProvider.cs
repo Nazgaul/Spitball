@@ -59,25 +59,24 @@ namespace Cloudents.Infrastructure.Blockchain
         }
 
 
-        //public async Task<string> TxContractAsync(string operation, string senderAddress, string senderPK, string contractHash, string abi, string azureUrl)
-        //{
-        //    //byte[] bytes = senderSeed.HexToByteArray();  // Hadar's privete key
-        //    //var wallet = new Wallet(bytes).GetAccount(senderAddress);
-        //    Account account = new Account(senderPK);
-        //    var web3 = new Web3(account, azureUrl);
-        //    var DeploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(contractHash);
-        //    while (DeploymentReceipt == null)
-        //    {
-        //        Thread.Sleep(5000);
-        //        DeploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(contractHash);
-        //    }
-        //    var contractAddress = DeploymentReceipt.ContractAddress;
-        //    var contract = web3.Eth.GetContract(abi, contractAddress);
-        //    var operationToExe = contract.GetFunction(operation);
-        //    //var result = await operationToExe.SendTransactionAndWaitForReceiptAsync(address, new HexBigInteger(70000), null, null); Works too
-        //    var result = await operationToExe.SendTransactionAsync(senderAddress, new HexBigInteger(70000), null); //Working
-        //    return result;
-        //}
+        public async Task<string> TxContractAsync(string operation, string senderAddress, string senderPK, string contractHash, string abi, string azureUrl, string[] parameters)
+        {
+            
+            Account account = new Account(senderPK);
+            var web3 = new Web3(account, azureUrl);
+            var DeploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(contractHash);
+            while (DeploymentReceipt == null)
+            {
+                Thread.Sleep(5000);
+                DeploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(contractHash);
+            }
+            var contractAddress = DeploymentReceipt.ContractAddress;
+            var contract = web3.Eth.GetContract(abi, contractAddress);
+            var operationToExe = contract.GetFunction(operation);
+            
+            var result = await operationToExe.SendTransactionAsync(senderAddress, new HexBigInteger(70000), new HexBigInteger(1), parameters); //Working
+            return result;
+        }
 
         public string GetPublicAddress(string privateKey)
         {

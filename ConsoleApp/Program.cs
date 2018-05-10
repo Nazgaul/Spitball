@@ -85,7 +85,10 @@ namespace ConsoleApp
             //var z = await t.SendTxAsync(senderAddress, senderPK, recipientAddress, azureUrl);
             //var Test = t.GetAddress(senderPK);
             var T = await t.MessageContractAsync<string>(transactionHash, azureUrl, abi, "symbol");
-            var S = await t.TxContract(operation, string senderAddress, string senderPK, string contractHash, string abi, string azureUrl)
+            string[] parameters = new string[2];
+            parameters[0] = recipientAddress;
+            parameters[1] = "100000000000000000";
+            var S = await t.TxContractAsync("transfer", senderAddress, senderPK, transactionHash, abi, azureUrl, parameters);
 
             //var resolve2 = container
             //    .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>
@@ -97,6 +100,7 @@ namespace ConsoleApp
 
             Console.WriteLine("Finish");
             Console.ReadLine();
+
         }
 
 
