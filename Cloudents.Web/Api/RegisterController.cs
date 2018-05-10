@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Filters;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
@@ -19,17 +21,19 @@ namespace Cloudents.Web.Api
     public class RegisterController : Controller
     {
         private readonly UserManager<User> _userManager;
-        //private readonly IMailProvider _mailProvider;
         private readonly IConfigurationKeys _configuration;
         private readonly IQueueProvider _queueProvider;
+        private readonly SignInManager<User> _signInManager;
+
 
 
         public RegisterController(
-            UserManager<User> userManager, IConfigurationKeys configuration, IQueueProvider queueProvider)
+            UserManager<User> userManager, IConfigurationKeys configuration, IQueueProvider queueProvider, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _configuration = configuration;
             _queueProvider = queueProvider;
+            _signInManager = signInManager;
         }
 
         [HttpPost]
@@ -51,11 +55,12 @@ namespace Cloudents.Web.Api
                 var message = new EmailMessage
                 {
                     To = model.Email,
-                    PlaceHolders = new[] {HtmlEncoder.Default.Encode(link)},
+                    PlaceHolders = new[] { HtmlEncoder.Default.Encode(link) },
                     Template = "register",
                     Subject = "welcome to spitball"
                 };
                 await _queueProvider.InsertMessageAsync(message, token);
+                await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
                 //await _mailProvider.SendEmailAsync(model.Email, "Confirm your email",
                 //     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(link)}'>clicking here</a>.", token).ConfigureAwait(false);
                 return Ok();
@@ -68,7 +73,6 @@ namespace Cloudents.Web.Api
         [HttpPost("google")]
         public async Task<IActionResult> GoogleSigninAsync([NotNull] string token,
             [FromServices] IGoogleAuth service,
-            [FromServices] SignInManager<User> signInManager,
             CancellationToken cancellationToken)
         {
             if (token == null) throw new ArgumentNullException(nameof(token));
@@ -88,16 +92,17 @@ namespace Cloudents.Web.Api
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (p.Succeeded)
             {
-                await signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
+                await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
                 return Ok();
             }
             return BadRequest(p.Errors);
         }
 
         [HttpPost("sms")]
-        [Authorize]
+        [Authorize(Policy = SignInStep.PolicyEmail)]
         public async Task<IActionResult> SmsUserAsync(string phoneNumber, [FromServices] IRestClient client, CancellationToken token)
         {
+            
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber).ConfigureAwait(false);
@@ -108,7 +113,11 @@ namespace Cloudents.Web.Api
                 Message = code
             };
             //TODO: change url
-            var result = await client.PostJsonAsync(new Uri($"{_configuration.FunctionEndpoint}/api/sms"), message, null, token);
+            var result = await client.PostJsonAsync(new Uri($"{_configuration.FunctionEndpoint}/api/sms"), message,
+                new List<KeyValuePair<string, string>>
+            {
+               new KeyValuePair<string, string>("Authorization","HhMs8ZVg/HD4CzsN7ujGJsyWVmGmUDAVPv2a/t5c/vuiyh/zBrSTVg==")
+            }, token);
             if (result)
             {
                 return Ok();
@@ -118,7 +127,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("sms/verify")]
-        [Authorize]
+        [Authorize(Policy = SignInStep.PolicyEmail)]
         public async Task<IActionResult> VerifySmsAsync(string code)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
@@ -132,7 +141,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("userName")]
-        [Authorize]
+        [Authorize(Policy = SignInStep.PolicyAll)]
         public IActionResult GetUserName()
         {
             var name = _userManager.GetUserName(User);
@@ -140,7 +149,8 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("userName")]
-        [Authorize]
+        [Authorize(Policy = SignInStep.PolicyAll)]
+
         public async Task<IActionResult> ChangeUserNameAsync(string userName)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
@@ -153,7 +163,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("password")]
-        [Authorize]
+        [Authorize(Policy = SignInStep.PolicyAll)]
         public async Task<IActionResult> GeneratePasswordAsync()
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);

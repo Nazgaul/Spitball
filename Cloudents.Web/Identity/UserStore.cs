@@ -8,7 +8,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Web.Identity
 {
-    public class UserStore : IUserStore<User>,
+    public partial class UserStore : IUserStore<User>,
         IUserPasswordStore<User>,
         IUserEmailStore<User>,
         IUserSecurityStampStore<User>,

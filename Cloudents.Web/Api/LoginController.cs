@@ -1,7 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +30,6 @@ namespace Cloudents.Web.Api
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             await _signInManager.SignInAsync(user, false);
-
             return Ok();
 
             //var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
@@ -43,5 +45,32 @@ namespace Cloudents.Web.Api
             //}
             //return BadRequest();
         }
+
+        //[HttpGet("1")]
+        //[Authorize]
+        //public async Task<IActionResult> Get()
+        //{
+        //    var p  = await _userManager.GetUserAsync(User);
+        //    //var t = await _userManager.GetClaimsAsync(p);
+
+            
+        //    var z = User.Claims.FirstOrDefault(c => c.Type == "ram");
+        //    //await _userManager.AddClaimAsync(p, new Claim("ram", "Genious"));
+        //    await _signInManager.SignInAsync(p, false);
+
+        //    return Ok();
+        //}
+
+
+        //[HttpGet("2")]
+        //[Authorize]
+        //public async Task<IActionResult> Get2()
+        //{
+        //    //var p = await _userManager.GetUserAsync(User);
+        //    //var t = await _userManager.GetClaimsAsync(p);
+
+        //    var z = User.Claims.FirstOrDefault(c => c.Type == "ram");
+        //    return Ok();
+        //}
     }
 }

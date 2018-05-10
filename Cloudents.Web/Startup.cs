@@ -118,11 +118,21 @@ namespace Cloudents.Web
 
                 }).AddDefaultTokenProviders();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(SignInStep.PolicyEmail,
+                    policy => policy.RequireClaim(SignInStep.Claim, SigninStep.Email.ToString("D")));
+                //options.AddPolicy(SignInStep.PolicySms,
+                //    policy => policy.RequireClaim(SignInStep.Claim, SigninStep.Sms.ToString("D")));
+                options.AddPolicy(SignInStep.PolicyAll,
+                    policy => policy.RequireClaim(SignInStep.Claim, SigninStep.All.ToString("D")));
+            });
             services.AddAuthentication().AddCookie(o =>
             {
                 o.Cookie.Name = "sb1";
             });
 
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
 
