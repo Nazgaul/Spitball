@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Nethereum.Hex.HexConvertors.Extensions;
@@ -14,21 +15,28 @@ using Nethereum.Hex.HexTypes;
 namespace Cloudents.Infrastructure.Blockchain
 {
    public class BlockchainProvider : IBlockchainProvider
-    {
-       
-        public async Task<long> GetBalanceAsync(string networkUrl, string accountAddress)
+   {
+       private readonly IConfigurationKeys _configurationKeys;
+
+       public BlockchainProvider(IConfigurationKeys configurationKeys)
+       {
+           _configurationKeys = configurationKeys;
+       }
+
+
+       public async Task<BigInteger> GetBalanceAsync(string accountAddress)
         {
-            var chain = new Web3(networkUrl);
+            var chain = new Web3(_configurationKeys.BlockChainNetwork);
             var balance = await chain.Eth.GetBalance.SendRequestAsync(accountAddress);
-            Console.WriteLine("Account balance: {0}", Web3.Convert.FromWei(balance.Value));
-            return Convert.ToInt64(balance);
+            //Console.WriteLine("Account balance: {0}", Web3.Convert.FromWei(balance.Value));
+            return balance;
         }
 
         public string CreateAccount()
         {
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
             var privateKey = ecKey.GetPrivateKeyAsBytes().ToHex();
-            var account = new Nethereum.Web3.Accounts.Account(privateKey);
+            var account = new Account(privateKey);
             return account.PrivateKey;
         }
 

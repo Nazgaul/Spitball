@@ -13,6 +13,8 @@ namespace Cloudents.Core
 
         public LocalStorageData LocalStorageData { get; set; }
         public string FunctionEndpoint { get; set; }
+
+        public string BlockChainNetwork { get; set; }
     }
 
     public class SearchServiceCredentials

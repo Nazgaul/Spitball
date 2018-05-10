@@ -20,6 +20,7 @@ namespace Cloudents.Core.Interfaces
         string Redis { get; }
         string Storage { get; }
         string FunctionEndpoint { get; }
+        string BlockChainNetwork { get; }
 
 
         LocalStorageData LocalStorageData { get; }

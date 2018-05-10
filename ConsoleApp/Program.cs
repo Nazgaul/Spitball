@@ -85,7 +85,7 @@ namespace ConsoleApp
             //var z = await t.SendTxAsync(senderAddress, senderPK, recipientAddress, azureUrl);
             //var Test = t.GetAddress(senderPK);
             var T = await t.MessageContractAsync<string>(transactionHash, azureUrl, abi, "symbol");
-            var S = await t.TxContract(operation, string senderAddress, string senderPK, string contractHash, string abi, string azureUrl)
+            //var S = await t.TxContract(operation, string senderAddress, string senderPK, string contractHash, string abi, string azureUrl)
 
             //var resolve2 = container
             //    .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>

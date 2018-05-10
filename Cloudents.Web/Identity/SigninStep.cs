@@ -8,14 +8,14 @@ namespace Cloudents.Web.Identity
         None = 0,
         Email = 1,
         Sms = 2,
-        All = Email | Sms
+        All = Email | Sms 
     }
 
     public static class SignInStep
     {
         public const string Claim = "signInStep";
         public const string PolicyEmail = "policyEmail";
-        //public const string PolicySms = "policySms";
+        public const string PolicySms = "PolicySms";
         public const string PolicyAll = "policyAll";
     }
 }
