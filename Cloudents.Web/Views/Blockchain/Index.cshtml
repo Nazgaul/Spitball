@@ -1,35 +1,63 @@
 ﻿<html>
 <head>
     <style>
-
+        .page-wrapper {
+            display: flex;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        form {
+            min-width: 400px;
+            padding: 8px 16px;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0px 0 4px grey;
+        }
+        h2 {
+            margin: 16px 0 8px 0;
+        }
+        input#amount {
+            border: 1px solid grey;
+            margin: 16px;
+            display: block;
+            margin-left: 0;
+        }
+        input.button {
+            float: right;
+            background: #302eb5;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
     </style>
 
 </head>
 <body>
-    <form>
+    <div class="page-wrapper">
+        <form>
         <h2>From</h2>
-        <input id="irena" type="radio" name="from" />
-        <label for="irena">Irena</label>
-        <input id="irena" type="radio" name="from" />
-        <label for="irena">Ram</label>
-        <input id="irena" type="radio" name="from" />
-        <label for="irena">Eidan</label>
+            <input id="irena" type="radio" name="from" />
+            <label for="irena">Irena</label>
+            <input id="irena" type="radio" name="from" />
+            <label for="irena">Ram</label>
+            <input id="irena" type="radio" name="from" />
+            <label for="irena">Eidan</label>
 
-        <br />
-        <h2>To</h2>
-        <input id="irena" type="radio" name="to" />
-        <label for="irena">Irena</label>
-        <input id="irena" type="radio" name="to" />
-        <label for="irena">Ram</label>
-        <input id="irena" type="radio" name="to" />
-        <label for="irena">Eidan</label>
-        <br />
-        <label for="amount">Transfer</label>
-        <input type="number" style="background: white" id="amount" />
-        <br />
+            <h2>To</h2>
+            <input id="irena" type="radio" name="to" />
+            <label for="irena">Irena</label>
+            <input id="irena" type="radio" name="to" />
+            <label for="irena">Ram</label>
+            <input id="irena" type="radio" name="to" />
+            <label for="irena">Eidan</label>
+            <br />
+            <h2>Transfer:</h2>
+            <input type="number" style="background: white" id="amount" />
         <input class="button" type="submit" onclick="sendTx" value="Submit"/>
-    </form>
-
+        </form>
+    </div>
     @*<script type="text/javascript">
         function sendTx() {
             var xmlhttp = new XMLHttpRequest();

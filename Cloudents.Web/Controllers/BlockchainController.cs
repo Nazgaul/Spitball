@@ -98,6 +98,9 @@ namespace Cloudents.Web.Controllers
 
         }
 
-      
+        //public class BlockChainModel
+        //{
+        //    public string 
+        //}
     }
 }
