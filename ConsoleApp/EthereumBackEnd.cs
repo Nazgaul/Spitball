@@ -12,7 +12,7 @@ namespace ConsoleApp
 {
     class EthereumBackEnd
     {
-        static void Main(string[] args)
+        static void Pr(string[] args)
         {
 
             try
@@ -53,10 +53,11 @@ namespace ConsoleApp
                 string ToAddress = "0x828AB82CFec33d6Ee2D1d7471b4e52440f6cb446"; // Irena's Addres
                 string SenderSeed = "160b2006f43b9aae82f72e0d15e23154f18c86d44a8e6eb51b214b6a2240785ce130bdc969a61b62b8baa18562704ff6f27d7c9ea5e2ac879159f6e912ae5619"; // Hadar's seed
                 
-                CreateAccount();
-                TxContract("add", FromAddress, SenderSeed, transactionHash, abi, azureUrl);
-                //TalkToContract(transactionHash, azureUrl, abi);
-                SendTx(FromAddress, SenderSeed, ToAddress, azureUrl);
+                Account ac = CreateAccount();
+                Console.WriteLine(ac.NonceService);
+                //TxContract("add", FromAddress, SenderSeed, transactionHash, abi, azureUrl);
+                ////TalkToContract(transactionHash, azureUrl, abi);
+                //SendTx(FromAddress, SenderSeed, ToAddress, azureUrl);
             }
             catch
             {
@@ -83,6 +84,7 @@ namespace ConsoleApp
 
             byte[] bytes = senderSeed.HexToByteArray();
             var wallet = new Wallet(bytes).GetAccount(senderAddress);
+            
             var web3 = new Web3(wallet, azureUrl);
             var wei = Web3.Convert.ToWei(0.05);
             var transaction = await web3.TransactionManager.SendTransactionAsync(wallet.Address, recipientAddress, new HexBigInteger(wei));
