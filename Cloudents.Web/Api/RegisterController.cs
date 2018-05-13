@@ -112,12 +112,11 @@ namespace Cloudents.Web.Api
                 PhoneNumber = phoneNumber,
                 Message = code
             };
-            //TODO: change url
             var result = await client.PostJsonAsync(new Uri($"{_configuration.FunctionEndpoint}/api/sms"), message,
                 new List<KeyValuePair<string, string>>
             {
                new KeyValuePair<string, string>("Authorization","HhMs8ZVg/HD4CzsN7ujGJsyWVmGmUDAVPv2a/t5c/vuiyh/zBrSTVg==")
-            }, token);
+            }, token).ConfigureAwait(false);
             if (result)
             {
                 return Ok();
