@@ -8,9 +8,9 @@ namespace Cloudents.Core.Interfaces
 
         Task<BigInteger> GetBalanceAsync(string accountAddress);
         string CreateAccount(); //return privete to user
-        Task<int> SendTxAsync(string senderAddress, string senderPK, string recipientAddress, string azureUrl);
-        Task<T> MessageContractAsync<T>(string contractHash, string azureUrl, string abi, string functionName);
-        Task<string> TxContractAsync(string operation, string senderAddress, string senderPK, string contractHash, string abi, string azureUrl, string toAddress, BigInteger amount);
+
+        Task<BigInteger> GetTokenBalanceAsync(string senderPK);
+        Task<string> TransferMoneyAsync(string senderPK, string toAddress, float amount);
         string GetPublicAddress(string privateKey); //Get Public from from privete
 
         
