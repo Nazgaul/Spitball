@@ -38,7 +38,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         [ValidateModel]
-        public async Task<IActionResult> CreateUserAsync(RegisterEmailRequest model, CancellationToken token)
+        public async Task<IActionResult> CreateUserAsync([FromForm]RegisterEmailRequest model, CancellationToken token)
         {
             var user = new User
             {
@@ -59,10 +59,8 @@ namespace Cloudents.Web.Api
                     Template = "register",
                     Subject = "welcome to spitball"
                 };
-                await _queueProvider.InsertMessageAsync(message, token);
+                await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
                 await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
-                //await _mailProvider.SendEmailAsync(model.Email, "Confirm your email",
-                //     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(link)}'>clicking here</a>.", token).ConfigureAwait(false);
                 return Ok();
             }
 
@@ -71,7 +69,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("google")]
-        public async Task<IActionResult> GoogleSigninAsync([NotNull] string token,
+        public async Task<IActionResult> GoogleSigninAsync([NotNull,FromForm] string token,
             [FromServices] IGoogleAuth service,
             CancellationToken cancellationToken)
         {
@@ -100,9 +98,9 @@ namespace Cloudents.Web.Api
 
         [HttpPost("sms")]
         [Authorize(Policy = SignInStep.PolicyEmail)]
-        public async Task<IActionResult> SmsUserAsync(string phoneNumber, [FromServices] IRestClient client, CancellationToken token)
+        public async Task<IActionResult> SmsUserAsync([FromForm]string phoneNumber, [FromServices] IRestClient client, CancellationToken token)
         {
-            
+
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber).ConfigureAwait(false);
@@ -127,10 +125,10 @@ namespace Cloudents.Web.Api
 
         [HttpPost("sms/verify")]
         [Authorize(Policy = SignInStep.PolicyEmail)]
-        public async Task<IActionResult> VerifySmsAsync(string code)
+        public async Task<IActionResult> VerifySmsAsync([FromForm]string code)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var phoneNumber = await _userManager.GetPhoneNumberAsync(user).ConfigureAwait(false);
             var v = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, code).ConfigureAwait(false);
             if (v.Succeeded)
             {
@@ -150,7 +148,7 @@ namespace Cloudents.Web.Api
         [HttpPost("userName")]
         [Authorize(Policy = SignInStep.PolicyPassword)]
 
-        public async Task<IActionResult> ChangeUserNameAsync(string userName)
+        public async Task<IActionResult> ChangeUserNameAsync([FromForm]string userName)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var result = await _userManager.SetUserNameAsync(user, userName).ConfigureAwait(false);
