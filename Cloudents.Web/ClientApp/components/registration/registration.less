@@ -1,6 +1,13 @@
 @import "../../mixin.less";
 
 .registration {
+  .step-title{
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+
   .back-button {
     position: absolute;
     top: 12px;
@@ -50,7 +57,7 @@
       text-align: center;
       color: #4a4a4a;
       max-width: 350px;
-      margin: 0 auto 28px auto;
+      margin: 0px auto;
 
     }
 
@@ -63,11 +70,40 @@
       color: #ffffff;
       width: 100%;
       height: @registrationFieldHeight;
+      border-radius: 4px;
+      &:focus{
+        outline: none;
+      }
     }
 
     .limited-width {
       max-width: 400px;
       width: 100%;
+    }
+    input, select{
+      height: @registrationFieldHeight;
+      border-radius: 4px;
+      border: solid 1px #979797;
+      width: 100%;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+      padding: 10px;
+      margin-top: 36px;
+
+      &:focus{
+        outline: none;
+      }
+    }
+    select{
+      -webkit-appearance: menulist;
+
+      &:invalid {
+        color: #9b9b9b;
+      }
+      option {
+        color: #4a4a4a;
+        line-height: 36px;
+      }
     }
   }
 
@@ -100,4 +136,15 @@
       }
     }
   }
+}
+.small-button{
+  width: 96px;
+  height: 24px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  letter-spacing: -0.2px;
+  color: #3532d5;
+  margin: 12px 0;
 }

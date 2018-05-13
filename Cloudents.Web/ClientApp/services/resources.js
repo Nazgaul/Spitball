@@ -102,6 +102,7 @@ export const spitballPreview = {
 export const googleRegistration = (data) => axios.post("/Register/google", qs.stringify({token: data}));
 export const emailRegistration = (data) => axios.post("/Register", qs.stringify({email: data}));
 export const smsRegistration = (data) => axios.post("/Register/sms", qs.stringify({phoneNumber: data}));
+
 export const smsCodeVerification = (data) => axios.post("/Register/sms/verify", qs.stringify({code: data}));
 export const getUserName =  () => axios.get("/Register/userName");
 export const setUserName = (data) => axios.post("/Register/userName", qs.stringify({userName: data}));
