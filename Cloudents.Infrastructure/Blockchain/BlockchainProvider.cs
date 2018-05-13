@@ -33,7 +33,7 @@ namespace Cloudents.Infrastructure.Blockchain
         //    return balance;
         //}
 
-       
+
 
 
         //public async Task<int> SendTxAsync(string senderAddress, string senderPK, string recipientAddress, string azureUrl)
@@ -45,7 +45,7 @@ namespace Cloudents.Infrastructure.Blockchain
         //    return transaction.GetHashCode();
         //}
 
-        
+
 
         private async Task<Contract> GetContractAsync(string senderPK)
         {
@@ -118,13 +118,15 @@ namespace Cloudents.Infrastructure.Blockchain
             return account.Address;
         }
 
-        public string CreateAccount()
+        public async Task<Account> CreateAccount()
         {
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
             var privateKey = ecKey.GetPrivateKeyAsBytes().ToHex();
             var account = new Account(privateKey);
+            string Tx = await TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", account.Address, 10);
             //TODO: Hadar need to add 10 tokens to new account
-            return account.PrivateKey;
+            
+            return account;
         }
     }
 }

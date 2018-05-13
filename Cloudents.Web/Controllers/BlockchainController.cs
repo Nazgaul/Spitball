@@ -8,6 +8,8 @@ using Autofac;
 using Cloudents.Core;
 using Cloudents.Infrastructure;
 using System.Numerics;
+using System.Threading.Tasks;
+using Nethereum.Web3.Accounts;
 
 namespace Cloudents.Web.Controllers
 {
@@ -64,6 +66,13 @@ namespace Cloudents.Web.Controllers
             string from = _account[fromPK].Key;
             BigInteger balance = await _blockchainProvider.GetTokenBalanceAsync(from);
             return balance;
+        }
+
+        [HttpPost]
+        public async Task<Account> CreateAccount()
+        {
+            var account = await _blockchainProvider.CreateAccount();
+            return account;
         }
     }
 }

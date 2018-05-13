@@ -57,6 +57,7 @@
             <input type="number" style="background: white" id="amount" />
             <input class="button" type="submit" onclick="sendTx" value="Submit" id="send" />
             <input class="button" type="submit" onclick="getBalance" value="Balance" id="getbalance" />
+            <input class="button" type="submit" onclick="createAccount" value="createAccount" id="createaccount" />
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -89,8 +90,7 @@
 
         document.getElementById("getbalance").addEventListener("click", function (e) {
             e.preventDefault();
-            getBalance()
-
+            getBalance();
         })
         function getBalance() {
             var From = $('input[name=from]:checked').attr('id');
@@ -104,6 +104,16 @@
             
            
         }
+        document.getElementById("createaccount").addEventListener("click", function (e) {
+            e.preventDefault();
+            createAccount();
+        })
+
+        function createAccount() {
+            var Account = $.post("blockchain/CreateAccount").then(function (result) {
+                alert(result);
+            })
+        };
     </script>
 
 </body>
