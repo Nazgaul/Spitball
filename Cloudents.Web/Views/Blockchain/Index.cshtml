@@ -37,49 +37,74 @@
 <body>
     <div class="page-wrapper">
         <form>
-        <h2>From</h2>
-            <input id="irena" type="radio" name="from" />
-            <label for="irena">Irena</label>
-            <input id="irena" type="radio" name="from" />
-            <label for="irena">Ram</label>
-            <input id="irena" type="radio" name="from" />
-            <label for="irena">Eidan</label>
+            <h2>From</h2>
+            <input id="0" type="radio" name="from" />
+            <label for="0">Hadar</label>
+            <input id="1" type="radio" name="from" />
+            <label for="1">Ubuntu</label>
+            <input id="2" type="radio" name="from" />
+            <label for="2">Ram</label>
 
             <h2>To</h2>
-            <input id="irena" type="radio" name="to" />
-            <label for="irena">Irena</label>
-            <input id="irena" type="radio" name="to" />
-            <label for="irena">Ram</label>
-            <input id="irena" type="radio" name="to" />
-            <label for="irena">Eidan</label>
+            <input id="0" type="radio" name="to" />
+            <label for="0">Hadar</label>
+            <input id="1" type="radio" name="to" />
+            <label for="1">Ubuntu</label>
+            <input id="2" type="radio" name="to" />
+            <label for="2">Ram</label>
             <br />
             <h2>Transfer:</h2>
             <input type="number" style="background: white" id="amount" />
-        <input class="button" type="submit" onclick="sendTx" value="Submit"/>
+            <input class="button" type="submit" onclick="sendTx" value="Submit" id="send" />
+            <input class="button" type="submit" onclick="getBalance" value="Balance" id="getbalance" />
         </form>
     </div>
-    @*<script type="text/javascript">
-        function sendTx() {
-            var xmlhttp = new XMLHttpRequest();
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        document.getElementById("send").addEventListener("click", function (e) {
+            e.preventDefault();
+            sendTx()
 
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
-                    if (xmlhttp.status == 200) {
-                        document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
-                    }
-                    else if (xmlhttp.status == 400) {
-                        alert('There was an error 400');
-                    }
-                    else {
-                        alert('something else other than 200 was returned');
-                    }
-                }
+        })
+        function sendTx() {
+
+            var From = $('input[name=from]:checked').attr('id');
+            var To = $('input[name=to]:checked').attr('id');
+           
+            var ContractInput = {
+                fromPK: From,
+                toAddress: To
+                , amount: $("#amount").val()
             };
 
-            xmlhttp.open("POST", "localhost", true);
-            xmlhttp.send(100);
+            $.post("blockchain/TransferMoney", ContractInput).then(function (result) {
+                alert(result);
+
+            })
+           
         }
-     </script>*@
+
+
+        document.getElementById("getbalance").addEventListener("click", function (e) {
+            e.preventDefault();
+            getBalance()
+
+        })
+        function getBalance() {
+            var From = $('input[name=from]:checked').attr('id');
+
+            var ContractInput = { fromPK: From };
+            
+            var Balance = $.get("blockchain/GetBalance", ContractInput).then(function (result) {
+                alert(result / Math.pow(10,18));
+
+            });
+            
+           
+        }
+    </script>
 
 </body>
 </html>

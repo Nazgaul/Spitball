@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Microsoft.AspNetCore.Authorization;

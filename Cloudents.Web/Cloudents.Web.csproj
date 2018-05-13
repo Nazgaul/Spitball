@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net47</TargetFramework>
@@ -22,14 +22,6 @@
     <DocumentationFile>bin\Release\net47\Cloudents.Web.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="ClientApp\components\navbar\**" />
-    <Content Remove="ClientApp\components\navbar\**" />
-    <EmbeddedResource Remove="ClientApp\components\navbar\**" />
-    <None Remove="ClientApp\components\navbar\**" />
-  </ItemGroup>
-
   <ItemGroup>
     <None Remove="ClientApp\components\food\foodheader.vue" />
     <None Remove="ClientApp\components\settings\layout.vue.orig" />
@@ -66,9 +58,10 @@
     <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.4.2" />
   </ItemGroup>
   <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.2" />
-    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.1" />
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.2" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
