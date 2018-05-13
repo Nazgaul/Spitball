@@ -1,7 +1,9 @@
+﻿﻿import registrationService from '../../../../services/registrationService'
+
 export default {
-    computed: {
-        accountNum: function () {
-            return 'accountNum123456'
+    data() {
+        return {
+            accountNum: ''
         }
     },
     methods: {
@@ -33,5 +35,12 @@ export default {
             el.blur();
         },
 
+    },
+    created() {
+        var self = this;
+        registrationService.getAccountNum()
+            .then(function (response) {
+                self.accountNum = response.data;
+            })
     }
 }

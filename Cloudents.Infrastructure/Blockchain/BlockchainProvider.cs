@@ -25,15 +25,14 @@ namespace Cloudents.Infrastructure.Blockchain
         }
 
 
-        //public async Task<BigInteger> GetBalanceAsync(string accountAddress)
-        //{
-        //    var chain = new Web3(_configurationKeys.BlockChainNetwork);
-        //    var balance = await chain.Eth.GetBalance.SendRequestAsync(accountAddress);
-        //    //Console.WriteLine("Account balance: {0}", Web3.Convert.FromWei(balance.Value));
-        //    return balance;
-        //}
+        public async Task<BigInteger> GetBalanceAsync(string accountAddress)
+        {
+            var chain = new Web3(_configurationKeys.BlockChainNetwork);
+            var balance = await chain.Eth.GetBalance.SendRequestAsync(accountAddress);
+            return balance;
+        }
 
-       
+
 
 
         //public async Task<int> SendTxAsync(string senderAddress, string senderPK, string recipientAddress, string azureUrl)
@@ -45,7 +44,7 @@ namespace Cloudents.Infrastructure.Blockchain
         //    return transaction.GetHashCode();
         //}
 
-        
+
 
         private async Task<Contract> GetContractAsync(string senderPK)
         {

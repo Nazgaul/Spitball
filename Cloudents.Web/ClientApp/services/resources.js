@@ -106,5 +106,5 @@ export const smsRegistration = (data) => axios.post("/Register/sms", qs.stringif
 export const smsCodeVerification = (data) => axios.post("/Register/sms/verify", qs.stringify({code: data}));
 export const getUserName =  () => axios.get("/Register/userName");
 export const setUserName = (data) => axios.post("/Register/userName", qs.stringify({userName: data}));
-
+export const getAccountNum =  () => axios.get("/Register/password");
 

@@ -8,13 +8,13 @@ export default {
         return {
             countryCodesList: ['001', '002', '003'],
             codeSent: false,
-            username: 'test123'
+            username: ''
         }
     },
     methods: {
         next() {
             var self = this;
-            registrationService.setUserName(this.userName)
+            registrationService.setUserName(this.username)
                 .then(function () {
                     self.$emit('next');
                 });
@@ -27,11 +27,11 @@ export default {
         }
     },
     created() {
-        this.username = "woop";
-        // var self = this;
-        // registrationService.getUserName()
-        //     .then(function (response) {
-        //         self.username = response.data;
-        //     });
+        // this.username = "woop";
+        var self = this;
+        registrationService.getUserName()
+            .then(function (response) {
+                self.username = response.data.name;
+            });
     }
 }

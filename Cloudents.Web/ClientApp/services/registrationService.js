@@ -1,4 +1,4 @@
-import { googleRegistration, emailRegistration, smsRegistration, smsCodeVerification, getUserName, setUserName } from './resources';
+import { googleRegistration, emailRegistration, smsRegistration, smsCodeVerification, getUserName, setUserName, getAccountNum } from './resources';
 export default {
     googleRegistration(model) {
         return googleRegistration(model);
@@ -17,5 +17,8 @@ export default {
     },
     setUserName(model) {
         return setUserName(model);
+    },
+    getAccountNum() {
+        return getAccountNum();
     }
 }
