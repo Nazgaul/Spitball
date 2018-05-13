@@ -8,18 +8,30 @@ export default {
         return {
             countryCodesList: ['001', '002', '003'],
             codeSent: false,
-            username: 'test123'
+            username: ''
         }
     },
     methods: {
         next() {
-            registrationService.getUserName(this.userName)
+            var self = this;
+            registrationService.setUserName(this.username)
                 .then(function () {
-                    this.$emit('next');
+                    self.$emit('next');
                 });
         },
+        editUsername(){
+            var userNameField = this.$el.querySelector('.username-field');
+            userNameField.disabled = false;
+            userNameField.focus();
+
+        }
     },
     created() {
-        this.username = registrationService.getUserName();
+        // this.username = "woop";
+        var self = this;
+        registrationService.getUserName()
+            .then(function (response) {
+                self.username = response.data.name;
+            });
     }
 }

@@ -8,7 +8,7 @@ export default {
     data() {
         return {
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
-            codeSent: true,
+            codeSent: false,
             confirmationCode: '',
             phone: {
                 phoneNum: '',
@@ -17,9 +17,6 @@ export default {
         }
     },
     methods: {
-        updateEmail() {
-            this.$emit('updateEmail');
-        },
         sendCode() {
             var self = this
             registrationService.smsRegistration(this.phone.countryCode + '' + this.phone.phoneNum)
@@ -28,9 +25,10 @@ export default {
                 });
         },
         next() {
+            var self = this
             registrationService.smsCodeVerification(this.confirmationCode)
                 .then(function () {
-                    this.$emit('next');
+                    self.$emit('next');
                 });
 
         }

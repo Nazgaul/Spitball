@@ -8,7 +8,7 @@ export default {
     components: { /*InvisibleRecaptcha, */registerEmail, registerPhone, registerUsername, registerAccount },
     data(){
         return {
-            step: this.$route.meta.step || 1
+            step: this.$route.meta.step || 2
         }
     },
     methods: {

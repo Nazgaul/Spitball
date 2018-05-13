@@ -16,7 +16,6 @@ export default {
                 .then(function () {
                     this.emailSent = true
                 }, function(reason) {
-                    alert(reason.response.data["0"].description); //TODO: handle duplicates and other errors
                 });
         },
         googleLogIn() {
