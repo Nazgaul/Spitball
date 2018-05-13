@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Identity
 {
     public class PasswordHasher : IPasswordHasher<User>
     {
-        private readonly IBlockchainProvider _blockchainProvider;
+        private readonly IBlockchainProvider _blockChainProvider;
 
-        public PasswordHasher(IBlockchainProvider blockchainProvider)
+        public PasswordHasher(IBlockchainProvider blockChainProvider)
         {
-            _blockchainProvider = blockchainProvider;
+            _blockChainProvider = blockChainProvider;
         }
 
         public string HashPassword(User user, string password)
         {
-            return _blockchainProvider.GetPublicAddress(password);
+            return _blockChainProvider.GetPublicAddress(password);
         }
 
         public PasswordVerificationResult VerifyHashedPassword(User user, string hashedPassword, string providedPassword)

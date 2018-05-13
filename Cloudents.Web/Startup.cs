@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
@@ -17,7 +18,6 @@ using Cloudents.Web.Middleware;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -121,16 +121,34 @@ namespace Cloudents.Web
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(SignInStep.PolicyEmail,
-                    policy => policy.RequireClaim(SignInStep.Claim, SigninStep.Email.ToString("D")));
+                    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Email.ToString("D")));
                 options.AddPolicy(SignInStep.PolicySms,
-                    policy => policy.RequireClaim(SignInStep.Claim, SigninStep.Sms.ToString("D")));
+                    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Sms.ToString("D")));
+                options.AddPolicy(SignInStep.PolicyPassword,
+                    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.UntilPassword.ToString("D")));
                 options.AddPolicy(SignInStep.PolicyAll,
-                    policy => policy.RequireClaim(SignInStep.Claim, SigninStep.All.ToString("D")));
+                    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.All.ToString("D")));
             });
-            services.AddAuthentication().AddCookie(o =>
+            services.ConfigureApplicationCookie(o =>
             {
                 o.Cookie.Name = "sb1";
+                o.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+                o.Events.OnRedirectToAccessDenied = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+                //o.Events.OnValidatePrincipal = context =>
+                //{
+                //    return Task.CompletedTask;
+                //};
             });
+            services.AddAuthentication();
+            
 
             services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
             services.AddTransient<IUserStore<User>, UserStore>();
@@ -220,7 +238,8 @@ namespace Cloudents.Web
                     ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
                 }
             });
-            app.UseAuthentication();
+
+
            
             app.UseWebMarkupMin();
             if (env.IsDevelopment())
@@ -229,7 +248,7 @@ namespace Cloudents.Web
                 // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
             }
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
