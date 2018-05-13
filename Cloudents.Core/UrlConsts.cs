@@ -10,7 +10,6 @@ namespace Cloudents.Core
     [UsedImplicitly]
     public class UrlConst : IUrlBuilder
     {
-
         public UrlConst(IConfigurationKeys configuration)
         {
             _systemUrl = configuration.FunctionEndpoint + "/api/redirect";
@@ -47,10 +46,6 @@ namespace Cloudents.Core
 
         public static string NameToQueryString(string name)
         {
-            //var outString =  sourceString.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
-            // - < > " ' % ; ) ( & + -
-
-            //<,>,*,%,&,:,\\
             if (string.IsNullOrEmpty(name))
             {
                 return name;

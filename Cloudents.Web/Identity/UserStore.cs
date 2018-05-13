@@ -3,13 +3,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using NHibernate.Linq;
 
 namespace Cloudents.Web.Identity
 {
-    public partial class UserStore : IUserStore<User>,
-        IUserPasswordStore<User>,
+    [UsedImplicitly]
+    public sealed class UserStore : IUserPasswordStore<User>,
         IUserEmailStore<User>,
         IUserSecurityStampStore<User>,
         IUserPhoneNumberStore<User>

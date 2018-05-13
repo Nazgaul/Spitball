@@ -140,7 +140,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("userName")]
-        [Authorize(Policy = SignInStep.PolicySms)]
+        [Authorize(Policy = SignInStep.PolicyPassword)]
         public IActionResult GetUserName()
         {
             var name = _userManager.GetUserName(User);
@@ -148,12 +148,12 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("userName")]
-        [Authorize(Policy = SignInStep.PolicySms)]
+        [Authorize(Policy = SignInStep.PolicyPassword)]
 
         public async Task<IActionResult> ChangeUserNameAsync(string userName)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var result = await _userManager.SetUserNameAsync(user, userName);
+            var result = await _userManager.SetUserNameAsync(user, userName).ConfigureAwait(false);
             if (result.Succeeded)
             {
                 return Ok();
@@ -162,12 +162,12 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("password")]
-        [Authorize(Policy = SignInStep.PolicySms)]
+        [Authorize(Policy = SignInStep.PolicyPassword)]
         public async Task<IActionResult> GeneratePasswordAsync([FromServices] IBlockchainProvider blockchainProvider)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var privateKey = blockchainProvider.CreateAccount();
-            var result = await _userManager.AddPasswordAsync(user, privateKey);
+            var result = await _userManager.AddPasswordAsync(user, privateKey).ConfigureAwait(false);
             if (result.Succeeded)
             {
                 return Ok(

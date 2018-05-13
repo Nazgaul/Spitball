@@ -6,7 +6,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Azure.WebJobs.Host.Config;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Cloudents.Functions.Di
 {

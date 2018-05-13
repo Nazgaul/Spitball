@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Autofac;
 using Microsoft.Azure.WebJobs.Host.Bindings;
 using Microsoft.Azure.WebJobs.Host.Protocols;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Cloudents.Functions.Di
 {

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities.Db
 {
+    [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global" ,Justification = "Resharper")]
     public class User
     {
         public virtual long Id { get; set; }
@@ -20,10 +19,10 @@ namespace Cloudents.Core.Entities.Db
         public virtual string SecurityStamp{ get; set; }
     }
 
-    public class UserRole
-    {
-        public Guid Id { get; set; }
-        public User User { get; set; }
-        public string Name { get; set; }
-    }
+    //public class UserRole
+    //{
+    //    public Guid Id { get; set; }
+    //    public User User { get; set; }
+    //    public string Name { get; set; }
+    //}
 }
