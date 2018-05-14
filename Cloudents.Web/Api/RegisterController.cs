@@ -59,7 +59,7 @@ namespace Cloudents.Web.Api
                 var t1 =  _queueProvider.InsertMessageAsync(message, token);
                 var t2 =  _signInManager.SignInAsync(user, isPersistent: false);
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
-                return Ok();
+                return Ok(model.Captcha);
             }
 
             //await _signInManager.SignInAsync(user, false);

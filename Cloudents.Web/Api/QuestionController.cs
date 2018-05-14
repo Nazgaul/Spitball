@@ -13,6 +13,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize(Policy = SignInStep.PolicyAll)]
     public class QuestionController : Controller
     {
         private readonly ICommandBus _commandBus;
@@ -24,13 +25,19 @@ namespace Cloudents.Web.Api
             _mapper = mapper;
         }
 
-        [HttpPost, Authorize(Policy = SignInStep.PolicyAll)]
-        [ValidateModel]
+        [HttpPost, ValidateModel]
         public async Task<IActionResult> CreateQuestionAsync([FromBody]QuestionRequest model, CancellationToken token)
         {
             var command = _mapper.Map<CreateQuestionCommand>(model);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
+
+        [HttpGet("subject")]
+        public async Task<IActionResult> GetSubjectsAsync()
+        {
+
+        }
     }
+
 }
