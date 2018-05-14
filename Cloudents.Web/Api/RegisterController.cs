@@ -164,7 +164,8 @@ namespace Cloudents.Web.Api
 
             //TODO: check if i didn't generate a password
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var privateKey = blockchainProvider.CreateAccount();
+            var account = await blockchainProvider.CreateAccount();
+            var privateKey = account.PrivateKey;
             var result = await _userManager.AddPasswordAsync(user, privateKey).ConfigureAwait(false);
             if (result.Succeeded)
             {
