@@ -33,11 +33,11 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpGet("subject")]
-        public async Task<IActionResult> GetSubjectsAsync()
-        {
+        //[HttpGet("subject")]
+        //public async Task<IActionResult> GetSubjectsAsync()
+        //{
 
-        }
+        //}
     }
 
 }
