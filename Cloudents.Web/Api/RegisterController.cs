@@ -9,7 +9,6 @@ using Cloudents.Core.Storage;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -66,14 +65,13 @@ namespace Cloudents.Web.Api
             return BadRequest(p.Errors);
         }
 
-        [HttpPost("google")]
-        public async Task<IActionResult> GoogleSignInAsync([NotNull, FromBody] string token,
+        [HttpPost("google"), ValidateModel]
+        public async Task<IActionResult> GoogleSignInAsync([FromBody] TokenRequest model,
             [FromServices] IGoogleAuth service,
             CancellationToken cancellationToken)
         {
-            if (token == null) throw new ArgumentNullException(nameof(token));
 
-            var result = await service.LogInAsync(token, cancellationToken).ConfigureAwait(false);
+            var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
             if (result == null)
             {
                 return BadRequest();
@@ -120,7 +118,7 @@ namespace Cloudents.Web.Api
             return BadRequest();
         }
 
-        [HttpPost("sms/verify"),ValidateModel]
+        [HttpPost("sms/verify"), ValidateModel]
         [Authorize(Policy = SignInStep.PolicyEmail)]
         public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
         {
@@ -143,7 +141,7 @@ namespace Cloudents.Web.Api
             return Ok(new { name });
         }
 
-        [HttpPost("userName"),ValidateModel]
+        [HttpPost("userName"), ValidateModel]
         [Authorize(Policy = SignInStep.PolicyPassword)]
 
         public async Task<IActionResult> ChangeUserNameAsync([FromBody]ChangeUserNameRequest model)

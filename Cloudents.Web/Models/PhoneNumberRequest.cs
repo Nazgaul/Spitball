@@ -18,4 +18,11 @@ namespace Cloudents.Web.Models
         [Required]
         public string Number { get; set; }
     }
+
+
+    public class TokenRequest
+    {
+        [Required]
+        public string Token { get; set; }
+    }
 }

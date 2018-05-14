@@ -5,7 +5,7 @@ namespace Cloudents.Web.Models
     public class QuestionRequest
     {
         [Required]
-        public long SubjectId { get; set; }
+        public int SubjectId { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string Text { get; set; }
 
