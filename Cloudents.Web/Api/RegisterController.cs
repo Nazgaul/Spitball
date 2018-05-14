@@ -142,13 +142,14 @@ namespace Cloudents.Web.Api
             return Ok(new { name });
         }
 
-        [HttpPost("userName")]
+        [HttpPost("userName"),ValidateModel]
         [Authorize(Policy = SignInStep.PolicyPassword)]
 
-        public async Task<IActionResult> ChangeUserNameAsync([FromBody]string userName)
+        public async Task<IActionResult> ChangeUserNameAsync([FromBody]ChangeUserNameRequest model)
         {
+            //TODO: check if this unique
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var result = await _userManager.SetUserNameAsync(user, userName).ConfigureAwait(false);
+            var result = await _userManager.SetUserNameAsync(user, model.Name).ConfigureAwait(false);
             if (result.Succeeded)
             {
                 return Ok();
