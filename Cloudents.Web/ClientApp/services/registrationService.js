@@ -3,8 +3,8 @@ export default {
     googleRegistration(model) {
         return googleRegistration(model);
     },
-    emailRegistration(model) {
-        return emailRegistration(model);
+    emailRegistration(email,recaptch) {
+        return emailRegistration(email,recaptch);
     },
     smsRegistration(model) {
         return smsRegistration(model);

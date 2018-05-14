@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="step-phone">
         <step-template v-if="!codeSent">
             <div slot="step-data" class="limited-width">
                 <h1 class="step-title">Enter your phone number</h1>
@@ -10,7 +10,10 @@
                         ({{item.callingCode}})
                     </option>
                 </select>
-                <input class="phone-field" v-model="phone.phoneNum" placeholder="Enter phone number"/>
+                <div class="input-wrapper">
+                    <input class="phone-field" v-model="phone.phoneNum" placeholder="Enter phone number"/>
+                    <v-icon>sbf-phone</v-icon>
+                </div>
                 <button class="continue-btn" @click="sendCode">Continue</button>
             </div>
             <img slot="step-image" :src="require(`../../img/enter-phone.png`)"/>
@@ -23,7 +26,10 @@
                 <p class="phone-num">(+{{this.phone.countryCode}}) {{this.phone.phoneNum}}</p>
                 <button class="small-button" @click="codeSent = false">Edit</button>
                 <p class="confirm-title">Please enter the code below to confirm it.</p>
-                <input class="code-field" v-model="confirmationCode" placeholder="Confirmation code"></input>
+                <div class="input-wrapper">
+                    <input class="code-field" v-model="confirmationCode" placeholder="Confirmation code"></input>
+                    <v-icon>sbf-key</v-icon>
+                </div>
                 <button class="small-button" @click="sendCode">Resend</button>
                 <button class="continue-btn submit-code" @click="next">Continue</button>
             </div>

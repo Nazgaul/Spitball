@@ -70,7 +70,8 @@
     "webpack-hot-middleware": "^2.21.2",
     "webpack-merge": "4.1.1",
     "webpack-stats-plugin": "0.1.5",
-    "webpack-visualizer-plugin": "0.1.11"
+    "webpack-visualizer-plugin": "0.1.11",
+    "vue-recaptcha": "^1.1.1"
   },
   "jest": {
     "transform": {

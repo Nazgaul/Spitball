@@ -6,8 +6,6 @@ export default {
     components: {stepTemplate},
     data() {
         return {
-            countryCodesList: ['001', '002', '003'],
-            codeSent: false,
             username: ''
         }
     },
@@ -27,7 +25,6 @@ export default {
         }
     },
     created() {
-        // this.username = "woop";
         var self = this;
         registrationService.getUserName()
             .then(function (response) {
