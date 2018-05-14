@@ -36,7 +36,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         [ValidateModel]
-        public async Task<IActionResult> CreateUserAsync([FromForm]RegisterEmailRequest model, CancellationToken token)
+        public async Task<IActionResult> CreateUserAsync([FromBody]RegisterEmailRequest model, CancellationToken token)
         {
             var user = new User
             {
@@ -53,7 +53,7 @@ namespace Cloudents.Web.Api
                 var message = new EmailMessage
                 {
                     To = model.Email,
-                    PlaceHolders = new[] { HtmlEncoder.Default.Encode(link) },
+                    PlaceHolders = new object[] { HtmlEncoder.Default.Encode(link) },
                     Template = "register",
                     Subject = "welcome to spitball"
                 };
@@ -161,6 +161,8 @@ namespace Cloudents.Web.Api
         [Authorize(Policy = SignInStep.PolicyPassword)]
         public async Task<IActionResult> GeneratePasswordAsync([FromServices] IBlockchainProvider blockchainProvider)
         {
+
+            //TODO: check if i didn't generate a password
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var privateKey = blockchainProvider.CreateAccount();
             var result = await _userManager.AddPasswordAsync(user, privateKey).ConfigureAwait(false);
