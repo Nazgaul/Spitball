@@ -114,7 +114,6 @@ namespace Cloudents.Web
                     //options.Password.RequireUppercase = false;
                     //options.Password.RequiredUniqueChars = 0;
 
-                    
 
                 }).AddDefaultTokenProviders();
 
@@ -148,7 +147,7 @@ namespace Cloudents.Web
                 //};
             });
             services.AddAuthentication();
-            
+
 
             services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
             services.AddTransient<IUserStore<User>, UserStore>();
@@ -239,8 +238,6 @@ namespace Cloudents.Web
                 }
             });
 
-
-           
             app.UseWebMarkupMin();
             if (env.IsDevelopment())
             {

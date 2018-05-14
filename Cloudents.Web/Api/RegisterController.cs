@@ -25,8 +25,6 @@ namespace Cloudents.Web.Api
         private readonly IQueueProvider _queueProvider;
         private readonly SignInManager<User> _signInManager;
 
-
-
         public RegisterController(
             UserManager<User> userManager, IConfigurationKeys configuration, IQueueProvider queueProvider, SignInManager<User> signInManager)
         {
@@ -69,7 +67,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("google")]
-        public async Task<IActionResult> GoogleSigninAsync([NotNull,FromForm] string token,
+        public async Task<IActionResult> GoogleSignInAsync([NotNull, FromBody] string token,
             [FromServices] IGoogleAuth service,
             CancellationToken cancellationToken)
         {
@@ -98,9 +96,8 @@ namespace Cloudents.Web.Api
 
         [HttpPost("sms")]
         [Authorize(Policy = SignInStep.PolicyEmail)]
-        public async Task<IActionResult> SmsUserAsync([FromForm]string phoneNumber, [FromServices] IRestClient client, CancellationToken token)
+        public async Task<IActionResult> SmsUserAsync([FromBody]string phoneNumber, [FromServices] IRestClient client, CancellationToken token)
         {
-
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber).ConfigureAwait(false);
@@ -125,7 +122,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost("sms/verify")]
         [Authorize(Policy = SignInStep.PolicyEmail)]
-        public async Task<IActionResult> VerifySmsAsync([FromForm]string code)
+        public async Task<IActionResult> VerifySmsAsync([FromBody]string code)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user).ConfigureAwait(false);
@@ -148,7 +145,7 @@ namespace Cloudents.Web.Api
         [HttpPost("userName")]
         [Authorize(Policy = SignInStep.PolicyPassword)]
 
-        public async Task<IActionResult> ChangeUserNameAsync([FromForm]string userName)
+        public async Task<IActionResult> ChangeUserNameAsync([FromBody]string userName)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var result = await _userManager.SetUserNameAsync(user, userName).ConfigureAwait(false);
