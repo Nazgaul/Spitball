@@ -15,8 +15,6 @@ namespace Cloudents.Web.Mapper
 
             CreateMap<QuestionRequest, CreateQuestionCommand>()
                 .ForMember(f => f.UserId,c=>c.ResolveUsing<UserIdResolver>());
-
         }
-
     }
 }

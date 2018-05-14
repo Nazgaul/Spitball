@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Mapper
 {
-
     public class UserIdResolver : IValueResolver<object,object,long>
     {
         private readonly IHttpContextAccessor _context;

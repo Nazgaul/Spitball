@@ -12,13 +12,11 @@ namespace Cloudents.Web.Models
         public string Number { get; set; }
     }
 
-
     public class CodeRequest
     {
         [Required]
         public string Number { get; set; }
     }
-
 
     public class TokenRequest
     {

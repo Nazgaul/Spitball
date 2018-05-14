@@ -12,6 +12,5 @@ namespace Cloudents.Web.Models
         [Required]
         [Range(0.1, 1000)]
         public decimal Price { get; set; }
-
     }
 }

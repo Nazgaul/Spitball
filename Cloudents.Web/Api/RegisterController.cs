@@ -33,14 +33,22 @@ namespace Cloudents.Web.Api
             _signInManager = signInManager;
         }
 
+        private static int GenerateRandomNumber()
+        {
+            var rdm = new Random();
+            return rdm.Next(1000, 9999);
+        }
+
         [HttpPost]
         [ValidateModel]
         public async Task<IActionResult> CreateUserAsync([FromBody]RegisterEmailRequest model, CancellationToken token)
         {
+            var userName = model.Email.Split(new[] { '.', '@' }, 1, StringSplitOptions.RemoveEmptyEntries)[0];
+
             var user = new User
             {
                 Email = model.Email,
-                Name = model.Email // TODO: randomize user name
+                Name = userName + GenerateRandomNumber()
             };
 
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
@@ -56,8 +64,8 @@ namespace Cloudents.Web.Api
                     Template = "register",
                     Subject = "welcome to spitball"
                 };
-                var t1 =  _queueProvider.InsertMessageAsync(message, token);
-                var t2 =  _signInManager.SignInAsync(user, isPersistent: false);
+                var t1 = _queueProvider.InsertMessageAsync(message, token);
+                var t2 = _signInManager.SignInAsync(user, isPersistent: false);
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
                 return Ok(model.Captcha);
             }
@@ -71,7 +79,6 @@ namespace Cloudents.Web.Api
             [FromServices] IGoogleAuth service,
             CancellationToken cancellationToken)
         {
-
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
             if (result == null)
             {
@@ -81,7 +88,7 @@ namespace Cloudents.Web.Api
             var user = new User
             {
                 Email = result.Email,
-                Name = result.Name,
+                Name = result.Name + GenerateRandomNumber(),
                 EmailConfirmed = true
             };
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
@@ -161,8 +168,6 @@ namespace Cloudents.Web.Api
         [Authorize(Policy = SignInStep.PolicyPassword)]
         public async Task<IActionResult> GeneratePasswordAsync([FromServices] IBlockchainProvider blockchainProvider)
         {
-
-            //TODO: check if i didn't generate a password
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var account = await blockchainProvider.CreateAccount();
             var privateKey = account.PrivateKey;

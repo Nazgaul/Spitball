@@ -22,7 +22,6 @@ namespace Cloudents.Web.Identity
 
         public PasswordVerificationResult VerifyHashedPassword(User user, string hashedPassword, string providedPassword)
         {
-
             if (user.PublicKey == hashedPassword)
             {
                 return PasswordVerificationResult.Success;
