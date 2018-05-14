@@ -94,17 +94,17 @@ namespace Cloudents.Web.Api
             return BadRequest(p.Errors);
         }
 
-        [HttpPost("sms")]
+        [HttpPost("sms"), ValidateModel]
         [Authorize(Policy = SignInStep.PolicyEmail)]
-        public async Task<IActionResult> SmsUserAsync([FromBody]string phoneNumber, [FromServices] IRestClient client, CancellationToken token)
+        public async Task<IActionResult> SmsUserAsync([FromBody]PhoneNumberRequest model, [FromServices] IRestClient client, CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
-            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber).ConfigureAwait(false);
+            await _userManager.SetPhoneNumberAsync(user, model.Number).ConfigureAwait(false);
+            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.Number).ConfigureAwait(false);
 
             var message = new SmsMessage
             {
-                PhoneNumber = phoneNumber,
+                PhoneNumber = model.Number,
                 Message = code
             };
             var result = await client.PostJsonAsync(new Uri($"{_configuration.FunctionEndpoint}/api/sms"), message,
@@ -120,13 +120,13 @@ namespace Cloudents.Web.Api
             return BadRequest();
         }
 
-        [HttpPost("sms/verify")]
+        [HttpPost("sms/verify"),ValidateModel]
         [Authorize(Policy = SignInStep.PolicyEmail)]
-        public async Task<IActionResult> VerifySmsAsync([FromBody]string code)
+        public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user).ConfigureAwait(false);
-            var v = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, code).ConfigureAwait(false);
+            var v = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, model.Number).ConfigureAwait(false);
             if (v.Succeeded)
             {
                 return Ok();

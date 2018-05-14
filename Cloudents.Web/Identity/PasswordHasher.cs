@@ -1,10 +1,11 @@
-﻿using System;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Identity
 {
+    [UsedImplicitly]
     public class PasswordHasher : IPasswordHasher<User>
     {
         private readonly IBlockchainProvider _blockChainProvider;
@@ -21,7 +22,13 @@ namespace Cloudents.Web.Identity
 
         public PasswordVerificationResult VerifyHashedPassword(User user, string hashedPassword, string providedPassword)
         {
-            throw new NotImplementedException();
+
+            if (user.PublicKey == hashedPassword)
+            {
+                return PasswordVerificationResult.Success;
+            }
+
+            return PasswordVerificationResult.Failed;
         }
     }
 }

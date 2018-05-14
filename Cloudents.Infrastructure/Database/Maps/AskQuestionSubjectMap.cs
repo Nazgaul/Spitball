@@ -21,9 +21,9 @@ namespace Cloudents.Infrastructure.Database.Maps
         public QuestionMap()
         {
             Id(x => x.Id).GeneratedBy.Native();
-            Map(x => x.Text).Length(8000);
-            Map(x => x.Price);
-            Map(x => x.Attachments);
+            Map(x => x.Text).Length(8000).Not.Nullable();
+            Map(x => x.Price).Precision(2).Not.Nullable();
+            Map(x => x.Attachments).Nullable();
             References(x => x.Subject).ForeignKey("Question-AskQuestionSubject");
 
         }
