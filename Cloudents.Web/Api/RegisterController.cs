@@ -129,6 +129,7 @@ namespace Cloudents.Web.Api
             var v = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, model.Number).ConfigureAwait(false);
             if (v.Succeeded)
             {
+                await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
                 return Ok();
             }
             return BadRequest();
