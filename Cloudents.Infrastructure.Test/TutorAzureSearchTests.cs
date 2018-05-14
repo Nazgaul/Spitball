@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using Autofac.Extras.Moq;
-using AutoMapper;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Search.Tutor;

@@ -1,28 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 
-namespace Cloudents.Web.Models
+namespace Cloudents.Web.Mapper
 {
-    public class MapperProfile :  Profile
-    {
-        public MapperProfile()
-        {
-            //_userManager = userManager;
-           // _context = context;
-
-            CreateMap<QuestionRequest, CreateQuestionCommand>().ForMember(f => f.UserId,c=>c.ResolveUsing<UserIdResolver>());
-
-        }
-
-    }
 
     public class UserIdResolver : IValueResolver<object,object,long>
     {

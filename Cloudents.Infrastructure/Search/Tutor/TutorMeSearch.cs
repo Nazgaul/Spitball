@@ -63,7 +63,6 @@ namespace Cloudents.Infrastructure.Search.Tutor
         public const int TutorMePage = 12;
         private static NameValueCollection BuildQueryString(string term, int page)
         {
-            
             return new NameValueCollection
             {
                 ["search"] = term,

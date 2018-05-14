@@ -28,8 +28,8 @@ namespace Cloudents.Web.Api
         [ValidateModel]
         public async Task<IActionResult> CreateQuestionAsync([FromBody]QuestionRequest model, CancellationToken token)
         {
-            var t = _mapper.Map<CreateQuestionCommand>(model);
-            //await _commandBus.DispatchAsync(model, token).ConfigureAwait(false);
+            var command = _mapper.Map<CreateQuestionCommand>(model);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
     }

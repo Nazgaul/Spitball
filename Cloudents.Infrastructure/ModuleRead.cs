@@ -96,7 +96,6 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
 
-
         }
     }
 }

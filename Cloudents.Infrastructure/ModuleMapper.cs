@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using Autofac;
 using AutoMapper;
 using Cloudents.Core.Attributes;
@@ -18,7 +16,6 @@ namespace Cloudents.Infrastructure
     {
         protected override void Load(ContainerBuilder builder)
         {
-
           
 
             var assembly = Assembly.GetExecutingAssembly();
@@ -36,5 +33,4 @@ namespace Cloudents.Infrastructure
                 .As<IMapper>().InstancePerLifetimeScope();
         }
     }
-   
 }

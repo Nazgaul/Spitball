@@ -56,8 +56,9 @@ namespace Cloudents.Web.Api
                     Template = "register",
                     Subject = "welcome to spitball"
                 };
-                await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
-                await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
+                var t1 =  _queueProvider.InsertMessageAsync(message, token);
+                var t2 =  _signInManager.SignInAsync(user, isPersistent: false);
+                await Task.WhenAll(t1, t2).ConfigureAwait(false);
                 return Ok();
             }
 
@@ -168,6 +169,7 @@ namespace Cloudents.Web.Api
             var result = await _userManager.AddPasswordAsync(user, privateKey).ConfigureAwait(false);
             if (result.Succeeded)
             {
+                await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
                 return Ok(
                 new
                 {

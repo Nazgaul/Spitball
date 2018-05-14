@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,7 +8,7 @@ using NHibernate;
 
 namespace Cloudents.Infrastructure.Database
 {
-    public sealed class NHibernateRepository<T> : IRepository<T>, IDisposable where T : class
+    public sealed class NHibernateRepository<T> : IRepository<T> where T : class
     {
         private readonly ISession _session;
         private readonly IUnitOfWork _unitOfWork;
@@ -46,7 +45,6 @@ namespace Cloudents.Infrastructure.Database
         {
             _unitOfWork?.Dispose();
             _session?.Dispose();
-           
         }
     }
 }

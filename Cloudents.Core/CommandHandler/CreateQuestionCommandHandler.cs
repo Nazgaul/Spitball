@@ -12,18 +12,21 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<QuestionSubject> _questionSubjectRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public CreateQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<QuestionSubject> questionSubjectRepository)
+        public CreateQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository)
         {
             _questionRepository = questionRepository;
             _questionSubjectRepository = questionSubjectRepository;
+            _userRepository = userRepository;
         }
 
         public async Task HandleAsync(CreateQuestionCommand message, CancellationToken token)
         {
             var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId, token).ConfigureAwait(false);
-            var question = new Question(subject, message.Text, message.Price, 0);
-            await _questionRepository.SaveAsync(question,token).ConfigureAwait(false);
+            var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
+            var question = new Question(subject, message.Text, message.Price, 0, user);
+            await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
         }
     }
 }

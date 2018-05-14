@@ -7,17 +7,17 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Question
     {
-        public Question(QuestionSubject subject, string text, decimal price, int attachments)
+        public Question(QuestionSubject subject, string text, decimal price, int attachments, User user)
         {
             Subject = subject;
             Text = text;
             Price = price;
             Attachments = attachments;
+            User = user;
         }
 
         protected Question()
         {
-            
         }
 
         public virtual long Id { get; set; }
@@ -26,5 +26,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual decimal Price { get; set; }
 
         public virtual int Attachments { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

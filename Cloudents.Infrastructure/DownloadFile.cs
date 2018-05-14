@@ -86,6 +86,5 @@ namespace Cloudents.Infrastructure
 
             return eTag;
         }
-
     }
 }

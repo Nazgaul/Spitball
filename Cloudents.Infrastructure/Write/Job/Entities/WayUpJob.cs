@@ -164,6 +164,5 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
         //    }
         //}
     }
-
    
 }

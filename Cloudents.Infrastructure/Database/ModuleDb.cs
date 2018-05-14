@@ -4,7 +4,6 @@ using Cloudents.Core.Attributes;
 
 namespace Cloudents.Infrastructure.Database
 {
-
     [ModuleRegistration(Core.Enum.System.Console)]
     //[ModuleRegistration(Core.Enum.System.Api)]
     [ModuleRegistration(Core.Enum.System.Function)]

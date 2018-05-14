@@ -24,6 +24,5 @@ namespace Cloudents.Infrastructure.Extensions
                 return t;
             });
         }
-
     }
 }

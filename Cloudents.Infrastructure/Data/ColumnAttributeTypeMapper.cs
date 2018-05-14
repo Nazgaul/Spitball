@@ -28,9 +28,9 @@ namespace Cloudents.Infrastructure.Data
                             // Search properties to find the one ColumnAttribute applied with Name property set as columnName to be Mapped 
                             .Any(attr => attr.GetType().Name == nameof(DbColumnAttribute)
                                          &&
-                                         attr.GetType().GetProperties(BindingFlags.Public |
-                                                                      BindingFlags.NonPublic |
-                                                                      BindingFlags.Instance)
+                                         attr.GetType().GetProperties(BindingFlags.Public
+                                                                      | BindingFlags.NonPublic
+                                                                      | BindingFlags.Instance)
                                              .Any(
                                                  f =>
                                                  f.Name == "Name"
@@ -39,8 +39,8 @@ namespace Cloudents.Infrastructure.Data
                         (prop.DeclaringType == type
                              ? prop.GetSetMethod(true)
                              : prop.DeclaringType.GetProperty(prop.Name,
-                                                              BindingFlags.Public | BindingFlags.NonPublic |
-                                                              BindingFlags.Instance).GetSetMethod(true)) != null
+                                                              BindingFlags.Public | BindingFlags.NonPublic
+                                                              | BindingFlags.Instance).GetSetMethod(true)) != null
 );
         }
     }
