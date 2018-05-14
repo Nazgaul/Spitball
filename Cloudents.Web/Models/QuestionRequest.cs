@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.ModelBinding;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -16,9 +11,7 @@ namespace Cloudents.Web.Models
 
         [Required]
         [Range(0.1, 1000)]
-        public decimal Price { get; private set; }
+        public decimal Price { get; set; }
 
-        [BindNever]
-        public long UserId { get; set; }
     }
 }
