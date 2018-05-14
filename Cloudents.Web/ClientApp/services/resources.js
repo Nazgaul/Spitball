@@ -101,10 +101,10 @@ export const spitballPreview = {
 
 export const googleRegistration = (data) => axios.post("/Register/google", {token: data});
 export const emailRegistration = (data) => axios.post("/Register", {email: data});
-export const smsRegistration = (data) => axios.post("/Register/sms", {phoneNumber: data});
+export const smsRegistration = (data) => axios.post("/Register/sms", {number: data});
 
-export const smsCodeVerification = (data) => axios.post("/Register/sms/verify", {code: data});
+export const smsCodeVerification = (data) => axios.post("/Register/sms/verify", {number: data});
 export const getUserName =  () => axios.get("/Register/userName");
 export const setUserName = (data) => axios.post("/Register/userName", {name: data});
-export const getAccountNum =  () => axios.get("/Register/password");
+export const getAccountNum =  () => axios.post("/Register/password");
 
