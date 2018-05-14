@@ -13,8 +13,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Text).Length(8000).Not.Nullable();
             Map(x => x.Price).Not.Nullable();
             Map(x => x.Attachments).Nullable();
-            References(x => x.Subject).ForeignKey("Question_AskQuestionSubject");
-            References(x => x.User).Column("UserId").ForeignKey("Question_User");
+            References(x => x.Subject).ForeignKey("Question_AskQuestionSubject").Not.Nullable();
+            References(x => x.User).Column("UserId").ForeignKey("Question_User").Not.Nullable();
         }
     }
 }

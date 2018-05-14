@@ -5,9 +5,11 @@ using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Google.Apis.Auth;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Auth
 {
+    [UsedImplicitly]
     public sealed class GoogleAuth : IGoogleAuth
     {
         private readonly IMapper _mapper;
@@ -32,7 +34,7 @@ namespace Cloudents.Infrastructure.Auth
             }
 
             if (!string.Equals(result.Audience.ToString(),
-                "997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com", StringComparison.OrdinalIgnoreCase))
+                "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
