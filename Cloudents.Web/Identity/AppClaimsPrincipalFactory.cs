@@ -26,7 +26,6 @@ namespace Cloudents.Web.Identity
             p.AddClaim(new Claim(SignInStep.Claim, step.ToString("D")));
             return p;
         }
-       
 
     }
 }

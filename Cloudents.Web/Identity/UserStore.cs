@@ -22,7 +22,6 @@ namespace Cloudents.Web.Identity
             _userRepository = userRepository;
         }
 
-
         public void Dispose()
         {
             _userRepository.Dispose();
