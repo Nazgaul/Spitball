@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
@@ -12,21 +13,30 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize(Policy = SignInStep.PolicyAll)]
     public class QuestionController : Controller
     {
         private readonly ICommandBus _commandBus;
+        private readonly IMapper _mapper;
 
-        public QuestionController(ICommandBus commandBus)
+        public QuestionController(ICommandBus commandBus, IMapper mapper)
         {
             _commandBus = commandBus;
+            _mapper = mapper;
         }
 
-        [HttpPost, Authorize(Policy = SignInStep.PolicyAll)]
-        [ValidateModel]
-        public async Task<IActionResult> CreateQuestionAsync(QuestionRequest model, CancellationToken token)
+        [HttpPost, ValidateModel]
+        public async Task<IActionResult> CreateQuestionAsync([FromBody]QuestionRequest model, CancellationToken token)
         {
-            //await _commandBus.DispatchAsync(model, token).ConfigureAwait(false);
+            var command = _mapper.Map<CreateQuestionCommand>(model);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
+
+        //[HttpGet("subject")]
+        //public async Task<IActionResult> GetSubjectsAsync()
+        //{
+
+        //}
     }
 }

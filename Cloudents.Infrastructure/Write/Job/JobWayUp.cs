@@ -79,7 +79,6 @@ namespace Cloudents.Infrastructure.Write.Job
 
         protected override async Task<Core.Entities.Search.Job> ParseTAsync(WayUpJob obj, CancellationToken token)
         {
-
             //var dateTimeStr = obj.PostedDate.Replace("UTC", string.Empty).Trim();
 
             DateTime? dateTime = null;

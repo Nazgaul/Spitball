@@ -1,16 +1,11 @@
 ﻿using Cloudents.Core.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Numerics;
-using System.Text;
 using System.Threading.Tasks;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
-using Nethereum.HdWallet;
-using System.Threading;
 using Nethereum.Hex.HexTypes;
-using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Contracts;
 
 namespace Cloudents.Infrastructure.Blockchain
@@ -24,7 +19,6 @@ namespace Cloudents.Infrastructure.Blockchain
             _configurationKeys = configurationKeys;
         }
 
-
         //public async Task<BigInteger> GetBalanceAsync(string accountAddress)
         //{
         //    var chain = new Web3(_configurationKeys.BlockChainNetwork);
@@ -32,9 +26,6 @@ namespace Cloudents.Infrastructure.Blockchain
         //    //Console.WriteLine("Account balance: {0}", Web3.Convert.FromWei(balance.Value));
         //    return balance;
         //}
-
-
-
 
         //public async Task<int> SendTxAsync(string senderAddress, string senderPK, string recipientAddress, string azureUrl)
         //{
@@ -44,8 +35,6 @@ namespace Cloudents.Infrastructure.Blockchain
         //    var transaction = await web3.TransactionManager.SendTransactionAsync(account.Address, recipientAddress, new HexBigInteger(wei));
         //    return transaction.GetHashCode();
         //}
-
-
 
         private async Task<Contract> GetContractAsync(string senderPK)
         {

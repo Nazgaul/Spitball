@@ -1,5 +1,6 @@
 import accountNum from "./accountNum.vue";
 import stepTemplate from '../stepTemplate.vue'
+import registrationService from "../../../../services/registrationService";
 
 export default {
     components: {accountNum, stepTemplate},
@@ -8,6 +9,7 @@ export default {
             openDialog: false,
             dialogWasViewed: false,
             showSummary: false,
+            accountNum: ""
         }
     },
     methods: {
@@ -26,5 +28,12 @@ export default {
         finishRegistration() {
             this.$router.push({path: '/note', query: {q: ''}});
         }
+    },
+    beforeCreate() {
+        var self = this;
+        registrationService.getAccountNum()
+            .then(function (response) {
+                self.accountNum = response.data.password;
+            })
     }
 }

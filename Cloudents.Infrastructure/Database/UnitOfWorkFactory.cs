@@ -1,6 +1,9 @@
-﻿using Cloudents.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Cloudents.Core;
 using Cloudents.Infrastructure.Database.Maps;
-using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using JetBrains.Annotations;
 using NHibernate;
@@ -15,20 +18,37 @@ namespace Cloudents.Infrastructure.Database
 
         public delegate UnitOfWorkFactory Factory(Core.Enum.Database db);
 
+        private static IEnumerable<Type> GetAllTypesImplementingOpenGenericType(Type openGenericType, Assembly assembly)
+        {
+            return from x in assembly.GetTypes()
+                from z in x.GetInterfaces()
+                let y = x.BaseType
+                where
+                    y?.IsGenericType == true
+                              && openGenericType.IsAssignableFrom(y.GetGenericTypeDefinition())
+                    || z.IsGenericType
+                    && openGenericType.IsAssignableFrom(z.GetGenericTypeDefinition())
+                   select x;
+        }
+
         public UnitOfWorkFactory(Core.Enum.Database db, DbConnectionStringProvider connectionString)
         {
-
+            //TODO: CREATE SCHEMA sb
             var configuration = Fluently.Configure()
-                .Database(FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.GetConnectionString(db)))
+                .Database(
+                    FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.GetConnectionString(db))
+                        .DefaultSchema("sb"))
                 .ExposeConfiguration(BuildSchema);
             if (db == Core.Enum.Database.System)
             {
                 configuration.Mappings(m =>
                 {
-                    m.FluentMappings.Add<CourseMap>();
-                    m.FluentMappings.Add<UniversityMap>();
-                    m.FluentMappings.Add<UrlStatsMap>();
-                    m.FluentMappings.Add<UserMap>();
+                    var types = GetAllTypesImplementingOpenGenericType(typeof(SpitballClassMap<>),
+                        Assembly.GetExecutingAssembly());
+                    foreach (var type in types)
+                    {
+                        m.FluentMappings.Add(type);
+                    }
                 });
             }
             else
@@ -41,7 +61,6 @@ namespace Cloudents.Infrastructure.Database
             _factory = configuration.BuildSessionFactory();
         }
 
-        
         public ISession OpenSession()
         {
             return _factory.OpenSession();
@@ -49,7 +68,7 @@ namespace Cloudents.Infrastructure.Database
 
         private static void BuildSchema(Configuration config)
         {
-            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Validate);
+            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
         }
     }
 }

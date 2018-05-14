@@ -136,17 +136,15 @@ namespace Cloudents.Infrastructure
             return p.IsSuccessStatusCode;
         }
 
-
         [Log]
         public async Task<bool> PostJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
             var jsonInString = JsonConvert.SerializeObject(obj);
             using (var stringContent = new StringContent(jsonInString, Encoding.UTF8, "application/json"))
             {
-                var p = await _client.PostAsync(url, stringContent, token);
+                var p = await _client.PostAsync(url, stringContent, token).ConfigureAwait(false);
                 return p.IsSuccessStatusCode;
             }
-
         }
 
         public void Dispose()

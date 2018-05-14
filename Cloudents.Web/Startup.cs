@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
@@ -114,7 +115,6 @@ namespace Cloudents.Web
                     options.Password.RequireUppercase = false;
                     options.Password.RequiredUniqueChars = 0;
 
-
                 }).AddDefaultTokenProviders();
 
             services.AddAuthorization(options =>
@@ -148,10 +148,19 @@ namespace Cloudents.Web
             });
             services.AddAuthentication();
 
-
             services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
+
+            var assembliesOfProgram = new[]
+            {
+                Assembly.Load("Cloudents.Infrastructure.Framework"),
+                Assembly.Load("Cloudents.Infrastructure.Storage"),
+                Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Core"),
+                Assembly.GetExecutingAssembly()
+            };
+            services.AddAutoMapper(assembliesOfProgram);
 
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
@@ -170,11 +179,7 @@ namespace Cloudents.Web
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
 
             containerBuilder.RegisterSystemModules(
-                Core.Enum.System.Web,
-                Assembly.Load("Cloudents.Infrastructure.Framework"),
-                Assembly.Load("Cloudents.Infrastructure.Storage"),
-                Assembly.Load("Cloudents.Infrastructure"),
-                Assembly.Load("Cloudents.Core"));
+                Core.Enum.System.Web, assembliesOfProgram);
 
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();

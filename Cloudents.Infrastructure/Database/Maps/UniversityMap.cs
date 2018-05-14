@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
-    public class UniversityMap : ClassMap<University>
+    public class UniversityMap : SpitballClassMap<University>
     {
         public UniversityMap()
         {

@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Infrastructure.Database.Maps
 {
     [UsedImplicitly]
-    public class UrlStatsMap : ClassMap<UrlStats>
+    public class UrlStatsMap : SpitballClassMap<UrlStats>
     {
         public UrlStatsMap()
         {
@@ -17,6 +17,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.SourceLocation);
             Map(e => e.AggregateCount);
             Map(e => e.Ip);
+            Schema("dbo");
         }
     }
 }

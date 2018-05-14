@@ -115,7 +115,6 @@ namespace Cloudents.Infrastructure.Interceptor
             if (data == null) return;
             if (typeof(Task).IsAssignableFrom(method.ReturnType))
             {
-
                 //invocation.ReturnValue = ConvertAsync(data);
                 var taskReturnType = method.ReturnType; //e.g. Task<int>
 

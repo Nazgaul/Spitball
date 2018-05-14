@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using JetBrains.Annotations;
 using NHibernate;
 
@@ -41,7 +40,6 @@ namespace Cloudents.Infrastructure.Database
                 {
                     _transaction.Commit();
                     _isCommitted = false;
-
                 }
             }
             finally

@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Infrastructure.Database.Maps
 {
     [UsedImplicitly]
-    internal class UserMap : ClassMap<User>
+    internal class UserMap : SpitballClassMap<User>
     {
         public UserMap()
         {

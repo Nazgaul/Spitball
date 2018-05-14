@@ -4,7 +4,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
-    public class CourseMap : ClassMap<Course>
+    public class CourseMap : SpitballClassMap<Course>
     {
         public CourseMap()
         {
@@ -15,7 +15,6 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.CourseCode).Length(255);
             Map(e => e.Discriminator).CustomType<CourseType>();
             Map(e => e.PrivacySetting).CustomType<CoursePrivacySetting>();
-
 
             Component(x => x.RowDetail, m =>
             {
@@ -28,5 +27,10 @@ namespace Cloudents.Infrastructure.Database.Maps
             Table("Box");
             Schema("Zbox");
         }
+    }
+
+    public class SpitballClassMap<T> : ClassMap<T>
+    {
+
     }
 }
