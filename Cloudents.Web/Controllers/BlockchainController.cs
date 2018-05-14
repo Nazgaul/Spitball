@@ -9,10 +9,7 @@ using Cloudents.Core;
 using Cloudents.Infrastructure;
 using System.Numerics;
 using System.Threading.Tasks;
-<<<<<<< HEAD
 using Nethereum.Web3.Accounts;
-=======
->>>>>>> 347e1e22f4929e8780de9d7a92f301b70454c175
 
 namespace Cloudents.Web.Controllers
 {
