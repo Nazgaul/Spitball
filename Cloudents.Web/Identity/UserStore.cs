@@ -22,7 +22,6 @@ namespace Cloudents.Web.Identity
             _userRepository = userRepository;
         }
 
-
         public void Dispose()
         {
             _userRepository.Dispose();
@@ -77,7 +76,7 @@ namespace Cloudents.Web.Identity
         public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             var p = long.Parse(userId);
-            return _userRepository.GetAsync(p, cancellationToken);
+            return _userRepository.GetAsync(p, cancellationToken); //it was get to check if the user
         }
 
         public Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)

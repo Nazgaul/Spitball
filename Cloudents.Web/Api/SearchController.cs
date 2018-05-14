@@ -19,7 +19,6 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class SearchController : Controller
     {
-
         /// <summary>
         /// Search document vertical result
         /// </summary>
