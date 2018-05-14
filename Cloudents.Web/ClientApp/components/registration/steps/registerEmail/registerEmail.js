@@ -1,5 +1,7 @@
 import stepTemplate from '../stepTemplate.vue'
+
 ﻿import registrationService from '../../../../services/registrationService'
+
 var auth2;
 
 export default {
@@ -7,30 +9,35 @@ export default {
     data() {
         return {
             userEmail: this.$store.getters.getEmail || '',
-            emailSent: false
+            emailSent: false,
+            errorMessages: ''
         }
     },
     methods: {
         next() {
+            self = this;
             registrationService.emailRegistration(this.userEmail)
                 .then(function () {
-                    this.emailSent = true
-                }, function(reason) {
+                    self.emailSent = true
+                }, function (reason) {
                 });
         },
         googleLogIn() {
             var self = this;
-            auth2.grantOfflineAccess().then(function (authResult) {
-                if (authResult['code']) {
-                    registrationService.googleRegistration(authResult['code'])
-                        .then(function () {
-                            self.$emit('next');
-                        });
-                } else {
-                    //TODO: handle the error
-                }
-            });
 
+            var authInstance = gapi.auth2.getAuthInstance();
+
+            authInstance.signIn().then(function (googleUser) {
+                debugger;
+                var idToken = googleUser.getAuthResponse().id_token;
+                registrationService.googleRegistration(idToken)
+                    .then(function () {
+                        self.$emit('next');
+                    }, function (reason) {
+                        debugger;
+                        // rejection
+                    });
+            });
         }
     },
     beforeCreate() {

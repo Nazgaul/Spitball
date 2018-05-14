@@ -1,10 +1,8 @@
 ﻿﻿import registrationService from '../../../../services/registrationService'
 
 export default {
-    data() {
-        return {
-            accountNum: ''
-        }
+    props: {
+        accountNum: {type: String},
     },
     methods: {
         copyToClipboard() {
@@ -35,12 +33,5 @@ export default {
             el.blur();
         },
 
-    },
-    created() {
-        var self = this;
-        registrationService.getAccountNum()
-            .then(function (response) {
-                self.accountNum = response.data;
-            })
     }
 }

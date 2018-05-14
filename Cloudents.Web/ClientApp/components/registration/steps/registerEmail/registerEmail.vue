@@ -20,7 +20,7 @@
             <div slot="step-data" class="limited-width">
                 <h1 class="step-title">Check your email</h1>
                 <p>You’re a few steps away from verifying your account. We sent an email to: </p>
-                <p class="email">irenad88@gmail.com{{userEmail}}</p>
+                <p class="email">{{userEmail}}</p>
                 <button class="small-button" @click="emailSent=false">Edit</button>
                 <p class="email-check">Check your email and click the email validation link.</p>
                 <p class="resend-title">Didn’t get our email?</p>
