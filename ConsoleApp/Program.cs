@@ -51,14 +51,14 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
-            var t = container.Resolve<IBlockchainProvider>();
+            var t = container.Resolve<IQueryBus>();
+            var query = new QuestionSubjectQuery();
+            var result = await t.QueryAsync<QuestionSubjectQuery, QuestionSubjectResult>(query, default);
 
 
-            var z = Guid.NewGuid();
 
-            var zz = new BigInteger(z.ToByteArray());
-            
-           
+
+
 
 
 

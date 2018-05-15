@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
+using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Database.Repositories;
 
 namespace Cloudents.Infrastructure.Database
 {
@@ -17,6 +19,9 @@ namespace Cloudents.Infrastructure.Database
             builder.RegisterType<UnitOfWorkAutofacFactory>().AsSelf().SingleInstance();
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
                 .AsImplementedInterfaces();
+
+            builder.RegisterType<QuestionSubjectRepository>().AsImplementedInterfaces();
+                
             builder.RegisterType<DbConnectionStringProvider>().AsSelf();
 
             base.Load(builder);

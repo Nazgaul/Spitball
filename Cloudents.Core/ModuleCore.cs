@@ -20,6 +20,9 @@ namespace Cloudents.Core
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandlerAsync<>)).AsImplementedInterfaces();
             builder.RegisterType<CommandBus>().As<ICommandBus>();
 
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<,>));
+            builder.RegisterType<QueryBus>().As<IQueryBus>();
+
             builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
 
             builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();

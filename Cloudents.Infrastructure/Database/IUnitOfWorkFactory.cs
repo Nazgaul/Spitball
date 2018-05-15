@@ -7,11 +7,4 @@ namespace Cloudents.Infrastructure.Database
     {
         ISession OpenSession();
     }
-
-    public interface IUnitOfWork : IDisposable
-    {
-        ISession Session { get; }
-
-        void FlagCommit();
-    }
 }
