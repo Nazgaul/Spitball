@@ -10,6 +10,7 @@ const state = {
         location: null,
         pinnedCards: {},
         showSmartAppBanner: true,
+        registrationStep: 0
     },
     facet:"",
     historyTermSet:[],
@@ -64,7 +65,11 @@ const mutations = {
     },
     [USER.HIDE_SMART_BANNER](state) {
         state.user.showSmartAppBanner = false;
+    },
+    [USER.UPDATE_REGISTRATION_STEP](state, step) {
+        state.user.registrationStep = step;
     }
+
 
 };
 const getters = {
@@ -85,6 +90,8 @@ const getters = {
         state => state.user.pinnedCards,
     showSmartAppBanner:
         state => state.user.showSmartAppBanner,
+    getRegistrationStep:
+        state => state.user.registrationStep,
     getUniversity: state => {
         let obj = state.user.universityId || {};
         return obj.id;
@@ -152,6 +159,9 @@ const actions = {
     },
     hideSmartAppBanner({commit},data){
         commit(USER.HIDE_SMART_BANNER);
+    },
+    updateRegistrationStep(context, data){
+        context.commit(USER.UPDATE_REGISTRATION_STEP, data);
     }
 
 };

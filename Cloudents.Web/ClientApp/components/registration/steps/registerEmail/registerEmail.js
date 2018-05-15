@@ -1,4 +1,4 @@
-import stepTemplate from '../stepTemplate.vue'
+import stepTemplate from '../stepTemplate.vue';
 
 import registrationService from '../../../../services/registrationService';
 import VueRecaptcha from 'vue-recaptcha';
@@ -20,7 +20,6 @@ export default {
             self = this;
             registrationService.emailRegistration(this.userEmail, this.recaptcha)
                 .then(function () {
-                    debugger;
                  //   self.emailSent = true
                 }, function (reason) {
                     console.error(reason);
@@ -39,7 +38,7 @@ export default {
                         self.$emit('next');
                     }, function (reason) {
                         debugger;
-                        // rejection
+                        console.error(reason);
                     });
             });
         },
@@ -57,6 +56,6 @@ export default {
             });
         });
     }
-}
+};
 
 

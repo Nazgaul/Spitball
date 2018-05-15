@@ -17,6 +17,7 @@ const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
 const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
 const registration = () => import("./components/registration/registration.vue");
+const question = () => import("./components/question/question.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
 
@@ -178,6 +179,11 @@ let routes2 = [
         path: "/register", components: {
             default: registration,
         }, name: "registration"
+    },
+    {
+        path: "/question", components: {
+            default: question,
+        }, name: "question"
     },
     {
         path: "/confirmEmail",
