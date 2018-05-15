@@ -5,7 +5,7 @@ using Cloudents.Core.Attributes;
 using JetBrains.Annotations;
 using Module = Autofac.Module;
 
-namespace Cloudents.Infrastructure
+namespace Cloudents.Infrastructure.Mapper
 {
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure
                 .As<IMapper>().InstancePerLifetimeScope();
 
 
-            builder.RegisterType<Mapper.Mapper>().AsImplementedInterfaces();
+            builder.RegisterType<Mapper>().AsImplementedInterfaces();
         }
     }
 }

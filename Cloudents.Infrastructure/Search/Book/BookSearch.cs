@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;

@@ -18,7 +18,7 @@ using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Mail;
 using Cloudents.Infrastructure.Search.Tutor;
-using Cloudents.Infrastructure.Blockchain;
+using Cloudents.Infrastructure.BlockChain;
 using System.Numerics;
 
 namespace ConsoleApp

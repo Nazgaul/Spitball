@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;

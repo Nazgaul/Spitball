@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Cloudents.Infrastructure.Mapper;
+﻿using Cloudents.Infrastructure.Mapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Infrastructure.Test

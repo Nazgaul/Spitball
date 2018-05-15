@@ -12,7 +12,7 @@ using NHibernate.Cfg;
 namespace Cloudents.Infrastructure.Database
 {
     [UsedImplicitly]
-    public class UnitOfWorkFactory : IUnitOfWorkFactory
+    public class UnitOfWorkFactory //: IUnitOfWorkFactory
     {
         private readonly ISessionFactory _factory;
 
