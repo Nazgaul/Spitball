@@ -1,6 +1,6 @@
 import stepTemplate from '../stepTemplate.vue'
 
-﻿import registrationService from '../../../../services/registrationService'
+import registrationService from '../../../../services/registrationService';
 import VueRecaptcha from 'vue-recaptcha';
 
 var auth2;
@@ -21,8 +21,9 @@ export default {
             registrationService.emailRegistration(this.userEmail, this.recaptcha)
                 .then(function () {
                     debugger;
-                    self.emailSent = true
+                 //   self.emailSent = true
                 }, function (reason) {
+                    console.error(reason);
                 });
         },
         googleLogIn() {
@@ -44,9 +45,10 @@ export default {
         },
         onVerify(response) {
             this.recaptcha = response;
-            debugger;
-            console.log('Verify: ' + response)
         },
+        onExpired() {
+            this.recaptcha = "";
+        }
     },
     beforeCreate() {
         gapi.load('auth2', function () {
