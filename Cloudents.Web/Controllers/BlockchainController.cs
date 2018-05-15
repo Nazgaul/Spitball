@@ -63,10 +63,17 @@ namespace Cloudents.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<Account> CreateAccount()
+        public string CreateAccount()
         {
-            var account = await _blockchainProvider.CreateAccount();
-            return account;
+            var account = _blockchainProvider.CreateAccount();
+            return account.Address;
+        }
+
+        [HttpPost]
+        public async Task<bool> SetInitialBalance(string address)
+        {
+            bool result = await _blockchainProvider.SetInitialBalance(address);
+            return result;
         }
     }
 }

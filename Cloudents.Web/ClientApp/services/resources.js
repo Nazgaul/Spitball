@@ -100,7 +100,7 @@ export const spitballPreview = {
     getDocument: ({ id }) => axios.get("document", {baseURL:"api/", params: { id: Number(id) } })};
 
 export const googleRegistration = (data) => axios.post("/Register/google", {token: data});
-export const emailRegistration = (data) => axios.post("/Register", {email: data});
+export const emailRegistration = (email,recaptcha) => axios.post("/Register", {email: email, captcha: recaptcha});
 export const smsRegistration = (data) => axios.post("/Register/sms", {number: data});
 
 export const smsCodeVerification = (data) => axios.post("/Register/sms/verify", {number: data});

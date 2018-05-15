@@ -107,15 +107,18 @@ namespace Cloudents.Infrastructure.Blockchain
             return account.Address;
         }
 
-        public async Task<Account> CreateAccount()
+        public Account CreateAccount ()
         {
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
             var privateKey = ecKey.GetPrivateKeyAsBytes().ToHex();
             var account = new Account(privateKey);
-            await TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", account.Address, 10);
-            
-            
             return account;
+        }
+
+        public async Task<bool> SetInitialBalance (string address)
+        {
+            await TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", address, 10);
+            return true;
         }
     }
 }

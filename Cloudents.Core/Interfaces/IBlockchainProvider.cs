@@ -8,12 +8,14 @@ namespace Cloudents.Core.Interfaces
     {
 
         //Task<BigInteger> GetBalanceAsync(string accountAddress);
-        Task<Account> CreateAccount(); //return privete to user
+        Account CreateAccount(); //return privete to user
 
         Task<BigInteger> GetTokenBalanceAsync(string senderPK);
         Task<string> TransferMoneyAsync(string senderPK, string toAddress, float amount);
         string GetPublicAddress(string privateKey); //Get Public from from privete
+        Task<bool> SetInitialBalance(string address);
 
-        
+
+
     }
 }

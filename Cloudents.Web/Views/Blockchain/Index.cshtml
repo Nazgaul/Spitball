@@ -58,6 +58,7 @@
             <input class="button" type="submit" onclick="sendTx" value="Submit" id="send" />
             <input class="button" type="submit" onclick="getBalance" value="Balance" id="getbalance" />
             <input class="button" type="submit" onclick="createAccount" value="createAccount" id="createaccount" />
+            <input class="button" type="submit" onclick="txInitial10Tokens" value="10Tokens" id="txInitial10Tokens" />
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -110,7 +111,23 @@
         })
 
         function createAccount() {
+            
             var Account = $.post("blockchain/CreateAccount").then(function (result) {
+                localStorage.setItem("1", result);
+                alert(result);
+            })
+        };
+
+
+        document.getElementById("txInitial10Tokens").addEventListener("click", function (e) {
+            e.preventDefault();
+            txInitial10Tokens();
+        })
+
+        function txInitial10Tokens() {
+            var test = localStorage.getItem("1");
+            test = { address: test };
+            var Account = $.post("blockchain/SetInitialBalance", test).then(function (result) {
                 alert(result);
             })
         };
