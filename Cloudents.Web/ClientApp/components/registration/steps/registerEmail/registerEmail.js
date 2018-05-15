@@ -20,7 +20,6 @@ export default {
             self = this;
             registrationService.emailRegistration(this.userEmail, this.recaptcha)
                 .then(function () {
-                    debugger;
                     self.emailSent = true
                 }, function (reason) {
                 });
@@ -44,8 +43,6 @@ export default {
         },
         onVerify(response) {
             this.recaptcha = response;
-            debugger;
-            console.log('Verify: ' + response)
         },
     },
     beforeCreate() {
