@@ -5,7 +5,8 @@ import {
     smsCodeVerification,
     getUserName,
     setUserName,
-    getAccountNum
+    getAccountNum,
+    signin
 } from './resources';
 import axios from "axios";
 import qs from "query-string";
@@ -35,5 +36,8 @@ export default {
     },
     getAccountNum() {
         return getAccountNum();
+    },
+    signIn(email,key,captcha) {
+        return signin(email,key,captcha);
     }
 }

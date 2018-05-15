@@ -113,4 +113,5 @@ export const smsCodeVerification = (data) => axios.post("/Register/sms/verify", 
 export const getUserName = () => axios.get("/Register/userName");
 export const setUserName = (data) => axios.post("/Register/userName", { name: data });
 export const getAccountNum = () => axios.post("/Register/password");
+export const signin = (email, key, captcha) => axios.post("/Login", { email: email, key: key, captcha: captcha });
 

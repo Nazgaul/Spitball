@@ -17,6 +17,7 @@ const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
 const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
 const registration = () => import("./components/registration/registration.vue");
+const signin = () => import("./components/registration/signin.vue");
 const question = () => import("./components/question/question.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
@@ -193,6 +194,11 @@ let routes2 = [
         name: "registration",
         meta: { step: 1}
     },
+    {
+        path: "/signin", components:{
+            default: signin
+        }, name: "signin"
+    }
 
 ];
 
