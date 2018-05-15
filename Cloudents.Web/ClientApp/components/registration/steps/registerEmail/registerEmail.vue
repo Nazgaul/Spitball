@@ -10,16 +10,16 @@
                 <div class="seperator-text"><span>or use your email</span></div>
                 <form @submit.prevent="next">
                     <div class="input-wrapper">
-                        <input class="email-field" name="email" v-model="userEmail" type="email"
+                        <input required class="email-field" name="email" v-model="userEmail" type="email"
                                placeholder="Enter your email address">
                         <v-icon>sbf-email</v-icon>
                     </div>
                     <vue-recaptcha class="recaptcha-wrapper" sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
-                                   @verify="onVerify"></vue-recaptcha>
-                    <input class="continue-btn" type="submit" value="Continue">
+                                   @verify="onVerify" @expired="onExpired"></vue-recaptcha>
+                    <input v-bind:disabled="!userEmail" class="continue-btn" type="submit" value="Continue">
                 </form>
                 <div class="signin-strip">Do you already have an account?
-                    <button>Sign in</button>
+                    <button type="button">Sign in</button>
                 </div>
             </div>
             <img slot="step-image" :src="require(`../../img/registerEmail.png`)"/>

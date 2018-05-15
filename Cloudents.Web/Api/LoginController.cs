@@ -22,7 +22,7 @@ namespace Cloudents.Web.Api
         // GET
 
         [HttpPost]
-        [ValidateModel]
+        [ValidateModel, ValidateRecaptcha]
         public async Task<IActionResult> PostAsync([FromBody] LoginRequest model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);

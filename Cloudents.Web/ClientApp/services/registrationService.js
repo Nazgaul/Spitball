@@ -1,10 +1,25 @@
-import { googleRegistration, emailRegistration, smsRegistration, smsCodeVerification, getUserName, setUserName, getAccountNum } from './resources';
+import {
+    googleRegistration,
+    emailRegistration,
+    smsRegistration,
+    smsCodeVerification,
+    getUserName,
+    setUserName,
+    getAccountNum
+} from './resources';
+import axios from "axios";
+import qs from "query-string";
+
+var instance = axios.create({
+    baseURL : "/api"
+});
+
 export default {
     googleRegistration(model) {
         return googleRegistration(model);
     },
-    emailRegistration(email,recaptch) {
-        return emailRegistration(email,recaptch);
+    emailRegistration(email,recaptcha) {
+        return instance.post("register", qs.stringify( {email,captcha: recaptcha}));
     },
     smsRegistration(model) {
         return smsRegistration(model);

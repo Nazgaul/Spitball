@@ -40,11 +40,10 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
-        [ValidateModel]
-        public async Task<IActionResult> CreateUserAsync([FromBody]RegisterEmailRequest model, CancellationToken token)
+        [ValidateModel, ValidateRecaptcha]
+        public async Task<IActionResult> CreateUserAsync([FromForm]RegisterEmailRequest model, CancellationToken token)
         {
             var userName = model.Email.Split(new[] { '.', '@' }, 1, StringSplitOptions.RemoveEmptyEntries)[0];
-
             var user = new User
             {
                 Email = model.Email,
@@ -67,7 +66,7 @@ namespace Cloudents.Web.Api
                 var t1 = _queueProvider.InsertMessageAsync(message, token);
                 var t2 = _signInManager.SignInAsync(user, isPersistent: false);
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
-                return Ok(model.Captcha);
+                return Ok();
             }
 
             //await _signInManager.SignInAsync(user, false);

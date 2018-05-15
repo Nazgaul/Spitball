@@ -27,7 +27,7 @@ namespace Cloudents.Web.Filters
                 _httpClient = httpClient;
             }
 
-            public async Task OnActionExecutionAsync(ActionExecutingContext context,
+            public override async Task OnActionExecutionAsync(ActionExecutingContext context,
                 ActionExecutionDelegate next)
             {
                 var captcha = context.HttpContext.Request.Form["captcha"];
@@ -41,6 +41,7 @@ namespace Cloudents.Web.Filters
                     ["secret"] = secret,
                     ["response"] = captcha
                 };
+                
 
                 var result = await _httpClient.GetAsync<RecaptchaResponse>(
                     new Uri("https://www.google.com/recaptcha/api/siteverify"), nvc,
@@ -58,11 +59,12 @@ namespace Cloudents.Web.Filters
                 }
             }
 
-            private class RecaptchaResponse
-            {
-                [JsonConverter(typeof(YesNoConverter))]
-                public bool Success { get; set; }
-            }
+            
+        }
+
+        public class RecaptchaResponse
+        {
+            public bool Success { get; set; }
         }
     }
 }
