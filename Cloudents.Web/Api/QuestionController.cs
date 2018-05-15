@@ -8,6 +8,7 @@ using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using IMapper = Cloudents.Core.Interfaces.IMapper;
 
@@ -42,6 +43,13 @@ namespace Cloudents.Web.Api
             return Ok(result);
         }
 
+
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadFileAsync([FromBody]IFormFile file)
+        {
+
+            return Ok();
+        }
         //[HttpGet("subject")]
         //public async Task<IActionResult> GetSubjectsAsync()
         //{
