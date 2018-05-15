@@ -11,7 +11,7 @@
                     </option>
                 </select>
                 <div class="input-wrapper">
-                    <input class="phone-field" v-model="phone.phoneNum" placeholder="Enter phone number"/>
+                    <input class="phone-field input-field" v-model="phone.phoneNum" placeholder="Enter phone number"/>
                     <v-icon>sbf-phone</v-icon>
                 </div>
                 <button class="continue-btn" @click="sendCode">Continue</button>
@@ -27,7 +27,7 @@
                 <button class="small-button" @click="codeSent = false">Edit</button>
                 <p class="confirm-title">Please enter the code below to confirm it.</p>
                 <div class="input-wrapper">
-                    <input class="code-field" v-model="confirmationCode" placeholder="Confirmation code"></input>
+                    <input class="code-field input-field" v-model="confirmationCode" placeholder="Confirmation code"></input>
                     <v-icon>sbf-key</v-icon>
                 </div>
                 <button class="small-button" @click="sendCode">Resend</button>

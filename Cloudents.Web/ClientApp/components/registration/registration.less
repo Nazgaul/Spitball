@@ -83,15 +83,15 @@
       max-width: 400px;
       width: 100%;
     }
-    input, select {
+    .input-field ,select {
       height: @registrationFieldHeight;
+      width: 100%;
+      //margin-top: 36px;
       border-radius: 4px;
       border: solid 1px #979797;
-      width: 100%;
       font-size: 18px;
       letter-spacing: -0.5px;
       padding: 10px;
-      margin-top: 36px;
 
       &:focus {
         outline: none;
@@ -136,6 +136,24 @@
         width: 16px;
         height: 16px;
       }
+    }
+  }
+
+
+  .signin-strip {
+    color: #888b8e;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #888b8e;
+    margin-top: 20px;
+
+    @media (max-width: @screen-xs) {
+      margin-top: 12px;
+    }
+
+    button {
+      color: #3293f6;
     }
   }
 }

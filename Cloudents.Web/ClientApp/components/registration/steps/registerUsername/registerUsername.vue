@@ -6,7 +6,7 @@
                 <p class="sub-title">We gave you a username. Keep it, or create your own, this is how you’ll be known On
                     the community</p>
                 <div class="input-wrapper">
-                    <input class="username-field" disabled v-model="username"/>
+                    <input class="username-field input-field" disabled v-model="username"/>
                     <v-icon>sbf-users</v-icon>
                 </div>
                 <button class="small-button" @click="editUsername">Edit</button>
