@@ -8,7 +8,7 @@ namespace Cloudents.Web.Controllers
 {
     public class BlockchainController : Controller
     {
-        private readonly IBlockchainProvider _blockchainProvider;
+        private readonly IBlockChainProvider _blockChainProvider;
 
         private List<KeyValuePair<string, string>> _account = new List<KeyValuePair<string, string>>()
         {
@@ -18,9 +18,9 @@ namespace Cloudents.Web.Controllers
 
         };
 
-        public BlockchainController(IBlockchainProvider blockchainProvider)
+        public BlockchainController(IBlockChainProvider blockChainProvider)
         {
-            _blockchainProvider = blockchainProvider;
+            _blockChainProvider = blockChainProvider;
         }
 
         public IActionResult Index()
@@ -34,7 +34,7 @@ namespace Cloudents.Web.Controllers
         {
             var from = _account[model.FromPk].Key;
             var to = _account[model.ToAddress].Value;
-            var transactionReceipt = await _blockchainProvider.TransferMoneyAsync(from, to, model.Amount).ConfigureAwait(false);
+            var transactionReceipt = await _blockChainProvider.TransferMoneyAsync(from, to, model.Amount).ConfigureAwait(false);
 
             return Ok(transactionReceipt);
         }
@@ -51,21 +51,21 @@ namespace Cloudents.Web.Controllers
         public async Task<BigInteger> GetBalance(int fromPK)
         {
             var from = _account[fromPK].Key;
-            var balance = await _blockchainProvider.GetTokenBalanceAsync(@from).ConfigureAwait(false);
+            var balance = await _blockChainProvider.GetTokenBalanceAsync(@from).ConfigureAwait(false);
             return balance;
         }
 
         [HttpPost]
         public string CreateAccount()
         {
-            var account = _blockchainProvider.CreateAccount();
+            var account = _blockChainProvider.CreateAccount();
             return account.Address;
         }
 
         [HttpPost]
         public async Task<bool> SetInitialBalance(string address)
         {
-            var result = await _blockchainProvider.SetInitialBalance(address).ConfigureAwait(false);
+            var result = await _blockChainProvider.SetInitialBalance(address).ConfigureAwait(false);
             return result;
         }
     }
