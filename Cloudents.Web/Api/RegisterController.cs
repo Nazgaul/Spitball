@@ -166,10 +166,10 @@ namespace Cloudents.Web.Api
 
         [HttpPost("password")]
         [Authorize(Policy = SignInStep.PolicyPassword)]
-        public async Task<IActionResult> GeneratePasswordAsync([FromServices] IBlockchainProvider blockchainProvider)
+        public async Task<IActionResult> GeneratePasswordAsync([FromServices] IBlockChainProvider blockChainProvider)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var account = blockchainProvider.CreateAccount();
+            var account = blockChainProvider.CreateAccount();
             var privateKey = account.PrivateKey;
             var result = await _userManager.AddPasswordAsync(user, privateKey).ConfigureAwait(false);
             if (result.Succeeded)
