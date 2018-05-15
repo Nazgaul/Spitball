@@ -52,8 +52,7 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
             var t = container.Resolve<IQueryBus>();
-            var query = new QuestionSubjectQuery();
-            var result = await t.QueryAsync<QuestionSubjectQuery, QuestionSubjectResult>(query, default);
+            var result = await t.QueryAsync<IEnumerable<QuestionSubjectDto>>(default);
 
 
 

@@ -18,6 +18,6 @@ namespace Cloudents.Core.Interfaces
 
     public interface IQuestionSubjectRepository : IRepository<QuestionSubject>
     {
-        Task<IEnumerable<QuestionSubject>> GetAllSubjectAsync();
+        Task<IEnumerable<QuestionSubject>> GetAllSubjectAsync(CancellationToken token);
     }
 }

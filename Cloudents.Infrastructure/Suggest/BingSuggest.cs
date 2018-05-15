@@ -9,6 +9,7 @@ using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
+using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Suggest
 {

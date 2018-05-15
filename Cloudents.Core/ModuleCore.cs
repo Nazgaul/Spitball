@@ -21,6 +21,7 @@ namespace Cloudents.Core
             builder.RegisterType<CommandBus>().As<ICommandBus>();
 
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<,>));
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<>));
             builder.RegisterType<QueryBus>().As<IQueryBus>();
 
             builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();

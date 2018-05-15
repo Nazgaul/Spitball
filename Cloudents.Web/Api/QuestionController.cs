@@ -1,13 +1,15 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Read;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using IMapper = Cloudents.Core.Interfaces.IMapper;
 
 namespace Cloudents.Web.Api
 {
@@ -31,6 +33,13 @@ namespace Cloudents.Web.Api
             var command = _mapper.Map<CreateQuestionCommand>(model);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
+        }
+
+        [HttpGet("subject")]
+        public async Task<IActionResult> GetSubjectsAsync([FromServices] IQueryBus queryBus,CancellationToken token)
+        {
+            var result = await queryBus.QueryAsync<IEnumerable<QuestionSubjectDto>>(token).ConfigureAwait(false);
+            return Ok(result);
         }
 
         //[HttpGet("subject")]

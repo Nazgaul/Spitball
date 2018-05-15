@@ -15,6 +15,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Extensions;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search.Job
 {

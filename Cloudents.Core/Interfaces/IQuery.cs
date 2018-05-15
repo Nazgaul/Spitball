@@ -8,22 +8,31 @@ namespace Cloudents.Core.Interfaces
         
     }
 
-    public interface IQueryResult
-    {
+    //public interface IQueryResult
+    //{
 
-    }
+    //}
 
     public interface IQueryHandlerAsync<in TQuery, TQueryResult>
         where TQuery : IQuery
-        where TQueryResult : IQueryResult
+       // where TQueryResult : IQueryResult
     {
-        Task<TQueryResult> ExecuteAsync(TQuery command, CancellationToken token);
+        Task<TQueryResult> GetAsync(TQuery query, CancellationToken token);
+    }
+
+    public interface IQueryHandlerAsync<TQueryResult>
+    {
+        Task<TQueryResult> GetAsync(CancellationToken token);
     }
 
     public interface IQueryBus
     {
-        Task<TQueryResult> QueryAsync<TQuery, TQueryResult>(TQuery command, CancellationToken token)
-            where TQuery : IQuery
-            where TQueryResult : IQueryResult;
+        Task<TQueryResult> QueryAsync<TQuery, TQueryResult>(TQuery query, CancellationToken token)
+            where TQuery : IQuery;
+
+
+        Task<TQueryResult> QueryAsync<TQueryResult>(CancellationToken token);
+
+        //where TQueryResult : IQueryResult;
     }
 }

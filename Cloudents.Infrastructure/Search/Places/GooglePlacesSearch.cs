@@ -13,6 +13,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search.Places
 {

@@ -19,4 +19,7 @@
     <PackageReference Include="Nethereum.Web3" Version="2.4.0" />
     <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Read\Queries\" />
+  </ItemGroup>
 </Project>

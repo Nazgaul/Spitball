@@ -10,6 +10,7 @@ using Cloudents.Infrastructure.Write;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search
 {
