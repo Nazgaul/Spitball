@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -12,5 +14,10 @@ namespace Cloudents.Core.Interfaces
         Task<T> GetAsync(object id, CancellationToken token);
 
         IQueryable<T> GetQueryable();
+    }
+
+    public interface IQuestionSubjectRepository : IRepository<QuestionSubject>
+    {
+        Task<IEnumerable<QuestionSubject>> GetAllSubjectAsync(CancellationToken token);
     }
 }

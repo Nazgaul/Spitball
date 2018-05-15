@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +9,9 @@ using Newtonsoft.Json;
 
 namespace Cloudents.Web.Filters
 {
-    public sealed class ValidateRecaptchaAttribule : TypeFilterAttribute
+    public sealed class ValidateRecaptchaAttribute : TypeFilterAttribute
     {
-        public ValidateRecaptchaAttribule() : base(typeof(ValidateRecaptchaImpl))
+        public ValidateRecaptchaAttribute() : base(typeof(ValidateRecaptchaImpl))
         {
 
         }
@@ -29,7 +30,8 @@ namespace Cloudents.Web.Filters
             public async Task OnActionExecutionAsync(ActionExecutingContext context,
                 ActionExecutionDelegate next)
             {
-                var captcha = context.HttpContext.Request.Form["g-recaptcha-response"];
+                var captcha = context.HttpContext.Request.Form["captcha"];
+                
 
                 var secret = _configuration["GoogleReCaptcha:Secret"];
 
@@ -41,8 +43,8 @@ namespace Cloudents.Web.Filters
                 };
 
                 var result = await _httpClient.GetAsync<RecaptchaResponse>(
-                    new System.Uri("https://www.google.com/recaptcha/api/siteverify"), nvc,
-                    context.HttpContext.RequestAborted);
+                    new Uri("https://www.google.com/recaptcha/api/siteverify"), nvc,
+                    context.HttpContext.RequestAborted).ConfigureAwait(false);
 
                 if (result == null)
                 {

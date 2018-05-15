@@ -1,11 +1,14 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core
 {
-    public class CommandBus : ICommandBus
+    [UsedImplicitly]
+    public sealed class CommandBus : ICommandBus, IDisposable
     {
         public CommandBus(ILifetimeScope container)
         {
@@ -32,6 +35,11 @@ namespace Cloudents.Core
                 var obj = child.Resolve<ICommandHandlerAsync<TCommand>>();
                 await obj.HandleAsync(command, token).ConfigureAwait(false);
             }
+        }
+
+        public void Dispose()
+        {
+            _container?.Dispose();
         }
     }
 }

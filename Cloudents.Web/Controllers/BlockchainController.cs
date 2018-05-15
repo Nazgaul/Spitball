@@ -1,21 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using Cloudents.Core.Interfaces;
-using System.Reflection;
-using System.Configuration;
-using Autofac;
-using Cloudents.Core;
-using Cloudents.Infrastructure;
 using System.Numerics;
 using System.Threading.Tasks;
-using Nethereum.Web3.Accounts;
 
 namespace Cloudents.Web.Controllers
 {
     public class BlockchainController : Controller
     {
-        private readonly IBlockchainProvider _blockchainProvider;
+        private readonly IBlockChainProvider _blockChainProvider;
 
         private List<KeyValuePair<string, string>> _account = new List<KeyValuePair<string, string>>()
         {
@@ -25,9 +18,9 @@ namespace Cloudents.Web.Controllers
 
         };
 
-        public BlockchainController(IBlockchainProvider blockchainProvider)
+        public BlockchainController(IBlockChainProvider blockChainProvider)
         {
-            _blockchainProvider = blockchainProvider;
+            _blockChainProvider = blockChainProvider;
         }
 
         public IActionResult Index()
@@ -39,9 +32,9 @@ namespace Cloudents.Web.Controllers
 
         public async Task<IActionResult> TransferMoney([FromForm]Model model)
         {
-            string from = _account[model.fromPK].Key;
-            string to = _account[model.toAddress].Value;
-            var transactionReceipt = await _blockchainProvider.TransferMoneyAsync(from, to, model.amount);
+            var from = _account[model.FromPk].Key;
+            var to = _account[model.ToAddress].Value;
+            var transactionReceipt = await _blockChainProvider.TransferMoneyAsync(from, to, model.Amount).ConfigureAwait(false);
 
             return Ok(transactionReceipt);
         }
@@ -49,30 +42,30 @@ namespace Cloudents.Web.Controllers
         public class Model
 
         {
-            public int fromPK { get; set; }
-            public int toAddress { get; set; }
-            public float amount { get; set; }
+            public int FromPk { get; set; }
+            public int ToAddress { get; set; }
+            public float Amount { get; set; }
         }
 
         [HttpGet]
         public async Task<BigInteger> GetBalance(int fromPK)
         {
-            string from = _account[fromPK].Key;
-            BigInteger balance = await _blockchainProvider.GetTokenBalanceAsync(from);
+            var from = _account[fromPK].Key;
+            var balance = await _blockChainProvider.GetTokenBalanceAsync(@from).ConfigureAwait(false);
             return balance;
         }
 
         [HttpPost]
         public string CreateAccount()
         {
-            var account = _blockchainProvider.CreateAccount();
+            var account = _blockChainProvider.CreateAccount();
             return account.Address;
         }
 
         [HttpPost]
         public async Task<bool> SetInitialBalance(string address)
         {
-            bool result = await _blockchainProvider.SetInitialBalance(address);
+            var result = await _blockChainProvider.SetInitialBalance(address).ConfigureAwait(false);
             return result;
         }
     }

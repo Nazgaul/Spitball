@@ -18,7 +18,7 @@ using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Mail;
 using Cloudents.Infrastructure.Search.Tutor;
-using Cloudents.Infrastructure.Blockchain;
+using Cloudents.Infrastructure.BlockChain;
 using System.Numerics;
 
 namespace ConsoleApp
@@ -51,14 +51,13 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
-            var t = container.Resolve<IBlockchainProvider>();
+            var t = container.Resolve<IQueryBus>();
+            var result = await t.QueryAsync<IEnumerable<QuestionSubjectDto>>(default);
 
 
-            var z = Guid.NewGuid();
 
-            var zz = new BigInteger(z.ToByteArray());
-            
-           
+
+
 
 
 

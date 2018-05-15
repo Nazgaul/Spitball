@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Cloudents.Core.Command;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Mapper
 {

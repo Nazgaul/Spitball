@@ -8,13 +8,13 @@ using Nethereum.Web3.Accounts;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Contracts;
 
-namespace Cloudents.Infrastructure.Blockchain
+namespace Cloudents.Infrastructure.BlockChain
 {
-    public class BlockchainProvider : IBlockchainProvider
+    public class BlockChainProvider : IBlockChainProvider
     {
         private readonly IConfigurationKeys _configurationKeys;
 
-        public BlockchainProvider(IConfigurationKeys configurationKeys)
+        public BlockChainProvider(IConfigurationKeys configurationKeys)
         {
             _configurationKeys = configurationKeys;
         }
@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Blockchain
         //    return transaction.GetHashCode();
         //}
 
-        private async Task<Contract> GetContractAsync(string senderPK)
+        private async Task<Contract> GetContractAsync(string senderPk)
         {
             const string abi = @"[{'anonymous': false,'inputs': [{'indexed': true,'name': 'from','type': 'address'},{'indexed': false,'name': 'value','type': 'uint256'}],'name': 'Burn','type': 'event'},{'constant': false,'inputs': [
             {'name': '_spender','type': 'address'},{'name': '_value','type': 'uint256'}],'name': 'approve',	'outputs': [{'name': 'success','type': 'bool'}],'payable': false,'stateMutability': 'nonpayable',
@@ -66,44 +66,44 @@ namespace Cloudents.Infrastructure.Blockchain
 
             const string transactionHash = "0xa09db301ad49fb1e240f7fe6c4a70edadd9506d93278fb412b571cf8b2786aa4"; //ICO Contract Hash
 
-            Account account = new Account(senderPK);
+            Account account = new Account(senderPk);
             var web3 = new Web3(account, _configurationKeys.BlockChainNetwork);
-            var DeploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionHash);
-            while (DeploymentReceipt == null)
+            var deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionHash).ConfigureAwait(false);
+            while (deploymentReceipt == null)
             {
-                await Task.Delay(TimeSpan.FromSeconds(0.5));
-                DeploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionHash);
+                await Task.Delay(TimeSpan.FromSeconds(0.5)).ConfigureAwait(false);
+                deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionHash).ConfigureAwait(false);
             }
-            var contractAddress = DeploymentReceipt.ContractAddress;
+            var contractAddress = deploymentReceipt.ContractAddress;
             return web3.Eth.GetContract(abi, contractAddress);
            // var operationToExe = contract.GetFunction(operation);
            // operationToExe.
            // return Task.FromResult(string.Empty);
         }
 
-        public async Task<BigInteger> GetTokenBalanceAsync(string senderPK)
+        public async Task<BigInteger> GetTokenBalanceAsync(string senderPk)
         {
-            var contract = await GetContractAsync(senderPK);
+            var contract = await GetContractAsync(senderPk).ConfigureAwait(false);
             var function = contract.GetFunction("balanceOf");
-            var parameters = (new object[] {(object)GetPublicAddress(senderPK)});
-            BigInteger result = await function.CallAsync<BigInteger>(parameters);
+            var parameters = (new object[] {GetPublicAddress(senderPk)});
+            var result = await function.CallAsync<BigInteger>(parameters).ConfigureAwait(false);
             return result;
         }
 
-        public async Task<string> TransferMoneyAsync(string senderPK, string toAddress, float amount)
+        public async Task<string> TransferMoneyAsync(string senderPk, string toAddress, float amount)
         {
-            var contract = await GetContractAsync(senderPK);
+            var contract = await GetContractAsync(senderPk).ConfigureAwait(false);
             var operationToExe = contract.GetFunction("transfer");
             var maxGas = new HexBigInteger(70000);
-            BigInteger Amount = new BigInteger(amount * Math.Pow(10,18));
-            var parameters = (new object[] { (object)toAddress, (object) Amount});
-            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPK), maxGas, null, null, parameters);
+            var amountTransformed = new BigInteger(amount * Math.Pow(10,18));
+            var parameters = (new object[] { toAddress, amountTransformed });
+            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPk), maxGas, null, null, parameters).ConfigureAwait(false);
             return receiptFirstAmountSend.BlockHash;
         }
 
         public string GetPublicAddress(string privateKey)
         {
-            var account = new Nethereum.Web3.Accounts.Account(privateKey);
+            var account = new Account(privateKey);
             return account.Address;
         }
 
@@ -117,7 +117,7 @@ namespace Cloudents.Infrastructure.Blockchain
 
         public async Task<bool> SetInitialBalance (string address)
         {
-            await TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", address, 10);
+            await TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", address, 10).ConfigureAwait(false);
             return true;
         }
     }

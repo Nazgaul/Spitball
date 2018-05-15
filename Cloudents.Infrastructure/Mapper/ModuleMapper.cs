@@ -5,7 +5,7 @@ using Cloudents.Core.Attributes;
 using JetBrains.Annotations;
 using Module = Autofac.Module;
 
-namespace Cloudents.Infrastructure
+namespace Cloudents.Infrastructure.Mapper
 {
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
@@ -19,18 +19,16 @@ namespace Cloudents.Infrastructure
           
 
             var assembly = Assembly.GetExecutingAssembly();
-            builder.Register(c => new MapperConfiguration(cfg =>
+            builder.Register(_ => new MapperConfiguration(cfg =>
             {
-                //cfg.ConstructServicesUsing(c.Resolve);
-                //foreach (var profile in profiles)
-                //{
-                //    cfg.AddProfile(profile);
-                //}
                 cfg.AddProfiles(assembly);
             })).AsSelf().SingleInstance();
 
             builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve<IComponentContext>().Resolve))
                 .As<IMapper>().InstancePerLifetimeScope();
+
+
+            builder.RegisterType<Mapper>().AsImplementedInterfaces();
         }
     }
 }
