@@ -18,6 +18,6 @@ export default {
     setUserName: (data) => axios.post("/Register/userName", {name: data}),
     getAccountNum: () => axios.post("/Register/password"),
     signIn(email,key,captcha) {
-        return instance.post("login", qs.stringify( {email,captcha, recaptcha}));
+        return instance.post("login", qs.stringify( {email,key, captcha}));
     }
 }
