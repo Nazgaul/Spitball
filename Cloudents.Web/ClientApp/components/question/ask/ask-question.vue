@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <div>
         <v-container>
             <v-layout row wrap class="ask_question">
 
@@ -24,36 +24,7 @@
                 </v-flex>
 
 
-                <v-flex xs12 class="question_area">
-                    <textarea v-model="questionText" rows="9"
-                              placeholder="Type in your question (Ex: Find the derivative of y = (x + 2)2 - 5x3)"></textarea>
-                    <ul class="actions_text">
-                        <li>
-                            <button class="insert-equation">
-                                <v-icon>sbf-pi-symbol</v-icon>
-                            </button>
-                        </li>
-                        <li>
-                            <button class="insert-symbol"><v-icon>sbf-omega-symbol</v-icon></button>
-                        </li>
-                        <li>
-                            <button class="attach-file">
-                                <v-icon>sbf-attach</v-icon>
-                            </button>
-                        </li>
-                    </ul>
-                    <ul class="actions_text">
-                        <li>
-                            <button class="icon"></button>
-                        </li>
-                        <li>
-                            <button class="icon icon-red"></button>
-                        </li>
-                        <li>
-                            <button class="icon icon-purple"></button>
-                        </li>
-                    </ul>
-                </v-flex>
+                <question-text-area :text="questionText"></question-text-area>
 
                 <v-flex xs12>
                     <v-text-field
@@ -86,8 +57,7 @@
               <button @click=ask() :disabled="!validForm">Ask</button>
             </div> -->
         </v-container>
-    </v-content>
+    </div>
 </template>
-
 <script src="./ask-question.js"></script>
 <style src="./ask-question.less" lang="less"></style>

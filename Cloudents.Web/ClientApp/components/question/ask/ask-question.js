@@ -1,5 +1,7 @@
+import questionTextArea from "../questionTextArea.vue";
 
 export default {
+    components: {questionTextArea},
     data() {
         return {
             selectItems: ["Phisics", "Math", "Geography"],

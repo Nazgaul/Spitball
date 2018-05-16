@@ -1,4 +1,4 @@
-@import "../../mixin.less";
+@import "../../../mixin.less";
 
 .container {
   background-color: #fff;
@@ -20,11 +20,11 @@
   width: 17px;
   position: relative;
   outline: none;
-}
 
-.back-button .icon {
-  color: #3532d5;
-  font-size: 20pt;
+  .icon {
+    color: #3532d5;
+    font-size: 14pt;
+  }
 }
 
 .student_icon {
@@ -37,12 +37,12 @@
   top: 9px;
   position: relative;
   margin-right: 11px;
-}
 
-.student_icon img {
-  width: 31px;
-  height: 29px;
-  margin: 10px 9px;
+  img {
+    width: 31px;
+    height: 29px;
+    margin: 10px 9px;
+  }
 }
 
 .text-blue {
@@ -154,6 +154,8 @@ ul.actions_text {
 @media only screen and (min-width: 600px) {
   .ask_question .btn.ask_btn {
     width: 611px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     margin: -9px 0 0px -17px;
   }
 }

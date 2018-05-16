@@ -18,8 +18,8 @@ const documentPreviewHeader = () => import("./components/preview/headerDocument.
 const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
 const registration = () => import("./components/registration/registration.vue");
 const signin = () => import("./components/registration/signin.vue");
-const askQuestion = () => import("./components/ask-question/ask-question.vue");
-const question = () => import("./components/question/question.vue");
+const askQuestion = () => import("./components/question/ask/ask-question.vue");
+const viewQuestion = () => import("./components/question/view/question.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
 
@@ -190,7 +190,7 @@ let routes2 = [
     },
     {
         path: "/question", components: {
-            default: question,
+            default: viewQuestion,
             header: pageHeader,
         }, name: "question"
     },
