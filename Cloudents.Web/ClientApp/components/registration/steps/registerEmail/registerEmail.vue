@@ -16,7 +16,7 @@
                     </div>
                     <vue-recaptcha class="recaptcha-wrapper" sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
                                    @verify="onVerify" @expired="onExpired"></vue-recaptcha>
-                    <input v-bind:disabled="!userEmail" class="continue-btn input-field" type="submit" value="Continue">
+                    <input :disabled="!userEmail || disableSubmit" class="continue-btn input-field" type="submit" value="Continue">
                 </form>
                 <div class="signin-strip">Do you already have an account?
                     <button type="button">Sign in</button>
