@@ -10,7 +10,7 @@ const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const pageHeader = () => import("./components/header/header.vue");
 //const pageHeaderBasic = () => import("./components/helpers/header.vue");
-const boodDetailsHeader = () => import("./components/book/header.vue");
+const bookDetailsHeader = () => import("./components/book/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
@@ -18,7 +18,8 @@ const documentPreviewHeader = () => import("./components/preview/headerDocument.
 const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
 const registration = () => import("./components/registration/registration.vue");
 const signin = () => import("./components/registration/signin.vue");
-const question = () => import("./components/question/question.vue");
+const askQuestion = () => import("./components/question/ask/ask-question.vue");
+const viewQuestion = () => import("./components/question/view/question.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
 
@@ -121,7 +122,7 @@ let routes2 = [
         name: RouteTypes.bookDetailsRoute,
         components: {
             default: bookDetails,
-            header: boodDetailsHeader
+            header: bookDetailsHeader
         },
         props: bookDetailsProps
     },
@@ -182,8 +183,15 @@ let routes2 = [
         }, name: "registration"
     },
     {
+        path: "/askquestion", components: {
+            default: askQuestion,
+            header: pageHeader,
+        }, name: "askQuestion"
+    },
+    {
         path: "/question", components: {
-            default: question,
+            default: viewQuestion,
+            header: pageHeader,
         }, name: "question"
     },
     {
