@@ -35,10 +35,10 @@ namespace Cloudents.Core.Storage
         Task<bool> ExistsAsync(string blobName, CancellationToken token);
         Uri GetBlobUrl(string blobName, bool cdn = false);
 
-        Task<string> MoveAsync(string blobName, string destinationContainerName);
+        Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
     }
 
-   
+
 
     public interface IBlobProvider
     {
@@ -48,6 +48,6 @@ namespace Cloudents.Core.Storage
         Task SaveMetaDataToBlobAsync(Uri blobUri, IDictionary<string, string> metadata, CancellationToken token);
 
 
-       
+
     }
 }

@@ -56,7 +56,7 @@ namespace ConsoleApp
 
             var t = container.Resolve<ICommandBus>();
 
-            var command = new CreateQuestionCommand(1, "ram", 1, 1);
+            var command = new CreateQuestionCommand(1, "ram", 1, 11);
             await t.DispatchAsync(command, default);
             //var result = await t.QueryAsync<IEnumerable<QuestionSubjectDto>>(default);
 

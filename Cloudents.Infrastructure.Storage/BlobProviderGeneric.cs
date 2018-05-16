@@ -90,7 +90,7 @@ namespace Cloudents.Infrastructure.Storage
             var blob = GetBlob(blobName);
             return blob.ExistsAsync();
         }
-        public async Task<string> MoveAsync(string blobName, string destinationContainerName)
+        public async Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token)
         {
             if (string.IsNullOrEmpty(blobName))
             {
@@ -112,7 +112,7 @@ namespace Cloudents.Infrastructure.Storage
             await destBlob.StartCopyAsync(sourceBlob).ConfigureAwait(false);
             //remove source blob after copy is done.
             await sourceBlob.DeleteAsync().ConfigureAwait(false);
-            return destBlob.Name;
+            //return destBlob.Name;
         }
 
         //public async Task<CloudBlockBlob> UploadBlobAsync(Stream data,
