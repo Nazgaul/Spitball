@@ -11,35 +11,35 @@ namespace Cloudents.Infrastructure.Database
 {
     public class NHibernateRepository<T> : IRepository<T> where T : class
     {
-        protected readonly ISession _session;
+        protected readonly ISession Session;
         private readonly IUnitOfWork _unitOfWork;
 
         public NHibernateRepository(UnitOfWork.Factory unitOfWork)
         {
             var att = typeof(T).GetCustomAttribute<DbAttribute>();
             _unitOfWork = unitOfWork.Invoke(att?.Database ?? Core.Enum.Database.System);
-            _session = _unitOfWork.Session;
+            Session = _unitOfWork.Session;
         }
 
         public Task<T> LoadAsync(object id, CancellationToken token)
         {
-            return _session.LoadAsync<T>(id, token);
+            return Session.LoadAsync<T>(id, token);
         }
 
         public Task<T> GetAsync(object id, CancellationToken token)
         {
-            return _session.GetAsync<T>(id, token);
+            return Session.GetAsync<T>(id, token);
         }
 
         public IQueryable<T> GetQueryable()
         {
-           return _session.Query<T>();
+           return Session.Query<T>();
         }
 
         public Task<object> SaveAsync(T entity, CancellationToken token)
         {
             _unitOfWork.FlagCommit();
-            return _session.SaveAsync(entity, token);
+            return Session.SaveAsync(entity, token);
 
             
         }
@@ -49,19 +49,19 @@ namespace Cloudents.Infrastructure.Database
         //    _unitOfWork?.Dispose();
         //    _session?.Dispose();
         //}
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _session?.Dispose();
-                _unitOfWork?.Dispose();
-            }
-        }
+        //protected virtual void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        _unitOfWork?.Dispose();
+        //        _session?.Dispose();
+        //    }
+        //}
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        //public void Dispose()
+        //{
+        //    Dispose(true);
+        //    GC.SuppressFinalize(this);
+        //}
     }
 }

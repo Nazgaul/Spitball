@@ -20,6 +20,7 @@ using Cloudents.Infrastructure.Mail;
 using Cloudents.Infrastructure.Search.Tutor;
 using Cloudents.Infrastructure.BlockChain;
 using System.Numerics;
+using Cloudents.Core.Command;
 using Cloudents.Core.Storage;
 
 namespace ConsoleApp
@@ -53,8 +54,11 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            var t = container.Resolve<IQueryBus>();
-            var result = await t.QueryAsync<IEnumerable<QuestionSubjectDto>>(default);
+            var t = container.Resolve<ICommandBus>();
+
+            var command = new CreateQuestionCommand(1, "ram", 1, 1);
+            await t.DispatchAsync(command, default);
+            //var result = await t.QueryAsync<IEnumerable<QuestionSubjectDto>>(default);
 
 
 

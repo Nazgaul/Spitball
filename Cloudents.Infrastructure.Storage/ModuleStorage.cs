@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Storage
             //        .WithParameter(nameof(container), container);
             //}
 
-           
+
             builder.RegisterGeneric(typeof(BlobProviderContainer<>)).AsImplementedInterfaces();
 
             builder.Register(c =>
