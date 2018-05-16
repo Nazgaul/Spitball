@@ -1,43 +1,23 @@
-import {
-    googleRegistration,
-    emailRegistration,
-    smsRegistration,
-    smsCodeVerification,
-    getUserName,
-    setUserName,
-    getAccountNum,
-    signin
-} from './resources';
 import axios from "axios";
 import qs from "query-string";
 
+axios.defaults.paramsSerializer = params => qs.stringify(params, {indices: false});
+axios.defaults.responseType = "json";
 var instance = axios.create({
     baseURL : "/api"
 });
 
 export default {
-    googleRegistration(model) {
-        return googleRegistration(model);
-    },
+    googleRegistration: (data) => axios.post("/Register/google", {token: data}),
     emailRegistration(email,recaptcha) {
         return instance.post("register", qs.stringify( {email,captcha: recaptcha}));
     },
-    smsRegistration(model) {
-        return smsRegistration(model);
-    },
-    smsCodeVerification(model) {
-        return smsCodeVerification(model);
-    },
-    getUserName() {
-        return getUserName();
-    },
-    setUserName(model) {
-        return setUserName(model);
-    },
-    getAccountNum() {
-        return getAccountNum();
-    },
+    smsRegistration: (data) => axios.post("/Register/sms", {number: data}),
+    smsCodeVerification: (data) => axios.post("/Register/sms/verify", {number: data}),
+    getUserName: () => axios.get("/Register/userName"),
+    setUserName: (data) => axios.post("/Register/userName", {name: data}),
+    getAccountNum: () => axios.post("/Register/password"),
     signIn(email,key,captcha) {
-        return instance.post("login", qs.stringify( {email,captcha, recaptcha}));
+        return instance.post("login", qs.stringify( {email,key, captcha}));
     }
 }

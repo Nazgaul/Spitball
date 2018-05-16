@@ -12,15 +12,19 @@ export default {
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             emailSent: false,
-            errorMessages: ''
+            errorMessages: '',
+            disableSubmit: false
         }
     },
     methods: {
         next() {
             self = this;
+            self.disableSubmit = true;
+            debugger;
             registrationService.emailRegistration(this.userEmail, this.recaptcha)
                 .then(function () {
-                 //   self.emailSent = true
+                    self.emailSent = true
+                    self.disableSubmit = false;
                 }, function (reason) {
                     console.error(reason);
                 });
