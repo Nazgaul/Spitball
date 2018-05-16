@@ -1,31 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac.Features.AttributeFilters;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Read;
+using Cloudents.Core.Storage;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using IMapper = Cloudents.Core.Interfaces.IMapper;
+using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Policy = SignInStep.PolicyAll)]
+   // [Authorize(Policy = SignInStep.PolicyAll)]
     public class QuestionController : Controller
     {
         private readonly ICommandBus _commandBus;
         private readonly IMapper _mapper;
+        private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
-        public QuestionController(ICommandBus commandBus, IMapper mapper)
+        public QuestionController(ICommandBus commandBus, IMapper mapper,
+            IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
             _commandBus = commandBus;
             _mapper = mapper;
+            _blobProvider = blobProvider;
         }
 
         [HttpPost, ValidateModel]
@@ -45,15 +52,14 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadFileAsync([FromBody]IFormFile file)
+        public async Task<IActionResult> UploadFileAsync(UploadFileRequest model, CancellationToken token)
         {
+            var fileName = $"{Guid.NewGuid()}.{model.File.FileName}";
+            IDataProtector p = null;
+            await _blobProvider.UploadStreamAsync(fileName, model.File.OpenReadStream(), model.File
 
+                    .ContentType, false, 60 * 24, token).ConfigureAwait(false);
             return Ok();
         }
-        //[HttpGet("subject")]
-        //public async Task<IActionResult> GetSubjectsAsync()
-        //{
-
-        //}
     }
 }

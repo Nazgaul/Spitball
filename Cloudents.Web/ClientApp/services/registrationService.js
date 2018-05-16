@@ -38,6 +38,6 @@ export default {
         return getAccountNum();
     },
     signIn(email,key,captcha) {
-        return signin(email,key,captcha);
+        return instance.post("login", qs.stringify( {email,captcha, recaptcha}));
     }
 }

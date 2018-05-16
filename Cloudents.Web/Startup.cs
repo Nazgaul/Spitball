@@ -16,6 +16,7 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
+using Cloudents.Web.Swagger;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -75,6 +76,7 @@ namespace Cloudents.Web
                     c.IncludeXmlComments(xmlPath);
                     c.DescribeAllEnumsAsStrings();
                     c.DescribeAllParametersInCamelCase();
+                    c.OperationFilter<FormFileOperationFilter>();
                     c.ResolveConflictingActions(f =>
                     {
                         var descriptions = f.ToList();

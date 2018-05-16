@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
@@ -8,17 +9,26 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Cloudents.Infrastructure.Storage
 {
-    public class BlobProvider<T> : IBlobProvider<T> where T : IStorageContainer, new()
+    public class BlobProviderContainer<T> : IBlobProvider<T> where T : IStorageContainer, new()
     {
         private readonly CloudBlobDirectory _blobDirectory;
+        private readonly ICloudStorageProvider _storageProvider;
         private readonly T _container = new T();
 
         private const string CdnHostEndpoint = "az32006.vo.msecnd.net";
 
-        public BlobProvider(ICloudStorageProvider storageProvider)
+
+        public BlobProviderContainer( ICloudStorageProvider storageProvider)
         {
             _blobDirectory = storageProvider.GetBlobClient(_container);
+            _storageProvider = storageProvider;
         }
+
+        //public BlobProvider(StorageContainer container, ICloudStorageProvider storageProvider)
+        //{
+        //    _blobDirectory = storageProvider.GetBlobClient(container);
+        //    _storageProvider = storageProvider;
+        //}
 
         public Uri GetBlobUrl(string blobName, bool cdn = false)
         {
@@ -35,12 +45,16 @@ namespace Cloudents.Infrastructure.Storage
         {
             return _blobDirectory.GetBlockBlobReference(blobName);
         }
+        private CloudBlockBlob GetBlob(Uri blobUrl)
+        {
+            return new CloudBlockBlob(blobUrl, _storageProvider.GetCredentials());
+        }
 
-        public Task UploadByteArrayAsync(string blobName, byte[] fileContent,
+        public Task UploadStreamAsync(string blobName, Stream fileContent,
             string mimeType, bool fileGziped, int cacheControlMinutes, CancellationToken token)
         {
             var blob = GetBlob(blobName);
-            //fileContent.Seek(0, SeekOrigin.Begin);
+            fileContent.Seek(0, SeekOrigin.Begin);
 
             blob.Properties.ContentType = mimeType;
             if (fileGziped)
@@ -50,7 +64,7 @@ namespace Cloudents.Infrastructure.Storage
 
             blob.Properties.CacheControl = "private, max-age=" + (TimeConst.Minute * cacheControlMinutes);
             // blob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
-            return blob.UploadFromByteArrayAsync(fileContent, 0, fileContent.Length);
+            return blob.UploadFromStreamAsync(fileContent);
         }
 
         public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes)
@@ -81,5 +95,34 @@ namespace Cloudents.Infrastructure.Storage
             var blob = GetBlob(blobName);
             return blob.ExistsAsync();
         }
+
+
+        //public async Task<CloudBlockBlob> UploadBlobAsync(Stream data,
+        //    string filename, bool compressed = true, int? cacheControlMinutes = null, CancellationToken token = default)
+        //{
+
+        //    //string origMD5 = MD5(data);
+        //    var blob = GetBlob(filename);
+
+        //    if (compressed)
+        //    {
+        //        using (var stream = await blob.OpenWriteAsync().ConfigureAwait(false))
+        //        using (GZipStream gzip = new GZipStream(stream, CompressionLevel.Optimal))
+        //        {
+        //            await data.CopyToAsync(gzip, 81920);
+        //            //await gzip.WriteAsync(data, 0, data.Length, token).ConfigureAwait(false);
+        //        }
+        //        //data = comp.ToArray();
+        //        blob.Properties.ContentEncoding = "gzip";
+        //        await blob.SetPropertiesAsync();
+        //    }
+
+        //    //blob.Metadata.Add("compressed", compressed.ToString());
+        //    //blob.Metadata.Add("origMD5", origMD5);
+        //    await blob.UploadFromByteArrayAsync(data, 0, data.Length).ConfigureAwait(false);
+        //    return blob;
+        //}
+
+
     }
 }

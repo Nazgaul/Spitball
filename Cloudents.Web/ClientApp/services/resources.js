@@ -102,16 +102,16 @@ export const spitballPreview = {
 };
 
 export const googleRegistration = (data) => axios.post("/Register/google", { token: data });
-export const emailRegistration = (email, recaptcha) => {
-    //var data = new FormData();
-    const data = qs.stringify({ email: email, captcha: recaptcha });
-    axios.post("/Register", data);
-};
+// export const emailRegistration = (email, recaptcha) => {
+//     //var data = new FormData();
+//     const data = qs.stringify({ email: email, captcha: recaptcha });
+//     axios.post("/Register", data);
+// };
 export const smsRegistration = (data) => axios.post("/Register/sms", { number: data });
 
 export const smsCodeVerification = (data) => axios.post("/Register/sms/verify", { number: data });
 export const getUserName = () => axios.get("/Register/userName");
 export const setUserName = (data) => axios.post("/Register/userName", { name: data });
 export const getAccountNum = () => axios.post("/Register/password");
-export const signin = (email, key, captcha) => axios.post("/Login", { email: email, key: key, captcha: captcha });
+//export const signin = (email, key, captcha) => axios.post("/Login", { email: email, key: key, captcha: captcha });
 

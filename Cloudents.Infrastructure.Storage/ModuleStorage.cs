@@ -1,6 +1,9 @@
 ﻿using Autofac;
+using Autofac.Features.AttributeFilters;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -8,6 +11,7 @@ namespace Cloudents.Infrastructure.Storage
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
     //[ModuleRegistration(Core.Enum.System.Api)]
     [ModuleRegistration(Core.Enum.System.Web)]
+    [UsedImplicitly]
     public class ModuleStorage : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -21,7 +25,15 @@ namespace Cloudents.Infrastructure.Storage
             builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
             builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
 
-            builder.RegisterGeneric(typeof(BlobProvider<>)).AsImplementedInterfaces();
+
+            //foreach (var container in CloudStorageProvider.GetContainers())
+            //{
+            //    builder.RegisterType<BlobProviderContainer>().Keyed<IBlobProviderContainer>(container)
+            //        .WithParameter(nameof(container), container);
+            //}
+
+           
+            builder.RegisterGeneric(typeof(BlobProviderContainer<>)).AsImplementedInterfaces();
 
             builder.Register(c =>
             {
