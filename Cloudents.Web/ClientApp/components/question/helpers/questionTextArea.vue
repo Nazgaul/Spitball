@@ -31,9 +31,5 @@
         </ul>
     </v-flex>
 </template>
-<script>
-    export default {
-        props: {text: {type: String}},
-    }
-</script>
+<script src="./questionTextArea.js"></script>
 <style src="./questionTextArea.less" lang="less"></style>
