@@ -7,6 +7,13 @@
   border-radius: 4px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
   padding-bottom: 0;
+
+  @media (max-width: @screen-xs) {
+    max-width: none;
+    margin-top: 0px;
+    padding: 0 15px 0 16px;
+    height: 100%;
+  }
 }
 
 .ask_question .flex:not(:last-child) {
@@ -24,6 +31,16 @@
   .icon {
     color: #3532d5;
     font-size: 14pt;
+  }
+  @media (max-width: @screen-xs) {
+    .back-button {
+      right: 4px;
+
+      .icon {
+        color: #3532d5;
+        font-size: 16px;
+      }
+    }
   }
 }
 
@@ -43,6 +60,20 @@
     height: 29px;
     margin: 10px 9px;
   }
+
+  @media (max-width: @screen-xs) {
+    .student_icon {
+      width: 33px;
+      height: 33px;
+      top: 3px;
+
+      img {
+        width: 20px;
+        height: 19px;
+        margin: 7px 6px;
+      }
+    }
+  }
 }
 
 .text-blue {
@@ -61,11 +92,18 @@
 
 .header-row {
   margin: -8px 0px 8px;
+  @media (max-width: @screen-xs) {
+    margin: 14px 0px 0px;
+  }
 
   .text-blue {
     font-size: 18px;
     font-weight: normal;
     letter-spacing: 0;
+
+    @media (max-width: @screen-xs) {
+      font-size: 16px;
+    }
   }
 }
 
@@ -77,20 +115,9 @@ select {
   padding: 10px;
   font-size: 14px;
   -webkit-appearance: menulist;
-}
 
-.question_area {
-  border: 8px solid #c7c7ee !important;
-  height: 233px;
-
-  textarea {
-    width: 100%;
-    resize: none;
-    padding: 11px 9px 4px;
-    letter-spacing: -0.3px;
-    height: 140px;
-    overflow-y: auto;
-    outline: none;
+  @media (max-width: @screen-xs) {
+    padding: 9px;
   }
 }
 
@@ -103,117 +130,23 @@ select {
     color: white !important;
     background-color: #bbbbbb !important;
     text-transform: none;
+
+    @media (min-width: (@screen-xs+1)) {
+      width: 611px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      margin: -9px 0 0px -17px;
+    }
   }
   .ask_btn.primary {
     background-color: #3532d5 !important;
   }
 }
 
-ul.actions_text {
-  list-style: none;
-  margin: 4px;
-
-  li {
-    display: inline;
-    margin: 6px;
-    padding: 3px 0;
-
-    button {
-      background-color: #d8d8d8;
-      width: 25px;
-      height: 25px;
-      border-radius: 5px;
-      outline: none;
-
-      &.icon-red {
-        background-color: #d0021b !important;
-      }
-      &.icon-purple {
-        background-color: #9013fe !important;
-      }
-      &.insert-equation i {
-        font-size: 14px;
-      }
-      &.insert-symbol i {
-        font-size: 15px;
-      }
-      &.attach-file i {
-        font-size: 17px;
-      }
-      .icon {
-        color: @color-main-purple
-      }
-    }
-  }
-}
-
 .last-text-block {
   margin: 26px 0px 26px -1px;
-}
 
-@media only screen and (min-width: 600px) {
-  .ask_question .btn.ask_btn {
-    width: 611px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    margin: -9px 0 0px -17px;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .container {
-    max-width: none;
-    margin-top: 0px;
-    padding: 0 15px 0 16px;
-    height: 100%;
-  }
-
-  .header-row {
-    margin: 14px 0px 0px;
-  }
-
-  .header-row .text-blue {
-    font-size: 16px;
-  }
-
-  .back-button {
-    right: 4px;
-
-    .icon {
-      color: #3532d5;
-      font-size: 16px;
-    }
-  }
-
-  .student_icon {
-    width: 33px;
-    height: 33px;
-    top: 3px;
-
-    img {
-      width: 20px;
-      height: 19px;
-      margin: 7px 6px;
-    }
-  }
-
-  select {
-    padding: 9px;
-  }
-
-  .question_area {
-    height: 249px;
-  }
-
-  .question_area textarea {
-    height: 150px;
-  }
-
-  ul.actions_text {
-    margin: 4px 2px 13px;
-  }
-
-  .last-text-block {
+  @media (max-width: @screen-xs) {
     margin: -4px 0px 20px 2px;
   }
 }

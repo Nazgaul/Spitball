@@ -1,7 +1,6 @@
 <template>
     <v-flex xs12 class="question_area">
-                    <textarea v-model="text" rows="9"
-                              placeholder="Type in your question (Ex: Find the derivative of y = (x + 2)2 - 5x3)"></textarea>
+        <textarea v-model="text" rows="9" placeholder="Type in your question (Ex: Find the derivative of y = (x + 2)2 - 5x3)"></textarea>
         <ul class="actions_text">
             <li>
                 <button class="insert-equation">
@@ -34,6 +33,7 @@
 </template>
 <script>
     export default {
-        props: { text: { type: String } },
+        props: {text: {type: String}},
     }
 </script>
+<style src="./questionTextArea.less" lang="less"></style>
