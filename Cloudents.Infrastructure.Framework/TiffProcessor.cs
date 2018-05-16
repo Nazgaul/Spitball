@@ -75,7 +75,7 @@ namespace Cloudents.Infrastructure.Framework
                             jpgImage.Save();
                         }
                         var gzipSr = await Compress.CompressToGzipAsync(ms, cancelToken).ConfigureAwait(false);
-                        parallelTask.Add(BlobProviderCache.UploadByteArrayAsync(cacheBlobName, gzipSr, "image/jpg", true, 30, cancelToken));
+                        parallelTask.Add(BlobProviderCache.UploadStreamAsync(cacheBlobName, gzipSr, "image/jpg", true, 30, cancelToken));
                         blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccessReadPermission(cacheBlobName, 30));
                     }
                 }

@@ -39,7 +39,7 @@ namespace Cloudents.Infrastructure.Storage
             return blob.Metadata;
         }
 
-        public  string GetBlobNameFromUri(Uri uri)
+        public string GetBlobNameFromUri(Uri uri)
         {
             return uri.Segments[uri.Segments.Length - 1];
         }

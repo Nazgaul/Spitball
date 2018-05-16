@@ -2,7 +2,6 @@
 {
     public class FilesContainerName : IStorageContainer
     {
-        public string Name => "zboxfiles";
-        public string RelativePath => string.Empty;
+        public StorageContainer Container => StorageContainer.Documents;
     }
 }

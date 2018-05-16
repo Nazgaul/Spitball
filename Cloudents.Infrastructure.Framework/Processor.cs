@@ -62,7 +62,7 @@ namespace Cloudents.Infrastructure.Framework
                     using (var ms = await convertPageToPreview(pageIndex).ConfigureAwait(false))
                     {
                         var sr = await Compress.CompressToGzipAsync(ms, token).ConfigureAwait(false);
-                        parallelTask.Add(BlobProviderCache.UploadByteArrayAsync(cacheBlobName, sr, mimeType, true, 30, token));
+                        parallelTask.Add(BlobProviderCache.UploadStreamAsync(cacheBlobName, sr, mimeType, true, 30, token));
                         blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccessReadPermission(cacheBlobName, 30));
                         meta[metaDataKey] = DateTime.UtcNow.ToString(DatePattern);
                     }

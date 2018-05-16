@@ -100,4 +100,3 @@ export const spitballPreview = {
     getFlashcard: ({ id }) => axios.get("flashcard", { params: { id: Number(id) } }),
     getDocument: ({ id }) => axios.get("document", { baseURL: "api/", params: { id: Number(id) } })
 };
-
