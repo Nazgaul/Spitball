@@ -28,7 +28,7 @@ namespace Cloudents.Web.Api
             var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
             if (user == null)
             {
-                return BadRequest();
+                return BadRequest("email or password are invalid");
             }
             var result = await _signInManager.PasswordSignInAsync(user, model.Key, false, false).ConfigureAwait(false);
 
@@ -36,7 +36,7 @@ namespace Cloudents.Web.Api
             {
                 return Ok();
             }
-            return BadRequest();
+            return BadRequest("email or password are invalid");
         }
     }
 }

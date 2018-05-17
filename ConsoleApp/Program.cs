@@ -56,8 +56,8 @@ namespace ConsoleApp
 
             var t = container.Resolve<ICommandBus>();
 
-            var command = new CreateQuestionCommand(1, "ram", 1, 1, new[] { "36974733-0a2e-4d9e-9ef8-59427f18216a.register-mail.html" });
-            await t.DispatchAsync(command, default);
+            //var command = new CreateQuestionCommand(1, "ram", 1, 1, new[] { "36974733-0a2e-4d9e-9ef8-59427f18216a.register-mail.html" });
+            //await t.DispatchAsync(command, default);
             //var result = await t.QueryAsync<IEnumerable<QuestionSubjectDto>>(default);
 
 
