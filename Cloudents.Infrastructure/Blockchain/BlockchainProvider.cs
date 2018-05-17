@@ -111,8 +111,7 @@ namespace Cloudents.Infrastructure.BlockChain
         {
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
             var privateKey = ecKey.GetPrivateKeyAsBytes().ToHex();
-            var account = new Account(privateKey);
-            return account;
+            return new Account(privateKey);
         }
 
         public async Task<bool> SetInitialBalance (string address)

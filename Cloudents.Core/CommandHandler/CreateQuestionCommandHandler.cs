@@ -29,11 +29,11 @@ namespace Cloudents.Core.CommandHandler
         {
             var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId, token).ConfigureAwait(false);
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
-            var question = new Question(subject, message.Text, message.Price, message.Files.Count(), user);
+            var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
             await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
             var id = question.Id;
 
-            var l = message.Files.Select(file => _blobProvider.MoveAsync(file, $"{user.Id}/{id}", token));
+            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{user.Id}/{id}", token));
 
             await Task.WhenAll(l).ConfigureAwait(false);
         }
