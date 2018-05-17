@@ -71,7 +71,8 @@
     "webpack-merge": "4.1.1",
     "webpack-stats-plugin": "0.1.5",
     "webpack-visualizer-plugin": "0.1.11",
-    "vue-recaptcha": "^1.1.1"
+    "vue-recaptcha": "^1.1.1",
+    "html5-uploader": "^0.1.1"
   },
   "jest": {
     "transform": {
