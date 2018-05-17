@@ -22,7 +22,7 @@ export default {
     },
     computed: {
         validForm() {
-            return (this.subject && this.questionText.length && this.price >= 0.5) ? true : false
+            return this.subject && this.questionText.length && this.price >= 0.5;
         }
     },
     created() {

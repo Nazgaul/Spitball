@@ -1,25 +1,31 @@
 import questionTextArea from "./../helpers/question-text-area/questionTextArea.vue";
 import questionCard from "./../helpers/question-card/question-card.vue";
+import questionService from '../../../services/questionService';
 import miniChat from "./../../chat/view/chat.vue";
 
 export default {
     components: {questionTextArea, questionCard},
     data() {
         return {
-            selectItems: ["Phisics", "Math", "Geography"],
-            category: '',
             questionText: '',
-            price: 0.5
+            files: []
         }
     },
     methods:{
-        ask(){
-            console.log(this.price,this.questionText, this.category)
+        answer(){
+            var self = this;
+            questionService.answerQuestion(this.questionId,this.questionText,this.files)
+                .then(function () {
+                    self.$router.push({path: '/note', query: {q: ''}});
+                });
         }
     },
-    computed:{
-        validForm(){
-            return (this.category && this.questionText.length && this.price >=0.5) ? true : false
+    computed: {
+        validForm() {
+            return this.questionText.length
         }
+    },
+    created() {
+        this.questionId = this.$route.query.id;
     }
 }

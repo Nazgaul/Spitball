@@ -7,8 +7,8 @@
                         <v-flex class="user-question">   
                             <question-card></question-card> 
                         </v-flex>                    
-                        <question-text-area :text="questionText"></question-text-area>                        
-                        <v-btn block color="primary"  @click=ask() :disabled="!validForm" class="add_answer">Add your answer</v-btn>  
+                        <question-text-area v-model="questionText"></question-text-area>
+                        <v-btn block color="primary" @click=answer() :disabled="!validForm" class="add_answer">Add your answer</v-btn>
                     </v-flex>  
 
                     <v-flex offset-xs1 xs4>

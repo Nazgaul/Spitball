@@ -19,7 +19,7 @@
                     <input :disabled="!userEmail || disableSubmit" class="continue-btn input-field" type="submit" value="Continue">
                 </form>
                 <div class="signin-strip">Do you already have an account?
-                    <button type="button">Sign in</button>
+                    <router-link to="signin">Sign in</router-link>
                 </div>
             </div>
             <img slot="step-image" :src="require(`../../img/registerEmail.png`)"/>

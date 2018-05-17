@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
+using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -24,8 +25,8 @@ namespace Cloudents.Web.Api
             _mapper = mapper;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateAnswerAsync(CreateAnswerRequest model, CancellationToken token)
+        [HttpPost,ValidateModel]
+        public async Task<IActionResult> CreateAnswerAsync([FromBody]CreateAnswerRequest model, CancellationToken token)
         {
             var command = _mapper.Map<CreateAnswerCommand>(model);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
