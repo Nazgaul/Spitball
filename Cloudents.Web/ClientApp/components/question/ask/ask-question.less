@@ -1,23 +1,24 @@
 @import "../../../mixin.less";
 
-.container {
-  background-color: #fff;
-  max-width: 610px;
-  margin-top: 30px;
-  border-radius: 4px;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-  padding-bottom: 0;
 
-  @media (max-width: @screen-xs) {
-    max-width: none;
-    margin-top: 0px;
-    padding: 0 15px 0 16px;
-    height: 100%;
+
+.ask_question {
+  .container {
+    max-width: 610px;
+    margin-top: 30px;
+    padding-bottom: 0;
+
+    @media (max-width: @screen-xs) {
+      max-width: none;
+      margin-top: 0px;
+      padding: 0 15px 0 16px;
+      height: 100%;
+    }
   }
-}
 
-.ask_question .flex:not(:last-child) {
-  margin-bottom: 17px;
+  .flex:not(:last-child) {
+    margin-bottom: 17px;
+  }
 }
 
 .back-button {

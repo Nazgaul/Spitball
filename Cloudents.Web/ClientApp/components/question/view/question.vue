@@ -1,6 +1,24 @@
 <template>
     <div>
-        Your html goes here - make sure to keep only one element insid template tag - otherwise vue wont work...
+        <v-content>
+            <v-container>
+                <v-layout row wrap class="answer-question">
+                    <v-flex xs7>
+                        <v-flex class="user-question">   
+                            <question-card></question-card> 
+                        </v-flex>                    
+                        <question-text-area :text="questionText"></question-text-area>                        
+                        <v-btn block color="primary"  @click=ask() :disabled="!validForm" class="add_answer">Add your answer</v-btn>  
+                    </v-flex>  
+
+                    <v-flex offset-xs1 xs4>
+                            <mini-chat></mini-chat>             
+                    </v-flex>
+                    
+
+                </v-layout>
+            </v-container>
+        </v-content>
     </div>
 </template>
 

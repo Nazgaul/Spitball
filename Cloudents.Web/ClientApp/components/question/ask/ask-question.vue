@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <v-container>
-            <v-layout row wrap class="ask_question">
+    <div class="ask_question">
+        <v-container class="general-cell">
+            <v-layout row wrap>
 
                 <v-flex xs12>
                     <div class="header-row">
@@ -17,14 +17,14 @@
 
 
                 <v-flex xs12>
-                    <select v-model="category">
-                        <option value="" disabled>Pick a subject</option>
-                        <option v-for="item in selectItems">{{item}}</option>
+                    <select v-model="subject">
+                        <option value="" disabled hidden>Pick a subject</option>
+                        <option v-for="item in subjectList" :value="item">{{item.subject}}</option>
                     </select>
                 </v-flex>
 
 
-                <question-text-area :text="questionText"></question-text-area>
+                <question-text-area v-model="questionText"></question-text-area>
 
                 <v-flex xs12>
                     <v-text-field

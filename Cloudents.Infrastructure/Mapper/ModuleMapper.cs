@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure.Mapper
                 .As<IMapper>().InstancePerLifetimeScope();
 
 
-            builder.RegisterType<Mapper>().AsImplementedInterfaces();
+            
         }
     }
 }

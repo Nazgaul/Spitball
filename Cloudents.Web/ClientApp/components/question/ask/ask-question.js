@@ -1,23 +1,34 @@
-import questionTextArea from "./../helpers/questionTextArea.vue";
+import questionTextArea from "./../helpers/question-text-area/questionTextArea.vue";
+import questionService from '../../../services/questionService';
 
 export default {
     components: {questionTextArea},
     data() {
         return {
-            selectItems: ["Phisics", "Math", "Geography"],
-            category: '',
+            subjectList: [],
+            subject: '',
             questionText: '',
             price: 0.5
         }
     },
-    methods:{
-        ask(){
-            console.log(this.price,this.questionText, this.category)
+    methods: {
+        ask() {
+            var self = this;
+            questionService.postQuestion(this.subject.id, this.questionText, this.price)
+                .then(function () {
+                    self.$router.push({path: '/note', query: {q: ''}});
+                });
+        },
+    },
+    computed: {
+        validForm() {
+            return (this.subject && this.questionText.length && this.price >= 0.5) ? true : false
         }
     },
-    computed:{
-        validForm(){
-            return (this.category && this.questionText.length && this.price >=0.5) ? true : false
-        }
+    created() {
+        var self = this;
+        questionService.getSubjects().then(function (response) {
+            self.subjectList = response.data
+        })
     }
 }

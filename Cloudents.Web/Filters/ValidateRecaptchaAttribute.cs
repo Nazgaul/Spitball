@@ -122,18 +122,21 @@ namespace Cloudents.Web.Filters
 
                 if (!result.Success)
                 {
+                    context.ModelState.AddModelError("captcha", "captcha is invalid");
                     context.Result = new BadRequestObjectResult(context.ModelState);
                 }
+                await base.OnActionExecutionAsync(context, next).ConfigureAwait(false);
+
             }
+
+
+        }
 
             [SuppressMessage("ReSharper", "MemberCanBePrivate.Local", Justification = "Json.net need to familiar with this")]
             [UsedImplicitly]
-            public class RecaptchaResponse
-            {
-                public bool Success { get; set; }
-            }
+        public class RecaptchaResponse
+        {
+            public bool Success { get; set; }
         }
-
-        
     }
 }

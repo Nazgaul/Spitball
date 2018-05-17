@@ -1,9 +1,10 @@
-@import "../../../mixin.less";
+@import "../../../../mixin.less";
 
 
 .question_area {
   border: 8px solid #c7c7ee !important;
   height: 233px;
+  background-color: @color-white;
 
   @media (max-width: @screen-xs) {
     height: 249px;
@@ -36,12 +37,15 @@ ul.actions_text {
     margin: 6px;
     padding: 3px 0;
 
-    button {
+    button, label {
       background-color: #d8d8d8;
       width: 25px;
       height: 25px;
       border-radius: 5px;
       outline: none;
+      display: inline-block;
+      line-height: 25px;
+      text-align: center;
 
       &.icon-red {
         background-color: #d0021b !important;
@@ -61,6 +65,14 @@ ul.actions_text {
       .icon {
         color: @color-main-purple
       }
+    }
+    #file-input{
+      display: none;
+    }
+    #uploader{
+      width: 25px;
+      height: 25px;
+      background: blue;
     }
   }
 }
