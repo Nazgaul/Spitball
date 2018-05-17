@@ -56,7 +56,7 @@ namespace ConsoleApp
 
             var t = container.Resolve<ICommandBus>();
 
-            var command = new CreateAnswerCommand(11, "ram", 11, null);
+            var command = new MarkAnswerAsCorrectCommand(Guid.Parse("256E8F70-3AD4-47BA-AA2B-A8E3008988B0"), 11, 11);
             await t.DispatchAsync(command, default);
             //var result = await t.QueryAsync<IEnumerable<QuestionSubjectDto>>(default);
 
