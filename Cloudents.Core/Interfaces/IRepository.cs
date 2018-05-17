@@ -7,7 +7,7 @@ using Cloudents.Core.Entities.Db;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IRepository<T> : IDisposable where T : class
+    public interface IRepository<T> /*: IDisposable*/ where T : class
     {
         Task<object> SaveAsync(T entity, CancellationToken token);
         Task<T> LoadAsync(object id, CancellationToken token);

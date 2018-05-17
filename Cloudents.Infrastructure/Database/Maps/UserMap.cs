@@ -8,10 +8,10 @@ namespace Cloudents.Infrastructure.Database.Maps
     {
         public UserMap()
         {
-            Id(x => x.Id).GeneratedBy.Native();
-            Map(e => e.Email);
+            Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='{nameof(User)}'");
+            Map(e => e.Email).Unique();
             Map(e => e.PublicKey);
-            Map(e => e.PhoneNumberHash);
+            Map(e => e.PhoneNumberHash).Unique();
             Map(e => e.Name);
             Map(e => e.EmailConfirmed);
             Map(e => e.PhoneNumberConfirmed);

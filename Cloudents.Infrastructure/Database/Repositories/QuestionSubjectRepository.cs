@@ -17,7 +17,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
 
         public async Task<IEnumerable<QuestionSubject>> GetAllSubjectAsync(CancellationToken token)
         {
-            return await _session.Query<QuestionSubject>().ToListAsync(cancellationToken: token).ConfigureAwait(false);
+            return await Session.Query<QuestionSubject>().ToListAsync(cancellationToken: token).ConfigureAwait(false);
         }
     }
 }

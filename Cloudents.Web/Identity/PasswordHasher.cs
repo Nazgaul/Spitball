@@ -22,7 +22,10 @@ namespace Cloudents.Web.Identity
 
         public PasswordVerificationResult VerifyHashedPassword(User user, string hashedPassword, string providedPassword)
         {
-            if (hashedPassword == providedPassword)
+            //TODO: need to check if the password is valid hex
+            var publicAddress = _blockChainProvider.GetPublicAddress(providedPassword);
+
+            if (hashedPassword == publicAddress)
             {
                 return PasswordVerificationResult.Success;
             }
