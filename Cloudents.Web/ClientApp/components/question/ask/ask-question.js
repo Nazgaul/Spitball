@@ -6,19 +6,23 @@ export default {
     data() {
         return {
             subjectList: [],
-            category: '',
+            subject: '',
             questionText: '',
             price: 0.5
         }
     },
     methods: {
         ask() {
-            console.log(this.price, this.questionText, this.category)
-        }
+            var self = this;
+            questionService.postQuestion(this.subject.id, this.questionText, this.price)
+                .then(function () {
+                    self.$router.push({path: '/note', query: {q: ''}});
+                });
+        },
     },
     computed: {
         validForm() {
-            return (this.category && this.questionText.length && this.price >= 0.5) ? true : false
+            return (this.subject && this.questionText.length && this.price >= 0.5) ? true : false
         }
     },
     created() {

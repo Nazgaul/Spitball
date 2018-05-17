@@ -1,6 +1,6 @@
 <template>
     <v-flex xs12 class="question_area">
-        <textarea v-model="text" rows="9"
+        <textarea rows="9" v-on:input="updateValue($event.target.value)"
                   placeholder="Type in your question (Ex: Find the derivative of y = (x + 2)2 - 5x3)"></textarea>
         <ul class="actions_text">
             <li>

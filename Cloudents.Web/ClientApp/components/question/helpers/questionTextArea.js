@@ -1,21 +1,17 @@
 var Uploader = require('html5-uploader');
 
 export default {
-    props: {text: {type: String}},
+    props: {vvalue: {type: String}},
     data() {
         return {
             files: [],
-            previewList: []
+            previewList: [],
+            userText:''
         }
     },
     methods: {
-        // uploadFiles(){
-        //     var files = this.$el.querySelector("#file-input").files;
-        //
-        //     debugger;
-        // }
-        textTyped(){
-            this.emit('updateText')
+        updateValue: function (value) {
+            this.$emit('input', value);
         }
     },
     mounted() {
