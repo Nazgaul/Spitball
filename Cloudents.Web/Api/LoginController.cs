@@ -23,7 +23,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         [ValidateModel, ValidateRecaptcha]
-        public async Task<IActionResult> PostAsync([FromForm] LoginRequest model)
+        public async Task<IActionResult> PostAsync([FromBody] LoginRequest model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
             if (user == null)
