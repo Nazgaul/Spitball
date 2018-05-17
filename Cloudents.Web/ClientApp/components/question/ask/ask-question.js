@@ -1,4 +1,4 @@
-import questionTextArea from "./../helpers/questionTextArea.vue";
+import questionTextArea from "./../helpers/question-text-area/questionTextArea.vue";
 
 export default {
     components: {questionTextArea},
