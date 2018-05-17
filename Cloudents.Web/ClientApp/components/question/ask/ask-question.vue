@@ -18,8 +18,8 @@
 
                 <v-flex xs12>
                     <select v-model="category">
-                        <option value="" disabled>Pick a subject</option>
-                        <option v-for="item in subjectList">{{item}}</option>
+                        <option value="" disabled hidden>Pick a subject</option>
+                        <option v-for="item in subjectList">{{item.subject}}</option>
                     </select>
                 </v-flex>
 

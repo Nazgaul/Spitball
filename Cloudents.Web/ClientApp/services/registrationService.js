@@ -9,15 +9,11 @@ var instance = axios.create({
 
 export default {
     googleRegistration: (data) => axios.post("/Register/google", {token: data}),
-    emailRegistration(email,recaptcha) {
-        return instance.post("register", qs.stringify( {email,captcha: recaptcha}));
-    },
+    emailRegistration: (email,recaptcha) => instance.post("register", {email,captcha: recaptcha}),
     smsRegistration: (data) => axios.post("/Register/sms", {number: data}),
     smsCodeVerification: (data) => axios.post("/Register/sms/verify", {number: data}),
     getUserName: () => axios.get("/Register/userName"),
     setUserName: (data) => axios.post("/Register/userName", {name: data}),
     getAccountNum: () => axios.post("/Register/password"),
-    signIn(email,key,captcha) {
-        return instance.post("login", qs.stringify( {email,key, captcha}));
-    }
+    signIn: (email,key,captcha) => instance.post("login", {email,key, captcha})
 }

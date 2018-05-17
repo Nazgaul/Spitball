@@ -22,10 +22,9 @@ export default {
         }
     },
     created() {
-        debugger;
+        var self = this;
         questionService.getSubjects().then(function (response) {
-            debugger;
-            this.subjectList = response.data;
+            self.subjectList = response.data
         })
     }
 }

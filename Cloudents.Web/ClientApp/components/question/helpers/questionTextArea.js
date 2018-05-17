@@ -14,11 +14,12 @@ export default {
         //
         //     debugger;
         // }
-
+        textTyped(){
+            this.emit('updateText')
+        }
     },
     mounted() {
         //TODO: continue with html5-uploader, examples here: http://mpangrazzi.github.io/
-        debugger;
         var self = this;
         var multiple = new Uploader({
             el: '#file-input',
@@ -38,7 +39,6 @@ export default {
             if ($img) {
                 self.previewList.push($img.outerHTML);
             }
-
         });
     }
 
