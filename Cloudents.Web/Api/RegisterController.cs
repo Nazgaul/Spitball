@@ -12,6 +12,7 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Cloudents.Web.Api
 {
@@ -40,8 +41,8 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
-        [ValidateModel, ValidateRecaptcha]
-        public async Task<IActionResult> CreateUserAsync([FromForm]RegisterEmailRequest model, CancellationToken token)
+        [ValidateModel,ValidateRecaptcha]
+        public async Task<IActionResult> CreateUserAsync([FromBody]RegisterEmailRequest model, CancellationToken token)
         {
             var userName = model.Email.Split(new[] { '.', '@' }, 1, StringSplitOptions.RemoveEmptyEntries)[0];
             var user = new User

@@ -12,7 +12,6 @@ namespace Cloudents.Infrastructure.Storage
     public class BlobProviderContainer<T> : IBlobProvider<T> where T : IStorageContainer, new()
     {
         private readonly CloudBlobDirectory _blobDirectory;
-        private readonly ICloudStorageProvider _storageProvider;
         private readonly T _container = new T();
 
         private const string CdnHostEndpoint = "az32006.vo.msecnd.net";
@@ -21,7 +20,6 @@ namespace Cloudents.Infrastructure.Storage
         public BlobProviderContainer( ICloudStorageProvider storageProvider)
         {
             _blobDirectory = storageProvider.GetBlobClient(_container);
-            _storageProvider = storageProvider;
         }
 
         //public BlobProvider(StorageContainer container, ICloudStorageProvider storageProvider)
@@ -45,10 +43,7 @@ namespace Cloudents.Infrastructure.Storage
         {
             return _blobDirectory.GetBlockBlobReference(blobName);
         }
-        private CloudBlockBlob GetBlob(Uri blobUrl)
-        {
-            return new CloudBlockBlob(blobUrl, _storageProvider.GetCredentials());
-        }
+
 
         public Task UploadStreamAsync(string blobName, Stream fileContent,
             string mimeType, bool fileGziped, int cacheControlMinutes, CancellationToken token)
@@ -95,7 +90,30 @@ namespace Cloudents.Infrastructure.Storage
             var blob = GetBlob(blobName);
             return blob.ExistsAsync();
         }
+        public async Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token)
+        {
+            if (string.IsNullOrEmpty(blobName))
+            {
+                throw new ArgumentException("message", nameof(blobName));
+            }
 
+            //CloudBlockBlob destBlob;
+            var destinationDirectory = _blobDirectory.GetDirectoryReference(destinationContainerName);
+            var sourceBlob = GetBlob(blobName);
+
+            //if (!destinationDirectory())
+            //{
+            //    throw new Exception("Destination container does not exist.");
+            //}
+
+            //Copy source blob to destination container
+            //string name = srcBlob.Uri.Segments.Last();
+            var destBlob = destinationDirectory.GetBlockBlobReference(blobName);
+            await destBlob.StartCopyAsync(sourceBlob).ConfigureAwait(false);
+            //remove source blob after copy is done.
+            await sourceBlob.DeleteAsync().ConfigureAwait(false);
+            //return destBlob.Name;
+        }
 
         //public async Task<CloudBlockBlob> UploadBlobAsync(Stream data,
         //    string filename, bool compressed = true, int? cacheControlMinutes = null, CancellationToken token = default)

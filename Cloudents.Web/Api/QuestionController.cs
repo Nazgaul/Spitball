@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac.Features.AttributeFilters;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Read;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Filters;
-using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using IMapper = AutoMapper.IMapper;
 
@@ -20,7 +15,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-   // [Authorize(Policy = SignInStep.PolicyAll)]
+    // [Authorize(Policy = SignInStep.PolicyAll)]
     public class QuestionController : Controller
     {
         private readonly ICommandBus _commandBus;
@@ -38,13 +33,18 @@ namespace Cloudents.Web.Api
         [HttpPost, ValidateModel]
         public async Task<IActionResult> CreateQuestionAsync([FromBody]QuestionRequest model, CancellationToken token)
         {
+            //foreach (var file in model.Files)
+            //{
+            //    _blobProvider.MoveAsync(file,)
+            //}
+
             var command = _mapper.Map<CreateQuestionCommand>(model);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
 
         [HttpGet("subject")]
-        public async Task<IActionResult> GetSubjectsAsync([FromServices] IQueryBus queryBus,CancellationToken token)
+        public async Task<IActionResult> GetSubjectsAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
             var result = await queryBus.QueryAsync<IEnumerable<QuestionSubjectDto>>(token).ConfigureAwait(false);
             return Ok(result);
@@ -55,11 +55,10 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> UploadFileAsync(UploadFileRequest model, CancellationToken token)
         {
             var fileName = $"{Guid.NewGuid()}.{model.File.FileName}";
-            IDataProtector p = null;
             await _blobProvider.UploadStreamAsync(fileName, model.File.OpenReadStream(), model.File
-
                     .ContentType, false, 60 * 24, token).ConfigureAwait(false);
-            return Ok();
+
+            return Ok(new { fileName });
         }
     }
 }
