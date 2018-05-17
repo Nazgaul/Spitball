@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
@@ -27,7 +28,10 @@ namespace Cloudents.Core.CommandHandler
         {
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
             var question = await _questionRepository.LoadAsync(message.QuestionId, token).ConfigureAwait(false);
-
+            if (user.Id == question.User.Id)
+            {
+                throw new ApplicationException("user cannot answer himself");
+            }
             var answer = new Answer(question, message.Text, message.Files?.Count() ?? 0, user);
             await _answerRepository.SaveAsync(answer, token).ConfigureAwait(false);
         }

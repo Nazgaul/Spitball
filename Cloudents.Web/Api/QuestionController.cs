@@ -60,5 +60,13 @@ namespace Cloudents.Web.Api
 
             return Ok(new { fileName });
         }
+
+        [HttpPut("correct")]
+        public async Task<IActionResult> MarkAsReadAsync(MarkAsCorrectRequest model, CancellationToken token)
+        {
+            var command = _mapper.Map<CreateQuestionCommand>(model);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            return Ok();
+        }
     }
 }

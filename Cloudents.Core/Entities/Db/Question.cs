@@ -35,5 +35,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual User User { get; set; }
 
         public virtual DateTime Created { get; set; }
+
+        public virtual Answer CorrectAnswer { get; set; }
     }
 }
