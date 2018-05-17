@@ -31,8 +31,9 @@
                 <button class="icon icon-purple"></button>
             </li>
         </ul>
-        <div id="input-multiple-preview"></div>
-        <div id="preview-list"><img v-for="image in previewList" v-html="image"/></div>
+        <div id="preview-list">
+            <span v-for="image in previewList" v-html="image"></span>
+        </div>
     </v-flex>
 </template>
 <script src="./questionTextArea.js"></script>

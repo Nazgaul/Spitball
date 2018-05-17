@@ -5,7 +5,7 @@ export default {
     data() {
         return {
             files: [],
-            previewList:[]
+            previewList: []
         }
     },
     methods: {
@@ -34,15 +34,9 @@ export default {
                 }
             }
         });
-        multiple.on('file:preview', function(file, $img) {
-
+        multiple.on('file:preview', function (file, $img) {
             if ($img) {
-
-                $img.style.maxWidth = '100%';
-                $img.style.maxHeight = '100%';
-
-                $preview.appendChild($img);
-                self.previewList.push($img);
+                self.previewList.push($img.outerHTML);
             }
 
         });

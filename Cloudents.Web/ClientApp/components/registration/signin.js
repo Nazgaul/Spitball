@@ -17,8 +17,7 @@ export default {
             self = this;
             registrationService.signIn(this.userEmail, this.password, this.recaptcha)
                 .then(function () {
-                    debugger;
-                    //   self.emailSent = true
+                    this.$router.push({path: '/note', query: {q: ''}});
                 }, function (reason) {
                     debugger;
                     console.error(reason);

@@ -22,6 +22,7 @@ export default {
         }
     },
     created() {
+        debugger;
         questionService.getSubjects().then(function (response) {
             debugger;
             this.subjectList = response.data;
