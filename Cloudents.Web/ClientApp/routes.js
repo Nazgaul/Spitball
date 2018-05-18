@@ -98,6 +98,7 @@ let routes2 = [
 
     {
         path: "/result", name: "result", alias: [
+            "/" + RouteTypes.marketRoute,
             "/" + RouteTypes.questionRoute,
             "/" + RouteTypes.flashcardRoute,
             "/" + RouteTypes.notesRoute,

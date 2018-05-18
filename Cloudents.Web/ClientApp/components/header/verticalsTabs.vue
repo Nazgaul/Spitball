@@ -1,14 +1,17 @@
 <template>
     <v-flex class="line verticals">
         <v-layout row>
-            <div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>
-            <v-tabs class="verticals-bar" :value="currentSelection" :scrollable="false">
+            <!--<div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>-->
+            <v-tabs grow class="verticals-bar" :value="currentSelection" :scrollable="false">
                 <v-tabs-bar>
                     <v-tabs-item v-for="tab in verticals" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click="$_updateType(tab.id)"
-                                 :class="['spitball-text-'+tab.id,tab.id===currentSelection?'tabs__item--active':'']"
+                                 :class="[tab.id===currentSelection?'tabs__item--active':'']"
                                  class="mr-4 vertical">
-                        {{tab.name}}
+                        <span class="vertical-title" :class="'spitball-bg-'+tab.id">
+                            <v-icon>{{tab.icon}}</v-icon>
+                            <span>{{tab.name}}</span>
+                        </span>
                     </v-tabs-item>
                     <v-tabs-slider :color="`color-${currentVertical}`"></v-tabs-slider>
                 </v-tabs-bar>

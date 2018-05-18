@@ -10,7 +10,7 @@
                             <span class="question-category">Questions  / Algebra</span>
                         </v-flex>
 
-                        <v-flex xs12 md6>
+                        <v-flex xs7>
                             <div class="user-question">   
                                 <question-card></question-card> 
                             </div>     
@@ -21,7 +21,7 @@
                             <v-btn block color="primary"  @click=ask() :disabled="!validForm" class="add_answer">Add your answer</v-btn>  
                         </v-flex>  
 
-                        <v-flex xs12 md5>
+                        <v-flex xs4 offset-xs1>
                                 <mini-chat></mini-chat>             
                         </v-flex> 
 

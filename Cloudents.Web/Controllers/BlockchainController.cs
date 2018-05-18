@@ -48,9 +48,9 @@ namespace Cloudents.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<BigInteger> GetBalance(int fromPK)
+        public async Task<BigInteger> GetBalance(int fromPk)
         {
-            var from = _account[fromPK].Key;
+            var from = _account[fromPk].Key;
             var balance = await _blockChainProvider.GetTokenBalanceAsync(@from).ConfigureAwait(false);
             return balance;
         }

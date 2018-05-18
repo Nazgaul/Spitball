@@ -8,6 +8,7 @@ namespace Cloudents.Infrastructure.Database.Maps
     {
         public UserMap()
         {
+            DynamicUpdate();
             Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='{nameof(User)}'");
             Map(e => e.Email).Unique();
             Map(e => e.PublicKey);
