@@ -5,7 +5,6 @@
     background-color: #ffffff;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
     min-height: 300px;
-    min-width: 500px;
     width: 100%;
     position: relative;
     padding-bottom: 46px;
@@ -31,6 +30,35 @@
 
         span{margin: 5px 0px 10px; display: block;}
     }
+
+    .q-answer{
+        padding: 1px 0;
+
+        .q-text{margin: 8px 17px 0;}
+        .votes{
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.79;
+            color: #3532d5;
+            position: absolute;
+            top: 8px;
+            right: 15px;
+    
+            i.sbf{
+                width: 25px;
+                height: 25px;
+                background-color: #ffffff;
+                border: solid 1px #3532d5;
+                border-radius: 15px;
+                color: #3532d5;
+    
+                &.upvotes{transform: scale(1, -1);}
+            }
+            
+        }
+    }
+
+    
 
     .q-category{
         font-size: 20px;
