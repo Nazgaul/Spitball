@@ -1,3 +1,5 @@
+@import "../../../mixin.less";
+
 .content-message{
     border-radius: 4px;
     background-color: #f6f6f6;
@@ -7,8 +9,7 @@
 
     .header{       
         height: 54px;
-        background-color: #ffffff;
-        // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);          
+        background-color: @color-white;      
         width: 100%;
         display: flex;
         align-items: center;
@@ -19,7 +20,7 @@
             width: 33px;
             height: 33px;
             border-radius: 15px;
-            background-color: #ffffff;
+            background-color: @color-white;
             box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
             margin: 10px 10px 13px 17px;
         }
@@ -45,7 +46,7 @@
                 font-size: 20px;
                 font-weight: bold;
                 line-height: 1.25;
-                color: #3532d5;
+                color: @color-main-purple;
             }
         }
 
@@ -61,7 +62,7 @@
                 overflow: hidden;
 
                 .text{
-                    background: #fff;
+                    background: @color-white;
                     border-radius: 0px 15px 15px 15px;
                     float: left;
                     margin: 0 20px 0;
@@ -99,7 +100,7 @@
         width: 100%;
         padding: 9px 8px;
         border-radius: 4px;
-        background-color: #ffffff;
+        background-color: @color-white;
         border: 8px solid #d8d8d8;
 
         input[type="text"]{
@@ -110,11 +111,11 @@
         .send-btn{              
             font-size: 14px;
             font-weight: bold;
-            color: #ffffff;
+            color: @color-white;
             height: 33px;
             width: 49px;
             border-radius: 4px;
-            background-color: #3532d5;   
+            background-color: @color-main-purple;   
             float: right;           
         }
     }

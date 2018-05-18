@@ -1,19 +1,19 @@
 export default {
     props:{
-        isAnswer:{
-            type:Boolean,
+        displayRow:{
+            type:Number,
             required:false,
-            default:false
+            default:1
         },
-        myQuestion:{
-            type:Boolean,
+        items:{
+            type:Array,
             required:false,
-            default:false
+            default:[]
         }
     },
     data() {
         return {
-            
+            classItem:''
         }
     },
     
@@ -22,4 +22,7 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         }         
     },
+    mounted(){
+        this.classItem = "xs" + Math.floor(12/this.displayRow);
+    }
 }
