@@ -18,7 +18,7 @@ export default {
     computed:{        
         isMobile(){return this.$vuetify.breakpoint.xsOnly;},    
         validForm() {
-            return this.questionText.length
+            return this.textAreaValue.length
         }
     }
 }

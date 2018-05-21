@@ -191,10 +191,11 @@ let routes2 = [
         }, name: "askQuestion"
     },
     {
-        path: "/question", components: {
+        path: "/question/:id", components: {
             default: viewQuestion,
             header: pageHeader,
-        }, name: "question"
+        }, name: "question",
+        props: {default: (route) => ({id: route.params.id})}
     },
     {
         path: "/profile", components: {

@@ -7,14 +7,14 @@ export default {
         return {
             subjectList: [],
             subject: '',
-            questionText: '',
+            textAreaValue: '',
             price: 0.5
         }
     },
     methods: {
         ask() {
             var self = this;
-            questionService.postQuestion(this.subject.id, this.questionText, this.price)
+            questionService.postQuestion(this.subject.id, this.textAreaValue, this.price)
                 .then(function () {
                     self.$router.push({path: '/note', query: {q: ''}});
                 });
@@ -22,7 +22,7 @@ export default {
     },
     computed: {
         validForm() {
-            return this.subject && this.questionText.length && this.price >= 0.5;
+            return this.subject && this.textAreaValue.length && this.price >= 0.5;
         }
     },
     created() {
