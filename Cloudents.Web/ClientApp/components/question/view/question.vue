@@ -5,7 +5,7 @@
         <v-container v-if="!isMobile">
             <v-layout row wrap >    
 
-                        <v-flex md12 class="breadcrumbs">
+                        <v-flex xs12 class="breadcrumbs">
                             <a class="ask-question" href="/askquestion"><v-icon>sbf-comment</v-icon>Ask a question</a>
                             <span class="question-category">Questions  / Algebra</span>
                         </v-flex>
@@ -21,7 +21,7 @@
                             <v-btn block color="primary"  @click=ask() :disabled="!validForm" class="add_answer">Add your answer</v-btn>  
                         </v-flex>  
 
-                        <v-flex xs4 offset-xs1>
+                        <v-flex xs4>
                                 <mini-chat></mini-chat>             
                         </v-flex> 
 

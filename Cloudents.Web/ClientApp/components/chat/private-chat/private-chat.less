@@ -4,8 +4,8 @@
     border-radius: 4px;
     background-color: #f6f6f6;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-    height: 90%;
-    position: relative;
+    display: flex;
+    flex-direction: column;
 
     .header{       
         height: 54px;
@@ -32,7 +32,7 @@
         background: url("./../img/chat-background.png") repeat;
         background-color: #f0f0f0;
         background-size: cover;
-        height: ~"calc(100% - 55px - 68px)";
+        // height: ~"calc(100% - 55px - 68px)";
         min-height: 350px;
         display: flex;
 
@@ -67,7 +67,8 @@
                     float: left;
                     margin: 0 20px 0;
                     padding: 8px 17px 8px;
-                    position: relative;                
+                    position: relative;       
+                    word-break: break-all;         
 
                     p{
                         color: #4a4a4a;
@@ -94,9 +95,8 @@
     }
 
     .form-message{
-        position: absolute;
-        left: 0;
-        bottom: 0;
+        display: flex;
+        justify-content: space-between;
         width: 100%;
         padding: 9px 8px;
         border-radius: 4px;
@@ -115,8 +115,7 @@
             height: 33px;
             width: 49px;
             border-radius: 4px;
-            background-color: @color-main-purple;   
-            float: right;           
+            background-color: @color-main-purple; 
         }
     }
 }
