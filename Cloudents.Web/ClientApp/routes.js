@@ -20,6 +20,7 @@ const registration = () => import("./components/registration/registration.vue");
 const signin = () => import("./components/registration/signin.vue");
 const askQuestion = () => import("./components/question/ask/ask-question.vue");
 const viewQuestion = () => import("./components/question/view/question.vue");
+const viewProfile = () => import("./components/profile/view/profile.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
 
@@ -98,6 +99,7 @@ let routes2 = [
 
     {
         path: "/result", name: "result", alias: [
+            "/" + RouteTypes.marketRoute,
             "/" + RouteTypes.questionRoute,
             "/" + RouteTypes.flashcardRoute,
             "/" + RouteTypes.notesRoute,
@@ -193,6 +195,12 @@ let routes2 = [
             default: viewQuestion,
             header: pageHeader,
         }, name: "question"
+    },
+    {
+        path: "/profile", components: {
+            default: viewProfile,
+            header: pageHeader,
+        }, name: "profile"
     },
     {
         path: "/confirmEmail",

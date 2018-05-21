@@ -1,0 +1,123 @@
+@import "../../../mixin.less";
+
+.content-message{
+    border-radius: 4px;
+    background-color: #f6f6f6;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+    height: 90%;
+    position: relative;
+
+    .header{       
+        height: 54px;
+        background-color: @color-white;      
+        width: 100%;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        font-weight: bold;
+    
+        .avatar{
+            width: 33px;
+            height: 33px;
+            border-radius: 15px;
+            background-color: @color-white;
+            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+            margin: 10px 10px 13px 17px;
+        }
+    }
+
+
+    .container-message{
+        
+        background: url("./../img/chat-background.png") repeat;
+        background-color: #f0f0f0;
+        background-size: cover;
+        height: ~"calc(100% - 55px - 68px)";
+        min-height: 350px;
+        display: flex;
+
+        .empty-chat{
+            margin: auto;
+            width: 205px;
+            height: 300px;
+            text-align: center;
+
+            p{
+                font-size: 20px;
+                font-weight: bold;
+                line-height: 1.25;
+                color: @color-main-purple;
+            }
+        }
+
+        ul{
+            list-style: none;
+            margin: 20px 0;
+            padding: 0;
+            width: 100%;
+            overflow-y: auto;
+
+            li{
+                margin-bottom: 20px;
+                overflow: hidden;
+
+                .text{
+                    background: @color-white;
+                    border-radius: 0px 15px 15px 15px;
+                    float: left;
+                    margin: 0 20px 0;
+                    padding: 8px 17px 8px;
+                    position: relative;                
+
+                    p{
+                        color: #4a4a4a;
+                        margin: 0;
+                        font-size: 14px;
+                    }
+
+                    .time{    
+                        color: #80919e;
+                        font-size: 10px;
+                    }
+                }
+
+                &.my-message{
+                    .text{
+                        border-radius: 15px 0px 15px 15px;
+                        background-color: #9ccdff;
+                        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+                        float: right;
+                    }
+                }
+            }
+        }
+    }
+
+    .form-message{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding: 9px 8px;
+        border-radius: 4px;
+        background-color: @color-white;
+        border: 8px solid #d8d8d8;
+
+        input[type="text"]{
+            outline: none;
+            width: ~"calc(100% - 55px)";
+            height: 33px;
+        }
+        .send-btn{              
+            font-size: 14px;
+            font-weight: bold;
+            color: @color-white;
+            height: 33px;
+            width: 49px;
+            border-radius: 4px;
+            background-color: @color-main-purple;   
+            float: right;           
+        }
+    }
+}
+

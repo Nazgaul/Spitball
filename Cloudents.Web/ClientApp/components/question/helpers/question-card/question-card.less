@@ -2,10 +2,9 @@
 
 .question-card {
     border-radius: 4px;
-    background-color: #ffffff;
+    background-color: @color-white;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
     min-height: 300px;
-    min-width: 500px;
     width: 100%;
     position: relative;
     padding-bottom: 46px;
@@ -32,6 +31,33 @@
         span{margin: 5px 0px 10px; display: block;}
     }
 
+    .q-answer{
+        padding: 1px 0;
+
+        .q-text{margin: 8px 17px 0;}
+        .votes{
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.79;
+            color: @color-main-purple;
+            position: absolute;
+            top: 8px;
+            right: 15px;
+    
+            i.sbf{
+                width: 25px;
+                height: 25px;
+                background-color: @color-white;
+                border: solid 1px @color-main-purple;
+                border-radius: 15px;
+                color: @color-main-purple;
+    
+                &.upvotes{transform: scale(1, -1);}
+            }
+            
+        }
+    }    
+
     .q-category{
         font-size: 20px;
         font-weight: bold;
@@ -45,9 +71,27 @@
         text-align: left;
         color: #4a4a4a;
     }
-    .q-user-info{
+
+    .answer,.q-user-info{
         position: absolute;
-        bottom: 0;
+    }
+
+    .answer{
+        bottom: 17px;
+        right: 17px;
+        height: 24px;
+        .answer-btn{
+            
+            border-radius: 4px;
+            background-color: #0455a8;
+            font-size: 14px;
+            color: @color-white;
+            padding: 3px 20px;
+              
+        }
+    }
+    .q-user-info{  
+        bottom: 0;      
         height: 47px;
         width: 100%;
         border-top: 1px solid #ddd;
@@ -59,7 +103,7 @@
             width: 25px;
             height: 25px;
             border-radius: 15px;
-            background-color: #ffffff;
+            background-color: @color-white;
             box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
             margin: 10px 10px 13px 17px;
         }

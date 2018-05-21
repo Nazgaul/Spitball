@@ -1,0 +1,54 @@
+@import "../../../mixin.less";
+
+.profile-page{
+
+    margin-top: 16px;
+
+    .user-question {
+        margin-bottom: 17px;
+    }
+
+    .main-block{
+        // height: 290px;
+        border-radius: 4px;
+        background-color: @color-white;
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+
+        font-size: 14px;
+        color: #5d5d5d;
+        text-align: center;
+          
+        .avatar{
+            width: 64px;
+            height: 64px;
+            background-color: @color-grey;
+            border-radius: 35px;
+            outline: none;
+            margin: 17px 0 7px;
+        }
+        .name{
+            display: block;
+            color:@color-main-purple;
+            line-height: 1.69;
+            letter-spacing: -0.3px;
+        }
+
+    }
+
+
+    .tab-padding{padding:8px;}
+    .tabs__container{
+        .tabs__item{
+            text-transform: none;
+            &.tabs__item--active{ color: @color-main-purple!important;font-weight: bold;}
+        }         
+        .tabs__slider.blue{
+            border-bottom: 2px solid @color-main-purple;
+        }
+    }
+    
+   
+}
+
+
+

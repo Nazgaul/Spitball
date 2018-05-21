@@ -18,7 +18,7 @@
                     <input v-bind:disabled="!(userEmail && password)" class="continue-btn" type="submit" value="Login">
                 </form>
                 <div class="signin-strip">Need an account?
-                    <button type="button">Sign up</button>
+                    <router-link to="register">Sign up</router-link>
                 </div>
             </div>
             <img slot="step-image" :src="require(`./img/registerEmail.png`)"/>
