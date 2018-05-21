@@ -7,65 +7,69 @@
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
     min-height: 300px;
     width: 100%;
-    position: relative;
-    padding-bottom: 46px;
+    // position: relative;
+    // padding-bottom: 46px;
     float: left;
 
-    .price{
-        width: 74px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+    .header{
         height: 41px;
-        overflow: hidden;
-        border-radius: 0 0 36px;
-        background-color: #f0f0f0;
-        border: solid 0.5px #979797;
-        border-top: 0;
-        border-left: 0;
-        font-size: 22px;
-        font-weight: bold;
-        color: #000000;
-        position: relative;
-        text-align: center;
-        padding-bottom: 7px;
+        display: flex;
+        justify-content: space-between;
 
-        span{margin: 3px 10px 10px 0px; display: block;}
-    }
-
-    .votes{
-        font-size: 14px;
-        font-weight: bold;
-        line-height: 1.79;
-        color: @color-white;
-        position: absolute;
-        top: 8px;
-        right: 15px;
-
-        i.sbf{
-            width: 25px;
-            height: 25px;
-            border: solid 1px @color-white;
-            border-radius: 15px;
-            color: @color-white;
-
-            &.upvotes{transform: scale(1, -1);}
+        .price{
+            width: 74px;
+           
+            overflow: hidden;
+            border-radius: 0 0 36px;
+            background-color: #f0f0f0;
+            border: solid 0.5px #979797;
+            border-top: 0;
+            border-left: 0;
+            font-size: 22px;
+            font-weight: bold;
+            color: #000000;
+            display: flex;
+            justify-content: center;
+    
+            span{margin: 3px 10px 10px 0px; display: block;}
         }
-        
-    }
-
+    
+        .votes{
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.79;
+            color: @color-white;
+            display: flex;
+            padding: 6px;
+            
+            i.sbf{
+                width: 25px;
+                height: 25px;
+                border: solid 1px @color-white;
+                border-radius: 15px;
+                color: @color-white;
+    
+                &.upvotes{transform: scale(1, -1);    margin-right: 3px;}
+            }
+            
+        }
+    }  
     
     .item-info{  
-        position: absolute;
         opacity: 0.5;
-        // mix-blend-mode: multiply;
         background-color: #000000;
-        bottom: 0;      
         height: 49px;
         width: 100%;
-        // border-top: 1px solid #ddd;
         display: flex;
         align-items: center;
         font-size: 16px;
         color: @color-white;
 
-        span{padding: 15px;}
+        span{margin: 0 15px;}
     }
 }      
