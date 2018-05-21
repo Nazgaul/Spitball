@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
@@ -12,7 +13,6 @@ using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Web.Api
 {
@@ -21,11 +21,11 @@ namespace Cloudents.Web.Api
     [Authorize(Policy = SignInStep.PolicyAll)]
     public class QuestionController : Controller
     {
-        private readonly ICommandBus _commandBus;
+        private readonly Lazy<ICommandBus> _commandBus;
         private readonly IMapper _mapper;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
-        public QuestionController(ICommandBus commandBus, IMapper mapper,
+        public QuestionController(Lazy<ICommandBus> commandBus, IMapper mapper,
             IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
             _commandBus = commandBus;
@@ -38,7 +38,7 @@ namespace Cloudents.Web.Api
         {
           
             var command = _mapper.Map<CreateQuestionCommand>(model);
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
 
@@ -65,15 +65,23 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> MarkAsReadAsync(MarkAsCorrectRequest model, CancellationToken token)
         {
             var command = _mapper.Map<CreateQuestionCommand>(model);
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
 
         [AllowAnonymous]
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetQuestionAsync(long id, [FromServices] IQuestionRepository repository, CancellationToken token)
         {
             var retVal = await repository.GetQuestionDtoAsync(id, token).ConfigureAwait(false);
+            return Ok(retVal);
+        }
+
+        [AllowAnonymous, HttpGet]
+        public async Task<IActionResult> GetQuestionsAsync(string term, string[] source, [FromServices] IQuestionSearch questionSearch,
+            CancellationToken token)
+        {
+            var retVal = await questionSearch.SearchAsync(term, source, token).ConfigureAwait(false);
             return Ok(retVal);
         }
     }

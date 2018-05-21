@@ -69,7 +69,6 @@ namespace Cloudents.Infrastructure
 
             #endregion
 
-            builder.RegisterType<VideoSearch>().As<IVideoSearch>();
 
             #region Job
 
@@ -88,6 +87,7 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
+            builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();

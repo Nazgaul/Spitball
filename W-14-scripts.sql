@@ -24,7 +24,7 @@ WITH (TRACK_COLUMNS_UPDATED = ON)
 
  CREATE OR ALTER VIEW sb.question_indexer_view
 	AS 
-	SELECT q.Id,qs.Subject,q.Price,q.Text, 
+	SELECT ct.Id,qs.Subject,q.Price,q.Text, 
 	Operation = 
 	CASE 
 		WHEN q.CorrectAnswer_id != NULL THEN 0
@@ -34,6 +34,6 @@ WITH (TRACK_COLUMNS_UPDATED = ON)
 	ct.SYS_CHANGE_VERSION AS RowNum
 	FROM sb.Question q
 	JOIN sb.QuestionSubject qs ON q.Subject_id = qs.Id
-	INNER JOIN  
+	right JOIN  
      CHANGETABLE(CHANGES Sb.Question, 0) AS CT 
 	 ON q.Id = ct.Id
