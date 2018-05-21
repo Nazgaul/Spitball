@@ -1,0 +1,43 @@
+@import "../../../../mixin.less";
+
+.conversations-list{
+    ul{
+        list-style-type: none;
+        background-color: @color-white;
+        li{
+            // height: 70px;
+            // cursor: pointer;
+            border-bottom: solid 2px #dddddd;
+
+            .conversation{
+                display: flex;
+                align-items: baseline;
+                margin: 16px 18px 16px 8px;
+                justify-content: space-between;
+
+                .user-block{
+                    display: flex;
+                    .avatar {
+                        width: 40px;
+                        height: 40px;
+                        margin-right: 9px
+                    }
+                    .last-msg{margin: 0;}
+                }
+               
+
+                .some-icon{
+                    width: 33px;
+                    height: 33px;
+                    border-radius: 15px;
+                    background-color: @color-white;
+                    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+                    // margin: 10px 10px 13px 17px;
+                }
+
+            }
+            
+
+        }
+    }
+}

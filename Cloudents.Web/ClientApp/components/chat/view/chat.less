@@ -1,0 +1,64 @@
+@import "../../../mixin.less";
+
+.chat-page{
+
+    margin-top: 16px;
+
+   
+    .empty-chat{
+        border-radius: 4px;
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: url("./../img/chat-background.png") repeat;
+        background-color: #f0f0f0;
+        background-size: cover;
+        min-height: 600px;
+        font-size: 20px;
+
+        p{ 
+            color: @color-main-purple;
+            font-size: 32px;
+            font-weight: bold;
+            &.small{font-size: 20px!important; margin-top: 40px;}
+        }
+        button{
+            background-color: @color-main-purple;
+            color: @color-white;
+            line-height: 1.25;
+            width: 136px;
+            height: 34px;
+            border-radius: 4px;
+        }   
+
+    }
+
+    .list-block{
+        background-color: @color-white;
+        border: solid 1px @Dividers;
+        border-radius: 4px;
+    }
+
+    .tab-padding{
+        .mobile-content{padding:16px 8px;}
+
+        .tabs__bar{background-color: @color-white; border: solid 1px @color-medium-grey; border-width: 1px 0;}
+
+        .tabs__container{
+            .tabs__item{
+                text-transform: none;
+                &.tabs__item--active{ color: @color-main-purple!important;font-weight: bold;}
+            }         
+            .tabs__slider.blue{
+                border-bottom: 2px solid @color-main-purple;
+            }
+        }
+    }
+
+    @media (max-width: @screen-xs) {
+       .container{padding: 0;}
+    }
+
+}

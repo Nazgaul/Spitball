@@ -21,6 +21,7 @@ const signin = () => import("./components/registration/signin.vue");
 const askQuestion = () => import("./components/question/ask/ask-question.vue");
 const viewQuestion = () => import("./components/question/view/question.vue");
 const viewProfile = () => import("./components/profile/view/profile.vue");
+const viewChat = () => import("./components/chat/view/chat.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
 
@@ -202,6 +203,12 @@ let routes2 = [
             default: viewProfile,
             header: pageHeader,
         }, name: "profile"
+    },
+    {
+        path: "/chat", components: {
+            default: viewChat,
+            header: pageHeader,
+        }, name: "chat"
     },
     {
         path: "/confirmEmail",
