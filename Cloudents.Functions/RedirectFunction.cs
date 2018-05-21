@@ -40,22 +40,22 @@ namespace Cloudents.Functions
             return new RedirectResult(url);
         }
 
-        private static readonly Dictionary<string, Func<string, string>> HostFuncs = new Dictionary<string, Func<string, string>>(StringComparer.OrdinalIgnoreCase)
-        {
+        //private static readonly Dictionary<string, Func<string, string>> HostFuncs = new Dictionary<string, Func<string, string>>(StringComparer.OrdinalIgnoreCase)
+        //{
             
-            {
-                "studyBlue" , url =>
-                {
-                    var uri = new Uri(url);
+        //    {
+        //        "studyBlue" , url =>
+        //        {
+        //            var uri = new Uri(url);
                     
-                    var uriBuilder = new UriBuilder(uri)
-                    {
-                        Query = "?utm_source=spitball&utm_medium=referral"
-                    };
-                    return uriBuilder.ToString();
-                }
-            }
-        };
+        //            var uriBuilder = new UriBuilder(uri)
+        //            {
+        //                Query = "?utm_source=spitball&utm_medium=referral"
+        //            };
+        //            return uriBuilder.ToString();
+        //        }
+        //    }
+        //};
 
 
         [FunctionName("UrlProcess")]

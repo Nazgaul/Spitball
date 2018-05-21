@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
-namespace Cloudents.Web
+namespace Cloudents.Web.Swagger
 {
     internal sealed class ApiParameterDescriptionEqualityComparer : IEqualityComparer<ApiParameterDescription>
     {

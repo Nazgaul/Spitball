@@ -41,5 +41,7 @@ namespace Cloudents.Core.DTOs
         public UserDto User { get; set; }
         public DateTime Create { get; set; }
 
+        public int UpVote { get; set; }
+
     }
 }

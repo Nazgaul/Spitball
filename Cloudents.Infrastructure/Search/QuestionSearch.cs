@@ -15,10 +15,10 @@ namespace Cloudents.Infrastructure.Search
     {
         private readonly ISearchIndexClient _client;
 
-        public QuestionSearch(ISearchServiceClient client)
+        public QuestionSearch(ISearchServiceClient client,string indexName)
         {
             //TODO: need to fix that before production
-            _client = client.Indexes.GetClient("question-dev");
+            _client = client.Indexes.GetClient(indexName);
         }
 
         public async Task<ResultWithFacetDto<Question>> SearchAsync(string term, [CanBeNull] IEnumerable<string> facet, CancellationToken token)
