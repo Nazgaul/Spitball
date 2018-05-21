@@ -13,7 +13,7 @@ export let verticals =
             filter:[{ id: "source", name: "sources" }],
             id: routes.questionRoute,
             name: "Ask a Question",
-            icon: "sbf-marketplace"
+            icon: "sbf-ask-q"
 
         },
         note: {
@@ -25,7 +25,7 @@ export let verticals =
                 { id: "relevance", name: "relevance" },
                 { id: "date", name: "date" }
             ],
-            icon: "sbf-marketplace"
+            icon: "sbf-note"
         },
         flashcard: {
             id: routes.flashcardRoute,
@@ -39,7 +39,7 @@ export let verticals =
                 { id: "relevance", name: "relevance" },
                 { id: "date", name: "date" }
             ],
-            icon: "sbf-marketplace"
+            icon: "sbf-flashcards"
         },
         tutor: {
             id: routes.tutorRoute,
@@ -54,11 +54,12 @@ export let verticals =
                 { id: "price", name: "price" }
                 // { id: "distance", name: "distance" }
             ],
-            icon: "sbf-marketplace"
+            icon: "sbf-tutor"
         },
         book: {
             id: routes.bookRoute,
-            name: "Textbooks"
+            name: "Textbooks",
+            icon: "sbf-textbooks"
         },
         job: {
             id: routes.jobRoute,
@@ -70,7 +71,7 @@ export let verticals =
                 // { id: "distance", name: "distance" },
                 { id: "date", name: "date" }
             ],
-            icon: "sbf-marketplace"
+            icon: "sbf-job"
         },
         //TODO: remove food stuff from code
         // food: {
