@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Google.Apis.Auth;
 using JetBrains.Annotations;
-using IMapper = Cloudents.Core.Interfaces.IMapper;
 
 namespace Cloudents.Infrastructure.Auth
 {

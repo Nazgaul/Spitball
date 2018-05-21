@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Read;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
@@ -67,6 +67,14 @@ namespace Cloudents.Web.Api
             var command = _mapper.Map<CreateQuestionCommand>(model);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpGet("id")]
+        public async Task<IActionResult> GetQuestionAsync(long id, [FromServices] IQuestionRepository repository, CancellationToken token)
+        {
+            var retVal = await repository.GetQuestionDtoAsync(id, token).ConfigureAwait(false);
+            return Ok(retVal);
         }
     }
 }

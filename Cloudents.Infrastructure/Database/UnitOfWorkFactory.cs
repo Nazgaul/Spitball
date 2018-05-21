@@ -37,7 +37,12 @@ namespace Cloudents.Infrastructure.Database
             var configuration = Fluently.Configure()
                 .Database(
                     FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.GetConnectionString(db))
-                        .DefaultSchema("sb"))
+                        .DefaultSchema("sb")
+#if DEBUG
+                        .ShowSql
+#endif
+
+                    )
                 .ExposeConfiguration(BuildSchema);
             if (db == Core.Enum.Database.System)
             {
@@ -68,6 +73,7 @@ namespace Cloudents.Infrastructure.Database
 
         private static void BuildSchema(Configuration config)
         {
+            
             config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
         }
     }

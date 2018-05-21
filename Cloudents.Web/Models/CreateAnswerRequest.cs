@@ -3,17 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
-    public class QuestionRequest
+    public class CreateAnswerRequest
     {
         [Required]
-        public int SubjectId { get; set; }
+        public long QuestionId { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string Text { get; set; }
-
-        [Required]
-        [Range(0.1, 1000)]
-        public decimal Price { get; set; }
-
         public IEnumerable<string> Files { get; set; }
     }
 }

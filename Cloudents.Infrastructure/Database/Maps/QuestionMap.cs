@@ -18,7 +18,11 @@ namespace Cloudents.Infrastructure.Database.Maps
             References(x => x.User).Column("UserId").ForeignKey("Question_User").Not.Nullable();
             //HasOne(x => x.CorrectAnswer).Not.ForeignKey();
             References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
-
+            HasMany(x => x.Answers)
+                .Not.Inverse()
+                .Not.KeyNullable()
+                .Not.KeyUpdate()
+                .Cascade.AllDeleteOrphan();
         }
     }
 }
