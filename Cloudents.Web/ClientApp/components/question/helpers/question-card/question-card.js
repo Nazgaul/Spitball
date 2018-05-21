@@ -9,7 +9,8 @@ export default {
             type:Boolean,
             required:false,
             default:false
-        }
+        },
+        cardData: {}
     },
     data() {
         return {
@@ -21,5 +22,5 @@ export default {
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         }         
-    },
+    }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Swashbuckle.AspNetCore.Swagger;
@@ -15,20 +14,17 @@ namespace Cloudents.Web.Swagger
     {
         private struct ContainerParameterData
         {
-            public readonly ParameterDescriptor Parameter;
             public readonly PropertyInfo Property;
 
-            public string FullName => $"{Parameter.Name}.{Property.Name}";
             public string Name => Property.Name;
 
-            public ContainerParameterData(ParameterDescriptor parameter, PropertyInfo property)
+            public ContainerParameterData(PropertyInfo property)
             {
-                Parameter = parameter;
                 Property = property;
             }
         }
 
-        private static readonly ImmutableArray<string> iFormFilePropertyNames =
+        private static readonly ImmutableArray<string> FormFilePropertyNames =
             typeof(IFormFile).GetTypeInfo().DeclaredProperties.Select(p => p.Name).ToImmutableArray();
 
         public void Apply(Operation operation, OperationFilterContext context)
@@ -51,7 +47,7 @@ namespace Cloudents.Web.Swagger
                 @params.Select(p => new KeyValuePair<ParameterDescriptor, PropertyInfo[]>(
                     p, p.ParameterType.GetProperties()))
                 .Where(pp => pp.Value.Any(p => iFormFileType.IsAssignableFrom(p.PropertyType)))
-                .SelectMany(p => p.Value.Select(pp => new ContainerParameterData(p.Key, pp)))
+                .SelectMany(p => p.Value.Select(pp => new ContainerParameterData(pp)))
                 .ToImmutableArray();
 
             if (!(formFileParams.Any() || containerParams.Any()))
@@ -65,7 +61,7 @@ namespace Cloudents.Web.Swagger
             {
                 var nonIFormFileProperties =
                     parameters.Where(p =>
-                        !(iFormFilePropertyNames.Contains(p.Name)
+                        !(FormFilePropertyNames.Contains(p.Name)
                         && string.Compare(p.In, "formData", StringComparison.OrdinalIgnoreCase) == 0))
                         .ToImmutableArray();
 

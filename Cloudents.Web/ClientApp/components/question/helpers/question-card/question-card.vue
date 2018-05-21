@@ -3,9 +3,9 @@
 
         <div v-if="!isAnswer">
             <div class="q-price">
-                <span>$5</span>
+                <span>Earn {{cardData.price}}$</span>
             </div>         
-            <p class="q-category">Algebra</p>  
+            <p class="q-category">{{cardData.subject}}</p>
         </div>
 
         <div v-else class="q-answer">
@@ -17,15 +17,15 @@
             
         </div>
              
-        <p class="q-text">A triangle has a perimeter of 50. If two of the side lengths are equal and the third side is five more than the equal sides, what is the length of  the third side?</p>     
+        <p class="q-text">{{cardData.text}}</p>
         
-        <div class="q-user-info" v-if="!myQuestion">
+        <div class="q-user-info" v-if="!myQuestion && cardData.user">
             <img src="./../../ask/img/student_ask.png" class="avatar" alt="" />
-            <span><a href="/user">Irma Rogers</a> · 1 hour ago </span>
+            <span><a href="/user">{{cardData.user.name}}</a> · 1 hour ago </span>
         </div>
 
         <div v-else class="answer">
-            <a class="answer-btn" href="/askquestion">Answer</a>
+            <a class="answer-btn" href="/askquestion"></a>
         </div>
 
     </v-flex>
