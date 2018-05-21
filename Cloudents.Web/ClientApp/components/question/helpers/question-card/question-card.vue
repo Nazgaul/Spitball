@@ -19,13 +19,13 @@
              
         <p class="q-text">{{cardData.text}}</p>
         
-        <div class="q-user-info" v-if="!myQuestion && cardData.user">
+        <div class="q-user-info" v-if="cardData.user">
             <img src="./../../ask/img/student_ask.png" class="avatar" alt="" />
             <span><a href="/user">{{cardData.user.name}}</a> · 1 hour ago </span>
         </div>
 
-        <div v-else class="answer">
-            <a class="answer-btn" href="/askquestion"></a>
+        <div v-if="answerBtn" class="answer">
+            <a class="answer-btn" :href="'/question/'+cardData.id">Answer</a>
         </div>
 
     </v-flex>

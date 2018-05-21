@@ -10,7 +10,11 @@ export default {
             required:false,
             default:false
         },
-        cardData: {}
+        cardData: {},
+        answerBtn: {
+            type: Boolean,
+            default: false
+        }
     },
     data() {
         return {
