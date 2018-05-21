@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
@@ -37,5 +39,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual DateTime Created { get; set; }
 
         public virtual Answer CorrectAnswer { get; set; }
+
+        public virtual IList<Answer> Answers { get; set; }
     }
 }

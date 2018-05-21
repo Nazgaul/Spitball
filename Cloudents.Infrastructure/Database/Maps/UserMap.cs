@@ -19,6 +19,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.NormalizedName);
             Map(e => e.NormalizedEmail);
             Map(e => e.SecurityStamp);
+            Map(e => e.Image).Nullable();
         }
     }
 }

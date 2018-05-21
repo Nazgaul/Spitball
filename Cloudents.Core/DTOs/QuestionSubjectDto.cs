@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Core.Read
+﻿namespace Cloudents.Core.DTOs
 {
     public class QuestionSubjectDto 
     {

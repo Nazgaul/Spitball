@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 
 namespace Cloudents.Core.Interfaces
@@ -18,6 +19,11 @@ namespace Cloudents.Core.Interfaces
 
     public interface IQuestionSubjectRepository : IRepository<QuestionSubject>
     {
-        Task<IEnumerable<QuestionSubject>> GetAllSubjectAsync(CancellationToken token);
+        Task<IEnumerable<QuestionSubjectDto>> GetAllSubjectAsync(CancellationToken token);
+    }
+
+    public interface IQuestionRepository : IRepository<Question>
+    {
+        Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token);
     }
 }

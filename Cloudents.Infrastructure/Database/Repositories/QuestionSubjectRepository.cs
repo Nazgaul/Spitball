@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
@@ -15,9 +17,16 @@ namespace Cloudents.Infrastructure.Database.Repositories
         {
         }
 
-        public async Task<IEnumerable<QuestionSubject>> GetAllSubjectAsync(CancellationToken token)
+        public async Task<IEnumerable<QuestionSubjectDto>> GetAllSubjectAsync(CancellationToken token)
         {
-            return await Session.Query<QuestionSubject>().ToListAsync(cancellationToken: token).ConfigureAwait(false);
+
+            return await Session.Query<QuestionSubject>()
+                .Select(s=> new QuestionSubjectDto
+                {
+                    Id = s.Id,
+                    Subject = s.Subject
+                })
+                .ToListAsync(token).ConfigureAwait(false);
         }
     }
 }
