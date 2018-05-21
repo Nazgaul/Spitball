@@ -5,7 +5,7 @@
         <v-container v-if="!isMobile">
             <v-layout row wrap >    
 
-                        <v-flex md12 class="top-block">
+                        <v-flex md12 class="breadcrumbs">
                             <a class="ask-question" href="/askquestion"><v-icon>sbf-comment</v-icon>Ask a question</a>
                             <span class="question-category">Questions  / Algebra</span>
                         </v-flex>
