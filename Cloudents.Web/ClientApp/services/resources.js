@@ -5,7 +5,7 @@ axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: fals
 axios.defaults.responseType = "json";
 axios.defaults.baseURL = '/api';
 let currentVertical = 'item';
-const itemVerticals = ['ask', 'flashcard', 'note'];
+const itemVerticals = ['flashcard', 'note'];
 const getTemplate = (val) => itemVerticals.includes(val) ? 'item' : val;
 let transformLocation = (params) => {
     let location = params.location;
@@ -28,9 +28,9 @@ let transferNextPage = (res) => {
 //todo think about error
 let transferResultAsk = res => {
     const video = res.video;
-    const itemResult = res.result.result || [];
-    const items = itemResult.map(val => { return { ...val, template: "item" } });
-    const data = video ? [{ ...video, template: "video" }, ...items] : items;
+    const itemResult = res.result || [];
+    const items = itemResult.map(val => { return { ...val, template: "ask" } });
+    const data = items;
     return { data, source: res.result.facet, facet: res.result.facet, nextPage: res.nextPageLink }
 };
 let transferResultTutor = data => {
@@ -67,6 +67,7 @@ const transferMap = {
 const searchFunctions = {
     getDocument: (params) => axios.get("search/documents", { params, transformResponse: transferResultNote }),
     getQna: (params) => axios.get("ask", { params, transformResponse: transferResultAsk }),
+    getQuestions: (params) => axios.get("/Question", { params, transformResponse: transferResultAsk  }),
     getFlashcard: (params) => axios.get("search/flashcards", { params, transformResponse: transferResultNote }),
     getTutor: (params) => axios.get("tutor", { params: transformLocation(params), transformResponse: transferResultTutor }),
     getJob: (params) => axios.get("job", { params: transformLocation(params), transformResponse: transferJob }),

@@ -3,7 +3,8 @@
 export default {
     activateFunction: {
         ask({ source, university, course, term="", page, sort, q: userText }) {
-            return search.getQna({ source, university, course, term, page, sort, userText });
+            // return search.getQna({ source, university, course, term, page, sort, userText });
+            return search.getQuestions({term})
         },
         note({ source, university, course, term="", page, sort, docType }) {
             return search.getDocument({ source, university, course, query:term, page, sort, docType });
