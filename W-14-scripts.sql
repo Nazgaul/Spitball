@@ -17,3 +17,23 @@ SET IDENTITY_INSERT [sb].[QuestionSubject] OFF
 
 INSERT INTO sb.hilogenerator VALUES('Question',1)
 INSERT INTO sb.hilogenerator VALUES('User',1)
+
+ALTER TABLE sb.Question  
+ENABLE CHANGE_TRACKING  
+WITH (TRACK_COLUMNS_UPDATED = ON)  
+
+ CREATE OR ALTER VIEW sb.question_indexer_view
+	AS 
+	SELECT q.Id,qs.Subject,q.Price,q.Text, 
+	Operation = 
+	CASE 
+		WHEN q.CorrectAnswer_id != NULL THEN 0
+		WHEN ct.SYS_CHANGE_OPERATION = 'D' THEN 0
+		ELSE 1
+	End, 
+	ct.SYS_CHANGE_VERSION AS RowNum
+	FROM sb.Question q
+	JOIN sb.QuestionSubject qs ON q.Subject_id = qs.Id
+	INNER JOIN  
+     CHANGETABLE(CHANGES Sb.Question, 0) AS CT 
+	 ON q.Id = ct.Id

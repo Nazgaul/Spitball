@@ -70,7 +70,7 @@ namespace Cloudents.Web
             {
                 services.AddSwaggerGen(c =>
                 {
-                    c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                    c.SwaggerDoc("v1", new Info { Title = "Spitball Api", Version = "v1" });
                     var basePath = AppContext.BaseDirectory;
                     var xmlPath = Path.Combine(basePath, "Cloudents.Web.xml");
                     c.IncludeXmlComments(xmlPath);

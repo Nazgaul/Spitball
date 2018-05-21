@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -24,6 +24,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IQuestionRepository : IRepository<Question>
     {
+        [ItemCanBeNull]
         Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token);
     }
 }

@@ -82,6 +82,10 @@ namespace Cloudents.Infrastructure.Database.Repositories
                 }).ToFuture();
 
             var dto = await questionFuture.GetValueAsync(token).ConfigureAwait(false);
+            if (dto == null)
+            {
+                return null;
+            }
             dto.Answers = await answersFuture.GetEnumerableAsync(token).ConfigureAwait(false);
 
             return dto;
