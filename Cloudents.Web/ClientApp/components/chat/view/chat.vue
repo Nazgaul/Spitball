@@ -14,9 +14,13 @@
             <v-layout row wrap v-else>                 
                     <v-flex class="list-block"  :class="{'xs4': !isMobile, 'xs12':isMobile}" v-if="(!currentRoom && isMobile) || !isMobile">        
                         <div class="header-block">
-                            <v-icon right>sbf-arrow-left</v-icon>
-                            <span>Chats</span>
+                            <button>
+                                <v-icon right>sbf-arrow-right</v-icon>
+                                <span>Chats</span>
+                            </button>
                             
+                            <img class="some-icon" src="./../img/user.png" />
+
                         </div>                
                         <v-tabs grow class="tab-padding">                
                             <v-tabs-bar >
