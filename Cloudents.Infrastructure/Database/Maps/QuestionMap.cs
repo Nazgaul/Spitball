@@ -20,8 +20,9 @@ namespace Cloudents.Infrastructure.Database.Maps
             References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
             HasMany(x => x.Answers)
                 .Not.Inverse()
-                .Not.KeyNullable()
-                .Not.KeyUpdate()
+                //TODO: this is generate exception when creating new answer. need to figure it out
+            //    .Not.KeyNullable()
+            //    .Not.KeyUpdate()
                 .Cascade.AllDeleteOrphan();
         }
     }
