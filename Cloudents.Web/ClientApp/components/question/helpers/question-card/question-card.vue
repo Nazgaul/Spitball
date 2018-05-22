@@ -20,8 +20,7 @@
         <p class="q-text">{{cardData.text}}</p>
         
         <div class="q-user-info" v-if="cardData.user">
-            <img src="./../../ask/img/student_ask.png" class="avatar" alt="" />
-            <span><a href="/user">{{cardData.user.name}}</a> · 1 hour ago </span>
+            <user-block :user="cardData.user"></user-block>
         </div>
 
         <div v-if="answerBtn" class="answer">

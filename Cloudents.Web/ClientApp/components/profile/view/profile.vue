@@ -26,8 +26,7 @@
                 <v-flex xs6 class="web-content">
                         <div class="user-question">
                             <question-card :myQuestion="true"></question-card>    
-                        </div>                        
-                        <market-item :displayRow="2" :items="marketItem"></market-item>                        
+                        </div>                                          
                 </v-flex> 
 
             </v-layout>
@@ -59,8 +58,7 @@
                 <v-flex xs12 class="mobile-content">
                         <div class="user-question">
                             <question-card :myQuestion="true"></question-card>    
-                        </div>                        
-                        <market-item :displayRow="2" :items="marketItem"></market-item>                        
+                        </div>                                               
                 </v-flex> 
 
             </v-tabs>

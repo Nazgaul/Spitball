@@ -10,18 +10,16 @@
     p{margin: 17px 19px 17px 17px;}
 
     .q-price{
-        //width: 84px;
         height: 47px;
         overflow: hidden;
         border-radius: 0 0 36px;
         background-color: #f0f0f0;
-        border: solid 0.5px #979797;
+        border: solid 0.5px #dddddd;
         border-top: 0;
         border-left: 0;
         font-size: 22px;
         font-weight: bold;
         color: #000000;
-        //position: relative;
         text-align: center;
         padding-bottom: 7px;
         padding-right: 16px;
@@ -62,12 +60,15 @@
     }    
 
     .q-category{
+        @media(max-width: @screen-xs){ font-size: 16px; }
         font-size: 20px;
+        
         font-weight: bold;
         color: #125fac;
     }
 
     .q-text{
+        @media(max-width: @screen-xs){ font-size: 16px; }
         font-size: 20px;
         line-height: 1.35;
         letter-spacing: -0.4px;
@@ -97,14 +98,6 @@
         display: flex;
         align-items: center;
         font-size: 12px;
-
-        .avatar{
-            width: 25px;
-            height: 25px;
-            border-radius: 15px;
-            background-color: @color-white;
-            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-            margin: 10px 10px 13px 17px;
-        }
+        padding: 10px 10px 13px 17px;
     }
 }      

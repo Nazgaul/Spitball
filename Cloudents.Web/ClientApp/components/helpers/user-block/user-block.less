@@ -1,0 +1,47 @@
+@import "../../../mixin.less";
+
+.user-block{
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+    
+    .avatar {
+        width: 25px;
+        height: 25px;
+        border-radius: 15px;
+        margin-right: 9px;
+        
+        background-image: url('./../img/user.png');
+        background-size: cover;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+
+        &.chat{
+            width: 40px;
+            height: 40px;
+            border-radius: 0; 
+        }      
+        &.private-chat{
+            width: 33px;
+            height: 33px;
+        } 
+       
+    }
+    .text{
+        span{
+            &.private-chat{
+                font-weight: bold;
+            } 
+        }
+
+        .last-msg{
+            margin: 0;
+            &.private-chat{
+                font-size: 10px;
+                color: @color-grey;
+            } 
+        }
+
+    }
+    
+}
