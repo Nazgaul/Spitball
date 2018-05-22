@@ -214,6 +214,10 @@ let routes2 = [
         path: "/signin", components:{
             default: signin
         }, name: "signin"
+    },
+    {
+        path: "/temp",
+        component : () => import("./components/temp/temp.vue") 
     }
 
 ];
