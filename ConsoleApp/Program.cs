@@ -54,10 +54,9 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            var t = container.Resolve<IQuestionRepository>();
 
             //var command = new MarkAnswerAsCorrectCommand(Guid.Parse("256E8F70-3AD4-47BA-AA2B-A8E3008988B0"), 11, 11);
-            await t.GetQuestionDtoAsync(11, default);
+           // await t.JoinChannel();
             //var result = await t.QueryAsync<IEnumerable<QuestionSubjectDto>>(default);
 
 

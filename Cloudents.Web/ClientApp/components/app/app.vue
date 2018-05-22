@@ -17,6 +17,9 @@
         computed: {
             ...mapGetters(['loading']),
         },
+        created() {
+            this.$store.dispatch("userStatus");
+        },
         updated: function () {
             this.$nextTick(function () {
                 dataLayer.push({ 'event': 'optimize.activate' });

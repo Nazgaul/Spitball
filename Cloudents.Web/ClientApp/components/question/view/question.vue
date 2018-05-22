@@ -21,8 +21,9 @@
                             <v-btn block color="primary"  @click=ask() :disabled="!validForm" class="add_answer">Add your answer</v-btn>  
                         </v-flex>  
 
-                        <v-flex xs4>
-                                <mini-chat></mini-chat>             
+                        <v-flex xs4 >
+                            <div ref="chat-area"></div>
+                               
                         </v-flex> 
 
                 </v-layout>

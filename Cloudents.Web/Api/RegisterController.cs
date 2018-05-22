@@ -140,28 +140,7 @@ namespace Cloudents.Web.Api
             return BadRequest();
         }
 
-        [HttpGet("userName")]
-        [Authorize(Policy = SignInStep.PolicyPassword)]
-        public IActionResult GetUserName()
-        {
-            var name = _userManager.GetUserName(User);
-            return Ok(new { name });
-        }
-
-        [HttpPost("userName"), ValidateModel]
-        [Authorize(Policy = SignInStep.PolicyPassword)]
-
-        public async Task<IActionResult> ChangeUserNameAsync([FromBody]ChangeUserNameRequest model)
-        {
-            //TODO: check if this unique
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var result = await _userManager.SetUserNameAsync(user, model.Name).ConfigureAwait(false);
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-            return BadRequest();
-        }
+        
 
         [HttpPost("password")]
         [Authorize(Policy = SignInStep.PolicyPassword)]

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
@@ -12,6 +13,7 @@ using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -51,9 +53,11 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadFileAsync(UploadFileRequest model, CancellationToken token)
+        public async Task<IActionResult> UploadFileAsync(UploadFileRequest model,
+            [FromServices] UserManager<User> userManager,
+            CancellationToken token)
         {
-            var userId = User.GetUserId();
+            var userId = userManager.GetUserId(User);
             var fileName = $"{userId}.{Guid.NewGuid()}.{model.File.FileName}";
             await _blobProvider.UploadStreamAsync(fileName, model.File.OpenReadStream(), model.File
                     .ContentType, false, 60 * 24, token).ConfigureAwait(false);

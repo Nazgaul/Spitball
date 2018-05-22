@@ -225,7 +225,9 @@ let routes2 = [
     },
     {
         path: "/temp",
-        component : () => import("./components/temp/temp.vue") 
+        components : {
+            default: () => import("./components/temp/temp.vue") 
+        }
     }
 
 ];
