@@ -10,15 +10,19 @@ export default {
                 {image:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Bachalpsee_reflection.jpg/300px-Bachalpsee_reflection.jpg'},
                 {image:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Bachalpsee_reflection.jpg/300px-Bachalpsee_reflection.jpg'},
                 {image:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Bachalpsee_reflection.jpg/300px-Bachalpsee_reflection.jpg'}
-            ]
+            ],
+            activeTab:1
         }
     },
-    methods:{        
+    methods:{    
+        changeActiveTab(tabId){
+            this.activeTab = tabId;
+        }  
     },
     computed:{        
         isMobile(){return this.$vuetify.breakpoint.xsOnly;},    
         validForm() {
-            return this.questionText.length
+            return this.textAreaValue.length
         }
     }
 }

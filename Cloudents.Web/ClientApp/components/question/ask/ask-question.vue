@@ -24,7 +24,7 @@
                 </v-flex>
 
 
-                <question-text-area v-model="questionText"></question-text-area>
+                <question-text-area v-model="textAreaValue"></question-text-area>
 
                 <v-flex xs12>
                     <v-text-field

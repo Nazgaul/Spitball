@@ -15,7 +15,7 @@
                 </li>                
             </ul>
 
-            <div v-else="!messages.length" class="empty-chat">
+            <div v-else="!messages.length" class="no-messages">
                 <p>Private chat</p>
                 <img src="./../img/start-chat.png"   width="203"  height="170" />
             </div>

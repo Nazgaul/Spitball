@@ -12,12 +12,12 @@
 
                         <v-flex xs7>
                             <div class="user-question">   
-                                <question-card></question-card> 
+                                <question-card :cardData="questionData"></question-card>
                             </div>     
-                            <div class="user-question">   
-                                <question-card :isAnswer="true"></question-card> 
-                            </div>                 
-                            <question-text-area :text="questionText"></question-text-area>                        
+                            <div v-for="answer in questionData.answers" class="user-question">
+                                <question-card :isAnswer="true" :cardData="answer"></question-card>
+                            </div>
+                            <question-text-area :text="textAreaValue"></question-text-area>
                             <v-btn block color="primary"  @click=ask() :disabled="!validForm" class="add_answer">Add your answer</v-btn>  
                         </v-flex>  
 
@@ -48,7 +48,7 @@
                                         <div class="user-question">   
                                             <question-card :isAnswer="true"></question-card> 
                                         </div>                 
-                                        <question-text-area :text="questionText"></question-text-area>                        
+                                        <question-text-area :text="textAreaValue"></question-text-area>
                                         <v-btn block color="primary"  @click=ask() :disabled="!validForm" class="add_answer">Add your answer</v-btn>  
                                     </v-flex>  
                                 </v-tabs-content>
