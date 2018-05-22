@@ -11,6 +11,7 @@ const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const pageHeader = () => import("./components/header/header.vue");
 //const pageHeaderBasic = () => import("./components/helpers/header.vue");
 const bookDetailsHeader = () => import("./components/book/header.vue");
+const questionDetailsHeader = () => import("./components/question/header/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
@@ -192,11 +193,15 @@ let routes2 = [
         }, name: "askQuestion"
     },
     {
-        path: "/question/:id", components: {
+        path: "/question/:id",
+        components: {
             default: viewQuestion,
-            header: pageHeader,
-        }, name: "question",
-        props: {default: (route) => ({id: route.params.id})}
+            header: questionDetailsHeader,
+        },
+        name: "question",
+        props: {
+            default: (route) => ({id: route.params.id}),
+        }
     },
     {
         path: "/profile", components: {
@@ -216,10 +221,10 @@ let routes2 = [
             default: registration,
         },
         name: "registration",
-        meta: { step: 1}
+        meta: {step: 1}
     },
     {
-        path: "/signin", components:{
+        path: "/signin", components: {
             default: signin
         }, name: "signin"
     }
@@ -235,7 +240,7 @@ for (let v in staticRoutes) {
             header: satelliteHeader,
             default: item.import
         },
-        props:{default:(route)=>item.params?item.params(route):{}}
+        props: {default: (route) => item.params ? item.params(route) : {}}
     })
 }
 

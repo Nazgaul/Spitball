@@ -1,10 +1,9 @@
-import questionTextArea from "./../helpers/question-text-area/questionTextArea.vue";
-import questionCard from "./../helpers/question-card/question-card.vue";
 import questionService from '../../../services/questionService';
 import miniChat from "./../../chat/private-chat/private-chat.vue";
+import questionThread from "./questionThread.vue";
 
 export default {
-    components: {questionTextArea, questionCard, miniChat},
+    components: {miniChat, questionThread},
     props: {id: {Number}},
     data() {
         return {
@@ -26,10 +25,6 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
-
-        validForm() {
-            return this.textAreaValue.length
-        }
     },
     created() {
         var self = this;

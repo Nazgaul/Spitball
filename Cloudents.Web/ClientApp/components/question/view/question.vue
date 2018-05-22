@@ -11,15 +11,8 @@
                         </v-flex>
 
                         <v-flex xs7>
-                            <div class="user-question">   
-                                <question-card :cardData="questionData"></question-card>
-                            </div>     
-                            <div v-for="answer in questionData.answers" class="user-question">
-                                <question-card :isAnswer="true" :cardData="answer"></question-card>
-                            </div>
-                            <question-text-area :text="textAreaValue"></question-text-area>
-                            <v-btn block color="primary"  @click=ask() :disabled="!validForm" class="add_answer">Add your answer</v-btn>  
-                        </v-flex>  
+                            <question-thread :questionData="questionData" :textAreaValue="textAreaValue"/>
+                        </v-flex>
 
                         <v-flex xs4>
                                 <mini-chat></mini-chat>             
@@ -42,15 +35,8 @@
 
                                 <v-tabs-content :key="'1'" :id="'tab-1'" class="tab-padding">
                                     <v-flex xs12>
-                                        <div class="user-question">   
-                                            <question-card></question-card> 
-                                        </div>     
-                                        <div class="user-question">   
-                                            <question-card :isAnswer="true"></question-card> 
-                                        </div>                 
-                                        <question-text-area :text="textAreaValue"></question-text-area>
-                                        <v-btn block color="primary"  @click=ask() :disabled="!validForm" class="add_answer">Add your answer</v-btn>  
-                                    </v-flex>  
+                                        <question-thread :questionData="questionData" :textAreaValue="textAreaValue"/>
+                                    </v-flex>
                                 </v-tabs-content>
                                 
                                 <v-tabs-content :key="'2'" :id="'tab-2'">
