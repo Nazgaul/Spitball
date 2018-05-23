@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
                 .Select(s=> new QuestionSubjectDto
                 {
                     Id = s.Id,
-                    Subject = s.Subject
+                    Subject = s.Text
                 })
                 .ToListAsync(token).ConfigureAwait(false);
         }

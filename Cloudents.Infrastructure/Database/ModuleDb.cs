@@ -22,6 +22,7 @@ namespace Cloudents.Infrastructure.Database
 
             builder.RegisterType<QuestionSubjectRepository>().AsImplementedInterfaces();
             builder.RegisterType<QuestionRepository>().AsImplementedInterfaces();
+            builder.RegisterType<UserRepository>().AsImplementedInterfaces();
                 
             builder.RegisterType<DbConnectionStringProvider>().AsSelf();
 

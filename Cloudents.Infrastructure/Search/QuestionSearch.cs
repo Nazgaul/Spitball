@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
@@ -14,14 +15,16 @@ namespace Cloudents.Infrastructure.Search
     public class QuestionSearch : IQuestionSearch
     {
         private readonly ISearchIndexClient _client;
+        private readonly IMapper _mapper;
 
-        public QuestionSearch(ISearchServiceClient client,string indexName)
+        public QuestionSearch(ISearchServiceClient client, string indexName, IMapper mapper)
         {
+            _mapper = mapper;
             //TODO: need to fix that before production
             _client = client.Indexes.GetClient(indexName);
         }
 
-        public async Task<ResultWithFacetDto<Question>> SearchAsync(string term, [CanBeNull] IEnumerable<string> facet, CancellationToken token)
+        public async Task<ResultWithFacetDto<QuestionDto>> SearchAsync(string term, [CanBeNull] IEnumerable<string> facet, CancellationToken token)
         {
             string filterStr = null;
 
@@ -42,9 +45,9 @@ namespace Cloudents.Infrastructure.Search
                 _client.Documents.SearchAsync<Question>(term, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);
 
-            var retVal = new ResultWithFacetDto<Question>
+            var retVal = new ResultWithFacetDto<QuestionDto>
             {
-                Result = result.Results.Select(s => s.Document)
+                Result = _mapper.Map<IEnumerable<QuestionDto>>(result.Results.Select(s => s.Document))
             };
             if (result.Facets.TryGetValue(nameof(Question.Subject), out var p))
             {

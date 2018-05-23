@@ -99,7 +99,6 @@ namespace Cloudents.Web.Api
             var command = _mapper.Map<AssignUniversityToUserCommand>(model);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
-
         }
 
     }

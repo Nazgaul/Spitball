@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
 {
@@ -8,10 +11,10 @@ namespace Cloudents.Web.Api
     {
         // GET
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> GetAsync(long id, [FromServices] IUserRepository repository, CancellationToken token)
         {
-            return
-            Ok();
+            var retVal = await repository.GetUserProfileAsync(id, token).ConfigureAwait(false);
+            return Ok(retVal);
         }
     }
 }
