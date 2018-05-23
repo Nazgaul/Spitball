@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cloudents.Core.Read
+namespace Cloudents.Core.Query
 {
     [Serializable]
     public sealed class CustomApiKey

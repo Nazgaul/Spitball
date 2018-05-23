@@ -2,7 +2,7 @@
 using Autofac;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Read;
+using Cloudents.Core.Query;
 using Module = Autofac.Module;
 
 namespace Cloudents.Core

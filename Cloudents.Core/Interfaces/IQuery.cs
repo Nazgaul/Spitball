@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IQuery
-    {
+    //public interface IQuery
+    //{
         
-    }
+    //}
 
     //public interface IQueryResult
     //{
@@ -14,7 +14,7 @@ namespace Cloudents.Core.Interfaces
     //}
 
     public interface IQueryHandlerAsync<in TQuery, TQueryResult>
-        where TQuery : IQuery
+        //where TQuery : IQuery
        // where TQueryResult : IQueryResult
     {
         Task<TQueryResult> GetAsync(TQuery query, CancellationToken token);
@@ -27,8 +27,8 @@ namespace Cloudents.Core.Interfaces
 
     public interface IQueryBus
     {
-        Task<TQueryResult> QueryAsync<TQuery, TQueryResult>(TQuery query, CancellationToken token)
-            where TQuery : IQuery;
+        Task<TQueryResult> QueryAsync<TQuery, TQueryResult>(TQuery query, CancellationToken token);
+           // where TQuery : IQuery;
 
 
         Task<TQueryResult> QueryAsync<TQueryResult>(CancellationToken token);

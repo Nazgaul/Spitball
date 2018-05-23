@@ -13,13 +13,13 @@ using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Read;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Mail;
 using Cloudents.Infrastructure.Search.Tutor;
 using Cloudents.Infrastructure.BlockChain;
 using System.Numerics;
+using System.Text.RegularExpressions;
 using Cloudents.Core.Command;
 using Cloudents.Core.Storage;
 
@@ -54,17 +54,10 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
+            var t = container.Resolve<IQuestionRepository>();
+            var z = await t.GetQuestionDtoAsync(66, default);
 
-            //var command = new MarkAnswerAsCorrectCommand(Guid.Parse("256E8F70-3AD4-47BA-AA2B-A8E3008988B0"), 11, 11);
-           // await t.JoinChannel();
-            //var result = await t.QueryAsync<IEnumerable<QuestionSubjectDto>>(default);
-
-
-
-
-
-
-
+            
 
             Console.WriteLine("Finish");
             Console.ReadLine();

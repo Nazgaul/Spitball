@@ -32,6 +32,6 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual DateTime Created { get; set; }
 
-        public virtual int UpVote { get; set; }
+        public virtual int? UpVote { get; set; }
     }
 }

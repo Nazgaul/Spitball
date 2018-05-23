@@ -5,7 +5,7 @@ using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Read;
+using Cloudents.Core.Query;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Data;
