@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cloudents.Core.Interfaces;
 using System.Numerics;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Web.Controllers
@@ -30,11 +31,11 @@ namespace Cloudents.Web.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> TransferMoney([FromForm]Model model)
+        public async Task<IActionResult> TransferMoney([FromForm]Model model, CancellationToken token)
         {
             var from = _account[model.FromPk].Key;
             var to = _account[model.ToAddress].Value;
-            var transactionReceipt = await _blockChainProvider.TransferMoneyAsync(from, to, model.Amount).ConfigureAwait(false);
+            var transactionReceipt = await _blockChainProvider.TransferMoneyAsync(from, to, model.Amount, token).ConfigureAwait(false);
 
             return Ok(transactionReceipt);
         }
@@ -48,10 +49,10 @@ namespace Cloudents.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<BigInteger> GetBalance(int fromPk)
+        public async Task<BigInteger> GetBalance(int fromPk, CancellationToken token)
         {
             var from = _account[fromPk].Key;
-            var balance = await _blockChainProvider.GetTokenBalanceAsync(@from).ConfigureAwait(false);
+            var balance = await _blockChainProvider.GetTokenBalanceAsync(@from, token).ConfigureAwait(false);
             return balance;
         }
 
@@ -63,9 +64,9 @@ namespace Cloudents.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> SetInitialBalance(string address)
+        public async Task<bool> SetInitialBalance(string address, CancellationToken token)
         {
-            var result = await _blockChainProvider.SetInitialBalance(address).ConfigureAwait(false);
+            var result = await _blockChainProvider.SetInitialBalanceAsync(address, token).ConfigureAwait(false);
             return result;
         }
     }

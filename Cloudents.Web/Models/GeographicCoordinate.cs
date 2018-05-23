@@ -8,6 +8,27 @@ namespace Cloudents.Web.Models
     [DataContract]
     public class GeographicCoordinate
     {
+        protected bool Equals(GeographicCoordinate other)
+        {
+            return Latitude.Equals(other.Latitude) && Longitude.Equals(other.Longitude);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((GeographicCoordinate) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (Latitude.GetHashCode() * 397) ^ Longitude.GetHashCode();
+            }
+        }
+
         [Range(-90, 90), DataMember(Order = 1)]
         public float? Latitude { get;  set; }
 

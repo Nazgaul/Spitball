@@ -61,7 +61,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
                     Id = s.Id,
                     Create = s.Created,
                     Price = s.Price,
-                    Subject = s.Subject.Subject,
+                    Subject = s.Subject.Text,
                     Text = s.Text
                 }).ToFutureValue(); 
             var answersFuture = Session.Query<Answer>().Where(w => w.Question.Id == id)
