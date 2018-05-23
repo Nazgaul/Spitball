@@ -24,7 +24,7 @@
                 </v-flex>
 
 
-                <question-text-area v-model="textAreaValue"></question-text-area>
+                <question-text-area v-model="textAreaValue" @addFile="addFile"></question-text-area>
 
                 <v-flex xs12>
                     <v-text-field
@@ -48,7 +48,7 @@
 
 
                 <v-flex xs12>
-                    <v-btn block color="primary" @click=ask() :disabled="!validForm" class="ask_btn">Ask</v-btn>
+                    <v-btn block color="primary" @click="submitQuestion()" :disabled="!validForm" class="ask_btn">Ask</v-btn>
                 </v-flex>
 
             </v-layout>

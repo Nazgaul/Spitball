@@ -5,9 +5,7 @@ axios.defaults.paramsSerializer = params => qs.stringify(params, {indices: false
 axios.defaults.responseType = "json";
 export default {
     getSubjects: () => axios.get("/Question/subject"),
-    postQuestion: (subjectId, text, price) => axios.post("/Question", {subjectId, text, price}),
+    postQuestion: (subjectId, text, price, files) => axios.post("/Question", {subjectId, text, price, files}),
     getQuestion: (id) => axios.get("/Question/"+id),
-    answerQuestion: (questionId, text, files) => axios.post("/Answer", {questionId: id, text, files}),
-    uploadFile: (file) => axios.post("/Question/upload", {file})
-
+    answerQuestion: (questionId, text, files) => axios.post("/Answer", {questionId, text, files}),
 }
