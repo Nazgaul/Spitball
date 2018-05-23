@@ -5,7 +5,7 @@ var Uploader = require('html5-uploader');
 export default {
     props: {
         value: {type: String},
-        collapsed:{type:Boolean, default:false}
+        isFocused: false
     },
     data() {
         return {
@@ -17,10 +17,6 @@ export default {
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
-        },
-        expandTextArea(){
-            this.collapsed = false;
-            // this.$emit('expand-textarea');
         }
     },
     mounted() {
