@@ -477,9 +477,9 @@ namespace Cloudents.Infrastructure.BlockChain
             //ICO abi
             // "0xa09db301ad49fb1e240f7fe6c4a70edadd9506d93278fb412b571cf8b2786aa4"; //old ICO Contract Hash
             const string transactionHash = "0x175bcd364676ab6632be0ef862723a09370b206c7f9ea7c9ef79cf0889fad8b1"; //ICO Contract Hash
-            //0x175bcd364676ab6632be0ef862723a09370b206c7f9ea7c9ef79cf0889fad8b1
-           
-           
+                                                                                                                 //0x175bcd364676ab6632be0ef862723a09370b206c7f9ea7c9ef79cf0889fad8b1
+
+
             var deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionHash).ConfigureAwait(false);
             while (deploymentReceipt == null)
             {
@@ -488,6 +488,7 @@ namespace Cloudents.Infrastructure.BlockChain
             }
             var contractAddress = deploymentReceipt.ContractAddress;
             return web3.Eth.GetContract(ReadApi(), contractAddress);
+        }
 
 
         private static string _abiContract;
