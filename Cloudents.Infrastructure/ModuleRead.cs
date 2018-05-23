@@ -54,10 +54,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DomainParser>().AsSelf().As<IDomainParser>().SingleInstance();
             builder.RegisterType<DomainCache>().As<ICacheProvider>();
 
-
            
             builder.RegisterType<ReplaceImageProvider>().As<IReplaceImageProvider>();
-
 
             builder.RegisterType<WebSearch>();
 
@@ -71,7 +69,6 @@ namespace Cloudents.Infrastructure
                 .EnableInterfaceInterceptors().InterceptedBy(typeof(BuildLocalUrlInterceptor));
 
             #endregion
-
 
             #region Job
 
@@ -106,7 +103,6 @@ namespace Cloudents.Infrastructure
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();
             builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
-
 
             builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
             //builder.RegisterType<Mapper.Mapper>().AsImplementedInterfaces();

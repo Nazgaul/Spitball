@@ -16,12 +16,15 @@ namespace Cloudents.Infrastructure.BlockChain
     {
         private readonly IConfigurationKeys _configurationKeys;
 
+        private const double FromWei = 1e18;
+
         public BlockChainProvider(IConfigurationKeys configurationKeys)
         {
             _configurationKeys = configurationKeys;
         }
 
-        private Web3 GenerateWeb3Instance(string senderPk = null) {
+        private Web3 GenerateWeb3Instance(string senderPk = null)
+        {
             if (senderPk != null)
             {
                 var account = new Account(senderPk);
@@ -35,450 +38,11 @@ namespace Cloudents.Infrastructure.BlockChain
             }
         }
 
-        private async Task<Contract> GetContractAsync(CancellationToken token, Web3 web3)
+        private static async Task<Contract> GetContractAsync(CancellationToken token, Web3 web3)
         {
-            const string abi = @"[
-	{
-		'anonymous': false,
-		'inputs': [
-			{
-				'indexed': true,
-				'name': 'from',
-				'type': 'address'
-			},
-			{
-				'indexed': false,
-				'name': 'value',
-				'type': 'uint256'
-			}
-		],
-		'name': 'Burn',
-		'type': 'event'
-	},
-	{
-		'constant': false,
-		'inputs': [
-			{
-				'name': '_spender',
-				'type': 'address'
-			},
-			{
-				'name': '_value',
-				'type': 'uint256'
-			}
-		],
-		'name': 'approve',
-		'outputs': [
-			{
-				'name': 'success',
-				'type': 'bool'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'nonpayable',
-		'type': 'function'
-	},
-	{
-		'constant': false,
-		'inputs': [
-			{
-				'name': '_value',
-				'type': 'uint256'
-			}
-		],
-		'name': 'burn',
-		'outputs': [
-			{
-				'name': 'success',
-				'type': 'bool'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'nonpayable',
-		'type': 'function'
-	},
-	{
-		'constant': false,
-		'inputs': [
-			{
-				'name': '_from',
-				'type': 'address'
-			},
-			{
-				'name': '_value',
-				'type': 'uint256'
-			}
-		],
-		'name': 'burnFrom',
-		'outputs': [
-			{
-				'name': 'success',
-				'type': 'bool'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'nonpayable',
-		'type': 'function'
-	},
-	{
-		'constant': false,
-		'inputs': [],
-		'name': 'buy',
-		'outputs': [],
-		'payable': true,
-		'stateMutability': 'payable',
-		'type': 'function'
-	},
-	{
-		'constant': false,
-		'inputs': [
-			{
-				'name': 'target',
-				'type': 'address'
-			},
-			{
-				'name': 'freeze',
-				'type': 'bool'
-			}
-		],
-		'name': 'freezeAccount',
-		'outputs': [],
-		'payable': false,
-		'stateMutability': 'nonpayable',
-		'type': 'function'
-	},
-	{
-		'constant': false,
-		'inputs': [
-			{
-				'name': 'target',
-				'type': 'address'
-			},
-			{
-				'name': 'mintedAmount',
-				'type': 'uint256'
-			}
-		],
-		'name': 'mintToken',
-		'outputs': [],
-		'payable': false,
-		'stateMutability': 'nonpayable',
-		'type': 'function'
-	},
-	{
-		'constant': false,
-		'inputs': [
-			{
-				'name': 'amount',
-				'type': 'uint256'
-			}
-		],
-		'name': 'sell',
-		'outputs': [],
-		'payable': false,
-		'stateMutability': 'nonpayable',
-		'type': 'function'
-	},
-	{
-		'constant': false,
-		'inputs': [
-			{
-				'name': 'newSellPrice',
-				'type': 'uint256'
-			},
-			{
-				'name': 'newBuyPrice',
-				'type': 'uint256'
-			}
-		],
-		'name': 'setPrices',
-		'outputs': [],
-		'payable': false,
-		'stateMutability': 'nonpayable',
-		'type': 'function'
-	},
-	{
-		'anonymous': false,
-		'inputs': [
-			{
-				'indexed': true,
-				'name': 'from',
-				'type': 'address'
-			},
-			{
-				'indexed': true,
-				'name': 'to',
-				'type': 'address'
-			},
-			{
-				'indexed': false,
-				'name': 'value',
-				'type': 'uint256'
-			}
-		],
-		'name': 'Transfer',
-		'type': 'event'
-	},
-	{
-		'anonymous': false,
-		'inputs': [
-			{
-				'indexed': false,
-				'name': 'target',
-				'type': 'address'
-			},
-			{
-				'indexed': false,
-				'name': 'frozen',
-				'type': 'bool'
-			}
-		],
-		'name': 'FrozenFunds',
-		'type': 'event'
-	},
-	{
-		'constant': false,
-		'inputs': [
-			{
-				'name': '_to',
-				'type': 'address'
-			},
-			{
-				'name': '_value',
-				'type': 'uint256'
-			}
-		],
-		'name': 'transfer',
-		'outputs': [],
-		'payable': false,
-		'stateMutability': 'nonpayable',
-		'type': 'function'
-	},
-	{
-		'constant': false,
-		'inputs': [
-			{
-				'name': '_from',
-				'type': 'address'
-			},
-			{
-				'name': '_to',
-				'type': 'address'
-			},
-			{
-				'name': '_value',
-				'type': 'uint256'
-			}
-		],
-		'name': 'transferFrom',
-		'outputs': [
-			{
-				'name': 'success',
-				'type': 'bool'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'nonpayable',
-		'type': 'function'
-	},
-	{
-		'constant': false,
-		'inputs': [
-			{
-				'name': 'newOwner',
-				'type': 'address'
-			}
-		],
-		'name': 'transferOwnership',
-		'outputs': [],
-		'payable': false,
-		'stateMutability': 'nonpayable',
-		'type': 'function'
-	},
-	{
-		'inputs': [
-			{
-				'name': 'initialSupply',
-				'type': 'uint256'
-			},
-			{
-				'name': 'tokenName',
-				'type': 'string'
-			},
-			{
-				'name': 'tokenSymbol',
-				'type': 'string'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'nonpayable',
-		'type': 'constructor'
-	},
-	{
-		'constant': true,
-		'inputs': [
-			{
-				'name': '',
-				'type': 'address'
-			},
-			{
-				'name': '',
-				'type': 'address'
-			}
-		],
-		'name': 'allowance',
-		'outputs': [
-			{
-				'name': '',
-				'type': 'uint256'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'view',
-		'type': 'function'
-	},
-	{
-		'constant': true,
-		'inputs': [
-			{
-				'name': '',
-				'type': 'address'
-			}
-		],
-		'name': 'balanceOf',
-		'outputs': [
-			{
-				'name': '',
-				'type': 'uint256'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'view',
-		'type': 'function'
-	},
-	{
-		'constant': true,
-		'inputs': [],
-		'name': 'buyPrice',
-		'outputs': [
-			{
-				'name': '',
-				'type': 'uint256'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'view',
-		'type': 'function'
-	},
-	{
-		'constant': true,
-		'inputs': [],
-		'name': 'decimals',
-		'outputs': [
-			{
-				'name': '',
-				'type': 'uint8'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'view',
-		'type': 'function'
-	},
-	{
-		'constant': true,
-		'inputs': [
-			{
-				'name': '',
-				'type': 'address'
-			}
-		],
-		'name': 'frozenAccount',
-		'outputs': [
-			{
-				'name': '',
-				'type': 'bool'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'view',
-		'type': 'function'
-	},
-	{
-		'constant': true,
-		'inputs': [],
-		'name': 'name',
-		'outputs': [
-			{
-				'name': '',
-				'type': 'string'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'view',
-		'type': 'function'
-	},
-	{
-		'constant': true,
-		'inputs': [],
-		'name': 'owner',
-		'outputs': [
-			{
-				'name': '',
-				'type': 'address'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'view',
-		'type': 'function'
-	},
-	{
-		'constant': true,
-		'inputs': [],
-		'name': 'sellPrice',
-		'outputs': [
-			{
-				'name': '',
-				'type': 'uint256'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'view',
-		'type': 'function'
-	},
-	{
-		'constant': true,
-		'inputs': [],
-		'name': 'symbol',
-		'outputs': [
-			{
-				'name': '',
-				'type': 'string'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'view',
-		'type': 'function'
-	},
-	{
-		'constant': true,
-		'inputs': [],
-		'name': 'totalSupply',
-		'outputs': [
-			{
-				'name': '',
-				'type': 'uint256'
-			}
-		],
-		'payable': false,
-		'stateMutability': 'view',
-		'type': 'function'
-	}
-]";
-            //ICO abi
             // "0xa09db301ad49fb1e240f7fe6c4a70edadd9506d93278fb412b571cf8b2786aa4"; //old ICO Contract Hash
             const string transactionHash = "0x175bcd364676ab6632be0ef862723a09370b206c7f9ea7c9ef79cf0889fad8b1"; //ICO Contract Hash
                                                                                                                  //0x175bcd364676ab6632be0ef862723a09370b206c7f9ea7c9ef79cf0889fad8b1
-
 
             var deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionHash).ConfigureAwait(false);
             while (deploymentReceipt == null)
@@ -490,29 +54,26 @@ namespace Cloudents.Infrastructure.BlockChain
             return web3.Eth.GetContract(ReadApi(), contractAddress);
         }
 
-
         private static string _abiContract;
 
         private static string ReadApi()
         {
             if (_abiContract == null)
             {
-                _abiContract = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "abi.json"));
+                _abiContract = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, nameof(BlockChain), "abi.json"));
             }
 
             return _abiContract;
         }
 
-     
-          
-        
-
-        public async Task<BigInteger> GetTokenBalanceAsync(string senderAddress, CancellationToken token)
+        public async Task<decimal> GetBalanceAsync(string senderAddress, CancellationToken token)
         {
-            var contract = await GetContractAsync(token, GenerateWeb3Instance());
+            var contract = await GetContractAsync(token, GenerateWeb3Instance()).ConfigureAwait(false);
             var function = contract.GetFunction("balanceOf");
             var parameters = (new object[] { senderAddress });
-            return await function.CallAsync<BigInteger>(parameters);
+            var result = await function.CallAsync<BigInteger>(parameters).ConfigureAwait(false);
+            var normalAmount = result / new BigInteger(FromWei);
+            return (decimal) normalAmount;
         }
 
         public async Task<string> TransferMoneyAsync(string senderPk, string toAddress, float amount, CancellationToken token)
@@ -520,9 +81,9 @@ namespace Cloudents.Infrastructure.BlockChain
             var contract = await GetContractAsync(token, GenerateWeb3Instance(senderPk)).ConfigureAwait(false);
             var operationToExe = contract.GetFunction("transfer");
             var maxGas = new HexBigInteger(70000);
-            var amountTransformed = new BigInteger(amount * Math.Pow(10, 18));
+            var amountTransformed = new BigInteger(amount * FromWei);
             var parameters = (new object[] { toAddress, amountTransformed });
-            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPk), maxGas, null, null, parameters);
+            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPk), maxGas, null, null, parameters).ConfigureAwait(false);
             return receiptFirstAmountSend.BlockHash;
         }
 

@@ -54,8 +54,8 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            var t = container.Resolve<IQuestionRepository>();
-            var z = await t.GetQuestionDtoAsync(66, default);
+            var t = container.Resolve<IBlockChainProvider>();
+            var z = await t.GetBalanceAsync("0x116CC5B77f994A4D375791A99DF12f19921138ea", default);
 
             
 
