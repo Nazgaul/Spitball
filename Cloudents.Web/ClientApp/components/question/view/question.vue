@@ -13,12 +13,24 @@
                 </v-flex>
 
                 <v-flex xs7>
-                    <question-thread :questionId="id"/>
+                    <question-thread v-if="questionData" :questionData="questionData">
+                        <div slot="answer-form" class="mb-3">
+                            <div v-if="!questionData.answers || (questionData.answers && showForm)">
+                                <question-text-area v-model="textAreaValue" :isFocused="showForm"></question-text-area>
+                                <v-btn block color="primary" @click="answer()" :disabled="!validForm"
+                                       class="add_answer">Add your answer
+                                </v-btn>
+                            </div>
+                            <div v-else class="show-form-trigger" @click="showForm = true">
+                                <div><b>Know the answer?</b> Add it here!</div>
+                            </div>
+                        </div>
+                    </question-thread>
                 </v-flex>
 
                 <v-flex xs4>
-                            <div ref="chat-area"></div>
-                               
+                    <div ref="chat-area"></div>
+
                 </v-flex>
 
             </v-layout>
@@ -38,13 +50,20 @@
 
                     <v-tabs-content :key="'1'" :id="'tab-1'" class="tab-padding">
                         <v-flex xs12>
-                            <question-thread :questionId="id"/>
+                            <question-thread :questionData="questionData">
+                                <div slot="answer-form">
+                                    <question-text-area v-model="textAreaValue" class="small"></question-text-area>
+                                    <v-btn block color="primary" @click="answer()" :disabled="!validForm"
+                                           class="add_answer">Add your answer
+                                    </v-btn>
+                                </div>
+                            </question-thread>
                         </v-flex>
                     </v-tabs-content>
 
                     <v-tabs-content :key="'2'" :id="'tab-2'">
                         <v-flex xs12>
-                            <mini-chat></mini-chat>
+                            <div ref="chat-area"></div>
                         </v-flex>
                     </v-tabs-content>
 

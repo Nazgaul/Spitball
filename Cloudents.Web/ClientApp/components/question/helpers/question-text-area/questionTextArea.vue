@@ -1,10 +1,7 @@
 <template>
-    <v-flex xs12 class="question_area" :class="{'collapsed':collapsed }">
-        <div class="textarea" v-if="collapsed">
-            <p @click="expandTextArea()">Know the answer? Add it here! </p>
-        </div>
-        <div class="textarea" v-else>
-            <textarea rows="9" @input="updateValue($event.target.value)" :value="value"
+    <v-flex xs12 class="question_area">
+        <div class="textarea">
+            <textarea rows="9" @input="updateValue($event.target.value)" :value="value" autofocus="isFocused"
                         placeholder="Type in your question (Ex: Find the derivative of y = (x + 2)2 - 5x3)"></textarea>
             <ul class="actions_text">
                 <li>
