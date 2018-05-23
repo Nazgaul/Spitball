@@ -74,6 +74,36 @@
                                         </v-list-tile>
                                     </v-list>
                                 </v-menu>
+
+                                <div class="header-wallet">
+                                    <v-btn icon >
+                                        <v-icon>sbf-wallet</v-icon>                                    
+                                    </v-btn>
+                                    <span>$25</span>
+                                </div>
+
+                                
+                                <div class="header-comments">
+                                    <v-btn icon >
+                                        <v-icon>sbf-comment</v-icon>  
+                                                                          
+                                    </v-btn>
+                                    <span class="red-counter">6</span>                                    
+                                </div>
+                                
+
+                                <v-menu bottom left offset-y>
+                                    <v-btn icon slot="activator">
+                                        <v-icon>sbf-menu</v-icon>
+                                    </v-btn>
+                                    <v-list class="menu-list-not-reg">
+                                        <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in notRegMenu" :key="index" :id="item.id">
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                    </v-list>
+                                </v-menu>
                             </div>
                         </v-toolbar-items>
                     </v-layout>
@@ -92,7 +122,7 @@
 </template>
 
 <script>
-    import { settingMenu } from '../settings/consts';
+    import { settingMenu, notRegMenu } from '../settings/consts';
     import SearchInput from '../helpers/searchInput.vue';
     import smartAppBanner from "../smartAppBanner/smartAppBanner.vue"
     import {mapGetters} from 'vuex';
@@ -130,7 +160,7 @@
             PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput,smartAppBanner
         },
         props:{currentSelection:{type:String,default:'note'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
-        data(){return {settingMenu,clickOnce:false}},
+        data(){return {settingMenu,notRegMenu,clickOnce:false}},
         methods:{
             $_currentClick({ id,name }) {
                 if(name==='Feedback'){

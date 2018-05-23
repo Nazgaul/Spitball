@@ -45,14 +45,24 @@
             font-size: 14px;
             font-weight: 600;
 
+            @media(max-width: @screen-xs){
+                padding: 8px;
+            }
+
             i{
                 font-size: 21px;
                 margin-right: 8px;
                 margin-bottom: 0;
+                @media(max-width: @screen-xs){
+                    display: none;
+                }
             }
         }
         .tabs__bar .tabs__li {
             flex-basis: auto;
+            @media(max-width: @screen-xs){
+                margin-right: 8px !important;
+            }
         }
     }
 }
