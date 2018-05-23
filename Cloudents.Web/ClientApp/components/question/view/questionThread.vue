@@ -6,7 +6,7 @@
         <div v-for="answer in questionData.answers" class="user-question">
             <question-card :isAnswer="true" :cardData="answer"></question-card>
         </div>
-        <question-text-area v-model="textAreaValue"></question-text-area>
+        <question-text-area v-model="textAreaValue"  class="small" ></question-text-area> <!--:collapsed="addAnswerBtnDisplayed" -->
         <v-btn block color="primary" @click="answer()" :disabled="!validForm" class="add_answer">Add your answer</v-btn>
     </div>
 </template>
@@ -25,7 +25,8 @@ export default {
     return {
       textAreaValue: "",
       files: [],
-      questionData: null
+      questionData: null,
+      addAnswerBtnDisplayed: true
     };
   },
   computed: {
@@ -41,13 +42,19 @@ export default {
         .then(function() {
           self.textAreaValue = "";
           //TODO: do this on client side
-          self.getData()
+          self.getData();
         });
+    },
+    showAddAnswer() {
+      //TODO: IRENA fix that
+      this.addAnswerBtnDisplayed = true;
     },
     getData() {
       var self = this;
       questionService.getQuestion(this.questionId).then(function(response) {
         self.questionData = response.data;
+        //TODO: IRENA fix that
+        self.addAnswerBtnDisplayed = Boolean(response.data.answers.length);
         self.buildChat();
       });
     },
@@ -67,7 +74,6 @@ export default {
         );
         conversation.setParticipant(this.chatAccount);
         conversation.setParticipant(other1);
-
         var chatbox = this.talkSession.createChatbox(conversation);
         this.$nextTick(() => {
           chatbox.mount(this.$refs["chat-area"]);
@@ -75,26 +81,25 @@ export default {
       }
     }
   },
-   watch: {
-        talkSession: function (newVal, oldVal) {
-            if (newVal) {
-                this.buildChat();
-            }
-        }
-    },
-    computed: {
-        ...mapGetters(["talkSession","accountUser","chatAccount"]),
-        isMobile() {
-            return this.$vuetify.breakpoint.xsOnly;
-        },
-
-        validForm() {
-            return this.textAreaValue.length
-        }
-    },
-   created() {
-        this.getData();
-        
+  watch: {
+    talkSession: function(newVal, oldVal) {
+      if (newVal) {
+        this.buildChat();
+      }
     }
+  },
+  computed: {
+    ...mapGetters(["talkSession", "accountUser", "chatAccount"]),
+    isMobile() {
+      return this.$vuetify.breakpoint.xsOnly;
+    },
+
+    validForm() {
+      return this.textAreaValue.length;
+    }
+  },
+  created() {
+    this.getData();
+  }
 };
 </script>

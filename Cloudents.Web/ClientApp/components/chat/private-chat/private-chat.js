@@ -1,9 +1,13 @@
+import userBlock from "../../helpers/user-block/user-block.vue"
+
 export default {
+    components:{userBlock},
     data() {
         return {
             messages:[],
             // messages:[{text:"Hello there", fromMe:false}],
-            newMessage:''
+            newMessage:'',
+            user:{name:'User Name'}
         }
     },
     methods:{

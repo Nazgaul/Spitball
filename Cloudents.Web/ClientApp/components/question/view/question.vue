@@ -7,7 +7,7 @@
 
                 <v-flex xs12 class="breadcrumbs">
                     <a class="ask-question" href="/askquestion">
-                        <v-icon>sbf-comment</v-icon>
+                        <v-icon>sbf-ask-q</v-icon>
                         Ask a question</a>
                     <span class="question-category">Questions  / Algebra</span>
                 </v-flex>
