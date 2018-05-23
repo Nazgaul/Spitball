@@ -27,7 +27,7 @@ namespace Cloudents.Web.Binders
                     Latitude = latitude,
                     Longitude = longitude
                 });
-                   
+
                 return;
             }
 

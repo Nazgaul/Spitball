@@ -140,8 +140,6 @@ namespace Cloudents.Web.Api
             return BadRequest();
         }
 
-        
-
         [HttpPost("password")]
         [Authorize(Policy = SignInStep.PolicyPassword)]
         public async Task<IActionResult> GeneratePasswordAsync([FromServices] IBlockChainProvider blockChainProvider)

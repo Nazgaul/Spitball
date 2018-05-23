@@ -9,6 +9,5 @@ namespace Cloudents.Web.Models
 
         [Required]
         public string Key { get; set; }
-
     }
 }

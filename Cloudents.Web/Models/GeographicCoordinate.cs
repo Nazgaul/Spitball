@@ -14,7 +14,6 @@ namespace Cloudents.Web.Models
         [Range(-180, 180), DataMember(Order = 2)]
         public float? Longitude { get; set; }
 
-
         [CanBeNull]
         public GeoPoint ToGeoPoint()
         {
@@ -36,7 +35,6 @@ namespace Cloudents.Web.Models
         {
             return !(obj1 == obj2);
         }
-
 
         public static GeographicCoordinate FromPoint(GeoPoint point)
         {

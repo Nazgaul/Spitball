@@ -52,6 +52,5 @@ namespace Cloudents.Infrastructure.Data
             //}
             //return _repository.WithConnection(DoQuery);
         }
-
     }
 }

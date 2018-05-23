@@ -27,7 +27,6 @@ namespace Cloudents.Web.Api
             _repository = repository;
         }
 
-
         /// <summary>
         /// Get flashcard data
         /// </summary>

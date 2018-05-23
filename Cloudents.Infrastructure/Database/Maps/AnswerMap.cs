@@ -15,7 +15,6 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Created).Not.Nullable();
             References(x => x.User).Column("UserId").ForeignKey("Answer_User").Not.Nullable();
             References(x => x.Question).Column("QuestionId").ForeignKey("Answer_Question").Not.Nullable();
-
         }
     }
 }

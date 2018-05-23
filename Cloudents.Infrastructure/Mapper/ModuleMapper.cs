@@ -16,8 +16,6 @@ namespace Cloudents.Infrastructure.Mapper
     {
         protected override void Load(ContainerBuilder builder)
         {
-          
-
             var assembly = Assembly.GetExecutingAssembly();
             builder.Register(_ => new MapperConfiguration(cfg =>
             {
@@ -27,8 +25,6 @@ namespace Cloudents.Infrastructure.Mapper
             builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve<IComponentContext>().Resolve))
                 .As<IMapper>().InstancePerLifetimeScope();
 
-
-            
         }
     }
 }

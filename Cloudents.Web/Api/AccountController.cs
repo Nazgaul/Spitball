@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -31,7 +30,6 @@ namespace Cloudents.Web.Api
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
 
-
             return Ok(new
             {
                 user.Id,
@@ -44,32 +42,26 @@ namespace Cloudents.Web.Api
 
         private string GetToken()
         {
-            var key = "sk_test_AQGzQ2Rlj0NeiNOEdj1SlosU";
+            // ReSharper disable once StringLiteralTypo
+            const string key = "sk_test_AQGzQ2Rlj0NeiNOEdj1SlosU";
             var message = _userManager.GetUserId(User);
 
-            var asciEncoding = new ASCIIEncoding();
-            var keyByte = asciEncoding.GetBytes(key);
-            var messageBytes = asciEncoding.GetBytes(message);
+            var asciiEncoding = new ASCIIEncoding();
+            var keyByte = asciiEncoding.GetBytes(key);
+            var messageBytes = asciiEncoding.GetBytes(message);
 
             using (var sha256 = new HMACSHA256(keyByte))
             {
                 var hashMessage = sha256.ComputeHash(messageBytes);
 
-                StringBuilder result = new StringBuilder();
+                var result = new StringBuilder();
                 foreach (byte b in hashMessage)
                 {
                     result.Append(b.ToString("X2"));
                 }
                 return result.ToString();
-
-                // to lowercase hexits
-                //var t = String.Concat(Array.ConvertAll(hashMessage, x => x.ToString("x2")));
-
-                // to base64
-                //return Convert.ToBase64String(hashMessage);
             }
         }
-
 
         [HttpGet("userName")]
         [Authorize(Policy = SignInStep.PolicyPassword)]
@@ -81,7 +73,6 @@ namespace Cloudents.Web.Api
 
         [HttpPost("userName"), ValidateModel]
         [Authorize(Policy = SignInStep.PolicyPassword)]
-
         public async Task<IActionResult> ChangeUserNameAsync([FromBody]ChangeUserNameRequest model)
         {
             //TODO: check if this unique
@@ -93,5 +84,6 @@ namespace Cloudents.Web.Api
             }
             return BadRequest();
         }
+
     }
 }

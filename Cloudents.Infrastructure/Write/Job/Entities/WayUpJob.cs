@@ -57,7 +57,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
         //    }
         //}
 
-        
         [XmlElement("title")]
         public string Title { get; set; }
 
@@ -66,7 +65,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
 
         [XmlElement("state")]
         public string State { get; set; }
-      
 
         [XmlElement("zip")]
         public string Zip { get; set; }
@@ -83,13 +81,11 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
         //    }
         //}
 
-        
         [XmlElement("job_type")]
         public string JobType { get; set; }
 
         [XmlElement("posted_at")]
         public string PostedDate { get; set; }
-        
 
         //public string job_reference
         //{
@@ -106,7 +102,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
         [XmlElement("company")]
         public string Company { get; set; }
 
-        
         //public string mobile_friendly_apply
         //{
         //    get
@@ -119,7 +114,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
         //    }
         //}
 
-        
         //public object category
         //{
         //    get
@@ -132,7 +126,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
         //    }
         //}
 
-        
         //public string html_jobs
         //{
         //    get
@@ -151,7 +144,6 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
         [XmlElement("body")]
         public string Body { get; set; }
 
-        
         //public decimal cpc
         //{
         //    get
@@ -164,5 +156,4 @@ namespace Cloudents.Infrastructure.Write.Job.Entities
         //    }
         //}
     }
-   
 }

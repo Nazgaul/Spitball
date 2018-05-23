@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Database.Repositories
 {
+    [UsedImplicitly]
     public class QuestionRepository : NHibernateRepository<Question>, IQuestionRepository
     {
         public QuestionRepository(UnitOfWork.Factory unitOfWork) : base(unitOfWork)
@@ -16,37 +18,33 @@ namespace Cloudents.Infrastructure.Database.Repositories
 
         public async Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token)
         {
-            //QuestionDetailDto dto = null;
-            ////QuestionDetailUserDto userDto = null;
-            //QuestionSubject commentAlias = null;
-            //Answer answerAlias = null;
-            //User userAlias = null;
-            //var rootObj = Session.QueryOver<Question>().Where(w => w.Id == id)
-            //    .JoinAlias(x => x.Subject, () => commentAlias)
-            //    .JoinAlias(x => x.User, () => userAlias)
-            //    //.Left.JoinAlias(x => x.Answers, () => answerAlias)
-            //    .SelectList(l => l
-            //        .Select(_ => commentAlias.Subject).WithAlias(() => dto.Subject)
+           /* QuestionDetailDto dto = null;
+            //QuestionDetailUserDto userDto = null;
+            QuestionSubject commentAlias = null;
+            Answer answerAlias = null;
+            User userAlias = null;
+            var rootObj = Session.QueryOver<Question>().Where(w => w.Id == id)
+                .JoinAlias(x => x.Subject, () => commentAlias)
+                .JoinAlias(x => x.User, () => userAlias)
+                //.Left.JoinAlias(x => x.Answers, () => answerAlias)
+                .SelectList(l => l
+                    .Select(_ => commentAlias.Subject).WithAlias(() => dto.Subject)
 
+                    .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
+                    .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
+                    //.Select(_ => userAlias.Id).WithAlias(() => userDto.Id)
+                    //.Select(_ => userAlias.Name).WithAlias(() => userDto.Name)
 
-            //        .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
-            //        .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
-            //        //.Select(_ => userAlias.Id).WithAlias(() => userDto.Id)
-            //        //.Select(_ => userAlias.Name).WithAlias(() => userDto.Name)
+                    .Select(s => s.Id).WithAlias(() => dto.Id)
+                    .Select(s => s.Text).WithAlias(() => dto.Text)
+                    .Select(s => s.Price).WithAlias(() => dto.Price)
+                    .Select(s => s.Created).WithAlias(() => dto.Create)
+                //.Select(Projections.Property(() => answerAlias.Id).As("Answers.Id"))
+                )
 
-            //        .Select(s => s.Id).WithAlias(() => dto.Id)
-            //        .Select(s => s.Text).WithAlias(() => dto.Text)
-            //        .Select(s => s.Price).WithAlias(() => dto.Price)
-            //        .Select(s => s.Created).WithAlias(() => dto.Create)
-            //    //.Select(Projections.Property(() => answerAlias.Id).As("Answers.Id"))
-            //    )
-
-
-            //    //.Fetch(f => f.Answers).Eager
-            //    .TransformUsing(new DeepTransformer<QuestionDetailDto>())
-            //    .FutureValue<QuestionDetailDto>();
-            
-            
+                //.Fetch(f => f.Answers).Eager
+                .TransformUsing(new DeepTransformer<QuestionDetailDto>())
+                .FutureValue<QuestionDetailDto>();*/
 
             //TODO: this is left join query need to fix that
             var questionFuture = Session.Query<Question>().Where(w => w.Id == id)
@@ -65,7 +63,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
                     Price = s.Price,
                     Subject = s.Subject.Subject,
                     Text = s.Text
-                }).ToFutureValue(); //.SingleOrDefaultAsync(cancellationToken: token).ConfigureAwait(false);
+                }).ToFutureValue(); 
             var answersFuture = Session.Query<Answer>().Where(w => w.Question.Id == id)
                 .Fetch(f=>f.User)
                 .Select(s => new QuestionDetailAnswerDto

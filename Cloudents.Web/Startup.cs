@@ -116,7 +116,6 @@ namespace Cloudents.Web
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequiredUniqueChars = 0;
-
                 }).AddDefaultTokenProviders();
 
             services.AddAuthorization(options =>

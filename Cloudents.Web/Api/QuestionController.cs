@@ -8,7 +8,6 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -38,7 +37,6 @@ namespace Cloudents.Web.Api
         [HttpPost, ValidateModel]
         public async Task<IActionResult> CreateQuestionAsync([FromBody]QuestionRequest model, CancellationToken token)
         {
-          
             var command = _mapper.Map<CreateQuestionCommand>(model);
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
@@ -50,7 +48,6 @@ namespace Cloudents.Web.Api
             var result = await queryBus.QueryAsync<IEnumerable<QuestionSubjectDto>>(token).ConfigureAwait(false);
             return Ok(result);
         }
-
 
         [HttpPost("upload")]
         public async Task<IActionResult> UploadFileAsync(UploadFileRequest model,
