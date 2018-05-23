@@ -71,9 +71,9 @@ namespace Cloudents.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<string> BuyTokens(string senderPK, int amount)
+        public async Task<string> BuyTokens(string senderPK, int amount, CancellationToken token)
         {
-            string result = await _blockchainProvider.BuyTokens(senderPK, amount);
+            string result = await _blockChainProvider.BuyTokensAsync(senderPK, amount,token);
             return result;
         }
     }

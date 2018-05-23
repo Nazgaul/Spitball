@@ -513,13 +513,14 @@ namespace Cloudents.Infrastructure.BlockChain
             return true;
         }
 
-        public async Task<string> BuyTokens(string senderPK, int amount){
+        public async Task<string> BuyTokensAsync(string senderPK, int amount, CancellationToken token)
+        {
 
-            var contract = await GetContractAsync(senderPK);
+            var contract = await GetContractAsync(senderPK, token).ConfigureAwait(false);
             var operationToExe = contract.GetFunction("");
             var maxGas = new HexBigInteger(70000);
             BigInteger Amount = new BigInteger(amount * Math.Pow(10, 18));
-            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPK), maxGas, new HexBigInteger(100), null);
+            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPK), maxGas, new HexBigInteger(100), null).ConfigureAwait(false);
             return receiptFirstAmountSend.ToString();
         }
     }

@@ -32,5 +32,14 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
+
+
+        [HttpPost, ValidateModel]
+        public async Task<IActionResult> UpVoteAsync([FromBody]UpVoteAnswerRequest model, CancellationToken token)
+        {
+            var command = _mapper.Map<UpVoteAnswerCommand>(model);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            return Ok();
+        }
     }
 }
