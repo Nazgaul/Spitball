@@ -22,6 +22,5 @@ namespace Cloudents.Core
         IEnumerable<T> ShuffleByPriority<T>(IEnumerable<T> result) where T : IShuffleable;
 
         IEnumerable<T> ShuffleBySource<T>(IEnumerable<T> result) where T : IShuffleable;
-
     }
 }

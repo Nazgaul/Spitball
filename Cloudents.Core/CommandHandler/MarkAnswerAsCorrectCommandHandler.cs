@@ -35,7 +35,6 @@ namespace Cloudents.Core.CommandHandler
             }
             question.CorrectAnswer = answer;
             await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
-
         }
     }
 }

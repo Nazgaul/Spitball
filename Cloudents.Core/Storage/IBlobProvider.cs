@@ -36,6 +36,8 @@ namespace Cloudents.Core.Storage
         Uri GetBlobUrl(string blobName, bool cdn = false);
 
         Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
+
+        Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
     }
 
 
@@ -46,7 +48,6 @@ namespace Cloudents.Core.Storage
         Task<IDictionary<string, string>> FetchBlobMetaDataAsync(Uri blobUri, CancellationToken token);
         string GetBlobNameFromUri(Uri uri);
         Task SaveMetaDataToBlobAsync(Uri blobUri, IDictionary<string, string> metadata, CancellationToken token);
-
 
 
     }

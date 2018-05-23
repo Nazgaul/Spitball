@@ -96,7 +96,7 @@ namespace Cloudents.Infrastructure.Database
         }
 
         // convert to DISTINCT list with populated Fields
-        public System.Collections.IList TransformList(System.Collections.IList collection)
+        public IList TransformList(IList collection)
         {
             var results = Transformers.AliasToBean<TEntity>().TransformList(collection);
             return results;

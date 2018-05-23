@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
@@ -10,5 +11,10 @@ namespace Cloudents.Web.Models
         [Required(AllowEmptyStrings = false)]
         public string Text { get; set; }
         public IEnumerable<string> Files { get; set; }
+    }
+
+    public class UpVoteAnswerRequest
+    {
+        public Guid Id { get; set; }
     }
 }

@@ -21,7 +21,6 @@ namespace Cloudents.Web.Api
             _defaultSuggestions = defaultSuggestions;
         }
 
-
         [HttpGet]
         public async Task<IActionResult> GetAsync(string sentence, Vertical? vertical, CancellationToken token)
         {

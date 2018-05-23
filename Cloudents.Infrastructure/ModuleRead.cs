@@ -2,6 +2,7 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
+using AutoMapper;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Read;
@@ -98,7 +99,7 @@ namespace Cloudents.Infrastructure
                     index += "-dev";
                 }
 
-                return new QuestionSearch(c.Resolve<ISearchServiceClient>(), index);
+                return new QuestionSearch(c.Resolve<ISearchServiceClient>(), index, c.Resolve<IMapper>());
             }).As<IQuestionSearch>();
             //builder.RegisterType<QuestionSearch>().As<IQuestionSearch>().WithParameter("indexName", "question-dev");
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()

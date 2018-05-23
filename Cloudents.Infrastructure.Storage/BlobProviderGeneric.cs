@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
@@ -90,29 +92,27 @@ namespace Cloudents.Infrastructure.Storage
             var blob = GetBlob(blobName);
             return blob.ExistsAsync();
         }
+
         public async Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token)
         {
             if (string.IsNullOrEmpty(blobName))
             {
                 throw new ArgumentException("message", nameof(blobName));
             }
-
-            //CloudBlockBlob destBlob;
             var destinationDirectory = _blobDirectory.GetDirectoryReference(destinationContainerName);
             var sourceBlob = GetBlob(blobName);
-
-            //if (!destinationDirectory())
-            //{
-            //    throw new Exception("Destination container does not exist.");
-            //}
-
-            //Copy source blob to destination container
-            //string name = srcBlob.Uri.Segments.Last();
             var destBlob = destinationDirectory.GetBlockBlobReference(blobName);
             await destBlob.StartCopyAsync(sourceBlob).ConfigureAwait(false);
-            //remove source blob after copy is done.
             await sourceBlob.DeleteAsync().ConfigureAwait(false);
-            //return destBlob.Name;
+        }
+
+        public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token)
+        {
+            var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
+
+            var result = await destinationDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 1000, null, null, null, token).ConfigureAwait(false);
+            return result.Results.Select(s => s.Uri);
+
         }
 
         //public async Task<CloudBlockBlob> UploadBlobAsync(Stream data,

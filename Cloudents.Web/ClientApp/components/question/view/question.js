@@ -13,26 +13,23 @@ export default {
     data() {
         return {
             textAreaValue: "",
-            files: [],
+            answerFiles: [],
             questionData: null,
             showForm: false
         };
     },
-    computed: {
-        validForm() {
-            return this.textAreaValue.length;
-        }
-    },
     methods: {
-        answer() {
+        submitAnswer() {
             var self = this;
-            questionService
-                .answerQuestion(this.id, this.textAreaValue, this.files)
+            questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
                 .then(function() {
                     self.textAreaValue = "";
                     //TODO: do this on client side (render data inserted by user without calling server)
                     self.getData();
                 });
+        },
+        addFile(filename){
+          this.answerFiles.push(filename);
         },
         getData() {
             var self = this;
@@ -76,10 +73,6 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
-
-        validForm() {
-            return this.textAreaValue.length;
-        }
     },
     created() {
         this.getData();

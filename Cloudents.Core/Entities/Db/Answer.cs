@@ -21,7 +21,6 @@ namespace Cloudents.Core.Entities.Db
         [UsedImplicitly]
         protected Answer()
         {
-            
         }
 
         public virtual Guid Id { get; set; }
@@ -32,5 +31,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual User User { get; set; }
 
         public virtual DateTime Created { get; set; }
+
+        public virtual int UpVote { get; set; }
     }
 }

@@ -13,7 +13,6 @@ namespace Cloudents.Infrastructure.Data
     //    Task<T> WithConnectionAsync<T>(Func<IDbConnection, Task<T>> getData, CancellationToken token);
     //    T WithConnection<T>(Func<IDbConnection, T> getData);
     //}
-   
 
     public class DapperRepository //: IDapperRepository
     {
@@ -88,6 +87,5 @@ namespace Cloudents.Infrastructure.Data
                 throw;
             }
         }
-
     }
 }

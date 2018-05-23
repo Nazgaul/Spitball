@@ -5,7 +5,7 @@ namespace Cloudents.Web.Models
     /// <summary>
     /// Course request object
     /// </summary>
-    
+
     public class CourseRequest
     {
         /// <summary>

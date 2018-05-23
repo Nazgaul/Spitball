@@ -14,7 +14,6 @@ using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Web.Filters
 {
-    
     //public class CaptchaValidator : ValidationAttribute
     //{
     //    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -23,17 +22,13 @@ namespace Cloudents.Web.Filters
     //        var httpClient = (IRestClient)validationContext.GetService(typeof(IRestClient));
     //        var environment = (IHostingEnvironment)validationContext.GetService(typeof(IHostingEnvironment));
 
-
-
     //        var secret = configuration["GoogleReCaptcha:Secret"];
-
 
     //        var nvc = new NameValueCollection()
     //        {
     //            ["secret"] = secret,
     //            ["response"] = value.ToString()
     //        };
-
 
     //        var result = httpClient.GetAsync<RecaptchaResponse>(
     //            new Uri("https://www.google.com/recaptcha/api/siteverify"), nvc,
@@ -56,7 +51,6 @@ namespace Cloudents.Web.Filters
     //        public bool Success { get; set; }
     //    }
     //}
-
 
     public sealed class ValidateRecaptchaAttribute : TypeFilterAttribute
     {
@@ -95,20 +89,16 @@ namespace Cloudents.Web.Filters
                     var t = await JToken.ReadFromAsync(jsonTextReader).ConfigureAwait(false);
                     captcha = t["captcha"].Value<string>();
                 }
-                
 
                 // captcha = context.HttpContext.Request.Form["captcha"];
 
-
                 var secret = _configuration["GoogleReCaptcha:Secret"];
-
 
                 var nvc = new NameValueCollection()
                 {
                     ["secret"] = secret,
                     ["response"] = captcha
                 };
-
 
                 var result = await _httpClient.GetAsync<RecaptchaResponse>(
                     new Uri("https://www.google.com/recaptcha/api/siteverify"), nvc,
@@ -126,9 +116,7 @@ namespace Cloudents.Web.Filters
                     context.Result = new BadRequestObjectResult(context.ModelState);
                 }
                 await base.OnActionExecutionAsync(context, next).ConfigureAwait(false);
-
             }
-
 
         }
 
