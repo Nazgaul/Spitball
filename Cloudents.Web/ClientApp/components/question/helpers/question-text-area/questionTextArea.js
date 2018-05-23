@@ -5,7 +5,8 @@ var Uploader = require('html5-uploader');
 export default {
     props: {
         value: {type: String},
-        isFocused: false
+        isFocused: false,
+        uploadUrl: {type: String}
     },
     data() {
         return {
@@ -22,7 +23,7 @@ export default {
         var self = this;
         var multiple = new Uploader({
             el: '#file-input',
-            url: '/api/Question/upload'
+            url: this.uploadUrl
         });
 
         multiple.on('files:added', function () {

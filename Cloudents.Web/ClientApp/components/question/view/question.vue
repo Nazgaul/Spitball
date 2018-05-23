@@ -16,7 +16,7 @@
                     <question-thread v-if="questionData" :questionData="questionData">
                         <div slot="answer-form" class="mb-3">
                             <div v-if="!questionData.answers || (questionData.answers && showForm)">
-                                <question-text-area
+                                <question-text-area uploadUrl="/api/Answer/upload"
                                         v-model="textAreaValue"
                                         :isFocused="showForm" @addFile="addFile"></question-text-area>
                                 <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
@@ -55,7 +55,7 @@
                             <question-thread v-if="questionData" :questionData="questionData">
                                 <div slot="answer-form" class="mb-3">
                                     <div v-if="!questionData.answers || (questionData.answers && showForm)">
-                                        <question-text-area
+                                        <question-text-area uploadUrl="/api/Answer/upload"
                                                 v-model="textAreaValue"
                                                 :isFocused="showForm" @addFile="addFile"></question-text-area>
                                         <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"

@@ -24,7 +24,7 @@
                 </v-flex>
 
 
-                <question-text-area v-model="textAreaValue" @addFile="addFile"></question-text-area>
+                <question-text-area uploadUrl="/api/Question/upload" v-model="textAreaValue" @addFile="addFile"></question-text-area>
 
                 <v-flex xs12>
                     <v-text-field
