@@ -10,9 +10,6 @@ namespace Cloudents.Web.Mapper
     {
         public MapperProfile()
         {
-            //_userManager = userManager;
-           // _context = context;
-
             CreateMap<QuestionRequest, CreateQuestionCommand>()
                 .ForMember(f => f.UserId,c=>c.ResolveUsing<UserIdResolver>());
 
@@ -22,7 +19,11 @@ namespace Cloudents.Web.Mapper
             CreateMap<MarkAsCorrectRequest, MarkAnswerAsCorrectCommand>()
                 .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
 
-            //MarkAsCorrectRequest
+            CreateMap<AssignUniversityRequest, AssignUniversityToUserCommand>()
+                .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
+            //.ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
         }
-    }
+
+    //IMappingAction
+}
 }

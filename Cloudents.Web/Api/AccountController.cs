@@ -1,7 +1,11 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -18,10 +22,14 @@ namespace Cloudents.Web.Api
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
+        private readonly ICommandBus _commandBus;
+        private readonly IMapper _mapper;
 
-        public AccountController(UserManager<User> userManager)
+        public AccountController(UserManager<User> userManager, ICommandBus commandBus, IMapper mapper)
         {
             _userManager = userManager;
+            _commandBus = commandBus;
+            _mapper = mapper;
         }
 
         // GET
@@ -83,6 +91,15 @@ namespace Cloudents.Web.Api
                 return Ok();
             }
             return BadRequest();
+        }
+
+        [HttpPost("university")]
+        public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
+        {
+            var command = _mapper.Map<AssignUniversityToUserCommand>(model);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            return Ok();
+
         }
 
     }
