@@ -2,28 +2,59 @@
 
 
 .question_area {
-  border: 8px solid #c7c7ee !important;
+  background-color: #c7c7ee;
   height: 233px;
-  background-color: @color-white;
+  padding: 8px;
+
+  &.collapsed{
+    height: 56px;
+    .textarea{
+      font-size: 14px;
+      font-weight: bold;
+      color: @color-main-purple;
+      padding: 9px 13px;
+      cursor: pointer;
+    }
+  }
 
   @media (max-width: @screen-xs) {
     height: 249px;
-
   }
 
-  textarea {
-    width: 100%;
-    resize: none;
-    padding: 11px 9px 4px;
-    letter-spacing: -0.3px;
-    height: 140px;
-    overflow-y: auto;
-    outline: none;
+  .textarea{
+    background-color: @color-white;
+    border-radius: 4px;
+    height: 100%;
 
-    @media (max-width: @screen-xs) {
-      height: 150px;
+    textarea {
+      width: 100%;
+      resize: none;
+      padding: 11px 9px 4px;
+      letter-spacing: -0.3px;
+      height: 140px;
+      overflow-y: auto;
+      outline: none;
+  
+      @media (max-width: @screen-xs) {
+        height: 150px;
+      }      
     }
   }
+
+  
+}
+
+.question_area.small{
+  @media (max-width: @screen-xs) {
+    height: 220px;
+  }
+
+  textarea{
+    @media (max-width: @screen-xs) {
+      height: 123px;
+    }
+  }
+  
 }
 
 ul.actions_text {
@@ -63,7 +94,7 @@ ul.actions_text {
         font-size: 17px;
       }
       .icon {
-        color: @color-main-purple
+        color: @color-main-purple;
       }
     }
     #file-input{

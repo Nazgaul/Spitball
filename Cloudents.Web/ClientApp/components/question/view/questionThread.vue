@@ -6,8 +6,8 @@
         <div v-for="answer in questionData.answers" class="user-question">
             <question-card :isAnswer="true" :cardData="answer"></question-card>
         </div>
-        <question-text-area v-model="textAreaValue"></question-text-area>
-        <v-btn block color="primary" @click=answer() :disabled="!validForm" class="add_answer">Add your answer</v-btn>
+        <question-text-area v-model="textAreaValue"  class="small" ></question-text-area> <!--:collapsed="addAnswerBtnDisplayed" -->
+        <v-btn block color="primary"  @click=answer() :disabled="!validForm" class="add_answer">Add your answer</v-btn>
     </div>
 </template>
 <script>
@@ -24,7 +24,8 @@
             return {
                 textAreaValue: '',
                 files: [],
-                questionData: {}
+                questionData: {},
+                addAnswerBtnDisplayed:true
             }
         },
         computed: {
@@ -40,17 +41,20 @@
                         self.textAreaValue = '';
                         questionService.getQuestion(self.questionId)
                             .then(function (response) {
-                                self.questionData = response.data
+                                self.questionData = response.data;                                
                             });
                     });
+            },
+            showAddAnswer(){
+                this.addAnswerBtnDisplayed = true;
             }
         },
         created() {
             var self = this;
             questionService.getQuestion(this.questionId)
                 .then(function (response) {
-                    self.questionData = response.data
-
+                    self.questionData = response.data;
+                    self.addAnswerBtnDisplayed = Boolean(response.data.answers.length);
                 });
         }
     }

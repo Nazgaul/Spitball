@@ -4,20 +4,10 @@
          <ul v-if="rooms.length">
             <li v-for="(room, index) in rooms" :class="{'active': activeRoom == room}" @click="selectRoom(room)">
 
-                <div class="conversation">
-                    
-                    <div class="user-block">
-                        <img class="avatar" src="./../../img/user.png" />
-                        <div class="text">
-                            <span><a href="/user">{{room.user}}</a> · 1 hour ago </span>
-                            <p class="last-msg">{{room.lastMsg}}</p>
-                        </div>
-                    </div> 
+                <div class="conversation">                   
+                    <user-block :user="user" :classType="'chat'" :text="'sadasbdb'"></user-block>
                     <img class="some-icon" src="./../../img/user.png" />
-
                 </div>
-                
-                
                               
             </li>                
         </ul>

@@ -13,17 +13,8 @@
         width: 100%;
         display: flex;
         align-items: center;
-        font-size: 12px;
-        font-weight: bold;
-    
-        .avatar{
-            width: 33px;
-            height: 33px;
-            border-radius: 15px;
-            background-color: @color-white;
-            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-            margin: 10px 10px 13px 17px;
-        }
+        padding: 10px 10px 13px 17px;    
+        
     }
 
 
@@ -32,15 +23,22 @@
         background: url("./../img/chat-background.png") repeat;
         background-color: #f0f0f0;
         background-size: cover;
-        // height: ~"calc(100% - 55px - 68px)";
-        min-height: 350px;
         display: flex;
+
+        min-height: ~"calc(100vh - 200px - 55px - 68px)";
+        max-height: ~"calc(100vh - 200px - 55px - 68px)";
+
+        @media(max-width: @screen-xs){
+            min-height: ~"calc(100vh - 48px - 55px - 68px)";
+            max-height: ~"calc(100vh - 48px - 55px - 68px)";
+          }
 
         .no-messages{
             margin: auto;
             width: 100%;
             height: 300px;
             text-align: center;
+            overflow: hidden;
 
             p{
                 font-size: 20px;
@@ -94,29 +92,40 @@
         }
     }
 
-    .form-message{
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
+    .bottom-chat{
+        background-color: #d8d8d8;
         padding: 9px 8px;
-        border-radius: 4px;
-        background-color: @color-white;
-        border: 8px solid #d8d8d8;
+        height: 65px;
 
-        input[type="text"]{
-            outline: none;
-            width: ~"calc(100% - 55px)";
-            height: 33px;
-        }
-        .send-btn{              
-            font-size: 14px;
-            font-weight: bold;
-            color: @color-white;
-            height: 33px;
-            width: 49px;
+        .form-message{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 5px 6px 0 14px;
             border-radius: 4px;
-            background-color: @color-main-purple; 
+            background-color: @color-white;
+            height: 100%;
+    
+            input[type="text"]{
+                outline: none;
+                width: ~"calc(100% - 55px)";
+                height: 33px;
+                font-size: 16px;
+                color: #5d5d5d;
+                letter-spacing: -0.9px;
+                
+            }
+            .send-btn{              
+                font-size: 14px;
+                font-weight: bold;
+                color: @color-white;
+                height: 33px;
+                width: 49px;
+                border-radius: 4px;
+                background-color: @color-main-purple; 
+            }
         }
     }
+    
 }
 
