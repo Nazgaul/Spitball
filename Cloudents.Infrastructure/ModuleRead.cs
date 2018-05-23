@@ -2,6 +2,7 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
+using AutoMapper;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Read;
@@ -15,6 +16,8 @@ using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Search.Tutor;
+using JetBrains.Annotations;
+using Microsoft.Azure.Search;
 using Microsoft.Cognitive.LUIS;
 using BingSearch = Cloudents.Infrastructure.Search.BingSearch;
 using ICacheProvider = Nager.PublicSuffix.ICacheProvider;
@@ -23,8 +26,8 @@ using Module = Autofac.Module;
 namespace Cloudents.Infrastructure
 {
     [ModuleRegistration(Core.Enum.System.Console)]
-    //[ModuleRegistration(Core.Enum.System.Api)]
     [ModuleRegistration(Core.Enum.System.Web)]
+    [UsedImplicitly]
     public sealed class ModuleRead : Module
     {
         [SuppressMessage("Microsoft.Design", "RCS1163:Unused parameter")]
@@ -69,7 +72,6 @@ namespace Cloudents.Infrastructure
 
             #endregion
 
-            builder.RegisterType<VideoSearch>().As<IVideoSearch>();
 
             #region Job
 
@@ -88,6 +90,18 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
+            builder.Register(c =>
+            {
+                var key = c.Resolve<IConfigurationKeys>().Db.Contains("Develop");
+                var index = "question";
+                if (key)
+                {
+                    index += "-dev";
+                }
+
+                return new QuestionSearch(c.Resolve<ISearchServiceClient>(), index, c.Resolve<IMapper>());
+            }).As<IQuestionSearch>();
+            //builder.RegisterType<QuestionSearch>().As<IQuestionSearch>().WithParameter("indexName", "question-dev");
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();
@@ -95,6 +109,7 @@ namespace Cloudents.Infrastructure
 
 
             builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
+            //builder.RegisterType<Mapper.Mapper>().AsImplementedInterfaces();
 
         }
     }

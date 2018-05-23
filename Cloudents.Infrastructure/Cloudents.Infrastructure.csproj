@@ -31,14 +31,13 @@
     <PackageReference Include="Dapper" Version="1.50.4" />
     <PackageReference Include="FluentNHibernate" Version="2.1.2" />
     <PackageReference Include="Google.Apis.Auth" Version="1.33.0" />
-    <PackageReference Include="Google.Apis.YouTube.v3" Version="1.33.0.1217" />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="1.8.1" />
     <PackageReference Include="Microsoft.Azure.Search" Version="5.0.0" />
     <PackageReference Include="Nager.PublicSuffix" Version="1.2.0" />
     <PackageReference Include="Nethereum.HdWallet" Version="2.4.0" />
     <PackageReference Include="Nethereum.Web3" Version="2.4.0" />
-    <PackageReference Include="NHibernate" Version="5.1.1" />
+    <PackageReference Include="NHibernate" Version="5.1.2" />
     <PackageReference Include="protobuf-net" Version="2.3.7" />
     <PackageReference Include="Sendgrid" Version="9.9.0" />
     <PackageReference Include="Spitball.Luis" Version="1.1.3" />

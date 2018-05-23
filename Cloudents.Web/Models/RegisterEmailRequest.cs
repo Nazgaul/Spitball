@@ -8,7 +8,7 @@ namespace Cloudents.Web.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        //[CaptchaValidator]
         public string Captcha { get; set; }
     }
 }

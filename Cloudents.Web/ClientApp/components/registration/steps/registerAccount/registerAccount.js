@@ -1,5 +1,5 @@
 import accountNum from "./accountNum.vue";
-import stepTemplate from '../stepTemplate.vue'
+import stepTemplate from '../stepTemplate.vue';
 import registrationService from "../../../../services/registrationService";
 
 export default {
@@ -23,7 +23,7 @@ export default {
         },
         closeDialog() {
             this.openDialog = false;
-            this.dialogWasViewed = true
+            this.dialogWasViewed = true;
         },
         finishRegistration() {
             this.$router.push({path: '/note', query: {q: ''}});
@@ -36,4 +36,4 @@ export default {
                 self.accountNum = response.data.password;
             })
     }
-}
+};

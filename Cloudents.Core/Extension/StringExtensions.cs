@@ -104,6 +104,5 @@ namespace Cloudents.Core.Extension
             }
             return RegEx.RemoveHtmlTags.Replace(text, string.Empty).DecodeHtmlEntities();
         }
-       
     }
 }

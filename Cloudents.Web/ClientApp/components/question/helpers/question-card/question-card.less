@@ -1,0 +1,103 @@
+@import "../../../../mixin.less";
+
+.question-card {
+    border-radius: 4px;
+    background-color: @color-white;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+    min-height: 100px;
+    width: 100%;
+
+    p{margin: 17px 19px 17px 17px;}
+
+    .q-price{
+        height: 47px;
+        overflow: hidden;
+        border-radius: 0 0 36px;
+        background-color: #f0f0f0;
+        border: solid 0.5px #dddddd;
+        border-top: 0;
+        border-left: 0;
+        font-size: 22px;
+        font-weight: bold;
+        color: #000000;
+        text-align: center;
+        padding-bottom: 7px;
+        padding-right: 16px;
+        padding-left: 12px;
+        display: inline-block;
+
+
+        span{margin: 5px 0px 10px; display: block;}
+    }
+
+    .q-answer{
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 12px 0 17px;
+
+        .q-text{
+            margin: 0;
+        }
+        .votes{
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.79;
+            color: @color-main-purple;
+            display: flex;
+    
+            i.sbf{
+                width: 25px;
+                height: 25px;
+                background-color: @color-white;
+                border: solid 1px @color-main-purple;
+                border-radius: 15px;
+                color: @color-main-purple;
+    
+                &.upvotes{transform: scale(1, -1);margin: 0 4px;}
+            }
+            
+        }
+    }    
+
+    .q-category{
+        @media(max-width: @screen-xs){ font-size: 16px; }
+        font-size: 20px;
+        
+        font-weight: bold;
+        color: #125fac;
+    }
+
+    .q-text{
+        @media(max-width: @screen-xs){ font-size: 16px; }
+        font-size: 20px;
+        line-height: 1.35;
+        letter-spacing: -0.4px;
+        text-align: left;
+        color: #4a4a4a;
+    }
+
+    .answer{
+        padding: 17px;
+        display: flex;
+        justify-content: flex-end;
+
+        .answer-btn{            
+            border-radius: 4px;
+            background-color: #0455a8;
+            font-size: 14px;
+            color: @color-white;
+            padding: 3px 20px;              
+        }
+    }
+    
+    .q-user-info{  
+        bottom: 0;      
+        height: 47px;
+        width: 100%;
+        border-top: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        padding: 10px 10px 13px 17px;
+    }
+}      

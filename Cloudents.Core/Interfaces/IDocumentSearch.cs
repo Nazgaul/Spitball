@@ -24,9 +24,5 @@ namespace Cloudents.Core.Interfaces
         Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model,
             HighlightTextFormat format, CancellationToken token);
     }
-
-    public interface IWebAskSearch
-    {
-        Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, HighlightTextFormat format, CancellationToken token);
-    }
+    
 }

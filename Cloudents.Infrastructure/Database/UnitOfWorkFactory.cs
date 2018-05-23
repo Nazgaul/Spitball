@@ -12,7 +12,7 @@ using NHibernate.Cfg;
 namespace Cloudents.Infrastructure.Database
 {
     [UsedImplicitly]
-    public class UnitOfWorkFactory : IUnitOfWorkFactory
+    public class UnitOfWorkFactory //: IUnitOfWorkFactory
     {
         private readonly ISessionFactory _factory;
 
@@ -37,7 +37,12 @@ namespace Cloudents.Infrastructure.Database
             var configuration = Fluently.Configure()
                 .Database(
                     FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.GetConnectionString(db))
-                        .DefaultSchema("sb"))
+                        .DefaultSchema("sb")
+#if DEBUG
+                        .ShowSql
+#endif
+
+                    )
                 .ExposeConfiguration(BuildSchema);
             if (db == Core.Enum.Database.System)
             {

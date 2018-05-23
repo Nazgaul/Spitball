@@ -35,16 +35,7 @@ namespace Cloudents.Core.Request
             };
         }
 
-        public static SearchQuery Ask(IEnumerable<string> query, int page, IEnumerable<string> sources)
-        {
-            return new SearchQuery
-            {
-                Query = query,
-                Source = sources,
-                Page = page
-            };
-
-        }
+       
 
         private SearchQuery()
         {

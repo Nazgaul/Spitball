@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
@@ -14,6 +13,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Converters;
 using JetBrains.Annotations;
 using Cloudents.Core.Read;
+using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search
 {
@@ -91,7 +91,7 @@ namespace Cloudents.Infrastructure.Search
                 return string.Empty;
             }
 
-            var sites = string.Join(" OR ", sources.Select(s=> $"site:{s}"));
+            var sites = string.Join(" OR ", sources.Select(s => $"site:{s}"));
             if (string.IsNullOrEmpty(sites))
             {
                 return string.Empty;

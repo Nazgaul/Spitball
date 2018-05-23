@@ -17,6 +17,10 @@ namespace Cloudents.Core.Entities.Db
         public virtual string NormalizedName { get; set; }
         public virtual string NormalizedEmail{ get; set; }
         public virtual string SecurityStamp{ get; set; }
+
+        public virtual string Image { get; set; }
+
+        public virtual University University { get; set; }
     }
 
     //public class UserRole

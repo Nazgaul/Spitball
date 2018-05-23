@@ -1,25 +1,32 @@
-import stepTemplate from '../stepTemplate.vue'
+import stepTemplate from '../stepTemplate.vue';
 
-﻿import registrationService from '../../../../services/registrationService'
+import registrationService from '../../../../services/registrationService';
+import VueRecaptcha from 'vue-recaptcha';
 
 var auth2;
 
 export default {
-    components: {stepTemplate},
+    components: {stepTemplate, VueRecaptcha},
     data() {
         return {
             userEmail: this.$store.getters.getEmail || '',
+            recaptcha: '',
             emailSent: false,
-            errorMessages: ''
+            errorMessages: '',
+            disableSubmit: false
         }
     },
     methods: {
         next() {
             self = this;
-            registrationService.emailRegistration(this.userEmail)
+            self.disableSubmit = true;
+            debugger;
+            registrationService.emailRegistration(this.userEmail, this.recaptcha)
                 .then(function () {
                     self.emailSent = true
+                    self.disableSubmit = false;
                 }, function (reason) {
+                    console.error(reason);
                 });
         },
         googleLogIn() {
@@ -35,9 +42,15 @@ export default {
                         self.$emit('next');
                     }, function (reason) {
                         debugger;
-                        // rejection
+                        console.error(reason);
                     });
             });
+        },
+        onVerify(response) {
+            this.recaptcha = response;
+        },
+        onExpired() {
+            this.recaptcha = "";
         }
     },
     beforeCreate() {
@@ -47,6 +60,6 @@ export default {
             });
         });
     }
-}
+};
 
 

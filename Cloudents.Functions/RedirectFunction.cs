@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
@@ -15,7 +13,6 @@ using Microsoft.Azure.WebJobs.Host;
 
 namespace Cloudents.Functions
 {
-    //[DependencyInjectionConfig(typeof(DiConfig))]
     public static class RedirectFunction
     {
         [FunctionName("UrlRedirect")]
@@ -40,23 +37,20 @@ namespace Cloudents.Functions
             return new RedirectResult(url);
         }
 
-        private static readonly Dictionary<string, Func<string, string>> HostFuncs = new Dictionary<string, Func<string, string>>(StringComparer.OrdinalIgnoreCase)
-        {
-            
-            {
-                "studyBlue" , url =>
-                {
-                    var uri = new Uri(url);
-                    
-                    var uriBuilder = new UriBuilder(uri)
-                    {
-                        Query = "?utm_source=spitball&utm_medium=referral"
-                    };
-                    return uriBuilder.ToString();
-                }
-            }
-        };
-
+        //private static readonly Dictionary<string, Func<string, string>> HostFuncs = new Dictionary<string, Func<string, string>>(StringComparer.OrdinalIgnoreCase)
+        //{
+        //    {
+        //        "studyBlue" , url =>
+        //        {
+        //            var uri = new Uri(url);
+        //            var uriBuilder = new UriBuilder(uri)
+        //            {
+        //                Query = "?utm_source=spitball&utm_medium=referral"
+        //            };
+        //            return uriBuilder.ToString();
+        //        }
+        //    }
+        //};
 
         [FunctionName("UrlProcess")]
         [UsedImplicitly]

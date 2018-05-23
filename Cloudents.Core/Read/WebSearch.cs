@@ -11,7 +11,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Core.Read
 {
     [UsedImplicitly]
-    public class WebSearch : IWebDocumentSearch, IWebAskSearch, IWebFlashcardSearch
+    public class WebSearch : IWebDocumentSearch, IWebFlashcardSearch
     {
         private readonly ISearch _search;
         private readonly ISearchConvertRepository _searchConvertRepository;
@@ -61,18 +61,6 @@ namespace Cloudents.Core.Read
                 return null;
             }).Where(w => w != null).SelectMany(s => s);
         }
-
-        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, HighlightTextFormat format, CancellationToken token)
-        {
-
-            var cseModel = new SearchModel(model.Query, BuildSources(model.Source), _api, null, null, model.DocType);
-            var result = await _search.SearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
-            var facets = _api.Priority.Select(s => s.Key).OrderBy(s => s);
-            return new ResultWithFacetDto<SearchResult>
-            {
-                Result = result,
-                Facet = facets
-            };
-        }
+        
     }
 }

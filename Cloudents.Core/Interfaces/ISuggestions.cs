@@ -14,6 +14,5 @@ namespace Cloudents.Core.Interfaces
     {
         [ItemCanBeNull]
         Task<string> GetValueAsync(string query, CancellationToken token);
-
     }
 }

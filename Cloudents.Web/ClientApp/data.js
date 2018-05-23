@@ -2,6 +2,20 @@
 
 export let verticals =
     {
+
+        marketplace: {
+            id: routes.marketRoute,
+            name: "Marketplace",
+            icon: "sbf-marketplace"
+
+        },
+        ask: {
+            filter:[{ id: "source", name: "sources" }],
+            id: routes.questionRoute,
+            name: "Ask a Question",
+            icon: "sbf-ask-q"
+
+        },
         note: {
             id: routes.notesRoute,
             name: "Study Documents",
@@ -10,7 +24,8 @@ export let verticals =
             sort: [
                 { id: "relevance", name: "relevance" },
                 { id: "date", name: "date" }
-            ]
+            ],
+            icon: "sbf-note"
         },
         flashcard: {
             id: routes.flashcardRoute,
@@ -23,7 +38,8 @@ export let verticals =
             sort: [
                 { id: "relevance", name: "relevance" },
                 { id: "date", name: "date" }
-            ]
+            ],
+            icon: "sbf-flashcards"
         },
         tutor: {
             id: routes.tutorRoute,
@@ -37,17 +53,13 @@ export let verticals =
                 { id: "relevance", name: "relevance" },
                 { id: "price", name: "price" }
                 // { id: "distance", name: "distance" }
-            ]
+            ],
+            icon: "sbf-tutor"
         },
         book: {
             id: routes.bookRoute,
-            name: "Textbooks"
-        },
-        ask: {
-            filter:[{ id: "source", name: "sources" }],
-            id: routes.questionRoute,
-            name: "Ask a Question"
-            
+            name: "Textbooks",
+            icon: "sbf-textbooks"
         },
         job: {
             id: routes.jobRoute,
@@ -58,15 +70,17 @@ export let verticals =
                 { id: "relevance", name: "relevance" },
                 // { id: "distance", name: "distance" },
                 { id: "date", name: "date" }
-            ]
+            ],
+            icon: "sbf-job"
         },
-        food: {
-            id: routes.foodRoute,
-            needLocation: true,
-            name: "Food and Deals",
-            filter: [
-                { id: "openNow", name: "Open now" }]
-        }
+        //TODO: remove food stuff from code
+        // food: {
+        //     id: routes.foodRoute,
+        //     needLocation: true,
+        //     name: "Food and Deals",
+        //     filter: [
+        //         { id: "openNow", name: "Open now" }]
+        // }
 
     };
 export let details = {
@@ -92,7 +106,8 @@ for (let v in verticals) {
     verticalsNavbar.push(
         {
             'id': item.id,
-            'name': item.name
+            'name': item.name,
+            'icon': item.icon
             //image: item.image
         });
     verticalsList.push(verticals[v]);

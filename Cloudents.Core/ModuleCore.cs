@@ -20,6 +20,10 @@ namespace Cloudents.Core
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandlerAsync<>)).AsImplementedInterfaces();
             builder.RegisterType<CommandBus>().As<ICommandBus>();
 
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<,>));
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<>));
+            builder.RegisterType<QueryBus>().As<IQueryBus>();
+
             builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
 
             builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
@@ -29,7 +33,6 @@ namespace Cloudents.Core
 
             builder.RegisterType<WebSearch>().As<IWebDocumentSearch>().WithParameter("api", CustomApiKey.Documents);
             builder.RegisterType<WebSearch>().As<IWebFlashcardSearch>().WithParameter("api", CustomApiKey.Flashcard);
-            builder.RegisterType<WebSearch>().As<IWebAskSearch>().WithParameter("api", CustomApiKey.AskQuestion);
         }
     }
 }

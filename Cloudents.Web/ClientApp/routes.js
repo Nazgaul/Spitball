@@ -10,13 +10,19 @@ const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const pageHeader = () => import("./components/header/header.vue");
 //const pageHeaderBasic = () => import("./components/helpers/header.vue");
-const boodDetailsHeader = () => import("./components/book/header.vue");
+const bookDetailsHeader = () => import("./components/book/header.vue");
+const questionDetailsHeader = () => import("./components/question/header/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
 const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
 const registration = () => import("./components/registration/registration.vue");
+const signin = () => import("./components/registration/signin.vue");
+const askQuestion = () => import("./components/question/ask/ask-question.vue");
+const viewQuestion = () => import("./components/question/view/question.vue");
+const viewProfile = () => import("./components/profile/view/profile.vue");
+const viewChat = () => import("./components/chat/view/chat.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
 
@@ -95,6 +101,7 @@ let routes2 = [
 
     {
         path: "/result", name: "result", alias: [
+            "/" + RouteTypes.marketRoute,
             "/" + RouteTypes.questionRoute,
             "/" + RouteTypes.flashcardRoute,
             "/" + RouteTypes.notesRoute,
@@ -119,7 +126,7 @@ let routes2 = [
         name: RouteTypes.bookDetailsRoute,
         components: {
             default: bookDetails,
-            header: boodDetailsHeader
+            header: bookDetailsHeader
         },
         props: bookDetailsProps
     },
@@ -180,13 +187,53 @@ let routes2 = [
         }, name: "registration"
     },
     {
+        path: "/askquestion", components: {
+            default: askQuestion,
+            header: pageHeader,
+        }, name: "askQuestion"
+    },
+    {
+        path: "/question/:id",
+        components: {
+            default: viewQuestion,
+            header: questionDetailsHeader,
+        },
+        name: "question",
+        props: {
+            default: (route) => ({id: route.params.id}),
+        }
+    },
+    {
+        path: "/profile", components: {
+            default: viewProfile,
+            header: pageHeader,
+        }, name: "profile"
+    },
+    {
+        path: "/chat", components: {
+            default: viewChat,
+            header: pageHeader,
+        }, name: "chat"
+    },
+    {
         path: "/confirmEmail",
         components: {
             default: registration,
         },
         name: "registration",
-        meta: { step: 1}
+        meta: {step: 1}
     },
+    {
+        path: "/signin", components: {
+            default: signin
+        }, name: "signin"
+    },
+    {
+        path: "/temp",
+        components : {
+            default: () => import("./components/temp/temp.vue") 
+        }
+    }
 
 ];
 
@@ -199,7 +246,7 @@ for (let v in staticRoutes) {
             header: satelliteHeader,
             default: item.import
         },
-        props:{default:(route)=>item.params?item.params(route):{}}
+        props: {default: (route) => item.params ? item.params(route) : {}}
     })
 }
 

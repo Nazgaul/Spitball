@@ -41,7 +41,7 @@ namespace Cloudents.Web.Api
                 {
                     Question = content.Element("question")?.Value.Trim(),
                     Answer = content.Element("answer")?.Value.Trim()
-                   
+
                 };
         }
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -12,5 +13,7 @@ namespace Cloudents.Web.Models
         [Required]
         [Range(0.1, 1000)]
         public decimal Price { get; set; }
+
+        public IEnumerable<string> Files { get; set; }
     }
 }

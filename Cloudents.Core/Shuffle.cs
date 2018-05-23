@@ -32,7 +32,6 @@ namespace Cloudents.Core
 
             while (listOfResult.Count > 0)
             {
-                
                 var lastElement = list.Last();
                 var index = listOfResult.FindIndex(f => !Equals(f.PrioritySource.Source, lastElement.PrioritySource.Source));
                 if (index == -1)
@@ -47,7 +46,6 @@ namespace Cloudents.Core
 
             return list;
         }
-
       
     }
 }

@@ -21,9 +21,23 @@ namespace Cloudents.Infrastructure.Storage
 
         public CloudBlobDirectory GetBlobClient(IStorageContainer container)
         {
+            var blobClient = GetCloudBlobClient();
+            //var att = ExtractContainerData(container);
+            var con = blobClient.GetContainerReference(container.Container.Name.ToLowerInvariant());
+            return con.GetDirectoryReference(container.Container.RelativePath ?? string.Empty);
+        }
+
+        //private static StorageAttribute ExtractContainerData(StorageContainer container)
+        //{
+        //    return container.GetType().GetField(container.ToString()).GetCustomAttribute<StorageAttribute>();
+        //}
+
+        private CloudBlobClient GetCloudBlobClient()
+        {
             var blobClient = CloudStorage.CreateCloudBlobClient();
-            var con = blobClient.GetContainerReference(container.Name.ToLowerInvariant());
-            return con.GetDirectoryReference(container.RelativePath ?? string.Empty);
+            //var att = container.GetType().GetField(container.ToString()).GetCustomAttribute<StorageAttribute>();
+            //var con = blobClient.GetContainerReference(att.Name.ToLowerInvariant());
+            return blobClient;
         }
 
         public CloudQueueClient GetQueueClient()
@@ -47,6 +61,15 @@ namespace Cloudents.Infrastructure.Storage
                 tasks.Add(queue.CreateIfNotExistsAsync());
             }
 
+            var storageClient = GetCloudBlobClient();
+            foreach (var container in GetContainers())
+            {
+                //var att = ExtractContainerData(container);
+                var blobContainer = storageClient.GetContainerReference(container.Name);
+                tasks.Add(blobContainer.CreateIfNotExistsAsync());
+            }
+
+
             Task.WaitAll(tasks.ToArray(), TimeSpan.Zero);
 
             //If we want to create new storage
@@ -61,6 +84,20 @@ namespace Cloudents.Infrastructure.Storage
                     continue;
                 }
                 yield return (QueueName)field.GetValue(null);
+            }
+        }
+
+
+        public static IEnumerable<StorageContainer> GetContainers()
+        {
+            // return Enum.GetValues(typeof(StorageContainer)).Cast<StorageContainer>();
+            foreach (var field in typeof(StorageContainer).GetFields(BindingFlags.Public | BindingFlags.Static))
+            {
+                if (field.IsLiteral)
+                {
+                    continue;
+                }
+                yield return (StorageContainer)field.GetValue(null);
             }
         }
     }

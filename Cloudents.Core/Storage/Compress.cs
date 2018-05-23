@@ -46,15 +46,15 @@ namespace Cloudents.Core.Storage
             return output;
         }
 
-        public static async Task<byte[]> CompressToGzipAsync(Stream stream, CancellationToken token = default(CancellationToken))
+        public static async Task<Stream> CompressToGzipAsync(Stream stream, CancellationToken token = default(CancellationToken))
         {
             stream.Seek(0, SeekOrigin.Begin);
             var ms = new MemoryStream();
-            using (var gz = new GZipStream(ms, CompressionMode.Compress))
+            using (var gz = new GZipStream(ms, CompressionLevel.Optimal))
             {
                 await stream.CopyToAsync(gz, 81920, token).ConfigureAwait(false);
             }
-            return ms.ToArray();
+            return ms;
         }
     }
 }

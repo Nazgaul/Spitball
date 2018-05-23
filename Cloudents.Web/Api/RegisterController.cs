@@ -40,11 +40,10 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
-        [ValidateModel]
+        [ValidateModel,ValidateRecaptcha]
         public async Task<IActionResult> CreateUserAsync([FromBody]RegisterEmailRequest model, CancellationToken token)
         {
             var userName = model.Email.Split(new[] { '.', '@' }, 1, StringSplitOptions.RemoveEmptyEntries)[0];
-
             var user = new User
             {
                 Email = model.Email,
@@ -67,7 +66,7 @@ namespace Cloudents.Web.Api
                 var t1 = _queueProvider.InsertMessageAsync(message, token);
                 var t2 = _signInManager.SignInAsync(user, isPersistent: false);
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
-                return Ok(model.Captcha);
+                return Ok();
             }
 
             //await _signInManager.SignInAsync(user, false);
@@ -141,35 +140,12 @@ namespace Cloudents.Web.Api
             return BadRequest();
         }
 
-        [HttpGet("userName")]
-        [Authorize(Policy = SignInStep.PolicyPassword)]
-        public IActionResult GetUserName()
-        {
-            var name = _userManager.GetUserName(User);
-            return Ok(new { name });
-        }
-
-        [HttpPost("userName"), ValidateModel]
-        [Authorize(Policy = SignInStep.PolicyPassword)]
-
-        public async Task<IActionResult> ChangeUserNameAsync([FromBody]ChangeUserNameRequest model)
-        {
-            //TODO: check if this unique
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var result = await _userManager.SetUserNameAsync(user, model.Name).ConfigureAwait(false);
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-            return BadRequest();
-        }
-
         [HttpPost("password")]
         [Authorize(Policy = SignInStep.PolicyPassword)]
-        public async Task<IActionResult> GeneratePasswordAsync([FromServices] IBlockchainProvider blockchainProvider)
+        public async Task<IActionResult> GeneratePasswordAsync([FromServices] IBlockChainProvider blockChainProvider)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var account = blockchainProvider.CreateAccount();
+            var account = blockChainProvider.CreateAccount();
             var privateKey = account.PrivateKey;
             var result = await _userManager.AddPasswordAsync(user, privateKey).ConfigureAwait(false);
             if (result.Succeeded)

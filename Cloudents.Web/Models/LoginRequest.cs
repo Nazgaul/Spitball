@@ -9,8 +9,5 @@ namespace Cloudents.Web.Models
 
         [Required]
         public string Key { get; set; }
-
-        [Required]
-        public string Captcha { get; set; }
     }
 }

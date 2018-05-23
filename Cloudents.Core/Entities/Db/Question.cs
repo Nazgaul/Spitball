@@ -1,4 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities.Db
 {
@@ -14,8 +17,10 @@ namespace Cloudents.Core.Entities.Db
             Price = price;
             Attachments = attachments;
             User = user;
+            Created = DateTime.UtcNow;
         }
 
+        [UsedImplicitly]
         protected Question()
         {
         }
@@ -28,5 +33,11 @@ namespace Cloudents.Core.Entities.Db
         public virtual int Attachments { get; set; }
 
         public virtual User User { get; set; }
+
+        public virtual DateTime Created { get; set; }
+
+        public virtual Answer CorrectAnswer { get; set; }
+
+        public virtual IList<Answer> Answers { get; set; }
     }
 }

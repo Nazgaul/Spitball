@@ -22,7 +22,6 @@ namespace Cloudents.Core.Interfaces
         string FunctionEndpoint { get; }
         string BlockChainNetwork { get; }
 
-
         LocalStorageData LocalStorageData { get; }
     }
 }

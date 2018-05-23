@@ -1,5 +1,5 @@
 <template>
-    <div class="register-account">
+    <div class="step-account">
         <step-template v-if="!showSummary">
             <div slot="step-data" class="limited-width">
                 <h1 class="step-title">Your Account Number</h1>

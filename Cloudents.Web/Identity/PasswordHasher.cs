@@ -8,9 +8,9 @@ namespace Cloudents.Web.Identity
     [UsedImplicitly]
     public class PasswordHasher : IPasswordHasher<User>
     {
-        private readonly IBlockchainProvider _blockChainProvider;
+        private readonly IBlockChainProvider _blockChainProvider;
 
-        public PasswordHasher(IBlockchainProvider blockChainProvider)
+        public PasswordHasher(IBlockChainProvider blockChainProvider)
         {
             _blockChainProvider = blockChainProvider;
         }
@@ -22,7 +22,10 @@ namespace Cloudents.Web.Identity
 
         public PasswordVerificationResult VerifyHashedPassword(User user, string hashedPassword, string providedPassword)
         {
-            if (user.PublicKey == hashedPassword)
+            //TODO: need to check if the password is valid hex
+            var publicAddress = _blockChainProvider.GetPublicAddress(providedPassword);
+
+            if (hashedPassword == publicAddress)
             {
                 return PasswordVerificationResult.Success;
             }
