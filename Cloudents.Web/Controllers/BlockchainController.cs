@@ -35,7 +35,7 @@ namespace Cloudents.Web.Controllers
         {
             var from = _account[model.FromPk].Key;
             var to = _account[model.ToAddress].Value;
-            var transactionReceipt = await _blockChainProvider.TransferMoneyAsync(from, to, model.Amount, token).ConfigureAwait(false);
+            var transactionReceipt = await _blockChainProvider.TransferMoneyAsync(from, to, model.Amount, token);
 
             return Ok(transactionReceipt);
         }
@@ -49,9 +49,9 @@ namespace Cloudents.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<BigInteger> GetBalance(int fromPk, CancellationToken token)
+        public async Task<BigInteger> GetBalance(int fromAddress, CancellationToken token)
         {
-            var from = _account[fromPk].Key;
+            var from = _account[fromAddress].Value;
             var balance = await _blockChainProvider.GetTokenBalanceAsync(@from, token).ConfigureAwait(false);
             return balance;
         }
@@ -70,11 +70,11 @@ namespace Cloudents.Web.Controllers
             return result;
         }
 
-        [HttpPost]
-        public async Task<string> BuyTokens(string senderPK, int amount)
-        {
-            string result = await _blockchainProvider.BuyTokens(senderPK, amount);
-            return result;
-        }
+        //[HttpPost]
+        //public async Task<string> BuyTokens(string senderPK, int amount)
+        //{
+        //    string result = await _blockchainProvider.BuyTokens(senderPK, amount);
+        //    return result;
+        //}
     }
 }

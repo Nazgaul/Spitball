@@ -20,7 +20,21 @@ namespace Cloudents.Infrastructure.BlockChain
             _configurationKeys = configurationKeys;
         }
 
-        private async Task<Contract> GetContractAsync(string senderPk, CancellationToken token)
+        private Web3 GenerateWeb3Instance(string senderPk = null) {
+            if (senderPk != null)
+            {
+                var account = new Account(senderPk);
+                var web3 = new Web3(account, _configurationKeys.BlockChainNetwork);
+                return web3;
+            }
+            else
+            {
+                var web3 = new Web3(_configurationKeys.BlockChainNetwork);
+                return web3;
+            }
+        }
+
+        private async Task<Contract> GetContractAsync(CancellationToken token, Web3 web3)
         {
             const string abi = @"[
 	{
@@ -460,11 +474,11 @@ namespace Cloudents.Infrastructure.BlockChain
 	}
 ]";
             //ICO abi
-           // "0xa09db301ad49fb1e240f7fe6c4a70edadd9506d93278fb412b571cf8b2786aa4"; //old ICO Contract Hash
+            // "0xa09db301ad49fb1e240f7fe6c4a70edadd9506d93278fb412b571cf8b2786aa4"; //old ICO Contract Hash
             const string transactionHash = "0x175bcd364676ab6632be0ef862723a09370b206c7f9ea7c9ef79cf0889fad8b1"; //ICO Contract Hash
             //0x175bcd364676ab6632be0ef862723a09370b206c7f9ea7c9ef79cf0889fad8b1
-            var account = new Account(senderPk);
-            var web3 = new Web3(account, _configurationKeys.BlockChainNetwork);
+           
+           
             var deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionHash).ConfigureAwait(false);
             while (deploymentReceipt == null)
             {
@@ -473,24 +487,29 @@ namespace Cloudents.Infrastructure.BlockChain
             }
             var contractAddress = deploymentReceipt.ContractAddress;
             return web3.Eth.GetContract(abi, contractAddress);
+
         }
 
-        public async Task<BigInteger> GetTokenBalanceAsync(string senderPk, CancellationToken token)
+     
+          
+        
+
+        public async Task<BigInteger> GetTokenBalanceAsync(string senderAddress, CancellationToken token)
         {
-            var contract = await GetContractAsync(senderPk, token).ConfigureAwait(false);
+            var contract = await GetContractAsync(token, GenerateWeb3Instance());
             var function = contract.GetFunction("balanceOf");
-            var parameters = (new object[] { GetPublicAddress(senderPk) });
-            return await function.CallAsync<BigInteger>(parameters).ConfigureAwait(false);
+            var parameters = (new object[] { senderAddress });
+            return await function.CallAsync<BigInteger>(parameters);
         }
 
         public async Task<string> TransferMoneyAsync(string senderPk, string toAddress, float amount, CancellationToken token)
         {
-            var contract = await GetContractAsync(senderPk, token).ConfigureAwait(false);
+            var contract = await GetContractAsync(token, GenerateWeb3Instance(senderPk)).ConfigureAwait(false);
             var operationToExe = contract.GetFunction("transfer");
             var maxGas = new HexBigInteger(70000);
             var amountTransformed = new BigInteger(amount * Math.Pow(10, 18));
             var parameters = (new object[] { toAddress, amountTransformed });
-            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPk), maxGas, null, null, parameters).ConfigureAwait(false);
+            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPk), maxGas, null, null, parameters);
             return receiptFirstAmountSend.BlockHash;
         }
 
@@ -513,14 +532,15 @@ namespace Cloudents.Infrastructure.BlockChain
             return true;
         }
 
-        public async Task<string> BuyTokens(string senderPK, int amount){
+        //public async Task<string> BuyTokens(string senderPK, int amount, CancellationToken token)
+        //{
 
-            var contract = await GetContractAsync(senderPK);
-            var operationToExe = contract.GetFunction("");
-            var maxGas = new HexBigInteger(70000);
-            BigInteger Amount = new BigInteger(amount * Math.Pow(10, 18));
-            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPK), maxGas, new HexBigInteger(100), null);
-            return receiptFirstAmountSend.ToString();
-        }
+        //    var contract = await GetContractAsync(token, GenerateWeb3Instance(senderPK)).ConfigureAwait(false);
+        //    var operationToExe = contract.GetFunction("");
+        //    var maxGas = new HexBigInteger(70000);
+        //    BigInteger Amount = new BigInteger(amount * Math.Pow(10, 18));
+        //    var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPK), maxGas, new HexBigInteger(100), null);
+        //    return receiptFirstAmountSend.ToString();
+        //}
     }
 }
