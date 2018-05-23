@@ -50,12 +50,17 @@
 
                     <v-tabs-content :key="'1'" :id="'tab-1'" class="tab-padding">
                         <v-flex xs12>
-                            <question-thread :questionData="questionData">
-                                <div slot="answer-form">
-                                    <question-text-area v-model="textAreaValue" class="small"></question-text-area>
-                                    <v-btn block color="primary" @click="answer()" :disabled="!validForm"
-                                           class="add_answer">Add your answer
-                                    </v-btn>
+                            <question-thread v-if="questionData" :questionData="questionData">
+                                <div slot="answer-form" class="mb-3">
+                                    <div v-if="!questionData.answers || (questionData.answers && showForm)">
+                                        <question-text-area v-model="textAreaValue" :isFocused="showForm"></question-text-area>
+                                        <v-btn block color="primary" @click="answer()" :disabled="!validForm"
+                                               class="add_answer">Add your answer
+                                        </v-btn>
+                                    </div>
+                                    <div v-else class="show-form-trigger" @click="showForm = true">
+                                        <div><b>Know the answer?</b> Add it here!</div>
+                                    </div>
                                 </div>
                             </question-thread>
                         </v-flex>
