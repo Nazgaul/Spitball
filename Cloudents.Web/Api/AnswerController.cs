@@ -40,7 +40,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost, ValidateModel]
+        [HttpPost("upVote"), ValidateModel]
         public async Task<IActionResult> UpVoteAsync([FromBody]UpVoteAnswerRequest model, CancellationToken token)
         {
             var command = _mapper.Map<UpVoteAnswerCommand>(model);
