@@ -9,7 +9,7 @@ namespace Cloudents.Infrastructure.Database.Maps
         public QuestionSubjectMap()
         {
             Id(x => x.Id).GeneratedBy.Native();
-            Map(e => e.Subject);
+            Map(e => e.Text).Column("Subject");
             ReadOnly();
         }
     }

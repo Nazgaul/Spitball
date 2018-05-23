@@ -21,7 +21,7 @@ namespace Cloudents.Web.Mapper
         public long Resolve(object source, object destination, long destMember, ResolutionContext context)
         {
             return long.Parse(_userManager.GetUserId(_context.HttpContext.User));
-            //return _context.HttpContext.User.GetUserId();
         }
     }
+
 }

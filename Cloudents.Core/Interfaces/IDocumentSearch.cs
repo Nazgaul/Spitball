@@ -24,6 +24,5 @@ namespace Cloudents.Core.Interfaces
         Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model,
             HighlightTextFormat format, CancellationToken token);
     }
-
     
 }

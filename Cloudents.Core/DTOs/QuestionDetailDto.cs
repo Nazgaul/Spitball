@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.DTOs
 {
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
     public class QuestionDetailDto
     {
-        //public QuestionDetailDto()
-        //{
-        //    User = new QuestionDetailUserDto();
-        //}
         public string Subject { get; set; }
 
         public long Id { get; set; }
@@ -22,16 +19,9 @@ namespace Cloudents.Core.DTOs
         public IEnumerable<QuestionDetailAnswerDto> Answers { get; set; }
 
         public DateTime Create { get; set; }
-
     }
 
-    public class UserDto
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string Image { get; set; }
-    }
-
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
     public class QuestionDetailAnswerDto
     {
         public Guid Id { get; set; }
@@ -42,6 +32,5 @@ namespace Cloudents.Core.DTOs
         public DateTime Create { get; set; }
 
         public int UpVote { get; set; }
-
     }
 }

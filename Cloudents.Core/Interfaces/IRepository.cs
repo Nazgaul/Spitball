@@ -22,6 +22,11 @@ namespace Cloudents.Core.Interfaces
         Task<IEnumerable<QuestionSubjectDto>> GetAllSubjectAsync(CancellationToken token);
     }
 
+    public interface IUserRepository : IRepository<User>
+    {
+        Task<ProfileDto> GetUserProfileAsync(long id, CancellationToken token);
+    }
+
     public interface IQuestionRepository : IRepository<Question>
     {
         [ItemCanBeNull]

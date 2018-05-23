@@ -14,8 +14,6 @@ namespace Cloudents.Web
         {
             var value = reader.Value;
 
-
-
             if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
             {
                 return false;

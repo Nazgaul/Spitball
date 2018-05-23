@@ -20,6 +20,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.NormalizedEmail);
             Map(e => e.SecurityStamp);
             Map(e => e.Image).Nullable();
+
+            References(x => x.University).ForeignKey("User_University").Nullable();
         }
     }
 }

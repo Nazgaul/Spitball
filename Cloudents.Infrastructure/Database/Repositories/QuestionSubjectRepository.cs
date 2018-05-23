@@ -19,12 +19,11 @@ namespace Cloudents.Infrastructure.Database.Repositories
 
         public async Task<IEnumerable<QuestionSubjectDto>> GetAllSubjectAsync(CancellationToken token)
         {
-
             return await Session.Query<QuestionSubject>()
                 .Select(s=> new QuestionSubjectDto
                 {
                     Id = s.Id,
-                    Subject = s.Subject
+                    Subject = s.Text
                 })
                 .ToListAsync(token).ConfigureAwait(false);
         }

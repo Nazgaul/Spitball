@@ -61,7 +61,6 @@ namespace Cloudents.Core.Read
                 return null;
             }).Where(w => w != null).SelectMany(s => s);
         }
-
         
     }
 }

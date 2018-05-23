@@ -13,6 +13,5 @@
     public class QuestionAnswerContainer : IStorageContainer
     {
         public StorageContainer Container =>StorageContainer.QuestionsAndAnswers;
-
     }
 }

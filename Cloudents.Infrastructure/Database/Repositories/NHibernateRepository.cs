@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -7,13 +7,14 @@ using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Infrastructure.Database.Repositories
 {
     public class NHibernateRepository<T> : IRepository<T> where T : class
     {
         protected readonly ISession Session;
         private readonly IUnitOfWork _unitOfWork;
 
+        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Ioc inject")]
         public NHibernateRepository(UnitOfWork.Factory unitOfWork)
         {
             var att = typeof(T).GetCustomAttribute<DbAttribute>();
@@ -40,28 +41,6 @@ namespace Cloudents.Infrastructure.Database
         {
             _unitOfWork.FlagCommit();
             return Session.SaveAsync(entity, token);
-
-            
         }
-
-        //public void Dispose()
-        //{
-        //    _unitOfWork?.Dispose();
-        //    _session?.Dispose();
-        //}
-        //protected virtual void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        _unitOfWork?.Dispose();
-        //        _session?.Dispose();
-        //    }
-        //}
-
-        //public void Dispose()
-        //{
-        //    Dispose(true);
-        //    GC.SuppressFinalize(this);
-        //}
     }
 }

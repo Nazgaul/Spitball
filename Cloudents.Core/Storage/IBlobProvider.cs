@@ -48,6 +48,5 @@ namespace Cloudents.Core.Storage
         Task SaveMetaDataToBlobAsync(Uri blobUri, IDictionary<string, string> metadata, CancellationToken token);
 
 
-
     }
 }

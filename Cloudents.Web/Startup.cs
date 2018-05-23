@@ -116,7 +116,6 @@ namespace Cloudents.Web
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequiredUniqueChars = 0;
-
                 }).AddDefaultTokenProviders();
 
             services.AddAuthorization(options =>
@@ -162,7 +161,7 @@ namespace Cloudents.Web
                 Assembly.Load("Cloudents.Core"),
                 Assembly.GetExecutingAssembly()
             };
-            services.AddAutoMapper(assembliesOfProgram);
+            services.AddAutoMapper(c => c.DisableConstructorMapping(), assembliesOfProgram);
 
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
@@ -174,7 +173,7 @@ namespace Cloudents.Web
                        Configuration["AzureSearch:SearchServiceAdminApiKey"]),
                 Redis = Configuration["Redis"],
                 Storage = Configuration["Storage"],
-                FunctionEndpoint= Configuration["FunctionEndpoint"],
+                FunctionEndpoint = Configuration["FunctionEndpoint"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"]
             };
 

@@ -1,6 +1,4 @@
-﻿
-
-.error-page-404 .header,
+﻿.error-page-404 .header,
 .error-page-500 .header {
     height: 65px;
     display: flex;

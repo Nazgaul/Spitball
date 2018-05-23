@@ -12,7 +12,6 @@ namespace Cloudents.Web
             {
                 return;
             }
-            
 
             var request = context.HttpContext.Request;
             if (request.Path.Value == "/" || !request.Path.Value.EndsWith("/")) return;
