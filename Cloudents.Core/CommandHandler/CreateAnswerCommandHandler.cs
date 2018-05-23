@@ -41,7 +41,7 @@ namespace Cloudents.Core.CommandHandler
             await _answerRepository.SaveAsync(answer, token).ConfigureAwait(false);
 
             var id = answer.Id;
-            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"q/{id}", token));
+            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token));
 
             await Task.WhenAll(l).ConfigureAwait(false);
         }

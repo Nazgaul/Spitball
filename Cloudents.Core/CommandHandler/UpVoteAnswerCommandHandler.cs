@@ -17,7 +17,7 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task HandleAsync(UpVoteAnswerCommand message, CancellationToken token)
         {
-            var answer = await _repository.LoadAsync(message.AnswerId, token).ConfigureAwait(false);
+            var answer = await _repository.LoadAsync(message.Id, token).ConfigureAwait(false);
             answer.UpVote++;
             await _repository.SaveAsync(answer, token).ConfigureAwait(false);
         }
