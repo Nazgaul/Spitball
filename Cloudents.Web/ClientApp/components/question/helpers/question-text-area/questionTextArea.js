@@ -1,12 +1,11 @@
 var Uploader = require('html5-uploader');
 
 export default {
-    props: {vvalue: {type: String}},
+    props: {value: {type: String}},
     data() {
         return {
             files: [],
-            previewList: [],
-            userText:''
+            previewList: []
         }
     },
     methods: {
