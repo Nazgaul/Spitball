@@ -36,6 +36,8 @@ namespace Cloudents.Core.Storage
         Uri GetBlobUrl(string blobName, bool cdn = false);
 
         Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
+
+        Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
     }
 
 

@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Interfaces;
 using System;
+using System.IO;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -472,7 +473,19 @@ namespace Cloudents.Infrastructure.BlockChain
                 deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionHash).ConfigureAwait(false);
             }
             var contractAddress = deploymentReceipt.ContractAddress;
-            return web3.Eth.GetContract(abi, contractAddress);
+            return web3.Eth.GetContract(ReadApi(), contractAddress);
+        }
+
+        private static string _abiContract;
+
+        private static string ReadApi()
+        {
+            if (_abiContract == null)
+            {
+                _abiContract = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "abi.json"));
+            }
+
+            return _abiContract;
         }
 
         public async Task<BigInteger> GetTokenBalanceAsync(string senderPk, CancellationToken token)
