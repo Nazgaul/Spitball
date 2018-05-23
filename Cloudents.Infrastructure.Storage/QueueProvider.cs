@@ -20,7 +20,6 @@ namespace Cloudents.Infrastructure.Storage
         public Task InsertMessageAsync<T>(T message, CancellationToken token) where T : IQueueName
         {
             var queue = _queueClient.GetQueueReference(message.QueueName.Key.ToLower());
-            //TODO: is it right?
             var json = JsonConvert.SerializeObject(message);
             var cloudMessage = new CloudQueueMessage(json);
             return queue.AddMessageAsync(cloudMessage);

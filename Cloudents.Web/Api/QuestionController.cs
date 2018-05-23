@@ -72,7 +72,8 @@ namespace Cloudents.Web.Api
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetQuestionAsync(long id, [FromServices] IQuestionRepository repository, CancellationToken token)
+        public async Task<IActionResult> GetQuestionAsync(long id, 
+            [FromServices] IQuestionRepository repository, CancellationToken token)
         {
             var retVal = await repository.GetQuestionDtoAsync(id, token).ConfigureAwait(false);
             return Ok(retVal);

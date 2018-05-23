@@ -47,4 +47,10 @@
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="BlockChain\abi.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

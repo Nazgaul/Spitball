@@ -142,13 +142,17 @@ namespace Cloudents.Web.Api
 
         [HttpPost("password")]
         [Authorize(Policy = SignInStep.PolicyPassword)]
-        public async Task<IActionResult> GeneratePasswordAsync([FromServices] IBlockChainProvider blockChainProvider)
+        public async Task<IActionResult> GeneratePasswordAsync([FromServices] IBlockChainProvider blockChainProvider, CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var account = blockChainProvider.CreateAccount();
+
+            var t1 = blockChainProvider.SetInitialBalanceAsync(account.Address, token);
             var privateKey = account.PrivateKey;
-            var result = await _userManager.AddPasswordAsync(user, privateKey).ConfigureAwait(false);
-            if (result.Succeeded)
+            var t2 = _userManager.AddPasswordAsync(user, privateKey);
+
+            await Task.WhenAll(t1, t2).ConfigureAwait(false);
+            if (t2.Result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
                 return Ok(

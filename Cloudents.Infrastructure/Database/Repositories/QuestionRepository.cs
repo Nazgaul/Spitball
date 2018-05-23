@@ -71,6 +71,7 @@ namespace Cloudents.Infrastructure.Database.Repositories
                     Id = s.Id,
                     Text = s.Text,
                     Create = s.Created,
+                    UpVote = s.UpVote,
                     User = new UserDto
                     {
                         Id = s.User.Id,
