@@ -14,7 +14,11 @@ namespace Cloudents.Core.Interfaces
         Task<string> TransferMoneyAsync(string senderPk, string toAddress, float amount, CancellationToken token);
         string GetPublicAddress(string privateKey); //Get Public from from private
         Task<bool> SetInitialBalanceAsync(string address, CancellationToken token);
+<<<<<<< HEAD
       //  Task<string> BuyTokens(string senderPK,  int amount);
+=======
+        Task<string> BuyTokensAsync(string senderPK, int amount, CancellationToken token);
+>>>>>>> 21c0666702847db7c0266e93a81db0b073b520ce
 
 
     }

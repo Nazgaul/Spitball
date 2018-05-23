@@ -97,7 +97,7 @@
         function getBalance() {
             var From = $('input[name=from]:checked').attr('id');
 
-            var ContractInput = { fromPK: From };
+            var ContractInput = { fromAddress: From };
             
             var Balance = $.get("blockchain/GetBalance", ContractInput).then(function (result) {
                 alert(result / Math.pow(10,18));

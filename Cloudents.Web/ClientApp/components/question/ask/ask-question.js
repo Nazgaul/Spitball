@@ -8,16 +8,20 @@ export default {
             subjectList: [],
             subject: '',
             textAreaValue: '',
-            price: 0.5
+            price: 0.5,
+            files: []
         }
     },
     methods: {
-        ask() {
+        submitQuestion() {
             var self = this;
-            questionService.postQuestion(this.subject.id, this.textAreaValue, this.price)
+            questionService.postQuestion(this.subject.id, this.textAreaValue, this.price, this.files)
                 .then(function () {
-                    self.$router.push({path: '/note', query: {q: ''}});
+                    self.$router.push({path: '/ask', query: {q: ''}});
                 });
+        },
+        addFile(filename){
+            this.files.push(filename);
         },
     },
     computed: {

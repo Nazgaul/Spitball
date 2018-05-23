@@ -70,11 +70,20 @@ namespace Cloudents.Web.Controllers
             return result;
         }
 
+<<<<<<< HEAD
         //[HttpPost]
         //public async Task<string> BuyTokens(string senderPK, int amount)
         //{
         //    string result = await _blockchainProvider.BuyTokens(senderPK, amount);
         //    return result;
         //}
+=======
+        [HttpPost]
+        public async Task<string> BuyTokens(string senderPK, int amount, CancellationToken token)
+        {
+            string result = await _blockChainProvider.BuyTokensAsync(senderPK, amount,token);
+            return result;
+        }
+>>>>>>> 21c0666702847db7c0266e93a81db0b073b520ce
     }
 }
