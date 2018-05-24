@@ -70,10 +70,14 @@ namespace Cloudents.Infrastructure.BlockChain
                     {
                         throw new NullReferenceException();
                     }
-                    var content = new byte[stream.Length];
-                    stream.Seek(0, SeekOrigin.Begin);
-                    await stream.ReadAsync(content, 0, (int)stream.Length, token).ConfigureAwait(false);
-                    _abiContract =  Encoding.UTF8.GetString(content);
+                    using (var reader = new StreamReader(stream))
+                    {
+                        _abiContract = await reader.ReadToEndAsync().ConfigureAwait(false);
+                    }
+                    //var content = new byte[stream.Length];
+                    //stream.Seek(0, SeekOrigin.Begin);
+                    //await stream.ReadAsync(content, 0, (int)stream.Length, token).ConfigureAwait(false);
+                    //_abiContract =  Encoding.UTF8.GetString(content);
                 }
             }
 
@@ -87,7 +91,7 @@ namespace Cloudents.Infrastructure.BlockChain
             var parameters = (new object[] { senderAddress });
             var result = await function.CallAsync<BigInteger>(parameters).ConfigureAwait(false);
             var normalAmount = result / new BigInteger(FromWei);
-            return (decimal) normalAmount;
+            return (decimal)normalAmount;
         }
 
         public async Task<string> TransferMoneyAsync(string senderPk, string toAddress, float amount, CancellationToken token)
