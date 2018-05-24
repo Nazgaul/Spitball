@@ -1,5 +1,6 @@
 <template>
     <v-toolbar app fixed :height="height" class="header">
+        
         <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
             <smart-app-banner class="fixed-top" v-if="showSmartAppBanner && $vuetify.breakpoint.xsOnly"></smart-app-banner>
             <div class="main">
@@ -41,16 +42,16 @@
                                                 <v-list-tile-title>Twitter</v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                          <div @click="$ga.social('Whatsapp', 'Share')">
+                                        <div @click="$ga.social('Whatsapp', 'Share')">
                                         <v-list-tile :href="whatsappLink()" class="btn-copy hidden-sm-and-up" v-if="$vuetify.breakpoint.xs">
-                                              <v-list-tile-action>
+                                            <v-list-tile-action>
                                                 <whatsapp-icon></whatsapp-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>Whatsapp</v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                          </div>
+                                        </div>
                                         <v-list-tile @click="copyToClipboard" class="btn-copy">
                                             <v-list-tile-action>
                                                 <copy-link-icon></copy-link-icon>
@@ -75,35 +76,127 @@
                                     </v-list>
                                 </v-menu>
 
-                                <div class="header-wallet">
+                                <!-- <div class="header-wallet">
                                     <v-btn icon >
                                         <v-icon>sbf-wallet</v-icon>                                    
                                     </v-btn>
                                     <span>$25</span>
-                                </div>
+                                </div> -->
 
                                 
-                                <div class="header-comments">
+                                <!-- <div class="header-comments">
                                     <v-btn icon >
                                         <v-icon>sbf-comment</v-icon>  
-                                                                          
+                                                                        
                                     </v-btn>
                                     <span class="red-counter">6</span>                                    
-                                </div>
-                                
+                                </div> -->
+                                                                
+                                <div class="header-rocket">
+                                    <v-menu bottom left offset-y >
+                                        <v-btn icon slot="activator">
+                                            <v-icon>sbf-rocket</v-icon>
+                                        </v-btn>
+                                        <v-list class="menu-list">
+                                            <v-list-tile>
+                                                <v-list-tile-action>
+                                                    <v-icon>sbf-wallet</v-icon>
+                                                </v-list-tile-action>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>My Wallet</v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile>   
+                                            <v-list-tile>
+                                                <v-list-tile-action>
+                                                    <v-icon>sbf-comment</v-icon>
+                                                </v-list-tile-action>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>Messages</v-list-tile-title>
+                                                </v-list-tile-content>
+                                                <v-list-tile-avatar>
+                                                    <span class="red-counter">5</span>  
+                                                </v-list-tile-avatar>
+                                            </v-list-tile>   
+                                            <v-list-tile>
+                                                <v-list-tile-action>
+                                                    <v-icon>sbf-notifications</v-icon>
+                                                </v-list-tile-action>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>Notifications</v-list-tile-title>
+                                                </v-list-tile-content>
+                                                <v-list-tile-avatar>
+                                                    <span class="red-counter">1</span>  
+                                                </v-list-tile-avatar>
+                                            </v-list-tile>   
+                                            <v-list-tile>
+                                                <v-list-tile-action>
+                                                    <v-icon>sbf-user</v-icon>
+                                                </v-list-tile-action>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>My Profile</v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile>   
+                                            <v-list-tile>
+                                                <v-list-tile-action>
+                                                    <v-icon>sbf-wallet</v-icon>
+                                                </v-list-tile-action>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>Settings</v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile>   
+                                            <v-list-tile>
+                                                <v-list-tile-action class="tile-logout">
+                                                    <v-icon>sbf-logout</v-icon>
+                                                </v-list-tile-action>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>Logout</v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile> 
 
-                                <v-menu bottom left offset-y>
+                                            <v-divider class="my-3"></v-divider>
+
+                                            <v-list-tile>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>About Spitball</v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile>   
+                                            <v-list-tile>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>Help</v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile>   
+                                            <v-list-tile>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>Terms of Service</v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile>   
+                                            <v-list-tile>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>Privacy Policy</v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile> 
+                                        </v-list>                                        
+                                    </v-menu>
+                                    <span class="red-counter">6</span>                                    
+                                </div>
+
+                                <!-- <button class="header-login">Login</button> -->
+                                <!-- <button class="header-login">Sign Up</button> -->
+                                
+            
+                                <v-menu bottom left offset-y class="gamburger">
                                     <v-btn icon slot="activator">
                                         <v-icon>sbf-menu</v-icon>
                                     </v-btn>
-                                    <v-list class="menu-list-not-reg">
+                                    <v-list class="menu-list">
                                         <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in notRegMenu" :key="index" :id="item.id">
                                             <v-list-tile-content>
                                                 <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                    </v-list>
+                                    </v-list>                                    
                                 </v-menu>
+                                
                             </div>
                         </v-toolbar-items>
                     </v-layout>
@@ -118,6 +211,16 @@
             <slot name="extraHeader"></slot>
         </v-layout>
         <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
+
+        <!-- <v-navigation-drawer temporary v-model="drawer" light absolute>
+            <v-list class="settings-list">
+                <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in settingMenu" :key="index" :id="item.id">
+                    <v-list-tile-content>
+                        <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+            </v-list>        
+        </v-navigation-drawer> -->
     </v-toolbar>
 </template>
 
@@ -160,7 +263,7 @@
             PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput,smartAppBanner
         },
         props:{currentSelection:{type:String,default:'note'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
-        data(){return {settingMenu,notRegMenu,clickOnce:false}},
+        data(){return {settingMenu,notRegMenu,clickOnce:false,drawer: null}},
         methods:{
             $_currentClick({ id,name }) {
                 if(name==='Feedback'){
