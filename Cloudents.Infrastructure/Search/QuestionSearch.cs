@@ -40,7 +40,6 @@ namespace Cloudents.Infrastructure.Search
                 Filter = filterStr
             };
 
-
             var result = await
                 _client.Documents.SearchAsync<Question>(term, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);

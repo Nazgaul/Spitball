@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Cloudents.Core.Interfaces;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -48,10 +49,11 @@ namespace Cloudents.Web.Controllers
         }
 
         [HttpGet]
-        public Task<decimal> GetBalance(int fromAddress, CancellationToken token)
+        public async Task<BigInteger> GetBalance(int fromAddress, CancellationToken token)
         {
             var from = _account[fromAddress].Value;
-            return _blockChainProvider.GetBalanceAsync(@from, token);
+            var balance = await _blockChainProvider.GetTokenBalanceAsync(@from, token).ConfigureAwait(false);
+            return balance;
         }
 
         [HttpPost]
@@ -68,11 +70,20 @@ namespace Cloudents.Web.Controllers
             return result;
         }
 
+<<<<<<< HEAD
         //[HttpPost]
         //public async Task<string> BuyTokens(string senderPK, int amount)
         //{
         //    string result = await _blockchainProvider.BuyTokens(senderPK, amount);
         //    return result;
         //}
+=======
+        [HttpPost]
+        public async Task<string> BuyTokens(string senderPK, int amount, CancellationToken token)
+        {
+            string result = await _blockChainProvider.BuyTokensAsync(senderPK, amount,token);
+            return result;
+        }
+>>>>>>> 21c0666702847db7c0266e93a81db0b073b520ce
     }
 }

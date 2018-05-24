@@ -8,7 +8,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using JetBrains.Annotations;
 
-namespace Cloudents.Core.Read
+namespace Cloudents.Core.Query
 {
     [UsedImplicitly]
     public class WebSearch : IWebDocumentSearch, IWebFlashcardSearch

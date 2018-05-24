@@ -73,9 +73,10 @@ namespace Cloudents.Web.Api
         [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetQuestionAsync(long id, 
-            [FromServices] IQuestionRepository repository, CancellationToken token)
+            [FromServices] IQueryBus bus, CancellationToken token)
         {
-            var retVal = await repository.GetQuestionDtoAsync(id, token).ConfigureAwait(false);
+            
+            var retVal = await bus.QueryAsync<long, QuestionDetailDto>(id,token).ConfigureAwait(false);
             return Ok(retVal);
         }
 

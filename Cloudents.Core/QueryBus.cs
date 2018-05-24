@@ -17,7 +17,7 @@ namespace Cloudents.Core
 
         private readonly ILifetimeScope _container;
 
-        public async Task<TQueryResult> QueryAsync<TQuery, TQueryResult>(TQuery query, CancellationToken token) where TQuery : IQuery //where TQueryResult : IQueryResult
+        public async Task<TQueryResult> QueryAsync<TQuery, TQueryResult>(TQuery query, CancellationToken token) //where TQuery : IQuery //where TQueryResult : IQueryResult
         {
             using (var child = _container.BeginLifetimeScope())
             {
