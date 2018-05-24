@@ -1,12 +1,12 @@
 
 import questionThread from "./questionThread.vue";
-import questionTextArea from "./../helpers/question-text-area/questionTextArea.vue";
+import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
 import { mapGetters } from "vuex";
 import questionCard from "./../helpers/question-card/question-card.vue";
 
 export default {
-    components: { questionThread, questionCard, questionTextArea },
+    components: { questionThread, questionCard, extendedTextArea },
     props: {
         id: {Number} // got it from route
     },

@@ -1,6 +1,6 @@
 import stepTemplate from '../stepTemplate.vue'
 
-﻿import registrationService from '../../../../services/registrationService'
+﻿import accountService from '../../../../services/accountService'
 
 export default {
     components: {stepTemplate},
@@ -12,7 +12,7 @@ export default {
     methods: {
         next() {
             var self = this;
-            registrationService.setUserName(this.username)
+            accountService.setUserName(this.username)
                 .then(function () {
                     self.$emit('next');
                 });
@@ -26,7 +26,7 @@ export default {
     },
     created() {
         var self = this;
-        registrationService.getUserName()
+        accountService.getUserName()
             .then(function (response) {
                 self.username = response.data.name;
             });

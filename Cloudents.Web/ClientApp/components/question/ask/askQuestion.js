@@ -1,8 +1,8 @@
-import questionTextArea from "./../helpers/question-text-area/questionTextArea.vue";
+import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from '../../../services/questionService';
 
 export default {
-    components: {questionTextArea},
+    components: {extendedTextArea},
     data() {
         return {
             subjectList: [],
