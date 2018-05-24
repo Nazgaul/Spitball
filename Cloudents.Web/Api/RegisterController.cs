@@ -40,7 +40,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
-        [ValidateModel,ValidateRecaptcha]
+        [ValidateModel, ValidateRecaptcha]
         public async Task<IActionResult> CreateUserAsync([FromBody]RegisterEmailRequest model, CancellationToken token)
         {
             var userName = model.Email.Split(new[] { '.', '@' }, 1, StringSplitOptions.RemoveEmptyEntries)[0];
@@ -142,16 +142,27 @@ namespace Cloudents.Web.Api
 
         [HttpPost("password")]
         [Authorize(Policy = SignInStep.PolicyPassword)]
-        public async Task<IActionResult> GeneratePasswordAsync([FromServices] IBlockChainProvider blockChainProvider, CancellationToken token)
+        public async Task<IActionResult> GeneratePasswordAsync(
+            [FromServices] IBlockChainProvider blockChainProvider,
+            [FromServices] IChat client,
+            CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var account = blockChainProvider.CreateAccount();
 
             var t1 = blockChainProvider.SetInitialBalanceAsync(account.Address, token);
+            var t3 = client.CreateOrUpdateUserAsync(user.Id,
+                new Core.Entities.Chat.User
+                {
+                    Name = user.Name,
+                    Email = new[] { user.Email },
+                    Phone = new[] { user.PhoneNumberHash },
+                }, token);
+
             var privateKey = account.PrivateKey;
             var t2 = _userManager.AddPasswordAsync(user, privateKey);
 
-            await Task.WhenAll(t1, t2).ConfigureAwait(false);
+            await Task.WhenAll(t1, t2, t3).ConfigureAwait(false);
             if (t2.Result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);

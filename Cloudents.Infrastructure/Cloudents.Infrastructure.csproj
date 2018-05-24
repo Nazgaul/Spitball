@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -14,11 +14,15 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
+  
+
   <ItemGroup>
-    <Compile Remove="Data\AppDbContext.cs" />
-    <Compile Remove="Data\EfRepository.cs" />
-    <Compile Remove="Search\CseSearch.cs" />
-    <Compile Remove="Search\TitleSearch.cs" />
+    <None Remove="BlockChain\abi.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="BlockChain\abi.json">
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -45,12 +49,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="BlockChain\abi.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

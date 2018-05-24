@@ -33,7 +33,7 @@ namespace Cloudents.Core.CommandHandler
             var question = await _questionRepository.LoadAsync(message.QuestionId, token).ConfigureAwait(false);
             if (user.Id == question.User.Id)
             {
-                throw new ApplicationException("user cannot answer himself");
+                throw new InvalidOperationException("user cannot answer himself");
             }
             var answer = new Answer(question, message.Text, message.Files?.Count() ?? 0, user);
 

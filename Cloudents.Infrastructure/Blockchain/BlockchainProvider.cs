@@ -2,6 +2,8 @@
 using System;
 using System.IO;
 using System.Numerics;
+using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Nethereum.Hex.HexConvertors.Extensions;
@@ -38,7 +40,7 @@ namespace Cloudents.Infrastructure.BlockChain
             }
         }
 
-        private static async Task<Contract> GetContractAsync(CancellationToken token, Web3 web3)
+        private static async Task<Contract> GetContractAsync(Web3 web3, CancellationToken token)
         {
             // "0xa09db301ad49fb1e240f7fe6c4a70edadd9506d93278fb412b571cf8b2786aa4"; //old ICO Contract Hash
             const string transactionHash = "0x175bcd364676ab6632be0ef862723a09370b206c7f9ea7c9ef79cf0889fad8b1"; //ICO Contract Hash
@@ -51,16 +53,28 @@ namespace Cloudents.Infrastructure.BlockChain
                 deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionHash).ConfigureAwait(false);
             }
             var contractAddress = deploymentReceipt.ContractAddress;
-            return web3.Eth.GetContract(ReadApi(), contractAddress);
+            var abi = await ReadApiAsync(token).ConfigureAwait(false);
+            return web3.Eth.GetContract(abi, contractAddress);
         }
 
         private static string _abiContract;
 
-        private static string ReadApi()
+        private static async Task<string> ReadApiAsync(CancellationToken token)
         {
             if (_abiContract == null)
             {
-                _abiContract = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, nameof(BlockChain), "abi.json"));
+                using (var stream = Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream("Cloudents.Infrastructure.BlockChain.abi.json"))
+                {
+                    if (stream == null)
+                    {
+                        throw new NullReferenceException();
+                    }
+                    var content = new byte[stream.Length];
+                    stream.Seek(0, SeekOrigin.Begin);
+                    await stream.ReadAsync(content, 0, (int)stream.Length, token).ConfigureAwait(false);
+                    _abiContract =  Encoding.UTF8.GetString(content);
+                }
             }
 
             return _abiContract;
@@ -68,7 +82,7 @@ namespace Cloudents.Infrastructure.BlockChain
 
         public async Task<decimal> GetBalanceAsync(string senderAddress, CancellationToken token)
         {
-            var contract = await GetContractAsync(token, GenerateWeb3Instance()).ConfigureAwait(false);
+            var contract = await GetContractAsync(GenerateWeb3Instance(), token).ConfigureAwait(false);
             var function = contract.GetFunction("balanceOf");
             var parameters = (new object[] { senderAddress });
             var result = await function.CallAsync<BigInteger>(parameters).ConfigureAwait(false);
@@ -78,7 +92,7 @@ namespace Cloudents.Infrastructure.BlockChain
 
         public async Task<string> TransferMoneyAsync(string senderPk, string toAddress, float amount, CancellationToken token)
         {
-            var contract = await GetContractAsync(token, GenerateWeb3Instance(senderPk)).ConfigureAwait(false);
+            var contract = await GetContractAsync(GenerateWeb3Instance(senderPk), token).ConfigureAwait(false);
             var operationToExe = contract.GetFunction("transfer");
             var maxGas = new HexBigInteger(70000);
             var amountTransformed = new BigInteger(amount * FromWei);
