@@ -204,10 +204,15 @@ let routes2 = [
         }
     },
     {
-        path: "/profile", components: {
+        path: "/profile/:id",
+        components: {
             default: viewProfile,
             header: pageHeader,
-        }, name: "profile"
+        },
+        name: "profile",
+        props: {
+            default: (route) => ({id: route.params.id})
+        }
     },
     {
         path: "/chat", components: {
@@ -230,8 +235,8 @@ let routes2 = [
     },
     {
         path: "/temp",
-        components : {
-            default: () => import("./components/temp/temp.vue") 
+        components: {
+            default: () => import("./components/temp/temp.vue")
         }
     }
 

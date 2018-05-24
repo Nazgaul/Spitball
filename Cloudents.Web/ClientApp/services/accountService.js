@@ -5,4 +5,6 @@ export default {
     setUserName: (data) => axios.post("/Account/userName", {name: data}),
     getAccountNum: () => axios.post("/Account/password"),
     setUniversity: (universityId) => axios.post("/Account/university", {universityId}),
+    getProfile:(id) => axios.get("/Profile/" + id),
+
 }
