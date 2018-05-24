@@ -475,9 +475,9 @@ namespace Cloudents.Infrastructure.BlockChain
 	}
 ]";
             //ICO abi
-            // "0xa09db301ad49fb1e240f7fe6c4a70edadd9506d93278fb412b571cf8b2786aa4"; //old ICO Contract Hash
-            const string transactionHash = "0x175bcd364676ab6632be0ef862723a09370b206c7f9ea7c9ef79cf0889fad8b1"; //ICO Contract Hash
-                                                                                                                 //0x175bcd364676ab6632be0ef862723a09370b206c7f9ea7c9ef79cf0889fad8b1
+          
+            const string transactionHash = "0xbf640f0b58fcad57ccd2eea9946df1f113e08bdb5aa0a4a932500546811a7beb"; //ICO Contract Hash
+          
 
 
             var deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionHash).ConfigureAwait(false);
