@@ -9,7 +9,7 @@
                     <a class="ask-question" href="/askquestion">
                         <v-icon>sbf-ask-q</v-icon>
                         Ask a question</a>
-                    <span class="question-category">Questions  / Algebra</span>
+                    <span class="question-category">Questions  / {{questionData.subject}}</span>
                 </v-flex>
 
                 <v-flex xs7>

@@ -7,9 +7,9 @@
                     <div class="main-block">
 
                         <div class="user-block">
-                            <img class="avatar" src="./../../chat/img/user.png" />
-                            <span class="name">User Name</span>
-                            <p>univrsity Name</p>
+                            <img class="avatar" src="../chat/img/user.png" />
+                            <span class="name">{{userData.name}}</span>
+                            <p>{{userData.name}}</p>
                         </div>
 
                         <div class="menu">
@@ -38,7 +38,7 @@
             <v-flex xs12>
                 <div class="main-block">
                     <div class="user-block">
-                            <img class="avatar" src="./../../chat/img/user.png" />
+                            <img class="avatar" src="../chat/img/user.png" />
                             <span class="name">User Name</span>
                             <p>univrsity Name</p>
                         </div>
