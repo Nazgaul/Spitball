@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.Email).Unique();
             Map(e => e.PublicKey);
             Map(e => e.PhoneNumberHash).Unique();
-            Map(e => e.Name);
+            Map(e => e.Name).Unique();
             Map(e => e.EmailConfirmed);
             Map(e => e.PhoneNumberConfirmed);
             Map(e => e.NormalizedName);
