@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -87,7 +88,6 @@ namespace Cloudents.Web.Api
             [FromServices] IChat client,
             CancellationToken token)
         {
-            //TODO: check if this unique
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var t1 = _userManager.SetUserNameAsync(user, model.Name);
 
@@ -95,16 +95,22 @@ namespace Cloudents.Web.Api
                 new Core.Entities.Chat.User
                 {
                     Name = user.Name,
-                    Email = new[] { user.Email },
-                    Phone = new[] { user.PhoneNumberHash },
                 }, token);
+            try
+            {
+                await Task.WhenAll(t1, t2).ConfigureAwait(false);
+            }
+            catch (UserNameExistsException ex)
+            {
+                //TODO: need to rollback user on client
+                return BadRequest(ex.Message);
+            }
 
-            await Task.WhenAll(t1, t2).ConfigureAwait(false);
             if (t1.Result.Succeeded)
             {
                 return Ok();
             }
-            return BadRequest();
+            return BadRequest(t1.Result.Errors);
         }
 
         [HttpPost("university")]

@@ -108,8 +108,11 @@ namespace Cloudents.Web
             services.AddIdentity<User, ApplicationRole>(options =>
                 {
                     options.SignIn.RequireConfirmedEmail = true;
-                    options.User.RequireUniqueEmail = true;
                     options.SignIn.RequireConfirmedPhoneNumber = true;
+                    options.User.AllowedUserNameCharacters = null;
+
+                    options.User.RequireUniqueEmail = true;
+                    
                     options.Password.RequiredLength = 1;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
@@ -258,9 +261,18 @@ namespace Cloudents.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
 
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                //routes.MapSpaFallbackRoute(
+                //    name: "spa-fallback",
+                //    defaults: new { controller = "Home", action = "Index" });
+            });
+            app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
+            {
+                builder.UseMvc(routes =>
+                {
+                    routes.MapSpaFallbackRoute(
+                        name: "spa-fallback",
+                        defaults: new { controller = "Home", action = "Index" });
+                });
             });
         }
     }

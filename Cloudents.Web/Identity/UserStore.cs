@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
+using NHibernate.Exceptions;
 using NHibernate.Linq;
 
 namespace Cloudents.Web.Identity
@@ -79,9 +81,25 @@ namespace Cloudents.Web.Identity
             return _userRepository.GetAsync(p, cancellationToken); //it was get to check if the user
         }
 
-        public Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
+        public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            return _userRepository.GetQueryable().SingleOrDefaultAsync(s => s.NormalizedName == normalizedUserName, cancellationToken: cancellationToken);
+            try
+            {
+                //nhibernate flush before query base on flushmode.auto
+                return await _userRepository.GetQueryable()
+                    .SingleOrDefaultAsync(s => s.NormalizedName == normalizedUserName,
+                        cancellationToken).ConfigureAwait(false);
+            }
+            catch (GenericADOException ex)
+            {
+                if (ex.InnerException is SqlException sql && sql.Number == 2627)
+                {
+                    throw new UserNameExistsException("user exists", ex);
+                }
+
+                throw;
+            }
+
         }
 
         public Task SetPasswordHashAsync(User user, string passwordHash, CancellationToken cancellationToken)
