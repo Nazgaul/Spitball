@@ -46,7 +46,7 @@ export default {
                 }
                 var other1 = new Talk.User({
                     id: otherUser.id,
-                    name: otherUser.name
+                    configuration: "buyer"
                 });
 
                 var conversation = this.talkSession.getOrCreateConversation(
