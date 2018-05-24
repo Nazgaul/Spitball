@@ -28,9 +28,4 @@ namespace Cloudents.Infrastructure.Database.Maps
             Schema("Zbox");
         }
     }
-
-    public class SpitballClassMap<T> : ClassMap<T>
-    {
-
-    }
 }

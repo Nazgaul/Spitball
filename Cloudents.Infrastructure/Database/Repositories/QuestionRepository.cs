@@ -63,15 +63,16 @@ namespace Cloudents.Infrastructure.Database.Repositories
                     Price = s.Price,
                     Subject = s.Subject.Text,
                     Text = s.Text
-                }).ToFutureValue(); 
-            var answersFuture = Session.Query<Answer>().Where(w => w.Question.Id == id)
-                .Fetch(f=>f.User)
+                }).ToFutureValue();
+            var answersFuture = Session.Query<Answer>()
+                .Where(w => w.Question.Id == id)
+                .Fetch(f => f.User)
                 .Select(s => new QuestionDetailAnswerDto
                 {
                     Id = s.Id,
                     Text = s.Text,
                     Create = s.Created,
-                    UpVote = s.UpVote,
+                    UpVote = s.UpVote.GetValueOrDefault(),
                     User = new UserDto
                     {
                         Id = s.User.Id,

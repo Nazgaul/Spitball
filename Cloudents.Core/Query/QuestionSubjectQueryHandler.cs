@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Core.Read
+namespace Cloudents.Core.Query
 {
     public class QuestionSubjectQueryHandler : IQueryHandlerAsync<IEnumerable<QuestionSubjectDto>>
     {

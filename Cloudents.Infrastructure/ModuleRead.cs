@@ -5,7 +5,7 @@ using Autofac.Extras.DynamicProxy;
 using AutoMapper;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Read;
+using Cloudents.Core.Query;
 using Cloudents.Infrastructure.AI;
 using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Data;
@@ -54,10 +54,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DomainParser>().AsSelf().As<IDomainParser>().SingleInstance();
             builder.RegisterType<DomainCache>().As<ICacheProvider>();
 
-
            
             builder.RegisterType<ReplaceImageProvider>().As<IReplaceImageProvider>();
-
 
             builder.RegisterType<WebSearch>();
 
@@ -71,7 +69,6 @@ namespace Cloudents.Infrastructure
                 .EnableInterfaceInterceptors().InterceptedBy(typeof(BuildLocalUrlInterceptor));
 
             #endregion
-
 
             #region Job
 
@@ -107,8 +104,10 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();
             builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
-
             builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
+
+
+            builder.RegisterType<ChatProvider>().As<IChat>();
             //builder.RegisterType<Mapper.Mapper>().AsImplementedInterfaces();
 
         }

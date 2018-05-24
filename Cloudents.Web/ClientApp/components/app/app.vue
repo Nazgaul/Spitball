@@ -24,14 +24,14 @@
             this.$nextTick(function () {
                 dataLayer.push({ 'event': 'optimize.activate' });
                 // Code that will run only after the
-                // entire view has been re-rendered
+                // entire question-details has been re-rendered
             })
         },
         mounted: function () {
             this.$nextTick(function () {
                 dataLayer.push({ 'event': 'optimize.activate' });
                 // Code that will run only after the
-                // entire view has been rendered
+                // entire question-details has been rendered
             })
         }
     }

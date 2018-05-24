@@ -10,9 +10,9 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Converters;
 using JetBrains.Annotations;
-using Cloudents.Core.Read;
 using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search

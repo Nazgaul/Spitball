@@ -16,9 +16,9 @@
                     <question-thread v-if="questionData" :questionData="questionData">
                         <div slot="answer-form" class="mb-3">
                             <div v-if="!questionData.answers || (questionData.answers && showForm)">
-                                <question-text-area uploadUrl="/api/Answer/upload"
+                                <extended-text-area uploadUrl="/api/Answer/upload"
                                         v-model="textAreaValue"
-                                        :isFocused="showForm" @addFile="addFile"></question-text-area>
+                                        :isFocused="showForm" @addFile="addFile"></extended-text-area>
                                 <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
                                        class="add_answer">Add your answer
                                 </v-btn>
@@ -55,9 +55,9 @@
                             <question-thread v-if="questionData" :questionData="questionData">
                                 <div slot="answer-form" class="mb-3">
                                     <div v-if="!questionData.answers || (questionData.answers && showForm)">
-                                        <question-text-area uploadUrl="/api/Answer/upload"
+                                        <extended-text-area uploadUrl="/api/Answer/upload"
                                                 v-model="textAreaValue"
-                                                :isFocused="showForm" @addFile="addFile"></question-text-area>
+                                                :isFocused="showForm" @addFile="addFile"></extended-text-area>
                                         <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
                                                class="add_answer">Add your answer
                                         </v-btn>
@@ -83,5 +83,5 @@
     </div>
 </template>
 
-<style src="./question.less" lang="less"></style>
-<script src="./question.js"></script>
+<style src="./questionDetails.less" lang="less"></style>
+<script src="./questionDetails.js"></script>

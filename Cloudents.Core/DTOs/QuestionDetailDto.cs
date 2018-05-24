@@ -19,6 +19,8 @@ namespace Cloudents.Core.DTOs
         public IEnumerable<QuestionDetailAnswerDto> Answers { get; set; }
 
         public DateTime Create { get; set; }
+
+        public IEnumerable<Uri> Files { get; set; }
     }
 
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
@@ -32,5 +34,7 @@ namespace Cloudents.Core.DTOs
         public DateTime Create { get; set; }
 
         public int UpVote { get; set; }
+
+        public IEnumerable<Uri> Files { get; set; }
     }
 }

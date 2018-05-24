@@ -19,8 +19,8 @@ const documentPreviewHeader = () => import("./components/preview/headerDocument.
 const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
 const registration = () => import("./components/registration/registration.vue");
 const signin = () => import("./components/registration/signin.vue");
-const askQuestion = () => import("./components/question/ask/ask-question.vue");
-const viewQuestion = () => import("./components/question/view/question.vue");
+const askQuestion = () => import("./components/question/ask/askQuestion.vue");
+const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const viewProfile = () => import("./components/profile/view/profile.vue");
 const viewChat = () => import("./components/chat/view/chat.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");

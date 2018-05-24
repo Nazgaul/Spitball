@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 
-namespace Cloudents.Core.Read
+namespace Cloudents.Core.Query
 {
     public interface ISearch
     {
