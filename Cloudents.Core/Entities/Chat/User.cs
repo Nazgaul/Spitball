@@ -8,7 +8,7 @@ namespace Cloudents.Core.Entities.Chat
         public string[] Email { get; set; }
         public string WelcomeMessage { get; set; }
         public string PhotoUrl { get; set; }
-        public string Configuration { get; set; }
+        public string Configuration => "Buyer";
         public string[] Phone { get; set; }
         public IDictionary<string,string> Custom { get; set; }
     }
