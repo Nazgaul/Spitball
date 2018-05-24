@@ -7,7 +7,7 @@
 <script>
 
     import { mapActions } from 'vuex'
-    ﻿import accountService from '../../../../services/accountService'
+    ﻿import accountService from '../../services/accountService'
 
     export default {
         props: { item: { type: Object, required: true } },
