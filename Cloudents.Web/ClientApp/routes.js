@@ -21,7 +21,7 @@ const registration = () => import("./components/registration/registration.vue");
 const signin = () => import("./components/registration/signin.vue");
 const askQuestion = () => import("./components/question/ask/askQuestion.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
-const viewProfile = () => import("./components/profile/view/profile.vue");
+const viewProfile = () => import("./components/profile/profile.vue");
 const viewChat = () => import("./components/chat/view/chat.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
