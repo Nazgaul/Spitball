@@ -44,10 +44,7 @@ export default {
                 if (this.accountUser.id === otherUser.id) {
                     return;
                 }
-                var other1 = new Talk.User({
-                    id: otherUser.id,
-                    configuration: "buyer"
-                });
+                var other1 = new Talk.User(otherUser.id);
 
                 var conversation = this.talkSession.getOrCreateConversation(
                     `question_${this.id}_${this.accountUser.id}_${otherUser.id}`
