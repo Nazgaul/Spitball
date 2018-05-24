@@ -45,6 +45,7 @@ const allModules = [
     "vuetify/es5/directives/scroll",
     "vuetify/es5/components/VIcon",
     "vuetify/es5/components/VSnackbar",
+    "vuetify/es5/components/VNavigationDrawer",
     "webfontloader",
     //'smartbanner.js/dist/smartbanner',
     //'smartbanner.js/dist/smartbanner.css'
