@@ -4,10 +4,10 @@
             <v-flex>
                 <div class="main-block">
 
-                    <div class="user-block">
+                    <div class="user-block" v-if="profileData.user">
                         <img class="avatar" src="../chat/img/user.png"/>
                         <span class="name">{{profileData.user.name}}</span>
-                        <p>{{profileData.user.name}}</p>
+                        <p>{{profileData.user.universityName}}</p>
                     </div>
 
                     <div class="menu">
@@ -20,20 +20,25 @@
                         <v-tabs v-else grow class="tab-padding" xs12>
                             <v-tabs-bar>
                                 <v-tabs-slider color="blue"></v-tabs-slider>
-                                <v-tabs-item :href="'#tab-1'" :key="'1'">Selling</v-tabs-item>
-                                <v-tabs-item :href="'#tab-2'" :key="'2'">Sold</v-tabs-item>
-                                <v-tabs-item :href="'#tab-3'" :key="'3'">Upvoted</v-tabs-item>
+                                <v-tabs-item @click="activeTab = 1"></v-tabs-item>
+                                <v-tabs-item @click="activeTab = 2"></v-tabs-item>
+                                <v-tabs-item @click="activeTab = 3"></v-tabs-item>
                             </v-tabs-bar>
                         </v-tabs>
                     </div>
                 </div>
-
             </v-flex>
 
-
             <v-flex class="web-content">
-                <question-card v-for="questionData in profileData.ask" :cardData="questionData"
-                               :myQuestion="true"></question-card>
+                <div v-if="activeTab === 1">
+                    <question-card v-for="questionData in profileData.ask" :cardData="questionData"
+                                   :myQuestion="true"></question-card>
+                </div>
+                <div v-else-if="activeTab === 2">
+                    <question-card v-for="answerData in profileData.answer" :cardData="answerData"
+                                   :myQuestion="true"></question-card>
+                </div>
+                <div v-else-if="activeTab === 3">UPVOTED CONTENT</div>
             </v-flex>
         </v-layout>
 
