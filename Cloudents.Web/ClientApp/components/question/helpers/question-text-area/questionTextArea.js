@@ -27,7 +27,6 @@ export default {
         });
 
         multiple.on('files:added', function () {
-            // TODO: check for duplications fast-deep-equal
             this.upload()
         });
 

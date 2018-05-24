@@ -1,5 +1,5 @@
 <template>
-    <v-flex xs12 class="question-card">
+    <v-flex v-if="cardData" xs12 class="question-card">
 
         <div v-if="!isAnswer">
             <div class="q-price">
