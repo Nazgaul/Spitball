@@ -2,7 +2,7 @@
 using System.Linq;
 using JetBrains.Annotations;
 
-namespace Cloudents.Core.Read
+namespace Cloudents.Core.Query
 {
     public class SearchModel
     {

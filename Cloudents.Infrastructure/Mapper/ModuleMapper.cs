@@ -22,7 +22,6 @@ namespace Cloudents.Infrastructure.Mapper
 
             builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve<IComponentContext>().Resolve))
                 .As<IMapper>().InstancePerLifetimeScope();
-
         }
     }
 }

@@ -38,5 +38,5 @@
             </div>
         </v-flex>
 </template>
-<script src="./questionTextArea.js"></script>
-<style src="./questionTextArea.less" lang="less"></style>
+<script src="./extendedTextArea.js"></script>
+<style src="./extendedTextArea.less" lang="less"></style>

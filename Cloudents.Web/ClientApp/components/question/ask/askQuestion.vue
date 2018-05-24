@@ -24,7 +24,7 @@
                 </v-flex>
 
 
-                <question-text-area uploadUrl="/api/Question/upload" v-model="textAreaValue" @addFile="addFile"></question-text-area>
+                <extended-text-area uploadUrl="/api/Question/upload" v-model="textAreaValue" @addFile="addFile"></extended-text-area>
 
                 <v-flex xs12>
                     <v-text-field
@@ -59,5 +59,5 @@
         </v-container>
     </div>
 </template>
-<script src="./ask-question.js"></script>
-<style src="./ask-question.less" lang="less"></style>
+<script src="./askQuestion.js"></script>
+<style src="./askQuestion.less" lang="less"></style>

@@ -9,7 +9,5 @@ export default {
     smsRegistration: (data) => axios.post("/Register/sms", {number: data}),
     smsCodeVerification: (data) => axios.post("/Register/sms/verify", {number: data}),
     getUserName: () => axios.get("/Register/userName"),
-    setUserName: (data) => axios.post("/Account/userName", {name: data}),
-    getAccountNum: () => axios.post("/Account/password"),
     signIn: (email,key,captcha) => instance.post("login", {email,key, captcha})
 }

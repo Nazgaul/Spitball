@@ -101,8 +101,8 @@ namespace Cloudents.Infrastructure.Storage
             }
             var destinationDirectory = _blobDirectory.GetDirectoryReference(destinationContainerName);
             var sourceBlob = GetBlob(blobName);
-            var destBlob = destinationDirectory.GetBlockBlobReference(blobName);
-            await destBlob.StartCopyAsync(sourceBlob).ConfigureAwait(false);
+            var destinationBlob = destinationDirectory.GetBlockBlobReference(blobName);
+            await destinationBlob.StartCopyAsync(sourceBlob).ConfigureAwait(false);
             await sourceBlob.DeleteAsync().ConfigureAwait(false);
         }
 
@@ -114,33 +114,5 @@ namespace Cloudents.Infrastructure.Storage
             return result.Results.Select(s => s.Uri);
 
         }
-
-        //public async Task<CloudBlockBlob> UploadBlobAsync(Stream data,
-        //    string filename, bool compressed = true, int? cacheControlMinutes = null, CancellationToken token = default)
-        //{
-
-        //    //string origMD5 = MD5(data);
-        //    var blob = GetBlob(filename);
-
-        //    if (compressed)
-        //    {
-        //        using (var stream = await blob.OpenWriteAsync().ConfigureAwait(false))
-        //        using (GZipStream gzip = new GZipStream(stream, CompressionLevel.Optimal))
-        //        {
-        //            await data.CopyToAsync(gzip, 81920);
-        //            //await gzip.WriteAsync(data, 0, data.Length, token).ConfigureAwait(false);
-        //        }
-        //        //data = comp.ToArray();
-        //        blob.Properties.ContentEncoding = "gzip";
-        //        await blob.SetPropertiesAsync();
-        //    }
-
-        //    //blob.Metadata.Add("compressed", compressed.ToString());
-        //    //blob.Metadata.Add("origMD5", origMD5);
-        //    await blob.UploadFromByteArrayAsync(data, 0, data.Length).ConfigureAwait(false);
-        //    return blob;
-        //}
-
-
     }
 }

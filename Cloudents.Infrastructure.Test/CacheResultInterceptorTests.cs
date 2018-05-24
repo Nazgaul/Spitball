@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Threading;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Read;
 using Cloudents.Core.Models;
+using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Job;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
