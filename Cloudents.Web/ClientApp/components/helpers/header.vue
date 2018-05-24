@@ -132,7 +132,7 @@
             
         </v-toolbar>
 
-        <v-navigation-drawer temporary v-model="drawer" light absolute app v-if=isMobile>
+        <v-navigation-drawer temporary v-model="drawer" light absolute app v-if=isMobile width="280">
             <menu-list :isAuthUser="isAuthUser"></menu-list>
         </v-navigation-drawer>
 
@@ -142,8 +142,8 @@
 <script>
     import { settingMenu, notRegMenu } from '../settings/consts';
     import SearchInput from '../helpers/searchInput.vue';
-    import smartAppBanner from "../smartAppBanner/smartAppBanner.vue"
-    import menuList from "./menu-list/menu-list.vue"
+    import smartAppBanner from "../smartAppBanner/smartAppBanner.vue";
+    import menuList from "./menu-list/menu-list.vue";    
     
     import {mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";

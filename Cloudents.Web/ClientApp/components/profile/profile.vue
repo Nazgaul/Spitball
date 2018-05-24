@@ -4,11 +4,7 @@
             <v-flex>
                 <div class="main-block">
 
-                    <div class="user-block" v-if="profileData.user">
-                        <img class="avatar" src="../chat/img/user.png"/>
-                        <span class="name">{{profileData.user.name}}</span>
-                        <p>{{profileData.user.universityName}}</p>
-                    </div>
+                    <user-block v-if="profileData.user" :user="profileData.user" :classType="'university'"></user-block>
 
                     <div class="menu">
                         <ul class="tabs" v-if="!isMobile" xs3>
@@ -20,9 +16,9 @@
                         <v-tabs v-else grow class="tab-padding" xs12>
                             <v-tabs-bar>
                                 <v-tabs-slider color="blue"></v-tabs-slider>
-                                <v-tabs-item @click="activeTab = 1"></v-tabs-item>
-                                <v-tabs-item @click="activeTab = 2"></v-tabs-item>
-                                <v-tabs-item @click="activeTab = 3"></v-tabs-item>
+                                <v-tabs-item @click="activeTab = 1" :href="'#tab-1'" :key="1">Selling</v-tabs-item>
+                                <v-tabs-item @click="activeTab = 2" :href="'#tab-1'" :key="2">Sold</v-tabs-item>
+                                <v-tabs-item @click="activeTab = 3" :href="'#tab-1'" :key="3">Upvoted</v-tabs-item>
                             </v-tabs-bar>
                         </v-tabs>
                     </div>

@@ -3,6 +3,11 @@
 .menu-list{
     width: 280px;
     padding: 14px 0 18px;
+
+    @media (max-width: @screen-xs) {
+        padding-top: 0;
+    }
+
     li:hover{
         background: rgba(0,0,0,0.12);
     }
@@ -33,5 +38,15 @@
             font-size: 16px; color: @color-grey;
             &.sbf-logout{padding-left: 31px;}
         }
+    }
+
+    .user-block.university{
+        background-color: @color-light-grey;
+        height: 172px;
+        justify-content: baseline;
+        margin-bottom: 15px;
+        font-size: 16px;
+        .avatar{ margin-top: 36px; }
+        .name{ font-size: 14px;}
     }
 }

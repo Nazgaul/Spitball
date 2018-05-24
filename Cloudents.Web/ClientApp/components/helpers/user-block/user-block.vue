@@ -1,10 +1,13 @@
 <template>  
-         <div class="user-block">
-            <img :class="classType" class="avatar"  :src="user.img" />
+         <div class="user-block" :class="classType">
+            <img  class="avatar" :src="user.img" />
             <div class="text">
-                <span :class="classType"><a href="/user">{{user.name}}</a> · 1 hour ago </span>
-                <p class="last-msg" :class="classType" v-if="text">{{text}}</p>
+                <span class="user-date"><a href="/user">{{user.name}}</a> · 1 hour ago </span>
+                <span class="name">{{user.name}}</span>
+                <p class="last-msg" v-if="text">{{text}}</p>
+                <p class="university" v-if="user.universityName">{{user.universityName}}</p>
             </div>
+
         </div> 
 </template>
 

@@ -1,6 +1,7 @@
 <template>
     <div>
         <v-list class="menu-list" v-if="!isAuthUser">
+            <user-block :user=user :classType="'university'" v-if=isMobile></user-block>
             <v-list-tile v-for="(item,index) in notRegMenu" :key="index" :id="item.id">
                 <v-list-tile-content>
                     <v-list-tile-title>{{item.name}}</v-list-tile-title>
@@ -9,6 +10,7 @@
         </v-list> 
 
         <v-list class="menu-list" v-else>
+            <user-block :user=user :classType="'university'" v-if=isMobile></user-block>
             <v-list-tile>
                 <v-list-tile-action>
                     <v-icon>sbf-wallet</v-icon>
@@ -96,8 +98,10 @@
 <script>
 
     import { notRegMenu } from '../../settings/consts';
+    import userBlock from "../user-block/user-block.vue"
 
     export default {
+        components:{userBlock},
         props:{
             counter:{
                 required:false,
@@ -110,12 +114,16 @@
         },
         data() {
             return {
-                notRegMenu
+                notRegMenu,
+                user:{
+                    name: "User Name",
+                    universityName: "Boston MA"
+                }
             }
         },
-        methods:{
-            
-        }    
+        computed: {
+            isMobile(){return this.$vuetify.breakpoint.xsOnly;}
+        },
     }
 </script>
 
