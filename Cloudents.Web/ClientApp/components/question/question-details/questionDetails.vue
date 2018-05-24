@@ -1,5 +1,5 @@
 <template>
-    <div class="answer-question">
+    <div class="answer-question" v-if="questionData">
 
         <!-- Web version -->
         <v-container v-if="!$vuetify.breakpoint.xsOnly">
