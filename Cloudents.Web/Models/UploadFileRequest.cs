@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Models
 {
     public class UploadFileRequest
     {
-        public IFormFile File { get; set; }
+        public IEnumerable<IFormFile> File { get; set; }
     }
 }

@@ -7,7 +7,8 @@ const state = {
     login: false,
     user: null,
     talkSession: null,
-    talkMe: null
+    talkMe: null,
+    unreadMessages: 0
 }
 const mutations = {
     changeLoginStatus(state, val) {
@@ -21,6 +22,9 @@ const mutations = {
     },
     updateChatUser(state, val) {
         state.talkMe = val;
+    },
+    updateMessageCount(state,val) {
+        state.unreadMessages = val;
     }
 };
 
@@ -57,8 +61,10 @@ const actions = {
             me: me,
             signature: state.user.token
         });
-
+        console.log("test")
+debugger;
         talkSession.unreads.on("change", m => {
+            commit("updateMessageCount",conversationIds.length);
         })
 
         commit("updateTalkSession", talkSession);
