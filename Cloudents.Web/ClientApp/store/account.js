@@ -46,9 +46,7 @@ const actions = {
         }
         const me = new Talk.User ({
             id: state.user.id,
-            name: state.user.name,
-            email: state.user.email,
-            photoUrl: state.user.image
+            configuration: "buyer"
         });
         commit("updateChatUser",me);
 

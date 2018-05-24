@@ -82,12 +82,25 @@ namespace Cloudents.Web.Api
 
         [HttpPost("userName"), ValidateModel]
         [Authorize(Policy = SignInStep.PolicyPassword)]
-        public async Task<IActionResult> ChangeUserNameAsync([FromBody]ChangeUserNameRequest model)
+        public async Task<IActionResult> ChangeUserNameAsync(
+            [FromBody]ChangeUserNameRequest model,
+            [FromServices] IChat client,
+            CancellationToken token)
         {
             //TODO: check if this unique
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var result = await _userManager.SetUserNameAsync(user, model.Name).ConfigureAwait(false);
-            if (result.Succeeded)
+            var t1 = _userManager.SetUserNameAsync(user, model.Name);
+
+            var t2 = client.CreateOrUpdateUserAsync(user.Id,
+                new Core.Entities.Chat.User
+                {
+                    Name = user.Name,
+                    Email = new[] { user.Email },
+                    Phone = new[] { user.PhoneNumberHash },
+                }, token);
+
+            await Task.WhenAll(t1, t2).ConfigureAwait(false);
+            if (t1.Result.Succeeded)
             {
                 return Ok();
             }
