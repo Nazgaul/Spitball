@@ -61,8 +61,6 @@ const actions = {
             me: me,
             signature: state.user.token
         });
-        console.log("test")
-debugger;
         talkSession.unreads.on("change", m => {
             commit("updateMessageCount",conversationIds.length);
         })
