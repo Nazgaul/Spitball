@@ -139,13 +139,12 @@ namespace Cloudents.Infrastructure
             return TransferJsonBodyAsync(HttpMethod.Put, url, obj, headers, token);
         }
 
-        private Task<bool> TransferJsonBodyAsync<T>(HttpMethod method, Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        private async Task<bool> TransferJsonBodyAsync<T>(HttpMethod method, Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
             var jsonInString = JsonConvert.SerializeObject(obj);
             using (var stringContent = new StringContent(jsonInString, Encoding.UTF8, "application/json"))
             {
-                return TransferHttpContentAsync(method, url, stringContent, headers, token);
-
+                return await TransferHttpContentAsync(method, url, stringContent, headers, token).ConfigureAwait(false);
             }
         }
 
