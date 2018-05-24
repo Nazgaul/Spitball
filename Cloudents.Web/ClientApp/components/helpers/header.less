@@ -3,7 +3,7 @@
 .header {
     //background-image: linear-gradient(276deg, @Spitball-Main-color, #3023ae);
     &.toolbar {
-        background-color: #fff;
+        background-color: @color-white;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
     }
 
@@ -20,9 +20,14 @@
 
     .toolbar__title {
         .inTheMiddle();
-        @media(min-width: (@screen-sm + 1)) {
-            margin-left: 37px !important;
+        margin: 0;
+        @media(max-width: (@screen-sm)) {
+            margin-left: 37px;
+            &.auth-user{
+                margin-left: 66px;
+            }
         }
+
     }
 
 
@@ -45,7 +50,7 @@
         }
 
         svg {
-            fill: #3532D5;
+            fill: @color-main-purple;
         }
     }
 
@@ -138,6 +143,16 @@
       }
 
     max-width: 805px;
+
+    .input-group:not(.input-group--error):not(.input-group--focused):not(.input-group--disabled) .input-group__input {
+        .input-group__append-icon:not(:hover){
+            color: @color-blue ;
+        }
+        .input-group__prepend-icon:not(:hover){
+            color: #9b9b9b;
+        }
+
+    }
     .search-b {
         height: 40px;
         min-height: 40px;
@@ -145,19 +160,19 @@
         border-radius: 20px;
         background-color: #f0f0f0;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-        border: solid 0.5px #bbbbbb;
+        border: solid 0.5px @color-medium-grey;
         color: #000;
         letter-spacing: -0.4px;
         font-size: 16px;
 
-        .sbf-mic {
-            color: @color-blue !important;
-            padding: 0 14px;
+        .input-group__input{
+            .input-group__append-icon.sbf-mic {
+                padding: 0 14px;
+            }
         }
 
         .sbf-search {
             min-width: 34px;
-                color: #9b9b9b !important;
         }
 
         .input-group__input {
@@ -173,7 +188,7 @@
 
     .btn {
         .sbf-3-dot,.sbf-wallet,.sbf-menu,.sbf-comment {
-            color: #3532D5;
+            color: @color-main-purple;
             font-size: 17px;
             @media (max-width: @screen-xs) {
                 font-size: 18px;
@@ -181,7 +196,7 @@
         }
         .sbf-menu {
             @media (max-width: @screen-xs) {
-                font-size: 15px!important;
+                font-size: 15px;
               }
         }
 
@@ -189,12 +204,14 @@
 
     .share-btn {
         svg {
-            fill: #3532D5;
+            fill: @color-main-purple;
             width: 20px;
             height: 20px;
         }
     }
 }
+
+.navigation-drawer{z-index: 10;}
 
 .settings-list .list__tile__title, .menu-list .list__tile__title {
     text-transform: capitalize;
@@ -206,7 +223,7 @@
     position: relative;
 }
 .header-wallet{
-    .btn{margin: 6px 3px!important;}
+    .btn{margin: 6px 3px;}
     span{font-size: 14px; font-weight: bold;}
 }
 
@@ -215,9 +232,9 @@
     @media (max-width: @screen-xs) {
         width: 66px;
     }
-    button{
+    button.btn{
         background-color: #3293f6;
-        color: @color-white !important;
+        color: @color-white;
         width: 48px;
         height: 48px;
         @media (max-width: @screen-xs) {
@@ -235,9 +252,14 @@
     width: 104px;
     margin-right: 24px;
     border-radius: 26.5px;
-    border: solid 1px #3532d5;
+    border: solid 1px @color-main-purple;
     font-size: 18px;
-    color: #3532d5;
+    color: @color-main-purple;
+    outline: none;
+    @media (max-width: @screen-xs) {
+       display: none;
+    }
+
 }
 
 
@@ -257,36 +279,12 @@
     top: 1px;
 }
 
-.menu-list{
-    width: 280px;
-    padding: 14px 0 18px;
-    .list__tile{
-        height: 56px;
-        .list__tile__title{
-            font-size: 20px;
-            height: 27px;
-            letter-spacing: -0.5px;
-        }
-        .list__tile__action{
-            min-width: 42px!important;
-            &.tile-logout{
-                min-width: 39px!important;
-                width: 30px;
-            }
-        }
-        .list__tile__avatar {
-            display: flex;
-            align-items: center;
-            .red-counter{
-                top:0;
-                position: relative;
-            }
-        }
-        .sbf.icon{
-            font-size: 16px; color: @color-grey;
-            &.sbf-logout{padding-left: 31px;}
-        }
-    }
+.menu.gamburger,.header-rocket{
+    @media(max-width: (@screen-sm)) {
+        position: fixed;
+        left: 0;
+        top: 2px;
+    }    
 }
 
 .sharing-list {

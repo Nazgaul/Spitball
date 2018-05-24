@@ -1,14 +1,18 @@
 import questionCard from "../question/helpers/question-card/question-card.vue";
 
-// ﻿import accountService from '../../services/accountService';
+ ﻿import accountService from '../../services/accountService';
 import {mapGetters} from 'vuex'
+import accountNum from "../registration/steps/registerAccount/accountNum";
 
 export default {
     components: {questionCard},
+    props:{
+        id:{Number}
+    },
     data() {
         return {
             activeTab: 1,
-            userData: {}
+            profileData: {}
         }
     },
     methods: {
@@ -23,7 +27,9 @@ export default {
         }
     },
     created() {
-        // this.userData = this.accountUser;
-        debugger;
+        var self = this;
+        accountService.getProfile(this.id).then(function (response) {
+            self.profileData = response.data;
+        })
     }
 }
