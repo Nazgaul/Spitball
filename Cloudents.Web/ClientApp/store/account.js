@@ -7,19 +7,19 @@ const state = {
     login: false,
     user: null,
     talkSession: null,
-    talkMe:null
+    talkMe: null
 }
 const mutations = {
     changeLoginStatus(state, val) {
         state.login = val;
     },
-    updateUser(state,val) {
+    updateUser(state, val) {
         state.user = val;
     },
-    updateTalkSession(state,val) {
+    updateTalkSession(state, val) {
         state.talkSession = val;
     },
-    updateChatUser(state,val) {
+    updateChatUser(state, val) {
         state.talkMe = val;
     }
 };
@@ -31,32 +31,37 @@ const getters = {
     accountUser: state => state.user
 };
 const actions = {
-    userStatus({dispatch, commit }) {
+    userStatus({ dispatch, commit }) {
         const $this = this;
-        axios.get("account").then( ({data}) => {
+        axios.get("account").then(({ data }) => {
             commit("changeLoginStatus", true);
-            commit("updateUser",data);
+            commit("updateUser", data);
             dispatch("connectToChat");
         }).catch(_ => {
         });
     },
-    connectToChat( {state,commit}) {
+    connectToChat({ state, commit }) {
         if (!state.user) {
             return;
         }
-        const me = new Talk.User ({
-            id: state.user.id,
-            configuration: "buyer"
-        });
-        commit("updateChatUser",me);
+        const me = new Talk.User(state.user.id);
+        // {
+        //     id: state.user.id,
+        //     configuration: "buyer"
+        // });
+        commit("updateChatUser", me);
 
         //var me = new Talk.User(state.user.id)
         const talkSession = new Talk.Session({
-            appId:"tXsrQpOx",
+            appId: "tXsrQpOx",
             me: me,
             signature: state.user.token
         });
-        commit("updateTalkSession",talkSession);
+
+        talkSession.unreads.on("change", m => {
+        })
+
+        commit("updateTalkSession", talkSession);
     }
 };
 

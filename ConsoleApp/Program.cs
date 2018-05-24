@@ -41,7 +41,7 @@ namespace ConsoleApp
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                BlockChainNetwork = "http://s256cw-dns-reg1.northeurope.cloudapp.azure.com:8545"
+                BlockChainNetwork = "http://hopoea-dns-reg1.northeurope.cloudapp.azure.com:8545"
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
