@@ -88,7 +88,6 @@ namespace Cloudents.Web.Api
             [FromServices] IChat client,
             CancellationToken token)
         {
-            //TODO: check if this unique
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var t1 = _userManager.SetUserNameAsync(user, model.Name);
 
@@ -103,6 +102,7 @@ namespace Cloudents.Web.Api
             }
             catch (UserNameExistsException ex)
             {
+                //TODO: need to rollback user on client
                 return BadRequest(ex.Message);
             }
 
