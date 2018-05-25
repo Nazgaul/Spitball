@@ -3,7 +3,6 @@ import userBlock from '../helpers/user-block/user-block.vue';
 
 import accountService from '../../services/accountService';
 import {mapGetters} from 'vuex'
-import accountNum from "../registration/steps/registerAccount/accountNum";
 
 export default {
     components: {questionCard, userBlock},
