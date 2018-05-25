@@ -1,44 +1,46 @@
 <template>
     <div class="profile-page" v-if="profileData">
-        <v-layout :class="{'column': isMobile}" wrap justify-center>
-            <v-flex>
-                <div class="main-block">
+        <v-container>
+            <v-layout :class="{'column': isMobile}" wrap justify-center>
 
-                    <user-block v-if="profileData.user" :user="profileData.user" :classType="'university'"></user-block>
+                <div>
+                    <div class="main-block">
 
-                    <div class="menu">
-                        <ul class="tabs" v-if="!isMobile" xs3>
-                            <li :class="{'active': activeTab === 1}" @click="activeTab = 1">Selling</li>
-                            <li :class="{'active': activeTab === 2}" @click="activeTab = 2">Sold</li>
-                            <li :class="{'active': activeTab === 3}" @click="activeTab = 3">Upvoted</li>
-                        </ul>
+                        <user-block v-if="profileData.user" :user="profileData.user" :classType="'university'"></user-block>
 
-                        <v-tabs v-else grow class="tab-padding" xs12>
-                            <v-tabs-bar>
-                                <v-tabs-slider color="blue"></v-tabs-slider>
-                                <v-tabs-item @click="activeTab = 1" :href="'#tab-1'" :key="1">Selling</v-tabs-item>
-                                <v-tabs-item @click="activeTab = 2" :href="'#tab-1'" :key="2">Sold</v-tabs-item>
-                                <v-tabs-item @click="activeTab = 3" :href="'#tab-1'" :key="3">Upvoted</v-tabs-item>
-                            </v-tabs-bar>
-                        </v-tabs>
+                        <div class="menu">
+                            <ul class="tabs" v-if="!isMobile" xs3>
+                                <li :class="{'active': activeTab === 1}" @click="activeTab = 1">Selling</li>
+                                <li :class="{'active': activeTab === 2}" @click="activeTab = 2">Sold</li>
+                                <li :class="{'active': activeTab === 3}" @click="activeTab = 3">Upvoted</li>
+                            </ul>
+
+                            <v-tabs v-else grow class="tab-padding" xs12>
+                                <v-tabs-bar>
+                                    <v-tabs-slider color="blue"></v-tabs-slider>
+                                    <v-tabs-item @click="activeTab = 1" :href="'#tab-1'" :key="1">Selling</v-tabs-item>
+                                    <v-tabs-item @click="activeTab = 2" :href="'#tab-2'" :key="2">Sold</v-tabs-item>
+                                    <v-tabs-item @click="activeTab = 3" :href="'#tab-3'" :key="3">Upvoted</v-tabs-item>
+                                </v-tabs-bar>
+                            </v-tabs>
+                        </div>
                     </div>
                 </div>
-            </v-flex>
-
-            <v-flex class="web-content">
-                <div v-if="activeTab === 1">
-                    <question-card v-for="questionData in profileData.ask" :cardData="questionData"
-                                   :myQuestion="true"></question-card>
-                </div>
-                <div v-else-if="activeTab === 2">
-                    <question-card v-for="answerData in profileData.answer" :cardData="answerData"
-                                   :myQuestion="true"></question-card>
-                </div>
-                <div v-else-if="activeTab === 3">UPVOTED CONTENT</div>
-            </v-flex>
-        </v-layout>
-
-
+                    
+                <v-flex class="web-content">
+                    <div v-if="activeTab === 1">
+                        <question-card v-for="questionData in profileData.ask" :cardData="questionData"
+                                    :myQuestion="true"></question-card>
+                    </div>
+                    <div v-else-if="activeTab === 2">
+                        <question-card v-for="answerData in profileData.answer" :cardData="answerData"
+                                    :myQuestion="true"></question-card>
+                    </div>
+                    <div v-else-if="activeTab === 3">UPVOTED CONTENT</div>
+                </v-flex>
+                
+            </v-layout>
+        </v-container>
     </div>
 </template>
 

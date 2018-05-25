@@ -4,11 +4,21 @@
 
     margin-top: 16px;
 
+    @media (max-width: @screen-xs) {
+        margin-top: 0;
+    }
+
+    .container{
+        @media (max-width: @screen-xs) {
+            padding: 0;
+        }
+    }
+
     .user-question {
         margin-bottom: 17px;
     }
 
-    .web-content{margin-left: 16px;}
+    .web-content{margin-left: 16px;    flex: 0.7 1 auto;}
 
     .main-block{
         // height: 290px;
@@ -22,35 +32,26 @@
         font-size: 14px;
         color: #5d5d5d;
         text-align: center;
-
-        .user-block{
-            .avatar{
-                width: 64px;
-                height: 64px;
-                background-color: @color-white;
-                border-radius: 35px;
-                outline: none;
-                margin: 17px 0 7px;
-            }
-            .name{
-                display: block;
-                color:@color-main-purple;
-                line-height: 1.69;
-                letter-spacing: -0.3px;
-            }
-        }
-          
         
+        width: 209px;
+
+        @media (max-width: @screen-xs) {
+            width: 100%;
+        }
 
         .menu{
             width: 100%;
+            margin: 7px 0px 17px;
+            @media (max-width: @screen-xs) {
+                margin: 0;
+            }
             .tabs{
                 width: 100%;
                 text-align: left;
                 list-style-type: none;
                 li{
                     height: 40px;
-                    padding: 6px 20px;
+                    padding: 6px 18px;
                     line-height: 1.79;
                     border-left: 4px solid @color-white; 
                     cursor: pointer;
@@ -68,7 +69,13 @@
 
 
     .tab-padding{
-        .tabs__bar{background-color: @color-white; border-top: solid 1px #bbbbbb;}
+        .tabs__bar{
+            background-color: @color-white; border-top: solid 1px #bbbbbb;
+            @media (max-width: @screen-xs) {
+                height: 64px;
+                font-size: 18px; 
+            }
+        }
         .tabs__container{
             .tabs__item{
                 text-transform: none;
@@ -80,6 +87,11 @@
         }
     }
     
+
+    .column{
+        .user-block{height: 170px;}
+        .web-content{ margin: 16px 8px;}
+    }
     
    
 }
