@@ -64,6 +64,25 @@
             }
         }
 
+        button.back{
+            outline: none;
+            position: absolute;
+            left: 7px;
+            top: 9px;
+            padding: 10px;
+
+            .sbf{    
+                transform: scale(-1, 1);
+                font-size: 13px;
+                color: @color-main-purple;
+                margin-right: 25px;
+                display: none;
+                @media (max-width: @screen-xs) {
+                    display: block;
+                }
+            }
+        }
+
     }
 
 

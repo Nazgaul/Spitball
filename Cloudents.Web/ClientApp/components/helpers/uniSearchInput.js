@@ -5,6 +5,7 @@ export default {
     name: "uni-search-input",
     props: {
         placeholder: {type: String},
+        prependIcon: {type: String, default:'sbf-search'},
     },
     data: () => ({
         msg: "",

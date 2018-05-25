@@ -87,8 +87,7 @@
                                     
                                     <div class="header-comments" v-if="isAuthUser">
                                         <v-btn icon >
-                                            <v-icon>sbf-comment</v-icon>  
-                                                                            
+                                            <v-icon>sbf-comment</v-icon>    
                                         </v-btn>
                                         <span class="red-counter">6</span>                                    
                                     </div>
@@ -187,7 +186,7 @@
                 notRegMenu,
                 clickOnce:false,
                 drawer: null,
-                isAuthUser:false
+                isAuthUser:true
             }
         },
         methods:{

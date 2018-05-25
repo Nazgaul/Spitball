@@ -1,0 +1,119 @@
+@import "../../../mixin.less";
+
+
+.settings-page {
+
+  @media (max-width: @screen-xs) {
+    height: 100%;
+  }
+
+  .container {
+    max-width: 610px;
+    margin-top: 30px;
+    padding-bottom: 0;
+
+    @media (max-width: @screen-xs) {
+      max-width: none;
+      margin-top: 0px;
+      padding: 0 11px 0 15px;
+      height: 100%;
+    }
+  }
+
+  .text-blue{
+    color: @color-main-purple;
+    font-size: 18px;
+  }
+
+  .flex:not(:last-child) {
+    margin-bottom: 24px;
+
+    &.university{    margin-bottom: 90px;}
+  }
+  .flex:first-child{margin-bottom: 18px;}
+
+
+
+  .header-row {
+    height: 37px;
+    @media (max-width: @screen-xs) {
+      margin: 12px 0px 1px;
+      height: 35px;
+    }
+
+    .icon-block{
+      display: inline-flex;
+      height: 100%;
+      align-items: flex-end;
+      span{
+        margin-left: 18px;
+        line-height: 1.39;
+        letter-spacing: -0.5px;
+      }
+      .sbf{font-size: 20px;color: @color-main-purple;}
+    }
+
+    .back-button {
+      float: right;
+      right: 0px;
+      width: 17px;
+      position: relative;
+      outline: none;
+  
+      @media (max-width: @screen-xs) {top: 13px;}
+  
+      .icon {
+        color: @color-main-purple;
+        font-size: 16px;
+      }
+    }
+
+  }
+
+  .upload-avatar{
+    display: flex;    
+    align-items: flex-end;
+    padding: 16px;
+    border-radius: 4px;
+    border: solid 1px @color-medium-grey;
+    font-size: 10px;
+    letter-spacing: -0.2px;
+
+    .avatar{
+      width: 64px;
+      height: 64px;
+      border-radius: 35px;
+      margin-right: 11px;
+      cursor: pointer;
+    } 
+    .text-blue{font-size: 14px;}
+  }
+
+  .input-group.input-group--solo{
+    box-shadow: none;
+    border: solid 1px #979797;
+    border-radius: 4px;
+  }
+
+  .btn.save{
+    position: relative;
+    height: 48px;
+    border-radius: 3px;
+    font-size: 18px;
+    color: @color-white !important;
+    background-color: #bbbbbb !important;
+    text-transform: none;
+
+    @media (min-width: (@screen-xs+1)) {
+      width: 611px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      margin: -9px 0 0px -17px;
+    }
+    &.primary {
+      background-color: @color-main-purple !important;
+    }
+  }
+
+}
+

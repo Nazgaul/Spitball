@@ -5,7 +5,9 @@
 
                 <div>
                     <div class="main-block">
-
+                        <button class="back">
+                            <v-icon>sbf-arrow-right</v-icon>    
+                        </button>
                         <user-block v-if="profileData.user" :user="profileData.user" :classType="'university'"></user-block>
 
                         <div class="menu">
