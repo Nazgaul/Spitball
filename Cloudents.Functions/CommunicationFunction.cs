@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Storage;
@@ -17,10 +18,11 @@ using Twilio.Types;
 
 namespace Cloudents.Functions
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Azure function")]
     public static class CommunicationFunction
     {
         [FunctionName("FunctionEmail")]
-        public static async Task EmailFunction(
+        public static async Task EmailFunctionAsync(
             [QueueTrigger(QueueName.EmailName, Connection = "TempConnection")] EmailMessage queueMessage,
             [SendGrid(ApiKey = "SendgridKey", From = "no-reply@spitball.co")] IAsyncCollector<SendGridMessage> emailProvider,
             IBinder binder,
@@ -32,7 +34,6 @@ namespace Cloudents.Functions
             {
                 log.Error("can't send email without subject template is:" + template);
                 return;
-
             }
             var dynamicBlobAttribute = new BlobAttribute("mailcontainer/Spitball/{template}-mail.html");
 
@@ -52,35 +53,33 @@ namespace Cloudents.Functions
                 HtmlContent = content,
             };
             message.AddTo(queueMessage.To);
-            await emailProvider.AddAsync(message, token);
+            await emailProvider.AddAsync(message, token).ConfigureAwait(false);
         }
 
-        [FunctionName("Temp")]
-        public static async Task Temp(
-            [TimerTrigger("0 * * * * *")]TimerInfo myTimer,
-            [Queue(QueueName.SmsName, Connection = "TempConnection")]
-            IAsyncCollector<SmsMessage> queue,
-            TraceWriter log)
-        {
-            var message = new SmsMessage
-            {
-                PhoneNumber = "+972542642202",
-                Message = "820909"
-            };
-            await queue.AddAsync(message).ConfigureAwait(false);
-            await queue.FlushAsync().ConfigureAwait(false);
-            log.Info("ok");
-        }
+        //[FunctionName("Temp")]
+        //public static async Task Temp(
+        //    [TimerTrigger("0 * * * * *")]TimerInfo myTimer,
+        //    [Queue(QueueName.SmsName, Connection = "TempConnection")]
+        //    IAsyncCollector<SmsMessage> queue,
+        //    TraceWriter log)
+        //{
+        //    var message = new SmsMessage
+        //    {
+        //        PhoneNumber = "+972542642202",
+        //        Message = "820909"
+        //    };
+        //    await queue.AddAsync(message).ConfigureAwait(false);
+        //    await queue.FlushAsync().ConfigureAwait(false);
+        //    log.Info("ok");
+        //}
 
         [FunctionName("SmsQueue")]
         [return: TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "(203) 347-4577")]
         public static CreateMessageOptions SmsQueue(
             [QueueTrigger(QueueName.SmsName, Connection = "TempConnection")] SmsMessage queueMessage)
         {
-            //TODO: no need for validation
             return new CreateMessageOptions(new PhoneNumber(queueMessage.PhoneNumber))
             {
-                //message.To = new PhoneNumber("+972542642202");
                 Body = queueMessage.Message
             };
         }
@@ -115,7 +114,6 @@ namespace Cloudents.Functions
                 var result = await PhoneNumberResource.FetchAsync(new PhoneNumber(message.PhoneNumber)).ConfigureAwait(false);
                 return new CreateMessageOptions(result.PhoneNumber)
                 {
-                    //message.To = new PhoneNumber("+972542642202");
                     Body = message.Message
                 };
             }

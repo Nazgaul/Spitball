@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -9,20 +10,16 @@ using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Functions.Di;
-using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Cloudents.Functions
 {
-    //[DependencyInjectionConfig(typeof(DiConfig))]
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Azure function")]
     public static class CourseFunction
     {
-       // private const string QueueName = "course-sync";
-
        // [FunctionName("CourseTimer")]
-        [UsedImplicitly]
         public static async Task RunAsync([TimerTrigger("0 */30 * * * *")]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/course-version.txt", FileAccess.ReadWrite)]
             CloudBlockBlob blob,
