@@ -1,5 +1,5 @@
 ﻿﻿import settingsService from './../services/settingsService'
-import {SEARCH, USER} from './mutation-types'
+import { SEARCH, USER } from './mutation-types'
 import * as consts from "./constants";
 // export const MAX_HISTORY_LENGTH=5;
 const state = {
@@ -12,55 +12,55 @@ const state = {
         showSmartAppBanner: true,
         registrationStep: 0
     },
-    facet:"",
-    historyTermSet:[],
-    historySet:{
-        job:[],
-        flashcard:[],
-        ask:[],
-        note:[],
-        food:[],
-        tutor:[],
-        book:[]
+    facet: "",
+    historyTermSet: [],
+    historySet: {
+        job: [],
+        flashcard: [],
+        ask: [],
+        note: [],
+        food: [],
+        tutor: [],
+        book: []
     }
 };
 const mutations = {
     [USER.UPDATE_USER](state, payload) {
         state.user = { ...state.user, ...payload };
     },
-    [USER.UPDATE_FACET](state,payload){
-        state.facet=payload;
+    [USER.UPDATE_FACET](state, payload) {
+        state.facet = payload;
     },
-    [USER.UPDATE_SEARCH_SET_VERTICAL](state,{term,vertical}){
-        if(!term||!term.trim())return;
-        if(!state.historySet[vertical]){state.historySet[vertical]=[];}
-        let currentList=state.historySet[vertical];
-        let currentTermIndex=currentList.findIndex(i=>i.term===term);
-        if(currentTermIndex>-1){
-            currentList=[...currentList.slice(0,currentTermIndex),...currentList.slice(currentTermIndex,consts.MAX_HISTORY_LENGTH)];
+    [USER.UPDATE_SEARCH_SET_VERTICAL](state, { term, vertical }) {
+        if (!term || !term.trim()) return;
+        if (!state.historySet[vertical]) { state.historySet[vertical] = []; }
+        let currentList = state.historySet[vertical];
+        let currentTermIndex = currentList.findIndex(i => i.term === term);
+        if (currentTermIndex > -1) {
+            currentList = [...currentList.slice(0, currentTermIndex), ...currentList.slice(currentTermIndex, consts.MAX_HISTORY_LENGTH)];
         }
-        currentList.push({term,date:new Date().getTime()});
+        currentList.push({ term, date: new Date().getTime() });
 
         //if we reached to the limit drop the first one
-        if(currentList.length>consts.MAX_VERTICAL_HISTORY_LENGTH){
-            state.historySet[vertical]=currentList.slice(1);
+        if (currentList.length > consts.MAX_VERTICAL_HISTORY_LENGTH) {
+            state.historySet[vertical] = currentList.slice(1);
         }
     },
-    [USER.UPDATE_SEARCH_SET](state,term){
-        if(!term||!term.trim())return;
+    [USER.UPDATE_SEARCH_SET](state, term) {
+        if (!term || !term.trim()) return;
         let set = new Set(state.historyTermSet);
-        if(set.has(term)){
-           set.delete(term);
-           state.historyTermSet=[...set];
+        if (set.has(term)) {
+            set.delete(term);
+            state.historyTermSet = [...set];
         }
 
-        if(!state.historyTermSet)state.historyTermSet=[];
+        if (!state.historyTermSet) state.historyTermSet = [];
 
         state.historyTermSet.push(term);
 
         //if we reached to the limit drop the first one
-        if(state.historyTermSet.length>consts.MAX_HISTORY_LENGTH){
-            state.historyTermSet=state.historyTermSet.slice(1);
+        if (state.historyTermSet.length > consts.MAX_HISTORY_LENGTH) {
+            state.historyTermSet = state.historyTermSet.slice(1);
         }
     },
     [USER.HIDE_SMART_BANNER](state) {
@@ -73,19 +73,20 @@ const mutations = {
 
 };
 const getters = {
-    historyTermSet:state=>state.historyTermSet,
-    allHistorySet:state=>{
-        let sortedList=[].concat(...Object.values(state.historySet)).sort((a, b) => b.date - a.date).map(i=>i.term);
-        return sortedList.filter((val,i,arr)=>arr.findIndex(b=>b===val)===i).slice(0,consts.MAX_HISTORY_LENGTH);
+    historyTermSet: state => state.historyTermSet,
+    allHistorySet: state => {
+        let sortedList = [].concat(...Object.values(state.historySet)).sort((a, b) => b.date - a.date).map(i => i.term);
+        return sortedList.filter((val, i, arr) => arr.findIndex(b => b === val) === i).slice(0, consts.MAX_HISTORY_LENGTH);
     },
-    getVerticalHistory:state=>(vertical)=>state.historySet[vertical].map(i=>i.term).reverse(),
+    getVerticalHistory: state => (vertical) => state.historySet[vertical].map(i => i.term).reverse(),
     isFirst: state => state.user.isFirst,
     location: state => {
-        let location=state.user.location;
-        if(location&&location.constructor===String){
-            let[latitude,longitude]=location.split(',');
-            return {latitude,longitude}
-        }else{return location}},
+        let location = state.user.location;
+        if (location && location.constructor === String) {
+            let [latitude, longitude] = location.split(',');
+            return { latitude, longitude }
+        } else { return location }
+    },
     pinnedCards:
         state => state.user.pinnedCards,
     showSmartAppBanner:
@@ -106,21 +107,21 @@ const getters = {
     },
     myCourses: state => state.user.myCourses,
     myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i => i.id) : []),
-    getFacet:state=>state.facet
+    getFacet: state => state.facet
 };
 const actions = {
-    updateHistorySet({commit},term){
-      commit(USER.UPDATE_SEARCH_SET,term);
+    updateHistorySet({ commit }, term) {
+        commit(USER.UPDATE_SEARCH_SET, term);
     },
-    updateHistorySetVertical({commit},term){
-        commit(USER.UPDATE_SEARCH_SET_VERTICAL,term);
+    updateHistorySetVertical({ commit }, term) {
+        commit(USER.UPDATE_SEARCH_SET_VERTICAL, term);
     },
     updateLocation(context) {
         return new Promise((resolve) => {
             if (!context.getters.location && navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(({ coords }) => {
                     coords = coords || {};
-                    context.commit(USER.UPDATE_USER, { location: {latitude:coords.latitude,longitude:coords.longitude}});
+                    context.commit(USER.UPDATE_USER, { location: { latitude: coords.latitude, longitude: coords.longitude } });
                     resolve(context.getters.location);
                 }, () => { resolve(context.getters.location) });
             }
@@ -138,9 +139,9 @@ const actions = {
         return settingsService.getCourse({ term, universityId: context.getters.getUniversity });
     },
 
-    createCourse(context, { name}) {
+    createCourse(context, { name }) {
         const university = context.getters.getUniversity;
-        return settingsService.createCourse({ courseName:name, university }).then(({ data: body }) => {
+        return settingsService.createCourse({ courseName: name, university }).then(({ data: body }) => {
             context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: name }] });
         });
     },
@@ -154,13 +155,13 @@ const actions = {
     updatePinnedCards(context, data) {
         context.commit(USER.UPDATE_USER, { pinnedCards: { ...context.getters.pinnedCards, ...data } });
     },
-    updateFacet({commit},data){
-        commit(USER.UPDATE_FACET,data)
+    updateFacet({ commit }, data) {
+        commit(USER.UPDATE_FACET, data)
     },
-    hideSmartAppBanner({commit},data){
+    hideSmartAppBanner({ commit }, data) {
         commit(USER.HIDE_SMART_BANNER);
     },
-    updateRegistrationStep(context, data){
+    updateRegistrationStep(context, data) {
         context.commit(USER.UPDATE_REGISTRATION_STEP, data);
     }
 

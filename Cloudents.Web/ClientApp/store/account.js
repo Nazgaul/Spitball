@@ -23,7 +23,7 @@ const mutations = {
     updateChatUser(state, val) {
         state.talkMe = val;
     },
-    updateMessageCount(state,val) {
+    updateMessageCount(state, val) {
         state.unreadMessages = val;
     }
 };
@@ -35,13 +35,17 @@ const getters = {
     accountUser: state => state.user
 };
 const actions = {
-    userStatus({ dispatch, commit }) {
+    userStatus({ dispatch, commit,getters }) {
         const $this = this;
-        axios.get("account").then(({ data }) => {
+        if (getters.isLogIn) {
+            return Promise.resolve();
+        }
+        return axios.get("account").then(({ data }) => {
             commit("changeLoginStatus", true);
             commit("updateUser", data);
             dispatch("connectToChat");
         }).catch(_ => {
+            commit("changeLoginStatus", false);
         });
     },
     connectToChat({ state, commit }) {
@@ -49,20 +53,14 @@ const actions = {
             return;
         }
         const me = new Talk.User(state.user.id);
-        // {
-        //     id: state.user.id,
-        //     configuration: "buyer"
-        // });
         commit("updateChatUser", me);
-
-        //var me = new Talk.User(state.user.id)
         const talkSession = new Talk.Session({
             appId: "tXsrQpOx",
             me: me,
             signature: state.user.token
         });
         talkSession.unreads.on("change", m => {
-            commit("updateMessageCount",conversationIds.length);
+            commit("updateMessageCount", conversationIds.length);
         })
 
         commit("updateTalkSession", talkSession);
