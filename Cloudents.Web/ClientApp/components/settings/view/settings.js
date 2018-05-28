@@ -5,6 +5,7 @@ export default {
     data() {
         return {
             test:'',
+            username: 'Rocket Rocket',
             university:''
         }
     },
