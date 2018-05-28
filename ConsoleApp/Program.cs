@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -19,6 +21,7 @@ using Cloudents.Infrastructure.Mail;
 using Cloudents.Infrastructure.Search.Tutor;
 using Cloudents.Infrastructure.BlockChain;
 using System.Numerics;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using Cloudents.Core.Command;
 using Cloudents.Core.Storage;
@@ -54,10 +57,20 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            var t = container.Resolve<IBlockChainProvider>();
-            var z = await t.GetBalanceAsync("0x116CC5B77f994A4D375791A99DF12f19921138ea", default);
+             var t = container.Resolve<IQueueProvider>();
+            // var z = await t.GetBalanceAsync("0x116CC5B77f994A4D375791A99DF12f19921138ea", default);
 
-            
+
+
+            var message = new RegistrationEmail("ram@cloudents.com", "link to test");
+            //{
+            //    To = model.Email,
+            //    PlaceHolders = new object[] { HtmlEncoder.Default.Encode(link) },
+            //    Template = "register",
+            //    Subject = "welcome to spitball"
+            //};
+            await t.InsertEmailMessageAsync(message, default);
+
 
             Console.WriteLine("Finish");
             Console.ReadLine();
@@ -65,7 +78,18 @@ namespace ConsoleApp
 
 
 
+      
 
+    }
+    [SerializableAttribute]
+public class A
+    {
+        public int a { get; set; }
+    }
 
+[SerializableAttribute]
+public class B : A
+    {
+        public int aa { get; set; }
     }
 }
