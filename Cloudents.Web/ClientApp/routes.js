@@ -1,4 +1,4 @@
-﻿const HomePage = () => import("./components/home/home.vue");
+const HomePage = () => import("./components/home/home.vue");
 const homePageHeader = () => import("./components/home/header.vue");
 import * as RouteTypes from "./routeTypes";
 
@@ -11,7 +11,7 @@ const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const pageHeader = () => import("./components/header/header.vue");
 //const pageHeaderBasic = () => import("./components/helpers/header.vue");
 const bookDetailsHeader = () => import("./components/book/header.vue");
-const questionDetailsHeader = () => import("./components/question/header/header.vue");
+const questionHeader = () => import("./components/question/header/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
@@ -191,14 +191,14 @@ let routes2 = [
     {
         path: "/askquestion", components: {
             default: askQuestion,
-            header: pageHeader,
+            header: questionHeader,
         }, name: "askQuestion"
     },
     {
         path: "/question/:id",
         components: {
             default: viewQuestion,
-            header: questionDetailsHeader,
+            header: questionHeader,
         },
         name: "question",
         props: {

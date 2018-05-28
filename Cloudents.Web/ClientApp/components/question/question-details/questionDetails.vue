@@ -6,7 +6,7 @@
             <v-layout row wrap>
 
                 <v-flex xs12 class="breadcrumbs">
-                    <a class="ask-question" href="/askquestion">
+                    <a class="ask-question" href="/ask">
                         <v-icon>sbf-ask-q</v-icon>
                         Ask a question</a>
                     <span class="question-category">Questions  / {{questionData.subject}}</span>
