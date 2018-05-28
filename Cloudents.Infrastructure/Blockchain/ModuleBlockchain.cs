@@ -16,5 +16,6 @@ namespace Cloudents.Infrastructure.BlockChain
             builder.RegisterType<BlockChainProvider>().As<IBlockChainProvider>();
             builder.RegisterType<CrowdsaleService>().As<ICrowdsaleService>();
         }
+
     }
 }
