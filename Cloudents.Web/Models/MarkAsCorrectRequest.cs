@@ -10,5 +10,8 @@ namespace Cloudents.Web.Models
 
         [Required]
         public long QuestionId { get;  set; }
+
+        [Required]
+        public string PrivateKey { get; set; }
     }
 }
