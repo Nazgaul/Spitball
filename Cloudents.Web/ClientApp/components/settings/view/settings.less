@@ -7,16 +7,28 @@
     height: 100%;
   }
 
+
+
   .container {
     max-width: 610px;
     margin-top: 30px;
     padding-bottom: 0;
+    height: 440px;
+
+    .layout{    
+      height: 100%;
+      align-content: space-between;
+      // padding: 1px 8px 0 12px;
+    }
 
     @media (max-width: @screen-xs) {
       max-width: none;
       margin-top: 0px;
-      padding: 0 11px 0 15px;
+      padding: 4px 2px 4px 7px;
       height: 100%;
+      .main-content{
+        padding: 0px 7px 0 10px;
+      }
     }
   }
 
@@ -27,8 +39,7 @@
 
   .flex:not(:last-child) {
     margin-bottom: 24px;
-
-    &.university{    margin-bottom: 90px;}
+    &.university{margin-bottom: 90px;}
   }
   .flex:first-child{margin-bottom: 18px;}
 
@@ -89,10 +100,26 @@
     .text-blue{font-size: 14px;}
   }
 
-  .input-group.input-group--solo{
+  .input-group.input-group--solo,.username{
     box-shadow: none;
     border: solid 1px #979797;
     border-radius: 4px;
+    font-size: 14px;
+    .sbf.icon{
+      font-size: 16px;
+    }    
+  }
+
+  .username{
+    padding: 14px 14px 12px;
+    input{
+      outline: none;
+      width: ~"calc(100% - 40px)";
+      height: 100%;
+      margin-left: 9px;
+      line-height: 1.79;
+      letter-spacing: -0.4px;
+    }
   }
 
   .btn.save{
@@ -101,7 +128,7 @@
     border-radius: 3px;
     font-size: 18px;
     color: @color-white !important;
-    background-color: #bbbbbb !important;
+    background-color: #bbbbbb;
     text-transform: none;
 
     @media (min-width: (@screen-xs+1)) {
@@ -111,7 +138,7 @@
       margin: -9px 0 0px -17px;
     }
     &.primary {
-      background-color: @color-main-purple !important;
+      background-color: @color-main-purple;
     }
   }
 
