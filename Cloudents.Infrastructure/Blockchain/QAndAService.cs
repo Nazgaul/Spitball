@@ -15,7 +15,7 @@ using Cloudents.Infrastructure.BlockChain;
 
 namespace Cloudents.Infrastructure.Blockchain
 {
-    class QAndAService : BlockChainProvider, IQAndAService
+    class QAndAService : BlockChainProvider, IBlockChainQAndAContract
     {
         protected override string Abi => "QAndA";
 
@@ -24,7 +24,8 @@ namespace Cloudents.Infrastructure.Blockchain
         {
         }
 
-        public async Task<string> SubmitQuestion(string question, int price, string senderAddress, CancellationToken token)
+        public async Task<string> SubmitQuestionAsync(long question, decimal price, string senderAddress,
+            CancellationToken token)
         {
             // return null;
             var web3 = new Web3(_configurationKeys.BlockChainNetwork);
