@@ -17,12 +17,15 @@
   
 
   <ItemGroup>
-    <None Remove="BlockChain\abi.json" />
+    <None Remove="Blockchain\Crowdsale.json" />
+    <None Remove="Blockchain\QAndA.json" />
+    <None Remove="BlockChain\TokenAbi.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="BlockChain\abi.json">
-    </EmbeddedResource>
+    <EmbeddedResource Include="Blockchain\Crowdsale.json" />
+    <EmbeddedResource Include="Blockchain\QAndA.json" />
+    <EmbeddedResource Include="Blockchain\TokenAbi.json" />
   </ItemGroup>
 
   <ItemGroup>

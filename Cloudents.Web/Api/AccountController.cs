@@ -7,6 +7,7 @@ using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -85,24 +86,28 @@ namespace Cloudents.Web.Api
         [Authorize(Policy = SignInStep.PolicyPassword)]
         public async Task<IActionResult> ChangeUserNameAsync(
             [FromBody]ChangeUserNameRequest model,
-            [FromServices] IChat client,
+            [FromServices] IQueueProvider client,
             CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var t1 = _userManager.SetUserNameAsync(user, model.Name);
-
-            var t2 = client.CreateOrUpdateUserAsync(user.Id,
-                new Core.Entities.Chat.User
-                {
-                    Name = user.Name,
-                }, token);
+            var userId = user.Id;
+            var t2 = client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
+            {
+                Name = user.Name
+            },token);
+           
             try
             {
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
             }
             catch (UserNameExistsException ex)
             {
-                //TODO: need to rollback user on client
+                await client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
+                {
+                    Name = _userManager.GetUserName(User)
+                }, token).ConfigureAwait(false);
+
                 return BadRequest(ex.Message);
             }
 

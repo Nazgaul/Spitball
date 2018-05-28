@@ -56,21 +56,24 @@ namespace Cloudents.Web.Api
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
                 var link = Url.Link("ConfirmEmail", new { user.Id, code });
 
-                var message = new EmailMessage
-                {
-                    To = model.Email,
-                    PlaceHolders = new object[] { HtmlEncoder.Default.Encode(link) },
-                    Template = "register",
-                    Subject = "welcome to spitball"
-                };
-                var t1 = _queueProvider.InsertMessageAsync(message, token);
-                var t2 = _signInManager.SignInAsync(user, isPersistent: false);
+                var message = new RegistrationEmail(model.Email, HtmlEncoder.Default.Encode(link));
+                var t1 = _queueProvider.InsertEmailMessageAsync(message, token);
+                var t2 = _signInManager.SignInAsync(user, false);
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
                 return Ok();
             }
-
-            //await _signInManager.SignInAsync(user, false);
             return BadRequest(p.Errors);
+        }
+
+        [HttpPost("resend"), Authorize]
+        public async Task<IActionResult> ResendEmail(CancellationToken token)
+        {
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+            var link = Url.Link("ConfirmEmail", new { user.Id, code });
+            var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link));
+            await _queueProvider.InsertEmailMessageAsync(message, token).ConfigureAwait(false);
+            return Ok();
         }
 
         [HttpPost("google"), ValidateModel]
@@ -93,7 +96,7 @@ namespace Cloudents.Web.Api
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (p.Succeeded)
             {
-                await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
+                await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
                 return Ok();
             }
             return BadRequest(p.Errors);
@@ -134,7 +137,7 @@ namespace Cloudents.Web.Api
             var v = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, model.Number).ConfigureAwait(false);
             if (v.Succeeded)
             {
-                await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
+                await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
                 return Ok();
             }
             return BadRequest();
@@ -144,20 +147,22 @@ namespace Cloudents.Web.Api
         [Authorize(Policy = SignInStep.PolicyPassword)]
         public async Task<IActionResult> GeneratePasswordAsync(
             [FromServices] IBlockChainProvider blockChainProvider,
-            [FromServices] IChat client,
+            [FromServices] IQueueProvider client,
             CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var account = blockChainProvider.CreateAccount();
 
             var t1 = blockChainProvider.SetInitialBalanceAsync(account.Address, token);
-            var t3 = client.CreateOrUpdateUserAsync(user.Id,
-                new Core.Entities.Chat.User
-                {
-                    Name = user.Name,
-                    Email = new[] { user.Email },
-                    Phone = new[] { user.PhoneNumberHash },
-                }, token);
+
+            var t3 = client.InsertBackgroundMessageAsync(new TalkJsUser(user.Id)
+            {
+                Name = user.Name,
+                Email = user.Email,
+                Phone = user.PhoneNumberHash
+            }, token);
+
+
 
             var privateKey = account.PrivateKey;
             var t2 = _userManager.AddPasswordAsync(user, privateKey);
@@ -165,7 +170,7 @@ namespace Cloudents.Web.Api
             await Task.WhenAll(t1, t2, t3).ConfigureAwait(false);
             if (t2.Result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
+                await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
                 return Ok(
                 new
                 {

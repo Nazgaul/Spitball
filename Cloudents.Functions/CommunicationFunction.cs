@@ -1,4 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Storage;
@@ -9,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
 using Twilio;
@@ -23,36 +27,39 @@ namespace Cloudents.Functions
     {
         [FunctionName("FunctionEmail")]
         public static async Task EmailFunctionAsync(
-            [QueueTrigger(QueueName.EmailName, Connection = "TempConnection")] EmailMessage queueMessage,
+            [QueueTrigger(QueueName.EmailName, Connection = "TempConnection")] CloudQueueMessage queueMessage,
             [SendGrid(ApiKey = "SendgridKey", From = "no-reply@spitball.co")] IAsyncCollector<SendGridMessage> emailProvider,
             IBinder binder,
             TraceWriter log,
             CancellationToken token)
         {
-            var template = queueMessage.Template;
-            if (string.IsNullOrEmpty(queueMessage.Subject))
+            var emailParams =  JsonConvert.DeserializeObject<RegistrationEmail>(queueMessage.AsString, new JsonSerializerSettings()
             {
-                log.Error("can't send email without subject template is:" + template);
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+            if (emailParams == null)
+            {
+                log.Error("error deSerializing" );
                 return;
             }
-            var dynamicBlobAttribute = new BlobAttribute("mailcontainer/Spitball/{template}-mail.html");
+            //TODO: dynamic binding somehow doesn't work skip that for now
+            var dynamicBlobAttribute = new BlobAttribute("mailcontainer/Spitball/register-mail.html");
 
             var htmlTemplate = await binder.BindAsync<string>(dynamicBlobAttribute, token).ConfigureAwait(false);
             if (htmlTemplate == null)
             {
-                log.Error("error with template name" + template);
+                log.Error("error with template name" + emailParams.Template);
                 return;
             }
-            var place = queueMessage.PlaceHolders;
 
-            var content = string.Format(htmlTemplate, place);
+            var content = htmlTemplate.Inject(emailParams);
 
             var message = new SendGridMessage
             {
-                Subject = queueMessage.Subject,
+                Subject = "welcome to spitball",
                 HtmlContent = content,
             };
-            message.AddTo(queueMessage.To);
+            message.AddTo(emailParams.To);
             await emailProvider.AddAsync(message, token).ConfigureAwait(false);
         }
 
@@ -60,32 +67,39 @@ namespace Cloudents.Functions
         //public static async Task Temp(
         //    [TimerTrigger("0 * * * * *")]TimerInfo myTimer,
         //    [Queue(QueueName.SmsName, Connection = "TempConnection")]
-        //    IAsyncCollector<SmsMessage> queue,
+        //    IAsyncCollector<A> queue,
         //    TraceWriter log)
         //{
-        //    var message = new SmsMessage
+        //    var b = new B()
         //    {
-        //        PhoneNumber = "+972542642202",
-        //        Message = "820909"
+        //        a = 1,
+        //        aa = 2
         //    };
-        //    await queue.AddAsync(message).ConfigureAwait(false);
+        //    await queue.AddAsync(b).ConfigureAwait(false);
         //    await queue.FlushAsync().ConfigureAwait(false);
         //    log.Info("ok");
         //}
 
-        [FunctionName("SmsQueue")]
-        [return: TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "(203) 347-4577")]
-        public static CreateMessageOptions SmsQueue(
-            [QueueTrigger(QueueName.SmsName, Connection = "TempConnection")] SmsMessage queueMessage)
-        {
-            return new CreateMessageOptions(new PhoneNumber(queueMessage.PhoneNumber))
-            {
-                Body = queueMessage.Message
-            };
-        }
+
+      
+
+
+
+
+
+        //[FunctionName("SmsQueue")]
+        //[return: TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "(203) 347-4577")]
+        //public static CreateMessageOptions SmsQueue(
+        //    [QueueTrigger(QueueName.SmsName, Connection = "TempConnection")] SmsMessage queueMessage)
+        //{
+        //    return new CreateMessageOptions(new PhoneNumber(queueMessage.PhoneNumber))
+        //    {
+        //        Body = queueMessage.Message
+        //    };
+        //}
 
         [FunctionName("SmsHttp")]
-        public static async Task<IActionResult> SmsHttp(
+        public static async Task<IActionResult> SmsHttpAsync(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "sms")]HttpRequest req,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "(203) 347-4577")] IAsyncCollector<CreateMessageOptions> options,
             CancellationToken token)
@@ -123,5 +137,9 @@ namespace Cloudents.Functions
             }
 
         }
+
+        
+
     }
+
 }
