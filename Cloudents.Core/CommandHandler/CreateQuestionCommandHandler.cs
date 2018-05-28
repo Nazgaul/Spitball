@@ -16,9 +16,9 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<QuestionSubject> _questionSubjectRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
-        private readonly IBlockChainProvider _blockChainProvider;
+        private readonly IBlockChainQAndAContract _blockChainProvider;
 
-        public CreateQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlockChainProvider blockChainProvider)
+        public CreateQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlockChainQAndAContract blockChainProvider)
         {
             _questionRepository = questionRepository;
             _questionSubjectRepository = questionSubjectRepository;
@@ -30,16 +30,15 @@ namespace Cloudents.Core.CommandHandler
         public async Task HandleAsync(CreateQuestionCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
-            //TODO:  we need to add block chain in here
             var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId, token).ConfigureAwait(false);
-
             var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
             await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
             var id = question.Id;
+            var p = _blockChainProvider.SubmitQuestionAsync(id, message.Price, message.PrivateKey, token);
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token));
-
-            await Task.WhenAll(l).ConfigureAwait(false);
+            
+            await Task.WhenAll(l.Union(new[] { p })).ConfigureAwait(false);
         }
     }
 }

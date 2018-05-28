@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IErc20Service
+    public interface IBlockChainErc20Service
     {
         Account CreateAccount(); //return private to user
         Task<decimal> GetBalanceAsync(string senderAddress, CancellationToken token);
