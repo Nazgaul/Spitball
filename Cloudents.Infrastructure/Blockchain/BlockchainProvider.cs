@@ -78,10 +78,6 @@ namespace Cloudents.Infrastructure.BlockChain
                     {
                         _abiContract = await reader.ReadToEndAsync().ConfigureAwait(false);
                     }
-                    //var content = new byte[stream.Length];
-                    //stream.Seek(0, SeekOrigin.Begin);
-                    //await stream.ReadAsync(content, 0, (int)stream.Length, token).ConfigureAwait(false);
-                    //_abiContract =  Encoding.UTF8.GetString(content);
                 }
             }
 

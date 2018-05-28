@@ -1,233 +1,149 @@
 <template>
-    <v-toolbar app fixed :height="height" class="header">
-        
-        <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
-            <smart-app-banner class="fixed-top" v-if="showSmartAppBanner && $vuetify.breakpoint.xsOnly"></smart-app-banner>
-            <div class="main">
-                <v-flex class="line top">
-                    <v-layout row>
-                        <v-toolbar-title class="ma-0">
-                            <router-link class="logo-link" :to="{name:'home'}">
-                                <app-logo class="logo"></app-logo>
-                            </router-link>
-                        </v-toolbar-title>
-                        <v-toolbar-items>
-                            <search-input v-if="$vuetify.breakpoint.mdAndUp" :user-text="userText" :placeholder="this.$options.placeholders[currentSelection]" :submit-route="submitRoute"></search-input>
-                            <!--<form v-if="$vuetify.breakpoint.mdAndUp" @submit.prevent="submit">-->
-                            <!--<v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>-->
-                            <!--<div v-for="(s,index) in suggestList">{{s}}</div>-->
-                            <!--</form>-->
-                            <v-spacer v-if="$vuetify.breakpoint.smAndDown"></v-spacer>
-                            <div class="settings-wrapper d-flex align-center">
-                                <v-menu bottom left>
-                                    <v-btn class="share-btn" icon slot="activator">
-                                        <share-icon></share-icon>
-                                    </v-btn>
-                                    <v-list class="sharing-list">
-                                        <v-list-tile @click="facebookShare">
-                                            <v-list-tile-action>
-                                                <facebook-icon class="facebook-icon"></facebook-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    <span>Facebook</span>
-                                                </v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                        <v-list-tile @click="twitterShare">
-                                            <v-list-tile-action>
-                                                <twitter-icon class="twitter-icon"></twitter-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>Twitter</v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                        <div @click="$ga.social('Whatsapp', 'Share')">
-                                        <v-list-tile :href="whatsappLink()" class="btn-copy hidden-sm-and-up" v-if="$vuetify.breakpoint.xs">
-                                            <v-list-tile-action>
-                                                <whatsapp-icon></whatsapp-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>Whatsapp</v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                        </div>
-                                        <v-list-tile @click="copyToClipboard" class="btn-copy">
-                                            <v-list-tile-action>
-                                                <copy-link-icon></copy-link-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>Copy link</v-list-tile-title>
-                                                <input type="text" id="input-url" value="Copied!">
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                    </v-list>
-                                </v-menu>
-                                <v-menu bottom left>
-                                    <v-btn icon slot="activator">
-                                        <v-icon>sbf-3-dot</v-icon>
-                                    </v-btn>
-                                    <v-list class="settings-list">
-                                        <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in settingMenu" :key="index" :id="item.id">
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                    </v-list>
-                                </v-menu>
-
-                                <!-- <div class="header-wallet">
-                                    <v-btn icon >
-                                        <v-icon>sbf-wallet</v-icon>                                    
-                                    </v-btn>
-                                    <span>$25</span>
-                                </div> -->
-
-                                
-                                <!-- <div class="header-comments">
-                                    <v-btn icon >
-                                        <v-icon>sbf-comment</v-icon>  
-                                                                        
-                                    </v-btn>
-                                    <span class="red-counter">6</span>                                    
-                                </div> -->
-                                                                
-                                <div class="header-rocket">
-                                    <v-menu bottom left offset-y >
-                                        <v-btn icon slot="activator">
-                                            <v-icon>sbf-rocket</v-icon>
-                                        </v-btn>
-                                        <v-list class="menu-list">
-                                            <v-list-tile>
-                                                <v-list-tile-action>
-                                                    <v-icon>sbf-wallet</v-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>My Wallet</v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>   
-                                            <v-list-tile>
-                                                <v-list-tile-action>
-                                                    <v-icon>sbf-comment</v-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>Messages</v-list-tile-title>
-                                                </v-list-tile-content>
-                                                <v-list-tile-avatar>
-                                                    <span class="red-counter">5</span>  
-                                                </v-list-tile-avatar>
-                                            </v-list-tile>   
-                                            <v-list-tile>
-                                                <v-list-tile-action>
-                                                    <v-icon>sbf-notifications</v-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>Notifications</v-list-tile-title>
-                                                </v-list-tile-content>
-                                                <v-list-tile-avatar>
-                                                    <span class="red-counter">1</span>  
-                                                </v-list-tile-avatar>
-                                            </v-list-tile>   
-                                            <v-list-tile>
-                                                <v-list-tile-action>
-                                                    <v-icon>sbf-user</v-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>My Profile</v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>   
-                                            <v-list-tile>
-                                                <v-list-tile-action>
-                                                    <v-icon>sbf-wallet</v-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>Settings</v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>   
-                                            <v-list-tile>
-                                                <v-list-tile-action class="tile-logout">
-                                                    <v-icon>sbf-logout</v-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>Logout</v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile> 
-
-                                            <v-divider class="my-3"></v-divider>
-
-                                            <v-list-tile>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>About Spitball</v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>   
-                                            <v-list-tile>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>Help</v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>   
-                                            <v-list-tile>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>Terms of Service</v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>   
-                                            <v-list-tile>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>Privacy Policy</v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile> 
-                                        </v-list>                                        
-                                    </v-menu>
-                                    <span class="red-counter">6</span>                                    
-                                </div>
-
-                                <!-- <button class="header-login">Login</button> -->
-                                <!-- <button class="header-login">Sign Up</button> -->
-                                
+    <div>
+        <v-toolbar app fixed :height="height" class="header">
             
-                                <v-menu bottom left offset-y class="gamburger">
-                                    <v-btn icon slot="activator">
-                                        <v-icon>sbf-menu</v-icon>
-                                    </v-btn>
-                                    <v-list class="menu-list">
-                                        <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in notRegMenu" :key="index" :id="item.id">
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                    </v-list>                                    
-                                </v-menu>
-                                
-                            </div>
-                        </v-toolbar-items>
-                    </v-layout>
-                </v-flex>
-                <v-flex v-if="$vuetify.breakpoint.smAndDown" class="line search-wrapper">
-                    <search-input :user-text="userText" :placeholder="this.$options.placeholders[currentSelection]" :submit-route="submitRoute"></search-input>
-                    <!--<form @submit.prevent="submit">-->
-                    <!--<v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>-->
-                    <!--</form>-->
-                </v-flex>
-            </div>
-            <slot name="extraHeader"></slot>
-        </v-layout>
-        <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
+            <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
+                <smart-app-banner class="fixed-top" v-if="showSmartAppBanner && $vuetify.breakpoint.xsOnly"></smart-app-banner>
+                <div class="main">
+                    <v-flex class="line top">
+                        <v-layout row>
+                            <v-toolbar-title :class="{'auth-user':isAuthUser}">
+                                <router-link class="logo-link" :to="{name:'home'}">
+                                    <app-logo class="logo"></app-logo>
+                                </router-link>
+                            </v-toolbar-title>
+                            <v-toolbar-items>
+                                <search-input v-if="$vuetify.breakpoint.mdAndUp" :user-text="userText" :placeholder="this.$options.placeholders[currentSelection]" :submit-route="submitRoute"></search-input>
+                                <!--<form v-if="$vuetify.breakpoint.mdAndUp" @submit.prevent="submit">-->
+                                <!--<v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>-->
+                                <!--<div v-for="(s,index) in suggestList">{{s}}</div>-->
+                                <!--</form>-->
+                                <v-spacer v-if="$vuetify.breakpoint.smAndDown"></v-spacer>
+                                <div class="settings-wrapper d-flex align-center">
+                                    <v-menu bottom left>
+                                        <v-btn class="share-btn" icon slot="activator">
+                                            <share-icon></share-icon>
+                                        </v-btn>
+                                        <v-list class="sharing-list">
+                                            <v-list-tile @click="facebookShare">
+                                                <v-list-tile-action>
+                                                    <facebook-icon class="facebook-icon"></facebook-icon>
+                                                </v-list-tile-action>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>
+                                                        <span>Facebook</span>
+                                                    </v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile>
+                                            <v-list-tile @click="twitterShare">
+                                                <v-list-tile-action>
+                                                    <twitter-icon class="twitter-icon"></twitter-icon>
+                                                </v-list-tile-action>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>Twitter</v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile>
+                                            <div @click="$ga.social('Whatsapp', 'Share')">
+                                            <v-list-tile :href="whatsappLink()" class="btn-copy hidden-sm-and-up" v-if="$vuetify.breakpoint.xs">
+                                                <v-list-tile-action>
+                                                    <whatsapp-icon></whatsapp-icon>
+                                                </v-list-tile-action>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>Whatsapp</v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile>
+                                            </div>
+                                            <v-list-tile @click="copyToClipboard" class="btn-copy">
+                                                <v-list-tile-action>
+                                                    <copy-link-icon></copy-link-icon>
+                                                </v-list-tile-action>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>Copy link</v-list-tile-title>
+                                                    <input type="text" id="input-url" value="Copied!">
+                                                </v-list-tile-content>
+                                            </v-list-tile>
+                                        </v-list>
+                                    </v-menu>
+                                    <v-menu bottom left>
+                                        <v-btn icon slot="activator">
+                                            <v-icon>sbf-3-dot</v-icon>
+                                        </v-btn>
+                                        <v-list class="settings-list">
+                                            <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in settingMenu" :key="index" :id="item.id">
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile>
+                                        </v-list>
+                                    </v-menu>
 
-        <!-- <v-navigation-drawer temporary v-model="drawer" light absolute>
-            <v-list class="settings-list">
-                <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in settingMenu" :key="index" :id="item.id">
-                    <v-list-tile-content>
-                        <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-            </v-list>        
-        </v-navigation-drawer> -->
-    </v-toolbar>
+                                    <div class="header-wallet" v-if="isAuthUser">
+                                        <v-btn icon >
+                                            <v-icon>sbf-wallet</v-icon>                                    
+                                        </v-btn>
+                                        <span>$25</span>
+                                    </div>
+
+                                    
+                                    <div class="header-comments" v-if="isAuthUser">
+                                        <v-btn icon >
+                                            <v-icon>sbf-comment</v-icon>    
+                                        </v-btn>
+                                        <span class="red-counter">6</span>                                    
+                                    </div>
+                                                                    
+                                    <div class="header-rocket" v-if="isAuthUser">
+                                        <v-menu bottom left offset-y >
+                                            <v-btn icon slot="activator" @click.native="drawer = !drawer">
+                                                <v-icon>sbf-rocket</v-icon>
+                                            </v-btn>
+                                            <menu-list :isAuthUser="isAuthUser" v-if=!isMobile></menu-list>                                            
+                                        </v-menu>
+                                        <span class="red-counter">6</span>                                    
+                                    </div>
+
+                                    <button v-if="!isAuthUser" class="header-login">Login</button>
+                                    <button v-if="!isAuthUser" class="header-login">Sign Up</button>
+                                    
+                
+                                    <v-menu bottom left offset-y class="gamburger" v-if="!isAuthUser">
+                                        <v-btn icon slot="activator" @click.native="drawer = !drawer">
+                                            <v-icon>sbf-menu</v-icon>
+                                        </v-btn>
+                                        <menu-list :isAuthUser="isAuthUser" v-if=!isMobile></menu-list>
+                                    </v-menu>   
+                                    
+                                </div>
+                            </v-toolbar-items>
+                        </v-layout>
+                    </v-flex>
+                    <v-flex v-if="$vuetify.breakpoint.smAndDown" class="line search-wrapper">
+                        <search-input :user-text="userText" :placeholder="this.$options.placeholders[currentSelection]" :submit-route="submitRoute"></search-input>
+                        <!--<form @submit.prevent="submit">-->
+                        <!--<v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>-->
+                        <!--</form>-->
+                    </v-flex>
+                </div>
+                <slot name="extraHeader"></slot>
+            </v-layout>
+            <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
+
+            
+        </v-toolbar>
+
+        <v-navigation-drawer temporary v-model="drawer" light absolute app v-if=isMobile width="280">
+            <menu-list :isAuthUser="isAuthUser"></menu-list>
+        </v-navigation-drawer>
+
+    </div>
 </template>
 
 <script>
     import { settingMenu, notRegMenu } from '../settings/consts';
     import SearchInput from '../helpers/searchInput.vue';
-    import smartAppBanner from "../smartAppBanner/smartAppBanner.vue"
+    import smartAppBanner from "../smartAppBanner/smartAppBanner.vue";
+    import menuList from "./menu-list/menu-list.vue";    
+    
     import {mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
     const PersonalizeDialog=()=> import('./ResultPersonalize.vue');
@@ -249,6 +165,7 @@
         },
         computed: {
             ...mapGetters(['getUniversityName', 'showSmartAppBanner']),
+            isMobile(){return this.$vuetify.breakpoint.xsOnly;}
     },
         watch:{
             toolbarHeight(val) {
@@ -260,10 +177,18 @@
             }
         },
         components: {
-            PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput,smartAppBanner
+            PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput,smartAppBanner, menuList
         },
         props:{currentSelection:{type:String,default:'note'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
-        data(){return {settingMenu,notRegMenu,clickOnce:false,drawer: null}},
+        data(){
+            return {
+                settingMenu,
+                notRegMenu,
+                clickOnce:false,
+                drawer: null,
+                isAuthUser:false
+            }
+        },
         methods:{
             $_currentClick({ id,name }) {
                 if(name==='Feedback'){

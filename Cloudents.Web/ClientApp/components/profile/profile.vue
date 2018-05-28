@@ -1,68 +1,48 @@
 <template>
-    <div class="profile-page">
-        <v-container v-if="!isMobile">
-            <v-layout row wrap>    
+    <div class="profile-page" v-if="profileData">
+        <v-container>
+            <v-layout :class="{'column': isMobile}" wrap justify-center>
 
-                <v-flex xs3>
+                <div>
                     <div class="main-block">
-
-                        <div class="user-block">
-                            <img class="avatar" src="../chat/img/user.png" />
-                            <span class="name">{{userData.name}}</span>
-                            <p>{{userData.name}}</p>
-                        </div>
+                        <button class="back">
+                            <v-icon>sbf-arrow-right</v-icon>    
+                        </button>
+                        <user-block v-if="profileData.user" :user="profileData.user" :classType="'university'"></user-block>
 
                         <div class="menu">
-                            <ul class="tabs">
-                                <li :class="{'active': activeTab == 1}" @click="changeActiveTab(1)">Selling</li>
-                                <li :class="{'active': activeTab == 2}" @click="changeActiveTab(2)">Sold</li>
-                                <li :class="{'active': activeTab == 3}" @click="changeActiveTab(3)">Upvoted</li>
+                            <ul class="tabs" v-if="!isMobile" xs3>
+                                <li :class="{'active': activeTab === 1}" @click="activeTab = 1">Selling</li>
+                                <li :class="{'active': activeTab === 2}" @click="activeTab = 2">Sold</li>
+                                <li :class="{'active': activeTab === 3}" @click="activeTab = 3">Upvoted</li>
                             </ul>
+
+                            <v-tabs v-else grow class="tab-padding" xs12>
+                                <v-tabs-bar>
+                                    <v-tabs-slider color="blue"></v-tabs-slider>
+                                    <v-tabs-item @click="activeTab = 1" :href="'#tab-1'" :key="1">Selling</v-tabs-item>
+                                    <v-tabs-item @click="activeTab = 2" :href="'#tab-2'" :key="2">Sold</v-tabs-item>
+                                    <v-tabs-item @click="activeTab = 3" :href="'#tab-3'" :key="3">Upvoted</v-tabs-item>
+                                </v-tabs-bar>
+                            </v-tabs>
                         </div>
-                    </div>  
-
-                </v-flex>  
-
-                <v-flex xs6 class="web-content">
-                        <div class="user-question">
-                            <question-card :myQuestion="true"></question-card>    
-                        </div>                                          
-                </v-flex> 
-
-            </v-layout>
-
-        </v-container> 
-
-        <!-- Mobile version with tabs -->
-        <div v-if="isMobile">
-            <v-flex xs12>
-                <div class="main-block">
-                    <div class="user-block">
-                            <img class="avatar" src="../chat/img/user.png" />
-                            <span class="name">User Name</span>
-                            <p>univrsity Name</p>
-                        </div>
-                </div>  
-
-            </v-flex>  
-
-            <v-tabs grow class="tab-padding">
+                    </div>
+                </div>
+                    
+                <v-flex class="web-content">
+                    <div v-if="activeTab === 1">
+                        <question-card v-for="questionData in profileData.ask" :cardData="questionData"
+                                    :myQuestion="true"></question-card>
+                    </div>
+                    <div v-else-if="activeTab === 2">
+                        <question-card v-for="answerData in profileData.answer" :cardData="answerData"
+                                    :myQuestion="true"></question-card>
+                    </div>
+                    <div v-else-if="activeTab === 3">UPVOTED CONTENT</div>
+                </v-flex>
                 
-                <v-tabs-bar >
-                    <v-tabs-slider color="blue"></v-tabs-slider>
-                    <v-tabs-item  :href="'#tab-1'" :key="'1'">Selling</v-tabs-item>
-                    <v-tabs-item  :href="'#tab-2'" :key="'2'">Sold</v-tabs-item>
-                    <v-tabs-item  :href="'#tab-3'" :key="'3'">Upvoted</v-tabs-item>
-                </v-tabs-bar>     
-
-                <v-flex xs12 class="mobile-content">
-                        <div class="user-question">
-                            <question-card :myQuestion="true"></question-card>    
-                        </div>                                               
-                </v-flex> 
-
-            </v-tabs>
-        </div>
+            </v-layout>
+        </v-container>
     </div>
 </template>
 

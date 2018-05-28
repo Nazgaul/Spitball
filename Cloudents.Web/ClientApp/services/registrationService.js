@@ -5,9 +5,9 @@ import qs from "query-string";
 
 export default {
     googleRegistration: (data) => axios.post("/Register/google", {token: data}),
-    emailRegistration: (email,recaptcha) => instance.post("register", {email,captcha: recaptcha}),
+    emailRegistration: (email,recaptcha) => axios.post("register", {email,captcha: recaptcha}),
     smsRegistration: (data) => axios.post("/Register/sms", {number: data}),
     smsCodeVerification: (data) => axios.post("/Register/sms/verify", {number: data}),
     getUserName: () => axios.get("/Register/userName"),
-    signIn: (email,key,captcha) => instance.post("login", {email,key, captcha})
+    signIn: (email,key,captcha) => axios.post("login", {email,key, captcha})
 }

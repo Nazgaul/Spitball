@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -37,7 +39,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetAsync([FromServices] IBlockChainProvider blockChain, CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var balance = 100;//await blockChain.GetBalanceAsync(user.PublicKey, token).ConfigureAwait(false);
+            var balance = await blockChain.GetBalanceAsync(user.PublicKey, token).ConfigureAwait(false);
             return Ok(new
             {
                 user.Id,
@@ -84,27 +86,36 @@ namespace Cloudents.Web.Api
         [Authorize(Policy = SignInStep.PolicyPassword)]
         public async Task<IActionResult> ChangeUserNameAsync(
             [FromBody]ChangeUserNameRequest model,
-            [FromServices] IChat client,
+            [FromServices] IQueueProvider client,
             CancellationToken token)
         {
-            //TODO: check if this unique
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var t1 = _userManager.SetUserNameAsync(user, model.Name);
-
-            var t2 = client.CreateOrUpdateUserAsync(user.Id,
-                new Core.Entities.Chat.User
+            var userId = user.Id;
+            var t2 = client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
+            {
+                Name = user.Name
+            },token);
+           
+            try
+            {
+                await Task.WhenAll(t1, t2).ConfigureAwait(false);
+            }
+            catch (UserNameExistsException ex)
+            {
+                await client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
                 {
-                    Name = user.Name,
-                    Email = new[] { user.Email },
-                    Phone = new[] { user.PhoneNumberHash },
-                }, token);
+                    Name = _userManager.GetUserName(User)
+                }, token).ConfigureAwait(false);
 
-            await Task.WhenAll(t1, t2).ConfigureAwait(false);
+                return BadRequest(ex.Message);
+            }
+
             if (t1.Result.Succeeded)
             {
                 return Ok();
             }
-            return BadRequest();
+            return BadRequest(t1.Result.Errors);
         }
 
         [HttpPost("university")]

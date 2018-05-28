@@ -7,20 +7,24 @@ const state = {
     login: false,
     user: null,
     talkSession: null,
-    talkMe:null
+    talkMe: null,
+    unreadMessages: 0
 }
 const mutations = {
     changeLoginStatus(state, val) {
         state.login = val;
     },
-    updateUser(state,val) {
+    updateUser(state, val) {
         state.user = val;
     },
-    updateTalkSession(state,val) {
+    updateTalkSession(state, val) {
         state.talkSession = val;
     },
-    updateChatUser(state,val) {
+    updateChatUser(state, val) {
         state.talkMe = val;
+    },
+    updateMessageCount(state, val) {
+        state.unreadMessages = val;
     }
 };
 
@@ -31,32 +35,35 @@ const getters = {
     accountUser: state => state.user
 };
 const actions = {
-    userStatus({dispatch, commit }) {
+    userStatus({ dispatch, commit,getters }) {
         const $this = this;
-        axios.get("account").then( ({data}) => {
+        if (getters.isLogIn) {
+            return Promise.resolve();
+        }
+        return axios.get("account").then(({ data }) => {
             commit("changeLoginStatus", true);
-            commit("updateUser",data);
+            commit("updateUser", data);
             dispatch("connectToChat");
         }).catch(_ => {
+            commit("changeLoginStatus", false);
         });
     },
-    connectToChat( {state,commit}) {
+    connectToChat({ state, commit }) {
         if (!state.user) {
             return;
         }
-        const me = new Talk.User ({
-            id: state.user.id,
-            configuration: "buyer"
-        });
-        commit("updateChatUser",me);
-
-        //var me = new Talk.User(state.user.id)
+        const me = new Talk.User(state.user.id);
+        commit("updateChatUser", me);
         const talkSession = new Talk.Session({
-            appId:"tXsrQpOx",
+            appId: "tXsrQpOx",
             me: me,
             signature: state.user.token
         });
-        commit("updateTalkSession",talkSession);
+        talkSession.unreads.on("change", m => {
+            commit("updateMessageCount", conversationIds.length);
+        })
+
+        commit("updateTalkSession", talkSession);
     }
 };
 

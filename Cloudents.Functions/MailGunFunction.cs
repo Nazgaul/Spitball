@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -16,13 +17,14 @@ using Microsoft.Azure.WebJobs.Host;
 
 namespace Cloudents.Functions
 {
-   // [DependencyInjectionConfig(typeof(DiConfig))]
+    // [DependencyInjectionConfig(typeof(DiConfig))]
+
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Azure function")]
     public static class MailGunFunction
     {
         private const string MailGunMailTemplateHtml = "spamgun/mail_template.html";
 
         [FunctionName("MailGunTest")]
-        [UsedImplicitly]
         public static async Task MailGunTestAsync([TimerTrigger("0 * * * * *")]TimerInfo myTimer,
             [Inject] IReadRepositoryAsync<IEnumerable<MailGunDto>, long> dataRepository,
             [Inject] IMailProvider mailProvider,
@@ -39,7 +41,6 @@ namespace Cloudents.Functions
 
 
         [FunctionName("MailGunProcess")]
-        [UsedImplicitly]
         public static async Task MailGunProcessAsync([TimerTrigger("0 0 * * * *")]TimerInfo myTimer,
             [Inject]IReadRepositoryAsync<IEnumerable<MailGunUniversityDto>> universityRepository,
             [Inject] IReadRepositoryAsync<IEnumerable<MailGunDto>, long> dataRepository,

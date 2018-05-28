@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -19,6 +21,7 @@ using Cloudents.Infrastructure.Mail;
 using Cloudents.Infrastructure.Search.Tutor;
 using Cloudents.Infrastructure.BlockChain;
 using System.Numerics;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using Cloudents.Core.Command;
 using Cloudents.Core.Storage;
@@ -72,7 +75,19 @@ namespace ConsoleApp
 
 
 
+      
 
 
+    }
+    [SerializableAttribute]
+public class A
+    {
+        public int a { get; set; }
+    }
+
+[SerializableAttribute]
+public class B : A
+    {
+        public int aa { get; set; }
     }
 }

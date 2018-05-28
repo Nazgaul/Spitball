@@ -17,12 +17,11 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Cloudents.Functions
 {
-   // [DependencyInjectionConfig(typeof(DiConfig))]
     public static class UniversityFunction
     {
         [FunctionName("UniversityTimer")]
         [UsedImplicitly]
-        public static async Task RunAsync([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer,
+        public static async Task RunAsync([TimerTrigger("0 */30 * * * *")]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/university-version.txt",FileAccess.ReadWrite)]
             CloudBlockBlob blob,
             [Inject] IReadRepositoryAsync<(IEnumerable<UniversitySearchWriteDto> update, IEnumerable<SearchWriteBaseDto> delete, long version), SyncAzureQuery> repository,
