@@ -89,10 +89,26 @@
     .text-blue{font-size: 14px;}
   }
 
-  .input-group.input-group--solo{
+  .input-group.input-group--solo,.username{
     box-shadow: none;
     border: solid 1px #979797;
     border-radius: 4px;
+    font-size: 14px;
+    .sbf.icon{
+      font-size: 16px;
+    }    
+  }
+
+  .username{
+    padding: 14px 14px 12px;
+    input{
+      outline: none;
+      width: ~"calc(100% - 40px)";
+      height: 100%;
+      margin-left: 9px;
+      line-height: 1.79;
+      letter-spacing: -0.4px;
+    }
   }
 
   .btn.save{

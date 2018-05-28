@@ -27,8 +27,9 @@
                     </div>
                 </v-flex>
 
-                <v-flex xs12>
-                    <uni-search-input class="uni-field" :placeholder="'Your input'" v-model="test" :prependIcon="'sbf-users'"></uni-search-input>
+                <v-flex xs12 class="username">
+                   <v-icon right>sbf-users</v-icon>
+                   <input type="text" placeholder="User Name" v-model="username">
                 </v-flex>
 
                 <v-flex xs12 class="university">
