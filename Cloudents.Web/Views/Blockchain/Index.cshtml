@@ -127,7 +127,7 @@
 
         function txInitial10Tokens() {
             var account = localStorage.getItem("1");
-            account = { address: test };
+            account = { address: account };
             var Account = $.post("blockchain/SetInitialBalance", account).then(function (result) {
                 alert(result);
             })
@@ -135,12 +135,12 @@
 
         document.getElementById("BuyTokens").addEventListener("click", function (e) {
             e.preventDefault();
-            txInitial10Tokens();
+            BuyTokens();
         })
 
-        function txInitial10Tokens() {
-           
-            test = { address: "0b791c5dbc5704a075e3af8c654238e5eac78d2ac5dd3a7cd4c5a92a2e578f46", amount: 10 };
+        function BuyTokens() {
+
+            test = { senderAddress: "0xfe0f0f04d2a9b89748631979f263d293b008ee60", amount: 10 };
             var Account = $.post("blockchain/BuyTokens", test).then(function (result) {
                 alert(result);
             })

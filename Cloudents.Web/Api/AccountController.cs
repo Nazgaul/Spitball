@@ -36,7 +36,7 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet]
-        public async Task<IActionResult> GetAsync([FromServices] IBlockChainProvider blockChain, CancellationToken token)
+        public async Task<IActionResult> GetAsync([FromServices] IBlockChainErc20Service blockChain, CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var balance = await blockChain.GetBalanceAsync(user.PublicKey, token).ConfigureAwait(false);

@@ -66,8 +66,8 @@ namespace ConsoleApp
             //var b = await a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", "0xAcfB119204a93BbDa781C972D27AeAB8671c63f4", 10, default);
 
 
-            var c = container.Resolve<IBlockChainQAndAContract>();
-            var d = await c.SubmitQuestionAsync(1, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
+            var c = container.Resolve<IQAndAService>();
+            var d = await c.SubmitQuestion("SDFs", 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
             
             Console.WriteLine("Finish");
             Console.ReadLine();

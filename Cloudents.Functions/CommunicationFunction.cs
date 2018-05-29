@@ -1,7 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Storage;
@@ -63,41 +60,6 @@ namespace Cloudents.Functions
             await emailProvider.AddAsync(message, token).ConfigureAwait(false);
         }
 
-        //[FunctionName("Temp")]
-        //public static async Task Temp(
-        //    [TimerTrigger("0 * * * * *")]TimerInfo myTimer,
-        //    [Queue(QueueName.SmsName, Connection = "TempConnection")]
-        //    IAsyncCollector<A> queue,
-        //    TraceWriter log)
-        //{
-        //    var b = new B()
-        //    {
-        //        a = 1,
-        //        aa = 2
-        //    };
-        //    await queue.AddAsync(b).ConfigureAwait(false);
-        //    await queue.FlushAsync().ConfigureAwait(false);
-        //    log.Info("ok");
-        //}
-
-
-      
-
-
-
-
-
-        //[FunctionName("SmsQueue")]
-        //[return: TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "(203) 347-4577")]
-        //public static CreateMessageOptions SmsQueue(
-        //    [QueueTrigger(QueueName.SmsName, Connection = "TempConnection")] SmsMessage queueMessage)
-        //{
-        //    return new CreateMessageOptions(new PhoneNumber(queueMessage.PhoneNumber))
-        //    {
-        //        Body = queueMessage.Message
-        //    };
-        //}
-
         [FunctionName("SmsHttp")]
         public static async Task<IActionResult> SmsHttpAsync(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "sms")]HttpRequest req,
@@ -135,11 +97,6 @@ namespace Cloudents.Functions
             {
                 return null;
             }
-
         }
-
-        
-
     }
-
 }
