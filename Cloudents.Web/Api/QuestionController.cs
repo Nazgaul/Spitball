@@ -43,9 +43,7 @@ namespace Cloudents.Web.Api
             return Ok(result);
         }
 
-        
-
-        [HttpPut("correct")]
+        [HttpPut("correct"), ValidateModel]
         public async Task<IActionResult> MarkAsReadAsync(MarkAsCorrectRequest model, CancellationToken token)
         {
             var command = _mapper.Map<MarkAnswerAsCorrectCommand>(model);
@@ -55,10 +53,9 @@ namespace Cloudents.Web.Api
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetQuestionAsync(long id, 
+        public async Task<IActionResult> GetQuestionAsync(long id,
             [FromServices] IQueryBus bus, CancellationToken token)
         {
-            
             var retVal = await bus.QueryAsync<long, QuestionDetailDto>(id,token).ConfigureAwait(false);
             return Ok(retVal);
         }
