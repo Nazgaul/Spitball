@@ -115,11 +115,9 @@ namespace Cloudents.Web.Api
                 PhoneNumber = model.Number,
                 Message = code
             };
-            var result = await client.PostJsonAsync(new Uri($"{_configuration.FunctionEndpoint}/api/sms"), message,
-                new List<KeyValuePair<string, string>>
-            {
-               new KeyValuePair<string, string>("Authorization","HhMs8ZVg/HD4CzsN7ujGJsyWVmGmUDAVPv2a/t5c/vuiyh/zBrSTVg==")
-            }, token).ConfigureAwait(false);
+            
+            var result = await client.PostJsonAsync(new Uri($"{_configuration.FunctionEndpoint}/api/sms?code=HhMs8ZVg/HD4CzsN7ujGJsyWVmGmUDAVPv2a/t5c/vuiyh/zBrSTVg=="), message,
+            null, token).ConfigureAwait(false);
             if (result)
             {
                 return Ok();

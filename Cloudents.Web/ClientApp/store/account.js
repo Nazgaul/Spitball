@@ -29,7 +29,8 @@ const mutations = {
 };
 
 const getters = {
-    isLogIn: state => state.user !== null,
+    loginStatus:state=>state.login,
+    isUser: state => state.user !== null,
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
     accountUser: state => state.user
@@ -37,7 +38,10 @@ const getters = {
 const actions = {
     userStatus({ dispatch, commit,getters }) {
         const $this = this;
-        if (getters.isLogIn) {
+        // if (getters.isUser) {
+        //     return Promise.resolve();
+        // }
+        if(getters.isUser){
             return Promise.resolve();
         }
         return axios.get("account").then(({ data }) => {

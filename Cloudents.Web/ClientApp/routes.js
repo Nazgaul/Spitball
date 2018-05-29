@@ -1,4 +1,4 @@
-﻿const HomePage = () => import("./components/home/home.vue");
+const HomePage = () => import("./components/home/home.vue");
 const homePageHeader = () => import("./components/home/header.vue");
 import * as RouteTypes from "./routeTypes";
 
@@ -11,7 +11,7 @@ const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const pageHeader = () => import("./components/header/header.vue");
 //const pageHeaderBasic = () => import("./components/helpers/header.vue");
 const bookDetailsHeader = () => import("./components/book/header.vue");
-const questionDetailsHeader = () => import("./components/question/header/header.vue");
+const questionHeader = () => import("./components/question/header/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
@@ -27,6 +27,7 @@ const viewChat = () => import("./components/chat/view/chat.vue");
 const userSettings = () => import("./components/settings/view/settings.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
+import store from "./store";
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -191,18 +192,26 @@ let routes2 = [
     {
         path: "/askquestion", components: {
             default: askQuestion,
-            header: pageHeader,
-        }, name: "askQuestion"
+            header: questionHeader,
+        }, name: "askQuestion",
+        meta: {requiresAuth: true},
+        beforeEnter: (to, from, next) => {
+            checkUserStatus(to, next);
+        }
     },
     {
         path: "/question/:id",
         components: {
             default: viewQuestion,
-            header: questionDetailsHeader,
+            header: questionHeader,
         },
         name: "question",
         props: {
             default: (route) => ({id: route.params.id}),
+        },
+        meta: {requiresAuth: true},
+        beforeEnter: (to, from, next) => {
+            checkUserStatus(to, next);
         }
     },
     {
@@ -214,21 +223,25 @@ let routes2 = [
         name: "profile",
         props: {
             default: (route) => ({id: route.params.id})
+        },
+        meta: {requiresAuth: true},
+        beforeEnter: (to, from, next) => {
+            checkUserStatus(to, next);
         }
     },
-    {
-        path: "/settings", components: {
-            default: userSettings,
-            header: pageHeader,
-        }, name: "chat"
-    },
-    
-    {
-        path: "/chat", components: {
-            default: viewChat,
-            header: pageHeader,
-        }, name: "chat"
-    },
+    // {
+    //     path: "/settings", components: {
+    //         default: userSettings,
+    //         header: pageHeader,
+    //     }, name: "chat"
+    // },
+    //
+    // {//TODO: remove chat component designed by Artem
+    //     path: "/chat", components: {
+    //         default: viewChat,
+    //         header: pageHeader,
+    //     }, name: "chat"
+    // },
     {
         path: "/confirmEmail",
         components: {
@@ -246,7 +259,8 @@ let routes2 = [
         path: "/temp",
         components: {
             default: () => import("./components/temp/temp.vue")
-        }
+        },
+        meta: {requiresAuth: true}
     }
 
 ];
@@ -265,3 +279,21 @@ for (let v in staticRoutes) {
 }
 
 export const routes = routes2;
+
+
+function checkUserStatus(to, next) {
+    store.dispatch('userStatus').then(response => {
+        // check if user needs to be redirected to login screen
+        if (to.meta.requiresAuth) {
+            if (store.getters.loginStatus) {
+                next();
+            }
+            else {
+                next("signin")
+            }
+        }
+        next()
+    }).catch(error => {
+        next("signin");
+    });
+}
