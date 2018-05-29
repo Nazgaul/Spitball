@@ -37,9 +37,26 @@
       }
     }
 
+    .preview-list,.text-block textarea{
+      &::-webkit-scrollbar-track
+      {
+        background-color: @color-white;        
+      }
+      &::-webkit-scrollbar
+      {
+        height: 6px;
+        width: 4px;        
+        background-color: @color-white;        
+      }
+      &::-webkit-scrollbar-thumb
+      {
+        background-color: #979797;
+        border: none;
+      }
+    }
+
     .preview-list{
       width: 30%;
-      // height: 100%;
       display: flex;
       overflow: hidden;
       margin: 8px;
@@ -104,7 +121,7 @@
         cursor: pointer;      
         z-index: 2;
         .background{display: block;}
-      }
+      }     
       
     }
     .close-btn{
