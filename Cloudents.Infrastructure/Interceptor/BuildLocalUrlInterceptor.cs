@@ -21,7 +21,6 @@ namespace Cloudents.Infrastructure.Interceptor
 
         protected override void AfterAction<T>(ref T val, IInvocation invocation)
         {
-
             var att = invocation.GetCustomAttribute<BuildLocalUrlAttribute>();
             var page = 0;
             var pageSize = 0;
@@ -34,12 +33,7 @@ namespace Cloudents.Infrastructure.Interceptor
 
             if (string.IsNullOrEmpty(att.ListObjectName) && val != null)
             {
-                //This check failed in select many
-                // if (val.GetType().GetGenericArguments()[0].GetInterfaces().Contains(typeof(IUrlRedirect)))
-                // {
                 val = _urlRedirectBuilder.BuildUrl((dynamic)val, page, pageSize);
-                // }
-
                 return;
             }
             var prop = GetPropertyInfo(val, att.ListObjectName);
@@ -47,15 +41,12 @@ namespace Cloudents.Infrastructure.Interceptor
             {
                 return;
             }
-            var data = prop.GetValue(val, null);// as IEnumerable<BookPricesDto>;
-                                                //if (data.GetType().GetGenericArguments()[0].GetInterfaces().Contains(typeof(IUrlRedirect)))
-                                                //{
+            var data = prop.GetValue(val, null);
             if (data != null)
             {
                 var urls = _urlRedirectBuilder.BuildUrl((dynamic)data, page, pageSize);
                 prop.SetValue(val, urls);
             }
-            //}
         }
 
         private static PropertyInfo GetPropertyInfo(object src, string propName)
@@ -77,11 +68,5 @@ namespace Cloudents.Infrastructure.Interceptor
                 }
             }
         }
-
-        //private static object GetPropValue(object src, string propName)
-        //{
-        //    var prop = GetPropertyInfo(src, propName);
-        //    return prop?.GetValue(src, null);
-        //}
     }
 }

@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Dapper;
 using JetBrains.Annotations;
@@ -16,7 +15,7 @@ namespace Cloudents.Infrastructure.Data
 
         public MailGunUniversityRepository(DapperRepository.Factory dapper)
         {
-            _dapper = dapper.Invoke(Database.MailGun);
+            _dapper = dapper.Invoke(Core.Enum.Database.MailGun);
         }
 
         public Task<IEnumerable<MailGunUniversityDto>> GetAsync(CancellationToken token)

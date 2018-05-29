@@ -5,7 +5,10 @@
     </div>
 </template>
 <script>
+
     import { mapActions } from 'vuex'
+    ﻿import accountService from '../../services/accountService'
+
     export default {
         props: { item: { type: Object, required: true } },
         methods: {
@@ -13,6 +16,7 @@
             $_universitySelected(val) {
                 this.$ga.event("Uni_Select",val.name);
                 this.updateUniversity(val);
+                accountService.setUniversity(val);
             }
         }
     }

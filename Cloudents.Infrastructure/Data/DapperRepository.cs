@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Infrastructure.Data
 {
@@ -14,15 +13,14 @@ namespace Cloudents.Infrastructure.Data
     //    Task<T> WithConnectionAsync<T>(Func<IDbConnection, Task<T>> getData, CancellationToken token);
     //    T WithConnection<T>(Func<IDbConnection, T> getData);
     //}
-   
 
     public class DapperRepository //: IDapperRepository
     {
         private readonly string _connectionString;
 
-        public delegate DapperRepository Factory(Database db);
+        public delegate DapperRepository Factory(Core.Enum.Database db);
 
-        public DapperRepository(Database db, DbConnectionStringProvider provider)
+        public DapperRepository(Core.Enum.Database db, DbConnectionStringProvider provider)
         {
             _connectionString = provider.GetConnectionString(db);
             Dapper.SqlMapper.SetTypeMap(typeof(University), new ColumnAttributeTypeMapper<University>());
@@ -33,7 +31,7 @@ namespace Cloudents.Infrastructure.Data
         }
 
         public DapperRepository(DbConnectionStringProvider provider) :
-            this(Database.System,provider)
+            this(Core.Enum.Database.System,provider)
         {
 
         }
@@ -62,7 +60,10 @@ namespace Cloudents.Infrastructure.Data
             }
         }
 
-       
+        public IDbConnection OpenConnection()
+        {
+            return new SqlConnection(_connectionString);
+        }
 
         public T WithConnection<T>(Func<IDbConnection, T> getData)
         {

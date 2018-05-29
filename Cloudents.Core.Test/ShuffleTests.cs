@@ -8,28 +8,29 @@ namespace Cloudents.Core.Test
     [TestClass]
     public class ShuffleTests
     {
+
+        //private class TestPrioritySource : PrioritySource
+        //{
+        //    protected TestPrioritySource(string source, int priority) : base(source, priority)
+        //    {
+        //    }
+
+        //    public static readonly PrioritySource TestA = new TestPrioritySource("A", 1);
+        //    public static readonly PrioritySource TestB = new TestPrioritySource("B", 2);
+        //    public static readonly PrioritySource TestC = new TestPrioritySource("C", 3);
+
+        //}
+        public static readonly PrioritySource TestA = new PrioritySource("a", 1);
+        public static readonly PrioritySource TestB = new PrioritySource("b", 2);
+        public static readonly PrioritySource TestC = new PrioritySource("c", 3);
+
         private class ShuffleTestModel : IShuffleable
         {
-            public string Host { get; set; }
 
-            public int Result { get; set; }
 
-            public object Bucket => Host;
 
-            //public override bool Equals(object obj)
-            //{
-            //    if (obj is ShuffleTestModel p)
-            //    {
-            //        return p.Host == Host && p.Result == Result;
-            //    }
-
-            //    return false;
-            //}
-
-            //public override int GetHashCode()
-            //{
-            //    return Result.GetHashCode() * 11 + Host.GetHashCode() * 13;
-            //}
+            public PrioritySource PrioritySource { get; set; }
+            public int Order { get; set; }
         }
 
         [TestMethod]
@@ -37,28 +38,28 @@ namespace Cloudents.Core.Test
         {
             var list = new List<ShuffleTestModel>
             {
-                new ShuffleTestModel {Host = "A", Result = 1},
-                new ShuffleTestModel {Host = "A", Result = 2},
-                new ShuffleTestModel {Host = "A", Result = 3},
-                new ShuffleTestModel {Host = "B", Result = 1},
-                new ShuffleTestModel {Host = "B", Result = 2},
-                new ShuffleTestModel {Host = "C", Result = 1},
-                new ShuffleTestModel {Host = "C", Result = 2},
-                new ShuffleTestModel {Host = "A", Result = 4}
+                new ShuffleTestModel {PrioritySource = TestA, Order = 0},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 1},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 2},
+                new ShuffleTestModel {PrioritySource = TestB, Order = 3},
+                new ShuffleTestModel {PrioritySource = TestB, Order = 4},
+                new ShuffleTestModel {PrioritySource = TestC, Order = 5},
+                new ShuffleTestModel {PrioritySource = TestC, Order = 6},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 7}
             };
             var shuffle = new Shuffle();
-            var result = shuffle.DoShuffle(list).ToList();
+            var result = shuffle.ShuffleByPriority(list)?.ToList();
 
             var expectedList = new List<ShuffleTestModel>
             {
-                new ShuffleTestModel {Host = "A", Result = 1},
-                new ShuffleTestModel {Host = "B", Result = 1},
-                new ShuffleTestModel {Host = "A", Result = 2},
-                new ShuffleTestModel {Host = "B", Result = 2},
-                new ShuffleTestModel {Host = "A", Result = 3},
-                new ShuffleTestModel {Host = "C", Result = 1},
-                new ShuffleTestModel {Host = "A", Result = 4},
-                new ShuffleTestModel {Host = "C", Result = 2}
+                new ShuffleTestModel {PrioritySource = TestA, Order = 0},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 1},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 2},
+                new ShuffleTestModel {PrioritySource = TestB, Order = 3},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 7},
+                new ShuffleTestModel {PrioritySource = TestB, Order = 4},
+                new ShuffleTestModel {PrioritySource = TestC, Order = 5},
+                new ShuffleTestModel {PrioritySource = TestC, Order = 6}
             };
             result.Should().BeEquivalentTo(expectedList);
             //CollectionAssert.AreEqual(result, expectedList);
@@ -69,17 +70,17 @@ namespace Cloudents.Core.Test
         {
             var list = new List<ShuffleTestModel>
             {
-                new ShuffleTestModel {Host = "A", Result = 1},
-                new ShuffleTestModel {Host = "A", Result = 2},
-                new ShuffleTestModel {Host = "A", Result = 3},
-                new ShuffleTestModel {Host = "A", Result = 4},
-                new ShuffleTestModel {Host = "A", Result = 5},
-                new ShuffleTestModel {Host = "A", Result = 6},
-                new ShuffleTestModel {Host = "A", Result = 7},
-                new ShuffleTestModel {Host = "A", Result = 8}
+                new ShuffleTestModel {PrioritySource = TestA, Order = 0},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 1},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 2},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 3},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 4},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 5},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 6},
+                new ShuffleTestModel {PrioritySource = TestA, Order = 7}
             };
             var shuffle = new Shuffle();
-            var result = shuffle.DoShuffle(list).ToList();
+            var result = shuffle.ShuffleByPriority(list)?.ToList();
             result.Should().BeEquivalentTo(list);
             //CollectionAssert.AreEqual(result, list);
         }

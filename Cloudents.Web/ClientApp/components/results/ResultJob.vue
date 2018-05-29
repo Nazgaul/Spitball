@@ -1,5 +1,5 @@
 ﻿<template v-once>
-    <a class="d-block job-cell" target="_blank" :href="item.url">
+    <a class="d-block job-cell" :target="($vuetify.breakpoint.xsOnly)?'_self':'_blank'" :href="item.url">
        <span @click="$ga.event('Search_Results', 'job',`#${index+1}_${item.source}`)"> <div class="cell-title-wrap mb-1"><span class="cell-title">{{item.title}}</span></div>
         <div class="desc">
             <div class="desc-title-wrap"><span class="desc-title">Job description:</span></div>
@@ -21,6 +21,7 @@
     import companyIcon from "./svg/company-icon.svg";
     import locationIcon from "./svg/location-icon.svg";
     import paidIcon from "./svg/paid-icon.svg";
+
     export default {
         components: { caldendarIcon, companyIcon, locationIcon, paidIcon },
         props: {

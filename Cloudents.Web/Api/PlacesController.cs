@@ -3,46 +3,78 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Web.Filters;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// The food and places api controller
+    /// </summary>
     [Produces("application/json")]
-    [Route("api/Places")]
+    [Route("api/[controller]", Name = "Places")]
     public class PlacesController : Controller
     {
-        private readonly IPlacesSearch _placesSearch;
+        private readonly IPlacesSearch _purchaseSearch;
 
-        public PlacesController(IPlacesSearch placesSearch)
+        /// <inheritdoc />
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="purchaseSearch"></param>
+        public PlacesController(IPlacesSearch purchaseSearch)
         {
-            _placesSearch = placesSearch;
+            _purchaseSearch = purchaseSearch;
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAsync(string[] term, PlacesRequestFilter filter,
-            GeoPoint location, CancellationToken token)
-        {
-            if (location == null) throw new ArgumentNullException(nameof(location));
-            var result = await _placesSearch.SearchAsync(term, filter, location, null, token).ConfigureAwait(false);
-            return Json(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAsync([RequiredFromQuery]string nextPageToken,
+        /// <summary>
+        /// Query to get food and places vertical
+        /// </summary>
+        /// <param name="purchaseRequest">The model</param>
+        /// <param name="token"></param>
+        /// <returns>The list of places and token for paging</returns>
+        [HttpGet, ValidateModel]
+        public async Task<IActionResult> GetAsync([FromQuery]PurchaseRequest purchaseRequest,
             CancellationToken token)
         {
-            if (nextPageToken == null) throw new ArgumentNullException(nameof(nextPageToken));
-            var result = await _placesSearch.SearchAsync(null,
-                PlacesRequestFilter.None, null, nextPageToken, token).ConfigureAwait(false);
+            var retVal = await _purchaseSearch.SearchAsync(purchaseRequest.Term, purchaseRequest.Filter.GetValueOrDefault(), purchaseRequest.Location.ToGeoPoint(), null, token).ConfigureAwait(false);
 
-            return Json(result);
+            string nextPageLink = null;
+            if (retVal?.Token != null)
+            {
+                nextPageLink = Url.Link("Places", new { nextPageToken = retVal.Token });
+            }
+
+            return Ok(new
+            {
+                nextPageLink,
+                retVal?.Data
+            });
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetNextPageAsync([RequiredFromQuery] string nextPageToken,
+            CancellationToken token)
+        {
+            var retVal = await _purchaseSearch.SearchAsync(null,
+                 PlacesRequestFilter.None, null, nextPageToken, token).ConfigureAwait(false);
+            string nextPageLink = null;
+            if (retVal?.Token != null)
+            {
+                nextPageLink = Url.Link("Places", new { nextPageToken = retVal.Token });
+            }
+
+            return Ok(new
+            {
+                nextPageLink,
+                retVal?.Data
+            });
+        }
+
+        [HttpGet("id")]
         public async Task<IActionResult> GetByIdAsync([RequiredFromQuery]string id,
-            CancellationToken token, [FromServices] IGooglePlacesSearch places)
+            [FromServices] IGooglePlacesSearch places, CancellationToken token)
         {
             if (id == null) throw new ArgumentNullException(nameof(id));
             var result = await places.ByIdAsync(id, token).ConfigureAwait(false);

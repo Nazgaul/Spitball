@@ -1,0 +1,98 @@
+@import "../../../../mixin.less";
+
+
+.question_area {
+  background-color: #c7c7ee;
+  height: 233px;
+  padding: 8px;
+
+  @media (max-width: @screen-xs) {
+    height: 249px;
+  }
+
+  .textarea{
+    background-color: @color-white;
+    border-radius: 4px;
+    height: 100%;
+
+    textarea {
+      width: 100%;
+      resize: none;
+      padding: 11px 9px 4px;
+      letter-spacing: -0.3px;
+      height: 140px;
+      overflow-y: auto;
+      outline: none;
+  
+      @media (max-width: @screen-xs) {
+        height: 150px;
+      }      
+    }
+  }
+
+  
+}
+
+.question_area.small{
+  @media (max-width: @screen-xs) {
+    height: 220px;
+  }
+
+  textarea{
+    @media (max-width: @screen-xs) {
+      height: 123px;
+    }
+  }
+  
+}
+
+ul.actions_text {
+  list-style: none;
+  margin: 4px;
+  @media (max-width: @screen-xs) {
+    margin: 4px 2px 13px;
+  }
+  li {
+    display: inline;
+    margin: 6px;
+    padding: 3px 0;
+
+    button, label {
+      background-color: #d8d8d8;
+      width: 25px;
+      height: 25px;
+      border-radius: 5px;
+      outline: none;
+      display: inline-block;
+      line-height: 25px;
+      text-align: center;
+
+      &.icon-red {
+        background-color: #d0021b !important;
+      }
+      &.icon-purple {
+        background-color: #9013fe !important;
+      }
+      &.insert-equation i {
+        font-size: 14px;
+      }
+      &.insert-symbol i {
+        font-size: 15px;
+      }
+      &.attach-file i {
+        font-size: 17px;
+      }
+      .icon {
+        color: @color-main-purple;
+      }
+    }
+    #file-input{
+      display: none;
+    }
+    #uploader{
+      width: 25px;
+      height: 25px;
+      background: blue;
+    }
+  }
+}

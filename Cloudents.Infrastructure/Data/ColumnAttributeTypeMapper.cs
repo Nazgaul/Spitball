@@ -9,8 +9,6 @@ namespace Cloudents.Infrastructure.Data
 {
     public class ColumnAttributeTypeMapper<T> :  FallbackTypeMapper
     {
-        //public static readonly string ColumnAttributeName = "ColumnAttribute";
-
         public ColumnAttributeTypeMapper()
             : base(new SqlMapper.ITypeMap[]
             {
@@ -23,17 +21,16 @@ namespace Cloudents.Infrastructure.Data
         private static PropertyInfo SelectProperty(Type type, string columnName)
         {
             return
-                type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).
-                    FirstOrDefault(
-                        prop =>
+                Array.
+                    Find(type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance), prop =>
 
                         prop.GetCustomAttributes(false)
                             // Search properties to find the one ColumnAttribute applied with Name property set as columnName to be Mapped 
                             .Any(attr => attr.GetType().Name == nameof(DbColumnAttribute)
                                          &&
-                                         attr.GetType().GetProperties(BindingFlags.Public |
-                                                                      BindingFlags.NonPublic |
-                                                                      BindingFlags.Instance)
+                                         attr.GetType().GetProperties(BindingFlags.Public
+                                                                      | BindingFlags.NonPublic
+                                                                      | BindingFlags.Instance)
                                              .Any(
                                                  f =>
                                                  f.Name == "Name"
@@ -42,12 +39,11 @@ namespace Cloudents.Infrastructure.Data
                         (prop.DeclaringType == type
                              ? prop.GetSetMethod(true)
                              : prop.DeclaringType.GetProperty(prop.Name,
-                                                              BindingFlags.Public | BindingFlags.NonPublic |
-                                                              BindingFlags.Instance).GetSetMethod(true)) != null
-                    );
+                                                              BindingFlags.Public | BindingFlags.NonPublic
+                                                              | BindingFlags.Instance).GetSetMethod(true)) != null
+);
         }
     }
-
 
     public class FallbackTypeMapper : SqlMapper.ITypeMap
     {

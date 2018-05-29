@@ -67,6 +67,12 @@ namespace Cloudents.Infrastructure.Interceptor
         }
 
         protected abstract void BeforeAction(IInvocation invocation);
+        /// <summary>
+        /// After invocation action
+        /// </summary>
+        /// <typeparam name="T">The object</typeparam>
+        /// <param name="val">the value - ref because we change the object</param>
+        /// <param name="invocation"></param>
         protected abstract void AfterAction<T>(ref T val, IInvocation invocation);
 
         protected virtual void CatchException(Exception ex, IInvocation arg)

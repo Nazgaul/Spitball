@@ -27,11 +27,13 @@ const actions = {
             context.commit(SEARCH.UPDATE_SEARCH_PARAMS, {});
             return Promise.resolve("");
         }
+        debugger;
         return interpetPromise(text).then(({ data: body }) => {
+            debugger;
             let params = { ...body };
-            let {docType,term}=body;
+            let {docType,term,cords}=body;
             let currentVertical=vertical?vertical:body.vertical;
-            context.dispatch('updateAITerm',{vertical:currentVertical,data:{text,term,docType}});
+            context.dispatch('updateAITerm',{vertical:currentVertical,data:{text,term,docType,location:cords}});
             return new Promise((resolve) => {
                 //if AI return cords use it
                 if (params.hasOwnProperty('cords')) {
@@ -61,6 +63,9 @@ const actions = {
     },
     getAutocmplete(context, term) {
         return searchService.autoComplete(term);
+    },
+    nextPage(context, {url,vertical}){
+        return searchService.nextPage({url,vertical});
     },
     fetchingData(context, { name, params, page}){
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;

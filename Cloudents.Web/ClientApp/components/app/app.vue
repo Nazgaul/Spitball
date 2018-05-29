@@ -10,8 +10,8 @@
     </v-app>
 </template>
 <script>
-    import smartBunner from 'smartbanner.js/dist/smartbanner'
-    import smartBunnerCss from 'smartbanner.js/dist/smartbanner.css'
+    // import smartBunner from 'smartbanner.js/dist/smartbanner'
+    // import smartBunnerCss from 'smartbanner.js/dist/smartbanner.css'
     import { mapGetters } from 'vuex'
     export default {
         computed: {
@@ -21,14 +21,14 @@
             this.$nextTick(function () {
                 dataLayer.push({ 'event': 'optimize.activate' });
                 // Code that will run only after the
-                // entire view has been re-rendered
+                // entire question-details has been re-rendered
             })
         },
         mounted: function () {
             this.$nextTick(function () {
                 dataLayer.push({ 'event': 'optimize.activate' });
                 // Code that will run only after the
-                // entire view has been rendered
+                // entire question-details has been rendered
             })
         }
     }

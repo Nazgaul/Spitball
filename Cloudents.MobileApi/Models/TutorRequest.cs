@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
-using Cloudents.Web.Extensions.Models;
 
-namespace Cloudents.MobileApi.Models
+namespace Cloudents.Api.Models
 {
     /// <inheritdoc />
     /// <summary>
@@ -20,7 +18,6 @@ namespace Cloudents.MobileApi.Models
         /// <summary>
         /// The filter option
         /// </summary>
-        [DefaultValue(0)]
         public TutorRequestFilter[] Filter { get; set; }
         /// <summary>
         /// The sort option
@@ -30,8 +27,7 @@ namespace Cloudents.MobileApi.Models
         /// <summary>
         /// The user location
         /// </summary>
-
-        public GeoPoint Location { get; set; }
+        public GeographicCoordinate Location { get; set; }
         /// <inheritdoc />
         /// <summary>
         /// Page for paging

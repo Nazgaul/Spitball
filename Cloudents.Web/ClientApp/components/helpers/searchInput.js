@@ -1,6 +1,6 @@
 ﻿import debounce from "lodash/debounce"
 
-;
+    ;
 import historyIcon from "./svg/history-icon.svg";
 import {micMixin} from './mic';
 import {mapGetters, mapActions} from 'vuex'
@@ -14,9 +14,10 @@ export default {
         hideOnScroll: {type: Boolean, default: false},
         placeholder: {type: String},
         userText: {String},
-        submitRoute: {String}
+        submitRoute: {String},
+        suggestionVertical: {String}
     },
-    data:()=>({autoSuggestList:[],isFirst:true, showSuggestions: false}),
+    data: () => ({autoSuggestList: [], isFirst: true, showSuggestions: false, focusedIndex: -1, originalMsg: ''}),
     computed: {
         ...mapGetters({'globalTerm': 'currentText'}),
         ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
@@ -24,12 +25,16 @@ export default {
             let currentHistory = this.getCurrentVertical;
             let buildInSuggestList = currentHistory ? consts.buildInSuggest[currentHistory] : consts.buildInSuggest.home;
             let historyList = [...(this.submitRoute && currentHistory ? this.$store.getters.getVerticalHistory(currentHistory) : this.allHistorySet)];
-            let set = [...new Set([...this.autoSuggestList, ...historyList, ...buildInSuggestList])];
-            return set.slice(0, this.maxResults).map(i => ({
-                text: i, type: (this.autoSuggestList.includes(i) ? consts.SUGGEST_TYPE.autoComplete :
-                    historyList.includes(i) ? consts.SUGGEST_TYPE.history :
+            let historySuggestSet = [...new Set([...historyList, ...buildInSuggestList])];
+            let autoListMap = this.autoSuggestList ? this.autoSuggestList.map((i) => ({
+                text: i,
+                type: consts.SUGGEST_TYPE.autoComplete
+            })) : [];
+            let mapDataSet = historySuggestSet.slice(0, this.maxResults).map(i => ({
+                text: i, type: (historyList.includes(i) ? consts.SUGGEST_TYPE.history :
                         consts.SUGGEST_TYPE.buildIn)
             }));
+            return [...autoListMap, ...mapDataSet];
         },
 
         isHome() {
@@ -42,19 +47,39 @@ export default {
     watch: {
         userText(val) {
             this.msg = val;
-            this.isFirst=true;
+            this.isFirst = true;
         },
-        msg:debounce(function (val) {
-            if(this.msg&&!this.isFirst){
-                this.getAutocmplete(val).then(({data})=>{this.autoSuggestList=val?data:[]})}else{this.autoSuggestList=[];}
-            this.isFirst=false;
-        }, 250)
+        msg: debounce(function (val) {
+            if (this.focusedIndex >= 0 && this.msg !== this.suggestList[this.focusedIndex].text) {
+                this.focusedIndex = -1;
+            }
+            if (this.focusedIndex < 0) {
+                this.originalMsg = this.msg;
+                this.$emit('input', val);
+                if (val && !this.isFirst) {
+                    this.getAutocmplete({term: val, vertical:this.suggestionVertical ? this.suggestionVertical : this.getCurrentVertical}).then(({data}) => {
+                        this.autoSuggestList = data
+                    })
+                } else {
+                    this.autoSuggestList = [];
+                }
+                this.isFirst = false;
+            }
+        }, 250),
+        focusedIndex(val) {
+            if (val < 0) {
+                this.msg = this.originalMsg;
+            }
+            else {
+                this.msg = this.suggestList[this.focusedIndex].text;
+            }
+        }
     },
     methods: {
         ...mapActions(['getAutocmplete']),
         selectos({item, index}) {
             this.msg = item.text;
-            this.$ga.event('Search', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
+            this.$ga.event('Search_suggestions', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
             this.search();
             this.closeSuggestions();
         },
@@ -65,6 +90,7 @@ export default {
             else if (this.msg) {
                 this.$router.push({name: "result", query: {q: this.msg}});
             }
+            this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
                 this.$el.querySelector('input').blur();
@@ -72,12 +98,15 @@ export default {
         },
         openSuggestions() {
             this.showSuggestions = true;
-            var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
-            this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4) + "px";
-
+            if (this.$root.$el.querySelector('.box-search')) { // Limit height Only in home page
+                var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
+                this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4) + "px";
+            }
         },
         closeSuggestions() {
             this.$el.querySelector('.search-b input').blur();
+            this.focusedIndex = -1;
+            this.msg = this.originalMsg;
             if (this.showSuggestions) {
                 this.showSuggestions = false;
                 this.$el.querySelector('.search-menu').scrollTop = 0;
@@ -85,7 +114,7 @@ export default {
         },
         onScroll(e) {
             if (this.hideOnScroll && this.showSuggestions) {
-                var rect = this.$root.$el.querySelector('.search-menu').getBoundingClientRect();
+                let rect = this.$root.$el.querySelector('.search-menu').getBoundingClientRect();
                 if (rect.top < -rect.height) {
                     this.closeSuggestions();
                 }
@@ -96,15 +125,46 @@ export default {
             this.search();
         },
         highlightSearch: function (item) {
-            let term = this.msg;
-            let regex = /(<([^>]+)>)/ig;
-            let aa = item.type === consts.SUGGEST_TYPE.autoComplete ? item.text.replace(term, '<span class=\'highlight\'>' + term + '</span>') : item.text.replace(regex, "");
-            return aa;
+            if (!item.type === consts.SUGGEST_TYPE.autoComplete || !this.msg) {
+                return item.text
+            }
+            else {
+                let term = this.msg.toLowerCase();
+                let itemLower = item.text.toLowerCase();
+                let matchStartIndex = itemLower.indexOf(term);
+                if (matchStartIndex < 0) {
+                    return item.text;
+                }
+                let matchEndIndex = matchStartIndex + term.length;
+                return item.text.slice(0, matchStartIndex)
+                    + '<span class=\'highlight\'>' + item.text.slice(matchStartIndex, matchEndIndex) + '</span>'
+                    + item.text.slice(matchEndIndex, item.text.length);
+            }
+        },
+        arrowNavigation(direction) {
+            // When to save user's typed text
+            if (this.focusedIndex === -1) {
+                this.originalMsg = this.msg;
+            }
+
+            // Handling arrows:
+            if (this.focusedIndex < 0 && direction < 0) {
+                this.focusedIndex = this.suggestList.length - 1;
+            }
+            else {
+                this.focusedIndex = this.focusedIndex + direction;
+            }
+
+            // Out of bounds - set index to be -1:
+            if (this.focusedIndex === this.suggestList.length || this.focusedIndex < 0) {
+                this.focusedIndex = -1;
+            }
+
         }
     },
     created() {
         if (!this.isHome) {
-            this.msg = this.userText ? this.userText : this.globalTerm;
+            this.msg = this.userText ? this.userText : this.globalTerm ? this.globalTerm : "";
         }
     }
 }

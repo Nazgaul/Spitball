@@ -1,17 +1,28 @@
-﻿export const typesPersonalize = {
+﻿
+export const typesPersonalize = {
     university: "univeristy",
     course: "course"
+
+    ,whoWeAre: "whoWeAre",
+    whatWeUpTo: "whatWeUpTo",
+    myWallet: "myWallet",
+    trustSafety: "trustSafety",
+    aboutSpitball: "aboutSpitball",
+    help: "help",
+    termsService: "termsService",
+    privacyPolicy: "privacyPolicy"
+
 }
 export let searchObjects = {
     course: {
         id: typesPersonalize.course,
         placeholder: 'What class are you taking?',
         closeText: "done",
-        searchApi: "getCorses",
+        searchApi: "getCourses",
         defaultFilter: 'all',
-        filters: [{ id: 'all', name: 'ALL COURSES' }, { id: 'myCourses', name: 'MY COURSES' }],
+        filters: [{id: 'all', name: 'ALL COURSES'}, {id: 'myCourses', name: 'MY COURSES'}],
         click: function () {
-            this.val="";
+            this.val = "";
             this.$refs.searchText.focus();
         },
         action: "add"
@@ -21,7 +32,9 @@ export let searchObjects = {
         placeholder: 'Where do you go to school?',
         closeText: "X",
         click: function (keep = true) {
-            if (!keep) { this.$parent.$parent.showDialog = false } else {
+            if (!keep) {
+                this.$parent.$parent.showDialog = false
+            } else {
                 this.currentType = "course";
             }
         },
@@ -59,4 +72,42 @@ export let settingMenu = [
             Intercom('showNewMessage', '');
         }
     }
+];
+
+
+
+export let notRegMenu = [
+    {
+        id: typesPersonalize.whoWeAre,
+        name: "Who we are"
+    },
+    {
+        id: typesPersonalize.whatWeUpTo,
+        name: "What we’re Up To"
+    },
+    {
+        id: typesPersonalize.myWallet,
+        name: "My Wallet"
+    },
+    {
+        id: typesPersonalize.trustSafety,
+        name: "Trust & Safety"
+    },
+    {
+        id: typesPersonalize.aboutSpitball,
+        name: "About Spitball"
+    },
+    {
+        id: typesPersonalize.help,
+        name: "Help"
+    },
+    {
+        id: typesPersonalize.termsService,
+        name: "Terms of Service"
+    },
+    {
+        id: typesPersonalize.privacyPolicy,
+        name: "Privacy Policy"
+    },
+   
 ];

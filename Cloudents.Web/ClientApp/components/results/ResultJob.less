@@ -39,7 +39,9 @@
 
     .properties {
         margin-top: 6px;
-        padding-bottom: 26px;
+        @media(max-width: @screen-xs) {
+            padding-bottom: 26px;
+        }
         //padding: 0 144px 0 0;
         .property {
             display: flex;

@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
@@ -13,6 +12,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search.Places
 {
@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure.Search.Places
             {
                 return null;
             }
-            if (!string.Equals(resultStr.Status, "ok", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(resultStr.Status, "ok", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
@@ -139,12 +139,11 @@ namespace Cloudents.Infrastructure.Search.Places
             var nvc = BuildQuery(term, filter, location, nextPageToken);
 
             var resultStr = await _restClient.GetAsync<GooglePlacesDto>(new Uri("https://maps.googleapis.com/maps/api/place/nearbysearch/json"), nvc, token).ConfigureAwait(false);
-            //var result = JObject.Parse(resultStr);
             if (resultStr == null)
             {
                 return null;
             }
-            if (!string.Equals(resultStr.Status, "ok", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(resultStr.Status, "ok", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
@@ -182,11 +181,12 @@ namespace Cloudents.Infrastructure.Search.Places
         }
 
         private static NameValueCollection BuildQuery(IEnumerable<string> term, PlacesRequestFilter filter,
-            GeoPoint location, string nextPageToken)
+            GeoPoint location, 
+            string nextPageToken)
         {
             if (string.IsNullOrEmpty(nextPageToken))
             {
-                var termStr = string.Join(" ", term ?? Enumerable.Empty<string>()) ?? string.Empty;
+                var termStr = string.Join(" ", term ?? Enumerable.Empty<string>());
                 if (location == null) throw new ArgumentNullException(nameof(location));
                 var nvc = new NameValueCollection
                 {

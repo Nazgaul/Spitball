@@ -1,20 +1,31 @@
-﻿using System;
+﻿// ReSharper disable All
+using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
-using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Framework;
-using Cloudents.Infrastructure.Framework.Database;
-using Cloudents.Infrastructure.Search;
+using Cloudents.Infrastructure.Mail;
+using Cloudents.Infrastructure.Search.Tutor;
+using Cloudents.Infrastructure.BlockChain;
+using System.Numerics;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.RegularExpressions;
+using Cloudents.Core.Command;
+using Cloudents.Core.Storage;
+using Nethereum.Web3.Accounts;
 
 namespace ConsoleApp
 {
@@ -22,28 +33,7 @@ namespace ConsoleApp
     {
         static async Task Main()
         {
-            var p = GetBaseDomain("http://api.www.contoso.com/index.htm#search");
-            Uri address1 = new Uri("http://api.www.contoso.com/index.htm#search");
-            Console.WriteLine("address 1 {0} a valid scheme name",
-                Uri.CheckSchemeName(address1.Scheme) ? " has" : " does not have");
-
-            if (address1.Scheme == Uri.UriSchemeHttp)
-                Console.WriteLine("Uri is HTTP type");
-
-            Console.WriteLine(address1.HostNameType);
-
             var builder = new ContainerBuilder();
-
-
-            //var infrastructureModule = new InfrastructureModule(
-            //    ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-            //    ConfigurationManager.AppSettings["AzureSearchServiceName"],
-            //    ConfigurationManager.AppSettings["AzureSearchKey"],
-            //    ConfigurationManager.AppSettings["Redis"],
-            //    ConfigurationManager.AppSettings["StorageConnectionString"]);
-
-            //  builder.RegisterType<GoogleSheet>().As<IGoogleSheet>();
-
             var keys = new ConfigurationKeys
             {
                 Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
@@ -53,7 +43,9 @@ namespace ConsoleApp
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
                     ConfigurationManager.AppSettings["AzureSearchKey"]),
                 Redis = ConfigurationManager.AppSettings["Redis"],
-                Storage = ConfigurationManager.AppSettings["StorageConnectionString"]
+                Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
+                LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
+                BlockChainNetwork = "http://hopoea-dns-reg1.northeurope.cloudapp.azure.com:8545"
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
@@ -63,56 +55,39 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"));
+            //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
+            
 
-            var resolve1 = container.Resolve<IFlashcardSearch>();
-            var t1 = await resolve1.SearchAsync(SearchQuery.Flashcard(new[] { "financial accounting" }, 171885, null, null, 0, SearchRequestSort.None),BingTextFormat.Html, default);
+            //var t = container.Resolve<ICrowdsaleService>();
+            //var z = await t.BuyTokens("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", 1, default);
+           
+            //var a = container.Resolve<IErc20Service>();
+            //var b = await a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", "0xAcfB119204a93BbDa781C972D27AeAB8671c63f4", 10, default);
 
-            var resolve2 = container
-                .Resolve<IReadRepositoryAsync<(IEnumerable<CourseSearchWriteDto> update, IEnumerable<SearchWriteBaseDto>
-                    delete, long version), SyncAzureQuery>>();
 
-            var t2 = await resolve2.GetAsync(new SyncAzureQuery(0, 0), default);
-
+            var c = container.Resolve<IBlockChainQAndAContract>();
+            var d = await c.SubmitQuestionAsync(1, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
+            
             Console.WriteLine("Finish");
             Console.ReadLine();
         }
 
 
 
-        /// <summary>
-        /// Retrieves a base domain name from a full domain name.
-        /// For example: www.west-wind.com produces west-wind.com
-        /// </summary>
-        /// <param name="domainName">Dns Domain name as a string</param>
-        /// <returns></returns>
-        public static string GetBaseDomain(string domainName)
-        {
-            var tokens = domainName.Split('.');
+      
 
-            // only split 3 segments like www.west-wind.com
-            if (tokens == null || tokens.Length != 3)
-                return domainName;
 
-            var tok = new List<string>(tokens);
-            var remove = tokens.Length - 2;
-            tok.RemoveRange(0, remove);
+    }
+    [SerializableAttribute]
+public class A
+    {
+        public int a { get; set; }
+    }
 
-            return tok[0] + "." + tok[1]; ;
-        }
-
-        /// <summary>
-        /// Returns the base domain from a domain name
-        /// Example: http://www.west-wind.com returns west-wind.com
-        /// </summary>
-        /// <param name="uri"></param>
-        /// <returns></returns>
-        public static string GetBaseDomain(this Uri uri)
-        {
-            if (uri.HostNameType == UriHostNameType.Dns)
-                return GetBaseDomain(uri.DnsSafeHost);
-
-            return uri.Host;
-        }
+[SerializableAttribute]
+public class B : A
+    {
+        public int aa { get; set; }
     }
 }

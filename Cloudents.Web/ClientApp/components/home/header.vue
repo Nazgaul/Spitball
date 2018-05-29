@@ -1,4 +1,6 @@
-﻿<template>
+﻿﻿<template>
+<div>
+    <smart-app-banner v-if="showSmartAppBanner && $vuetify.breakpoint.xsOnly"></smart-app-banner>
     <v-toolbar :height="$vuetify.breakpoint.smAndDown? 64 : 110" flat class="h-p-header" :class="{scroll: scrollTop}" :extended="$vuetify.breakpoint.smAndDown && showText" app :fixed="$vuetify.breakpoint.mdAndUp" v-scroll="onScroll">
         <v-toolbar-title class="ml-2">
             <logo class="logo"></logo>
@@ -20,16 +22,21 @@
         <div class="spacing hidden-sm-and-down" v-if="showText"></div>
         <sb-search v-if="$vuetify.breakpoint.smAndDown || showText" :slot="$vuetify.breakpoint.smAndDown? 'extension' : 'default'"></sb-search>
     </v-toolbar>
+</div>
 </template>
 
 <script>
     import logo from '../../../wwwroot/Images/logo-spitball.svg';
     import sbSearch from "./search.vue";
+    import smartAppBanner from "../smartAppBanner/smartAppBanner.vue"
+    import {mapGetters} from 'vuex'
     export default {
         components: {
-            logo, sbSearch
+            logo, sbSearch,
+            smartAppBanner
         },
         computed: {
+            ...mapGetters(['showSmartAppBanner']),
             showText: function () {
                 return screen.height > 768 ? this.scrollTop > 275 : this.scrollTop > 215
             }

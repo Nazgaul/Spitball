@@ -44,9 +44,9 @@
 
         props: { item: { type: Object, required: true }, index: { Number } },
         computed: {
-            isSpitball() { return this.item.source.includes('spitball') },
+            isSpitball() { return this.item.source.includes('Cloudents') },
             url: function () {
-                return this.isSpitball ? this.item.url.split('.co/')[1] : this.item.source.includes("studyblue") ? this.item.url = `${this.item.url}?utm_source=spitball&utm_medium=referral` : this.item.url
+                return this.isSpitball ? this.item.url.split('.co/')[1] : this.item.url
             },
             //sourceName: function () {
             //    return this.item.source.replace("www.", "").split('.')[0];

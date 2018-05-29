@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
 using Cloudents.Core.Enum;
-using Cloudents.Web.Extensions.Models;
 
-namespace Cloudents.MobileApi.Models
+namespace Cloudents.Api.Models
 {
     /// <inheritdoc />
     /// <summary>
@@ -29,6 +28,6 @@ namespace Cloudents.MobileApi.Models
         /// Format of result
         /// </summary>
         [DefaultValue(0)]
-        public BingTextFormat Format { get; set; }
+        public HighlightTextFormat Format { get; set; }
     }
 }

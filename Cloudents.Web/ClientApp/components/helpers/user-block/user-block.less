@@ -1,0 +1,71 @@
+@import "../../../mixin.less";
+
+.user-block{
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+
+    .university,.name{display: none;}
+    
+    .avatar {
+        width: 25px;
+        height: 25px;
+        border-radius: 15px;
+        margin-right: 9px;
+        
+        background-image: url('./../img/user.png');
+        background-size: cover;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;    
+        
+    }
+
+    .last-msg{ margin: 0;}
+
+   
+    &.chat{
+        .avatar{
+            width: 40px;
+            height: 40px;
+            border-radius: 0; 
+        }        
+    }
+    
+    &.private-chat{
+        .avatar{
+            width: 33px;
+            height: 33px;
+        }  
+        .last-msg{
+            font-size: 10px;
+            color: @color-grey;            
+        }
+        span{font-weight: bold;}   
+        .user-date{display: none;}
+        .name{display: block;}
+    }
+
+    &.university{
+        font-size: 14px;
+        color: #5d5d5d;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+
+        .avatar{
+            width: 64px;
+            height: 64px;
+            border-radius: 35px;
+            margin: 17px 0 7px;
+        }   
+        .user-date{display: none;}
+        .university,.name{display: block;}
+        .name{
+            color:@color-main-purple;
+            line-height: 1.69;
+            letter-spacing: -0.3px;
+        }
+    }
+    
+    
+}

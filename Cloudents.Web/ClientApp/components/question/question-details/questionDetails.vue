@@ -1,0 +1,87 @@
+<template>
+    <div class="answer-question" v-if="questionData">
+
+        <!-- Web version -->
+        <v-container v-if="!$vuetify.breakpoint.xsOnly">
+            <v-layout row wrap>
+
+                <v-flex xs12 class="breadcrumbs">
+                    <a class="ask-question" href="/askquestion">
+                        <v-icon>sbf-ask-q</v-icon>
+                        Ask a question</a>
+                    <span class="question-category">Questions  / {{questionData.subject}}</span>
+                </v-flex>
+
+                <v-flex xs7>
+                    <question-thread v-if="questionData" :questionData="questionData">
+                        <div slot="answer-form" class="mb-3">
+                            <div v-if="!questionData.answers || (questionData.answers && showForm)">
+                                <extended-text-area uploadUrl="/api/Answer/upload"
+                                        v-model="textAreaValue"
+                                        :isFocused="showForm" @addFile="addFile"></extended-text-area>
+                                <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
+                                       class="add_answer">Add your answer
+                                </v-btn>
+                            </div>
+                            <div v-else class="show-form-trigger" @click="showForm = true">
+                                <div><b>Know the answer?</b> Add it here!</div>
+                            </div>
+                        </div>
+                    </question-thread>
+                </v-flex>
+
+                <v-flex xs4>
+                    <div ref="chat-area"></div>
+
+                </v-flex>
+
+            </v-layout>
+        </v-container>
+
+        <!-- Mobile version with tabs -->
+        <div v-else>
+            <v-tabs grow>
+
+                <v-tabs-bar>
+                    <v-tabs-slider color="blue"></v-tabs-slider>
+                    <v-tabs-item :href="'#tab-1'" :key="'1'">Question</v-tabs-item>
+                    <v-tabs-item :href="'#tab-2'" :key="'2'">Chat with questioner</v-tabs-item>
+                </v-tabs-bar>
+
+                <v-tabs-items>
+
+                    <v-tabs-content :key="'1'" :id="'tab-1'" class="tab-padding">
+                        <v-flex xs12>
+                            <question-thread v-if="questionData" :questionData="questionData">
+                                <div slot="answer-form" class="mb-3">
+                                    <div v-if="!questionData.answers || (questionData.answers && showForm)">
+                                        <extended-text-area uploadUrl="/api/Answer/upload"
+                                                v-model="textAreaValue"
+                                                :isFocused="showForm" @addFile="addFile"></extended-text-area>
+                                        <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
+                                               class="add_answer">Add your answer
+                                        </v-btn>
+                                    </div>
+                                    <div v-else class="show-form-trigger" @click="showForm = true">
+                                        <div><b>Know the answer?</b> Add it here!</div>
+                                    </div>
+                                </div>
+                            </question-thread>
+                        </v-flex>
+                    </v-tabs-content>
+
+                    <v-tabs-content :key="'2'" :id="'tab-2'">
+                        <v-flex xs12>
+                            <div ref="chat-area"></div>
+                        </v-flex>
+                    </v-tabs-content>
+
+                </v-tabs-items>
+
+            </v-tabs>
+        </div>
+    </div>
+</template>
+
+<style src="./questionDetails.less" lang="less"></style>
+<script src="./questionDetails.js"></script>

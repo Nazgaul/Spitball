@@ -1,0 +1,41 @@
+@import "../../../../mixin.less";
+
+.step-phone .step-wrapper {
+  .input-wrapper {
+    margin-top: 24px;
+
+    .phone-field {
+      padding-left: 36px;
+      margin-top: 0;
+
+      ~ i {
+        position: absolute;
+        top: 14px;
+        left: 16px;
+      }
+    }
+  }
+  .code-field {
+    margin-top: 0;
+    padding-left: 50px;
+    margin-bottom: 4px;
+
+    ~ i {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+    }
+  }
+  .continue-btn {
+    margin-top: 40px;
+    &.submit-code {
+      margin-top: 12px;
+    }
+  }
+  .phone-num {
+    margin-top: 6px;
+  }
+  .confirm-title {
+    letter-spacing: -0.3px;
+  }
+}

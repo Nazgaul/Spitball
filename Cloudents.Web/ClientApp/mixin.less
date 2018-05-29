@@ -9,7 +9,7 @@
 @color-orange: #f5a623;
 @color-purple: #8c3fbf;
 @color-dark-purple: #320161;
-
+@color-main-purple: #3532d5;
 /*
 @color-pink-gradient: fade(#f14d4d, 15%);
 @color-purple-gradient: fade(@color-purple, 15%);
@@ -25,11 +25,7 @@
     background: -o-linear-gradient(top, @startColor, @endColor);
 }*/
 
-
-
 //new stuff
-
-
 
 @Ask-a-Question: #0455a8;
 @Class-Material: #320161;
@@ -64,157 +60,168 @@
 @Selected-Vertical: #2a7bcf;
 @Feed-Date: #888b8e;
 
-
-
-
-
 .inTheMiddle() {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .giveMeEllipsis(@lines,@line-height) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: @lines; /* number of lines to show */
-    line-height: @line-height; /* fallback */
-    max-height: (@lines*@line-height); /* fallback */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @lines; /* number of lines to show */
+  line-height: @line-height; /* fallback */
+  max-height: (@lines*@line-height); /* fallback */
 }
 
 .giveMeEllipsisOne() {
-    white-space: nowrap; //TODO: IRENA - need to fix that
-    overflow: hidden;
-    text-overflow: ellipsis;
+  white-space: nowrap; //TODO: IRENA - need to fix that
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .imageWrapper(@width,@height,@svgSize: 100%) {
-    .img-wrap {
-        width: @width;
-        height: @height;
-        .inTheMiddle();
+  .img-wrap {
+    width: @width;
+    height: @height;
+    .inTheMiddle();
 
-
-        > img, .defaultImage {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        svg.defaultImage {
-            height: @svgSize;
-        }
+    > img, .defaultImage {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
+
+    svg.defaultImage {
+      height: @svgSize;
+    }
+  }
 }
 
 .placeholder-color(@color) {
 
-    &::-webkit-input-placeholder {
-        color: @color !important;
-    }
+  &::-webkit-input-placeholder {
+    color: @color !important;
+  }
 
-    &::-moz-placeholder {
-        color: @color !important;
-    }
+  &::-moz-placeholder {
+    color: @color !important;
+  }
 
-    &:-ms-input-placeholder {
-        color: @color !important;
-    }
+  &:-ms-input-placeholder {
+    color: @color !important;
+  }
 
-    &:-moz-placeholder {
-        color: @color !important;
-    }
+  &:-moz-placeholder {
+    color: @color !important;
+  }
 }
 
 .responsive-property(@property, @desktop, @tablet: null, @mobile: null) {
     @{property}: @desktop;
 
-    & when (ispixel(@tablet)) or (iscolor(@tablet)) or (ispercentage(@tablet)) or (isnumber(@tablet)) or (iscolor(@tablet)) {
-        @media(max-width:@screen-sm) {
-            @{property}: @tablet;
-        }
+  & when (ispixel(@tablet)) or (iscolor(@tablet)) or (ispercentage(@tablet)) or (isnumber(@tablet)) or (iscolor(@tablet)) {
+    @media (max-width: @screen-sm) {
+        @{property}: @tablet;
     }
+  }
 
-    & when (ispixel( @mobile )) or (iscolor(@mobile)) or (ispercentage(@mobile)) or (isnumber(@mobile)) or (iscolor(@mobile)) {
+  & when (ispixel( @mobile )) or (iscolor(@mobile)) or (ispercentage(@mobile)) or (isnumber(@mobile)) or (iscolor(@mobile)) {
 
-        @media(max-width:@screen-xs) {
-            @{property}: @mobile;
-        }
+    @media (max-width: @screen-xs) {
+        @{property}: @mobile;
     }
+  }
 }
 
 .flexSameSize() {
-    flex-grow: 0;
-    flex-shrink: 0;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .postitionSticky() {
-    position: -webkit-sticky; // safari
-    position: sticky;
+  position: -webkit-sticky; // safari
+  position: sticky;
 }
 
-
 .flashcard-icon(@width, @frontColor, @backColor, @borderColor, @frontHover, @backHover, @frontText,@height: 0.88*@width) {
-    //@height: 0.88*@width;
-    position: relative;
-    width: @width;
-    height: @height;
+  //@height: 0.88*@width;
+  position: relative;
+  width: @width;
+  height: @height;
 
-    &:before, &:after {
-        display: block;
-        width: 0.8*@width;
-        height: 0.72*@height;
-        border-radius: @height/6;
-        border: 0.048*@width solid @borderColor;
-        position: absolute;
-    }
+  &:before, &:after {
+    display: block;
+    width: 0.8*@width;
+    height: 0.72*@height;
+    border-radius: @height/6;
+    border: 0.048*@width solid @borderColor;
+    position: absolute;
+  }
 
+  &:before {
+    content: '';
+    bottom: 0;
+    left: @width/4;
+    background: @backColor;
+  }
+
+  &:after {
+    content: @frontText;
+    text-align: center;
+    line-height: 0.62*@height;
+    color: @backColor;
+    transform: rotate(-20deg);
+    bottom: @height/4;
+    left: 0;
+    background: @frontColor;
+  }
+
+  &:hover {
     &:before {
-        content: '';
-        bottom: 0;
-        left: @width/4;
-        background: @backColor;
+      background: @backHover;
     }
 
     &:after {
-        content: @frontText;
-        text-align: center;
-        line-height: 0.62*@height;
-        color: @backColor;
-        transform: rotate(-20deg);
-        bottom: @height/4;
-        left: 0;
-        background: @frontColor;
+      background: @frontHover;
     }
-
-    &:hover {
-        &:before {
-            background: @backHover;
-        }
-
-        &:after {
-            background: @frontHover;
-        }
-    }
+  }
 }
 
 .item-page-width() {
-    max-width: 756px;
-    width: 100%;
-    padding: 0 8px;
-    margin: 0 auto !important;
+  max-width: 756px;
+  width: 100%;
+  padding: 0 8px;
+  margin: 0 auto !important;
+}
+
+.clear-field-btn() { // Note: this is not supported by Firefox yet.
+  &::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+  }
+  &::-ms-clear {
+    display: block;
+  }
+}
+
+.general-cell {
+  background: #fff;
+  border-radius: 4px;
+  width: 100%;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
 }
 
 // Size constants
 @navBarHeightMdAndUp: 120px;
-@mainNavHeightXsOnly: 120px;//TODO: fix to actual size (seperated from the verticals bar)
+@mainNavHeightXsOnly: 120px; //TODO: fix to actual size (seperated from the verticals bar)
 @mainNavHeightSmAndUp: 60px;
 //@navBarHeightMobile: 96px;
 @resultsFilterWidth: 230px;
 //@resultsTabsHeight: 52px;
+@registrationFieldHeight: 48px;
 @screen-xs: 599px;
 @screen-sm: 959px;
 @screen-md: 1263px;
-@logoWidth: 215px;
+@logoWidth: 200px;

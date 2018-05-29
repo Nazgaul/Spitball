@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure.Search.Places
             CancellationToken token)
         {
             var result = await _placesSearch.SearchNearbyAsync(term, filter, location, nextPageToken, token).ConfigureAwait(false);
-            if (result == null)
+            if (result?.Data == null)
             {
                 return null;
             }

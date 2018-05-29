@@ -1,24 +1,35 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using Autofac.Features.Indexed;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/Suggest")]
+    [Route("api/[controller]")]
     public class SuggestController : Controller
     {
-        private readonly ISuggestions _suggestions;
+        private readonly IIndex<Vertical, Lazy<ISuggestions>> _suggestions;
+        private readonly Lazy<ISuggestions> _defaultSuggestions;
 
-        public SuggestController(ISuggestions suggestions)
+        public SuggestController(IIndex<Vertical, Lazy<ISuggestions>> suggestions, Lazy<ISuggestions> defaultSuggestions)
         {
             _suggestions = suggestions;
+            _defaultSuggestions = defaultSuggestions;
         }
 
-        public async Task<IActionResult> Get(string sentence,CancellationToken token)
+        [HttpGet]
+        public async Task<IActionResult> GetAsync(string sentence, Vertical? vertical, CancellationToken token)
         {
-            var result = await _suggestions.SuggestAsync(sentence, token).ConfigureAwait(false);
+            var suggestProvider = _defaultSuggestions;
+            if (_suggestions.TryGetValue(vertical.GetValueOrDefault(Vertical.None), out var suggest))
+            {
+                suggestProvider = suggest;
+            }
+            var result = await suggestProvider.Value.SuggestAsync(sentence, token).ConfigureAwait(false);
             return Json(result);
         }
     }

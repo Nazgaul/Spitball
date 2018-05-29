@@ -3,15 +3,17 @@
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
 @using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.Extensions.Configuration
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 @inject IHostingEnvironment Environment
 @inject WebPackChunkName Provider
+@inject IConfiguration Configuration 
 
 @{
     const string themeColor = "#4190b";
     ViewBag.title = ViewBag.title ?? "Simplify school | Spitball";
     ViewBag.metaDescription = ViewBag.metaDescription ?? " Spitball - Curating all of the resources you need. For Free.";
-    ViewBag.fbImage = ViewBag.fbImage ?? "/images/3rdParty/fbShare.png";
+    ViewBag.fbImage = ViewBag.fbImage ??  "/images/3rdParty/fbShare.png";
     ViewBag.imageSrc = ViewBag.imageSrc ?? "/images/3rdParty/fbShare.png";
     var version = Assembly.GetEntryAssembly().GetName().Version.ToString(4);
     var p = Provider.GetTag("vendor");
@@ -29,22 +31,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <base href="~/" />
     @*<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">*@
-
-
-    <!-- Start SmartBanner configuration -->
-    <meta name="smartbanner:title" content="Spitball: Simplify School">
-    <meta name="smartbanner:author" content="&#x200b">
-    <meta name="smartbanner:price" content="FREE">
-    <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
-    <meta name="smartbanner:price-suffix-google" content=" - in google play">
-    <meta name="smartbanner:icon-apple" content="@cdnEndPoint/images/apps-logo.png">
-    <meta name="smartbanner:icon-google" content="@cdnEndPoint/images/apps-logo.png">
-    <meta name="smartbanner:button" content="View">
-    <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/app/spitball-simplify-school/id990911114?mt=8">
-    <meta name="smartbanner:button-url-google" content="https://play.google.com/store/apps/details?id=com.cloudents.spitball">
-    <meta name="smartbanner:enabled-platforms" content="android,ios">
-    <meta name="smartbanner:disable-positioning" content="true">
-    <!-- End SmartBanner configuration -->
 
     <environment include="Development">
         <link rel="stylesheet" href="~/dist/@p.Css" />
@@ -81,20 +67,20 @@
     <meta property="og:type" content="website" />
     <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
 
-    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_114.png" />
-    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="@cdnEndPoint/images/favicons/favicon_60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="@cdnEndPoint/images/favicons/favicon_72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="@cdnEndPoint/images/favicons/favicon_76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="@cdnEndPoint/images/favicons/favicon_114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="@cdnEndPoint/images/favicons/favicon_120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="@cdnEndPoint/images/favicons/favicon_144.png">
-    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_16.png" sizes="16x16">
+    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_114.png?v=2" />
+    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_57.png?v=2">
+    <link rel="apple-touch-icon" sizes="60x60" href="@cdnEndPoint/images/favicons/favicon_60.png?v=2">
+    <link rel="apple-touch-icon" sizes="72x72" href="@cdnEndPoint/images/favicons/favicon_72.png?v=2">
+    <link rel="apple-touch-icon" sizes="76x76" href="@cdnEndPoint/images/favicons/favicon_76.png?v=2">
+    <link rel="apple-touch-icon" sizes="114x114" href="@cdnEndPoint/images/favicons/favicon_114.png?v=2">
+    <link rel="apple-touch-icon" sizes="120x120" href="@cdnEndPoint/images/favicons/favicon_120.png?v=2">
+    <link rel="apple-touch-icon" sizes="144x144" href="@cdnEndPoint/images/favicons/favicon_144.png?v=2">
+    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_32.png" sizes="32x32?v=2">
+    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_96.png" sizes="96x96?v=2">
+    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_16.png" sizes="16x16?v=2">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="@cdnEndPoint/images/favicons/mstile-144x144.png">
-    <link rel="SHORTCUT ICON" href="@cdnEndPoint/favicon.ico" />
+    <meta name="msapplication-TileImage" content="@cdnEndPoint/images/favicons/favicon_144.png?v=2">
+    <link rel="SHORTCUT ICON" href="@cdnEndPoint/favicon.ico?v=2" />
     @Html.Raw(JavaScriptSnippet.FullScript)
     
     <style>.async-hide { opacity: 0 !important} </style>
@@ -114,8 +100,30 @@ h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
     ga('require', 'GTM-NN2LHCV');
     //ga('send', 'pageview');
     </script>
+    <script type="text/javascript"
+      src="//www.googleadservices.com/pagead/conversion_async.js">
+    </script>
+    <!-- Google Tag Manager -->
+    <script async>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M2BGS2G');</script>
+    <!-- End Google Tag Manager -->
+
+    <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2BGS2G"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div>
         @RenderBody()
     </div>
@@ -148,17 +156,6 @@ h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
             //Intercom('boot', { app_id: 'njmpgayv' })
         })()
     </script>
-    <!-- Google Tag Manager -->
-    <script async>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-M2BGS2G');</script>
-    <!-- End Google Tag Manager -->
     <!-- Begin Inspectlet Embed Code -->
     <script type="text/javascript" id="inspectletjs">
         (function () {
@@ -173,7 +170,9 @@ h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
     <script>
         window.version = '@version';
         window.publicPath = '@cdnEndPoint' + '/dist/';
+        window.baseURL = '@Configuration["ApiEndpoint"]';
     </script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>
 </html>

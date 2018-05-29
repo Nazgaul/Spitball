@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudents.Web.Filters
 {
-    public class ValidateModelAttribute : ActionFilterAttribute
+    [System.AttributeUsage(System.AttributeTargets.All)]
+    public sealed class ValidateModelAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {

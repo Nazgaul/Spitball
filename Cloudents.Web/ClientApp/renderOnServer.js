@@ -43,19 +43,19 @@ module.exports = prerendering.createServerRenderer(function (params) {
         if (err) {
           if (err.code === 404) {
             resolve({
-              html: "a" + JSON.stringify(err.router.options.routes),
+              html: "a" + JSON.stringify(err.router.options),
               statusCode: 404
             });
             //res.status(404).end('Page not found')
           } else {
             resolve({
-                html: "ba" + resultHtml + err,
-              statusCode: 404
+                html: "ba " +  err,
+              statusCode: 500
             });
           }
         }
         resolve({
-            html: "ca" +"<div>Ram</div>" +  JSON.stringify(err)
+            html: resultHtml
           //html: result + "<div>" + JSON.stringify(params, null, 2) + "</div>"
           //html: resultHtml,
           //globals: {

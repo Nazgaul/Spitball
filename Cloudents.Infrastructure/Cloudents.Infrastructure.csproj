@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.1.8.0</AssemblyVersion>
-    <FileVersion>1.1.8.0</FileVersion>
+    <AssemblyVersion>1.3.1.6</AssemblyVersion>
+    <FileVersion>1.3.1.6</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -14,27 +14,37 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
+  
+
   <ItemGroup>
-    <Compile Remove="Data\AppDbContext.cs" />
-    <Compile Remove="Data\EfRepository.cs" />
-    <Compile Remove="Search\CseSearch.cs" />
-    <Compile Remove="Search\TitleSearch.cs" />
+    <None Remove="Blockchain\Crowdsale.json" />
+    <None Remove="Blockchain\QAndA.json" />
+    <None Remove="BlockChain\TokenAbi.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.6.2" />
+    <EmbeddedResource Include="Blockchain\Crowdsale.json" />
+    <EmbeddedResource Include="Blockchain\QAndA.json" />
+    <EmbeddedResource Include="Blockchain\TokenAbi.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.6.1" />
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.4.0" />
     <PackageReference Include="AutoMapper" Version="6.2.2" />
     <PackageReference Include="CacheManager.Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.1.2" />
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.1.2" />
     <PackageReference Include="Dapper" Version="1.50.4" />
-    <PackageReference Include="Google.Apis.YouTube.v3" Version="1.25.0.760" />
+    <PackageReference Include="FluentNHibernate" Version="2.1.2" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.33.0" />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="1.8.1" />
-    <PackageReference Include="Microsoft.Azure.Search" Version="4.0.1-preview" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
-    <PackageReference Include="Nager.PublicSuffix" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Azure.Search" Version="5.0.0" />
+    <PackageReference Include="Nager.PublicSuffix" Version="1.2.0" />
+    <PackageReference Include="Nethereum.HdWallet" Version="2.4.0" />
+    <PackageReference Include="Nethereum.Web3" Version="2.4.0" />
+    <PackageReference Include="NHibernate" Version="5.1.2" />
     <PackageReference Include="protobuf-net" Version="2.3.7" />
     <PackageReference Include="Sendgrid" Version="9.9.0" />
     <PackageReference Include="Spitball.Luis" Version="1.1.3" />

@@ -20,7 +20,7 @@
     }
 }
 .sec-result {
-    max-width: 504px;
+    max-width: 608px;
     //margin-top: @marginTop;
     min-width: 0;
 
@@ -94,7 +94,21 @@
 
     .mobile-filter {
         flex-direction: row-reverse;
-
+        .btn__content {
+            flex-direction: row-reverse;
+            .counter {
+                color: white;
+                width: 28px;
+                height: 28px;
+                text-align: center;
+                border-radius: 100%;
+                line-height: 24px;
+                margin-right: -12px;
+                border: 2px solid;
+                font-size: 12px;
+                border-color: #eee !important;
+            }
+        }
         @media(max-width: @screen-xs) {
             min-height: 42px;
         }

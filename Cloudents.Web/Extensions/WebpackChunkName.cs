@@ -39,11 +39,11 @@ namespace Cloudents.Web.Extensions
                         var webPackBundle = new WebPackBundle();
                         foreach (var file in obj[chunk].Values<string>())
                         {
-                            if (file.EndsWith("js", StringComparison.InvariantCultureIgnoreCase))
+                            if (file.EndsWith("js", StringComparison.OrdinalIgnoreCase))
                             {
                                 webPackBundle.Js = file;
                             }
-                            if (file.EndsWith("css", StringComparison.InvariantCultureIgnoreCase))
+                            if (file.EndsWith("css", StringComparison.OrdinalIgnoreCase))
                             {
                                 webPackBundle.Css = file;
                             }

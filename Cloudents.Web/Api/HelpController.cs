@@ -21,7 +21,8 @@ namespace Cloudents.Web.Api
             _blobProvider = blobProvider;
         }
 
-        public async Task<IActionResult> Get(CancellationToken token)
+        [HttpGet]
+        public async Task<IActionResult> GetAsync(CancellationToken token)
         {
             var uri = new Uri("https://zboxstorage.blob.core.windows.net/zboxhelp/new/help.xml");
             using (var stream = await _blobProvider.DownloadFileAsync(uri, token).ConfigureAwait(false))
@@ -40,7 +41,7 @@ namespace Cloudents.Web.Api
                 {
                     Question = content.Element("question")?.Value.Trim(),
                     Answer = content.Element("answer")?.Value.Trim()
-                   
+
                 };
         }
 

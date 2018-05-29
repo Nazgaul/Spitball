@@ -49,7 +49,6 @@
             <div class="cards-info" v-if="!showCards">
                 <div class="content card-template">
                     <h1 v-text="item.name"></h1>
-                    <h4>Created by Yifat the Queen</h4>
                     <p class="subtitle" v-if="item.cards">{{item.cards.length}} Cards</p>
                     <div class="action-buttons">
                         <button class="action-btn elevation-1" @click="$_startFlashcards">{{beginText}}</button>

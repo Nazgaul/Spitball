@@ -29,11 +29,7 @@
         
     }
 
-    form {
-        width: 100%;
-    }
-    
-    button[type="submit"] {
+    .search-button {
         border: none;
         .inTheMiddle();
         //display: inline-block;
@@ -48,7 +44,7 @@
         }
     }
 
-    form .container {
+    .container {
         padding: 16px;
 
         @media(max-width: @screen-sm) {
@@ -106,24 +102,4 @@
         }
     }
 
-    button[type="submit"] {
-        background: #302eb5;
-        //font-family: @font-bold;
-        margin: 0 0 0 16px;
-        padding: 0 24px;
-        width: 106px;
-        border-radius: 4px;
-
-        i {
-            color: @color-white;
-        }
-
-        @media(max-width: @screen-sm) {
-            margin: 0;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            width: 40px;
-            padding: 0;
-        }
-    }
 }

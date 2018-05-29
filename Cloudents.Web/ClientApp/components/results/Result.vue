@@ -3,8 +3,9 @@
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
         <div slot="main" >
             <div class="d-flex mobile-filter hidden-sm-and-up">
-                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterObject">
+                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
+                    <div :class="'counter color-'+$route.path.slice(1)" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
                 </v-btn>
             </div>
             <div v-if="filterSelection.length" class="pb-3">
@@ -16,7 +17,7 @@
                 </template>
             </div>
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
-                <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :token="pageData.token">
+                <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical">
                     <v-container class="pa-0">
                         <v-layout column>
                             <v-flex class="promo-cell mb-2 elevation-1" order-xs1 v-if="showPromo">
@@ -41,8 +42,9 @@
                                     <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                                 </v-flex>
                                 <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                    <component :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" :class="item.template!='video' ? 'border-color-'+$route.path.slice(1):''"></component>
-                                    <div class="show-btn" v-if="item.template!='video'" :class="'color-'+$route.path.slice(1)">Show Me</div>
+                                    <component v-if="item.template!=='ask'" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" :class="item.template!='video' ? 'border-color-'+$route.path.slice(1):''"></component>
+                                    <question-card v-else :cardData="item" answer-btn></question-card>
+                                    <!--<div class="show-btn" v-if="item.template!='video'" :class="'color-'+$route.path.slice(1)">Show Me</div>-->
                                 </v-flex>
                                 <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                     <suggest-card :name="currentSuggest"></suggest-card>
@@ -76,7 +78,7 @@
             </div>
             <!--<div v-else class="skeleton"></div>-->
         </div>
-        <template slot="sideBar" v-if="page">
+        <template slot="sideBar" v-if="filterCondition">
             <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
                        :sortOptions="page.sort"
                        :sortVal="sort"
@@ -117,7 +119,9 @@
 </template>
 <script>
     import { pageMixin } from './Result'
+    import QuestionCard from "../question/helpers/question-card/question-card";
     export default {
+        components: {QuestionCard},
         mixins: [pageMixin],
     }
 </script>

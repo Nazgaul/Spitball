@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
-using Cloudents.Web.Extensions.Models;
 
-namespace Cloudents.MobileApi.Models
+namespace Cloudents.Api.Models
 {
     /// <inheritdoc />
     /// <summary>

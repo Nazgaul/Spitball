@@ -1,13 +1,14 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Api.Extensions;
+using Cloudents.Api.Filters;
+using Cloudents.Api.Models;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.MobileApi.Extensions;
-using Cloudents.Web.Extensions.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cloudents.MobileApi.Controllers
+namespace Cloudents.Api.Controllers
 {
     /// <inheritdoc />
     /// <summary>
@@ -35,24 +36,26 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
+        [ValidateModel]
+        // [ProducesResponseType(typeof(WebResponseWithFacet<JobDto>), 200)]
+
         public async Task<IActionResult> GetAsync([FromQuery]JobRequest model, CancellationToken token)
         {
-            if (model == null)
-            {
-                return BadRequest();
-            }
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Sort.GetValueOrDefault(JobRequestSort.Relevance),
-                model.Facet, model.Location, model.Page.GetValueOrDefault(), model.Highlight, token).ConfigureAwait(false);
+                model.Facet, model.Location.ToLocation(), model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
             string nextPageLink = null;
+            result.Result = result.Result?.ToList();
             if (result.Result?.Any() == true)
             {
                 nextPageLink = Url.NextPageLink("Job", model);
             }
-
+            //TODO: should return typeof(WebResponseWithFacet<JobDto>), 200)
             return Ok(
                 new
                 {
+                    //Result = p,
+                    //Facet = result.Facet,
                     result,
                     nextPageLink
                 });

@@ -1,10 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Api.Filters;
+using Cloudents.Api.Models;
 using Cloudents.Core.Interfaces;
-using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cloudents.MobileApi.Controllers
+namespace Cloudents.Api.Controllers
 {
     /// <inheritdoc />
     /// <summary>
@@ -32,13 +33,11 @@ namespace Cloudents.MobileApi.Controllers
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
         [HttpGet]
+        [ValidateModel]
         public async Task<IActionResult> GetAsync([FromQuery] UniversityRequest model, CancellationToken token)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var result = await _universityProvider.SearchAsync(model.Term, model.Location, token).ConfigureAwait(false);
+            var result = await _universityProvider.SearchAsync(model.Term,
+                model.Location.ToGeoPoint(), token).ConfigureAwait(false);
             return Ok(new
             {
                 universities = result

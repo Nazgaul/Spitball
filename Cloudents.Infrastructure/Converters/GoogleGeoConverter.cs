@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Converters
     {
         public (Address address, GeoPoint point) Convert(GoogleGeoCodeDto source, (Address address, GeoPoint point) destination, ResolutionContext context)
         {
-            if (!string.Equals(source.Status, "ok", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(source.Status, "ok", StringComparison.OrdinalIgnoreCase))
                 return (null, null);
             var result = source.Results[0];
 

@@ -1,19 +1,32 @@
 ﻿const HomePage = () => import("./components/home/home.vue");
 const homePageHeader = () => import("./components/home/header.vue");
 import * as RouteTypes from "./routeTypes";
+
 const resultContent = () => import("./components/results/Result.vue");
 const foodDetails = () => import("./components/food/foodDetails.vue");
 const foodResultPage = () => import("./components/food/Result.vue");
-const dialogToolbar = () =>  import("./components/dialog-toolbar/DialogToolbar.vue");
+const dialogToolbar = () => import("./components/dialog-toolbar/DialogToolbar.vue");
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const pageHeader = () => import("./components/header/header.vue");
-const boodDetailsHeader = () => import("./components/book/header.vue");
+//const pageHeaderBasic = () => import("./components/helpers/header.vue");
+const bookDetailsHeader = () => import("./components/book/header.vue");
+const questionDetailsHeader = () => import("./components/question/header/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
-import { staticRoutes } from "./components/satellite/satellite-routes";
+const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
+const registration = () => import("./components/registration/registration.vue");
+const signin = () => import("./components/registration/signin.vue");
+const askQuestion = () => import("./components/question/ask/askQuestion.vue");
+const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
+const viewProfile = () => import("./components/profile/profile.vue");
+const profilePageHeader = () => import("./components/profile/header/header.vue");
+const viewChat = () => import("./components/chat/view/chat.vue");
+const userSettings = () => import("./components/settings/view/settings.vue");
+//const userSettings = () => import("./components/settings/userSettings.vue");
+import {staticRoutes} from "./components/satellite/satellite-routes";
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -22,9 +35,10 @@ function dynamicPropsFn(route) {
         name: newName,
         query: route.query,
         params: route.params,
-        isPromo:route.query.hasOwnProperty("promo"),
+        isPromo: route.query.hasOwnProperty("promo"),
     }
 }
+
 function dynamicDetailsPropsFn(route) {
     return {
         name: route.name,
@@ -37,7 +51,7 @@ function dynamicDetailsPropsFn(route) {
 function headerResultPageFn(route) {
     return {
         userText: route.query.q,
-        submitRoute:route.path,
+        submitRoute: route.path,
         currentSelection: route.path.slice(1)
     }
 }
@@ -61,10 +75,10 @@ const foodPage = {
 const foodDetailsProps = {
     default: true,
     header: () => ({
-            toolbarTitle: "Food & Deals",
-            height: "48", // TODO: why this is string.
-            app: true
-        })
+        toolbarTitle: "Food & Deals",
+        height: "48", // TODO: why this is string.
+        app: true
+    })
 };
 const bookDetailsProps = {
     default: dynamicDetailsPropsFn,
@@ -89,6 +103,7 @@ let routes2 = [
 
     {
         path: "/result", name: "result", alias: [
+            "/" + RouteTypes.marketRoute,
             "/" + RouteTypes.questionRoute,
             "/" + RouteTypes.flashcardRoute,
             "/" + RouteTypes.notesRoute,
@@ -113,7 +128,7 @@ let routes2 = [
         name: RouteTypes.bookDetailsRoute,
         components: {
             default: bookDetails,
-            header: boodDetailsHeader
+            header: bookDetailsHeader
         },
         props: bookDetailsProps
     },
@@ -128,17 +143,114 @@ let routes2 = [
     },
     {
         path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item",
-        components: { default: showItem, header: documentPreviewHeader},
-        props: {default:(route)=>({id:route.params.id})}
+        components: {default: showItem, header: documentPreviewHeader},
+        props: {default: (route) => ({id: route.params.id})}
     },
     {
         path: "/flashcard/:university/:courseId/:courseName/:id/:itemName",
         name: "flashcard",
-        components: { default: showFlashcard, header: previewHeader },
-        props: {default:(route)=>({id:route.params.id})}
+        components: {default: showFlashcard, header: previewHeader},
+        props: {default: (route) => ({id: route.params.id})}
     },
+    {
+        path: "/landing/get_a_tutor_now", components: {
+            default: landingTemplate,
+        }, name: "tutorV1"
+    },
+    {
+        path: "/landing/tutor", components: {
+            default: landingTemplate,
+        }, name: "tutorV2"
+    },
+    {
+        path: "/landing/get_the_notes_you_need", components: {
+            default: landingTemplate,
+        }, name: "notesV1"
+    },
+    {
+        path: "/landing/notes", components: {
+            default: landingTemplate,
+        }, name: "notesV2"
+    },
+    {
+        path: "/landing/You_Dont_Have_to_Be_Broke",
+        components: {
+            default: landingTemplate,
+        }, name: "jobsV1"
+    },
+    {
+        path: "/landing/jobs", components: {
+            default: landingTemplate,
+        }, name: "jobsV2"
+    },
+    {
+        path: "/register", components: {
+            default: registration,
+        }, name: "registration"
+    },
+    {
+        path: "/askquestion", components: {
+            default: askQuestion,
+            header: pageHeader,
+        }, name: "askQuestion"
+    },
+    {
+        path: "/question/:id",
+        components: {
+            default: viewQuestion,
+            header: questionDetailsHeader,
+        },
+        name: "question",
+        props: {
+            default: (route) => ({id: route.params.id}),
+        }
+    },
+    {
+        path: "/profile/:id",
+        components: {
+            default: viewProfile,
+            header: profilePageHeader,
+        },
+        name: "profile",
+        props: {
+            default: (route) => ({id: route.params.id})
+        }
+    },
+    {
+        path: "/settings", components: {
+            default: userSettings,
+            header: pageHeader,
+        }, name: "chat"
+    },
+    
+    {
+        path: "/chat", components: {
+            default: viewChat,
+            header: pageHeader,
+        }, name: "chat"
+    },
+    {
+        path: "/confirmEmail",
+        components: {
+            default: registration,
+        },
+        name: "registration",
+        meta: {step: 1}
+    },
+    {
+        path: "/signin", components: {
+            default: signin
+        }, name: "signin"
+    },
+    {
+        path: "/temp",
+        components: {
+            default: () => import("./components/temp/temp.vue")
+        }
+    }
 
 ];
+
 for (let v in staticRoutes) {
     let item = staticRoutes[v];
     routes2.push({
@@ -147,7 +259,8 @@ for (let v in staticRoutes) {
         components: {
             header: satelliteHeader,
             default: item.import
-        }
+        },
+        props: {default: (route) => item.params ? item.params(route) : {}}
     })
 }
 

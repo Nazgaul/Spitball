@@ -1,15 +1,15 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
+using Cloudents.Api.Extensions;
+using Cloudents.Api.Filters;
+using Cloudents.Api.Models;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
-using Cloudents.MobileApi.Extensions;
-using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cloudents.MobileApi.Controllers
+namespace Cloudents.Api.Controllers
 {
     /// <inheritdoc />
     /// <summary>
@@ -18,53 +18,36 @@ namespace Cloudents.MobileApi.Controllers
     [Route("api/[controller]")]
     public class SearchController : Controller
     {
-        private readonly Lazy<IDocumentCseSearch> _searchProvider;
-        private readonly Lazy<IFlashcardSearch> _flashcardProvider;
 
-        /// <inheritdoc />
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="searchProvider"></param>
-        /// <param name="flashcardProvider"></param>
-        public SearchController(
-            Lazy<IDocumentCseSearch> searchProvider, Lazy<IFlashcardSearch> flashcardProvider
-            )
-        {
-            _searchProvider = searchProvider;
-            _flashcardProvider = flashcardProvider;
-        }
 
         /// <summary>
         /// Search document vertical result
         /// </summary>
         /// <param name="model"></param>
         /// <param name="token"></param>
+        /// <param name="searchProvider"></param>
         /// <returns></returns>
-        [Route("documents", Name = "DocumentSearch"), HttpGet]
+        [ProducesResponseType(typeof(WebResponseWithFacet<SearchResult>), 200)]
+        [Route("documents", Name = "DocumentSearch"), HttpGet, ValidateModel]
         public async Task<IActionResult> SearchDocumentAsync([FromQuery] SearchRequest model,
-            CancellationToken token)
+           [FromServices] IWebDocumentSearch searchProvider, CancellationToken token)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
-                model.Sort.GetValueOrDefault(), model.DocType);
-            var result = await _searchProvider.Value.SearchAsync(query, model.Format, token).ConfigureAwait(false);
+                 model.DocType, model.GeoPoint.ToGeoPoint());
+            var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
 
-            var resultList = result.Result.ToListIgnoreNull();
+            var p = result.Result?.ToList();
             string nextPageLink = null;
-            if (resultList.Count > 0)
+            if (p?.Any() == true)
             {
                 nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
             }
 
-            return Ok(new
+            return Ok(new WebResponseWithFacet<SearchResult>
             {
-                result = resultList,
-                result.Facet,
-                nextPageLink
+                Result = p,
+                Facet = result.Facet,
+                NextPageLink = nextPageLink
             });
         }
 
@@ -72,30 +55,28 @@ namespace Cloudents.MobileApi.Controllers
         /// Search flashcard vertical result
         /// </summary>
         /// <param name="model">The model</param>
+        /// <param name="searchProvider"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [Route("flashcards", Name = "FlashcardSearch"), HttpGet]
-        public async Task<IActionResult> SearchFlashcardAsync([FromQuery] SearchRequest model,
-            CancellationToken token)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
-                model.Sort.GetValueOrDefault());
+        [Route("flashcards", Name = "FlashcardSearch"), HttpGet, ValidateModel]
+        [ProducesResponseType(typeof(WebResponseWithFacet<SearchResult>), 200)]
 
-            var result = await _flashcardProvider.Value.SearchAsync(query, model.Format, token).ConfigureAwait(false);
+        public async Task<IActionResult> SearchFlashcardAsync([FromQuery] SearchRequest model,
+            [FromServices] IWebFlashcardSearch searchProvider, CancellationToken token)
+        {
+            var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(), model.GeoPoint.ToGeoPoint());
+            var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
             string nextPageLink = null;
-            if (result.Result?.Any() == true)
+            var p = result.Result?.ToList();
+            if (p?.Any() == true)
             {
                 nextPageLink = Url.NextPageLink("FlashcardSearch", null, model);
             }
-            return Ok(new
+            return Ok(new WebResponseWithFacet<SearchResult>
             {
-                result = result.Result,
-                result.Facet,
-                nextPageLink
+                Result = p,
+                Facet = result.Facet,
+                NextPageLink = nextPageLink
             });
         }
     }

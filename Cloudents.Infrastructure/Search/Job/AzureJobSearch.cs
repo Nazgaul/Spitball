@@ -9,8 +9,6 @@ using Entity = Cloudents.Core.Entities.Search;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write.Job;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
@@ -31,31 +29,30 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [Cache(TimeConst.Hour, "job-azure", false)]
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(
-            string term,
-            JobRequestSort sort,
-            IEnumerable<JobFilter> jobType,
-            Location location,
-            int page,
-            bool highlight,
-            CancellationToken token)
+        public async Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(JobProviderRequest jobProviderRequest, CancellationToken token)
         {
             var filterQuery = new List<string>();
             var sortQuery = new List<string>();
 
-            if (jobType != null)
+            if (jobProviderRequest.JobType != null)
             {
-                filterQuery.AddRange(jobType.Select(s => $"{nameof(Entity.Job.JobType)} eq '{s.GetDescription()}'"));
+                var filterStr = string.Join(" or ", jobProviderRequest.JobType.Select(s =>
+                    $"{nameof(Entity.Job.JobType)} eq '{s.GetDescription()}'"));
+                if (!string.IsNullOrWhiteSpace(filterStr))
+                {
+                    filterStr = $"({filterStr})";
+                }
+                filterQuery.Add(filterStr);
             }
 
-            switch (sort)
+            if (jobProviderRequest.Location?.Point != null)
             {
-                case JobRequestSort.Relevance when location?.Point != null:
-                    filterQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
-                    break;
-                case JobRequestSort.Date:
-                    sortQuery.Add($"{nameof(Entity.Job.DateTime)} desc");
-                    break;
+                filterQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({jobProviderRequest.Location.Point.Longitude} {jobProviderRequest.Location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
+            }
+
+            if (jobProviderRequest.Sort == JobRequestSort.Date)
+            {
+                sortQuery.Add($"{nameof(Entity.Job.DateTime)} desc");
             }
             var searchParams = new SearchParameters
             {
@@ -67,7 +64,7 @@ namespace Cloudents.Infrastructure.Search.Job
                     nameof(Entity.Job.City),
                     nameof(Entity.Job.State),
                     nameof(Entity.Job.JobType),
-                    nameof(Entity.Job.Compensation),
+                    //nameof(Entity.Job.Compensation),
                     nameof(Entity.Job.Url),
                     nameof(Entity.Job.Company),
                     nameof(Entity.Job.Source)
@@ -77,19 +74,18 @@ namespace Cloudents.Infrastructure.Search.Job
                     nameof(Entity.Job.JobType)
                 } : null,
                 Top = JobSearch.PageSize,
-                Skip = JobSearch.PageSize * page,
-                Filter = string.Join(" or ", filterQuery),
+                Skip = JobSearch.PageSize * jobProviderRequest.Page,
+                Filter = string.Join(" and ", filterQuery),
                 OrderBy = sortQuery
-
             };
-            if (string.IsNullOrWhiteSpace(term))
-            {
-                term = "*";
-            }
 
             var retVal = await
-                _client.Documents.SearchAsync<Entity.Job>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            return _mapper.Map<ResultWithFacetDto<JobDto>>(retVal);
+                _client.Documents.SearchAsync<Entity.Job>(jobProviderRequest.Term, searchParams, cancellationToken: token).ConfigureAwait(false);
+            if (retVal.Results.Count == 0)
+            {
+                return null;
+            }
+            return _mapper.Map<ResultWithFacetDto<JobProviderDto>>(retVal);
         }
     }
 }

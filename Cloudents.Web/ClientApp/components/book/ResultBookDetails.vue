@@ -15,6 +15,7 @@
             <div class="d-flex mobile-filter" :class="sortVal==='buy'?'pb-2':'pb-3'">
                 <v-btn class="hidden-sm-and-up text-xs-right" v-if="sortVal==='buy'" icon flat color="color-book" slot="mobileFilter" @click="showFilters=true">
                     <v-icon>sbf-filter</v-icon>
+                    <div class="counter color-book" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
                 </v-btn>
             </div>
             <div class="book-sources pa-2 elevation-1" v-if="filteredList.length&&!isLoad">

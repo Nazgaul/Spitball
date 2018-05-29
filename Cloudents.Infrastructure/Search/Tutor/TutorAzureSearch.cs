@@ -3,9 +3,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
+using Cloudents.Infrastructure.Extensions;
 using Cloudents.Infrastructure.Write.Tutor;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -17,6 +19,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
     {
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;
+        private static readonly int PageSize = (int)PrioritySource.TutorMe.Priority * TutorMeSearch.TutorMePage;
 
         public TutorAzureSearch(ISearchServiceClient client, IMapper mapper)
         {
@@ -34,16 +37,17 @@ namespace Cloudents.Infrastructure.Search.Tutor
                 case TutorRequestSort.Price:
                     sortQuery.Add(nameof(TutorObj.Fee));
                     break;
-                //case TutorRequestSort.Distance:
-                //    sortQuery.Add(
-                //        $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})')");
-                //    break;
+                    //case TutorRequestSort.Distance:
+                    //    sortQuery.Add(
+                    //        $"geo.distance({nameof(TutorObj.Location)}, geography'POINT({location.Longitude} {location.Latitude})')");
+                    //    break;
             }
+
 
             var searchParams = new SearchParameters
             {
-                Top = TutorSearch.PageSize,
-                Skip = TutorSearch.PageSize * page,
+                Top = PageSize,
+                Skip = PageSize * page,
                 Select = new[]
                 {
                     nameof(TutorObj.Name),
@@ -63,7 +67,8 @@ namespace Cloudents.Infrastructure.Search.Tutor
             };
             var retVal = await
                 _client.Documents.SearchAsync<TutorObj>(term, searchParams, cancellationToken: token).ConfigureAwait(false);
-            return _mapper.Map<IEnumerable<TutorObj>, IList<TutorDto>>(retVal.Results.Select(s => s.Document), opt => opt.Items["term"] = term);
+
+            return _mapper.MapWithPriority<TutorObj, TutorDto>(retVal.Results.Select(s => s.Document));
         }
 
         private static IEnumerable<string> ApplyFilter(IEnumerable<TutorRequestFilter> filters, GeoPoint location)

@@ -1,57 +1,58 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
+using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
+using JetBrains.Annotations;
+using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Search
 {
     public class QuestionSearch : IQuestionSearch
     {
-        public const string QueryString = "world war 2";
-        private readonly ISearch _search;
+        private readonly ISearchIndexClient _client;
+        private readonly IMapper _mapper;
 
-        public QuestionSearch(ISearch search)
+        public QuestionSearch(ISearchServiceClient client, string indexName, IMapper mapper)
         {
-            _search = search;
+            _mapper = mapper;
+            //TODO: need to fix that before production
+            _client = client.Indexes.GetClient(indexName);
         }
 
-        public async Task<ResultWithFacetDto<SearchResult>> SearchAsync(SearchQuery model, BingTextFormat format, CancellationToken token)
+        public async Task<ResultWithFacetDto<QuestionDto>> SearchAsync(string term, [CanBeNull] IEnumerable<string> facet, CancellationToken token)
         {
-            var cseModel = new SearchModel(model.Query, model.Source,  model.Sort, CustomApiKey.AskQuestion, null, null, QueryString, null);
-            var result = await _search.DoSearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
-            return new ResultWithFacetDto<SearchResult>
+            string filterStr = null;
+
+            if (facet != null)
             {
-                Result = result,
-                Facet = new[]
-                {
-                    "khanacademy.org",
-                    "yalescientific.org",
-                    "worldatlas.com",
-                    "wired.com",
-                    "wikihow.com",
-                    "thoughtco.com",
-                    "space.com",
-                    "snapguide.com",
-                    "simple.wikipedia.org",
-                    "reference.com",
-                    "physics.org",
-                    "quora.com",
-                    "newworldencyclopedia.org",
-                    "lumenlearning.com",
-                    "livescience.com",
-                    "knowledgedoor.com",
-                    "howstuffworks.com",
-                    "history.com",
-                    "enotes.com",
-                    "encyclopedia.com",
-                    "businessinsider.com",
-                    "britannica.com",
-                    "boundless.com",
-                    "socratic.org"
-                }
+                filterStr = string.Join(" or ", facet.Select(s =>
+                    $"{nameof(Question.Subject)} eq '{s}'"));
+            }
+
+            var searchParameter = new SearchParameters
+            {
+                Facets = new[] { nameof(Question.Subject) },
+                Filter = filterStr
             };
+
+            var result = await
+                _client.Documents.SearchAsync<Question>(term, searchParameter,
+                    cancellationToken: token).ConfigureAwait(false);
+
+            var retVal = new ResultWithFacetDto<QuestionDto>
+            {
+                Result = _mapper.Map<IEnumerable<QuestionDto>>(result.Results.Select(s => s.Document))
+            };
+            if (result.Facets.TryGetValue(nameof(Question.Subject), out var p))
+            {
+                retVal.Facet = p.Select(s => s.AsValueFacetResult<string>().Value);
+            }
+            return retVal;
         }
     }
 }

@@ -1,0 +1,407 @@
+@import "../../mixin.less";
+
+.landing-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+  min-height: 100vh;
+
+  &.no-bg {
+    .logo-wrap {
+      .logo-link svg {
+        fill: @color-main-purple;
+      }
+    }
+    h1, h2 {
+      text-shadow: none;
+      color: @color-main-purple;
+    }
+    h2 {
+      font-weight: normal;
+    }
+    .search-wrapper {
+      background-color: rgba(53, 50, 213, 0.2);
+      .search-b {
+        box-shadow: none;
+      }
+      button {
+        background: @color-main-purple;
+      }
+    }
+  }
+
+  &.landing-tutor {
+    .top{
+      @media(max-width: @screen-xs) {
+        background-position: 54% center;
+      }
+    }
+    h2{
+      @media(max-width: @screen-xs){
+        max-width: 250px;
+      }
+    }
+    .tutorMe {
+      .responsive-property(width, 107px, null, 80px);
+    }
+    .wyzant {
+      .responsive-property(width, 118px, null, 88px);
+    }
+    .chegg {
+      .responsive-property(width, 92px, null, 63px);
+    }
+
+    .partners .logos &:nth-child(3) {
+      height: 26px;
+    }
+
+    .bottom-image {
+      bottom: -2px;
+      left: ~"calc(50% - 168px)";
+
+      @media (max-width: @screen-xs) {
+        width: 213px;
+        bottom: -1px;
+        left: ~"calc(50% - 107px)";
+      }
+    }
+  }
+
+  &.landing-note {
+    .top{
+      @media(max-width: @screen-xs) {
+        background-position: 69% center;
+      }
+    }
+    h2{
+      .responsive-property(max-width, 480px, null, 300px);
+    }
+    .courseHero {
+      .responsive-property(width, 64px, null, 48px);
+    }
+    .studyBlue {
+      .responsive-property(width, 79px, null, 60px);
+    }
+    .chegg {
+      .responsive-property(width, 92px, null, 64px);
+    }
+
+    .bottom-image {
+      bottom: -16px;
+      left: ~"calc(50% - 82px)";
+
+      @media (max-width: @screen-xs) {
+        width: 108px;
+        bottom: -10px;
+        left: ~"calc(50% - 54px)";
+      }
+    }
+  }
+
+  &.landing-job {
+    .top{
+      @media(max-width: @screen-xs) {
+        background-position: 81% center;
+      }
+    }
+    .zipRecruiter {
+      .responsive-property(width, 150px, null, 109px);
+    }
+
+    .jobs2careers {
+      .responsive-property(width, 150px, null, 108px);
+    }
+
+    .careerjet {
+      .responsive-property(width, 117px, null, 85px);
+    }
+
+    .wayUp {
+      .responsive-property(width, 110px, null, 80px);
+    }
+
+    .indeed {
+      .responsive-property(width, 112px, null, 81px);
+    }
+
+    .bottom-image {
+      bottom: -16px;
+      left: ~"calc(50% - 76px)";
+
+      @media (max-width: @screen-xs) {
+        width: 108px;
+        bottom: -10px;
+        left: ~"calc(50% - 54px)";
+      }
+    }
+  }
+  //
+  //@media (max-width: @screen-xs) {
+  //  &.collapse {
+  //    .landing-page {
+  //      justify-content: flex-start;
+  //    }
+  //    .collapsible {
+  //      margin: 0;
+  //      height: 0;
+  //      overflow: hidden;
+  //      //transition: height 0.3s ease;
+  //    }
+  //  }
+  //
+  //}
+  .top {
+    background-image: linear-gradient(to top, #d1e3f6, #f0f0f0 41%, #f0f0f0);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 130px;
+    position: relative;
+
+    @media (max-width: @screen-xs) {
+      padding: 0 8px 60px 8px;
+    }
+
+    .bottom-image {
+      position: absolute;
+    }
+    .limited-width {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+  .landing-page {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    @media (min-width: @screen-xs) {
+      padding: 0 16px;
+    }
+  }
+  .logo-wrap {
+    padding-left: 20px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    @media (max-width: @screen-xs) {
+      padding: 0;
+      height: 64px;
+    }
+    .logo-link {
+      margin-left: 8px;
+      @media (max-width: @screen-xs) {
+        padding: 0;
+        margin: 0;
+      }
+      svg {
+        fill: white;
+        .responsive-property(width, 165px, null, 114px);
+        .responsive-property(height, 33px, null, 23px)
+      }
+    }
+  }
+
+  .page-data {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  h1 {
+    .responsive-property(font-size, 66px, null, 40px);
+    .responsive-property(line-height, 1.21, null, 1);
+    text-align: center;
+    line-height: 1.21;
+    .responsive-property(letter-spacing, -0.4, null, -0.2);
+    font-weight: normal;
+    color: #ffffff;
+    text-shadow: 0 0 20px #000000;
+  }
+
+  h2 {
+    text-align: center;
+    .responsive-property(font-size, 20px, null, 14px);
+    .responsive-property(line-height, 1.4, null, 20px);
+    font-weight: bold;
+    letter-spacing: -0.3px;
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+    @media (max-width: @screen-xs) {
+      max-width: 270px;
+    }
+  }
+  p {
+    font-size: 16px;
+    line-height: 2;
+    //letter-spacing: -0.3px;
+    font-weight: 100;
+    margin-bottom: 24px;
+  }
+
+  .search-wrapper {
+    width: 100%;
+    max-width: 800px;
+    margin: 26px auto 32px auto;
+    background-color: rgba(0, 0, 0, .46);
+    .responsive-property(padding, 16px, null, 8px) ;
+    border-radius: 4px;
+
+    @media(max-width: @screen-xs){
+      margin: 16px auto 16px auto;
+    }
+
+    .search-b {
+      .responsive-property(height, 48px, null, 40px);
+      min-height: 0;
+
+      @media (max-width: @screen-xs) {
+        i {
+          display: none;
+        }
+      }
+
+      &.input-group--disabled {
+        background: #dddddd;
+      }
+      .input-group__input {
+        align-items: center;
+        padding: 8px 12px;
+
+        .sbf-mic {
+          display: none;
+        }
+        .sbf-search{
+            min-width: 28px;
+        }
+
+        input {
+          .responsive-property(font-size, 18px, null, 14px);
+          .placeholder-color(#9b9b9b);
+        }
+      }
+    }
+
+    button {
+      .responsive-property(width, 106px, null, 40px);
+      padding: 0 8px;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: -0.4px;
+      text-align: center;
+      .responsive-property(line-height, 48px, null, 40px);
+      background-color: #f5a623;
+
+      i {
+        color: white;
+      }
+    }
+
+    .search-b, button {
+      border-radius: 4px;
+      @media (max-width: @screen-xs) {
+        border-radius: 0;
+        border: none;
+      }
+    }
+
+    .search-menu {
+      z-index: 999;
+      //@media (min-width: @screen-xs) {
+      //  top: -16px;
+      //  transform: translate(0, -100%);
+      //}
+    }
+  }
+  footer {
+    background: white;
+    text-align: center;
+    .partners {
+      padding-top: 10px;
+      position: relative;
+
+      @media (max-width: @screen-xs) {
+        padding: 0 8px;
+      }
+
+      .text {
+        .responsive-property(font-size, 18px, null, 14px);
+        .responsive-property(margin-top, 0, null, 2px);
+        line-height: 1.56;
+        letter-spacing: -0.3px;
+        color: #4a4a4a;
+      }
+      .logos {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        @media (min-width: @screen-xs+1) {
+          padding: 0 44px;
+        }
+
+        img {
+          margin: 10px 22px;
+          @media (max-width: @screen-xs) {
+            margin: 4px 8px;
+          }
+        }
+      }
+    }
+    .subfooter {
+      background-color: #4a4a4a;
+      padding: 6px 0;
+      .responsive-property(height, 48px, null, 56px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      @media (max-width: @screen-xs) {
+        font-size: 10px;
+
+        .links a {
+          &:before {
+            margin: 0 6px 2px 6px;
+            width: 5px;
+            height: 5px;
+          }
+          &:first-child:before {
+            display: none;
+          }
+        }
+      }
+      .copyright {
+        display: flex;
+        align-items: center;
+        .c-icon {
+          margin: 0 4px;
+          .responsive-property(font-size, 22px, null, 16px);
+          line-height: 0;
+        }
+      }
+      span, a {
+        color: #dddddd;
+      }
+      a:before {
+        content: '';
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        margin: 0 12px 2px 12px;
+        border-radius: 100%;
+        background: #3293f6;
+      }
+    }
+  }
+}

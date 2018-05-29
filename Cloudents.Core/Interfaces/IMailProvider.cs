@@ -12,7 +12,8 @@ namespace Cloudents.Core.Interfaces
             string ipPool,
             MailGunRequest parameters,
             CancellationToken cancellationToken);
-    }
 
-    
+
+        Task SendEmailAsync(string email, string subject, string message, CancellationToken token);
+    }
 }

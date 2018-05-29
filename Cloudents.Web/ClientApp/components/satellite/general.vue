@@ -1,7 +1,7 @@
 ﻿<template functional>
     <div class="s-main-page">
         <div class="wrapper">
-            <slot name="default"></slot>
+            <slot></slot>
         </div>
     </div>
 </template>

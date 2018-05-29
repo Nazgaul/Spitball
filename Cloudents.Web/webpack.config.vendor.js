@@ -29,6 +29,7 @@ const allModules = [
     "vuetify/es5/components/VExpansionPanel",
     "vuetify/es5/components/VList",
     "vuetify/es5/components/VTextField",
+    "vuetify/es5/components/VSelect",
     "vuetify/es5/components/VCard",
     "vuetify/es5/components/VCarousel",
     "vuetify/es5/components/VProgressCircular",
@@ -44,7 +45,11 @@ const allModules = [
     "vuetify/es5/directives/scroll",
     "vuetify/es5/components/VIcon",
     "vuetify/es5/components/VSnackbar",
+    "vuetify/es5/components/VNavigationDrawer",
+    "vuetify/es5/components/VAvatar",
     "webfontloader",
+    //'smartbanner.js/dist/smartbanner',
+    //'smartbanner.js/dist/smartbanner.css'
 ];
 
 module.exports = (env) => {
@@ -109,10 +114,11 @@ module.exports = (env) => {
         {
             output: {
                 path: path.join(__dirname, "wwwroot", "dist"),
-                publicPath: t.getdist(isDevBuild), // isDevBuild ? "/dist/" : "//spitball.azureedge.net/dist/",
+                publicPath: "/dist/", 
                 filename: "[name].[chunkhash].js",
                 library: "[name]"
             },
+           
             entry: {
                 vendor: allModules
             },

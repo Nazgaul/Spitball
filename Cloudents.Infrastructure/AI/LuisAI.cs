@@ -13,7 +13,7 @@ using Microsoft.Cognitive.LUIS;
 namespace Cloudents.Infrastructure.AI
 {
     // ReSharper disable once InconsistentNaming - AI is Shorthand
-    public class LuisAI : IAi, IDisposable
+    public sealed class LuisAI : IAi, IDisposable
     {
         private readonly ILuisClient _client;
 
@@ -58,19 +58,19 @@ namespace Cloudents.Infrastructure.AI
                     searchType = new KeyValuePair<string, string>(entity.Name, entity.Value);
                     continue;
                 }
-                if (entity.Name.Equals("subject", StringComparison.InvariantCultureIgnoreCase))
+                if (entity.Name.Equals("subject", StringComparison.OrdinalIgnoreCase))
                 {
                     terms.Add(entity.Value);
                 }
-                if (entity.Name.Equals("class", StringComparison.InvariantCultureIgnoreCase))
+                if (entity.Name.Equals("class", StringComparison.OrdinalIgnoreCase))
                 {
                     course = entity.Value;
                 }
-                if (entity.Name.Equals("isbn", StringComparison.InvariantCultureIgnoreCase))
+                if (entity.Name.Equals("isbn", StringComparison.OrdinalIgnoreCase))
                 {
                     isbn = entity.Value;
                 }
-                if (entity.Name.Equals("Weather.Location", StringComparison.InvariantCultureIgnoreCase))
+                if (entity.Name.Equals("Weather.Location", StringComparison.OrdinalIgnoreCase))
                 {
                     location = entity.Value;
                 }
@@ -81,7 +81,6 @@ namespace Cloudents.Infrastructure.AI
         public void Dispose()
         {
             _client?.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

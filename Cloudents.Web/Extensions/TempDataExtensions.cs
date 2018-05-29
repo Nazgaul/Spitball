@@ -28,11 +28,18 @@ namespace Cloudents.Web.Extensions
                 return null;
             }
 
-            var bytes = Convert.FromBase64String((string)o);
-            using (var ms = new MemoryStream(bytes))
+            try
             {
-                var result = ProtoBuf.Serializer.Deserialize<T>(ms);
-                return result;
+                var bytes = Convert.FromBase64String((string) o);
+                using (var ms = new MemoryStream(bytes))
+                {
+                    return ProtoBuf.Serializer.Deserialize<T>(ms);
+                }
+            }
+            catch (ProtoBuf.ProtoException)
+            {
+                tempData.Remove(key);
+                return null;
             }
         }
     }

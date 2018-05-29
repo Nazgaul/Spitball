@@ -30,22 +30,22 @@ namespace Cloudents.Infrastructure.Mail
 
         public Task GenerateSystemEmailAsync(string subject, string text, CancellationToken token)
         {
-            return SendEmailAsync(subject, text, token);
+            return SendEmailAsync("ram@cloudents.com", subject, text, token);
         }
 
-        private static Task SendEmailAsync(string subject, string text, CancellationToken token)
-        {
-            var client = new SendGridClient(SendGridApiKey);
-            var msg = new SendGridMessage
-            {
-                From = new EmailAddress("no-reply@spitball.co", "spitball system"),
-                Subject = subject,
-                PlainTextContent = text,
-                //HtmlContent = "<strong>and easy to do anywhere, even with C#</strong>"
-            };
-            msg.AddTo(new EmailAddress("ram@cloudents.com", "Ram Y"));
-            return client.SendEmailAsync(msg, token);
-        }
+        //private static Task SendEmailAsync(string subject, string text, CancellationToken token)
+        //{
+        //    var client = new SendGridClient(SendGridApiKey);
+        //    var msg = new SendGridMessage
+        //    {
+        //        From = new EmailAddress("no-reply@spitball.co", "spitball system"),
+        //        Subject = subject,
+        //        PlainTextContent = text,
+        //        //HtmlContent = "<strong>and easy to do anywhere, even with C#</strong>"
+        //    };
+        //    msg.AddTo(new EmailAddress("ram@cloudents.com", "Ram Y"));
+        //    return client.SendEmailAsync(msg, token);
+        //}
 
         private const string MailGunApiKey = "key-5aea4c42085523a28a112c96d7b016d4";
 
@@ -63,7 +63,7 @@ namespace Cloudents.Infrastructure.Mail
 
             var uri = new Uri($"https://api.mailgun.net/v3/mg{ipPool}.spitball.co/messages");
 
-           var serializedParams =  parameters.GetType().GetProperties().Select(property =>
+            var serializedParams = parameters.GetType().GetProperties().Select(property =>
             {
                 var key = property.Name;
                 if (property.GetCustomAttribute(typeof(DataMemberAttribute)) is DataMemberAttribute att)
@@ -80,6 +80,18 @@ namespace Cloudents.Infrastructure.Mail
                 await _restClient.Value.PostAsync(uri, body, headers, cancellationToken).ConfigureAwait(false);
             }
         }
-    }
 
+        public Task SendEmailAsync(string email, string subject, string message, CancellationToken token)
+        {
+            var client = new SendGridClient(SendGridApiKey);
+            var msg = new SendGridMessage
+            {
+                From = new EmailAddress("no-reply@spitball.co", "spitball system"),
+                Subject = subject,
+                HtmlContent = message
+            };
+            msg.AddTo(new EmailAddress(email));
+            return client.SendEmailAsync(msg, token);
+        }
+    }
 }

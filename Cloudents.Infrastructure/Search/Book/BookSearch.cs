@@ -5,13 +5,13 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search.Book
 {
@@ -33,7 +33,7 @@ namespace Cloudents.Infrastructure.Search.Book
         [Cache(TimeConst.Day, "book", false)]
         public async Task<IEnumerable<BookSearchDto>> SearchAsync(IEnumerable<string> term, int page, CancellationToken token)
         {
-            var query = string.Join(" ", term ?? Enumerable.Empty<string>()) ?? "textbooks";
+            var query = string.Join(" ", term ?? new [] { "textbooks" });
 
             var nvc = new NameValueCollection
             {
@@ -74,7 +74,7 @@ namespace Cloudents.Infrastructure.Search.Book
             {
                 return null;
             }
-            if (string.Equals(result.Response.Status, "error", StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(result.Response.Status, "error", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }

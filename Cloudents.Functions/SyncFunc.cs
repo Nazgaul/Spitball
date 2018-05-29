@@ -23,9 +23,9 @@ namespace Cloudents.Functions
             CancellationToken token) where TU : class, ISearchObject, new()
         {
             var query = SyncAzureQuery.Empty();
-            if (await blob.ExistsAsync(token).ConfigureAwait(false))
+            if (await blob.ExistsAsync().ConfigureAwait(false))
             {
-                var text = await blob.DownloadTextAsync(token).ConfigureAwait(false);
+                var text = await blob.DownloadTextAsync().ConfigureAwait(false);
                 query = SyncAzureQuery.ConvertFromString(text);
             }
             log.Info($"process {query}");
@@ -38,15 +38,22 @@ namespace Cloudents.Functions
             var currentVersion = query.Version;
             while (!token.IsCancellationRequested)
             {
-                var (update, delete, version) = await repository.GetAsync(query, token).ConfigureAwait(false);
+                try
+                {
+                    var (update, delete, version) = await repository.GetAsync(query, token).ConfigureAwait(false);
 
-                var updateList = update.Select(createObj).ToList();
-                var deleteCourses = delete.Select(s => s.Id.ToString()).ToList();
-                await searchServiceWrite.UpdateDataAsync(updateList, deleteCourses, token).ConfigureAwait(false);
-                query.Page++;
-                currentVersion = Math.Max(currentVersion, version);
-                await blob.UploadTextAsync(query.ToString(), token).ConfigureAwait(false);
-                if (updateList.Count == 0 && deleteCourses.Count == 0)
+                    var updateList = update.Select(createObj).ToList();
+                    var deleteCourses = delete.Select(s => s.Id.ToString()).ToList();
+                    await searchServiceWrite.UpdateDataAsync(updateList, deleteCourses, token).ConfigureAwait(false);
+                    query.Page++;
+                    currentVersion = Math.Max(currentVersion, version);
+                    await blob.UploadTextAsync(query.ToString()).ConfigureAwait(false);
+                    if (updateList.Count == 0 && deleteCourses.Count == 0)
+                    {
+                        break;
+                    }
+                }
+                catch (OperationCanceledException)
                 {
                     break;
                 }
@@ -55,7 +62,7 @@ namespace Cloudents.Functions
             if (!token.IsCancellationRequested)
             {
                 var newVersion = new SyncAzureQuery(currentVersion, 0);
-                await blob.UploadTextAsync(newVersion.ToString(), token).ConfigureAwait(false);
+                await blob.UploadTextAsync(newVersion.ToString()).ConfigureAwait(false);
             }
         }
     }

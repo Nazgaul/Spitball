@@ -4,6 +4,7 @@ using System.Linq;
 using Castle.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Interceptor
 {
@@ -11,6 +12,7 @@ namespace Cloudents.Infrastructure.Interceptor
     {
         private readonly ILogger _logger;
 
+        [UsedImplicitly]
         public LogInterceptor(ILogger logger)
         {
             _logger = logger;

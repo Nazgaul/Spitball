@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Cloudents.Core.Models;
-
-namespace Cloudents.MobileApi.Models
+﻿namespace Cloudents.Api.Models
 {
     /// <summary>
     /// University request object
@@ -11,11 +8,11 @@ namespace Cloudents.MobileApi.Models
         /// <summary>
         /// the user input
         /// </summary>
-        [StringLength(int.MaxValue, MinimumLength = 3)]
+        //[StringLength(int.MaxValue, MinimumLength = 3)]
         public string Term { get; set; }
         /// <summary>
         /// the user location
         /// </summary>
-        public GeoPoint Location { get; set; }
+        public GeographicCoordinate Location { get; set; }
     }
 }

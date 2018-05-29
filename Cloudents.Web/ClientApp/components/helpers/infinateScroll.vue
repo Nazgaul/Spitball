@@ -6,20 +6,22 @@
     export default {
         data() {
             return {
-                page: this.token || 1,
-                currentToken: null,
+                nextPage: null,
                 isLoading: false,
                 isComplete: false
             }
         },
 
-        props: { token: { type: [String, Number] } },
+        props: { url: String,vertical:String },
 
         created() {
-            this.currentToken = this.token;
+            this.nextPage = this.url;
         },
         watch: {
-            '$route': '$_resetScrolling'
+            '$route': '$_resetScrolling',
+            url(val){
+                this.nextPage=val;
+            }
         },
 
         methods: {
@@ -34,28 +36,25 @@
             scrollList() {
                 if (this.keepLoad()) {
                     //debugger;
-                    let page = this.token ? (this.currentToken || this.token) : this.page;
                     this.isLoading = true;
-                    this.$store.dispatch('fetchingData', { name: this.$route.path.slice(1), params: this.$route.query, page })
+                    this.$store.dispatch('nextPage', { vertical: this.vertical, url: this.nextPage })
                         .then(({ data: res }) => {
-                            if (res.data && res.data.length && !res.hasOwnProperty('token') ||
-                                (res.hasOwnProperty('token') && res.token)) {
+                            if (res.data && res.data.length) {
                                 this.$emit('scroll', res.data);
-                                if (res.hasOwnProperty('token')) {
-                                    this.currentToken = res.token;
-                                } else { this.page++; }
+                                this.nextPage=res.nextPage;
                                 this.isLoading = false;
                             } else {
-                                this.page = 1;
+                                this.nextPage = null;
                                 this.isComplete = true;
                             }
                         }).catch(reason => {
                             this.isComplete = true;
+                            this.nextPage = null;
                         })
                 }
             },
             $_resetScrolling() {
-                this.page = this.token ? this.token : 1;
+                this.nextPage = null;
                 this.isLoading = false;
                 this.isComplete = false;
             }

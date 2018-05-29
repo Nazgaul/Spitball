@@ -36,5 +36,10 @@ namespace Cloudents.Core.Interfaces
             CancellationToken token);
 
         Task<bool> PostAsync(Uri url, HttpContent body, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token);
+
+        Task<bool> PostJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token);
+
+        Task<bool> PutJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers,
+            CancellationToken token);
     }
 }

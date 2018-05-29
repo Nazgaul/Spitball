@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class DocumentController : Controller
     {
         private readonly IReadRepositoryAsync<DocumentSeoDto, long> _repository;
@@ -39,12 +40,12 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (!string.Equals(model.Country, "us", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(model.Country, "us", StringComparison.OrdinalIgnoreCase))
             {
                 return this.RedirectToOldSite();
             }
 
-            if (!model.Discriminator.Equals("file", StringComparison.InvariantCultureIgnoreCase))
+            if (!model.Discriminator.Equals("file", StringComparison.OrdinalIgnoreCase))
             {
                 return View();
             }

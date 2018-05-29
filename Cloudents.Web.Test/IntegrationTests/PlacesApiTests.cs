@@ -14,5 +14,15 @@ namespace Cloudents.Web.Test.IntegrationTests
                     "/api/places?location.latitude=31.915606900000004&location.longitude=34.80483160000001&term=burger");
             response.EnsureSuccessStatusCode();
         }
+
+
+        [TestMethod]
+        public async Task GetAsync_NoLocation_BadRequest()
+        {
+            var response =
+                await Client.GetAsync(
+                    "/api/places?term=burger");
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

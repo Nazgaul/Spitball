@@ -7,18 +7,35 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Flashcard controller
+    /// </summary>
     [Produces("application/json")]
-    [Route("api/Flashcard")]
+    [Route("api/[controller]")]
     public class FlashcardController : Controller
     {
         private readonly IReadRepositoryAsync<Flashcard, long> _repository;
 
+        /// <inheritdoc />
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="repository">repository</param>
         public FlashcardController(IReadRepositoryAsync<Flashcard, long> repository)
         {
             _repository = repository;
         }
 
-        public async Task<IActionResult> Get(long id, CancellationToken token)
+        /// <summary>
+        /// Get flashcard data
+        /// </summary>
+        /// <param name="id">flashcard id</param>
+        /// <param name="token">token</param>
+        /// <returns>flashcard data</returns>
+        /// <exception cref="ArgumentException">the flashcard is deleted or not publish</exception>
+        [HttpGet]
+        public async Task<IActionResult> GetAsync(long id, CancellationToken token)
         {
             var result = await _repository.GetAsync(id, token).ConfigureAwait(false);
             if (!result.Publish)
@@ -29,7 +46,7 @@ namespace Cloudents.Web.Api
             {
                 throw new ArgumentException("Flashcard is deleted");
             }
-            return Json(new
+            return Ok(new
             {
                 result.Name,
                 result.Cards

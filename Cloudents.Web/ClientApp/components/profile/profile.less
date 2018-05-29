@@ -1,0 +1,119 @@
+@import "../../mixin.less";
+
+.profile-page{
+
+    margin-top: 16px;
+
+    @media (max-width: @screen-xs) {
+        margin-top: 0;
+    }
+
+    .container{
+        @media (max-width: @screen-xs) {
+            padding: 0;
+        }
+    }
+
+    .user-question {
+        margin-bottom: 17px;
+    }
+
+    .web-content{margin-left: 16px;    flex: 0.7 1 auto;}
+
+    .main-block{
+        // height: 290px;
+        border-radius: 4px;
+        background-color: @color-white;
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        font-size: 14px;
+        color: #5d5d5d;
+        text-align: center;
+        
+        width: 209px;
+
+        @media (max-width: @screen-xs) {
+            width: 100%;
+        }
+
+        .menu{
+            width: 100%;
+            margin: 7px 0px 17px;
+            @media (max-width: @screen-xs) {
+                margin: 0;
+            }
+            .tabs{
+                width: 100%;
+                text-align: left;
+                list-style-type: none;
+                li{
+                    height: 40px;
+                    padding: 6px 18px;
+                    line-height: 1.79;
+                    border-left: 4px solid @color-white; 
+                    cursor: pointer;
+                    &.active{
+                        color:@color-main-purple;
+                        border-color: @color-main-purple;
+                        background-color: #f0f0f0;
+                    }
+                }
+            }
+        }
+
+        button.back{
+            outline: none;
+            position: absolute;
+            left: 7px;
+            top: 9px;
+            padding: 10px;
+
+            .sbf{    
+                transform: scale(-1, 1);
+                font-size: 13px;
+                color: @color-main-purple;
+                margin-right: 25px;
+                display: none;
+                @media (max-width: @screen-xs) {
+                    display: block;
+                }
+            }
+        }
+
+    }
+
+
+
+    .tab-padding{
+        .tabs__bar{
+            background-color: @color-white; border-top: solid 1px #bbbbbb;
+            @media (max-width: @screen-xs) {
+                height: 64px;
+                font-size: 18px; 
+            }
+        }
+        .tabs__container{
+            .tabs__item{
+                text-transform: none;
+                &.tabs__item--active{ color: @color-main-purple!important;font-weight: bold;}
+            }         
+            .tabs__slider.blue{
+                border-bottom: 2px solid @color-main-purple;
+            }
+        }
+    }
+    
+
+    .column{
+        .user-block{height: 170px;}
+        .web-content{ margin: 16px 8px;}
+    }
+    
+   
+}
+
+
+

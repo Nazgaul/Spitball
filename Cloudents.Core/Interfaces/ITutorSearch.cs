@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -11,6 +12,9 @@ namespace Cloudents.Core.Interfaces
     {
         Task<IEnumerable<TutorDto>> SearchAsync(IEnumerable<string> term,
             TutorRequestFilter[] filters, TutorRequestSort sort,
-            GeoPoint location, int page,bool isMobile, CancellationToken token);
+           [CanBeNull] GeoPoint location, 
+            int page,
+            bool isMobile,
+            CancellationToken token);
     }
 }

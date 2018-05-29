@@ -1,44 +1,87 @@
 ﻿using System.Threading.Tasks;
+using Cloudents.Api.Models;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
-using Cloudents.Web.Extensions;
+using Cloudents.Web.Extensions.Extensions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Cloudents.MobileApi.Binders
+namespace Cloudents.Api.Binders
 {
-    internal class LocationEntityBinder : IModelBinder
+    public class LocationEntityBinder : IModelBinder
     {
+        //private readonly ITempDataDictionaryFactory _tempDataFactory;
         private readonly IIpToLocation _ipToLocation;
         private readonly IGooglePlacesSearch _googlePlacesSearch;
+        //private const string KeyName = "l1";
 
-        public LocationEntityBinder(IIpToLocation ipToLocation, IGooglePlacesSearch googlePlacesSearch)
+        public LocationEntityBinder(IIpToLocation ipToLocation,
+            // ITempDataDictionaryFactory tempDataFactory,
+            IGooglePlacesSearch googlePlacesSearch)
         {
             _ipToLocation = ipToLocation;
+            // _tempDataFactory = tempDataFactory;
             _googlePlacesSearch = googlePlacesSearch;
         }
 
         public async Task BindModelAsync(ModelBindingContext bindingContext)
         {
-            var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.latitude").FirstValue ??
-                              bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.latitude").FirstValue;
-            var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.longitude").FirstValue ??
-                               bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.longitude").FirstValue;
+            // var tempData = _tempDataFactory.GetTempData(bindingContext.HttpContext);
+
+            var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(GeographicCoordinate.Latitude)}").FirstValue ??
+                              bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(Location.Point)}.{nameof(GeographicCoordinate.Latitude)}").FirstValue;
+            var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(GeographicCoordinate.Longitude)}").FirstValue ??
+                               bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.{nameof(Location.Point)}.{nameof(GeographicCoordinate.Longitude)}").FirstValue;
+
+
+            Location locationFromTemp;// = TempDataExtensions.Get<Location>(tempData, KeyName);
             if (float.TryParse(latitudeStr, out var latitude)
                 && float.TryParse(longitudeStr, out var longitude))
             {
-                var point = new GeoPoint(longitude, latitude);
-                var ipResult =
-                    await _googlePlacesSearch.ReverseGeocodingAsync(point, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
-
-                var location = new Location(point,ipResult.address, bindingContext.HttpContext.Connection.GetIpAddress().ToString());
-                bindingContext.Result = ModelBindingResult.Success(location);
+                var point = new GeographicCoordinate
+                {
+                    Latitude = latitude,
+                    Longitude = longitude
+                };
+                //if (locationFromTemp != null)
+                //{
+                //    if (point == locationFromTemp.Point)
+                //    {
+                //        bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
+                //        return;
+                //    }
+                //}
+                var resultApi = await _googlePlacesSearch.ReverseGeocodingAsync(point.ToGeoPoint(), bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
+                locationFromTemp = new Location
+                {
+                    Address = resultApi.address,
+                    Point = point,
+                    Ip = bindingContext.HttpContext.Connection.GetIpAddress().ToString()
+                };
+                //(point,resultApi.address, bindingContext.HttpContext.Connection.GetIpAddress().ToString());
+                //TempDataExtensions.Put(tempData, KeyName, locationFromTemp);
+                bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
                 return;
             }
 
+            //if (locationFromTemp != null)
+            //{
+            //    bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
+            //    return;
+            //}
             var ipV4 = bindingContext.HttpContext.Connection.GetIpAddress();
-            var locationIp = await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted)
-                .ConfigureAwait(false);
-            bindingContext.Result = ModelBindingResult.Success(locationIp);
+            var retVal = await _ipToLocation.GetAsync(ipV4, bindingContext.HttpContext.RequestAborted).ConfigureAwait(false);
+            //TempDataExtensions.Put(tempData, KeyName, locationFromTemp);
+            if (retVal == null)
+            {
+                return;
+            }
+            locationFromTemp = new Location
+            {
+                Address = retVal.Address,
+                Point = GeographicCoordinate.FromPoint(retVal.Point),
+                Ip = bindingContext.HttpContext.Connection.GetIpAddress().ToString()
+            };
+
+            bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
         }
     }
 }

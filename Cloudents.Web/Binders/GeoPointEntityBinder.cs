@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Cloudents.Web.Binders
@@ -22,7 +22,12 @@ namespace Cloudents.Web.Binders
             if (float.TryParse(latitudeStr.FirstValue, out var latitude)
                 && float.TryParse(longitudeStr.FirstValue, out var longitude))
             {
-                bindingContext.Result = ModelBindingResult.Success(new GeoPoint(longitude, latitude));
+                bindingContext.Result = ModelBindingResult.Success(new GeographicCoordinate
+                {
+                    Latitude = latitude,
+                    Longitude = longitude
+                });
+
                 return;
             }
 
@@ -33,7 +38,8 @@ namespace Cloudents.Web.Binders
                 ModelBindingResult.Failed();
                 return;
             }
-            bindingContext.Result = ModelBindingResult.Success(location.Point);
+
+            bindingContext.Result = ModelBindingResult.Success(GeographicCoordinate.FromPoint(location.Point));
         }
     }
 }

@@ -26,13 +26,16 @@ const vuetifyComponents = {
     VDivider,
     VDialog,
     VTextField,
+    VSelect,
     VBtn,
     VTooltip,
     VMenu,
     VSwitch,
     VTabs,
     VIcon,
-    VSnackbar
+    VSnackbar,
+    VNavigationDrawer,
+    VAvatar
 };
 import {
     Vuetify,
@@ -42,6 +45,7 @@ import {
     VToolbar,
     VList,
     VTextField,
+    VSelect,
     VExpansionPanel,
     VCard,
     VCarousel,
@@ -56,7 +60,9 @@ import {
     VSwitch,
     VTabs,
     VIcon,
-    VSnackbar
+    VSnackbar,
+    VNavigationDrawer,
+    VAvatar
 
 } from "vuetify"
 import * as route from "./routes";
@@ -157,6 +163,9 @@ router.onReady(() => {
     });
 
     function intercom(to) {
+        if (to.path.indexOf('/landing/') && window.innerWidth < 960) {
+            intercomSettings.hide_default_launcher = true;
+        }
         if (window.innerWidth < 600) {
             let hideLauncher = true
             if (to.name === "home") {

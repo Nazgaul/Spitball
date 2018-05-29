@@ -8,13 +8,14 @@ namespace Cloudents.Web
     {
         public void ApplyRule(RewriteContext context)
         {
-            if (!string.Equals(context.HttpContext.Request.Method, "Get", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(context.HttpContext.Request.Method, "Get", StringComparison.OrdinalIgnoreCase))
             {
                 return;
             }
 
             var request = context.HttpContext.Request;
             if (request.Path.Value == "/" || !request.Path.Value.EndsWith("/")) return;
+            if (string.Equals(request.Path.Value, "/swagger/", StringComparison.OrdinalIgnoreCase)) return;
             var uri = new UriBuilder
             {
                 Query = context.HttpContext.Request.QueryString.Value.TrimStart('?'),

@@ -1,0 +1,81 @@
+@import "../../../../mixin.less";
+
+@google-btn-bg: #4285f4;
+
+.step-email .step-wrapper {
+  .google-signin {
+    background: @google-btn-bg;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #ffffff;
+    width: 100%;
+    height: @registrationFieldHeight;
+    margin-top: 26px;
+  }
+
+  .sbf-google-icon {
+    color: @google-btn-bg;
+    background: white;
+    border-radius: 100%;
+  }
+
+  .seperator-text {
+    display: flex;
+    align-items: center;
+    margin: 26px 0 30px 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: -0.3px;
+    color: #888b8e;
+
+    &:before, &:after {
+      content: '';
+      width: 100%;
+      background: #888b8e;
+      height: 1px;
+      display: block;
+    }
+
+    span {
+      flex-shrink: 0;
+      padding: 0 12px;
+    }
+  }
+  .input-wrapper {
+    .email-field {
+      padding-left: 54px;
+      margin-top: 0;
+    }
+    i {
+      position: absolute;
+      left: 16px;
+      top: 17px;
+      line-height: normal;
+      font-size: 18px;
+    }
+  }
+
+  .continue-btn {
+    margin-top: 16px;
+  }
+
+  .email {
+    margin-top: 6px;
+  }
+  .email-check {
+    margin: 22px auto 64px auto;
+  }
+  .resend-title {
+    font-size: 14px;
+    letter-spacing: -0.4px;
+    color: #888b8e;
+  }
+  .recaptcha-wrapper {
+    margin: 30px 0 10px 0;
+  }
+}

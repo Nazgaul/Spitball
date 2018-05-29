@@ -1,4 +1,5 @@
 ﻿import ResultItem from './ResultItem.vue';
+import questionCard from './../question/helpers/question-card/question-card.vue';
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
@@ -15,6 +16,7 @@ const ACADEMIC_VERTICALS = ['note', 'ask', 'flashcard', 'book', 'tutor'];
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 
 import {skeletonData} from './consts'
+import {SEARCH} from "../../store/mutation-types";
 //update data function update the page content and selected filters
 let updateData = function (data, isFilterUpdate = false) {
     const {facet} = data;
@@ -24,7 +26,7 @@ let updateData = function (data, isFilterUpdate = false) {
     this.$emit('dataUpdated', data.data.length ? data.data[0] : null);
     // (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterSelection;
-    this.UPDATE_LOADING(false);
+    // this.UPDATE_LOADING(false);
     (this.isLoad) ? this.isLoad = false : this.UPDATE_LOADING(false);
     if (this.isAcademic && !this.isFirst) {
         this.showPersonalizeField = true
@@ -66,6 +68,9 @@ export const pageMixin =
             ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity'}),
             currentPromotion() {
                 return promotions[this.name]
+            },
+            filterCondition(){
+                return this.filterSelection.length||(this.filterObject&&this.page&&this.items.length)
             },
             content: {
                 get() {
@@ -143,7 +148,8 @@ export const pageMixin =
             ResultJob,
             ResultVideo,
             ResultBook,
-            ResultVideoSkeleton
+            ResultVideoSkeleton,
+            questionCard
         },
 
         created() {
@@ -155,29 +161,29 @@ export const pageMixin =
             this.UPDATE_LOADING(true);
             this.items = skeletonData[this.name];
             let vertical = this.name === "result" ? "" : this.name;
-            //call luis with the userText
-            this.updateSearchText({text: this.userText, vertical}).then(({term, result}) => {
-                //If should update vertical(not book details) and luis return not identical vertical as current vertical replace to luis vertical page
-                if (this.name === "result") { //from homepage
-                    this.UPDATE_LOADING(false);
-                    const routeParams = {path: '/' + result, query: {...this.query, q: this.userText}};
-                    this.$router.replace(routeParams);
-                }
-                else {
-                    //fetch data with the params
-                    this.fetchingData({
-                        name: this.name,
-                        params: {...this.query, ...this.params}
-
-                    })
-                        .then(({data}) => {
-                            updateData.call(this, {...data,vertical:this.name});//irena
-                        }).catch(reason => {
-                        //when error from fetching data remove the loader
+            this.updateAiData(vertical,this.userText,
+                ({term, result})=>{
+                    if (this.name === "result") { //from homepage
                         this.UPDATE_LOADING(false);
-                        this.items = [];
-                    });
-                }
+                        const routeParams = {path: '/' + result, query: {...this.query, q: this.userText}};
+                        this.$router.replace(routeParams);
+                        return false;
+                    }
+                    return true
+           }).then(() =>{
+                //fetch data with the params
+                this.fetchingData({
+                    name: this.name,
+                    params: {...this.query, ...this.params}
+
+                })
+                    .then(({data}) => {
+                        updateData.call(this, {...data,vertical:this.name});//irena
+                    }).catch(reason => {
+                    //when error from fetching data remove the loader
+                    this.UPDATE_LOADING(false);
+                    this.items = [];
+                });
             });
         },
         methods: {
@@ -191,13 +197,23 @@ export const pageMixin =
                 this.pageData = {};
                 this.items = [];
                 this.items = skeletonData[toName];
-                if(to.query.q!==from.query.q){
-                    this.updateSearchText({text: to.query.q, vertical: toName}).then(() => {
-                        this.updateContentOfPage(to,from,next,itemsBeforeUpdate);
-                    })
-                }else{
-                    this.updateContentOfPage(to,from,next,itemsBeforeUpdate);
-                }
+                new Promise(resolve => {
+                    to.query.q===from.query.q ? resolve(): this.updateAiData(toName,to.query.q).then(() =>resolve());
+                }).then(()=>this.updateContentOfPage(to,from,next,itemsBeforeUpdate));
+            },
+            updateAiData(vertical,text,searchCallback){
+                return  new Promise(resolve => {
+                    let verticalData=this.getVerticalData(vertical);
+                    //if was changed to another vertical that was saved
+                    if(verticalData&&verticalData.text===text){
+                        this.$store.commit(SEARCH.UPDATE_SEARCH_PARAMS,verticalData);
+                        resolve()
+                    }else{
+                        this.updateSearchText({text: text, vertical: vertical}).then((result) => {
+                            searchCallback?searchCallback(result)?resolve():"":resolve();
+                            })
+                    }
+                })
             },
             updateContentOfPage(to,from,next,itemsBeforeUpdate){
                 const toName = to.path.slice(1);
@@ -234,7 +250,6 @@ export const pageMixin =
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject(vertical) {
                 let currentPage=page[vertical];
-                console.log(vertical);
                 //validate current page have filters
                 if (!currentPage || !currentPage.filter) {
                     this.filterObject = null
@@ -249,17 +264,6 @@ export const pageMixin =
                         item.data = (i.id === "course") ? this.myCourses : this.pageData[i.id] ? this.pageData[i.id] : this.getFacet ? this.getFacet : [];
                         return item;
                     });
-                }
-
-                let matchValues = this.filterSelection.filter(i => this.filterObject.find(t =>
-                    (t.modelId === i.key &&
-                        (t.data.find(
-                                k => i.value.toString() === (k.id ? k.id.toString() : k.toString()))
-                        ))
-                ));
-                if (matchValues.length !== this.filterSelection.length) {
-                    const routeParams = {path: '/' + this.name, query: {q: this.userText}};
-                    this.$router.replace(routeParams);
                 }
             }
             ,
@@ -291,4 +295,3 @@ export const pageMixin =
             }
         }
     }
-;
