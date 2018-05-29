@@ -15,7 +15,7 @@ using Cloudents.Infrastructure.BlockChain;
 
 namespace Cloudents.Infrastructure.Blockchain
 {
-    class Erc20Service : BlockChainProvider, IErc20Service
+    class Erc20Service : BlockChainProvider, IBlockChainErc20Service
     {
         protected override string Abi => "TokenAbi";
 

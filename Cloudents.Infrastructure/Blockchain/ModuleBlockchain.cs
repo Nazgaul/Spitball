@@ -11,11 +11,11 @@ namespace Cloudents.Infrastructure.BlockChain
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<Erc20Service>().As<IErc20Service>();
-            builder.RegisterType<QAndAService>().As<IQAndAService>();
+            builder.RegisterType<Erc20Service>().As<IBlockChainErc20Service>();
+            builder.RegisterType<QAndAService>().As<IBlockChainQAndAContract>();
             builder.RegisterType<BlockChainProvider>().As<IBlockChainProvider>();
             builder.RegisterType<CrowdsaleService>().As<ICrowdsaleService>();
-          
         }
+
     }
 }
