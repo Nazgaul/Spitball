@@ -27,7 +27,7 @@ namespace Cloudents.Functions
     {
         [FunctionName("FunctionEmail")]
         public static async Task EmailFunctionAsync(
-            [QueueTrigger(QueueName.EmailName, Connection = "TempConnection")] CloudQueueMessage queueMessage,
+            [QueueTrigger(QueueName.EmailName)] CloudQueueMessage queueMessage,
             [SendGrid(ApiKey = "SendgridKey", From = "no-reply@spitball.co")] IAsyncCollector<SendGridMessage> emailProvider,
             IBinder binder,
             TraceWriter log,
