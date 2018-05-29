@@ -187,7 +187,7 @@
                 notRegMenu,
                 clickOnce:false,
                 drawer: null,
-                isAuthUser:false
+                isAuthUser:true
             }
         },
         methods:{
