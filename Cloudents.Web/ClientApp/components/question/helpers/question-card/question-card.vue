@@ -28,7 +28,7 @@
         </div>
 
         <div v-if="answerBtn" class="answer">
-            <a class="answer-btn" :href="'/question/'+cardData.id">Answer</a>
+            <router-link class="answer-btn"  :to="{path:'/question/'+cardData.id}">Answer</router-link>
         </div>
 
     </v-flex>

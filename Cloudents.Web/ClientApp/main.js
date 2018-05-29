@@ -1,10 +1,13 @@
 ﻿import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
+
 const scroll = () => import("./components/helpers/infinateScroll.vue");
 import VScroll from "vuetify/es5/directives/scroll";
+
 const GeneralPage = () => import("./components/helpers/generalPage.vue");
 import VueRouter from "vue-router";
+
 const vueAdsense = () => import("vue-adsense");
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
@@ -84,7 +87,7 @@ Vue.use(VueLazyload, {
 Vue.use(VueRouter);
 Vue.use(Vuetify,
     {
-        directives: { VScroll },
+        directives: {VScroll},
         components: vuetifyComponents
     });
 Vue.component("scroll-list", scroll);
@@ -98,7 +101,7 @@ const router = new VueRouter({
         if (savedPosition) {
             return savedPosition;
         } else {
-            return { x: 0, y: 0 }
+            return {x: 0, y: 0}
         }
     }
 
@@ -177,7 +180,8 @@ router.onReady(() => {
         Intercom("update");
     }
 });
+
 //app.$mount("#app");
 //This is for cdn fallback do not touch
 global.mainCdn = true;
-export { app, router };
+export {app, router};

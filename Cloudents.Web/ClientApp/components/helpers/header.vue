@@ -102,8 +102,8 @@
                                         <span class="red-counter">6</span>                                    
                                     </div>
 
-                                    <button v-if="!isAuthUser" class="header-login">Login</button>
-                                    <button v-if="!isAuthUser" class="header-login">Sign Up</button>
+                                    <a v-if="!isAuthUser" class="header-login" href="/signin">Login</a>
+                                    <a v-if="!isAuthUser" class="header-login" href="/register">Sign Up</a>
                                     
                 
                                     <v-menu bottom left offset-y class="gamburger" v-if="!isAuthUser">
@@ -256,6 +256,8 @@
                 });
             let headerHeight =this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
             this.height =  this.$vuetify.breakpoint.xsOnly && this.showSmartAppBanner? headerHeight + 84 : headerHeight;
+
+            // this.isAuthUser =
         }
     }
 </script>

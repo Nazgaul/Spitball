@@ -1,12 +1,11 @@
-
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
-import { mapGetters } from "vuex";
+import {mapGetters} from "vuex";
 import questionCard from "./../helpers/question-card/question-card.vue";
 
 export default {
-    components: { questionThread, questionCard, extendedTextArea },
+    components: {questionThread, questionCard, extendedTextArea},
     props: {
         id: {Number} // got it from route
     },
@@ -22,18 +21,18 @@ export default {
         submitAnswer() {
             var self = this;
             questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
-                .then(function() {
+                .then(function () {
                     self.textAreaValue = "";
                     //TODO: do this on client side (render data inserted by user without calling server)
                     self.getData();
                 });
         },
-        addFile(filename){
-          this.answerFiles.push(filename);
+        addFile(filename) {
+            this.answerFiles.push(filename);
         },
         getData() {
             var self = this;
-            questionService.getQuestion(this.id).then(function(response) {
+            questionService.getQuestion(this.id).then(function (response) {
                 self.questionData = response.data;
                 self.buildChat();
             });
@@ -59,7 +58,7 @@ export default {
         }
     },
     watch: {
-        talkSession: function(newVal, oldVal) {
+        talkSession: function (newVal, oldVal) {
             if (newVal) {
                 this.buildChat();
             }
