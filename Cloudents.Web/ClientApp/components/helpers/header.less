@@ -22,7 +22,7 @@
     .inTheMiddle();
     margin: 0;
     @media (max-width: (@screen-sm)) {
-      margin-left: 40px;
+      margin-left: 41px;
       &.auth-user {
         margin-left: 66px;
       }
@@ -79,8 +79,8 @@
 
   .line {
     .responsive-property(margin-right, 16px, null, 0);
-    .responsive-property(margin-left, 16px, 24px, 8px);
-    max-height: 60px;
+    .responsive-property(margin-left, 16px, 24px, 7px);
+    .responsive-property(max-height, 60px, 60px, 64px);
 
     @media (max-width: 959px) {
       &:nth-child(2) {
@@ -130,7 +130,7 @@
     .header-login {
       height: 40px;
       width: 104px;
-      margin-right: 24px;
+      margin-right: 10px;
       border-radius: 26.5px;
       border: solid 1px @color-main-purple;
       font-size: 18px;
@@ -139,9 +139,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #3532d5;
+      color: @color-main-purple;
+      letter-spacing: -0.5px;
       @media (max-width: @screen-xs) {
         display: none;
+      }
+      &:first-child{
+        margin-right: 24px;
       }
 
     }
@@ -190,6 +194,9 @@
       .input-group__input {
         .input-group__append-icon.sbf-mic {
           padding: 0 14px;
+          @media (max-width: @screen-xs) {
+            display: none;
+          }
         }
       }
 
@@ -247,7 +254,16 @@
   position: relative;
 }
 
+.header-comments{
+  margin-right: 39px;
+}
+
 .header-wallet {
+  @media (max-width: @screen-xs) {
+    margin-right: 57px;
+    margin-bottom: 3px;
+  }
+  margin-right: 39px;
   .btn {
     margin: 6px 1px 6px 0px;
   }
@@ -261,7 +277,7 @@
 }
 
 .menu.gamburger, .header-rocket {
-  @media (max-width: (@screen-sm)) {
+  @media (max-width: (@screen-xs)) {
     position: fixed;
     left: 9px;
     top: 3px;

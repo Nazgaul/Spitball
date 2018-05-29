@@ -111,11 +111,19 @@
         }
         @media(max-width: @screen-xs) {
             min-height: 42px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 2;
         }
 
         button {
             @media(max-width: @screen-xs) {
-                margin: 13px 0 10px 0;
+                margin: 3px 0 0 0;
+                .sbf-filter{
+                    font-size: 19px;
+                    color: @color-main-purple;
+                }
             }
         }
     }

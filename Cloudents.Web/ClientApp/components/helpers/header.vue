@@ -7,7 +7,8 @@
                 <div class="main">
                     <v-flex class="line top">
                         <v-layout row>
-                            <v-toolbar-title :class="{'auth-user':isAuthUser}">
+                            <!-- :class="{'auth-user':isAuthUser}" -->
+                            <v-toolbar-title >
                                 <router-link class="logo-link" :to="{name:'home'}">
                                     <app-logo class="logo"></app-logo>
                                 </router-link>
@@ -20,7 +21,7 @@
                                 <!--</form>-->
                                 <v-spacer v-if="$vuetify.breakpoint.smAndDown"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
-                                    <v-menu bottom left>
+                                    <!-- <v-menu bottom left>
                                         <v-btn class="share-btn" icon slot="activator">
                                             <share-icon></share-icon>
                                         </v-btn>
@@ -75,42 +76,42 @@
                                                 </v-list-tile-content>
                                             </v-list-tile>
                                         </v-list>
-                                    </v-menu>
+                                    </v-menu> -->
+
+                                    <div class="header-comments" v-if="isAuthUser && !isMobile">
+                                        <v-btn icon >
+                                            <v-icon>sbf-comment</v-icon>    
+                                        </v-btn>
+                                        <span class="red-counter">6</span>                                    
+                                    </div>
 
                                     <div class="header-wallet" v-if="isAuthUser">
                                         <v-btn icon >
                                             <v-icon>sbf-wallet</v-icon>                                    
                                         </v-btn>
                                         <span>$25</span>
-                                    </div>
-
-                                    
-                                    <div class="header-comments" v-if="isAuthUser">
-                                        <v-btn icon >
-                                            <v-icon>sbf-comment</v-icon>    
-                                        </v-btn>
-                                        <span class="red-counter">6</span>                                    
-                                    </div>
+                                    </div>                                    
                                                                     
-                                    <div class="header-rocket" v-if="isAuthUser">
+                                    <div class="header-rocket" v-if="isAuthUser && !isMobile">
                                         <v-menu bottom left offset-y >
                                             <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                                 <v-icon>sbf-rocket</v-icon>
                                             </v-btn>
-                                            <menu-list :isAuthUser="isAuthUser" v-if=!isMobile></menu-list>                                            
+                                            <menu-list :isAuthUser="isAuthUser" ></menu-list>                                            
                                         </v-menu>
                                         <span class="red-counter">6</span>                                    
                                     </div>
 
-                                    <a v-if="!isAuthUser" class="header-login" href="/signin">Login</a>
+                                    
                                     <a v-if="!isAuthUser" class="header-login" href="/register">Sign Up</a>
+                                    <a v-if="!isAuthUser" class="header-login" href="/signin">Login</a>
                                     
                 
-                                    <v-menu bottom left offset-y class="gamburger" v-if="!isAuthUser">
+                                    <v-menu bottom left offset-y class="gamburger" v-if="!isAuthUser || isMobile">
                                         <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                             <v-icon>sbf-menu</v-icon>
                                         </v-btn>
-                                        <menu-list :isAuthUser="isAuthUser" v-if=!isMobile></menu-list>
+                                        <menu-list :isAuthUser="isAuthUser" v-if="!isMobile"></menu-list>
                                     </v-menu>   
                                     
                                 </div>
