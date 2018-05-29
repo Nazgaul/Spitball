@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface ICrowdsaleService: IBlockChainProvider
+    public interface ICrowdsaleService
     {
         Task<string> BuyTokens(string senderPK, int amount, CancellationToken token);
     }

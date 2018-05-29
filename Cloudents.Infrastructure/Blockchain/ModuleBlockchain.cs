@@ -13,7 +13,6 @@ namespace Cloudents.Infrastructure.BlockChain
         {
             builder.RegisterType<Erc20Service>().As<IBlockChainErc20Service>();
             builder.RegisterType<QAndAService>().As<IBlockChainQAndAContract>();
-            builder.RegisterType<BlockChainProvider>().As<IBlockChainProvider>();
             builder.RegisterType<CrowdsaleService>().As<ICrowdsaleService>();
         }
 
