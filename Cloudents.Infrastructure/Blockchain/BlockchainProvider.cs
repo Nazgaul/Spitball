@@ -11,10 +11,11 @@ using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Contracts;
+using Nethereum.KeyStore;
 
 namespace Cloudents.Infrastructure.BlockChain
 {
-    public abstract class BlockChainProvider : IBlockChainProvider
+    public abstract class BlockChainProvider 
     {
         protected readonly IConfigurationKeys _configurationKeys;
 
@@ -92,9 +93,27 @@ namespace Cloudents.Infrastructure.BlockChain
 
         public Account CreateAccount()
         {
+          
+
+
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
-            var privateKey = ecKey.GetPrivateKeyAsBytes().ToHex();
-            return new Account(privateKey);
+            var privateKey = ecKey.GetPrivateKeyAsBytes();
+
+            //var service = new KeyStoreService();
+            //var privetKeyHex = privateKey.ToHex();
+
+            //var fileName = service.GenerateUTCFileName(GetPublicAddress(privetKeyHex));
+
+            //using (var newfile = File.CreateText(fileName))
+            //{
+                
+            //    //generate the encrypted and key store content as json. (The default uses pbkdf2)
+            //    var newJson = service.EncryptAndGenerateDefaultKeyStoreAsJson("a", privateKey, GetPublicAddress(privetKeyHex));
+            //    newfile.Write(newJson);
+            //    newfile.Flush();
+            //}
+
+            return new Account(privateKey.ToHex());
         }
 
      
