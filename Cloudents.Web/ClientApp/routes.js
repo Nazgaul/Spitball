@@ -187,14 +187,16 @@ let routes2 = [
     {
         path: "/register", components: {
             default: registration,
-        }, name: "registration"
+        }, name: "registration",
+        beforeEnter: (to, from, next) => {
+            checkUserStatus(to, next);
+        }
     },
     {
         path: "/askquestion", components: {
             default: askQuestion,
             header: questionHeader,
         }, name: "askQuestion",
-        meta: {requiresAuth: true},
         beforeEnter: (to, from, next) => {
             checkUserStatus(to, next);
         }
@@ -209,7 +211,6 @@ let routes2 = [
         props: {
             default: (route) => ({id: route.params.id}),
         },
-        meta: {requiresAuth: true},
         beforeEnter: (to, from, next) => {
             checkUserStatus(to, next);
         }
@@ -224,7 +225,6 @@ let routes2 = [
         props: {
             default: (route) => ({id: route.params.id})
         },
-        meta: {requiresAuth: true},
         beforeEnter: (to, from, next) => {
             checkUserStatus(to, next);
         }
@@ -260,7 +260,9 @@ let routes2 = [
         components: {
             default: () => import("./components/temp/temp.vue")
         },
-        meta: {requiresAuth: true}
+        beforeEnter: (to, from, next) => {
+            checkUserStatus(to, next);
+        }
     }
 
 ];
@@ -283,14 +285,11 @@ export const routes = routes2;
 
 function checkUserStatus(to, next) {
     store.dispatch('userStatus').then(response => {
-        // check if user needs to be redirected to login screen
-        if (to.meta.requiresAuth) {
-            if (store.getters.loginStatus) {
-                next();
-            }
-            else {
-                next("signin")
-            }
+        if (store.getters.loginStatus) {
+            to.path === "/register" ? next("/") : next();
+        }
+        else {
+            next("signin")
         }
         next()
     }).catch(error => {
