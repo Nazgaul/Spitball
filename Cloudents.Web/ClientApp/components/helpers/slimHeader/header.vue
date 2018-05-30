@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import regularHeader from "../../helpers/header.vue"
+    import regularHeader from "../header.vue"
 
     export default {
         components: {regularHeader},
