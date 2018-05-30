@@ -3,6 +3,5 @@
     "batchSize": 32,
     "maxPollingInterval": 5000
   },
-  "functionTimeout": "00:10:00",
-  "functions": [ "UrlProcess2" ]
+  "functionTimeout": "00:10:00"
 }
