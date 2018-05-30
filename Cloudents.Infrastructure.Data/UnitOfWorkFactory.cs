@@ -38,9 +38,9 @@ namespace Cloudents.Infrastructure.Data
                 .Database(
                     FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.GetConnectionString(db))
                         .DefaultSchema("sb")
-#if DEBUG
-                        .ShowSql
-#endif
+//#if DEBUG
+//                        .ShowSql
+//#endif
 
                     )
                 .ExposeConfiguration(BuildSchema);

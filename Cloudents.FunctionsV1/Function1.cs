@@ -14,30 +14,32 @@ namespace Cloudents.FunctionsV1
     public static class Function1
     {
 
-        //[FunctionName("UrlProcess2")]
-        //public static async Task ProcessQueueMessageAsync2([TimerTrigger("0 * * * * *")]TimerInfo myTimer,
-        //    TraceWriter log, CancellationToken token, [Inject] ICommandBus commandBus)
-        //{
-        //    var command = new CreateUrlStatsCommand("s", DateTime.UtcNow, "s", "s",
-        //        0, "s");
-
-        //    await commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-        //    log.Info("Finish Process");
-        //}
-
-
         [FunctionName("UrlProcess")]
         [UsedImplicitly]
-        public static async Task ProcessQueueMessageAsync([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,
+        public static async Task ProcessQueueMessageAsync([QueueTrigger(QueueName.UrlRedirectName,Connection = "TempConnection")] UrlRedirectQueueMessage content,
             TraceWriter log, CancellationToken token, [Inject] ICommandBus commandBus)
         {
+            await ProcessQueueAsync(content, log, token, commandBus).ConfigureAwait(false);
+        }
+
+
+        [FunctionName("UrlProcessPoison")]
+        [UsedImplicitly]
+        public static async Task ProcessQueueMessagePoisonAsync([QueueTrigger(QueueName.UrlRedirectName + "-poison", Connection = "TempConnection")] UrlRedirectQueueMessage content,
+            TraceWriter log, CancellationToken token, [Inject] ICommandBus commandBus)
+        {
+            await ProcessQueueAsync(content, log, token, commandBus).ConfigureAwait(false);
+        }
+
+        private static async Task ProcessQueueAsync(UrlRedirectQueueMessage content, TraceWriter log, CancellationToken token,
+            ICommandBus commandBus)
+        {
+            log.Info("Getting Url process message");
             var command = new CreateUrlStatsCommand(content.Host, content.DateTime, content.Url, content.UrlReferrer,
                 content.Location, content.Ip);
 
             await commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             log.Info("Finish Process");
-
-
         }
     }
 }
