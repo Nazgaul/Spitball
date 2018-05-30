@@ -1,5 +1,5 @@
 <template>
-    <regular-header v-if="!$vuetify.breakpoint.xsOnly" ref="mainHeader" :toolbarHeight="72"></regular-header>
+    <regular-header v-if="!$vuetify.breakpoint.smAndDown" ref="mainHeader" :toolbarHeight="72"></regular-header>
 </template>
 
 <script>
