@@ -12,6 +12,6 @@ namespace Cloudents.Core.Command
 
        // public long QuestionId { get; private set; }
 
-        public string PrivateKey { get; private set; }
+       // public string PrivateKey { get; private set; }
     }
 }
