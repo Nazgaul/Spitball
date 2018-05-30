@@ -1,8 +1,7 @@
 ﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
-using FluentNHibernate.Mapping;
 
-namespace Cloudents.Infrastructure.Database.Maps
+namespace Cloudents.Infrastructure.Data.Maps
 {
     public class CourseMap : SpitballClassMap<Course>
     {

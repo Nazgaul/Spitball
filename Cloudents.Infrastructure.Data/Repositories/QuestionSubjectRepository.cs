@@ -8,7 +8,7 @@ using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate.Linq;
 
-namespace Cloudents.Infrastructure.Database.Repositories
+namespace Cloudents.Infrastructure.Data.Repositories
 {
     [UsedImplicitly]
     public class QuestionSubjectRepository : NHibernateRepository<QuestionSubject>, IQuestionSubjectRepository

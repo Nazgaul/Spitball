@@ -91,35 +91,13 @@ namespace Cloudents.Infrastructure.BlockChain
             return account.Address;
         }
 
-        public Account CreateAccount()
+        public (string privateKey, string publicAddress) CreateAccount()
         {
-          
-
-
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
             var privateKey = ecKey.GetPrivateKeyAsBytes();
-
-            //var service = new KeyStoreService();
-            //var privetKeyHex = privateKey.ToHex();
-
-            //var fileName = service.GenerateUTCFileName(GetPublicAddress(privetKeyHex));
-
-            //using (var newfile = File.CreateText(fileName))
-            //{
-                
-            //    //generate the encrypted and key store content as json. (The default uses pbkdf2)
-            //    var newJson = service.EncryptAndGenerateDefaultKeyStoreAsJson("a", privateKey, GetPublicAddress(privetKeyHex));
-            //    newfile.Write(newJson);
-            //    newfile.Flush();
-            //}
-
-            return new Account(privateKey.ToHex());
+            var account = new Account(privateKey.ToHex());
+            
+            return (privateKey.ToHex(), account.Address);
         }
-
-     
-
-       
-
-       
     }
 }

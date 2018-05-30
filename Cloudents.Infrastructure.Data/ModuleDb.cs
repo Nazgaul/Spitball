@@ -1,14 +1,15 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
-using Cloudents.Infrastructure.Database.Repositories;
+using Cloudents.Infrastructure.Data.Repositories;
 using JetBrains.Annotations;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Infrastructure.Data
 {
     [ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.Function)]
+    //[ModuleRegistration(Core.Enum.System.Function)]
     [ModuleRegistration(Core.Enum.System.Web)]
+    [ModuleRegistration(Core.Enum.System.FunctionV1)]
     [UsedImplicitly]
     public class ModuleDb : Module
     {

@@ -1,6 +1,6 @@
 ﻿using Cloudents.Core.Entities.Db;
 
-namespace Cloudents.Infrastructure.Database.Maps
+namespace Cloudents.Infrastructure.Data.Maps
 {
     public class HiLoGeneratorMap :SpitballClassMap<HiLoGenerator>
     {

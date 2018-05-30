@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.Entities.Db;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Infrastructure.Database.Maps
+namespace Cloudents.Infrastructure.Data.Maps
 {
     public class MailGunStudentMap : ClassMap<MailGunStudent>
     {

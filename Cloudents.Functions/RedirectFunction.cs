@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
@@ -62,6 +63,11 @@ namespace Cloudents.Functions
 
             await commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             log.Info("Finish Process");
+
+
         }
+
+
+       
     }
 }

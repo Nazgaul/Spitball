@@ -7,7 +7,7 @@ using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 
-namespace Cloudents.Infrastructure.Database.Repositories
+namespace Cloudents.Infrastructure.Data.Repositories
 {
     public class NHibernateRepository<T> : IRepository<T> where T : class
     {

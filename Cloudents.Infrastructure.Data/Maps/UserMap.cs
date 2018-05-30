@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.Entities.Db;
 using JetBrains.Annotations;
 
-namespace Cloudents.Infrastructure.Database.Maps
+namespace Cloudents.Infrastructure.Data.Maps
 {
     [UsedImplicitly]
     internal class UserMap : SpitballClassMap<User>

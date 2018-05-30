@@ -1,7 +1,7 @@
 ﻿using System;
 using NHibernate;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Infrastructure.Data
 {
     public interface IUnitOfWork : IDisposable
     {

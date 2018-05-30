@@ -2,7 +2,7 @@
 using Autofac;
 using JetBrains.Annotations;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Infrastructure.Data
 {
     [UsedImplicitly]
     public class UnitOfWorkAutofacFactory

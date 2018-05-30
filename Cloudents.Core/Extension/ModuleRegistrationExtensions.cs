@@ -5,7 +5,7 @@ using Autofac;
 using Autofac.Core;
 using Cloudents.Core.Attributes;
 
-namespace Cloudents.Infrastructure
+namespace Cloudents.Core.Extension
 {
     public static class ModuleRegistrationExtensions
     {

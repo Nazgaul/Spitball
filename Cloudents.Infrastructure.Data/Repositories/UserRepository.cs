@@ -6,7 +6,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using NHibernate.Linq;
 
-namespace Cloudents.Infrastructure.Database.Repositories
+namespace Cloudents.Infrastructure.Data.Repositories
 {
     public class UserRepository : NHibernateRepository<User>, IUserRepository
     {

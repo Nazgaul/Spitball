@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using NHibernate;
 
-namespace Cloudents.Infrastructure.Database
+namespace Cloudents.Infrastructure.Data
 {
     [UsedImplicitly]
     public sealed class UnitOfWork : IUnitOfWork

@@ -9,6 +9,7 @@ using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Cloudents.Web.Binders;
@@ -162,6 +163,7 @@ namespace Cloudents.Web
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
+                Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.GetExecutingAssembly()
             };
             services.AddAutoMapper(c => c.DisableConstructorMapping(), assembliesOfProgram);
