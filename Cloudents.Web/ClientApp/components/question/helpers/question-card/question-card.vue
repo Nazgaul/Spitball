@@ -1,7 +1,6 @@
 <template>
     <v-flex v-if="cardData" xs12 class="question-card">
-
-        <div v-if="!isAnswer">
+        <div v-if="!typeAnswer">
             <div class="q-price">
                 <span>Earn {{cardData.price}}$</span>
             </div>
@@ -21,9 +20,9 @@
 
         <div class="q-user-info" v-if="cardData.user">
             <user-block :user="cardData.user"></user-block>
-            <div v-if="myQuestion && isAnswer">
+            <div v-if="typeAnswer && showApproveButton">
                 <label for="mark-correct">Mark as correct answer</label>
-                <input id="mark-correct" type="checkbox" value="apprvedAnswer"/>
+                <input id="mark-correct" type="checkbox" @click="markAsCorrect" :disabled="isCorrectAnswer" :checked="isCorrectAnswer"/>
             </div>
         </div>
 

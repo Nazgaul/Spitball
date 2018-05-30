@@ -289,7 +289,7 @@ function checkUserStatus(to, next) {
             to.path === "/register" ? next("/") : next();
         }
         else {
-            next("signin")
+            to.path === "/register" ? next() : next("signin");
         }
         next()
     }).catch(error => {

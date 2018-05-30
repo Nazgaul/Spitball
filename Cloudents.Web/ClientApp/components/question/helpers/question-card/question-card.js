@@ -1,36 +1,49 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 
 export default {
-    components:{userBlock},
-    props:{
-        isAnswer:{
-            type:Boolean,
-            required:false,
-            default:false
+    components: {userBlock},
+    props: {
+        typeAnswer: {
+            type: Boolean,
+            required: false,
+            default: false
         },
-        myQuestion:{
-            type:Boolean,
-            required:false,
-            default:false
+        showApproveButton: {
+            type: Boolean,
+            required: false,
+            default: false
         },
         cardData: {},
         answerBtn: {
+            type: Boolean,
+            default: false
+        },
+        isApproved: {
+            type: Boolean,
+            default: false
+        },
+        isCorrectAnswer: {
             type: Boolean,
             default: false
         }
     },
     data() {
         return {
-            user:{
-                img:'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-                name:'User Name'
-            }
+            user: {
+                img: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+                name: 'User Name'
+            },
         }
     },
-    
-    computed:{        
-        isMobile(){
+
+    computed: {
+        isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
-        }         
+        },
+    },
+    methods: {
+        markAsCorrect() {
+            this.$parent.markAsCorrect(this.cardData.id); //TODO: MEH :\  check if it can be done in a better way...
+        },
     }
 }

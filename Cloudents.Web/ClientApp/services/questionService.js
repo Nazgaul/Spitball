@@ -8,4 +8,6 @@ export default {
     postQuestion: (subjectId, text, price, files) => axios.post("/Question", {subjectId, text, price, files}),
     getQuestion: (id) => axios.get("/Question/"+id),
     answerQuestion: (questionId, text, files) => axios.post("/Answer", {questionId, text, files}),
+    markAsCorrectAnswer: (answerId) => axios.put("/Question/correct", {answerId}),
+
 }
