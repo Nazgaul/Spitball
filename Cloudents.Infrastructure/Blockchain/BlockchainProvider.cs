@@ -11,10 +11,11 @@ using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Contracts;
+using Nethereum.KeyStore;
 
 namespace Cloudents.Infrastructure.BlockChain
 {
-    public abstract class BlockChainProvider : IBlockChainProvider
+    public abstract class BlockChainProvider 
     {
         protected readonly IConfigurationKeys _configurationKeys;
 
@@ -90,17 +91,13 @@ namespace Cloudents.Infrastructure.BlockChain
             return account.Address;
         }
 
-        public Account CreateAccount()
+        public (string privateKey, string publicAddress) CreateAccount()
         {
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
-            var privateKey = ecKey.GetPrivateKeyAsBytes().ToHex();
-            return new Account(privateKey);
+            var privateKey = ecKey.GetPrivateKeyAsBytes();
+            var account = new Account(privateKey.ToHex());
+            
+            return (privateKey.ToHex(), account.Address);
         }
-
-     
-
-       
-
-       
     }
 }

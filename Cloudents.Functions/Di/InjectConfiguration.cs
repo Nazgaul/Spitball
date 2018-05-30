@@ -2,6 +2,7 @@
 using System.Reflection;
 using Autofac;
 using Cloudents.Core;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
 using Microsoft.Azure.WebJobs.Host;

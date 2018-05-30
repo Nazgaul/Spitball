@@ -8,9 +8,9 @@ namespace Cloudents.Web.Identity
     [UsedImplicitly]
     public class PasswordHasher : IPasswordHasher<User>
     {
-        private readonly IBlockChainProvider _blockChainProvider;
+        private readonly IBlockChainErc20Service _blockChainProvider;
 
-        public PasswordHasher(IBlockChainProvider blockChainProvider)
+        public PasswordHasher(IBlockChainErc20Service blockChainProvider)
         {
             _blockChainProvider = blockChainProvider;
         }

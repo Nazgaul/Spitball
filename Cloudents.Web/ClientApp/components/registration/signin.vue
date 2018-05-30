@@ -21,7 +21,7 @@
                     <router-link to="register">Sign up</router-link>
                 </div>
             </div>
-            <img slot="step-image" :src="require(`./img/registerEmail.png`)"/>
+            <img slot="step-image" :src="require(`./img/signin.png`)"/>
         </step-template>
     </div>
 </template>

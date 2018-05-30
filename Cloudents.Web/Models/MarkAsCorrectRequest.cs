@@ -8,10 +8,12 @@ namespace Cloudents.Web.Models
         [Required]
         public Guid AnswerId { get;  set; }
 
-        [Required]
-        public long QuestionId { get;  set; }
+        //[Required]
+        //public long QuestionId { get;  set; }
 
-        [Required]
-        public string PrivateKey { get; set; }
+        //[Required]
+        //public string PrivateKey { get; set; }
+
+
     }
 }

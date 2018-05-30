@@ -51,7 +51,7 @@
             </v-list-tile>   
             <v-list-tile>
                 <v-list-tile-action>
-                    <v-icon>sbf-wallet</v-icon>
+                    <v-icon>sbf-settings</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title>Settings</v-list-tile-title>

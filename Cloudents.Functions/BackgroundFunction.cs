@@ -13,14 +13,13 @@ namespace Cloudents.Functions
 {
     public static class BackgroundFunction
     {
-        [FunctionName("BackgroundFunction")]
         public static async Task BackgroundFunctionAsync(
             [QueueTrigger(QueueName.BackgroundName)] string queueMessage,
             [Inject] IChat chatService,
             TraceWriter log,
             CancellationToken token)
         {
-            var obj = JsonConvert.DeserializeObject<TalkJsUser>(queueMessage, new JsonSerializerSettings()
+            var obj = JsonConvert.DeserializeObject<TalkJsUser>(queueMessage, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });

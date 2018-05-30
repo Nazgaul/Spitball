@@ -1,4 +1,4 @@
-﻿const HomePage = () => import("./components/home/home.vue");
+const HomePage = () => import("./components/home/home.vue");
 const homePageHeader = () => import("./components/home/header.vue");
 import * as RouteTypes from "./routeTypes";
 
@@ -9,9 +9,9 @@ const dialogToolbar = () => import("./components/dialog-toolbar/DialogToolbar.vu
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const pageHeader = () => import("./components/header/header.vue");
-//const pageHeaderBasic = () => import("./components/helpers/header.vue");
+//const pageHeaderBasic = () => import("./components/helpers/slimHeader.vue");
 const bookDetailsHeader = () => import("./components/book/header.vue");
-const questionDetailsHeader = () => import("./components/question/header/header.vue");
+const slimHeader = () => import("./components/helpers/slimHeader/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
@@ -27,6 +27,7 @@ const viewChat = () => import("./components/chat/view/chat.vue");
 const userSettings = () => import("./components/settings/view/settings.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
+import store from "./store";
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -186,23 +187,32 @@ let routes2 = [
     {
         path: "/register", components: {
             default: registration,
-        }, name: "registration"
+        }, name: "registration",
+        beforeEnter: (to, from, next) => {
+            checkUserStatus(to, next);
+        }
     },
     {
         path: "/askquestion", components: {
             default: askQuestion,
-            header: pageHeader,
-        }, name: "askQuestion"
+            header: slimHeader,
+        }, name: "askQuestion",
+        beforeEnter: (to, from, next) => {
+            checkUserStatus(to, next);
+        }
     },
     {
         path: "/question/:id",
         components: {
             default: viewQuestion,
-            header: questionDetailsHeader,
+            header: slimHeader,
         },
         name: "question",
         props: {
             default: (route) => ({id: route.params.id}),
+        },
+        beforeEnter: (to, from, next) => {
+            checkUserStatus(to, next);
         }
     },
     {
@@ -214,21 +224,24 @@ let routes2 = [
         name: "profile",
         props: {
             default: (route) => ({id: route.params.id})
+        },
+        beforeEnter: (to, from, next) => {
+            checkUserStatus(to, next);
         }
     },
-    {
-        path: "/settings", components: {
-            default: userSettings,
-            header: pageHeader,
-        }, name: "chat"
-    },
-    
-    {
-        path: "/chat", components: {
-            default: viewChat,
-            header: pageHeader,
-        }, name: "chat"
-    },
+    // {
+    //     path: "/settings", components: {
+    //         default: userSettings,
+    //         slimHeader: pageHeader,
+    //     }, name: "chat"
+    // },
+    //
+    // {//TODO: remove chat component designed by Artem
+    //     path: "/chat", components: {
+    //         default: viewChat,
+    //         slimHeader: pageHeader,
+    //     }, name: "chat"
+    // },
     {
         path: "/confirmEmail",
         components: {
@@ -243,9 +256,13 @@ let routes2 = [
         }, name: "signin"
     },
     {
-        path: "/temp",
+        path: "/conversations",
         components: {
-            default: () => import("./components/temp/temp.vue")
+            default: () => import("./components/conversations/conversations.vue"),
+            header: slimHeader
+        },
+        beforeEnter: (to, from, next) => {
+            checkUserStatus(to, next);
         }
     }
 
@@ -265,3 +282,18 @@ for (let v in staticRoutes) {
 }
 
 export const routes = routes2;
+
+
+function checkUserStatus(to, next) {
+    store.dispatch('userStatus').then(response => {
+        if (store.getters.loginStatus) {
+            to.path === "/register" ? next("/") : next();
+        }
+        else {
+            to.path === "/register" ? next() : next("signin");
+        }
+        next()
+    }).catch(error => {
+        next("signin");
+    });
+}
