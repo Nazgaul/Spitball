@@ -9,9 +9,9 @@ const dialogToolbar = () => import("./components/dialog-toolbar/DialogToolbar.vu
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
 const pageHeader = () => import("./components/header/header.vue");
-//const pageHeaderBasic = () => import("./components/helpers/header.vue");
+//const pageHeaderBasic = () => import("./components/helpers/slimHeader.vue");
 const bookDetailsHeader = () => import("./components/book/header.vue");
-const questionHeader = () => import("./components/question/header/header.vue");
+const slimHeader = () => import("./components/helpers/slimHeader/header.vue");
 const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
@@ -195,7 +195,7 @@ let routes2 = [
     {
         path: "/askquestion", components: {
             default: askQuestion,
-            header: questionHeader,
+            header: slimHeader,
         }, name: "askQuestion",
         beforeEnter: (to, from, next) => {
             checkUserStatus(to, next);
@@ -205,7 +205,7 @@ let routes2 = [
         path: "/question/:id",
         components: {
             default: viewQuestion,
-            header: questionHeader,
+            header: slimHeader,
         },
         name: "question",
         props: {
@@ -232,14 +232,14 @@ let routes2 = [
     // {
     //     path: "/settings", components: {
     //         default: userSettings,
-    //         header: pageHeader,
+    //         slimHeader: pageHeader,
     //     }, name: "chat"
     // },
     //
     // {//TODO: remove chat component designed by Artem
     //     path: "/chat", components: {
     //         default: viewChat,
-    //         header: pageHeader,
+    //         slimHeader: pageHeader,
     //     }, name: "chat"
     // },
     {
@@ -256,9 +256,10 @@ let routes2 = [
         }, name: "signin"
     },
     {
-        path: "/temp",
+        path: "/conversations",
         components: {
-            default: () => import("./components/temp/temp.vue")
+            default: () => import("./components/conversations/conversations.vue"),
+            header: slimHeader
         },
         beforeEnter: (to, from, next) => {
             checkUserStatus(to, next);
@@ -289,7 +290,7 @@ function checkUserStatus(to, next) {
             to.path === "/register" ? next("/") : next();
         }
         else {
-            next("signin")
+            to.path === "/register" ? next() : next("signin");
         }
         next()
     }).catch(error => {
