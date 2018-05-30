@@ -4,11 +4,10 @@ using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Azure.WebJobs.Host.Config;
 
-namespace Cloudents.Functions.Di
+namespace Cloudents.FunctionsV1.Di
 {
     public class InjectConfiguration : IExtensionConfigProvider
     {
@@ -45,20 +44,16 @@ namespace Cloudents.Functions.Di
             builder.Register(_ => keys).As<IConfigurationKeys>();
 
             builder.RegisterSystemModules(
-                Core.Enum.System.Function,
+                Core.Enum.System.FunctionV1,
                 //Assembly.Load("Cloudents.Infrastructure.Framework"),
                 //Assembly.Load("Cloudents.Infrastructure.Storage"),
-                Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
 
 
-            //builder.RegisterModule<ModuleCore>();
-            //builder.RegisterModule<ModuleDb>();
-            //builder.RegisterModule<ModuleReadDb>();
-            //builder.RegisterModule<ModuleAzureSearch>();
-            //builder.RegisterModule<ModuleMail>();
-            builder.RegisterType<RestClient>().As<IRestClient>()
-                .SingleInstance();
+           
+
+
         }
 
         public static string GetEnvironmentVariable(string name)

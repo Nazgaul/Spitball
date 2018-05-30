@@ -74,9 +74,9 @@ export default {
     },
     computed: {
         ...mapGetters(["talkSession", "accountUser", "chatAccount"]),
-        isMobile() {
-            return this.$vuetify.breakpoint.xsOnly;
-        },
+        // isMobile() {
+        //     return this.$vuetify.breakpoint.smAndDown;
+        // },
     },
     created() {
         this.getData();

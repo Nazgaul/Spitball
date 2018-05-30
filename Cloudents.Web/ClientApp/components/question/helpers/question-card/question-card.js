@@ -1,4 +1,5 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
+import questionService from "../../../../services/questionService";
 
 export default {
     components: {userBlock},
@@ -45,5 +46,8 @@ export default {
         markAsCorrect() {
             this.$parent.markAsCorrect(this.cardData.id); //TODO: MEH :\  check if it can be done in a better way...
         },
+        upVote(){
+            questionService.upVote(this.cardData.id);
+        }
     }
 }
