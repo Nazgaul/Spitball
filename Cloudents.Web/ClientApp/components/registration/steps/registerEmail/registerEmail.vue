@@ -4,8 +4,11 @@
             <div slot="step-data" class="limited-width">
                 <h1 class="step-title">Get started</h1>
                 <p class="sub-title">Start with your email. We need to know how to contact you.</p>
-                <button class="google-signin" @click="googleLogIn">Sign in with google
-                    <v-icon>sbf-google-icon</v-icon>
+                <button class="google-signin" @click="googleLogIn">
+                    <span>Sign in with google</span>
+                    <span>
+                        <v-icon>sbf-google-icon</v-icon>
+                    </span>
                 </button>
                 <div class="seperator-text"><span>or use your email</span></div>
                 <form @submit.prevent="next">
@@ -16,7 +19,8 @@
                     </div>
                     <vue-recaptcha class="recaptcha-wrapper" sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
                                    @verify="onVerify" @expired="onExpired"></vue-recaptcha>
-                    <input :disabled="!userEmail || disableSubmit" class="continue-btn input-field" type="submit" value="Continue">
+                    <input :disabled="!userEmail || disableSubmit" class="continue-btn input-field" type="submit"
+                           value="Continue">
                 </form>
                 <div class="signin-strip">Do you already have an account?
                     <router-link to="signin">Sign in</router-link>

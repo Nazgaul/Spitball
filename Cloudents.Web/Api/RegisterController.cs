@@ -115,11 +115,9 @@ namespace Cloudents.Web.Api
                 PhoneNumber = model.Number,
                 Message = code
             };
-            var result = await client.PostJsonAsync(new Uri($"{_configuration.FunctionEndpoint}/api/sms"), message,
-                new List<KeyValuePair<string, string>>
-            {
-               new KeyValuePair<string, string>("Authorization","HhMs8ZVg/HD4CzsN7ujGJsyWVmGmUDAVPv2a/t5c/vuiyh/zBrSTVg==")
-            }, token).ConfigureAwait(false);
+            
+            var result = await client.PostJsonAsync(new Uri($"{_configuration.FunctionEndpoint}/api/sms?code=HhMs8ZVg/HD4CzsN7ujGJsyWVmGmUDAVPv2a/t5c/vuiyh/zBrSTVg=="), message,
+            null, token).ConfigureAwait(false);
             if (result)
             {
                 return Ok();
@@ -153,7 +151,7 @@ namespace Cloudents.Web.Api
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var account = blockChainProvider.CreateAccount();
 
-            var t1 = blockChainProvider.SetInitialBalanceAsync(account.Address, token);
+            var t1 = blockChainProvider.SetInitialBalanceAsync(account.publicAddress, token);
 
             var t3 = client.InsertBackgroundMessageAsync(new TalkJsUser(user.Id)
             {
@@ -164,7 +162,7 @@ namespace Cloudents.Web.Api
 
 
 
-            var privateKey = account.PrivateKey;
+            var privateKey = account.privateKey;
             var t2 = _userManager.AddPasswordAsync(user, privateKey);
 
             await Task.WhenAll(t1, t2, t3).ConfigureAwait(false);

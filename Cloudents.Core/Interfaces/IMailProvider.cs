@@ -6,7 +6,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IMailProvider
     {
-        Task GenerateSystemEmailAsync(string subject, string text, CancellationToken token);
+        //Task GenerateSystemEmailAsync(string subject, string text, CancellationToken token);
 
         Task SendSpanGunEmailAsync(
             string ipPool,
@@ -14,6 +14,6 @@ namespace Cloudents.Core.Interfaces
             CancellationToken cancellationToken);
 
 
-        Task SendEmailAsync(string email, string subject, string message, CancellationToken token);
+        //Task SendEmailAsync(string email, string subject, string message, CancellationToken token);
     }
 }

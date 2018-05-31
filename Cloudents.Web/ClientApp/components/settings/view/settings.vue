@@ -6,7 +6,7 @@
                     <v-flex xs12>
                         <div class="header-row">      
                             <div class="icon-block" >
-                                <v-icon right>sbf-user</v-icon>
+                                <v-icon right>sbf-settings</v-icon>
                                 <span class="text-blue">Settings</span>
                             </div>                  
                             

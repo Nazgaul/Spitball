@@ -2,13 +2,17 @@
     <div class="answer-question" v-if="questionData">
 
         <!-- Web version -->
-        <v-container v-if="!$vuetify.breakpoint.xsOnly">
+        <v-container v-if="!$vuetify.breakpoint.smAndDown" :class="{'my-question': questionData.myQuestion}">
             <v-layout row wrap>
 
                 <v-flex xs12 class="breadcrumbs">
-                    <a class="ask-question" href="/askquestion">
+                    <router-link class="ask-question" to="/ask">
                         <v-icon>sbf-ask-q</v-icon>
-                        Ask a question</a>
+                        Ask a question</router-link>
+
+                    <!--<a class="ask-question" href="/ask">-->
+                        <!--<v-icon>sbf-ask-q</v-icon>-->
+                        <!--Ask a question</a>-->
                     <span class="question-category">Questions  / {{questionData.subject}}</span>
                 </v-flex>
 
@@ -18,7 +22,7 @@
                             <div v-if="!questionData.answers || (questionData.answers && showForm)">
                                 <extended-text-area uploadUrl="/api/Answer/upload"
                                         v-model="textAreaValue"
-                                        :isFocused="showForm" @addFile="addFile"></extended-text-area>
+                                        :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
                                 <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
                                        class="add_answer">Add your answer
                                 </v-btn>
@@ -45,7 +49,7 @@
                 <v-tabs-bar>
                     <v-tabs-slider color="blue"></v-tabs-slider>
                     <v-tabs-item :href="'#tab-1'" :key="'1'">Question</v-tabs-item>
-                    <v-tabs-item :href="'#tab-2'" :key="'2'">Chat with questioner</v-tabs-item>
+                    <v-tabs-item :href="'#tab-2'" :key="'2'" v-if="!questionData.myQuestion">Chat with questioner</v-tabs-item>
                 </v-tabs-bar>
 
                 <v-tabs-items>
@@ -57,7 +61,7 @@
                                     <div v-if="!questionData.answers || (questionData.answers && showForm)">
                                         <extended-text-area uploadUrl="/api/Answer/upload"
                                                 v-model="textAreaValue"
-                                                :isFocused="showForm" @addFile="addFile"></extended-text-area>
+                                                :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
                                         <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
                                                class="add_answer">Add your answer
                                         </v-btn>

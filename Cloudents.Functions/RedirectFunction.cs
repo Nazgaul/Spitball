@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
@@ -52,16 +53,9 @@ namespace Cloudents.Functions
         //    }
         //};
 
-        [FunctionName("UrlProcess")]
-        [UsedImplicitly]
-        public static async Task ProcessQueueMessageAsync([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,
-            TraceWriter log, CancellationToken token, [Inject] ICommandBus commandBus)
-        {
-            var command = new CreateUrlStatsCommand(content.Host, content.DateTime, content.Url, content.UrlReferrer,
-                content.Location, content.Ip);
+        
 
-            await commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-            log.Info("Finish Process");
-        }
+
+       
     }
 }

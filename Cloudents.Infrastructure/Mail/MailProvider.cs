@@ -11,8 +11,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using JetBrains.Annotations;
-using SendGrid;
-using SendGrid.Helpers.Mail;
 
 namespace Cloudents.Infrastructure.Mail
 {
@@ -28,10 +26,10 @@ namespace Cloudents.Infrastructure.Mail
             _restClient = restClient;
         }
 
-        public Task GenerateSystemEmailAsync(string subject, string text, CancellationToken token)
-        {
-            return SendEmailAsync("ram@cloudents.com", subject, text, token);
-        }
+        //public Task GenerateSystemEmailAsync(string subject, string text, CancellationToken token)
+        //{
+        //    return SendEmailAsync("ram@cloudents.com", subject, text, token);
+        //}
 
         //private static Task SendEmailAsync(string subject, string text, CancellationToken token)
         //{
@@ -81,17 +79,17 @@ namespace Cloudents.Infrastructure.Mail
             }
         }
 
-        public Task SendEmailAsync(string email, string subject, string message, CancellationToken token)
-        {
-            var client = new SendGridClient(SendGridApiKey);
-            var msg = new SendGridMessage
-            {
-                From = new EmailAddress("no-reply@spitball.co", "spitball system"),
-                Subject = subject,
-                HtmlContent = message
-            };
-            msg.AddTo(new EmailAddress(email));
-            return client.SendEmailAsync(msg, token);
-        }
+        //public Task SendEmailAsync(string email, string subject, string message, CancellationToken token)
+        //{
+        //    var client = new SendGridClient(SendGridApiKey);
+        //    var msg = new SendGridMessage
+        //    {
+        //        From = new EmailAddress("no-reply@spitball.co", "spitball system"),
+        //        Subject = subject,
+        //        HtmlContent = message
+        //    };
+        //    msg.AddTo(new EmailAddress(email));
+        //    return client.SendEmailAsync(msg, token);
+        //}
     }
 }

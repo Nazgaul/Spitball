@@ -1,12 +1,11 @@
-
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
-import { mapGetters } from "vuex";
+import {mapGetters} from "vuex";
 import questionCard from "./../helpers/question-card/question-card.vue";
 
 export default {
-    components: { questionThread, questionCard, extendedTextArea },
+    components: {questionThread, questionCard, extendedTextArea},
     props: {
         id: {Number} // got it from route
     },
@@ -22,19 +21,26 @@ export default {
         submitAnswer() {
             var self = this;
             questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
-                .then(function() {
+                .then(function () {
                     self.textAreaValue = "";
                     //TODO: do this on client side (render data inserted by user without calling server)
                     self.getData();
                 });
         },
-        addFile(filename){
-          this.answerFiles.push(filename);
+        addFile(filename) {
+            debugger;
+            this.answerFiles.push(filename);
+        },
+        removeFile(index){
+            debugger;
+            this.answerFiles.splice(index,1);
         },
         getData() {
             var self = this;
-            questionService.getQuestion(this.id).then(function(response) {
+            questionService.getQuestion(this.id).then(function (response) {
                 self.questionData = response.data;
+                self.questionData.myQuestion = self.accountUser.id === response.data.user.id;
+                // self.questionData.correctAnswer = '1A5B19B2-573D-44EC-9486-A8E900D811F5';//TODO: remove when ram adds it to the api
                 self.buildChat();
             });
         },
@@ -56,10 +62,16 @@ export default {
                     chatbox.mount(this.$refs["chat-area"]);
                 });
             }
+        },
+        markAsCorrect(answerId){
+            var self = this;
+            questionService.markAsCorrectAnswer(answerId).then(function () {
+                self.questionData.correctAnswer = answerId;
+            })
         }
     },
     watch: {
-        talkSession: function(newVal, oldVal) {
+        talkSession: function (newVal, oldVal) {
             if (newVal) {
                 this.buildChat();
             }
@@ -67,9 +79,9 @@ export default {
     },
     computed: {
         ...mapGetters(["talkSession", "accountUser", "chatAccount"]),
-        isMobile() {
-            return this.$vuetify.breakpoint.xsOnly;
-        },
+        // isMobile() {
+        //     return this.$vuetify.breakpoint.smAndDown;
+        // },
     },
     created() {
         this.getData();

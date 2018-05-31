@@ -19,7 +19,6 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Policy = SignInStep.PolicyAll)]
 
     public class AccountController : Controller
     {
@@ -36,6 +35,8 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet]
+        [Authorize(Policy = SignInStep.PolicyAll)]
+
         public async Task<IActionResult> GetAsync([FromServices] IBlockChainErc20Service blockChain, CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
@@ -118,7 +119,9 @@ namespace Cloudents.Web.Api
             return BadRequest(t1.Result.Errors);
         }
 
+        //TODO : need to figure out what well do.
         [HttpPost("university")]
+        [Authorize(Policy = SignInStep.PolicyAll)]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
             var command = _mapper.Map<AssignUniversityToUserCommand>(model);

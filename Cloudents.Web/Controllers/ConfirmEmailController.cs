@@ -21,7 +21,7 @@ namespace Cloudents.Web.Controllers
         }
 
         // GET
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Index(string id, string code)
         {
             if (id == null || code == null)

@@ -6,16 +6,22 @@ export default {
     components: {stepTemplate},
     data() {
         return {
-            username: ''
+            username: '',
+            originalUsername:''
         }
     },
     methods: {
         next() {
             var self = this;
-            accountService.setUserName(this.username)
-                .then(function () {
-                    self.$emit('next');
-                });
+            if(this.originalUsername === this.username){
+                self.$emit('next');
+            }
+            else {
+                accountService.setUserName(this.username)
+                    .then(function () {
+                        self.$emit('next');
+                    });
+            }
         },
         editUsername(){
             var userNameField = this.$el.querySelector('.username-field');
@@ -29,6 +35,7 @@ export default {
         accountService.getUserName()
             .then(function (response) {
                 self.username = response.data.name;
+                self.originalUsername = response.data.name;
             });
     }
 }

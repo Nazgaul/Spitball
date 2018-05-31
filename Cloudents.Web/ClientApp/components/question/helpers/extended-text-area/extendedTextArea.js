@@ -10,13 +10,20 @@ export default {
     },
     data() {
         return {
-            previewList: []
+            previewList: [],
+            fullPreview:false
         }
     },
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
         },
+        togglePreview: function(){this.fullPreview = !this.fullPreview},
+        deletePreview: function(index){
+            debugger;
+            this.previewList.splice(index,1);
+            this.$emit('removeFile', index);
+        }
     },
     mounted() {
         //TODO: continue with html5-uploader, examples here: http://mpangrazzi.github.io/
@@ -32,7 +39,8 @@ export default {
 
         multiple.on('file:preview', function (file, $img) {
             if ($img) {
-                self.previewList.push($img.outerHTML);
+                // self.previewList.push($img.outerHTML);
+                self.previewList.push($img.src);
             }
         });
 
