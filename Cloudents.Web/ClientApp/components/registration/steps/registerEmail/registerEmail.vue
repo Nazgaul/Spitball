@@ -14,7 +14,7 @@
                 <form @submit.prevent="next">
                     <div class="input-wrapper">
                         <input required class="email-field input-field" name="email" v-model="userEmail" type="email"
-                               placeholder="Enter your email address">
+                               placeholder="Enter your email address" autofocus>
                         <v-icon>sbf-email</v-icon>
                     </div>
                     <vue-recaptcha class="recaptcha-wrapper" sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
