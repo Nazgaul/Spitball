@@ -56,17 +56,23 @@ const actions = {
         if (!state.user) {
             return;
         }
+
         const me = new Talk.User(state.user.id);
+        // const me = new Talk.User({
+        //     id : state.user.id,
+        //     configuration : "buyer"
+        // });
+
         commit("updateChatUser", me);
         const talkSession = new Talk.Session({
             appId: "tXsrQpOx",
             me: me,
             signature: state.user.token
         });
+        talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css");
         talkSession.unreads.on("change", m => {
             commit("updateMessageCount", conversationIds.length);
-        })
-
+        });
         commit("updateTalkSession", talkSession);
     }
 };
