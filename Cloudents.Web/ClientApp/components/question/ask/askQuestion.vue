@@ -24,7 +24,7 @@
                 </v-flex>
 
 
-                <extended-text-area uploadUrl="/api/Question/upload" v-model="textAreaValue" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
+                <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
 
                 <v-flex xs12>
                     <v-text-field
