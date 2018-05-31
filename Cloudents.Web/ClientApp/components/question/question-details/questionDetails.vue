@@ -20,7 +20,7 @@
                     <question-thread v-if="questionData" :questionData="questionData">
                         <div slot="answer-form" class="mb-3">
                             <div v-if="!questionData.answers || (questionData.answers && showForm)">
-                                <extended-text-area uploadUrl="/api/Answer/upload"
+                                <extended-text-area uploadUrl="/api/upload/ask"
                                         v-model="textAreaValue"
                                         :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
                                 <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
@@ -59,7 +59,7 @@
                             <question-thread v-if="questionData" :questionData="questionData">
                                 <div slot="answer-form" class="mb-3">
                                     <div v-if="!questionData.answers || (questionData.answers && showForm)">
-                                        <extended-text-area uploadUrl="/api/Answer/upload"
+                                        <extended-text-area uploadUrl="/api/upload/ask"
                                                 v-model="textAreaValue"
                                                 :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
                                         <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
