@@ -1,4 +1,4 @@
-﻿import Vue from "vue";
+import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
 
@@ -152,28 +152,29 @@ Vue.filter('ellipsis',
 
 
     });
+
+router.beforeEach((to, from, next) => {
+    debugger;
+    intercom(to)
+    checkUserStatus(to, next);
+});
 const app = new Vue({
     //el: "#app",
     router: router,
     render: h => h(App),
     store
 });
-router.onReady(() => {
-    intercom(router.currentRoute)
-    router.beforeEach((to, from, next) => {
-        intercom(to)
-        next();
-    });
-
-    function intercom(to) {
-        if (to.path.indexOf('/landing/') && window.innerWidth < 960) {
-            intercomSettings.hide_default_launcher = true;
+// router.onReady(() => {
+//     intercom(router.currentRoute);
+function intercom(to) {
+    if (to.path.indexOf('/landing/') && window.innerWidth < 960) {
+        intercomSettings.hide_default_launcher = true;
+    }
+    if (window.innerWidth < 600) {
+        let hideLauncher = true
+        if (to.name === "home") {
+            hideLauncher = false;
         }
-        if (window.innerWidth < 600) {
-            let hideLauncher = true
-            if (to.name === "home") {
-                hideLauncher = false;
-            }
 
             intercomSettings.hide_default_launcher = hideLauncher;
         }
