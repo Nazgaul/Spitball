@@ -68,13 +68,13 @@ namespace ConsoleApp
 
             Guid answer = Guid.NewGuid();
             var c = container.Resolve<IBlockChainQAndAContract>();
-           await c.SubmitQuestionAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", 3, 1, default);
-           await c.SubmitAnswerAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, default);
+           //await c.SubmitQuestionAsync(3, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
+           //await c.SubmitAnswerAsync(3, answer, default);
            
-            await c.UpVoteAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, 1, default);
-            await c.MarkAsCorrectAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, default);
-            var h = await c.UpVoteListAsync(3, answer, default);
-            Console.WriteLine(h[0]);
+           //await c.UpVoteAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, 1, default);
+            await c.MarkAsCorrectAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, default);
+           // var h = await c.UpVoteListAsync(3, answer, default);
+           // Console.WriteLine(h[0]);
             //Guid.Parse("078d1202-834a-4634-9aec-1bdf1127368c")
 
             Console.WriteLine("Finish");
