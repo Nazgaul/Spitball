@@ -28,7 +28,12 @@ export default {
                 });
         },
         addFile(filename) {
+            debugger;
             this.answerFiles.push(filename);
+        },
+        removeFile(index){
+            debugger;
+            this.answerFiles.splice(index,1);
         },
         getData() {
             var self = this;

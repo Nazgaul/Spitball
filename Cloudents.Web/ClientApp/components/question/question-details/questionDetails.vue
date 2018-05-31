@@ -2,7 +2,7 @@
     <div class="answer-question" v-if="questionData">
 
         <!-- Web version -->
-        <v-container v-if="!$vuetify.breakpoint.xsOnly" :class="{'my-question': questionData.myQuestion}">
+        <v-container v-if="!$vuetify.breakpoint.smAndDown" :class="{'my-question': questionData.myQuestion}">
             <v-layout row wrap>
 
                 <v-flex xs12 class="breadcrumbs">
@@ -16,13 +16,13 @@
                     <span class="question-category">Questions  / {{questionData.subject}}</span>
                 </v-flex>
 
-                <v-flex  :class="{'xs7': !questionData.myQuestion, 'xs12': questionData.myQuestion}">
+                <v-flex xs7>
                     <question-thread v-if="questionData" :questionData="questionData">
                         <div slot="answer-form" class="mb-3">
                             <div v-if="!questionData.answers || (questionData.answers && showForm)">
                                 <extended-text-area uploadUrl="/api/Answer/upload"
                                         v-model="textAreaValue"
-                                        :isFocused="showForm" @addFile="addFile"></extended-text-area>
+                                        :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
                                 <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
                                        class="add_answer">Add your answer
                                 </v-btn>
@@ -61,7 +61,7 @@
                                     <div v-if="!questionData.answers || (questionData.answers && showForm)">
                                         <extended-text-area uploadUrl="/api/Answer/upload"
                                                 v-model="textAreaValue"
-                                                :isFocused="showForm" @addFile="addFile"></extended-text-area>
+                                                :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
                                         <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
                                                class="add_answer">Add your answer
                                         </v-btn>

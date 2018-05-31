@@ -20,7 +20,9 @@ export default {
         },
         togglePreview: function(){this.fullPreview = !this.fullPreview},
         deletePreview: function(index){
+            debugger;
             this.previewList.splice(index,1);
+            this.$emit('removeFile', index);
         }
     },
     mounted() {
@@ -32,7 +34,7 @@ export default {
         });
 
         multiple.on('files:added', function () {
-            // this.upload()
+            this.upload()
         });
 
         multiple.on('file:preview', function (file, $img) {

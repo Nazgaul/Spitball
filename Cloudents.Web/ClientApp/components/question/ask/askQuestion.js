@@ -23,6 +23,10 @@ export default {
         addFile(filename){
             this.files.push(filename);
         },
+        removeFile(index){
+            debugger;
+            this.files.splice(index,1);
+        }
     },
     computed: {
         validForm() {
