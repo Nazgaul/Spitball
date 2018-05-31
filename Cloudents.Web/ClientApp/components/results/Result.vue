@@ -107,7 +107,10 @@
         </template>
 
         <template slot="rightSide">
-            <slot name="rightSide"></slot>
+            <slot name="rightSide">
+                <faq-block></faq-block>
+            </slot>
+
         </template>
         <!--<component slot="rightSide" v-if="hasExtra&&!isEmpty" :is="name+'-extra'" :place="selectedItem"></component>-->
         <slot name="suggestCell">
