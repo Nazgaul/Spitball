@@ -94,8 +94,6 @@ namespace Cloudents.Infrastructure.BlockChain
         public Account CreateAccount()
         {
           
-
-
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
             var privateKey = ecKey.GetPrivateKeyAsBytes();
 
