@@ -1,4 +1,4 @@
-import Vue from "vue";
+﻿import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
 
@@ -154,7 +154,6 @@ Vue.filter('ellipsis',
     });
 
 router.beforeEach((to, from, next) => {
-    debugger;
     intercom(to)
     checkUserStatus(to, next);
 });
@@ -176,11 +175,41 @@ function intercom(to) {
             hideLauncher = false;
         }
 
-            intercomSettings.hide_default_launcher = hideLauncher;
-        }
-        Intercom("update");
+        intercomSettings.hide_default_launcher = hideLauncher;
     }
-});
+    Intercom("update");
+}
+//     if(router.currentRoute.meta.requiresAuth ) {
+//         debugger;
+//         store.dispatch('userStatus').then(() => {
+//             if (!store.getters.loginStatus) { //not loggedin
+//                 router.push({path: '/signin'});
+//             }
+//         }).catch(error => {
+//             debugger;
+//             router.push({path: '/signin'});
+//         });
+//     }
+//
+// });
+
+function checkUserStatus(to, next) {
+    if (to.meta && to.meta.requiresAuth) {
+        store.dispatch('userStatus').then(() => {
+            if (!store.getters.loginStatus) {
+                next("/signin");
+            }
+            else {
+                next();
+            }
+        }).catch(error => {
+            next("/signin");
+        });
+    }
+    else {
+        next()
+    }
+}
 
 //app.$mount("#app");
 //This is for cdn fallback do not touch

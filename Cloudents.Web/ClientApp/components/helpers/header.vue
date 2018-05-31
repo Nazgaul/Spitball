@@ -79,10 +79,10 @@
                                     </v-menu> -->
 
                                     <div class="header-comments" v-if="isAuthUser && !isMobile">
-                                        <v-btn icon >
+                                        <router-link :to="{name:'conversations'}">
                                             <v-icon>sbf-comment</v-icon>
-                                        </v-btn>
                                         <span class="red-counter">6</span>
+                                    </router-link>
                                     </div>
 
                                     <div class="header-wallet" v-if="isAuthUser">
