@@ -33,7 +33,11 @@
         }      
       }
       &.with-preview{
-        width: 70%;
+        width: ~"calc(100% - 160px)";
+        @media (max-width: @screen-xs) {
+          width: ~"calc(100% - 120px)";
+        }
+
       }
     }
 
@@ -56,12 +60,15 @@
     }
 
     .preview-list{
-      width: 30%;
+      width: 160px;
       display: flex;
       overflow: hidden;
       margin: 8px;
       list-style-type: none;
       position: relative;
+      @media (max-width: @screen-xs) {
+        width: 120px;
+      }
 
       .background{
         background-blend-mode: multiply;
@@ -76,13 +83,29 @@
         margin-right: 8px;
         position: relative;
 
+        @media (max-width: @screen-xs) {
+          width: 120px;
+        }
+
         .background,.hover-trash{
           position: absolute;
           height: 100%;
           width: 100%;
           display: none;
         }
-        .hover-trash{
+
+        &.use-hover{
+          .hover-trash{
+            @media (max-width: @screen-xs) {
+              display: block;
+              width: 20px;
+              height: 20px;
+              right: 10px;
+            }
+          }
+
+        }
+        .hover-trash{         
           z-index: 2;
           .sbf{
             font-size: 21px;
@@ -91,12 +114,20 @@
             border: solid 1px @color-white;
             color: @color-white;
             border-radius: 15px;
+
+            @media (max-width: @screen-xs) {
+              border: none;
+              font-size: 17px;
+            }
           }
         }        
         
         img{
           width: 160px;
           object-fit: cover;
+          @media (max-width: @screen-xs) {
+            width: 120px;
+          }
         }
         &.use-hover:hover{ 
           .hover-trash,.background{display: block;}
@@ -121,6 +152,9 @@
         cursor: pointer;      
         z-index: 2;
         .background{display: block;}
+        @media (max-width: @screen-xs) {
+          width: 120px;
+        }
       }     
       
     }

@@ -1,0 +1,76 @@
+@import "../../../mixin.less";
+
+.signup-banner{    
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../img/banner-signup.jpg);
+    height: 445px;
+    padding: 14px;
+
+    @media (max-width: @screen-xs) {
+        background-image: url(../img/banner-signup-mobile.jpg);
+        height: 505px;
+        padding: 0px 6px;
+    }
+
+    .back-button .sbf{        
+        font-size: 16px;
+        color: @color-grey;        
+    }
+
+    .text-block{
+        margin: 140px 67px;
+        p{margin: 0;}
+        font-size: 18px;
+        width: 292px;
+        color: @color-white;
+
+        @media (max-width: @screen-xs) {
+            width: 312px;
+            margin: 0;
+            padding: 234px 0 0 19px;
+        }        
+        .text-right{text-align: right;}
+        .large{
+            font-size: 56px;
+            font-weight: bold;
+            line-height: 0.6;
+            letter-spacing: -0.8px;
+        }
+        .medium{
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 2;
+            letter-spacing: -0.1px;
+        }
+        .small{
+            font-size: 18px; 
+            color: @color-medium-grey;
+            line-height: 1.33;
+            letter-spacing: -0.2px;
+            text-align: justify;
+            margin-right: 6px;
+        }
+    }
+
+    .buttons{
+        margin-top: 26px;
+        .sign-up,.learn-more{
+            height: 39px;
+            border-radius: 26.5px;
+            outline: none;
+            width: 125px;
+            line-height: 0.39;
+            letter-spacing: -0.5px;
+            border: solid 1px @color-white;
+        }
+        .sign-up{
+            background-color: @color-white;
+            color: @color-main-purple;
+            width: 105px;
+            margin-right: 9px;
+        }
+    }
+    
+
+}

@@ -2,7 +2,7 @@
     <div class="answer-question" v-if="questionData">
 
         <!-- Web version -->
-        <v-container v-if="!$vuetify.breakpoint.xsOnly">
+        <v-container v-if="!$vuetify.breakpoint.xsOnly" :class="{'my-question': questionData.myQuestion}">
             <v-layout row wrap>
 
                 <v-flex xs12 class="breadcrumbs">
@@ -16,7 +16,7 @@
                     <span class="question-category">Questions  / {{questionData.subject}}</span>
                 </v-flex>
 
-                <v-flex xs7>
+                <v-flex  :class="{'xs7': !questionData.myQuestion, 'xs12': questionData.myQuestion}">
                     <question-thread v-if="questionData" :questionData="questionData">
                         <div slot="answer-form" class="mb-3">
                             <div v-if="!questionData.answers || (questionData.answers && showForm)">
@@ -49,7 +49,7 @@
                 <v-tabs-bar>
                     <v-tabs-slider color="blue"></v-tabs-slider>
                     <v-tabs-item :href="'#tab-1'" :key="'1'">Question</v-tabs-item>
-                    <v-tabs-item :href="'#tab-2'" :key="'2'">Chat with questioner</v-tabs-item>
+                    <v-tabs-item :href="'#tab-2'" :key="'2'" v-if="!questionData.myQuestion">Chat with questioner</v-tabs-item>
                 </v-tabs-bar>
 
                 <v-tabs-items>
