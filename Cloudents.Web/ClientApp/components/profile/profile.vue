@@ -1,7 +1,7 @@
 <template>
     <div class="profile-page" v-if="profileData">
         <v-container>
-            <v-layout :class="{'column': isMobile}" wrap justify-center>
+            <v-layout :class="{'column': isMobile}" wrap justify-start>
 
                 <div>
                     <div class="main-block">
@@ -31,14 +31,14 @@
                     
                 <v-flex class="web-content">
                     <div v-if="activeTab === 1">
-                        <question-card v-for="questionData in profileData.ask" :cardData="questionData"
-                                    :myQuestion="true"></question-card>
+                        <question-card v-for="questionData in profileData.ask" :cardData="questionData" answer-btn click-card></question-card>
                     </div>
                     <div v-else-if="activeTab === 2">
-                        <question-card v-for="answerData in profileData.answer" :cardData="answerData"
-                                    :myQuestion="true"></question-card>
+                        <question-card v-for="answerData in profileData.answer" :cardData="answerData" answer-btn click-card></question-card>
                     </div>
-                    <div v-else-if="activeTab === 3">UPVOTED CONTENT</div>
+                    <div v-else-if="activeTab === 3">
+                        <p>UPVOTED CONTENT</p>
+                    </div>
                 </v-flex>
                 
             </v-layout>
