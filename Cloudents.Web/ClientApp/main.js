@@ -179,6 +179,7 @@ function intercom(to) {
     }
     Intercom("update");
 }
+
 //     if(router.currentRoute.meta.requiresAuth ) {
 //         debugger;
 //         store.dispatch('userStatus').then(() => {
@@ -194,21 +195,16 @@ function intercom(to) {
 // });
 
 function checkUserStatus(to, next) {
-    if (to.meta && to.meta.requiresAuth) {
-        store.dispatch('userStatus').then(() => {
-            if (!store.getters.loginStatus) {
-                next("/signin");
-            }
-            else {
-                next();
-            }
-        }).catch(error => {
+    store.dispatch('userStatus').then(() => {
+        if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
             next("/signin");
-        });
-    }
-    else {
-        next()
-    }
+        }
+        else {
+            next();
+        }
+    }).catch(error => {
+        next("/signin");
+    });
 }
 
 //app.$mount("#app");
