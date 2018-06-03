@@ -23,16 +23,15 @@ export default {
             questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
                 .then(function () {
                     self.textAreaValue = "";
+                    self.answerFiles=[];
                     //TODO: do this on client side (render data inserted by user without calling server)
                     self.getData();
                 });
         },
         addFile(filename) {
-            debugger;
             this.answerFiles.push(filename);
         },
         removeFile(index){
-            debugger;
             this.answerFiles.splice(index,1);
         },
         getData() {

@@ -14,6 +14,12 @@ export default {
             fullPreview:false
         }
     },
+    watch:{
+        value(newVal,oldVal){
+            //clean preview list when text is empty
+            if(!newVal){this.previewList=[];}
+        }
+    },
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
@@ -44,13 +50,14 @@ export default {
             }
         });
 
+        multiple.on('upload:done', function (response) {
+            debugger;
+            self.$emit('addFile', JSON.parse(response).files.toString());
+        });
         multiple.on('upload:progress', function (progress) {
             console.log('progress: %s', progress);
         });
 
-        multiple.on('upload:done', function (response) {
-            self.$emit('addFile', JSON.parse(response).fileName);
-        });
     }
 
 }
