@@ -10,7 +10,7 @@
                                 <span class="text-blue">Settings</span>
                             </div>                  
                             
-                            <button class="back-button">
+                            <button class="back-button" @click="$emit('input',false)">
                                 <v-icon right>sbf-close</v-icon>
                             </button>
                         </div>
