@@ -81,7 +81,7 @@
                                     <div class="header-comments" v-if="loggedIn && !isMobile">
                                         <router-link :to="{name:'conversations'}">
                                             <v-icon>sbf-comment</v-icon>
-                                        <span class="red-counter">6</span>
+                                        <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </router-link>
                                     </div>
 
@@ -89,7 +89,7 @@
                                         <v-btn icon >
                                             <v-icon>sbf-wallet</v-icon>                                    
                                         </v-btn>
-                                        <span>$25</span>
+                                        <span>${{accountUser.balance}}</span>
                                     </div>                                    
                                                                     
                                     <div class="header-rocket" v-if="loggedIn && !isMobile">
@@ -99,7 +99,7 @@
                                             </v-btn>
                                             <menu-list :isAuthUser="loggedIn" ></menu-list>
                                         </v-menu>
-                                        <span class="red-counter">6</span>                                    
+                                        <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
 
                                     
@@ -165,7 +165,7 @@
             food:"Search for deals..."
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'showSmartAppBanner', 'accountUser']),
+            ...mapGetters(['getUniversityName', 'showSmartAppBanner', 'accountUser','unreadMessages']),
             isMobile(){return this.$vuetify.breakpoint.xsOnly;},
             loggedIn(){return this.accountUser!==null}
     },

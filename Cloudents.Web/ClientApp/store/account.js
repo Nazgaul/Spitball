@@ -29,6 +29,7 @@ const mutations = {
 };
 
 const getters = {
+    unreadMessages:state=>state.unreadMessages,
     loginStatus:state=>state.login,
     isUser: state => state.user !== null,
     talkSession: state => state.talkSession,
