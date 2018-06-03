@@ -16,8 +16,6 @@ namespace Cloudents.Core.Command
 
         public long UserId { get; private set; }
 
-        public string PrivateKey { get; private set; }
-
         [CanBeNull]
         public IEnumerable<string> Files { get; private set; }
     }
