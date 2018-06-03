@@ -68,12 +68,14 @@ namespace ConsoleApp
            // await SendMessagesAsync(10);
 
             //var a = container.Resolve<IBlockChainErc20Service>();
-            //var b = await a.GetBalanceAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
+            ////var (privateKey, publicAddress) = a.CreateAccount();
+            //var b = a.GetBalanceAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
 
 
             Guid answer = Guid.NewGuid();
-            //var d = await c.SubmitQuestionAsync(1, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
-           // await c.SubmitQuestionAsync(3, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
+            var c = container.Resolve<IBlockChainQAndAContract>();
+            
+            await c.SubmitQuestionAsync(3, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
            //await c.SubmitAnswerAsync(3, answer, default);
            
            //await c.UpVoteAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, 1, default);

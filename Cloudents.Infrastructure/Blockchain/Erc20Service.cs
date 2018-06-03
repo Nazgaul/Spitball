@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Blockchain
         protected override string Abi => "TokenAbi";
 
         protected override string TransactionHash => "0x430fdc71d7b86f432ae0d22d0cc11ce7909f0434942f5943f2288f3140dac07d";
-            
+        protected override string ContractAddress => "0x55a885a9a1f7e8e5ca10a79ad7addcc5bc43f623";
 
         public Erc20Service (IConfigurationKeys configurationKeys) : base(configurationKeys)
         {

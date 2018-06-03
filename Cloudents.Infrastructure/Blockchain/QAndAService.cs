@@ -23,8 +23,8 @@ namespace Cloudents.Infrastructure.Blockchain
         protected override string Abi => "QAndA";
 
         protected override string TransactionHash => "0xa976e2a5828a8a53d0f1f76d931613ee40cc0281e977a658a442873a379e1f66";
-            //"0x20327f5f3836cfdcbc5b38d49eac517cbf532134973c15a653cac2eb68b65dfd";
-
+        //"0x20327f5f3836cfdcbc5b38d49eac517cbf532134973c15a653cac2eb68b65dfd";
+        protected override string ContractAddress => "0x3005c2fea37dcad7ae7f53546ead3d68d6123f75";
         public QAndAService (IConfigurationKeys configurationKeys) : base(configurationKeys)
         {
         }

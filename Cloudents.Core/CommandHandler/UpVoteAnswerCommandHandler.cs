@@ -25,7 +25,7 @@ namespace Cloudents.Core.CommandHandler
 
             var question = answer.Question;
            // var p = _blockChainProvider.UpVoteAsync(, question.Id, answer.Id, token);
-           //TODO: UpVoter Address
+           // TODO: UpVoter Address
            // await Task.WhenAll(p).ConfigureAwait(false);
         }
     }
