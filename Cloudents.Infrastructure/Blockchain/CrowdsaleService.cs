@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure.BlockChain
             //"0x2684cc34acb76754f0d9d267496ccfe6964bfafebf1f5aebe58296e86352fa98";
            
 
-        public async Task<string> BuyTokens(string senderPK, int amount, CancellationToken token)
+        public async Task<string> BuyTokensAsync(string senderPK, int amount, CancellationToken token)
         {
             var contract = await GetContractAsync(GenerateWeb3Instance(senderPK), token).ConfigureAwait(false);
             var operationToExe = contract.GetFunction("buyTokens");

@@ -8,7 +8,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface ICrowdSaleService
     {
-        Task<string> BuyTokens(string senderPK, int amount, CancellationToken token);
+        Task<string> BuyTokensAsync(string senderPK, int amount, CancellationToken token);
         (string privateKey, string publicAddress) CreateAccount();
     }
 }
