@@ -47,7 +47,7 @@
     "outputs": [
       {
         "name": "a",
-        "type": "address[]"
+        "type": "bytes32[]"
       }
     ],
     "payable": false,
@@ -95,42 +95,6 @@
         "type": "uint256"
       },
       {
-        "name": "_price",
-        "type": "uint256"
-      }
-    ],
-    "name": "submitNewQuestion",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_qId",
-        "type": "uint256"
-      },
-      {
-        "name": "_winner",
-        "type": "address"
-      }
-    ],
-    "name": "approveAnswer",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_qId",
-        "type": "uint256"
-      },
-      {
         "name": "percentage",
         "type": "uint8"
       }
@@ -149,15 +113,63 @@
         "type": "uint256"
       },
       {
+        "name": "_price",
+        "type": "uint256"
+      },
+      {
+        "name": "userAddress",
+        "type": "address"
+      }
+    ],
+    "name": "submitNewQuestion",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_qId",
+        "type": "uint256"
+      },
+      {
         "name": "_answerId",
         "type": "string"
       },
       {
-        "name": "_value",
-        "type": "uint256"
+        "name": "userAddress",
+        "type": "address"
       }
     ],
     "name": "upVote",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_qId",
+        "type": "uint256"
+      },
+      {
+        "name": "_answerId",
+        "type": "string"
+      },
+      {
+        "name": "_winner",
+        "type": "address"
+      },
+      {
+        "name": "submiterAddress",
+        "type": "address"
+      }
+    ],
+    "name": "approveAnswer",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",

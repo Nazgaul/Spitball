@@ -5,7 +5,7 @@
                 <h1 class="step-title">Login</h1>
                 <form @submit.prevent="submit">
                     <input required class="email-field input-field" name="email" v-model="userEmail" type="email"
-                           placeholder="Enter your email address">
+                           placeholder="Enter your email address" autofocus >
                     <input required class="password-field input-field" name="password" v-model="password" type="password"
                            placeholder="Password (Account key)">
                     <div class="checkbox-wrap">

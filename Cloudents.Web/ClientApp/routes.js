@@ -23,11 +23,11 @@ const askQuestion = () => import("./components/question/ask/askQuestion.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const viewProfile = () => import("./components/profile/profile.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
-const viewChat = () => import("./components/chat/view/chat.vue");
+// const viewChat = () => import("./components/chat/view/chat.vue");
 const userSettings = () => import("./components/settings/view/settings.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
-import store from "./store";
+// import store from "./store";
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -188,18 +188,15 @@ let routes2 = [
         path: "/register", components: {
             default: registration,
         }, name: "registration",
-        beforeEnter: (to, from, next) => {
-            checkUserStatus(to, next);
-        }
     },
     {
         path: "/askquestion", components: {
             default: askQuestion,
             header: slimHeader,
         }, name: "askQuestion",
-        beforeEnter: (to, from, next) => {
-            checkUserStatus(to, next);
-        }
+        meta: {
+            requiresAuth: true
+        },
     },
     {
         path: "/question/:id",
@@ -211,9 +208,6 @@ let routes2 = [
         props: {
             default: (route) => ({id: route.params.id}),
         },
-        beforeEnter: (to, from, next) => {
-            checkUserStatus(to, next);
-        }
     },
     {
         path: "/profile/:id",
@@ -225,9 +219,6 @@ let routes2 = [
         props: {
             default: (route) => ({id: route.params.id})
         },
-        beforeEnter: (to, from, next) => {
-            checkUserStatus(to, next);
-        }
     },
     // {
     //     path: "/settings", components: {
@@ -257,13 +248,14 @@ let routes2 = [
     },
     {
         path: "/conversations",
+        name: "conversations",
         components: {
             default: () => import("./components/conversations/conversations.vue"),
             header: slimHeader
         },
-        beforeEnter: (to, from, next) => {
-            checkUserStatus(to, next);
-        }
+        meta: {
+            requiresAuth: true
+        },
     }
 
 ];
@@ -283,17 +275,18 @@ for (let v in staticRoutes) {
 
 export const routes = routes2;
 
-
-function checkUserStatus(to, next) {
-    store.dispatch('userStatus').then(response => {
-        if (store.getters.loginStatus) {
-            to.path === "/register" ? next("/") : next();
-        }
-        else {
-            to.path === "/register" ? next() : next("signin");
-        }
-        next()
-    }).catch(error => {
-        next("signin");
-    });
-}
+//
+// function checkUserStatus(to, next) {
+//     store.dispatch('userStatus').then(response => {
+//         if (store.getters.loginStatus) {
+//
+//             to.path === "/register" ? next("/") : next();
+//         }
+//         else {
+//             to.path === "/register" ? next() : next("signin");
+//         }
+//        // next()
+//     }).catch(error => {
+//         next("signin");
+//     });
+// }
