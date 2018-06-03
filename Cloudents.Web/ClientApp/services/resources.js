@@ -27,11 +27,9 @@ let transferNextPage = (res) => {
 };
 //todo think about error
 let transferResultAsk = res => {
-    const video = res.video;
     const itemResult = res.result || [];
     const items = itemResult.map(val => { return { ...val, template: "ask" } });
-    const data = items;
-    return { data, source: res.result.facet, facet: res.result.facet, nextPage: res.nextPageLink }
+    return { data: items, source: res.result.facet, facet: res.facet }
 };
 let transferResultTutor = data => {
     let body = data || {};
