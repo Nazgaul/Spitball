@@ -9,5 +9,7 @@ namespace Cloudents.Core.Command
     public class UpVoteAnswerCommand : ICommand
     {
         public Guid Id { get; private set; }
+
+        public long UserId { get; set; }
     }
 }
