@@ -16,7 +16,7 @@ using Nethereum.Contracts;
 
 namespace Cloudents.Infrastructure.BlockChain
 {
-    public class CrowdsaleService : BlockChainProvider, ICrowdsaleService
+    public class CrowdsaleService : BlockChainProvider, ICrowdSaleService
     {
 
         

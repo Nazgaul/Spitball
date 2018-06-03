@@ -25,7 +25,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using Cloudents.Core.Command;
 using Cloudents.Core.Storage;
-using Microsoft.Azure.ServiceBus;
+//using Microsoft.Azure.ServiceBus;
 using Nethereum.Web3.Accounts;
 
 namespace ConsoleApp
@@ -34,7 +34,7 @@ namespace ConsoleApp
     {
         const string ServiceBusConnectionString = "Endpoint=sb://spitball-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CACOBTEeKVemCY7ScVBHYXBwDkClQcCKUW7QGq8dNfA=";
         const string TopicName = "topic1";
-        static ITopicClient topicClient;
+        //static ITopicClient topicClient;
 
         static async Task Main()
         {
@@ -63,42 +63,52 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            topicClient = new TopicClient(ServiceBusConnectionString, TopicName);
+            //topicClient = new TopicClient(ServiceBusConnectionString, TopicName);
 
-            await SendMessagesAsync(10);
+           // await SendMessagesAsync(10);
+
+            //var a = container.Resolve<IBlockChainErc20Service>();
+            //var b = await a.GetBalanceAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
 
 
-
-            //var c = container.Resolve<IBlockChainQAndAContract>();
+            Guid answer = Guid.NewGuid();
             //var d = await c.SubmitQuestionAsync(1, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
+           // await c.SubmitQuestionAsync(3, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
+           //await c.SubmitAnswerAsync(3, answer, default);
+           
+           //await c.UpVoteAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, 1, default);
+            //await c.MarkAsCorrectAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, default);
+           // var h = await c.UpVoteListAsync(3, answer, default);
+           // Console.WriteLine(h[0]);
+            //Guid.Parse("078d1202-834a-4634-9aec-1bdf1127368c")
 
             Console.WriteLine("Finish");
             Console.ReadLine();
-            await topicClient.CloseAsync();
+            //await topicClient.CloseAsync();
         }
 
-        static async Task SendMessagesAsync(int numberOfMessagesToSend)
-        {
-            try
-            {
-                for (var i = 0; i < numberOfMessagesToSend; i++)
-                {
-                    // Create a new message to send to the topic.
-                    string messageBody = $"Message {i}";
-                    var message = new Message(Encoding.UTF8.GetBytes(messageBody));
+        //static async Task SendMessagesAsync(int numberOfMessagesToSend)
+        //{
+        //    try
+        //    {
+        //        for (var i = 0; i < numberOfMessagesToSend; i++)
+        //        {
+        //            // Create a new message to send to the topic.
+        //            string messageBody = $"Message {i}";
+        //            var message = new Message(Encoding.UTF8.GetBytes(messageBody));
 
-                    // Write the body of the message to the console.
-                    Console.WriteLine($"Sending message: {messageBody}");
+        //            // Write the body of the message to the console.
+        //            Console.WriteLine($"Sending message: {messageBody}");
 
-                    // Send the message to the topic.
-                    await topicClient.SendAsync(message);
-                }
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine($"{DateTime.Now} :: Exception: {exception.Message}");
-            }
-        }
+        //            // Send the message to the topic.
+        //            await topicClient.SendAsync(message);
+        //        }
+        //    }
+        //    catch (Exception exception)
+        //    {
+        //        Console.WriteLine($"{DateTime.Now} :: Exception: {exception.Message}");
+        //    }
+        //}
 
 
 

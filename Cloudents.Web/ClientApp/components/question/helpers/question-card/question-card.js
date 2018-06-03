@@ -19,6 +19,10 @@ export default {
             type: Boolean,
             default: false
         },
+        clickCard: {
+            type: Boolean,
+            default: false
+        },
         isApproved: {
             type: Boolean,
             default: false
@@ -48,6 +52,9 @@ export default {
         },
         upVote(){
             questionService.upVote(this.cardData.id);
+        },
+        openQuestion(){
+            return this.clickCard && this.$router.push({path:`/question/${this.cardData.id}`});
         }
     }
 }

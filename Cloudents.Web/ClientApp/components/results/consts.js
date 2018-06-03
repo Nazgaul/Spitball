@@ -92,3 +92,14 @@ export const skeletonData = {
 //         content: "Discover exclusive deals to local businesses, restaurants and bars near campus."
 //     }
 // };
+
+
+
+export const faqList = [
+    { text: 'What is Spitball.co?', href:''},
+    { text: 'How does Spitball work?', href:''},
+    { text: 'How does Spitball differ from other student websites?', href:''},
+    { text: 'Where do the tokens come from?', href:''},
+    { text: 'Where does the value of a token come from?', href:''},
+    { text: 'What is Vote up and why do we need it?', href:''}
+];

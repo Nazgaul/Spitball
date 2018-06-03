@@ -11,19 +11,22 @@ export default {
     },
     data() {
         return {
-            activeTab: 1,
+            activeTab: 1,            
             profileData: {}
         }
     },
     methods: {
         changeActiveTab(tabId) {
             this.activeTab = tabId;
-        }
+        }        
     },
     computed: {
         ...mapGetters(["accountUser"]),
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
+        },
+        isMyProfile() {
+            return (this.accountUser && this.accountUser.id) ? this.profileData.user.id == this.accountUser.id : false;
         }
     },
     created() {

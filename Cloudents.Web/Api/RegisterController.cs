@@ -144,14 +144,15 @@ namespace Cloudents.Web.Api
         [HttpPost("password")]
         [Authorize(Policy = SignInStep.PolicyPassword)]
         public async Task<IActionResult> GeneratePasswordAsync(
-            [FromServices] IBlockChainErc20Service blockChainProvider,
+            [FromServices] ICrowdSaleService blockChainProvider,
+            [FromServices] IBlockChainErc20Service blockChainErc20Service,
             [FromServices] IQueueProvider client,
             CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var account = blockChainProvider.CreateAccount();
 
-            var t1 = blockChainProvider.SetInitialBalanceAsync(account.publicAddress, token);
+            var t1 = blockChainErc20Service.SetInitialBalanceAsync(account.publicAddress, token);
 
             var t3 = client.InsertBackgroundMessageAsync(new TalkJsUser(user.Id)
             {

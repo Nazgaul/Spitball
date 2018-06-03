@@ -39,7 +39,9 @@ export default {
             var self = this;
             questionService.getQuestion(this.id).then(function (response) {
                 self.questionData = response.data;
-                self.questionData.myQuestion = self.accountUser.id === response.data.user.id;
+                if(self.accountUser) {
+                    self.questionData.myQuestion = self.accountUser.id === response.data.user.id;
+                }
                 // self.questionData.correctAnswer = '1A5B19B2-573D-44EC-9486-A8E900D811F5';//TODO: remove when ram adds it to the api
                 self.buildChat();
             });

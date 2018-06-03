@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface ICrowdsaleService
+    public interface ICrowdSaleService
     {
         Task<string> BuyTokens(string senderPK, int amount, CancellationToken token);
+        (string privateKey, string publicAddress) CreateAccount();
     }
 }

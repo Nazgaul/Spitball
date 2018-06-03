@@ -12,6 +12,9 @@ using Nethereum.Web3.Accounts;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Contracts;
 using Cloudents.Infrastructure.BlockChain;
+using Cloudents.Core.Models;
+using System.Collections.Generic;
+
 
 namespace Cloudents.Infrastructure.Blockchain
 {
@@ -19,26 +22,78 @@ namespace Cloudents.Infrastructure.Blockchain
     {
         protected override string Abi => "QAndA";
 
-        protected override string TransactionHash => "0x430fdc71d7b86f432ae0d22d0cc11ce7909f0434942f5943f2288f3140dac07d";
+        protected override string TransactionHash => "0xabb478f452837f83912ebdd125f3e99ab8dbf2c51789165ea3a046f4d9f8e010";
+            //"0x20327f5f3836cfdcbc5b38d49eac517cbf532134973c15a653cac2eb68b65dfd";
+
         public QAndAService (IConfigurationKeys configurationKeys) : base(configurationKeys)
         {
         }
 
-        public async Task<string> SubmitQuestionAsync(long question, decimal price, string senderAddress,
+        public async Task SubmitQuestionAsync(long question, decimal price, string userAddress,
             CancellationToken token)
         {
-            // return null;
+           
             var web3 = new Web3(_configurationKeys.BlockChainNetwork);
-            // var unlockAccountResult = await web3.Personal.UnlockAccount.SendRequestAsync(senderAddress, password, 120);
-            var parameters = new object[] {new BigInteger(price), "0x55a885a9a1f7e8e5ca10a79ad7addcc5bc43f623", question.ToString()};
-            //var maxGas = new HexBigInteger(70000);
-            string abi = await ReadAbiAsync(token);
 
-            string byteCode = "0x606060405234156200001057600080fd5b6040516200122a3803806200122a833981016040528080519060200190919080519060200190919080518201919050508260008190555033600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508060039080519060200190620000a09291906200023b565b5081600460006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550600460009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663095ea7b3336200014b600054670de0b6b3a7640000620001ff6401000000000262000e6d176401000000009004565b6000604051602001526040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b1515620001d957600080fd5b6102c65a03f11515620001eb57600080fd5b5050506040518051905050505050620002ea565b60008083141562000214576000905062000235565b81830290508183828115156200022657fe5b041415156200023157fe5b8090505b92915050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106200027e57805160ff1916838001178555620002af565b82800160010185558215620002af579182015b82811115620002ae57825182559160200191906001019062000291565b5b509050620002be9190620002c2565b5090565b620002e791905b80821115620002e3576000816000905550600101620002c9565b5090565b90565b610f3080620002fa6000396000f3006060604052600436106100ba576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063015dd510146100bf57806318b308ff146100d457806336b8d704146100fa5780633fad9ae0146101235780635bcb2fc6146101b15780636e66f6e9146101c657806370a082311461021b578063a035b1fe14610268578063ba9703ce14610291578063beeb4c4c146102fb578063e24e494214610334578063ec859db514610389575b600080fd5b34156100ca57600080fd5b6100d26103ac565b005b34156100df57600080fd5b6100f8600480803560ff16906020019091905050610594565b005b341561010557600080fd5b61010d610698565b6040518082815260200191505060405180910390f35b341561012e57600080fd5b61013661069e565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561017657808201518184015260208101905061015b565b50505050905090810190601f1680156101a35780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34156101bc57600080fd5b6101c461073c565b005b34156101d157600080fd5b6101d961090d565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561022657600080fd5b610252600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610933565b6040518082815260200191505060405180910390f35b341561027357600080fd5b61027b61094b565b6040518082815260200191505060405180910390f35b341561029c57600080fd5b6102a4610951565b6040518080602001828103825283818151815260200191508051906020019060200280838360005b838110156102e75780820151818401526020810190506102cc565b505050509050019250505060405180910390f35b341561030657600080fd5b610332600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610a28565b005b341561033f57600080fd5b610347610bb5565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561039457600080fd5b6103aa6004808035906020019091905050610bdb565b005b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561040857600080fd5b600460009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb3361045b600054670de0b6b3a7640000610e6d565b6040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050600060405180830381600087803b15156104df57600080fd5b6102c65a03f115156104f057600080fd5b50505061054f600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461054a600054670de0b6b3a7640000610e6d565b610ea5565b600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550565b600460009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb336105fd6105ef6000546105ea8760ff166064610ebe565b610e6d565b670de0b6b3a7640000610e6d565b6040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050600060405180830381600087803b151561068157600080fd5b6102c65a03f1151561069257600080fd5b50505050565b60025481565b60038054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156107345780601f1061070957610100808354040283529160200191610734565b820191906000526020600020905b81548152906001019060200180831161071757829003601f168201915b505050505081565b600460009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd3330610790600054670de0b6b3a7640000610e6d565b6000604051602001526040518463ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b151561085057600080fd5b6102c65a03f1151561086157600080fd5b50505060405180519050506108c8600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546108c3600054670de0b6b3a7640000610e6d565b610ed4565b600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550565b600460009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60056020528060005260406000206000915090505481565b60005481565b610959610ef0565b610961610ef0565b60006002546040518059106109735750595b90808252806020026020018201604052509150600090505b600254811015610a20576006600082815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1682828151811015156109d757fe5b9060200190602002019073ffffffffffffffffffffffffffffffffffffffff16908173ffffffffffffffffffffffffffffffffffffffff1681525050808060010191505061098b565b819250505090565b600460009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb82610a7b600054670de0b6b3a7640000610e6d565b6040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050600060405180830381600087803b1515610aff57600080fd5b6102c65a03f11515610b1057600080fd5b505050610b6f600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054610b6a600054670de0b6b3a7640000610e6d565b610ea5565b600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000208190555050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b3360066000600254815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550610c3c6002546001610ed4565b600281905550600460009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663095ea7b333610c9384670de0b6b3a7640000610e6d565b6000604051602001526040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b1515610d2057600080fd5b6102c65a03f11515610d3157600080fd5b5050506040518051905050600460009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd3330610d8e85670de0b6b3a7640000610e6d565b6000604051602001526040518463ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b1515610e4e57600080fd5b6102c65a03f11515610e5f57600080fd5b505050604051805190505050565b600080831415610e805760009050610e9f565b8183029050818382811515610e9157fe5b04141515610e9b57fe5b8090505b92915050565b6000828211151515610eb357fe5b818303905092915050565b60008183811515610ecb57fe5b04905092915050565b60008183019050828110151515610ee757fe5b80905092915050565b6020604051908101604052806000815250905600a165627a7a723058202787e98178689f162f6a91e9137af0c422c135da96f3b1af5922b4c33c888f8a0029";
-	                    
-            //var unlockAccountResult = await web3.Personal.UnlockAccount.SendRequestAsync(senderAddress, "Cloudents69", 120, 10101010);
-            var transactionHash = await web3.Eth.DeployContract.SendRequestAsync(abi, byteCode, senderAddress,  parameters);
-            return transactionHash;
+            var contract = await GetContractAsync(GenerateWeb3Instance("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), token).ConfigureAwait(false);
+            var operationToExe = contract.GetFunction("submitNewQuestion");
+            var maxGas = new HexBigInteger(3000000);
+            var parameters = new object[] { question, price, userAddress };
+            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), maxGas, null, null, parameters).ConfigureAwait(false);
+           
         }
+
+        public async Task SubmitAnswerAsync(long question, Guid answerId, CancellationToken token)
+        {
+            var web3 = new Web3(_configurationKeys.BlockChainNetwork);
+            var contract = await GetContractAsync(GenerateWeb3Instance("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), token).ConfigureAwait(false);
+            var operationToExe = contract.GetFunction("submitNewAnswer");
+            var maxGas = new HexBigInteger(3000000);
+           
+            var parameters = new object[] { question, answerId.ToString() };
+            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), maxGas, null, null, parameters).ConfigureAwait(false);
+            
+        }
+
+        public async Task MarkAsCorrectAsync(string userAddress, string winnerAddress, long question, Guid answerId, CancellationToken token)
+        {
+            var web3 = new Web3(_configurationKeys.BlockChainNetwork);
+            var contract = await GetContractAsync(GenerateWeb3Instance("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), token).ConfigureAwait(false);
+            var operationToExe = contract.GetFunction("approveAnswer");
+            var maxGas = new HexBigInteger(3000000);
+            var parameters = new object[] { question, answerId.ToString(), winnerAddress, userAddress };
+            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), maxGas, null, null, parameters).ConfigureAwait(false);
+        }
+
+        public async Task UpVoteAsync(string userAddress, long question, Guid answerId, decimal price, CancellationToken token)
+        {
+            var web3 = new Web3(_configurationKeys.BlockChainNetwork);
+            var contract = await GetContractAsync(GenerateWeb3Instance("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), token).ConfigureAwait(false);
+            var operationToExe = contract.GetFunction("upVote");
+            var maxGas = new HexBigInteger(3000000);
+            var parameters = new object[] { question, answerId.ToString(), userAddress };
+            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), maxGas, null, null, parameters).ConfigureAwait(false);
+        }
+
+        public async Task<string[]> UpVoteListAsync(long questionId, Guid answerId, CancellationToken token)
+        {
+            var contract = await GetContractAsync(GenerateWeb3Instance(), token).ConfigureAwait(false);
+            var function = contract.GetFunction("returnUpVoteList");
+            var parameters = new object[] { questionId, answerId.ToString() };
+            List<string> tempResult = new List<string>();
+            tempResult = await function.CallAsync<List<string>>(questionId, answerId.ToString()).ConfigureAwait(false);
+
+            string[] result = new string[tempResult.Count];
+            for (int i=0; i < tempResult.Count; i++)
+            {
+                result[i] = tempResult[i].ToString();
+            }
+            return result;
+        }
+
+        //public async Task<string> UpVoteReword(long questionId, Guid answer, string upVoterAddr, CancellationToken token)
+        //{
+
+        //}
     }
 }

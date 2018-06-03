@@ -152,34 +152,64 @@ Vue.filter('ellipsis',
 
 
     });
+
+router.beforeEach((to, from, next) => {
+    intercom(to)
+    checkUserStatus(to, next);
+});
 const app = new Vue({
     //el: "#app",
     router: router,
     render: h => h(App),
     store
 });
-router.onReady(() => {
-    intercom(router.currentRoute)
-    router.beforeEach((to, from, next) => {
-        intercom(to)
-        next();
-    });
-
-    function intercom(to) {
-        if (to.path.indexOf('/landing/') && window.innerWidth < 960) {
-            intercomSettings.hide_default_launcher = true;
-        }
-        if (window.innerWidth < 600) {
-            let hideLauncher = true
-            if (to.name === "home") {
-                hideLauncher = false;
-            }
-
-            intercomSettings.hide_default_launcher = hideLauncher;
-        }
-        Intercom("update");
+// router.onReady(() => {
+//     intercom(router.currentRoute);
+function intercom(to) {
+    if (to.path.indexOf('/landing/') && window.innerWidth < 960) {
+        intercomSettings.hide_default_launcher = true;
     }
-});
+    if (window.innerWidth < 600) {
+        let hideLauncher = true
+        if (to.name === "home") {
+            hideLauncher = false;
+        }
+
+        intercomSettings.hide_default_launcher = hideLauncher;
+    }
+    Intercom("update");
+}
+//     if(router.currentRoute.meta.requiresAuth ) {
+//         debugger;
+//         store.dispatch('userStatus').then(() => {
+//             if (!store.getters.loginStatus) { //not loggedin
+//                 router.push({path: '/signin'});
+//             }
+//         }).catch(error => {
+//             debugger;
+//             router.push({path: '/signin'});
+//         });
+//     }
+//
+// });
+
+function checkUserStatus(to, next) {
+    if (to.meta && to.meta.requiresAuth) {
+        store.dispatch('userStatus').then(() => {
+            if (!store.getters.loginStatus) {
+                next("/signin");
+            }
+            else {
+                next();
+            }
+        }).catch(error => {
+            next("/signin");
+        });
+    }
+    else {
+        next()
+    }
+}
 
 //app.$mount("#app");
 //This is for cdn fallback do not touch

@@ -1,0 +1,80 @@
+@import "../../../../mixin.less";
+
+.right-sidebar{    
+    width: 400px;
+    max-width: 400px;
+    margin-left: 32px;
+    font-size: 14px;
+
+    @media (max-width: @screen-xs) { display: none; }
+
+    .ask-question{       
+        border-radius: 4px;
+        background-color: @color-dark-blue; 
+        color: @color-white;  
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1.04;
+        letter-spacing: -0.6px;
+        width: 100%;
+        line-height: 64px;
+        display: block;
+        text-align: center;      
+    }
+
+    .card-block{
+        margin-top: 17px;
+        width: 100%;
+        background-color: #ffffff;
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+        border-left: 2px solid @color-main-purple;
+
+        .header{
+            line-height: 33px;
+            padding-left: 12px;          
+            background-color: @color-light-grey;
+            font-weight: bold;
+            letter-spacing: -0.4px;
+            color: @color-main-purple;
+        }
+        .content{
+            p{
+                padding: 0 14px;
+                margin: 22px 0 10px;
+                letter-spacing: -0.2px;
+                text-align: justify;
+                color: @color-grey;
+                
+            }
+            .list{
+                padding: 6px 10px 3px 16px;
+                line-height: 1.6;
+                letter-spacing: -0.24px;
+                color: @color-main-purple;
+                list-style-type: disc;
+                margin-left: 20px;
+                li{
+                    padding-left: 8px;
+                    a{color: @color-main-purple;}
+                }
+            }
+        }
+
+        .footer{
+            padding: 8px 15px 8px;
+            display: flex;
+            justify-content: flex-end;
+            button{
+                width: 89px;
+                height: 24px;
+                border-radius: 4px;
+                background-color: @color-white;
+                box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+                letter-spacing: -0.2px;
+                color: @color-main-purple;
+            }
+        }
+    }
+    
+
+}
