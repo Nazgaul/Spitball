@@ -25,12 +25,17 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using Cloudents.Core.Command;
 using Cloudents.Core.Storage;
+using Microsoft.Azure.ServiceBus;
 using Nethereum.Web3.Accounts;
 
 namespace ConsoleApp
 {
     static class Program
     {
+        const string ServiceBusConnectionString = "Endpoint=sb://spitball-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CACOBTEeKVemCY7ScVBHYXBwDkClQcCKUW7QGq8dNfA=";
+        const string TopicName = "topic1";
+        static ITopicClient topicClient;
+
         static async Task Main()
         {
             var builder = new ContainerBuilder();
@@ -57,37 +62,49 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
-            
 
-            //var t = container.Resolve<ICrowdsaleService>();
-            //var z = await t.BuyTokens("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", 1, default);
-           
-            //var a = container.Resolve<IErc20Service>();
-            //var b = await a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", "0xAcfB119204a93BbDa781C972D27AeAB8671c63f4", 10, default);
+            topicClient = new TopicClient(ServiceBusConnectionString, TopicName);
+
+            await SendMessagesAsync(10);
 
 
-            var c = container.Resolve<IBlockChainQAndAContract>();
-            var d = await c.SubmitQuestionAsync(1, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
-            
+
+            //var c = container.Resolve<IBlockChainQAndAContract>();
+            //var d = await c.SubmitQuestionAsync(1, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
+
             Console.WriteLine("Finish");
             Console.ReadLine();
+            await topicClient.CloseAsync();
+        }
+
+        static async Task SendMessagesAsync(int numberOfMessagesToSend)
+        {
+            try
+            {
+                for (var i = 0; i < numberOfMessagesToSend; i++)
+                {
+                    // Create a new message to send to the topic.
+                    string messageBody = $"Message {i}";
+                    var message = new Message(Encoding.UTF8.GetBytes(messageBody));
+
+                    // Write the body of the message to the console.
+                    Console.WriteLine($"Sending message: {messageBody}");
+
+                    // Send the message to the topic.
+                    await topicClient.SendAsync(message);
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"{DateTime.Now} :: Exception: {exception.Message}");
+            }
         }
 
 
 
-      
+
 
 
     }
-    [SerializableAttribute]
-public class A
-    {
-        public int a { get; set; }
-    }
-
-[SerializableAttribute]
-public class B : A
-    {
-        public int aa { get; set; }
-    }
+   
 }
