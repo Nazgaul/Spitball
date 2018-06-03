@@ -1,5 +1,6 @@
 import axios from "axios";
-import Talk from "talkjs"
+import Talk from "talkjs";
+import accountService from "../services/accountService"
 //import { stat } from "fs";
 let userLogin = false;
 
@@ -25,6 +26,10 @@ const mutations = {
     },
     updateMessageCount(state, val) {
         state.unreadMessages = val;
+    },
+    logout(state){
+        state.login=false;
+        state.user=null;
     }
 };
 
@@ -37,6 +42,10 @@ const getters = {
     accountUser: state => state.user
 };
 const actions = {
+    logout({state,commit}){
+        accountService.logout();
+        commit("logout");
+    },
     userStatus({ dispatch, commit,getters }) {
         const $this = this;
         // if (getters.isUser) {
