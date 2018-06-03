@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Data
             {
                 if (e.StatusCode == HttpStatusCode.NotFound)
                 {
-                    await Client.CreateDatabaseAsync(new Microsoft.Azure.Documents.Database { Id = DatabaseId }).ConfigureAwait(false);
+                    await Client.CreateDatabaseAsync(new Database { Id = DatabaseId }).ConfigureAwait(false);
                 }
                 else
                 {
