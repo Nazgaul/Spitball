@@ -10,7 +10,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Core.CommandHandler
 {
     [UsedImplicitly]
-    public class CreateQuestionCommandHandler //: ICommandHandlerAsync<CreateQuestionCommand>
+    public class CreateQuestionCommandHandler : ICommandHandlerAsync<CreateQuestionCommand>
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<QuestionSubject> _questionSubjectRepository;
@@ -27,18 +27,18 @@ namespace Cloudents.Core.CommandHandler
             _blockChainProvider = blockChainProvider;
         }
 
-        //public async Task HandleAsync(CreateQuestionCommand message, CancellationToken token)
-        //{
-        //    var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
-        //    var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId, token).ConfigureAwait(false);
-        //    var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
-        //    await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
-        //    var id = question.Id;
-        //    var p = _blockChainProvider.SubmitQuestionAsync(id, message.Price, message.PrivateKey, token);
+        public async Task HandleAsync(CreateQuestionCommand message, CancellationToken token)
+        {
+            var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
+            var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId, token).ConfigureAwait(false);
+            var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
+            await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
+            var id = question.Id;
+            var p = _blockChainProvider.SubmitQuestionAsync(id, message.Price, message.PrivateKey, token);
 
-        //    var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token));
-            
-        //    await Task.WhenAll(l.Union(new[] { p })).ConfigureAwait(false);
-        //}
+            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token));
+
+            await Task.WhenAll(l.Union(new[] { p })).ConfigureAwait(false);
+        }
     }
 }
