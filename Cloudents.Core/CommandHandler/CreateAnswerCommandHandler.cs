@@ -45,7 +45,7 @@ namespace Cloudents.Core.CommandHandler
             var id = answer.Id;
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token));
             var blockChainTask = _blockChainProvider.SubmitAnswerAsync(question.Id, id, token);
-            await Task.WhenAll(l.Union(new [] { blockChainTask })).ConfigureAwait(false);
+            await Task.WhenAll(l?.Union(new [] { blockChainTask })).ConfigureAwait(false);
         }
     }
 }

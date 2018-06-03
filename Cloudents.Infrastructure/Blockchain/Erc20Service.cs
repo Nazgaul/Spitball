@@ -1,21 +1,15 @@
 ﻿using Cloudents.Core.Interfaces;
-using System;
-using System.IO;
 using System.Numerics;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Nethereum.Hex.HexConvertors.Extensions;
-using Nethereum.Web3;
-using Nethereum.Web3.Accounts;
 using Nethereum.Hex.HexTypes;
-using Nethereum.Contracts;
 using Cloudents.Infrastructure.BlockChain;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Blockchain
 {
-    class Erc20Service : BlockChainProvider, IBlockChainErc20Service
+    [UsedImplicitly]
+    public class Erc20Service : BlockChainProvider, IBlockChainErc20Service
     {
         protected override string Abi => "TokenAbi";
 

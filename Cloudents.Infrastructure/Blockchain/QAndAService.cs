@@ -1,18 +1,10 @@
 ﻿using Cloudents.Core.Interfaces;
 using System;
-using System.IO;
-using System.Numerics;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;
-using Nethereum.Web3.Accounts;
 using Nethereum.Hex.HexTypes;
-using Nethereum.Contracts;
 using Cloudents.Infrastructure.BlockChain;
-using Cloudents.Core.Models;
 using System.Collections.Generic;
 
 
@@ -32,9 +24,6 @@ namespace Cloudents.Infrastructure.Blockchain
         public async Task SubmitQuestionAsync(long question, decimal price, string userAddress,
             CancellationToken token)
         {
-           
-            var web3 = new Web3(_configurationKeys.BlockChainNetwork);
-
             var contract = await GetContractAsync(GenerateWeb3Instance("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), token).ConfigureAwait(false);
             var operationToExe = contract.GetFunction("submitNewQuestion");
             var maxGas = new HexBigInteger(3000000);
@@ -45,7 +34,7 @@ namespace Cloudents.Infrastructure.Blockchain
 
         public async Task SubmitAnswerAsync(long question, Guid answerId, CancellationToken token)
         {
-            var web3 = new Web3(_configurationKeys.BlockChainNetwork);
+            var web3 = new Web3(ConfigurationKeys.BlockChainNetwork);
             var contract = await GetContractAsync(GenerateWeb3Instance("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), token).ConfigureAwait(false);
             var operationToExe = contract.GetFunction("submitNewAnswer");
             var maxGas = new HexBigInteger(3000000);
@@ -57,7 +46,7 @@ namespace Cloudents.Infrastructure.Blockchain
 
         public async Task MarkAsCorrectAsync(string userAddress, string winnerAddress, long question, Guid answerId, CancellationToken token)
         {
-            var web3 = new Web3(_configurationKeys.BlockChainNetwork);
+            var web3 = new Web3(ConfigurationKeys.BlockChainNetwork);
             var contract = await GetContractAsync(GenerateWeb3Instance("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), token).ConfigureAwait(false);
             var operationToExe = contract.GetFunction("approveAnswer");
             var maxGas = new HexBigInteger(3000000);
@@ -67,7 +56,7 @@ namespace Cloudents.Infrastructure.Blockchain
 
         public async Task UpVoteAsync(string userAddress, long question, Guid answerId, decimal price, CancellationToken token)
         {
-            var web3 = new Web3(_configurationKeys.BlockChainNetwork);
+            var web3 = new Web3(ConfigurationKeys.BlockChainNetwork);
             var contract = await GetContractAsync(GenerateWeb3Instance("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), token).ConfigureAwait(false);
             var operationToExe = contract.GetFunction("upVote");
             var maxGas = new HexBigInteger(3000000);

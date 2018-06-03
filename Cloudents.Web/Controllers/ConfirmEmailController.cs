@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

@@ -17,13 +17,13 @@ namespace Cloudents.Web.Identity
 
         public string HashPassword(User user, string password)
         {
-            return _blockChainProvider.GetPublicAddress(password);
+            return Infrastructure.BlockChain.BlockChainProvider.GetPublicAddress(password);
         }
 
         public PasswordVerificationResult VerifyHashedPassword(User user, string hashedPassword, string providedPassword)
         {
             //TODO: need to check if the password is valid hex
-            var publicAddress = _blockChainProvider.GetPublicAddress(providedPassword);
+            var publicAddress = Infrastructure.BlockChain.BlockChainProvider.GetPublicAddress(providedPassword);
 
             if (hashedPassword == publicAddress)
             {

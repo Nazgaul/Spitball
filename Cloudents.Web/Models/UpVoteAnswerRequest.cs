@@ -5,8 +5,7 @@ namespace Cloudents.Web.Models
 {
     public class UpVoteAnswerRequest
     {
-        //[Required]
-        //public string PrivateKey { get; set; }
+        [Required]
         public Guid Id { get; set; }
     }
 }

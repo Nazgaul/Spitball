@@ -1,26 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Cloudents.Core.Interfaces;
-using System.IO;
-using System.Numerics;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Nethereum.Hex.HexConvertors.Extensions;
-using Nethereum.Web3;
-using Nethereum.Web3.Accounts;
 using Nethereum.Hex.HexTypes;
-using Nethereum.Contracts;
 
 
 namespace Cloudents.Infrastructure.BlockChain
 {
-    public class CrowdsaleService : BlockChainProvider, ICrowdSaleService
+    public class CrowdSaleService : BlockChainProvider, ICrowdSaleService
     {
 
         
-        public CrowdsaleService (IConfigurationKeys configurationKeys) : base (configurationKeys)
+        public CrowdSaleService (IConfigurationKeys configurationKeys) : base (configurationKeys)
         {
         }
 

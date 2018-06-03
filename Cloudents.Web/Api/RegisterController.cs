@@ -114,7 +114,7 @@ namespace Cloudents.Web.Api
                 PhoneNumber = model.Number,
                 Message = code
             };
-            
+
             var result = await client.PostJsonAsync(new Uri($"{_configuration.FunctionEndpoint}/api/sms?code=HhMs8ZVg/HD4CzsN7ujGJsyWVmGmUDAVPv2a/t5c/vuiyh/zBrSTVg=="), message,
             null, token).ConfigureAwait(false);
             if (result)
@@ -149,7 +149,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var account = blockChainProvider.CreateAccount();
+            var account = Infrastructure.BlockChain.BlockChainProvider.CreateAccount();
 
             var t1 = blockChainErc20Service.SetInitialBalanceAsync(account.publicAddress, token);
 
