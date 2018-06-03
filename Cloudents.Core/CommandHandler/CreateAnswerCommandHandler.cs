@@ -17,14 +17,16 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<Answer> _answerRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
+        private readonly IBlockChainQAndAContract _blockChainProvider;
 
 
-        public CreateAnswerCommandHandler(IRepository<Question> questionRepository, IRepository<Answer> answerRepository, IRepository<User> userRepository, IBlobProvider<QuestionAnswerContainer> blobProvider)
+        public CreateAnswerCommandHandler(IRepository<Question> questionRepository, IRepository<Answer> answerRepository, IRepository<User> userRepository, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlockChainQAndAContract blockChainProvider)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _userRepository = userRepository;
             _blobProvider = blobProvider;
+            _blockChainProvider = blockChainProvider;
         }
 
         public async Task HandleAsync(CreateAnswerCommand message, CancellationToken token)
@@ -41,6 +43,7 @@ namespace Cloudents.Core.CommandHandler
             await _answerRepository.SaveAsync(answer, token).ConfigureAwait(false);
 
             var id = answer.Id;
+            var p = _blockChainProvider.SubmitAnswerAsync(question.Id, id, token);
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token));
 
             await Task.WhenAll(l).ConfigureAwait(false);
