@@ -2,11 +2,11 @@
 
 export default {
     activateFunction: {
-        ask({ source, university, course, term="", page, sort, q: userText }) {
-            // return search.getQna({ source, university, course, term, page, sort, userText });
-            return search.getQuestions({term})
+        ask({ source, term=""}) {
+            return search.getQuestions({term, source})
         },
         note({ source, university, course, term="", page, sort, docType }) {
+            debugger;
             return search.getDocument({ source, university, course, query:term, page, sort, docType });
         },
         flashcard({ source, university, course, term="", page, sort }) {

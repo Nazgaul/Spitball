@@ -58,6 +58,7 @@ export default {
                 );
                 conversation.setParticipant(this.chatAccount);
                 conversation.setParticipant(other1);
+                this.talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css");
                 var chatbox = this.talkSession.createChatbox(conversation);
                 this.$nextTick(() => {
                     chatbox.mount(this.$refs["chat-area"]);

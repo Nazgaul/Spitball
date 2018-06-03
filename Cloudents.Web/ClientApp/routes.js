@@ -269,6 +269,7 @@ for (let v in staticRoutes) {
             header: satelliteHeader,
             default: item.import
         },
+        meta:{static:true},
         props: {default: (route) => item.params ? item.params(route) : {}}
     })
 }
