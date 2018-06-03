@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
@@ -66,7 +65,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("resend"), Authorize]
-        public async Task<IActionResult> ResendEmail(CancellationToken token)
+        public async Task<IActionResult> ResendEmailAsync(CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
