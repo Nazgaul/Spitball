@@ -14,7 +14,7 @@ namespace Cloudents.Infrastructure.Blockchain
     {
         protected override string Abi => "QAndA";
 
-        protected override string TransactionHash => "0xabb478f452837f83912ebdd125f3e99ab8dbf2c51789165ea3a046f4d9f8e010";
+        protected override string TransactionHash => "0xa976e2a5828a8a53d0f1f76d931613ee40cc0281e977a658a442873a379e1f66";
             //"0x20327f5f3836cfdcbc5b38d49eac517cbf532134973c15a653cac2eb68b65dfd";
 
         public QAndAService (IConfigurationKeys configurationKeys) : base(configurationKeys)
@@ -54,7 +54,7 @@ namespace Cloudents.Infrastructure.Blockchain
             var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), maxGas, null, null, parameters).ConfigureAwait(false);
         }
 
-        public async Task UpVoteAsync(string userAddress, long question, Guid answerId, decimal price, CancellationToken token)
+        public async Task UpVoteAsync(string userAddress, long question, Guid answerId, CancellationToken token)
         {
             var web3 = new Web3(ConfigurationKeys.BlockChainNetwork);
             var contract = await GetContractAsync(GenerateWeb3Instance("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4"), token).ConfigureAwait(false);
