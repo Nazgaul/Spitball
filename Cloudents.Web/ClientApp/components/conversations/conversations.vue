@@ -13,7 +13,7 @@
         },
         mounted() {
             if (this.talkSession) {
-                //this.talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css"); //when adding this line - there's a js error in TalkJS
+                this.talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css");
                 const inbox = this.talkSession.createInbox();
                 inbox.mount(document.getElementById("chat-container"));
             }

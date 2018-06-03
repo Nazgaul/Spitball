@@ -11,7 +11,6 @@ using Cloudents.Core;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
@@ -51,9 +50,7 @@ namespace Cloudents.Web
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddWebMarkupMin().AddHtmlMinification();
-            //services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()
-                //.AddRazorPagesOptions(options => { options.RootDirectory = "/Views"; })
                 .AddJsonOptions(options =>
             {
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
@@ -113,7 +110,7 @@ namespace Cloudents.Web
                     options.User.AllowedUserNameCharacters = null;
 
                     options.User.RequireUniqueEmail = true;
-                    
+
                     options.Password.RequiredLength = 1;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
@@ -146,10 +143,6 @@ namespace Cloudents.Web
                     context.Response.StatusCode = 401;
                     return Task.CompletedTask;
                 };
-                //o.Events.OnValidatePrincipal = context =>
-                //{
-                //    return Task.CompletedTask;
-                //};
             });
             services.AddAuthentication();
 
@@ -262,10 +255,6 @@ namespace Cloudents.Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
-                //routes.MapSpaFallbackRoute(
-                //    name: "spa-fallback",
-                //    defaults: new { controller = "Home", action = "Index" });
             });
             app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
             {

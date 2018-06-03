@@ -150,9 +150,6 @@ namespace Cloudents.Infrastructure
 
         private async Task<bool> TransferHttpContentAsync(HttpMethod method, Uri url, HttpContent obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
-            //var jsonInString = JsonConvert.SerializeObject(obj);
-            //using (var stringContent = new StringContent(jsonInString, Encoding.UTF8, "application/json"))
-            //{
             using (var message = new HttpRequestMessage(method, url)
             {
                 Content = obj
@@ -161,7 +158,6 @@ namespace Cloudents.Infrastructure
                 var p = await _client.SendAsync(message, token).ConfigureAwait(false);
                 return p.IsSuccessStatusCode;
             }
-            //}
         }
 
         public void Dispose()

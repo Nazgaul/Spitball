@@ -10,20 +10,16 @@ export default {
             textAreaValue: '',
             price: 0.5,
             files: [],
-            privateKey: ''
         }
     },
     methods: {
         submitQuestion() {
-            var key = prompt("Please enter your key", "");
-            if (key.length) {
-                var self = this;
-                questionService.postQuestion(this.subject.id, this.textAreaValue, this.price, key, this.files)
-                    .then(function () {
-                        debugger;
-                        self.$router.push({path: '/ask', query: {q: ''}});
-                    });
-            }
+            var self = this;
+            questionService.postQuestion(this.subject.id, this.textAreaValue, this.price, this.files)
+                .then(function () {
+                    debugger;
+                    self.$router.push({path: '/ask', query: {q: ''}});
+                });
         },
         addFile(filename) {
             this.files.push(filename);

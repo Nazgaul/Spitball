@@ -22,6 +22,17 @@
     <DocumentationFile>bin\Release\net47\Cloudents.Web.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Account\**" />
+    <Compile Remove="Views\Home\**" />
+    <Content Remove="Views\Account\**" />
+    <Content Remove="Views\Home\**" />
+    <EmbeddedResource Remove="Views\Account\**" />
+    <EmbeddedResource Remove="Views\Home\**" />
+    <None Remove="Views\Account\**" />
+    <None Remove="Views\Home\**" />
+  </ItemGroup>
   <ItemGroup>
     <None Remove="ClientApp\components\food\foodheader.vue" />
     <None Remove="ClientApp\components\settings\layout.vue.orig" />
@@ -76,11 +87,6 @@
 
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Account\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
 
   <ItemGroup>

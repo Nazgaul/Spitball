@@ -1,21 +1,14 @@
 ﻿using Cloudents.Core.Interfaces;
-using System;
-using System.IO;
 using System.Numerics;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Nethereum.Hex.HexConvertors.Extensions;
-using Nethereum.Web3;
-using Nethereum.Web3.Accounts;
-using Nethereum.Hex.HexTypes;
-using Nethereum.Contracts;
 using Cloudents.Infrastructure.BlockChain;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Blockchain
 {
-    class Erc20Service : BlockChainProvider, IBlockChainErc20Service
+    [UsedImplicitly]
+    public class Erc20Service : BlockChainProvider, IBlockChainErc20Service
     {
         protected override string Abi => "TokenAbi";
 
@@ -30,8 +23,7 @@ namespace Cloudents.Infrastructure.Blockchain
         {
             var contract = await GetContractAsync(GenerateWeb3Instance(),  token).ConfigureAwait(false);
             var function = contract.GetFunction("balanceOf");
-            var parameters = (new object[] { senderAddress });
-            var result = await function.CallAsync<BigInteger>(parameters).ConfigureAwait(false);
+            var result = await function.CallAsync<BigInteger>(senderAddress).ConfigureAwait(false);
             var normalAmount = result / new BigInteger(FromWei);
             return (decimal)normalAmount;
         }
@@ -41,17 +33,14 @@ namespace Cloudents.Infrastructure.Blockchain
           
             var contract = await GetContractAsync(GenerateWeb3Instance(senderPk), token).ConfigureAwait(false);
             var operationToExe = contract.GetFunction("transfer");
-            var maxGas = new HexBigInteger(70000);
             var amountTransformed = new BigInteger(amount * FromWei);
-            var parameters = new object[] { toAddress, amountTransformed };
-            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPk), maxGas, null, null, parameters).ConfigureAwait(false);
+            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPk), 70000, token, toAddress, amountTransformed).ConfigureAwait(false);
             return receiptFirstAmountSend.BlockHash;
         }
 
-        public async Task<bool> SetInitialBalanceAsync(string address, CancellationToken token)
+        public async Task SetInitialBalanceAsync(string address, CancellationToken token)
         {
-            await TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", address, 10, token).ConfigureAwait(false);
-            return true;
+            await TransferMoneyAsync(SpitballPrivateKey, address, 10, token).ConfigureAwait(false);
         }
 
     }

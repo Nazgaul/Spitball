@@ -2,7 +2,6 @@ import stepTemplate from '../stepTemplate.vue';
 
 import registrationService from '../../../../services/registrationService';
 import VueRecaptcha from 'vue-recaptcha';
-import disableForm from '../../../mixins/submitDisableMixin'
 
 var auth2;
 
@@ -47,6 +46,9 @@ export default {
                         console.error(reason);
                     });
             });
+        },
+        resend(){
+            registrationService.emailResend()
         },
         onVerify(response) {
             this.recaptcha = response;

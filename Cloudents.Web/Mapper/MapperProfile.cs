@@ -23,7 +23,8 @@ namespace Cloudents.Web.Mapper
                 .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
 
 
-            CreateMap<UpVoteAnswerRequest, UpVoteAnswerCommand>();
+            CreateMap<UpVoteAnswerRequest, UpVoteAnswerCommand>()
+                .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
             //.ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
             //.ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
         }
