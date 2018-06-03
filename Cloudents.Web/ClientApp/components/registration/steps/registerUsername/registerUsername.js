@@ -14,16 +14,18 @@ export default {
     },
     methods: {
         next() {
-            this.submitForm();
-            var self = this;
-            if(this.originalUsername === this.username){
-                self.$emit('next');
-            }
-            else {
-                accountService.setUserName(this.username)
-                    .then(function () {
-                        self.$emit('next');
-                    });
+            if(!this.submitted) {
+                this.submitForm();
+                var self = this;
+                if (this.originalUsername === this.username) {
+                    self.$emit('next');
+                }
+                else {
+                    accountService.setUserName(this.username)
+                        .then(function () {
+                            self.$emit('next');
+                        });
+                }
             }
         },
         editUsername(){

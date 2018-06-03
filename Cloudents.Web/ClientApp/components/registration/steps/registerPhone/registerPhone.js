@@ -28,11 +28,13 @@ export default {
         },
         next() {
             var self = this;
-            this.submitForm();
-            registrationService.smsCodeVerification(this.confirmationCode)
-                .then(function () {
-                    self.$emit('next');
-                });
+            if(!this.submitted) {
+                this.submitForm();
+                registrationService.smsCodeVerification(this.confirmationCode)
+                    .then(function () {
+                        self.$emit('next');
+                    });
+            }
 
         }
     },

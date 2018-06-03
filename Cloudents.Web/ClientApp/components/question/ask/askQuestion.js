@@ -1,7 +1,9 @@
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from '../../../services/questionService';
+import disableForm from "../../mixins/submitDisableMixin"
 
 export default {
+    mixins:[disableForm],
     components: {extendedTextArea},
     data() {
         return {
@@ -15,11 +17,14 @@ export default {
     methods: {
         submitQuestion() {
             var self = this;
-            questionService.postQuestion(this.subject.id, this.textAreaValue, this.price, this.files)
-                .then(function () {
-                    debugger;
-                    self.$router.push({path: '/ask', query: {q: ''}});
-                });
+            if(!this.submitted) {
+                this.submitForm();
+                questionService.postQuestion(this.subject.id, this.textAreaValue, this.price, this.files)
+                    .then(function () {
+                        debugger;
+                        self.$router.push({path: '/ask', query: {q: ''}});
+                    });
+            }
         },
         addFile(filename) {
             this.files.push(filename);

@@ -16,12 +16,14 @@ export default {
     },
     methods: {
         next() {
-            this.submitForm();
-            if (!this.dialogWasViewed) {
-                this.openDialog = true;
-            }
-            else {
-                this.showSummary = true;
+            if(!this.submitted) {
+                this.submitForm();
+                if (!this.dialogWasViewed) {
+                    this.openDialog = true;
+                }
+                else {
+                    this.showSummary = true;
+                }
             }
         },
         closeDialog() {

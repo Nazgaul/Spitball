@@ -19,33 +19,36 @@ export default {
     methods: {
         next() {
             self = this;
-            this.submitForm();
-            debugger;
-            registrationService.emailRegistration(this.userEmail, this.recaptcha)
-                .then(function () {
-                    self.emailSent = true;
-                }, function (reason) {
-                    self.submitForm(false);
-                    console.error(reason);
-                });
-        },
-        googleLogIn() {
-            var self = this;
-
-            var authInstance = gapi.auth2.getAuthInstance();
-            this.submitForm();
-            authInstance.signIn().then(function (googleUser) {
+            if(!this.submitted) {
+                this.submitForm();
                 debugger;
-                var idToken = googleUser.getAuthResponse().id_token;
-                registrationService.googleRegistration(idToken)
+                registrationService.emailRegistration(this.userEmail, this.recaptcha)
                     .then(function () {
-                        self.$emit('next');
+                        self.emailSent = true;
                     }, function (reason) {
-                        debugger;
                         self.submitForm(false);
                         console.error(reason);
                     });
-            });
+            }
+        },
+        googleLogIn() {
+            var self = this;
+            if(!this.submitted) {
+                var authInstance = gapi.auth2.getAuthInstance();
+                this.submitForm();
+                authInstance.signIn().then(function (googleUser) {
+                    debugger;
+                    var idToken = googleUser.getAuthResponse().id_token;
+                    registrationService.googleRegistration(idToken)
+                        .then(function () {
+                            self.$emit('next');
+                        }, function (reason) {
+                            debugger;
+                            self.submitForm(false);
+                            console.error(reason);
+                        });
+                });
+            }
         },
         resend(){
             registrationService.emailResend()
