@@ -2,13 +2,21 @@
     <div>
         <v-list class="menu-list" v-if="!isAuthUser">
             <user-block :user=user :classType="'university'" v-if=isMobile></user-block>
-            <v-list-tile v-for="(item,index) in notRegMenu" :key="index" :id="item.id">
+            <template v-for="(item) in notRegMenu" >
+                <template v-if="item.name">
+                    <router-link tag="v-list-tile" :to="{name:item.name}">
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{item.title}}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </router-link>
+                </template>
+                <v-list-tile v-else>
                 <v-list-tile-content>
-                    <v-list-tile-title>{{item.name}}</v-list-tile-title>
+                    <v-list-tile-title>{{item.title}}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-        </v-list> 
-
+            </template>
+        </v-list>
         <v-list class="menu-list" v-else>
             <user-block :user=user :classType="'university'" v-if=isMobile></user-block>
             <v-list-tile>
@@ -57,16 +65,14 @@
                     <v-list-tile-title>Settings</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <!--<router-link tag="v-list-tile" :to="{name:'logout'}">-->
-            <!--&lt;!&ndash;<v-list-tile>&ndash;&gt;-->
-                <!--<v-list-tile-action class="tile-logout">-->
-                    <!--<v-icon>sbf-logout</v-icon>-->
-                <!--</v-list-tile-action>-->
-                <!--<v-list-tile-content>-->
-                    <!--<v-list-tile-title>Logout</v-list-tile-title>-->
-                <!--</v-list-tile-content>-->
-            <!--&lt;!&ndash;</v-list-tile> &ndash;&gt;-->
-            <!--</router-link>-->
+            <v-list-tile @click="logout">
+                <v-list-tile-action class="tile-logout">
+                    <v-icon>sbf-logout</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title>Logout</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
             <v-divider class="my-3"></v-divider>
 
             <router-link tag="v-list-tile" :to="{name:'about'}">
@@ -99,10 +105,11 @@
 
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapGetters,mapActions} from 'vuex'
     import { notRegMenu } from '../../settings/consts';
     import userBlock from "../user-block/user-block.vue"
     import userSettings from "../../settings/view/settings.vue"
+
 
     export default {
         components:{userBlock,userSettings},
@@ -115,6 +122,10 @@
                 type: Boolean,
                 default:false
             }
+        },
+        methods:{
+            currentTemplate(val){return val?'router-link':'v-list-tile';},
+            ...mapActions(['logout'])
         },
         data() {
             return {

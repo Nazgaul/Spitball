@@ -155,7 +155,7 @@ Vue.filter('ellipsis',
 
 router.beforeEach((to, from, next) => {
     intercom(to)
-    checkUserStatus(to, next);
+    to.meta.static?next(): checkUserStatus(to, next);
 });
 const app = new Vue({
     //el: "#app",
