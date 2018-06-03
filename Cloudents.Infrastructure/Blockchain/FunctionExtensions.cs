@@ -12,9 +12,9 @@ namespace Cloudents.Infrastructure.Blockchain
     {
 
         public static Task<TransactionReceipt> SendTransactionAndWaitForReceiptAsync(this Function function,
-            string address, CancellationToken receiptRequestCancellationToken , params object[] functionInput)
+            string address, CancellationToken receiptRequestCancellationToken, params object[] functionInput)
         {
-            
+
             var publicAddress =
                 BlockChainProvider.GetPublicAddress(
                     address);
@@ -22,10 +22,10 @@ namespace Cloudents.Infrastructure.Blockchain
                 functionInput);
         }
 
-        public static Task<TransactionReceipt> SendTransactionAndWaitForReceiptAsync(this Function function, string address, double maxGas,
+        public static async Task<TransactionReceipt> SendTransactionAndWaitForReceiptAsync(this Function function, string address, double maxGas,
             CancellationToken receiptRequestCancellationToken, params object[] functionInput)
         {
-            var gas = new HexBigInteger((BigInteger) maxGas);
+            var gas = new HexBigInteger((BigInteger)maxGas);
             var publicAddress =
                 BlockChainProvider.GetPublicAddress(
                     address);
@@ -33,8 +33,8 @@ namespace Cloudents.Infrastructure.Blockchain
             using (var tokenSource = CancellationTokenSource.CreateLinkedTokenSource(receiptRequestCancellationToken))
             {
                 //var maxGas = new HexBigInteger((System.Numerics.BigInteger)4.7e6);
-                return function.SendTransactionAndWaitForReceiptAsync(publicAddress, gas, null,
-                    tokenSource, functionInput);
+                return await function.SendTransactionAndWaitForReceiptAsync(publicAddress, gas, null,
+                      tokenSource, functionInput).ConfigureAwait(false);
             }
 
             //return SendTransactionAndWaitForReceiptAsync(function, publicAddress,  receiptRequestCancellationToken,

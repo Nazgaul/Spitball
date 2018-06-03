@@ -38,7 +38,7 @@ namespace Cloudents.Core.CommandHandler
             }
             question.CorrectAnswer = answer;
             await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
-            await _blockChainProvider.MarkAsCorrectAsync(question.User.PublicKey, answer.User.PublicKey, question.Id, answer.Id, token);
+            await _blockChainProvider.MarkAsCorrectAsync(question.User.PublicKey, answer.User.PublicKey, question.Id, answer.Id, token).ConfigureAwait(false);
 
            
         }
