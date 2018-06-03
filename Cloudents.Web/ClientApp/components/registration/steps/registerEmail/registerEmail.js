@@ -20,7 +20,6 @@ export default {
         next() {
             self = this;
             self.disableSubmit = true;
-            debugger;
             registrationService.emailRegistration(this.userEmail, this.recaptcha)
                 .then(function () {
                     self.emailSent = true
@@ -45,6 +44,9 @@ export default {
                         console.error(reason);
                     });
             });
+        },
+        resend(){
+            registrationService.emailResend()
         },
         onVerify(response) {
             this.recaptcha = response;

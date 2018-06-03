@@ -38,7 +38,7 @@
                 <button class="small-button" @click="emailSent=false">Edit</button>
                 <p class="email-check">Check your email and click the email validation link.</p>
                 <p class="resend-title">Didn’t get our email?</p>
-                <button class="small-button" @click="emailSent=false">Resend</button>
+                <button class="small-button" @click="resend()">Resend</button>
             </div>
             <img slot="step-image" :src="require(`../../img/checkEmail.png`)"/>
         </step-template>
