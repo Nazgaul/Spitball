@@ -1,8 +1,10 @@
 import accountNum from "./accountNum.vue";
 import stepTemplate from '../stepTemplate.vue';
 import registrationService from "../../../../services/registrationService";
+import disableForm from '../../../mixins/submitDisableMixin'
 
 export default {
+    mixins:[disableForm],
     components: {accountNum, stepTemplate},
     data() {
         return {
@@ -14,6 +16,7 @@ export default {
     },
     methods: {
         next() {
+            this.submitForm();
             if (!this.dialogWasViewed) {
                 this.openDialog = true;
             }

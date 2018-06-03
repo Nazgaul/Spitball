@@ -78,40 +78,40 @@
                                         </v-list>
                                     </v-menu> -->
 
-                                    <div class="header-comments" v-if="isAuthUser && !isMobile">
+                                    <div class="header-comments" v-if="loggedIn && !isMobile">
                                         <router-link :to="{name:'conversations'}">
                                             <v-icon>sbf-comment</v-icon>
                                         <span class="red-counter">6</span>
                                     </router-link>
                                     </div>
 
-                                    <div class="header-wallet" v-if="isAuthUser">
+                                    <div class="header-wallet" v-if="loggedIn">
                                         <v-btn icon >
                                             <v-icon>sbf-wallet</v-icon>                                    
                                         </v-btn>
                                         <span>$25</span>
                                     </div>                                    
                                                                     
-                                    <div class="header-rocket" v-if="isAuthUser && !isMobile">
+                                    <div class="header-rocket" v-if="loggedIn && !isMobile">
                                         <v-menu bottom left offset-y >
                                             <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                                 <v-icon>sbf-rocket</v-icon>
                                             </v-btn>
-                                            <menu-list :isAuthUser="isAuthUser" ></menu-list>                                            
+                                            <menu-list :isAuthUser="loggedIn" ></menu-list>
                                         </v-menu>
                                         <span class="red-counter">6</span>                                    
                                     </div>
 
                                     
-                                    <a v-if="!isAuthUser" class="header-login" href="/register">Sign Up</a>
-                                    <a v-if="!isAuthUser" class="header-login" href="/signin">Login</a>
+                                    <a v-if="!loggedIn" class="header-login" href="/register">Sign Up</a>
+                                    <a v-if="!loggedIn" class="header-login" href="/signin">Login</a>
                                     
                 
-                                    <v-menu bottom left offset-y class="gamburger" v-if="!isAuthUser || isMobile">
+                                    <v-menu bottom left offset-y class="gamburger" v-if="!loggedIn || isMobile">
                                         <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                             <v-icon>sbf-menu</v-icon>
                                         </v-btn>
-                                        <menu-list :isAuthUser="isAuthUser" v-if="!isMobile"></menu-list>
+                                        <menu-list :isAuthUser="loggedIn" v-if="!isMobile"></menu-list>
                                     </v-menu>   
                                     
                                 </div>
@@ -133,7 +133,7 @@
         </v-toolbar>
 
         <v-navigation-drawer temporary v-model="drawer" light absolute app v-if=isMobile width="280">
-            <menu-list :isAuthUser="isAuthUser"></menu-list>
+            <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
 
     </div>
@@ -165,8 +165,9 @@
             food:"Search for deals..."
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'showSmartAppBanner']),
-            isMobile(){return this.$vuetify.breakpoint.xsOnly;}
+            ...mapGetters(['getUniversityName', 'showSmartAppBanner', 'accountUser']),
+            isMobile(){return this.$vuetify.breakpoint.xsOnly;},
+            loggedIn(){return this.accountUser!==null}
     },
         watch:{
             toolbarHeight(val) {
@@ -187,7 +188,7 @@
                 notRegMenu,
                 clickOnce:false,
                 drawer: null,
-                isAuthUser:true
+                // isAuthUser:true
             }
         },
         methods:{

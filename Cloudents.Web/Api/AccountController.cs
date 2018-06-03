@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,10 +34,13 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet]
-        [Authorize(Policy = SignInStep.PolicyAll)]
+        //[Authorize(Policy = SignInStep.PolicyAll)]
 
-        public async Task<IActionResult> GetAsync([FromServices] IBlockChainErc20Service blockChain, CancellationToken token)
+        public async Task<IActionResult> GetAsync(
+            [FromServices] SignInManager<User> signInManager,
+            [FromServices] IBlockChainErc20Service blockChain, CancellationToken token)
         {
+            if (!signInManager.IsSignedIn(User)) return Unauthorized();
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var balance = await blockChain.GetBalanceAsync(user.PublicKey, token).ConfigureAwait(false);
             return Ok(new
@@ -50,6 +52,7 @@ namespace Cloudents.Web.Api
                 token = GetToken(),
                 balance
             });
+
         }
 
         private string GetToken()
@@ -96,8 +99,8 @@ namespace Cloudents.Web.Api
             var t2 = client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
             {
                 Name = user.Name
-            },token);
-           
+            }, token);
+
             try
             {
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
@@ -129,5 +132,15 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+
+
+        [HttpPost("logout")]
+        [Authorize(Policy = SignInStep.PolicyAll)]
+        public async Task<IActionResult> LogOutAsync(
+            [FromServices] SignInManager<User> signInManager)
+        {
+            await signInManager.SignOutAsync().ConfigureAwait(false);
+            return Ok();
+        }
     }
 }

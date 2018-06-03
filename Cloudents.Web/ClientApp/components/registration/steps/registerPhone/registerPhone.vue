@@ -14,7 +14,7 @@
                     <input class="phone-field input-field" v-model="phone.phoneNum" placeholder="Enter phone number"/>
                     <v-icon>sbf-phone</v-icon>
                 </div>
-                <button class="continue-btn" @click="sendCode">Continue</button>
+                <button class="continue-btn" @click="sendCode" :disabled="submitted||!(phone.phoneNum&&phone.countryCode)">Continue</button>
             </div>
             <img slot="step-image" :src="require(`../../img/enter-phone.png`)"/>
         </step-template>
@@ -31,7 +31,7 @@
                     <v-icon>sbf-key</v-icon>
                 </div>
                 <button class="small-button" @click="sendCode">Resend</button>
-                <button class="continue-btn submit-code" @click="next">Continue</button>
+                <button class="continue-btn submit-code" @click.once="next" :disabled="submitted||!confirmationCode">Continue</button>
             </div>
             <img slot="step-image" :src="require(`../../img/confirm-phone.png`)"/>
         </step-template>

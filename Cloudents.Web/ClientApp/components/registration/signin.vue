@@ -15,7 +15,7 @@
                     <vue-recaptcha class="recaptcha-wrapper"
                                    sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
                                    @verify="onVerify" @expired="onExpired"></vue-recaptcha>
-                    <input v-bind:disabled="!(userEmail && password)" class="continue-btn" type="submit" value="Login">
+                    <input v-bind:disabled="disableSubmit" class="continue-btn" type="submit" value="Login">
                 </form>
                 <div class="signin-strip">Need an account?
                     <router-link to="register">Sign up</router-link>
