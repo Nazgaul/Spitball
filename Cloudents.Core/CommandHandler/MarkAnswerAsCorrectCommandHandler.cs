@@ -23,7 +23,6 @@ namespace Cloudents.Core.CommandHandler
         {
             var answer = await _answerRepository.LoadAsync(message.AnswerId, token).ConfigureAwait(true); //false will raise an exception
             var question = answer.Question;
-            //var question = await _questionRepository.LoadAsync(message.QuestionId, token).ConfigureAwait(false);
             if (question.User.Id != message.UserId)
             {
                 throw new ApplicationException("only owner can perform this task");
