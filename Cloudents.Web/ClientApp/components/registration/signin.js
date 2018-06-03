@@ -9,12 +9,19 @@ export default {
             userEmail: '',
             password: '',
             keepLogedIn: false,
+            submitted:false,
             recaptcha: '',
+        }
+    },
+    computed:{
+        disableSubmit: function () {
+            return this.submitted || !(this.userEmail && this.password && this.recaptcha);
         }
     },
     methods: {
         submit() {
             self = this;
+            this.submitted=true;
             registrationService.signIn(this.userEmail, this.password, this.recaptcha)
                 .then(function () {
                     self.$router.push({path: '/note', query: {q: ''}});

@@ -10,7 +10,7 @@
                     <v-icon>sbf-users</v-icon>
                 </div>
                 <button class="small-button" @click="editUsername">Edit</button>
-                <button class="continue-btn" @click="next">Continue</button>
+                <button class="continue-btn" @click.once="next" :disabled="submitted">Continue</button>
             </div>
             <img slot="step-image" :src="require(`../../img/username.png`)"/>
         </step-template>

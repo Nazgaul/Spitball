@@ -1,9 +1,11 @@
 import stepTemplate from '../stepTemplate.vue'
 import codesJson from './CountryCallingCodes'
+import submitDisable from '../../../mixins/submitDisableMixin'
 
 ﻿import registrationService from '../../../../services/registrationService'
 
 export default {
+    mixins:[submitDisable],
     components: {stepTemplate},
     data() {
         return {
@@ -25,7 +27,8 @@ export default {
                 });
         },
         next() {
-            var self = this
+            var self = this;
+            this.submitForm();
             registrationService.smsCodeVerification(this.confirmationCode)
                 .then(function () {
                     self.$emit('next');

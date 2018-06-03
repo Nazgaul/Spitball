@@ -1,8 +1,10 @@
 import stepTemplate from '../stepTemplate.vue'
 
 ﻿import accountService from '../../../../services/accountService'
+import disableForm from '../../../mixins/submitDisableMixin'
 
 export default {
+    mixins:[disableForm],
     components: {stepTemplate},
     data() {
         return {
@@ -12,6 +14,7 @@ export default {
     },
     methods: {
         next() {
+            this.submitForm();
             var self = this;
             if(this.originalUsername === this.username){
                 self.$emit('next');

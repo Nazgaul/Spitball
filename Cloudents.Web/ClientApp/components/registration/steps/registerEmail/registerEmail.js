@@ -2,30 +2,31 @@ import stepTemplate from '../stepTemplate.vue';
 
 import registrationService from '../../../../services/registrationService';
 import VueRecaptcha from 'vue-recaptcha';
+import disableForm from '../../../mixins/submitDisableMixin'
 
 var auth2;
 
 export default {
     components: {stepTemplate, VueRecaptcha},
+    mixins:[disableForm],
     data() {
         return {
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             emailSent: false,
-            errorMessages: '',
-            disableSubmit: false
+            errorMessages: ''
         }
     },
     methods: {
         next() {
             self = this;
-            self.disableSubmit = true;
+            this.submitForm();
             debugger;
             registrationService.emailRegistration(this.userEmail, this.recaptcha)
                 .then(function () {
-                    self.emailSent = true
-                    self.disableSubmit = false;
+                    self.emailSent = true;
                 }, function (reason) {
+                    self.submitForm(false);
                     console.error(reason);
                 });
         },
@@ -33,7 +34,7 @@ export default {
             var self = this;
 
             var authInstance = gapi.auth2.getAuthInstance();
-
+            this.submitForm();
             authInstance.signIn().then(function (googleUser) {
                 debugger;
                 var idToken = googleUser.getAuthResponse().id_token;
@@ -42,6 +43,7 @@ export default {
                         self.$emit('next');
                     }, function (reason) {
                         debugger;
+                        self.submitForm(false);
                         console.error(reason);
                     });
             });
