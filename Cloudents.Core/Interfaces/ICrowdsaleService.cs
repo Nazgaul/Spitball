@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
@@ -9,6 +6,6 @@ namespace Cloudents.Core.Interfaces
     public interface ICrowdSaleService
     {
         Task<string> BuyTokensAsync(string senderPK, int amount, CancellationToken token);
-        (string privateKey, string publicAddress) CreateAccount();
+        //(string privateKey, string publicAddress) CreateAccount();
     }
 }

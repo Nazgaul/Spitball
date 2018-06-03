@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Interfaces;
 using System;
 using System.IO;
+using System.Numerics;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace Cloudents.Infrastructure.BlockChain
         protected readonly IConfigurationKeys ConfigurationKeys;
 
         protected const double FromWei = 1e18;
+        public readonly BigInteger MaxGas = new BigInteger(4.7e6);
+
         //private const string ICOtransactionHash = "0x430fdc71d7b86f432ae0d22d0cc11ce7909f0434942f5943f2288f3140dac07d";
        
             //"0xfea5f8e467e7423ec7304bdc220dfa415147848546a3f52a310c91df3bd5f6fe";
@@ -76,13 +79,13 @@ namespace Cloudents.Infrastructure.BlockChain
             return _abiContract;
         }
 
-        public string GetPublicAddress(string privateKey)
+        public static string GetPublicAddress(string privateKey)
         {
             var account = new Account(privateKey);
             return account.Address;
         }
 
-        public (string privateKey, string publicAddress) CreateAccount()
+        public static (string privateKey, string publicAddress) CreateAccount()
         {
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
             var privateKey = ecKey.GetPrivateKeyAsBytes();

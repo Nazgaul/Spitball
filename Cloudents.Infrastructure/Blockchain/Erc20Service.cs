@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Blockchain
         {
             var contract = await GetContractAsync(GenerateWeb3Instance(),  token).ConfigureAwait(false);
             var function = contract.GetFunction("balanceOf");
-            var parameters = (new object[] { senderAddress });
+            var parameters = new object[] { senderAddress };
             var result = await function.CallAsync<BigInteger>(parameters).ConfigureAwait(false);
             var normalAmount = result / new BigInteger(FromWei);
             return (decimal)normalAmount;
