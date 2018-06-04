@@ -4,10 +4,8 @@
             <div slot="step-data" class="limited-width">
                 <h1 class="step-title">Login</h1>
                 <form @submit.prevent="submit">
-                    <input required class="email-field input-field" name="email" v-model="userEmail" type="email"
-                           placeholder="Enter your email address" autofocus >
-                    <input required class="password-field input-field" name="password" v-model="password" type="password"
-                           placeholder="Password (Account key)">
+                    <sb-input class="email-field" type="email" name="email" id="input-url" :value="userEmail" placeholder="Enter your email address"></sb-input>
+                    <sb-input class="password-field" type="password" name="password" id="input-url" :value="password" placeholder="Password (Account key)"></sb-input>
                     <div class="checkbox-wrap">
                         <input id="keep-logged-in" type="checkbox" v-model="keepLogedIn">
                         <label for="keep-logged-in">keep me logged in</label>

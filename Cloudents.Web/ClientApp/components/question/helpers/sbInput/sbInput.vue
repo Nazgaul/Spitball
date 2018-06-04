@@ -4,7 +4,7 @@
         <input required class="input-field" :name="name" :type="type" :readonly="isReadOnly"
                :placeholder="placeholder" :class="{'invalid': errorMessage}" :value="value"
                @input="updateValue($event.target.value)" :autofocus="autofocus">
-        <v-icon>{{icon}}</v-icon>
+        <v-icon v-if="icon">{{icon}}</v-icon>
     </div>
 </template>
 
