@@ -38,7 +38,7 @@ namespace Cloudents.Core.CommandHandler
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token));
 
-            await Task.WhenAll(l?.Union(new[] { p })).ConfigureAwait(false);
+            await Task.WhenAll(l?.Union(new[] { p })).ConfigureAwait(true);
         }
     }
 }

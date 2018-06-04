@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 using NHibernate;
 
@@ -11,12 +12,12 @@ namespace Cloudents.Infrastructure.Data
         private bool _isAlive = true;
         private bool _isCommitted;
 
-        [UsedImplicitly]
-        public delegate UnitOfWork Factory(Core.Enum.Database db);
+       // [UsedImplicitly]
+        //public delegate UnitOfWork Factory(Core.Enum.Database db);
 
-        public UnitOfWork(Core.Enum.Database db, UnitOfWorkAutofacFactory factory)
+        public UnitOfWork(IUnitOfWorkFactory unitOfFactory)
         {
-            var unitOfFactory = factory.GetInstance(db);
+            //var unitOfFactory = factory.GetInstance(db);
 
             Session = unitOfFactory.OpenSession();
             _transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
@@ -29,6 +30,7 @@ namespace Cloudents.Infrastructure.Data
 
         public void Dispose()
         {
+
             if (!_isAlive)
                 return;
 
@@ -38,7 +40,14 @@ namespace Cloudents.Infrastructure.Data
             {
                 if (_isCommitted)
                 {
-                    _transaction.Commit();
+                    if (Marshal.GetExceptionCode() == 0)
+                    {
+                        _transaction.Commit();
+                    }
+                    else
+                    {
+                        _transaction.Rollback();
+                    }
                     _isCommitted = false;
                 }
             }

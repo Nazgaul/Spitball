@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
@@ -17,16 +19,25 @@ namespace Cloudents.Web.Identity
         IUserSecurityStampStore<User>,
         IUserPhoneNumberStore<User>
     {
-        private readonly IRepository<User> _userRepository;
+        //private readonly Lazy<IRepository<User>> _userRepository;
+        private readonly ICommandBus _bus;
+        private readonly IQueryBus _queryBus;
 
-        public UserStore(IRepository<User> userRepository)
+        public UserStore(ICommandBus bus, IQueryBus queryBus)
         {
-            _userRepository = userRepository;
+            _bus = bus;
+            _queryBus = queryBus;
         }
+
+
+        //public UserStore(Lazy<IRepository<User>> userRepository)
+        //{
+        //    _userRepository = userRepository;
+        //}
 
         public void Dispose()
         {
-           // _userRepository.Dispose();
+            // _userRepository.Dispose();
         }
 
         public Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)
@@ -58,15 +69,19 @@ namespace Cloudents.Web.Identity
 
         public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
         {
-            await _userRepository.SaveAsync(user, cancellationToken).ConfigureAwait(false);
-           // await _userRepository.FlushAsync(cancellationToken);
+            var command = new CreateUserCommand(user);
+            await _bus.DispatchAsync(command, cancellationToken).ConfigureAwait(false);
+            //await _userRepository.Value.SaveAsync(user, cancellationToken).ConfigureAwait(false);
+            // await _userRepository.FlushAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
         public async Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
         {
-            await _userRepository.SaveAsync(user, cancellationToken).ConfigureAwait(false);
-           // await _userRepository.FlushAsync(cancellationToken);
+            var command = new CreateUserCommand(user);
+            await _bus.DispatchAsync(command, cancellationToken).ConfigureAwait(false);
+            // await _userRepository.Value.SaveAsync(user, cancellationToken).ConfigureAwait(false);
+            // await _userRepository.FlushAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
@@ -75,10 +90,14 @@ namespace Cloudents.Web.Identity
             throw new NotImplementedException();
         }
 
-        public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
+        public async Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             var p = long.Parse(userId);
-            return _userRepository.GetAsync(p, cancellationToken); //it was get to check if the user
+            Expression<Func<User, bool>> expression = f => f.Id == p;
+            return await _queryBus.QueryAsync<Expression<Func<User, bool>>, User>(expression, cancellationToken);
+
+           // var t = await _userRepository.Value.GetAsync(p, cancellationToken).ConfigureAwait(false); //it was get to check if the user
+           // return t;
         }
 
         public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
@@ -86,9 +105,14 @@ namespace Cloudents.Web.Identity
             try
             {
                 //nhibernate flush before query base on flushmode.auto
-                return await _userRepository.GetQueryable()
-                    .SingleOrDefaultAsync(s => s.NormalizedName == normalizedUserName,
-                        cancellationToken).ConfigureAwait(false);
+
+                Expression<Func<User, bool>> expression = s => s.NormalizedName == normalizedUserName;
+                return await _queryBus.QueryAsync<Expression<Func<User, bool>>, User>(expression, cancellationToken);
+
+
+                //return await _userRepository.Value.GetQueryable()
+                //    .SingleOrDefaultAsync(s => s.NormalizedName == normalizedUserName,
+                //        cancellationToken).ConfigureAwait(false);
             }
             catch (GenericADOException ex)
             {
@@ -142,8 +166,10 @@ namespace Cloudents.Web.Identity
 
         public Task<User> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
         {
-            return _userRepository.GetQueryable()
-                .FirstOrDefaultAsync(f => f.NormalizedEmail == normalizedEmail, cancellationToken: cancellationToken);
+            Expression<Func<User, bool>> expression = f => f.NormalizedEmail == normalizedEmail;
+            return _queryBus.QueryAsync<Expression<Func<User, bool>>, User>(expression, cancellationToken);
+            //return _userRepository.Value.GetQueryable()
+            //    .FirstOrDefaultAsync(f => f.NormalizedEmail == normalizedEmail, cancellationToken: cancellationToken);
         }
 
         public Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancellationToken)

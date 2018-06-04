@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac.Features.Indexed;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
@@ -12,7 +13,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
     [UsedImplicitly]
     public class QuestionRepository : NHibernateRepository<Question>, IQuestionRepository
     {
-        public QuestionRepository(UnitOfWork.Factory unitOfWork) : base(unitOfWork)
+        public QuestionRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWork) : base(unitOfWork)
         {
         }
 
