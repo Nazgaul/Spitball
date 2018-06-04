@@ -43,22 +43,22 @@ namespace Cloudents.Infrastructure.BlockChain
 
         protected abstract string Abi { get; }
         protected abstract string TransactionHash { get; }
+        protected abstract string ContractAddress { get; }
 
         
 
 
         protected async Task<Contract> GetContractAsync(Web3 web3, CancellationToken token)
         {
-            
-            var deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(TransactionHash).ConfigureAwait(false);
-            while (deploymentReceipt == null)
-            {
-                await Task.Delay(TimeSpan.FromSeconds(0.5), token).ConfigureAwait(false);
-                deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(TransactionHash).ConfigureAwait(false);
-            }
-            var contractAddress = deploymentReceipt.ContractAddress;
+            //var deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(TransactionHash).ConfigureAwait(false);
+            //while (deploymentReceipt == null)
+            //{
+            //    await Task.Delay(TimeSpan.FromSeconds(0.5), token).ConfigureAwait(false);
+            //    deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(TransactionHash).ConfigureAwait(false);
+            //}
+            //var contractAddress = deploymentReceipt.ContractAddress;
             var abi = await ReadAbiAsync(token).ConfigureAwait(false);
-            return web3.Eth.GetContract(abi, contractAddress);
+            return web3.Eth.GetContract(abi, ContractAddress);
         }
 
         private static string _abiContract;
@@ -85,17 +85,16 @@ namespace Cloudents.Infrastructure.BlockChain
 
         public static string GetPublicAddress(string privateKey)
         {
-            var account = new Account(privateKey);
-            return account.Address;
+            var address = Web3.GetAddressFromPrivateKey(privateKey);
+            return address;
         }
 
         public static (string privateKey, string publicAddress) CreateAccount()
         {
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
             var privateKey = ecKey.GetPrivateKeyAsBytes();
-            
-            var account = new Account(privateKey.ToHex());
-            return (privateKey.ToHex(), account.Address);
+            string address = Web3.GetAddressFromPrivateKey(privateKey.ToHex());
+            return (privateKey.ToHex(), address);
         }
     }
 }

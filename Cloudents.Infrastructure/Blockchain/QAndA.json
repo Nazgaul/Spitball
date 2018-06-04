@@ -14,24 +14,6 @@
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_qId",
-        "type": "uint256"
-      },
-      {
-        "name": "_answerId",
-        "type": "string"
-      }
-    ],
-    "name": "submitNewAnswer",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [
       {
@@ -85,6 +67,28 @@
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_qId",
+        "type": "uint256"
+      },
+      {
+        "name": "submiterAddress",
+        "type": "address"
+      },
+      {
+        "name": "_answerId",
+        "type": "string"
+      }
+    ],
+    "name": "submitNewAnswer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

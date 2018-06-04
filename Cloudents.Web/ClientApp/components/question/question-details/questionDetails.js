@@ -3,8 +3,10 @@ import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue
 import questionService from "../../../services/questionService";
 import {mapGetters} from "vuex";
 import questionCard from "./../helpers/question-card/question-card.vue";
+import disableForm from "../../mixins/submitDisableMixin.js"
 
 export default {
+    mixins:[disableForm],
     components: {questionThread, questionCard, extendedTextArea},
     props: {
         id: {Number} // got it from route
@@ -20,13 +22,16 @@ export default {
     methods: {
         submitAnswer() {
             var self = this;
-            questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
-                .then(function () {
-                    self.textAreaValue = "";
-                    self.answerFiles=[];
-                    //TODO: do this on client side (render data inserted by user without calling server)
-                    self.getData();
-                });
+            if(!this.submitted) {
+                this.submitForm();
+                questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
+                    .then(function () {
+                        self.textAreaValue = "";
+                        self.answerFiles = [];
+                        //TODO: do this on client side (render data inserted by user without calling server)
+                        self.getData();
+                    });
+            }
         },
         addFile(filename) {
             this.answerFiles.push(filename);
@@ -40,6 +45,8 @@ export default {
                 self.questionData = response.data;
                 if(self.accountUser) {
                     self.questionData.myQuestion = self.accountUser.id === response.data.user.id;
+                }else{
+                    self.questionData.myQuestion = true; // if accountUser is null the chat shouldn't appear 
                 }
                 // self.questionData.correctAnswer = '1A5B19B2-573D-44EC-9486-A8E900D811F5';//TODO: remove when ram adds it to the api
                 self.buildChat();

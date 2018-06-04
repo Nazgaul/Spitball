@@ -17,7 +17,10 @@ namespace Cloudents.Infrastructure.BlockChain
 
         protected override string Abi => "Crowdsale";
 
-        protected override string TransactionHash => "0x6296a181d9dc59a31d9ef94e5ff4d0d11f9b709046bc0bc6b8e6ed3bb48632d3";
+        protected override string TransactionHash => "0x895b8f191a3f6c827ae7d2a7b364f00467ed16a1a48e661c2879c5e869b6e884";
+        //"0xdb64eb3552e0799af575a8980b7a95db34ec9fe657f3a40f78fbf13cd078e0c8";
+        //"0x2684cc34acb76754f0d9d267496ccfe6964bfafebf1f5aebe58296e86352fa98";
+        protected override string ContractAddress => "0x26f54bb3efd88b3fe581d4a6ff45456716159a55";
 
 
         public async Task<string> BuyTokensAsync(string senderPrivateKey, int amount, CancellationToken token)

@@ -23,7 +23,7 @@
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                         v-model="textAreaValue"
                                         :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
-                                <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
+                                <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length||submitted"
                                        class="add_answer">Add your answer
                                 </v-btn>
                             </div>
