@@ -26,8 +26,27 @@
             </div>
         </div>
 
-        <div v-if="answerBtn" class="answer">
-            <router-link class="answer-btn"  :to="{path:'/question/'+cardData.id}">Answer</router-link>
+        <div class="answers-list" v-if="answerBtn">
+            <div class="new-block">
+                <div class="files">
+                    <v-icon>sbf-attach</v-icon>
+                    <span>1</span>
+                </div>
+                <ul class="users">
+                    <li>
+                        <img src="../../../helpers/img/user.png" class="avatar"/>
+                        <v-icon>sbf-chat</v-icon>
+                    </li>     
+                     <li>
+                        <img src="../../../helpers/img/user.png" class="avatar"/>
+                        <v-icon>sbf-chat</v-icon>
+                    </li>                 
+                </ul>
+            </div>
+            
+            <div class="answer"> <!--  v-if="answers.length>=2" -->
+                <router-link class="answer-btn"  :to="{path:'/question/'+cardData.id}">Answer</router-link>
+            </div> 
         </div>
 
     </v-flex>
