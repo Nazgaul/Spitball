@@ -76,7 +76,7 @@
 
                     <v-tabs-content :key="'2'" :id="'tab-2'">
                         <v-flex xs12>
-                            <div ref="chat-area"></div>
+                            <div ref="chat-area" class="chat-iframe"></div>
                         </v-flex>
                     </v-tabs-content>
 
