@@ -3,7 +3,7 @@ import questionService from '../../../services/questionService';
 import disableForm from "../../mixins/submitDisableMixin"
 
 export default {
-    mixins:[disableForm],
+    mixins: [disableForm],
     components: {extendedTextArea},
     data() {
         return {
@@ -17,13 +17,17 @@ export default {
     methods: {
         submitQuestion() {
             var self = this;
-            if(!this.submitted) {
+            if (!this.submitted) {
                 this.submitForm();
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.price, this.files)
                     .then(function () {
-                        debugger;
-                        self.$router.push({path: '/ask', query: {q: ''}});
-                    });
+                            debugger;
+                            self.$router.push({path: '/ask', query: {q: ''}});
+                        },
+                        function (error) {
+                            console.error(error);
+                            this.submitForm(false);
+                        });
             }
         },
         addFile(filename) {

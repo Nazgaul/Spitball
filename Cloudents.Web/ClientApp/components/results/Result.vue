@@ -43,7 +43,9 @@
                                 </v-flex>
                                 <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component v-if="item.template!=='ask'" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" :class="item.template!='video' ? 'border-color-'+$route.path.slice(1):''"></component>
-                                    <question-card v-else :cardData="item" answer-btn click-card></question-card>
+                                    <router-link v-else :to="{path:'/question/'+item.id}">
+                                        <question-card :cardData="item" answer-btn click-card></question-card>
+                                    </router-link>
                                     <!--<div class="show-btn" v-if="item.template!='video'" :class="'color-'+$route.path.slice(1)">Show Me</div>-->
                                 </v-flex>
                                 <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">

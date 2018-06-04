@@ -1,5 +1,5 @@
 <template>
-    <v-flex v-if="cardData" xs12 class="question-card" :class="{'card-route':clickCard}" @click="openQuestion()">
+    <v-flex v-if="cardData" xs12 class="question-card" :class="{'card-route':clickCard}">
         <div v-if="!typeAnswer">
             <div class="q-price">
                 <span>Earn {{cardData.price}}$</span>
