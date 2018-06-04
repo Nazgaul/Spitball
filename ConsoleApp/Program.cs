@@ -66,31 +66,37 @@ namespace ConsoleApp
 
             //topicClient = new TopicClient(ServiceBusConnectionString, TopicName);
 
-           // await SendMessagesAsync(10);
+            // await SendMessagesAsync(10);
 
-            //var a = container.Resolve<IBlockChainErc20Service>();
+            var a = container.Resolve<IBlockChainErc20Service>();
+            var c = a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", "0xAcfB119204a93BbDa781C972D27AeAB8671c63f4", 10, default);
+            var b = a.GetBalanceAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
+            //var b = await a.CreateNewTokens("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 10, default);
             ////var (privateKey, publicAddress) = a.CreateAccount();
             //var b = a.GetBalanceAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
 
+            //var a = container.Resolve<IBlockChainCrowdSaleService>();
+            //var b = await a.BuyTokensAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", 10, default);
+            //await a.Withdrawal(default);
 
-            Guid answer = Guid.NewGuid();
-            var c = container.Resolve<ICommandBus>();
-            var command = new CreateQuestionCommand()
-            {
-                Price = 0.5m,
-                SubjectId = 1,
-                Text = "123",
-                UserId = 11
-            };
-            await c.DispatchAsync(command, default);
-            
-            //await c.SubmitQuestionAsync(3, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
-           //await c.SubmitAnswerAsync(3, answer, default);
-           
-           //await c.UpVoteAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, 1, default);
+            //Guid answer = Guid.NewGuid();
+            // var c = container.Resolve<IBlockChainQAndAContract>();
+            //var command = new CreateQuestionCommand()
+            //{
+            //    Price = 0.5m,
+            //    SubjectId = 1,
+            //    Text = "123",
+            //    UserId = 11
+            //};
+            //await c.DispatchAsync(command, default);
+
+            // await c.SubmitQuestionAsync(3, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
+            //await c.SubmitAnswerAsync(3, answer, default);
+
+            //await c.UpVoteAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, 1, default);
             //await c.MarkAsCorrectAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, default);
-           // var h = await c.UpVoteListAsync(3, answer, default);
-           // Console.WriteLine(h[0]);
+            // var h = await c.UpVoteListAsync(3, answer, default);
+            // Console.WriteLine(h[0]);
             //Guid.Parse("078d1202-834a-4634-9aec-1bdf1127368c")
 
             Console.WriteLine("Finish");

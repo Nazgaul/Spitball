@@ -24,11 +24,10 @@ namespace Cloudents.Infrastructure.Blockchain
         public async Task SubmitQuestionAsync(long questionId, decimal price, string userAddress,
             CancellationToken token)
         {
+            var weiPrice = (double)price * FromWei;
             var operationToExe = await GetFunctionAsync("submitNewQuestion", token).ConfigureAwait(false);
-            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId, price, userAddress).ConfigureAwait(false);
+            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId, weiPrice, userAddress).ConfigureAwait(false);
         }
-
-        
 
         public async Task SubmitAnswerAsync(long questionId, Guid answerId, CancellationToken token)
         {
@@ -36,16 +35,16 @@ namespace Cloudents.Infrastructure.Blockchain
             await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId, answerId.ToString()).ConfigureAwait(false);
         }
 
-        public async Task MarkAsCorrectAsync(string userAddress, string winnerAddress, long question, Guid answerId, CancellationToken token)
+        public async Task MarkAsCorrectAsync(string userAddress, string winnerAddress, long questionId, Guid answerId, CancellationToken token)
         {
             var operationToExe = await GetFunctionAsync("approveAnswer", token).ConfigureAwait(false);
-            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, question, answerId.ToString(), winnerAddress, userAddress).ConfigureAwait(false);
+            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId, answerId.ToString(), winnerAddress, userAddress).ConfigureAwait(false);
         }
 
-        public async Task UpVoteAsync(string userAddress, long question, Guid answerId, CancellationToken token)
+        public async Task UpVoteAsync(string userAddress, long questionId, Guid answerId, CancellationToken token)
         {
             var operationToExe = await GetFunctionAsync("upVote", token).ConfigureAwait(false);
-            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, question,
+            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId,
                 answerId.ToString(), userAddress).ConfigureAwait(false);
         }
 
@@ -55,10 +54,16 @@ namespace Cloudents.Infrastructure.Blockchain
             return await function.CallAsync<List<string>>(questionId, answerId.ToString()).ConfigureAwait(false);
         }
 
-        private async Task<Function> GetFunctionAsync(string name, CancellationToken token)
+        //private async Task<Function> GetFunctionAsync(string name, CancellationToken token)
+        //{
+        //    var contract = await GetContractAsync(GenerateWeb3Instance(SpitballPrivateKey), token).ConfigureAwait(false);
+        //    return contract.GetFunction(name);
+        //}
+
+        public async Task SpreadFounds(long questionId, CancellationToken token)
         {
-            var contract = await GetContractAsync(GenerateWeb3Instance(SpitballPrivateKey), token).ConfigureAwait(false);
-            return contract.GetFunction(name);
+            var operationToExe = await GetFunctionAsync("spreadFounds", token).ConfigureAwait(false);
+            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId).ConfigureAwait(false);
         }
 
     }

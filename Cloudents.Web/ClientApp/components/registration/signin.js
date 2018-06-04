@@ -21,14 +21,16 @@ export default {
     methods: {
         submit() {
             self = this;
-            this.submitted=true;
-            registrationService.signIn(this.userEmail, this.password, this.recaptcha)
-                .then(function () {
-                    self.$router.push({path: '/note', query: {q: ''}});
-                }, function (reason) {
-                    debugger;
-                    console.error(reason);
-                });
+            if(!this.submitted) {
+                this.submitted = true;
+                registrationService.signIn(this.userEmail, this.password, this.recaptcha)
+                    .then(function () {
+                        self.$router.push({path: '/note', query: {q: ''}});
+                    }, function (reason) {
+                        debugger;
+                        console.error(reason);
+                    });
+            }
         },
         onVerify(response) {
             this.recaptcha = response;

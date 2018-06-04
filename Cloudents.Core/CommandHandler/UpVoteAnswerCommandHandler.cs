@@ -27,7 +27,7 @@ namespace Cloudents.Core.CommandHandler
             await _blockChainProvider.UpVoteAsync(user.PublicKey, question.Id, message.Id, token).ConfigureAwait(false);
 
             answer.UpVote++;
-            await _repository.SaveAsync(answer, token).ConfigureAwait(false);
+            await _repository.SaveAsync(answer, token).ConfigureAwait(true);
         }
     }
 }

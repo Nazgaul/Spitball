@@ -48,7 +48,7 @@
 
 
                 <v-flex xs12>
-                    <v-btn block color="primary" @click="submitQuestion()" :disabled="!validForm" class="ask_btn">Ask</v-btn>
+                    <v-btn block color="primary" @click.once="submitQuestion()" :disabled="!validForm||submitted" class="ask_btn">Ask</v-btn>
                 </v-flex>
 
             </v-layout>

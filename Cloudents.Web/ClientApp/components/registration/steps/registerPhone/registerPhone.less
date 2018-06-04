@@ -1,21 +1,21 @@
 @import "../../../../mixin.less";
 
 .step-phone .step-wrapper {
-  .input-wrapper {
+  .input-wrapper, select {
     margin-top: 24px;
-
-    .phone-field {
-      padding-left: 36px;
-      margin-top: 0;
-
-      ~ i {
-        position: absolute;
-        top: 14px;
-        left: 16px;
-      }
-    }
   }
-  .code-field {
+
+  .phone-field input{
+     padding-left: 36px;
+     margin-top: 0;
+
+     ~ i {
+       position: absolute;
+       top: 14px;
+       left: 16px;
+     }
+   }
+  .code-field input{
     margin-top: 0;
     padding-left: 50px;
     margin-bottom: 4px;
