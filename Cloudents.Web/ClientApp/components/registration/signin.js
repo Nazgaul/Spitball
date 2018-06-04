@@ -12,6 +12,7 @@ export default {
             keepLogedIn: false,
             submitted:false,
             recaptcha: '',
+            errorMessage:''
         }
     },
     computed:{
@@ -22,16 +23,16 @@ export default {
     methods: {
         submit() {
             self = this;
-            if(!this.submitted) {
+            // if(!this.submitted) {
                 this.submitted = true;
                 registrationService.signIn(this.userEmail, this.password, this.recaptcha)
                     .then(function () {
                         self.$router.push({path: '/note', query: {q: ''}});
                     }, function (reason) {
                         debugger;
-                        console.error(reason);
+                        self.errorMessage = reason.response.data;
                     });
-            }
+            // }
         },
         onVerify(response) {
             this.recaptcha = response;
