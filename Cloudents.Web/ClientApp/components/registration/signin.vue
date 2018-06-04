@@ -4,7 +4,7 @@
             <div slot="step-data" class="limited-width">
                 <h1 class="step-title">Login</h1>
                 <form @submit.prevent="submit">
-                    <sb-input :required="true" class="email-field" type="email" name="email" id="input-url" v-model="userEmail" placeholder="Enter your email address"></sb-input>
+                    <sb-input :errorMessage="errorMessage" :required="true" class="email-field" type="email" name="email" id="input-url" v-model="userEmail" placeholder="Enter your email address"></sb-input>
                     <sb-input :required="true" class="password-field" type="password" name="password" id="input-url" v-model="password" placeholder="Password (Account key)"></sb-input>
                     <div class="checkbox-wrap">
                         <input id="keep-logged-in" type="checkbox" v-model="keepLogedIn">
