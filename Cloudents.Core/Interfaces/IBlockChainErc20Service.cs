@@ -8,8 +8,8 @@ namespace Cloudents.Core.Interfaces
         //(string privateKey, string publicAddress) CreateAccount();
         Task<decimal> GetBalanceAsync(string senderAddress, CancellationToken token);
         Task<string> TransferMoneyAsync(string senderPk, string toAddress, float amount, CancellationToken token);
-        
         Task SetInitialBalanceAsync(string address, CancellationToken token);
         //string GetPublicAddress(string privateKey);
+        Task<string> CreateNewTokens(string toAddress, int amount, CancellationToken token);
     }
 }

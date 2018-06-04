@@ -9,48 +9,112 @@
     "type": "function"
   },
   {
-    "anonymous": false,
-    "inputs": [
+    "constant": true,
+    "inputs": [],
+    "name": "deadline",
+    "outputs": [
       {
-        "indexed": false,
-        "name": "backer",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "name": "amount",
+        "name": "",
         "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "name": "isContribution",
-        "type": "bool"
       }
     ],
-    "name": "FundTransfer",
-    "type": "event"
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    "anonymous": false,
+    "constant": true,
+    "inputs": [],
+    "name": "beneficiary",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "tokenReward",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [
       {
-        "indexed": false,
-        "name": "recipient",
+        "name": "",
         "type": "address"
-      },
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
       {
-        "indexed": false,
-        "name": "totalAmountRaised",
+        "name": "",
         "type": "uint256"
       }
     ],
-    "name": "GoalReached",
-    "type": "event"
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "fundingGoal",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "amountRaised",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "price",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
     "constant": false,
     "inputs": [],
-    "name": "Create",
+    "name": "buyTokens",
     "outputs": [],
     "payable": true,
     "stateMutability": "payable",
@@ -93,106 +157,42 @@
     "type": "constructor"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "amountRaised",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
+    "anonymous": false,
     "inputs": [
       {
-        "name": "",
+        "indexed": false,
+        "name": "recipient",
         "type": "address"
-      }
-    ],
-    "name": "balanceOf",
-    "outputs": [
+      },
       {
-        "name": "",
+        "indexed": false,
+        "name": "totalAmountRaised",
         "type": "uint256"
       }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    "name": "GoalReached",
+    "type": "event"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "beneficiary",
-    "outputs": [
+    "anonymous": false,
+    "inputs": [
       {
-        "name": "",
+        "indexed": false,
+        "name": "backer",
         "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "deadline",
-    "outputs": [
+      },
       {
-        "name": "",
+        "indexed": false,
+        "name": "amount",
         "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "fundingGoal",
-    "outputs": [
+      },
       {
-        "name": "",
-        "type": "uint256"
+        "indexed": false,
+        "name": "isContribution",
+        "type": "bool"
       }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "price",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "tokenReward",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    "name": "FundTransfer",
+    "type": "event"
   }
 ]

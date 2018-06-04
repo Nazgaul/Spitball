@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface ICrowdSaleService
+    public interface IBlockChainCrowdSaleService
     {
         Task<string> BuyTokensAsync(string senderPrivateKey, int amount, CancellationToken token);
-        //(string privateKey, string publicAddress) CreateAccount();
+        Task Withdrawal(CancellationToken token);
     }
 }

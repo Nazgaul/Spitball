@@ -96,5 +96,11 @@ namespace Cloudents.Infrastructure.BlockChain
             string address = Web3.GetAddressFromPrivateKey(privateKey.ToHex());
             return (privateKey.ToHex(), address);
         }
+
+        protected async Task<Function> GetFunctionAsync(string name, CancellationToken token)
+        {
+            var contract = await GetContractAsync(GenerateWeb3Instance(SpitballPrivateKey), token).ConfigureAwait(false);
+            return contract.GetFunction(name);
+        }
     }
 }
