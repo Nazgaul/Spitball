@@ -16,7 +16,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Policy = SignInStep.PolicyAll)]
+    //[Authorize(Policy = SignInStep.PolicyAll)]
     public class QuestionController : Controller
     {
         private readonly Lazy<ICommandBus> _commandBus;
@@ -56,7 +56,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetQuestionAsync(long id,
             [FromServices] IQueryBus bus, CancellationToken token)
         {
-            var retVal = await bus.QueryAsync<long, QuestionDetailDto>(id,token).ConfigureAwait(false);
+            var retVal = await bus.QueryAsync<long, QuestionDetailDto>(id, token).ConfigureAwait(false);
             return Ok(retVal);
         }
 

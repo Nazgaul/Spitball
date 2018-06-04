@@ -143,7 +143,6 @@ namespace Cloudents.Web.Api
         [HttpPost("password")]
         [Authorize(Policy = SignInStep.PolicyPassword)]
         public async Task<IActionResult> GeneratePasswordAsync(
-            [FromServices] ICrowdSaleService blockChainProvider,
             [FromServices] IBlockChainErc20Service blockChainErc20Service,
             [FromServices] IQueueProvider client,
             CancellationToken token)

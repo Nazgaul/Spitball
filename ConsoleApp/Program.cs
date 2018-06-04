@@ -59,6 +59,7 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
@@ -80,6 +81,14 @@ namespace ConsoleApp
 
             //Guid answer = Guid.NewGuid();
             // var c = container.Resolve<IBlockChainQAndAContract>();
+            //var command = new CreateQuestionCommand()
+            //{
+            //    Price = 0.5m,
+            //    SubjectId = 1,
+            //    Text = "123",
+            //    UserId = 11
+            //};
+            //await c.DispatchAsync(command, default);
 
             // await c.SubmitQuestionAsync(3, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
             //await c.SubmitAnswerAsync(3, answer, default);

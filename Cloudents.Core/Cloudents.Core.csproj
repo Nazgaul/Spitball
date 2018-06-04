@@ -11,13 +11,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Query\Queries\**" />
+    <EmbeddedResource Remove="Query\Queries\**" />
+    <None Remove="Query\Queries\**" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="Microsoft.Spatial" Version="7.2.0" />
     <PackageReference Include="Autofac" Version="4.6.1" />
     <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Query\Queries\" />
   </ItemGroup>
 </Project>
