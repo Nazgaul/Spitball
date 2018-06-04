@@ -31,7 +31,7 @@ let us know! We may be able to add it quickly.
     font-family: "Whitney SSm A", "Whitney SSm B", "Helvetica", sans-serif;
     font-size: 13.3px;
     line-height: 1.37em;
-    color: #111;
+    color: #4a4a4a;
 }
 
 /* The following three classes allow you to tune the TalkJS layout.
@@ -53,9 +53,9 @@ let us know! We may be able to add it quickly.
     /* By using `calc` below we can ensure that the total width of the feed, the chat,
        and the space in between is precisely 100%. We recommend the same if you also
        use percentage widths and a margin. */
-    width: calc(60% - 20px);
+    width: calc(60%);
     max-width: 420px;
-    margin-left: 20px;
+    /* margin-left: 20px; */
 }
 
 /* A panel is a rectangular box, such as the message list or
@@ -64,41 +64,46 @@ let us know! We may be able to add it quickly.
     border-radius: 5px;
     border-width: 1px;
     border-color: #dce0e0;
-    background-color: purple;
+    background-color: #fff;
     padding: 10px;
 }
 
 /* Applies to messages written by the current user. */
 .message-balloon-me {
     width: 75%;
-    background-color: #00bcd4;
-    color: #fff; /* optional, defaults to .global#color */
-    border-color: #02b3c9;
-    border-radius: 20px;
+    height: 100%;
+    color: #4a4a4a;
+    border-color:#dddddd;
     border-width: 1px;
+    border-radius: 15px 0px 15px 15px;
+    background-color: #9ccdff;
+
 }
 
 /* Applies to messages *not* written by the current user. */
 .message-balloon-other {
     width: 75%;
-    background-color: #fff;
-    color: #111; /* optional, defaults to .global#color */
-    border-color: #eee;
-    border-radius: 20px;
+    border-radius: 0px 15px 15px 15px;
+    color: #4a4a4a;
+    border-color:#dddddd;
     border-width: 1px;
+    background-color: #ffffff;
 }
 
 /* These are the horizontal markers that separate messages sent on different days */
 .day-marker {
-    color: #FE4365;
+    color: #d8d8d8;
 }
 
 /* The avatar is the user's picture in the profile panel and in the conversation
    history. */
 .avatar {
-    border-radius: 50%;
-    border-width: 2px;
-    border-color: #fff;
+    border-width: 1px;
+    border-color: #d8d8d8;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #d8d8d8;
 }
 
 /* This applies to the text input box underneath the message list. */
@@ -112,23 +117,24 @@ let us know! We may be able to add it quickly.
 
 /* Styles all links, globally. */
 .link {
-    color: rgb(0, 0, 238);
+    color: #3293f6;
 }
 
 /* The highlight colors control of the currently selected
    conversation in the conversation feed, as well as a few accents here and
    there. */
 .highlight {
-    background-color: #0288d1;
-    color: #fff;
+    background-color: #f6f6f6;
+    color: #4a4a4a;
 }
 
 /* This colors the "Desktop Notifications" toggle in the Inbox view. */
 .toggle-button {
-    border-color: #6fc754;
+    border-color: #3293f6;
 }
+
 .Panel {
-    background-color: red;
+    background-color: #fff;
     border-radius: 5px;
     border-width: 1px;
     border-color: #dce0e0;

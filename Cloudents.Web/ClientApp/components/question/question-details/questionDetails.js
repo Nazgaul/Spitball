@@ -45,6 +45,8 @@ export default {
                 self.questionData = response.data;
                 if(self.accountUser) {
                     self.questionData.myQuestion = self.accountUser.id === response.data.user.id;
+                }else{
+                    self.questionData.myQuestion = true; // if accountUser is null the chat shouldn't appear 
                 }
                 // self.questionData.correctAnswer = '1A5B19B2-573D-44EC-9486-A8E900D811F5';//TODO: remove when ram adds it to the api
                 self.buildChat();
