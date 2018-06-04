@@ -10,11 +10,13 @@
                         ({{item.callingCode}})
                     </option>
                 </select>
-                <div class="input-wrapper">
-                    <input class="phone-field input-field" v-model="phone.phoneNum" placeholder="Enter phone number"/>
-                    <v-icon>sbf-phone</v-icon>
-                </div>
-                <button class="continue-btn" @click="sendCode" :disabled="submitted||!(phone.phoneNum&&phone.countryCode)">Continue</button>
+                <sb-input class="phone-field" icon="sbf-phone" :errorMessage="errorMessage.phone" v-model="phone.phoneNum" placeholder="Enter phone number" name="email" type="tel" :autofocus="true"></sb-input>
+
+                <!--<div class="input-wrapper">-->
+                    <!--<input class="phone-field input-field" v-model="phone.phoneNum" placeholder="Enter phone number"/>-->
+                    <!--<v-icon>sbf-phone</v-icon>-->
+                <!--</div>-->
+                <button class="continue-btn" @click="sendCode()" :disabled="submitted||!(phone.phoneNum&&phone.countryCode)">Continue</button>
             </div>
             <img slot="step-image" :src="require(`../../img/enter-phone.png`)"/>
         </step-template>
@@ -26,12 +28,13 @@
                 <p class="phone-num">(+{{this.phone.countryCode}}) {{this.phone.phoneNum}}</p>
                 <button class="small-button" @click="codeSent = false">Edit</button>
                 <p class="confirm-title">Please enter the code below to confirm it.</p>
-                <div class="input-wrapper">
-                    <input class="code-field input-field" v-model="confirmationCode" placeholder="Confirmation code"></input>
-                    <v-icon>sbf-key</v-icon>
-                </div>
+                <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code" v-model="confirmationCode" placeholder="Confirmation code" type="number" :autofocus="true"></sb-input>
+                <!--<div class="input-wrapper">-->
+                    <!--<input class="code-field input-field" v-model="confirmationCode" placeholder="Confirmation code"></input>-->
+                    <!--<v-icon>sbf-key</v-icon>-->
+                <!--</div>-->
                 <button class="small-button" @click="sendCode">Resend</button>
-                <button class="continue-btn submit-code" @click.once="next" :disabled="submitted||!confirmationCode">Continue</button>
+                <button class="continue-btn submit-code" @click="next" :disabled="submitted||!confirmationCode">Continue</button>
             </div>
             <img slot="step-image" :src="require(`../../img/confirm-phone.png`)"/>
         </step-template>

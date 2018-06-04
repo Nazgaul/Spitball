@@ -34,13 +34,11 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet]
-        //[Authorize(Policy = SignInStep.PolicyAll)]
+        [Authorize(Policy = SignInStep.PolicyAll)]
 
         public async Task<IActionResult> GetAsync(
-            [FromServices] SignInManager<User> signInManager,
             [FromServices] IBlockChainErc20Service blockChain, CancellationToken token)
         {
-            if (!signInManager.IsSignedIn(User)) return Unauthorized();
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var balance = await blockChain.GetBalanceAsync(user.PublicKey, token).ConfigureAwait(false);
             return Ok(new
