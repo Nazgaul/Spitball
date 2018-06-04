@@ -1,9 +1,10 @@
 import stepTemplate from './steps/stepTemplate.vue';
 import VueRecaptcha from 'vue-recaptcha';
 import registrationService from '../../services/registrationService';
+import SbInput from "../question/helpers/sbInput/sbInput.vue";
 
 export default {
-    components: {stepTemplate, VueRecaptcha},
+    components: {stepTemplate, VueRecaptcha, SbInput},
     data() {
         return {
             userEmail: '',
