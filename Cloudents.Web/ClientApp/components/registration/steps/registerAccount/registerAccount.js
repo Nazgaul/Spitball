@@ -16,7 +16,7 @@ export default {
     },
     methods: {
         next() {
-            if(!this.submitted) {
+            // if(!this.submitted) {
                 this.submitForm();
                 if (!this.dialogWasViewed) {
                     this.openDialog = true;
@@ -24,7 +24,7 @@ export default {
                 else {
                     this.showSummary = true;
                 }
-            }
+            // }
         },
         closeDialog() {
             this.openDialog = false;
