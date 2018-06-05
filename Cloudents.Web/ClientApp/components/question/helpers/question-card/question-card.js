@@ -1,7 +1,6 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import questionService from "../../../../services/questionService";
 import disableForm from "../../../mixins/submitDisableMixin"
-import {mapGetters} from "vuex";
 
 export default {
     mixins:[disableForm],
