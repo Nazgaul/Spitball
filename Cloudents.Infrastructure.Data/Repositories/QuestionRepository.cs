@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
         {
         }
 
-        public async Task<IEnumerable<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token)
+        public async Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token)
         {
             QuestionDto dto = null;
             QuestionSubject commentAlias = null;
@@ -42,7 +42,19 @@ namespace Cloudents.Infrastructure.Data.Repositories
             queryOverObj.OrderBy(o => o.Id).Desc
                 .Skip(query.Page * 50)
                 .Take(50);
-            return await queryOverObj.ListAsync<QuestionDto>(token).ConfigureAwait(false);
+
+            var futureQueryOver = queryOverObj.Future<QuestionDto>();
+
+            var facetsFuture = Session.Query<QuestionSubject>().Select(s => s.Text).ToFuture();
+            var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(false);
+            var facet = await facetsFuture.GetEnumerableAsync(token).ConfigureAwait(false);
+
+
+            return new ResultWithFacetDto<QuestionDto>
+            {
+                Result = retVal,
+                Facet = facet
+            };
         }
 
         public async Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token)

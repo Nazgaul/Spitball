@@ -178,11 +178,11 @@ export const pageMixin =
                 this.fetchingData({
                     name: this.name,
                     params: {...this.query, ...this.params}
-
                 })
                     .then(({data}) => {
                         updateData.call(this, {...data,vertical:this.name});//irena
                     }).catch(reason => {
+                        console.error(reason);
                     //when error from fetching data remove the loader
                     this.UPDATE_LOADING(false);
                     this.items = [];

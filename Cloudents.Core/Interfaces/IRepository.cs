@@ -36,6 +36,6 @@ namespace Cloudents.Core.Interfaces
         [ItemCanBeNull]
         Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token);
 
-        Task<IEnumerable<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token);
+        Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token);
     }
 }

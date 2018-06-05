@@ -7,7 +7,7 @@ using Cloudents.Core.Query;
 
 namespace Cloudents.Core.QueryHandler
 {
-    public class QuestionsQueryHandler : IQueryHandlerAsync<QuestionsQuery, IEnumerable<QuestionDto>>
+    public class QuestionsQueryHandler : IQueryHandlerAsync<QuestionsQuery, ResultWithFacetDto<QuestionDto>>
     {
         private readonly IQuestionRepository _questionRepository;
 
@@ -16,7 +16,7 @@ namespace Cloudents.Core.QueryHandler
             _questionRepository = questionRepository;
         }
 
-        public Task<IEnumerable<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
+        public Task<ResultWithFacetDto<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
         {
             return _questionRepository.GetQuestionsAsync(query, token);
         }

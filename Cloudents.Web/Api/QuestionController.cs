@@ -71,7 +71,7 @@ namespace Cloudents.Web.Api
             var query = _mapper.Map<QuestionsQuery>(model);
             if (string.IsNullOrWhiteSpace(query.Term))
             {
-                var retVal = await queryBus.QueryAsync<QuestionsQuery, IEnumerable<QuestionDto>>(query, token).ConfigureAwait(false);
+                var retVal = await queryBus.QueryAsync<QuestionsQuery, ResultWithFacetDto<QuestionDto>>(query, token).ConfigureAwait(false);
                 return Ok(retVal);
             }
             else
