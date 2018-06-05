@@ -21,6 +21,8 @@ namespace Cloudents.Core.DTOs
         public DateTime Create { get; set; }
 
         public IEnumerable<Uri> Files { get; set; }
+
+        public Guid? CorrectAnswerId { get; set; }
     }
 
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]

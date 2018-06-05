@@ -53,7 +53,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
                 .Fetch(f => f.User)
                 .Select(s => new QuestionDetailDto
                 {
-                    User = new UserDto()
+                    User = new UserDto
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
@@ -63,7 +63,8 @@ namespace Cloudents.Infrastructure.Data.Repositories
                     Create = s.Created,
                     Price = s.Price,
                     Subject = s.Subject.Text,
-                    Text = s.Text
+                    Text = s.Text,
+                    CorrectAnswerId = s.CorrectAnswer.Id
                 }).ToFutureValue();
             var answersFuture = Session.Query<Answer>()
                 .Where(w => w.Question.Id == id)
