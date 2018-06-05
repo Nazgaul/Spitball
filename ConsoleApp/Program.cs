@@ -68,6 +68,8 @@ namespace ConsoleApp
             //topicClient = new TopicClient(ServiceBusConnectionString, TopicName);
 
             // await SendMessagesAsync(10);
+            var ty = "ram@cloudents.com";
+            var z = ty.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
 
             var a = container.Resolve<IQuestionRepository>();
             var t = await a.GetQuestionsAsync(new QuestionsQuery()

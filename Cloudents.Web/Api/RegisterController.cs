@@ -43,7 +43,7 @@ namespace Cloudents.Web.Api
         [ValidateModel, ValidateRecaptcha]
         public async Task<IActionResult> CreateUserAsync([FromBody]RegisterEmailRequest model, CancellationToken token)
         {
-            var userName = model.Email.Split(new[] { '.', '@' }, 1, StringSplitOptions.RemoveEmptyEntries)[0];
+            var userName = model.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             var user = new User
             {
                 Email = model.Email,

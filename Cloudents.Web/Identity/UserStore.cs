@@ -168,8 +168,6 @@ namespace Cloudents.Web.Identity
         {
             Expression<Func<User, bool>> expression = f => f.NormalizedEmail == normalizedEmail;
             return _queryBus.QueryAsync<Expression<Func<User, bool>>, User>(expression, cancellationToken);
-            //return _userRepository.Value.GetQueryable()
-            //    .FirstOrDefaultAsync(f => f.NormalizedEmail == normalizedEmail, cancellationToken: cancellationToken);
         }
 
         public Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancellationToken)
