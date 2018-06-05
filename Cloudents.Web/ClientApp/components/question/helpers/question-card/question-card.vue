@@ -10,8 +10,10 @@
         <div v-else class="q-answer">
             <p class="q-text"><strong>Answer:</strong></p>
             <div class="votes">
-                <v-icon class="upvotes" @click="upVote()">sbf-chevron-down</v-icon>
-                <span>3 Upvotes</span>
+                <button class="upvote-btn" @click="upVote()">
+                    <v-icon class="upvotes">sbf-chevron-down</v-icon>
+                </button>
+                <span>{{cardData.upVote}} Upvote{{cardData.upVote === 1 ? '' :'s'}}</span>
             </div>
 
         </div>
