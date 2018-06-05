@@ -9,7 +9,7 @@
                             <img :src="require(`./img/student_ask.png`)"/>
                         </div>
                         <span class="text-blue">Get Your Question Answered</span>
-                        <button class="back-button">
+                        <button class="back-button" @click="$router.go(-1)">
                             <v-icon right>sbf-close</v-icon>
                         </button>
                     </div>

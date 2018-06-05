@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="chat-container" style="width: 90%; margin: 30px; min-height: 150px"></div>
+        <div id="chat-container"></div>
     </div>
 </template>
 

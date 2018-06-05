@@ -18,7 +18,7 @@
 
                 <v-flex :class="{'xs7': !questionData.myQuestion, 'xs12': questionData.myQuestion}">
                     <question-thread v-if="questionData" :questionData="questionData">
-                        <div slot="answer-form" class="mb-3">
+                        <div v-if="!questionData.myQuestion" slot="answer-form" class="mb-3">
                             <div v-if="!questionData.answers || (questionData.answers && showForm)">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                         v-model="textAreaValue"

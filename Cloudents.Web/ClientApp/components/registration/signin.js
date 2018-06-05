@@ -17,14 +17,12 @@ export default {
     },
     computed:{
         disableSubmit: function () {
-            return this.submitted || !(this.userEmail && this.password && this.recaptcha);
+            return this.submitted || !this.userEmail || !this.password || !this.recaptcha;
         }
     },
     methods: {
         submit() {
             self = this;
-            // if(!this.submitted) {
-                this.submitted = true;
                 registrationService.signIn(this.userEmail, this.password, this.recaptcha)
                     .then(function () {
                         self.$router.push({path: '/note', query: {q: ''}});
@@ -32,7 +30,6 @@ export default {
                         debugger;
                         self.errorMessage = reason.response.data;
                     });
-            // }
         },
         onVerify(response) {
             this.recaptcha = response;

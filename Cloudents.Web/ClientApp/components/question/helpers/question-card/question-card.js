@@ -1,7 +1,10 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import questionService from "../../../../services/questionService";
+import disableForm from "../../../mixins/submitDisableMixin"
+import {mapGetters} from 'vuex'
 
 export default {
+    mixins:[disableForm],
     components: {userBlock},
     props: {
         typeAnswer: {
@@ -15,19 +18,15 @@ export default {
             default: false
         },
         cardData: {},
-        answerBtn: {
-            type: Boolean,
-            default: false
-        },
-        clickCard: {
-            type: Boolean,
-            default: false
-        },
         isApproved: {
             type: Boolean,
             default: false
         },
         isCorrectAnswer: {
+            type: Boolean,
+            default: false
+        },
+        detailedView: {
             type: Boolean,
             default: false
         }
@@ -42,16 +41,25 @@ export default {
     },
 
     computed: {
+        ...mapGetters(['accountUser']),
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
+        myQuestion(){
+            return this.accountUser || this.accountUser.id === this.cardData.userId; // will work once API call will also return userId
+        }
     },
     methods: {
         markAsCorrect() {
             this.$parent.markAsCorrect(this.cardData.id); //TODO: MEH :\  check if it can be done in a better way...
         },
         upVote(){
-            questionService.upVote(this.cardData.id);
+            if(this.submitForm()) {
+                self = this;
+                questionService.upVote(this.cardData.id).then(function () {
+                    self.cardData.upVote++;
+                });
+            }
         },
     }
 }

@@ -6,7 +6,7 @@
                 <p class="sub-title">Here is your account number, don’t lose it! Save it in a place you remember, or screenshot this
                     page.</p>
                 <account-num :account-num="accountNum"></account-num>
-                <button class="continue-btn" @click="next()">Continue</button>
+                <button class="continue-btn" @click.once="next()">Continue</button>
             </div>
             <img slot="step-image" :src="require(`../../img/account.png`)"/>
         </step-template>

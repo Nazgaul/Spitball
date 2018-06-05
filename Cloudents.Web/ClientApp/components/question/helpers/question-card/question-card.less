@@ -7,8 +7,6 @@
     min-height: 100px;
     width: 100%;
 
-    &.card-route{cursor: pointer;}
-    
     p{margin: 17px 19px 17px 17px;}
 
     .q-price{
@@ -46,6 +44,12 @@
             line-height: 1.79;
             color: @color-main-purple;
             display: flex;
+
+            .upvote-btn{
+                &:focus{
+                    outline: none;
+                }
+            }
     
             i.sbf{
                 width: 25px;
@@ -91,7 +95,7 @@
         justify-content: space-between;
     }
 
-    .answers-list{
+    .bottom-section .card-info{
         display: flex;    
         justify-content: space-between;        
         padding: 7px 17px 9px;

@@ -234,7 +234,7 @@ let routes2 = [
     //     }, name: "chat"
     // },
     {
-        path: "/confirmEmail",
+        path: "/verify-phone",
         components: {
             default: registration,
         },
