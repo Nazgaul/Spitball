@@ -2,7 +2,8 @@ import stepTemplate from './steps/stepTemplate.vue';
 import VueRecaptcha from 'vue-recaptcha';
 import registrationService from '../../services/registrationService';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
-
+import {mapGetters} from 'vuex'
+const defaultSubmitRoute={path: '/note', query: {q: ''}};
 export default {
     components: {stepTemplate, VueRecaptcha, SbInput},
     data() {
@@ -12,10 +13,11 @@ export default {
             keepLogedIn: false,
             submitted:false,
             recaptcha: '',
-            errorMessage:''
+            errorMessage:'',
         }
     },
     computed:{
+        ...mapGetters(['unAuthPath']),
         disableSubmit: function () {
             return this.submitted || !this.userEmail || !this.password || !this.recaptcha;
         }
@@ -25,7 +27,8 @@ export default {
             self = this;
                 registrationService.signIn(this.userEmail, this.password, this.recaptcha)
                     .then(function () {
-                        self.$router.push({path: '/note', query: {q: ''}});
+                        let url=self.unAuthPath||defaultSubmitRoute;
+                        self.$router.push({...url});
                     }, function (reason) {
                         debugger;
                         self.errorMessage = reason.response.data;
@@ -37,5 +40,5 @@ export default {
         onExpired() {
             this.recaptcha = "";
         }
-    },
+    }
 }
