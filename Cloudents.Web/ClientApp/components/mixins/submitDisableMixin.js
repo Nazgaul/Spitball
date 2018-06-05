@@ -5,6 +5,10 @@ export default {
     }
     },
     methods:{
-        submitForm(val=true){this.submitted=val;}
+        submitForm(val=true){
+            let retVal=!(val&&this.submitted);
+            this.submitted=val;
+        return retVal;
+        }
     }
 }

@@ -17,8 +17,7 @@ export default {
     methods: {
         submitQuestion() {
             var self = this;
-            if (!this.submitted) {
-                this.submitForm();
+            if (this.submitForm()) {
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.price, this.files)
                     .then(function () {
                             debugger;

@@ -18,19 +18,20 @@ export default {
     },
     methods: {
         next() {
-            this.submitForm();
-            var self = this;
-            if (this.originalUsername === this.username) {
-                self.$emit('next');
-            }
-            else {
-                accountService.setUserName(this.username)
-                    .then(function () {
-                        self.$emit('next');
-                    }, function (error) {
-                        self.submitForm(false);
-                        self.errorMessage = error.response.data ? error.response.data : error.message
-                    });
+            if(this.submitForm()) {
+                var self = this;
+                if (this.originalUsername === this.username) {
+                    self.$emit('next');
+                }
+                else {
+                    accountService.setUserName(this.username)
+                        .then(function () {
+                            self.$emit('next');
+                        }, function (error) {
+                            self.submitForm(false);
+                            self.errorMessage = error.response.data ? error.response.data : error.message
+                        });
+                }
             }
         },
     },
