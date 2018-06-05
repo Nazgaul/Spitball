@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Data
 
         private static void BuildSchema(Configuration config)
         {
-            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
+            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Validate);
         }
     }
 }

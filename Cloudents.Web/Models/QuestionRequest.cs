@@ -14,7 +14,13 @@ namespace Cloudents.Web.Models
         [Range(0.1, 1000)]
         public decimal Price { get; set; }
 
-
         public IEnumerable<string> Files { get; set; }
+    }
+
+    public class QuestionsRequest : IPaging
+    {
+        public string[] Term { get; set; }
+        public string[] Source { get; set; }
+        public int? Page { get; set; }
     }
 }

@@ -121,13 +121,13 @@ namespace Cloudents.Web
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(SignInStep.PolicyEmail,
-                    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Email.ToString("D")));
-                options.AddPolicy(SignInStep.PolicySms,
-                    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Sms.ToString("D")));
-                options.AddPolicy(SignInStep.PolicyPassword,
-                    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.UntilPassword.ToString("D")));
-                options.AddPolicy(SignInStep.PolicyAll,
+                //options.AddPolicy(SignInStep.PolicyEmail,
+                //    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Email.ToString("D")));
+                //options.AddPolicy(SignInStep.Sms,
+                //    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Sms.ToString("D")));
+                //options.AddPolicy(SignInStep.PolicyPassword,
+                //    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.UntilPassword.ToString("D")));
+                options.AddPolicy(SignInStep.Finish,
                     policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.All.ToString("D")));
             });
             services.ConfigureApplicationCookie(o =>

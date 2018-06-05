@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -56,12 +57,11 @@ namespace Cloudents.Web.Api
                 var link = Url.Link("ConfirmEmail", new { user.Id, code });
 
                 var message = new RegistrationEmail(model.Email, HtmlEncoder.Default.Encode(link));
-                var t1 = _queueProvider.InsertEmailMessageAsync(message, token);
-                var t2 = _signInManager.SignInAsync(user, false);
-                await Task.WhenAll(t1, t2).ConfigureAwait(false);
+                await _queueProvider.InsertEmailMessageAsync(message, token).ConfigureAwait(false);
                 return Ok();
             }
-            return BadRequest(p.Errors);
+            ModelState.AddIdentityModelError(p);
+            return BadRequest(ModelState);
         }
 
         [HttpPost("resend"), Authorize]
@@ -83,7 +83,8 @@ namespace Cloudents.Web.Api
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
             if (result == null)
             {
-                return BadRequest();
+                ModelState.AddModelError(string.Empty,"No result from google");
+                return BadRequest(ModelState);
             }
 
             var user = new User
@@ -98,11 +99,12 @@ namespace Cloudents.Web.Api
                 await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
                 return Ok();
             }
-            return BadRequest(p.Errors);
+            ModelState.AddIdentityModelError(p);
+            return BadRequest(ModelState);
         }
 
         [HttpPost("sms"), ValidateModel]
-        [Authorize(Policy = SignInStep.PolicyEmail)]
+        [Authorize]
         public async Task<IActionResult> SmsUserAsync([FromBody]PhoneNumberRequest model, [FromServices] IRestClient client, CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
@@ -121,12 +123,12 @@ namespace Cloudents.Web.Api
             {
                 return Ok();
             }
-
-            return BadRequest();
+            ModelState.AddModelError(string.Empty,"Invalid phone number");
+            return BadRequest(ModelState);
         }
 
         [HttpPost("sms/verify"), ValidateModel]
-        [Authorize(Policy = SignInStep.PolicyEmail)]
+        [Authorize]
         public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
@@ -134,14 +136,14 @@ namespace Cloudents.Web.Api
             var v = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, model.Number).ConfigureAwait(false);
             if (v.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
                 return Ok();
             }
-            return BadRequest();
+            ModelState.AddIdentityModelError(v);
+            return BadRequest(ModelState);
         }
 
         [HttpPost("password")]
-        [Authorize(Policy = SignInStep.PolicyPassword)]
+        [Authorize]
         public async Task<IActionResult> GeneratePasswordAsync(
             [FromServices] IBlockChainErc20Service blockChainErc20Service,
             [FromServices] IQueueProvider client,
@@ -174,7 +176,9 @@ namespace Cloudents.Web.Api
                     password = privateKey
                 });
             }
-            return BadRequest();
+
+            ModelState.AddIdentityModelError(t2.Result);
+            return BadRequest(ModelState);
         }
     }
 }

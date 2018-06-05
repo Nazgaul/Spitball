@@ -6,7 +6,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 
-namespace Cloudents.Core.Query
+namespace Cloudents.Core.QueryHandler
 {
     public class QuestionDetailQueryHandler: IQueryHandlerAsync<long,QuestionDetailDto>
     {
