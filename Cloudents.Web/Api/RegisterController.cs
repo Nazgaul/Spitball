@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -59,7 +60,8 @@ namespace Cloudents.Web.Api
                 await _queueProvider.InsertEmailMessageAsync(message, token).ConfigureAwait(false);
                 return Ok();
             }
-            return BadRequest(p.Errors);
+            ModelState.AddIdentityModelError(p);
+            return BadRequest(ModelState);
         }
 
         [HttpPost("resend"), Authorize]
@@ -81,7 +83,8 @@ namespace Cloudents.Web.Api
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
             if (result == null)
             {
-                return BadRequest();
+                ModelState.AddModelError(string.Empty,"No result from google");
+                return BadRequest(ModelState);
             }
 
             var user = new User
@@ -96,7 +99,8 @@ namespace Cloudents.Web.Api
                 await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
                 return Ok();
             }
-            return BadRequest(p.Errors);
+            ModelState.AddIdentityModelError(p);
+            return BadRequest(ModelState);
         }
 
         [HttpPost("sms"), ValidateModel]
@@ -119,8 +123,8 @@ namespace Cloudents.Web.Api
             {
                 return Ok();
             }
-
-            return BadRequest();
+            ModelState.AddModelError(string.Empty,"Invalid phone number");
+            return BadRequest(ModelState);
         }
 
         [HttpPost("sms/verify"), ValidateModel]
@@ -134,7 +138,8 @@ namespace Cloudents.Web.Api
             {
                 return Ok();
             }
-            return BadRequest();
+            ModelState.AddIdentityModelError(v);
+            return BadRequest(ModelState);
         }
 
         [HttpPost("password")]
@@ -171,7 +176,9 @@ namespace Cloudents.Web.Api
                     password = privateKey
                 });
             }
-            return BadRequest();
+
+            ModelState.AddIdentityModelError(t2.Result);
+            return BadRequest(ModelState);
         }
     }
 }

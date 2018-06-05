@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,12 +8,15 @@ using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
 namespace Cloudents.Web.Api
 {
@@ -109,15 +113,17 @@ namespace Cloudents.Web.Api
                 {
                     Name = _userManager.GetUserName(User)
                 }, token).ConfigureAwait(false);
-
-                return BadRequest(ex.Message);
+                ModelState.AddModelError(string.Empty,ex.Message);
+                return BadRequest(ModelState);
             }
 
             if (t1.Result.Succeeded)
             {
                 return Ok();
             }
-            return BadRequest(t1.Result.Errors);
+
+            ModelState.AddIdentityModelError(t1.Result);
+            return BadRequest(ModelState);
         }
 
         //TODO : need to figure out what well do.
@@ -133,7 +139,9 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("logout")]
-        [Authorize]
+        [Authorize
+        
+        ]
         public async Task<IActionResult> LogOutAsync(
             [FromServices] SignInManager<User> signInManager)
         {
