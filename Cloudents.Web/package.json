@@ -7,6 +7,7 @@
   },
   "scripts": {
     "test": "jest",
+    "prod": "webpack --env.prod",
     "client": "webpack --config webpack.config.vendor.js",
     "server": "webpack --config webpack.config.server.js"
   },

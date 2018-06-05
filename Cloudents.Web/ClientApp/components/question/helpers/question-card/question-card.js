@@ -46,7 +46,9 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         myQuestion(){
-            return this.accountUser || this.accountUser.id === this.cardData.userId; // will work once API call will also return userId
+            if(this.accountUser){
+                return this.accountUser.id === this.cardData.userId; // will work once API call will also return userId
+            }
         }
     },
     methods: {
