@@ -23,8 +23,8 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
         public async Task<IEnumerable<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token)
         {
-            const QuestionDto dto = null;
-            const QuestionSubject commentAlias = null;
+            QuestionDto dto = null;
+            QuestionSubject commentAlias = null;
             var queryOverObj = Session.QueryOver<Question>()
                 .JoinAlias(x => x.Subject, () => commentAlias)
                 .SelectList(l => l
@@ -39,13 +39,9 @@ namespace Cloudents.Infrastructure.Data.Repositories
             {
                 queryOverObj.WhereRestrictionOn(() => commentAlias.Text).IsIn(query.Source);
             }
-
-
             queryOverObj.OrderBy(o => o.Id).Desc
                 .Skip(query.Page * 50)
                 .Take(50);
-
-            //.TransformUsing(new DeepTransformer<QuestionDto>())
             return await queryOverObj.ListAsync<QuestionDto>(token).ConfigureAwait(false);
         }
 
