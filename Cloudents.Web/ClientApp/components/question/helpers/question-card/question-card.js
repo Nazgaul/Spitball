@@ -17,19 +17,15 @@ export default {
             default: false
         },
         cardData: {},
-        answerBtn: {
-            type: Boolean,
-            default: false
-        },
-        clickCard: {
-            type: Boolean,
-            default: false
-        },
         isApproved: {
             type: Boolean,
             default: false
         },
         isCorrectAnswer: {
+            type: Boolean,
+            default: false
+        },
+        detailedView: {
             type: Boolean,
             default: false
         }
@@ -44,9 +40,13 @@ export default {
     },
 
     computed: {
+        ...mapGetters(['accountUser']),
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
+        myQuestion(){
+            return this.accountUser || this.accountUser.id === this.cardData.userId; // will work once API call will also return userId
+        }
     },
     methods: {
         markAsCorrect() {

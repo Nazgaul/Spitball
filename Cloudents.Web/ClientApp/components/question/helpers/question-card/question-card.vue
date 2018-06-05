@@ -1,5 +1,5 @@
 <template>
-    <v-flex v-if="cardData" xs12 class="question-card" :class="{'card-route':clickCard}">
+    <v-flex v-if="cardData" xs12 class="question-card">
         <div v-if="!typeAnswer">
             <div class="q-price">
                 <span>Earn {{cardData.price}}$</span>
@@ -18,35 +18,37 @@
 
         <p class="q-text">{{cardData.text}}</p>
 
-        <div class="q-user-info" v-if="cardData.user">
-            <user-block :user="cardData.user"></user-block>
-            <div v-if="typeAnswer && showApproveButton">
-                <label for="mark-correct">Mark as correct answer</label>
-                <input id="mark-correct" type="checkbox" @click="markAsCorrect" :disabled="isCorrectAnswer" :checked="isCorrectAnswer"/>
-            </div>
-        </div>
-
-        <div class="answers-list" v-if="answerBtn">
-            <div class="new-block">
-                <div class="files">
-                    <v-icon>sbf-attach</v-icon>
-                    <span>1</span>
+        <div class="bottom-section">
+            <div v-if="detailedView && cardData.user" class="q-user-info card-info detailed"><!--v-if="cardData.user"-->
+                <user-block :user="cardData.user"></user-block>
+                <div v-if="typeAnswer && showApproveButton">
+                    <label for="mark-correct">Mark as correct answer</label>
+                    <input id="mark-correct" type="checkbox" @click="markAsCorrect" :disabled="isCorrectAnswer"
+                           :checked="isCorrectAnswer"/>
                 </div>
-                <ul class="users">
-                    <li>
-                        <img src="../../../helpers/img/user.png" class="avatar"/>
-                        <v-icon>sbf-chat</v-icon>
-                    </li>     
-                     <li>
-                        <img src="../../../helpers/img/user.png" class="avatar"/>
-                        <v-icon>sbf-chat</v-icon>
-                    </li>                 
-                </ul>
             </div>
-            
-            <div class="answer"> <!--  v-if="answers.length>=2" -->
-                <router-link class="answer-btn"  :to="{path:'/question/'+cardData.id}">Answer</router-link>
-            </div> 
+            <div v-else class="card-info general">
+                <div class="new-block">
+                    <div class="files">
+                        <v-icon>sbf-attach</v-icon>
+                        <span>1</span>
+                    </div>
+                    <ul class="users">
+                        <li>
+                            <img src="../../../helpers/img/user.png" class="avatar"/>
+                            <v-icon>sbf-chat</v-icon>
+                        </li>
+                        <li>
+                            <img src="../../../helpers/img/user.png" class="avatar"/>
+                            <v-icon>sbf-chat</v-icon>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="answer" v-if="!myQuestion">
+                    <button class="answer-btn">Answer</button>
+                </div>
+            </div>
         </div>
 
     </v-flex>
