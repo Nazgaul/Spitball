@@ -32,13 +32,14 @@
 
                 <v-flex class="web-content">
                     <div v-if="activeTab === 1">
-                        <router-link :to="{path:'/question/'+questionData.id}" v-for="questionData in profileData.ask">
-                            <question-card :cardData="questionData" answer-btn click-card></question-card>
+                        <router-link :to="{name:'question',params:{id:questionData.id}}" v-for="questionData in profileData.ask">
+                            <question-card :cardData="questionData"></question-card>
                         </router-link>
                     </div>
                     <div v-else-if="activeTab === 2">
-                        <question-card v-for="answerData in profileData.answer" :cardData="answerData" answer-btn
-                                       click-card></question-card>
+                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="answerData in profileData.answer">
+                            <question-card :cardData="answerData"></question-card>
+                        </router-link>
                     </div>
                     <div v-else-if="activeTab === 3">
                         <p>UPVOTED CONTENT</p>
