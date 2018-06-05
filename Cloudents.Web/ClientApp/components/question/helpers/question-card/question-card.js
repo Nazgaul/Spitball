@@ -1,7 +1,9 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import questionService from "../../../../services/questionService";
+import disableForm from "../../../mixins/submitDisableMixin"
 
 export default {
+    mixins:[disableForm],
     components: {userBlock},
     props: {
         typeAnswer: {
@@ -51,7 +53,7 @@ export default {
             this.$parent.markAsCorrect(this.cardData.id); //TODO: MEH :\  check if it can be done in a better way...
         },
         upVote(){
-            questionService.upVote(this.cardData.id);
+           this.submitForm()?questionService.upVote(this.cardData.id):'';
         },
     }
 }

@@ -38,16 +38,16 @@ export default {
         },
         next() {
             var self = this;
-            this.submitForm();
-            registrationService.smsCodeVerification(this.confirmationCode)
-                .then(function () {
-                    self.$emit('next');
-                }, function (error) {
-                    self.submitForm(false);
-                    debugger;
-                    self.errorMessage.code= error.response.data ? error.response.data["0"].description : error.message
-                });
-
+            if(this.submitForm()) {
+                registrationService.smsCodeVerification(this.confirmationCode)
+                    .then(function () {
+                        self.$emit('next');
+                    }, function (error) {
+                        self.submitForm(false);
+                        debugger;
+                        self.errorMessage.code = error.response.data ? error.response.data["0"].description : error.message
+                    });
+            }
         }
     },
 }

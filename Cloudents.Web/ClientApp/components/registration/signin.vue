@@ -13,7 +13,7 @@
                     <vue-recaptcha class="recaptcha-wrapper"
                                    sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
                                    @verify="onVerify" @expired="onExpired"></vue-recaptcha>
-                    <input class="continue-btn" type="submit" value="Login">
+                    <input class="continue-btn" type="submit" value="Login" :disabled="disableSubmit">
                 </form>
                 <div class="signin-strip">Need an account?
                     <router-link to="register">Sign up</router-link>

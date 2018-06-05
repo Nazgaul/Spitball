@@ -20,31 +20,33 @@ export default {
     methods: {
         next() {
             self = this;
-            this.submitForm();
-            registrationService.emailRegistration(this.userEmail, this.recaptcha)
-                .then(function () {
-                    self.emailSent = true;
-                }, function (error) {
-                    self.submitForm(false);
-                    self.errorMessage = error.response.data ? error.response.data["0"].description : error.message
-                });
+            if(this.submitForm()) {
+                registrationService.emailRegistration(this.userEmail, this.recaptcha)
+                    .then(function () {
+                        self.emailSent = true;
+                    }, function (error) {
+                        self.submitForm(false);
+                        self.errorMessage = error.response.data ? error.response.data["0"].description : error.message
+                    });
+            }
         },
         googleLogIn() {
             var self = this;
 
             var authInstance = gapi.auth2.getAuthInstance();
-            this.submitForm();
-            authInstance.signIn().then(function (googleUser) {
-                debugger;
-                var idToken = googleUser.getAuthResponse().id_token;
-                registrationService.googleRegistration(idToken)
-                    .then(function () {
-                        self.$emit('next');
-                    }, function (reason) {
-                        self.submitForm(false);
-                        console.error(reason);
-                    });
-            });
+            if(this.submitForm()) {
+                authInstance.signIn().then(function (googleUser) {
+                    debugger;
+                    var idToken = googleUser.getAuthResponse().id_token;
+                    registrationService.googleRegistration(idToken)
+                        .then(function () {
+                            self.$emit('next');
+                        }, function (reason) {
+                            self.submitForm(false);
+                            console.error(reason);
+                        });
+                });
+            }
         },
         resend(){
             registrationService.emailResend()

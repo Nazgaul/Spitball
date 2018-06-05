@@ -10,7 +10,7 @@
         <div v-else class="q-answer">
             <p class="q-text"><strong>Answer:</strong></p>
             <div class="votes">
-                <v-icon class="upvotes" @click="upVote()">sbf-chevron-down</v-icon>
+                <v-icon class="upvotes" @click.once="upVote()" :disabled="submitted">sbf-chevron-down</v-icon>
                 <span>3 Upvotes</span>
             </div>
 
