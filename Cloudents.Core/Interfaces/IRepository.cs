@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Query;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
@@ -34,5 +35,7 @@ namespace Cloudents.Core.Interfaces
     {
         [ItemCanBeNull]
         Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token);
+
+        Task<IEnumerable<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token);
     }
 }

@@ -6,19 +6,20 @@ namespace Cloudents.Web.Identity
     public enum SignInStepEnum
     {
         None = 0,
-        Email = 1,
-        Sms = 2,
-        UntilPassword = Email | Sms,
-        Password = 4,
-        All = Email | Sms | Password
+        //Email = 1,
+        //Sms = 1,
+        //Password = 2,
+        //UntilPassword = Email | Sms,
+        //Password = 4,
+        All = 1 // = Sms | Password
     }
 
     public static class SignInStep
     {
         public const string Claim = "signInStep";
-        public const string PolicyEmail = "policyEmail";
-        public const string PolicySms = "PolicySms";
-        public const string PolicyPassword = "PolicyPassword";
-        public const string PolicyAll = "policyAll";
+        //public const string PolicyEmail = "policyEmail";
+        //public const string Sms = "PolicySms";
+        //public const string Password = "PolicyPassword";
+        public const string Finish = "policyAll";
     }
 }

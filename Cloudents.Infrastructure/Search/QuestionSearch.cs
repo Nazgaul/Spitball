@@ -6,7 +6,7 @@ using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
+using Cloudents.Core.Query;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
@@ -20,28 +20,29 @@ namespace Cloudents.Infrastructure.Search
         public QuestionSearch(ISearchServiceClient client, string indexName, IMapper mapper)
         {
             _mapper = mapper;
-            //TODO: need to fix that before production
             _client = client.Indexes.GetClient(indexName);
         }
 
-        public async Task<ResultWithFacetDto<QuestionDto>> SearchAsync(string term, [CanBeNull] IEnumerable<string> facet, CancellationToken token)
+        public async Task<ResultWithFacetDto<QuestionDto>> SearchAsync(QuestionsQuery query, CancellationToken token)
         {
             string filterStr = null;
 
-            if (facet != null)
+            if (query.Source != null)
             {
-                filterStr = string.Join(" or ", facet.Select(s =>
+                filterStr = string.Join(" or ", query.Source.Select(s =>
                     $"{nameof(Question.Subject)} eq '{s}'"));
             }
 
             var searchParameter = new SearchParameters
             {
                 Facets = new[] { nameof(Question.Subject) },
-                Filter = filterStr
+                Filter = filterStr,
+                Top = 50,
+                Skip = query.Page * 50
             };
 
             var result = await
-                _client.Documents.SearchAsync<Question>(term, searchParameter,
+                _client.Documents.SearchAsync<Question>(query.Term, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);
 
             var retVal = new ResultWithFacetDto<QuestionDto>

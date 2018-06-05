@@ -34,7 +34,7 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet]
-        [Authorize(Policy = SignInStep.PolicyAll)]
+        [Authorize(Policy = SignInStep.Finish)]
 
         public async Task<IActionResult> GetAsync(
             [FromServices] IBlockChainErc20Service blockChain, CancellationToken token)
@@ -77,7 +77,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("userName")]
-        [Authorize(Policy = SignInStep.PolicyPassword)]
+        [Authorize]
         public IActionResult GetUserName()
         {
             var name = _userManager.GetUserName(User);
@@ -85,7 +85,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("userName"), ValidateModel]
-        [Authorize(Policy = SignInStep.PolicyPassword)]
+        [Authorize]
         public async Task<IActionResult> ChangeUserNameAsync(
             [FromBody]ChangeUserNameRequest model,
             [FromServices] IQueueProvider client,
@@ -122,7 +122,7 @@ namespace Cloudents.Web.Api
 
         //TODO : need to figure out what well do.
         [HttpPost("university")]
-        [Authorize(Policy = SignInStep.PolicyAll)]
+        [Authorize(Policy = SignInStep.Finish)]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
             var command = _mapper.Map<AssignUniversityToUserCommand>(model);
@@ -133,7 +133,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("logout")]
-        [Authorize(Policy = SignInStep.PolicyAll)]
+        [Authorize]
         public async Task<IActionResult> LogOutAsync(
             [FromServices] SignInManager<User> signInManager)
         {

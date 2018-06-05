@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Core.Query
+namespace Cloudents.Core.QueryHandler
 {
     public class UserDataQueryHandler : IQueryHandlerAsync<Expression<Func<User, bool>>, User>
     {

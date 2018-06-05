@@ -18,12 +18,17 @@ namespace Cloudents.Web.Identity
         protected override async Task<ClaimsIdentity> GenerateClaimsAsync(User user)
         {
             var p = await base.GenerateClaimsAsync(user).ConfigureAwait(false);
-            var step = (user.EmailConfirmed ? SignInStepEnum.Email :
-                           SignInStepEnum.None)
-                |
-                (user.PhoneNumberConfirmed ? SignInStepEnum.Sms : SignInStepEnum.None)
-                | (!string.IsNullOrEmpty(user.PublicKey) ? SignInStepEnum.Password : SignInStepEnum.None);
-            p.AddClaim(new Claim(SignInStep.Claim, step.ToString("D")));
+
+            if (user.EmailConfirmed && user.PhoneNumberConfirmed)
+            {
+                p.AddClaim(new Claim(SignInStep.Claim, SignInStepEnum.All.ToString("D")));
+            }
+            //var step = (user.EmailConfirmed ? SignInStepEnum.Email :
+            //               SignInStepEnum.None)
+            //    |
+            //    (user.PhoneNumberConfirmed ? SignInStepEnum.Sms : SignInStepEnum.None)
+            //    | (!string.IsNullOrEmpty(user.PublicKey) ? SignInStepEnum.Password : SignInStepEnum.None);
+            //p.AddClaim(new Claim(SignInStep.Claim, step.ToString("D")));
             return p;
         }
     }

@@ -56,9 +56,7 @@ namespace Cloudents.Web.Api
                 var link = Url.Link("ConfirmEmail", new { user.Id, code });
 
                 var message = new RegistrationEmail(model.Email, HtmlEncoder.Default.Encode(link));
-                var t1 = _queueProvider.InsertEmailMessageAsync(message, token);
-                var t2 = _signInManager.SignInAsync(user, false);
-                await Task.WhenAll(t1, t2).ConfigureAwait(false);
+                await _queueProvider.InsertEmailMessageAsync(message, token).ConfigureAwait(false);
                 return Ok();
             }
             return BadRequest(p.Errors);
@@ -102,7 +100,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("sms"), ValidateModel]
-        [Authorize(Policy = SignInStep.PolicyEmail)]
+        [Authorize]
         public async Task<IActionResult> SmsUserAsync([FromBody]PhoneNumberRequest model, [FromServices] IRestClient client, CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
@@ -126,7 +124,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("sms/verify"), ValidateModel]
-        [Authorize(Policy = SignInStep.PolicyEmail)]
+        [Authorize]
         public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
@@ -134,14 +132,13 @@ namespace Cloudents.Web.Api
             var v = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, model.Number).ConfigureAwait(false);
             if (v.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
                 return Ok();
             }
             return BadRequest();
         }
 
         [HttpPost("password")]
-        [Authorize(Policy = SignInStep.PolicyPassword)]
+        [Authorize]
         public async Task<IActionResult> GeneratePasswordAsync(
             [FromServices] IBlockChainErc20Service blockChainErc20Service,
             [FromServices] IQueueProvider client,
