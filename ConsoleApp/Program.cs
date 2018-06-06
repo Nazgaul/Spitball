@@ -50,7 +50,7 @@ namespace ConsoleApp
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                BlockChainNetwork = "http://hopoea-dns-reg1.northeurope.cloudapp.azure.com:8545"
+                BlockChainNetwork = "http://spito5-dns-reg1.northeurope.cloudapp.azure.com:8545"
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
@@ -67,9 +67,10 @@ namespace ConsoleApp
 
             // await SendMessagesAsync(10);
 
-            var a = container.Resolve<IBlockChainErc20Service>();
-            var c = a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", "0xAcfB119204a93BbDa781C972D27AeAB8671c63f4", 10, default);
-            var b = a.GetBalanceAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
+           // var a = container.Resolve<IBlockChainErc20Service>();
+           
+            //var c = a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", "0xAcfB119204a93BbDa781C972D27AeAB8671c63f4", 10, default);
+            //var b = a.GetBalanceAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
             //var b = await a.CreateNewTokens("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 10, default);
             ////var (privateKey, publicAddress) = a.CreateAccount();
             //var b = a.GetBalanceAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
@@ -78,13 +79,13 @@ namespace ConsoleApp
             //var b = await a.BuyTokensAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", 10, default);
             //await a.Withdrawal(default);
 
-            //Guid answer = Guid.NewGuid();
-            // var c = container.Resolve<IBlockChainQAndAContract>();
+            Guid answer = Guid.NewGuid();
+             var c = container.Resolve<IBlockChainQAndAContract>();
 
-            // await c.SubmitQuestionAsync(3, 1, "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
-            //await c.SubmitAnswerAsync(3, answer, default);
+            await c.SubmitQuestionAsync(3, 1, "0x116CC5B77f994A4D375791A99DF12f19921138ea", default);
+            await c.SubmitAnswerAsync(3, answer, default);
 
-            //await c.UpVoteAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, 1, default);
+            await c.UpVoteAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, default);
             //await c.MarkAsCorrectAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, default);
             // var h = await c.UpVoteListAsync(3, answer, default);
             // Console.WriteLine(h[0]);
