@@ -97,10 +97,6 @@
       {
         "name": "_qId",
         "type": "uint256"
-      },
-      {
-        "name": "percentage",
-        "type": "uint8"
       }
     ],
     "name": "spreadFounds",

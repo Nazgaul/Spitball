@@ -47,7 +47,8 @@
                 </v-flex>
 
 
-                <v-flex xs12>
+                <v-flex class="submit-btn-wrap" xs12>
+                    <div v-if="errorMessage" class="error-messages">{{errorMessage}}</div>
                     <v-btn block color="primary" @click.once="submitQuestion()" :disabled="!validForm||submitted" class="ask_btn">Ask</v-btn>
                 </v-flex>
 
