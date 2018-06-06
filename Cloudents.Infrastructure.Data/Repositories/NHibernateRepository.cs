@@ -1,8 +1,11 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac.Features.Indexed;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using NHibernate;
@@ -15,10 +18,10 @@ namespace Cloudents.Infrastructure.Data.Repositories
         private readonly IUnitOfWork _unitOfWork;
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Ioc inject")]
-        public NHibernateRepository(UnitOfWork.Factory unitOfWork)
+        public NHibernateRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWorks)
         {
             var att = typeof(T).GetCustomAttribute<DbAttribute>();
-            _unitOfWork = unitOfWork.Invoke(att?.Database ?? Core.Enum.Database.System);
+            _unitOfWork = unitOfWorks[att?.Database ?? Core.Enum.Database.System];
             Session = _unitOfWork.Session;
         }
 
@@ -35,6 +38,11 @@ namespace Cloudents.Infrastructure.Data.Repositories
         public IQueryable<T> GetQueryable()
         {
            return Session.Query<T>();
+        }
+
+        public void t(Expression<Func<T,bool>> tt)
+        {
+            var z = Session.Query<T>().Where(tt);
         }
 
         public Task<object> SaveAsync(T entity, CancellationToken token)

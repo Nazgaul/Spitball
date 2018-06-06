@@ -54,7 +54,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DomainParser>().AsSelf().As<IDomainParser>().SingleInstance();
             builder.RegisterType<DomainCache>().As<ICacheProvider>();
 
-           
+
             builder.RegisterType<ReplaceImageProvider>().As<IReplaceImageProvider>();
 
             builder.RegisterType<WebSearch>();

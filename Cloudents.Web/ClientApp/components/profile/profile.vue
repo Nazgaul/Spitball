@@ -6,9 +6,10 @@
                 <div>
                     <div class="main-block">
                         <button class="back">
-                            <v-icon>sbf-arrow-right</v-icon>    
+                            <v-icon>sbf-arrow-right</v-icon>
                         </button>
-                        <user-block v-if="profileData.user" :user="profileData.user" :classType="'university'"></user-block>
+                        <user-block v-if="profileData.user" :user="profileData.user"
+                                    :classType="'university'"></user-block>
 
                         <div class="menu">
                             <ul class="tabs" v-if="!isMobile" xs3>
@@ -28,19 +29,23 @@
                         </div>
                     </div>
                 </div>
-                    
+
                 <v-flex class="web-content">
                     <div v-if="activeTab === 1">
-                        <question-card v-for="questionData in profileData.ask" :cardData="questionData" answer-btn click-card></question-card>
+                        <router-link :to="{name:'question',params:{id:questionData.id}}" v-for="questionData in profileData.ask">
+                            <question-card :cardData="questionData"></question-card>
+                        </router-link>
                     </div>
                     <div v-else-if="activeTab === 2">
-                        <question-card v-for="answerData in profileData.answer" :cardData="answerData" answer-btn click-card></question-card>
+                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="answerData in profileData.answer">
+                            <question-card :cardData="answerData"></question-card>
+                        </router-link>
                     </div>
                     <div v-else-if="activeTab === 3">
                         <p>UPVOTED CONTENT</p>
                     </div>
                 </v-flex>
-                
+
             </v-layout>
         </v-container>
     </div>

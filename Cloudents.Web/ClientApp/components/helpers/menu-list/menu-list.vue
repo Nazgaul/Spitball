@@ -2,7 +2,7 @@
     <div>
         <v-list class="menu-list" v-if="!isAuthUser">
             <user-block :user=user :classType="'university'" v-if=isMobile></user-block>
-            <template v-for="(item) in notRegMenu" >
+            <template v-for="(item) in notRegMenu">
                 <template v-if="item.name">
                     <router-link tag="v-list-tile" :to="{name:item.name}">
                         <v-list-tile-content>
@@ -11,10 +11,10 @@
                     </router-link>
                 </template>
                 <v-list-tile v-else>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{item.title}}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
+                    <v-list-tile-content>
+                        <v-list-tile-title>{{item.title}}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
             </template>
         </v-list>
         <v-list class="menu-list" v-else>
@@ -48,8 +48,8 @@
                 <v-list-tile-avatar>
                     <!--<span class="red-counter">1</span>  -->
                 </v-list-tile-avatar>
-            </v-list-tile>   
-            <router-link tag="v-list-tile" :to="{name:'profile'}">
+            </v-list-tile>
+            <router-link tag="v-list-tile" :to="{name:'profile',params:{id:accountUser.id}}">
                 <v-list-tile-action>
                     <v-icon>sbf-user</v-icon>
                 </v-list-tile-action>
@@ -97,7 +97,7 @@
             </router-link>
         </v-list>
         <v-dialog v-model="showSettings" content-class="settings-dialog" max-width="610">
-        <user-settings v-model="showSettings"></user-settings>
+            <user-settings v-model="showSettings"></user-settings>
         </v-dialog>
     </div>
 
@@ -105,41 +105,45 @@
 
 
 <script>
-    import {mapGetters,mapActions} from 'vuex'
-    import { notRegMenu } from '../../settings/consts';
+    import {mapGetters, mapActions} from 'vuex'
+    import {notRegMenu} from '../../settings/consts';
     import userBlock from "../user-block/user-block.vue"
     import userSettings from "../../settings/view/settings.vue"
 
 
     export default {
-        components:{userBlock,userSettings},
-        props:{
-            counter:{
-                required:false,
+        components: {userBlock, userSettings},
+        props: {
+            counter: {
+                required: false,
                 type: Object
             },
-            isAuthUser:{
+            isAuthUser: {
                 type: Boolean,
-                default:false
+                default: false
             }
         },
-        methods:{
-            currentTemplate(val){return val?'router-link':'v-list-tile';},
+        methods: {
+            currentTemplate(val) {
+                return val ? 'router-link' : 'v-list-tile';
+            },
             ...mapActions(['logout'])
         },
         data() {
             return {
                 notRegMenu,
-                showSettings:false,
-                user:{
+                showSettings: false,
+                user: {
                     name: "User Name",
                     universityName: "Boston MA"
                 }
             }
         },
         computed: {
-            ...mapGetters(['unreadMessages']),
-            isMobile(){return this.$vuetify.breakpoint.xsOnly;}
+            ...mapGetters(['unreadMessages', 'accountUser']),
+            isMobile() {
+                return this.$vuetify.breakpoint.xsOnly;
+            }
         },
     }
 </script>

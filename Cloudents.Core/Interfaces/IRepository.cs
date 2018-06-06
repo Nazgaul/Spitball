@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Query;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
@@ -25,11 +28,14 @@ namespace Cloudents.Core.Interfaces
     public interface IUserRepository : IRepository<User>
     {
         Task<ProfileDto> GetUserProfileAsync(long id, CancellationToken token);
+        Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token);
     }
 
     public interface IQuestionRepository : IRepository<Question>
     {
         [ItemCanBeNull]
         Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token);
+
+        Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token);
     }
 }

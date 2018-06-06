@@ -195,7 +195,7 @@ function intercom(to) {
 // });
 
 function checkUserStatus(to, next) {
-    store.dispatch('userStatus').then(() => {
+    store.dispatch('userStatus',{isRequire:to.meta.requiresAuth,to}).then(() => {
         if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
             next("/signin");
         }

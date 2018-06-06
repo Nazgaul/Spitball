@@ -24,6 +24,7 @@ using System.Numerics;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using Cloudents.Core.Command;
+using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 //using Microsoft.Azure.ServiceBus;
 using Nethereum.Web3.Accounts;
@@ -59,6 +60,7 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
+                Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
@@ -66,9 +68,15 @@ namespace ConsoleApp
             //topicClient = new TopicClient(ServiceBusConnectionString, TopicName);
 
             // await SendMessagesAsync(10);
+            var ty = "ram@cloudents.com";
+            var z = ty.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
 
            // var a = container.Resolve<IBlockChainErc20Service>();
            
+            //var c = a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", "0xAcfB119204a93BbDa781C972D27AeAB8671c63f4", 10, default);
+            //var b = a.GetBalanceAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
+            }, default);
+
             //var c = a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", "0xAcfB119204a93BbDa781C972D27AeAB8671c63f4", 10, default);
             //var b = a.GetBalanceAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
             //var b = await a.CreateNewTokens("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 10, default);
@@ -81,6 +89,14 @@ namespace ConsoleApp
 
             Guid answer = Guid.NewGuid();
              var c = container.Resolve<IBlockChainQAndAContract>();
+            //var command = new CreateQuestionCommand()
+            //{
+            //    Price = 0.5m,
+            //    SubjectId = 1,
+            //    Text = "123",
+            //    UserId = 11
+            //};
+            //await c.DispatchAsync(command, default);
 
             await c.SubmitQuestionAsync(3, 1, "0x116CC5B77f994A4D375791A99DF12f19921138ea", default);
             await c.SubmitAnswerAsync(3, answer, default);

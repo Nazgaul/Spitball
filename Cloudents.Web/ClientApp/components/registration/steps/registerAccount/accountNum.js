@@ -1,12 +1,14 @@
 ﻿﻿import registrationService from '../../../../services/registrationService'
+import SbInput from "../../../question/helpers/sbInput/sbInput";
 
 export default {
     props: {
         accountNum: {type: String},
     },
+    components:{SbInput},
     methods: {
         copyToClipboard() {
-            let el = this.$el.querySelector("#input-url");
+            let el = this.$el.querySelector("#input-url input");
 
             // handle iOS as a special case
             if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {

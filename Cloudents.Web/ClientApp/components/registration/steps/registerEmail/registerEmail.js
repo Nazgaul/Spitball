@@ -2,40 +2,39 @@ import stepTemplate from '../stepTemplate.vue';
 
 import registrationService from '../../../../services/registrationService';
 import VueRecaptcha from 'vue-recaptcha';
-
+import disableForm from '../../../mixins/submitDisableMixin'
+import SbInput from '../../../question/helpers/sbInput/sbInput.vue';
 var auth2;
 
 export default {
-    components: {stepTemplate, VueRecaptcha},
+    components: {stepTemplate, VueRecaptcha, SbInput},
     mixins:[disableForm],
     data() {
         return {
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             emailSent: false,
-            errorMessages: ''
+            errorMessage: ''
         }
     },
     methods: {
         next() {
             self = this;
-            if(!this.submitted) {
-                this.submitForm();
-                debugger;
+            if(this.submitForm()) {
                 registrationService.emailRegistration(this.userEmail, this.recaptcha)
                     .then(function () {
                         self.emailSent = true;
-                    }, function (reason) {
+                    }, function (error) {
                         self.submitForm(false);
-                        console.error(reason);
+                        self.errorMessage = error.response.data ? error.response.data["0"].description : error.message
                     });
             }
         },
         googleLogIn() {
             var self = this;
-            if(!this.submitted) {
-                var authInstance = gapi.auth2.getAuthInstance();
-                this.submitForm();
+
+            var authInstance = gapi.auth2.getAuthInstance();
+            if(this.submitForm()) {
                 authInstance.signIn().then(function (googleUser) {
                     debugger;
                     var idToken = googleUser.getAuthResponse().id_token;
@@ -43,7 +42,6 @@ export default {
                         .then(function () {
                             self.$emit('next');
                         }, function (reason) {
-                            debugger;
                             self.submitForm(false);
                             console.error(reason);
                         });

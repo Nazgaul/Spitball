@@ -9,7 +9,8 @@ const state = {
     user: null,
     talkSession: null,
     talkMe: null,
-    unreadMessages: 0
+    unreadMessages: 0,
+    unAuthPath:null
 }
 const mutations = {
     changeLoginStatus(state, val) {
@@ -28,12 +29,17 @@ const mutations = {
         state.unreadMessages = val;
     },
     logout(state){
+        state.unAuthPath=null;
         state.login=false;
         state.user=null;
+    },
+    updateUnAuthPath(state,val){
+        state.unAuthPath=val;
     }
 };
 
 const getters = {
+    unAuthPath:state=>state.unAuthPath,
     unreadMessages:state=>state.unreadMessages,
     loginStatus:state=>state.login,
     isUser: state => state.user !== null,
@@ -46,7 +52,7 @@ const actions = {
         accountService.logout();
         commit("logout");
     },
-    userStatus({ dispatch, commit,getters }) {
+    userStatus({ dispatch, commit,getters },{isRequire,to}) {
         const $this = this;
         // if (getters.isUser) {
         //     return Promise.resolve();
@@ -59,6 +65,7 @@ const actions = {
             commit("updateUser", data);
             dispatch("connectToChat");
         }).catch(_ => {
+            isRequire?commit("updateUnAuthPath",to):'';
             commit("changeLoginStatus", false);
         });
     },

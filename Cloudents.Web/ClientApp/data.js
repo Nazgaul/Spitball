@@ -3,12 +3,12 @@
 export let verticals =
     {
 
-        marketplace: {
-            id: routes.marketRoute,
-            name: "Marketplace",
-            icon: "sbf-marketplace"
-
-        },
+        // marketplace: {
+        //     id: routes.marketRoute,
+        //     name: "Marketplace",
+        //     icon: "sbf-marketplace"
+        //
+        // },
         ask: {
             filter:[{ id: "source", name: "sources" }],
             id: routes.questionRoute,

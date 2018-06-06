@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.Interfaces;
 using System;
+using System.Collections.Concurrent;
 using System.IO;
-using System.Numerics;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,7 +45,7 @@ namespace Cloudents.Infrastructure.BlockChain
         protected abstract string TransactionHash { get; }
         protected abstract string ContractAddress { get; }
 
-        
+
 
 
         protected async Task<Contract> GetContractAsync(Web3 web3, CancellationToken token)
@@ -61,26 +61,32 @@ namespace Cloudents.Infrastructure.BlockChain
             return web3.Eth.GetContract(abi, ContractAddress);
         }
 
-        private static string _abiContract;
 
-        private async Task<string> ReadAbiAsync(CancellationToken token)
+        private static readonly ConcurrentDictionary<string, Task<string>> Instances = new ConcurrentDictionary<string, Task<string>>();
+
+
+        private Task<string> ReadAbiAsync(CancellationToken token)
+
         {
-            if (_abiContract != null) return _abiContract;
-            using (var stream = Assembly.GetExecutingAssembly()
-                .GetManifestResourceStream("Cloudents.Infrastructure.Blockchain." + Abi + ".json"))
+            return Instances.GetOrAdd(ContractAddress, async _ =>
             {
-                if (stream == null)
+                using (var stream = Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream("Cloudents.Infrastructure.Blockchain." + Abi + ".json"))
                 {
-                    throw new NullReferenceException();
-                }
-                using (var reader = new StreamReader(stream))
-                {
-                    _abiContract = await reader.ReadToEndAsync().ConfigureAwait(false);
-                    token.ThrowIfCancellationRequested();
-                }
-            }
+                    if (stream == null)
+                    {
+                        throw new NullReferenceException();
+                    }
 
-            return _abiContract;
+                    using (var reader = new StreamReader(stream))
+                    {
+                        token.ThrowIfCancellationRequested();
+                        return await reader.ReadToEndAsync().ConfigureAwait(false);
+                       
+                    }
+                }
+            });
+
         }
 
         public static string GetPublicAddress(string privateKey)

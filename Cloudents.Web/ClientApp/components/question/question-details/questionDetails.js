@@ -22,8 +22,7 @@ export default {
     methods: {
         submitAnswer() {
             var self = this;
-            if(!this.submitted) {
-                this.submitForm();
+            if(this.submitForm()) {
                 questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
                     .then(function () {
                         self.textAreaValue = "";

@@ -45,16 +45,16 @@ let us know! We may be able to add it quickly.
 }
 
 .inbox-feed-panel {
-    width: 40%;
-    max-width: 300px;
+    width: 33%;
+    max-width: 328px;
 }
 
 .inbox-chat-panel {
     /* By using `calc` below we can ensure that the total width of the feed, the chat,
        and the space in between is precisely 100%. We recommend the same if you also
        use percentage widths and a margin. */
-    width: calc(60%);
-    max-width: 420px;
+    width: calc(66%);
+    max-width: 696px;
     /* margin-left: 20px; */
 }
 

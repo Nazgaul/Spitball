@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure.BlockChain;
 using System.Collections.Generic;
+using System.Numerics;
 using JetBrains.Annotations;
 using Nethereum.Contracts;
 
@@ -24,11 +25,10 @@ namespace Cloudents.Infrastructure.Blockchain
         public async Task SubmitQuestionAsync(long questionId, decimal price, string userAddress,
             CancellationToken token)
         {
+            var weiPrice = new BigInteger((double)price * FromWei);
             var operationToExe = await GetFunctionAsync("submitNewQuestion", token).ConfigureAwait(false);
-            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId, price, userAddress).ConfigureAwait(false);
+            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId, weiPrice, userAddress).ConfigureAwait(false);
         }
-
-        
 
         public async Task SubmitAnswerAsync(long questionId, Guid answerId, CancellationToken token)
         {

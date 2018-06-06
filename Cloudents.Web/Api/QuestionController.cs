@@ -6,6 +6,7 @@ using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -16,7 +17,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Policy = SignInStep.PolicyAll)]
+    [Authorize(Policy = SignInStep.Finish)]
     public class QuestionController : Controller
     {
         private readonly Lazy<ICommandBus> _commandBus;
@@ -56,16 +57,28 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetQuestionAsync(long id,
             [FromServices] IQueryBus bus, CancellationToken token)
         {
-            var retVal = await bus.QueryAsync<long, QuestionDetailDto>(id,token).ConfigureAwait(false);
+            var retVal = await bus.QueryAsync<long, QuestionDetailDto>(id, token).ConfigureAwait(false);
             return Ok(retVal);
         }
 
         [AllowAnonymous, HttpGet]
-        public async Task<IActionResult> GetQuestionsAsync(string term, string[] source, [FromServices] IQuestionSearch questionSearch,
+        public async Task<IActionResult> GetQuestionsAsync(QuestionsRequest model,
+            [FromServices] IQuestionSearch questionSearch,
+            [FromServices] IQueryBus queryBus,
             CancellationToken token)
         {
-            var retVal = await questionSearch.SearchAsync(term, source, token).ConfigureAwait(false);
-            return Ok(retVal);
+            //var str = string.Join(" ", model.Term ?? Enumerable.Empty<string>());
+            var query = _mapper.Map<QuestionsQuery>(model);
+            if (string.IsNullOrWhiteSpace(query.Term))
+            {
+                var retVal = await queryBus.QueryAsync<QuestionsQuery, ResultWithFacetDto<QuestionDto>>(query, token).ConfigureAwait(false);
+                return Ok(retVal);
+            }
+            else
+            {
+                var retVal = await questionSearch.SearchAsync(query, token).ConfigureAwait(false);
+                return Ok(retVal);
+            }
         }
     }
 }

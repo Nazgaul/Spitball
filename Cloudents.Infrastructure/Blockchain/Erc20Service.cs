@@ -41,7 +41,7 @@ namespace Cloudents.Infrastructure.Blockchain
 
         public async Task SetInitialBalanceAsync(string address, CancellationToken token)
         {
-            await TransferMoneyAsync(SpitballPrivateKey, address, 10, token).ConfigureAwait(false);
+            await TransferMoneyAsync(SpitballPrivateKey, address, 100, token).ConfigureAwait(false);
         }
 
         public async Task<string> CreateNewTokens(string toAddress, int amount, CancellationToken token)

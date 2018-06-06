@@ -14,8 +14,6 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
-  
-
   <ItemGroup>
     <None Remove="Blockchain\Crowdsale.json" />
     <None Remove="Blockchain\QAndA.json" />
@@ -51,10 +49,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Database\" />
   </ItemGroup>
 
 </Project>
