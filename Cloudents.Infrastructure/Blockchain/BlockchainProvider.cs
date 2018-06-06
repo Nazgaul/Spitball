@@ -20,18 +20,12 @@ namespace Cloudents.Infrastructure.BlockChain
         public const double MaxGas = 4.7e6;
         protected const string SpitballPrivateKey = "10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
 
-
-        //private const string ICOtransactionHash = "0x430fdc71d7b86f432ae0d22d0cc11ce7909f0434942f5943f2288f3140dac07d";
-
-        //"0xfea5f8e467e7423ec7304bdc220dfa415147848546a3f52a310c91df3bd5f6fe";
-        //"0xbf640f0b58fcad57ccd2eea9946df1f113e08bdb5aa0a4a932500546811a7beb"; //ICO Contract Hash
-
         protected BlockChainProvider(IConfigurationKeys configurationKeys)
         {
             _configurationKeys = configurationKeys;
         }
 
-        protected Web3 GenerateWeb3Instance(string senderPk = null)
+        private Web3 GenerateWeb3Instance(string senderPk = null)
         {
             if (senderPk != null)
             {
@@ -45,25 +39,13 @@ namespace Cloudents.Infrastructure.BlockChain
         protected abstract string TransactionHash { get; }
         protected abstract string ContractAddress { get; }
 
-
-
-
-        protected async Task<Contract> GetContractAsync(Web3 web3, CancellationToken token)
+        private async Task<Contract> GetContractAsync(Web3 web3, CancellationToken token)
         {
-            //var deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(TransactionHash).ConfigureAwait(false);
-            //while (deploymentReceipt == null)
-            //{
-            //    await Task.Delay(TimeSpan.FromSeconds(0.5), token).ConfigureAwait(false);
-            //    deploymentReceipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(TransactionHash).ConfigureAwait(false);
-            //}
-            //var contractAddress = deploymentReceipt.ContractAddress;
             var abi = await ReadAbiAsync(token).ConfigureAwait(false);
             return web3.Eth.GetContract(abi, ContractAddress);
         }
 
-
         private static readonly ConcurrentDictionary<string, Task<string>> Instances = new ConcurrentDictionary<string, Task<string>>();
-
 
         private Task<string> ReadAbiAsync(CancellationToken token)
 
@@ -82,11 +64,9 @@ namespace Cloudents.Infrastructure.BlockChain
                     {
                         token.ThrowIfCancellationRequested();
                         return await reader.ReadToEndAsync().ConfigureAwait(false);
-                       
                     }
                 }
             });
-
         }
 
         public static string GetPublicAddress(string privateKey)
@@ -99,7 +79,7 @@ namespace Cloudents.Infrastructure.BlockChain
         {
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
             var privateKey = ecKey.GetPrivateKeyAsBytes();
-            string address = Web3.GetAddressFromPrivateKey(privateKey.ToHex());
+            var address = Web3.GetAddressFromPrivateKey(privateKey.ToHex());
             return (privateKey.ToHex(), address);
         }
 

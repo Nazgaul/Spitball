@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Blockchain
         protected override string Abi => "TokenAbi";
 
         protected override string TransactionHash => "0x430fdc71d7b86f432ae0d22d0cc11ce7909f0434942f5943f2288f3140dac07d";
-        protected override string ContractAddress => "0x38993fc8ac6c4e57eb110aadffd53acd7901a32c";
+        protected override string ContractAddress => "0xf80cb7d159afc4b0cd7c970fedca2afc91477123";
 
         public Erc20Service (IConfigurationKeys configurationKeys) : base(configurationKeys)
         {
@@ -22,8 +22,6 @@ namespace Cloudents.Infrastructure.Blockchain
         public async Task<decimal> GetBalanceAsync(string senderAddress, CancellationToken token)
         {
             var function = await GetFunctionAsync("balanceOf", token).ConfigureAwait(false);
-            //var contract = await GetContractAsync(GenerateWeb3Instance(),  token).ConfigureAwait(false);
-            //var function = contract.GetFunction("balanceOf");
             var result = await function.CallAsync<BigInteger>(senderAddress).ConfigureAwait(false);
             var normalAmount = result / new BigInteger(FromWei);
             return (decimal)normalAmount;
@@ -32,8 +30,6 @@ namespace Cloudents.Infrastructure.Blockchain
         public async Task<string> TransferMoneyAsync(string senderPk, string toAddress, float amount, CancellationToken token)
         {
             var function = await GetFunctionAsync("transfer", token).ConfigureAwait(false);
-            //var contract = await GetContractAsync(GenerateWeb3Instance(senderPk), token).ConfigureAwait(false);
-            //var operationToExe = contract.GetFunction("transfer");
             var amountTransformed = new BigInteger(amount * FromWei);
             var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(senderPk, 70000, token, toAddress, amountTransformed).ConfigureAwait(false);
             return receiptFirstAmountSend.BlockHash;

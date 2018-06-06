@@ -10,11 +10,9 @@ namespace Cloudents.Infrastructure.Blockchain
 {
     public static class FunctionExtensions
     {
-
         public static Task<TransactionReceipt> SendTransactionAndWaitForReceiptAsync(this Function function,
             string privateKey, CancellationToken receiptRequestCancellationToken, params object[] functionInput)
         {
-
             var publicAddress =
                 BlockChainProvider.GetPublicAddress(
                     privateKey);
@@ -32,17 +30,23 @@ namespace Cloudents.Infrastructure.Blockchain
 
             using (var tokenSource = CancellationTokenSource.CreateLinkedTokenSource(receiptRequestCancellationToken))
             {
-                //var maxGas = new HexBigInteger((System.Numerics.BigInteger)4.7e6);
-                return await function.SendTransactionAndWaitForReceiptAsync(publicAddress, gas, null,
-                      tokenSource, functionInput).ConfigureAwait(false);
+                //try
+                //{
+                    //var maxGas = new HexBigInteger((System.Numerics.BigInteger)4.7e6);
+                    return await function.SendTransactionAndWaitForReceiptAsync(publicAddress, gas, null,
+                        tokenSource, functionInput).ConfigureAwait(false);
+                //}
+                //catch ()
+                //{
+
+                //}
             }
 
             //return SendTransactionAndWaitForReceiptAsync(function, publicAddress,  receiptRequestCancellationToken,
             //    functionInput);
         }
 
-
-        //public static Task<TransactionReceipt> SendTransactionAndWaitForReceiptAsync(this Function function, string address, 
+        //public static Task<TransactionReceipt> SendTransactionAndWaitForReceiptAsync(this Function function, string address,
         //    CancellationToken receiptRequestCancellationToken, params object[] functionInput)
         //{
         //    using (var tokenSource = CancellationTokenSource.CreateLinkedTokenSource(receiptRequestCancellationToken))
@@ -52,7 +56,6 @@ namespace Cloudents.Infrastructure.Blockchain
         //            tokenSource, functionInput);
         //    }
         //}
-
 
         //public static Task<TransactionReceipt> XXXX(this Function function, string address, HexBigInteger gas,
         //    CancellationToken receiptRequestCancellationToken, params object[] functionInput)
