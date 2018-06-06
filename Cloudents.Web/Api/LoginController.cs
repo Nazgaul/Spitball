@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,17 +25,22 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         [ValidateModel, ValidateRecaptcha]
-        public async Task<IActionResult> PostAsync([FromBody] LoginRequest model)
+        public async Task<IActionResult> PostAsync(
+            [FromBody] LoginRequest model,
+            [FromServices] ISmsSender client,
+            CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "email or password are invalid");
+                ModelState.AddModelError(string.Empty, "email not found");
                 return BadRequest(ModelState);
             }
-            var result = await _signInManager.PasswordSignInAsync(user, model.Key, false, false).ConfigureAwait(false);
 
-            if (result.Succeeded)
+
+            var result = await client.SendSmsAsync(user, token).ConfigureAwait(false);
+
+            if (result)
             {
                 return Ok();
             }

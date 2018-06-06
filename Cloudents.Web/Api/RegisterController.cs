@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,16 +20,15 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class RegisterController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly IConfigurationKeys _configuration;
         private readonly IQueueProvider _queueProvider;
         private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
         public RegisterController(
             UserManager<User> userManager, IConfigurationKeys configuration, IQueueProvider queueProvider, SignInManager<User> signInManager)
         {
             _userManager = userManager;
-            _configuration = configuration;
+           
             _queueProvider = queueProvider;
             _signInManager = signInManager;
         }
@@ -43,11 +43,17 @@ namespace Cloudents.Web.Api
         [ValidateModel, ValidateRecaptcha]
         public async Task<IActionResult> CreateUserAsync([FromBody]RegisterEmailRequest model, CancellationToken token)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ModelState.AddModelError(string.Empty, "user is already logged in");
+                return BadRequest(ModelState);
+            }
             var userName = model.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             var user = new User
             {
                 Email = model.Email,
-                Name = userName + GenerateRandomNumber()
+                Name = userName + GenerateRandomNumber(),
+                TwoFactorEnabled = true
             };
 
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
@@ -83,7 +89,7 @@ namespace Cloudents.Web.Api
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
             if (result == null)
             {
-                ModelState.AddModelError(string.Empty,"No result from google");
+                ModelState.AddModelError(string.Empty, "No result from google");
                 return BadRequest(ModelState);
             }
 
@@ -91,7 +97,8 @@ namespace Cloudents.Web.Api
             {
                 Email = result.Email,
                 Name = result.Name + GenerateRandomNumber(),
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                TwoFactorEnabled = true
             };
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (p.Succeeded)
@@ -103,82 +110,45 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        [HttpPost("sms"), ValidateModel]
-        [Authorize]
-        public async Task<IActionResult> SmsUserAsync([FromBody]PhoneNumberRequest model, [FromServices] IRestClient client, CancellationToken token)
-        {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            await _userManager.SetPhoneNumberAsync(user, model.Number).ConfigureAwait(false);
-            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.Number).ConfigureAwait(false);
+        
 
-            var message = new SmsMessage
-            {
-                PhoneNumber = model.Number,
-                Message = code
-            };
+        //[HttpPost("password")]
+        //[Authorize]
+        //public async Task<IActionResult> GeneratePasswordAsync(
+        //    [FromServices] IBlockChainErc20Service blockChainErc20Service,
+        //    [FromServices] IQueueProvider client,
+        //    CancellationToken token)
+        //{
+        //    var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+        //    var account = Infrastructure.BlockChain.BlockChainProvider.CreateAccount();
 
-            var result = await client.PostJsonAsync(new Uri($"{_configuration.FunctionEndpoint}/api/sms?code=HhMs8ZVg/HD4CzsN7ujGJsyWVmGmUDAVPv2a/t5c/vuiyh/zBrSTVg=="), message,
-            null, token).ConfigureAwait(false);
-            if (result)
-            {
-                return Ok();
-            }
-            ModelState.AddModelError(string.Empty,"Invalid phone number");
-            return BadRequest(ModelState);
-        }
+        //    var t1 = blockChainErc20Service.SetInitialBalanceAsync(account.publicAddress, token);
 
-        [HttpPost("sms/verify"), ValidateModel]
-        [Authorize]
-        public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
-        {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user).ConfigureAwait(false);
-            var v = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, model.Number).ConfigureAwait(false);
-            if (v.Succeeded)
-            {
-                return Ok();
-            }
-            ModelState.AddIdentityModelError(v);
-            return BadRequest(ModelState);
-        }
-
-        [HttpPost("password")]
-        [Authorize]
-        public async Task<IActionResult> GeneratePasswordAsync(
-            [FromServices] IBlockChainErc20Service blockChainErc20Service,
-            [FromServices] IQueueProvider client,
-            CancellationToken token)
-        {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var account = Infrastructure.BlockChain.BlockChainProvider.CreateAccount();
-
-            var t1 = blockChainErc20Service.SetInitialBalanceAsync(account.publicAddress, token);
-
-            var t3 = client.InsertBackgroundMessageAsync(new TalkJsUser(user.Id)
-            {
-                Name = user.Name,
-                Email = user.Email,
-                Phone = user.PhoneNumberHash
-            }, token);
+        //    var t3 = client.InsertBackgroundMessageAsync(new TalkJsUser(user.Id)
+        //    {
+        //        Name = user.Name,
+        //        Email = user.Email,
+        //        Phone = user.PhoneNumber
+        //    }, token);
 
 
 
-            var privateKey = account.privateKey;
-            var t2 = _userManager.AddPasswordAsync(user, privateKey);
+        //    var privateKey = account.privateKey;
+        //    var t2 = _userManager.AddPasswordAsync(user, privateKey);
 
-            await Task.WhenAll(t1, t2, t3).ConfigureAwait(false);
-            if (t2.Result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
-                return Ok(
-                new
-                {
-                    password = privateKey
-                });
-            }
+        //    await Task.WhenAll(t1, t2, t3).ConfigureAwait(false);
+        //    if (t2.Result.Succeeded)
+        //    {
+        //        await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
+        //        return Ok(
+        //        new
+        //        {
+        //            password = privateKey
+        //        });
+        //    }
 
-            ModelState.AddIdentityModelError(t2.Result);
-            return BadRequest(ModelState);
-        }
+        //    ModelState.AddIdentityModelError(t2.Result);
+        //    return BadRequest(ModelState);
+        //}
     }
 }

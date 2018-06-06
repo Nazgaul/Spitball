@@ -21,7 +21,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
         public  Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token)
         {
             return  Session.Query<User>().FirstOrDefaultAsync(expression, cancellationToken: token);
-            
         }
 
         public async Task<ProfileDto> GetUserProfileAsync(long id, CancellationToken token)

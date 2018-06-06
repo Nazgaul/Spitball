@@ -33,12 +33,12 @@ namespace Cloudents.Web.Controllers
             {
                 throw new ApplicationException($"Unable to load user with ID '{id}'.");
             }
-
             var result = await _userManager.ConfirmEmailAsync(user, code).ConfigureAwait(false);
             if (!result.Succeeded)
             {
                 throw new ApplicationException($"Error confirming email for user with ID '{id}':");
             }
+            
             await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
 
             return Redirect("/verify-phone");
