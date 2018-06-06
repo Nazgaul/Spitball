@@ -9,7 +9,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual string Email { get; set; }
         public virtual bool EmailConfirmed { get; set; }
         public virtual string PublicKey { get; set; }
-        public virtual string PhoneNumberHash { get; set; }
+        public virtual string PhoneNumber { get; set; }
 
         public virtual bool PhoneNumberConfirmed { get; set; }
 
@@ -21,6 +21,8 @@ namespace Cloudents.Core.Entities.Db
         public virtual string Image { get; set; }
 
         public virtual University University { get; set; }
+
+        public virtual bool TwoFactorEnabled { get; set; }
     }
 
     //public class UserRole
