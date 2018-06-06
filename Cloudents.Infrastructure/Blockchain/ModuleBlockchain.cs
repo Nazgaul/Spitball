@@ -15,6 +15,5 @@ namespace Cloudents.Infrastructure.BlockChain
             builder.RegisterType<QAndAService>().As<IBlockChainQAndAContract>();
             builder.RegisterType<CrowdSaleService>().As<IBlockChainCrowdSaleService>();
         }
-
     }
 }

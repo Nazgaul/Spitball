@@ -22,8 +22,6 @@ namespace Cloudents.Infrastructure.Blockchain
         public async Task<decimal> GetBalanceAsync(string senderAddress, CancellationToken token)
         {
             var function = await GetFunctionAsync("balanceOf", token).ConfigureAwait(false);
-            //var contract = await GetContractAsync(GenerateWeb3Instance(),  token).ConfigureAwait(false);
-            //var function = contract.GetFunction("balanceOf");
             var result = await function.CallAsync<BigInteger>(senderAddress).ConfigureAwait(false);
             var normalAmount = result / new BigInteger(FromWei);
             return (decimal)normalAmount;
@@ -32,8 +30,6 @@ namespace Cloudents.Infrastructure.Blockchain
         public async Task<string> TransferMoneyAsync(string senderPk, string toAddress, float amount, CancellationToken token)
         {
             var function = await GetFunctionAsync("transfer", token).ConfigureAwait(false);
-            //var contract = await GetContractAsync(GenerateWeb3Instance(senderPk), token).ConfigureAwait(false);
-            //var operationToExe = contract.GetFunction("transfer");
             var amountTransformed = new BigInteger(amount * FromWei);
             var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(senderPk, 70000, token, toAddress, amountTransformed).ConfigureAwait(false);
             return receiptFirstAmountSend.BlockHash;

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -44,7 +45,16 @@ namespace Cloudents.Web.Api
             [FromServices] IBlockChainErc20Service blockChain, CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var balance = await blockChain.GetBalanceAsync(user.PublicKey, token).ConfigureAwait(false);
+            decimal balance;
+            try
+            {
+                balance = await blockChain.GetBalanceAsync(user.PublicKey, token).ConfigureAwait(false);
+            }
+            catch (HttpRequestException)
+            {
+                balance = 100m;
+            }
+
             return Ok(new
             {
                 user.Id,
