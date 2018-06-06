@@ -7,7 +7,7 @@
                     <sb-input :errorMessage="errorMessage" :required="true" class="email-field" type="email" name="email" id="input-url" v-model="userEmail" placeholder="Enter your email address"></sb-input>
                     <sb-input :required="true" class="password-field" type="password" name="password" id="input-url" v-model="password" placeholder="Password (Account key)"></sb-input>
                     <div class="checkbox-wrap">
-                        <input id="keep-logged-in" type="checkbox" v-model="keepLogedIn">
+                        <input id="keep-logged-in" type="checkbox" v-model="rememberMe">
                         <label for="keep-logged-in">keep me logged in</label>
                     </div>
                     <vue-recaptcha class="recaptcha-wrapper"

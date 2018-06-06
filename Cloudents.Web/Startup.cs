@@ -16,6 +16,7 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
+using Cloudents.Web.Services;
 using Cloudents.Web.Swagger;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
@@ -102,7 +103,7 @@ namespace Cloudents.Web
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
             services.AddSingleton(physicalProvider);
 
-            services.AddScoped<IPasswordHasher<User>, PasswordHasher>();
+            //services.AddScoped<IPasswordHasher<User>, PasswordHasher>();
             services.AddIdentity<User, ApplicationRole>(options =>
                 {
                     options.SignIn.RequireConfirmedEmail = true;
@@ -149,7 +150,7 @@ namespace Cloudents.Web
             services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
-
+            services.AddTransient<ISmsSender, SmsSender>();
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),

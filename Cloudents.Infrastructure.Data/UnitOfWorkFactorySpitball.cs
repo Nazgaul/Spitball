@@ -15,17 +15,16 @@ namespace Cloudents.Infrastructure.Data
     {
         private readonly ISessionFactory _factory;
 
-
         private static IEnumerable<Type> GetAllTypesImplementingOpenGenericType(Type openGenericType, Assembly assembly)
         {
             return from x in assembly.GetTypes()
                    from z in x.GetInterfaces()
                    let y = x.BaseType
                    where
-                       y?.IsGenericType == true
-                                 && openGenericType.IsAssignableFrom(y.GetGenericTypeDefinition())
-                       || z.IsGenericType
-                       && openGenericType.IsAssignableFrom(z.GetGenericTypeDefinition())
+                       (y?.IsGenericType == true
+                                 && openGenericType.IsAssignableFrom(y.GetGenericTypeDefinition()))
+                       || (z.IsGenericType
+                       && openGenericType.IsAssignableFrom(z.GetGenericTypeDefinition()))
                    select x;
         }
 
@@ -63,7 +62,7 @@ namespace Cloudents.Infrastructure.Data
 
         private static void BuildSchema(Configuration config)
         {
-            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Validate);
+            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
         }
     }
 }

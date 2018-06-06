@@ -30,6 +30,7 @@ export default {
             this.dialogWasViewed = true;
         },
         finishRegistration() {
+            window.isAuth = true;
             this.$router.push({path: '/note', query: {q: ''}});
         }
     },

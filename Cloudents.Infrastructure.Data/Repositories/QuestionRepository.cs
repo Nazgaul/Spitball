@@ -49,7 +49,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
             var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(false);
             var facet = await facetsFuture.GetEnumerableAsync(token).ConfigureAwait(false);
 
-
             return new ResultWithFacetDto<QuestionDto>
             {
                 Result = retVal,

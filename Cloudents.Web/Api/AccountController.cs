@@ -90,51 +90,51 @@ namespace Cloudents.Web.Api
             }
         }
 
-        [HttpGet("userName")]
-        [Authorize]
-        public IActionResult GetUserName()
-        {
-            var name = _userManager.GetUserName(User);
-            return Ok(new { name });
-        }
+        //[HttpGet("userName")]
+        //[Authorize]
+        //public IActionResult GetUserName()
+        //{
+        //    var name = _userManager.GetUserName(User);
+        //    return Ok(new { name });
+        //}
 
-        [HttpPost("userName"), ValidateModel]
-        [Authorize]
-        public async Task<IActionResult> ChangeUserNameAsync(
-            [FromBody]ChangeUserNameRequest model,
-            [FromServices] IQueueProvider client,
-            CancellationToken token)
-        {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var t1 = _userManager.SetUserNameAsync(user, model.Name);
-            var userId = user.Id;
-            var t2 = client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
-            {
-                Name = user.Name
-            }, token);
+        //[HttpPost("userName"), ValidateModel]
+        //[Authorize]
+        //public async Task<IActionResult> ChangeUserNameAsync(
+        //    [FromBody]ChangeUserNameRequest model,
+        //    [FromServices] IQueueProvider client,
+        //    CancellationToken token)
+        //{
+        //    var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+        //    var t1 = _userManager.SetUserNameAsync(user, model.Name);
+        //    var userId = user.Id;
+        //    var t2 = client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
+        //    {
+        //        Name = user.Name
+        //    }, token);
 
-            try
-            {
-                await Task.WhenAll(t1, t2).ConfigureAwait(false);
-            }
-            catch (UserNameExistsException ex)
-            {
-                await client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
-                {
-                    Name = _userManager.GetUserName(User)
-                }, token).ConfigureAwait(false);
-                ModelState.AddModelError(string.Empty,ex.Message);
-                return BadRequest(ModelState);
-            }
+        //    try
+        //    {
+        //        await Task.WhenAll(t1, t2).ConfigureAwait(false);
+        //    }
+        //    catch (UserNameExistsException ex)
+        //    {
+        //        await client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
+        //        {
+        //            Name = _userManager.GetUserName(User)
+        //        }, token).ConfigureAwait(false);
+        //        ModelState.AddModelError(string.Empty,ex.Message);
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (t1.Result.Succeeded)
-            {
-                return Ok();
-            }
+        //    if (t1.Result.Succeeded)
+        //    {
+        //        return Ok();
+        //    }
 
-            ModelState.AddIdentityModelError(t1.Result);
-            return BadRequest(ModelState);
-        }
+        //    ModelState.AddIdentityModelError(t1.Result);
+        //    return BadRequest(ModelState);
+        //}
 
         //TODO : need to figure out what well do.
         [HttpPost("university")]

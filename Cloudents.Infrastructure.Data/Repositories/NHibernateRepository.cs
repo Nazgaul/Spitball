@@ -50,5 +50,11 @@ namespace Cloudents.Infrastructure.Data.Repositories
             _unitOfWork.FlagCommit();
             return Session.SaveAsync(entity, token);
         }
+
+        public Task SaveOrUpdateAsync(T entity, CancellationToken token)
+        {
+            _unitOfWork.FlagCommit();
+            return Session.SaveOrUpdateAsync(entity, token);
+        }
     }
 }

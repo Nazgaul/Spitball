@@ -60,14 +60,16 @@ const actions = {
         if(getters.isUser){
             return Promise.resolve();
         }
-        return axios.get("account").then(({ data }) => {
-            commit("changeLoginStatus", true);
-            commit("updateUser", data);
-            dispatch("connectToChat");
-        }).catch(_ => {
-            isRequire?commit("updateUnAuthPath",to):'';
-            commit("changeLoginStatus", false);
-        });
+        if(window.isAuth) {
+            return axios.get("account").then(({data}) => {
+                commit("changeLoginStatus", true);
+                commit("updateUser", data);
+                dispatch("connectToChat");
+            }).catch(_ => {
+                isRequire ? commit("updateUnAuthPath", to) : '';
+                commit("changeLoginStatus", false);
+            });
+        }
     },
     connectToChat({ state, commit }) {
         if (!state.user) {

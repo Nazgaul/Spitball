@@ -30,7 +30,6 @@ namespace Cloudents.Infrastructure.Data
 
         public void Dispose()
         {
-
             if (!_isAlive)
                 return;
 

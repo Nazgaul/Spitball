@@ -1,5 +1,6 @@
 ﻿import ResultItem from './ResultItem.vue';
 import questionCard from './../question/helpers/question-card/question-card.vue';
+import signupBanner from './../helpers/signup-banner/signup-banner.vue'
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
@@ -152,7 +153,8 @@ export const pageMixin =
             ResultBook,
             ResultVideoSkeleton,
             questionCard,
-            faqBlock
+            faqBlock,
+            signupBanner
         },
 
         created() {

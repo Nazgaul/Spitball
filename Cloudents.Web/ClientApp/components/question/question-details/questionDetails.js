@@ -1,7 +1,7 @@
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
-import {mapGetters} from "vuex";
+import {mapGetters, mapMutations} from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 
@@ -20,13 +20,16 @@ export default {
         };
     },
     methods: {
+        ...mapMutations(["UPDATE_LOADING"]),
         submitAnswer() {
+            this.UPDATE_LOADING(true);
             var self = this;
             if(this.submitForm()) {
                 questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
                     .then(function () {
                         self.textAreaValue = "";
                         self.answerFiles = [];
+                        self.UPDATE_LOADING(false);
                         //TODO: do this on client side (render data inserted by user without calling server)
                         self.getData();
                     });
