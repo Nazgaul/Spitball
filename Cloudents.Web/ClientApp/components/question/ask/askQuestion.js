@@ -18,16 +18,14 @@ export default {
     },
     methods: {
         submitQuestion() {
-            debugger;
             if(this.accountUser && this.accountUser.balance < this.price){
-                this.errorMessages = "You don't have enough balance in your account"
+                this.errorMessage = "You don't have enough balance in your account"
                 return;
             }
             var self = this;
             if (this.submitForm()) {
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.price, this.files)
                     .then(function () {
-                            debugger;
                             self.$router.push({path: '/ask', query: {q: ''}});
                         },
                         function (error) {
@@ -47,7 +45,7 @@ export default {
         ...mapGetters(['accountUser']),
         validForm() {
             return this.subject && this.textAreaValue.length && this.price >= 0.5;
-        }
+        },
     },
     created() {
         var self = this;
