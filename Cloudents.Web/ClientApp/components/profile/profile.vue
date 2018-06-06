@@ -32,12 +32,12 @@
 
                 <v-flex class="web-content">
                     <div v-if="activeTab === 1">
-                        <router-link :to="{name:'question',params:{id:questionData.id}}" v-for="questionData in profileData.ask">
+                        <router-link :to="{name:'question',params:{id:questionData.id}}" v-for="questionData in profileData.ask" :key="questionData.id">
                             <question-card :cardData="questionData"></question-card>
                         </router-link>
                     </div>
                     <div v-else-if="activeTab === 2">
-                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="answerData in profileData.answer">
+                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="answerData in profileData.answer" :key="answerData.id">
                             <question-card :cardData="answerData"></question-card>
                         </router-link>
                     </div>
