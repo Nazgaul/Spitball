@@ -25,6 +25,7 @@ export default {
                 registrationService.signIn(this.userEmail, this.password, this.recaptcha)
                     .then(function () {
                         let url=self.unAuthPath||defaultSubmitRoute;
+                        window.isAuth = true;
                         self.$router.push({...url});
                     }, function (reason) {
                         debugger;
