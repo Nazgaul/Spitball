@@ -22,6 +22,9 @@
 
         <v-dialog v-model="openDialog" max-width="608px" >
             <v-card>
+                <button class="close-btn" @click="openDialog = false">
+                    <v-icon>sbf-close</v-icon>
+                </button>
                 <v-card-text class="limited-width custom">
                     <h1>Beware…</h1>
                     <p><b>Save this number or screenshot your screen.</b>
