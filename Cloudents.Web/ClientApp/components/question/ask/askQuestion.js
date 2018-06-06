@@ -1,6 +1,7 @@
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from '../../../services/questionService';
 import disableForm from "../../mixins/submitDisableMixin"
+import {mapGetters} from 'vuex'
 
 export default {
     mixins: [disableForm],
@@ -12,10 +13,16 @@ export default {
             textAreaValue: '',
             price: 0.5,
             files: [],
+            errorMessage:''
         }
     },
     methods: {
         submitQuestion() {
+            debugger;
+            if(this.accountUser && this.accountUser.balance < this.price){
+                this.errorMessages = "You don't have enough balance in your account"
+                return;
+            }
             var self = this;
             if (this.submitForm()) {
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.price, this.files)
@@ -37,6 +44,7 @@ export default {
         }
     },
     computed: {
+        ...mapGetters(['accountUser']),
         validForm() {
             return this.subject && this.textAreaValue.length && this.price >= 0.5;
         }

@@ -17,10 +17,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['unAuthPath']),
-        disableSubmit: function () {
-            return this.submitted || !this.userEmail || !this.password || !this.recaptcha;
-        }
+        ...mapGetters(['unAuthPath'])
     },
     methods: {
         submit() {
