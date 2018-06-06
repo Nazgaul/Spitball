@@ -1,7 +1,7 @@
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from '../../../services/questionService';
 import disableForm from "../../mixins/submitDisableMixin"
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
     mixins: [disableForm],
@@ -17,6 +17,7 @@ export default {
         }
     },
     methods: {
+        ...mapMutations(["UPDATE_LOADING"]),
         submitQuestion() {
             if(this.accountUser && this.accountUser.balance < this.price){
                 this.errorMessage = "You don't have enough balance in your account"
@@ -24,11 +25,13 @@ export default {
             }
             var self = this;
             if (this.submitForm()) {
+                this.UPDATE_LOADING(true);
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.price, this.files)
                     .then(function () {
                             self.$router.push({path: '/ask', query: {q: ''}});
                         },
                         function (error) {
+                            self.UPDATE_LOADING(false)
                             console.error(error);
                             this.submitForm(false);
                         });
