@@ -10,7 +10,7 @@ export default {
         return {
             userEmail: '',
             password: '',
-            keepLogedIn: false,
+            rememberMe: false,
             submitted:false,
             recaptcha: '',
             errorMessage:'',
@@ -22,7 +22,7 @@ export default {
     methods: {
         submit() {
             self = this;
-                registrationService.signIn(this.userEmail, this.password, this.recaptcha)
+                registrationService.signIn(this.userEmail, this.password, this.recaptcha, this.remeberMe)
                     .then(function () {
                         let url=self.unAuthPath||defaultSubmitRoute;
                         window.isAuth = true;

@@ -3,7 +3,7 @@
         <question-card :cardData="props.questionData" class="user-question mb-3" detailed-view></question-card>
         <slot name="answer-form"></slot>
         <div>
-            <question-card v-for="answer in props.questionData.answers" :typeAnswer="true"
+            <question-card v-for="answer in props.questionData.answers" :typeAnswer="true" :key="answer.id"
                            :showApproveButton="props.questionData.myQuestion"
                            :isCorrectAnswer="props.questionData.correctAnswer && props.questionData.correctAnswer.toUpperCase() === answer.id.toUpperCase()"
                            :cardData="answer"
