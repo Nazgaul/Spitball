@@ -41,6 +41,6 @@ export default {
         }
     },
     created() {
-        this.step = this.$route.meta.step || this.getRegistrationStep;
+        this.step = 0;//this.$route.meta.step || this.getRegistrationStep; TODO: revert after design changes are implemented
     }
 }
