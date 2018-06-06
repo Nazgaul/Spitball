@@ -1,8 +1,11 @@
 @import "../../../../mixin.less";
 
-.step-account .step-wrapper {
+.step-account .step-wrapper, .dialog .limited-width.custom {
   .continue-btn {
-    margin-top: 50px;
+    margin-top: 13px;
+    @media (max-width: @screen-xs) {
+      margin-top: 0px;
+    }
   }
 
   .done {
@@ -16,6 +19,9 @@
 
   .input-wrapper {
     margin-top: 30px;
+    @media (max-width: @screen-xs) {
+      margin-top: 0px;
+    }
     input {
       margin-top: 0;
       padding-left: 52px;
@@ -26,5 +32,44 @@
         left: 16px;
       }
     }
+  }
+
+  .small-button{
+    box-shadow: none;
+    outline: none;
+    .sbf-copy{color: @color-main-purple;}
+  }
+
+
+}
+.dialog{
+  @media (max-width: @screen-xs) {
+    margin: 16px;
+  }  
+  .card{
+    @media (max-width: @screen-xs) {
+      min-height: 363px;
+    }
+  }
+  .limited-width.custom{
+    padding: 40px 0 47px;
+    height: 393px;
+    @media (max-width: @screen-xs) {
+      padding: 52px 16px 10px;
+      height: 363px;
+    }
+    p{
+      margin-top: 0;
+      @media (max-width: @screen-xs) {
+        margin: 0 16px;
+      }      
+    }
+  }
+
+} 
+
+.overlay.overlay--active:before {  
+  @media (max-width: @screen-xs) {
+    opacity: 1;
   }
 }

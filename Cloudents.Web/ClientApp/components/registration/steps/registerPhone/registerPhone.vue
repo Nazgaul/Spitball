@@ -22,19 +22,20 @@
         </step-template>
 
         <step-template v-else>
-            <div slot="step-data" class="limited-width">
+            <div slot="step-data" class="limited-width wide">
                 <h1 class="step-title">Enter the confirmation code</h1>
-                <p class="sub-title">We sent the code to you by SMS to</p>
-                <p class="phone-num">(+{{this.phone.countryCode}}) {{this.phone.phoneNum}}</p>
-                <button class="small-button" @click="codeSent = false">Edit</button>
+                <p class="sub-title">We sent the code to you by SMS to (+{{this.phone.countryCode}}) {{this.phone.phoneNum}}</p>
                 <p class="confirm-title">Please enter the code below to confirm it.</p>
                 <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code" v-model="confirmationCode" placeholder="Confirmation code" type="number" :autofocus="true"></sb-input>
                 <!--<div class="input-wrapper">-->
                     <!--<input class="code-field input-field" v-model="confirmationCode" placeholder="Confirmation code"></input>-->
                     <!--<v-icon>sbf-key</v-icon>-->
                 <!--</div>-->
-                <button class="small-button" @click="sendCode">Resend</button>
                 <button class="continue-btn submit-code" @click="next" :disabled="submitted||!confirmationCode">Continue</button>
+
+                <div class="margin-top">
+                    <p class="inline">Didn't get an sms?</p><p class="email-text inline click" @click="sendCode">&nbsp;Click here to resend.</p>
+                </div>
             </div>
             <img slot="step-image" :src="require(`../../img/confirm-phone.png`)"/>
         </step-template>

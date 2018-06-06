@@ -5,6 +5,7 @@
     text-align: center;
     font-size: 26px;
     font-weight: bold;
+    color: @color-main-purple;
   }
 
   .back-button {
@@ -15,6 +16,7 @@
 
     .sbf-close {
       font-size: 16px;
+      color: @color-main-purple;
     }
   }
   .step-wrapper {
@@ -38,7 +40,7 @@
       &.data {
         background: white;;
         @media (max-width: @screen-xs) {
-          padding: 20px 16px;
+          padding: 16px 14px 16px 16px;
         }
       }
     }
@@ -81,6 +83,12 @@
     .limited-width {
       max-width: 400px;
       width: 100%;
+      &.wide{
+        max-width: 422px;
+        .click{cursor: pointer;}
+        .inline{display: inline-block;}
+        .email-text{color: @color-main-purple;}
+    }
     }
     select {
       height: @registrationFieldHeight;
@@ -115,7 +123,7 @@
     justify-content: center;
     width: 50%;
     position: absolute;
-    left: 0;
+    right: 0;
     bottom: 52px;
 
     @media (max-width: @screen-xs) {
@@ -259,7 +267,7 @@
     max-width: 400px;
     width: 100%;
     margin: 0 auto;
-    padding: 32px 0;
+    padding: 32px 0;   
   }
 
 }

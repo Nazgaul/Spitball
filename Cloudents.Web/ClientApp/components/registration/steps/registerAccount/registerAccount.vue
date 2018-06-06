@@ -20,15 +20,15 @@
         </step-template>
 
 
-        <v-dialog v-model="openDialog" max-width="600px">
+        <v-dialog v-model="openDialog" max-width="608px" >
             <v-card>
-                <v-card-text class="limited-width">
+                <v-card-text class="limited-width custom">
                     <h1>Beware…</h1>
                     <p><b>Save this number or screenshot your screen.</b>
                         You will need it  to login to the Spitball and
                         retrieve your funds.</p>
                     <account-num :account-num="accountNum"></account-num>
-                    <button class="continue-btn" @click.once="closeDialog">ok</button>
+                    <button class="continue-btn" @click.once="closeDialog">Continue</button>
                 </v-card-text>
             </v-card>
         </v-dialog>

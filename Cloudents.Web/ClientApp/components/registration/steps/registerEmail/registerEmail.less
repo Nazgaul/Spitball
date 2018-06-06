@@ -15,7 +15,10 @@
     color: #ffffff;
     width: 100%;
     height: @registrationFieldHeight;
-    margin-top: 26px;
+    margin-top: 40px;
+    @media (max-width: @screen-xs) {
+      margin-top: 24px;
+    }
   }
 
   .sbf-google-icon {
@@ -33,11 +36,16 @@
   .seperator-text {
     display: flex;
     align-items: center;
-    margin: 26px 0 30px 0;
+    margin: 22px 0 18px 0;
+    padding: 15px 0;
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: -0.3px;
     color: #888b8e;
+
+    @media (max-width: @screen-xs) {
+      margin: 0 0 11px;
+    }
 
     &:before, &:after {
       content: '';
@@ -68,6 +76,9 @@
 
   .continue-btn {
     margin-top: 16px;
+    @media (max-width: @screen-xs) {
+      margin-top: 0;
+    }
   }
 
   .email {
@@ -81,7 +92,90 @@
     letter-spacing: -0.4px;
     color: #888b8e;
   }
+
   .recaptcha-wrapper {
-    margin: 30px 0 10px 0;
+    margin: 24px 0 10px 0;    
   }
+  .recaptcha-wrapper > div:first-child{
+    height: 100px;
+  }
+
+  .checkbox-terms{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 30px 0 0 33px;
+    @media (max-width: @screen-xs) {
+      margin: 0;
+      padding: 15px 0 4px 25px;
+    }
+
+    input{
+      width: 16px;
+      height: 16px;
+    }
+    label{
+      font-size: 11px;
+      margin-bottom: 1px;
+      letter-spacing: -0.3px;
+      color: #90949c;
+      margin-left: 6px;
+    }
+  }
+
+
+  .signin-strip{
+    font-size: 16px;
+    letter-spacing: -0.4px;
+    text-align: center;
+    color: #888b8e;
+    margin: 47px 0 16px;
+    @media (max-width: @screen-xs) {
+      font-size: 18px;
+    }
+  }
+
+  .side-wrapper.image{
+    .text{
+      height: 135px;    
+    }
+    img{margin: 25px 0;}
+    
+  }
+
+  
+  .step-title{
+    @media (max-width: @screen-xs) {
+      margin-top: 16px;
+    }
+  }   
+  .limited-width.wide{
+    height: 400px;
+    @media (max-width: @screen-xs) {
+      height: 500px;
+    }   
+    .step-title{
+      margin: 70px 10px 10px;
+      @media (max-width: @screen-xs) {
+        margin: 0px 10px 10px;
+      }
+    }
+    p{max-width: 400px;}
+    img{
+      display: none;
+      width: 251px;
+      height: 154px;
+      @media (max-width: @screen-xs) {
+        display: flex;
+        margin: 75px auto;
+      }
+    }
+    
+    .margin-top{
+      margin-top: 255px;
+      @media (max-width: @screen-xs) {
+        margin: 0px 0 16px;
+      }
+    }
+  }   
 }
