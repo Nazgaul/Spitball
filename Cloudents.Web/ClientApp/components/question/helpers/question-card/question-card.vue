@@ -5,6 +5,10 @@
                 <span>Earn {{cardData.price}}$</span>
             </div>
             <p class="q-category">{{cardData.subject}}</p>
+            <button v-if="myQuestion" :disabled="!cardData.answers" @click="()=>{haveAnswers?showDelete=true:deleteQuestion()}">Delete</button>
+            <v-dialog  v-model="showDelete">
+                {{dialogDeleteUserText}}
+            </v-dialog>
         </div>
 
         <div v-else class="q-answer">

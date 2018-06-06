@@ -8,7 +8,7 @@ export default {
     emailResend: () => axios.post("/Register/resend"),
     smsRegistration: (data) => axios.post("/Register/sms", {number: data}),
     smsCodeVerification: (data) => axios.post("/Register/sms/verify", {number: data}),
-    signIn: (email,key,captcha) => axios.post("login", {email,key, captcha}),
+    signIn: (email,key,captcha,rememberMe) => axios.post("login", {email,key, captcha, rememberMe}),
     getAccountNum: () => axios.post("/Register/password"),
 
 }
