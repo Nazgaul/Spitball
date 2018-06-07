@@ -13,7 +13,7 @@
 
             <div class="buttons">
                 <router-link class="sign-up" to="register">Sign up</router-link>
-                <router-link class="learn-more" to="">Learn More</router-link>
+                <router-link class="learn-more" to="">Learn more</router-link>
             </div>
             
         </v-flex>

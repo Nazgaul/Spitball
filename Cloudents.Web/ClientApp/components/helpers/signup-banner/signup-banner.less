@@ -16,17 +16,24 @@
         }
     }
 
-    .back-button .sbf{        
-        font-size: 16px;
-        color: @color-grey;        
+    .back-button{ 
+        float: right;
+        @media (max-width: @screen-xs) {
+            margin: 9px 5px;
+        }
+        .sbf{        
+            font-size: 16px;
+            color: @color-grey;    
+        }    
     }
 
     .text-block{
-        margin: 140px 67px;
-        p{margin: 0;}
+        padding: 120px 0 0 70px;
         font-size: 18px;
-        width: 292px;
+        width: 362px;       
         color: @color-white;
+
+        p{margin: 0;}
 
         @media (max-width: @screen-xs) {
             width: 312px;
@@ -38,7 +45,7 @@
             font-size: 56px;
             font-weight: bold;
             line-height: 0.6;
-            letter-spacing: -0.8px;
+            letter-spacing: -0.9px;
         }
         .medium{
             font-size: 20px;
