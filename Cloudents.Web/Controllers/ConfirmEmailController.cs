@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,16 +12,15 @@ namespace Cloudents.Web.Controllers
     public class ConfirmEmailController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly SbSignInManager _signInManager;
 
-        public ConfirmEmailController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public ConfirmEmailController(UserManager<User> userManager, SbSignInManager signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
         // GET
-        //[Authorize]
         public async Task<IActionResult> Index(string id, string code)
         {
             if (id == null || code == null)
@@ -38,8 +38,10 @@ namespace Cloudents.Web.Controllers
             {
                 throw new ApplicationException($"Error confirming email for user with ID '{id}':");
             }
-            
-            await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
+
+            await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+
+            //await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
 
             return Redirect("/verify-phone");
         }

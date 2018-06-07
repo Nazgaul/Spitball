@@ -104,21 +104,23 @@ namespace Cloudents.Web
             services.AddSingleton(physicalProvider);
 
             //services.AddScoped<IPasswordHasher<User>, PasswordHasher>();
+            services.AddScoped<SignInManager<User>, SbSignInManager>();
             services.AddIdentity<User, ApplicationRole>(options =>
-                {
-                    options.SignIn.RequireConfirmedEmail = true;
-                    options.SignIn.RequireConfirmedPhoneNumber = true;
-                    options.User.AllowedUserNameCharacters = null;
+            {
+                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedPhoneNumber = true;
+                options.User.AllowedUserNameCharacters = null;
 
-                    options.User.RequireUniqueEmail = true;
+                options.User.RequireUniqueEmail = true;
 
-                    options.Password.RequiredLength = 1;
-                    options.Password.RequireDigit = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequiredUniqueChars = 0;
-                }).AddDefaultTokenProviders();
+                options.Password.RequiredLength = 1;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredUniqueChars = 0;
+            }).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
+                
 
             services.AddAuthorization(options =>
             {
@@ -128,8 +130,8 @@ namespace Cloudents.Web
                 //    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Sms.ToString("D")));
                 //options.AddPolicy(SignInStep.PolicyPassword,
                 //    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.UntilPassword.ToString("D")));
-                options.AddPolicy(PolicyType.Finish,
-                    policy => policy.RequireClaim(ClaimsType.AuthStep, SignInStepEnum.All.ToString("D")));
+                //options.AddPolicy(PolicyType.Finish,
+                //    policy => policy.RequireClaim(ClaimsType.AuthStep, SignInStepEnum.All.ToString("D")));
             });
             services.ConfigureApplicationCookie(o =>
             {

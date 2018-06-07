@@ -49,6 +49,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var account = Infrastructure.BlockChain.BlockChainProvider.CreateAccount();
+            
             var userName = model.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             var user = new User
             {
@@ -106,50 +107,12 @@ namespace Cloudents.Web.Api
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (p.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
+               // await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
                 return Ok();
             }
             ModelState.AddIdentityModelError(p);
             return BadRequest(ModelState);
         }
 
-        
-
-        //[HttpPost("password")]
-        //[Authorize]
-        //public async Task<IActionResult> GeneratePasswordAsync(
-        //    [FromServices] IBlockChainErc20Service blockChainErc20Service,
-        //    [FromServices] IQueueProvider client,
-        //    CancellationToken token)
-        //{
-        //    var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-        //    var account = Infrastructure.BlockChain.BlockChainProvider.CreateAccount();
-
-        //    var t1 = blockChainErc20Service.SetInitialBalanceAsync(account.publicAddress, token);
-
-        //    var t3 = client.InsertBackgroundMessageAsync(new TalkJsUser(user.Id)
-        //    {
-        //        Name = user.Name,
-        //        Email = user.Email,
-        //        Phone = user.PhoneNumber
-        //    }, token);
-
-        //    var privateKey = account.privateKey;
-        //    var t2 = _userManager.AddPasswordAsync(user, privateKey);
-
-        //    await Task.WhenAll(t1, t2, t3).ConfigureAwait(false);
-        //    if (t2.Result.Succeeded)
-        //    {
-        //        await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
-        //        return Ok(
-        //        new
-        //        {
-        //            password = privateKey
-        //        });
-        //    }
-
-        //    ModelState.AddIdentityModelError(t2.Result);
-        //    return BadRequest(ModelState);
-        //}
     }
 }

@@ -25,7 +25,7 @@ namespace Cloudents.Web.Identity
 
             if (user.EmailConfirmed && user.PhoneNumberConfirmed)
             {
-                p.AddClaim(new Claim(ClaimsType.AuthStep, SignInStepEnum.All.ToString("D")));
+                //p.AddClaim(new Claim(ClaimsType.AuthStep, SignInStepEnum.All.ToString("D")));
                 p.AddClaim(new Claim(ClaimsType.PublicKey, _blockChain.GetAddress(user.PrivateKey)));
             }
             return p;
