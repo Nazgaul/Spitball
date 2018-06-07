@@ -15,7 +15,8 @@ export default {
             submitted: false,
             recaptcha: '',
             errorMessage: '',
-            codeSent: false
+            codeSent: false,
+            confirmationCode: ''
         }
     },
     computed: {
@@ -27,6 +28,16 @@ export default {
             this.UPDATE_LOADING(true);
             self = this;
             registrationService.signIn(this.userEmail, this.recaptcha, this.remeberMe)
+                .then(function () {
+                    self.UPDATE_LOADING(false);
+                    self.codeSent = true;
+                }, function (reason) {
+                    self.UPDATE_LOADING(false);
+                    self.errorMessage = reason.response.data;
+                });
+        },
+        verifyCode() {
+            registrationService.smsCodeVerification(this.confirmationCode)
                 .then(function () {
                     self.UPDATE_LOADING(false);
                     let url = self.unAuthPath || defaultSubmitRoute;
