@@ -185,11 +185,6 @@ let routes2 = [
         }, name: "jobsV2"
     },
     {
-        path: "/register", components: {
-            default: registration,
-        }, name: "registration",
-    },
-    {
         path: "/askquestion", components: {
             default: askQuestion,
             header: slimHeader,
@@ -233,6 +228,11 @@ let routes2 = [
     //         slimHeader: pageHeader,
     //     }, name: "chat"
     // },
+    {
+        path: "/register", components: {
+            default: registration,
+        }, name: "registration",
+    },
     {
         path: "/verify-phone",
         components: {

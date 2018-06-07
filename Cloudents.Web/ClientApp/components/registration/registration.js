@@ -33,14 +33,15 @@ export default {
             this.$router.go(-1);
         },
         nextStep() {
-            if (this.step === 3) {
-                this.$router.this.$router.push({path: '/note', query: {q: ''}}); //TODO: change to the market place when we'll build it.
+            debugger;
+            if (this.step === 2) {
+                this.$router.push({path: '/note', query: {q: ''}}); //TODO: change to the market place when we'll build it.
                 return;
             }
             this.step++;
         }
     },
     created() {
-        this.step = this.$route.meta.step || this.getRegistrationStep;// TODO: revert after design changes are implemented
+        this.step = this.$route.meta.step || this.getRegistrationStep;
     }
 }

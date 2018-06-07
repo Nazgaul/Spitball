@@ -17,11 +17,11 @@
                                    @verify="onVerify" @expired="onExpired"></vue-recaptcha>
                     <input :disabled="submitted" class="continue-btn input-field" type="submit"
                            value="Continue">
+                    <div class="checkbox-terms">
+                        <input required type="checkbox" id="terms">
+                        <label for="terms">By joining, I agree to Spitball Terms of Services and Privacy Policy</label>
+                    </div>
                 </form>
-                <div class="checkbox-terms">
-                    <input type="checkbox" id="terms">
-                    <label for="terms">By joining, I agree to Spitball Terms of Services and Privacy Policy</label>
-                </div>
                 <div class="signin-strip">Do you already have an account?
                     <router-link to="signin">Sign in</router-link>
                 </div>

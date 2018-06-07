@@ -37,7 +37,7 @@ export default {
                 }, function (error) {
                     self.submitForm(false);
                     self.UPDATE_LOADING(false);
-                    self.errorMessage.phone = error.response.data ? error.response.data["0"].description : error.message
+                    self.errorMessage.phone = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                 });
         },
         next() {
@@ -51,7 +51,7 @@ export default {
                     }, function (error) {
                         self.submitForm(false);
                         self.UPDATE_LOADING(false);
-                        self.errorMessage.code = error.response.data ? error.response.data["0"].description : error.message
+                        self.errorMessage.code = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                     });
             }
         }
