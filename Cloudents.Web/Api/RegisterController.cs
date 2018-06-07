@@ -72,6 +72,7 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
+        //TODO: authorize is no good.
         [HttpPost("resend"), Authorize]
         public async Task<IActionResult> ResendEmailAsync(CancellationToken token)
         {
@@ -132,8 +133,6 @@ namespace Cloudents.Web.Api
         //        Email = user.Email,
         //        Phone = user.PhoneNumber
         //    }, token);
-
-
 
         //    var privateKey = account.privateKey;
         //    var t2 = _userManager.AddPasswordAsync(user, privateKey);

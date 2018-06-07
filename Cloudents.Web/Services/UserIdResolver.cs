@@ -23,5 +23,4 @@ namespace Cloudents.Web.Mapper
             return long.Parse(_userManager.GetUserId(_context.HttpContext.User));
         }
     }
-
 }

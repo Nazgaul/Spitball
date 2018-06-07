@@ -2,7 +2,6 @@
 
 namespace Cloudents.Web.Identity
 {
-
     public class UserNameExistsException : Exception
     {
         public UserNameExistsException() : base()

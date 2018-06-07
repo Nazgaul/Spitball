@@ -33,7 +33,6 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-
         //[HttpPost("upVote"), ValidateModel]
         //public async Task<IActionResult> UpVoteAsync([FromBody]UpVoteAnswerRequest model, CancellationToken token)
         //{
@@ -41,7 +40,6 @@ namespace Cloudents.Web.Api
         //    await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
         //    return Ok();
         //}
-
 
         
     }
