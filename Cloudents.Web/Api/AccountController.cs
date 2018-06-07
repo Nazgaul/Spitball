@@ -21,14 +21,16 @@ namespace Cloudents.Web.Api
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly ICommandBus _commandBus;
         private readonly IMapper _mapper;
 
-        public AccountController(UserManager<User> userManager, ICommandBus commandBus, IMapper mapper)
+        public AccountController(UserManager<User> userManager, ICommandBus commandBus, IMapper mapper, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _commandBus = commandBus;
             _mapper = mapper;
+            _signInManager = signInManager;
         }
 
         // GET
@@ -44,6 +46,12 @@ namespace Cloudents.Web.Api
             var taskBalance = blockChain.GetBalanceAsync(publicKeyClaim.Value, token);
 
             await Task.WhenAll(taskUser, taskBalance).ConfigureAwait(false);
+            if (taskUser.Result == null)
+            {
+                ModelState.AddModelError(string.Empty,"user not exists");
+                await _signInManager.SignOutAsync().ConfigureAwait(false);
+                return BadRequest(ModelState);
+            }
 
             var user = taskUser.Result;
             return Ok(new
@@ -92,10 +100,9 @@ namespace Cloudents.Web.Api
 
         [HttpPost("logout")]
         [Authorize]
-        public async Task<IActionResult> LogOutAsync(
-            [FromServices] SignInManager<User> signInManager)
+        public async Task<IActionResult> LogOutAsync()
         {
-            await signInManager.SignOutAsync().ConfigureAwait(false);
+            await _signInManager.SignOutAsync().ConfigureAwait(false);
             return Ok();
         }
     }
