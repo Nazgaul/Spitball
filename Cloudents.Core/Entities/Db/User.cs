@@ -5,6 +5,20 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global" ,Justification = "Resharper")]
     public class User
     {
+
+        public User(string email, string name, string privateKey)
+        {
+            Email = email;
+            Name = name;
+            PrivateKey = privateKey;
+            TwoFactorEnabled = true;
+        }
+
+        protected User()
+        {
+
+        }
+
         public virtual long Id { get; set; }
         public virtual string Email { get; set; }
         public virtual bool EmailConfirmed { get; set; }

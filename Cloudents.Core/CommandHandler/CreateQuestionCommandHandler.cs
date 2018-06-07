@@ -36,13 +36,10 @@ namespace Cloudents.Core.CommandHandler
             var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
             await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
             var id = question.Id;
-
-
             var p = _blockChainProvider.SubmitQuestionAsync(id, message.Price, _blockChain.GetAddress(user.PrivateKey), token);
 
-            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token));
-
-            await Task.WhenAll(l?.Union(new[] { p })).ConfigureAwait(true);
+            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ?? Enumerable.Empty<Task>();
+            await Task.WhenAll(l.Union(new[] { p })).ConfigureAwait(true);
         }
     }
 }

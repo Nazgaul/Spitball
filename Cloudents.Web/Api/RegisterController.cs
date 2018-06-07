@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,7 +9,6 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,16 +19,13 @@ namespace Cloudents.Web.Api
     public class RegisterController : Controller
     {
         private readonly IQueueProvider _queueProvider;
-        private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
 
         public RegisterController(
-            UserManager<User> userManager, IConfigurationKeys configuration, IQueueProvider queueProvider, SignInManager<User> signInManager)
+            UserManager<User> userManager, IQueueProvider queueProvider)
         {
             _userManager = userManager;
-           
             _queueProvider = queueProvider;
-            _signInManager = signInManager;
         }
 
         private static int GenerateRandomNumber()
@@ -41,30 +36,24 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         [ValidateModel, ValidateRecaptcha]
-        public async Task<IActionResult> CreateUserAsync([FromBody]RegisterEmailRequest model, CancellationToken token)
+        public async Task<IActionResult> CreateUserAsync([FromBody]RegisterEmailRequest model,
+            CancellationToken token)
         {
             if (User.Identity.IsAuthenticated)
             {
                 ModelState.AddModelError(string.Empty, "user is already logged in");
                 return BadRequest(ModelState);
             }
-            var account = Infrastructure.BlockChain.BlockChainProvider.CreateAccount();
-            
+            var (privateKey, _) = Infrastructure.BlockChain.BlockChainProvider.CreateAccount();
             var userName = model.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
-            var user = new User
-            {
-                Email = model.Email,
-                Name = userName + GenerateRandomNumber(),
-                TwoFactorEnabled = true,
-                PrivateKey = account.privateKey
-            };
+            var user = new User(model.Email, $"{userName}.{GenerateRandomNumber()}", privateKey);
 
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (p.Succeeded)
             {
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
                 var link = Url.Link("ConfirmEmail", new { user.Id, code });
-
+                TempData["email"] = model.Email;
                 var message = new RegistrationEmail(model.Email, HtmlEncoder.Default.Encode(link));
                 await _queueProvider.InsertEmailMessageAsync(message, token).ConfigureAwait(false);
                 return Ok();
@@ -73,11 +62,17 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        //TODO: authorize is no good.
-        [HttpPost("resend"), Authorize]
-        public async Task<IActionResult> ResendEmailAsync(CancellationToken token)
+        [HttpPost("resend")]
+        public async Task<IActionResult> ResendEmailAsync(
+            CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            var email = TempData["email"];
+            var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "no user");
+                return BadRequest(ModelState);
+            }
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
             var link = Url.Link("ConfirmEmail", new { user.Id, code });
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link));
@@ -88,6 +83,8 @@ namespace Cloudents.Web.Api
         [HttpPost("google"), ValidateModel]
         public async Task<IActionResult> GoogleSignInAsync([FromBody] TokenRequest model,
             [FromServices] IGoogleAuth service,
+            [FromServices] IBlockChainErc20Service blockChain,
+            [FromServices] SbSignInManager signInManager,
             CancellationToken cancellationToken)
         {
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
@@ -96,23 +93,23 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, "No result from google");
                 return BadRequest(ModelState);
             }
+            var account = Infrastructure.BlockChain.BlockChainProvider.CreateAccount();
 
-            var user = new User
+            var user = new User(result.Email, $"{result.Name}.{GenerateRandomNumber()}", account.privateKey)
             {
-                Email = result.Email,
-                Name = result.Name + GenerateRandomNumber(),
-                EmailConfirmed = true,
-                TwoFactorEnabled = true
+                EmailConfirmed = true
             };
+
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (p.Succeeded)
             {
-               // await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
+                var t1 = blockChain.SetInitialBalanceAsync(account.publicAddress, cancellationToken);
+                var t2 = signInManager.SignInTwoFactorAsync(user, false);
+                await Task.WhenAll(t1, t2).ConfigureAwait(false);
                 return Ok();
             }
             ModelState.AddIdentityModelError(p);
             return BadRequest(ModelState);
         }
-
     }
 }
