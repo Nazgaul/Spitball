@@ -6,6 +6,12 @@ import {mapActions, mapGetters} from 'vuex'
 
 export default {
     components: {registerEmail, registerPhone, registerUsername, registerAccount},
+    props: {
+        propStep:{
+            type: Number,
+            default: 0
+        }
+    },
     data() {
         return {
             // step: this.$route.meta.step || 0,
@@ -42,6 +48,6 @@ export default {
         }
     },
     created() {
-        this.step = this.$route.meta.step || this.getRegistrationStep;
+        this.step = this.propStep || this.getRegistrationStep;
     }
 }

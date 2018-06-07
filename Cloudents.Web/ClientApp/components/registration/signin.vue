@@ -36,7 +36,7 @@
                     <p class="inline">Didn't get an sms?</p><p class="email-text inline click" @click="sendCode">&nbsp;Click here to resend.</p>
                 </div>
             </div>
-            <img slot="step-image" :src="require(`../../img/confirm-phone.png`)"/>
+            <img slot="step-image" :src="require(`../registration/img/confirm-phone.png`)"/>
         </step-template>
     </div>
 </template>

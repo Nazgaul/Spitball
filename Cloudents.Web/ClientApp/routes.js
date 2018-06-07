@@ -27,6 +27,7 @@ const profilePageHeader = () => import("./components/profile/header/header.vue")
 const userSettings = () => import("./components/settings/view/settings.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
+
 // import store from "./store";
 
 function dynamicPropsFn(route) {
@@ -239,7 +240,9 @@ let routes2 = [
             default: registration,
         },
         name: "registration",
-        meta: {step: 1}
+        props: {
+            default: {propStep: 1}
+        },
     },
     {
         path: "/signin", components: {
@@ -269,7 +272,7 @@ for (let v in staticRoutes) {
             header: satelliteHeader,
             default: item.import
         },
-        meta:{static:true},
+        meta: {static: true},
         props: {default: (route) => item.params ? item.params(route) : {}}
     })
 }

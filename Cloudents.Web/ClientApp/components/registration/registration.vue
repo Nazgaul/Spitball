@@ -6,7 +6,6 @@
         <div class="form-wrap">
             <register-email v-if="step===0" @next="nextStep"></register-email>
             <register-phone v-else-if="step===1" @next="nextStep"></register-phone>
-            <!--<register-username v-else-if="step===2" @next="nextStep"></register-username>-->
             <register-account v-else-if="step===2"></register-account>
         </div>
         <div class="img-wrap"></div>

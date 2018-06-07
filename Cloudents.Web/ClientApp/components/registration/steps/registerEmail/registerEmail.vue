@@ -18,7 +18,7 @@
                     <input :disabled="submitted||!agreeTerms||!recaptcha" class="continue-btn input-field" type="submit"
                            value="Continue">
                     <div class="checkbox-terms">
-                        <input required type="checkbox" id="terms">
+                        <input required type="checkbox" id="terms" v-model="agreeTerms">
                         <label for="terms">By joining, I agree to Spitball Terms of Services and Privacy Policy</label>
                     </div>
                 </form>
