@@ -48,12 +48,14 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, "user is already logged in");
                 return BadRequest(ModelState);
             }
+            var account = Infrastructure.BlockChain.BlockChainProvider.CreateAccount();
             var userName = model.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             var user = new User
             {
                 Email = model.Email,
                 Name = userName + GenerateRandomNumber(),
-                TwoFactorEnabled = true
+                TwoFactorEnabled = true,
+                PrivateKey = account.privateKey
             };
 
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);

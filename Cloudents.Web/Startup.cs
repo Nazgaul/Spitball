@@ -128,12 +128,12 @@ namespace Cloudents.Web
                 //    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Sms.ToString("D")));
                 //options.AddPolicy(SignInStep.PolicyPassword,
                 //    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.UntilPassword.ToString("D")));
-                options.AddPolicy(SignInStep.Finish,
-                    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.All.ToString("D")));
+                options.AddPolicy(PolicyType.Finish,
+                    policy => policy.RequireClaim(ClaimsType.AuthStep, SignInStepEnum.All.ToString("D")));
             });
             services.ConfigureApplicationCookie(o =>
             {
-                o.Cookie.Name = "sb1";
+                o.Cookie.Name = "sb2";
                 o.Events.OnRedirectToLogin = context =>
                 {
                     context.Response.StatusCode = 401;

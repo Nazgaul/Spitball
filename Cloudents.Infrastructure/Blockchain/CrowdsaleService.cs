@@ -3,19 +3,19 @@ using System.Numerics;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Nethereum.Hex.HexTypes;
 
 namespace Cloudents.Infrastructure.BlockChain
 {
+    [UsedImplicitly]
     public class CrowdSaleService : BlockChainProvider, IBlockChainCrowdSaleService
     {
         public CrowdSaleService(IConfigurationKeys configurationKeys) : base(configurationKeys)
         {
         }
 
-        protected override string Abi => "Crowdsale";
-        private const double Gas = 3e6;
-        protected override string TransactionHash => "0x895b8f191a3f6c827ae7d2a7b364f00467ed16a1a48e661c2879c5e869b6e884";
+        protected override string Abi => "CrowdSale";
 
         protected override string ContractAddress => "0x995883f8461682382dafeb87577254fb8c1a1e2e";
 

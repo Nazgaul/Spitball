@@ -17,7 +17,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Policy = SignInStep.Finish)]
+    [Authorize(Policy = PolicyType.Finish)]
     public class QuestionController : Controller
     {
         private readonly Lazy<ICommandBus> _commandBus;

@@ -17,7 +17,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
         protected readonly ISession Session;
         private readonly IUnitOfWork _unitOfWork;
 
-        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Ioc inject")]
         public NHibernateRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWorks)
         {
             var att = typeof(T).GetCustomAttribute<DbAttribute>();
@@ -38,11 +37,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
         public IQueryable<T> GetQueryable()
         {
            return Session.Query<T>();
-        }
-
-        public void t(Expression<Func<T,bool>> tt)
-        {
-            var z = Session.Query<T>().Where(tt);
         }
 
         public Task<object> SaveAsync(T entity, CancellationToken token)

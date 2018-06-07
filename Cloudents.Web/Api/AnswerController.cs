@@ -13,7 +13,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Policy = SignInStep.Finish)]
+    [Authorize(Policy = PolicyType.Finish)]
     public class AnswerController : Controller
     {
         private readonly ICommandBus _commandBus;
@@ -34,13 +34,13 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("upVote"), ValidateModel]
-        public async Task<IActionResult> UpVoteAsync([FromBody]UpVoteAnswerRequest model, CancellationToken token)
-        {
-            var command = _mapper.Map<UpVoteAnswerCommand>(model);
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-            return Ok();
-        }
+        //[HttpPost("upVote"), ValidateModel]
+        //public async Task<IActionResult> UpVoteAsync([FromBody]UpVoteAnswerRequest model, CancellationToken token)
+        //{
+        //    var command = _mapper.Map<UpVoteAnswerCommand>(model);
+        //    await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+        //    return Ok();
+        //}
 
 
         

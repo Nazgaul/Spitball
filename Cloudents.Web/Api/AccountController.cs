@@ -39,22 +39,20 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet]
-        [Authorize(Policy = SignInStep.Finish)]
+        [Authorize(Policy = PolicyType.Finish)]
 
         public async Task<IActionResult> GetAsync(
             [FromServices] IBlockChainErc20Service blockChain, CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            decimal balance;
-            try
-            {
-                balance = await blockChain.GetBalanceAsync(user.PublicKey, token).ConfigureAwait(false);
-            }
-            catch (HttpRequestException)
-            {
-                balance = 100m;
-            }
+            var publicKeyClaim = User.Claims.First(f => f.Type == ClaimsType.PublicKey);
 
+
+            var taskUser = _userManager.GetUserAsync(User);
+            var taskBalance = blockChain.GetBalanceAsync(publicKeyClaim.Value, token);
+
+            await Task.WhenAll(taskUser, taskBalance).ConfigureAwait(false);
+
+            var user = taskUser.Result;
             return Ok(new
             {
                 user.Id,
@@ -62,7 +60,7 @@ namespace Cloudents.Web.Api
                 user.Email,
                 user.Name,
                 token = GetToken(),
-                balance
+                taskBalance.Result
             });
 
         }
@@ -138,7 +136,7 @@ namespace Cloudents.Web.Api
 
         //TODO : need to figure out what well do.
         [HttpPost("university")]
-        [Authorize(Policy = SignInStep.Finish)]
+        [Authorize(Policy = PolicyType.Finish)]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
             var command = _mapper.Map<AssignUniversityToUserCommand>(model);
@@ -149,9 +147,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("logout")]
-        [Authorize
-        
-        ]
+        [Authorize]
         public async Task<IActionResult> LogOutAsync(
             [FromServices] SignInManager<User> signInManager)
         {

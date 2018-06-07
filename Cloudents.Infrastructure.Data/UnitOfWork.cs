@@ -17,8 +17,6 @@ namespace Cloudents.Infrastructure.Data
 
         public UnitOfWork(IUnitOfWorkFactory unitOfFactory)
         {
-            //var unitOfFactory = factory.GetInstance(db);
-
             Session = unitOfFactory.OpenSession();
             _transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
         }

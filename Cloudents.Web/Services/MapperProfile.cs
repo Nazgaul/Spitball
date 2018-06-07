@@ -2,10 +2,11 @@
 using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Query;
+using Cloudents.Web.Mapper;
 using Cloudents.Web.Models;
 using JetBrains.Annotations;
 
-namespace Cloudents.Web.Mapper
+namespace Cloudents.Web.Services
 {
     [UsedImplicitly]
     public class MapperProfile : Profile
@@ -25,8 +26,8 @@ namespace Cloudents.Web.Mapper
                 .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
 
 
-            CreateMap<UpVoteAnswerRequest, UpVoteAnswerCommand>()
-                .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
+            //CreateMap<UpVoteAnswerRequest, UpVoteAnswerCommand>()
+            //    .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
 
             CreateMap<QuestionsRequest, QuestionsQuery>()
                 .ForMember(f => f.Term, c => c.MapFrom(f => string.Join(" ", f.Term ?? Enumerable.Empty<string>())))

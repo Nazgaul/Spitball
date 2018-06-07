@@ -17,14 +17,16 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
         private readonly IBlockChainQAndAContract _blockChainProvider;
+        private readonly IBlockChainErc20Service _blockChain;
 
-        public CreateQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlockChainQAndAContract blockChainProvider)
+        public CreateQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlockChainQAndAContract blockChainProvider, IBlockChainErc20Service blockChain)
         {
             _questionRepository = questionRepository;
             _questionSubjectRepository = questionSubjectRepository;
             _userRepository = userRepository;
             _blobProvider = blobProvider;
             _blockChainProvider = blockChainProvider;
+            _blockChain = blockChain;
         }
 
         public async Task HandleAsync(CreateQuestionCommand message, CancellationToken token)
@@ -34,7 +36,9 @@ namespace Cloudents.Core.CommandHandler
             var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
             await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
             var id = question.Id;
-            var p = _blockChainProvider.SubmitQuestionAsync(id, message.Price, user.PublicKey, token);
+
+
+            var p = _blockChainProvider.SubmitQuestionAsync(id, message.Price, _blockChain.GetAddress(user.PrivateKey), token);
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token));
 
