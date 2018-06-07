@@ -15,7 +15,7 @@
                     <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage" placeholder="Enter your email address" v-model="userEmail" name="email" type="email" :autofocus="true"></sb-input>
                     <vue-recaptcha class="recaptcha-wrapper" sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
                                    @verify="onVerify" @expired="onExpired"></vue-recaptcha>
-                    <input :disabled="submitted" class="continue-btn input-field" type="submit"
+                    <input :disabled="submitted||!agreeTerms||!recaptcha" class="continue-btn input-field" type="submit"
                            value="Continue">
                     <div class="checkbox-terms">
                         <input required type="checkbox" id="terms">

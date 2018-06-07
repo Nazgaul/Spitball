@@ -15,6 +15,7 @@ export default {
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             emailSent: false,
+            agreeTerms:false,
             errorMessage: ''
         }
     },
