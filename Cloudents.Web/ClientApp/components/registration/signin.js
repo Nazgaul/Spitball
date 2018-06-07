@@ -27,7 +27,7 @@ export default {
         submit() {
             this.UPDATE_LOADING(true);
             self = this;
-            registrationService.signIn(this.userEmail, this.recaptcha, this.remeberMe)
+            registrationService.signIn(this.userEmail, this.recaptcha, this.rememberMe)
                 .then(function () {
                     self.UPDATE_LOADING(false);
                     self.codeSent = true;
