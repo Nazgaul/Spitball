@@ -2,9 +2,9 @@
     <v-flex v-if="cardData" xs12 class="question-card">
         <div v-if="!typeAnswer">
             <div class="q-price">
-                <span>Earn {{cardData.price}}$</span>
+                <span>Earn ${{cardData.price}}</span> 
             </div>
-            <p class="q-category">{{cardData.subject}}</p>
+            <!-- <p class="q-category">{{cardData.subject}}</p> -->
             <button v-if="myQuestion" :disabled="!cardData.answers" @click="()=>{haveAnswers?showDelete=true:deleteQuestion()}">Delete</button>
             <v-dialog  v-model="showDelete">
                 {{dialogDeleteUserText}}
@@ -39,16 +39,24 @@
                         <v-icon>sbf-attach</v-icon>
                         <span>1</span>
                     </div>
-                    <ul class="users">
+                    <!-- <ul class="users">
                         <li>
                             <img src="../../../helpers/img/user.png" class="avatar"/>
-                            <v-icon>sbf-chat</v-icon>
                         </li>
                         <li>
                             <img src="../../../helpers/img/user.png" class="avatar"/>
-                            <v-icon>sbf-chat</v-icon>
                         </li>
-                    </ul>
+                        <li>
+                            <img src="../../../helpers/img/user.png" class="avatar"/>
+                        </li>
+                    </ul> -->
+                    <div class="users">
+                        
+                        <img src="../../../helpers/img/user.png" class="avatar"/>
+                        <img src="../../../helpers/img/user.png" class="avatar"/>
+                        <img src="../../../helpers/img/user.png" class="avatar"/>                        
+                    </div>
+                    <span class="user-counter">+5</span>
                 </div>
 
                 <div class="answer" v-if="!myQuestion">
