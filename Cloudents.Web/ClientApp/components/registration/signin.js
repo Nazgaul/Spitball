@@ -4,7 +4,7 @@ import registrationService from '../../services/registrationService';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
 import {mapGetters, mapMutations} from 'vuex'
 
-const defaultSubmitRoute = {path: '/note', query: {q: ''}};
+const defaultSubmitRoute = {path: '/ask', query: {q: ''}};
 
 export default {
     components: {stepTemplate, VueRecaptcha, SbInput},
@@ -14,13 +14,16 @@ export default {
             rememberMe: false,
             submitted: false,
             recaptcha: '',
-            errorMessage: '',
+            errorMessage:{
+                code:'',
+                email:''
+            },
             codeSent: false,
             confirmationCode: ''
         }
     },
     computed: {
-        ...mapGetters(['unAuthPath'])
+        ...mapGetters(['fromPath'])
     },
     methods: {
         ...mapMutations(["UPDATE_LOADING"]),
@@ -33,19 +36,19 @@ export default {
                     self.codeSent = true;
                 }, function (reason) {
                     self.UPDATE_LOADING(false);
-                    self.errorMessage = reason.response.data;
+                    self.errorMessage.email = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                 });
         },
         verifyCode() {
             registrationService.smsCodeVerification(this.confirmationCode)
                 .then(function () {
                     self.UPDATE_LOADING(false);
-                    let url = self.unAuthPath || defaultSubmitRoute;
+                    let url = self.fromPath || defaultSubmitRoute;
                     window.isAuth = true;
                     self.$router.push({...url});
                 }, function (reason) {
                     self.UPDATE_LOADING(false);
-                    self.errorMessage = reason.response.data;
+                    self.errorMessage.code = reason.response.data;
                 });
         },
         onVerify(response) {

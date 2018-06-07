@@ -25,7 +25,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['getRegistrationStep']),
+        ...mapGetters(['getRegistrationStep', 'fromPath']),
         // step() {
         //     if(this.$route.meta.step){
         //         this.updateRegistrationStep(this.$route.meta.step)
@@ -36,12 +36,12 @@ export default {
     methods: {
         ...mapActions(['updateRegistrationStep']),
         $_back() {
-            this.$router.go(-1);
+            let url = this.fromPath || {path: '/ask', query: {q: ''}};
+            this.$router.push({...url});
         },
         nextStep() {
-            debugger;
             if (this.step >= 2) {
-                this.$router.push({path: '/note', query: {q: ''}}); //TODO: change to the market place when we'll build it.
+                this.$router.push({path: '/ask', query: {q: ''}}); //TODO: change to the market place when we'll build it.
                 return;
             }
             this.step++;

@@ -10,7 +10,7 @@ const state = {
     talkSession: null,
     talkMe: null,
     unreadMessages: 0,
-    unAuthPath:null
+    fromPath:null
 }
 const mutations = {
     changeLoginStatus(state, val) {
@@ -29,17 +29,17 @@ const mutations = {
         state.unreadMessages = val;
     },
     logout(state){
-        state.unAuthPath=null;
+        state.fromPath=null;
         state.login=false;
         state.user=null;
     },
-    updateUnAuthPath(state,val){
-        state.unAuthPath=val;
+    updateFromPath(state,val){
+        state.fromPath=val;
     }
 };
 
 const getters = {
-    unAuthPath:state=>state.unAuthPath,
+    fromPath:state=>state.fromPath,
     unreadMessages:state=>state.unreadMessages,
     loginStatus:state=>state.login,
     isUser: state => state.user !== null,
@@ -66,7 +66,7 @@ const actions = {
                 commit("updateUser", data);
                 dispatch("connectToChat");
             }).catch(_ => {
-                isRequire ? commit("updateUnAuthPath", to) : '';
+                isRequire ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
             });
         }
