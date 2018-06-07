@@ -1,11 +1,10 @@
 <template>
     <div class="registration">
-        <step-template>
+        <step-template v-if="!codeSent">
             <div slot="step-data" class="limited-width">
                 <h1 class="step-title">Login</h1>
                 <form @submit.prevent="submit">
                     <sb-input :errorMessage="errorMessage" :required="true" class="email-field" type="email" name="email" id="input-url" v-model="userEmail" placeholder="Enter your email address"></sb-input>
-                    <sb-input :required="true" class="password-field" type="password" name="password" id="input-url" v-model="password" placeholder="Password (Account key)"></sb-input>
                     <div class="checkbox-wrap">
                         <input id="keep-logged-in" type="checkbox" v-model="rememberMe">
                         <label for="keep-logged-in">keep me logged in</label>
@@ -13,13 +12,31 @@
                     <vue-recaptcha class="recaptcha-wrapper"
                                    sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
                                    @verify="onVerify" @expired="onExpired"></vue-recaptcha>
-                    <input class="continue-btn" type="submit" value="Login" :disabled="submitted || !userEmail || !password || !recaptcha">
+                    <input class="continue-btn" type="submit" value="Login" :disabled="submitted || !userEmail || !recaptcha">
                 </form>
                 <div class="signin-strip">Need an account?
                     <router-link to="register">Sign up</router-link>
                 </div>
             </div>
             <img slot="step-image" :src="require(`./img/signin.png`)"/>
+        </step-template>
+        <step-template v-else>
+            <div slot="step-data" class="limited-width wide">
+                <h1 class="step-title">Enter the confirmation code</h1>
+                <p class="sub-title">We sent the code to you by SMS to (+{{this.phone.countryCode}}) {{this.phone.phoneNum}}</p>
+                <p class="confirm-title">Please enter the code below to confirm it.</p>
+                <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code" v-model="confirmationCode" placeholder="Confirmation code" type="number" :autofocus="true"></sb-input>
+                <!--<div class="input-wrapper">-->
+                <!--<input class="code-field input-field" v-model="confirmationCode" placeholder="Confirmation code"></input>-->
+                <!--<v-icon>sbf-key</v-icon>-->
+                <!--</div>-->
+                <button class="continue-btn submit-code" @click="next" :disabled="submitted||!confirmationCode">Continue</button>
+
+                <div class="margin-top">
+                    <p class="inline">Didn't get an sms?</p><p class="email-text inline click" @click="sendCode">&nbsp;Click here to resend.</p>
+                </div>
+            </div>
+            <img slot="step-image" :src="require(`../../img/confirm-phone.png`)"/>
         </step-template>
     </div>
 </template>

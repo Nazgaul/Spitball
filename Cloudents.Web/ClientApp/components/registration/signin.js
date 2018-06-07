@@ -11,11 +11,11 @@ export default {
     data() {
         return {
             userEmail: '',
-            password: '',
             rememberMe: false,
             submitted: false,
             recaptcha: '',
             errorMessage: '',
+            codeSent: false
         }
     },
     computed: {
@@ -26,7 +26,7 @@ export default {
         submit() {
             this.UPDATE_LOADING(true);
             self = this;
-            registrationService.signIn(this.userEmail, this.password, this.recaptcha, this.remeberMe)
+            registrationService.signIn(this.userEmail, this.recaptcha, this.remeberMe)
                 .then(function () {
                     self.UPDATE_LOADING(false);
                     let url = self.unAuthPath || defaultSubmitRoute;
