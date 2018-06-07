@@ -17,7 +17,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize]
+   
     public class SmsController : Controller
     {
         private readonly SignInManager<User> _signInManager;
@@ -35,7 +35,8 @@ namespace Cloudents.Web.Api
             [FromServices] ISmsSender client,
             CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
+            //var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             if (!user.EmailConfirmed)
             {
                 return Unauthorized();
@@ -81,12 +82,10 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("verify"), ValidateModel]
-        [Authorize]
         public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
         {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user).ConfigureAwait(false);
-            var v = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, model.Number).ConfigureAwait(false);
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
+            var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number).ConfigureAwait(false);
             if (v.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false).ConfigureAwait(false);

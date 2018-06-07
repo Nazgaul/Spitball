@@ -21,6 +21,7 @@ namespace Cloudents.Infrastructure.Data.Maps
             Map(e => e.SecurityStamp);
             Map(e => e.Image).Nullable();
             Map(e => e.TwoFactorEnabled);
+            Map(e => e.AuthenticatorKey);
 
             References(x => x.University).ForeignKey("User_University").Nullable();
 

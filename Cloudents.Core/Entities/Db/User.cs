@@ -24,6 +24,8 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual bool TwoFactorEnabled { get; set; }
 
+        public virtual string AuthenticatorKey { get; set; }
+
         public virtual string PrivateKey { get; set; }
     }
 

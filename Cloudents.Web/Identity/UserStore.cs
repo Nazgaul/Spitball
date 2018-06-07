@@ -19,7 +19,8 @@ namespace Cloudents.Web.Identity
         IUserEmailStore<User>,
         IUserTwoFactorStore<User>,
         IUserSecurityStampStore<User>, // need to create token for sms
-        IUserPhoneNumberStore<User>
+        IUserPhoneNumberStore<User>,
+        IUserAuthenticatorKeyStore<User>
     {
         //private readonly Lazy<IRepository<User>> _userRepository;
         private readonly ICommandBus _bus;
@@ -131,7 +132,7 @@ namespace Cloudents.Web.Identity
 
         //public Task SetPasswordHashAsync(User user, string passwordHash, CancellationToken cancellationToken)
         //{
-        //    user.PublicKey = passwordHash;
+        //    //user.PublicKey = passwordHash;
         //    return Task.CompletedTask;
         //}
 
@@ -142,6 +143,7 @@ namespace Cloudents.Web.Identity
 
         //public Task<bool> HasPasswordAsync(User user, CancellationToken cancellationToken)
         //{
+            
         //    return Task.FromResult(!string.IsNullOrEmpty(user.PublicKey));
         //}
 
@@ -226,6 +228,17 @@ namespace Cloudents.Web.Identity
         public Task<bool> GetTwoFactorEnabledAsync(User user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.TwoFactorEnabled);
+        }
+
+        public Task SetAuthenticatorKeyAsync(User user, string key, CancellationToken cancellationToken)
+        {
+            user.AuthenticatorKey = key;
+            return Task.CompletedTask;
+        }
+
+        public Task<string> GetAuthenticatorKeyAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.AuthenticatorKey);
         }
     }
 }

@@ -104,21 +104,23 @@ namespace Cloudents.Web
             services.AddSingleton(physicalProvider);
 
             //services.AddScoped<IPasswordHasher<User>, PasswordHasher>();
+            services.AddScoped<SignInManager<User>, SbSignInManager>();
             services.AddIdentity<User, ApplicationRole>(options =>
-                {
-                    options.SignIn.RequireConfirmedEmail = true;
-                    options.SignIn.RequireConfirmedPhoneNumber = true;
-                    options.User.AllowedUserNameCharacters = null;
+            {
+                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedPhoneNumber = true;
+                options.User.AllowedUserNameCharacters = null;
 
-                    options.User.RequireUniqueEmail = true;
+                options.User.RequireUniqueEmail = true;
 
-                    options.Password.RequiredLength = 1;
-                    options.Password.RequireDigit = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequiredUniqueChars = 0;
-                }).AddDefaultTokenProviders();
+                options.Password.RequiredLength = 1;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredUniqueChars = 0;
+            }).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
+                
 
             services.AddAuthorization(options =>
             {
