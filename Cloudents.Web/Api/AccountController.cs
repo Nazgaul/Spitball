@@ -33,7 +33,7 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet]
-        [Authorize(Policy = PolicyType.Finish)]
+        [Authorize]
 
         public async Task<IActionResult> GetAsync(
             [FromServices] IBlockChainErc20Service blockChain, CancellationToken token)
@@ -82,7 +82,7 @@ namespace Cloudents.Web.Api
 
         //TODO : need to figure out what well do.
         [HttpPost("university")]
-        [Authorize(Policy = PolicyType.Finish)]
+        [Authorize]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
             var command = _mapper.Map<AssignUniversityToUserCommand>(model);

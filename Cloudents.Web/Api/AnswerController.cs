@@ -13,7 +13,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Policy = PolicyType.Finish)]
+    [Authorize]
     public class AnswerController : Controller
     {
         private readonly ICommandBus _commandBus;

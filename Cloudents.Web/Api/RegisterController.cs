@@ -49,6 +49,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var account = Infrastructure.BlockChain.BlockChainProvider.CreateAccount();
+            
             var userName = model.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             var user = new User
             {

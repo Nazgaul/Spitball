@@ -130,8 +130,8 @@ namespace Cloudents.Web
                 //    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Sms.ToString("D")));
                 //options.AddPolicy(SignInStep.PolicyPassword,
                 //    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.UntilPassword.ToString("D")));
-                options.AddPolicy(PolicyType.Finish,
-                    policy => policy.RequireClaim(ClaimsType.AuthStep, SignInStepEnum.All.ToString("D")));
+                //options.AddPolicy(PolicyType.Finish,
+                //    policy => policy.RequireClaim(ClaimsType.AuthStep, SignInStepEnum.All.ToString("D")));
             });
             services.ConfigureApplicationCookie(o =>
             {
