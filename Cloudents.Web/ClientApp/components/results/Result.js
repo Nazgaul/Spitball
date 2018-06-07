@@ -5,8 +5,6 @@ const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
 import { page } from '../../data';
-import ResultVideo from './ResultVideo.vue'
-import ResultVideoSkeleton from './ResultVideoSkeleton.vue'
 import SuggestCard from './suggestCard.vue'
 import studyblueCard from './studyblueCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
@@ -149,9 +147,7 @@ export const pageMixin =
             studyblueCard,
             ResultTutor,
             ResultJob,
-            ResultVideo,
             ResultBook,
-            ResultVideoSkeleton,
             questionCard,
             faqBlock,
             signupBanner

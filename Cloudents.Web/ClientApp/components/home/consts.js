@@ -113,20 +113,6 @@ let strips =
             title: "Jobs",
             link:"/job",
             text: "Easily search and apply to paid internships, part-time jobs and entry-level opportunities from local businesses all the way to Fortune 500 companies."
-        },
-
-        foodDeals: {
-            class: "food-deals",
-            image: "strip-food-deals.png",
-            floatingImages: {
-                svg1: () => import("./svg/shopping-bags-icon.svg"),
-                svg2: () => import("./svg/headset-icon.svg"),
-                svg3: () => import("./svg/pizza-icon.svg")
-            },
-            titleIcon: () => import("../food/svg/food.svg"),
-            title: "Food and Deals",
-            link:"/food",
-            text: "Discover exclusive deals to local businesses, restaurants and bars near campus."
         }
 
 

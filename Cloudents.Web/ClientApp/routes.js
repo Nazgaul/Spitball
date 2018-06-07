@@ -3,8 +3,6 @@ const homePageHeader = () => import("./components/home/header.vue");
 import * as RouteTypes from "./routeTypes";
 
 const resultContent = () => import("./components/results/Result.vue");
-const foodDetails = () => import("./components/food/foodDetails.vue");
-const foodResultPage = () => import("./components/food/Result.vue");
 const dialogToolbar = () => import("./components/dialog-toolbar/DialogToolbar.vue");
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
@@ -68,20 +66,8 @@ const resultProps = {
     header: headerResultPageFn
 };
 
-const foodPage = {
-    default: foodResultPage,
-    header: pageHeader,
-};
 
 
-const foodDetailsProps = {
-    default: true,
-    header: () => ({
-        toolbarTitle: "Food & Deals",
-        height: "48", // TODO: why this is string.
-        app: true
-    })
-};
 const bookDetailsProps = {
     default: dynamicDetailsPropsFn,
     header: (route) => (
@@ -98,9 +84,6 @@ let routes2 = [
             default: HomePage,
             header: homePageHeader
         }, name: "home"
-    },
-    {
-        path: `/${ RouteTypes.foodRoute}`, name: "food", components: foodPage, props: resultProps
     },
 
     {
@@ -133,15 +116,6 @@ let routes2 = [
             header: bookDetailsHeader
         },
         props: bookDetailsProps
-    },
-    {
-        path: "/food/:id",
-        name: RouteTypes.foodDetailsRoute,
-        components: {
-            default: foodDetails,
-            header: dialogToolbar
-        },
-        props: foodDetailsProps
     },
     {
         path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item",

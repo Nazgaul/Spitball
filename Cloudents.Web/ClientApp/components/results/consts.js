@@ -41,16 +41,7 @@ const dummyJobObj = {
     title: "Client Service Representative I",
     url: ""
 };
-const dummyFoodObj = {
-    address: "__________________________________________________________________________________ ___________________________________________________________________________________________",
-    hooked: false,
-    location: null,
-    name: "__________________________________",
-    open: true,
-    placeId: "ChIJoaWWguy2AhURwxLmvhjuaxI",
-    rating: parseInt('5'.repeat(14)),
-    template: "food"
-};
+
 let multipleItemSkeletons = [dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj]
 export const skeletonData = {
     result:multipleItemSkeletons,
@@ -58,9 +49,8 @@ export const skeletonData = {
     flashcard: multipleItemSkeletons,
     tutor: [dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj],
     book: [dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj],
-    ask: [{ template: 'video-skeleton' }, ...multipleItemSkeletons],
+    ask: multipleItemSkeletons,
     job: [dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj],
-    food: [dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj]
 };
 // export const promotions = {
 //     note: {
