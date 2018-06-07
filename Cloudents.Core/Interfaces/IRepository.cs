@@ -11,7 +11,7 @@ using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IRepository<T> /*: IDisposable*/ where T : class
+    public interface IRepository<T>  where T : class
     {
         Task<object> SaveAsync(T entity, CancellationToken token);
 

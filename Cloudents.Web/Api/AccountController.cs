@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -8,16 +7,11 @@ using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
-using Cloudents.Web.Extensions;
-using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
 namespace Cloudents.Web.Api
 {
@@ -39,22 +33,19 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet]
-        [Authorize(Policy = SignInStep.Finish)]
+        [Authorize(Policy = PolicyType.Finish)]
 
         public async Task<IActionResult> GetAsync(
             [FromServices] IBlockChainErc20Service blockChain, CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            decimal balance;
-            try
-            {
-                balance = await blockChain.GetBalanceAsync(user.PublicKey, token).ConfigureAwait(false);
-            }
-            catch (HttpRequestException)
-            {
-                balance = 100m;
-            }
+            var publicKeyClaim = User.Claims.First(f => f.Type == ClaimsType.PublicKey);
 
+            var taskUser = _userManager.GetUserAsync(User);
+            var taskBalance = blockChain.GetBalanceAsync(publicKeyClaim.Value, token);
+
+            await Task.WhenAll(taskUser, taskBalance).ConfigureAwait(false);
+
+            var user = taskUser.Result;
             return Ok(new
             {
                 user.Id,
@@ -62,9 +53,8 @@ namespace Cloudents.Web.Api
                 user.Email,
                 user.Name,
                 token = GetToken(),
-                balance
+                balance = taskBalance.Result
             });
-
         }
 
         private string GetToken()
@@ -90,55 +80,9 @@ namespace Cloudents.Web.Api
             }
         }
 
-        //[HttpGet("userName")]
-        //[Authorize]
-        //public IActionResult GetUserName()
-        //{
-        //    var name = _userManager.GetUserName(User);
-        //    return Ok(new { name });
-        //}
-
-        //[HttpPost("userName"), ValidateModel]
-        //[Authorize]
-        //public async Task<IActionResult> ChangeUserNameAsync(
-        //    [FromBody]ChangeUserNameRequest model,
-        //    [FromServices] IQueueProvider client,
-        //    CancellationToken token)
-        //{
-        //    var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-        //    var t1 = _userManager.SetUserNameAsync(user, model.Name);
-        //    var userId = user.Id;
-        //    var t2 = client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
-        //    {
-        //        Name = user.Name
-        //    }, token);
-
-        //    try
-        //    {
-        //        await Task.WhenAll(t1, t2).ConfigureAwait(false);
-        //    }
-        //    catch (UserNameExistsException ex)
-        //    {
-        //        await client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
-        //        {
-        //            Name = _userManager.GetUserName(User)
-        //        }, token).ConfigureAwait(false);
-        //        ModelState.AddModelError(string.Empty,ex.Message);
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (t1.Result.Succeeded)
-        //    {
-        //        return Ok();
-        //    }
-
-        //    ModelState.AddIdentityModelError(t1.Result);
-        //    return BadRequest(ModelState);
-        //}
-
         //TODO : need to figure out what well do.
         [HttpPost("university")]
-        [Authorize(Policy = SignInStep.Finish)]
+        [Authorize(Policy = PolicyType.Finish)]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
             var command = _mapper.Map<AssignUniversityToUserCommand>(model);
@@ -146,12 +90,8 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-
-
         [HttpPost("logout")]
-        [Authorize
-        
-        ]
+        [Authorize]
         public async Task<IActionResult> LogOutAsync(
             [FromServices] SignInManager<User> signInManager)
         {

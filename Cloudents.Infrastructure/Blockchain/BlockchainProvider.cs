@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
@@ -36,7 +37,6 @@ namespace Cloudents.Infrastructure.BlockChain
         }
 
         protected abstract string Abi { get; }
-        protected abstract string TransactionHash { get; }
         protected abstract string ContractAddress { get; }
 
         private async Task<Contract> GetContractAsync(Web3 web3, CancellationToken token)
@@ -69,11 +69,11 @@ namespace Cloudents.Infrastructure.BlockChain
             });
         }
 
-        public static string GetPublicAddress(string privateKey)
-        {
-            var address = Web3.GetAddressFromPrivateKey(privateKey);
-            return address;
-        }
+        //public static string GetPublicAddress(string privateKey)
+        //{
+        //    if (privateKey == null) throw new ArgumentNullException(nameof(privateKey));
+        //    return Web3.GetAddressFromPrivateKey(privateKey);
+        //}
 
         public static (string privateKey, string publicAddress) CreateAccount()
         {

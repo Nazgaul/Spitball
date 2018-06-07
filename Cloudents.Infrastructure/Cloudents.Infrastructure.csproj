@@ -15,13 +15,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Blockchain\CrowdsaleService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Blockchain\Crowdsale.json" />
     <None Remove="Blockchain\QAndA.json" />
     <None Remove="BlockChain\TokenAbi.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Blockchain\Crowdsale.json" />
+    <EmbeddedResource Include="Blockchain\CrowdSale.json" />
     <EmbeddedResource Include="Blockchain\QAndA.json" />
     <EmbeddedResource Include="Blockchain\TokenAbi.json" />
   </ItemGroup>

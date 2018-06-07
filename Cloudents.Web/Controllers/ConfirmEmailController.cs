@@ -42,7 +42,6 @@ namespace Cloudents.Web.Controllers
             await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
 
             return Redirect("/verify-phone");
-            
         }
     }
 }

@@ -69,10 +69,14 @@ namespace ConsoleApp
 
             // await SendMessagesAsync(10);
             var ty = "ram@cloudents.com";
-            var z = ty.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
 
-           // var a = container.Resolve<IBlockChainErc20Service>();
-           
+            
+           // var z = ty.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
+
+            var a = container.Resolve<IBlockChainErc20Service>();
+            
+            var z = a.GetAddress("2ee004d7bdc744205d8a3d31a1b2cd4816b8f860448427b570290c9a1cb571d6");
+            await a.SetInitialBalanceAsync(z, default).ConfigureAwait(false);
             //var c = a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", "0xAcfB119204a93BbDa781C972D27AeAB8671c63f4", 10, default);
             //var b = a.GetBalanceAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
 

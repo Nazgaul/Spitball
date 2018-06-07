@@ -86,7 +86,6 @@ namespace Cloudents.Web.Identity
                         Code = "Duplicate"
                     });
                 }
-
             }
 
             return IdentityResult.Success;

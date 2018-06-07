@@ -7,5 +7,6 @@ namespace Cloudents.Core.Interfaces
     {
         Task<string> BuyTokensAsync(string senderPrivateKey, int amount, CancellationToken token);
         Task Withdrawal(CancellationToken token);
+
     }
 }

@@ -1,9 +1,11 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using System;
+using Cloudents.Core.Interfaces;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure.BlockChain;
 using JetBrains.Annotations;
+using Nethereum.Web3;
 
 namespace Cloudents.Infrastructure.Blockchain
 {
@@ -12,15 +14,15 @@ namespace Cloudents.Infrastructure.Blockchain
     {
         protected override string Abi => "TokenAbi";
 
-        protected override string TransactionHash => "0x430fdc71d7b86f432ae0d22d0cc11ce7909f0434942f5943f2288f3140dac07d";
         protected override string ContractAddress => "0xf80cb7d159afc4b0cd7c970fedca2afc91477123";
 
         public Erc20Service (IConfigurationKeys configurationKeys) : base(configurationKeys)
         {
         }
 
-        public async Task<decimal> GetBalanceAsync(string senderAddress, CancellationToken token)
+        public async Task<decimal> GetBalanceAsync([NotNull] string senderAddress, CancellationToken token)
         {
+            if (senderAddress == null) throw new ArgumentNullException(nameof(senderAddress));
             var function = await GetFunctionAsync("balanceOf", token).ConfigureAwait(false);
             var result = await function.CallAsync<BigInteger>(senderAddress).ConfigureAwait(false);
             var normalAmount = result / new BigInteger(FromWei);
@@ -43,11 +45,15 @@ namespace Cloudents.Infrastructure.Blockchain
         public async Task<string> CreateNewTokens(string toAddress, int amount, CancellationToken token)
         {
             var function = await GetFunctionAsync("mintToken", token).ConfigureAwait(false);
-            //var contract = await GetContractAsync(GenerateWeb3Instance(SpitballPrivateKey), token).ConfigureAwait(false);
-            //var operationToExe = contract.GetFunction("mintToken");
             var amountTransformed = new BigInteger(amount * FromWei);
             var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, MaxGas, token, toAddress, amountTransformed).ConfigureAwait(false);
             return receiptFirstAmountSend.BlockHash;
+        }
+
+        public string GetAddress([NotNull] string privateKey)
+        {
+            if (privateKey == null) throw new ArgumentNullException(nameof(privateKey));
+            return Web3.GetAddressFromPrivateKey(privateKey);
         }
     }
 }

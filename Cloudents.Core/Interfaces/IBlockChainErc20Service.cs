@@ -11,5 +11,8 @@ namespace Cloudents.Core.Interfaces
         Task SetInitialBalanceAsync(string address, CancellationToken token);
         //string GetPublicAddress(string privateKey);
         Task<string> CreateNewTokens(string toAddress, int amount, CancellationToken token);
+
+        string GetAddress(string privateKey);
+
     }
 }

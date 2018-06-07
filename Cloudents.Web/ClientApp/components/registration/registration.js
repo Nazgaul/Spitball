@@ -40,7 +40,7 @@ export default {
         },
         nextStep() {
             debugger;
-            if (this.step === 2) {
+            if (this.step >= 2) {
                 this.$router.push({path: '/note', query: {q: ''}}); //TODO: change to the market place when we'll build it.
                 return;
             }

@@ -12,6 +12,7 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<User> _userRepository;
         private readonly IBlockChainQAndAContract _blockChainProvider;
 
+
         public UpVoteAnswerCommandHandler(IRepository<Answer> repository, IBlockChainQAndAContract blockChainProvider, IRepository<User> userRepository)
         {
             _repository = repository;

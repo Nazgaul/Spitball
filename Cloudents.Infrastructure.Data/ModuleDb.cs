@@ -19,25 +19,20 @@ namespace Cloudents.Infrastructure.Data
             //builder.RegisterType<UnitOfWorkFactory>().AsSelf();//.As<IUnitOfWorkFactory>();
 
             
-            builder.RegisterType<UnitOfWorkFactorySpitball>().SingleInstance();//.Keyed<IUnitOfWorkFactory>(Database.System).SingleInstance();
-            builder.RegisterType<UnitOfWorkFactoryMailGun>().SingleInstance();//.Keyed<IUnitOfWorkFactory>(Database.MailGun).SingleInstance();
-            //builder.RegisterType<UnitOfWork>().AsSelf().As<IUnitOfWork>().InstancePerLifetimeScope();
-
+            builder.RegisterType<UnitOfWorkFactorySpitball>().SingleInstance();
+            builder.RegisterType<UnitOfWorkFactoryMailGun>().SingleInstance();
 
             builder.Register(c => new UnitOfWork(c.Resolve<UnitOfWorkFactorySpitball>()))
                 .Keyed<IUnitOfWork>(Database.System).InstancePerLifetimeScope();
             builder.Register(c => new UnitOfWork(c.Resolve<UnitOfWorkFactoryMailGun>()))
                 .Keyed<IUnitOfWork>(Database.MailGun).InstancePerLifetimeScope();
-            //builder.RegisterType<UnitOfWork>().Keyed<IUnitOfWork>(Database.System).InstancePerLifetimeScope();
-            //builder.RegisterType<UnitOfWork>().Keyed<IUnitOfWork>(Database.MailGun).InstancePerLifetimeScope();
-            //builder.RegisterType<UnitOfWorkAutofacFactory>().AsSelf().SingleInstance();
+
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
                 .AsImplementedInterfaces();
 
             builder.RegisterType<QuestionSubjectRepository>().AsImplementedInterfaces();
             builder.RegisterType<QuestionRepository>().AsImplementedInterfaces();
             builder.RegisterType<UserRepository>().AsImplementedInterfaces();
-                
             builder.RegisterType<DbConnectionStringProvider>().AsSelf();
 
             base.Load(builder);

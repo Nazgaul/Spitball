@@ -113,7 +113,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
                     Id = s.Id,
                     Text = s.Text,
                     Create = s.Created,
-                    UpVote = s.UpVote.GetValueOrDefault(),
                     User = new UserDto
                     {
                         Id = s.User.Id,

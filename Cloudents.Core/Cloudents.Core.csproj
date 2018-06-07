@@ -17,6 +17,12 @@
     <EmbeddedResource Remove="Query\Queries\**" />
     <None Remove="Query\Queries\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CommandHandler\UpVoteAnswerCommandHandler.cs" />
+    <Compile Remove="Command\UpVoteAnswerCommand.cs" />
+    <Compile Remove="Interfaces\IBlockChainCrowdsaleService.cs" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="Microsoft.Spatial" Version="7.2.0" />
