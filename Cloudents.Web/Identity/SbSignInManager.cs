@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -32,15 +30,13 @@ namespace Cloudents.Web.Identity
     //    }
     //}
 
-
-    public class SbSignInManager : SignInManager<User> 
+    public class SbSignInManager : SignInManager<User>
     {
         public async Task<SignInResult> SignInTwoFactorAsync(User user, bool isPersistent)
         {
             var t = await SignInOrTwoFactorAsync(user, isPersistent);
             return t;
         }
-
 
         public SbSignInManager(UserManager<User> userManager, IHttpContextAccessor contextAccessor, IUserClaimsPrincipalFactory<User> claimsFactory, IOptions<IdentityOptions> optionsAccessor, ILogger<SignInManager<User>> logger, IAuthenticationSchemeProvider schemes) : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)
         {

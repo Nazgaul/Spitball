@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
-namespace Cloudents.Web.Mapper
+namespace Cloudents.Web.Services
 {
     [UsedImplicitly]
     public class UserIdResolver : IValueResolver<object,object,long>

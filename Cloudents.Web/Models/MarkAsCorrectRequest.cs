@@ -14,6 +14,5 @@ namespace Cloudents.Web.Models
         //[Required]
         //public string PrivateKey { get; set; }
 
-
     }
 }

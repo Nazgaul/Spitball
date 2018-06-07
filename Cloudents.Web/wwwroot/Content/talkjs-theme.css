@@ -75,7 +75,7 @@ let us know! We may be able to add it quickly.
     color: #4a4a4a;
     border-color:#dddddd;
     border-width: 1px;
-    border-radius: 15px 0px 15px 15px;
+    border-radius: 15px 0 15px 15px;
     background-color: #9ccdff;
 
 }
@@ -83,7 +83,7 @@ let us know! We may be able to add it quickly.
 /* Applies to messages *not* written by the current user. */
 .message-balloon-other {
     width: 75%;
-    border-radius: 0px 15px 15px 15px;
+    border-radius: 0 15px 15px 15px;
     color: #4a4a4a;
     border-color:#dddddd;
     border-width: 1px;

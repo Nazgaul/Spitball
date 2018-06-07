@@ -5,7 +5,6 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 
 namespace Cloudents.Web.Services
 {
@@ -21,7 +20,6 @@ namespace Cloudents.Web.Services
             _configuration = configuration;
             _userManager = userManager;
         }
-
 
         public async Task<bool> SendSmsAsync(User user, CancellationToken token)
         {

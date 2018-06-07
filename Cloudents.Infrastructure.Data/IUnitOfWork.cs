@@ -9,9 +9,4 @@ namespace Cloudents.Infrastructure.Data
 
         void FlagCommit();
     }
-
-    public interface IUnitOfWorkFactory
-    {
-        ISession OpenSession();
-    }
 }

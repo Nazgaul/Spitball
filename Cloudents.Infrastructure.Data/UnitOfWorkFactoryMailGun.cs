@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Infrastructure.Data.Maps;
 using FluentNHibernate.Cfg;

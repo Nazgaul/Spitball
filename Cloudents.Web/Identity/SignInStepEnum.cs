@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Cloudents.Web.Identity
+﻿namespace Cloudents.Web.Identity
 {
     //[Flags]
     //public enum SignInStepEnum
