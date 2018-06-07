@@ -1,5 +1,5 @@
 <template>
-   <v-flex xs12 class="signup-banner">
+   <v-flex xs12 class="signup-banner" :class="{'has-smart-banner': showSmartAppBanner}">
         <v-flex xs12>
             <button class="back-button">
                 <v-icon right>sbf-close</v-icon>
@@ -12,8 +12,8 @@
             <p class="small">Join a community where you pay less and earn more for everything school-related</p>
 
             <div class="buttons">
-                <button class="sign-up">Sign Up</button>
-                <button class="learn-more">Learn More</button>
+                <router-link class="sign-up" to="register">Sign up</router-link>
+                <router-link class="learn-more" to="">Learn more</router-link>
             </div>
             
         </v-flex>
@@ -22,7 +22,13 @@
 
 
 <script>
-    export default { }
+    import {mapGetters} from 'vuex'
+    export default {
+        computed: {
+            ...mapGetters(['showSmartAppBanner']),
+        }
+
+    }
 </script>
 
 <style src="./signup-banner.less" lang="less"></style>

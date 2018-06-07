@@ -4,6 +4,7 @@ import registrationService from '../../../../services/registrationService';
 import VueRecaptcha from 'vue-recaptcha';
 import disableForm from '../../../mixins/submitDisableMixin'
 import SbInput from '../../../question/helpers/sbInput/sbInput.vue';
+import {mapMutations} from 'vuex'
 var auth2;
 
 export default {
@@ -14,19 +15,24 @@ export default {
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             emailSent: false,
+            agreeTerms:false,
             errorMessage: ''
         }
     },
     methods: {
+        ...mapMutations(["UPDATE_LOADING"]),
         next() {
             self = this;
             if(this.submitForm()) {
+                this.UPDATE_LOADING(true);
                 registrationService.emailRegistration(this.userEmail, this.recaptcha)
                     .then(function () {
+                        self.UPDATE_LOADING(false);
                         self.emailSent = true;
                     }, function (error) {
+                        self.UPDATE_LOADING(false);
                         self.submitForm(false);
-                        self.errorMessage = error.response.data ? error.response.data["0"].description : error.message
+                        self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                     });
             }
         },
@@ -35,16 +41,20 @@ export default {
 
             var authInstance = gapi.auth2.getAuthInstance();
             if(this.submitForm()) {
+                this.UPDATE_LOADING(true);
                 authInstance.signIn().then(function (googleUser) {
-                    debugger;
                     var idToken = googleUser.getAuthResponse().id_token;
                     registrationService.googleRegistration(idToken)
                         .then(function () {
+                            self.UPDATE_LOADING(false);
                             self.$emit('next');
                         }, function (reason) {
+                            self.UPDATE_LOADING(false);
                             self.submitForm(false);
                             console.error(reason);
                         });
+                },function (error) {
+                    self.UPDATE_LOADING(false);
                 });
             }
         },

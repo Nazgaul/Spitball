@@ -1,5 +1,6 @@
 <template functional>
     <div class="p-result">
+        <slot name="banner"></slot>
         <v-container fluid class="pa-0 wrap">
             <v-layout row>
                 <v-flex class="first-grid hidden-xs-only left-side-bar">

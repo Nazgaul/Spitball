@@ -107,7 +107,7 @@
                                     <a v-if="!loggedIn" class="header-login" href="/signin">Login</a>
                                     
                 
-                                    <v-menu bottom left offset-y class="gamburger" v-if="!loggedIn || isMobile">
+                                    <v-menu bottom left offset-y class="gamburger" v-if="!loggedIn || isMobile" :class="{'smart-app-banner': showSmartAppBanner}">
                                         <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                             <v-icon>sbf-menu</v-icon>
                                         </v-btn>
