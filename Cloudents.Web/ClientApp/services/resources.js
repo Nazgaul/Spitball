@@ -45,10 +45,7 @@ let transferBook = body => {
     let data = body.result.map(val => { return { ...val, template: "book" } });
     return { data, nextPage: body.nextPageLink }
 };
-let transferFood = body => {
-    const data = body.data || [];
-    return { token: body.token, data: data.map(val => { return { ...val, template: "food" } }), nextPage: body.nextPageLink };
-};
+
 let transferBookDetails = body => {
     let prices = body.prices || [];
     return { details: body.details, data: prices.map(val => { return { ...val, template: "book-price" } }) }
@@ -58,20 +55,17 @@ const transferMap = {
     flashcard: (res) => transferResultNote(res),
     note: (res) => transferResultNote(res),
     job: (res) => transferJob(res),
-    food: (res) => transferFood(res),
     tutor: (res) => transferResultTutor(res),
     book: (res) => transferBook(res)
 }
 const searchFunctions = {
     getDocument: (params) => axios.get("search/documents", { params, transformResponse: transferResultNote }),
-    getQna: (params) => axios.get("ask", { params, transformResponse: transferResultAsk }),
     getQuestions: (params) => axios.get("/Question", { params, transformResponse: transferResultAsk  }),
     getFlashcard: (params) => axios.get("search/flashcards", { params, transformResponse: transferResultNote }),
     getTutor: (params) => axios.get("tutor", { params: transformLocation(params), transformResponse: transferResultTutor }),
     getJob: (params) => axios.get("job", { params: transformLocation(params), transformResponse: transferJob }),
     getBook: (params) => axios.get("book/search", { params, transformResponse: transferBook }),
     getBookDetails: ({ type, isbn13 }) => axios.get(`book/${type}`, { params: { isbn13 }, transformResponse: transferBookDetails }),
-    getFood: (params) => axios.get("places", { params: transformLocation(params), transformResponse: transferFood }),
     getNextPage: ({ url, vertical }) => {
         currentVertical = vertical;
         return axios.get(url, { baseURL: "", transformResponse: transferNextPage })

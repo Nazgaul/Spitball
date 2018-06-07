@@ -22,13 +22,6 @@ export default {
         },
         bookDetails({ type, isbn13 }) {
             return search.getBookDetails({ type, isbn13 });
-        },
-        foodDetails({ id }) {
-            return search.getPlacesDetails({ id });
-        },
-        food({ term="", filter,  location }) {
-                return search.getFood({ term, filter, location });
-
         }
     },
     autoComplete:(term)=>search.autoComplete(term),

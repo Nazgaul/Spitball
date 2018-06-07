@@ -1,7 +1,7 @@
 ﻿import {SEARCH, LUIS} from "./mutation-types"
 import { interpetPromise } from "./../services/resources"
 import searchService from "./../services/searchService"
-const LOCATION_VERTICALS= new Map([["tutor",true],["job",true], ["food",true], ["purchase",true]]);
+const LOCATION_VERTICALS= new Map([["tutor",true],["job",true]]);
 const state = {
     loading: false,
     search:{}
@@ -57,9 +57,6 @@ const actions = {
     },
     bookDetails: (context, { pageName, isbn13, type }) => {
         return searchService.activateFunction[pageName]({ isbn13, type });
-    },
-    foodDetails: (context, { id }) => {
-        return searchService.activateFunction["foodDetails"]({ id });
     },
     getAutocmplete(context, term) {
         return searchService.autoComplete(term);
