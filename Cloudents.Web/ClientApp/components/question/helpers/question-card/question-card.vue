@@ -10,48 +10,53 @@
                 {{dialogDeleteUserText}}
             </v-dialog>
         </div>
-
+        
         <div v-else class="q-answer">
-            <p class="q-text"><strong>Answer:</strong></p>
-            <div class="votes">
-                <button class="upvote-btn" @click="upVote()" :disabled="submitted">
-                    <v-icon class="upvotes">sbf-chevron-down</v-icon>
-                </button>
-                <span>{{cardData.upVote}} Upvote{{cardData.upVote === 1 ? '' :'s'}}</span>
+            <user-block :user="cardData.user"></user-block>
+
+            <button class="accept-btn">
+                <v-icon>sbf-check-circle</v-icon>
+                Accept
+            </button>
+            
+            <div class="choosen-answer">
+                <span>Choosen Answer</span>
+                <v-icon>sbf-check-circle</v-icon>
             </div>
+
 
         </div>
 
-        <p class="q-text">{{cardData.text}}</p>
+        <div v-if="detailedView && cardData.user" class="q-user-info card-info detailed"><!--v-if="cardData.user"-->
+            <user-block :user="cardData.user"></user-block>
+            <div v-if="typeAnswer && showApproveButton">
+                <label for="mark-correct">Mark as correct answer</label>
+                <input id="mark-correct" type="checkbox" @click="markAsCorrect" :disabled="isCorrectAnswer"
+                        :checked="isCorrectAnswer"/>
+            </div>
+        </div>
+
+        
+
+        <p class="q-text" :class="{'answer': typeAnswer}">{{cardData.text}}</p>
 
         <div class="bottom-section">
-            <div v-if="detailedView && cardData.user" class="q-user-info card-info detailed"><!--v-if="cardData.user"-->
+            <!-- <div v-if="detailedView && cardData.user" class="q-user-info card-info detailed">
                 <user-block :user="cardData.user"></user-block>
                 <div v-if="typeAnswer && showApproveButton">
                     <label for="mark-correct">Mark as correct answer</label>
                     <input id="mark-correct" type="checkbox" @click="markAsCorrect" :disabled="isCorrectAnswer"
                            :checked="isCorrectAnswer"/>
                 </div>
-            </div>
-            <div v-else class="card-info general">
+            </div> -->
+            <!-- v-else -->
+            <div  class="card-info general">
                 <div class="new-block">
                     <div class="files">
                         <v-icon>sbf-attach</v-icon>
                         <span>1</span>
                     </div>
-                    <!-- <ul class="users">
-                        <li>
-                            <img src="../../../helpers/img/user.png" class="avatar"/>
-                        </li>
-                        <li>
-                            <img src="../../../helpers/img/user.png" class="avatar"/>
-                        </li>
-                        <li>
-                            <img src="../../../helpers/img/user.png" class="avatar"/>
-                        </li>
-                    </ul> -->
-                    <div class="users">
-                        
+                    <div class="users">                        
                         <img src="../../../helpers/img/user.png" class="avatar"/>
                         <img src="../../../helpers/img/user.png" class="avatar"/>
                         <img src="../../../helpers/img/user.png" class="avatar"/>                        

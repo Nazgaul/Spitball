@@ -19,7 +19,7 @@
         border-top: 0;
         border-left: 0;
         font-size: 18px;
-                
+
         color: #47586a;
         text-align: center;
         padding-right: 15px;
@@ -32,36 +32,35 @@
     .q-answer{
         display: flex;
         justify-content: space-between;
-        padding: 6px 12px 0 17px;
+        padding: 16px;
+        line-height: 32px;
 
-        .q-text{
-            margin: 0;
-        }
-        .votes{
-            font-size: 14px;
-            font-weight: bold;
-            line-height: 1.79;
-            color: @color-main-purple;
-            display: flex;
-
-            .upvote-btn{
-                &:focus{
-                    outline: none;
-                }
+        .accept-btn{
+            width: 88px;
+            line-height: 32px;
+            border-radius: 4px;
+            background-color: #7ed321;
+            color: @color-white;
+            letter-spacing: -0.3px;
+            text-align: left;
+            font-size: 16px;
+            outline: none;
+            .sbf{
+                color: @color-white;
+                font-size: 16px;
+                margin: 0px 4px 0px 8px;
             }
-    
-            i.sbf{
-                width: 25px;
-                height: 25px;
-                background-color: @color-white;
-                border: solid 1px @color-main-purple;
-                border-radius: 15px;
-                color: @color-main-purple;
-    
-                &.upvotes{transform: scale(1, -1);margin: 0 4px;}
-            }
-            
         }
+        .choosen-answer{
+            color: #ff0000;
+            font-size: 12px;
+            letter-spacing: -0.2px;
+            .sbf{
+                color: #7ed321;
+                font-size: 32px;
+                margin-left: 21px;
+            }
+        }        
     }    
 
     .q-category{
@@ -79,6 +78,9 @@
         letter-spacing: -0.4px;
         text-align: left;
         color: #4a4a4a;
+        &.answer{
+            margin-left: 55px;
+        }
     }
   
     
@@ -86,7 +88,7 @@
         bottom: 0;      
         height: 47px;
         width: 100%;
-        border-top: 1px solid #ddd;
+        // border-top: 1px solid #ddd;
         display: flex;
         align-items: center;
         font-size: 12px;
@@ -116,7 +118,7 @@
                 color: @color-grey;
                 margin-left: 4px;
                 font-size: 16px;  
-                line-height: 1.69;
+                // line-height: 1.69;
                 letter-spacing: -0.3px;              
             }
             
