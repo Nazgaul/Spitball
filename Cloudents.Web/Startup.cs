@@ -12,7 +12,6 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
@@ -103,7 +102,6 @@ namespace Cloudents.Web
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
             services.AddSingleton(physicalProvider);
 
-            //services.AddScoped<IPasswordHasher<User>, PasswordHasher>();
             services.AddScoped<SignInManager<User>, SbSignInManager>();
             services.AddIdentity<User, ApplicationRole>(options =>
             {
@@ -120,19 +118,8 @@ namespace Cloudents.Web
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredUniqueChars = 0;
             }).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
-                
 
-            services.AddAuthorization(options =>
-            {
-                //options.AddPolicy(SignInStep.PolicyEmail,
-                //    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Email.ToString("D")));
-                //options.AddPolicy(SignInStep.Sms,
-                //    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Sms.ToString("D")));
-                //options.AddPolicy(SignInStep.PolicyPassword,
-                //    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.UntilPassword.ToString("D")));
-                //options.AddPolicy(PolicyType.Finish,
-                //    policy => policy.RequireClaim(ClaimsType.AuthStep, SignInStepEnum.All.ToString("D")));
-            });
+            services.AddAuthorization();
             services.ConfigureApplicationCookie(o =>
             {
                 o.Cookie.Name = "sb2";

@@ -19,7 +19,6 @@ namespace Cloudents.Core.CommandHandler
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
         private readonly IBlockChainQAndAContract _blockChainProvider;
 
-
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository, IRepository<Answer> answerRepository, IRepository<User> userRepository, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlockChainQAndAContract blockChainProvider)
         {
             _questionRepository = questionRepository;
@@ -38,15 +37,11 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("user cannot answer himself");
             }
             var answer = new Answer(question, message.Text, message.Files?.Count() ?? 0, user);
-
-
             await _answerRepository.SaveAsync(answer, token).ConfigureAwait(false);
 
             var id = answer.Id;
-            var p = _blockChainProvider.SubmitAnswerAsync(question.Id, id, token);
-            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token));
+            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
             var blockChainTask = _blockChainProvider.SubmitAnswerAsync(question.Id, id, token);
-            await Task.WhenAll(l?.Union(new [] { blockChainTask })).ConfigureAwait(true);
-        }
+            await Task.WhenAll(l.Union(new [] { blockChainTask })).ConfigureAwait(true);        }
     }
 }

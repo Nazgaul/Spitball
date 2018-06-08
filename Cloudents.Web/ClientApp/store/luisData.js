@@ -1,9 +1,9 @@
 ﻿﻿import {LUIS} from "./mutation-types"
-let luisTypes=["job","food"];
+let luisTypes=["job","ask"];
 let ACADEMIC="academic";
 const state = {
     job:{},
-    food:{},
+    ask:{},
     academic:{},
     currentText:"",
     currentVertical:"",

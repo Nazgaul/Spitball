@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
-using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,15 +31,5 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
-
-        //[HttpPost("upVote"), ValidateModel]
-        //public async Task<IActionResult> UpVoteAsync([FromBody]UpVoteAnswerRequest model, CancellationToken token)
-        //{
-        //    var command = _mapper.Map<UpVoteAnswerCommand>(model);
-        //    await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-        //    return Ok();
-        //}
-
-        
     }
 }

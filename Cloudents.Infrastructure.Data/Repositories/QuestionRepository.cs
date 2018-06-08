@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
@@ -8,7 +7,6 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using JetBrains.Annotations;
-using NHibernate.Criterion;
 using NHibernate.Linq;
 using NHibernate.Transform;
 

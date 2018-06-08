@@ -54,7 +54,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DomainParser>().AsSelf().As<IDomainParser>().SingleInstance();
             builder.RegisterType<DomainCache>().As<ICacheProvider>();
 
-
             builder.RegisterType<ReplaceImageProvider>().As<IReplaceImageProvider>();
 
             builder.RegisterType<WebSearch>();
@@ -85,7 +84,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
 
-            builder.RegisterType<PlacesSearch>().As<IPlacesSearch>();
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
             builder.Register(c =>
             {
@@ -105,7 +103,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
             builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
-
 
             builder.RegisterType<ChatProvider>().As<IChat>();
             //builder.RegisterType<Mapper.Mapper>().AsImplementedInterfaces();
