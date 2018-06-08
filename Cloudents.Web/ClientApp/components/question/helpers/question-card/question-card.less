@@ -50,6 +50,18 @@
                 font-size: 16px;
                 margin: 0px 4px 0px 8px;
             }
+            @media(max-width: @screen-xs){ 
+                background: none;
+                width: auto;
+                span{display: none;}
+                .sbf{font-size: 24px;color: #bbbbbb;}
+             }
+        }
+
+        .delete{
+            padding: 0 10px;
+            outline: none;
+            .sbf{font-size: 15px;margin-top: -15px;}
         }
         .choosen-answer{
             color: #ff0000;
@@ -60,6 +72,10 @@
                 font-size: 32px;
                 margin-left: 21px;
             }
+            @media(max-width: @screen-xs){ 
+                span{display: none;}
+                .sbf{font-size: 24px;}
+             }
         }        
     }    
 

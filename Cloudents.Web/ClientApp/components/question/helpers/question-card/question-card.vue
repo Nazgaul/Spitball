@@ -16,14 +16,18 @@
 
             <button class="accept-btn">
                 <v-icon>sbf-check-circle</v-icon>
-                Accept
-            </button>
+                <span>Accept</span>                
+            </button>             
             
             <div class="choosen-answer">
                 <span>Choosen Answer</span>
                 <v-icon>sbf-check-circle</v-icon>
             </div>
 
+            
+            <button class="delete">
+                <v-icon>sbf-trash</v-icon>        
+            </button> 
 
         </div>
 
