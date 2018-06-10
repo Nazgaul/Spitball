@@ -17,7 +17,7 @@ const documentPreviewHeader = () => import("./components/preview/headerDocument.
 const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
 const registration = () => import("./components/registration/registration.vue");
 const signin = () => import("./components/registration/signin.vue");
-const askQuestion = () => import("./components/question/ask/askQuestion.vue");
+const newQuestion = () => import("./components/question/newQuestion/newQuestion.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const viewProfile = () => import("./components/profile/profile.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
@@ -162,10 +162,10 @@ let routes2 = [
         }, name: "jobsV2"
     },
     {
-        path: "/askquestion", components: {
-            default: askQuestion,
+        path: "/newquestion", components: {
+            default: newQuestion,
             header: slimHeader,
-        }, name: "askQuestion",
+        }, name: "newQuestion",
         meta: {
             requiresAuth: true
         },
