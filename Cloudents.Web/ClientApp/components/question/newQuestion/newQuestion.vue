@@ -24,31 +24,50 @@
                 </v-flex>
 
 
-                <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
-               
+                <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile"
+                                    @removeFile="removeFile"></extended-text-area>
+
 
                 <!-- <v-flex xs12> -->
-                    <span class="text-blue my-points">You have 1,024 points</span>
+                <span class="text-blue my-points">You have 1,024 points</span>
                 <!-- </v-flex> -->
 
                 <v-flex xs12>
                     <ul class="points-list">
-                        <li class="pts-5">5 pts</li>
-                        <li class="pts-10 active">10 pts</li>
-                        <li class="pts-20">20 pts</li>
-                        <li class="pts-35">35 pts</li>
-                        <li class="other"><v-icon right>sbf-hand-coin</v-icon>Other amount</li>
+                        <li class="pts-5">
+                            <input id="5pts" class="automatic-amount" type="radio" name="price" value="5" v-model="selectedPrice">
+                            <label for="5pts">5 pts</label>
+                        </li>
+                        <li class="pts-10 active">
+                            <input id="10pts" class="automatic-amount" type="radio" name="price" value="10" v-model="selectedPrice">
+                            <label for="10pts">10 pts</label>
+                        </li>
+                        <li class="pts-20">
+                            <input id="20pts" class="automatic-amount" type="radio" name="price" value="20" v-model="selectedPrice">
+                            <label for="20pts">20 pts</label>
+                        </li>
+                        <li class="pts-35">
+                            <input id="35pts" class="automatic-amount" type="radio" name="price" value="35" v-model="selectedPrice">
+                            <label for="35pts">35 pts</label>
+                        </li>
+                        <li class="other">
+                            <input type="number" placeholder="Other amount" @focus="selectOtherAmount()" v-model="price"/>
+                            <v-icon right>sbf-hand-coin</v-icon>
+                        </li>
                     </ul>
                 </v-flex>
 
                 <v-flex xs12 class="last-text-block">
-                    <p class="text-xs-center"><span class="text-blue" style="color:#8888d5;">Tip:</span>&nbsp;A fair price will make the sale</p>
+                    <p class="text-xs-center"><span class="text-blue" style="color:#8888d5;">Tip:</span>&nbsp;A fair
+                        price will make the sale</p>
                 </v-flex>
 
 
                 <v-flex class="submit-btn-wrap" xs12>
                     <div v-if="errorMessage.length" class="error-message">{{errorMessage}}</div>
-                    <v-btn block color="primary" @click.once="submitQuestion()" :disabled="!validForm||submitted" class="ask_btn">Ask</v-btn>
+                    <v-btn block color="primary" @click.once="submitQuestion()" :disabled="!validForm||submitted"
+                           class="ask_btn">Ask
+                    </v-btn>
                 </v-flex>
 
             </v-layout>

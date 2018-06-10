@@ -132,32 +132,66 @@
     li{
       min-width: 72px;
       max-width: 82px;
-      line-height: 49px;
-      border-radius: 4px;
-      border: solid 1px #979797;
+      //line-height: 46px;
       float: left;
       margin-right: 8px;
-      padding: 0 15px;
-      
       font-size: 18px;
       letter-spacing: -0.5px;
       text-align: center;
       color: #888b8e;
-      cursor: pointer;
-      &.active{
-        background-color: @color-blue;
-        color: @color-white;
-        border-color: @color-blue;
+
+      input[type="radio"]{
+        display: none;
+        & ~ label{
+          width: 100%;
+          height: 100%;
+          display: block;
+          line-height: 46px;
+        }
+        &:checked ~ label{
+          background-color: @color-blue;
+          color: @color-white;
+          border-color: @color-blue;
+        }
       }
       &.other{
+        position: relative;
         max-width: 233px;  
-        width: 233px;          
+        width: 100%;
         margin-right: 0px;
-        border-color: @color-blue;
+        border:none;
+        padding: 0;
         text-align: left;
         .sbf-hand-coin{
-          color: @color-blue;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 16px;
+          color: #979797;
           margin-right: 32px;
+        }
+        input {
+          padding-left: 64px;
+          width: 100%;
+          display: block;
+          height: 48px;
+          -moz-appearance: textfield;
+
+
+          /* Webkit browsers like Safari and Chrome */
+          &::-webkit-inner-spin-button,
+          &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+
+          &:focus{
+            outline: none;
+            border-color: @color-blue;
+            ~.sbf-hand-coin{
+              color: @color-blue;
+            }
+          }
         }
       }
 
@@ -170,6 +204,10 @@
         &.pts-35{width: 145px;}
         &.other{width: 224px; }
       }
+    }
+    li, input {
+      border-radius: 4px;
+      border: solid 1px #979797;
     }
   }
 
