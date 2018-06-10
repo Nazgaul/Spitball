@@ -1,11 +1,12 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
 using Cloudents.Core.Storage;
 using Cloudents.Functions.Di;
 using JetBrains.Annotations;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
@@ -13,9 +14,6 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
 using Twilio;
-using Twilio.Rest.Api.V2010.Account;
-using Twilio.Rest.Lookups.V1;
-using Twilio.Types;
 
 namespace Cloudents.Functions
 {
@@ -25,7 +23,7 @@ namespace Cloudents.Functions
         [FunctionName("FunctionEmail")]
         public static async Task EmailFunctionAsync(
             [QueueTrigger(QueueName.EmailName, Connection = "TempConnection")] CloudQueueMessage queueMessage,
-            [SendGrid(ApiKey = "SendgridKey", From = "no-reply@spitball.co")] IAsyncCollector<SendGridMessage> emailProvider,
+            [SendGrid(ApiKey = "SendgridKey", From = "no-reply@spitball.co")] IAsyncCollector<Mail> emailProvider,
             IBinder binder,
             TraceWriter log,
             CancellationToken token)
@@ -51,52 +49,63 @@ namespace Cloudents.Functions
 
             var content = htmlTemplate.Inject(emailParams);
 
-            var message = new SendGridMessage
+            var message = new Mail
             {
                 Subject = "welcome to spitball",
-                HtmlContent = content,
             };
-            message.AddTo(emailParams.To);
+            message.AddContent(new Content("text/html",content));
+            var personalization = new Personalization();
+            personalization.AddTo(new Email(emailParams.To));
+            message.AddPersonalization(personalization);
             await emailProvider.AddAsync(message, token).ConfigureAwait(false);
         }
 
         [FunctionName("SmsHttp")]
-        public static async Task<IActionResult> SmsHttpAsync(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "sms")]HttpRequest req,
-            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "(203) 347-4577")] IAsyncCollector<CreateMessageOptions> options,
-            CancellationToken token)
+        public static async Task<HttpResponseMessage> SmsHttpAsync(
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "sms")]HttpRequestMessage req,
+            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "(203) 347-4577")] ICollector<SMSMessage> options
+            //CancellationToken token
+            )
         {
-            var jsonContent = await req.ReadAsStringAsync().ConfigureAwait(false);
+            
+            var jsonContent = await req.Content.ReadAsStringAsync().ConfigureAwait(false);
             var message = JsonConvert.DeserializeObject<SmsMessage>(jsonContent);
 
-            var result = await BuildAndValidateSmsAsync(message).ConfigureAwait(false);
-            if (result == null)
+            //var result = await BuildAndValidateSmsAsync(message).ConfigureAwait(false);
+            //if (result == null)
+            //{
+                //return req.CreateResponse(HttpStatusCode.BadRequest);
+            //}
+
+            options.Add(new SMSMessage()
             {
-                return new BadRequestResult();
-            }
-            await options.AddAsync(result, token).ConfigureAwait(false);
-            return new OkResult();
+                To = message.PhoneNumber,
+                Body = message.Message
+            });
+
+            //await options.AddAsync(result, token).ConfigureAwait(false);
+            return req.CreateResponse(HttpStatusCode.OK);
 
         }
 
 
-        [ItemCanBeNull]
-        private static async Task<CreateMessageOptions> BuildAndValidateSmsAsync(SmsMessage message)
-        {
-            try
-            {
-                TwilioClient.Init(InjectConfiguration.GetEnvironmentVariable("TwilioSid"),
-                    InjectConfiguration.GetEnvironmentVariable("TwilioToken"));
-                var result = await PhoneNumberResource.FetchAsync(new PhoneNumber(message.PhoneNumber)).ConfigureAwait(false);
-                return new CreateMessageOptions(result.PhoneNumber)
-                {
-                    Body = message.Message
-                };
-            }
-            catch (Twilio.Exceptions.ApiException)
-            {
-                return null;
-            }
-        }
+        //[ItemCanBeNull]
+        //private static async Task<CreateMessageOptions> BuildAndValidateSmsAsync(SmsMessage message)
+        //{
+        //    try
+        //    {
+        //        TwilioClient.Init(InjectConfiguration.GetEnvironmentVariable("TwilioSid"),
+        //            InjectConfiguration.GetEnvironmentVariable("TwilioToken"));
+        //        var result = await PhoneNumberResource.FetchAsync(new PhoneNumber(message.PhoneNumber)).ConfigureAwait(false);
+        //        return new CreateMessageOptions(result.PhoneNumber)
+        //        {
+        //            Body = message.Message
+        //        };
+        //    }
+        //    catch (Twilio.Exceptions.ApiException)
+        //    {
+        //        return null;
+        //    }
+        //}
     }
 }

@@ -26,7 +26,9 @@ using System.Text.RegularExpressions;
 using Cloudents.Core.Command;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
-//using Microsoft.Azure.ServiceBus;
+using Microsoft.Azure.Management.ServiceBus;
+using Microsoft.Azure.ServiceBus;
+using Microsoft.Rest;
 using Nethereum.Web3.Accounts;
 
 namespace ConsoleApp
@@ -35,7 +37,7 @@ namespace ConsoleApp
     {
         const string ServiceBusConnectionString = "Endpoint=sb://spitball-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CACOBTEeKVemCY7ScVBHYXBwDkClQcCKUW7QGq8dNfA=";
         const string TopicName = "topic1";
-        //static ITopicClient topicClient;
+        static TopicClient topicClient;
 
         static async Task Main()
         {
@@ -65,8 +67,15 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
+            ServiceBusTest x = new ServiceBusTest();
+            x.Test();
+
             //topicClient = new TopicClient(ServiceBusConnectionString, TopicName);
 
+            //var x = new ServiceClientCredentials()
+            //var t = new ServiceBusManagementClient()
+
+            
             // await SendMessagesAsync(10);
             var ty = "ram@cloudents.com";
 
@@ -115,28 +124,30 @@ namespace ConsoleApp
             //await topicClient.CloseAsync();
         }
 
-        //static async Task SendMessagesAsync(int numberOfMessagesToSend)
-        //{
-        //    try
-        //    {
-        //        for (var i = 0; i < numberOfMessagesToSend; i++)
-        //        {
-        //            // Create a new message to send to the topic.
-        //            string messageBody = $"Message {i}";
-        //            var message = new Message(Encoding.UTF8.GetBytes(messageBody));
+        static async Task SendMessagesAsync(int numberOfMessagesToSend)
+        {
+            try
+            {
+                for (var i = 0; i < numberOfMessagesToSend; i++)
+                {
+                    // Create a new message to send to the topic.
+                    string messageBody = $"Message {i}";
+                    var m2 = new Message();
+                    m2.UserProperties["t"] = "T";
+                    var message = new Message(Encoding.UTF8.GetBytes(messageBody));
+                    message.Label = "2";
+                    // Write the body of the message to the console.
+                    Console.WriteLine($"Sending message: {messageBody}");
 
-        //            // Write the body of the message to the console.
-        //            Console.WriteLine($"Sending message: {messageBody}");
-
-        //            // Send the message to the topic.
-        //            await topicClient.SendAsync(message);
-        //        }
-        //    }
-        //    catch (Exception exception)
-        //    {
-        //        Console.WriteLine($"{DateTime.Now} :: Exception: {exception.Message}");
-        //    }
-        //}
+                    // Send the message to the topic.
+                    await topicClient.SendAsync(message);
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"{DateTime.Now} :: Exception: {exception.Message}");
+            }
+        }
 
 
 
