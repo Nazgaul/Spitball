@@ -10,7 +10,7 @@ const state = {
         location: null,
         pinnedCards: {},
         showSmartAppBanner: true,
-        registrationStep: 0
+        registrationStep: consts.REGISTRATION_STEPS[0]
     },
     facet: "",
     historyTermSet: [],
@@ -66,8 +66,14 @@ const mutations = {
     [USER.HIDE_SMART_BANNER](state) {
         state.user.showSmartAppBanner = false;
     },
-    [USER.UPDATE_REGISTRATION_STEP](state, step) {
-        state.user.registrationStep = step;
+    [USER.INCREMENT_REGISTRATION_STEP](state) {
+        var currStepIndex = consts.REGISTRATION_STEPS.indexOf(state.user.registrationStep);
+        if(currStepIndex === consts.REGISTRATION_STEPS.length-1){
+            state.user.registrationStep = consts.REGISTRATION_STEPS[0];
+        }
+        else {
+            state.user.registrationStep = consts.REGISTRATION_STEPS[currStepIndex+1];
+        }
     }
 
 
@@ -161,8 +167,8 @@ const actions = {
     hideSmartAppBanner({ commit }, data) {
         commit(USER.HIDE_SMART_BANNER);
     },
-    updateRegistrationStep(context, data) {
-        context.commit(USER.UPDATE_REGISTRATION_STEP, data);
+    incrementRegistrationStep(context) {
+        context.commit(USER.INCREMENT_REGISTRATION_STEP);
     }
 
 };

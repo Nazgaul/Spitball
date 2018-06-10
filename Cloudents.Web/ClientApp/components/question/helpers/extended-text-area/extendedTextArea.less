@@ -23,20 +23,22 @@
         resize: none;
         padding: 11px 9px 4px;
         letter-spacing: -0.3px;
-        height: 140px;
+        height: 177px;
         overflow-y: auto;
         outline: none;
         width: 100%;
     
         @media (max-width: @screen-xs) {
-          height: 150px;
+          height: 192px;
         }      
       }
       &.with-preview{
         width: ~"calc(100% - 160px)";
         @media (max-width: @screen-xs) {
           width: ~"calc(100% - 120px)";
-        }
+          textarea{ height: 165px;}
+          .actions_text{border: none;}
+        }       
 
       }
     }
@@ -191,9 +193,12 @@
 
 ul.actions_text {
   list-style: none;
-  margin: 4px;
+  display: inline-block;
+  margin: 1px 9px 1px 3px;  
+  &:first-of-type{ width: 135px; border-right: 1px solid #dddddd;}
+  
   @media (max-width: @screen-xs) {
-    margin: 4px 2px 13px;
+    margin: 3px 12px 1px 2px;
   }
   li {
     display: inline;

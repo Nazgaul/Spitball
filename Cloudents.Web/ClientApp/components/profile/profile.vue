@@ -13,17 +13,19 @@
 
                         <div class="menu">
                             <ul class="tabs" v-if="!isMobile" xs3>
-                                <li :class="{'active': activeTab === 1}" @click="activeTab = 1">Selling</li>
-                                <li :class="{'active': activeTab === 2}" @click="activeTab = 2">Sold</li>
-                                <li :class="{'active': activeTab === 3}" @click="activeTab = 3">Upvoted</li>
+                                <li :class="{'active': activeTab === 1}" @click="activeTab = 1">
+                                    <span v-if="isMyProfile">My&nbsp;</span>Questions</li>
+                                <li :class="{'active': activeTab === 2}" @click="activeTab = 2">
+                                    <span v-if="isMyProfile">My&nbsp;</span>Answers</li>
+                                <!-- <li :class="{'active': activeTab === 3}" @click="activeTab = 3">Upvoted</li> -->
                             </ul>
 
                             <v-tabs v-else grow class="tab-padding" xs12>
                                 <v-tabs-bar>
                                     <v-tabs-slider color="blue"></v-tabs-slider>
-                                    <v-tabs-item @click="activeTab = 1" :href="'#tab-1'" :key="1">Selling</v-tabs-item>
-                                    <v-tabs-item @click="activeTab = 2" :href="'#tab-2'" :key="2">Sold</v-tabs-item>
-                                    <v-tabs-item @click="activeTab = 3" :href="'#tab-3'" :key="3">Upvoted</v-tabs-item>
+                                    <v-tabs-item @click="activeTab = 1" :href="'#tab-1'" :key="1"> <span v-if="isMyProfile">My&nbsp;</span>Questions</li></v-tabs-item>
+                                    <v-tabs-item @click="activeTab = 2" :href="'#tab-2'" :key="2"><span v-if="isMyProfile">My&nbsp;</span>Answers</li></v-tabs-item>
+                                    <!-- <v-tabs-item @click="activeTab = 3" :href="'#tab-3'" :key="3">Upvoted</v-tabs-item> -->
                                 </v-tabs-bar>
                             </v-tabs>
                         </div>

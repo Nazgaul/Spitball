@@ -4,9 +4,7 @@
             <v-icon right>sbf-close</v-icon>
         </button>
         <div class="form-wrap">
-            <register-email v-if="step===0" @next="nextStep"></register-email>
-            <register-phone v-else-if="step===1" @next="nextStep"></register-phone>
-            <register-account v-else-if="step===2"></register-account>
+            <component :is="`register-${step}`" @next="nextStep"></component>
         </div>
         <div class="img-wrap"></div>
         <div class="progress">

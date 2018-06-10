@@ -39,6 +39,7 @@
                                 <button @click="showFilterNotApplied=false">OK</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
+                                 <router-link v-if="$route.path.slice(1)==='ask' && $vuetify.breakpoint.xsOnly" class="ask-question-mob"  :to="{path:'/askquestion/'}">Ask Your Question</router-link>
                                 <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading" class="personalize-wrapper pa-3 mb-2 elevation-1">
                                     <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                                 </v-flex>
@@ -47,6 +48,7 @@
                                     <router-link v-else :to="{path:'/question/'+item.id}">
                                         <question-card :cardData="item"></question-card>
                                     </router-link>
+
                                     <!--<div class="show-btn" v-if="item.template!='video'" :class="'color-'+$route.path.slice(1)">Show Me</div>-->
                                 </v-flex>
                                 <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">

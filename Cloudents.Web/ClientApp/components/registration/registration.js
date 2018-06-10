@@ -3,27 +3,29 @@ import registerPhone from './steps/registerPhone/registerPhone.vue'
 import registerUsername from './steps/registerUsername/registerUsername.vue'
 import registerAccount from './steps/registerAccount/registerAccount.vue'
 import {mapActions, mapGetters} from 'vuex'
+import {REGISTRATION_STEPS} from "./../../store/constants";
 
 export default {
     components: {registerEmail, registerPhone, registerUsername, registerAccount},
     props: {
-        propStep:{
-            type: Number,
-            default: 0
+        autoIncrementStep:{
+            type: Boolean,
         }
     },
     data() {
         return {
             // step: this.$route.meta.step || 0,
             showDialog: false,
-            step: 0
+            step: {
+                type: Number
+            },
         }
     },
-    watch: {
-        step: function (val) {
-            this.updateRegistrationStep(val)
-        },
-    },
+    // watch: {
+    //     step: function (val) {
+    //         this.incrementRegistrationStep(val)
+    //     },
+    // },
     computed: {
         ...mapGetters(['getRegistrationStep', 'fromPath']),
         // step() {
@@ -34,20 +36,25 @@ export default {
         // }
     },
     methods: {
-        ...mapActions(['updateRegistrationStep']),
+        ...mapActions(['incrementRegistrationStep']),
         $_back() {
             let url = this.fromPath || {path: '/ask', query: {q: ''}};
             this.$router.push({...url});
         },
         nextStep() {
-            if (this.step >= 2) {
+            if (REGISTRATION_STEPS.indexOf(this.getRegistrationStep) >= REGISTRATION_STEPS.length) {
                 this.$router.push({path: '/ask', query: {q: ''}}); //TODO: change to the market place when we'll build it.
                 return;
             }
-            this.step++;
+            // this.step++;
+            this.incrementRegistrationStep();
+            this.step = this.getRegistrationStep;
         }
     },
     created() {
-        this.step = this.propStep || this.getRegistrationStep;
+        if(this.autoIncrementStep){
+            this.incrementRegistrationStep();
+        }
+        this.step = this.getRegistrationStep;
     }
 }
