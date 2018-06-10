@@ -122,6 +122,7 @@
   }
 
   .settings-wrapper {
+    margin-left: 20px;
     .btn--icon {
       @media (max-width: 959px) {
         margin-right: 0;
@@ -180,10 +181,10 @@
 
     }
     .search-b {
-      height: 40px;
-      min-height: 40px;
+      height: 32px;
+      min-height: 32px;
       max-width: 805px;
-      border-radius: 20px;
+      border-radius: 4px;
       background-color: #f0f0f0;
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
       border: solid 0.5px @color-medium-grey;
@@ -191,9 +192,14 @@
       letter-spacing: -0.4px;
       font-size: 16px;
 
+      @media (max-width: @screen-xs) {
+        border-radius: 20px;
+      }
+
       .input-group__input {
         .input-group__append-icon.sbf-mic {
           padding: 0 14px;
+          display: none;
           @media (max-width: @screen-xs) {
             display: none;
           }
@@ -209,6 +215,7 @@
 
         input {
           letter-spacing: -0.4px;
+          font-size: 14px;
         }
 
       }
@@ -256,6 +263,11 @@
 
 .header-comments{
   margin-right: 39px;
+  height: 32px;
+  width: 39px;
+  align-items: flex-end;
+  .sbf{color: @color-main-purple;}
+  .red-counter{ top: -7px; }
 }
 
 .header-wallet {

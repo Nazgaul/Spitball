@@ -44,42 +44,6 @@ namespace Cloudents.Web.Api
 
             await Task.WhenAll(taskSms, taskSignIn).ConfigureAwait(false);
             return Ok();
-            //if (result)
-            //{
-            //    return Ok();
-            //}
-            //ModelState.AddModelError(string.Empty, "email or password are invalid");
-            //return BadRequest(ModelState);
-        }
-
-
-
-        [HttpPost("test")]
-        [ValidateModel, ValidateRecaptcha]
-        public async Task<IActionResult> PostAsync(
-
-            CancellationToken token)
-        {
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
-            
-            //var t = await _userManager.GetUserAsync(User);
-            return Ok();
-            //var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
-            //if (user == null)
-            //{
-            //    ModelState.AddModelError(string.Empty, "email not found");
-            //    return BadRequest(ModelState);
-            //}
-
-
-            //var result = await client.SendSmsAsync(user, token).ConfigureAwait(false);
-
-            //if (result)
-            //{
-            //    return Ok();
-            //}
-            //ModelState.AddModelError(string.Empty, "email or password are invalid");
-            //return BadRequest(ModelState);
         }
     }
 }

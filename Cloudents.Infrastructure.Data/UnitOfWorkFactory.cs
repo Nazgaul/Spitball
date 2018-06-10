@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Cloudents.Core;
-using Cloudents.Infrastructure.Data.Maps;
-using FluentNHibernate.Cfg;
-using JetBrains.Annotations;
-using NHibernate;
-using NHibernate.Cfg;
-
-namespace Cloudents.Infrastructure.Data
+﻿namespace Cloudents.Infrastructure.Data
 {
    // [UsedImplicitly]
 //    public class UnitOfWorkFactory //: IUnitOfWorkFactory

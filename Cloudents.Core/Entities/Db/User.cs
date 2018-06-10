@@ -22,7 +22,6 @@ namespace Cloudents.Core.Entities.Db
         public virtual long Id { get; set; }
         public virtual string Email { get; set; }
         public virtual bool EmailConfirmed { get; set; }
-        //public virtual string PublicKey { get; set; }
         public virtual string PhoneNumber { get; set; }
 
         public virtual bool PhoneNumberConfirmed { get; set; }
@@ -42,11 +41,4 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual string PrivateKey { get; set; }
     }
-
-    //public class UserRole
-    //{
-    //    public Guid Id { get; set; }
-    //    public User User { get; set; }
-    //    public string Name { get; set; }
-    //}
 }

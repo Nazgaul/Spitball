@@ -25,25 +25,24 @@
 
 
                 <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
+               
+
+                <!-- <v-flex xs12> -->
+                    <span class="text-blue my-points">You have 1,024 points</span>
+                <!-- </v-flex> -->
 
                 <v-flex xs12>
-                    <v-text-field
-                            type="number"
-                            name="input-1-3"
-                            label="Price"
-                            v-model.number="price"
-                            single-line
-                            full-width
-                    ></v-text-field>
-
-
+                    <ul class="points-list">
+                        <li class="pts-5">5 pts</li>
+                        <li class="pts-10 active">10 pts</li>
+                        <li class="pts-20">20 pts</li>
+                        <li class="pts-35">35 pts</li>
+                        <li class="other"><v-icon right>sbf-hand-coin</v-icon>Other amount</li>
+                    </ul>
                 </v-flex>
 
                 <v-flex xs12 class="last-text-block">
-                    <p class="text-blue text-xs-center">Price you’ll pay for an answer</p>
-                    <p class="small-bold text-xs-center" style="margin-bottom: 1px;">(minimum 0.5)</p>
-                    <p class="text-xs-center"><span class="text-blue" style="color:#8888d5;">Tip:</span> A fair price
-                        will make the sale faster</p>
+                    <p class="text-xs-center"><span class="text-blue" style="color:#8888d5;">Tip:</span>&nbsp;A fair price will make the sale</p>
                 </v-flex>
 
 

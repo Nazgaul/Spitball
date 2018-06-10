@@ -1,15 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +13,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-   
+
     public class SmsController : Controller
     {
         private readonly SignInManager<User> _signInManager;
@@ -36,7 +32,6 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
-            //var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             if (!user.EmailConfirmed)
             {
                 return Unauthorized();
@@ -49,16 +44,7 @@ namespace Cloudents.Web.Api
             var retVal = await _userManager.SetPhoneNumberAsync(user, model.Number).ConfigureAwait(false);
             if (retVal.Succeeded)
             {
-                var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.Number)
-                    .ConfigureAwait(false);
-
-                //var message = new SmsMessage
-                //{
-                //    PhoneNumber = model.Number,
-                //    Message = code
-                //};
                 var result = await client.SendSmsAsync(user, token).ConfigureAwait(false);
-
 
                 if (result)
                 {

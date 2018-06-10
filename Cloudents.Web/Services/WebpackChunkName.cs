@@ -5,7 +5,7 @@ using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudents.Web.Extensions
+namespace Cloudents.Web.Services
 {
     public class WebPackChunkName
     {

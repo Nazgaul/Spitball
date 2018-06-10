@@ -14,15 +14,12 @@ namespace Cloudents.Web.Identity
 {
     [UsedImplicitly]
     public sealed class UserStore :
-        IUserStore<User>,
-        //IUserPasswordStore<User>,
         IUserEmailStore<User>,
         IUserTwoFactorStore<User>,
         IUserSecurityStampStore<User>, // need to create token for sms
         IUserPhoneNumberStore<User>,
         IUserAuthenticatorKeyStore<User>
     {
-        //private readonly Lazy<IRepository<User>> _userRepository;
         private readonly ICommandBus _bus;
         private readonly IQueryBus _queryBus;
 
@@ -113,7 +110,6 @@ namespace Cloudents.Web.Identity
             Expression<Func<User, bool>> expression = s => s.NormalizedName == normalizedUserName;
             return _queryBus.QueryAsync<Expression<Func<User, bool>>, User>(expression, cancellationToken);
 
-
             //return await _userRepository.Value.GetQueryable()
             //    .SingleOrDefaultAsync(s => s.NormalizedName == normalizedUserName,
             //        cancellationToken).ConfigureAwait(false);
@@ -143,7 +139,7 @@ namespace Cloudents.Web.Identity
 
         //public Task<bool> HasPasswordAsync(User user, CancellationToken cancellationToken)
         //{
-            
+
         //    return Task.FromResult(!string.IsNullOrEmpty(user.PublicKey));
         //}
 

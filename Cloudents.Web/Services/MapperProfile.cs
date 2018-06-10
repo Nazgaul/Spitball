@@ -2,7 +2,6 @@
 using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Query;
-using Cloudents.Web.Mapper;
 using Cloudents.Web.Models;
 using JetBrains.Annotations;
 

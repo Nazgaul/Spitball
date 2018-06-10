@@ -81,8 +81,8 @@
                                     <div class="header-comments" v-if="loggedIn && !isMobile">
                                         <router-link :to="{name:'conversations'}">
                                             <v-icon>sbf-comment</v-icon>
-                                        <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
-                                    </router-link>
+                                            <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span> 
+                                        </router-link>                                    
                                     </div>
 
                                     <div class="header-wallet" v-if="loggedIn">
