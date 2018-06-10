@@ -1,5 +1,5 @@
 <template>
-    <v-flex v-if="cardData" xs12 class="question-card">
+    <v-flex v-if="cardData" xs12 class="question-card" :class="{'highlight':isCorrectAnswer}">
         <div v-if="!typeAnswer">
             <div class="q-price">
                 <span>Earn ${{cardData.price}}</span> 
@@ -11,7 +11,7 @@
             </v-dialog>
         </div>
         
-        <div v-else class="q-answer">
+        <div v-else class="q-answer" >
             <user-block :user="cardData.user"></user-block>
 
             <button class="accept-btn">
