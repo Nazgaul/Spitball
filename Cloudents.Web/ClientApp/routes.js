@@ -168,7 +168,7 @@ let routes2 = [
         }, name: "newQuestion",
         meta: {
             requiresAuth: true
-        },
+        }
     },
     {
         path: "/question/:id",
@@ -215,7 +215,7 @@ let routes2 = [
         components: {
             default: registration,
         },
-        name: "registration",
+        name: "registrationVerify",
         props: {
             default: {autoIncrementStep: true}
         },
