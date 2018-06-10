@@ -9,7 +9,6 @@ const state = {
         isFirst: true,
         location: null,
         pinnedCards: {},
-        showSmartAppBanner: true,
         showRegistrationBanner: true,
         registrationStep: consts.REGISTRATION_STEPS[0]
     },
@@ -64,9 +63,6 @@ const mutations = {
             state.historyTermSet = state.historyTermSet.slice(1);
         }
     },
-    [USER.HIDE_SMART_BANNER](state) {
-        state.user.showSmartAppBanner = false;
-    },
     [USER.HIDE_REGISTRATION_BANNER](state) {
         state.user.showRegistrationBanner = false;
     },
@@ -99,8 +95,6 @@ const getters = {
     },
     pinnedCards:
         state => state.user.pinnedCards,
-    showSmartAppBanner:
-        state => state.user.showSmartAppBanner,
     showRegistrationBanner:
         state => state.user.showRegistrationBanner,
     getRegistrationStep:
@@ -169,9 +163,6 @@ const actions = {
     },
     updateFacet({ commit }, data) {
         commit(USER.UPDATE_FACET, data)
-    },
-    hideSmartAppBanner({ commit }, data) {
-        commit(USER.HIDE_SMART_BANNER);
     },
     hideRegistrationBanner(context) {
         context.commit(USER.HIDE_REGISTRATION_BANNER);
