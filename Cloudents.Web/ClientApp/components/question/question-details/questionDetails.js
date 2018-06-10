@@ -77,7 +77,7 @@ export default {
         markAsCorrect(answerId){
             var self = this;
             questionService.markAsCorrectAnswer(answerId).then(function () {
-                self.questionData.correctAnswer = answerId;
+                self.questionData.correctAnswerId = answerId;
             })
         }
     },
