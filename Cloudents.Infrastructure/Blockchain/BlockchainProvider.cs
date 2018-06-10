@@ -5,7 +5,6 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
@@ -18,7 +17,7 @@ namespace Cloudents.Infrastructure.BlockChain
         private readonly IConfigurationKeys _configurationKeys;
 
         protected const double FromWei = 1e18;
-        public const double MaxGas = 4.7e6;
+        protected const double MaxGas = 4.7e6;
         protected const string SpitballPrivateKey = "10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
 
         protected BlockChainProvider(IConfigurationKeys configurationKeys)
@@ -68,12 +67,6 @@ namespace Cloudents.Infrastructure.BlockChain
                 }
             });
         }
-
-        //public static string GetPublicAddress(string privateKey)
-        //{
-        //    if (privateKey == null) throw new ArgumentNullException(nameof(privateKey));
-        //    return Web3.GetAddressFromPrivateKey(privateKey);
-        //}
 
         public static (string privateKey, string publicAddress) CreateAccount()
         {

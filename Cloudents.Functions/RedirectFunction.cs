@@ -1,16 +1,11 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command;
-using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using Cloudents.Functions.Di;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
 
 namespace Cloudents.Functions
 {

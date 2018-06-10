@@ -10,6 +10,7 @@ namespace Cloudents.Infrastructure
     public class ReplaceImageProvider : IReplaceImageProvider
     {
         private readonly IBlobProvider<SpitballContainer> _blobProvider;
+
         private readonly Dictionary<string,string> _sources = new Dictionary<string,string>(StringComparer.CurrentCultureIgnoreCase)
         {
             ["courseHero"] = "courseHero.png",

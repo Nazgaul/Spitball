@@ -11,6 +11,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
     public class TutorSearchWrite : SearchServiceWrite<Core.Entities.Search.Tutor>
     {
         public const string IndexName = "tutors4";
+
         public TutorSearchWrite(SearchServiceClient client)
             : base(client, IndexName)
         {

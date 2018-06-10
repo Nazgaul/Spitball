@@ -34,6 +34,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
         protected override AuthenticationHeaderValue HttpHandler => null;
 
         private const string Source = "Wyzant";
+
         protected override IEnumerable<WyzantTutor> GetT(string location)
         {
             var serializer = new JsonSerializer();

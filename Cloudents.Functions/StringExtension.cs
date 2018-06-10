@@ -69,7 +69,7 @@ namespace Cloudents.Functions
             //loop through matches, since each key may be used more than once (and with a different format string)
             foreach (Match m in attributeRegex.Matches(formatString))
             {
-                string replacement = m.ToString();
+                string replacement;
                 if (m.Groups[2].Length > 0) //matched {foo:SomeFormat}
                 {
                     //do a double string.Format - first to build the proper format string, and then to format the replacement value

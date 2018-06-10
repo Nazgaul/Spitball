@@ -7,6 +7,7 @@ namespace Cloudents.Infrastructure.Domain
     public class DomainParser : IDomainParser
     {
         private readonly Nager.PublicSuffix.DomainParser _parser;
+
         public DomainParser(ICacheProvider cache)
         {
             var provider = new WebTldRuleProvider(cacheProvider: cache);
