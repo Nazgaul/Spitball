@@ -1,7 +1,7 @@
 ﻿﻿
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
-        <signup-banner slot="banner" v-if="!accountUser"></signup-banner>
+        <signup-banner slot="banner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main" >
             <div class="d-flex mobile-filter hidden-sm-and-up" :class="{'smart-app-banner': showSmartAppBanner}">
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterCondition">

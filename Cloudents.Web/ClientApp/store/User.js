@@ -10,6 +10,7 @@ const state = {
         location: null,
         pinnedCards: {},
         showSmartAppBanner: true,
+        showRegistrationBanner: true,
         registrationStep: consts.REGISTRATION_STEPS[0]
     },
     facet: "",
@@ -66,6 +67,9 @@ const mutations = {
     [USER.HIDE_SMART_BANNER](state) {
         state.user.showSmartAppBanner = false;
     },
+    [USER.HIDE_REGISTRATION_BANNER](state) {
+        state.user.showRegistrationBanner = false;
+    },
     [USER.INCREMENT_REGISTRATION_STEP](state) {
         var currStepIndex = consts.REGISTRATION_STEPS.indexOf(state.user.registrationStep);
         if(currStepIndex === consts.REGISTRATION_STEPS.length-1){
@@ -97,6 +101,8 @@ const getters = {
         state => state.user.pinnedCards,
     showSmartAppBanner:
         state => state.user.showSmartAppBanner,
+    showRegistrationBanner:
+        state => state.user.showRegistrationBanner,
     getRegistrationStep:
         state => state.user.registrationStep,
     getUniversity: state => {
@@ -166,6 +172,9 @@ const actions = {
     },
     hideSmartAppBanner({ commit }, data) {
         commit(USER.HIDE_SMART_BANNER);
+    },
+    hideRegistrationBanner(context) {
+        context.commit(USER.HIDE_REGISTRATION_BANNER);
     },
     incrementRegistrationStep(context) {
         context.commit(USER.INCREMENT_REGISTRATION_STEP);
