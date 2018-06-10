@@ -56,4 +56,12 @@ export default {
             }
         }
     },
+    created(){
+        debugger;
+        registrationService.getLocalCode().then(({data})=>{
+            debugger;
+            this.phone.countryCode=data.calling_code;
+            console.log(data.calling_code)
+        })
+    }
 }
