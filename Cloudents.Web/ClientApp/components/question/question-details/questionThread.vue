@@ -7,7 +7,7 @@
                            :showApproveButton="props.questionData.myQuestion && !props.questionData.correctAnswerId"
                            :isCorrectAnswer="props.questionData.correctAnswerId && props.questionData.correctAnswerId.toUpperCase() === answer.id.toUpperCase()"
                            :cardData="answer"
-                           class="user-question mb-3" detailed-view></question-card>
+                           class="user-question mb-3 answer-card" detailed-view></question-card>
         </div>
     </v-layout>
 </template>

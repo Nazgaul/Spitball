@@ -1,5 +1,5 @@
 <template>
-    <v-flex v-if="cardData" xs12 class="question-card" :class="{'highlight':isCorrectAnswer||highlight}">
+    <v-flex v-if="cardData" xs12 class="question-card" :class="{'highlight':isCorrectAnswer}">
         <div v-if="!typeAnswer">
             <div class="q-price">
                 <span>Earn ${{cardData.price}}</span> 
@@ -14,18 +14,17 @@
         <div v-else class="q-answer" >
             <user-block :user="cardData.user"></user-block>
 
-            <button class="accept-btn" @click="markAsCorrect" :disabled="isCorrectAnswer||highlight" v-if="showApproveButton">
+            <button class="accept-btn" @click="markAsCorrect" v-if="showApproveButton">
                 <v-icon>sbf-check-circle</v-icon>
                 <span>Accept</span>                
-            </button>             
-            
-            <div class="choosen-answer" v-if="isCorrectAnswer||highlight">
-                <span>Choosen Answer</span>
+            </button>
+
+            <div class="choosen-answer" v-if="isCorrectAnswer">
                 <v-icon>sbf-check-circle</v-icon>
             </div>
 
             
-            <button class="delete">
+            <button class="delete" v-if="myQuestion">
                 <v-icon>sbf-trash</v-icon>        
             </button> 
 
