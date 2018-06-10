@@ -44,7 +44,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPut("correct"), ValidateModel]
-        public async Task<IActionResult> MarkAsReadAsync([FromBody]MarkAsCorrectRequest model, CancellationToken token)
+        public async Task<IActionResult> MarkAsCorrectAsync([FromBody]MarkAsCorrectRequest model, CancellationToken token)
         {
             var command = _mapper.Map<MarkAnswerAsCorrectCommand>(model);
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);

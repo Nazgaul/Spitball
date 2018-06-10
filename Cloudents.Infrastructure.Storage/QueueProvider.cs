@@ -47,6 +47,7 @@ namespace Cloudents.Infrastructure.Storage
                 TypeNameHandling = TypeNameHandling.Auto
             });
             var cloudMessage = new CloudQueueMessage(json);
+            
             return queue.AddMessageAsync(cloudMessage);
         }
     }
