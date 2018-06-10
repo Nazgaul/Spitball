@@ -64,14 +64,6 @@ export default {
         },
         markAsCorrect() {
             this.$parent.markAsCorrect(this.cardData.id); //TODO: MEH :\  check if it can be done in a better way...
-        },
-        upVote(){
-            if(this.submitForm()) {
-                self = this;
-                questionService.upVote(this.cardData.id).then(function () {
-                    self.cardData.upVote++;
-                });
-            }
-        },
+        }
     }
 }

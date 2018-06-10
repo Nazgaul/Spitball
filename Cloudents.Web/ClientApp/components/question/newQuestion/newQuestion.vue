@@ -59,5 +59,5 @@
         </v-container>
     </div>
 </template>
-<script src="./askQuestion.js"></script>
-<style src="./askQuestion.less" lang="less"></style>
+<script src="./newQuestion.js"></script>
+<style src="./newQuestion.less" lang="less"></style>
