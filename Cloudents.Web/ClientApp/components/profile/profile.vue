@@ -17,15 +17,13 @@
                                     <span v-if="isMyProfile">My&nbsp;</span>Questions</li>
                                 <li :class="{'active': activeTab === 2}" @click="activeTab = 2">
                                     <span v-if="isMyProfile">My&nbsp;</span>Answers</li>
-                                <!-- <li :class="{'active': activeTab === 3}" @click="activeTab = 3">Upvoted</li> -->
                             </ul>
 
                             <v-tabs v-else grow class="tab-padding" xs12>
                                 <v-tabs-bar>
                                     <v-tabs-slider color="blue"></v-tabs-slider>
-                                    <v-tabs-item @click="activeTab = 1" :href="'#tab-1'" :key="1"> <span v-if="isMyProfile">My&nbsp;</span>Questions</li></v-tabs-item>
-                                    <v-tabs-item @click="activeTab = 2" :href="'#tab-2'" :key="2"><span v-if="isMyProfile">My&nbsp;</span>Answers</li></v-tabs-item>
-                                    <!-- <v-tabs-item @click="activeTab = 3" :href="'#tab-3'" :key="3">Upvoted</v-tabs-item> -->
+                                    <v-tabs-item @click="activeTab = 1" :href="'#tab-1'" :key="1"> <span v-if="isMyProfile">My&nbsp;</span>Questions</v-tabs-item>
+                                    <v-tabs-item @click="activeTab = 2" :href="'#tab-2'" :key="2"><span v-if="isMyProfile">My&nbsp;</span>Answers</v-tabs-item>
                                 </v-tabs-bar>
                             </v-tabs>
                         </div>
@@ -42,9 +40,6 @@
                         <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="answerData in profileData.answer" :key="answerData.id">
                             <question-card :cardData="answerData"></question-card>
                         </router-link>
-                    </div>
-                    <div v-else-if="activeTab === 3">
-                        <p>UPVOTED CONTENT</p>
                     </div>
                 </v-flex>
 
