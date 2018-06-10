@@ -25,6 +25,8 @@ const profilePageHeader = () => import("./components/profile/header/header.vue")
 const userSettings = () => import("./components/settings/view/settings.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
+import * as consts from "./store/constants";
+
 
 // import store from "./store";
 
@@ -215,7 +217,7 @@ let routes2 = [
         },
         name: "registration",
         props: {
-            default: {propStep: 1}
+            default: {autoIncrementStep: true}
         },
     },
     {
