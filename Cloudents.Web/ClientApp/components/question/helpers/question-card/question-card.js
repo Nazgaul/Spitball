@@ -1,5 +1,4 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
-import questionService from "../../../../services/questionService";
 import disableForm from "../../../mixins/submitDisableMixin"
 import {mapGetters,mapActions} from 'vuex'
 
@@ -33,6 +32,7 @@ export default {
     },
     data() {
         return {
+            highlight:false,
             user: {
                 img: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
                 name: 'User Name'
@@ -63,7 +63,10 @@ export default {
            })
         },
         markAsCorrect() {
-            this.$parent.markAsCorrect(this.cardData.id); //TODO: MEH :\  check if it can be done in a better way...
+            if(!this.highlight) {
+                this.highlight=true;
+                this.$parent.markAsCorrect(this.cardData.id); //TODO: MEH :\  check if it can be done in a better way...
+            }
         }
     }
 }

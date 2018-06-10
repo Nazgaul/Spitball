@@ -4,8 +4,8 @@
         <slot name="answer-form"></slot>
         <div>
             <question-card v-for="answer in props.questionData.answers" :typeAnswer="true" :key="answer.id"
-                           :showApproveButton="props.questionData.myQuestion"
-                           :isCorrectAnswer="props.questionData.correctAnswer && props.questionData.correctAnswer.toUpperCase() === answer.id.toUpperCase()"
+                           :showApproveButton="props.questionData.myQuestion && !props.questionData.correctAnswerId"
+                           :isCorrectAnswer="props.questionData.correctAnswerId && props.questionData.correctAnswerId.toUpperCase() === answer.id.toUpperCase()"
                            :cardData="answer"
                            class="user-question mb-3" detailed-view></question-card>
         </div>

@@ -1,5 +1,5 @@
 <template>
-    <v-flex v-if="cardData" xs12 class="question-card">
+    <v-flex v-if="cardData" xs12 class="question-card" :class="{'highlight':isCorrectAnswer||highlight}">
         <div v-if="!typeAnswer">
             <div class="q-price">
                 <span>Earn ${{cardData.price}}</span> 
@@ -11,15 +11,15 @@
             </v-dialog>
         </div>
         
-        <div v-else class="q-answer">
+        <div v-else class="q-answer" >
             <user-block :user="cardData.user"></user-block>
 
-            <button class="accept-btn">
+            <button class="accept-btn" @click="markAsCorrect" :disabled="isCorrectAnswer||highlight" v-if="showApproveButton">
                 <v-icon>sbf-check-circle</v-icon>
                 <span>Accept</span>                
             </button>             
             
-            <div class="choosen-answer">
+            <div class="choosen-answer" v-if="isCorrectAnswer||highlight">
                 <span>Choosen Answer</span>
                 <v-icon>sbf-check-circle</v-icon>
             </div>
@@ -31,14 +31,6 @@
 
         </div>
 
-        <div v-if="detailedView && cardData.user" class="q-user-info card-info detailed"><!--v-if="cardData.user"-->
-            <user-block :user="cardData.user"></user-block>
-            <div v-if="typeAnswer && showApproveButton">
-                <label for="mark-correct">Mark as correct answer</label>
-                <input id="mark-correct" type="checkbox" @click="markAsCorrect" :disabled="isCorrectAnswer"
-                        :checked="isCorrectAnswer"/>
-            </div>
-        </div>
 
         
 

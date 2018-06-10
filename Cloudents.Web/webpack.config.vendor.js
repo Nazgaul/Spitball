@@ -48,8 +48,7 @@ const allModules = [
     "vuetify/es5/components/VNavigationDrawer",
     "vuetify/es5/components/VAvatar",
     "webfontloader",
-    //'smartbanner.js/dist/smartbanner',
-    //'smartbanner.js/dist/smartbanner.css'
+
 ];
 
 module.exports = (env) => {
