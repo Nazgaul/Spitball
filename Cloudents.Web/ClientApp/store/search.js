@@ -27,9 +27,7 @@ const actions = {
             context.commit(SEARCH.UPDATE_SEARCH_PARAMS, {});
             return Promise.resolve("");
         }
-        debugger;
         return interpetPromise(text).then(({ data: body }) => {
-            debugger;
             let params = { ...body };
             let {docType,term,cords}=body;
             let currentVertical=vertical?vertical:body.vertical;
