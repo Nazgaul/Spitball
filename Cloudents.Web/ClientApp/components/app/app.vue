@@ -1,7 +1,7 @@
 ﻿<template>
     <v-app>
         <router-view name="header"></router-view>
-        <v-content :class="{'loading':loading}">
+        <v-content class="site-content" :class="{'loading':loading}">
             <div class="loader" v-show="loading">
                 <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
             </div>

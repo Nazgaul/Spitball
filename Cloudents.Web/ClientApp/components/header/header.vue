@@ -1,7 +1,7 @@
 ﻿<template>
         <main-header ref="mainHeader" :userText="userText" 
                      :submitRoute="submitRoute" :currentSelection="currentSelection"
-                     :toolbarHeight="$vuetify.breakpoint.mdAndUp ? 120 : 152">
+                     :toolbarHeight="$vuetify.breakpoint.mdAndUp ? 104 : 152">
             <verticals-tabs :currentSelection="currentSelection" slot="extraHeader"></verticals-tabs>
         </main-header>
 </template>

@@ -64,6 +64,7 @@
   }
 
   .main {
+    .limited-width();
     .responsive-property(height, 60px, 85px, null);
     .responsive-property(padding-top, 12px, 0px, null);
     display: flex;
@@ -73,8 +74,9 @@
 
 
   .line {
-    .responsive-property(margin-right, 16px, null, 0);
-    .responsive-property(margin-left, 16px, 24px, 7px);
+    .limited-width();
+    padding-left: 16px;
+    padding-right: 16px;
     .responsive-property(max-height, 60px, 60px, 64px);
 
     @media (max-width: 959px) {
