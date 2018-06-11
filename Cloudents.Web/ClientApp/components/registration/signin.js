@@ -36,7 +36,7 @@ export default {
                     self.codeSent = true;
                 }, function (reason) {
                     self.UPDATE_LOADING(false);
-                    self.errorMessage.email = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                    self.errorMessage.email = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
                 });
         },
         verifyCode() {

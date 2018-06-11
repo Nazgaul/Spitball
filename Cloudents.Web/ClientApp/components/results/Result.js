@@ -6,7 +6,6 @@ const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
 import { page } from '../../data';
 import SuggestCard from './suggestCard.vue'
-import studyblueCard from './studyblueCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
 import {verticalsName} from '../../data'
 import {typesPersonalize} from "../settings/consts.js";
@@ -144,7 +143,6 @@ export const pageMixin =
             emptyState,
             ResultItem,
             SuggestCard,
-            studyblueCard,
             ResultTutor,
             ResultJob,
             ResultBook,

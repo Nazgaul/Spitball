@@ -44,10 +44,10 @@
                         <v-icon>sbf-attach</v-icon>
                         <span>1</span>
                     </div>
-                    <div class="users">                        
-                        <img src="../../../helpers/img/user.png" class="avatar"/>
-                        <img src="../../../helpers/img/user.png" class="avatar"/>
-                        <img src="../../../helpers/img/user.png" class="avatar"/>                        
+                    <div class="users">
+                        <v-icon class="avatar">sbf-comment-circle</v-icon>
+                        <v-icon class="avatar">sbf-comment-circle</v-icon>
+                        <v-icon class="avatar">sbf-comment-circle</v-icon>
                     </div>
                     <span class="user-counter">+5</span>
                 </div>
