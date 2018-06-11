@@ -54,9 +54,6 @@
                                 <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                     <suggest-card :name="currentSuggest"></suggest-card>
                                 </router-link>
-                                <v-flex v-if="name==='ask' && !loading" class="result-cell elevation-1 mb-2 xs-12 order-xs2">
-                                    <studyblue-card :searchterm="userText"></studyblue-card>
-                                </v-flex>
                             </slot>
                         </v-layout>
                     </v-container>
