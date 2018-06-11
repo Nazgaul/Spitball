@@ -14,7 +14,8 @@ export default {
             price: null,
             selectedPrice:null,
             files: [],
-            errorMessage:''
+            errorMessage:'',
+            pricesList:[5,10,20,35]
         }
     },
     methods: {
@@ -32,7 +33,7 @@ export default {
                             self.$router.push({path: '/ask', query: {q: ''}});
                         },
                         function (error) {
-                            self.UPDATE_LOADING(false)
+                            self.UPDATE_LOADING(false);
                             console.error(error);
                             this.submitForm(false);
                         });

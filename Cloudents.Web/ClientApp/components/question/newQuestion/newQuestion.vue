@@ -29,26 +29,14 @@
 
 
                 <!-- <v-flex xs12> -->
-                <span class="text-blue my-points">You have 1,024 points</span>
+                <span class="text-blue my-points">You have {{this.accountUser.balance}} points</span>
                 <!-- </v-flex> -->
 
                 <v-flex xs12>
                     <ul class="points-list">
-                        <li class="pts-5">
-                            <input id="5pts" class="automatic-amount" type="radio" name="price" value="5" v-model="selectedPrice">
-                            <label for="5pts">5 pts</label>
-                        </li>
-                        <li class="pts-10 active">
-                            <input id="10pts" class="automatic-amount" type="radio" name="price" value="10" v-model="selectedPrice">
-                            <label for="10pts">10 pts</label>
-                        </li>
-                        <li class="pts-20">
-                            <input id="20pts" class="automatic-amount" type="radio" name="price" value="20" v-model="selectedPrice">
-                            <label for="20pts">20 pts</label>
-                        </li>
-                        <li class="pts-35">
-                            <input id="35pts" class="automatic-amount" type="radio" name="price" value="35" v-model="selectedPrice">
-                            <label for="35pts">35 pts</label>
+                        <li :class="`pts-${pricey}`" v-for="(pricey,index) in pricesList">
+                            <input :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price" :value="pricey" v-model="selectedPrice">
+                            <label :for="`${pricey}pts`">{{pricey}} pts</label>
                         </li>
                         <li class="other">
                             <input type="number" placeholder="Other amount" @focus="selectOtherAmount()" v-model="price"/>
