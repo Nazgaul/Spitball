@@ -1,7 +1,6 @@
 ﻿using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Infrastructure.BlockChain;
 using Nethereum.Contracts;
 using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;

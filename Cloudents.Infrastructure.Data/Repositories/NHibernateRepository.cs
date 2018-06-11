@@ -31,6 +31,12 @@ namespace Cloudents.Infrastructure.Data.Repositories
             return Session.GetAsync<T>(id, token);
         }
 
+
+        public Task DeleteAsync(object id, CancellationToken token)
+        {
+            return Session.DeleteAsync(id, token);
+        }
+
         public IQueryable<T> GetQueryable()
         {
            return Session.Query<T>();

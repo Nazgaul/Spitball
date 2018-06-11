@@ -103,10 +103,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
             builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
-
-            builder.RegisterType<ChatProvider>().As<IChat>();
-            //builder.RegisterType<Mapper.Mapper>().AsImplementedInterfaces();
-
         }
     }
 }

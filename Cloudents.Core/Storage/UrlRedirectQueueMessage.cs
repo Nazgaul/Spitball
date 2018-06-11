@@ -52,7 +52,7 @@ namespace Cloudents.Core.Storage
     }
 
     [Serializable]
-    public class RegistrationEmail : QueueEmail
+    public class RegistrationEmail : BaseEmail
     {
         public RegistrationEmail(string to, string link) : base(to, "register","Welcome to Spitball")
         {
@@ -63,11 +63,16 @@ namespace Cloudents.Core.Storage
 
     }
 
-    public class TalkJsUser : QueueBackground
+    [Serializable]
+    public class TalkJsUser 
     {
         public TalkJsUser(long id)
         {
             Id = id;
+        }
+
+        protected TalkJsUser()
+        {
         }
 
         public long Id { get; set; }

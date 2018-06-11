@@ -12,7 +12,6 @@ export default {
             type: "",
             keep: true,
             isfirst: false,
-            isAcademinc: false,
             currentUni: ""
         }
     },
@@ -36,22 +35,7 @@ export default {
                 this.currentUni = this.getUniversityName;
             }
 
-        },
-        isAcademinc(val) {
-            if (val && this.isFirst) {
-               this.$options.timeout= setTimeout(() => {
-                    if (this.isAcademinc && !this.$root.$el.querySelector(".dialog__content__active"))
-                        this.showDialog = true
-                }, 5000);
-            }
         }
-    },
-    beforeRouteUpdate(to, from, next) {
-        this.$_isAcademic(to);
-        next()
-    },
-    created() {
-        this.$_isAcademic(this.$route);
     },
     methods: {
         ...mapActions(["updateFirstTime"]),
@@ -62,10 +46,6 @@ export default {
         openDialog(type){
             settingMenu.find(i => i.id === type).click.call(this, this.getUniversityName);
             this.showDialog = true;
-        },
-        $_isAcademic(to) {
-            let newName = to.path.slice(1);
-            this.isAcademinc = (newName !== "job" && newName !== "food" && to.name==='result')
         }
     },
     beforeDestroy(){

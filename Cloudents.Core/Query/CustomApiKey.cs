@@ -32,6 +32,5 @@ namespace Cloudents.Core.Query
 
         public static readonly CustomApiKey Documents = new CustomApiKey("2506829495", "biology", PrioritySource.DocumentPriority);
         public static readonly CustomApiKey Flashcard = new CustomApiKey("3768889099", "accounting", PrioritySource.FlashcardPriority);
-        //public static readonly CustomApiKey AskQuestion = new CustomApiKey("664922931", "world war 2", PrioritySource.AskPriority);
     }
 }

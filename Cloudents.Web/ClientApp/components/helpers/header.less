@@ -119,6 +119,7 @@
   }
 
   .settings-wrapper {
+    line-height: 32px;
     margin-left: 20px;
     .btn--icon {
       @media (max-width: 959px) {
@@ -259,7 +260,7 @@
 }
 
 .header-comments{
-  margin-right: 39px;
+  // margin-right: 39px;
   height: 32px;
   width: 39px;
   align-items: flex-end;
@@ -268,19 +269,34 @@
 }
 
 .header-wallet {
+  flex-direction: column;
+  line-height: 32px;
+  width: 104px;
+  border-left: 1px solid @Dividers;
+  height: 32px;
+  border-right: 1px solid @Dividers;
+  justify-content: center;
+  margin: 0 23px;
+
   @media (max-width: @screen-xs) {
-    margin-right: 57px;
+    margin-right: 37px;
+    border: none;
     margin-bottom: 3px;
+    flex-direction: row;
   }
-  margin-right: 39px;
+
   .btn {
     margin: 6px 1px 6px 0px;
   }
+
   span {
     font-size: 14px;
-    font-weight: bold;
+    color: @color-grey;
+    line-height: 19px;
+    letter-spacing: -0.2px;    
     @media (max-width: @screen-xs) {
       margin: 0 3px;
+      font-weight: bold;
     }
   }
 }
@@ -299,10 +315,17 @@
 }
 
 .header-rocket {
-  width: 72px;
+  // width: 72px;
+  height: 32px;
+
   @media (max-width: @screen-xs) {
     width: 56px;
     top: 1px;
+  }
+  img{
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
   }
   button.btn {
     background-color: #3293f6;
@@ -325,6 +348,7 @@
 .red-counter {
   width: auto;
   min-width: 23px;
+  line-height: 20px;
   // height: 22px;
   padding: 0 2px;
   background-color: #d0021b;

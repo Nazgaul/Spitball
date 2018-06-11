@@ -8,9 +8,8 @@ using JetBrains.Annotations;
 namespace Cloudents.Infrastructure.Data
 {
     [ModuleRegistration(Core.Enum.System.Console)]
-    //[ModuleRegistration(Core.Enum.System.Function)]
     [ModuleRegistration(Core.Enum.System.Web)]
-    [ModuleRegistration(Core.Enum.System.FunctionV1)]
+    [ModuleRegistration(Core.Enum.System.Function)]
     [UsedImplicitly]
     public class ModuleDb : Module
     {

@@ -2,7 +2,8 @@
 
 namespace Cloudents.Core.Entities.Db
 {
-    [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global" ,Justification = "Resharper")]
+    [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global" ,Justification = "Nhibernate proxy")]
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
     public class User
     {
 

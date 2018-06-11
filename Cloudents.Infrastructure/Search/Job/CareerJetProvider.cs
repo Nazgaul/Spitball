@@ -123,6 +123,7 @@ namespace Cloudents.Infrastructure.Search.Job
         {
             [JsonProperty("hits")]
             public int Hits { get; set; }
+
             [JsonProperty("jobs")]
             public Job[] Jobs { get; set; }
             //public float response_time { get; set; }
@@ -137,12 +138,16 @@ namespace Cloudents.Infrastructure.Search.Job
             // public string site { get; set; }
             [JsonProperty("date")]
             public DateTime Date { get; set; }
+
             [JsonProperty("url")]
             public string Url { get; set; }
+
             [JsonProperty("title")]
             public string Title { get; set; }
+
             [JsonProperty("description")]
             public string Description { get; set; }
+
             [JsonProperty("company")]
             public string Company { get; set; }
             //public string salary { get; set; }
