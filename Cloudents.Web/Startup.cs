@@ -162,7 +162,8 @@ namespace Cloudents.Web
                 Redis = Configuration["Redis"],
                 Storage = Configuration["Storage"],
                 FunctionEndpoint = Configuration["FunctionEndpoint"],
-                BlockChainNetwork = Configuration["BlockChainNetwork"]
+                BlockChainNetwork = Configuration["BlockChainNetwork"],
+                ServiceBus = Configuration["ServiceBus"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();

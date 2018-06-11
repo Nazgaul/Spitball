@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Chat;
@@ -7,39 +8,32 @@ using Cloudents.Core.Storage;
 using Cloudents.Functions.Di;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.ServiceBus.Messaging;
 using Newtonsoft.Json;
 
 namespace Cloudents.Functions
 {
     public static class BackgroundFunction
     {
-        [FunctionName("FunctionBackground")]
+        [FunctionName("FunctionTalkJs")]
         public static async Task BackgroundFunctionAsync(
-            [QueueTrigger(QueueName.BackgroundName)] string queueMessage,
-            [Inject] IChat chatService,
+            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.TalkJs))]TalkJsUser obj,
+            [Inject] IRestClient chatService,
             TraceWriter log,
             CancellationToken token)
         {
-            var obj = JsonConvert.DeserializeObject<TalkJsUser>(queueMessage, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            if (obj == null)
-            {
-                log.Error("error deSerializing");
-                return;
-            }
-
             var user = new User
             {
-                Email = obj.Email == null ? null : new[] {obj.Email},
+                Email = obj.Email == null ? null : new[] { obj.Email },
                 Name = obj.Name,
-                Phone = obj.Phone == null ? null : new[] {obj.Phone},
+                Phone = obj.Phone == null ? null : new[] { obj.Phone },
                 PhotoUrl = obj.PhotoUrl,
 
             };
+            await chatService.PutJsonAsync(
+                new Uri($"https://api.talkjs.com/v1/tXsrQpOx/users/{obj.Id}"),
+                user, null, token).ConfigureAwait(false);
 
-            await chatService.CreateOrUpdateUserAsync(obj.Id, user,token).ConfigureAwait(false);
         }
     }
 }

@@ -18,11 +18,11 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class RegisterController : Controller
     {
-        private readonly IQueueProvider _queueProvider;
+        private readonly IServiceBusProvider _queueProvider;
         private readonly UserManager<User> _userManager;
 
         public RegisterController(
-            UserManager<User> userManager, IQueueProvider queueProvider)
+            UserManager<User> userManager, IServiceBusProvider queueProvider)
         {
             _userManager = userManager;
             _queueProvider = queueProvider;
@@ -55,7 +55,7 @@ namespace Cloudents.Web.Api
                 var link = Url.Link("ConfirmEmail", new { user.Id, code });
                 TempData["email"] = model.Email;
                 var message = new RegistrationEmail(model.Email, HtmlEncoder.Default.Encode(link));
-                await _queueProvider.InsertEmailMessageAsync(message, token).ConfigureAwait(false);
+                await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
                 return Ok();
             }
             ModelState.AddIdentityModelError(p);
@@ -76,7 +76,7 @@ namespace Cloudents.Web.Api
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
             var link = Url.Link("ConfirmEmail", new { user.Id, code });
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link));
-            await _queueProvider.InsertEmailMessageAsync(message, token).ConfigureAwait(false);
+            await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
             return Ok();
         }
 

@@ -38,7 +38,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
+            var taskSignIn = _signInManager.SignInTwoFactorAsync(user, model.RememberMe);
 
             var taskSms = client.SendSmsAsync(user, token);
 

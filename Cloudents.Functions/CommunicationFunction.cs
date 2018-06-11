@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using System.Web.Http.Results;
 using Cloudents.Core.Storage;
 using Cloudents.Functions.Di;
+using Cloudents.Infrastructure.Framework;
 using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.ServiceBus.Messaging;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
@@ -21,41 +23,34 @@ namespace Cloudents.Functions
     public static class CommunicationFunction
     {
         [FunctionName("FunctionEmail")]
-        public static async Task EmailFunctionAsync(
-            [QueueTrigger(QueueName.EmailName, Connection = "TempConnection")] CloudQueueMessage queueMessage,
+        public static async Task EmailFunctionAsync([ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Email))]BrokeredMessage brokeredMessage,
             [SendGrid(ApiKey = "SendgridKey", From = "no-reply@spitball.co")] IAsyncCollector<Mail> emailProvider,
             IBinder binder,
             TraceWriter log,
             CancellationToken token)
         {
-            var emailParams =  JsonConvert.DeserializeObject<RegistrationEmail>(queueMessage.AsString, new JsonSerializerSettings()
+            var topicMessage = brokeredMessage.GetBodyInheritance<BaseEmail>();
+            if (topicMessage == null)
             {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            if (emailParams == null)
-            {
-                log.Error("error deSerializing" );
+                log.Error("error with parsing message");
                 return;
             }
-            //TODO: dynamic binding somehow doesn't work skip that for now
-            var dynamicBlobAttribute = new BlobAttribute("mailcontainer/Spitball/register-mail.html");
+            var dynamicBlobAttribute = new BlobAttribute($"mailcontainer/Spitball/{topicMessage.Template}-mail.html");
 
             var htmlTemplate = await binder.BindAsync<string>(dynamicBlobAttribute, token).ConfigureAwait(false);
             if (htmlTemplate == null)
             {
-                log.Error("error with template name" + emailParams.Template);
+                log.Error("error with template name" + topicMessage.Template);
                 return;
             }
-
-            var content = htmlTemplate.Inject(emailParams);
-
+            var content = htmlTemplate.Inject(topicMessage);
             var message = new Mail
             {
-                Subject = "welcome to spitball",
+                Subject = topicMessage.Subject,
             };
-            message.AddContent(new Content("text/html",content));
+            message.AddContent(new Content("text/html", content));
             var personalization = new Personalization();
-            personalization.AddTo(new Email(emailParams.To));
+            personalization.AddTo(new Email(topicMessage.To));
             message.AddPersonalization(personalization);
             await emailProvider.AddAsync(message, token).ConfigureAwait(false);
         }
@@ -67,23 +62,21 @@ namespace Cloudents.Functions
             //CancellationToken token
             )
         {
-            
+
             var jsonContent = await req.Content.ReadAsStringAsync().ConfigureAwait(false);
             var message = JsonConvert.DeserializeObject<SmsMessage>(jsonContent);
 
             //var result = await BuildAndValidateSmsAsync(message).ConfigureAwait(false);
             //if (result == null)
             //{
-                //return req.CreateResponse(HttpStatusCode.BadRequest);
+            //return req.CreateResponse(HttpStatusCode.BadRequest);
             //}
 
-            options.Add(new SMSMessage()
+            options.Add(new SMSMessage
             {
                 To = message.PhoneNumber,
                 Body = message.Message
             });
-
-            //await options.AddAsync(result, token).ConfigureAwait(false);
             return req.CreateResponse(HttpStatusCode.OK);
 
         }

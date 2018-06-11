@@ -26,6 +26,7 @@ using System.Text.RegularExpressions;
 using Cloudents.Core.Command;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
+using Cloudents.Infrastructure.Framework;
 using Microsoft.Azure.Management.ServiceBus;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Rest;
@@ -67,8 +68,7 @@ namespace ConsoleApp
             //builder.RegisterType<TutorMeSearch>().AsSelf();
             var container = builder.Build();
 
-            ServiceBusTest x = new ServiceBusTest();
-            x.Test();
+           
 
             //topicClient = new TopicClient(ServiceBusConnectionString, TopicName);
 
@@ -77,15 +77,17 @@ namespace ConsoleApp
 
             
             // await SendMessagesAsync(10);
-            var ty = "ram@cloudents.com";
 
             
            // var z = ty.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
 
-            var a = container.Resolve<IBlockChainErc20Service>();
+            var a = container.Resolve<IServiceBusProvider>();
             
-            var z = a.GetAddress("2ee004d7bdc744205d8a3d31a1b2cd4816b8f860448427b570290c9a1cb571d6");
-            await a.SetInitialBalanceAsync(z, default).ConfigureAwait(false);
+            var registerEmail = new RegistrationEmail("ram@cloudents.com","https://dev.spitball.co");
+            await a.InsertMessageAsync(registerEmail, default);
+
+           // var z = a.GetAddress("2ee004d7bdc744205d8a3d31a1b2cd4816b8f860448427b570290c9a1cb571d6");
+            //await a.SetInitialBalanceAsync(z, default).ConfigureAwait(false);
             //var c = a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", "0xAcfB119204a93BbDa781C972D27AeAB8671c63f4", 10, default);
             //var b = a.GetBalanceAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", default);
 
@@ -99,21 +101,21 @@ namespace ConsoleApp
             //var b = await a.BuyTokensAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", 10, default);
             //await a.Withdrawal(default);
 
-            Guid answer = Guid.NewGuid();
-             var c = container.Resolve<IBlockChainQAndAContract>();
-            //var command = new CreateQuestionCommand()
-            //{
-            //    Price = 0.5m,
-            //    SubjectId = 1,
-            //    Text = "123",
-            //    UserId = 11
-            //};
-            //await c.DispatchAsync(command, default);
+            //Guid answer = Guid.NewGuid();
+            // var c = container.Resolve<IBlockChainQAndAContract>();
+            ////var command = new CreateQuestionCommand()
+            ////{
+            ////    Price = 0.5m,
+            ////    SubjectId = 1,
+            ////    Text = "123",
+            ////    UserId = 11
+            ////};
+            ////await c.DispatchAsync(command, default);
 
-            await c.SubmitQuestionAsync(3, 1, "0x116CC5B77f994A4D375791A99DF12f19921138ea", default);
-            await c.SubmitAnswerAsync(3, answer, default);
+            //await c.SubmitQuestionAsync(3, 1, "0x116CC5B77f994A4D375791A99DF12f19921138ea", default);
+            //await c.SubmitAnswerAsync(3, answer, default);
 
-            await c.UpVoteAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, default);
+            //await c.UpVoteAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, default);
             //await c.MarkAsCorrectAsync("0x27e739f9dF8135fD1946b0b5584BcE49E22000af", "0x27e739f9dF8135fD1946b0b5584BcE49E22000af", 3, answer, default);
             // var h = await c.UpVoteListAsync(3, answer, default);
             // Console.WriteLine(h[0]);
