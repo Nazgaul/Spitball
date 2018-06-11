@@ -11,9 +11,11 @@ export default {
             subjectList: [],
             subject: '',
             textAreaValue: '',
-            price: 0.5,
+            price: null,
+            selectedPrice:null,
             files: [],
-            errorMessage:''
+            errorMessage:'',
+            pricesList:[5,10,20,35]
         }
     },
     methods: {
@@ -26,12 +28,12 @@ export default {
             var self = this;
             if (this.submitForm()) {
                 this.UPDATE_LOADING(true);
-                questionService.postQuestion(this.subject.id, this.textAreaValue, this.price, this.files)
+                questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files)
                     .then(function () {
                             self.$router.push({path: '/ask', query: {q: ''}});
                         },
                         function (error) {
-                            self.UPDATE_LOADING(false)
+                            self.UPDATE_LOADING(false);
                             console.error(error);
                             this.submitForm(false);
                         });
@@ -42,12 +44,19 @@ export default {
         },
         removeFile(index) {
             this.files.splice(index, 1);
+        },
+        selectOtherAmount(){
+            this.selectedPrice = null;
+            var selected = this.$el.querySelector('.automatic-amount:checked');
+            if(selected){
+                selected.checked=false;
+            }
         }
     },
     computed: {
         ...mapGetters(['accountUser']),
         validForm() {
-            return this.subject && this.textAreaValue.length && this.price >= 0.5;
+            return this.subject && this.textAreaValue.length && (this.selectedPrice || this.price >= 0.5);
         },
     },
     created() {

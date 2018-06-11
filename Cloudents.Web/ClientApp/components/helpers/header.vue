@@ -3,7 +3,6 @@
         <v-toolbar app fixed :height="height" class="header">
             
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
-                <smart-app-banner class="fixed-top" v-if="showSmartAppBanner && $vuetify.breakpoint.xsOnly"></smart-app-banner>
                 <div class="main">
                     <v-flex class="line top">
                         <v-layout row>
@@ -86,17 +85,22 @@
                                     </div>
 
                                     <div class="header-wallet" v-if="loggedIn">
-                                        <v-btn icon >
+                                        <v-btn icon v-if="isMobile">
                                             <v-icon>sbf-wallet</v-icon>                                    
                                         </v-btn>
-                                        <span>${{accountUser.balance}}</span>
+                                        <span  v-if="isMobile">${{accountUser.balance}}</span>
+
+                                        <span  v-if="!isMobile">1,024 pts</span>
+                                        <span  v-if="!isMobile">$ 10.24</span>
                                     </div>                                    
                                                                     
+                                            
                                     <div class="header-rocket" v-if="loggedIn && !isMobile">
                                         <v-menu bottom left offset-y >
-                                            <v-btn icon slot="activator" @click.native="drawer = !drawer">
+                                            <!-- <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                                 <v-icon>sbf-rocket</v-icon>
-                                            </v-btn>
+                                            </v-btn> -->
+                                            <img slot="activator" @click.native="drawer = !drawer" src="./img/user.png" />
                                             <menu-list :isAuthUser="loggedIn" ></menu-list>
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
@@ -107,7 +111,7 @@
                                     <a v-if="!loggedIn" class="header-login" href="/signin">Login</a>
                                     
                 
-                                    <v-menu bottom left offset-y class="gamburger" v-if="!loggedIn || isMobile" :class="{'smart-app-banner': showSmartAppBanner}">
+                                    <v-menu bottom left offset-y class="gamburger" v-if="!loggedIn || isMobile" >
                                         <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                             <v-icon>sbf-menu</v-icon>
                                         </v-btn>
@@ -142,8 +146,7 @@
 <script>
     import { settingMenu, notRegMenu } from '../settings/consts';
     import SearchInput from '../helpers/searchInput.vue';
-    import smartAppBanner from "../smartAppBanner/smartAppBanner.vue";
-    import menuList from "./menu-list/menu-list.vue";    
+    import menuList from "./menu-list/menu-list.vue";
     
     import {mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
@@ -165,21 +168,17 @@
             food:"Search for deals..."
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'showSmartAppBanner', 'accountUser','unreadMessages']),
+            ...mapGetters(['getUniversityName',  'accountUser','unreadMessages']),
             isMobile(){return this.$vuetify.breakpoint.xsOnly;},
             loggedIn(){return this.accountUser!==null}
     },
         watch:{
             toolbarHeight(val) {
                 this.height = val;
-            },
-            showSmartAppBanner(val){
-                let headerHeight =this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
-                this.height =  this.$vuetify.breakpoint.xsOnly && val? headerHeight + 84 : headerHeight;
             }
         },
         components: {
-            PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput,smartAppBanner, menuList
+            PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput, menuList
         },
         props:{currentSelection:{type:String,default:'note'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
         data(){
@@ -257,7 +256,7 @@
                     })
                 });
             let headerHeight =this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
-            this.height =  this.$vuetify.breakpoint.xsOnly && this.showSmartAppBanner? headerHeight + 84 : headerHeight;
+            this.height =  headerHeight;
 
             // this.isAuthUser =
         }

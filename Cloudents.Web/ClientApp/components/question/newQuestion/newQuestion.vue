@@ -24,31 +24,38 @@
                 </v-flex>
 
 
-                <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
-               
+                <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile"
+                                    @removeFile="removeFile"></extended-text-area>
+
 
                 <!-- <v-flex xs12> -->
-                    <span class="text-blue my-points">You have 1,024 points</span>
+                <span class="text-blue my-points">You have {{this.accountUser.balance}} points</span>
                 <!-- </v-flex> -->
 
                 <v-flex xs12>
                     <ul class="points-list">
-                        <li class="pts-5">5 pts</li>
-                        <li class="pts-10 active">10 pts</li>
-                        <li class="pts-20">20 pts</li>
-                        <li class="pts-35">35 pts</li>
-                        <li class="other"><v-icon right>sbf-hand-coin</v-icon>Other amount</li>
+                        <li :class="`pts-${pricey}`" v-for="(pricey,index) in pricesList">
+                            <input :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price" :value="pricey" v-model="selectedPrice">
+                            <label :for="`${pricey}pts`">{{pricey}} pts</label>
+                        </li>
+                        <li class="other">
+                            <input type="number" placeholder="Other amount" @focus="selectOtherAmount()" v-model="price"/>
+                            <v-icon right>sbf-hand-coin</v-icon>
+                        </li>
                     </ul>
                 </v-flex>
 
                 <v-flex xs12 class="last-text-block">
-                    <p class="text-xs-center"><span class="text-blue" style="color:#8888d5;">Tip:</span>&nbsp;A fair price will make the sale</p>
+                    <p class="text-xs-center"><span class="text-blue" style="color:#8888d5;">Tip:</span>&nbsp;A fair
+                        price will make the sale</p>
                 </v-flex>
 
 
                 <v-flex class="submit-btn-wrap" xs12>
                     <div v-if="errorMessage.length" class="error-message">{{errorMessage}}</div>
-                    <v-btn block color="primary" @click.once="submitQuestion()" :disabled="!validForm||submitted" class="ask_btn">Ask</v-btn>
+                    <v-btn block color="primary" @click.once="submitQuestion()" :disabled="!validForm||submitted"
+                           class="ask_btn">Ask
+                    </v-btn>
                 </v-flex>
 
             </v-layout>
@@ -59,5 +66,5 @@
         </v-container>
     </div>
 </template>
-<script src="./askQuestion.js"></script>
-<style src="./askQuestion.less" lang="less"></style>
+<script src="./newQuestion.js"></script>
+<style src="./newQuestion.less" lang="less"></style>

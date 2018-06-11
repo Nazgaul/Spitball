@@ -11,7 +11,7 @@ import emptyState from "./svg/no-match-icon.svg";
 import {verticalsName} from '../../data'
 import {typesPersonalize} from "../settings/consts.js";
 import {mapActions, mapGetters} from 'vuex'
-const ACADEMIC_VERTICALS = ['note', 'ask', 'flashcard', 'book', 'tutor'];
+const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'

@@ -10,6 +10,4 @@ export default {
     getQuestion: (id) => axios.get("/Question/"+id),
     answerQuestion: (questionId, text, files) => axios.post("/Answer", {questionId, text, files}),
     markAsCorrectAnswer: (answerId) => axios.put("/Question/correct", {answerId}),
-    upVote:(id) => axios.post("/Answer/upVote", {id}),
-
 }

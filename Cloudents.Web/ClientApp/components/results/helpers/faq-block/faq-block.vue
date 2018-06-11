@@ -1,7 +1,7 @@
 <template>
    <v-flex class="right-sidebar">
         <v-flex xs12>
-            <router-link class="ask-question"  :to="{path:'/askquestion/'}">Ask Your Question</router-link>
+            <router-link class="ask-question"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
         </v-flex>
 
         <v-flex xs12 class="card-block">

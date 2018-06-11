@@ -3,7 +3,7 @@
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
         <signup-banner slot="banner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main" >
-            <div class="d-flex mobile-filter hidden-sm-and-up" :class="{'smart-app-banner': showSmartAppBanner}">
+            <div class="d-flex mobile-filter hidden-sm-and-up" >
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
                     <div :class="'counter color-'+$route.path.slice(1)" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
@@ -39,7 +39,7 @@
                                 <button @click="showFilterNotApplied=false">OK</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                                 <router-link v-if="$route.path.slice(1)==='ask' && $vuetify.breakpoint.xsOnly" class="ask-question-mob"  :to="{path:'/askquestion/'}">Ask Your Question</router-link>
+                                 <router-link v-if="$route.path.slice(1)==='ask' && $vuetify.breakpoint.xsOnly" class="ask-question-mob"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
                                 <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading" class="personalize-wrapper pa-3 mb-2 elevation-1">
                                     <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                                 </v-flex>
@@ -133,7 +133,7 @@
         components: {QuestionCard},
         mixins: [pageMixin],
         computed:{
-            ...mapGetters(["accountUser", "showSmartAppBanner"])
+            ...mapGetters(["accountUser"])
         }
     }
 </script>
