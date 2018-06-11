@@ -2,7 +2,7 @@
     <div class="answer-question" v-if="questionData">
 
         <!-- Web version -->
-        <v-container v-if="!$vuetify.breakpoint.smAndDown" :class="{'my-question': questionData.myQuestion}">
+        <v-container v-if="!$vuetify.breakpoint.smAndDown" :class="{'my-question': questionData.cardOwner}">
             <v-layout row wrap>
 
                 <v-flex xs12 class="breadcrumbs">
@@ -15,9 +15,9 @@
                     <span class="question-category">/  Questions  / {{questionData.subject}}</span>
                 </v-flex>
 
-                <v-flex :class="{'xs7': !questionData.myQuestion, 'xs12': questionData.myQuestion}">
+                <v-flex :class="{'xs7': !questionData.cardOwner, 'xs12': questionData.cardOwner}">
                     <question-thread v-if="questionData" :questionData="questionData">
-                        <div v-if="!questionData.myQuestion" slot="answer-form" class="mb-3">
+                        <div v-if="!questionData.cardOwner" slot="answer-form" class="mb-3">
                             <div v-if="!questionData.answers || (questionData.answers && showForm)">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                         v-model="textAreaValue"
@@ -48,7 +48,7 @@
                 <v-tabs-bar>
                     <v-tabs-slider color="blue"></v-tabs-slider>
                     <v-tabs-item :href="'#tab-1'" :key="'1'">Question</v-tabs-item>
-                    <v-tabs-item :href="'#tab-2'" :key="'2'" v-if="!questionData.myQuestion">Chat with questioner</v-tabs-item>
+                    <v-tabs-item :href="'#tab-2'" :key="'2'" v-if="!questionData.cardOwner">Chat with questioner</v-tabs-item>
                 </v-tabs-bar>
 
                 <v-tabs-items>

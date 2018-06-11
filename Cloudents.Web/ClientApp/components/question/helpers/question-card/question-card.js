@@ -37,7 +37,8 @@ export default {
                 name: 'User Name'
             },
             showDelete: false,
-            dialogDeleteUserText: "you should select right answer"
+            dialogDeleteUserText: "you should select right answer",
+            flaggedAsCorrect: false
         }
     },
 
@@ -46,13 +47,19 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
-        myQuestion() {
+        cardOwner() {
             if (this.accountUser && this.cardData.user) {
                 return this.accountUser.id === this.cardData.user.id; // will work once API call will also return userId
             }
         },
         haveAnswers() {
             return this.cardData.answers.length
+        },
+        canDelete(){
+            if(!this.cardOwner){
+                return false;
+            }
+            return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
         }
     },
     methods: {
@@ -64,7 +71,11 @@ export default {
             })
         },
         markAsCorrect() {
+            this.flaggedAsCorrect = true;
             this.$parent.markAsCorrect(this.cardData.id); //TODO: MEH :\  check if it can be done in a better way...
         }
+    },
+    created() {
+        this.flaggedAsCorrect = this.isCorrectAnswer;
     }
 }

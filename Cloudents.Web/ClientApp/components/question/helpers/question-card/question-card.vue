@@ -1,11 +1,11 @@
 <template>
-    <v-flex v-if="cardData" xs12 class="question-card" :class="{'highlight':isCorrectAnswer}">
+    <v-flex v-if="cardData" xs12 class="question-card" :class="{'highlight':flaggedAsCorrect}">
         <div v-if="!typeAnswer">
             <div class="q-price">
                 <span>Earn ${{cardData.price}}</span> 
             </div>
             <!-- <p class="q-category">{{cardData.subject}}</p> -->
-            <button v-if="myQuestion" :disabled="!cardData.answers" @click="()=>{haveAnswers?showDelete=true:deleteQuestion()}">Delete</button>
+
             <v-dialog  v-model="showDelete">
                 {{dialogDeleteUserText}}
             </v-dialog>
@@ -14,24 +14,21 @@
         <div v-else class="q-answer" >
             <user-block :user="cardData.user"></user-block>
 
-            <button class="accept-btn" @click="markAsCorrect" v-if="showApproveButton">
+            <button class="accept-btn" @click="markAsCorrect" v-if="showApproveButton & !flaggedAsCorrect">
                 <v-icon>sbf-check-circle</v-icon>
                 <span>Accept</span>                
             </button>
 
-            <div class="choosen-answer" v-if="isCorrectAnswer">
+            <div class="choosen-answer" v-if="flaggedAsCorrect">
                 <v-icon>sbf-check-circle</v-icon>
             </div>
 
-            
-            <button class="delete" v-if="myQuestion">
-                <v-icon>sbf-trash</v-icon>        
-            </button> 
 
         </div>
-
-
-        
+        <button class="delete" v-if="canDelete"
+                @click="()=>{haveAnswers?showDelete=true:deleteQuestion()}">
+            <v-icon>sbf-trash</v-icon>
+        </button>
 
         <p class="q-text" :class="{'answer': typeAnswer}">{{cardData.text}}</p>
 
@@ -59,7 +56,7 @@
                     <span class="user-counter">+5</span>
                 </div>
 
-                <div class="answer" v-if="!myQuestion">
+                <div class="answer" v-if="!cardOwner">
                     <button class="answer-btn">Answer</button>
                 </div>
             </div>
