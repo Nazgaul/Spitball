@@ -1,12 +1,12 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Web.Api
 {
@@ -28,6 +28,14 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> CreateAnswerAsync([FromBody]CreateAnswerRequest model, CancellationToken token)
         {
             var command = _mapper.Map<CreateAnswerCommand>(model);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAnswerAsync(DeleteAnswerRequest model, CancellationToken token)
+        {
+            var command = _mapper.Map<DeleteAnswerCommand>(model);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
         }
