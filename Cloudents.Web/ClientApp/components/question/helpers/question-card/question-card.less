@@ -51,7 +51,7 @@
                 font-size: 16px;
                 margin: 0px 4px 0px 8px;
             }
-            @media(max-width: @screen-xs){ 
+            @media(max-width: @screen-xs){
                 background: none;
                 width: auto;
                 span{display: none;}
@@ -67,11 +67,11 @@
                 color: #7ed321;
                 font-size: 32px;
             }
-            @media(max-width: @screen-xs){ 
+            @media(max-width: @screen-xs){
                 span{display: none;}
                 .sbf{font-size: 24px;}
              }
-        }        
+        }
     }
 
 
@@ -87,7 +87,7 @@
     .q-category{
         @media(max-width: @screen-xs){ font-size: 16px; }
         font-size: 20px;
-        
+
         font-weight: bold;
         color: #125fac;
     }
@@ -103,10 +103,10 @@
             margin-left: 55px;
         }
     }
-  
-    
-    .q-user-info{  
-        bottom: 0;      
+
+
+    .q-user-info{
+        bottom: 0;
         height: 47px;
         width: 100%;
         // border-top: 1px solid #ddd;
@@ -118,8 +118,8 @@
     }
 
     .bottom-section .card-info{
-        display: flex;    
-        justify-content: space-between;        
+        display: flex;
+        justify-content: space-between;
         padding: 0px 16px 15px 17px;
         line-height: 32px;
         align-items: flex-end;
@@ -131,28 +131,27 @@
             height: 32px;
             display: flex;
             flex-direction: row;
-            
+
             .sbf-attach{ transform: rotate(260deg);
                 &::before{transform: scale(1, -1);font-size: 12px;color: @color-grey;}
             }
             span{
                 color: @color-grey;
                 margin-left: 4px;
-                font-size: 16px;  
+                font-size: 16px;
                 // line-height: 1.69;
-                letter-spacing: -0.3px;              
+                letter-spacing: -0.3px;
             }
-            
+
         }
         .users{
             .avatar{
-                width: 32px;
-                height: 32px;
-                float: right;
-                margin-right: -7px;
-                border: 2px solid @color-white;
-                // border: 2px solid red;   /*test*/
-            }            
+              font-size: 32px;
+              color: black;
+              float: right;
+              margin-right: -7px;
+              border: 2px solid @color-white;
+            }
         }
 
         .user-counter{
@@ -163,15 +162,15 @@
             margin-left: 11px;
         }
 
-        .answer{ 
-            display: flex;        
-            line-height: 24px;        
-            .answer-btn{            
+        .answer{
+            display: flex;
+            line-height: 24px;
+            .answer-btn{
                 border-radius: 4px;
                 background-color: #0455a8;
                 font-size: 14px;
                 color: @color-white;
-                padding: 0px 20px;              
+                padding: 0px 20px;
             }
         }
 
