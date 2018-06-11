@@ -16,7 +16,8 @@ export default {
             textAreaValue: "",
             answerFiles: [],
             questionData: null,
-            showForm: false
+            showForm: false,
+            showLoginDialog: false
         };
     },
     methods: {
@@ -73,6 +74,9 @@ export default {
                     chatbox.mount(this.$refs["chat-area"]);
                 });
             }
+        },
+        showAnswerField(){
+            this.accountUser ? this.showForm = true : this.showLoginDialog = true
         },
         markAsCorrect(answerId){
             var self = this;

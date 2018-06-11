@@ -5,14 +5,10 @@
                 <span>Earn ${{cardData.price}}</span> 
             </div>
             <!-- <p class="q-category">{{cardData.subject}}</p> -->
-
-            <v-dialog  v-model="showDelete">
-                {{dialogDeleteUserText}}
-            </v-dialog>
         </div>
+        <user-block :user="cardData.user" v-if="cardData.user"></user-block>
         
         <div v-else class="q-answer" >
-            <user-block :user="cardData.user"></user-block>
 
             <button class="accept-btn" @click="markAsCorrect" v-if="showApproveButton & !flaggedAsCorrect">
                 <v-icon>sbf-check-circle</v-icon>
@@ -25,8 +21,8 @@
 
 
         </div>
-        <button class="delete" v-if="canDelete"
-                @click="()=>{haveAnswers?showDelete=true:deleteQuestion()}">
+        <button class="delete" v-if="detailedView && canDelete"
+                @click="showDeleteDialog = true">
             <v-icon>sbf-trash</v-icon>
         </button>
 
@@ -42,7 +38,7 @@
                 </div>
             </div> -->
             <!-- v-else -->
-            <div  class="card-info general">
+            <div  class="card-info general" v-if="!detailedView">
                 <div class="new-block">
                     <div class="files">
                         <v-icon>sbf-attach</v-icon>
@@ -56,12 +52,21 @@
                     <span class="user-counter">+5</span>
                 </div>
 
-                <div class="answer" v-if="!cardOwner">
+                <div class="answer">
                     <button class="answer-btn">Answer</button>
                 </div>
             </div>
         </div>
 
+        <v-dialog  v-model="showDeleteDialog">
+            <v-card>
+                <v-card-text class="limited-width">
+                    <h1>Are you sure you want to delete?</h1>
+                    <button @click="deleteQuestion()">Yes</button>
+                    <button @click="showDeleteDialog = false">No</button>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </v-flex>
 </template>
 

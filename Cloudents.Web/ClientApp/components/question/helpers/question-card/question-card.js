@@ -36,8 +36,7 @@ export default {
                 img: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
                 name: 'User Name'
             },
-            showDelete: false,
-            dialogDeleteUserText: "you should select right answer",
+            showDeleteDialog: false,
             flaggedAsCorrect: false
         }
     },
@@ -65,7 +64,6 @@ export default {
     methods: {
         ...mapActions({'delete': 'deleteQuestion'}),
         deleteQuestion() {
-            this.dialogDeleteUserText = "there was issue in the delete";
             this.delete(this.cardData.id).then((val) => {
                 val ? this.$router.push('/ask') : this.showDelete = true;
             })
@@ -77,5 +75,9 @@ export default {
     },
     created() {
         this.flaggedAsCorrect = this.isCorrectAnswer;
+        if (!this.cardData.user){
+            this.cardData.user = {id:539,name:"JUST FOR TESTING"}
+        }
+
     }
 }

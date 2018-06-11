@@ -26,7 +26,7 @@
                                        class="add_answer">Add your answer
                                 </v-btn>
                             </div>
-                            <div v-else class="show-form-trigger" @click="showForm = true">
+                            <div v-else class="show-form-trigger" @click="showAnswerField()">
                                 <div><b>Know the answer?</b> Add it here!</div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                                class="add_answer">Add your answer
                                         </v-btn>
                                     </div>
-                                    <div v-else class="show-form-trigger" @click="showForm = true">
+                                    <div v-else class="show-form-trigger" @click="showAnswerField()">
                                         <div><b>Know the answer?</b> Add it here!</div>
                                     </div>
                                 </div>
@@ -83,6 +83,15 @@
 
             </v-tabs>
         </div>
+        <v-dialog  v-model="showLoginDialog">
+            <v-card>
+                <v-card-text class="limited-width">
+                    <h1>Please login to answer</h1>
+                    <router-link to="/signin">Login</router-link>
+                    <button @click="showLoginDialog = false">close</button>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
