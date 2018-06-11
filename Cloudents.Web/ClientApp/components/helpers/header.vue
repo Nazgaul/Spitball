@@ -85,17 +85,22 @@
                                     </div>
 
                                     <div class="header-wallet" v-if="loggedIn">
-                                        <v-btn icon >
+                                        <v-btn icon v-if="isMobile">
                                             <v-icon>sbf-wallet</v-icon>                                    
                                         </v-btn>
-                                        <span>${{accountUser.balance}}</span>
+                                        <span  v-if="isMobile">${{accountUser.balance}}</span>
+
+                                        <span  v-if="!isMobile">1,024 pts</span>
+                                        <span  v-if="!isMobile">$ 10.24</span>
                                     </div>                                    
                                                                     
+                                            
                                     <div class="header-rocket" v-if="loggedIn && !isMobile">
                                         <v-menu bottom left offset-y >
-                                            <v-btn icon slot="activator" @click.native="drawer = !drawer">
+                                            <!-- <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                                 <v-icon>sbf-rocket</v-icon>
-                                            </v-btn>
+                                            </v-btn> -->
+                                            <img slot="activator" @click.native="drawer = !drawer" src="./img/user.png" />
                                             <menu-list :isAuthUser="loggedIn" ></menu-list>
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
