@@ -60,7 +60,9 @@ namespace Cloudents.Infrastructure.Search.Tutor
 
             return _mapper.MapWithPriority<Result,TutorDto>(result.Results);
         }
+
         public const int TutorMePage = 12;
+
         private static NameValueCollection BuildQueryString(string term, int page)
         {
             return new NameValueCollection
@@ -74,6 +76,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
         {
             [JsonProperty("results")]
             public Result[] Results { get; set; }
+
             [JsonProperty("group")]
             public Group Group { get; set; }
 
@@ -92,12 +95,16 @@ namespace Cloudents.Infrastructure.Search.Tutor
         {
             [JsonProperty("about")]
             public string About { get; set; }
+
             [JsonProperty("shortName")]
             public string ShortName { get; set; }
+
             [JsonProperty("avatar")]
             public Avatar Avatar { get; set; }
+
             [JsonProperty("id")]
             public int Id { get; set; }
+
             [JsonProperty("isOnline")]
             public bool IsOnline { get; set; }
 

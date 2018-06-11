@@ -6,30 +6,31 @@ namespace Cloudents.Core.Storage
     public sealed class QueueName
     {
         public const string UrlRedirectName = "url-redirect2";
-        public const string CommunicationName = "communication";
-        public const string BackgroundName = "communication";
+       // public const string CommunicationName = "communication";
+       // public const string BackgroundName = "communication";
         //public const string SmsName = "sms";
-        public const string EmailName = "email";
-        public string Key { get; }
+       // public const string EmailName = "email";
+        //public string Key { get; }
 
-        private QueueName(string key)
-        {
-            Key = key;
-        }
+        //private QueueName(string key)
+        //{
+        //    Key = key;
+        //}
 
         //public static readonly QueueName UrlRedirect = new QueueName(UrlRedirectName);
         
-        public static readonly QueueName Background = new QueueName(BackgroundName);
-       // public static readonly QueueName Sms = new QueueName(SmsName);
-        public static readonly QueueName Email = new QueueName(EmailName);
+        //public static readonly QueueName Background = new QueueName(BackgroundName);
+        //public static readonly QueueName Email = new QueueName(EmailName);
     }
 
     
 
+    
+
     [Serializable]
-    public abstract class QueueEmail
+    public abstract class BaseEmail
     {
-        protected QueueEmail(string to, string template, string subject)
+        protected BaseEmail(string to, string template, string subject)
         {
             To = to;
             Template = template;

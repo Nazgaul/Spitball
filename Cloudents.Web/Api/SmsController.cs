@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
@@ -18,11 +19,13 @@ namespace Cloudents.Web.Api
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly IServiceBusProvider _serviceBus;
 
-        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager)
+        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager, IServiceBusProvider serviceBus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _serviceBus = serviceBus;
         }
 
         [HttpPost, ValidateModel]
@@ -41,7 +44,15 @@ namespace Cloudents.Web.Api
             {
                 return Unauthorized();
             }
-            var retVal = await _userManager.SetPhoneNumberAsync(user, model.Number).ConfigureAwait(false);
+
+            var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id)
+            {
+                Email = user.Email
+            }, token);
+
+            var t2 =   _userManager.SetPhoneNumberAsync(user, model.Number);
+            await Task.WhenAll(t1, t2).ConfigureAwait(false);
+            var retVal = t2.Result;
             if (retVal.Succeeded)
             {
                 var result = await client.SendSmsAsync(user, token).ConfigureAwait(false);
@@ -68,10 +79,18 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("verify"), ValidateModel]
-        public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
+        public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model, CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
-            var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number).ConfigureAwait(false);
+            var t2 =  _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number);
+
+            //Temp
+            var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id)
+            {
+                Email = user.Email
+            }, token);
+            await Task.WhenAll(t1, t2).ConfigureAwait(false);
+            var v = t2.Result;
             if (v.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false).ConfigureAwait(false);

@@ -9,6 +9,6 @@ namespace Cloudents.Infrastructure.Storage
     {
         CloudBlobDirectory GetBlobClient(IStorageContainer container);
         StorageCredentials GetCredentials();
-        CloudQueueClient GetQueueClient();
+        //CloudQueueClient GetQueueClient();
     }
 }

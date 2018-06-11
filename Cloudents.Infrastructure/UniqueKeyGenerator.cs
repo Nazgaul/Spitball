@@ -55,6 +55,7 @@ namespace Cloudents.Infrastructure
         }
 
         private static readonly object Locker = new object();
+
         private static byte[] ObjectToByteArray(object objectToSerialize)
         {
             using (var fs = new MemoryStream())

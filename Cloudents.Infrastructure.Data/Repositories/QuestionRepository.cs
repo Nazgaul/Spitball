@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
@@ -19,6 +20,8 @@ namespace Cloudents.Infrastructure.Data.Repositories
         {
         }
 
+        [SuppressMessage("ReSharper", "CoVariantArrayConversion" , Justification = "Is in can get all of the types")]
+        [SuppressMessage("Microsoft", "CC0030", Justification = "We can't do that nhibernate uses those objects")]
         public async Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token)
         {
             QuestionDto dto = null;
@@ -56,34 +59,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
         public async Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token)
         {
-            /* QuestionDetailDto dto = null;
-             //QuestionDetailUserDto userDto = null;
-             QuestionSubject commentAlias = null;
-             Answer answerAlias = null;
-             User userAlias = null;
-             var rootObj = Session.QueryOver<Question>().Where(w => w.Id == id)
-                 .JoinAlias(x => x.Subject, () => commentAlias)
-                 .JoinAlias(x => x.User, () => userAlias)
-                 //.Left.JoinAlias(x => x.Answers, () => answerAlias)
-                 .SelectList(l => l
-                     .Select(_ => commentAlias.Subject).WithAlias(() => dto.Subject)
-
-                     .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
-                     .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
-                     //.Select(_ => userAlias.Id).WithAlias(() => userDto.Id)
-                     //.Select(_ => userAlias.Name).WithAlias(() => userDto.Name)
-
-                     .Select(s => s.Id).WithAlias(() => dto.Id)
-                     .Select(s => s.Text).WithAlias(() => dto.Text)
-                     .Select(s => s.Price).WithAlias(() => dto.Price)
-                     .Select(s => s.Created).WithAlias(() => dto.Create)
-                 //.Select(Projections.Property(() => answerAlias.Id).As("Answers.Id"))
-                 )
-
-                 //.Fetch(f => f.Answers).Eager
-                 .TransformUsing(new DeepTransformer<QuestionDetailDto>())
-                 .FutureValue<QuestionDetailDto>();*/
-
             //TODO: this is left join query need to fix that
             var questionFuture = Session.Query<Question>().Where(w => w.Id == id)
                 .Fetch(f => f.Subject)

@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using Cloudents.FunctionsV1.Di;
+using Cloudents.Functions.Di;
 using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
-namespace Cloudents.FunctionsV1
+namespace Cloudents.Functions
 {
-    public static class Function1
+    public static class UrlProcessFunction
     {
 
         [FunctionName("UrlProcess")]

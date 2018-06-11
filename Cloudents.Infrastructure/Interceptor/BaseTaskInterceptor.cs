@@ -67,6 +67,7 @@ namespace Cloudents.Infrastructure.Interceptor
         }
 
         protected abstract void BeforeAction(IInvocation invocation);
+
         /// <summary>
         /// After invocation action
         /// </summary>

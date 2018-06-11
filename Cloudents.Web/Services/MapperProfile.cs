@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Query;
@@ -38,6 +39,11 @@ namespace Cloudents.Web.Services
                         d.Source = null;
                     }
                 });
+
+
+            CreateMap<DeleteAnswerRequest, DeleteAnswerCommand>()
+                .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
+            //DeleteAnswerCommand
 
             //.ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
 
