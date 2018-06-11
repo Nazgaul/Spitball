@@ -97,7 +97,9 @@
                                         <div class="header-rocket" v-if="loggedIn && !isMobile">
                                             <v-menu bottom left offset-y>
                                                 <v-btn icon slot="activator" @click.native="drawer = !drawer">
-                                                    <v-icon>sbf-rocket</v-icon>
+                                                    <v-avatar size="32">
+                                                        <span class="white--text">{{accountUser.name.slice(0,2).toUpperCase()}}</span>
+                                                    </v-avatar>
                                                 </v-btn>
                                                 <menu-list :isAuthUser="loggedIn"></menu-list>
                                             </v-menu>
