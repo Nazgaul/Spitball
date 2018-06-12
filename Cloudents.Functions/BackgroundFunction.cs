@@ -34,7 +34,7 @@ namespace Cloudents.Functions
                 PhotoUrl = obj.PhotoUrl,
 
             };
-            var secret = InjectConfiguration.GetEnvironmentVariable("TalkJsSecretProd");
+            var secret = InjectConfiguration.GetEnvironmentVariable("TalkJsSecret");
             var appId = InjectConfiguration.GetEnvironmentVariable("TalkJsAppId");
             var t = await chatService.PutJsonAsync(
                 new Uri($"https://api.talkjs.com/v1/{appId}/users/{obj.Id}"),
