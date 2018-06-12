@@ -8,6 +8,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using JetBrains.Annotations;
+using NHibernate.Criterion;
 using NHibernate.Linq;
 using NHibernate.Transform;
 
@@ -20,19 +21,31 @@ namespace Cloudents.Infrastructure.Data.Repositories
         {
         }
 
-        [SuppressMessage("ReSharper", "CoVariantArrayConversion" , Justification = "Is in can get all of the types")]
+        [SuppressMessage("ReSharper", "CoVariantArrayConversion", Justification = "Is in can get all of the types")]
         [SuppressMessage("Microsoft", "CC0030", Justification = "We can't do that nhibernate uses those objects")]
         public async Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token)
         {
             QuestionDto dto = null;
             QuestionSubject commentAlias = null;
-            var queryOverObj = Session.QueryOver<Question>()
+            Question questionAlias = null;
+            User userAlias = null;
+
+          
+
+            var queryOverObj = Session.QueryOver<Question>(() => questionAlias)
                 .JoinAlias(x => x.Subject, () => commentAlias)
+                .JoinAlias(x=>x.User, () => userAlias)
                 .SelectList(l => l
                         .Select(_ => commentAlias.Text).WithAlias(() => dto.Subject)
                         .Select(s => s.Id).WithAlias(() => dto.Id)
                         .Select(s => s.Text).WithAlias(() => dto.Text)
                         .Select(s => s.Price).WithAlias(() => dto.Price)
+                        .Select(s => s.Attachments).WithAlias(() => dto.Files)
+                        //.SelectCount(s => s.Answers).WithAlias(() => dto.Answers)
+                        .Select(_ => userAlias.Name).WithAlias(() => dto.UserName)
+                    .SelectSubQuery(QueryOver.Of<Answer>()
+                        .Where(w=>w.Question.Id == questionAlias.Id).ToRowCountQuery()).WithAlias(() => dto.Answers)
+                    
                 )
                 .Where(w => w.CorrectAnswer == null)
                 .TransformUsing(Transformers.AliasToBean<QuestionDto>());
