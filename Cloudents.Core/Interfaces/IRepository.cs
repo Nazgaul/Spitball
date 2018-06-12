@@ -19,7 +19,7 @@ namespace Cloudents.Core.Interfaces
         Task<T> LoadAsync(object id, CancellationToken token);
         Task<T> GetAsync(object id, CancellationToken token);
 
-        Task DeleteAsync(object id, CancellationToken token);
+        Task DeleteAsync(T entity, CancellationToken token);
 
         IQueryable<T> GetQueryable();
     }

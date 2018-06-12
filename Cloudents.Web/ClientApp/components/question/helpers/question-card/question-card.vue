@@ -2,17 +2,17 @@
     <v-flex v-if="cardData" xs12 class="question-card" :class="{'highlight':flaggedAsCorrect}">
         <div v-if="!typeAnswer">
             <div class="q-price">
-                <span>Earn ${{cardData.price}}</span> 
+                <span>Earn ${{cardData.price}}</span>
             </div>
             <!-- <p class="q-category">{{cardData.subject}}</p> -->
         </div>
         <user-block :user="cardData.user" v-if="cardData.user"></user-block>
-        
-        <div v-else class="q-answer" >
+
+        <div v-else class="q-answer">
 
             <button class="accept-btn" @click="markAsCorrect" v-if="showApproveButton & !flaggedAsCorrect">
                 <v-icon>sbf-check-circle</v-icon>
-                <span>Accept</span>                
+                <span>Accept</span>
             </button>
 
             <div class="choosen-answer" v-if="flaggedAsCorrect">
@@ -46,16 +46,22 @@
                 </div>
             </div> -->
             <!-- v-else -->
-            <div  class="card-info general" v-if="!detailedView">
+            <div class="card-info general" v-if="!detailedView">
                 <div class="new-block">
                     <div class="files">
                         <v-icon>sbf-attach</v-icon>
                         <span>1</span>
                     </div>
                     <div class="users">
-                        <v-icon class="avatar">sbf-comment-circle</v-icon>
-                        <v-icon class="avatar">sbf-comment-circle</v-icon>
-                        <v-icon class="avatar">sbf-comment-circle</v-icon>
+                        <div class="avatar">
+                            <v-icon>sbf-comment-icon</v-icon>
+                        </div>
+                        <div class="avatar">
+                            <v-icon>sbf-comment-icon</v-icon>
+                        </div>
+                        <div class="avatar">
+                            <v-icon>sbf-comment-icon</v-icon>
+                        </div>
                     </div>
                     <span class="user-counter">+5</span>
                 </div>
@@ -66,7 +72,7 @@
             </div>
         </div>
 
-        <v-dialog  v-model="showDeleteDialog">
+        <v-dialog v-model="showDeleteDialog">
             <v-card>
                 <v-card-text class="limited-width">
                     <h1>Are you sure you want to delete?</h1>

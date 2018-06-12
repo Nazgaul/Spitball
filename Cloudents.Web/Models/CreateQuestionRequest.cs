@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
-    public class QuestionRequest
+    public class CreateQuestionRequest
     {
         [Required]
         public int SubjectId { get; set; }
@@ -15,12 +16,5 @@ namespace Cloudents.Web.Models
         public decimal Price { get; set; }
 
         public IEnumerable<string> Files { get; set; }
-    }
-
-    public class QuestionsRequest : IPaging
-    {
-        public string[] Term { get; set; }
-        public string[] Source { get; set; }
-        public int? Page { get; set; }
     }
 }
