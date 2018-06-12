@@ -4,7 +4,7 @@ import qs from "query-string";
 axios.defaults.paramsSerializer = params => qs.stringify(params, {indices: false});
 axios.defaults.responseType = "json";
 export default {
-    deleteQuestion:(id)=> Promise.resolve(id),
+    deleteQuestion:({id,type})=> axios.delete(`/${type}/${id}`),
     getSubjects: () => axios.get("/Question/subject"),
     postQuestion: (subjectId, text, price, files) => axios.post("/Question", {subjectId, text, price, files}),
     getQuestion: (id) => axios.get("/Question/"+id),

@@ -43,6 +43,7 @@ export default {
 
     computed: {
         ...mapGetters(['accountUser']),
+        gallery(){return this.cardData.files},
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -64,7 +65,7 @@ export default {
     methods: {
         ...mapActions({'delete': 'deleteQuestion'}),
         deleteQuestion() {
-            this.delete(this.cardData.id).then((val) => {
+            this.delete({id:this.cardData.id,type:(this.typeAnswer?'Answer':'Question')}).then((val) => {
                 val ? this.$router.push('/ask') : this.showDelete = true;
             })
         },

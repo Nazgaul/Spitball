@@ -100,9 +100,7 @@
                                             <!-- <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                                 <v-icon>sbf-rocket</v-icon>
                                             </v-btn> -->
-                                            <v-avatar slot="activator" @click.native="drawer = !drawer" size="32">
-                                                <span class="white--text">{{accountUser.name.slice(0,2).toUpperCase()}}</span>
-                                            </v-avatar>
+                                            <user-avatar slot="activator" @click.native="drawer = !drawer" size="32" :user-name="accountUser.name"/>
                                             <menu-list :isAuthUser="loggedIn" ></menu-list>
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
@@ -148,6 +146,7 @@
 <script>
     import { settingMenu, notRegMenu } from '../settings/consts';
     import SearchInput from '../helpers/searchInput.vue';
+    import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import menuList from "./menu-list/menu-list.vue";
     
     import {mapGetters} from 'vuex';
@@ -180,7 +179,7 @@
             }
         },
         components: {
-            PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput, menuList
+            PersonalizeDialog, ShareIcon, FacebookIcon, TwitterIcon, WhatsappIcon, CopyLinkIcon,AppLogo,SearchInput,UserAvatar,menuList
         },
         props:{currentSelection:{type:String,default:'note'},userText:{type:String},submitRoute:{type:String,default:'/result'},toolbarHeight:{},layoutClass:{}},
         data(){
