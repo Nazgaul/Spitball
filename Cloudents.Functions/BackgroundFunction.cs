@@ -15,7 +15,7 @@ namespace Cloudents.Functions
     {
         [FunctionName("FunctionTalkJs")]
         public static async Task BackgroundFunctionAsync(
-            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.TalkJs), Connection = "ServiceBusProd")]TalkJsUser obj,
+            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.TalkJs))]TalkJsUser obj,
             [Inject] IRestClient chatService,
             TraceWriter log,
             CancellationToken token)
