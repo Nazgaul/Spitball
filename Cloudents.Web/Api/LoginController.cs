@@ -38,12 +38,17 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            var taskSignIn = _signInManager.SignInTwoFactorAsync(user, model.RememberMe);
+            var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
 
             var taskSms = client.SendSmsAsync(user, token);
 
             await Task.WhenAll(taskSms, taskSignIn).ConfigureAwait(false);
-            return Ok();
+            if (taskSms.Result && taskSignIn.Result.Succeeded)
+            {
+                return Ok();
+            }
+            ModelState.AddModelError(string.Empty,"some error");
+            return BadRequest(ModelState);
         }
     }
 }

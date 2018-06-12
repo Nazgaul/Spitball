@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,11 +29,14 @@ namespace Cloudents.Functions
                 Name = obj.Name,
                 Phone = obj.Phone == null ? null : new[] { obj.Phone },
                 PhotoUrl = obj.PhotoUrl,
-
+                
             };
             await chatService.PutJsonAsync(
                 new Uri($"https://api.talkjs.com/v1/tXsrQpOx/users/{obj.Id}"),
-                user, null, token).ConfigureAwait(false);
+                user, new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("Authorization","Bearer sk_test_AQGzQ2Rlj0NeiNOEdj1SlosU")
+                }, token).ConfigureAwait(false);
 
         }
     }
