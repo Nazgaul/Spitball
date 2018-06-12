@@ -174,11 +174,12 @@
     </script>
     <!-- End Inspectlet Embed Code -->
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
+<script>
         window.version = '@version';
         window.publicPath = '@cdnEndPoint' + '/dist/';
     window.baseURL = '@Configuration["ApiEndpoint"]';
     window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
+    window.talkJsId = '@Configuration["TalkJs"]';
     </script>
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Cloudents.Core.Storage
 {
     [DataContract]
-    public class UrlRedirectQueueMessage 
+    public class UrlRedirectQueueMessage
     {
         public UrlRedirectQueueMessage(string host,
             string url, string urlReferrer, int? location, string ip)
@@ -61,24 +61,5 @@ namespace Cloudents.Core.Storage
 
         public string Link { get; private set; }
 
-    }
-
-    [Serializable]
-    public class TalkJsUser 
-    {
-        public TalkJsUser(long id)
-        {
-            Id = id;
-        }
-
-        protected TalkJsUser()
-        {
-        }
-
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get;  set; }
-        public string Phone { get;  set; }
-        public string PhotoUrl { get;  set; }
     }
 }
