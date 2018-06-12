@@ -84,7 +84,7 @@ const actions = {
 
         commit("updateChatUser", me);
         const talkSession = new Talk.Session({
-            appId: "tXsrQpOx",
+            appId: window.talkJsId,
             me: me,
             signature: state.user.token
         });

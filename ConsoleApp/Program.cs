@@ -24,6 +24,7 @@ using System.Numerics;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using Cloudents.Core.Command;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Framework;
@@ -82,8 +83,25 @@ namespace ConsoleApp
             
            // var z = ty.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
 
-            var a = container.Resolve<IQuestionRepository>();
-            var t = await a.GetQuestionDtoAsync(704, default);
+            var a = container.Resolve<IRepository<User>>();
+            var b = container.Resolve<IServiceBusProvider>();
+            var chatService = container.Resolve<IRestClient>();
+            var users = a.GetQueryable().ToList();
+
+            foreach (var user in users)
+            {
+                if (user.EmailConfirmed)
+                {
+                    var talk = new TalkJsUser(user.Id, user.Name)
+                    {
+                        Email = user.Email,
+
+                    };
+                    await b.InsertMessageAsync(talk, default);
+                }
+            }
+
+            //var t = await a.GetQuestionDtoAsync(704, default);
             
             //var registerEmail = new RegistrationEmail("ram@cloudents.com","https://dev.spitball.co");
             //await a.InsertMessageAsync(registerEmail, default);

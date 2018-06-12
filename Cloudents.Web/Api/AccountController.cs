@@ -12,6 +12,7 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Api
 {
@@ -24,13 +25,15 @@ namespace Cloudents.Web.Api
         private readonly SignInManager<User> _signInManager;
         private readonly ICommandBus _commandBus;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, ICommandBus commandBus, IMapper mapper, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, ICommandBus commandBus, IMapper mapper, SignInManager<User> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _commandBus = commandBus;
             _mapper = mapper;
             _signInManager = signInManager;
+            _configuration = configuration;
         }
 
         // GET
@@ -68,11 +71,11 @@ namespace Cloudents.Web.Api
         private string GetToken()
         {
             // ReSharper disable once StringLiteralTypo
-            const string key = "sk_test_AQGzQ2Rlj0NeiNOEdj1SlosU";
+           // const string key = _configuration["TalkJsSecret"];// "sk_test_AQGzQ2Rlj0NeiNOEdj1SlosU";
             var message = _userManager.GetUserId(User);
 
             var asciiEncoding = new ASCIIEncoding();
-            var keyByte = asciiEncoding.GetBytes(key);
+            var keyByte = asciiEncoding.GetBytes(_configuration["TalkJsSecret"]);
             var messageBytes = asciiEncoding.GetBytes(message);
 
             using (var sha256 = new HMACSHA256(keyByte))
