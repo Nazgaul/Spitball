@@ -65,7 +65,6 @@ namespace Cloudents.Functions
 
             var jsonContent = await req.Content.ReadAsStringAsync().ConfigureAwait(false);
             var message = JsonConvert.DeserializeObject<SmsMessage>(jsonContent);
-
             //var result = await BuildAndValidateSmsAsync(message).ConfigureAwait(false);
             //if (result == null)
             //{

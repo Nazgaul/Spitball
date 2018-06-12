@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Command
@@ -9,6 +10,11 @@ namespace Cloudents.Core.Command
         {
             Id = id;
             UserId = userId;
+        }
+
+        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "need for automapper")]
+        public DeleteAnswerCommand()
+        {
         }
 
         public Guid Id { get; set; }

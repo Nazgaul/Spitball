@@ -1,5 +1,5 @@
 using System;
-using System.Net.Http;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Chat;
@@ -7,9 +7,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Functions.Di;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
-using Microsoft.ServiceBus.Messaging;
-using Newtonsoft.Json;
 
 namespace Cloudents.Functions
 {
@@ -19,7 +16,6 @@ namespace Cloudents.Functions
         public static async Task BackgroundFunctionAsync(
             [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.TalkJs))]TalkJsUser obj,
             [Inject] IRestClient chatService,
-            TraceWriter log,
             CancellationToken token)
         {
             var user = new User
@@ -28,11 +24,14 @@ namespace Cloudents.Functions
                 Name = obj.Name,
                 Phone = obj.Phone == null ? null : new[] { obj.Phone },
                 PhotoUrl = obj.PhotoUrl,
-
+                
             };
             await chatService.PutJsonAsync(
                 new Uri($"https://api.talkjs.com/v1/tXsrQpOx/users/{obj.Id}"),
-                user, null, token).ConfigureAwait(false);
+                user, new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("Authorization","Bearer sk_test_AQGzQ2Rlj0NeiNOEdj1SlosU")
+                }, token).ConfigureAwait(false);
 
         }
     }

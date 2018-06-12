@@ -29,7 +29,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost, ValidateModel]
-        public async Task<IActionResult> CreateQuestionAsync([FromBody]QuestionRequest model, CancellationToken token)
+        public async Task<IActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model, CancellationToken token)
         {
             var command = _mapper.Map<CreateQuestionCommand>(model);
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
@@ -60,8 +60,17 @@ namespace Cloudents.Web.Api
             return Ok(retVal);
         }
 
+
+        [HttpDelete("{id}"), ValidateModel]
+        public async Task<IActionResult> DeleteQuestionAsync(DeleteQuestionRequest model, CancellationToken token)
+        {
+            var command = _mapper.Map<DeleteQuestionCommand>(model);
+            await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+            return Ok();
+        }
+
         [AllowAnonymous, HttpGet]
-        public async Task<IActionResult> GetQuestionsAsync(QuestionsRequest model,
+        public async Task<IActionResult> GetQuestionsAsync(GetQuestionsRequest model,
             [FromServices] IQuestionSearch questionSearch,
             [FromServices] IQueryBus queryBus,
             CancellationToken token)
