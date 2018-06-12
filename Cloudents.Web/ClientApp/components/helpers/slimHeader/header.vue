@@ -1,5 +1,5 @@
 <template>
-    <regular-header v-if="!$vuetify.breakpoint.smAndDown" ref="mainHeader" :toolbarHeight="64"></regular-header>
+    <regular-header v-if="!$vuetify.breakpoint.smAndDown" ref="mainHeader" :toolbarHeight="64" :submitRoute="submitRoute"></regular-header>
 </template>
 
 <script>
@@ -7,5 +7,6 @@
 
     export default {
         components: {regularHeader},
+        props:{submitRoute:{type:String,default:'/result'}}
     }
 </script>
