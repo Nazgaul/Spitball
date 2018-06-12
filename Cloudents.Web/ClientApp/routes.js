@@ -1,5 +1,4 @@
 const HomePage = () => import("./components/home/home.vue");
-const homePageHeader = () => import("./components/home/header.vue");
 import * as RouteTypes from "./routeTypes";
 
 const resultContent = () => import("./components/results/Result.vue");
@@ -85,7 +84,7 @@ let routes2 = [
     {
         path: "/", components: {
             default: HomePage,
-            header: homePageHeader
+            header: HomePage
         }, name: "home"
     },
 

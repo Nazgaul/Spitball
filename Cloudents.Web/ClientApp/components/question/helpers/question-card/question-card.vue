@@ -49,21 +49,19 @@
             <div class="card-info general" v-if="!detailedView">
                 <div class="new-block">
                     <div class="files">
+                        <template v-if="cardData.files">
                         <v-icon>sbf-attach</v-icon>
-                        <span>1</span>
+                        <span>{{cardData.files}}</span>
+                        </template>
                     </div>
                     <div class="users">
+                        <template v-for="i in Math.min(3,cardData.answers)">
                         <div class="avatar">
                             <v-icon>sbf-comment-icon</v-icon>
                         </div>
-                        <div class="avatar">
-                            <v-icon>sbf-comment-icon</v-icon>
-                        </div>
-                        <div class="avatar">
-                            <v-icon>sbf-comment-icon</v-icon>
-                        </div>
+                        </template>
                     </div>
-                    <span class="user-counter">+5</span>
+                    <span class="user-counter" v-if="cardData.answers>3">+{{cardData.answers-3}}</span>
                 </div>
 
                 <div class="answer">

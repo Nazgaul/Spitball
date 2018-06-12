@@ -3,6 +3,10 @@
 .search-input {
   display: flex;
   width: 100%;
+  max-width: 792px;
+  @media(min-width: @screen-xs) {
+    padding-right: 32px;
+  }
 
   .search-menu .type-AutoComplete .list__tile__title {
     color: black;

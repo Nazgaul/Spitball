@@ -32,6 +32,7 @@ export default {
     },
     data() {
         return {
+            //TODO: what is that
             user: {
                 img: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
                 name: 'User Name'
@@ -66,7 +67,8 @@ export default {
         ...mapActions({'delete': 'deleteQuestion'}),
         deleteQuestion() {
             this.delete({id:this.cardData.id,type:(this.typeAnswer?'Answer':'Question')}).then((val) => {
-                val ? this.$router.push('/ask') : this.showDelete = true;
+                val.status===200 ? this.$router.push('/ask') : this.showDelete = true;
+
             })
         },
         markAsCorrect() {
@@ -76,6 +78,7 @@ export default {
     },
     created() {
         this.flaggedAsCorrect = this.isCorrectAnswer;
+        //TODO: what is that
         if (!this.cardData.user){
             this.cardData.user = {id:539,name:"JUST FOR TESTING"}
         }
