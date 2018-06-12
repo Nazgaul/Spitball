@@ -1,8 +1,6 @@
 <template>  
          <div class="user-block" :class="classType">
-             <v-avatar size="32">
-                 <span class="white--text">{{user.name.slice(0,2).toUpperCase()}}</span>
-             </v-avatar>
+             <user-avatar :user-name="user.name"/>
             <div class="text">
                 <span class="user-date"><router-link :to="{name:'profile',params:{id:user.id}}">{{user.name}}</router-link> · 1 hour ago </span>
                 <span class="name">{{user.name}}</span>

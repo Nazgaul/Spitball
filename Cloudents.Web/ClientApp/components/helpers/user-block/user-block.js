@@ -1,4 +1,7 @@
+import UserAvatar from "../UserAvatar/UserAvatar.vue";
+
 export default {
+    components: {UserAvatar},
     props:{
         user:{
             required:true,
