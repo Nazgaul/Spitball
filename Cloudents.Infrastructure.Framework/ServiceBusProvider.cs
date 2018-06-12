@@ -52,12 +52,6 @@ namespace Cloudents.Infrastructure.Framework
                 .Where(f => f.IsInitOnly && f.FieldType == typeof(TopicSubscription))
                 .Select(s => s.GetValue(null)).Cast<TopicSubscription>().ToList();
 
-
-
-
-
-
-
             // PART 1 - CREATE THE TOPIC
             var namespaceManager =
                 NamespaceManager.CreateFromConnectionString(_connectionString);

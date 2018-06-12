@@ -7,6 +7,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Functions.Di;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Host;
 
 namespace Cloudents.Functions
 {
@@ -16,23 +17,35 @@ namespace Cloudents.Functions
         public static async Task BackgroundFunctionAsync(
             [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.TalkJs))]TalkJsUser obj,
             [Inject] IRestClient chatService,
+            TraceWriter log,
             CancellationToken token)
         {
-            var user = new User
+            if (obj.Name == null)
+            {
+                log.Error($"invalid talkJs user got userId {obj.Id} but no user name");
+                return;
+            }
+            log.Info($"processing {obj.Id}");
+
+            var user = new User(obj.Name)
             {
                 Email = obj.Email == null ? null : new[] { obj.Email },
-                Name = obj.Name,
                 Phone = obj.Phone == null ? null : new[] { obj.Phone },
                 PhotoUrl = obj.PhotoUrl,
-                
+
             };
-            await chatService.PutJsonAsync(
-                new Uri($"https://api.talkjs.com/v1/tXsrQpOx/users/{obj.Id}"),
+            var secret = InjectConfiguration.GetEnvironmentVariable("TalkJsSecret");
+            var appId = InjectConfiguration.GetEnvironmentVariable("TalkJsAppId");
+            var t = await chatService.PutJsonAsync(
+                new Uri($"https://api.talkjs.com/v1/{appId}/users/{obj.Id}"),
                 user, new List<KeyValuePair<string, string>>
                 {
-                    new KeyValuePair<string, string>("Authorization","Bearer sk_test_AQGzQ2Rlj0NeiNOEdj1SlosU")
+                    new KeyValuePair<string, string>("Authorization",$"Bearer {secret}")
                 }, token).ConfigureAwait(false);
-
+            if (!t)
+            {
+                log.Error("cannot send talkjs user " + obj.Id);
+            }
         }
     }
 }

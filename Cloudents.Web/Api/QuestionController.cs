@@ -57,6 +57,10 @@ namespace Cloudents.Web.Api
             [FromServices] IQueryBus bus, CancellationToken token)
         {
             var retVal = await bus.QueryAsync<long, QuestionDetailDto>(id, token).ConfigureAwait(false);
+            if (retVal == null)
+            {
+                return NotFound();
+            }
             return Ok(retVal);
         }
 
