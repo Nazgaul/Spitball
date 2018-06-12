@@ -54,7 +54,8 @@ namespace ConsoleApp
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                BlockChainNetwork = "http://spito5-dns-reg1.northeurope.cloudapp.azure.com:8545"
+                BlockChainNetwork = "http://spito5-dns-reg1.northeurope.cloudapp.azure.com:8545",
+                ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
@@ -81,10 +82,11 @@ namespace ConsoleApp
             
            // var z = ty.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
 
-            var a = container.Resolve<IServiceBusProvider>();
+            var a = container.Resolve<IQuestionRepository>();
+            var t = await a.GetQuestionDtoAsync(704, default);
             
-            var registerEmail = new RegistrationEmail("ram@cloudents.com","https://dev.spitball.co");
-            await a.InsertMessageAsync(registerEmail, default);
+            //var registerEmail = new RegistrationEmail("ram@cloudents.com","https://dev.spitball.co");
+            //await a.InsertMessageAsync(registerEmail, default);
 
            // var z = a.GetAddress("2ee004d7bdc744205d8a3d31a1b2cd4816b8f860448427b570290c9a1cb571d6");
             //await a.SetInitialBalanceAsync(z, default).ConfigureAwait(false);
