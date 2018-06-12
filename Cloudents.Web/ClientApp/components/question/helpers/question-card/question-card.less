@@ -1,12 +1,13 @@
 @import "../../../../mixin.less";
 
 .question-card {
-  border-radius: 4px;
-  background-color: @color-white;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-  min-height: 100px;
-  width: 100%;
-  position: relative;
+    border-radius: 4px;
+    background-color: @color-white;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+    min-height: 100px;
+    height: 100%;
+    width: 100%;
+    position: relative;
 
   p {
     margin: 17px 19px 17px 17px;
@@ -125,17 +126,44 @@
     }
   }
 
-  .q-user-info {
-    bottom: 0;
-    height: 47px;
-    width: 100%;
-    // border-top: 1px solid #ddd;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    padding: 10px 10px 13px 17px;
-    justify-content: space-between;
-  }
+
+    .gallery{
+        background-color: @color-light-grey;
+        padding: 16px;
+        margin: 16px;
+        .carousel{
+            height: 238px;
+            .carousel__left{left: 9px;}
+            .carousel__right{right: 9px;}
+            button{
+                width: 32px;
+                height: 32px;
+                .btn__content:before{
+                    opacity: 0.2;
+                    background-color: #000000;
+                }
+                i.sbf{
+                    font-size: 22px;
+                    &.left{ transform: scale(-1,1);}
+                }
+                
+            }
+            
+        }
+    }
+
+
+    .q-user-info{
+        bottom: 0;
+        height: 47px;
+        width: 100%;
+        // border-top: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        padding: 10px 10px 13px 17px;
+        justify-content: space-between;
+    }
 
   .bottom-section .card-info {
     display: flex;
