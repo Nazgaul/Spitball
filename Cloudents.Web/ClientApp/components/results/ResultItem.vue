@@ -30,13 +30,6 @@
     import FlashcardDefault from '../home/img/flashcard.svg'
     import AskDefault from '../home/img/ask.svg'
     import NoteDefault from '../home/img/document.svg'
-    //var sourcesImages = {
-    //    quizlet: 'quizlet.png',
-    //    cram: 'cram.png',
-    //    koofers: 'koofers.png',
-    //    coursehero: 'coursehero.png',
-    //    studysoup: 'studysoup.png'
-    //}
 
 
     export default {
