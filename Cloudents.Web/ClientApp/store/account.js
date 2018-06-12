@@ -1,7 +1,6 @@
 import axios from "axios";
 import Talk from "talkjs";
 import accountService from "../services/accountService"
-import { debug } from "util";
 //import { stat } from "fs";
 let userLogin = false;
 
@@ -77,7 +76,6 @@ const actions = {
             return;
         }
 
-        debugger;
         const me = new Talk.User(state.user.id);
         // const me = new Talk.User({
         //     id : state.user.id,

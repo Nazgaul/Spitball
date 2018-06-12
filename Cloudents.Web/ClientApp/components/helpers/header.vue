@@ -88,10 +88,10 @@
                                         <v-btn icon v-if="isMobile">
                                             <v-icon>sbf-wallet</v-icon>
                                         </v-btn>
-                                        <span  v-if="isMobile">${{accountUser.balance}}</span>
+                                        <span class="bold" v-if="isMobile">${{accountUser.balance}}</span>
 
-                                        <span  v-if="!isMobile">1,024 pts</span>
-                                        <span  v-if="!isMobile">$ 10.24</span>
+                                        <span class="bold" v-if="!isMobile">1,024 pts</span>
+                                        <span v-if="!isMobile">$ 10.24</span>
                                     </div>
 
 
