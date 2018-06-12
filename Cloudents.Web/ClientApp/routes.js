@@ -179,6 +179,7 @@ let routes2 = [
         },
         name: "question",
         props: {
+            header:{submitRoute:'/ask'},
             default: (route) => ({id: route.params.id}),
         },
     },

@@ -47,7 +47,7 @@
 <style src="./header.less" lang="less"></style>
 <script>
     import logo from '../../../wwwroot/Images/logo-spitball.svg';
-    import sbSearch from "../home/search.vue";
+    import sbSearch from "./search.vue";
     import { staticRoutes } from "./satellite-routes"
     export default {
         components: {

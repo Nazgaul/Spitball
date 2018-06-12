@@ -45,12 +45,12 @@ namespace Cloudents.Web.Api
                 return Unauthorized();
             }
 
-            var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id)
+            var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id, user.Name)
             {
                 Email = user.Email
             }, token);
 
-            var t2 =   _userManager.SetPhoneNumberAsync(user, model.Number);
+            var t2 = _userManager.SetPhoneNumberAsync(user, model.Number);
             await Task.WhenAll(t1, t2).ConfigureAwait(false);
             var retVal = t2.Result;
             if (retVal.Succeeded)
@@ -82,10 +82,10 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model, CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
-            var t2 =  _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number);
+            var t2 = _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number);
 
             //Temp
-            var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id)
+            var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id, user.Email)
             {
                 Email = user.Email
             }, token);
