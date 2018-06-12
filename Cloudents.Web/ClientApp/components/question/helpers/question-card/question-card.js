@@ -66,7 +66,8 @@ export default {
         ...mapActions({'delete': 'deleteQuestion'}),
         deleteQuestion() {
             this.delete({id:this.cardData.id,type:(this.typeAnswer?'Answer':'Question')}).then((val) => {
-                val ? this.$router.push('/ask') : this.showDelete = true;
+                val.status===200 ? this.$router.push('/ask') : this.showDelete = true;
+
             })
         },
         markAsCorrect() {
