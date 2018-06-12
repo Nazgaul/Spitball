@@ -1,15 +1,15 @@
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
-import {mapGetters, mapMutations} from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 
 export default {
-    mixins:[disableForm],
-    components: {questionThread, questionCard, extendedTextArea},
+    mixins: [disableForm],
+    components: { questionThread, questionCard, extendedTextArea },
     props: {
-        id: {Number} // got it from route
+        id: { Number } // got it from route
     },
     data() {
         return {
@@ -25,7 +25,7 @@ export default {
         submitAnswer() {
             this.UPDATE_LOADING(true);
             var self = this;
-            if(this.submitForm()) {
+            if (this.submitForm()) {
                 questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
                     .then(function () {
                         self.textAreaValue = "";
@@ -39,20 +39,25 @@ export default {
         addFile(filename) {
             this.answerFiles.push(filename);
         },
-        removeFile(index){
-            this.answerFiles.splice(index,1);
+        removeFile(index) {
+            this.answerFiles.splice(index, 1);
         },
         getData() {
             var self = this;
             questionService.getQuestion(this.id).then(function (response) {
                 self.questionData = response.data;
-                if(self.accountUser) {
+                if (self.accountUser) {
                     self.questionData.cardOwner = self.accountUser.id === response.data.user.id;
-                }else{
+                } else {
                     self.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
                 }
-                // self.questionData.correctAnswer = '1A5B19B2-573D-44EC-9486-A8E900D811F5';//TODO: remove when ram adds it to the api
                 self.buildChat();
+            }, (error) => {
+                if (error.response.status === 404) {
+                    window.location = "/error/notfound"
+                    return;
+                }
+                console.error(error);
             });
         },
         buildChat() {
@@ -75,10 +80,10 @@ export default {
                 });
             }
         },
-        showAnswerField(){
+        showAnswerField() {
             this.accountUser ? this.showForm = true : this.showLoginDialog = true
         },
-        markAsCorrect(answerId){
+        markAsCorrect(answerId) {
             var self = this;
             questionService.markAsCorrectAnswer(answerId).then(function () {
                 self.questionData.correctAnswerId = answerId;
@@ -94,11 +99,11 @@ export default {
     },
     computed: {
         ...mapGetters(["talkSession", "accountUser", "chatAccount"]),
-        userNotAnswered(){
-            return !this.questionData.answers||!this.questionData.answers.filter(i=>i.user.id===this.accountUser.id);
+        userNotAnswered() {
+            return !this.questionData.answers || !this.questionData.answers.filter(i => i.user.id === this.accountUser.id);
         },
-        enableAnswer(){
-            return !this.questionData.cardOwner&&(!this.accountUser||this.userNotAnswered)
+        enableAnswer() {
+            return !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered)
         }
         // isMobile() {
         //     return this.$vuetify.breakpoint.smAndDown;
