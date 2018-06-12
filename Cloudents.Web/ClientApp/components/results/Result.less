@@ -6,22 +6,24 @@
 }
 
 a.ask-question-mob{
-    width: 208px;
-    line-height: 32px;
+    width: 400px;
+    @media(min-width: (@screen-md)){display: none; }
+    @media(max-width: (@screen-md)){  display: block;}
+    @media(max-width: (@screen-xs)){  display: block; margin: 16px auto;}
+    font-size: 20px;
+    line-height: 40px;
     border-radius: 4px;
     background-color: #0455a8;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
     color: @color-white;
-    font-size: 18px;
     font-weight: bold;
     letter-spacing: -0.5px;
     text-align: center;
-    position: fixed;    
-    z-index: 3;
-    margin: 0 auto;
+    // position: fixed; 
+    margin: 0 auto 16px;
     left: 0;
     right: 0;
-    bottom: 25px;
+    
 }
 
 .empty-state {

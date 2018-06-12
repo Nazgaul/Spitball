@@ -19,6 +19,7 @@ const signin = () => import("./components/registration/signin.vue");
 const newQuestion = () => import("./components/question/newQuestion/newQuestion.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const viewProfile = () => import("./components/profile/profile.vue");
+const viewWallet = () => import("./components/wallet/wallet.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
 // const viewChat = () => import("./components/chat/view/chat.vue");
 const userSettings = () => import("./components/settings/view/settings.vue");
@@ -191,6 +192,13 @@ let routes2 = [
         props: {
             default: (route) => ({id: route.params.id})
         },
+    },
+    {
+        path: "/wallet",
+        components: {
+            default: viewWallet
+        },
+        name: "wallet"
     },
     // {
     //     path: "/settings", components: {
