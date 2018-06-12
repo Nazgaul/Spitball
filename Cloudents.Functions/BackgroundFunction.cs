@@ -15,25 +15,29 @@ namespace Cloudents.Functions
     {
         [FunctionName("FunctionTalkJs")]
         public static async Task BackgroundFunctionAsync(
-            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.TalkJs))]TalkJsUser obj,
+            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.TalkJs), Connection = "ServiceBusProd")]TalkJsUser obj,
             [Inject] IRestClient chatService,
             TraceWriter log,
             CancellationToken token)
         {
             if (obj.Name == null)
             {
+                log.Error($"invalid talkJs user got userId {obj.Id} but no user name");
                 return;
             }
+            log.Info($"processing {obj.Id}");
+
             var user = new User(obj.Name)
             {
                 Email = obj.Email == null ? null : new[] { obj.Email },
                 Phone = obj.Phone == null ? null : new[] { obj.Phone },
                 PhotoUrl = obj.PhotoUrl,
-                
+
             };
-            var secret = InjectConfiguration.GetEnvironmentVariable("TalkJsSecret");
+            var secret = InjectConfiguration.GetEnvironmentVariable("TalkJsSecretProd");
+            var appId = InjectConfiguration.GetEnvironmentVariable("TalkJsAppId");
             var t = await chatService.PutJsonAsync(
-                new Uri($"https://api.talkjs.com/v1/tXsrQpOx/users/{obj.Id}"),
+                new Uri($"https://api.talkjs.com/v1/{appId}/users/{obj.Id}"),
                 user, new List<KeyValuePair<string, string>>
                 {
                     new KeyValuePair<string, string>("Authorization",$"Bearer {secret}")

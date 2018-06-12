@@ -13,6 +13,9 @@
     "TwilioToken": "c4cdf14c4f6ca25c345c3600a72e8b49",
     "SendgridKey": "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",
     "AzureWebJobsServiceBus": "Endpoint=sb://spitball-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CACOBTEeKVemCY7ScVBHYXBwDkClQcCKUW7QGq8dNfA=",
-    "TalkJsSecret": "sk_test_AQGzQ2Rlj0NeiNOEdj1SlosU"
+    "TalkJsSecret": "sk_test_AQGzQ2Rlj0NeiNOEdj1SlosU",
+    "TalkJsAppId": "tXsrQpOx",
+
+
   }
 }
