@@ -17,7 +17,7 @@
 
                 <v-flex :class="{'xs7': !questionData.cardOwner, 'xs12': questionData.cardOwner}">
                     <question-thread v-if="questionData" :questionData="questionData">
-                        <div v-if="!questionData.cardOwner" slot="answer-form" class="mb-3">
+                        <div v-if="enableAnswer" slot="answer-form" class="mb-3">
                             <div v-if="!questionData.answers || (questionData.answers && showForm)">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                         v-model="textAreaValue"
@@ -56,7 +56,7 @@
                     <v-tabs-content :key="'1'" :id="'tab-1'" class="tab-padding">
                         <v-flex xs12>
                             <question-thread v-if="questionData" :questionData="questionData">
-                                <div slot="answer-form" class="mb-3">
+                                <div slot="answer-form" class="mb-3" v-if="enableAnswer">
                                     <div v-if="!questionData.answers || (questionData.answers && showForm)">
                                         <extended-text-area uploadUrl="/api/upload/ask"
                                                 v-model="textAreaValue"
