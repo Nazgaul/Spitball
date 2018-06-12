@@ -45,7 +45,10 @@ namespace Cloudents.Infrastructure.Data
               , List<string> complexAliases, object result, List<string> list)
         {
             var entity = result as TEntity;
-
+            if (entity == null)
+            {
+                return;
+            }
             foreach (var aliase in complexAliases)
             {
                 // the value in a tuple by index of current Aliase
@@ -71,7 +74,7 @@ namespace Cloudents.Infrastructure.Data
                 while (current < parts.Length)
                 {
                     name = parts[current];
-                    object instance = propertyInfo.GetValue(currentObject);
+                    var instance = propertyInfo.GetValue(currentObject);
                     if (instance == null)
                     {
                         instance = Activator.CreateInstance(propertyInfo.PropertyType);
@@ -98,8 +101,7 @@ namespace Cloudents.Infrastructure.Data
         // convert to DISTINCT list with populated Fields
         public IList TransformList(IList collection)
         {
-            var results = Transformers.AliasToBean<TEntity>().TransformList(collection);
-            return results;
+            return Transformers.AliasToBean<TEntity>().TransformList(collection);
         }
     }
 }
