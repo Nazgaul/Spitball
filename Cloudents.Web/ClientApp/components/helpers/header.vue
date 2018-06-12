@@ -13,12 +13,12 @@
                                 </router-link>
                             </v-toolbar-title>
                             <v-toolbar-items>
-                                <search-input v-if="$vuetify.breakpoint.mdAndUp" :user-text="userText" :placeholder="this.$options.placeholders[currentSelection]" :submit-route="submitRoute"></search-input>
+                                <search-input v-if="$vuetify.breakpoint.smAndUp" :user-text="userText" :placeholder="this.$options.placeholders[currentSelection]" :submit-route="submitRoute"></search-input>
                                 <!--<form v-if="$vuetify.breakpoint.mdAndUp" @submit.prevent="submit">-->
                                 <!--<v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>-->
                                 <!--<div v-for="(s,index) in suggestList">{{s}}</div>-->
                                 <!--</form>-->
-                                <v-spacer v-if="$vuetify.breakpoint.smAndDown"></v-spacer>
+                                <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
                                     <!-- <v-menu bottom left>
                                         <v-btn class="share-btn" icon slot="activator">
@@ -77,7 +77,7 @@
                                         </v-list>
                                     </v-menu> -->
 
-                                    <div class="header-comments" v-if="loggedIn && !isMobile">
+                                    <div class="header-comments" v-if="loggedIn && !this.$vuetify.breakpoint.smAndDown">
                                         <router-link :to="{name:'conversations'}">
                                             <v-icon>sbf-comment</v-icon>
                                             <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span> 
@@ -122,7 +122,7 @@
                             </v-toolbar-items>
                         </v-layout>
                     </v-flex>
-                    <v-flex v-if="$vuetify.breakpoint.smAndDown" class="line search-wrapper">
+                    <v-flex v-if="$vuetify.breakpoint.xsOnly" class="line search-wrapper">
                         <search-input :user-text="userText" :placeholder="this.$options.placeholders[currentSelection]" :submit-route="submitRoute"></search-input>
                         <!--<form @submit.prevent="submit">-->
                         <!--<v-text-field type="search" light solo class="search-b" :placeholder="placeholders[currentSelection]" v-model="msg" prepend-icon="sbf-search" :append-icon="voiceAppend" :append-icon-cb="$_voiceDetection"></v-text-field>-->
@@ -170,7 +170,7 @@
         },
         computed: {
             ...mapGetters(['getUniversityName',  'accountUser','unreadMessages']),
-            isMobile(){return this.$vuetify.breakpoint.xsOnly;},
+            // isMobile(){return this.$vuetify.breakpoint.xsOnly;},
             loggedIn(){return this.accountUser!==null}
     },
         watch:{
@@ -256,7 +256,7 @@
                         this.$refs.personalize.openDialog(type);
                     })
                 });
-            let headerHeight =this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.mdAndUp ? 60 : 115)
+            let headerHeight =this.toolbarHeight?this.toolbarHeight:(this.$vuetify.breakpoint.smAndUp ? 60 : 115)
             this.height =  headerHeight;
 
             // this.isAuthUser =
