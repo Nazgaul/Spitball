@@ -5,6 +5,7 @@
     background-color: @color-white;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
     min-height: 100px;
+    height: 100%;
     width: 100%;
     position: relative;
 
@@ -101,6 +102,32 @@
         color: #4a4a4a;
         &.answer{
             margin-left: 55px;
+        }
+    }
+
+
+    .gallery{
+        background-color: @color-light-grey;
+        padding: 16px;
+        margin: 16px;
+        .carousel{
+            height: 238px;
+            .carousel__left{left: 9px;}
+            .carousel__right{right: 9px;}
+            button{
+                width: 32px;
+                height: 32px;
+                .btn__content:before{
+                    opacity: 0.2;
+                    background-color: #000000;
+                }
+                i.sbf{
+                    font-size: 22px;
+                    &.left{ transform: scale(-1,1);}
+                }
+                
+            }
+            
         }
     }
 

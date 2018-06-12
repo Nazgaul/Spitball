@@ -38,6 +38,8 @@ export default {
             },
             showDeleteDialog: false,
             flaggedAsCorrect: false
+
+            ,gallery:['https://www.howtogeek.com/wp-content/uploads/2009/08/image27.png','https://wallpaper-house.com/data/out/12/wallpaper2you_501354.jpg','https://wallpaper-house.com/data/out/8/wallpaper2you_257166.jpg']
         }
     },
 
