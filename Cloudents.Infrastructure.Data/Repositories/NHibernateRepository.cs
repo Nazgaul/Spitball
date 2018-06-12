@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
         protected readonly ISession Session;
         private readonly IUnitOfWork _unitOfWork;
 
+        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We can initialize this class as well")]
         public NHibernateRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWorks)
         {
             var att = typeof(T).GetCustomAttribute<DbAttribute>();
@@ -32,9 +34,10 @@ namespace Cloudents.Infrastructure.Data.Repositories
         }
 
 
-        public Task DeleteAsync(object id, CancellationToken token)
+        public Task DeleteAsync(T entity, CancellationToken token)
         {
-            return Session.DeleteAsync(id, token);
+            _unitOfWork.FlagCommit();
+            return Session.DeleteAsync(entity, token);
         }
 
         public IQueryable<T> GetQueryable()

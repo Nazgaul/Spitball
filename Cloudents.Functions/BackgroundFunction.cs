@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Chat;
@@ -8,9 +7,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Functions.Di;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
-using Microsoft.ServiceBus.Messaging;
-using Newtonsoft.Json;
 
 namespace Cloudents.Functions
 {
@@ -20,7 +16,6 @@ namespace Cloudents.Functions
         public static async Task BackgroundFunctionAsync(
             [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.TalkJs))]TalkJsUser obj,
             [Inject] IRestClient chatService,
-            TraceWriter log,
             CancellationToken token)
         {
             var user = new User
