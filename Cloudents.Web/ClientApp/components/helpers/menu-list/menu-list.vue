@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-list class="menu-list" v-if="!isAuthUser">
-            <user-block :user=user :classType="'university'" v-if=isMobile></user-block>
+            <user-block :user="user" :classType="'university'" v-if="isMobile"></user-block>
             <template v-for="(item) in notRegMenu">
                 <template v-if="item.name">
                     <router-link tag="v-list-tile" :to="{name:item.name}">
@@ -133,17 +133,16 @@
             return {
                 notRegMenu,
                 showSettingsFirst:false,
-                showSettings: false,
-                user: {
-                    name: "User Name",
-                    universityName: "Boston MA"
-                }
+                showSettings: false
             }
         },
         computed: {
-            ...mapGetters(['unreadMessages', 'accountUser']),
+            ...mapGetters(['unreadMessages', 'accountUser', 'getUniversityName']),
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
+            },
+            user(){
+                return {...this.accountUser, universityName: this.getUniversityName}
             }
         },
     }

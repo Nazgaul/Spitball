@@ -85,8 +85,8 @@
                                     </div>
 
                                     <div class="header-wallet" v-if="loggedIn">
-                                        <span class="bold">1,024 pts</span>
-                                        <span>$ 10.24</span>
+                                        <span class="bold">{{accountUser.balance}} pts</span>
+                                        <span>$ {{myMoney}}</span>
                                     </div>
 
 
@@ -95,7 +95,7 @@
                                             <!-- <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                                 <v-icon>sbf-rocket</v-icon>
                                             </v-btn> -->
-                                            <user-avatar slot="activator" @click.native="drawer = !drawer" size="32" :user-name="accountUser.name"/>
+                                            <user-avatar slot="activator" @click.native="drawer = !drawer" size="32" :user-name="accountUser.name" :user-id="accountUser.id"/>
                                             <menu-list :isAuthUser="loggedIn" ></menu-list>
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
@@ -166,7 +166,9 @@
         computed: {
             ...mapGetters(['getUniversityName',  'accountUser','unreadMessages']),
             isMobile(){return this.$vuetify.breakpoint.xsOnly;},
-            loggedIn(){return this.accountUser!==null}
+            loggedIn(){return this.accountUser!==null},
+            myMoney(){return this.accountUser.balance / 40}
+
     },
         watch:{
             toolbarHeight(val) {
