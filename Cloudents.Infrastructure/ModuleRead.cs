@@ -14,7 +14,6 @@ using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Job;
-using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Search.Tutor;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;

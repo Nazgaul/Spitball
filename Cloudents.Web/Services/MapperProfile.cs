@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Query;

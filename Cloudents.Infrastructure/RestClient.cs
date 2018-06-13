@@ -173,7 +173,6 @@ namespace Cloudents.Infrastructure
                 }
 
                 var p = await _client.SendAsync(message, token).ConfigureAwait(false);
-                var result = await p.Content.ReadAsStringAsync();
                 return p.IsSuccessStatusCode;
             }
         }

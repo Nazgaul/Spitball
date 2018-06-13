@@ -38,10 +38,6 @@ namespace ConsoleApp
 {
     static class Program
     {
-        const string ServiceBusConnectionString = "Endpoint=sb://spitball-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CACOBTEeKVemCY7ScVBHYXBwDkClQcCKUW7QGq8dNfA=";
-        const string TopicName = "topic1";
-        static TopicClient topicClient;
-
         static async Task Main()
         {
             var builder = new ContainerBuilder();

@@ -11,14 +11,11 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Functions.Di;
-using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
 namespace Cloudents.Functions
 {
-    // [DependencyInjectionConfig(typeof(DiConfig))]
-
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Azure function")]
     public static class MailGunFunction
     {

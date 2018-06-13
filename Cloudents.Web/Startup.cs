@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -54,7 +53,7 @@ namespace Cloudents.Web
             services.AddMvc()
                 .AddJsonOptions(options =>
             {
-                options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
 
@@ -180,17 +179,7 @@ namespace Cloudents.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
-            //var supportedCultures = new[]
-            //{
-            //    new CultureInfo("en-US")
-            //};
-            //app.UseRequestLocalization(new RequestLocalizationOptions
-            //{
-            //    DefaultRequestCulture = new RequestCulture(supportedCultures[0]),
-            //    SupportedCultures = supportedCultures,
-            //    SupportedUICultures = supportedCultures
-            //});
-            if (env.IsDevelopment())
+           if (env.IsDevelopment())
             {
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
