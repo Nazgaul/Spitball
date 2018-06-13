@@ -56,7 +56,6 @@ namespace Cloudents.Core
             new PrioritySource("OneClass",  3, new []{"oneclass.com/note"}),
             new PrioritySource(CloudentsSource,  3, new []{"spitball.co/item"}),
             new PrioritySource("StudySoup",  3 , new []{"studysoup.com/guide"}),
-            new PrioritySource("Cliffsnotes",  10, new []{"cliffsnotes.com/study-guides"}),
             new PrioritySource("Koofers",  10, new []{"koofers.com/files"})
 
         }.ToDictionary(f => f.Source, StringComparer.OrdinalIgnoreCase);
