@@ -85,8 +85,8 @@
                                     </div>
 
                                     <div class="header-wallet" v-if="loggedIn">
-                                        <span class="bold">1,024 pts</span>
-                                        <span>$ 10.24</span>
+                                        <span class="bold">{{accountUser.balance}} pts</span>
+                                        <span>$ {{accountUser.balance/4}}</span>
                                     </div>
 
 

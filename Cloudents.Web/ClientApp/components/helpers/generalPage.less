@@ -36,6 +36,28 @@
     //.results-wrapper{
     //    max-width: 608px;
     //}
+    a.ask-question-mob{
+        width: 100%;
+        max-width: 400px;
+        @media(min-width: (@screen-md)){display: none; }
+        @media(max-width: (@screen-md)){  display: block;}
+        @media(max-width: (@screen-xs)){  display: block; margin: 16px auto;}
+        font-size: 20px;
+        line-height: 40px;
+        border-radius: 4px;
+        background-color: #0455a8;
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+        color: @color-white;
+        font-weight: bold;
+        letter-spacing: -0.5px;
+        text-align: center;
+        // position: fixed;
+        margin: 0 auto 16px;
+        left: 0;
+        right: 0;
+
+    }
+
     .result-cell {
         border-radius: 4px;
         overflow: hidden;

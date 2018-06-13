@@ -2,13 +2,13 @@
 
     ;
 import historyIcon from "./svg/history-icon.svg";
-import {micMixin} from './mic';
+// import {micMixin} from './mic';
 import {mapGetters, mapActions} from 'vuex'
 import * as consts from './consts';
 
 export default {
     name: "search-input",
-    mixins: [micMixin],
+    // mixins: [micMixin],
     components: {historyIcon},
     props: {
         hideOnScroll: {type: Boolean, default: false},
