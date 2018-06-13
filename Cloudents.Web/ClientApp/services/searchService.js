@@ -5,8 +5,8 @@ export default {
         ask({ source, term=""}) {
             return search.getQuestions({term, source})
         },
-        note({ source, university, course, term="", page, sort, docType }) {
-            return search.getDocument({ source, university, course, query:term, page, sort, docType });
+        note({ source, university, course, term="", page, sort }) {
+            return search.getDocument({ source, university, course, query:term, page, sort });
         },
         flashcard({ source, university, course, term="", page, sort }) {
             return search.getFlashcard({ source, university, course, query:term, page, sort });
