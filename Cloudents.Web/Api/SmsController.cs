@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
@@ -26,6 +27,17 @@ namespace Cloudents.Web.Api
             _signInManager = signInManager;
             _userManager = userManager;
             _serviceBus = serviceBus;
+        }
+
+        [HttpGet("code")]
+        public async Task<IActionResult> GetCountryCallingCodeAsync([FromServices] IIpToLocation service, CancellationToken token)
+        {
+            var result = await service.GetAsync(HttpContext.Connection.GetIpAddress(), token).ConfigureAwait(false);
+            return Ok(
+                new
+                {
+                    code = result?.CallingCode
+                });
         }
 
         [HttpPost, ValidateModel]

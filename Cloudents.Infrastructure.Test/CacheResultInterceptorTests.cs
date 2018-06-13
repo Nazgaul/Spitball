@@ -79,8 +79,8 @@ namespace Cloudents.Infrastructure.Test
         [TestMethod]
         public void GetInvocationSignature_DifferentLocation_DifferentResult()
         {
-            var location = new Location(new GeoPoint(41.878f,-87.629f),new Address("Chicago","IL","US"),"31.154.39.170"  );
-            var location2 = new Location(new GeoPoint(42.878f,-86.629f),new Address("Chicago","IL","US"),"31.154.39.170"  );
+            var location = new Location(new GeoPoint(41.878f,-87.629f),new Address("Chicago","IL","US"),"31.154.39.170" ,"972");
+            var location2 = new Location(new GeoPoint(42.878f,-86.629f),new Address("Chicago","IL","US"),"31.154.39.170", "972");
             var model1 = new JobProviderRequest("marketing", JobRequestSort.Relevance, null, location, 0);
             var model2 = new JobProviderRequest("marketing", JobRequestSort.Relevance, null, location2, 0);
             //IEnumerable<string> term, int imageWidth, int page, CancellationToken token
