@@ -56,7 +56,6 @@
     "vue-router": "^3.0.1",
     "vue-scrollto": "2.8.0",
     "vue-server-renderer": "2.5.16",
-    "vue-star-rating": "^1.5.0",
     "vue-style-loader": "^4.1.0",
     "vue-svg-loader": "^0.3.0",
     "vue-template-compiler": "2.5.16",

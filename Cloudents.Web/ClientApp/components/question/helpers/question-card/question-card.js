@@ -32,11 +32,6 @@ export default {
     },
     data() {
         return {
-            //TODO: what is that
-            user: {
-                img: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-                name: 'User Name'
-            },
             showDeleteDialog: false,
             flaggedAsCorrect: false
         }
@@ -66,9 +61,8 @@ export default {
     methods: {
         ...mapActions({'delete': 'deleteQuestion'}),
         deleteQuestion() {
-            this.delete({id:this.cardData.id,type:(this.typeAnswer?'Answer':'Question')}).then((val) => {
-                val.status===200 ? this.$router.push('/ask') : this.showDelete = true;
-
+            this.delete({id:this.cardData.id,type:(this.typeAnswer?'Answer':'Question')}).then(() => {
+                 this.$router.push('/ask')
             })
         },
         markAsCorrect() {
