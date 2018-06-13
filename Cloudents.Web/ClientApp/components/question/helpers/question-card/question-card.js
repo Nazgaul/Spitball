@@ -1,6 +1,8 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import disableForm from "../../../mixins/submitDisableMixin"
 import {mapGetters, mapActions} from 'vuex'
+import timeago from 'timeago.js';
+
 
 export default {
     mixins: [disableForm],
@@ -69,6 +71,11 @@ export default {
             this.flaggedAsCorrect = true;
             this.$parent.markAsCorrect(this.cardData.id); //TODO: MEH :\  check if it can be done in a better way...
         }
+    },
+    mounted(){
+
+        timeago().render(document.querySelectorAll('.timeago'));
+// use render method to render nodes in real time
     },
     created() {
         this.flaggedAsCorrect = this.isCorrectAnswer;
