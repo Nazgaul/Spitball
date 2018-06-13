@@ -1,5 +1,5 @@
 <template>
-    <component :is="userId?'router-link':'template'"  :to="{name:'profile',params:{id:userId}}">
+    <component :is="userId?'router-link':'span'"  :to="userId?{name:'profile',params:{id:userId}}:''">
         <v-avatar tag="v-avatar" size="32" :class="'user-avatar userColor' + userName.length % 11">
         <span class="white--text">{{userName.slice(0,2).toUpperCase()}}</span>
         </v-avatar>
