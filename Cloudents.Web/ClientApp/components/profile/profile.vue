@@ -1,7 +1,7 @@
 <template>
     <div class="profile-page" v-if="profileData">
-        <v-container>
-            <v-layout :class="{'column': isMobile}" wrap justify-start>
+        <div>
+            <v-layout class="data-wrapper" :class="{'column': isMobile}" wrap justify-start>
 
                 <div>
                     <div class="main-block">
@@ -44,7 +44,7 @@
                 </v-flex>
 
             </v-layout>
-        </v-container>
+        </div>
     </div>
 </template>
 

@@ -2,20 +2,20 @@
     <div class="answer-question" v-if="questionData">
 
         <!-- Web version -->
-        <v-container v-if="!$vuetify.breakpoint.smAndDown" :class="{'my-question': questionData.cardOwner}">
-            <v-layout row wrap>
+        <div class="pt-3 question-wrap" v-if="!$vuetify.breakpoint.smAndDown" :class="{'my-question': questionData.cardOwner}">
+            <v-flex xs12 class="breadcrumbs">
+                <router-link class="ask-question" to="/ask">
+                    Ask a question</router-link>
 
-                <v-flex xs12 class="breadcrumbs">
-                    <router-link class="ask-question" to="/ask">
-                        Ask a question</router-link>
+                <!--<a class="ask-question" href="/ask">-->
+                <!--<v-icon>sbf-ask-q</v-icon>-->
+                <!--Ask a question</a>-->
+                <span class="question-category">/  Questions  / {{questionData.subject}}</span>
+            </v-flex>
+            <v-layout row>
 
-                    <!--<a class="ask-question" href="/ask">-->
-                        <!--<v-icon>sbf-ask-q</v-icon>-->
-                        <!--Ask a question</a>-->
-                    <span class="question-category">/  Questions  / {{questionData.subject}}</span>
-                </v-flex>
 
-                <v-flex :class="{'xs7': !questionData.cardOwner, 'xs12': questionData.cardOwner}">
+                <v-flex class="question-data">
                     <question-thread v-if="questionData" :questionData="questionData">
                         <div v-if="enableAnswer" slot="answer-form" class="mb-3">
                             <div v-if="!questionData.answers || (questionData.answers && showForm)">
@@ -33,13 +33,13 @@
                     </question-thread>
                 </v-flex>
 
-                <v-flex xs4>
+                <v-flex class="chat-wrapper">
                     <div ref="chat-area"></div>
 
                 </v-flex>
 
             </v-layout>
-        </v-container>
+        </div>
 
         <!-- Mobile version with tabs -->
         <div v-else>

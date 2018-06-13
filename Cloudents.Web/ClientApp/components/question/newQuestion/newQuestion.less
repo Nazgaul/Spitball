@@ -14,7 +14,12 @@
       height: 100%;
     }
   }
-
+  .general-cell{
+    @media(max-width: @screen-xs){
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
   .flex:not(:last-child) {
     margin-bottom: 17px;
     &.last-text-block {
