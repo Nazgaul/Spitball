@@ -86,7 +86,7 @@
 
                                     <div class="header-wallet" v-if="loggedIn">
                                         <span class="bold">{{accountUser.balance}} pts</span>
-                                        <span>$ {{accountUser.balance/4}}</span>
+                                        <span>$ {{myMoney}}</span>
                                     </div>
 
 
@@ -166,7 +166,9 @@
         computed: {
             ...mapGetters(['getUniversityName',  'accountUser','unreadMessages']),
             isMobile(){return this.$vuetify.breakpoint.xsOnly;},
-            loggedIn(){return this.accountUser!==null}
+            loggedIn(){return this.accountUser!==null},
+            myMoney(){return this.accountUser.balance / 40}
+
     },
         watch:{
             toolbarHeight(val) {

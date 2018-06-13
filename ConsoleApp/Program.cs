@@ -32,6 +32,7 @@ using Microsoft.Azure.Management.ServiceBus;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Rest;
 using Nethereum.Web3.Accounts;
+using NHibernate.Linq;
 
 namespace ConsoleApp
 {
@@ -46,7 +47,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -56,7 +57,7 @@ namespace ConsoleApp
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
                 BlockChainNetwork = "http://spito5-dns-reg1.northeurope.cloudapp.azure.com:8545",
-                ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
+                ServiceBus = ConfigurationManager.AppSettings["ServiceBusProd"]
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
@@ -82,12 +83,25 @@ namespace ConsoleApp
 
             
            // var z = ty.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
+            var c = container.Resolve<IServiceBusProvider>();
+            var a = container.Resolve<IUserRepository>();
 
-            var a = container.Resolve<IQuestionRepository>();
-            var t = await a.GetQuestionsAsync(new QuestionsQuery()
+            foreach (var user in await a.GetQueryable().ToListAsync())
             {
-                Term = "files"
-            }, default);
+                //if (user.EmailConfirmed)
+                //{
+                    var x = new TalkJsUser(user.Id, user.Name)
+                    {
+                        Email = user.Email
+                    };
+                    await c.InsertMessageAsync(x, default);
+                //}
+
+            }
+            //var t = await a.GetQuestionsAsync(new QuestionsQuery()
+            //{
+            //    Term = "files"
+            //}, default);
             
 
             //var t = await a.GetQuestionDtoAsync(704, default);
