@@ -32,7 +32,7 @@
 
                 <v-flex class="web-content">
                     <div v-if="activeTab === 1">
-                        <router-link :to="{name:'question',params:{id:questionData.id}}" v-for="questionData in profileData.ask" :key="questionData.id">
+                        <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}" v-for="questionData in profileData.ask" :key="questionData.id">
                             <question-card :cardData="questionData"></question-card>
                         </router-link>
                     </div>

@@ -1,6 +1,6 @@
 <template>  
          <div class="user-block" :class="classType">
-             <user-avatar :user-name="user.name" :user-id="user.id"/>
+             <user-avatar class="avatar-circle" :user-name="user.name" :user-id="user.id"/>
             <div class="text">
                 <span class="user-date"><router-link v-if="!name" :to="{name:'profile',params:{id:user.id}}">{{user.name}}</router-link><template v-else>{{name}}</template> · 1 hour ago </span>
                 <span class="name">{{user.name}}</span>
