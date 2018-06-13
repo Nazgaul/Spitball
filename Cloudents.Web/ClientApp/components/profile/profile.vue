@@ -5,7 +5,7 @@
 
                 <div>
                     <div class="main-block">
-                        <button class="back">
+                        <button class="back" @click="$router.go(-1)">
                             <v-icon>sbf-arrow-right</v-icon>
                         </button>
                         <user-block v-if="profileData.user" :user="profileData.user"
