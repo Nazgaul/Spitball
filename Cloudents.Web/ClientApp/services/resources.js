@@ -29,7 +29,7 @@ let transferNextPage = (res) => {
 let transferResultAsk = res => {
     const itemResult = res.result || [];
     const items = itemResult.map(val => { return { ...val, template: "ask" } });
-    return { data: items, source: res.result.facet, facet: res.facet }
+    return { data: items, source: res.result.facet, facet: res.facet,nextPage: res.nextPageLink }
 };
 let transferResultTutor = data => {
     let body = data || {};
