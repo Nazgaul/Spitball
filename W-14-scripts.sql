@@ -36,4 +36,16 @@ WITH (TRACK_COLUMNS_UPDATED = ON)
 	JOIN sb.QuestionSubject qs ON q.Subject_id = qs.Id
 	right JOIN  
      CHANGETABLE(CHANGES Sb.Question, 0) AS CT 
-	 ON q.Id = ct.Id
+	 ON q.Id = ct.Id;
+
+
+CREATE FULLTEXT CATALOG ftQuestion
+
+select name from sysindexes where object_id('sb.question') = id
+
+CREATE FULLTEXT INDEX ON sb.question(text) 
+KEY INDEX PK__Question__3214EC07D55BE358 ON ftQuestion;
+
+ALTER FULLTEXT INDEX ON sb.question ENABLE; 
+GO 
+ALTER FULLTEXT INDEX ON sb.question START FULL POPULATION;

@@ -5,6 +5,7 @@ using Cloudents.Core.Query;
 
 namespace Cloudents.Core.Interfaces
 {
+    //TODO:remove
     public interface IQuestionSearch
     {
         Task<ResultWithFacetDto<QuestionDto>> SearchAsync(QuestionsQuery query, CancellationToken token);
