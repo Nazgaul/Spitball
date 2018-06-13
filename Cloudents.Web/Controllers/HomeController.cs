@@ -47,7 +47,7 @@ namespace Cloudents.Web.Controllers
             {
                 return View();
             }
-            if (!string.Equals(location?.Address?.CountryCode, "US", StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(location?.Address?.CountryCode, "il", StringComparison.InvariantCultureIgnoreCase))
             {
                 return this.RedirectToOldSite();
             }
