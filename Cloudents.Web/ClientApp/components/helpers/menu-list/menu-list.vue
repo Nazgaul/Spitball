@@ -38,17 +38,6 @@
                     <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                 </v-list-tile-avatar>
             </router-link>
-            <v-list-tile>
-                <v-list-tile-action>
-                    <v-icon>sbf-notifications</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>Notifications</v-list-tile-title>
-                </v-list-tile-content>
-                <v-list-tile-avatar>
-                    <!--<span class="red-counter">1</span>  -->
-                </v-list-tile-avatar>
-            </v-list-tile>
             <router-link tag="v-list-tile" :to="{name:'profile',params:{id:accountUser.id}}">
                 <v-list-tile-action>
                     <v-icon>sbf-user</v-icon>
