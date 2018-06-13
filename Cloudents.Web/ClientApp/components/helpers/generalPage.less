@@ -5,14 +5,14 @@
     .first-grid {
         width: @resultsFilterWidth;
         .flexSameSize();
-        padding: 0 50px 0 22px;
+        padding-right: 32px;
     }
 }
 
 
 //@spaceFromNavBar: @resultsTabsHeight + 40; //40 px of space according to Shlomi's request
 
-@marginTop: 42px;
+@marginTop: 24px;
 .main-section {
     min-width: 0;
     margin-top: @marginTop;
@@ -24,17 +24,24 @@
 }
 .sec-result {
     max-width: 608px;
+    width: 100%;
+    //max-width: 608px;
     //margin-top: @marginTop;
-    min-width: 0;
+    //min-width: 0;
 
-    @media(max-width: @screen-xs) {
-        margin: 0 8px;
-    }
+    //@media(max-width: @screen-xs) {
+    //    margin: 0 8px;
+    //}
     //margin-top: @spaceFromTop;
+    //.results-wrapper{
+    //    max-width: 608px;
+    //}
     .result-cell {
         border-radius: 4px;
         overflow: hidden;
         position: relative;
+        width: 100%;
+        max-width: 608px;
         /*@media(max-width: 599px) {
             margin-left: 8px;
             margin-right: 8px;
@@ -135,6 +142,9 @@
     position: sticky;
     max-height: ~"calc(100vh - @{upperSpace} - 16px)"; //container padding from bottom is 16
     top: @upperSpace;
+    margin-left: 32px;
+    max-width: 400px;
+    width: 100%;
 
     .side-bar-wrapper {
         max-width: 300px;

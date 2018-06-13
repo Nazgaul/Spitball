@@ -1,5 +1,5 @@
 <template>
-    <v-flex v-if="cardData" xs12 class="question-card" :class="{'highlight':flaggedAsCorrect}">
+    <v-flex v-if="cardData" class="question-card" :class="{'highlight':flaggedAsCorrect}">
         <div v-if="!typeAnswer">
             <div class="q-price">
                 <span>Earn ${{cardData.price}}</span>

@@ -215,19 +215,27 @@
 
 .limited-width(){
   width: 100%;
-  max-width: 1280px;
+  @contentWidth: 1280px;
+  @desktopPadding: 24px;
+  @tabletPadding: 16px;
+  @mobilePadding: 8px;
+  .responsive-property(max-width,@contentWidth + @desktopPadding, @contentWidth + @tabletPadding, @contentWidth + @mobilePadding);
+  .responsive-property(padding-right, @desktopPadding, @tabletPadding, @mobilePadding);
+  .responsive-property(padding-left, @desktopPadding, @tabletPadding, @mobilePadding);
+  //max-width: 1328px;
   margin: 0 auto;
+  //padding: 0 24px;
 }
 
 // Size constants
-@navBarHeightMdAndUp: 120px;
+@navBarHeightMdAndUp: 104px;
 @mainNavHeightXsOnly: 120px; //TODO: fix to actual size (seperated from the verticals bar)
 @mainNavHeightSmAndUp: 60px;
 //@navBarHeightMobile: 96px;
-@resultsFilterWidth: 230px;
+@resultsFilterWidth: 192px;
 //@resultsTabsHeight: 52px;
 @registrationFieldHeight: 48px;
 @screen-xs: 599px;
 @screen-sm: 959px;
 @screen-md: 1263px;
-@logoWidth: 210px;
+@logoWidth: 192px;

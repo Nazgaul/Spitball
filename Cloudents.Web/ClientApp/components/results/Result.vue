@@ -19,7 +19,7 @@
             </div>
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
                 <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical">
-                    <v-container class="pa-0">
+                    <v-container class="pa-0 ma-0 results-wrapper">
                         <v-layout column>
                             <v-flex class="promo-cell mb-2 elevation-1" order-xs1 v-if="showPromo">
                                 <button class="close-btn pa-2" @click="showPromo=false">
