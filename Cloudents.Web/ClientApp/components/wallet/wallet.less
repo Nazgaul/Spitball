@@ -1,9 +1,108 @@
 @import "../../mixin.less";
 
 .wallet-page{   
-    
-   
-}
+    max-width: 846px;
+    min-height: 448px;
+    background-color: @color-white;
+    box-shadow: 0 0 2px 0 #888b8e;
+    margin: 48px auto auto;
 
+    @media (max-width: @screen-xs) { margin: 0; }     
+    
+
+    .header{
+        height: 118px;
+        background-color: @color-main-purple;
+        color: @color-white;
+        padding: 24px 13px 0 15px;
+        margin-bottom: 11px;
+
+        @media (max-width: @screen-xs) {
+            height: 96px;
+            padding: 16px 13px 0 11px;
+        }     
+
+        .header-title{
+            font-size: 32px;
+            line-height: 0.78;
+            letter-spacing: -0.8px;
+            margin-left: 18px;
+            @media (max-width: @screen-xs) {
+                font-size: 24px;
+                line-height: 1.04;
+                letter-spacing: -0.6px;
+                margin-left: 23px;
+            }        
+            
+        }
+
+        .back-button {
+            float: right;
+            width: 17px;
+            position: relative;
+            outline: none;        
+            @media (max-width: @screen-xs) {}        
+            .icon {
+                color: @color-white;
+                font-size: 16px;
+            }
+        }
+        
+    }
+
+
+    .tabs__bar{
+        height: 58px;
+        margin-top: 8px;
+        @media (max-width: @screen-xs) {
+            height: 54px;
+            margin-top: 0;}        
+        
+    }
+    .tabs:not(.tabs--centered):not(.tabs--grow):not(.tabs--mobile) .tabs__wrapper--scrollable,.tabs:not(.tabs--centered):not(.tabs--grow) .tabs__wrapper--scrollable{
+        margin: 0;
+        
+        .tabs__item{
+            color: @color-white !important;
+            font-size: 16px;
+            letter-spacing: -0.2px;
+            text-transform: none;
+            padding: 0 19px;
+            &.tabs__item--active{
+                font-weight: bold;
+                letter-spacing: -0.3px;
+            }
+        }    
+        
+    }
+    
+
+    .pagination{
+        i.sbf{
+            font-size: 17px;
+            color: @color-main-purple;
+            &.left{ transform: scale(-1,1);}
+        }
+        .pagination__item,.pagination__navigation, .pagination__item--active.primary{
+            background: none!important;
+            border: none;
+            box-shadow: none;
+            width: auto;
+            height: auto;
+            line-height: 1.79;
+            font-size: 14px;
+            letter-spacing: -0.4px;
+            color: #000000;
+            outline: none;
+        }
+        .pagination__navigation{margin: 0 17px;}
+        .pagination__item--active.primary{
+            color: #000000;
+            font-weight: bold;
+            
+        }
+    }
+    
+}
 
 

@@ -9,6 +9,6 @@
 
         public int Files { get; set; }
         public int Answers { get; set; }
-        public string UserName { get; set; }
+        public UserDto User { get; set; }
     }
 }
