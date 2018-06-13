@@ -10,5 +10,5 @@ export default {
     smsCodeVerification: (data) => axios.post("/sms/verify", {number: data}),
     signIn: (email,captcha,rememberMe) => axios.post("login", {email, captcha, rememberMe}),
     getAccountNum: () => axios.post("/Register/password"),
-    getLocalCode:()=>axios.get("https://api.ipdata.co")
+    getLocalCode:()=>axios.get("/sms/code")
 }
