@@ -75,7 +75,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [AllowAnonymous, HttpGet]
+        [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<IActionResult> GetQuestionsAsync(GetQuestionsRequest model,
             [FromServices] IQuestionSearch questionSearch,
             [FromServices] IQueryBus queryBus,
@@ -95,7 +95,7 @@ namespace Cloudents.Web.Api
             string nextPageLink = null;
             if (p?.Any() == true)
             {
-                nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
+                nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }
 
             return Ok(new WebResponseWithFacet<QuestionDto>
