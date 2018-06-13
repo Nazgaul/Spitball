@@ -18,13 +18,13 @@
                 <v-tabs-items>
                      <v-tabs-content :key="'1'" :id="'tab-1'">
                         <v-flex xs12>
-                            <table class="custom-table" cellspacing="0" cellpadding="0">
+                            <table class="custom-table balances" cellspacing="0" cellpadding="0">
                                 <thead>
                                     <tr>
                                         <th width="38px"></th>
                                         <th width="380px"></th>
-                                        <th width="110px">Points</th>
-                                        <th width="140px">$ value</th>
+                                        <th width="110px"><strong>Points</strong></th>
+                                        <th width="140px"><strong>$ value</strong></th>
                                         <th width="189px"></th>
                                     </tr>
                                 </thead>
@@ -88,7 +88,7 @@
 
                     <v-tabs-content :key="'2'" :id="'tab-2'" class="tab-padding">
                         <v-flex xs12>
-                                 <v-data-table
+                                 <!-- <v-data-table
                                     v-bind:headers="headers"
                                     v-bind:items="items"
                                     v-bind:search="search"
@@ -107,8 +107,33 @@
                                             <td  class="text-xs-right">{{ props.item.protein }}</td>
                                             <td  class="text-xs-right">{{ props.item.sodium }}</td>
                                         </template>
-                                    </v-data-table>
-                                    <div class="text-xs-center pt-2">
+                                    </v-data-table> -->
+
+                                    <table class="custom-table transaction" cellspacing="0" cellpadding="0">
+                                        <thead>
+                                            <tr>
+                                                <th width="38px"></th>
+                                                <th width="110px">Date</th>
+                                                <th width="110px">Action</th>
+                                                <th width="110px">Type</th>
+                                                <th width="110px">Amount</th>
+                                                <th width="110px"><strong>Balance</strong></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(item,key) in items">
+                                                <td class="number">{{key+1}}</td>
+                                                <td>{{item.fat}}</td>
+                                                <td>{{item.carbs}}</td>
+                                                <td>{{item.protein}}</td>
+                                                <td>{{item.sodium}} pt</td>
+                                                <td>
+                                                    <strong>{{item.sodium}} pt</strong>
+                                                </td>
+                                            </tr>                                            
+                                        </tbody>
+                                    </table>
+                                    <div class="text-xs-center pt-2" :class="{'bottom-btn':$vuetify.breakpoint.xsOnly}">
                                         <v-pagination total-visible=4 v-model="pagination.page" :length="pages" next-icon="sbf-arrow-right" prev-icon="sbf-arrow-right left"></v-pagination>
                                     </div>
                         </v-flex>

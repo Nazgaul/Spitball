@@ -84,7 +84,10 @@ namespace ConsoleApp
            // var z = ty.Split(new[] {'.', '@'}, StringSplitOptions.RemoveEmptyEntries)[0];
 
             var a = container.Resolve<IQuestionRepository>();
-            var t = await a.GetQuestionsAsync(new QuestionsQuery(), default);
+            var t = await a.GetQuestionsAsync(new QuestionsQuery()
+            {
+                Term = "files"
+            }, default);
             
 
             //var t = await a.GetQuestionDtoAsync(704, default);

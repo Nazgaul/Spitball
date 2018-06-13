@@ -95,7 +95,7 @@
                                             <!-- <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                                 <v-icon>sbf-rocket</v-icon>
                                             </v-btn> -->
-                                            <user-avatar slot="activator" @click.native="drawer = !drawer" size="32" :user-name="accountUser.name"/>
+                                            <user-avatar slot="activator" @click.native="drawer = !drawer" size="32" :user-name="accountUser.name" :user-id="accountUser.id"/>
                                             <menu-list :isAuthUser="loggedIn" ></menu-list>
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>

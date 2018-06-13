@@ -8,9 +8,9 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using JetBrains.Annotations;
+using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Linq;
-using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Data.Repositories
 {
@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
 
 
-            var queryOverObj = Session.QueryOver<Question>(() => questionAlias)
+            var queryOverObj = Session.QueryOver(() => questionAlias)
                 .JoinAlias(x => x.Subject, () => commentAlias)
                 .JoinAlias(x => x.User, () => userAlias)
                 .SelectList(l => l
@@ -58,6 +58,17 @@ namespace Cloudents.Infrastructure.Data.Repositories
             {
                 queryOverObj.WhereRestrictionOn(() => commentAlias.Text).IsIn(query.Source);
             }
+
+            if (!string.IsNullOrEmpty(query.Term))
+            {
+                var projection = Projections.SqlFunction("FullTextContains",
+                    NHibernateUtil.Boolean,
+                    Projections.Property<Question>(x => x.Text),
+                    Projections.Constant(query.Term));
+
+                queryOverObj.Where(new ProjectionAsCriterion(projection));
+            }
+
             queryOverObj.OrderBy(o => o.Id).Desc
                 .Skip(query.Page * 50)
                 .Take(50);
@@ -68,6 +79,15 @@ namespace Cloudents.Infrastructure.Data.Repositories
             var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(false);
             var facet = await facetsFuture.GetEnumerableAsync(token).ConfigureAwait(false);
 
+
+            //var retVal =  futureQueryOver.GetEnumerable();
+            //var facet =  facetsFuture.GetEnumerable();
+
+            //return Task.FromResult(new ResultWithFacetDto<QuestionDto>
+            //{
+            //    Result = retVal,
+            //    Facet = facet
+            //});
             return new ResultWithFacetDto<QuestionDto>
             {
                 Result = retVal,

@@ -18,7 +18,7 @@ export default {
     methods: {
         changeActiveTab(tabId) {
             this.activeTab = tabId;
-        }        
+        }
     },
     computed: {
         ...mapGetters(["accountUser"]),
@@ -26,7 +26,7 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         isMyProfile() {
-            return (this.accountUser && this.accountUser.id) ? this.profileData.user.id == this.accountUser.id : false;
+            return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
         }
     },
     created() {
