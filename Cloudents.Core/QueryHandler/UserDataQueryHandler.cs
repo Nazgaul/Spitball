@@ -21,4 +21,20 @@ namespace Cloudents.Core.QueryHandler
            return _userRepository.GetUserByExpressionAsync(query, token);
         }
     }
+
+
+    public class UserDataByIdQueryHandler : IQueryHandlerAsync<long, User>
+    {
+        private readonly IUserRepository _userRepository;
+
+        public UserDataByIdQueryHandler(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+        public Task<User> GetAsync(long query, CancellationToken token)
+        {
+            return _userRepository.GetAsync(query, token);
+        }
+    }
 }
