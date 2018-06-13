@@ -20,7 +20,6 @@ const allModules = [
     "./wwwroot/content/main.less",
     "./ClientApp/myFont.font.js",
     "vuex-persistedstate",
-    "vue-star-rating",
     "vuetify/es5/components/Vuetify",
     "vuetify/es5/components/VApp",
     "vuetify/es5/components/VGrid",

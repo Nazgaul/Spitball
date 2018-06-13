@@ -165,7 +165,7 @@
         },
         computed: {
             ...mapGetters(['getUniversityName',  'accountUser','unreadMessages']),
-            // isMobile(){return this.$vuetify.breakpoint.xsOnly;},
+            isMobile(){return this.$vuetify.breakpoint.xsOnly;},
             loggedIn(){return this.accountUser!==null}
     },
         watch:{
