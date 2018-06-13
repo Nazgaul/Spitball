@@ -5,10 +5,6 @@
                 <h1 class="step-title">Login</h1>
                 <form @submit.prevent="submit">
                     <sb-input :errorMessage="errorMessage.email" :required="true" class="email-field" type="email" name="email" id="input-url" v-model="userEmail" placeholder="Enter your email address"></sb-input>
-                    <div class="checkbox-wrap">
-                        <input id="keep-logged-in" type="checkbox" v-model="rememberMe">
-                        <label for="keep-logged-in">keep me logged in</label>
-                    </div>
                     <vue-recaptcha class="recaptcha-wrapper"
                                    sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
                                    @verify="onVerify" @expired="onExpired"></vue-recaptcha>

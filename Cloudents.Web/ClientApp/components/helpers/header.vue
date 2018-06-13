@@ -105,13 +105,13 @@
                                     <a v-if="!loggedIn" class="header-login" href="/register">Sign Up</a>
                                     <a v-if="!loggedIn" class="header-login" href="/signin">Login</a>
                                     
-                <!---->
-                                    <!--<v-menu bottom left offset-y class="gamburger" v-if="!loggedIn || $vuetify.breakpoint.xsOnly" >-->
-                                        <!--<v-btn icon slot="activator" @click.native="drawer = !drawer">-->
-                                            <!--<v-icon>sbf-menu</v-icon>-->
-                                        <!--</v-btn>-->
-                                        <!--<menu-list :isAuthUser="loggedIn" v-if="$vuetify.breakpoint.smAndUp"></menu-list>-->
-                                    <!--</v-menu>   -->
+
+                                    <v-menu bottom left offset-y class="gamburger" v-if="!loggedIn || $vuetify.breakpoint.xsOnly" >
+                                        <v-btn icon slot="activator" @click.native="drawer = !drawer">
+                                            <v-icon>sbf-menu</v-icon>
+                                        </v-btn>
+                                        <menu-list :isAuthUser="loggedIn" v-if="$vuetify.breakpoint.smAndUp"></menu-list>
+                                    </v-menu>
                                     
                                 </div>
                             </v-toolbar-items>

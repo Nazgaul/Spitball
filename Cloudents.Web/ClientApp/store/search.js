@@ -30,7 +30,6 @@ const actions = {
         return searchService.nextPage({url,vertical});
     },
     fetchingData(context, { name, params, page}){
-        debugger;
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
          let paramsList = {...context.state.search,...params, university, page};
             //update box terms
