@@ -97,8 +97,8 @@ namespace Cloudents.Web.Identity
         public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             var p = long.Parse(userId);
-            Expression<Func<User, bool>> expression = f => f.Id == p;
-            return _queryBus.QueryAsync<Expression<Func<User, bool>>, User>(expression, cancellationToken);
+            //Expression<Func<User, bool>> expression = f => f.Id == p;
+            return _queryBus.QueryAsync<long, User>(p, cancellationToken);
         }
 
         public Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
