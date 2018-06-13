@@ -23,6 +23,7 @@
     @media(min-width: (@screen-sm)){  margin-top: @marginTop;}
 }
 .sec-result {
+    max-width: 608px;
     width: 100%;
     //max-width: 608px;
     //margin-top: @marginTop;
@@ -33,12 +34,14 @@
     //}
     //margin-top: @spaceFromTop;
     //.results-wrapper{
-        max-width: 608px;
+    //    max-width: 608px;
     //}
     .result-cell {
         border-radius: 4px;
         overflow: hidden;
         position: relative;
+        width: 100%;
+        max-width: 608px;
         /*@media(max-width: 599px) {
             margin-left: 8px;
             margin-right: 8px;
@@ -140,6 +143,8 @@
     max-height: ~"calc(100vh - @{upperSpace} - 16px)"; //container padding from bottom is 16
     top: @upperSpace;
     margin-left: 32px;
+    max-width: 400px;
+    width: 100%;
 
     .side-bar-wrapper {
         max-width: 300px;

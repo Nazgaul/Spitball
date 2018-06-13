@@ -1,7 +1,7 @@
 @import "../../mixin.less";
 
 .profile-page{
-
+    .limited-width();
     margin-top: 16px;
 
     @media (max-width: @screen-xs) {
@@ -14,11 +14,18 @@
         }
     }
 
+    .data-wrapper{
+        @media(min-width: @screen-sm) {
+            margin-left: @logoWidth;
+        }
+    }
+
     .user-question {
         margin-bottom: 17px;
     }
 
-    .web-content{margin-left: 16px;    flex: 0.7 1 auto;
+    .web-content{margin-left: 16px;
+        //flex: 0.7 1 auto;
         .question-card{margin-bottom: 16px;}
     }
 
@@ -34,7 +41,6 @@
         font-size: 14px;
         color: #5d5d5d;
         text-align: center;
-        margin-left: 100px;
         width: 209px;
 
         @media (max-width: @screen-xs) {
