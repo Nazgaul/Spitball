@@ -2,12 +2,15 @@
 
 .wallet-page{   
     max-width: 846px;
-    min-height: 448px;
+    min-height: 512px;
     background-color: @color-white;
     box-shadow: 0 0 2px 0 #888b8e;
     margin: 48px auto auto;
 
-    @media (max-width: @screen-xs) { margin: 0; }     
+    @media (max-width: @screen-xs) { 
+        margin: 0; 
+        height: 100%;
+    }     
     
 
     .header{
@@ -75,6 +78,75 @@
         }    
         
     }
+    
+    .custom-table{
+        width: 100%;
+        font-size: 16px;
+        // line-height: 1.56;
+        letter-spacing: -0.4px;
+        border: none;
+
+        thead{ background-color: #f3f3ff;font-weight: bold;}
+
+        .total,th{color: @color-main-purple; }
+        .number{ border-right: solid 2px @color-medium-grey; }
+
+        tr{height: 48px;}
+        td{ text-align: center; }
+        tr:nth-child(2n){background-color: @color-light-grey; }
+        td:nth-child(2){
+            text-align: left; 
+            padding-left: 34px;
+            @media (max-width: @screen-xs) {padding-left: 16px;}
+         }
+        td:nth-child(4),th:nth-child(4){
+            text-align: right;
+            @media (max-width: @screen-xs) {padding-right: 22px;}
+        }  
+        
+        @media (max-width: @screen-xs) {
+            td:nth-child(1),th:nth-child(1),td:nth-child(5),th:nth-child(5){
+                display: none;
+            }
+         }
+    }
+
+    .cash-out,.cash-out-big{
+        width: 88px;
+        height: 24px;
+        border-radius: 4px;
+        background-color: #d0021b;
+        color: @color-white;
+        font-size: 14px;
+        font-weight: bold;
+        outline: none;
+        letter-spacing: -0.2px;
+        margin-right: 12px;
+    }    
+    
+    
+    .bottom-btn{
+
+        padding: 16px 17px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+
+        .cash-out-big{
+            display: none;
+            height: 48px;
+            @media (max-width: @screen-xs) { 
+                font-size: 18px;
+                line-height: 1.39;
+                letter-spacing: -0.5px;
+                display: block;
+                margin: 0;
+                width: 100%;
+            }     
+        }
+
+    }
+
     
 
     .pagination{
