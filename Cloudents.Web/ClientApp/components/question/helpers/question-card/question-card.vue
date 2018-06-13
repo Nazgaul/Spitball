@@ -6,7 +6,7 @@
             </div>
             <!-- <p class="q-category">{{cardData.subject}}</p> -->
         </div>
-        <user-block :user="cardData.user" v-if="cardData.user"></user-block>
+        <user-block :user="cardData.user" v-if="cardData.user" :name="cardData.subject"></user-block>
 
         <div v-else class="q-answer">
 
