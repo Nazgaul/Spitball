@@ -43,7 +43,7 @@ namespace Cloudents.Web.Api
             var taskSms = client.SendSmsAsync(user, token);
 
             await Task.WhenAll(taskSms, taskSignIn).ConfigureAwait(false);
-            if (taskSms.Result && taskSignIn.Result.Succeeded)
+            if (taskSms.Result && taskSignIn.Result.RequiresTwoFactor)
             {
                 return Ok();
             }
