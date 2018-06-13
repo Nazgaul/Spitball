@@ -18,7 +18,71 @@
                 <v-tabs-items>
                      <v-tabs-content :key="'1'" :id="'tab-1'">
                         <v-flex xs12>
-                            <p>Tab1</p>
+                            <table class="custom-table" cellspacing="0" cellpadding="0">
+                                <thead>
+                                    <tr>
+                                        <th width="38px"></th>
+                                        <th width="380px"></th>
+                                        <th width="110px">Points</th>
+                                        <th width="140px">$ value</th>
+                                        <th width="189px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="number">1</td>
+                                        <td>Awarded</td>
+                                        <td>250 pt</td>
+                                        <td>
+                                            <strong>$ 25.00</strong>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="number">2</td>
+                                        <td>Earned (Withdrawable)</td>
+                                        <td>987 pt</td>
+                                        <td>
+                                            <strong>$ 98.70</strong>
+                                        </td>
+                                        <td>
+                                            <button class="cash-out">Cash Out</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="number">3</td>
+                                        <td>Pending</td>
+                                        <td>10 pt</td>
+                                        <td>
+                                            <strong>$ 1.00</strong>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="total">
+                                        <td></td>
+                                        <td>Total</td>
+                                        <td>
+                                            <strong>1.244 pt</strong>
+                                        </td>
+                                        <td>
+                                            <strong>$ 124.40</strong>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Staked</td>
+                                        <td>-25 pt</td>
+                                        <td>
+                                            <strong>-$ 2.50</strong>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="bottom-btn">
+                                <button class="cash-out-big">Cash Out</button>
+                            </div>
                         </v-flex>
                     </v-tabs-content>
 
