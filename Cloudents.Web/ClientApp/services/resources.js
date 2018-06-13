@@ -29,7 +29,7 @@ let transferNextPage = (res) => {
 let transferResultAsk = res => {
     const itemResult = res.result || [];
     const items = itemResult.map(val => { return { ...val, template: "ask" } });
-    return { data: items, source: res.result.facet, facet: res.facet }
+    return { data: items, source: res.result.facet, facet: res.facet,nextPage: res.nextPageLink }
 };
 let transferResultTutor = data => {
     let body = data || {};
@@ -76,7 +76,6 @@ const courseFunctions = {
     getCourse: (params) => axios.get("course/search", { params }),
     createCourse: (data) => axios.post("course/create", data)
 };
-export const interpetPromise = (sentence) => axios.get("AI", { params: { sentence } });
 const getBookDetails = ({ type, isbn13 }) => axios.get(`book/${type}`, { params: { isbn13 } });
 const getPlacesDetails = ({ id }) => {
     return axios.get("places/id", { params: { id } });

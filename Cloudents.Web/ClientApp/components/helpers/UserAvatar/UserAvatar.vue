@@ -1,11 +1,14 @@
 <template>
-    <v-avatar size="32" :class="'user-avatar userColor' + userName.length % 11">
+    <component :is="userId?'router-link':'template'"  :to="{name:'profile',params:{id:userId}}">
+        <v-avatar tag="v-avatar" size="32" :class="'user-avatar userColor' + userName.length % 11">
         <span class="white--text">{{userName.slice(0,2).toUpperCase()}}</span>
-    </v-avatar>
+        </v-avatar>
+    </component>
 </template>
 <script>
     export default {
         props:{
+            userId:Number,
             userName:{
                 type:String
             }

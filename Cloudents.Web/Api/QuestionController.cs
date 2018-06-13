@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +8,7 @@ using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -73,24 +75,35 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [AllowAnonymous, HttpGet]
+        [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<IActionResult> GetQuestionsAsync(GetQuestionsRequest model,
             [FromServices] IQuestionSearch questionSearch,
             [FromServices] IQueryBus queryBus,
             CancellationToken token)
         {
-            //var str = string.Join(" ", model.Term ?? Enumerable.Empty<string>());
             var query = _mapper.Map<QuestionsQuery>(model);
+            ResultWithFacetDto<QuestionDto> result;
             if (string.IsNullOrWhiteSpace(query.Term))
             {
-                var retVal = await queryBus.QueryAsync<QuestionsQuery, ResultWithFacetDto<QuestionDto>>(query, token).ConfigureAwait(false);
-                return Ok(retVal);
+                result = await queryBus.QueryAsync<QuestionsQuery, ResultWithFacetDto<QuestionDto>>(query, token).ConfigureAwait(false);
             }
             else
             {
-                var retVal = await questionSearch.SearchAsync(query, token).ConfigureAwait(false);
-                return Ok(retVal);
+                result = await questionSearch.SearchAsync(query, token).ConfigureAwait(false);
             }
+            var p = result.Result?.ToList();
+            string nextPageLink = null;
+            if (p?.Any() == true)
+            {
+                nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
+            }
+
+            return Ok(new WebResponseWithFacet<QuestionDto>
+            {
+                Result = p,
+                Facet = result.Facet,
+                NextPageLink = nextPageLink
+            });
         }
     }
 }
