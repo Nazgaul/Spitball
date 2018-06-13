@@ -77,20 +77,18 @@ namespace Cloudents.Web.Api
 
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<IActionResult> GetQuestionsAsync(GetQuestionsRequest model,
-            [FromServices] IQuestionSearch questionSearch,
             [FromServices] IQueryBus queryBus,
             CancellationToken token)
         {
             var query = _mapper.Map<QuestionsQuery>(model);
-            ResultWithFacetDto<QuestionDto> result;
-            if (string.IsNullOrWhiteSpace(query.Term))
-            {
-                result = await queryBus.QueryAsync<QuestionsQuery, ResultWithFacetDto<QuestionDto>>(query, token).ConfigureAwait(false);
-            }
-            else
-            {
-                result = await questionSearch.SearchAsync(query, token).ConfigureAwait(false);
-            }
+            //if (string.IsNullOrWhiteSpace(query.Term))
+            //{
+            var result = await queryBus.QueryAsync<QuestionsQuery, ResultWithFacetDto<QuestionDto>>(query, token).ConfigureAwait(false);
+            //}
+            //else
+            //{
+            //result = await questionSearch.SearchAsync(query, token).ConfigureAwait(false);
+            //}
             var p = result.Result?.ToList();
             string nextPageLink = null;
             if (p?.Any() == true)

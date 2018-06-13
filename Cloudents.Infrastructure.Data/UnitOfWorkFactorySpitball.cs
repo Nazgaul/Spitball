@@ -33,13 +33,15 @@ namespace Cloudents.Infrastructure.Data
             //TODO: CREATE SCHEMA sb
             var configuration = Fluently.Configure()
                 .Database(
+                    
                     FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.GetConnectionString(Database.System))
-                        .DefaultSchema("sb")
+                        .DefaultSchema("sb").Dialect<SbDialect>()
 #if DEBUG
                                             .ShowSql
 #endif
 
                     )
+                
                 .ExposeConfiguration(BuildSchema);
             configuration.Mappings(m =>
             {
