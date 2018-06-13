@@ -77,7 +77,7 @@
                                         </v-list>
                                     </v-menu> -->
 
-                                    <div class="header-comments" v-if="loggedIn && !this.$vuetify.breakpoint.smAndDown">
+                                    <div class="header-comments" v-if="loggedIn && !$vuetify.breakpoint.smAndDown">
                                         <router-link :to="{name:'conversations'}">
                                             <v-icon>sbf-comment</v-icon>
                                             <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span> 
@@ -85,17 +85,12 @@
                                     </div>
 
                                     <div class="header-wallet" v-if="loggedIn">
-                                        <v-btn icon v-if="isMobile">
-                                            <v-icon>sbf-wallet</v-icon>
-                                        </v-btn>
-                                        <span class="bold" v-if="isMobile">${{accountUser.balance}}</span>
-
-                                        <span class="bold" v-if="!isMobile">1,024 pts</span>
-                                        <span v-if="!isMobile">$ 10.24</span>
+                                        <span class="bold">1,024 pts</span>
+                                        <span>$ 10.24</span>
                                     </div>
 
 
-                                    <div class="header-rocket" v-if="loggedIn && !isMobile">
+                                    <div class="header-rocket" v-if="loggedIn">
                                         <v-menu bottom left offset-y >
                                             <!-- <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                                 <v-icon>sbf-rocket</v-icon>
@@ -110,13 +105,13 @@
                                     <a v-if="!loggedIn" class="header-login" href="/register">Sign Up</a>
                                     <a v-if="!loggedIn" class="header-login" href="/signin">Login</a>
                                     
-                
-                                    <v-menu bottom left offset-y class="gamburger" v-if="!loggedIn || isMobile" >
-                                        <v-btn icon slot="activator" @click.native="drawer = !drawer">
-                                            <v-icon>sbf-menu</v-icon>
-                                        </v-btn>
-                                        <menu-list :isAuthUser="loggedIn" v-if="!isMobile"></menu-list>
-                                    </v-menu>   
+                <!---->
+                                    <!--<v-menu bottom left offset-y class="gamburger" v-if="!loggedIn || $vuetify.breakpoint.xsOnly" >-->
+                                        <!--<v-btn icon slot="activator" @click.native="drawer = !drawer">-->
+                                            <!--<v-icon>sbf-menu</v-icon>-->
+                                        <!--</v-btn>-->
+                                        <!--<menu-list :isAuthUser="loggedIn" v-if="$vuetify.breakpoint.smAndUp"></menu-list>-->
+                                    <!--</v-menu>   -->
                                     
                                 </div>
                             </v-toolbar-items>
@@ -136,7 +131,7 @@
             
         </v-toolbar>
 
-        <v-navigation-drawer temporary v-model="drawer" light absolute app v-if=isMobile width="280">
+        <v-navigation-drawer temporary v-model="drawer" light absolute app v-if=$vuetify.breakpoint.xsOnly width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
 
