@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Swashbuckle.AspNetCore.Swagger;
 using WebMarkupMin.AspNetCore2;
@@ -55,10 +56,8 @@ namespace Cloudents.Web
             {
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
-                options.SerializerSettings.Converters.Add(new IsoDateTimeConverter
-                {
-                    DateTimeStyles = DateTimeStyles.AssumeUniversal
-                });
+                options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+
             }).AddMvcOptions(o =>
                 {
                     o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));
