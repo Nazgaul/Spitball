@@ -14,7 +14,7 @@ namespace Cloudents.Web.Models
         [DataMember(Order = 3)]
         internal string Ip { get; set; }
 
-        [DataMember(Order = 3)]
+        [DataMember(Order = 4)]
         public string CallingCode { get; set; }
 
         public Location ToLocation()
