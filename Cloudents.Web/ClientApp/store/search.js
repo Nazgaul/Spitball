@@ -17,7 +17,7 @@ const mutations = {
 };
 
 const getters = {
-    loading: state => state.loading
+    getIsLoading: state => state.loading
 };
 const actions = {
     //Always update the current route according the flow
