@@ -20,17 +20,17 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(["UPDATE_LOADING"]),
+        ...mapMutations({updateLoading:"UPDATE_LOADING"}),
         next() {
             self = this;
             if(this.submitForm()) {
-                this.UPDATE_LOADING(true);
+                this.updateLoading(true);
                 registrationService.emailRegistration(this.userEmail, this.recaptcha)
                     .then(function () {
-                        self.UPDATE_LOADING(false);
+                        self.updateLoading(false);
                         self.emailSent = true;
                     }, function (error) {
-                        self.UPDATE_LOADING(false);
+                        self.updateLoading(false);
                         self.submitForm(false);
                         self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                     });
@@ -41,20 +41,20 @@ export default {
 
             var authInstance = gapi.auth2.getAuthInstance();
             if(this.submitForm()) {
-                this.UPDATE_LOADING(true);
+                this.updateLoading(true);
                 authInstance.signIn().then(function (googleUser) {
                     var idToken = googleUser.getAuthResponse().id_token;
                     registrationService.googleRegistration(idToken)
                         .then(function () {
-                            self.UPDATE_LOADING(false);
+                            self.updateLoading(false);
                             self.$emit('next');
                         }, function (reason) {
-                            self.UPDATE_LOADING(false);
+                            self.updateLoading(false);
                             self.submitForm(false);
                             console.error(reason);
                         });
                 },function (error) {
-                    self.UPDATE_LOADING(false);
+                    self.updateLoading(false);
                 });
             }
         },

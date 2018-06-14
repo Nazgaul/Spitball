@@ -10,7 +10,7 @@
                         </v-list-tile-content>
                     </router-link>
                 </template>
-                <v-list-tile v-else>
+                <v-list-tile v-else @click="()=>item.click?item.click():''">
                     <v-list-tile-content>
                         <v-list-tile-title>{{item.title}}</v-list-tile-title>
                     </v-list-tile-content>
@@ -46,12 +46,12 @@
                     <v-list-tile-title>My Profile</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
-            <v-list-tile @click="showSettings=true" @click.once="showSettingsFirst=true">
+            <v-list-tile @click="startIntercom" >
                 <v-list-tile-action>
-                    <v-icon>sbf-settings</v-icon>
+                    <v-icon>sbf-feedback</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Settings</v-list-tile-title>
+                    <v-list-tile-title>Feedback</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile @click="logout">
@@ -85,23 +85,23 @@
                 </v-list-tile-content>
             </router-link>
         </v-list>
-        <v-dialog v-if="showSettingsFirst" v-model="showSettings" content-class="settings-dialog" max-width="610">
-            <user-settings v-model="showSettings"></user-settings>
-        </v-dialog>
+        <!--<v-dialog v-if="showSettingsFirst" v-model="showSettings" content-class="settings-dialog" max-width="610">-->
+            <!--<user-settings v-model="showSettings"></user-settings>-->
+        <!--</v-dialog>-->
     </div>
 
 </template>
 
 
 <script>
+
     import {mapGetters, mapActions} from 'vuex'
     import {notRegMenu} from '../../settings/consts';
     import userBlock from "../user-block/user-block.vue"
-    import userSettings from "../../settings/view/settings.vue"
 
 
     export default {
-        components: {userBlock, userSettings},
+        components: {userBlock},
         props: {
             counter: {
                 required: false,
@@ -116,7 +116,10 @@
             currentTemplate(val) {
                 return val ? 'router-link' : 'v-list-tile';
             },
-            ...mapActions(['logout'])
+            ...mapActions(['logout']),
+            startIntercom(){
+                Intercom('showNewMessage')
+            }
         },
         data() {
             return {

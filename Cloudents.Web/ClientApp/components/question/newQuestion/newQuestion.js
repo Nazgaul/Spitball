@@ -19,7 +19,7 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(["UPDATE_LOADING"]),
+        ...mapMutations({updateLoading:"UPDATE_LOADING"}),
         submitQuestion() {
             if(this.accountUser && this.accountUser.balance < this.price){
                 this.errorMessage = "You don't have enough balance in your account"
@@ -27,15 +27,18 @@ export default {
             }
             var self = this;
             if (this.submitForm()) {
-                this.UPDATE_LOADING(true);
+                this.updateLoading(true);
+                console.log('start loading');
+                debugger;
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files)
                     .then(function () {
+                        debugger;
                             self.$router.push({path: '/ask', query: {q: ''}});
                         },
                         function (error) {
-                            self.UPDATE_LOADING(false);
+                            self.updateLoading(false);
                             console.error(error);
-                            this.submitForm(false);
+                            self.submitForm(false);
                         });
             }
         },

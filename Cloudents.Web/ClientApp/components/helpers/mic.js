@@ -50,7 +50,6 @@ export const micMixin = {
     
         computed: {
             voiceEnable() { return ("webkitSpeechRecognition" in window) || ("SpeechRecognition" in window)},
-            voiceAppend(){return this.voiceEnable?(this.isRecording?'sbf-mic-recording':'sbf-mic'):''}
         },
     props:{submitFunc:{type:Function}}
     };

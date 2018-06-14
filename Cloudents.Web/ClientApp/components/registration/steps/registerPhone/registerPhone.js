@@ -25,32 +25,32 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(["UPDATE_LOADING"]),
+        ...mapMutations({updateLoading:"UPDATE_LOADING"}),
         sendCode() {
-            this.UPDATE_LOADING(true);
+            this.updateLoading(true);
             var self = this
             registrationService.smsRegistration(this.phone.countryCode + '' + this.phone.phoneNum)
                 .then(function () {
-                    self.UPDATE_LOADING(false);
+                    self.updateLoading(false);
                     self.codeSent = true;
                     self.errorMessage.code = '';
                 }, function (error) {
                     self.submitForm(false);
-                    self.UPDATE_LOADING(false);
+                    self.updateLoading(false);
                     self.errorMessage.phone = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                 });
         },
         next() {
             var self = this;
             if (this.submitForm()) {
-                this.UPDATE_LOADING(true);
+                this.updateLoading(true);
                 registrationService.smsCodeVerification(this.confirmationCode)
                     .then(function () {
-                        self.UPDATE_LOADING(false);
+                        self.updateLoading(false);
                         self.$emit('next');
                     }, function (error) {
                         self.submitForm(false);
-                        self.UPDATE_LOADING(false);
+                        self.updateLoading(false);
                         self.errorMessage.code = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                     });
             }
