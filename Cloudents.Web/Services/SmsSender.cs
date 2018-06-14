@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Services
 {
+    [UsedImplicitly]
     public class SmsSender : ISmsSender
     {
         private readonly IRestClient _client;
@@ -26,7 +28,7 @@ namespace Cloudents.Web.Services
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber).ConfigureAwait(false);
             var message = new SmsMessage
             {
-                Message = code,
+                Message = $"Please insert the code: {code}",
                 PhoneNumber = user.PhoneNumber
             };
             return await _client.PostJsonAsync(
