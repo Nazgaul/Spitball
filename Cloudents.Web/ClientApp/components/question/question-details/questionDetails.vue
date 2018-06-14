@@ -56,12 +56,12 @@
                     <v-tabs-content :key="'1'" :id="'tab-1'" class="tab-padding">
                         <v-flex xs12>
                             <question-thread v-if="questionData" :questionData="questionData" :hasCorrectAnswer="getCorrectAnswer">
-                                <div slot="answer-form" class="mb-3" v-if="enableAnswer">
+                                <div slot="answer-form" class="mb-3 mt-3" v-if="enableAnswer">
                                     <div v-if="!questionData.answers || (questionData.answers && showForm)">
                                         <extended-text-area uploadUrl="/api/upload/ask"
                                                 v-model="textAreaValue"
                                                 :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
-                                        <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
+                                        <v-btn  color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
                                                class="add_answer">Add your answer
                                         </v-btn>
                                     </div>

@@ -27,11 +27,11 @@
             <v-icon>sbf-trash</v-icon>
         </button>
 
-        <p class="q-text" :class="{'answer': typeAnswer}">{{cardData.text}}</p>
+        <p class="q-text subheading" :class="{'answer': typeAnswer}">{{cardData.text}}</p>
 
         <!-- v-if="cardData.files.length" -->
         <div class="gallery" v-if="gallery&&gallery.length">
-            <v-carousel left-control-icon="sbf-arrow-right left" right-control-icon="sbf-arrow-right" interval="600000" hide-delimiters>
+            <v-carousel left-control-icon="sbf-arrow-right left" right-control-icon="sbf-arrow-right" interval="600000" hide-delimiters :hide-controls="gallery.length===1">
                 <v-carousel-item v-for="(item,i) in gallery" v-bind:src="item" :key="i"></v-carousel-item>
             </v-carousel>
         </div>
@@ -49,8 +49,8 @@
             <!-- v-else -->
             <div class="card-info general" v-if="!detailedView">
                 <div class="new-block">
-                    <div class="files">
-                        <template v-if="cardData.files">
+                    <div class="files"  v-if="cardData.files">
+                        <template>
                         <v-icon>sbf-attach</v-icon>
                         <span>{{cardData.files}}</span>
                         </template>
