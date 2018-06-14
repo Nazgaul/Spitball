@@ -54,7 +54,8 @@
   }
 
   .files{
-    margin-top: 24px;
+    //transition: visibility 4s, ease-out;
+    background-color: #c7c7ee;
     .preview-list{
       overflow: hidden;
       padding: 1px;
@@ -229,4 +230,18 @@ ul.actions_text {
       background: blue;
     }
   }
+}
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateY(-10px);
+  opacity: 0;
 }

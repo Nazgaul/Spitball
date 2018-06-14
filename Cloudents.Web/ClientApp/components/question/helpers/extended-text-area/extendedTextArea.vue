@@ -40,7 +40,8 @@
                     <v-icon right>sbf-close</v-icon>
                 </span> -->
             </div>
-            <div class="files">
+            <transition name="slide-fade">
+            <div class="files pl-4 pr-4 pt-3 pb-2" v-if="previewList.length" >
                 <ul class="preview-list" v-if="previewList.length">
                     <li v-if="previewList.length" v-for="(image,index) in previewList">
                         <button class="hover-trash" @click="deletePreview(index)">
@@ -55,6 +56,7 @@
                     </li>
                 </ul>
             </div>
+            </transition>
         </v-flex>
 </template>
 <script src="./extendedTextArea.js"></script>

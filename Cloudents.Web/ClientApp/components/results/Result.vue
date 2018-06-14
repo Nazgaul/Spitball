@@ -21,7 +21,7 @@
                 <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical">
                     <v-container class="pa-0 ma-0 results-wrapper">
                         <v-layout column>
-                            <v-flex class="promo-cell mb-2 elevation-1" order-xs1 v-if="showPromo">
+                            <v-flex class="promo-cell mb-4 elevation-1" order-xs1 v-if="showPromo">
                                 <button class="close-btn pa-2" @click="showPromo=false">
                                     <v-icon right>sbf-close</v-icon>
                                 </button>
@@ -41,18 +41,18 @@
                             <slot name="resultData" :items="items">
                                 <!-- && $vuetify.breakpoint.xsOnly -->
                                 <router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
-                                <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading" class="personalize-wrapper pa-3 mb-2 elevation-1">
+                                <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading" class="personalize-wrapper pa-3 mb-3 elevation-1">
                                     <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                                 </v-flex>
-                                <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
+                                <v-flex class="result-cell elevation-1 mb-3" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component v-if="item.template!=='ask'" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" :class="item.template!='video' ? 'border-color-'+$route.path.slice(1):''"></component>
-                                    <router-link v-else :to="{path:'/question/'+item.id}">
+                                    <router-link v-else :to="{path:'/question/'+item.id}" class="mb-5">
                                         <question-card :cardData="item"></question-card>
                                     </router-link>
 
                                     <!--<div class="show-btn" v-if="item.template!='video'" :class="'color-'+$route.path.slice(1)">Show Me</div>-->
                                 </v-flex>
-                                <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
+                                <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                     <suggest-card :name="currentSuggest"></suggest-card>
                                 </router-link>
                             </slot>
@@ -60,7 +60,7 @@
                     </v-container>
                 </scroll-list>
                 <div v-else>
-                    <div class="result-cell elevation-1 mb-2 empty-state" xs-12>
+                    <div class="result-cell elevation-1 mb-3 empty-state" xs-12>
                         <v-layout row class="ma-3">
                             <v-flex class="img-wrap mr-3">
                                 <empty-state></empty-state>

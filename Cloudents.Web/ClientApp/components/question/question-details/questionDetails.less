@@ -1,5 +1,7 @@
 @import "../../../mixin.less";
-
+.theme--light .btn.btn--disabled:not(.btn--icon):not(.btn--flat){
+    background-color: rgba(0,0,0,0.12) !important;
+}
 .answer-question{
     .limited-width();
     @media(max-width: @screen-sm){
@@ -40,17 +42,21 @@
     }
 
     .add_answer{
+        width: 100%;
         border: 8px solid #c7c7ee !important;
         border-top: 0px !important;
         margin: 0;
         height: 52px;
-        border-radius: 4px;
-        font-size: 19px;
-        font-weight: bold;
+        border-radius: 0 0 4px 4px;
+        font-size: 18px;
         text-transform: none;
         &.primary {
             background-color: #3532d5 !important;
           }
+        &:disabled{
+            background-color: #bbbbbb!important;
+            color: white!important;
+        }
     }
 
     .tab-padding{padding:8px; margin-bottom: 40px;}
