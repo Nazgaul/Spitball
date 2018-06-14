@@ -61,12 +61,13 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
             if (!string.IsNullOrEmpty(query.Term))
             {
-                var projection = Projections.SqlFunction("FullTextContains",
-                    NHibernateUtil.Boolean,
-                    Projections.Property<Question>(x => x.Text),
-                    Projections.Constant(query.Term));
+                //var projection = Projections.SqlFunction("FullTextContains",
+                //    NHibernateUtil.Boolean,
+                //    Projections.Property<Question>(x => x.Text),
+                //    Projections.Constant(query.Term));
 
-                queryOverObj.Where(new ProjectionAsCriterion(projection));
+                queryOverObj.Where(new FullTextCriterion(Projections.Property<Question>(x => x.Text),
+                    query.Term));
             }
 
             queryOverObj.OrderBy(o => o.Id).Desc

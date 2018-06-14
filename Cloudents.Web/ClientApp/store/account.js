@@ -94,6 +94,7 @@ const actions = {
                     me: me,
                     signature: state.user.token
                 });
+                //talkSession.syncThemeForLocalDev("/content/talkjs-theme.css")
                 talkSession.unreads.on("change", m => {
                     commit("updateMessageCount", conversationIds.length);
                 });

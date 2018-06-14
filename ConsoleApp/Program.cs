@@ -145,36 +145,6 @@ namespace ConsoleApp
             //await topicClient.CloseAsync();
         }
 
-        static async Task SendMessagesAsync(int numberOfMessagesToSend)
-        {
-            try
-            {
-                for (var i = 0; i < numberOfMessagesToSend; i++)
-                {
-                    // Create a new message to send to the topic.
-                    string messageBody = $"Message {i}";
-                    var m2 = new Message();
-                    m2.UserProperties["t"] = "T";
-                    var message = new Message(Encoding.UTF8.GetBytes(messageBody));
-                    message.Label = "2";
-                    // Write the body of the message to the console.
-                    Console.WriteLine($"Sending message: {messageBody}");
-
-                    // Send the message to the topic.
-                    await topicClient.SendAsync(message);
-                }
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine($"{DateTime.Now} :: Exception: {exception.Message}");
-            }
-        }
-
-
-
-
-
-
     }
    
 }
