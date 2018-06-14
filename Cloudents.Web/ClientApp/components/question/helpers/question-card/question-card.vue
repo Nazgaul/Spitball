@@ -6,23 +6,22 @@
             </div>
             <!-- <p class="q-category">{{cardData.subject}}</p> -->
         </div>
-        <user-block :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
-            <template> · <span class="timeago" :datetime="cardData.dateTime"></span></template>
-        </user-block>
+            <user-block :user="cardData.user" v-if="cardData.user" :name="cardData.subject||'Answer'">
+                <template> · <span class="timeago" :datetime="cardData.dateTime"></span><span v-if="typeAnswer" class="q-answer">
+                    <button class="accept-btn right" @click="markAsCorrect" v-if="showApproveButton && !flaggedAsCorrect">
+                        <v-icon>sbf-check-circle</v-icon>
+                        <span>Accept</span>
+                    </button>
 
-        <div v-else class="q-answer">
-
-            <button class="accept-btn" @click="markAsCorrect" v-if="showApproveButton & !flaggedAsCorrect">
-                <v-icon>sbf-check-circle</v-icon>
-                <span>Accept</span>
-            </button>
-
-            <div class="choosen-answer" v-if="flaggedAsCorrect">
-                <v-icon>sbf-check-circle</v-icon>
-            </div>
+                    <span class="choosen-answer right" v-if="flaggedAsCorrect">
+                        <v-icon>sbf-check-circle</v-icon></span>
 
 
-        </div>
+                </span></template>
+            </user-block>
+
+
+
         <button class="delete" v-if="detailedView && canDelete"
                 @click="showDeleteDialog = true">
             <v-icon>sbf-trash</v-icon>

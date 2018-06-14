@@ -50,9 +50,9 @@ export default {
                 return this.accountUser.id === this.cardData.user.id; // will work once API call will also return userId
             }
         },
-        haveAnswers() {
-            return this.cardData.answers.length
-        },
+        // haveAnswers() {
+        //     return this.cardData.answers.length
+        // },
         canDelete(){
             if(!this.cardOwner){
                 return false;
@@ -61,7 +61,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions({'delete': 'deleteQuestion'}),
+        ...mapActions({'delete': 'deleteQuestion',correctAnswer:'correctAnswer'}),
         deleteQuestion() {
             this.delete({id:this.cardData.id,type:(this.typeAnswer?'Answer':'Question')}).then(() => {
                  this.$router.push('/ask')
@@ -69,7 +69,7 @@ export default {
         },
         markAsCorrect() {
             this.flaggedAsCorrect = true;
-            this.$parent.markAsCorrect(this.cardData.id); //TODO: MEH :\  check if it can be done in a better way...
+            this.correctAnswer(this.cardData.id);
         }
     },
     mounted(){

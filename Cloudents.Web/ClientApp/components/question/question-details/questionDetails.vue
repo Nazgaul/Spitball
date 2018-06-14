@@ -55,7 +55,7 @@
 
                     <v-tabs-content :key="'1'" :id="'tab-1'" class="tab-padding">
                         <v-flex xs12>
-                            <question-thread v-if="questionData" :questionData="questionData">
+                            <question-thread v-if="questionData" :questionData="questionData" :hasCorrectAnswer="getCorrectAnswer">
                                 <div slot="answer-form" class="mb-3" v-if="enableAnswer">
                                     <div v-if="!questionData.answers || (questionData.answers && showForm)">
                                         <extended-text-area uploadUrl="/api/upload/ask"
