@@ -198,7 +198,9 @@ const app = new Vue({
 // });
 
 function checkUserStatus(to, next) {
+
     store.dispatch('userStatus',{isRequire:to.meta.requiresAuth,to}).then(() => {
+        
         if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
             next("/signin");
         }
@@ -206,6 +208,7 @@ function checkUserStatus(to, next) {
             next();
         }
     }).catch(error => {
+        console.error(error);
         next("/signin");
     });
 }

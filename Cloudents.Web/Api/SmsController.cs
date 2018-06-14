@@ -94,15 +94,8 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model, CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
-            var t2 = _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number);
-
-            //Temp
-            var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id, user.Email)
-            {
-                Email = user.Email
-            }, token);
-            await Task.WhenAll(t1, t2).ConfigureAwait(false);
-            var v = t2.Result;
+            var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number);
+           
             if (v.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
