@@ -94,7 +94,7 @@ export default {
     computed: {
         ...mapGetters(["talkSession", "accountUser", "chatAccount","getCorrectAnswer"]),
         userNotAnswered() {
-            return !this.questionData.answers.length || !this.questionData.answers.filter(i => i.user.id === this.accountUser.id);
+            return !this.questionData.answers.length || !this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length;
         },
         enableAnswer() {
             return !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered)

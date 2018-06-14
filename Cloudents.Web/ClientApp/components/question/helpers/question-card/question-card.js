@@ -34,6 +34,7 @@ export default {
     },
     data() {
         return {
+            isDeleted:false,
             showDeleteDialog: false,
             flaggedAsCorrect: false
         }
@@ -64,7 +65,7 @@ export default {
         ...mapActions({'delete': 'deleteQuestion',correctAnswer:'correctAnswer'}),
         deleteQuestion() {
             this.delete({id:this.cardData.id,type:(this.typeAnswer?'Answer':'Question')}).then(() => {
-                 this.$router.push('/ask')
+                !this.typeAnswer?this.$router.push('/ask'):this.isDeleted=true
             })
         },
         markAsCorrect() {
