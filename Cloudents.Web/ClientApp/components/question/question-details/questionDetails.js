@@ -33,6 +33,8 @@ export default {
                         self.updateLoading(false);
                         //TODO: do this on client side (render data inserted by user without calling server)
                         self.getData();
+                    },()=>{self.submitForm(false);
+                        self.updateLoading(true);
                     });
             }
         },
