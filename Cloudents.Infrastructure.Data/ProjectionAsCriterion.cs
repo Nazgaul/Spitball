@@ -16,11 +16,9 @@ namespace Cloudents.Infrastructure.Data
             _projection = projection;
         }
 
-
-       
-
         public override SqlString ToSqlString(ICriteria criteria, ICriteriaQuery criteriaQuery)
         {
+
             var columnNames = CriterionUtil.GetColumnNamesForSimpleExpression(
                 null, _projection, criteriaQuery, criteria, this, string.Empty);
 
@@ -37,9 +35,6 @@ namespace Cloudents.Infrastructure.Data
             }
             return sqlBuilder.ToSqlString();
         }
-
-       
-
         public override TypedValue[] GetTypedValues(ICriteria criteria, ICriteriaQuery criteriaQuery)
         {
             var typedValues = new List<TypedValue>();
