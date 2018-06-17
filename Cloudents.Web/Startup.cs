@@ -159,7 +159,7 @@ namespace Cloudents.Web
                        Configuration["AzureSearch:SearchServiceAdminApiKey"]),
                 Redis = Configuration["Redis"],
                 Storage = Configuration["Storage"],
-                FunctionEndpoint = Configuration["FunctionEndpoint"],
+                FunctionEndpoint = Configuration["AzureFunction:EndPoint"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"],
                 ServiceBus = Configuration["ServiceBus"]
             };
