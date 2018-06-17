@@ -65,9 +65,6 @@ export default {
         buildChat() {
             if (this.talkSession && this.questionData) {
                 const otherUser = this.questionData.user;
-                if (this.accountUser.id === otherUser.id) {
-                    return;
-                }
                 var other1 = new Talk.User(otherUser.id);
 
                 //_${this.accountUser.id}_${otherUser.id}
