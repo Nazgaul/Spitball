@@ -42,15 +42,6 @@ namespace Cloudents.Core.Storage
     }
 
 
-    [DataContract]
-    public class SmsMessage //: IQueueName
-    {
-        [DataMember]
-        public string PhoneNumber { get; set; }
-        [DataMember]
-        public string Message { get; set; }
-    }
-
     [Serializable]
     public class RegistrationEmail : BaseEmail
     {

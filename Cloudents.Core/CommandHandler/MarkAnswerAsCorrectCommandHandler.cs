@@ -39,7 +39,6 @@ namespace Cloudents.Core.CommandHandler
             }
             question.CorrectAnswer = answer;
             await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
-
             await _blockChainProvider.MarkAsCorrectAsync(_blockChain.GetAddress(question.User.PrivateKey), _blockChain.GetAddress(answer.User.PrivateKey), question.Id, answer.Id, token).ConfigureAwait(true);
         }
     }

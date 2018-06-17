@@ -16,6 +16,7 @@ namespace Cloudents.Core.Storage
         }
 
         public static readonly TopicSubscription Email = new TopicSubscription(Communication, nameof(Email));
+        public static readonly TopicSubscription Sms = new TopicSubscription(Communication, nameof(Sms));
         public static readonly TopicSubscription TalkJs = new TopicSubscription(Background, nameof(TalkJs));
     }
 }

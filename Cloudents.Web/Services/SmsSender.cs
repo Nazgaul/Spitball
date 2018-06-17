@@ -26,14 +26,10 @@ namespace Cloudents.Web.Services
         public async Task<bool> SendSmsAsync(User user, CancellationToken token)
         {
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber).ConfigureAwait(false);
-            var message = new SmsMessage
-            {
-                Message = $"Please insert the code: {code}",
-                PhoneNumber = user.PhoneNumber
-            };
+            var message = new SmsMessage(user.PhoneNumber, code);
             return await _client.PostJsonAsync(
                 new Uri(
-                    $"{_configuration.FunctionEndpoint}/api/sms?code=HhMs8ZVg/HD4CzsN7ujGJsyWVmGmUDAVPv2a/t5c/vuiyh/zBrSTVg=="),
+                    $"{_configuration.FunctionEndpoint}/api/sms?code=n5lOpJBVA2aaCaOkyT3e1TcFfyqjrX8bbk3yfvoHLACBl/aB2TnWPg=="),
                 message,
                 null, token).ConfigureAwait(false);
         }
