@@ -157,8 +157,8 @@ Vue.filter('ellipsis',
     });
 
 router.beforeEach((to, from, next) => {
-    if(to.name==='home')next('/ask')
-    else to.meta.static?next(): checkUserStatus(to, next);
+    if(to.name==='home')next('/ask');
+    checkUserStatus(to, next);
 });
 const app = new Vue({
     //el: "#app",
