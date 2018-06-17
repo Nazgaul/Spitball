@@ -4,7 +4,7 @@
             <div slot="step-data" class="limited-width done">
                 <h1>CONGRATS!</h1>
                 <p>You just earned your first 10 tokens.</p>
-                <button class="continue-btn" @click="finishRegistration">Lets shop</button>
+                <button class="continue-btn" @click="finishRegistration">Lets Start</button>
             </div>
             <img slot="step-image" :src="require(`../../img/done.png`)"/>
         </step-template>

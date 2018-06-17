@@ -35,8 +35,12 @@ namespace Cloudents.Infrastructure.Data
                 .Database(
                     FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.GetConnectionString(Database.System))
                         .DefaultSchema("sb").Dialect<SbDialect>()
-                    )
-                .ExposeConfiguration(BuildSchema);
+
+#if DEBUG
+                        .ShowSql()
+#endif
+               ).ExposeConfiguration(BuildSchema);
+
             configuration.Mappings(m =>
             {
                 var types = GetAllTypesImplementingOpenGenericType(typeof(SpitballClassMap<>),

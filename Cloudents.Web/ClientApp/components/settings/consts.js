@@ -10,6 +10,7 @@ export const typesPersonalize = {
     aboutSpitball: "aboutSpitball",
     help: "help",
     termsService: "termsService",
+    feedback:"feedback",
     privacyPolicy: "privacyPolicy"
 
 }
@@ -107,6 +108,11 @@ export let notRegMenu = [
         id: typesPersonalize.termsService,
         title: "Terms of Service",
         name:"terms"
+    },
+    {
+        id:typesPersonalize.feedback,
+        title:'Feedback',
+        click:()=>Intercom('showNewMessage')
     },
     {
         id: typesPersonalize.privacyPolicy,

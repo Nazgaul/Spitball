@@ -1,6 +1,91 @@
 @import "../../mixin.less";
 
 .registration {
+  .dialog {
+    text-align: center;
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 392px;
+
+      .close-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 16px;
+
+        i {
+          font-size: 16px;
+          color: #3532d5;
+        }
+      }
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: -0.5px;
+      text-align: center;
+      color: #3532d5;
+    }
+    p {
+      font-size: 18px;
+      letter-spacing: -0.3px;
+      text-align: center;
+      color: #4a4a4a;
+      margin-top: 14px;
+      margin-bottom: 18px;
+      line-height: 1.5;
+
+      b {
+        font-weight: bold;
+        color: #3532d5;
+        display: block;
+        margin-bottom: 4px;
+      }
+    }
+
+    .input-wrapper {
+      position: relative;
+      margin-top: 30px;
+      input {
+        margin-top: 0;
+        padding-left: 52px;
+        height: @registrationFieldHeight;
+        border-radius: 4px;
+        border: solid 1px #979797;
+        width: 100%;
+        font-size: 18px;
+        letter-spacing: -0.5px;
+        margin-bottom: 4px;
+
+        ~ i {
+          position: absolute;
+          top: 14px;
+          left: 16px;
+        }
+      }
+    }
+    .continue-btn {
+      background: #3532d5;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.39;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      width: 100%;
+      height: @registrationFieldHeight;
+      margin-top: 28px;
+    }
+
+    .limited-width {
+      max-width: 400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 32px 0;
+    }
+
+  }
   .step-title {
     text-align: center;
     font-size: 26px;
@@ -186,88 +271,3 @@
   opacity: 0.76;
 }
 
-.dialog {
-  text-align: center;
-  .card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 392px;
-
-    .close-btn {
-      position: absolute;
-      top: 0;
-      right: 0;
-      padding: 16px;
-
-      i {
-        font-size: 16px;
-        color: #3532d5;
-      }
-    }
-  }
-  h1 {
-    font-size: 26px;
-    font-weight: bold;
-    letter-spacing: -0.5px;
-    text-align: center;
-    color: #3532d5;
-  }
-  p {
-    font-size: 18px;
-    letter-spacing: -0.3px;
-    text-align: center;
-    color: #4a4a4a;
-    margin-top: 14px;
-    margin-bottom: 18px;
-    line-height: 1.5;
-
-    b {
-      font-weight: bold;
-      color: #3532d5;
-      display: block;
-      margin-bottom: 4px;
-    }
-  }
-
-  .input-wrapper {
-    position: relative;
-    margin-top: 30px;
-    input {
-      margin-top: 0;
-      padding-left: 52px;
-      height: @registrationFieldHeight;
-      border-radius: 4px;
-      border: solid 1px #979797;
-      width: 100%;
-      font-size: 18px;
-      letter-spacing: -0.5px;
-      margin-bottom: 4px;
-
-      ~ i {
-        position: absolute;
-        top: 14px;
-        left: 16px;
-      }
-    }
-  }
-  .continue-btn {
-    background: #3532d5;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1.39;
-    letter-spacing: -0.5px;
-    color: #ffffff;
-    width: 100%;
-    height: @registrationFieldHeight;
-    margin-top: 28px;
-  }
-
-  .limited-width {
-    max-width: 400px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 32px 0;   
-  }
-
-}

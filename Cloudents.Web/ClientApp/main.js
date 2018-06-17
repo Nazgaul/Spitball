@@ -157,7 +157,6 @@ Vue.filter('ellipsis',
     });
 
 router.beforeEach((to, from, next) => {
-    intercom(to)
     if(to.name==='home')next('/ask')
     else to.meta.static?next(): checkUserStatus(to, next);
 });
@@ -168,21 +167,21 @@ const app = new Vue({
     store
 });
 // router.onReady(() => {
-//     intercom(router.currentRoute);
-function intercom(to) {
-    if (to.path.indexOf('/landing/') && window.innerWidth < 960) {
-        intercomSettings.hide_default_launcher = true;
-    }
-    if (window.innerWidth < 600) {
-        let hideLauncher = true
-        if (to.name === "home") {
-            hideLauncher = false;
-        }
-
-        intercomSettings.hide_default_launcher = hideLauncher;
-    }
-    Intercom("update");
-}
+// //     intercom(router.currentRoute);
+// function intercom(to) {
+//     if (to.path.indexOf('/landing/') && window.innerWidth < 960) {
+//         intercomSettings.hide_default_launcher = true;
+//     }
+//     if (window.innerWidth < 600) {
+//         let hideLauncher = true
+//         if (to.name === "home") {
+//             hideLauncher = false;
+//         }
+//
+//         intercomSettings.hide_default_launcher = hideLauncher;
+//     }
+//     // Intercom("update");
+// }
 
 //     if(router.currentRoute.meta.requiresAuth ) {
 //         debugger;
@@ -199,7 +198,9 @@ function intercom(to) {
 // });
 
 function checkUserStatus(to, next) {
+
     store.dispatch('userStatus',{isRequire:to.meta.requiresAuth,to}).then(() => {
+        
         if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
             next("/signin");
         }
@@ -207,6 +208,7 @@ function checkUserStatus(to, next) {
             next();
         }
     }).catch(error => {
+        console.error(error);
         next("/signin");
     });
 }

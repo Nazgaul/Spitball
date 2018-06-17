@@ -11,7 +11,7 @@ const state = {
     talkSession: null,
     talkMe: null,
     unreadMessages: 0,
-    fromPath:null
+    fromPath: null
 }
 const mutations = {
     changeLoginStatus(state, val) {
@@ -29,40 +29,40 @@ const mutations = {
     updateMessageCount(state, val) {
         state.unreadMessages = val;
     },
-    logout(state){
-        state.fromPath=null;
-        state.login=false;
-        state.user=null;
+    logout(state) {
+        state.fromPath = null;
+        state.login = false;
+        state.user = null;
     },
-    updateFromPath(state,val){
-        state.fromPath=val;
+    updateFromPath(state, val) {
+        state.fromPath = val;
     }
 };
 
 const getters = {
-    fromPath:state=>state.fromPath,
-    unreadMessages:state=>state.unreadMessages,
-    loginStatus:state=>state.login,
+    fromPath: state => state.fromPath,
+    unreadMessages: state => state.unreadMessages,
+    loginStatus: state => state.login,
     isUser: state => state.user !== null,
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
     accountUser: state => state.user
 };
 const actions = {
-    logout({state,commit}){
+    logout({ state, commit }) {
         accountService.logout();
         commit("logout");
     },
-    userStatus({ dispatch, commit,getters },{isRequire,to}) {
+    userStatus({ dispatch, commit, getters }, { isRequire, to }) {
         const $this = this;
         // if (getters.isUser) {
         //     return Promise.resolve();
         // }
-        if(getters.isUser){
+        if (getters.isUser) {
             return Promise.resolve();
         }
-        if(window.isAuth) {
-            return axios.get("account").then(({data}) => {
+        if (window.isAuth) {
+            return axios.get("account").then(({ data }) => {
                 commit("changeLoginStatus", true);
                 commit("updateUser", data);
                 dispatch("connectToChat");
@@ -76,25 +76,33 @@ const actions = {
         if (!state.user) {
             return;
         }
-        Talk.ready.then(() => {
+        try {
 
-            const me = new Talk.User(state.user.id);
-            // const me = new Talk.User({
-            //     id : state.user.id,
-            //     configuration : "buyer"
-            // });
 
-            commit("updateChatUser", me);
-            const talkSession = new Talk.Session({
-                appId: window.talkJsId,
-                me: me,
-                signature: state.user.token
+           
+            Talk.ready.then(() => {
+                // 
+                const me = new Talk.User(state.user.id);
+                // const me = new Talk.User({
+                //     id : state.user.id,
+                //     configuration : "buyer"
+                // });
+
+                commit("updateChatUser", me);
+                const talkSession = new Talk.Session({
+                    appId: window.talkJsId,
+                    me: me,
+                    signature: state.user.token
+                });
+                //talkSession.syncThemeForLocalDev("/content/talkjs-theme.css")
+                talkSession.unreads.on("change", m => {
+                    commit("updateMessageCount", conversationIds.length);
+                });
+                commit("updateTalkSession", talkSession);
             });
-            talkSession.unreads.on("change", m => {
-                commit("updateMessageCount", conversationIds.length);
-            });
-            commit("updateTalkSession", talkSession);
-        });
+        } catch (error) {
+            console.error(error);
+        }
     }
 };
 

@@ -25,6 +25,12 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
+        answers(){
+            return this.profileData.answer?this.profileData.answer.map(i=> {return {...i, user:this.profileData.user}}):[]
+        },
+        questions(){
+            return this.profileData.ask?this.profileData.ask.map(i=> {return {...i, user:this.profileData.user}}):[]
+        },
         isMyProfile() {
             return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
         }

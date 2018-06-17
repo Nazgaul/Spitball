@@ -8,6 +8,7 @@ const state = {
 
 const mutations = {
     [SEARCH.UPDATE_LOADING](state, payload) {
+        debugger;
         state.loading = payload;
     },
     [SEARCH.UPDATE_SEARCH_PARAMS](state, updatedDate) {
@@ -16,7 +17,7 @@ const mutations = {
 };
 
 const getters = {
-    loading: state => state.loading
+    getIsLoading: state => state.loading
 };
 const actions = {
     //Always update the current route according the flow

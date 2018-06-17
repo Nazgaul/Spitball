@@ -21,18 +21,20 @@ export default {
         };
     },
     methods: {
-        ...mapMutations(["UPDATE_LOADING"]),
+        ...mapMutations({updateLoading:"UPDATE_LOADING"}),
         submitAnswer() {
-            this.UPDATE_LOADING(true);
+            this.updateLoading(true);
             var self = this;
             if (this.submitForm()) {
                 questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
                     .then(function () {
                         self.textAreaValue = "";
                         self.answerFiles = [];
-                        self.UPDATE_LOADING(false);
+                        self.updateLoading(false);
                         //TODO: do this on client side (render data inserted by user without calling server)
                         self.getData();
+                    },()=>{self.submitForm(false);
+                        self.updateLoading(true);
                     });
             }
         },
@@ -82,12 +84,6 @@ export default {
         },
         showAnswerField() {
             this.accountUser ? this.showForm = true : this.showLoginDialog = true
-        },
-        markAsCorrect(answerId) {
-            var self = this;
-            questionService.markAsCorrectAnswer(answerId).then(function () {
-                self.questionData.correctAnswerId = answerId;
-            })
         }
     },
     watch: {
@@ -98,9 +94,9 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(["talkSession", "accountUser", "chatAccount"]),
+        ...mapGetters(["talkSession", "accountUser", "chatAccount","getCorrectAnswer"]),
         userNotAnswered() {
-            return !this.questionData.answers.length || !this.questionData.answers.filter(i => i.user.id === this.accountUser.id);
+            return !this.questionData.answers.length || !this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length;
         },
         enableAnswer() {
             return !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered)

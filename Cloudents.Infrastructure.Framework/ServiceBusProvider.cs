@@ -53,25 +53,25 @@ namespace Cloudents.Infrastructure.Framework
                 .Select(s => s.GetValue(null)).Cast<TopicSubscription>().ToList();
 
             // PART 1 - CREATE THE TOPIC
-            var namespaceManager =
-                NamespaceManager.CreateFromConnectionString(_connectionString);
+            //var namespaceManager =
+            //    NamespaceManager.CreateFromConnectionString(_connectionString);
 
 
-            foreach (var topic in topicSubscriptions.Select(s => s.Topic).Distinct())
-            {
-                if (!namespaceManager.TopicExists(topic))
-                {
-                    var td = new TopicDescription(topic);
-                    namespaceManager.CreateTopic(td);
-                }
-            }
-            foreach (var topicSubscription in topicSubscriptions)
-            {
-                if (!namespaceManager.SubscriptionExists(topicSubscription.Topic, topicSubscription.Subscription))
-                {
-                    namespaceManager.CreateSubscription(topicSubscription.Topic, topicSubscription.Subscription, new SqlFilter($"sys.Label='{topicSubscription.Subscription}'"));
-                }
-            }
+            //foreach (var topic in topicSubscriptions.Select(s => s.Topic).Distinct())
+            //{
+            //    if (!namespaceManager.TopicExists(topic))
+            //    {
+            //        var td = new TopicDescription(topic);
+            //        namespaceManager.CreateTopic(td);
+            //    }
+            //}
+            //foreach (var topicSubscription in topicSubscriptions)
+            //{
+            //    if (!namespaceManager.SubscriptionExists(topicSubscription.Topic, topicSubscription.Subscription))
+            //    {
+            //        namespaceManager.CreateSubscription(topicSubscription.Topic, topicSubscription.Subscription, new SqlFilter($"sys.Label='{topicSubscription.Subscription}'"));
+            //    }
+            //}
         }
     }
 }

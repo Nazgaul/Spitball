@@ -18,7 +18,7 @@ export default {
             showDialog: false,
             step: {
                 type: Number
-            },
+            },REGISTRATION_STEPS
         }
     },
     // watch: {

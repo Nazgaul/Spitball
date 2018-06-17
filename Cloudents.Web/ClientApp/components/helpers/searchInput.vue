@@ -7,7 +7,7 @@
                           required name="q"
                           id="transcript"
                           v-model.trim="msg" :placeholder="placeholder"
-                          prepend-icon="sbf-search" :append-icon="voiceAppend"
+                          prepend-icon="sbf-search"
                           :hide-on-scroll="isHome?hideOnScroll:false" @click="openSuggestions"></v-text-field>
             <!--<input type="checkbox" id="toggler"/>-->
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>

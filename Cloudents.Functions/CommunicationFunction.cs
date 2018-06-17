@@ -54,7 +54,7 @@ namespace Cloudents.Functions
         [FunctionName("SmsHttp")]
         public static async Task<HttpResponseMessage> SmsHttpAsync(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "sms")]HttpRequestMessage req,
-            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "(203) 347-4577")] ICollector<SMSMessage> options
+            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "Spitball")] ICollector<SMSMessage> options
             //CancellationToken token
             )
         {

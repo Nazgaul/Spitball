@@ -5,8 +5,12 @@
     font-size: 12px;
     align-items: center;
     padding-left: 16px;
+    padding-right: 16px;
     padding-top: 12px;
-
+    @media (max-width: @screen-xs) {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
     .university,.name{display: none;}
 
     .avatar {
@@ -69,6 +73,9 @@
             line-height: 1.69;
             letter-spacing: -0.3px;
         }
+    }
+    .text{
+        width:100%;
     }
     
     
