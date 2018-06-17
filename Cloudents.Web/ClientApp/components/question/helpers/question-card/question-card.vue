@@ -72,15 +72,6 @@
                 </div>
             </div>
         </div>
-        <v-snackbar top :timeout="toasterTimeOut" v-model="showActionToaster">
-            <div>
-                <span>{{toasterText}}</span>
-                <button class="undo-btn" @click="undoAction()">Undo</button>
-            </div>
-            <button class="close-btn" @click="closeToaster()">
-                <v-icon>sbf-close</v-icon>
-            </button>
-        </v-snackbar>
     </v-flex>
 </template>
 
