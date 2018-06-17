@@ -144,7 +144,6 @@ module.exports = (env) => {
                 context: __dirname,
                 manifest: require("./wwwroot/dist/vendor-manifest.json")
             }),
-
             new StatsWriterPlugin({
                 filename: "main.json",
                 transform: function (data, opts) {
