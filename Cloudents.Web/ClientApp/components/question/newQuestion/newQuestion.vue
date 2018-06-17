@@ -29,7 +29,7 @@
 
 
                 <!-- <v-flex xs12> -->
-                <span class="text-blue my-points">You have {{this.accountUser.balance}} points</span>
+                <span :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points']">You have {{currentSum}} points</span>
                 <!-- </v-flex> -->
 
                 <v-flex xs12>
