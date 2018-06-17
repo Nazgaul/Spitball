@@ -93,3 +93,10 @@ export const faqList = [
     { text: 'Where does the value of a token come from?', href:''},
     { text: 'What is Vote up and why do we need it?', href:''}
 ];
+export const suggestList={
+    job:"Need some cash? Find the best jobs & internships for students at your school.",
+    tutor:"Still need help? Connect with a tutor and make sure you ace your class.",
+    note:"Searching for study documents for your classes? Look no further.",
+    book:"Buying or selling a textbook? We'll make sure you get the best price!",
+    ask:"Have a question you need answered? Try us.",
+    flashcard:"We found some flashcards that may help you study!"};
