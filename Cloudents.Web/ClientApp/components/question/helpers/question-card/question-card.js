@@ -34,15 +34,19 @@ export default {
     },
     data() {
         return {
-            isDeleted:false,
-            showDeleteDialog: false,
-            flaggedAsCorrect: false
+            isDeleted: false,
+            showActionToaster: false,
+            flaggedAsCorrect: false,
+            toasterTimeOut: 5000,
+            timeoutID: null,
+            action: null
         }
     },
-
     computed: {
         ...mapGetters(['accountUser']),
-        gallery(){return this.cardData.files},
+        gallery() {
+            return this.cardData.files
+        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -54,36 +58,56 @@ export default {
         // haveAnswers() {
         //     return this.cardData.answers.length
         // },
-        canDelete(){
-            if(!this.cardOwner){
+        canDelete() {
+            if (!this.cardOwner) {
                 return false;
             }
             return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
-        }
+        },
     },
     methods: {
-        ...mapActions({'delete': 'deleteQuestion',correctAnswer:'correctAnswer'}),
+        ...mapActions({'delete': 'deleteQuestion', correctAnswer: 'correctAnswer'}),
         deleteQuestion() {
-            this.delete({id:this.cardData.id,type:(this.typeAnswer?'Answer':'Question')}).then(() => {
-                !this.typeAnswer?this.$router.push('/ask'):this.isDeleted=true
-            })
+            var toasterText = this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted';
+            this.performAction(this.deleteAction, toasterText);
         },
         markAsCorrect() {
+            this.performAction(this.markAsCorrectAction, 'You marked this answer has a correct answer ');
+        },
+        performAction(action, toasterText){
+            this.toasterText = toasterText;
+            this.showActionToaster = true;
+            this.action = action;
+            this.timeoutID = setTimeout(() =>{
+                this.action()
+            }, this.toasterTimeOut);
+        },
+        markAsCorrectAction() {
             this.flaggedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
-        }
+        },
+        deleteAction() {
+            this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')}).then(() => {
+                !this.typeAnswer ? this.$router.push('/ask') : this.isDeleted = true
+            })
+        },
+        closeToaster() {
+            clearTimeout(this.timeoutID);
+            this.action();
+            this.showActionToaster = false;
+        },
+        undoAction() {
+            clearTimeout(this.timeoutID);
+            this.showActionToaster = false;
+        },
     },
-    mounted(){
+    mounted() {
 
         timeago().render(document.querySelectorAll('.timeago'));
 // use render method to render nodes in real time
     },
     created() {
         this.flaggedAsCorrect = this.isCorrectAnswer;
-        //TODO: what is that
-        if (!this.cardData.user){
-            this.cardData.user = {id:539,name:"JUST FOR TESTING"}
-        }
 
     }
 }

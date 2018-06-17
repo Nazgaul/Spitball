@@ -7,10 +7,12 @@ using Autofac.Features.Indexed;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
 using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data.Repositories
 {
+    [UsedImplicitly]
     public class UserRepository : NHibernateRepository<User>, IUserRepository
     {
         public UserRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWork) : base(unitOfWork)
@@ -18,9 +20,9 @@ namespace Cloudents.Infrastructure.Data.Repositories
         }
 
 
-        public  Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token)
+        public Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token)
         {
-            return  Session.Query<User>().FirstOrDefaultAsync(expression, cancellationToken: token);
+            return Session.Query<User>().FirstOrDefaultAsync(expression, cancellationToken: token);
         }
 
         public async Task<ProfileDto> GetUserProfileAsync(long id, CancellationToken token)
@@ -39,40 +41,71 @@ namespace Cloudents.Infrastructure.Data.Repositories
                     }
                 })
                 .ToFutureValue();
-
             var futureQuestions = Session.Query<Question>()
                 .Fetch(f => f.Subject)
                 .Where(w => w.User.Id == id)
-                .Select(s => new
+                .Select(s => new QuestionDto
                 {
-                    s.CorrectAnswer,
-                    s.Id,
-                    SubjectText = s.Subject.Text,
-                    s.Text,
-                    s.Price
-                    
-                })
-                .ToFuture();
+                    Text = s.Text,
+                    Answers = s.Answers.Count(),
+                    DateTime = s.Created,
+                    Files = s.Attachments,
+                    Price = s.Price,
+                    Id = s.Id,
+                    Subject = s.Subject.Text
+                }).ToFuture();
+
+            var futureAnswers = Session.Query<Answer>()
+                .Fetch(f => f.Question).ThenFetch(f => f.Subject)
+                .Where(w => w.User.Id == id)
+                .Select(s => new QuestionDto
+                {
+                    Text = s.Question.Text,
+                    Answers = s.Question.Answers.Count(),
+                    DateTime = s.Question.Created,
+                    Files = s.Question.Attachments,
+                    Price = s.Question.Price,
+                    Id = s.Question.Id,
+                    Subject = s.Question.Subject.Text
+                }).ToFuture();
+
+            //var futureQuestions = Session.Query<Question>()
+            //    .Fetch(f => f.Subject)
+            //    .Where(w => w.User.Id == id)
+            //    .Select(s => new
+            //    {
+            //        s.CorrectAnswer,
+            //        s.Id,
+            //        SubjectText = s.Subject.Text,
+            //        s.Text,
+            //        s.Price
+            //    })
+            //    .ToFuture();
 
             var dto = await futureDto.GetValueAsync(token).ConfigureAwait(false);
-            var questions = await futureQuestions.GetEnumerableAsync(token).ConfigureAwait(false);
-
-            var questionsLookup = questions.ToLookup(t => t.CorrectAnswer == null);
-
-            dto.Ask = questionsLookup[true].Select(s => new QuestionDto
+            if (dto == null)
             {
-                Id = s.Id,
-                Subject = s.SubjectText,
-                Text = s.Text,
-                Price = s.Price
-            });
-            dto.Answer = questionsLookup[false].Select(s => new QuestionDto
-            {
-                Id = s.Id,
-                Subject = s.SubjectText,
-                Text = s.Text,
-                Price = s.Price
-            });
+                return null;
+            }
+            //var questions = await futureQuestions.GetEnumerableAsync(token).ConfigureAwait(false);
+
+            //var questionsLookup = questions.ToLookup(t => t.CorrectAnswer == null);
+            dto.Ask = await futureQuestions.GetEnumerableAsync(token);
+            dto.Answer = await futureAnswers.GetEnumerableAsync(token);
+            //dto.Ask = questionsLookup[true].Select(s => new QuestionDto
+            //{
+            //    Id = s.Id,
+            //    Subject = s.SubjectText,
+            //    Text = s.Text,
+            //    Price = s.Price
+            //});
+            //dto.Answer = questionsLookup[false].Select(s => new QuestionDto
+            //{
+            //    Id = s.Id,
+            //    Subject = s.SubjectText,
+            //    Text = s.Text,
+            //    Price = s.Price
+            //});
 
             return dto;
         }
