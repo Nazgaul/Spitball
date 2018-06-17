@@ -22,7 +22,7 @@
                                 <div>{{k.title}}</div>
                             </slot>
                         </template>
-                        <div class="sort-filter">
+                        <div :class="['sort-filter',$route.path==='/ask'?'no-maxHeight':'']">
                             <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
                                 <input type="checkbox" :id="(s.id?s.id:s)" :checked="filterVal.find(i=>i.key===k.modelId&&i.value===(s.id?s.id.toString():s.toString()))"
                                        @change="updateFilter({id:k.modelId,val:(s.id?s.id.toString():s),type:$event})" />
