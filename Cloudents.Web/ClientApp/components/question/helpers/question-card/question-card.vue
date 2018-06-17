@@ -6,9 +6,11 @@
             </div>
             <!-- <p class="q-category">{{cardData.subject}}</p> -->
         </div>
-            <user-block :user="cardData.user" v-if="cardData.user" :name="cardData.subject||'Answer'">
-                <template> · <span class="timeago" :datetime="cardData.dateTime"></span><span v-if="typeAnswer" class="q-answer">
-                    <button class="accept-btn right" @click="markAsCorrect" v-if="showApproveButton && !flaggedAsCorrect">
+        <user-block :user="cardData.user" v-if="cardData.user" :name="cardData.subject||'Answer'">
+            <template> · <span class="timeago" :datetime="cardData.dateTime"></span><span v-if="typeAnswer"
+                                                                                          class="q-answer">
+                    <button class="accept-btn right" @click="markAsCorrect"
+                            v-if="showApproveButton && !flaggedAsCorrect">
                         <v-icon>sbf-check-circle</v-icon>
                         <span>Accept</span>
                     </button>
@@ -18,12 +20,11 @@
 
 
                 </span></template>
-            </user-block>
-
+        </user-block>
 
 
         <button class="delete" v-if="detailedView && canDelete"
-                @click="showDeleteDialog = true">
+                @click="deleteQuestion()">
             <v-icon>sbf-trash</v-icon>
         </button>
 
@@ -31,11 +32,12 @@
 
         <!-- v-if="cardData.files.length" -->
         <div class="gallery" v-if="gallery&&gallery.length">
-            <v-carousel left-control-icon="sbf-arrow-right left" right-control-icon="sbf-arrow-right" interval="600000" hide-delimiters :hide-controls="gallery.length===1">
+            <v-carousel left-control-icon="sbf-arrow-right left" right-control-icon="sbf-arrow-right" interval="600000"
+                        hide-delimiters :hide-controls="gallery.length===1">
                 <v-carousel-item v-for="(item,i) in gallery" v-bind:src="item" :key="i"></v-carousel-item>
             </v-carousel>
         </div>
-        
+
 
         <div class="bottom-section">
             <!-- <div v-if="detailedView && cardData.user" class="q-user-info card-info detailed">
@@ -49,17 +51,17 @@
             <!-- v-else -->
             <div class="card-info general" v-if="!detailedView">
                 <div class="new-block">
-                    <div class="files"  v-if="cardData.files">
+                    <div class="files" v-if="cardData.files">
                         <template>
-                        <v-icon>sbf-attach</v-icon>
-                        <span>{{cardData.files}}</span>
+                            <v-icon>sbf-attach</v-icon>
+                            <span>{{cardData.files}}</span>
                         </template>
                     </div>
                     <div class="users">
                         <template v-for="i in Math.min(3,cardData.answers)">
-                        <div class="avatar">
-                            <v-icon>sbf-comment-icon</v-icon>
-                        </div>
+                            <div class="avatar">
+                                <v-icon>sbf-comment-icon</v-icon>
+                            </div>
                         </template>
                     </div>
                     <span class="user-counter" v-if="cardData.answers>3">+{{cardData.answers-3}}</span>
@@ -70,16 +72,15 @@
                 </div>
             </div>
         </div>
-
-        <v-dialog v-model="showDeleteDialog">
-            <v-card>
-                <v-card-text class="limited-width">
-                    <h1>Are you sure you want to delete?</h1>
-                    <button @click="deleteQuestion()">Yes</button>
-                    <button @click="showDeleteDialog = false">No</button>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
+        <v-snackbar top :timeout="toasterTimeOut" v-model="showActionToaster">
+            <div>
+                <span>{{toasterText}}</span>
+                <button class="undo-btn" @click="undoAction()">Undo</button>
+            </div>
+            <button class="close-btn" @click="closeToaster()">
+                <v-icon>sbf-close</v-icon>
+            </button>
+        </v-snackbar>
     </v-flex>
 </template>
 
