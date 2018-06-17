@@ -19,7 +19,8 @@ namespace Cloudents.Functions
     public static class CommunicationFunction
     {
         [FunctionName("FunctionEmail")]
-        public static async Task EmailFunctionAsync([ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Email))]BrokeredMessage brokeredMessage,
+        public static async Task EmailFunctionAsync(
+            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Email))]BrokeredMessage brokeredMessage,
             [SendGrid(ApiKey = "SendgridKey", From = "no-reply@spitball.co")] IAsyncCollector<Mail> emailProvider,
             IBinder binder,
             TraceWriter log,
@@ -54,46 +55,33 @@ namespace Cloudents.Functions
         [FunctionName("SmsHttp")]
         public static async Task<HttpResponseMessage> SmsHttpAsync(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "sms")]HttpRequestMessage req,
-            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "Spitball")] ICollector<SMSMessage> options
-            //CancellationToken token
+            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "Spitball")] IAsyncCollector<SMSMessage> options,
+            CancellationToken token
             )
         {
-
             var jsonContent = await req.Content.ReadAsStringAsync().ConfigureAwait(false);
             var message = JsonConvert.DeserializeObject<SmsMessage>(jsonContent);
-            //var result = await BuildAndValidateSmsAsync(message).ConfigureAwait(false);
-            //if (result == null)
-            //{
-            //return req.CreateResponse(HttpStatusCode.BadRequest);
-            //}
-
-            options.Add(new SMSMessage
+            await options.AddAsync(new SMSMessage
             {
                 To = message.PhoneNumber,
                 Body = message.Message
-            });
+            }, token).ConfigureAwait(false);
             return req.CreateResponse(HttpStatusCode.OK);
-
         }
 
 
-        //[ItemCanBeNull]
-        //private static async Task<CreateMessageOptions> BuildAndValidateSmsAsync(SmsMessage message)
-        //{
-        //    try
-        //    {
-        //        TwilioClient.Init(InjectConfiguration.GetEnvironmentVariable("TwilioSid"),
-        //            InjectConfiguration.GetEnvironmentVariable("TwilioToken"));
-        //        var result = await PhoneNumberResource.FetchAsync(new PhoneNumber(message.PhoneNumber)).ConfigureAwait(false);
-        //        return new CreateMessageOptions(result.PhoneNumber)
-        //        {
-        //            Body = message.Message
-        //        };
-        //    }
-        //    catch (Twilio.Exceptions.ApiException)
-        //    {
-        //        return null;
-        //    }
-        //}
+        [FunctionName("FunctionSms")]
+        public static async Task SmsServiceBusAsync(
+            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Sms))]SmsMessage message,
+            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "Spitball")] IAsyncCollector<SMSMessage> options,
+            CancellationToken token
+        )
+        {
+            await options.AddAsync(new SMSMessage
+            {
+                To = message.PhoneNumber,
+                Body = message.Message
+            }, token).ConfigureAwait(false);
+        }
     }
 }

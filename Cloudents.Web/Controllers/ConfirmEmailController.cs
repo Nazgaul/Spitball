@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,14 @@ namespace Cloudents.Web.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SbSignInManager _signInManager;
         private readonly IBlockChainErc20Service _blockChain;
+        private readonly IServiceBusProvider _serviceBusProvider;
 
-        public ConfirmEmailController(UserManager<User> userManager, SbSignInManager signInManager, IBlockChainErc20Service blockChain)
+        public ConfirmEmailController(UserManager<User> userManager, SbSignInManager signInManager, IBlockChainErc20Service blockChain, IServiceBusProvider serviceBusProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _blockChain = blockChain;
+            _serviceBusProvider = serviceBusProvider;
         }
 
         // GET
@@ -36,7 +39,9 @@ namespace Cloudents.Web.Controllers
             {
                 throw new ApplicationException($"Unable to load user with ID '{id}'.");
             }
-            var taskBlockChain = _blockChain.SetInitialBalanceAsync(_blockChain.GetAddress(user.PrivateKey), token);
+
+            var taskBlockChain = _serviceBusProvider.InsertMessageAsync(
+                new BlockChainInitialBalance(_blockChain.GetAddress(user.PrivateKey)), token);
             var result = await _userManager.ConfirmEmailAsync(user, code).ConfigureAwait(false);
             if (!result.Succeeded)
             {

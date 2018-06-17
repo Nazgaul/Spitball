@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 
@@ -16,10 +17,10 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<QuestionSubject> _questionSubjectRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
-        private readonly IBlockChainQAndAContract _blockChainProvider;
+        private readonly IServiceBusProvider _blockChainProvider;
         private readonly IBlockChainErc20Service _blockChain;
 
-        public CreateQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlockChainQAndAContract blockChainProvider, IBlockChainErc20Service blockChain)
+        public CreateQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository, IBlobProvider<QuestionAnswerContainer> blobProvider, IServiceBusProvider blockChainProvider, IBlockChainErc20Service blockChain)
         {
             _questionRepository = questionRepository;
             _questionSubjectRepository = questionSubjectRepository;
@@ -36,7 +37,8 @@ namespace Cloudents.Core.CommandHandler
             var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
             await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
             var id = question.Id;
-            var p = _blockChainProvider.SubmitQuestionAsync(id, message.Price, _blockChain.GetAddress(user.PrivateKey), token);
+
+            var p = _blockChainProvider.InsertMessageAsync(new BlockChainSubmitQuestion(id, message.Price, _blockChain.GetAddress(user.PrivateKey)), token);
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ?? Enumerable.Empty<Task>();
             await Task.WhenAll(l.Union(new[] { p })).ConfigureAwait(true);

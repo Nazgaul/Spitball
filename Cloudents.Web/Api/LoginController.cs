@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Storage;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
-using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +28,7 @@ namespace Cloudents.Web.Api
         [ValidateModel, ValidateRecaptcha]
         public async Task<IActionResult> PostAsync(
             [FromBody] LoginRequest model,
-            [FromServices] ISmsSender client,
+            [FromServices] IServiceBusProvider client,
             CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
@@ -40,14 +40,17 @@ namespace Cloudents.Web.Api
 
             var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
 
-            var taskSms = client.SendSmsAsync(user, token);
+            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber).ConfigureAwait(false);
+
+            var taskSms = client.InsertMessageAsync(new SmsMessage(user.PhoneNumber, code), token);
 
             await Task.WhenAll(taskSms, taskSignIn).ConfigureAwait(false);
-            if (taskSms.Result && taskSignIn.Result.RequiresTwoFactor)
+            if (taskSignIn.Result.RequiresTwoFactor)
             {
                 return Ok();
             }
-            ModelState.AddModelError(string.Empty,"some error");
+            
+            ModelState.AddModelError(string.Empty,"Some error");
             return BadRequest(ModelState);
         }
     }

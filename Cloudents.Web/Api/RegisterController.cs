@@ -20,12 +20,14 @@ namespace Cloudents.Web.Api
     {
         private readonly IServiceBusProvider _queueProvider;
         private readonly UserManager<User> _userManager;
+        private readonly IBlockChainErc20Service _blockChainErc20Service;
 
         public RegisterController(
-            UserManager<User> userManager, IServiceBusProvider queueProvider)
+            UserManager<User> userManager, IServiceBusProvider queueProvider, IBlockChainErc20Service blockChainErc20Service)
         {
             _userManager = userManager;
             _queueProvider = queueProvider;
+            _blockChainErc20Service = blockChainErc20Service;
         }
 
         private static int GenerateRandomNumber()
@@ -44,7 +46,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, "user is already logged in");
                 return BadRequest(ModelState);
             }
-            var (privateKey, _) = Infrastructure.BlockChain.BlockChainProvider.CreateAccount();
+            var (privateKey, _) = _blockChainErc20Service.CreateAccount();
             var userName = model.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             var user = new User(model.Email, $"{userName}.{GenerateRandomNumber()}", privateKey);
 
@@ -83,7 +85,7 @@ namespace Cloudents.Web.Api
         [HttpPost("google"), ValidateModel]
         public async Task<IActionResult> GoogleSignInAsync([FromBody] TokenRequest model,
             [FromServices] IGoogleAuth service,
-            [FromServices] IBlockChainErc20Service blockChain,
+            [FromServices] IServiceBusProvider serviceBusProvider,
             [FromServices] SbSignInManager signInManager,
             CancellationToken cancellationToken)
         {
@@ -93,7 +95,8 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, "No result from google");
                 return BadRequest(ModelState);
             }
-            var account = Infrastructure.BlockChain.BlockChainProvider.CreateAccount();
+
+            var account = _blockChainErc20Service.CreateAccount();
 
             var user = new User(result.Email, $"{result.Name}.{GenerateRandomNumber()}", account.privateKey)
             {
@@ -103,7 +106,9 @@ namespace Cloudents.Web.Api
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (p.Succeeded)
             {
-                var t1 = blockChain.SetInitialBalanceAsync(account.publicAddress, cancellationToken);
+                //TODO: duplicate link confirm email.
+                var t1 = serviceBusProvider.InsertMessageAsync(
+                    new BlockChainInitialBalance(account.publicAddress), cancellationToken);
                 var t2 = signInManager.SignInTwoFactorAsync(user, false);
                 await Task.WhenAll(t1, t2).ConfigureAwait(false);
                 return Ok();

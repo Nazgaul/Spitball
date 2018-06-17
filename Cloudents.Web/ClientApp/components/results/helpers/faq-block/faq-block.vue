@@ -1,6 +1,6 @@
 <template>
    <v-flex class="right-sidebar">
-        <v-flex xs12>
+        <v-flex xs12 v-if="isAsk">
             <router-link class="ask-question"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
         </v-flex>
 
@@ -13,17 +13,17 @@
 
             </div>
             <div class="footer">
-                <button>More</button>
+                <router-link tag="button" to="/faq">More</router-link>
             </div>                         
         </v-flex>
 
-        <v-flex xs12 class="card-block">
+        <v-flex xs12 class="card-block mt-3">
             <div class="header">Spitball</div>
             <div class="content">
-                <p>I found some sweet quizzes and flashcards for you. You can thank me later</p>
+                <p>{{suggestList[name]}}</p>
             </div>
             <div class="footer">
-                <button>Show me</button>
+                <router-link tag="button" :to="{path:'/'+name,query:{q:text}}">Show me</router-link>
             </div>                        
         </v-flex>
         
@@ -32,13 +32,14 @@
 
 
 <script>
-    import {faqList} from "./../../consts"
+    import {faqList,suggestList} from "./../../consts"
     export default {
         data() {
             return {
-                faqList               
+                faqList,suggestList
             }
-        }
+        },
+        props:{name:{},text:{},isAsk:Boolean}
      }
 </script>
 
