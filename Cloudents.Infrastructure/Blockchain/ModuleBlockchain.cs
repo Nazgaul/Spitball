@@ -7,6 +7,7 @@ namespace Cloudents.Infrastructure.BlockChain
 {
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Web)]
+    [ModuleRegistration(Core.Enum.System.Function)]
     public class ModuleBlockChain : Module
     {
         protected override void Load(ContainerBuilder builder)

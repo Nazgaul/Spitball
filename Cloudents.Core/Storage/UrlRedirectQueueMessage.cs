@@ -37,29 +37,5 @@ namespace Cloudents.Core.Storage
 
         [DataMember(Order = 6)]
         public string Ip { get; set; }
-
-       // public QueueName QueueName => QueueName.UrlRedirect;
-    }
-
-
-    [DataContract]
-    public class SmsMessage //: IQueueName
-    {
-        [DataMember]
-        public string PhoneNumber { get; set; }
-        [DataMember]
-        public string Message { get; set; }
-    }
-
-    [Serializable]
-    public class RegistrationEmail : BaseEmail
-    {
-        public RegistrationEmail(string to, string link) : base(to, "register","Welcome to Spitball")
-        {
-            Link = link;
-        }
-
-        public string Link { get; private set; }
-
     }
 }

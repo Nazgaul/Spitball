@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure.BlockChain;
 using JetBrains.Annotations;
+using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;
 
 namespace Cloudents.Infrastructure.Blockchain
@@ -54,6 +55,15 @@ namespace Cloudents.Infrastructure.Blockchain
         {
             if (privateKey == null) throw new ArgumentNullException(nameof(privateKey));
             return Web3.GetAddressFromPrivateKey(privateKey);
+        }
+
+
+        public (string privateKey, string publicAddress) CreateAccount()
+        {
+            var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
+            var privateKey = ecKey.GetPrivateKeyAsBytes();
+            var address = Web3.GetAddressFromPrivateKey(privateKey.ToHex());
+            return (privateKey.ToHex(), address);
         }
     }
 }
