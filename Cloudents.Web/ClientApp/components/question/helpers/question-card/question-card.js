@@ -38,6 +38,7 @@ export default {
             showActionToaster: false,
             flaggedAsCorrect: false,
             toasterTimeOut: 5000,
+            toasterText: '',
             timeoutID: null,
             action: null
         }

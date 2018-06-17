@@ -18,7 +18,7 @@
                 <v-flex class="question-data">
                     <question-thread v-if="questionData" :questionData="questionData">
                         <div v-if="enableAnswer" slot="answer-form" class="mb-3">
-                            <div v-if="!questionData.answers || (questionData.answers && showForm)">
+                            <div v-if="!questionData.answers.length || (questionData.answers.length && showForm)">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                         v-model="textAreaValue"
                                         :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
@@ -57,7 +57,7 @@
                         <v-flex xs12>
                             <question-thread v-if="questionData" :questionData="questionData" :hasCorrectAnswer="getCorrectAnswer">
                                 <div slot="answer-form" class="mb-3 mt-3" v-if="enableAnswer">
-                                    <div v-if="!questionData.answers || (questionData.answers && showForm)">
+                                    <div v-if="!questionData.answers.length || (questionData.answers.length && showForm)">
                                         <extended-text-area uploadUrl="/api/upload/ask"
                                                 v-model="textAreaValue"
                                                 :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
