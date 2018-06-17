@@ -12,7 +12,7 @@ export default {
     data() {
         return {
             activeTab: 1,            
-            profileData: {}
+            profileData: null
         }
     },
     methods: {
