@@ -16,7 +16,9 @@
                 </v-flex>
 
 
-                <v-flex xs12>
+                <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile"
+                                    @removeFile="removeFile"></extended-text-area>
+                <v-flex xs6>
                     <select v-model="subject">
                         <option value="" disabled hidden>Pick a subject</option>
                         <option v-for="item in subjectList" :value="item">{{item.subject}}</option>
@@ -24,12 +26,10 @@
                 </v-flex>
 
 
-                <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile"
-                                    @removeFile="removeFile"></extended-text-area>
 
 
                 <!-- <v-flex xs12> -->
-                <span :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points']">You have {{currentSum}} points</span>
+                <v-flex xs12 :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points']">You have {{currentSum}} points</v-flex>
                 <!-- </v-flex> -->
 
                 <v-flex xs12>
