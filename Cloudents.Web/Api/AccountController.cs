@@ -64,6 +64,7 @@ namespace Cloudents.Web.Api
                 user.Email,
                 user.Name,
                 token = GetToken(),
+                dollar = taskBalance.Result / 40,
                 balance = taskBalance.Result
             });
         }
