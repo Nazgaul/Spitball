@@ -29,12 +29,12 @@
 
 
                 <!-- <v-flex xs12> -->
-                <span class="text-blue my-points">You have {{this.accountUser.balance}} points</span>
+                <span :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points']">You have {{currentSum}} points</span>
                 <!-- </v-flex> -->
 
                 <v-flex xs12>
                     <ul class="points-list">
-                        <li :class="`pts-${pricey}`" v-for="(pricey,index) in pricesList">
+                        <li :class="`pts-${pricey}`" v-for="(pricey,index) in pricesList" :key="index">
                             <input :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price" :value="pricey" v-model="selectedPrice">
                             <label :for="`${pricey}pts`">{{pricey}} pts</label>
                         </li>
@@ -53,7 +53,7 @@
 
                 <v-flex class="submit-btn-wrap" xs12>
                     <div v-if="errorMessage.length" class="error-message">{{errorMessage}}</div>
-                    <v-btn block color="primary" @click.once="submitQuestion()" :disabled="!validForm||submitted"
+                    <v-btn block color="primary" @click="submitQuestion()" :disabled="!validForm||submitted"
                            class="ask_btn">Ask
                     </v-btn>
                 </v-flex>

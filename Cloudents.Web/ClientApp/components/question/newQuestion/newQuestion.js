@@ -58,6 +58,10 @@ export default {
     },
     computed: {
         ...mapGetters(['accountUser']),
+        currentSum(){
+            let val=this.price||this.selectedPrice||0;
+            return this.accountUser.balance-val
+        },
         validForm() {
             return this.subject && this.textAreaValue.length && (this.selectedPrice || this.price >= 0.5);
         },

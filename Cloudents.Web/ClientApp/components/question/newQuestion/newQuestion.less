@@ -75,18 +75,20 @@
     }
   }
 
-  .text-blue {
+  .my-points{
     font-size: 15px;
     line-height: 1.39;
     letter-spacing: 0;
-    color: @color-main-purple;
     margin: 0;
-    &.my-points{
-      margin-bottom: 17px;
-      @media (max-width: @screen-xs) { margin-bottom: 0px; }
+    margin-bottom: 17px;
+    @media (max-width: @screen-xs) { margin-bottom: 0px; }
+    &.text-blue{
+      color: @color-main-purple;
+    }
+    &.text-red{
+      color: red;
     }
   }
-
   .small-bold {
     font-size: 11px;
     font-weight: bold;
