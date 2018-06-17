@@ -70,12 +70,13 @@ export default {
                 }
                 var other1 = new Talk.User(otherUser.id);
 
+                //_${this.accountUser.id}_${otherUser.id}
                 var conversation = this.talkSession.getOrCreateConversation(
-                    `question_${this.id}_${this.accountUser.id}_${otherUser.id}`
+                    `question_${this.id}`
                 );
                 conversation.setParticipant(this.chatAccount);
                 conversation.setParticipant(other1);
-                this.talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css");
+                //this.talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css");
                 var chatbox = this.talkSession.createChatbox(conversation);
                 this.$nextTick(() => {
                     chatbox.mount(this.$refs["chat-area"]);
@@ -99,7 +100,9 @@ export default {
             return !this.questionData.answers.length || !this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length;
         },
         enableAnswer() {
-            return !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered)
+            let val=!this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered);
+            this.showForm = (val&&!this.questionData.answers.length);
+            return val;
         }
         // isMobile() {
         //     return this.$vuetify.breakpoint.smAndDown;

@@ -31,6 +31,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IUserRepository : IRepository<User>
     {
+        [ItemCanBeNull]
         Task<ProfileDto> GetUserProfileAsync(long id, CancellationToken token);
         Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token);
     }
