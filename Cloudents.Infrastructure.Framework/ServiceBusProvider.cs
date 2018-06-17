@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 using Microsoft.ServiceBus;
@@ -38,6 +39,19 @@ namespace Cloudents.Infrastructure.Framework
             var topicSubscription = TopicSubscription.Sms;
             return InsertMessageAsync(message, topicSubscription);
         }
+
+        public Task InsertMessageAsync(BlockChainInitialBalance message, CancellationToken token)
+        {
+            var topicSubscription = TopicSubscription.BlockChainInitialBalance;
+            return InsertMessageAsync(message, topicSubscription);
+        }
+
+        public Task InsertMessageAsync(BlockChainQnaSubmit message, CancellationToken token)
+        {
+            var topicSubscription = TopicSubscription.BlockChainQnA;
+            return InsertMessageAsync(message, topicSubscription);
+        }
+
 
         private Task InsertMessageAsync(object obj, TopicSubscription subscription)
         {

@@ -68,13 +68,7 @@ namespace Cloudents.Infrastructure.BlockChain
             });
         }
 
-        public static (string privateKey, string publicAddress) CreateAccount()
-        {
-            var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
-            var privateKey = ecKey.GetPrivateKeyAsBytes();
-            var address = Web3.GetAddressFromPrivateKey(privateKey.ToHex());
-            return (privateKey.ToHex(), address);
-        }
+       
 
         protected async Task<Function> GetFunctionAsync(string name, CancellationToken token)
         {

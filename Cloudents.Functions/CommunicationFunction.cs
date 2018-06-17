@@ -83,25 +83,5 @@ namespace Cloudents.Functions
                 Body = message.Message
             }, token).ConfigureAwait(false);
         }
-
-
-        //[ItemCanBeNull]
-        //private static async Task<CreateMessageOptions> BuildAndValidateSmsAsync(SmsMessage message)
-        //{
-        //    try
-        //    {
-        //        TwilioClient.Init(InjectConfiguration.GetEnvironmentVariable("TwilioSid"),
-        //            InjectConfiguration.GetEnvironmentVariable("TwilioToken"));
-        //        var result = await PhoneNumberResource.FetchAsync(new PhoneNumber(message.PhoneNumber)).ConfigureAwait(false);
-        //        return new CreateMessageOptions(result.PhoneNumber)
-        //        {
-        //            Body = message.Message
-        //        };
-        //    }
-        //    catch (Twilio.Exceptions.ApiException)
-        //    {
-        //        return null;
-        //    }
-        //}
     }
 }

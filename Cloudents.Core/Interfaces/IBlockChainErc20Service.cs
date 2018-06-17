@@ -14,5 +14,7 @@ namespace Cloudents.Core.Interfaces
 
         string GetAddress(string privateKey);
 
+        (string privateKey, string publicAddress) CreateAccount();
+
     }
 }

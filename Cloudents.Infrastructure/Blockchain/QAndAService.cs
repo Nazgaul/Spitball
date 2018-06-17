@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Infrastructure.BlockChain;
 using System.Collections.Generic;
 using System.Numerics;
+using Cloudents.Core.Request;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Blockchain
@@ -21,24 +22,24 @@ namespace Cloudents.Infrastructure.Blockchain
         {
         }
 
-        public async Task SubmitQuestionAsync(long questionId, decimal price, string userAddress,
-            CancellationToken token)
+
+        public async Task SubmitAsync(BlockChainSubmitQuestion model, CancellationToken token)
         {
-            var weiPrice = new BigInteger((double)price * FromWei);
+            var weiPrice = new BigInteger((double)model.Price * FromWei);
             var operationToExe = await GetFunctionAsync("submitNewQuestion", token).ConfigureAwait(false);
-            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId, weiPrice, userAddress).ConfigureAwait(false);
+            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, model.QuestionId, weiPrice, model.UserAddress).ConfigureAwait(false);
         }
 
-        public async Task SubmitAnswerAsync(long questionId, Guid answerId, CancellationToken token)
+        public async Task SubmitAsync(BlockChainSubmitAnswer model, CancellationToken token)
         {
             var operationToExe = await GetFunctionAsync("submitNewAnswer", token).ConfigureAwait(false);
-            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId, answerId.ToString()).ConfigureAwait(false);
+            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, model.QuestionId, model.AnswerId.ToString()).ConfigureAwait(false);
         }
 
-        public async Task MarkAsCorrectAsync(string userAddress, string winnerAddress, long questionId, Guid answerId, CancellationToken token)
+        public async Task SubmitAsync(BlockChainMarkQuestionAsCorrect model, CancellationToken token)
         {
             var operationToExe = await GetFunctionAsync("approveAnswer", token).ConfigureAwait(false);
-            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId, answerId.ToString(), winnerAddress, userAddress).ConfigureAwait(false);
+            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, model.QuestionId, model.AnswerId.ToString(), model.WinnerAddress, model.UserAddress).ConfigureAwait(false);
         }
 
         public async Task UpVoteAsync(string userAddress, long questionId, Guid answerId, CancellationToken token)

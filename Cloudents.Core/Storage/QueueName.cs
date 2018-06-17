@@ -23,25 +23,6 @@ namespace Cloudents.Core.Storage
         //public static readonly QueueName Email = new QueueName(EmailName);
     }
 
-    
-
-    
-
-    [Serializable]
-    public abstract class BaseEmail
-    {
-        protected BaseEmail(string to, string template, string subject)
-        {
-            To = to;
-            Template = template;
-            Subject = subject;
-        }
-
-        public string To { get; private set; }
-
-        public string Template { get; private set; }
-        public string Subject { get; private set; }
-    }
 
     public abstract class QueueBackground
     {

@@ -4,5 +4,5 @@
     "maxPollingInterval": 5000
   },
   "functionTimeout": "00:10:00",
-  "functions": [ "FunctionSms", "SmsHttp" ]
+  "functions": [ "FunctionSms", "SmsHttp", "FunctionEmail", "BlockChainInitialBalance", "FunctionTalkJs", "BlockChainQna" ]
 }

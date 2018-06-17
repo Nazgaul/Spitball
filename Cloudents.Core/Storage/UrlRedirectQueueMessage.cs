@@ -37,20 +37,5 @@ namespace Cloudents.Core.Storage
 
         [DataMember(Order = 6)]
         public string Ip { get; set; }
-
-       // public QueueName QueueName => QueueName.UrlRedirect;
-    }
-
-
-    [Serializable]
-    public class RegistrationEmail : BaseEmail
-    {
-        public RegistrationEmail(string to, string link) : base(to, "register","Welcome to Spitball")
-        {
-            Link = link;
-        }
-
-        public string Link { get; private set; }
-
     }
 }

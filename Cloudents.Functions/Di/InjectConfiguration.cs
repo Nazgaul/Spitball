@@ -36,7 +36,8 @@ namespace Cloudents.Functions.Di
                 Search = new SearchServiceCredentials(
                     GetEnvironmentVariable("SearchServiceName"),
                     GetEnvironmentVariable("SearchServiceAdminApiKey")),
-                MailGunDb = GetEnvironmentVariable("MailGunConnectionString")
+                MailGunDb = GetEnvironmentVariable("MailGunConnectionString"),
+                BlockChainNetwork = GetEnvironmentVariable("BlockChainNetwork")
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
