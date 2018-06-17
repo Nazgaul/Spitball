@@ -17,7 +17,7 @@
             </div>                         
         </v-flex>
 
-        <v-flex xs12 class="card-block">
+        <v-flex xs12 class="card-block mt-3">
             <div class="header">Spitball</div>
             <div class="content">
                 <p>{{suggestList[name]}}</p>
