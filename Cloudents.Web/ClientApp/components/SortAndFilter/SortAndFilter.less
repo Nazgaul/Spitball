@@ -228,8 +228,10 @@
                     border-right: 0;
                     max-height: 250px;
                     overflow-y: scroll;
-                    &.no-maxHeight{
-                        max-height:inherit;
+                    @media (min-height: 580px) {
+                        &.no-maxHeight {
+                            max-height: inherit;
+                        }
                     }
                 }
             }
