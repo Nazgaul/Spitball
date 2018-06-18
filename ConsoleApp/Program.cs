@@ -79,6 +79,10 @@ namespace ConsoleApp
             //    Term = "Irena's question"
             //}, default);
 
+          
+            
+
+
             Console.WriteLine("Finish");
             Console.ReadLine();
             //await topicClient.CloseAsync();

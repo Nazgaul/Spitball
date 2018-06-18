@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure.Blockchain
         protected override string Abi => "QAndA";
         private const double Gas = 3e6;
 
-        protected override string ContractAddress => "0xdfb4dd2a403d65dc3eb5f45058a8c2dd9f4092d9";
+        protected override string ContractAddress => "0xd1569828528dfea142bebbaca86928c4ee4ba3f6";
 
         public QAndAService (IConfigurationKeys configurationKeys) : base(configurationKeys)
         {
