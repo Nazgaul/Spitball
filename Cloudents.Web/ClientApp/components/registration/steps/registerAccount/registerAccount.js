@@ -1,12 +1,12 @@
 import stepTemplate from '../stepTemplate.vue';
-import registrationService from "../../../../services/registrationService";
 import disableForm from '../../../mixins/submitDisableMixin'
-import {mapActions, mapGetters} from 'vuex'
-
+import {mapActions} from 'vuex'
+const initialPointsNum =100
 
 export default {
     mixins:[disableForm],
     components: {stepTemplate},
+    data(){return{initialPointsNum}},
     methods: {
         ...mapActions(['incrementRegistrationStep']),
         finishRegistration() {
