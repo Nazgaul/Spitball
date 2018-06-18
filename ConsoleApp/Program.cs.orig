@@ -70,6 +70,10 @@ namespace ConsoleApp
 
             //await SendMoneyAsync();
 
+<<<<<<< HEAD
+           // var t = container.Resolve<IUserRepository>();
+           // var z = await t.GetUserProfileAsync(551, default);
+=======
             var command = new CreateQuestionCommand()
             {
                 Text = "What is nhibernate2",
@@ -86,6 +90,7 @@ namespace ConsoleApp
             await t.DispatchAsync(command2, default);
             await t.DispatchAsync(command, default);
             //var z = await t.GetUserProfileAsync(551, default);
+>>>>>>> 8c68a4934573933d35f56ccdc436f27f08a882fd
 
             //var t = container.Resolve<IQuestionRepository>();
             //var z = await t.GetQuestionsAsync(new QuestionsQuery()

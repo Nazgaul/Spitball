@@ -21,11 +21,11 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task HandleAsync(AssignUniversityToUserCommand message, CancellationToken token)
         {
-            var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
-            var university = await _universityRepository.LoadAsync(message.UniversityId, token).ConfigureAwait(false);
+            var user = await _userRepository.GetAsync(message.UserId, token).ConfigureAwait(false);
+            var university = await _universityRepository.GetAsync(message.UniversityId, token).ConfigureAwait(false);
 
             user.University = university;
-            await _userRepository.SaveAsync(user, token).ConfigureAwait(false);
+            await _userRepository.AddAsync(user, token).ConfigureAwait(false);
         }
     }
 }

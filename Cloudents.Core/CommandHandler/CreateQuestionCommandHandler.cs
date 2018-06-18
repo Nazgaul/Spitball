@@ -32,16 +32,39 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task HandleAsync(CreateQuestionCommand message, CancellationToken token)
         {
-            var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
-            var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId, token).ConfigureAwait(false);
+            var user = await _userRepository.GetAsync(message.UserId, token).ConfigureAwait(false);
+            var subject = await _questionSubjectRepository.GetAsync(message.SubjectId, token).ConfigureAwait(false);
             var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
-            await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
+            await _questionRepository.AddAsync(question, token).ConfigureAwait(false);
             var id = question.Id;
 
             var p = _blockChainProvider.InsertMessageAsync(new BlockChainSubmitQuestion(id, message.Price, _blockChain.GetAddress(user.PrivateKey)), token);
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ?? Enumerable.Empty<Task>();
             await Task.WhenAll(l.Union(new[] { p })).ConfigureAwait(true);
+        }
+    }
+
+
+    public class CommitUnitOfWorkCommandHandlerDecorator<TCommand>
+        : ICommandHandlerAsync<TCommand> where TCommand : ICommand
+    {
+
+        private readonly IUnitOfWork unitOfWork;
+        private readonly ICommandHandlerAsync<TCommand> decoratee;
+
+        public CommitUnitOfWorkCommandHandlerDecorator(
+            IUnitOfWork unitOfWork,
+            ICommandHandlerAsync<TCommand> decoratee)
+        {
+            this.unitOfWork = unitOfWork;
+            this.decoratee = decoratee;
+        }
+
+        public async Task HandleAsync(TCommand command,CancellationToken token)
+        {
+            await this.decoratee.HandleAsync(command,token);
+            await this.unitOfWork.CommitAsync(token);
         }
     }
 }

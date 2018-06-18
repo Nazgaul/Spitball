@@ -13,69 +13,124 @@ export default {
                 rowsPerPage: 6
             },
             selected: [],
-            headers: [
-                {text: '', align: 'left', value: 'id', sortable: false},
-                {text: 'Date', align: 'left', value: 'date', sortable: false},
-                {text: 'Action', align: 'left', value: 'action', sortable: false},
-                {text: 'Type', align: 'left', value: 'type', sortable: false},
-                {text: 'Amount', align: 'right', value: 'amount', sortable: false},
-                {text: 'Balance', align: 'right', value: 'balance', sortable: false},
+            allTransactionsHeaders: [
+                {text: 'Date', align: 'left', value: 'date', sortable: true, showOnMobile: true},
+                {text: 'Action', align: 'left', value: 'action', sortable: true, showOnMobile: true},
+                {text: 'Type', align: 'left', value: 'type', sortable: true, showOnMobile: false},
+                {text: 'Amount', align: 'right', value: 'amount', sortable: true, showOnMobile: true},
+                {text: 'Balance', align: 'right', value: 'balance', sortable: true, showOnMobile: false},
             ],
-            items: [
-                {
-                    id: 1,
-                    date: '12/2/18',
-                    action: 'Sign up',
-                    type: 'Awarded',
-                    amount: '100 pt',
-                    balance: '100 pt'
-                },
-                {
-                    id: 2,
-                    date: '24/3/18',
-                    action: 'Answer',
-                    type: 'Earned',
-                    amount: '5 pt',
-                    balance: '105 pt'
-                },
-                {
-                    id: 3,
-                    date: '24/3/18',
-                    action: 'FB post',
-                    type: 'Awarded',
-                    amount: '25 pt',
-                    balance: '130 pt'
-                },
-                {
-                    id: 4,
-                    date: '24/3/18',
-                    action: 'Answer',
-                    type: 'Earned',
-                    amount: '5 pt',
-                    balance: '135 pt'
-                },
-                {
-                    id: 5,
-                    date: '12/5/18',
-                    action: 'Question',
-                    type: 'Paid',
-                    amount: '-15 pt',
-                    balance: '120 pt'
-                },
-                {
-                    id: 6,
-                    date: '16/5/18',
-                    action: 'Question',
-                    type: 'Stake',
-                    amount: '-5 pt',
-                    balance: '115 pt'
-                },
-            ]
+            allBalanceHeaders: [
+                {text: '', align: 'left', value: 'name',showOnMobile: true},
+                {text: 'Points', align: 'left', value: 'points',align: 'right',showOnMobile: true},
+                {text: 'Value', align: 'left', value: 'value',align: 'right',showOnMobile: true},
+                {text: '', align: 'left', value: 'cashOut',showOnMobile: false}
+            ],
+            headers: {
+                balances: [],
+                transactions: []
+            },
+            items: []
         }
     },
     methods: {
         changeActiveTab(tabId) {
             this.activeTab = tabId;
+            if (tabId === 1) {
+                this.items = this.getBalances();
+            } else {
+                this.items = this.getTransactions();
+            }
+        },
+        getBalances() {
+            return [
+                {
+                    type: 'Awarded',
+                    points: '250 pt',
+                    value: '$ 25.00',
+                },
+                {
+                    type: 'Earned (Withdrawable)',
+                    points: '987',
+                    value: '98.70',
+                    cashOut: true
+                },
+                {
+                    type: 'Pending',
+                    points: '10',
+                    value: '1.00',
+                },
+                {
+                    type: 'Staked',
+                    points: '-25',
+                    value: '-2.50',
+                },
+                {
+                    type: 'Total',
+                    points: '1,244',
+                    value: '-2.50',
+                }];
+        },
+        getTransactions() {
+            return [
+                {
+                    date: '12/2/18',
+                    action: 'Sign up',
+                    type: 'Awarded',
+                    amount: '100',
+                    balance: '100'
+                },
+                {
+                    date: '24/3/18',
+                    action: 'Answer',
+                    type: 'Earned',
+                    amount: '5',
+                    balance: '105'
+                },
+                {
+                    date: '24/3/18',
+                    action: 'FB post',
+                    type: 'Awarded',
+                    amount: '25',
+                    balance: '130'
+                },
+                {
+                    date: '24/3/18',
+                    action: 'Answer',
+                    type: 'Earned',
+                    amount: '5',
+                    balance: '135'
+                },
+                {
+                    date: '12/5/18',
+                    action: 'Question',
+                    type: 'Paid',
+                    amount: '-15',
+                    balance: '120'
+                },
+                {
+                    date: '16/5/18',
+                    action: 'Question',
+                    type: 'Stake',
+                    amount: '-5',
+                    balance: '115'
+                },
+                {
+                    date: '18/5/18',
+                    action: 'Question',
+                    type: 'Stake',
+                    amount: '-5',
+                    balance: '110'
+                },
+                {
+                    id: 8,
+                    date: '20/5/18',
+                    action: 'Question',
+                    type: 'Paid',
+                    amount: '-15',
+                    balance: '95'
+                },
+            ]
         }
     },
     computed: {
@@ -84,10 +139,13 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         pages() {
-            return this.pagination.rowsPerPage ? Math.ceil(this.items.totalItems / this.pagination.rowsPerPage) : 0
-        }
+            return this.pagination.rowsPerPage ? Math.ceil(this.items.length / this.pagination.rowsPerPage) : 0
+        },
     },
     created() {
-        var self = this;
+        this.items = this.getBalances();
+        this.headers.transactions = this.$vuetify.breakpoint.xsOnly ? this.allTransactionsHeaders.filter(header => header.showOnMobile === true) : this.allTransactionsHeaders;
+        this.headers.balances = this.$vuetify.breakpoint.xsOnly ? this.allBalanceHeaders.filter(header => header.showOnMobile === true) : this.allBalanceHeaders;
+
     }
 }

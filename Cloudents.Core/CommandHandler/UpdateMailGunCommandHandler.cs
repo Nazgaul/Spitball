@@ -21,11 +21,11 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task HandleAsync(UpdateMailGunCommand message, CancellationToken token)
         {
-            var student = await _repository.LoadAsync(message.Id, token).ConfigureAwait(false);
+            var student = await _repository.GetAsync(message.Id, token).ConfigureAwait(false);
             student.Sent += $" {ConvertDateTimeToString(DateTime.UtcNow)}";
             student.ShouldSend = false;
 
-            await _repository.SaveAsync(student, token).ConfigureAwait(false);
+            await _repository.AddAsync(student, token).ConfigureAwait(false);
         }
 
         private static string ConvertDateTimeToString(DateTime dateTime)
