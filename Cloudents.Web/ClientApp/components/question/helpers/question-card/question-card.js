@@ -37,10 +37,10 @@ export default {
             isDeleted: false,
             showActionToaster: false,
             flaggedAsCorrect: false,
-            toasterTimeOut: 5000,
             toasterText: '',
             timeoutID: null,
-            action: null
+            action: null,
+            path: ''
         }
     },
     watch: {
@@ -49,17 +49,10 @@ export default {
                 clearTimeout(this.timeoutID);
                 this.updateParams({showToaster: false});
             }
-        },
-        isCloseToaster(val) {
-            if (val) {
-                clearTimeout(this.timeoutID);
-                this.action();
-                this.updateParams({showToaster: false});
-            }
         }
     },
     computed: {
-        ...mapGetters(['accountUser', 'isUndoAction', 'isCloseToaster', 'getToasterText', 'getShowToaster','getToasterTimeOut']),
+        ...mapGetters(['accountUser', 'isUndoAction', 'getToasterText', 'getShowToaster', 'getToasterTimeOut']),
         gallery() {
             return this.cardData.files
         },
@@ -84,32 +77,35 @@ export default {
             correctAnswer: 'correctAnswer',
             updateParams: 'updateParams'
         }),
-        deleteQuestion() {
-            var toasterText = this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted';
-            this.performAction(this.deleteAction, toasterText);
-        },
         markAsCorrect() {
-            this.performAction(this.markAsCorrectAction, 'You marked this answer has a correct answer ');
-        },
-        performAction(action, toasterText) {
-            this.updateParams({toasterText: toasterText, showToaster: true});
-            this.action = action;
-            this.timeoutID = setTimeout(() => {
-                this.action()
-            }, this.getToasterTimeOut);
-
-        },
-        markAsCorrectAction() {
+            // this.performAction(this.markAsCorrectAction, 'You marked this answer has a correct answer ');
+            var toasterText = this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted';
+            this.updateParams({
+                toasterText: toasterText,
+                showToaster: true,
+                undoReturnPath: this.$route.path,
+                undoAction: function () {
+                    console.log('here comes an API call to revert the delete - case 10292 assigned to Ram');
+                }
+            });
             this.flaggedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
             this.updateParams({toasterText: '', showToaster: false});
         },
-        deleteAction() {
+        deleteQuestion() {
+            this.updateParams({
+                toasterText: this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted',
+                showToaster: true,
+                undoReturnPath: this.$route.path,
+                undoAction: function () {
+                    console.log('here comes an API call to revert the delete - case 10292 assigned to Ram');
+                }
+            });
+            var self = this;
             this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')}).then(() => {
+                debugger;
                 !this.typeAnswer ? this.$router.push('/ask') : this.isDeleted = true
-            })
-            this.updateParams({toasterText: '', showToaster: false});
-
+            });
         },
     },
     mounted() {
@@ -119,7 +115,5 @@ export default {
     },
     created() {
         this.flaggedAsCorrect = this.isCorrectAnswer;
-        this.updateParams({toasterTimeOut: 5000000});
-
     }
 }

@@ -133,12 +133,12 @@
                 </div>
                 <slot name="extraHeader"></slot>
             </v-layout>
-            <v-snackbar absolute :timeout="getToasterTimeOut" :value="getShowToaster">
+            <v-snackbar absolute :timeout="5000" :value="getShowToaster">
                 <div>
                     <span>{{getToasterText}}</span>
-                    <button class="undo-btn" @click="setToasterUndo()">Undo</button>
+                    <button class="undo-btn" @click="callToasterUndo()">Undo</button>
                 </div>
-                <button class="close-btn" @click="setToasterClose()">
+                <button class="close-btn" @click="closeToaster()">
                     <v-icon>sbf-close</v-icon>
                 </button>
             </v-snackbar>
@@ -182,14 +182,14 @@
             food: "Search for deals..."
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText','getToasterTimeOut']),
+            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText', 'getToasterTimeOut', 'getUndoAction', 'getUndoReturnPath']),
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
             loggedIn() {
                 return this.accountUser !== null
             },
-            showToaster(){
+            showToaster() {
                 return getShowToaster;
             }
             //myMoney(){return this.accountUser.balance / 40}
@@ -285,11 +285,21 @@
             whatsappLink() {
                 return "whatsapp://send?text=" + encodeURIComponent(window.location.href);
             },
-            setToasterUndo() {
-                this.updateParams({undoAction: true});
+            callToasterUndo() {
+                debugger;
+                this.getUndoAction();
+                if (this.getUndoReturnPath) {
+                    this.$router.push(this.getUndoReturnPath);
+                    this.closeToaster();
+                }
             },
-            setToasterClose() {
-                this.updateParams({closeToaster: true});
+            closeToaster() {
+                this.updateParams({
+                    undoAction: null,
+                    toasterText: '',
+                    showToaster: false,
+                    undoReturnPath: ''
+                });
             }
         },
         created() {
