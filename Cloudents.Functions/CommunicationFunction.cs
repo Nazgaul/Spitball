@@ -74,9 +74,21 @@ namespace Cloudents.Functions
         public static async Task SmsServiceBusAsync(
             [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Sms))]SmsMessage message,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "Spitball")] IAsyncCollector<SMSMessage> options,
+            TraceWriter log,
             CancellationToken token
         )
         {
+            if (message.Message == null)
+            {
+                log.Error("message is null");
+                return;
+            }
+
+            if (message.PhoneNumber == null)
+            {
+                log.Error("no phone number");
+                return;
+            }
             await options.AddAsync(new SMSMessage
             {
                 To = message.PhoneNumber,

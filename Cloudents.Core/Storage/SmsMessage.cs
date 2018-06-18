@@ -5,6 +5,7 @@ namespace Cloudents.Core.Storage
     [DataContract]
     public class SmsMessage 
     {
+        [DataMember]
         private string _message;
 
         public SmsMessage(string phoneNumber, string code)
@@ -16,10 +17,16 @@ namespace Cloudents.Core.Storage
         [DataMember]
         public string PhoneNumber { get; set; }
 
-        [DataMember]
         public string Message
         {
-            get => $"Your code is: {_message}";
+            get
+            {
+                if (string.IsNullOrEmpty(_message))
+                {
+                    return null;
+                }
+                return $"Your code is: {_message}";
+            }
             set => _message = value;
         }
     }

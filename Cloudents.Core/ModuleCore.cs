@@ -3,6 +3,7 @@ using Autofac;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using JetBrains.Annotations;
 using Module = Autofac.Module;
 
 namespace Cloudents.Core
@@ -10,6 +11,7 @@ namespace Cloudents.Core
     [ModuleRegistration(Enum.System.Console)]
     [ModuleRegistration(Enum.System.Function)]
     [ModuleRegistration(Enum.System.Web)]
+    [UsedImplicitly]
     public class ModuleCore : Module
     {
         protected override void Load(ContainerBuilder builder)
