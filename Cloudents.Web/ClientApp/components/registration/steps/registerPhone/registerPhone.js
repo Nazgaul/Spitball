@@ -37,7 +37,8 @@ export default {
                 }, function (error) {
                     self.submitForm(false);
                     self.updateLoading(false);
-                    self.errorMessage.phone = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                    debugger;
+                    self.errorMessage.phone = "Invalid phone number";
                 });
         },
         next() {
@@ -49,9 +50,10 @@ export default {
                         self.updateLoading(false);
                         self.$emit('next');
                     }, function (error) {
+                        debugger;
                         self.submitForm(false);
                         self.updateLoading(false);
-                        self.errorMessage.code = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                        self.errorMessage.code = "Invalid phone number";
                     });
             }
         }
