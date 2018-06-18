@@ -28,18 +28,20 @@ export default {
         ...mapMutations({updateLoading:"UPDATE_LOADING"}),
         sendCode() {
             this.updateLoading(true);
-            var self = this
-            registrationService.smsRegistration(this.phone.countryCode + '' + this.phone.phoneNum)
-                .then(function () {
-                    self.updateLoading(false);
-                    self.codeSent = true;
-                    self.errorMessage.code = '';
-                }, function (error) {
-                    self.submitForm(false);
-                    self.updateLoading(false);
-                    debugger;
-                    self.errorMessage.phone = "Invalid phone number";
-                });
+            var self = this;
+            if (this.submitForm()) {
+                registrationService.smsRegistration(this.phone.countryCode + '' + this.phone.phoneNum)
+                    .then(function () {
+                        self.updateLoading(false);
+                        self.codeSent = true;
+                        self.errorMessage.code = '';
+                    }, function (error) {
+                        self.submitForm(false);
+                        self.updateLoading(false);
+                        debugger;
+                        self.errorMessage.phone = "Invalid phone number";
+                    });
+            }
         },
         next() {
             var self = this;
