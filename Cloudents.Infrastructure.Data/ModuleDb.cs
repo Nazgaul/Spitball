@@ -15,17 +15,10 @@ namespace Cloudents.Infrastructure.Data
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //builder.RegisterType<UnitOfWorkFactory>().AsSelf();//.As<IUnitOfWorkFactory>();
-
-            
             builder.RegisterType<UnitOfWorkFactorySpitball>().SingleInstance();
-            builder.RegisterType<UnitOfWorkFactoryMailGun>().SingleInstance();
 
             builder.Register(c => new UnitOfWork(c.Resolve<UnitOfWorkFactorySpitball>()))
                 .Keyed<IUnitOfWork>(Database.System).InstancePerLifetimeScope();
-            builder.Register(c => new UnitOfWork(c.Resolve<UnitOfWorkFactoryMailGun>()))
-                .Keyed<IUnitOfWork>(Database.MailGun).InstancePerLifetimeScope();
-
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
                 .AsImplementedInterfaces();
 
@@ -36,5 +29,18 @@ namespace Cloudents.Infrastructure.Data
 
             base.Load(builder);
         }
+    }
+
+    [ModuleRegistration(Core.Enum.System.Function)]
+    [UsedImplicitly]
+    public class ModuleMailGun : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType<UnitOfWorkFactoryMailGun>().SingleInstance();
+            builder.Register(c => new UnitOfWork(c.Resolve<UnitOfWorkFactoryMailGun>()))
+                .Keyed<IUnitOfWork>(Database.MailGun).InstancePerLifetimeScope();
+        }
+
     }
 }
