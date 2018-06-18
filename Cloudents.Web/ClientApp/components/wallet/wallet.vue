@@ -10,76 +10,29 @@
                     </button>
                     <v-tabs-bar fixed>
                         <v-tabs-slider color="white"></v-tabs-slider>
-                        <v-tabs-item @click="activeTab = 1" :href="'#tab-1'" :key="1">Balances</v-tabs-item>
-                        <v-tabs-item @click="activeTab = 2" :href="'#tab-2'" :key="2">Transaction</v-tabs-item>
+                        <v-tabs-item @click="changeActiveTab(1)" :href="'#tab-1'" :key="1">Balances</v-tabs-item>
+                        <v-tabs-item @click="changeActiveTab(2)" :href="'#tab-2'" :key="2">Transaction</v-tabs-item>
                     </v-tabs-bar>
                 </div>
 
                 <v-tabs-items>
                     <v-tabs-content :key="'1'" :id="'tab-1'">
                         <v-flex xs12>
-                            <table class="custom-table balances" cellspacing="0" cellpadding="0">
-                                <thead>
-                                <tr>
-                                    <th width="38px"></th>
-                                    <th width="380px"></th>
-                                    <th width="110px"><strong>Points</strong></th>
-                                    <th width="140px"><strong>$ value</strong></th>
-                                    <th width="189px"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="number">1</td>
-                                    <td>Awarded</td>
-                                    <td>250 pt</td>
-                                    <td>
-                                        <strong>$ 25.00</strong>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="number">2</td>
-                                    <td>Earned (Withdrawable)</td>
-                                    <td>987 pt</td>
-                                    <td>
-                                        <strong>$ 98.70</strong>
-                                    </td>
-                                    <td>
-                                        <button class="cash-out">Cash Out</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="number">3</td>
-                                    <td>Pending</td>
-                                    <td>10 pt</td>
-                                    <td>
-                                        <strong>$ 1.00</strong>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr class="total">
-                                    <td></td>
-                                    <td>Total</td>
-                                    <td>
-                                        <strong>1.244 pt</strong>
-                                    </td>
-                                    <td>
-                                        <strong>$ 124.40</strong>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>Staked</td>
-                                    <td>-25 pt</td>
-                                    <td>
-                                        <strong>-$ 2.50</strong>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <v-data-table
+                                    :headers="headers.balances"
+                                    :items="items"
+                                    hide-actions
+                                    class="balance-table wallet-table">
+                                <template slot="headerCell" slot-scope="props">
+                                    <span :class="props.header.text+'-header table-header'">{{ props.header.text }}</span>
+                                </template>
+                                <template slot="items" slot-scope="props">
+                                    <td class="text-xs-left">{{ props.item.type }}</td>
+                                    <td class="text-xs-right">{{ props.item.points }} pt</td>
+                                    <td class="text-xs-right bold">$ {{ props.item.value }}</td>
+                                    <td class="text-xs-center" v-if="!$vuetify.breakpoint.xsOnly"><span v-if="props.item.cashOut" class="cash-out">Cash Out</span></td>
+                                </template>
+                            </v-data-table>
                             <div class="bottom-btn">
                                 <button class="cash-out-big">Cash Out</button>
                             </div>
@@ -89,26 +42,21 @@
                     <v-tabs-content :key="'2'" :id="'tab-2'" class="tab-padding">
                         <v-flex xs12>
                             <v-data-table
-                                    v-bind:headers="headers"
-                                    v-bind:items="items"
-                                    v-bind:search="search"
-                                    v-bind:pagination.sync="pagination"
+                                    :headers="headers.transactions"
+                                    :items="items"
+                                    :search="search"
+                                    :pagination.sync="pagination"
                                     hide-actions
-                                    class="elevation-1"
-                            >
+                                    class="transaction-table wallet-table">
                                 <template slot="headerCell" slot-scope="props">
-                                    <v-tooltip bottom>
-                                        <span slot="activator">{{ props.header.text }}</span>
-                                        <span>{{ props.header.text }}</span>
-                                    </v-tooltip>
+                                    <span :class="props.header.text+'-header table-header'">{{ props.header.text }}</span>
                                 </template>
                                 <template slot="items" slot-scope="props">
-                                    <td>{{ props.item.id }}</td>
                                     <td class="text-xs-left">{{ props.item.date }}</td>
                                     <td class="text-xs-left">{{ props.item.action }}</td>
-                                    <td class="text-xs-left">{{ props.item.type }}</td>
-                                    <td class="text-xs-right">{{ props.item.amount }}</td>
-                                    <td class="text-xs-right">{{ props.item.balance }}</td>
+                                    <td class="text-xs-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}</td>
+                                    <td class="text-xs-right">{{ props.item.amount}} pt</td>
+                                    <td class="text-xs-right bold" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.balance }} pt</td>
                                 </template>
                             </v-data-table>
                             <div class="text-xs-center pt-2" :class="{'bottom-btn':$vuetify.breakpoint.xsOnly}">
