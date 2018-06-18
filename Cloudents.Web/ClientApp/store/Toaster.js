@@ -2,10 +2,8 @@
 
 const state = {
     params: {
-        undoAction: null,
         toasterText: '',
         showToaster:false,
-        undoReturnPath: ''
     }
 };
 const mutations = {
@@ -15,9 +13,7 @@ const mutations = {
 };
 const getters = {
     getShowToaster:  state => state.params.showToaster,
-    getUndoAction: state => state.params.undoAction,
     getToasterText: state => state.params.toasterText,
-    getUndoReturnPath: state => state.params.undoReturnPath,
 };
 const actions = {
     updateParams({commit}, val){

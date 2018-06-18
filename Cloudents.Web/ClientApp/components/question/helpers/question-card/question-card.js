@@ -43,16 +43,8 @@ export default {
             path: ''
         }
     },
-    watch: {
-        isUndoAction(val) {
-            if (val) {
-                clearTimeout(this.timeoutID);
-                this.updateParams({showToaster: false});
-            }
-        }
-    },
     computed: {
-        ...mapGetters(['accountUser', 'isUndoAction', 'getToasterText', 'getShowToaster', 'getToasterTimeOut']),
+        ...mapGetters(['accountUser', 'getToasterText', 'getShowToaster']),
         gallery() {
             return this.cardData.files
         },
@@ -78,15 +70,10 @@ export default {
             updateParams: 'updateParams'
         }),
         markAsCorrect() {
-            // this.performAction(this.markAsCorrectAction, 'You marked this answer has a correct answer ');
             var toasterText = this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted';
             this.updateParams({
                 toasterText: toasterText,
                 showToaster: true,
-                undoReturnPath: this.$route.path,
-                undoAction: function () {
-                    console.log('here comes an API call to revert the delete - case 10292 assigned to Ram');
-                }
             });
             this.flaggedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
@@ -96,14 +83,8 @@ export default {
             this.updateParams({
                 toasterText: this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted',
                 showToaster: true,
-                undoReturnPath: this.$route.path,
-                undoAction: function () {
-                    console.log('here comes an API call to revert the delete - case 10292 assigned to Ram');
-                }
             });
-            var self = this;
             this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')}).then(() => {
-                debugger;
                 !this.typeAnswer ? this.$router.push('/ask') : this.isDeleted = true
             });
         },
