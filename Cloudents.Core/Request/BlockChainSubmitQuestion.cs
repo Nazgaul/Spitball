@@ -29,12 +29,14 @@ namespace Cloudents.Core.Request
     {
         public long QuestionId { get; private set; }
         public Guid AnswerId { get; private set; }
+        public string SubmiterAddress { get; private set; }
 
 
-        public BlockChainSubmitAnswer(long questionId, Guid answerId)
+        public BlockChainSubmitAnswer(long questionId, Guid answerId, string submiterAddress)
         {
             QuestionId = questionId;
             AnswerId = answerId;
+            SubmiterAddress = submiterAddress;
         }
     }
 

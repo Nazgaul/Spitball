@@ -70,8 +70,8 @@ namespace ConsoleApp
 
             //await SendMoneyAsync();
 
-            var t = container.Resolve<IUserRepository>();
-            var z = await t.GetUserProfileAsync(551, default);
+           // var t = container.Resolve<IUserRepository>();
+           // var z = await t.GetUserProfileAsync(551, default);
 
             //var t = container.Resolve<IQuestionRepository>();
             //var z = await t.GetQuestionsAsync(new QuestionsQuery()
@@ -79,8 +79,42 @@ namespace ConsoleApp
             //    Term = "Irena's question"
             //}, default);
 
-          
-            
+
+            var a = container.Resolve<IBlockChainQAndAContract>();
+            var b = container.Resolve<IBlockChainErc20Service>();
+            //var b = await a.CashIn("74c79f73068ffe5e3c9b3485a5b5f57d8966cc9d1c15f850603c2c2e559b329f", 10);
+            //var c = await a.CashIOut("74c79f73068ffe5e3c9b3485a5b5f57d8966cc9d1c15f850603c2c2e559b329f", 10);
+
+            //Testing events
+
+            //TransferTokens
+            Guid answer = Guid.NewGuid();
+            Guid answer2 = Guid.NewGuid();
+            var FromAccount = new Account("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4");
+            var Toaccount = new Account("74c79f73068ffe5e3c9b3485a5b5f57d8966cc9d1c15f850603c2c2e559b329f");
+            //Console.WriteLine(a.GetBalanceAsync(Toaccount.Address, default).Result);
+            //var c = await a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", Toaccount.Address, 1000, default);
+            //Console.WriteLine(a.GetBalanceAsync(Toaccount.Address, default).Result);
+            BlockChainSubmitQuestion Submittest = new BlockChainSubmitQuestion(1, 10, FromAccount.Address);
+            BlockChainSubmitAnswer answertest1 = new BlockChainSubmitAnswer(1, answer, Toaccount.Address);
+            BlockChainSubmitAnswer answertest2 = new BlockChainSubmitAnswer(1, answer2, Toaccount.Address);
+            BlockChainMarkQuestionAsCorrect correctAns = new BlockChainMarkQuestionAsCorrect();
+
+
+            Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
+            await a.SubmitAsync(Submittest, default);
+            Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
+            await a.SubmitAsync(answertest1, default);
+            Console.WriteLine("SubmitAnswer1");
+            await a.SubmitAsync(answertest2, default);
+            Console.WriteLine("SubmitAnswer2");
+            await a.UpVoteAsync(FromAccount.Address, 1, answer, default);
+            Console.WriteLine("UpVote1");
+            await a.UpVoteAsync(FromAccount.Address, 1, answer2, default);
+            Console.WriteLine("UpVote2");
+            Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
+            await a.MarkAsCorrectAsync(FromAccount.Address, Toaccount.Address, 1, answer, default);
+            Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
 
 
             Console.WriteLine("Finish");
