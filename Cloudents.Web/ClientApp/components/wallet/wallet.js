@@ -2,157 +2,90 @@ import accountService from '../../services/accountService';
 import {mapGetters} from 'vuex'
 
 export default {
-    props:{ },
+    props: {},
     data() {
         return {
-            activeTab: 1,            
+            activeTab: 1,
             walletData: {},
 
             search: '',
             pagination: {
-                rowsPerPage:6
+                rowsPerPage: 6
             },
             selected: [],
             headers: [
-              {
-                text: 'Dessert (100g serving)',
-                align: 'left',
-                sortable: false,
-                value: 'name'
-              },
-              { text: 'Calories', value: 'calories' },
-              { text: 'Fat (g)', value: 'fat' },
-              { text: 'Carbs (g)', value: 'carbs' },
-              { text: 'Protein (g)', value: 'protein' },
-              { text: 'Sodium (mg)', value: 'sodium' }
+                {text: '', align: 'left', value: 'id', sortable: false},
+                {text: 'Date', align: 'left', value: 'date', sortable: false},
+                {text: 'Action', align: 'left', value: 'action', sortable: false},
+                {text: 'Type', align: 'left', value: 'type', sortable: false},
+                {text: 'Amount', align: 'right', value: 'amount', sortable: false},
+                {text: 'Balance', align: 'right', value: 'balance', sortable: false},
             ],
             items: [
-              {
-                value: false,
-                name: 'Frozen Yogurt',
-                calories: 159,
-                fat: 6.0,
-                carbs: 24,
-                protein: 4.0,
-                sodium: 87,
-                calcium: '14%',
-                iron: '1%'
-              },
-              {
-                value: false,
-                name: 'Ice cream sandwich',
-                calories: 237,
-                fat: 9.0,
-                carbs: 37,
-                protein: 4.3,
-                sodium: 129,
-                calcium: '8%',
-                iron: '1%'
-              },
-              {
-                value: false,
-                name: 'Eclair',
-                calories: 262,
-                fat: 16.0,
-                carbs: 23,
-                protein: 6.0,
-                sodium: 337,
-                calcium: '6%',
-                iron: '7%'
-              },
-              {
-                value: false,
-                name: 'Cupcake',
-                calories: 305,
-                fat: 3.7,
-                carbs: 67,
-                protein: 4.3,
-                sodium: 413,
-                calcium: '3%',
-                iron: '8%'
-              },
-              {
-                value: false,
-                name: 'Gingerbread',
-                calories: 356,
-                fat: 16.0,
-                carbs: 49,
-                protein: 3.9,
-                sodium: 327,
-                calcium: '7%',
-                iron: '16%'
-              },
-              {
-                value: false,
-                name: 'Jelly bean',
-                calories: 375,
-                fat: 0.0,
-                carbs: 94,
-                protein: 0.0,
-                sodium: 50,
-                calcium: '0%',
-                iron: '0%'
-              },
-              // {
-              //   value: false,
-              //   name: 'Lollipop',
-              //   calories: 392,
-              //   fat: 0.2,
-              //   carbs: 98,
-              //   protein: 0,
-              //   sodium: 38,
-              //   calcium: '0%',
-              //   iron: '2%'
-              // },
-              // {
-              //   value: false,
-              //   name: 'Honeycomb',
-              //   calories: 408,
-              //   fat: 3.2,
-              //   carbs: 87,
-              //   protein: 6.5,
-              //   sodium: 562,
-              //   calcium: '0%',
-              //   iron: '45%'
-              // },
-              // {
-              //   value: false,
-              //   name: 'Donut',
-              //   calories: 452,
-              //   fat: 25.0,
-              //   carbs: 51,
-              //   protein: 4.9,
-              //   sodium: 326,
-              //   calcium: '2%',
-              //   iron: '22%'
-              // },
-              // {
-              //   value: false,
-              //   name: 'KitKat',
-              //   calories: 518,
-              //   fat: 26.0,
-              //   carbs: 65,
-              //   protein: 7,
-              //   sodium: 54,
-              //   calcium: '12%',
-              //   iron: '6%'
-              // }
+                {
+                    id: 1,
+                    date: '12/2/18',
+                    action: 'Sign up',
+                    type: 'Awarded',
+                    amount: '100 pt',
+                    balance: '100 pt'
+                },
+                {
+                    id: 2,
+                    date: '24/3/18',
+                    action: 'Answer',
+                    type: 'Earned',
+                    amount: '5 pt',
+                    balance: '105 pt'
+                },
+                {
+                    id: 3,
+                    date: '24/3/18',
+                    action: 'FB post',
+                    type: 'Awarded',
+                    amount: '25 pt',
+                    balance: '130 pt'
+                },
+                {
+                    id: 4,
+                    date: '24/3/18',
+                    action: 'Answer',
+                    type: 'Earned',
+                    amount: '5 pt',
+                    balance: '135 pt'
+                },
+                {
+                    id: 5,
+                    date: '12/5/18',
+                    action: 'Question',
+                    type: 'Paid',
+                    amount: '-15 pt',
+                    balance: '120 pt'
+                },
+                {
+                    id: 6,
+                    date: '16/5/18',
+                    action: 'Question',
+                    type: 'Stake',
+                    amount: '-5 pt',
+                    balance: '115 pt'
+                },
             ]
         }
     },
     methods: {
         changeActiveTab(tabId) {
             this.activeTab = tabId;
-        }        
+        }
     },
     computed: {
         ...mapGetters(["accountUser"]),
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
-        pages () {
+        pages() {
             return this.pagination.rowsPerPage ? Math.ceil(this.items.totalItems / this.pagination.rowsPerPage) : 0
-          }
+        }
     },
     created() {
         var self = this;

@@ -1,7 +1,6 @@
 @import "../../mixin.less";
 
-.registration {
-  .dialog {
+  .registration-dialog {
     text-align: center;
     .card {
       display: flex;
@@ -75,6 +74,9 @@
       color: #ffffff;
       width: 100%;
       height: @registrationFieldHeight;
+      @media (max-width: @screen-xs) {
+        width: 86%;
+      }
       margin-top: 28px;
     }
 
@@ -86,6 +88,7 @@
     }
 
   }
+.registration {
   .step-title {
     text-align: center;
     font-size: 26px;

@@ -11,7 +11,7 @@
             <div v-for="page in REGISTRATION_STEPS" :class="{highlighted: page===step}"></div>
         </div>
 
-        <v-dialog v-model="showDialog" max-width="600px">
+        <v-dialog v-model="showDialog" max-width="600px" content-class="registration-dialog">
             <v-card>
                 <button class="close-btn" @click="showDialog = false">
                     <v-icon>sbf-close</v-icon>

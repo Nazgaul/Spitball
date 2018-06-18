@@ -1,17 +1,17 @@
 @import "../../mixin.less";
 
-.wallet-page{   
+.wallet-page{
     max-width: 846px;
     min-height: 512px;
     background-color: @color-white;
     box-shadow: 0 0 2px 0 #888b8e;
     margin: 48px auto auto;
 
-    @media (max-width: @screen-xs) { 
-        margin: 0; 
+    @media (max-width: @screen-xs) {
+        margin: 0;
         height: 100%;
-    }     
-    
+    }
+
 
     .header{
         height: 118px;
@@ -23,7 +23,7 @@
         @media (max-width: @screen-xs) {
             height: 96px;
             padding: 16px 13px 0 11px;
-        }     
+        }
 
         .header-title{
             font-size: 32px;
@@ -35,22 +35,22 @@
                 line-height: 1.04;
                 letter-spacing: -0.6px;
                 margin-left: 23px;
-            }        
-            
+            }
+
         }
 
         .back-button {
             float: right;
             width: 17px;
             position: relative;
-            outline: none;        
-            @media (max-width: @screen-xs) {}        
+            outline: none;
+            @media (max-width: @screen-xs) {}
             .icon {
                 color: @color-white;
                 font-size: 16px;
             }
         }
-        
+
     }
 
 
@@ -59,12 +59,12 @@
         margin-top: 8px;
         @media (max-width: @screen-xs) {
             height: 54px;
-            margin-top: 0;}        
-        
+            margin-top: 0;}
+
     }
     .tabs:not(.tabs--centered):not(.tabs--grow):not(.tabs--mobile) .tabs__wrapper--scrollable,.tabs:not(.tabs--centered):not(.tabs--grow) .tabs__wrapper--scrollable{
         margin: 0;
-        
+
         .tabs__item{
             color: @color-white !important;
             font-size: 16px;
@@ -75,10 +75,10 @@
                 font-weight: bold;
                 letter-spacing: -0.3px;
             }
-        }    
-        
+        }
+
     }
-    
+
     .custom-table{
         width: 100%;
         font-size: 16px;
@@ -94,18 +94,18 @@
         tr{height: 48px;}
         td{ text-align: center; }
         tr:nth-child(2n){background-color: @color-light-grey; }
-        
+
 
         &.balances{
             td:nth-child(2){
-                text-align: left; 
+                text-align: left;
                 padding-left: 34px;
                 @media (max-width: @screen-xs) {padding-left: 16px;}
              }
             td:nth-child(4),th:nth-child(4){
                 text-align: right;
                 @media (max-width: @screen-xs) {padding-right: 22px;}
-            }  
+            }
 
             @media (max-width: @screen-xs) {
                 td:nth-child(1),th:nth-child(1),td:nth-child(5),th:nth-child(5){
@@ -121,8 +121,8 @@
                 }
              }
         }
-        
-       
+
+
     }
 
     .cash-out,.cash-out-big{
@@ -136,9 +136,9 @@
         outline: none;
         letter-spacing: -0.2px;
         margin-right: 12px;
-    }    
-    
-    
+    }
+
+
     .bottom-btn{
 
         padding: 16px 17px;
@@ -149,19 +149,19 @@
         .cash-out-big{
             display: none;
             height: 48px;
-            @media (max-width: @screen-xs) { 
+            @media (max-width: @screen-xs) {
                 font-size: 18px;
                 line-height: 1.39;
                 letter-spacing: -0.5px;
                 display: block;
                 margin: 0;
                 width: 100%;
-            }     
+            }
         }
 
     }
 
-    
+
 
     .pagination{
         i.sbf{
@@ -185,10 +185,10 @@
         .pagination__item--active.primary{
             color: #000000;
             font-weight: bold;
-            
+
         }
     }
-    
+
 }
 
 
