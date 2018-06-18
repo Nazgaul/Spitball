@@ -111,7 +111,7 @@
 
         <template slot="rightSide">
             <slot name="rightSide">
-                <faq-block v-if="$route.path.slice(1)==='ask'"></faq-block>
+                <faq-block :isAsk="name==='ask'" :name="currentSuggest" :text="userText"></faq-block>
             </slot>
 
         </template>

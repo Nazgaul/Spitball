@@ -49,38 +49,29 @@
                 </div>
             </div> -->
             <!-- v-else -->
-            <div class="card-info general" v-if="!detailedView">
+            <div class="card-info general" v-if="!typeAnswer">
                 <div class="new-block">
-                    <div class="files" v-if="cardData.files">
+                    <div class="files" v-if="cardData.filesNum">
                         <template>
                             <v-icon>sbf-attach</v-icon>
-                            <span>{{cardData.files}}</span>
+                            <span>{{cardData.filesNum}}</span>
                         </template>
                     </div>
                     <div class="users">
-                        <template v-for="i in Math.min(3,cardData.answers)">
+                        <template v-for="i in Math.min(3,cardData.answersNum)">
                             <div class="avatar">
                                 <v-icon>sbf-comment-icon</v-icon>
                             </div>
                         </template>
                     </div>
-                    <span class="user-counter" v-if="cardData.answers>3">+{{cardData.answers-3}}</span>
+                    <span class="user-counter" v-if="cardData.answersNum>3">+{{cardData.answersNum-3}}</span>
                 </div>
 
-                <div class="answer">
+                <div class="answer" v-if="!detailedView">
                     <button class="answer-btn">Answer</button>
                 </div>
             </div>
         </div>
-        <v-snackbar top :timeout="toasterTimeOut" v-model="showActionToaster">
-            <div>
-                <span>{{toasterText}}</span>
-                <button class="undo-btn" @click="undoAction()">Undo</button>
-            </div>
-            <button class="close-btn" @click="closeToaster()">
-                <v-icon>sbf-close</v-icon>
-            </button>
-        </v-snackbar>
     </v-flex>
 </template>
 

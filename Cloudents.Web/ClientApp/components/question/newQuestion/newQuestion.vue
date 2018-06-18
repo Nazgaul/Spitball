@@ -29,7 +29,7 @@
 
 
                 <!-- <v-flex xs12> -->
-                <v-flex xs12 :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points']">You have {{currentSum}} points</v-flex>
+                <v-flex xs12 :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have {{currentSum}} points</v-flex>
                 <!-- </v-flex> -->
 
                 <v-flex xs12>

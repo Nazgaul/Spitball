@@ -6,13 +6,13 @@
                 <template v-if="item.name">
                     <router-link tag="v-list-tile" :to="{name:item.name}">
                         <v-list-tile-content>
-                            <v-list-tile-title>{{item.title}}</v-list-tile-title>
+                            <v-list-tile-title class="subheading">{{item.title}}</v-list-tile-title>
                         </v-list-tile-content>
                     </router-link>
                 </template>
                 <v-list-tile v-else @click="()=>item.click?item.click():''">
                     <v-list-tile-content>
-                        <v-list-tile-title>{{item.title}}</v-list-tile-title>
+                        <v-list-tile-title class="subheading">{{item.title}}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </template>
@@ -24,7 +24,7 @@
                     <v-icon>sbf-wallet</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>My Wallet</v-list-tile-title>
+                    <v-list-tile-title class="subheading">My Wallet</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <router-link tag="v-list-tile" :to="{name:'conversations'}">
@@ -32,10 +32,10 @@
                     <v-icon>sbf-comment</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Messages</v-list-tile-title>
+                    <v-list-tile-title class="subheading">Messages</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-avatar>
-                    <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
+                    <span class="red-counter subheading" v-if="unreadMessages">{{unreadMessages}}</span>
                 </v-list-tile-avatar>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'profile',params:{id:accountUser.id}}">
@@ -43,7 +43,7 @@
                     <v-icon>sbf-user</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>My Profile</v-list-tile-title>
+                    <v-list-tile-title class="subheading">My Profile</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
             <v-list-tile @click="startIntercom" >
@@ -51,7 +51,7 @@
                     <v-icon>sbf-feedback</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Feedback</v-list-tile-title>
+                    <v-list-tile-title class="subheading">Feedback</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile @click="logout">
@@ -59,29 +59,29 @@
                     <v-icon>sbf-logout</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Logout</v-list-tile-title>
+                    <v-list-tile-title class="subheading">Logout</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-divider class="my-3"></v-divider>
 
             <router-link tag="v-list-tile" :to="{name:'about'}">
                 <v-list-tile-content>
-                    <v-list-tile-title>About Spitball</v-list-tile-title>
+                    <v-list-tile-title class="subheading">About Spitball</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'faq'}">
                 <v-list-tile-content>
-                    <v-list-tile-title>Help</v-list-tile-title>
+                    <v-list-tile-title class="subheading">Help</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'terms'}">
                 <v-list-tile-content>
-                    <v-list-tile-title>Terms of Service</v-list-tile-title>
+                    <v-list-tile-title class="subheading">Terms of Service</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'privacy'}">
                 <v-list-tile-content>
-                    <v-list-tile-title>Privacy Policy</v-list-tile-title>
+                    <v-list-tile-title class="subheading">Privacy Policy</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
         </v-list>
