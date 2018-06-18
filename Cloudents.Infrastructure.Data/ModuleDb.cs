@@ -25,6 +25,7 @@ namespace Cloudents.Infrastructure.Data
             builder.RegisterType<QuestionSubjectRepository>().AsImplementedInterfaces();
             builder.RegisterType<QuestionRepository>().AsImplementedInterfaces();
             builder.RegisterType<UserRepository>().AsImplementedInterfaces();
+            builder.RegisterType<CourseRepository>().AsImplementedInterfaces();
             builder.RegisterType<DbConnectionStringProvider>().AsSelf();
 
             base.Load(builder);

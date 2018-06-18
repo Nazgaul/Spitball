@@ -13,15 +13,17 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IRepository<T>  where T : class
     {
-        Task<object> SaveAsync(T entity, CancellationToken token);
+       Task<object> AddAsync(T entity, CancellationToken token);
 
-        Task SaveOrUpdateAsync(T entity, CancellationToken token);
-        Task<T> LoadAsync(object id, CancellationToken token);
+        //Task SaveOrUpdateAsync(T entity, CancellationToken token);
+        //Task<T> LoadAsync(object id, CancellationToken token);
         Task<T> GetAsync(object id, CancellationToken token);
 
         Task DeleteAsync(T entity, CancellationToken token);
+        Task UpdateAsync(T entity, CancellationToken token);
+        Task AddOrUpdateAsync(T entity, CancellationToken token);
 
-        IQueryable<T> GetQueryable();
+        //IQueryable<T> GetQueryable();
     }
 
     public interface IQuestionSubjectRepository : IRepository<QuestionSubject>
@@ -43,4 +45,10 @@ namespace Cloudents.Core.Interfaces
 
         Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token);
     }
+
+    public interface ICourseRepository : IRepository<Course>
+    {
+        Task<Course> GetCourseAsync(long universityId, string courseName, CancellationToken token);
+    }
+
 }

@@ -23,14 +23,14 @@ namespace Cloudents.Infrastructure.Data.Repositories
             Session = _unitOfWork.Session;
         }
 
-        public Task<T> LoadAsync(object id, CancellationToken token)
-        {
-            return Session.LoadAsync<T>(id, token);
-        }
+        //public Task<T> LoadAsync(object id, CancellationToken token)
+        //{
+        //    return Session.LoadAsync<T>(id, token);
+        //}
 
         public Task<T> GetAsync(object id, CancellationToken token)
         {
-            return Session.GetAsync<T>(id, token);
+            return Session.LoadAsync<T>(id, token);
         }
 
 
@@ -40,21 +40,26 @@ namespace Cloudents.Infrastructure.Data.Repositories
             return Session.DeleteAsync(entity, token);
         }
 
-        public IQueryable<T> GetQueryable()
-        {
-           return Session.Query<T>();
-        }
-
-        public Task<object> SaveAsync(T entity, CancellationToken token)
+        public Task UpdateAsync(T entity, CancellationToken token)
         {
             _unitOfWork.FlagCommit();
             return Session.SaveAsync(entity, token);
         }
 
-        public Task SaveOrUpdateAsync(T entity, CancellationToken token)
+        public Task AddOrUpdateAsync(T entity, CancellationToken token)
         {
             _unitOfWork.FlagCommit();
             return Session.SaveOrUpdateAsync(entity, token);
         }
+
+       
+
+        public Task<object> AddAsync(T entity, CancellationToken token)
+        {
+            _unitOfWork.FlagCommit();
+            return Session.SaveAsync(entity, token);
+        }
+
+        
     }
 }
