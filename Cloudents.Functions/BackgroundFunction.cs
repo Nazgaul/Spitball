@@ -75,7 +75,6 @@ namespace Cloudents.Functions
         {
             if (obj.DeliveryCount > 3)
             {
-                await obj.DeadLetterAsync().ConfigureAwait(false);
                 return;
             }
             var qnaObject = obj.GetBodyInheritance<BlockChainQnaSubmit>();
