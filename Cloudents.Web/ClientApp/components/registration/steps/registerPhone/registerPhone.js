@@ -28,17 +28,20 @@ export default {
         ...mapMutations({updateLoading:"UPDATE_LOADING"}),
         sendCode() {
             this.updateLoading(true);
-            var self = this
-            registrationService.smsRegistration(this.phone.countryCode + '' + this.phone.phoneNum)
-                .then(function () {
-                    self.updateLoading(false);
-                    self.codeSent = true;
-                    self.errorMessage.code = '';
-                }, function (error) {
-                    self.submitForm(false);
-                    self.updateLoading(false);
-                    self.errorMessage.phone = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
-                });
+            var self = this;
+            if (this.submitForm()) {
+                registrationService.smsRegistration(this.phone.countryCode + '' + this.phone.phoneNum)
+                    .then(function () {
+                        self.updateLoading(false);
+                        self.codeSent = true;
+                        self.errorMessage.code = '';
+                    }, function (error) {
+                        self.submitForm(false);
+                        self.updateLoading(false);
+                        debugger;
+                        self.errorMessage.phone = "Invalid phone number";
+                    });
+            }
         },
         next() {
             var self = this;
@@ -49,9 +52,10 @@ export default {
                         self.updateLoading(false);
                         self.$emit('next');
                     }, function (error) {
+                        debugger;
                         self.submitForm(false);
                         self.updateLoading(false);
-                        self.errorMessage.code = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                        self.errorMessage.code = "Invalid phone number";
                     });
             }
         }

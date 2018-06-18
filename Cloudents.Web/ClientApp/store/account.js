@@ -103,6 +103,10 @@ const actions = {
         } catch (error) {
             console.error(error);
         }
+    },
+    updateUserBalance({commit,state},payload){
+        debugger;
+        commit('updateUser',{...state.user,balance:payload, dollar:(payload/40)})
     }
 };
 
