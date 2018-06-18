@@ -2,11 +2,8 @@
 
 const state = {
     params: {
-        undoAction: false,
-        closeToaster: false,
         toasterText: '',
         showToaster:false,
-        toasterTimeOut: 5000
     }
 };
 const mutations = {
@@ -16,10 +13,7 @@ const mutations = {
 };
 const getters = {
     getShowToaster:  state => state.params.showToaster,
-    isUndoAction: state => state.params.undoAction,
-    isCloseToaster: state => state.params.closeToaster,
     getToasterText: state => state.params.toasterText,
-    getToasterTimeOut: state => state.params.toasterTimeOut,
 };
 const actions = {
     updateParams({commit}, val){

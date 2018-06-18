@@ -15,7 +15,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @media(min-width: @screen-xs) {
+    @media (min-width: @screen-xs) {
       padding-bottom: 8px;
     }
   }
@@ -225,7 +225,7 @@
   }
 
   .btn {
-    .sbf-3-dot, .sbf-wallet, .sbf-menu, .sbf-comment,.sbf-feedback {
+    .sbf-3-dot, .sbf-wallet, .sbf-menu, .sbf-comment, .sbf-feedback {
       color: @color-main-purple;
       font-size: 17px;
       @media (max-width: @screen-xs) {
@@ -398,6 +398,7 @@
     opacity: 0;
   }
 }
+
 .snack__content {
   margin-top: 48px;
   width: 616px;
@@ -407,15 +408,19 @@
   line-height: 1.35;
   letter-spacing: -0.4px;
   color: #ffffff;
-  .undo-btn{
+  .text-wrap {
+    width: 100%;
+    text-align: center;
+  }
+  .undo-btn {
     text-decoration: underline;
     margin-left: 42px;
   }
-  .close-btn{
+  .close-btn {
     font-size: 0;
     padding: 10px;
     margin-right: -10px;
-    i{
+    i {
       color: @color-white;
       font-size: 14px;
     }

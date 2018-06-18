@@ -133,14 +133,10 @@
                 </div>
                 <slot name="extraHeader"></slot>
             </v-layout>
-            <v-snackbar absolute :timeout="getToasterTimeOut" :value="getShowToaster">
-                <div>
-                    <span>{{getToasterText}}</span>
-                    <button class="undo-btn" @click="setToasterUndo()">Undo</button>
+            <v-snackbar absolute :timeout="toasterTimeout" :value="getShowToaster">
+                <div class="text-wrap">
+                   {{getToasterText}}
                 </div>
-                <button class="close-btn" @click="setToasterClose()">
-                    <v-icon>sbf-close</v-icon>
-                </button>
             </v-snackbar>
             <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
 
@@ -182,16 +178,13 @@
             food: "Search for deals..."
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText','getToasterTimeOut']),
+            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
             loggedIn() {
                 return this.accountUser !== null
             },
-            showToaster(){
-                return getShowToaster;
-            }
             //myMoney(){return this.accountUser.balance / 40}
 
         },
@@ -225,8 +218,22 @@
                 notRegMenu,
                 clickOnce: false,
                 drawer: null,
+                toasterTimeout: 5000
                 // isAuthUser:true
             }
+        },
+        watch: {
+            getShowToaster: function (val) {
+                if (val) {
+                    var self = this;
+                    setTimeout(function () {
+                        self.updateParams({
+                            showToaster: false
+                        })
+                    }, this.toasterTimeout)
+                }
+            }
+
         },
         methods: {
             ...mapActions(['updateParams']),
@@ -285,12 +292,6 @@
             whatsappLink() {
                 return "whatsapp://send?text=" + encodeURIComponent(window.location.href);
             },
-            setToasterUndo() {
-                this.updateParams({undoAction: true});
-            },
-            setToasterClose() {
-                this.updateParams({closeToaster: true});
-            }
         },
         created() {
             this.$root.$on("personalize",
