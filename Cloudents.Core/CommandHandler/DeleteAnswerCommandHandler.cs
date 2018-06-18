@@ -18,7 +18,7 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task HandleAsync(DeleteAnswerCommand message, CancellationToken token)
         {
-            var answer = await _repository.LoadAsync(message.Id, token).ConfigureAwait(false);
+            var answer = await _repository.GetAsync(message.Id, token).ConfigureAwait(false);
             if (answer.User.Id != message.UserId)
             {
                 throw new InvalidOperationException("user is not the one who wrote the answer");

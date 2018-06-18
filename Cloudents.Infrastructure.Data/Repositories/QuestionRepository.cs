@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac.Features.Indexed;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using JetBrains.Annotations;
+using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Linq;
 
@@ -16,7 +16,11 @@ namespace Cloudents.Infrastructure.Data.Repositories
     [UsedImplicitly]
     public class QuestionRepository : NHibernateRepository<Question>, IQuestionRepository
     {
-        public QuestionRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWork) : base(unitOfWork)
+        //public QuestionRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWork) : base(unitOfWork)
+        //{
+        //}
+
+        public QuestionRepository(ISession session) : base(session)
         {
         }
 
@@ -141,5 +145,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
             return dto;
         }
+
+       
     }
 }

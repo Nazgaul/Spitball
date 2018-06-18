@@ -1,5 +1,8 @@
-﻿using System.Data;
-using System.Runtime.InteropServices;
+﻿using System;
+using System.Data;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
 
@@ -9,58 +12,73 @@ namespace Cloudents.Infrastructure.Data
     public sealed class UnitOfWork : IUnitOfWork
     {
         private readonly ITransaction _transaction;
-        private bool _isAlive = true;
-        private bool _isCommitted;
+        private readonly ISession _session;
+       
 
-       // [UsedImplicitly]
-        //public delegate UnitOfWork Factory(Core.Enum.Database db);
-
-        public UnitOfWork(IUnitOfWorkFactory unitOfFactory)
+        public UnitOfWork(ISession unitOfFactory)
         {
-            Session = unitOfFactory.OpenSession();
-            _transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
+            _session = unitOfFactory;//.OpenSession();
+            _transaction = _session.BeginTransaction(IsolationLevel.ReadCommitted);
         }
 
-        public ISession Session
-        {
-            get;
-        }
+        //public ISession Session
+        //{
+        //    get;
+        //}
 
         public void Dispose()
         {
-            if (!_isAlive)
-                return;
+            _transaction.Dispose();
+            _session.Dispose();
+            //if (!_isAlive)
+            //    return;
 
-            _isAlive = false;
+            //_isAlive = false;
 
-            try
-            {
-                if (_isCommitted)
-                {
-                    if (Marshal.GetExceptionCode() == 0)
-                    {
-                        _transaction.Commit();
-                    }
-                    else
-                    {
-                        _transaction.Rollback();
-                    }
-                    _isCommitted = false;
-                }
-            }
-            finally
-            {
-                _transaction.Dispose();
-                Session.Dispose();
-            }
+            //try
+            //{
+            //    if (_isCommitted)
+            //    {
+            //        if (Marshal.GetExceptionCode() == 0)
+            //        {
+            //            _transaction.Commit();
+            //        }
+            //        else
+            //        {
+            //            _transaction.Rollback();
+            //        }
+            //        _isCommitted = false;
+            //    }
+            //}
+            //finally
+            //{
+            //    _transaction.Dispose();
+            //    Session.Dispose();
+            //}
         }
 
-        public void FlagCommit()
-        {
-            if (!_isAlive)
-                return;
+        //public void FlagCommit()
+        //{
+        //    if (!_isAlive)
+        //        return;
 
-            _isCommitted = true;
+        //    _isCommitted = true;
+        //}
+        public async Task CommitAsync(CancellationToken token)
+        {
+            if (!_transaction.IsActive)
+            {
+                throw new InvalidOperationException("No active transation");
+            }
+            await _transaction.CommitAsync(token).ConfigureAwait(false);
+        }
+
+        public async Task RollbackAsync(CancellationToken token)
+        {
+            if (_transaction.IsActive)
+            {
+                await _transaction.RollbackAsync(token).ConfigureAwait(false);
+            }
         }
     }
 }

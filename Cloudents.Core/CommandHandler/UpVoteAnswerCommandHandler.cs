@@ -6,7 +6,7 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.CommandHandler
 {
-    public class UpVoteAnswerCommandHandler : ICommandHandlerAsync<UpVoteAnswerCommand>
+    public class UpVoteAnswerCommandHandler : ICommandHandler<UpVoteAnswerCommand>
     {
         private readonly IRepository<Answer> _repository;
         private readonly IRepository<User> _userRepository;
@@ -20,7 +20,7 @@ namespace Cloudents.Core.CommandHandler
             _userRepository = userRepository;
         }
 
-        public async Task HandleAsync(UpVoteAnswerCommand message, CancellationToken token)
+        public async Task ExecuteAsync(UpVoteAnswerCommand message, CancellationToken token)
         {
             var answer = await _repository.LoadAsync(message.Id, token).ConfigureAwait(false);
             var question = answer.Question;

@@ -1,6 +1,11 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
 using Autofac;
+using Autofac.Core;
 using Cloudents.Core.Attributes;
+using Cloudents.Core.Command;
+using Cloudents.Core.CommandHandler;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using JetBrains.Annotations;
@@ -17,9 +22,42 @@ namespace Cloudents.Core
         protected override void Load(ContainerBuilder builder)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandlerAsync<,>)).AsImplementedInterfaces();
-            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandlerAsync<>)).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandler<,>)).AsImplementedInterfaces();
+            //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandlerAsync<>));//.As(typeof(ICommandHandlerAsync<>));//.AsImplementedInterfaces();
             builder.RegisterType<CommandBus>().As<ICommandBus>();
+
+
+            builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
+                .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<,>)))
+                .Select(i => new KeyedService("handler", i)));
+
+            builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
+                .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)))
+                .Select(i => new KeyedService("handler", i)));
+
+
+            builder.RegisterGenericDecorator(
+                typeof(CommitUnitOfWorkCommandHandlerDecorator<>),
+                typeof(ICommandHandler<>),
+                fromKey: "handler");
+            builder.RegisterGenericDecorator(
+                typeof(CommitUnitOfWorkCommandHandlerDecorator<,>),
+                typeof(ICommandHandler<,>),
+                fromKey: "handler");
+
+
+            builder.RegisterType<UpdateMailGunCommandHandler>()
+                .Named<ICommandHandler<UpdateMailGunCommand>>("mailGun");
+
+
+            builder.RegisterDecorator<ICommandHandler<UpdateMailGunCommand>>(
+                (c, inner) =>
+                {
+                    var t = c.ResolveKeyed<IUnitOfWork>(Database.MailGun);
+                    return new CommitUnitOfWorkCommandHandlerDecorator<UpdateMailGunCommand>(t, inner);
+                },
+                fromKey: "mailGun");
+
 
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<,>));
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<>));

@@ -67,9 +67,9 @@
                     <span class="user-counter" v-if="cardData.answersNum>3">+{{cardData.answersNum-3}}</span>
                 </div>
 
-                <div class="answer" v-if="!detailedView">
-                    <button class="answer-btn">Answer</button>
-                </div>
+                <!--<div class="answer" v-if="!detailedView">-->
+                    <!--<button class="answer-btn">Answer</button>-->
+                <!--</div>-->
             </div>
         </div>
     </v-flex>
