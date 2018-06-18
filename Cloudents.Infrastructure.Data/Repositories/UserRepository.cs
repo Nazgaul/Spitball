@@ -3,11 +3,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac.Features.Indexed;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
+using NHibernate;
 using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data.Repositories
@@ -15,14 +15,19 @@ namespace Cloudents.Infrastructure.Data.Repositories
     [UsedImplicitly]
     public class UserRepository : NHibernateRepository<User>, IUserRepository
     {
-        public UserRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWork) : base(unitOfWork)
+
+        public UserRepository(ISession session) : base(session)
         {
         }
+
+        //public UserRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWork) : base(unitOfWork)
+        //{
+        //}
 
 
         public Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token)
         {
-            return Session.Query<User>().FirstOrDefaultAsync(expression, cancellationToken: token);
+            return Session.Query<User>().FirstOrDefaultAsync(expression, token);
         }
 
         public async Task<ProfileDto> GetUserProfileAsync(long id, CancellationToken token)

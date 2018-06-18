@@ -51,4 +51,9 @@ namespace Cloudents.Core.Interfaces
         Task<Course> GetCourseAsync(long universityId, string courseName, CancellationToken token);
     }
 
+
+    public interface IMailGunStudentRepository : IRepository<MailGunStudent>
+    {
+    }
+
 }

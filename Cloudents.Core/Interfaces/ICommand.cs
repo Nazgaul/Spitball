@@ -11,16 +11,16 @@ namespace Cloudents.Core.Interfaces
     {
     }
 
-    public interface ICommandHandlerAsync<in TCommand, TCommandResult>
+    public interface ICommandHandler<in TCommand, TCommandResult>
         where TCommand : ICommand
         where TCommandResult : ICommandResult
     {
         Task<TCommandResult> ExecuteAsync(TCommand command, CancellationToken token);
     }
 
-    public interface ICommandHandlerAsync<in TCommand> where TCommand : ICommand
+    public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {
-        Task HandleAsync(TCommand message, CancellationToken token);
+        Task ExecuteAsync(TCommand message, CancellationToken token);
     }
 
     public interface ICommandBus

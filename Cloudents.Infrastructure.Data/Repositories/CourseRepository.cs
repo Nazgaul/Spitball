@@ -2,10 +2,9 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac.Features.Indexed;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using NHibernate;
 using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data.Repositories
@@ -13,7 +12,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "IOC inject")]
     public class CourseRepository : NHibernateRepository<Course>, ICourseRepository
     {
-        public CourseRepository(IIndex<Database, IUnitOfWork> unitOfWorks) : base(unitOfWorks)
+        public CourseRepository(ISession session) : base(session)
         {
         }
 

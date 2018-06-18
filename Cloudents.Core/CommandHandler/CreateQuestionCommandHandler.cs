@@ -44,4 +44,27 @@ namespace Cloudents.Core.CommandHandler
             await Task.WhenAll(l.Union(new[] { p })).ConfigureAwait(true);
         }
     }
+
+
+    public class CommitUnitOfWorkCommandHandlerDecorator<TCommand>
+        : ICommandHandlerAsync<TCommand> where TCommand : ICommand
+    {
+
+        private readonly IUnitOfWork unitOfWork;
+        private readonly ICommandHandlerAsync<TCommand> decoratee;
+
+        public CommitUnitOfWorkCommandHandlerDecorator(
+            IUnitOfWork unitOfWork,
+            ICommandHandlerAsync<TCommand> decoratee)
+        {
+            this.unitOfWork = unitOfWork;
+            this.decoratee = decoratee;
+        }
+
+        public async Task HandleAsync(TCommand command,CancellationToken token)
+        {
+            await this.decoratee.HandleAsync(command,token);
+            await this.unitOfWork.CommitAsync(token);
+        }
+    }
 }
