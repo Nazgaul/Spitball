@@ -38,6 +38,12 @@ namespace Cloudents.Core.Request
             AnswerId = answerId;
             SubmiterAddress = submiterAddress;
         }
+
+        public BlockChainSubmitAnswer(long questionId, Guid answerId)
+        {
+            QuestionId = questionId;
+            AnswerId = answerId;
+        }
     }
 
 
@@ -58,4 +64,21 @@ namespace Cloudents.Core.Request
             AnswerId = answerId;
         }
     }
+
+    [Serializable]
+    public class BlockChainUpVote : BlockChainQnaSubmit
+    {
+        public string UserAddress { get; private set; }
+        public long QuestionId { get; private set; }
+        public Guid AnswerId { get; private set; }
+
+
+        public BlockChainUpVote(string userAddress, long questionId, Guid answerId)
+        {
+            UserAddress = userAddress;
+            QuestionId = questionId;
+            AnswerId = answerId;
+        }
+    }
+
 }

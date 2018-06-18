@@ -95,11 +95,14 @@ namespace ConsoleApp
             //Console.WriteLine(a.GetBalanceAsync(Toaccount.Address, default).Result);
             //var c = await a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", Toaccount.Address, 1000, default);
             //Console.WriteLine(a.GetBalanceAsync(Toaccount.Address, default).Result);
+
+
             BlockChainSubmitQuestion Submittest = new BlockChainSubmitQuestion(1, 10, FromAccount.Address);
             BlockChainSubmitAnswer answertest1 = new BlockChainSubmitAnswer(1, answer, Toaccount.Address);
             BlockChainSubmitAnswer answertest2 = new BlockChainSubmitAnswer(1, answer2, Toaccount.Address);
-            BlockChainMarkQuestionAsCorrect correctAns = new BlockChainMarkQuestionAsCorrect();
-
+            BlockChainMarkQuestionAsCorrect correct = new BlockChainMarkQuestionAsCorrect(FromAccount.Address, Toaccount.Address, 1, answer);
+            BlockChainUpVote UV1 = new BlockChainUpVote(FromAccount.Address, 1, answer);
+            BlockChainUpVote UV2 = new BlockChainUpVote(FromAccount.Address, 1, answer2);
 
             Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
             await a.SubmitAsync(Submittest, default);
@@ -108,12 +111,12 @@ namespace ConsoleApp
             Console.WriteLine("SubmitAnswer1");
             await a.SubmitAsync(answertest2, default);
             Console.WriteLine("SubmitAnswer2");
-            await a.UpVoteAsync(FromAccount.Address, 1, answer, default);
+            await a.SubmitAsync(UV1, default);
             Console.WriteLine("UpVote1");
-            await a.UpVoteAsync(FromAccount.Address, 1, answer2, default);
+            await a.SubmitAsync(UV2, default);
             Console.WriteLine("UpVote2");
             Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
-            await a.MarkAsCorrectAsync(FromAccount.Address, Toaccount.Address, 1, answer, default);
+            await a.SubmitAsync(correct, default);
             Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
 
 

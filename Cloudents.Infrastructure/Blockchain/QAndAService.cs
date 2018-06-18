@@ -42,11 +42,23 @@ namespace Cloudents.Infrastructure.Blockchain
             await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, model.QuestionId, model.AnswerId.ToString(), model.WinnerAddress, model.UserAddress).ConfigureAwait(false);
         }
 
-        public async Task UpVoteAsync(string userAddress, long questionId, Guid answerId, CancellationToken token)
+        //public async Task UpVoteAsync(string userAddress, long questionId, Guid answerId, CancellationToken token)
+        //{
+        //    var operationToExe = await GetFunctionAsync("upVote", token).ConfigureAwait(false);
+        //    await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId,
+        //        answerId.ToString(), userAddress).ConfigureAwait(false);
+        //}
+
+        //public async Task MarkAsCorrectAsync(string userAddress, string winnerAddress, long questionId, Guid answerId, CancellationToken token)
+        //{
+        //    var operationToExe = await GetFunctionAsync("approveAnswer", token).ConfigureAwait(false);
+        //    await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId, answerId.ToString(), winnerAddress, userAddress).ConfigureAwait(false);
+        //}
+
+        public async Task SubmitAsync(BlockChainUpVote model, CancellationToken token)
         {
-            var operationToExe = await GetFunctionAsync("upVote", token).ConfigureAwait(false);
-            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId,
-                answerId.ToString(), userAddress).ConfigureAwait(false);
+            var operationToExe = await GetFunctionAsync("approveAnswer", token).ConfigureAwait(false);
+            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, model.QuestionId, model.AnswerId.ToString(), model.UserAddress).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<string>> UpVoteListAsync(long questionId, Guid answerId, CancellationToken token)
