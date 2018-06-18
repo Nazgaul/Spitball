@@ -218,7 +218,7 @@
                 notRegMenu,
                 clickOnce: false,
                 drawer: null,
-                toasterTimeout: 500000
+                toasterTimeout: 5000
                 // isAuthUser:true
             }
         },
