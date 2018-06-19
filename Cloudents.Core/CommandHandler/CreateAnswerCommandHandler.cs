@@ -33,8 +33,8 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task HandleAsync(CreateAnswerCommand message, CancellationToken token)
         {
-            var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
-            var question = await _questionRepository.LoadAsync(message.QuestionId, token).ConfigureAwait(false);
+            var user = await _userRepository.GetAsync(message.UserId, token).ConfigureAwait(false);
+            var question = await _questionRepository.GetAsync(message.QuestionId, token).ConfigureAwait(false);
             if (user.Id == question.User.Id)
             {
                 throw new InvalidOperationException("user cannot answer himself");

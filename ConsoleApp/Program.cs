@@ -70,7 +70,21 @@ namespace ConsoleApp
 
             //await SendMoneyAsync();
 
-           // var t = container.Resolve<IUserRepository>();
+            //var command = new CreateQuestionCommand()
+            //{
+            //    Text = "What is nhibernate2",
+            //    Price = 1,
+            //    Files = null,
+            //    UserId = 385,
+            //    SubjectId = 1
+            //};
+            //var command2 = new UpdateMailGunCommand(1533063)
+            //{
+
+            //};
+            //var t = container.Resolve<ICommandBus>();
+            //await t.DispatchAsync(command2, default);
+            //await t.DispatchAsync(command, default);
            // var z = await t.GetUserProfileAsync(551, default);
 
             //var t = container.Resolve<IQuestionRepository>();
