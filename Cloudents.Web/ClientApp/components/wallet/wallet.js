@@ -1,13 +1,16 @@
 import accountService from '../../services/accountService';
+import {cashOutCards} from './consts'
+import cashOutCard from './cashOutCard/cashOutCard.vue'
 import {mapGetters} from 'vuex'
 
 export default {
+    components: {cashOutCard},
     props: {},
     data() {
         return {
             activeTab: 1,
             walletData: {},
-
+            cashOut: true,
             search: '',
             pagination: {
                 rowsPerPage: 6
@@ -24,13 +27,13 @@ export default {
                 {text: '', align: 'left', value: 'name',showOnMobile: true},
                 {text: 'Points', align: 'left', value: 'points',align: 'right',showOnMobile: true},
                 {text: 'Value', align: 'left', value: 'value',align: 'right',showOnMobile: true},
-                {text: '', align: 'left', value: 'cashOut',showOnMobile: false}
             ],
             headers: {
                 balances: [],
                 transactions: []
             },
-            items: []
+            items: [],
+            cashOutOptions: cashOutCards
         }
     },
     methods: {
@@ -46,14 +49,13 @@ export default {
             return [
                 {
                     type: 'Awarded',
-                    points: '250 pt',
-                    value: '$ 25.00',
+                    points: '250',
+                    value: '25.00',
                 },
                 {
                     type: 'Earned (Withdrawable)',
                     points: '987',
-                    value: '98.70',
-                    cashOut: true
+                    value: '98.70'
                 },
                 {
                     type: 'Pending',
