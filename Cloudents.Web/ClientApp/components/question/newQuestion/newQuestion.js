@@ -35,7 +35,7 @@ export default {
                     .then(function () {
                         debugger;
                         let val= self.selectedPrice || self.price;
-                            self.updateUserBalance(self.accountUser.balance-val);
+                            self.updateUserBalance(-val);
                             self.$router.push({path: '/ask', query: {q: ''}});
                         },
                         function (error) {
