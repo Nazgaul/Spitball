@@ -9,7 +9,7 @@
             <v-tabs class="verticals-bar" :scrollable="false" centered>
                 <v-tabs-bar>
                     <v-tabs-item router v-for="tab in verticals" :key="tab.name" :to="tab.name"
-                                 class="vertical">
+                                 class="mr-1 vertical">
                         {{tab.display}}
                     </v-tabs-item>
                     <v-tabs-slider color="color-dark-blue"></v-tabs-slider>
