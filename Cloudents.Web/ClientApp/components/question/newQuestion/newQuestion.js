@@ -66,7 +66,7 @@ export default {
             return this.accountUser.balance-val
         },
         validForm() {
-            return this.subject && this.textAreaValue.length && (this.selectedPrice || this.price >= 0.5);
+            return this.subject && this.textAreaValue.length && (this.selectedPrice || this.price >= 5);
         },
     },
     created() {
