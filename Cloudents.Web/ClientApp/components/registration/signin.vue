@@ -1,11 +1,11 @@
 <template>
-    <div class="registration">
+    <page-template>
         <step-template v-if="!codeSent">
             <div slot="step-data" class="limited-width">
                 <h1 class="step-title">Login</h1>
                 <form @submit.prevent="submit">
                     <sb-input :errorMessage="errorMessage.email" :required="true" class="email-field" type="email" name="email" id="input-url" v-model="userEmail" placeholder="Enter your email address"></sb-input>
-                    <vue-recaptcha class="recaptcha-wrapper"
+                    <vue-recaptcha class="recaptcha-wrapper" ref="recaptcha"
                                    sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
                                    @verify="onVerify" @expired="onExpired"></vue-recaptcha>
                     <input class="continue-btn" type="submit" value="Login" :disabled="submitted || !userEmail || !recaptcha">
@@ -34,7 +34,7 @@
             </div>
             <img slot="step-image" :src="require(`../registration/img/confirm-phone.png`)"/>
         </step-template>
-    </div>
+    </page-template>
 </template>
 
 <script src="./signin.js"></script>

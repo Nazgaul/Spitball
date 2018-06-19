@@ -2,12 +2,13 @@ import stepTemplate from './steps/stepTemplate.vue';
 import VueRecaptcha from 'vue-recaptcha';
 import registrationService from '../../services/registrationService';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
+import pageTemplate from "./registration.vue"
 import {mapGetters, mapMutations} from 'vuex'
 
 const defaultSubmitRoute = {path: '/ask', query: {q: ''}};
 
 export default {
-    components: {stepTemplate, VueRecaptcha, SbInput},
+    components: {stepTemplate, VueRecaptcha, SbInput,pageTemplate},
     data() {
         return {
             userEmail: '',
@@ -35,6 +36,7 @@ export default {
                     self.updateLoading(false);
                     self.codeSent = true;
                 }, function (reason) {
+                    self.$refs.recaptcha.reset();
                     self.updateLoading(false);
                     self.errorMessage.email = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
                 });
