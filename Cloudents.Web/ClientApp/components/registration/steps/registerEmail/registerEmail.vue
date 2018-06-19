@@ -13,7 +13,7 @@
                 <div class="seperator-text"><span>or use your email</span></div>
                 <form @submit.prevent="next">
                     <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage" placeholder="Enter your email address" v-model="userEmail" name="email" type="email" :autofocus="true"></sb-input>
-                    <vue-recaptcha class="recaptcha-wrapper" sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
+                    <vue-recaptcha class="recaptcha-wrapper" sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1" ref="recaptcha"
                                    @verify="onVerify" @expired="onExpired"></vue-recaptcha>
                     <input :disabled="submitted||!recaptcha" class="continue-btn input-field" type="submit"
                            value="Continue">

@@ -3,11 +3,14 @@ import VueRecaptcha from 'vue-recaptcha';
 import registrationService from '../../services/registrationService';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
 import pageTemplate from "./registration.vue"
+import disableForm from '../mixins/submitDisableMixin'
+
 import {mapGetters, mapMutations} from 'vuex'
 
 const defaultSubmitRoute = {path: '/ask', query: {q: ''}};
 
 export default {
+    mixins:[disableForm],
     components: {stepTemplate, VueRecaptcha, SbInput,pageTemplate},
     data() {
         return {
@@ -42,16 +45,21 @@ export default {
                 });
         },
         verifyCode() {
-            registrationService.smsCodeVerification(this.confirmationCode)
-                .then(function () {
-                    self.updateLoading(false);
-                    let url = self.fromPath || defaultSubmitRoute;
-                    window.isAuth = true;
-                    self.$router.push({...url});
-                }, function (reason) {
-                    self.updateLoading(false);
-                    self.errorMessage.code = reason.response.data;
-                });
+            var self=this;
+            if(this.submitForm()) {
+                self.updateLoading(false);
+                registrationService.smsCodeVerification(this.confirmationCode)
+                    .then(function () {
+                        self.updateLoading(false);
+                        let url = self.fromPath || defaultSubmitRoute;
+                        window.isAuth = true;
+                        self.$router.push({...url});
+                    }, function (reason) {
+                        self.updateLoading(false);
+                        self.submitForm(false)
+                        self.errorMessage.code = "Invalid code";
+                    });
+            }
         },
         onVerify(response) {
             this.recaptcha = response;
