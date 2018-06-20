@@ -1,6 +1,7 @@
 ﻿﻿
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
+        <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main" >
             <div class="d-flex mobile-filter hidden-sm-and-up" >
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterCondition">
@@ -124,10 +125,11 @@
 </template>
 <script>
     import { pageMixin } from './Result'
+    import signupBanner from './../helpers/signup-banner/signup-banner.vue'
     import QuestionCard from "../question/helpers/question-card/question-card";
     import {mapGetters} from 'vuex';
     export default {
-        components: {QuestionCard},
+        components: {QuestionCard, signupBanner},
         mixins: [pageMixin],
         computed:{
             ...mapGetters(["accountUser"])
