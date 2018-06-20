@@ -48,7 +48,7 @@
                 <v-tabs-bar>
                     <v-tabs-slider color="blue"></v-tabs-slider>
                     <v-tabs-item :href="'#tab-1'" :key="'1'">Question</v-tabs-item>
-                    <v-tabs-item :href="'#tab-2'" :key="'2'" v-if="!questionData.cardOwner">Chat</v-tabs-item>
+                    <v-tabs-item :href="'#tab-2'" :key="'2'">Chat</v-tabs-item>
                 </v-tabs-bar>
 
                 <v-tabs-items>
