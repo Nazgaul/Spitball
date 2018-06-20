@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Chat;
@@ -14,6 +15,7 @@ using Microsoft.ServiceBus.Messaging;
 
 namespace Cloudents.Functions
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Azure function")]
     public static class BackgroundFunction
     {
         [FunctionName("FunctionTalkJs")]

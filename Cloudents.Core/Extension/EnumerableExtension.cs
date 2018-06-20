@@ -26,7 +26,7 @@ namespace Cloudents.Core.Extension
         //}
 
         //https://stackoverflow.com/questions/13731796/create-batches-in-linq
-        public static IEnumerable<IEnumerable<TSource>> Batch<TSource>(
+        /*public static IEnumerable<IEnumerable<TSource>> Batch<TSource>(
             this IEnumerable<TSource> source, int size)
         {
             TSource[] bucket = null;
@@ -49,6 +49,6 @@ namespace Cloudents.Core.Extension
 
             if (bucket != null && count > 0)
                 yield return bucket.Take(count);
-        }
+        }*/
     }
 }
