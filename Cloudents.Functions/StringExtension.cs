@@ -20,7 +20,7 @@ namespace Cloudents.Functions
             return formatString.Inject(GetPropertyHash(injectionObject));
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Extension method that replaces keys in a string with the values of matching dictionary entries.
         /// <remarks>Uses <see cref="String.Format()"/> internally; custom formats should match those used for that method.</remarks>
         /// </summary>
@@ -30,7 +30,7 @@ namespace Cloudents.Functions
         public static string Inject(this string formatString, IDictionary dictionary)
         {
             return formatString.Inject(new Hashtable(dictionary));
-        }
+        }*/
 
         /// <summary>
         /// Extension method that replaces keys in a string with the values of matching hashtable entries.

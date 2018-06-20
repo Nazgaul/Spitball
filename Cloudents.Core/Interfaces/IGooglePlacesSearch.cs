@@ -9,7 +9,7 @@ namespace Cloudents.Core.Interfaces
     public interface IGooglePlacesSearch
     {
 
-        Task<(Address address, GeoPoint point)> GeoCodingByAddressAsync(string address, CancellationToken token);
+       // Task<(Address address, GeoPoint point)> GeoCodingByAddressAsync(string address, CancellationToken token);
         Task<(Address address, GeoPoint point)> GeoCodingByZipAsync(string zip, CancellationToken token);
         Task<(Address address, GeoPoint point)> ReverseGeocodingAsync(GeoPoint point, CancellationToken token);
     }

@@ -13,14 +13,6 @@ namespace Cloudents.Core.Extension
             }
         }
 
-        public static void AddNotNull(this List<string> list, string val, Func<string, string> predicate)
-        {
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
-            if (!string.IsNullOrEmpty(val))
-            {
-                list.Add(predicate(val));
-            }
-        }
 
         public static T RemoveAndGet<T>(this IList<T> list, int index)
         {

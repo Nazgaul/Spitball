@@ -34,6 +34,7 @@ export default {
                     .then(function () {
                         self.updateLoading(false);
                         self.codeSent = true;
+                        self.submitForm(false);
                         self.errorMessage.code = '';
                     }, function (error) {
                         self.submitForm(false);
@@ -55,7 +56,7 @@ export default {
                         debugger;
                         self.submitForm(false);
                         self.updateLoading(false);
-                        self.errorMessage.code = "Invalid phone number";
+                        self.errorMessage.code = "Invalid code";
                     });
             }
         }

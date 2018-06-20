@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Diagnostics.CodeAnalysis;
+using Autofac;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Storage;
 
@@ -6,6 +7,7 @@ namespace Cloudents.Infrastructure.Framework
 {
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Web)]
+    [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Autofac module")]
     public class ModuleFile : Module
     {
         protected override void Load(ContainerBuilder builder)

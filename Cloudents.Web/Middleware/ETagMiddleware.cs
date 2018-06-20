@@ -8,7 +8,7 @@ using Microsoft.Net.Http.Headers;
 
 namespace Cloudents.Web.Middleware
 {
-    public class ETagMiddleware
+    /*public class ETagMiddleware
     {
         private readonly RequestDelegate _next;
 
@@ -81,5 +81,5 @@ namespace Cloudents.Web.Middleware
         {
             app.UseMiddleware<ETagMiddleware>();
         }
-    }
+    }*/
 }

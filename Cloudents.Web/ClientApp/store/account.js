@@ -2,6 +2,7 @@ import axios from "axios";
 import Talk from "talkjs";
 import accountService from "../services/accountService"
 import { debug } from "util";
+import {dollarCalculate} from "./constants";
 //import { stat } from "fs";
 let userLogin = false;
 
@@ -107,7 +108,7 @@ const actions = {
     updateUserBalance({commit,state},payload){
         let newBalance=state.user.balance+payload;
         debugger
-        commit('updateUser',{...state.user,balance:newBalance, dollar:(newBalance/40)})
+        commit('updateUser',{...state.user,balance:newBalance, dollar:dollarCalculate(newBalance)})
     }
 };
 

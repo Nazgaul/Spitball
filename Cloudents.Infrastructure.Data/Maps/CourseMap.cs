@@ -1,8 +1,10 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Infrastructure.Data.Maps
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Fluent nhibernate")]
     public class CourseMap : SpitballClassMap<Course>
     {
         public CourseMap()
