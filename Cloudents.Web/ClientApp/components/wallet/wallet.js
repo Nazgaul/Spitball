@@ -10,7 +10,7 @@ export default {
         return {
             activeTab: 1,
             walletData: {},
-            cashOut: true,
+            cashOut: false,
             search: '',
             pagination: {
                 rowsPerPage: 6
@@ -40,13 +40,13 @@ export default {
         changeActiveTab(tabId) {
             this.activeTab = tabId;
             if (tabId === 1) {
-                this.items = this.getBalances();
+                this.getBalances();
             } else {
-                this.items = this.getTransactions();
+                this.getTransactions();
             }
         },
         getBalances() {
-            return [
+            this.items = [
                 {
                     type: 'Awarded',
                     points: '250',
@@ -62,6 +62,20 @@ export default {
                     points: '10',
                     value: '1.00',
                 },
+                {
+                    type: 'Staked',
+                    points: '-25',
+                    value: '-2.50',
+                },
+                {
+                    type: 'Total',
+                    points: '1244',
+                    value: '124.40',
+                },
+            ]
+        },
+        getTransactions() {
+            this.items = [
                 {
                     id: 1,
                     date: '12/2/18',
@@ -133,7 +147,7 @@ export default {
         },
     },
     created() {
-        this.items = this.getBalances();
+        this.getBalances();
         this.headers.transactions = this.$vuetify.breakpoint.xsOnly ? this.allTransactionsHeaders.filter(header => header.showOnMobile === true) : this.allTransactionsHeaders;
         this.headers.balances = this.$vuetify.breakpoint.xsOnly ? this.allBalanceHeaders.filter(header => header.showOnMobile === true) : this.allBalanceHeaders;
 

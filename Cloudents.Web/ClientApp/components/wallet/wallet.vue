@@ -1,10 +1,10 @@
 <template>
     <div class="wallet-page">
 
-        <div class="flex">
+        <div class="flex data-section">
             <div class="header">
                 <span class="header-title">My Wallet</span>
-                <button class="back-button" @click="$router.go(-1)">
+                <button class="back-button" @click="cashOut ? cashOut = false : $router.go(-1)">
                     <v-icon right>sbf-close</v-icon>
                 </button>
             </div>
@@ -60,6 +60,11 @@
                                 </template>
                             </v-data-table>
                         </v-flex>
+                        <div class="bottom-area" v-if="!cashOut">
+                            <v-pagination total-visible=4 v-model="pagination.page" :length="pages"
+                                          next-icon="sbf-arrow-right"
+                                          prev-icon="sbf-arrow-right left"></v-pagination>
+                        </div>
                     </v-tabs-content>
 
 
@@ -71,23 +76,28 @@
                     <div class="main-text">The more points you have, the more valuable they are.</div>
                     <div class="points-text">You have <span>1,200</span> redeemable points</div>
                 </div>
-                <cash-out-card class="cash-out-option" v-for="(cashOutOption,index) in cashOutOptions" :key="index" :points-for-dollar="cashOutOption.pointsForDollar"
+                <cash-out-card class="cash-out-option" v-for="(cashOutOption,index) in cashOutOptions" :key="index"
+                               :points-for-dollar="cashOutOption.pointsForDollar"
                                :cost="cashOutOption.cost"
                                :image="cashOutOption.image"
-                               :available = "true"
+                               :available="true"
                 ></cash-out-card>
             </div>
         </div>
 
-
-        <div class="bottom-area" v-if="!cashOut">
-            <button v-if="activeTab===1" class="cash-out-big" @click="cashOut = true">Cash Out</button>
-            <div v-else class="text-xs-center pt-2" :class="{'bottom-btn':$vuetify.breakpoint.xsOnly}">
-                <v-pagination total-visible=4 v-model="pagination.page" :length="pages"
-                              next-icon="sbf-arrow-right"
-                              prev-icon="sbf-arrow-right left"></v-pagination>
+        <!--<div v-if="activeTab===1" class="cash-out-wrap">-->
+        <div class="cash-out">
+            <span>Cash out</span>
+            <div class="btn-wrap">
+                <div class="cash-out-val-wrap">
+                    <span class="cash-out-value">$ val</span>
+                </div>
+                <div class="button-wrap">
+                    <button class="cash-out-btn" @click="cashOut = true">Cash Out</button>
+                </div>
             </div>
         </div>
+        <!--</div>-->
     </div>
 </template>
 
