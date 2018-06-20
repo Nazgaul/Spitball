@@ -5,7 +5,7 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.CommandHandler
 {
-    public class CreateUserCommandHandler : ICommandHandlerAsync<CreateUserCommand>
+    public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
 
     {
         private readonly IUserRepository _userRepository;
@@ -15,7 +15,7 @@ namespace Cloudents.Core.CommandHandler
             _userRepository = userRepository;
         }
 
-        public async Task HandleAsync(CreateUserCommand message, CancellationToken token)
+        public async Task ExecuteAsync(CreateUserCommand message, CancellationToken token)
         {
             await _userRepository.AddOrUpdateAsync(message.User, token).ConfigureAwait(false);
         }

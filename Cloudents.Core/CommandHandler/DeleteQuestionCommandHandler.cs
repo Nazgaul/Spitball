@@ -9,7 +9,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Core.CommandHandler
 {
     [UsedImplicitly]
-    public class DeleteQuestionCommandHandler : ICommandHandlerAsync<DeleteQuestionCommand>
+    public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
         private readonly IRepository<Question> _repository;
 
@@ -18,7 +18,7 @@ namespace Cloudents.Core.CommandHandler
             _repository = repository;
         }
 
-        public async Task HandleAsync(DeleteQuestionCommand message, CancellationToken token)
+        public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
         {
             var question = await _repository.GetAsync(message.Id, token).ConfigureAwait(false);
             if (question.User.Id != message.UserId)

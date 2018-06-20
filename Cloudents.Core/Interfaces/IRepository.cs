@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,15 +14,11 @@ namespace Cloudents.Core.Interfaces
     {
        Task<object> AddAsync(T entity, CancellationToken token);
 
-        //Task SaveOrUpdateAsync(T entity, CancellationToken token);
-        //Task<T> LoadAsync(object id, CancellationToken token);
         Task<T> GetAsync(object id, CancellationToken token);
 
         Task DeleteAsync(T entity, CancellationToken token);
         Task UpdateAsync(T entity, CancellationToken token);
         Task AddOrUpdateAsync(T entity, CancellationToken token);
-
-        //IQueryable<T> GetQueryable();
     }
 
     public interface IQuestionSubjectRepository : IRepository<QuestionSubject>

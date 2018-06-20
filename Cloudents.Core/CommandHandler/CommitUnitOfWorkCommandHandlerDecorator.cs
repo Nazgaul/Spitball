@@ -19,9 +19,9 @@ namespace Cloudents.Core.CommandHandler
             this.decoratee = decoratee;
         }
 
-        public async Task HandleAsync(TCommand command, CancellationToken token)
+        public async Task ExecuteAsync(TCommand command, CancellationToken token)
         {
-            await decoratee.HandleAsync(command, token).ConfigureAwait(false);
+            await decoratee.ExecuteAsync(command, token).ConfigureAwait(false);
             await unitOfWork.CommitAsync(token).ConfigureAwait(false);
         }
     }

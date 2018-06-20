@@ -7,7 +7,7 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.CommandHandler
 {
-    public class DeleteAnswerCommandHandler : ICommandHandlerAsync<DeleteAnswerCommand>
+    public class DeleteAnswerCommandHandler : ICommandHandler<DeleteAnswerCommand>
     {
         private readonly IRepository<Answer> _repository;
 
@@ -16,7 +16,7 @@ namespace Cloudents.Core.CommandHandler
             _repository = repository;
         }
 
-        public async Task HandleAsync(DeleteAnswerCommand message, CancellationToken token)
+        public async Task ExecuteAsync(DeleteAnswerCommand message, CancellationToken token)
         {
             var answer = await _repository.GetAsync(message.Id, token).ConfigureAwait(false);
             if (answer.User.Id != message.UserId)

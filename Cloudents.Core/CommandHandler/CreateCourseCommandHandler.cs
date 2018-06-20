@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
@@ -9,7 +8,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Core.CommandHandler
 {
     [UsedImplicitly]
-    public class CreateCourseCommandHandler : ICommandHandlerAsync<CreateCourseCommand, CreateCourseCommandResult>
+    public class CreateCourseCommandHandler : ICommandHandler<CreateCourseCommand, CreateCourseCommandResult>
     {
         private readonly ICourseRepository _courseRepository;
         private readonly IRepository<University> _universityRepository;

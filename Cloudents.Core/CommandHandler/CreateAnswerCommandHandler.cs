@@ -12,7 +12,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Core.CommandHandler
 {
     [UsedImplicitly]
-    public class CreateAnswerCommandHandler : ICommandHandlerAsync<CreateAnswerCommand>
+    public class CreateAnswerCommandHandler : ICommandHandler<CreateAnswerCommand>
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
@@ -31,7 +31,7 @@ namespace Cloudents.Core.CommandHandler
             _erc20 = erc20;
         }
 
-        public async Task HandleAsync(CreateAnswerCommand message, CancellationToken token)
+        public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
         {
             var user = await _userRepository.GetAsync(message.UserId, token).ConfigureAwait(false);
             var question = await _questionRepository.GetAsync(message.QuestionId, token).ConfigureAwait(false);

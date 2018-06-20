@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Core.CommandHandler
 {
     [UsedImplicitly]
-    public class CreateUrlStatsCommandHandler : ICommandHandlerAsync<CreateUrlStatsCommand>
+    public class CreateUrlStatsCommandHandler : ICommandHandler<CreateUrlStatsCommand>
     {
         private readonly IRepository<UrlStats> _repository;
 
@@ -17,7 +17,7 @@ namespace Cloudents.Core.CommandHandler
             _repository = repository;
         }
 
-        public Task HandleAsync(CreateUrlStatsCommand message, CancellationToken token)
+        public Task ExecuteAsync(CreateUrlStatsCommand message, CancellationToken token)
         {
             var urlStats = new UrlStats(message.Host,
                 message.DateTime,

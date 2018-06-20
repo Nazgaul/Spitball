@@ -11,7 +11,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Core.CommandHandler
 {
     [UsedImplicitly]
-    public class MarkAnswerAsCorrectCommandHandler : ICommandHandlerAsync<MarkAnswerAsCorrectCommand>
+    public class MarkAnswerAsCorrectCommandHandler : ICommandHandler<MarkAnswerAsCorrectCommand>
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
@@ -27,7 +27,7 @@ namespace Cloudents.Core.CommandHandler
             _blockChainProvider = blockChainProvider;
         }
 
-        public async Task HandleAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
+        public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
         {
             var answer = await _answerRepository.GetAsync(message.AnswerId, token).ConfigureAwait(true); //false will raise an exception
             var question = answer.Question;

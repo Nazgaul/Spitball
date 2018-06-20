@@ -11,7 +11,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Core.CommandHandler
 {
     [UsedImplicitly]
-    public class CreateQuestionCommandHandler : ICommandHandlerAsync<CreateQuestionCommand>
+    public class CreateQuestionCommandHandler : ICommandHandler<CreateQuestionCommand>
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<QuestionSubject> _questionSubjectRepository;
@@ -30,7 +30,7 @@ namespace Cloudents.Core.CommandHandler
             _blockChain = blockChain;
         }
 
-        public async Task HandleAsync(CreateQuestionCommand message, CancellationToken token)
+        public async Task ExecuteAsync(CreateQuestionCommand message, CancellationToken token)
         {
             var user = await _userRepository.GetAsync(message.UserId, token).ConfigureAwait(false);
             var subject = await _questionSubjectRepository.GetAsync(message.SubjectId, token).ConfigureAwait(false);
@@ -42,29 +42,6 @@ namespace Cloudents.Core.CommandHandler
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ?? Enumerable.Empty<Task>();
             await Task.WhenAll(l.Union(new[] { p })).ConfigureAwait(true);
-        }
-    }
-
-
-    public class CommitUnitOfWorkCommandHandlerDecorator<TCommand>
-        : ICommandHandlerAsync<TCommand> where TCommand : ICommand
-    {
-
-        private readonly IUnitOfWork unitOfWork;
-        private readonly ICommandHandlerAsync<TCommand> decoratee;
-
-        public CommitUnitOfWorkCommandHandlerDecorator(
-            IUnitOfWork unitOfWork,
-            ICommandHandlerAsync<TCommand> decoratee)
-        {
-            this.unitOfWork = unitOfWork;
-            this.decoratee = decoratee;
-        }
-
-        public async Task HandleAsync(TCommand command,CancellationToken token)
-        {
-            await this.decoratee.HandleAsync(command,token);
-            await this.unitOfWork.CommitAsync(token);
         }
     }
 }

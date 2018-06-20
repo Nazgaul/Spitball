@@ -10,7 +10,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Core.CommandHandler
 {
     [UsedImplicitly]
-    public class UpdateMailGunCommandHandler : ICommandHandlerAsync<UpdateMailGunCommand>
+    public class UpdateMailGunCommandHandler : ICommandHandler<UpdateMailGunCommand>
     {
         private readonly IRepository<MailGunStudent> _repository;
 
@@ -19,7 +19,7 @@ namespace Cloudents.Core.CommandHandler
             _repository = repository;
         }
 
-        public async Task HandleAsync(UpdateMailGunCommand message, CancellationToken token)
+        public async Task ExecuteAsync(UpdateMailGunCommand message, CancellationToken token)
         {
             var student = await _repository.GetAsync(message.Id, token).ConfigureAwait(false);
             student.Sent += $" {ConvertDateTimeToString(DateTime.UtcNow)}";
