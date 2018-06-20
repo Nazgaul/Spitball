@@ -61,7 +61,7 @@
                 </scroll-list>
                 <div v-else>
                     <div class="result-cell elevation-1 mb-3 empty-state" xs-12>
-                        <v-layout row class="ma-3">
+                        <v-layout row class="pa-3">
                             <v-flex class="img-wrap mr-3">
                                 <empty-state></empty-state>
                             </v-flex>

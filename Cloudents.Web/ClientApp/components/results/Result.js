@@ -194,16 +194,20 @@ export const pageMixin =
                         //update data for this page
                         this.showFilterNotApplied = false;
                         updateData.call(this, {...data,vertical:toName}, updateFilter);
+                        window.scrollTo(0,0);
                         next();
                     }).catch(reason => {
+                    window.scrollTo(0,0)
                     //when error from fetching data remove the loader
                     if (to.path === from.path && to.query.q === from.query.q) {
                         this.isLoad = false;
+                        this.UPDATE_LOADING(false);
                         this.showFilterNotApplied = true;
                         this.items = itemsBeforeUpdate;
                     }
                     else {
                         this.UPDATE_LOADING(false);
+                        this.isLoad = false;
                         this.items = [];
                         next();
                     }
