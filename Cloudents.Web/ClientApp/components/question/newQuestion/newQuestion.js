@@ -35,7 +35,7 @@ export default {
                     .then(function () {
                         debugger;
                         let val= self.selectedPrice || self.price;
-                            self.updateUserBalance(self.accountUser.balance-val);
+                            self.updateUserBalance(-val);
                             self.$router.push({path: '/ask', query: {q: ''}});
                         },
                         function (error) {
@@ -66,7 +66,7 @@ export default {
             return this.accountUser.balance-val
         },
         validForm() {
-            return this.subject && this.textAreaValue.length && (this.selectedPrice || this.price >= 0.5);
+            return this.subject && this.textAreaValue.length && (this.selectedPrice || this.price >= 5);
         },
     },
     created() {

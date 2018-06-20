@@ -66,7 +66,7 @@ export default {
     methods: {
         ...mapActions({
             'delete': 'deleteQuestion',
-            correctAnswer: 'correctAnswer',
+            correctAnswer: 'correctAnswer',updateBalance:'updateUserBalance',
             updateParams: 'updateParams'
         }),
         markAsCorrect() {
@@ -85,7 +85,9 @@ export default {
                 showToaster: true,
             });
             this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')}).then(() => {
-                !this.typeAnswer ? this.$router.push('/ask') : this.isDeleted = true
+                if(!this.typeAnswer ){
+                    this.updateBalance(this.cardData.price);
+                    this.$router.push('/ask')}else{ this.isDeleted = true}
             });
         },
     },

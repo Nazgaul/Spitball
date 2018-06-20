@@ -2,12 +2,14 @@
     <div class="wallet-page">
 
         <div class="flex">
-            <v-tabs>
-                <div class="header">
-                    <span class="header-title">My Wallet</span>
-                    <button class="back-button" @click="$router.go(-1)">
-                        <v-icon right>sbf-close</v-icon>
-                    </button>
+            <div class="header">
+                <span class="header-title">My Wallet</span>
+                <button class="back-button" @click="$router.go(-1)">
+                    <v-icon right>sbf-close</v-icon>
+                </button>
+            </div>
+            <v-tabs v-if="!cashOut">
+                <div class="tabs-wrapper">
                     <v-tabs-bar fixed>
                         <v-tabs-slider color="white"></v-tabs-slider>
                         <v-tabs-item @click="changeActiveTab(1)" :href="'#tab-1'" :key="1">Balances</v-tabs-item>
@@ -30,15 +32,10 @@
                                     <td class="text-xs-left">{{ props.item.type }}</td>
                                     <td class="text-xs-right">{{ props.item.points }} pt</td>
                                     <td class="text-xs-right bold">$ {{ props.item.value }}</td>
-                                    <td class="text-xs-center" v-if="!$vuetify.breakpoint.xsOnly"><span v-if="props.item.cashOut" class="cash-out">Cash Out</span></td>
                                 </template>
                             </v-data-table>
-                            <div class="bottom-btn">
-                                <button class="cash-out-big">Cash Out</button>
-                            </div>
                         </v-flex>
                     </v-tabs-content>
-
                     <v-tabs-content :key="'2'" :id="'tab-2'" class="tab-padding">
                         <v-flex xs12>
                             <v-data-table
@@ -54,16 +51,14 @@
                                 <template slot="items" slot-scope="props">
                                     <td class="text-xs-left">{{ props.item.date }}</td>
                                     <td class="text-xs-left">{{ props.item.action }}</td>
-                                    <td class="text-xs-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}</td>
+                                    <td class="text-xs-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}
+                                    </td>
                                     <td class="text-xs-right">{{ props.item.amount}} pt</td>
-                                    <td class="text-xs-right bold" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.balance }} pt</td>
+                                    <td class="text-xs-right bold" v-if="!$vuetify.breakpoint.xsOnly">{{
+                                        props.item.balance }} pt
+                                    </td>
                                 </template>
                             </v-data-table>
-                            <div class="text-xs-center pt-2" :class="{'bottom-btn':$vuetify.breakpoint.xsOnly}">
-                                <v-pagination total-visible=4 v-model="pagination.page" :length="pages"
-                                              next-icon="sbf-arrow-right"
-                                              prev-icon="sbf-arrow-right left"></v-pagination>
-                            </div>
                         </v-flex>
                     </v-tabs-content>
 
@@ -71,8 +66,28 @@
                 </v-tabs-items>
 
             </v-tabs>
+            <div v-else class="cash-out-wrapper">
+                <div class="text-wrap">
+                    <div class="main-text">The more points you have, the more valuable they are.</div>
+                    <div class="points-text">You have <span>1,200</span> redeemable points</div>
+                </div>
+                <cash-out-card class="cash-out-option" v-for="(cashOutOption,index) in cashOutOptions" :key="index" :points-for-dollar="cashOutOption.pointsForDollar"
+                               :cost="cashOutOption.cost"
+                               :image="cashOutOption.image"
+                               :available = "true"
+                ></cash-out-card>
+            </div>
         </div>
 
+
+        <div class="bottom-area" v-if="!cashOut">
+            <button v-if="activeTab===1" class="cash-out-big" @click="cashOut = true">Cash Out</button>
+            <div v-else class="text-xs-center pt-2" :class="{'bottom-btn':$vuetify.breakpoint.xsOnly}">
+                <v-pagination total-visible=4 v-model="pagination.page" :length="pages"
+                              next-icon="sbf-arrow-right"
+                              prev-icon="sbf-arrow-right left"></v-pagination>
+            </div>
+        </div>
     </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
     <v-flex v-if="cardData&&!isDeleted" class="question-card" :class="{'highlight':flaggedAsCorrect}">
         <div v-if="!typeAnswer">
-            <div class="q-price">
+            <div class="q-price pl-3">
                 <span>Earn ${{cardData.price}}</span>
             </div>
             <!-- <p class="q-category">{{cardData.subject}}</p> -->

@@ -52,13 +52,14 @@
   .files {
     //transition: visibility 4s, ease-out;
     background-color: #c7c7ee;
+    padding: 8px;
+    text-align: center;
     .preview-list {
+      display: inline-block;
       overflow: hidden;
-      padding: 1px;
+      //padding: 1px;
       list-style-type: none;
       position: relative;
-      @media (max-width: @screen-xs) {
-      }
       li {
         width: 104px;
         height: 104px;
@@ -67,10 +68,12 @@
         background-color: #ffffff;
         box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
         display: inline-flex;
-        margin: 0 8px 16px 0;
+        margin-bottom: 16px;
         position: relative;
         float: left;
-
+        &:not(:last-child) {
+          margin-right: 8px;
+        }
         @media (max-width: @screen-xs) {
           margin-right: 16px;
         }

@@ -197,7 +197,7 @@ let routes2 = [
         path: "/wallet",
         components: {
             default: viewWallet,
-            header: slimHeader
+            header: previewHeader
         },
         name: "wallet"
     },
