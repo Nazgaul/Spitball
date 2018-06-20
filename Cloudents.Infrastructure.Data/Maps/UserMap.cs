@@ -28,6 +28,7 @@ namespace Cloudents.Infrastructure.Data.Maps
 
 
             HasMany(x => x.Transactions)
+                .Inverse()
                 //.Inverse()
                 //TODO: this is generate exception when creating new answer. need to figure it out
                 //    .Not.KeyNullable()

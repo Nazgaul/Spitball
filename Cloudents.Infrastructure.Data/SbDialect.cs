@@ -1,5 +1,8 @@
-﻿using NHibernate.Dialect;
+﻿using System.Diagnostics;
+using NHibernate;
+using NHibernate.Dialect;
 using NHibernate.Dialect.Function;
+using NHibernate.SqlCommand;
 
 namespace Cloudents.Infrastructure.Data
 {
@@ -11,6 +14,15 @@ namespace Cloudents.Infrastructure.Data
             //RegisterFunction("freeText", new StandardSQLFunction("freetext", null));
             //RegisterFunction("FullTextContains", new ContainsFunction("contains", null));
             RegisterFunction("FullTextContains", new StandardSQLFunction("contains", null));
+        }
+    }
+
+    public class LoggingInterceptor : EmptyInterceptor
+    {
+        public override SqlString OnPrepareStatement(SqlString sql)
+        {
+            Debug.WriteLine(sql);
+            return base.OnPrepareStatement(sql);
         }
     }
 

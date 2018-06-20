@@ -22,6 +22,7 @@
         None,
         SignUp,
         Question,
+        Answer,
         QuestionCorrect,
         CashOut
     }
