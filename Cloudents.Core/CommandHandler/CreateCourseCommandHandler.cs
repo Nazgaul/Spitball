@@ -21,7 +21,7 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task<CreateCourseCommandResult> ExecuteAsync(CreateCourseCommand command, CancellationToken token)
         {
-            var university = await _universityRepository.LazyGetAsync(command.UniversityId, token).ConfigureAwait(true);
+            var university = await _universityRepository.LoadAsync(command.UniversityId, token).ConfigureAwait(true);
 
             var course = await _courseRepository.GetCourseAsync(command.UniversityId, command.Name, token);
 

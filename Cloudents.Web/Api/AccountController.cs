@@ -40,23 +40,22 @@ namespace Cloudents.Web.Api
         [HttpGet]
         [Authorize]
 
-        public async Task<IActionResult> GetAsync(
-            [FromServices] IBlockChainErc20Service blockChain, CancellationToken token)
+        public async Task<IActionResult> GetAsync(CancellationToken token)
         {
-            var publicKeyClaim = User.Claims.First(f => f.Type == ClaimsType.PublicKey);
+            //var publicKeyClaim = User.Claims.First(f => f.Type == ClaimsType.PublicKey);
 
-            var taskUser = _userManager.GetUserAsync(User);
-            var taskBalance = blockChain.GetBalanceAsync(publicKeyClaim.Value, token);
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            //var taskBalance = blockChain.GetBalanceAsync(publicKeyClaim.Value, token);
 
-            await Task.WhenAll(taskUser, taskBalance).ConfigureAwait(false);
-            if (taskUser.Result == null)
+            //await Task.WhenAll(taskUser, taskBalance).ConfigureAwait(false);
+            if (user == null)
             {
                 ModelState.AddModelError(string.Empty,"user not exists");
                 await _signInManager.SignOutAsync().ConfigureAwait(false);
                 return BadRequest(ModelState);
             }
 
-            var user = taskUser.Result;
+            //var user = taskUser.Result;
             return Ok(new
             {
                 user.Id,
@@ -64,8 +63,8 @@ namespace Cloudents.Web.Api
                 user.Email,
                 user.Name,
                 token = GetToken(),
-                dollar = taskBalance.Result / 40,
-                balance = taskBalance.Result
+                dollar = user.Balance / 40,
+                balance = user.Balance
             });
         }
 

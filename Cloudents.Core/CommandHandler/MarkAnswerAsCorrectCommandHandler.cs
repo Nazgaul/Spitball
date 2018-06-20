@@ -29,7 +29,7 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
         {
-            var answer = await _answerRepository.LazyGetAsync(message.AnswerId, token).ConfigureAwait(true); //false will raise an exception
+            var answer = await _answerRepository.LoadAsync(message.AnswerId, token).ConfigureAwait(true); //false will raise an exception
             var question = answer.Question;
             if (question.User.Id != message.UserId)
             {

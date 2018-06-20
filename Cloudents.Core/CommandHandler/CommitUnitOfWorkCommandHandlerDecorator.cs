@@ -21,8 +21,8 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(TCommand command, CancellationToken token)
         {
-            await decoratee.ExecuteAsync(command, token).ConfigureAwait(false);
-            await unitOfWork.CommitAsync(token).ConfigureAwait(false);
+            await decoratee.ExecuteAsync(command, token).ConfigureAwait(true);
+            await unitOfWork.CommitAsync(token).ConfigureAwait(true);
         }
     }
 
@@ -46,8 +46,8 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task<TCommandResult> ExecuteAsync(TCommand command, CancellationToken token)
         {
-            var retVal = await decoratee.ExecuteAsync(command, token).ConfigureAwait(false);
-            await unitOfWork.CommitAsync(token).ConfigureAwait(false);
+            var retVal = await decoratee.ExecuteAsync(command, token).ConfigureAwait(true);
+            await unitOfWork.CommitAsync(token).ConfigureAwait(true);
             return retVal;
         }
     }

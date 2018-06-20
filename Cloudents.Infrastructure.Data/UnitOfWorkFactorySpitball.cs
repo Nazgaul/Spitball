@@ -53,6 +53,7 @@ namespace Cloudents.Infrastructure.Data
             _factory = configuration.BuildSessionFactory();
         }
 
+        
         public ISession OpenSession()
         {
             var session = _factory.OpenSession();
@@ -62,7 +63,7 @@ namespace Cloudents.Infrastructure.Data
 
         private static void BuildSchema(Configuration config)
         {
-            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Validate);
+            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
         }
     }
 }

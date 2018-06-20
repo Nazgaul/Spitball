@@ -7,4 +7,22 @@
         WayUp,
         Wyzant
     }
+
+    public enum TransactionType
+    {
+        None,
+        Awarded,
+        Earned,
+        Pending,
+        Stake,
+    }
+
+    public enum ActionType
+    {
+        None,
+        SignUp,
+        Question,
+        QuestionCorrect,
+        CashOut
+    }
 }

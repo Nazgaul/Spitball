@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities.Db
@@ -18,6 +19,8 @@ namespace Cloudents.Core.Entities.Db
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
+
+            User.AddTransaction(ActionType.Question, TransactionType.Stake, -price);
         }
 
         [UsedImplicitly]

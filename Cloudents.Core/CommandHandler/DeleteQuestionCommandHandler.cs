@@ -20,7 +20,7 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
         {
-            var question = await _repository.LazyGetAsync(message.Id, token).ConfigureAwait(false);
+            var question = await _repository.LoadAsync(message.Id, token).ConfigureAwait(false);
             if (question.User.Id != message.UserId)
             {
                 throw new InvalidOperationException("user is not the one who wrote the question");

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Core.Storage;
@@ -17,6 +18,7 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<QuestionSubject> _questionSubjectRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
+
         private readonly IServiceBusProvider _blockChainProvider;
         private readonly IBlockChainErc20Service _blockChain;
 
@@ -32,12 +34,15 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(CreateQuestionCommand message, CancellationToken token)
         {
-            var user = await _userRepository.LazyGetAsync(message.UserId, token).ConfigureAwait(false);
-            var subject = await _questionSubjectRepository.LazyGetAsync(message.SubjectId, token).ConfigureAwait(false);
+            //if you get an exception doing debug make sure the locals window is minimized.
+            var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(true);
+            var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId,token).ConfigureAwait(true);
             var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
-            await _questionRepository.AddAsync(question, token).ConfigureAwait(false);
+            await _questionRepository.AddAsync(question, token).ConfigureAwait(true);
+
             var id = question.Id;
 
+            //await _userRepository.UpdateAsync(user, token).ConfigureAwait(true);
             var p = _blockChainProvider.InsertMessageAsync(new BlockChainSubmitQuestion(id, message.Price, _blockChain.GetAddress(user.PrivateKey)), token);
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ?? Enumerable.Empty<Task>();

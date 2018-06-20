@@ -14,12 +14,15 @@ namespace Cloudents.Core.Interfaces
     {
        Task<object> AddAsync(T entity, CancellationToken token);
 
-        Task<T> LazyGetAsync(object id, CancellationToken token);
+        Task<T> LoadAsync(object id, CancellationToken token);
         Task<T> GetAsync(object id, CancellationToken token);
+
+        T Load(object id);
+
 
         Task DeleteAsync(T entity, CancellationToken token);
         Task UpdateAsync(T entity, CancellationToken token);
-        Task AddOrUpdateAsync(T entity, CancellationToken token);
+        //Task AddOrUpdateAsync(T entity, CancellationToken token);
     }
 
     public interface IQuestionSubjectRepository : IRepository<QuestionSubject>
@@ -46,6 +49,11 @@ namespace Cloudents.Core.Interfaces
     {
         Task<Course> GetCourseAsync(long universityId, string courseName, CancellationToken token);
     }
+
+    //public interface ITransactionRepository : IRepository<Transaction>
+    //{
+    //    Task<decimal> GetCurrentBalanceAsync(long userId, CancellationToken token);
+    //}
 
 
     public interface IMailGunStudentRepository : IRepository<MailGunStudent>

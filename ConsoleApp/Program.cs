@@ -82,9 +82,16 @@ namespace ConsoleApp
             {
 
             };
-            var t = container.Resolve<ICommandBus>();
-            await t.DispatchAsync(command2, default);
-            await t.DispatchAsync(command, default);
+            var t = container.Resolve<IRepository<User>>();
+            var z = container.Resolve<IUnitOfWork>();
+            var user = await t.LoadAsync(638L, default);
+            //var newTransaction = new Transaction(user,);
+            user.AddTransaction(ActionType.None, TransactionType.Awarded, 10);
+            await t.UpdateAsync(user, default);
+            await z.CommitAsync(default);
+            //var z = await t.GetCurrentBalanceAsync(638, default);
+            //await t.DispatchAsync(command2, default);
+            //await t.DispatchAsync(command, default);
             //var z = await t.GetUserProfileAsync(551, default);
 
             //var t = container.Resolve<IQuestionRepository>();
@@ -148,5 +155,5 @@ namespace ConsoleApp
         }
 
     }
-   
+
 }

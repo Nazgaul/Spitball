@@ -1,17 +1,20 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+using Cloudents.Core.Enum;
 
+[assembly: InternalsVisibleTo("Cloudents.Infrastructure.Data")]
 namespace Cloudents.Core.Entities.Db
 {
-    [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global" ,Justification = "Nhibernate proxy")]
+    [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate proxy")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
     public class User
     {
 
-        public User(string email, string name, string privateKey)
+        public User(string email, string name)
         {
             Email = email;
             Name = name;
-            PrivateKey = privateKey;
             TwoFactorEnabled = true;
         }
 
@@ -29,8 +32,8 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual string Name { get; set; }
         public virtual string NormalizedName { get; set; }
-        public virtual string NormalizedEmail{ get; set; }
-        public virtual string SecurityStamp{ get; set; }
+        public virtual string NormalizedEmail { get; set; }
+        public virtual string SecurityStamp { get; set; }
 
         public virtual string Image { get; set; }
 
@@ -41,5 +44,16 @@ namespace Cloudents.Core.Entities.Db
         public virtual string AuthenticatorKey { get; set; }
 
         public virtual string PrivateKey { get; set; }
+        public virtual decimal Balance { get; set; }
+
+
+        public virtual void AddTransaction(ActionType action, TransactionType type, decimal price)
+        {
+            var t = new Transaction(this, action, type, price);
+            Transactions.Add(t);
+            Balance += t.Price;
+        }
+
+        protected internal virtual IList<Transaction> Transactions { get; set; }
     }
 }
