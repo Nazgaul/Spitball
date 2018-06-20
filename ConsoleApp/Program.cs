@@ -80,7 +80,7 @@ namespace ConsoleApp
             };
             var command2 = new UpdateMailGunCommand(1533063)
             {
-               
+
             };
             var t = container.Resolve<ICommandBus>();
             await t.DispatchAsync(command2, default);

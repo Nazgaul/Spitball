@@ -105,8 +105,9 @@ const actions = {
         }
     },
     updateUserBalance({commit,state},payload){
-        debugger;
-        commit('updateUser',{...state.user,balance:payload, dollar:(payload/40)})
+        let newBalance=state.user.balance+payload;
+        debugger
+        commit('updateUser',{...state.user,balance:newBalance, dollar:(newBalance/40)})
     }
 };
 

@@ -19,14 +19,14 @@
         </v-list>
         <v-list class="menu-list" v-else>
             <user-block :user=user :classType="'university'" v-if=isMobile></user-block>
-            <v-list-tile>
+            <router-link tag="v-list-tile" :to="{name:'wallet'}">
                 <v-list-tile-action>
                     <v-icon>sbf-wallet</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading">My Wallet</v-list-tile-title>
                 </v-list-tile-content>
-            </v-list-tile>
+            </router-link>
             <router-link tag="v-list-tile" :to="{name:'conversations'}">
                 <v-list-tile-action>
                     <v-icon>sbf-comment</v-icon>
