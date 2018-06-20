@@ -201,11 +201,13 @@ export const pageMixin =
                     //when error from fetching data remove the loader
                     if (to.path === from.path && to.query.q === from.query.q) {
                         this.isLoad = false;
+                        this.UPDATE_LOADING(false);
                         this.showFilterNotApplied = true;
                         this.items = itemsBeforeUpdate;
                     }
                     else {
                         this.UPDATE_LOADING(false);
+                        this.isLoad = false;
                         this.items = [];
                         next();
                     }
