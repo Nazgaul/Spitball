@@ -72,18 +72,17 @@ namespace Cloudents.Infrastructure
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
 
             builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
-            builder.Register(c =>
-            {
-                var key = c.Resolve<IConfigurationKeys>().Db.Contains("Develop");
-                var index = "question";
-                if (key)
-                {
-                    index += "-dev";
-                }
+            //builder.Register(c =>
+            //{
+            //    var key = c.Resolve<IConfigurationKeys>().Db.Contains("Develop");
+            //    var index = "question";
+            //    if (key)
+            //    {
+            //        index += "-dev";
+            //    }
 
-                return new QuestionSearch(c.Resolve<ISearchServiceClient>(), index, c.Resolve<IMapper>());
-            }).As<IQuestionSearch>();
-            //builder.RegisterType<QuestionSearch>().As<IQuestionSearch>().WithParameter("indexName", "question-dev");
+            //    return new QuestionSearch(c.Resolve<ISearchServiceClient>(), index, c.Resolve<IMapper>());
+            //}).As<IQuestionSearch>();
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();

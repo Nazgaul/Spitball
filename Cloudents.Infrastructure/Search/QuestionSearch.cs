@@ -12,7 +12,7 @@ using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Search
 {
-    public class QuestionSearch : IQuestionSearch
+    public class QuestionSearch //: IQuestionSearch
     {
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;

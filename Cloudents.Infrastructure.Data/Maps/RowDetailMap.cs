@@ -1,8 +1,10 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Entities.Db;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Infrastructure.Data.Maps
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Fluent nhibernate")]
     public class RowDetailMap : ComponentMap<RowDetail>
     {
         public RowDetailMap()

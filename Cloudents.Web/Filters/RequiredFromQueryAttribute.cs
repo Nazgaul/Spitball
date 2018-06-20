@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace Cloudents.Web.Filters
 {
+/*
     [System.AttributeUsage(System.AttributeTargets.All)]
     public sealed class RequiredFromQueryAttribute : FromQueryAttribute, IParameterModelConvention
     {
@@ -15,4 +16,5 @@ namespace Cloudents.Web.Filters
             }
         }
     }
+*/
 }
