@@ -30,11 +30,15 @@ namespace Cloudents.Infrastructure.Data.Repositories
         //    return Session.LoadAsync<T>(id, token);
         //}
 
-        public Task<T> GetAsync(object id, CancellationToken token)
+        public Task<T> LazyGetAsync(object id, CancellationToken token)
         {
             return Session.LoadAsync<T>(id, token);
         }
 
+        public Task<T> GetAsync(object id, CancellationToken token)
+        {
+            return Session.GetAsync<T>(id, token);
+        }
 
         public Task DeleteAsync(T entity, CancellationToken token)
         {
@@ -54,14 +58,10 @@ namespace Cloudents.Infrastructure.Data.Repositories
             return Session.SaveOrUpdateAsync(entity, token);
         }
 
-       
-
         public Task<object> AddAsync(T entity, CancellationToken token)
         {
            // _unitOfWork.FlagCommit();
             return Session.SaveAsync(entity, token);
         }
-
-        
     }
 }

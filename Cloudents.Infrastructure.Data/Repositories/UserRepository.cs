@@ -15,7 +15,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
     [UsedImplicitly]
     public class UserRepository : NHibernateRepository<User>, IUserRepository
     {
-
         public UserRepository(ISession session) : base(session)
         {
         }
@@ -23,7 +22,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
         //public UserRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWork) : base(unitOfWork)
         //{
         //}
-
 
         public Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token)
         {

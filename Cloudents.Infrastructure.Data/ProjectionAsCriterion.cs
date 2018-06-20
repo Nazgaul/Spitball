@@ -18,7 +18,6 @@ namespace Cloudents.Infrastructure.Data
 
         public override SqlString ToSqlString(ICriteria criteria, ICriteriaQuery criteriaQuery)
         {
-
             var columnNames = CriterionUtil.GetColumnNamesForSimpleExpression(
                 null, _projection, criteriaQuery, criteria, this, string.Empty);
 

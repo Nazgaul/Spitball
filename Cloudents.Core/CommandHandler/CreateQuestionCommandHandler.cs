@@ -32,8 +32,8 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(CreateQuestionCommand message, CancellationToken token)
         {
-            var user = await _userRepository.GetAsync(message.UserId, token).ConfigureAwait(false);
-            var subject = await _questionSubjectRepository.GetAsync(message.SubjectId, token).ConfigureAwait(false);
+            var user = await _userRepository.LazyGetAsync(message.UserId, token).ConfigureAwait(false);
+            var subject = await _questionSubjectRepository.LazyGetAsync(message.SubjectId, token).ConfigureAwait(false);
             var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
             await _questionRepository.AddAsync(question, token).ConfigureAwait(false);
             var id = question.Id;

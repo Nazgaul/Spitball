@@ -14,6 +14,7 @@ namespace Cloudents.Core.Interfaces
     {
        Task<object> AddAsync(T entity, CancellationToken token);
 
+        Task<T> LazyGetAsync(object id, CancellationToken token);
         Task<T> GetAsync(object id, CancellationToken token);
 
         Task DeleteAsync(T entity, CancellationToken token);

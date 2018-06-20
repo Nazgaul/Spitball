@@ -21,8 +21,8 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(AssignUniversityToUserCommand message, CancellationToken token)
         {
-            var user = await _userRepository.GetAsync(message.UserId, token).ConfigureAwait(false);
-            var university = await _universityRepository.GetAsync(message.UniversityId, token).ConfigureAwait(false);
+            var user = await _userRepository.LazyGetAsync(message.UserId, token).ConfigureAwait(false);
+            var university = await _universityRepository.LazyGetAsync(message.UniversityId, token).ConfigureAwait(false);
 
             user.University = university;
             await _userRepository.AddAsync(user, token).ConfigureAwait(false);

@@ -22,8 +22,6 @@ namespace Cloudents.Infrastructure.Data
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenSession())
                 .InstancePerLifetimeScope();
 
-            
-
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
 
             //builder.Register(c => new UnitOfWork(c.Resolve<ISession>()))
@@ -52,8 +50,6 @@ namespace Cloudents.Infrastructure.Data
             builder.RegisterType<UnitOfWorkFactoryMailGun>().SingleInstance();
             builder.Register(c => c.Resolve<UnitOfWorkFactoryMailGun>().OpenSession()).Keyed<ISession>(Database.MailGun).InstancePerLifetimeScope();
 
-
-
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
 
             builder.Register(c => new UnitOfWork(c.ResolveKeyed<ISession>(Database.MailGun)))
@@ -64,8 +60,6 @@ namespace Cloudents.Infrastructure.Data
                 var session = c.ResolveKeyed<ISession>(Database.MailGun);
                 return new MailGunStudentRepository(session);
             }).AsImplementedInterfaces();
-
         }
-
     }
 }

@@ -21,7 +21,7 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(UpdateMailGunCommand message, CancellationToken token)
         {
-            var student = await _repository.GetAsync(message.Id, token).ConfigureAwait(false);
+            var student = await _repository.LazyGetAsync(message.Id, token).ConfigureAwait(false);
             student.Sent += $" {ConvertDateTimeToString(DateTime.UtcNow)}";
             student.ShouldSend = false;
 

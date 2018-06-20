@@ -33,8 +33,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
             Question questionAlias = null;
             User userAlias = null;
 
-
-
             var queryOverObj = Session.QueryOver(() => questionAlias)
                 .JoinAlias(x => x.Subject, () => commentAlias)
                 .JoinAlias(x => x.User, () => userAlias)
@@ -82,7 +80,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
             var facetsFuture = Session.Query<QuestionSubject>().Select(s => s.Text).ToFuture();
             var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(false);
             var facet = await facetsFuture.GetEnumerableAsync(token).ConfigureAwait(false);
-
 
             //var retVal =  futureQueryOver.GetEnumerable();
             //var facet =  facetsFuture.GetEnumerable();
@@ -145,7 +142,5 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
             return dto;
         }
-
-       
     }
 }

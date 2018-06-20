@@ -23,9 +23,8 @@ namespace Cloudents.Infrastructure.Data
             var projection = Projections.SqlFunction("FullTextContains",
                 NHibernateUtil.Boolean,
                 property, Projections.Constant(sb.ToString(), NHibernateUtil.String));
-                
+
             _criterion = new ProjectionAsCriterion(projection);
-            
         }
 
         public SqlString ToSqlString(ICriteria criteria, ICriteriaQuery criteriaQuery)
