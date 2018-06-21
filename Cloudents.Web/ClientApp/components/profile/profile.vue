@@ -37,7 +37,7 @@
                         </router-link>
                     </div>
                     <div v-else-if="activeTab === 2">
-                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="answerData in answers" :key="answerData.id" class="mb-3">
+                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="answerData in myAnswers" :key="answerData.id" class="mb-3">
                             <question-card :cardData="answerData" class="mb-3"></question-card>
                         </router-link>
                     </div>

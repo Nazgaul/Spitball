@@ -25,11 +25,11 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
-        answers(){
-            return this.profileData.answer?this.profileData.answer.map(i=> {return {...i, user:this.profileData.user}}):[]
+        myAnswers(){
+            return this.profileData.answer?this.profileData.answer.map(i=> {return {...i, user:this.profileData.user,answersNum:i.answers,filesNum:i.files,price:accountService.calculateDollar(i.price)}}):[]
         },
         questions(){
-            return this.profileData.ask?this.profileData.ask.map(i=> {return {...i, user:this.profileData.user}}):[]
+            return this.profileData.ask?this.profileData.ask.map(i=> {return {...i, user:this.profileData.user,answersNum:i.answers,filesNum:i.files,price:accountService.calculateDollar(i.price)}}):[]
         },
         isMyProfile() {
             return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
