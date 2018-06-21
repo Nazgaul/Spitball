@@ -13,7 +13,6 @@ namespace Cloudents.Infrastructure.Data.Maps
             Map(x => x.Type).Not.Nullable();
             Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney");
             Map(x => x.Balance).Not.Nullable().CustomSqlType("smallmoney");
-
         }
     }
 }

@@ -70,25 +70,15 @@ namespace ConsoleApp
 
             //await SendMoneyAsync();
 
-            var command = new CreateQuestionCommand()
-            {
-                Text = "What is nhibernate2",
-                Price = 1,
-                Files = null,
-                UserId = 385,
-                SubjectId = 1
-            };
-            var command2 = new UpdateMailGunCommand(1533063)
-            {
-
-            };
-            var t = container.Resolve<IRepository<User>>();
-            var z = container.Resolve<IUnitOfWork>();
-            var user = await t.LoadAsync(638L, default);
+            var command = new MarkAnswerAsCorrectCommand(Guid.Parse("A51FE084-EB39-45A9-B76D-A90600C1F036"), 638);
+            
+            var t = container.Resolve<ICommandBus>();
+            //var z = container.Resolve<IUnitOfWork>();
+            //var user = await t.LoadAsync(594L, default);
+            //385L
             //var newTransaction = new Transaction(user,);
-            user.AddTransaction(ActionType.None, TransactionType.Awarded, 10);
-            await t.UpdateAsync(user, default);
-            await z.CommitAsync(default);
+           // user.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
+            await t.DispatchAsync(command, default);
             //var z = await t.GetCurrentBalanceAsync(638, default);
             //await t.DispatchAsync(command2, default);
             //await t.DispatchAsync(command, default);

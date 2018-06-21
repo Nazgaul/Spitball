@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
@@ -30,7 +31,7 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new InvalidOperationException("cannot delete question with answers");
             }
-
+            question.User.AddTransaction(ActionType.DeleteQuestion, TransactionType.Stake, question.Price);
             await _repository.DeleteAsync(question, token).ConfigureAwait(false);
         }
     }

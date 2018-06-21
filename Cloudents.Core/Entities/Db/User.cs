@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
@@ -52,6 +53,10 @@ namespace Cloudents.Core.Entities.Db
             var t = new Transaction(this, action, type, price);
             Transactions.Add(t);
             Balance += t.Price;
+            if (Balance < 0)
+            {
+                throw new InvalidOperationException("not enough tokens");
+            }
         }
 
         protected internal virtual IList<Transaction> Transactions { get; set; }

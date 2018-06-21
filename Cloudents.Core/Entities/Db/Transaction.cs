@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities.Db
             Action = action;
             Type = type;
             Price = price;
-            Balance = User.Balance + Price;
+            Balance = user.Balance + Price;
             Created = DateTime.UtcNow;
         }
 

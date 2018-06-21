@@ -15,6 +15,7 @@
         Earned,
         Pending,
         Stake,
+        Spent
     }
 
     public enum ActionType
@@ -22,6 +23,7 @@
         None,
         SignUp,
         Question,
+        DeleteQuestion,
         Answer,
         QuestionCorrect,
         CashOut

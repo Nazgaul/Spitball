@@ -21,10 +21,7 @@ namespace Cloudents.Infrastructure.Data
         {
             builder.RegisterType<UnitOfWorkFactorySpitball>().SingleInstance();
 
-            builder.Register(c =>
-                {
-                    return c.Resolve<UnitOfWorkFactorySpitball>().OpenSession();
-                })
+            builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenSession())
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
