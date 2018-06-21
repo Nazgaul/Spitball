@@ -1,7 +1,7 @@
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations,mapActions } from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 
@@ -20,7 +20,12 @@ export default {
             showLoginDialog: false
         };
     },
+    beforeRouteLeave(to,from,next){
+        this.resetQuestion();
+        next()
+    },
     methods: {
+        ...mapActions(["resetQuestion"]),
         ...mapMutations({updateLoading:"UPDATE_LOADING"}),
         submitAnswer() {
             this.updateLoading(true);
@@ -92,9 +97,9 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(["talkSession", "accountUser", "chatAccount","getCorrectAnswer"]),
+        ...mapGetters(["talkSession", "accountUser", "chatAccount","getCorrectAnswer","isDeletedAnswer"]),
         userNotAnswered() {
-            return !this.questionData.answers.length || !this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length;
+            return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length||this.isDeletedAnswer);
         },
         enableAnswer() {
             let val=!this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered);
