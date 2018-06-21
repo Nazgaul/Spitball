@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Data
     {
         public override SqlString OnPrepareStatement(SqlString sql)
         {
-            Debug.WriteLine(sql);
+            Debug.WriteLine(sql,"nhibernate");
             return base.OnPrepareStatement(sql);
         }
     }
