@@ -86,10 +86,10 @@
                                     <!--</router-link>                                    -->
                                     <!--</div>-->
 
-                                    <div class="header-wallet" v-if="loggedIn">
+                                    <router-link  to="/wallet" class="header-wallet" v-if="loggedIn">
                                         <span class="bold">{{accountUser.balance}} pts</span>
                                         <span>$ {{accountUser.dollar}}</span>
-                                    </div>
+                                    </router-link>
 
 
                                     <div class="header-rocket" v-if="loggedIn">
