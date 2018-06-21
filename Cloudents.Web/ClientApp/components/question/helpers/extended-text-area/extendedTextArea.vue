@@ -20,7 +20,7 @@
                             <label for="file-input" class="attach-file">
                                 <v-icon>sbf-attach</v-icon>
                             </label>
-                            <input id="file-input" type="file" multiple/>
+                            <input id="file-input" type="file" multiple accept='image/*'/>
                         </li>
                     </ul>
                     <!--<ul class="actions_text">-->
