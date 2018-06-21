@@ -7,13 +7,17 @@
   @media (max-width: @screen-xs) {
     margin: 0;
     height: 100%;
+    background-color: @color-white;
   }
   .data-section {
     min-height: 512px;
     background-color: @color-white;
-    box-shadow: 0 0 2px 0 #888b8e;
-    margin: 48px auto auto;
-    position: relative;
+
+    @media (min-width: @screen-xs) {
+      margin: 48px auto auto;
+      box-shadow: 0 0 2px 0 #888b8e;
+      position: relative;
+    }
 
     .tabs__slider {
       margin-bottom: 2px;
@@ -56,11 +60,6 @@
       //padding: 24px 13px 0 15px;
       margin-bottom: 11px;
       padding-left: 16px;
-
-      @media (max-width: @screen-xs) {
-        height: 96px;
-        padding: 16px 13px 0 11px;
-      }
     }
 
     .tabs__bar {
@@ -178,17 +177,6 @@
           }
         }
 
-        th, td {
-          &:last-child {
-            padding-right: 185px;
-            width: @table-width * 0.4;
-          }
-        }
-        @media (max-width: @screen-xs) {
-          td:first-child, th:first-child {
-            padding-right: 15vw;
-          }
-        }
         tbody {
           td {
             font-size: 16px;
@@ -213,11 +201,34 @@
       font-weight: bold;
     }
 
-    .balance-table .table tbody tr:last-child {
-      border-top: solid 1px #3532d5;
-      td {
-        color: #3532d5;
-        font-weight: bold;
+    .balance-table .table {
+      tbody tr:last-child {
+        border-top: solid 1px #3532d5;
+        td {
+          color: #3532d5;
+          font-weight: bold;
+        }
+      }
+      th, td {
+        &:last-child {
+          padding-right: 185px;
+          .responsive-property(width, @table-width * 0.4, null, 33vw);
+        }
+      }
+    }
+    @media (max-width: @screen-xs) {
+      .wallet-table .table {
+        th, td {
+          &:first-child {
+            padding-left: 12px;
+          }
+          &:nth-child(2) {
+            padding: 0;
+          }
+          &:last-child {
+            padding-right: 22px;
+          }
+        }
       }
     }
     //.cash-out-big {
@@ -306,7 +317,11 @@
   }
 
   .cash-out {
-    width: 456px;
+    white-space: nowrap;
+    .responsive-property(width, 456px, null, 350px);
+    position: absolute;
+    bottom: 26px;
+    right: 0;
     margin-left: auto;
     margin-top: 16px;
     display: flex;
@@ -324,7 +339,7 @@
     letter-spacing: -0.5px;
     .btn-wrap {
       //padding-right: 185px;
-      width: @table-width * 0.4;
+      .responsive-property(width, @table-width * 0.4, null, 100%);
       text-align: right;
       display: flex;
       .cash-out-val-wrap {
@@ -332,10 +347,10 @@
       }
       .button-wrap {
         display: inline-block;
-        width: 185px;
+        .responsive-property(width, 185px, null, 33vw);
         text-align: center;
         button {
-          width: 136px;
+          .responsive-property(width, 136px, null, 96px);
           line-height: 32px;
           border-radius: 4px;
           background: #fff;

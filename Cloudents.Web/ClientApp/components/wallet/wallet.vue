@@ -86,7 +86,7 @@
         </div>
 
         <!--<div v-if="activeTab===1" class="cash-out-wrap">-->
-        <div class="cash-out" v-if="!cashOut">
+        <div class="cash-out" v-if="!cashOut && activeTab===1">
             <span>Cash out</span>
             <div class="btn-wrap">
                 <div class="cash-out-val-wrap">
