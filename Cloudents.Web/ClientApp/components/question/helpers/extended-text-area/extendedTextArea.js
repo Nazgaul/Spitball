@@ -39,8 +39,12 @@ export default {
             url: this.uploadUrl
         });
 
-        multiple.on('files:added', function () {
-            this.upload()
+        multiple.on('files:added', function (val) {
+            this.files=val.filter(i=>i.type.indexOf("image")>-1);
+            if(this.files.length){
+                debugger;
+                this.upload()
+            }
         });
 
         multiple.on('file:preview', function (file, $img) {
