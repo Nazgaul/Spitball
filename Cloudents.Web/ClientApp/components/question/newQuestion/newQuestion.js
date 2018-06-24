@@ -18,6 +18,14 @@ export default {
             pricesList:[10,20,40,80]
         }
     },
+    watch:{
+        price(val){
+            let splitLength=val.toString().split('.');
+            if(splitLength.length===2&&splitLength[1].length>=3) {
+                this.price = parseFloat(val).toFixed(2)
+            }
+        }
+    },
     methods: {
         ...mapMutations({updateLoading:"UPDATE_LOADING"}),
         ...mapActions(['updateUserBalance']),
@@ -62,7 +70,8 @@ export default {
     computed: {
         ...mapGetters(['accountUser']),
         currentSum(){
-            let val=this.price||this.selectedPrice||0;
+            let val=this.selectedPrice||this.price||0;
+            this.selectedPrice?this.price=null:"";
             return this.accountUser.balance-val
         },
         validForm() {
