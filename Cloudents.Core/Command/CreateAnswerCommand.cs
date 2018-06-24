@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 namespace Cloudents.Core.Command
 {
-    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local", Justification = "Automapper handle that")]
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Automapper Initialize")]
     public class CreateAnswerCommand : ICommand
     {
         public CreateAnswerCommand(long questionId, string text, long userId, [CanBeNull] IEnumerable<string> files)
@@ -16,6 +16,7 @@ namespace Cloudents.Core.Command
             Files = files;
         }
 
+        [SuppressMessage("ReSharper", "UnusedMember.Global" ,Justification = "Automapper")]
         public CreateAnswerCommand()
         {
             

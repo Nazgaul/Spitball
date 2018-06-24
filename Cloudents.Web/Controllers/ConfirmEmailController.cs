@@ -40,8 +40,8 @@ namespace Cloudents.Web.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{id}'.");
             }
 
-            var taskBlockChain = _serviceBusProvider.InsertMessageAsync(
-                new BlockChainInitialBalance(_blockChain.GetAddress(user.PrivateKey)), token);
+            //var taskBlockChain = _serviceBusProvider.InsertMessageAsync(
+            //    new BlockChainInitialBalance(_blockChain.GetAddress(user.PrivateKey)), token);
             var result = await _userManager.ConfirmEmailAsync(user, code).ConfigureAwait(false);
             if (!result.Succeeded)
             {
@@ -50,7 +50,7 @@ namespace Cloudents.Web.Controllers
 
             await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
 
-            await taskBlockChain.ConfigureAwait(false);
+            //await taskBlockChain.ConfigureAwait(false);
             return Redirect("/verify-phone");
         }
     }

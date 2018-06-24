@@ -105,10 +105,10 @@ namespace Cloudents.Web.Api
             {
                 //TODO: duplicate link confirm email.
                 var publicAddress = _blockChainErc20.GetAddress(user.PrivateKey);
-                var t1 = serviceBusProvider.InsertMessageAsync(
-                    new BlockChainInitialBalance(publicAddress), cancellationToken);
+                //var t1 = serviceBusProvider.InsertMessageAsync(
+                //    new BlockChainInitialBalance(publicAddress), cancellationToken);
                 var t2 = signInManager.SignInTwoFactorAsync(user, false);
-                await Task.WhenAll(t1, t2).ConfigureAwait(false);
+                await Task.WhenAll(/*t1,*/ t2).ConfigureAwait(false);
                 return Ok();
             }
             ModelState.AddIdentityModelError(p);
