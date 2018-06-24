@@ -16,7 +16,7 @@
                 </v-flex>
 
 
-                <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile"
+                <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile" actionType="question"
                                     @removeFile="removeFile"></extended-text-area>
                 <v-flex xs6>
                     <select v-model="subject">
@@ -26,23 +26,36 @@
                 </v-flex>
 
 
-
-
                 <!-- <v-flex xs12> -->
-                <v-flex xs12 :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have {{currentSum}} points</v-flex>
+                <v-flex xs12 :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have
+                    {{currentSum}} points
+                </v-flex>
                 <!-- </v-flex> -->
 
-                <v-flex xs12>
-                    <ul class="points-list">
-                        <li :class="`pts-${pricey}`" v-for="(pricey,index) in pricesList" :key="index">
-                            <input :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price" :value="pricey" v-model="selectedPrice">
-                            <label :for="`${pricey}pts`">{{pricey}} pts</label>
-                        </li>
-                        <li class="other">
-                            <input type="number" placeholder="Other amount" @focus="selectOtherAmount()" v-model="price"/>
-                            <v-icon right>sbf-hand-coin</v-icon>
-                        </li>
-                    </ul>
+                <v-flex xs12 class="mb-0">
+                    <div class="points-list">
+                        <div class="points-line">
+                            <div class="point-btn" :class="`pts-${pricey}`" v-for="(pricey,index) in pricesList"
+                                 v-if="index<3" :key="index">
+                                <input :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price"
+                                       :value="pricey" v-model="selectedPrice">
+                                <label :for="`${pricey}pts`">{{pricey}} pts</label>
+                            </div>
+                        </div>
+                        <div class="points-line">
+                            <div class="point-btn" :class="`pts-${pricey}`" v-for="(pricey,index) in pricesList"
+                                 v-if="index>=3" :key="index">
+                                <input :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price"
+                                       :value="pricey" v-model="selectedPrice">
+                                <label :for="`${pricey}pts`">{{pricey}} pts</label>
+                            </div>
+                            <div class="point-btn other">
+                                <input type="number" placeholder="Other amount" @focus="selectOtherAmount()"
+                                       v-model="price"/>
+                                <v-icon right>sbf-hand-coin</v-icon>
+                            </div>
+                        </div>
+                    </div>
                 </v-flex>
 
                 <v-flex xs12 class="last-text-block">

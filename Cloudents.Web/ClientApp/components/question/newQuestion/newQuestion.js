@@ -15,7 +15,7 @@ export default {
             selectedPrice:null,
             files: [],
             errorMessage:'',
-            pricesList:[5,10,20,35]
+            pricesList:[10,20,40,80]
         }
     },
     methods: {
@@ -66,7 +66,7 @@ export default {
             return this.accountUser.balance-val
         },
         validForm() {
-            return this.subject && this.textAreaValue.length && (this.selectedPrice || this.price >= 5);
+            return this.subject && this.textAreaValue.length && (this.selectedPrice || this.price >= 10);
         },
     },
     created() {

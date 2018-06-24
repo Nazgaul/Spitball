@@ -123,17 +123,19 @@
 
 
     .gallery{
-        background-color: @color-light-grey;
+        //background-color: @color-light-grey;
         padding: 16px;
         margin: 16px;
         .carousel{
+          @media (max-width: @screen-xs) {
             height: 238px;
+          }
             box-shadow: none;
             .carousel__left{left: 9px;i.sbf{margin-right: 3px;}}
             .carousel__right{right: 9px; i.sbf{margin-left: 4px;}}
             button{
-                width: 32px;
-                height: 32px;
+                width: 40px;
+                height: 40px;
                 .btn__content:before{
                     opacity: 0.2;
                     background-color: #000000;
@@ -142,10 +144,13 @@
                     font-size: 20px;
                     margin-top: 0px;
                     &.left{ transform: scale(-1,1);}
+                    &.right{ transform: scale(1,1);}
                 }
 
             }
-
+          .carousel__item{
+            background-size: contain;
+          }
         }
     }
 

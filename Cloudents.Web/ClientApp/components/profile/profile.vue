@@ -14,16 +14,22 @@
                         <div class="menu">
                             <ul class="tabs" v-if="!isMobile" xs3>
                                 <li :class="{'active': activeTab === 1}" @click="activeTab = 1">
-                                    <span v-if="isMyProfile">My&nbsp;</span>Questions</li>
+                                    <span v-if="isMyProfile">My&nbsp;</span>Questions
+                                </li>
                                 <li :class="{'active': activeTab === 2}" @click="activeTab = 2">
-                                    <span v-if="isMyProfile">My&nbsp;</span>Answers</li>
+                                    <span v-if="isMyProfile">My&nbsp;</span>Answers
+                                </li>
                             </ul>
 
                             <v-tabs v-else grow class="tab-padding" xs12>
                                 <v-tabs-bar>
                                     <v-tabs-slider color="blue"></v-tabs-slider>
-                                    <v-tabs-item @click="activeTab = 1" :href="'#tab-1'" :key="1"> <span v-if="isMyProfile">My&nbsp;</span>Questions</v-tabs-item>
-                                    <v-tabs-item @click="activeTab = 2" :href="'#tab-2'" :key="2"><span v-if="isMyProfile">My&nbsp;</span>Answers</v-tabs-item>
+                                    <v-tabs-item @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
+                                            v-if="isMyProfile">My&nbsp;</span>Questions
+                                    </v-tabs-item>
+                                    <v-tabs-item @click="activeTab = 2" :href="'#tab-2'" :key="2"><span
+                                            v-if="isMyProfile">My&nbsp;</span>Answers
+                                    </v-tabs-item>
                                 </v-tabs-bar>
                             </v-tabs>
                         </div>
@@ -31,13 +37,22 @@
                 </div>
 
                 <v-flex class="web-content">
+                    <div class="empty-state">
+                        <div class="text-block" v-if="questions.length">
+                            <p v-html="emptyStateData.text"></p>
+                            <b>{{emptyStateData.boldText}}</b>
+                        </div>
+                        <router-link class="ask-question" :to="{name: emptyStateData.btnUrl}">{{emptyStateData.btnText}}</router-link>
+                    </div>
                     <div v-if="activeTab === 1">
-                        <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}" v-for="questionData in questions" :key="questionData.id">
+                        <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}"
+                                     v-for="questionData in questions" :key="questionData.id">
                             <question-card :cardData="questionData"></question-card>
                         </router-link>
                     </div>
                     <div v-else-if="activeTab === 2">
-                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="answerData in answers" :key="answerData.id" class="mb-3">
+                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="answerData in myAnswers"
+                                     :key="answerData.id" class="mb-3">
                             <question-card :cardData="answerData" class="mb-3"></question-card>
                         </router-link>
                     </div>

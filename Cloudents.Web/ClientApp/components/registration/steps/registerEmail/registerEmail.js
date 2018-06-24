@@ -31,6 +31,7 @@ export default {
                         self.emailSent = true;
                     }, function (error) {
                         self.updateLoading(false);
+                        self.recaptcha="";
                         self.$refs.recaptcha.reset();
                         self.submitForm(false);
                         self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
