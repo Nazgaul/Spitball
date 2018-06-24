@@ -7,7 +7,7 @@
             <!-- <p class="q-category">{{cardData.subject}}</p> -->
         </div>
         <user-block :user="cardData.user" v-if="cardData.user" :name="cardData.subject||'Answer'">
-            <template> · <span class="timeago" :datetime="cardData.dateTime"></span><span v-if="typeAnswer"
+            <template> · <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span v-if="typeAnswer"
                                                                                           class="q-answer">
                     <button class="accept-btn right" @click="markAsCorrect"
                             v-if="showApproveButton && !flaggedAsCorrect">
