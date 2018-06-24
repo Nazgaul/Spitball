@@ -10,7 +10,7 @@
 
     public enum TransactionType
     {
-        None,
+        //None,
         Awarded,
         Earned,
         Pending,

@@ -12,16 +12,17 @@ namespace Cloudents.Core.Entities.Db
     public class User
     {
 
-        public User(string email, string name)
+        public User(string email, string name) : this()
         {
             Email = email;
             Name = name;
             TwoFactorEnabled = true;
         }
 
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected User()
         {
-
+            Transactions = new List<Transaction>();
         }
 
         public virtual long Id { get; set; }

@@ -12,7 +12,6 @@ namespace Cloudents.Functions
 {
     public static class UrlProcessFunction
     {
-
         [FunctionName("UrlProcess")]
         [UsedImplicitly]
         public static async Task ProcessQueueMessageAsync([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,

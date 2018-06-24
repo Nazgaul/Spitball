@@ -72,13 +72,13 @@ namespace ConsoleApp
 
             var command = new MarkAnswerAsCorrectCommand(Guid.Parse("A51FE084-EB39-45A9-B76D-A90600C1F036"), 638);
             
-            var t = container.Resolve<ICommandBus>();
+            var t = container.Resolve<ITransactionRepository>();
+            var z = await t.GetTransactionsAsync(594, default);
             //var z = container.Resolve<IUnitOfWork>();
             //var user = await t.LoadAsync(594L, default);
             //385L
             //var newTransaction = new Transaction(user,);
-           // user.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
-            await t.DispatchAsync(command, default);
+            // user.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
             //var z = await t.GetCurrentBalanceAsync(638, default);
             //await t.DispatchAsync(command2, default);
             //await t.DispatchAsync(command, default);
@@ -89,6 +89,7 @@ namespace ConsoleApp
             //{
             //    Term = "Irena's question"
             //}, default);
+
 
 
             var a = container.Resolve<IBlockChainQAndAContract>();

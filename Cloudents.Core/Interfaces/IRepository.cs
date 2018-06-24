@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Query;
 using JetBrains.Annotations;
 
@@ -50,10 +51,12 @@ namespace Cloudents.Core.Interfaces
         Task<Course> GetCourseAsync(long universityId, string courseName, CancellationToken token);
     }
 
-    //public interface ITransactionRepository : IRepository<Transaction>
-    //{
-    //    Task<decimal> GetCurrentBalanceAsync(long userId, CancellationToken token);
-    //}
+    public interface ITransactionRepository : IRepository<Transaction>
+    {
+        Task<decimal> GetCurrentBalanceAsync(long userId, CancellationToken token);
+        Task<IEnumerable<(TransactionType, decimal)>> GetCurrentBalanceDetailAsync(long userId, CancellationToken token);
+        Task<IEnumerable<TransactionDto>> GetTransactionsAsync(long userId, CancellationToken token);
+    }
 
 
     public interface IMailGunStudentRepository : IRepository<MailGunStudent>
