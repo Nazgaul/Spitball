@@ -25,12 +25,13 @@ export default {
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion"]),
+        ...mapActions(["resetQuestion","removeDeletedAnswer"]),
         ...mapMutations({updateLoading:"UPDATE_LOADING"}),
         submitAnswer() {
             this.updateLoading(true);
             var self = this;
             if (this.submitForm()) {
+                this.removeDeletedAnswer();
                 questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
                     .then(function () {
                         self.textAreaValue = "";
@@ -99,6 +100,7 @@ export default {
     computed: {
         ...mapGetters(["talkSession", "accountUser", "chatAccount","getCorrectAnswer","isDeletedAnswer"]),
         userNotAnswered() {
+            this.isDeletedAnswer?this.submitForm(false):"";
             return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length||this.isDeletedAnswer);
         },
         enableAnswer() {
