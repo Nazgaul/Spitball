@@ -155,6 +155,17 @@ Vue.filter('ellipsis',
 
 
     });
+Vue.filter('fixedPoints', function (value) {
+    if (!value) return '';
+    if(value.toString().indexOf('.')===-1)return value;
+    debugger
+    return parseFloat(value).toFixed(2)
+})
+Vue.filter('dollarVal', function (value) {
+    if (!value) return '';
+    return parseFloat(value/40).toFixed(2)
+})
+
 
 router.beforeEach((to, from, next) => {
     if(to.name==='home')next('/ask');
@@ -164,7 +175,13 @@ const app = new Vue({
     //el: "#app",
     router: router,
     render: h => h(App),
-    store
+    store,
+    // filters: {
+    //    fixed2:function(value){
+    //        if (!value) return '';
+    //        return value.toFixed(2)
+    //    }
+    // }
 });
 // router.onReady(() => {
 // //     intercom(router.currentRoute);
