@@ -44,7 +44,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, "user is already logged in");
                 return BadRequest(ModelState);
             }
-            
+
             var userName = model.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             var user = new User(model.Email, $"{userName}.{GenerateRandomNumber()}");
 
@@ -66,7 +66,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> ResendEmailAsync(
             CancellationToken token)
         {
-            var email = TempData["email"];
+            var email = TempData.Peek("email") ?? throw new ArgumentNullException("TempData", "email is empty"); ;
             var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
             if (user == null)
             {
@@ -83,9 +83,7 @@ namespace Cloudents.Web.Api
         [HttpPost("google"), ValidateModel]
         public async Task<IActionResult> GoogleSignInAsync([FromBody] TokenRequest model,
             [FromServices] IGoogleAuth service,
-            [FromServices] IServiceBusProvider serviceBusProvider,
             [FromServices] SbSignInManager signInManager,
-            [FromServices] IBlockChainErc20Service _blockChainErc20,
             CancellationToken cancellationToken)
         {
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
@@ -104,7 +102,7 @@ namespace Cloudents.Web.Api
             if (p.Succeeded)
             {
                 //TODO: duplicate link confirm email.
-                var publicAddress = _blockChainErc20.GetAddress(user.PrivateKey);
+                // var publicAddress = _blockChainErc20.GetAddress(user.PrivateKey);
                 //var t1 = serviceBusProvider.InsertMessageAsync(
                 //    new BlockChainInitialBalance(publicAddress), cancellationToken);
                 var t2 = signInManager.SignInTwoFactorAsync(user, false);
