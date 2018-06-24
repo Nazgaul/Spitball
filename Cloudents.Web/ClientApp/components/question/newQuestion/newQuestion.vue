@@ -16,7 +16,7 @@
                 </v-flex>
 
 
-                <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile"
+                <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile" actionType="question"
                                     @removeFile="removeFile"></extended-text-area>
                 <v-flex xs6>
                     <select v-model="subject">

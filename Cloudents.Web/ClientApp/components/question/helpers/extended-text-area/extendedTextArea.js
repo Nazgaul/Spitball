@@ -5,6 +5,7 @@ var Uploader = require('html5-uploader');
 export default {
     props: {
         value: {type: String},
+        actionType:{type:String,default:'answer'},
         isFocused: false,
         uploadUrl: {type: String}
     },

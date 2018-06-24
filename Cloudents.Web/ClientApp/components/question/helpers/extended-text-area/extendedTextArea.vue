@@ -4,7 +4,7 @@
                 <!-- :class="{'with-preview':previewList.length}" v-if="!fullPreview" -->
                 <div class="text-block" >
                     <textarea rows="9" @input="updateValue($event.target.value)" :value="value" autofocus="isFocused"
-                        placeholder="Type in your question (Ex: Find the derivative of y = (x + 2)2 - 5x3)"></textarea>
+                        :placeholder="`Type in your ${actionType} (Ex: Find the derivative of y = (x + 2)2 - 5x3)`"></textarea>
                     <ul class="actions_text">
                         <!--<li>-->
                             <!--<button class="insert-equation">-->
