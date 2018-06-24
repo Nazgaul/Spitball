@@ -8,21 +8,21 @@ namespace Cloudents.Core.CommandHandler
         : ICommandHandler<TCommand> where TCommand : ICommand
     {
 
-        private readonly IUnitOfWork unitOfWork;
-        private readonly ICommandHandler<TCommand> decoratee;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ICommandHandler<TCommand> _decoratee;
 
         public CommitUnitOfWorkCommandHandlerDecorator(
             IUnitOfWork unitOfWork,
             ICommandHandler<TCommand> decoratee)
         {
-            this.unitOfWork = unitOfWork;
-            this.decoratee = decoratee;
+            this._unitOfWork = unitOfWork;
+            this._decoratee = decoratee;
         }
 
         public async Task ExecuteAsync(TCommand command, CancellationToken token)
         {
-            await decoratee.ExecuteAsync(command, token).ConfigureAwait(false);
-            await unitOfWork.CommitAsync(token).ConfigureAwait(false);
+            await _decoratee.ExecuteAsync(command, token).ConfigureAwait(true);
+            await _unitOfWork.CommitAsync(token).ConfigureAwait(true);
         }
     }
 
@@ -33,21 +33,21 @@ namespace Cloudents.Core.CommandHandler
         where TCommandResult : ICommandResult
     {
 
-        private readonly IUnitOfWork unitOfWork;
-        private readonly ICommandHandler<TCommand, TCommandResult> decoratee;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ICommandHandler<TCommand, TCommandResult> _decoratee;
 
         public CommitUnitOfWorkCommandHandlerDecorator(
             IUnitOfWork unitOfWork,
             ICommandHandler<TCommand, TCommandResult> decoratee)
         {
-            this.unitOfWork = unitOfWork;
-            this.decoratee = decoratee;
+            this._unitOfWork = unitOfWork;
+            this._decoratee = decoratee;
         }
 
         public async Task<TCommandResult> ExecuteAsync(TCommand command, CancellationToken token)
         {
-            var retVal = await decoratee.ExecuteAsync(command, token).ConfigureAwait(false);
-            await unitOfWork.CommitAsync(token).ConfigureAwait(false);
+            var retVal = await _decoratee.ExecuteAsync(command, token).ConfigureAwait(true);
+            await _unitOfWork.CommitAsync(token).ConfigureAwait(true);
             return retVal;
         }
     }

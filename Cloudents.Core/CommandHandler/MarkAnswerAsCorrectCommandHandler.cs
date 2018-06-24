@@ -29,7 +29,7 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
         {
-            var answer = await _answerRepository.LazyGetAsync(message.AnswerId, token).ConfigureAwait(true); //false will raise an exception
+            var answer = await _answerRepository.LoadAsync(message.AnswerId, token).ConfigureAwait(true); //false will raise an exception
             var question = answer.Question;
             if (question.User.Id != message.UserId)
             {
@@ -39,8 +39,8 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new ApplicationException("answer is not connected to question");
             }
-            question.CorrectAnswer = answer;
-            await _questionRepository.AddAsync(question, token).ConfigureAwait(false);
+            question.MarkAnswerAsCorrect(answer);
+            await _questionRepository.UpdateAsync(question, token).ConfigureAwait(false);
 
             await _blockChainProvider.InsertMessageAsync(new BlockChainMarkQuestionAsCorrect(_blockChain.GetAddress(question.User.PrivateKey), _blockChain.GetAddress(answer.User.PrivateKey), question.Id, answer.Id), token).ConfigureAwait(true);
         }

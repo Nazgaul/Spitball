@@ -86,6 +86,5 @@ namespace Cloudents.Functions
             //log.Info("Initial balance success");
         }
     }
-
 }
 

@@ -22,8 +22,18 @@ namespace Cloudents.Infrastructure.Data.Maps
             Map(e => e.Image).Nullable();
             Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
+            Map(e => e.Balance).CustomSqlType("smallmoney");
 
             References(x => x.University).ForeignKey("User_University").Nullable();
+
+
+            HasMany(x => x.Transactions)
+                .Inverse()
+                //.Inverse()
+                //TODO: this is generate exception when creating new answer. need to figure it out
+                //    .Not.KeyNullable()
+                //    .Not.KeyUpdate()
+                .Cascade.AllDeleteOrphan();
 
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull

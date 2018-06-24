@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum;
@@ -6,6 +7,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Data.Repositories;
 using JetBrains.Annotations;
 using NHibernate;
+using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure.Data
 {
@@ -30,11 +32,15 @@ namespace Cloudents.Infrastructure.Data
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
                 .AsImplementedInterfaces();
 
-            builder.RegisterType<QuestionSubjectRepository>().AsImplementedInterfaces();
-            builder.RegisterType<QuestionRepository>().AsImplementedInterfaces();
-            builder.RegisterType<UserRepository>().AsImplementedInterfaces();
-            builder.RegisterType<CourseRepository>().AsImplementedInterfaces();
-            builder.RegisterType<DbConnectionStringProvider>().AsSelf();
+
+            var assembly = Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsImplementedInterfaces();
+
+            //builder.RegisterType<QuestionSubjectRepository>().AsImplementedInterfaces();
+            //builder.RegisterType<QuestionRepository>().AsImplementedInterfaces();
+            //builder.RegisterType<UserRepository>().AsImplementedInterfaces();
+            //builder.RegisterType<CourseRepository>().AsImplementedInterfaces();
+            //builder.RegisterType<DbConnectionStringProvider>().AsSelf();
 
             base.Load(builder);
         }

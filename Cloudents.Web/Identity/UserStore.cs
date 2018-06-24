@@ -71,7 +71,7 @@ namespace Cloudents.Web.Identity
         {
             try
             {
-                var command = new CreateUserCommand(user);
+                var command = new UpdateUserCommand(user);
                 await _bus.DispatchAsync(command, cancellationToken).ConfigureAwait(false);
             }
             catch (GenericADOException ex)
@@ -84,6 +84,7 @@ namespace Cloudents.Web.Identity
                         Code = "Duplicate"
                     });
                 }
+                return IdentityResult.Failed();
             }
 
             return IdentityResult.Success;

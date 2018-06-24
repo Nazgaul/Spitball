@@ -24,7 +24,7 @@ namespace Cloudents.Core
             using (var child = _container.BeginLifetimeScope())
             {
                 var obj = child.Resolve<ICommandHandler<TCommand, TCommandResult>>();
-                return await obj.ExecuteAsync(command, token).ConfigureAwait(false);
+                return await obj.ExecuteAsync(command, token).ConfigureAwait(true);
             }
         }
 
@@ -33,7 +33,7 @@ namespace Cloudents.Core
             using (var child = _container.BeginLifetimeScope())
             {
                 var obj = child.Resolve<ICommandHandler<TCommand>>();
-                await obj.ExecuteAsync(command, token).ConfigureAwait(false);
+                await obj.ExecuteAsync(command, token).ConfigureAwait(true);
             }
         }
 

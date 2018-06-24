@@ -52,15 +52,22 @@ namespace Cloudents.Functions
             await emailProvider.AddAsync(message, token).ConfigureAwait(false);
         }
 
+        //in the us there is no alpha numeric phone https://support.twilio.com/hc/en-us/articles/223133767-International-support-for-Alphanumeric-Sender-ID?_ga=2.130088527.199542025.1529834887-1745228096.1524564655
         [FunctionName("SmsHttp")]
         public static async Task<HttpResponseMessage> SmsHttpAsync(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "sms")]HttpRequestMessage req,
-            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "Spitball")] IAsyncCollector<SMSMessage> options,
+            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<SMSMessage> options,
+            TraceWriter log,
             CancellationToken token
             )
         {
             var jsonContent = await req.Content.ReadAsStringAsync().ConfigureAwait(false);
             var message = JsonConvert.DeserializeObject<SmsMessage>(jsonContent);
+            if (message.Message == null)
+            {
+                log.Error("no body " + jsonContent);
+                req.CreateResponse(HttpStatusCode.BadRequest);
+            }
             await options.AddAsync(new SMSMessage
             {
                 To = message.PhoneNumber,
@@ -69,11 +76,10 @@ namespace Cloudents.Functions
             return req.CreateResponse(HttpStatusCode.OK);
         }
 
-
         [FunctionName("FunctionSms")]
         public static async Task SmsServiceBusAsync(
             [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Sms))]SmsMessage message,
-            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "Spitball")] IAsyncCollector<SMSMessage> options,
+            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<SMSMessage> options,
             TraceWriter log,
             CancellationToken token
         )

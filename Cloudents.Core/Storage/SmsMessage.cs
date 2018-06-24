@@ -17,6 +17,7 @@ namespace Cloudents.Core.Storage
         [DataMember]
         public string PhoneNumber { get; set; }
 
+        [DataMember]
         public string Message
         {
             get

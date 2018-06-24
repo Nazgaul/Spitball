@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities.Db
@@ -18,6 +19,8 @@ namespace Cloudents.Core.Entities.Db
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
+
+            User.AddTransaction(ActionType.Question, TransactionType.Stake, -price);
         }
 
         [UsedImplicitly]
@@ -25,19 +28,41 @@ namespace Cloudents.Core.Entities.Db
         {
         }
 
-        public virtual long Id { get; set; }
-        public virtual QuestionSubject Subject { get; set; }
-        public virtual string Text { get; set; }
-        public virtual decimal Price { get; set; }
+        public virtual long Id { get; protected set; }
+        public virtual QuestionSubject Subject { get; protected set; }
+        public virtual string Text { get; protected set; }
+        public virtual decimal Price { get; protected set; }
 
-        public virtual int Attachments { get; set; }
+        public virtual int Attachments { get; protected set; }
 
-        public virtual User User { get; set; }
+        public virtual User User { get; protected set; }
 
-        public virtual DateTime Created { get; set; }
+        public virtual DateTime Created { get; protected set; }
 
-        public virtual Answer CorrectAnswer { get; set; }
+        public virtual Answer CorrectAnswer { get; protected set; }
 
-        public virtual IList<Answer> Answers { get; set; }
+        public virtual IList<Answer> Answers { get; protected set; }
+
+        public virtual void MarkAnswerAsCorrect(Answer correctAnswer)
+        {
+            if (CorrectAnswer != null)
+            {
+                throw new InvalidOperationException("Already have correct answer");
+            }
+            CorrectAnswer = correctAnswer;
+
+            //TODO remove from earned or question from user
+            User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
+            User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Stake, Price);
+
+            foreach (var answer in Answers)
+            {
+                if (answer.Id == correctAnswer.Id)
+                {
+                    answer.User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Earned, Price);
+                }
+                answer.User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Pending, -Price);
+            }
+        }
     }
 }

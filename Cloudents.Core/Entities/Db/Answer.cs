@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities.Db
@@ -9,13 +10,15 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Answer
     {
-        public Answer( Question question, string text, int attachments, User user)
+        public Answer(Question question, string text, int attachments, User user)
         {
             Question = question;
             Text = text;
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
+
+            User.AddTransaction(ActionType.Answer, TransactionType.Pending, Question.Price);
         }
 
         [UsedImplicitly]

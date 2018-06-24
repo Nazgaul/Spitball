@@ -84,7 +84,6 @@ namespace Cloudents.Functions
                 result = result.Replace(m.ToString(), replacement);  //attributeRegex.Replace(result, replacement, 1);
             }
             return result;
-
         }
 
 
@@ -108,6 +107,5 @@ namespace Cloudents.Functions
             }
             return values;
         }
-
     }
 }

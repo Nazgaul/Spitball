@@ -32,7 +32,6 @@ namespace Cloudents.Functions
             {
                 log.Info("pass due run.");
                 return;
-
             }
             await SyncFunc.SyncAsync(blob, repository, searchServiceWrite, write => new Course
             {

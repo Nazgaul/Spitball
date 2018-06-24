@@ -35,7 +35,6 @@ namespace Cloudents.Infrastructure.Data
                 .Database(
                     FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.GetConnectionString(Database.System))
                         .DefaultSchema("sb").Dialect<SbDialect>()
-
 #if DEBUG
                         .ShowSql()
 #endif
@@ -53,6 +52,7 @@ namespace Cloudents.Infrastructure.Data
             _factory = configuration.BuildSessionFactory();
         }
 
+        
         public ISession OpenSession()
         {
             var session = _factory.OpenSession();
@@ -62,7 +62,10 @@ namespace Cloudents.Infrastructure.Data
 
         private static void BuildSchema(Configuration config)
         {
-            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Validate);
+#if DEBUG
+            config.SetInterceptor(new LoggingInterceptor());
+#endif
+            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
         }
     }
 }
