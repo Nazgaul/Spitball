@@ -1,7 +1,12 @@
 <template>
     <div>
         <v-list class="menu-list" v-if="!isAuthUser">
-            <user-block :user="user" :classType="'university'" v-if="isMobile"></user-block>
+            <user-block :user="user" :classType="'university'" v-if="isMobile" class="unsign pb-4">
+                <div slot="icon" class="mb-3">
+                    <v-avatar tag="v-avatar" class="Mask" size="32"><not-logged-in></not-logged-in></v-avatar>
+                    </div>
+                <template slot="text" class="mb-3"><span class="mb-4 blue--text"><router-link class="blue--text" to="/register">Sign up</router-link>  or  <router-link to="/signin" class="blue--text">Log in</router-link></span></template>
+            </user-block>
             <template v-for="(item) in notRegMenu">
                 <template v-if="item.name">
                     <router-link tag="v-list-tile" :to="{name:item.name}">
@@ -96,12 +101,13 @@
 <script>
 
     import {mapGetters, mapActions} from 'vuex'
+    const notLoggedIn =()=>import( "../img/not-logged-in.svg")
     import {notRegMenu} from '../../settings/consts';
     import userBlock from "../user-block/user-block.vue"
 
 
     export default {
-        components: {userBlock},
+        components: {userBlock,notLoggedIn},
         props: {
             counter: {
                 required: false,
