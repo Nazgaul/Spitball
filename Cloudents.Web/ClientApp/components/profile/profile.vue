@@ -37,8 +37,8 @@
                 </div>
 
                 <v-flex class="web-content">
-                    <div class="empty-state">
-                        <div class="text-block" v-if="questions.length">
+                    <div class="empty-state" v-if="!questions.length">
+                        <div class="text-block">
                             <p v-html="emptyStateData.text"></p>
                             <b>{{emptyStateData.boldText}}</b>
                         </div>
@@ -46,13 +46,13 @@
                     </div>
                     <div v-if="activeTab === 1">
                         <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}"
-                                     v-for="questionData in questions" :key="questionData.id">
+                                     v-for="(questionData,index) in questions" :key="index">
                             <question-card :cardData="questionData"></question-card>
                         </router-link>
                     </div>
                     <div v-else-if="activeTab === 2">
-                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="answerData in myAnswers"
-                                     :key="answerData.id" class="mb-3">
+                        <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="(answerData,index) in myAnswers"
+                                     :key="index" class="mb-3">
                             <question-card :cardData="answerData" class="mb-3"></question-card>
                         </router-link>
                     </div>
