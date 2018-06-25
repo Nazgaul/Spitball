@@ -8,7 +8,7 @@
                         <v-layout row>
                             <!-- :class="{'auth-user':isAuthUser}" -->
                             <v-toolbar-title>
-                                <router-link class="logo-link" to="/">
+                                <router-link class="logo-link" to="/ask">
                                     <app-logo class="logo"></app-logo>
                                 </router-link>
                             </v-toolbar-title>
