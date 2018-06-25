@@ -156,13 +156,13 @@ Vue.filter('ellipsis',
 
     });
 Vue.filter('fixedPoints', function (value) {
-    if (!value) return '';
+    if (!value) return 0;
     if(value.toString().indexOf('.')===-1)return value;
     debugger
     return parseFloat(value).toFixed(2)
 })
 Vue.filter('dollarVal', function (value) {
-    if (!value) return '';
+    if (!value) return 0;
     return parseFloat(value/40).toFixed(2)
 })
 
