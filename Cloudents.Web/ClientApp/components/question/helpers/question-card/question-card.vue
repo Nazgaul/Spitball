@@ -28,7 +28,7 @@
             <v-icon>sbf-trash</v-icon>
         </button>
 
-        <p class="q-text subheading" :class="{'answer': typeAnswer}">{{cardData.text}}</p>
+        <p class="q-text" :class="{'answer': typeAnswer}">{{cardData.text}}</p>
 
         <!-- v-if="cardData.files.length" -->
         <div class="gallery" v-if="gallery&&gallery.length">
