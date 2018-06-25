@@ -83,15 +83,6 @@
 
             </v-tabs>
         </div>
-        <v-dialog  v-model="showLoginDialog">
-            <v-card>
-                <v-card-text class="limited-width">
-                    <h1>Please login to answer</h1>
-                    <router-link to="/signin">Login</router-link>
-                    <button @click="showLoginDialog = false">close</button>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
     </div>
 </template>
 

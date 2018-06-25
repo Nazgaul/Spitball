@@ -46,7 +46,7 @@
                 <!-- <button class="small-button" @click="emailSent=false">Edit</button> -->
                 <!-- <p class="email-check">Check your email and click the email validation link.</p> -->
                 <img :src="require(`../../img/checkEmail.png`)"/>
-                <div class="margin-top">
+                <div class="bottom-text">
                     <p class="inline">Didn’t get an email?</p><p class="email-text inline click" @click="resend()">&nbsp;Click here to resend.</p>
                 </div>
                 

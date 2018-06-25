@@ -67,20 +67,20 @@ export default {
         ...mapActions({
             'delete': 'deleteQuestion',
             correctAnswer: 'correctAnswer',updateBalance:'updateUserBalance',
-            updateParams: 'updateParams'
+            updateToasterParams: 'updateToasterParams'
         }),
         markAsCorrect() {
             var toasterText = this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted';
-            this.updateParams({
+            this.updateToasterParams({
                 toasterText: toasterText,
                 showToaster: true,
             });
             this.flaggedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
-            this.updateParams({toasterText: '', showToaster: false});
+            this.updateToasterParams({toasterText: '', showToaster: false});
         },
         deleteQuestion() {
-            this.updateParams({
+            this.updateToasterParams({
                 toasterText: this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted',
                 showToaster: true,
             });

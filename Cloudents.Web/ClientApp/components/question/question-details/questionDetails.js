@@ -17,7 +17,6 @@ export default {
             answerFiles: [],
             questionData: null,
             showForm: false,
-            showLoginDialog: false
         };
     },
     beforeRouteLeave(to,from,next){
@@ -25,7 +24,7 @@ export default {
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion","removeDeletedAnswer"]),
+        ...mapActions(["resetQuestion","removeDeletedAnswer","updateToasterParams"]),
         ...mapMutations({updateLoading:"UPDATE_LOADING"}),
         submitAnswer() {
             this.updateLoading(true);
@@ -87,7 +86,12 @@ export default {
             }
         },
         showAnswerField() {
-            this.accountUser ? this.showForm = true : this.showLoginDialog = true
+            if(this.accountUser){
+                this.showForm = true
+            }
+            else {
+                this.updateToasterParams({toasterText: 'Please <a href="/signin">Login</a> to answer', showToaster: true});
+            }
         }
     },
     watch: {

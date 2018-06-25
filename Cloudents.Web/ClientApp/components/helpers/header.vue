@@ -134,9 +134,7 @@
                 <slot name="extraHeader"></slot>
             </v-layout>
             <v-snackbar absolute :timeout="toasterTimeout" :value="getShowToaster">
-                <div class="text-wrap">
-                   {{getToasterText}}
-                </div>
+                <div class="text-wrap" v-html="getToasterText"></div>
             </v-snackbar>
             <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
 
@@ -227,7 +225,7 @@
                 if (val) {
                     var self = this;
                     setTimeout(function () {
-                        self.updateParams({
+                        self.updateToasterParams({
                             showToaster: false
                         })
                     }, this.toasterTimeout)
@@ -236,7 +234,7 @@
 
         },
         methods: {
-            ...mapActions(['updateParams']),
+            ...mapActions(['updateToasterParams']),
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
                     Intercom('showNewMessage', '');

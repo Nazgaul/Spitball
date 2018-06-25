@@ -16,7 +16,7 @@ const getters = {
     getToasterText: state => state.params.toasterText,
 };
 const actions = {
-    updateParams({commit}, val){
+    updateToasterParams({commit}, val){
         commit(TOASTER.UPDATE_PARAMS, val);
     }
 };
