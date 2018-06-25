@@ -39,6 +39,7 @@ namespace Cloudents.Core.Models
         /// </summary>
         [DataMember(Order = 1)]
         public float Longitude { get; /*[UsedImplicitly] set;*/ }
+
         /// <summary>
         /// Latitude of user
         /// </summary>

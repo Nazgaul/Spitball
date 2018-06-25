@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
 
@@ -22,7 +23,7 @@ namespace Cloudents.Core.Entities.Db
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected User()
         {
-            Transactions = new List<Transaction>();
+            //Transactions = new List<Transaction>();
         }
 
         public virtual long Id { get; set; }
@@ -46,20 +47,19 @@ namespace Cloudents.Core.Entities.Db
         public virtual string AuthenticatorKey { get; set; }
 
         public virtual string PrivateKey { get; set; }
-        public virtual decimal Balance { get; set; }
 
 
         public virtual void AddTransaction(ActionType action, TransactionType type, decimal price)
         {
-            var t = new Transaction(this, action, type, price);
-            Transactions.Add(t);
-            Balance += t.Price;
-            if (Balance < 0)
+            if (LastTransaction == null)
             {
-                throw new InvalidOperationException("not enough tokens");
+                LastTransaction = Transaction.CreateRoot(this, action, type, price);
+                return;
             }
+            LastTransaction = LastTransaction.AddTransaction(action, type, price);
         }
 
-        protected internal virtual IList<Transaction> Transactions { get; set; }
+        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
+        protected internal virtual Transaction LastTransaction { get; set; }
     }
 }

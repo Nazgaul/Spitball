@@ -71,11 +71,30 @@ namespace ConsoleApp
             //await SendMoneyAsync();
 
             var command = new MarkAnswerAsCorrectCommand(Guid.Parse("A51FE084-EB39-45A9-B76D-A90600C1F036"), 638);
+
+            var t = container.Resolve<IUserRepository>();
+            var z = container.Resolve<IUnitOfWork>();
+
+
             
-            var t = container.Resolve<ITransactionRepository>();
-            var z = await t.GetTransactionsAsync(594, default);
-            //var z = container.Resolve<IUnitOfWork>();
-            //var user = await t.LoadAsync(594L, default);
+            //var users = await t.GetAllUsersAsync(default);
+
+            //foreach (var user1 in users)
+            //{
+            //    user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
+            //    await t.UpdateAsync(user1, default);
+            //}
+
+            //await z.CommitAsync(default);
+
+
+
+            //var z = await t.GetTransactionsAsync(594, default);
+            var user = await t.LoadAsync(594L, default);
+            user.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
+            await t.UpdateAsync(user, default);
+            await z.CommitAsync(default);
+
             //385L
             //var newTransaction = new Transaction(user,);
             // user.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
@@ -92,44 +111,44 @@ namespace ConsoleApp
 
 
 
-            var a = container.Resolve<IBlockChainQAndAContract>();
-            var b = container.Resolve<IBlockChainErc20Service>();
-            //var b = await a.CashIn("74c79f73068ffe5e3c9b3485a5b5f57d8966cc9d1c15f850603c2c2e559b329f", 10);
-            //var c = await a.CashIOut("74c79f73068ffe5e3c9b3485a5b5f57d8966cc9d1c15f850603c2c2e559b329f", 10);
+            //var a = container.Resolve<IBlockChainQAndAContract>();
+            //var b = container.Resolve<IBlockChainErc20Service>();
+            ////var b = await a.CashIn("74c79f73068ffe5e3c9b3485a5b5f57d8966cc9d1c15f850603c2c2e559b329f", 10);
+            ////var c = await a.CashIOut("74c79f73068ffe5e3c9b3485a5b5f57d8966cc9d1c15f850603c2c2e559b329f", 10);
 
-            //Testing events
+            ////Testing events
 
-            //TransferTokens
-            Guid answer = Guid.NewGuid();
-            Guid answer2 = Guid.NewGuid();
-            var FromAccount = new Account("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4");
-            var Toaccount = new Account("74c79f73068ffe5e3c9b3485a5b5f57d8966cc9d1c15f850603c2c2e559b329f");
-            //Console.WriteLine(a.GetBalanceAsync(Toaccount.Address, default).Result);
-            //var c = await a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", Toaccount.Address, 1000, default);
-            //Console.WriteLine(a.GetBalanceAsync(Toaccount.Address, default).Result);
+            ////TransferTokens
+            //Guid answer = Guid.NewGuid();
+            //Guid answer2 = Guid.NewGuid();
+            //var FromAccount = new Account("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4");
+            //var Toaccount = new Account("74c79f73068ffe5e3c9b3485a5b5f57d8966cc9d1c15f850603c2c2e559b329f");
+            ////Console.WriteLine(a.GetBalanceAsync(Toaccount.Address, default).Result);
+            ////var c = await a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", Toaccount.Address, 1000, default);
+            ////Console.WriteLine(a.GetBalanceAsync(Toaccount.Address, default).Result);
 
 
-            BlockChainSubmitQuestion Submittest = new BlockChainSubmitQuestion(1, 10, FromAccount.Address);
-            BlockChainSubmitAnswer answertest1 = new BlockChainSubmitAnswer(1, answer, Toaccount.Address);
-            BlockChainSubmitAnswer answertest2 = new BlockChainSubmitAnswer(1, answer2, Toaccount.Address);
-            BlockChainMarkQuestionAsCorrect correct = new BlockChainMarkQuestionAsCorrect(FromAccount.Address, Toaccount.Address, 1, answer);
-            BlockChainUpVote UV1 = new BlockChainUpVote(FromAccount.Address, 1, answer);
-            BlockChainUpVote UV2 = new BlockChainUpVote(FromAccount.Address, 1, answer2);
+            //BlockChainSubmitQuestion Submittest = new BlockChainSubmitQuestion(1, 10, FromAccount.Address);
+            //BlockChainSubmitAnswer answertest1 = new BlockChainSubmitAnswer(1, answer, Toaccount.Address);
+            //BlockChainSubmitAnswer answertest2 = new BlockChainSubmitAnswer(1, answer2, Toaccount.Address);
+            //BlockChainMarkQuestionAsCorrect correct = new BlockChainMarkQuestionAsCorrect(FromAccount.Address, Toaccount.Address, 1, answer);
+            //BlockChainUpVote UV1 = new BlockChainUpVote(FromAccount.Address, 1, answer);
+            //BlockChainUpVote UV2 = new BlockChainUpVote(FromAccount.Address, 1, answer2);
 
-            Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
-            await a.SubmitAsync(Submittest, default);
-            Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
-            await a.SubmitAsync(answertest1, default);
-            Console.WriteLine("SubmitAnswer1");
-            await a.SubmitAsync(answertest2, default);
-            Console.WriteLine("SubmitAnswer2");
-            await a.SubmitAsync(UV1, default);
-            Console.WriteLine("UpVote1");
-            await a.SubmitAsync(UV2, default);
-            Console.WriteLine("UpVote2");
-            Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
-            await a.SubmitAsync(correct, default);
-            Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
+            //Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
+            //await a.SubmitAsync(Submittest, default);
+            //Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
+            //await a.SubmitAsync(answertest1, default);
+            //Console.WriteLine("SubmitAnswer1");
+            //await a.SubmitAsync(answertest2, default);
+            //Console.WriteLine("SubmitAnswer2");
+            //await a.SubmitAsync(UV1, default);
+            //Console.WriteLine("UpVote1");
+            //await a.SubmitAsync(UV2, default);
+            //Console.WriteLine("UpVote2");
+            //Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
+            //await a.SubmitAsync(correct, default);
+            //Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
 
 
             Console.WriteLine("Finish");

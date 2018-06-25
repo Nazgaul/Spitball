@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -8,13 +13,33 @@ namespace Cloudents.Web.Api
     [Authorize]
     public class WalletController : Controller
     {
-        // GET
-        [HttpGet]
-        public IActionResult Get()
-        {
+        private readonly ITransactionRepository _transactionRepository;
+        private readonly UserManager<User> _userManager;
 
-            return
-            Ok();
+        public WalletController(ITransactionRepository transactionRepository, UserManager<User> userManager)
+        {
+            _transactionRepository = transactionRepository;
+            _userManager = userManager;
+        }
+
+        // GET
+        [HttpGet("balance")]
+        public async Task<IActionResult> GetBalanceAsync(CancellationToken token)
+        {
+            var userId = long.Parse(_userManager.GetUserId(User));
+            var retVal = await _transactionRepository.GetCurrentBalanceDetailAsync(userId, token).ConfigureAwait(false);
+
+            return Ok(retVal);
+        }
+
+
+        [HttpGet("balance")]
+        public async Task<IActionResult> GetTransactionAsync(CancellationToken token)
+        {
+            var userId = long.Parse(_userManager.GetUserId(User));
+            var retVal = await _transactionRepository.GetTransactionsAsync(userId, token).ConfigureAwait(false);
+
+            return Ok(retVal);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class RegisterController : Controller
     {
+        internal const string Email = "email";
         private readonly IServiceBusProvider _queueProvider;
         private readonly UserManager<User> _userManager;
 
@@ -44,7 +45,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, "user is already logged in");
                 return BadRequest(ModelState);
             }
-            
+
             var userName = model.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
             var user = new User(model.Email, $"{userName}.{GenerateRandomNumber()}");
 
@@ -53,7 +54,7 @@ namespace Cloudents.Web.Api
             {
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
                 var link = Url.Link("ConfirmEmail", new { user.Id, code });
-                TempData["email"] = model.Email;
+                TempData[Email] = model.Email;
                 var message = new RegistrationEmail(model.Email, HtmlEncoder.Default.Encode(link));
                 await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
                 return Ok();
@@ -66,7 +67,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> ResendEmailAsync(
             CancellationToken token)
         {
-            var email = TempData["email"];
+            var email = TempData.Peek(Email) ?? throw new ArgumentNullException("TempData", "email is empty"); ;
             var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
             if (user == null)
             {
@@ -83,9 +84,7 @@ namespace Cloudents.Web.Api
         [HttpPost("google"), ValidateModel]
         public async Task<IActionResult> GoogleSignInAsync([FromBody] TokenRequest model,
             [FromServices] IGoogleAuth service,
-            [FromServices] IServiceBusProvider serviceBusProvider,
             [FromServices] SbSignInManager signInManager,
-            [FromServices] IBlockChainErc20Service _blockChainErc20,
             CancellationToken cancellationToken)
         {
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
@@ -104,11 +103,11 @@ namespace Cloudents.Web.Api
             if (p.Succeeded)
             {
                 //TODO: duplicate link confirm email.
-                var publicAddress = _blockChainErc20.GetAddress(user.PrivateKey);
-                var t1 = serviceBusProvider.InsertMessageAsync(
-                    new BlockChainInitialBalance(publicAddress), cancellationToken);
+                // var publicAddress = _blockChainErc20.GetAddress(user.PrivateKey);
+                //var t1 = serviceBusProvider.InsertMessageAsync(
+                //    new BlockChainInitialBalance(publicAddress), cancellationToken);
                 var t2 = signInManager.SignInTwoFactorAsync(user, false);
-                await Task.WhenAll(t1, t2).ConfigureAwait(false);
+                await Task.WhenAll(/*t1,*/ t2).ConfigureAwait(false);
                 return Ok();
             }
             ModelState.AddIdentityModelError(p);

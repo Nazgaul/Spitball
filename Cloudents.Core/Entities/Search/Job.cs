@@ -15,6 +15,7 @@ namespace Cloudents.Core.Entities.Search
 
         [DataMember]
         public string Title { get; set; }
+
         [DataMember]
         public string Description { get; set; }
 
@@ -24,6 +25,7 @@ namespace Cloudents.Core.Entities.Search
 
         [DataMember]
         public string City { get; set; }
+
         [DataMember]
         public string State { get; set; }
 

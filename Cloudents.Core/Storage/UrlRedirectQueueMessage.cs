@@ -23,6 +23,7 @@ namespace Cloudents.Core.Storage
 
         [DataMember(Order = 1)]
         public string Host { get; set; }
+
         [DataMember(Order = 2)]
         public string Url { get; set; }
 

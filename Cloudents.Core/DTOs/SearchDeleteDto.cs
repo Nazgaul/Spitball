@@ -9,6 +9,7 @@ namespace Cloudents.Core.DTOs
     {
         [DataMember(Order = 2)]
         public long Id { get; set; }
+
         public long Version { get; set; }
     }
 

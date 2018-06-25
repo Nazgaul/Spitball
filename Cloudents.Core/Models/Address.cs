@@ -28,6 +28,7 @@ namespace Cloudents.Core.Models
         /// </summary>
         [DataMember(Order = 2)]
         public string RegionCode { get; set; }
+
         /// <summary>
         /// Country of user - for internal purpose
         /// </summary>

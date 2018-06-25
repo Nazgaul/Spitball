@@ -21,6 +21,7 @@ namespace Cloudents.Core.Query
 
         public IEnumerable<string> Courses { get; }
         public IEnumerable<string> Query { get; }
+
         [CanBeNull, ItemCanBeNull]
         public IEnumerable<string> UniversitySynonym { get; }
 
@@ -28,6 +29,7 @@ namespace Cloudents.Core.Query
 
         [CanBeNull, ItemCanBeNull]
         public IEnumerable<string> Sources { get; }
+
         public CustomApiKey Key { get; }
     }
 }
