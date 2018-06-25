@@ -33,7 +33,7 @@
                 <!--</div>-->
                 <button class="continue-btn submit-code" @click="next" :disabled="submitted||!confirmationCode">Continue</button>
 
-                <div class="margin-top">
+                <div class="bottom-text">
                     <p class="inline">Didn't get an sms?</p><p class="email-text inline click" @click="sendCode">&nbsp;Click here to resend.</p>
                 </div>
             </div>

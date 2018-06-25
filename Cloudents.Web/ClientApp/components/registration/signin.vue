@@ -29,7 +29,7 @@
                 <!--</div>-->
                 <button class="continue-btn submit-code" :disabled="submitted||!confirmationCode">Continue</button>
                 </form>
-                <div class="margin-top signin-strip">
+                <div class="bottom-text signin-strip">
                     <p class="inline">Didn't get an sms?</p><p class="email-text inline click" @click="verifyCode">&nbsp;Click here to resend.</p>
                 </div>
             </div>
