@@ -26,7 +26,7 @@ let updateData = function (data, isFilterUpdate = false) {
     this.filter = this.filterSelection;
     // this.UPDATE_LOADING(false);
     (this.isLoad) ? this.isLoad = false : this.UPDATE_LOADING(false);
-    if (this.isAcademic && !this.isFirst) {
+    if (this.isAcademic) {
         this.showPersonalizeField = true
     }
 
@@ -130,7 +130,7 @@ export const pageMixin =
                 selectedItem: null,
                 filterObject: null,
                 showFilters: false,
-                showPersonalizeField: false,
+                showPersonalizeField: true,
                 showPromo: this.isPromo,
                 showFilterNotApplied: false,
                 isLoad: false
@@ -149,9 +149,6 @@ export const pageMixin =
         },
 
         created() {
-            this.$root.$on("closePersonalize", () => {
-                this.showPersonalizeField = true
-            });
             //If query have courses save those courses
             if (this.query.course) this.setFilteredCourses(this.query.course);
             this.UPDATE_LOADING(true);

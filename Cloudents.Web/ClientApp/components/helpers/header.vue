@@ -106,8 +106,8 @@
                                     </div>
 
 
-                                    <a v-if="!loggedIn" class="header-login" href="/register">Sign Up</a>
-                                    <a v-if="!loggedIn" class="header-login" href="/signin">Login</a>
+                                    <a v-if="!loggedIn" class="header-login body-1" href="/register">Sign Up</a>
+                                    <a v-if="!loggedIn" class="header-login body-1" href="/signin">Login</a>
 
 
                                     <v-menu bottom left offset-y class="gamburger"
@@ -206,7 +206,7 @@
         props: {
             currentSelection: {type: String, default: 'note'},
             userText: {type: String},
-            submitRoute: {type: String, default: '/result'},
+            submitRoute: {type: String, default: '/ask'},
             toolbarHeight: {},
             layoutClass: {}
         },
