@@ -47,7 +47,7 @@ const getters = {
     isUser: state => state.user !== null,
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
-    accountUser: state => {return state.user?{...state.user,dollar:state.user.dollar.toFixed(2)}:null}
+    accountUser: state => state.user
 };
 const actions = {
     logout({ state, commit }) {

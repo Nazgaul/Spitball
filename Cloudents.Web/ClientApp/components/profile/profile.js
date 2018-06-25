@@ -1,6 +1,6 @@
 import questionCard from "../question/helpers/question-card/question-card.vue";
 import userBlock from '../helpers/user-block/user-block.vue';
-
+import {dollarCalculate} from "../../store/constants";
 import accountService from '../../services/accountService';
 import {mapGetters} from 'vuex'
 
@@ -42,7 +42,6 @@ export default {
                     user: this.profileData.user,
                     answersNum: i.answers,
                     filesNum: i.files,
-                    price: accountService.calculateDollar(i.price)
                 }
             }) : []
         },
@@ -53,7 +52,6 @@ export default {
                     user: this.profileData.user,
                     answersNum: i.answers,
                     filesNum: i.files,
-                    price: accountService.calculateDollar(i.price)
                 }
             }) : []
         },
@@ -62,14 +60,13 @@ export default {
         },
         emptyStateData() {
             var questions = {
-                text: 'You have<br/>a homework problem?',
-                boldText: 'Put it on sale…',
+                text: 'Have a question on your homework?',
+                boldText: 'Post it for points…',
                 btnText: 'Ask Your Question',
                 btnUrl: 'newQuestion'
             };
             var answers = {
-                text: 'Help your friends,<br/>answer on their questions',
-                boldText: 'and make some money',
+                text: 'Help other students <b>and make money</b> by answering questions.',
                 btnText: 'Answer',
                 btnUrl: 'home'
             };

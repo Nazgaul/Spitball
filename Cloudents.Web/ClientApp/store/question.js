@@ -19,7 +19,9 @@ const actions = {
     resetQuestion({commit}){
         commit('updateDeleted',false);
         commit('updateAnswer','');
-
+    },
+    removeDeletedAnswer({commit}){
+        commit('updateDeleted',false);
     },
     deleteQuestion(context,id){
        if(id.type==='Answer') {context.commit('updateDeleted',true)}

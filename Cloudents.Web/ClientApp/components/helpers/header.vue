@@ -8,7 +8,7 @@
                         <v-layout row>
                             <!-- :class="{'auth-user':isAuthUser}" -->
                             <v-toolbar-title>
-                                <router-link class="logo-link" :to="{name:'home'}">
+                                <router-link class="logo-link" to="/ask">
                                     <app-logo class="logo"></app-logo>
                                 </router-link>
                             </v-toolbar-title>
@@ -87,8 +87,8 @@
                                     <!--</div>-->
 
                                     <router-link  to="/wallet" class="header-wallet" v-if="loggedIn">
-                                        <span class="bold">{{accountUser.balance}} pts</span>
-                                        <span>$ {{accountUser.dollar}}</span>
+                                        <span class="bold">{{accountUser.balance | fixedPoints}} pts</span>
+                                        <span>$ {{accountUser.balance | dollarVal}}</span>
                                     </router-link>
 
 
@@ -134,9 +134,7 @@
                 <slot name="extraHeader"></slot>
             </v-layout>
             <v-snackbar absolute :timeout="toasterTimeout" :value="getShowToaster">
-                <div class="text-wrap">
-                   {{getToasterText}}
-                </div>
+                <div class="text-wrap" v-html="getToasterText"></div>
             </v-snackbar>
             <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
 
@@ -227,7 +225,7 @@
                 if (val) {
                     var self = this;
                     setTimeout(function () {
-                        self.updateParams({
+                        self.updateToasterParams({
                             showToaster: false
                         })
                     }, this.toasterTimeout)
@@ -236,7 +234,7 @@
 
         },
         methods: {
-            ...mapActions(['updateParams']),
+            ...mapActions(['updateToasterParams']),
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
                     Intercom('showNewMessage', '');

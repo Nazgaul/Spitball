@@ -17,7 +17,6 @@ export default {
             answerFiles: [],
             questionData: null,
             showForm: false,
-            showLoginDialog: false
         };
     },
     beforeRouteLeave(to,from,next){
@@ -25,12 +24,13 @@ export default {
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion"]),
+        ...mapActions(["resetQuestion","removeDeletedAnswer","updateToasterParams"]),
         ...mapMutations({updateLoading:"UPDATE_LOADING"}),
         submitAnswer() {
             this.updateLoading(true);
             var self = this;
             if (this.submitForm()) {
+                this.removeDeletedAnswer();
                 questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
                     .then(function () {
                         self.textAreaValue = "";
@@ -86,7 +86,12 @@ export default {
             }
         },
         showAnswerField() {
-            this.accountUser ? this.showForm = true : this.showLoginDialog = true
+            if(this.accountUser){
+                this.showForm = true
+            }
+            else {
+                this.updateToasterParams({toasterText: 'Please <a href="/signin">Login</a> to answer', showToaster: true});
+            }
         }
     },
     watch: {
@@ -99,6 +104,7 @@ export default {
     computed: {
         ...mapGetters(["talkSession", "accountUser", "chatAccount","getCorrectAnswer","isDeletedAnswer"]),
         userNotAnswered() {
+            this.isDeletedAnswer?this.submitForm(false):"";
             return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length||this.isDeletedAnswer);
         },
         enableAnswer() {

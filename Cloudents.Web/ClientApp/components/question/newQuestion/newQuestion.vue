@@ -28,7 +28,7 @@
 
                 <!-- <v-flex xs12> -->
                 <v-flex xs12 :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have
-                    {{currentSum}} points
+                    {{currentSum | fixedPoints}} points
                 </v-flex>
                 <!-- </v-flex> -->
 
@@ -50,7 +50,7 @@
                                 <label :for="`${pricey}pts`">{{pricey}} pts</label>
                             </div>
                             <div class="point-btn other">
-                                <input type="number" placeholder="Other amount" @focus="selectOtherAmount()"
+                                <input type="number" placeholder="Other amount" @focus="selectOtherAmount()" step=".01" min="0"
                                        v-model="price"/>
                                 <v-icon right>sbf-hand-coin</v-icon>
                             </div>

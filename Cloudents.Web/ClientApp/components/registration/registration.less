@@ -141,6 +141,7 @@
       display: flex;
       flex-grow: 1;
       width: 100%;
+      position: relative;
 
       &.image {
         @media (max-width: @screen-xs) {
@@ -152,6 +153,12 @@
         @media (max-width: @screen-xs) {
           padding: 16px 14px 16px 16px;
         }
+      }
+      .bottom-text{
+        position: absolute;
+        .responsive-property(bottom, 120px, null, 54px);
+        left: 0;
+        right: 0;
       }
     }
 
@@ -291,7 +298,7 @@
   }
 }
 
-.overlay.overlay--active:before {
+#app > .overlay.overlay--active:before {
   background-color: #3532d5;
   opacity: 0.76;
 }

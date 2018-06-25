@@ -9,7 +9,7 @@
                     <p class="medium">Don’t miss the</p>
                     <p class="large">Revolution</p>
                     <p class="medium text-right">of the student economy</p>
-                    <p class="small">Join a community where you pay less and earn more for everything school-related</p>
+                    <p class="small">Join a community where you pay less and earn more for everything school-related.</p>
 
                     <div class="buttons">
                         <router-link class="sign-up" to="register">Sign up</router-link>
