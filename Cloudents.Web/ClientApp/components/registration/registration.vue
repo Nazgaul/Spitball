@@ -1,8 +1,5 @@
 <template>
     <div class="registration">
-        <button class="back-button" @click="showDialog = true">
-            <v-icon right>sbf-close</v-icon>
-        </button>
         <slot>
         <div class="form-wrap">
             <component :is="`register-${step}`" @next="nextStep"></component>
@@ -13,6 +10,9 @@
             <div v-for="page in REGISTRATION_STEPS" :class="{highlighted: page===step}"></div>
         </div>
         </slot>
+        <button class="back-button" @click="showDialog = true">
+            <v-icon right>sbf-close</v-icon>
+        </button>
         <v-dialog v-model="showDialog" max-width="600px" content-class="registration-dialog">
             <v-card>
                 <button class="close-btn" @click="showDialog = false">
