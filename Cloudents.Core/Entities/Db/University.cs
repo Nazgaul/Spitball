@@ -26,6 +26,7 @@ namespace Cloudents.Core.Entities.Db
 
         [DbColumn("UniversityName")]
         public virtual string Name { get; set; }
+
         public virtual string Extra { get; set; }
         public virtual string ExtraSearch { get; set; }
     }

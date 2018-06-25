@@ -18,6 +18,7 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class RegisterController : Controller
     {
+        internal const string Email = "email";
         private readonly IServiceBusProvider _queueProvider;
         private readonly UserManager<User> _userManager;
 
@@ -53,7 +54,7 @@ namespace Cloudents.Web.Api
             {
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
                 var link = Url.Link("ConfirmEmail", new { user.Id, code });
-                TempData["email"] = model.Email;
+                TempData[Email] = model.Email;
                 var message = new RegistrationEmail(model.Email, HtmlEncoder.Default.Encode(link));
                 await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
                 return Ok();
@@ -66,7 +67,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> ResendEmailAsync(
             CancellationToken token)
         {
-            var email = TempData.Peek("email") ?? throw new ArgumentNullException("TempData", "email is empty"); ;
+            var email = TempData.Peek(Email) ?? throw new ArgumentNullException("TempData", "email is empty"); ;
             var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
             if (user == null)
             {

@@ -23,7 +23,6 @@ namespace Cloudents.Core.Interfaces
 
         Task DeleteAsync(T entity, CancellationToken token);
         Task UpdateAsync(T entity, CancellationToken token);
-        //Task AddOrUpdateAsync(T entity, CancellationToken token);
     }
 
     public interface IQuestionSubjectRepository : IRepository<QuestionSubject>
@@ -35,7 +34,12 @@ namespace Cloudents.Core.Interfaces
     {
         [ItemCanBeNull]
         Task<ProfileDto> GetUserProfileAsync(long id, CancellationToken token);
+
         Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token);
+
+        Task<UserAccountDto> GetUserDetailAsync(long id, CancellationToken token);
+
+        Task<IList<User>> GetAllUsersAsync(CancellationToken token);
     }
 
     public interface IQuestionRepository : IRepository<Question>
@@ -44,6 +48,7 @@ namespace Cloudents.Core.Interfaces
         Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token);
 
         Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token);
+
     }
 
     public interface ICourseRepository : IRepository<Course>

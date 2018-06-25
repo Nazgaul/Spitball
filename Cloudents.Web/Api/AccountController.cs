@@ -1,13 +1,12 @@
-﻿using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.Command;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
-using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -27,7 +26,8 @@ namespace Cloudents.Web.Api
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, ICommandBus commandBus, IMapper mapper, SignInManager<User> signInManager, IConfiguration configuration)
+        public AccountController(UserManager<User> userManager, ICommandBus commandBus, IMapper mapper,
+            SignInManager<User> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _commandBus = commandBus;
@@ -40,27 +40,22 @@ namespace Cloudents.Web.Api
         [HttpGet]
         [Authorize]
 
-        public async Task<IActionResult> GetAsync(CancellationToken token)
+        public async Task<IActionResult> GetAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            
+            var userId = long.Parse(_userManager.GetUserId(User));
+            var taskUser = queryBus.QueryAsync<long, UserAccountDto>(userId, token);
+            var talkJs = GetToken();
+
+            var user = await taskUser.ConfigureAwait(false);
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty,"user not exists");
                 await _signInManager.SignOutAsync().ConfigureAwait(false);
                 return BadRequest(ModelState);
             }
-
-            //var user = taskUser.Result;
-            return Ok(new
-            {
-                user.Id,
-                user.Image,
-                user.Email,
-                user.Name,
-                token = GetToken(),
-                dollar = user.Balance / 40,
-                balance = user.Balance
-            });
+            user.Token = talkJs;
+            return Ok(user);
         }
 
         private string GetToken()

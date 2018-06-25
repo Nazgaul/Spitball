@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -26,6 +27,23 @@ namespace Cloudents.Infrastructure.Data.Repositories
         public Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token)
         {
             return Session.Query<User>().FirstOrDefaultAsync(expression, token);
+        }
+
+        public Task<UserAccountDto> GetUserDetailAsync(long id, CancellationToken token)
+        {
+           return Session.Query<User>().Fetch(f => f.LastTransaction).Where(w => w.Id == id).Select(s => new UserAccountDto()
+            {
+                Id = s.Id,
+                Balance = s.LastTransaction.Balance,
+                Name = s.Name,
+                Image = s.Image
+            }).SingleOrDefaultAsync(token);
+        }
+
+        public async Task<IList<User>> GetAllUsersAsync(CancellationToken token)
+        {
+            var t = await Session.Query<User>().Where(w => w.Email != null).ToListAsync(token);
+            return t;
         }
 
         public async Task<ProfileDto> GetUserProfileAsync(long id, CancellationToken token)

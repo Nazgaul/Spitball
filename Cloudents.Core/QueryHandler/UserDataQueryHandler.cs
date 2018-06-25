@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 
@@ -35,6 +36,22 @@ namespace Cloudents.Core.QueryHandler
         public Task<User> GetAsync(long query, CancellationToken token)
         {
             return _userRepository.GetAsync(query, token);
+        }
+    }
+
+
+    public class UserAccountDataQueryHandler : IQueryHandlerAsync<long, UserAccountDto>
+    {
+        private readonly IUserRepository _userRepository;
+
+        public UserAccountDataQueryHandler(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+        public Task<UserAccountDto> GetAsync(long query, CancellationToken token)
+        {
+            return _userRepository.GetUserDetailAsync(query, token);
         }
     }
 }

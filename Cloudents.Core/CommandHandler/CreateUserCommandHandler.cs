@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
@@ -26,9 +25,6 @@ namespace Cloudents.Core.CommandHandler
         public async Task ExecuteAsync(CreateUserCommand message, CancellationToken token)
         {
             var (privateKey, _) = _blockChainErc20Service.CreateAccount();
-
-            //var t = new Transaction(message.User, ActionType.SignUp, TransactionType.Awarded, InitialBalance);
-
             message.User.AddTransaction(ActionType.SignUp, TransactionType.Awarded, InitialBalance);
             message.User.PrivateKey = privateKey;
             await _userRepository.AddAsync(message.User, token).ConfigureAwait(false);

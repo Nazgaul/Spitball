@@ -23,7 +23,9 @@ namespace Cloudents.Infrastructure.Data.Repositories
         {
             return Session.Query<Transaction>()
                 .Where(w => w.User.Id == userId)
-                .SumAsync(s => s.Price, token);
+                .Where(w=>w.NextTransaction == null)
+                .Select(s=>s.Balance)
+                .SingleOrDefaultAsync(token);
         }
 
 

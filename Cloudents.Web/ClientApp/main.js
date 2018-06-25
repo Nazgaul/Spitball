@@ -8,7 +8,6 @@ import VScroll from "vuetify/es5/directives/scroll";
 const GeneralPage = () => import("./components/helpers/generalPage.vue");
 import VueRouter from "vue-router";
 
-const vueAdsense = () => import("vue-adsense");
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
 
@@ -72,7 +71,6 @@ import {
 
 } from "vuetify"
 import * as route from "./routes";
-import VueLazyload from 'vue-lazyload'
 
 //TODO: server side fix
 WebFont.load({
@@ -81,11 +79,11 @@ WebFont.load({
     }
 });
 
-Vue.use(VueLazyload, {
-    lazyComponent: true,
-    preLoad: 1.8,
-    attempt: 1
-});
+//Vue.use(VueLazyload, {
+//    lazyComponent: true,
+//    preLoad: 1.8,
+//    attempt: 1
+//});
 //Vue.use(vueSmoothScroll);
 Vue.use(VueRouter);
 Vue.use(Vuetify,
@@ -94,7 +92,7 @@ Vue.use(Vuetify,
         components: vuetifyComponents
     });
 Vue.component("scroll-list", scroll);
-Vue.component("adsense", vueAdsense);
+//Vue.component("adsense", vueAdsense);
 Vue.component("general-page", GeneralPage);
 
 const router = new VueRouter({
