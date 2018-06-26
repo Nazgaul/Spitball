@@ -72,15 +72,12 @@
         .show-btn {
             pointer-events: none;
             position: absolute;
-            bottom: 14px;
-            right: 16px;
+            .responsive-property(bottom, 14px, null, 6px);
+            .responsive-property(right, 16px, null, 8px);
             padding: 3px 20px;
             color: white;
             border-radius: 4px;
-            .responsive-property(font-size, 14px, null, 10px);
-            @media(max-width: @screen-sm){
-                padding: 1px 11px;
-            }
+            font-size: 14px;
         }
 
         .cell-video,

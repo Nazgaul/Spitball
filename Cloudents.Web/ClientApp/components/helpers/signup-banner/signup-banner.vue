@@ -13,7 +13,7 @@
 
                     <div class="buttons">
                         <router-link class="sign-up" to="register">Sign up</router-link>
-                        <router-link class="learn-more" to="">Learn more</router-link>
+                        <router-link class="learn-more" :to="{name:'about'}">Learn more</router-link>
                     </div>
                 </div>
             </div>

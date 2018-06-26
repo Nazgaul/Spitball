@@ -1,15 +1,15 @@
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
-import { mapGetters, mapMutations,mapActions } from 'vuex'
+import {mapGetters, mapMutations, mapActions} from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 
 export default {
     mixins: [disableForm],
-    components: { questionThread, questionCard, extendedTextArea },
+    components: {questionThread, questionCard, extendedTextArea},
     props: {
-        id: { Number } // got it from route
+        id: {Number} // got it from route
     },
     data() {
         return {
@@ -19,13 +19,13 @@ export default {
             showForm: false,
         };
     },
-    beforeRouteLeave(to,from,next){
+    beforeRouteLeave(to, from, next) {
         this.resetQuestion();
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion","removeDeletedAnswer","updateToasterParams"]),
-        ...mapMutations({updateLoading:"UPDATE_LOADING"}),
+        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams"]),
+        ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         submitAnswer() {
             this.updateLoading(true);
             var self = this;
@@ -33,18 +33,27 @@ export default {
                 this.removeDeletedAnswer();
                 questionService.answerQuestion(this.id, this.textAreaValue, this.answerFiles)
                     .then(function () {
+                        //TODO: do this on client side (render data inserted by user without calling server) - see commented out below - all that's left is asking ram to return the answerId in response
+                        // var creationTime = new Date();
+                        // self.questionData.answers.push({
+                        //     create: creationTime.toISOString(),
+                        //     files: self.answerFiles.map(fileName => "https://spitballdev.blob.core.windows.net/spitball-files/question/"+self.id+"/answer/"+response.data.answerId+"/"+fileName), //this will work only if answerid returns from server
+                        //     id: response.data.answerId,
+                        //     text: self.textAreaValue,
+                        //     user: self.accountUser
+                        // });
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
-                        //TODO: do this on client side (render data inserted by user without calling server)
-                        self.getData();
-                    },()=>{self.submitForm(false);
+                        self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
+                    }, () => {
+                        self.submitForm(false);
                         self.updateLoading(true);
                     });
             }
         },
         addFile(filename) {
-            this.answerFiles.push(filename);
+            this.answerFiles.push(...filename.split(','));
         },
         removeFile(index) {
             this.answerFiles.splice(index, 1);
@@ -86,11 +95,14 @@ export default {
             }
         },
         showAnswerField() {
-            if(this.accountUser){
+            if (this.accountUser) {
                 this.showForm = true
             }
             else {
-                this.updateToasterParams({toasterText: 'Please <a href="/signin">Login</a> to answer', showToaster: true});
+                this.updateToasterParams({
+                    toasterText: 'Please <a href="/signin">Login</a> to answer',
+                    showToaster: true
+                });
             }
         }
     },
@@ -102,14 +114,14 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(["talkSession", "accountUser", "chatAccount","getCorrectAnswer","isDeletedAnswer"]),
+        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer"]),
         userNotAnswered() {
-            this.isDeletedAnswer?this.submitForm(false):"";
-            return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length||this.isDeletedAnswer);
+            this.isDeletedAnswer ? this.submitForm(false) : "";
+            return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
         },
         enableAnswer() {
-            let val=!this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered);
-            this.showForm = (val&&!this.questionData.answers.length);
+            let val = !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered);
+            this.showForm = (val && !this.questionData.answers.length);
             return val;
         }
         // isMobile() {

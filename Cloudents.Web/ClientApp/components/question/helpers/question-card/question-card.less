@@ -12,6 +12,10 @@
 
   p {
     margin: 16px 44px 16px 16px;
+
+    @media(max-width: @screen-xs) {
+      margin: 16px 44px 6px 8px;
+    }
   }
 
   .q-price {
@@ -175,6 +179,9 @@
     line-height: 32px;
     min-height: 49px;
     align-items: flex-end;
+    @media(max-width: @screen-xs){
+      padding: 0px 8px 4px 8px;
+    }
 
     .new-block {
       display: flex;
@@ -184,6 +191,7 @@
       width: 30px;
       margin-right: 16px;
       height: 32px;
+      padding-top: 4px;
       display: flex;
       flex-direction: row;
 

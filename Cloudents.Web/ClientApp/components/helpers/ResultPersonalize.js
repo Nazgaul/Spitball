@@ -47,8 +47,5 @@ export default {
             settingMenu.find(i => i.id === type).click.call(this, this.getUniversityName);
             this.showDialog = true;
         }
-    },
-    beforeDestroy(){
-        clearTimeout(this.$options.timeout)
     }
 }

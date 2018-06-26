@@ -86,10 +86,6 @@
     }
 
     @media (max-width: 959px) {
-      &:nth-child(2) {
-        //align-items: center; /*TODO: irena Check if needed...*/
-      }
-
       form {
         margin-right: 14px;
 
@@ -138,7 +134,6 @@
       border-radius: 26.5px;
       border: solid 1px @color-main-purple;
       font-size: 18px;
-      color: @color-main-purple;
       outline: none;
       display: flex;
       align-items: center;
@@ -152,6 +147,8 @@
         display: none;
       }
       &:first-child {
+        background: @color-main-purple;
+        color: @color-white;
         margin-right: 24px;
       }
 
