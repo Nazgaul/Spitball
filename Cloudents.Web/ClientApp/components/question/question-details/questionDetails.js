@@ -44,7 +44,7 @@ export default {
             }
         },
         addFile(filename) {
-            this.answerFiles.push(filename);
+            this.answerFiles.push(...filename.split(','));
         },
         removeFile(index) {
             this.answerFiles.splice(index, 1);
