@@ -18,18 +18,17 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<Answer> _answerRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
-        private readonly ITransactionRepository _transactionRepository;
+        //private readonly ITransactionRepository _transactionRepository;
         //private readonly IBlockChainErc20Service _erc20;
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository, 
             IRepository<Answer> answerRepository, IRepository<User> userRepository,
-            IBlobProvider<QuestionAnswerContainer> blobProvider, ITransactionRepository transactionRepository)
+            IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _userRepository = userRepository;
             _blobProvider = blobProvider;
-            _transactionRepository = transactionRepository;
         }
 
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
@@ -47,8 +46,8 @@ namespace Cloudents.Core.CommandHandler
             //TODO: not right
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 
-            var t = Transaction.AnswerCreateTransaction(answer);
-            await _transactionRepository.AddAsync(t, token);
+            //var t = Transaction.AnswerCreateTransaction(answer);
+            //await _transactionRepository.AddAsync(t, token);
 
             //var blockChainTask = _blockChainProvider.InsertMessageAsync(new BlockChainSubmitAnswer(question.Id, id, _erc20.GetAddress(user.PrivateKey)), token);
             await Task.WhenAll(l/*.Union(new [] { blockChainTask })*/).ConfigureAwait(true);        }

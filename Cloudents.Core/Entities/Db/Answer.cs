@@ -35,5 +35,20 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual DateTime Created { get; set; }
 
+
+
+        public virtual void AnswerCreateTransaction()
+        {
+            var t = new Transaction(User, ActionType.Answer, TransactionType.Pending, Question.Price);
+            User.AddTransaction(t);
+        }
+
+
+        public virtual void AnswerDeleteTransaction()
+        {
+            var t =  new Transaction(User, ActionType.Answer, TransactionType.Pending, -Question.Price);
+            User.AddTransaction(t);
+        }
+
     }
 }

@@ -15,14 +15,12 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
-        private readonly ITransactionRepository _transactionRepository;
 
         public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
-            IRepository<Answer> answerRepository, ITransactionRepository transactionRepository)
+            IRepository<Answer> answerRepository)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
-            _transactionRepository = transactionRepository;
             // _blockChain = blockChain;
             //_blockChainProvider = blockChainProvider;
         }
@@ -42,9 +40,7 @@ namespace Cloudents.Core.CommandHandler
             question.MarkAnswerAsCorrect(answer);
 
 
-            var transactions = Transaction.QuestionMarkAsCorrect(question);
 
-            await _transactionRepository.AddAsync(transactions, token);
             await _questionRepository.UpdateAsync(question, token).ConfigureAwait(false);
 
             // await _blockChainProvider.InsertMessageAsync(new BlockChainMarkQuestionAsCorrect(_blockChain.GetAddress(question.User.PrivateKey), _blockChain.GetAddress(answer.User.PrivateKey), question.Id, answer.Id), token).ConfigureAwait(true);

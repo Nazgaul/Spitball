@@ -19,34 +19,34 @@ namespace Cloudents.Infrastructure.Data.Repositories
         {
         }
 
-        public override async Task<object> AddAsync(Transaction entity, CancellationToken token)
-        {
-            var t = await  Session.Query<Transaction>().Where(w => w.User.Id == entity.User.Id)
-                .Where(w => w.NextTransaction == null).SingleOrDefaultAsync(token);
-            if (t != null)
-            {
-                t.NextTransaction = entity;
-                entity.Balance = t.Balance + entity.Price;
-                if (entity.Balance < 0)
-                {
-                    throw new InvalidOperationException("not enough tokens");
-                }
-            }
-            else
-            {
-                entity.Balance = entity.Price;
-            }
-            return base.AddAsync(entity, token);
-        }
+        //public override async Task<object> AddAsync(Transaction entity, CancellationToken token)
+        //{
+        //    var t = await  Session.Query<Transaction>().Where(w => w.User.Id == entity.User.Id)
+        //        .Where(w => w.NextTransaction == null).SingleOrDefaultAsync(token);
+        //    if (t != null)
+        //    {
+        //        t.NextTransaction = entity;
+        //        entity.Balance = t.Balance + entity.Price;
+        //        if (entity.Balance < 0)
+        //        {
+        //            throw new InvalidOperationException("not enough tokens");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        entity.Balance = entity.Price;
+        //    }
+        //    return base.AddAsync(entity, token);
+        //}
 
-        public Task<decimal> GetCurrentBalanceAsync(long userId, CancellationToken token)
-        {
-            return Session.Query<Transaction>()
-                .Where(w => w.User.Id == userId)
-                .Where(w=>w.NextTransaction == null)
-                .Select(s=>s.Balance)
-                .SingleOrDefaultAsync(token);
-        }
+        //public Task<decimal> GetCurrentBalanceAsync(long userId, CancellationToken token)
+        //{
+        //    return Session.Query<Transaction>()
+        //        .Where(w => w.User.Id == userId)
+        //        .Where(w=>w.NextTransaction == null)
+        //        .Select(s=>s.Balance)
+        //        .SingleOrDefaultAsync(token);
+        //}
 
         //public Task<Transaction> GetLastNodeOfUserAsync(long userId, CancellationToken token)
         //{

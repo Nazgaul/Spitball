@@ -19,6 +19,7 @@ namespace Cloudents.Core.Entities.Db
             Name = name;
             TwoFactorEnabled = true;
             PrivateKey = privateKey;
+            UserCreateTransaction();
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
@@ -50,17 +51,30 @@ namespace Cloudents.Core.Entities.Db
         public virtual string PrivateKey { get; set; }
 
 
-        //public virtual void AddTransaction(ActionType action, TransactionType type, decimal price)
-        //{
-        //    if (LastTransaction == null)
-        //    {
-        //        LastTransaction = Transaction.CreateRoot(this, action, type, price);
-        //        return;
-        //    }
-        //    LastTransaction = LastTransaction.AddTransaction(action, type, price);
-        //}
+        public virtual void AddTransaction(Transaction t)
+        {
+            t.Balance = (LastTransaction?.Balance ?? 0) + t.Price;
+            Transactions.Add(t);
+            LastTransaction = t;
+            //if (LastTransaction == null)
+            //{
+            //    LastTransaction = Transaction.CreateRoot(this, action, type, price);
+            //    return;
+            //}
+            //LastTransaction = LastTransaction.AddTransaction(action, type, price);
+        }
 
-        //[SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
-        //protected internal virtual Transaction LastTransaction { get; set; }
+        private const decimal InitialBalance = 1000;
+        public virtual void UserCreateTransaction()
+        {
+            var t =  new Transaction(this, ActionType.SignUp, TransactionType.Awarded, InitialBalance);
+            AddTransaction(t);
+        }
+
+        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
+        protected internal virtual Transaction LastTransaction { get; set; }
+
+        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
+        protected internal virtual IList<Transaction> Transactions { get; set; }
     }
 }

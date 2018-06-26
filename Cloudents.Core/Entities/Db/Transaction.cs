@@ -6,7 +6,7 @@ namespace Cloudents.Core.Entities.Db
 {
     public class Transaction
     {
-        private Transaction(User user, ActionType action, TransactionType type, decimal price)
+        public Transaction(User user, ActionType action, TransactionType type, decimal price)
         {
             User = user;
             Action = action;
@@ -22,58 +22,46 @@ namespace Cloudents.Core.Entities.Db
 
 
 
-        private const decimal InitialBalance = 100;
+        //private const decimal InitialBalance = 100;
 
-        public static Transaction UserCreateTransaction(User user)
-        {
-            return new Transaction(user, ActionType.SignUp, TransactionType.Awarded, InitialBalance);
-        }
+        //public static Transaction UserCreateTransaction(User user)
+        //{
+        //    return new Transaction(user, ActionType.SignUp, TransactionType.Awarded, InitialBalance);
+        //}
 
-        public static Transaction QuestionCreateTransaction(Question question)
-        {
-            return new Transaction(question.User, ActionType.Question, TransactionType.Stake, -question.Price);
-        }
+        
 
-        public static Transaction AnswerCreateTransaction(Answer answer)
-        {
-            return new Transaction(answer.User, ActionType.Answer, TransactionType.Pending, answer.Question.Price);
-        }
+        
 
-        public static Transaction QuestionDeleteTransaction(Question question)
-        {
-            return new Transaction(question.User, ActionType.DeleteQuestion, TransactionType.Stake, question.Price);
-        }
+        
 
-        public static Transaction AnswerDeleteTransaction(Answer answer)
-        {
-            return new Transaction(answer.User, ActionType.Answer, TransactionType.Pending, -answer.Question.Price);
-        }
+        
 
 
-        public static IList<Transaction> QuestionMarkAsCorrect(Question question)
-        {
-            if (question.CorrectAnswer == null)
-            {
-                throw new InvalidOperationException("need to have correct answer");
-            }
-            var transaction = new List<Transaction>();
-            transaction.Add(new Transaction(question.User, ActionType.QuestionCorrect, TransactionType.Spent, -question.Price));
-            transaction.Add(new Transaction(question.User, ActionType.QuestionCorrect, TransactionType.Stake, question.Price));
+        //public static IList<Transaction> QuestionMarkAsCorrect(Question question)
+        //{
+        //    if (question.CorrectAnswer == null)
+        //    {
+        //        throw new InvalidOperationException("need to have correct answer");
+        //    }
+        //    var transaction = new List<Transaction>();
+        //    transaction.Add(new Transaction(question.User, ActionType.QuestionCorrect, TransactionType.Spent, -question.Price));
+        //    transaction.Add(new Transaction(question.User, ActionType.QuestionCorrect, TransactionType.Stake, question.Price));
 
 
-            //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
-            //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Stake, Price);
+        //    //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
+        //    //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Stake, Price);
 
-            foreach (var answer in question.Answers)
-            {
-                if (answer.Id == question.CorrectAnswer.Id)
-                {
-                    transaction.Add(new Transaction(answer.User, ActionType.QuestionCorrect, TransactionType.Earned, question.Price));
-                }
-                transaction.Add(new Transaction(answer.User, ActionType.QuestionCorrect, TransactionType.Pending, -question.Price));
-            }
-            return transaction;
-        }
+        //    foreach (var answer in question.Answers)
+        //    {
+        //        if (answer.Id == question.CorrectAnswer.Id)
+        //        {
+        //            transaction.Add(new Transaction(answer.User, ActionType.QuestionCorrect, TransactionType.Earned, question.Price));
+        //        }
+        //        transaction.Add(new Transaction(answer.User, ActionType.QuestionCorrect, TransactionType.Pending, -question.Price));
+        //    }
+        //    return transaction;
+        //}
 
 
         protected Transaction()
@@ -91,7 +79,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual decimal Price { get; set; }
         public virtual decimal Balance { get; set; }
 
-        public virtual Transaction NextTransaction { get; set; }
+        //public virtual Transaction NextTransaction { get; set; }
 
         //public virtual Transaction CreateTransaction(ActionType action, TransactionType type, decimal price)
         //{

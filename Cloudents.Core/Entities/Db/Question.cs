@@ -20,6 +20,7 @@ namespace Cloudents.Core.Entities.Db
             User = user;
             Created = DateTime.UtcNow;
 
+            QuestionCreateTransaction();
             //User.AddTransaction(ActionType.Question, TransactionType.Stake, -price);
         }
 
@@ -43,6 +44,19 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual IList<Answer> Answers { get; protected set; }
 
+
+        public virtual void QuestionCreateTransaction()
+        {
+            var t = new Transaction(User, ActionType.Question, TransactionType.Stake, -Price);
+            User.AddTransaction(t);
+        }
+
+        public virtual void QuestionDeleteTransaction()
+        {
+            var t = new Transaction(User, ActionType.DeleteQuestion, TransactionType.Stake, Price);
+            User.AddTransaction(t);
+        }
+
         public virtual void MarkAnswerAsCorrect(Answer correctAnswer)
         {
             if (CorrectAnswer != null)
@@ -52,17 +66,28 @@ namespace Cloudents.Core.Entities.Db
             CorrectAnswer = correctAnswer;
 
             ////TODO remove from earned or question from user
+            MarkCorrectTransaction();
+        }
+
+        public virtual void MarkCorrectTransaction()
+        {
+            User.AddTransaction(new Transaction(User, ActionType.QuestionCorrect, TransactionType.Spent, -Price));
+            User.AddTransaction(new Transaction(User, ActionType.QuestionCorrect, TransactionType.Stake, Price));
+
+
             //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
             //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Stake, Price);
 
-            //foreach (var answer in Answers)
-            //{
-            //    if (answer.Id == correctAnswer.Id)
-            //    {
-            //        answer.User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Earned, Price);
-            //    }
-            //    answer.User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Pending, -Price);
-            //}
+            foreach (var answer in Answers)
+            {
+                if (answer.Id == CorrectAnswer.Id)
+                {
+                    User.AddTransaction(new Transaction(answer.User, ActionType.QuestionCorrect, TransactionType.Earned,
+                        Price));
+                }
+
+                User.AddTransaction(new Transaction(answer.User, ActionType.QuestionCorrect, TransactionType.Pending, -Price));
+            }
         }
     }
 }

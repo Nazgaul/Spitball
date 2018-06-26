@@ -29,19 +29,16 @@ namespace Cloudents.Infrastructure.Data.Maps
 
             References(x => x.University).ForeignKey("User_University").Nullable();
 
-           // References(x => x.LastTransaction);//.Cascade.SaveUpdate();
+            References(x => x.LastTransaction).ForeignKey("User_Transaction");//.Cascade.SaveUpdate();
 
-            //HasMany(x => x.Transactions)
-            //    .Inverse()
-            //    .AsList(index =>
-            //    {
-            //        index.Column("id");
-            //    })
-            //    //.Inverse()
-            //    //TODO: this is generate exception when creating new answer. need to figure it out
-            //    //    .Not.KeyNullable()
-            //    //    .Not.KeyUpdate()
-            //    .Cascade.AllDeleteOrphan();
+            HasMany(x => x.Transactions)
+                .Inverse()
+
+                //.Inverse()
+                //TODO: this is generate exception when creating new answer. need to figure it out
+                //    .Not.KeyNullable()
+                //    .Not.KeyUpdate()
+                .Cascade.AllDeleteOrphan();
 
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull

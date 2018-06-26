@@ -21,33 +21,33 @@ namespace ConsoleApp
 
         public async Task CreateTransactionOnExistingData()
         {
-            using (var child = container.BeginLifetimeScope())
-            {
-                using (var t = child.Resolve<IUnitOfWork>())
-                {
-                    await CreateUserAudit(child);
-                    await t.CommitAsync(default);
-                }
-            }
+            //using (var child = container.BeginLifetimeScope())
+            //{
+            //    using (var t = child.Resolve<IUnitOfWork>())
+            //    {
+            //        await CreateUserAudit(child);
+            //        await t.CommitAsync(default);
+            //    }
+            //}
 
-            using (var child = container.BeginLifetimeScope())
-            {
-                using (var t = child.Resolve<IUnitOfWork>())
-                {
-                    await CreateQuestionAudit(child);
-                    await t.CommitAsync(default);
-                }
-            }
+            //using (var child = container.BeginLifetimeScope())
+            //{
+            //    using (var t = child.Resolve<IUnitOfWork>())
+            //    {
+            //        await CreateQuestionAudit(child);
+            //        await t.CommitAsync(default);
+            //    }
+            //}
 
-            using (var child = container.BeginLifetimeScope())
-            {
-                using (var t = child.Resolve<IUnitOfWork>())
-                {
+            //using (var child = container.BeginLifetimeScope())
+            //{
+            //    using (var t = child.Resolve<IUnitOfWork>())
+            //    {
 
-                    await CreateAnswerAudit(child);
-                    await t.CommitAsync(default);
-                }
-            }
+            //        await CreateAnswerAudit(child);
+            //        await t.CommitAsync(default);
+            //    }
+            //}
 
             using (var child = container.BeginLifetimeScope())
             {
@@ -67,8 +67,9 @@ namespace ConsoleApp
 
             foreach (var user1 in users)
             {
-                var transaction = Transaction.UserCreateTransaction(user1);
-                await CreateTransactionAsync(transaction, container);
+                user1.UserCreateTransaction();
+                //var transaction = Transaction.UserCreateTransaction(user1);
+                //await CreateTransactionAsync(transaction, container);
                 //user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
             }
         }
@@ -80,8 +81,9 @@ namespace ConsoleApp
 
             foreach (var user1 in users)
             {
-                var transaction = Transaction.QuestionCreateTransaction(user1);
-                await CreateTransactionAsync(transaction, container);
+                user1.QuestionCreateTransaction();
+                //var transaction = Transaction.QuestionCreateTransaction(user1);
+               // await CreateTransactionAsync(transaction, container);
             }
         }
 
@@ -95,8 +97,9 @@ namespace ConsoleApp
             {
                 foreach (var answer in question.Answers)
                 {
-                    var transaction = Transaction.AnswerCreateTransaction(answer);
-                    await CreateTransactionAsync(transaction, container);
+                    answer.AnswerCreateTransaction();
+                    //var transaction = Transaction.AnswerCreateTransaction(answer);
+                    //await CreateTransactionAsync(transaction, container);
                 }
                 //user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
             }
@@ -113,8 +116,8 @@ namespace ConsoleApp
                 var ca = question.CorrectAnswer;
                 if (ca != null)
                 {
-                    var transaction = Transaction.QuestionMarkAsCorrect(question);
-                    await CreateTransactionAsync(transaction, container);
+                    question.MarkCorrectTransaction();
+                    //await CreateTransactionAsync(transaction, container);
 
                 }
             }

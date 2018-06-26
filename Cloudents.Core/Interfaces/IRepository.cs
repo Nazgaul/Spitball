@@ -62,7 +62,7 @@ namespace Cloudents.Core.Interfaces
     public interface ITransactionRepository : IRepository<Transaction>
     {
         //Task<Transaction> GetLastNodeOfUserAsync(long userId, CancellationToken token);
-        Task<decimal> GetCurrentBalanceAsync(long userId, CancellationToken token);
+        //Task<decimal> GetCurrentBalanceAsync(long userId, CancellationToken token);
         Task<IEnumerable<(TransactionType, decimal)>> GetCurrentBalanceDetailAsync(long userId, CancellationToken token);
         Task<IEnumerable<TransactionDto>> GetTransactionsAsync(long userId, CancellationToken token);
     }

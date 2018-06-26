@@ -10,12 +10,10 @@ namespace Cloudents.Core.CommandHandler
     public class DeleteAnswerCommandHandler : ICommandHandler<DeleteAnswerCommand>
     {
         private readonly IRepository<Answer> _repository;
-        private readonly ITransactionRepository _transactionRepository;
 
-        public DeleteAnswerCommandHandler(IRepository<Answer> repository, ITransactionRepository transactionRepository)
+        public DeleteAnswerCommandHandler(IRepository<Answer> repository)
         {
             _repository = repository;
-            _transactionRepository = transactionRepository;
         }
 
         public async Task ExecuteAsync(DeleteAnswerCommand message, CancellationToken token)
@@ -26,8 +24,7 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("user is not the one who wrote the answer");
             }
 
-            var t = Transaction.AnswerDeleteTransaction(answer);
-            await _transactionRepository.AddAsync(t, token);
+            answer.AnswerDeleteTransaction();
             await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
         }
     }
