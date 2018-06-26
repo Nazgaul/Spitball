@@ -201,19 +201,6 @@ let routes2 = [
         },
         name: "wallet"
     },
-    // {
-    //     path: "/settings", components: {
-    //         default: userSettings,
-    //         slimHeader: pageHeader,
-    //     }, name: "chat"
-    // },
-    //
-    // {//TODO: remove chat component designed by Artem
-    //     path: "/chat", components: {
-    //         default: viewChat,
-    //         slimHeader: pageHeader,
-    //     }, name: "chat"
-    // },
     {
         path: "/register", components: {
             default: registration,

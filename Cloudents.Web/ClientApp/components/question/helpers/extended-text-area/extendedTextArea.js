@@ -33,7 +33,7 @@ export default {
         }
     },
     mounted() {
-        //TODO: continue with html5-uploader, examples here: http://mpangrazzi.github.io/
+        //Used html5-uploader, examples here: http://mpangrazzi.github.io/
         var self = this;
         var multiple = new Uploader({
             el: '#file-input',

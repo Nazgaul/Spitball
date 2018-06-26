@@ -43,7 +43,7 @@ export default {
         },
         nextStep() {
             if (REGISTRATION_STEPS.indexOf(this.getRegistrationStep) >= REGISTRATION_STEPS.length) {
-                this.$router.push({path: '/ask', query: {q: ''}}); //TODO: change to the market place when we'll build it.
+                this.$router.push({path: '/ask', query: {q: ''}});
                 return;
             }
             // this.step++;
