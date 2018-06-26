@@ -35,8 +35,7 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("cannot delete question with answers");
             }
 
-            var lastNode =  await _transactionRepository.GetLastNodeOfUserAsync(message.UserId, token);
-            var t =  lastNode.AddTransaction(ActionType.DeleteQuestion, TransactionType.Stake, question.Price);
+            var t = Transaction.QuestionDeleteTransaction(question);
             await _transactionRepository.AddAsync(t,token);
             await _repository.DeleteAsync(question, token).ConfigureAwait(false);
         }

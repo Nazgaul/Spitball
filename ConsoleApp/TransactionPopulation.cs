@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core.Command;
@@ -9,16 +10,16 @@ using Cloudents.Core.Storage;
 
 namespace ConsoleApp
 {
-    public class AuditPopulation
+    public class TransactionPopulation
     {
         private IContainer container;
 
-        public AuditPopulation(IContainer container)
+        public TransactionPopulation(IContainer container)
         {
             this.container = container;
         }
 
-        public  async Task CreateAuditOnExistingData()
+        public async Task CreateTransactionOnExistingData()
         {
             using (var child = container.BeginLifetimeScope())
             {
@@ -58,43 +59,33 @@ namespace ConsoleApp
             }
         }
 
-        private  async Task CreateUserAudit(ILifetimeScope container)
+        private async Task CreateUserAudit(ILifetimeScope container)
         {
             var t = container.Resolve<IUserRepository>();
             var users = await t.GetAllUsersAsync(default);
 
+
             foreach (var user1 in users)
             {
-                var command = new CreateUserCommand(user1);
-                await CreateAudit(command, container);
+                var transaction = Transaction.UserCreateTransaction(user1);
+                await CreateTransactionAsync(transaction, container);
                 //user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
             }
         }
 
-        private  async Task CreateQuestionAudit(ILifetimeScope container)
+        private async Task CreateQuestionAudit(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
-            var blob = container.Resolve<IBlobProvider<QuestionAnswerContainer>>();
             var users = await t.GetAllQuestionsAsync();
 
             foreach (var user1 in users)
             {
-                var blobs = await blob.FilesInDirectoryAsync($"question/{user1.Id}", default);
-                var xxx = QuestionDetailQueryHandler.AggregateFiles(blobs);
-                var command = new CreateQuestionCommand()
-                {
-                    Text = user1.Text,
-                    Files = xxx[null].Select(s => s.Segments.Last()),
-                    Price = user1.Price,
-                    UserId = user1.User.Id,
-                    SubjectId = user1.Subject.Id
-                };
-                await CreateAudit(command, container);
-                //user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
+                var transaction = Transaction.QuestionCreateTransaction(user1);
+                await CreateTransactionAsync(transaction, container);
             }
         }
 
-        private  async Task CreateAnswerAudit(ILifetimeScope container)
+        private async Task CreateAnswerAudit(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
             var blob = container.Resolve<IBlobProvider<QuestionAnswerContainer>>();
@@ -104,18 +95,14 @@ namespace ConsoleApp
             {
                 foreach (var answer in question.Answers)
                 {
-                    var blobs = await blob.FilesInDirectoryAsync($"question/{question.Id}", default);
-                    var xxx = QuestionDetailQueryHandler.AggregateFiles(blobs);
-
-                    var files = xxx[answer.Id]?.Select(s => s.Segments.Last());
-                    var command = new CreateAnswerCommand(question.Id, answer.Text, answer.User.Id, files);
-                    await CreateAudit(command, container);
+                    var transaction = Transaction.AnswerCreateTransaction(answer);
+                    await CreateTransactionAsync(transaction, container);
                 }
                 //user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
             }
         }
 
-        private  async Task MarkAnswerAudit(ILifetimeScope container)
+        private async Task MarkAnswerAudit(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
             var blob = container.Resolve<IBlobProvider<QuestionAnswerContainer>>();
@@ -126,18 +113,26 @@ namespace ConsoleApp
                 var ca = question.CorrectAnswer;
                 if (ca != null)
                 {
-                    var command = new MarkAnswerAsCorrectCommand(ca.Id, ca.User.Id);
-                    await CreateAudit(command, container);
+                    var transaction = Transaction.QuestionMarkAsCorrect(question);
+                    await CreateTransactionAsync(transaction, container);
+
                 }
             }
         }
 
-        private  async Task CreateAudit(ICommand message, ILifetimeScope container)
+        private async Task CreateTransactionAsync(Transaction transaction, ILifetimeScope container)
         {
             //var t = container.Resolve<IUnitOfWork>();
-            var _repository = container.Resolve<IRepository<Audit>>();
-            var audit = new Audit(message);
-            await _repository.AddAsync(audit, default);
+            var _repository = container.Resolve<ITransactionRepository>();
+            await _repository.AddAsync(transaction, default);
+            //await t.CommitAsync(default);
+        }
+
+        private async Task CreateTransactionAsync(IEnumerable<Transaction> transaction, ILifetimeScope container)
+        {
+            //var t = container.Resolve<IUnitOfWork>();
+            var _repository = container.Resolve<ITransactionRepository>();
+            await _repository.AddAsync(transaction, default);
             //await t.CommitAsync(default);
         }
     }

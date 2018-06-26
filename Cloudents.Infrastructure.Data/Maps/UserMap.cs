@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Data.Maps
 
             References(x => x.University).ForeignKey("User_University").Nullable();
 
-            //References(x => x.LastTransaction).Cascade.SaveUpdate();
+           // References(x => x.LastTransaction);//.Cascade.SaveUpdate();
 
             //HasMany(x => x.Transactions)
             //    .Inverse()

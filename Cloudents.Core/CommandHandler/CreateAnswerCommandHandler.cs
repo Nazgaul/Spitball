@@ -47,8 +47,7 @@ namespace Cloudents.Core.CommandHandler
             //TODO: not right
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 
-            var lastNode = await _transactionRepository.GetLastNodeOfUserAsync(message.UserId, token);
-            var t = lastNode.AddTransaction(ActionType.Answer, TransactionType.Pending, question.Price);
+            var t = Transaction.AnswerCreateTransaction(answer);
             await _transactionRepository.AddAsync(t, token);
 
             //var blockChainTask = _blockChainProvider.InsertMessageAsync(new BlockChainSubmitAnswer(question.Id, id, _erc20.GetAddress(user.PrivateKey)), token);

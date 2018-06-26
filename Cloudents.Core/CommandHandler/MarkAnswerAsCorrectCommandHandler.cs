@@ -42,26 +42,7 @@ namespace Cloudents.Core.CommandHandler
             question.MarkAnswerAsCorrect(answer);
 
 
-            var lastNode = await _transactionRepository.GetLastNodeOfUserAsync(question.User.Id, token);
-            var transactions = new List<Transaction>();
-
-            transactions.Add(lastNode.AddTransaction(ActionType.QuestionCorrect, TransactionType.Spent, question.Price));
-            transactions.Add(lastNode.AddTransaction(ActionType.QuestionCorrect, TransactionType.Stake,
-                question.Price));
-            foreach (var answer1 in question.Answers)
-            {
-                var lastNodeAnswer = await _transactionRepository.GetLastNodeOfUserAsync(answer1.User.Id, token);
-                if (answer1.Id == message.AnswerId)
-                {
-                    transactions.Add(lastNodeAnswer.AddTransaction(ActionType.QuestionCorrect, TransactionType.Earned, question.Price));
-
-                    //answer.User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Earned, question.Price);
-                }
-                var t4 = lastNodeAnswer.AddTransaction(ActionType.QuestionCorrect, TransactionType.Pending, -question.Price);
-                transactions.Add(t4);
-
-                //answer.User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Pending, -question.Price);
-            }
+            var transactions = Transaction.QuestionMarkAsCorrect(question);
 
             await _transactionRepository.AddAsync(transactions, token);
             await _questionRepository.UpdateAsync(question, token).ConfigureAwait(false);

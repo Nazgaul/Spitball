@@ -65,8 +65,8 @@ namespace ConsoleApp
             container = builder.Build();
 
 
-            var p = new AuditPopulation(container);
-            await p.CreateAuditOnExistsingData();
+            var p = new TransactionPopulation(container);
+            await p.CreateTransactionOnExistingData();
             //await SendMoneyAsync();
 
             //var command = new CreateQuestionCommand()

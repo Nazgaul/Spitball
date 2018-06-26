@@ -32,6 +32,12 @@ namespace Cloudents.Infrastructure.Data.Repositories
         //    return Session.LoadAsync<T>(id, token);
         //}
 
+        public virtual Task<object> AddAsync(T entity, CancellationToken token)
+        {
+            // _unitOfWork.FlagCommit();
+            return Session.SaveAsync(entity, token);
+        }
+
         public async Task AddAsync(IEnumerable<T> entities, CancellationToken token)
         {
             foreach (var entity in entities)
@@ -73,10 +79,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
         //    return Session.SaveOrUpdateAsync(entity, token);
         //}
 
-        public Task<object> AddAsync(T entity, CancellationToken token)
-        {
-           // _unitOfWork.FlagCommit();
-            return Session.SaveAsync(entity, token);
-        }
+        
     }
 }

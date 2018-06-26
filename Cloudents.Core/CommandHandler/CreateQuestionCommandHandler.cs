@@ -40,9 +40,8 @@ namespace Cloudents.Core.CommandHandler
             //var p = _blockChainProvider.InsertMessageAsync(new BlockChainSubmitQuestion(id, message.Price, _blockChain.GetAddress(user.PrivateKey)), token);
 
 
+            var t = Transaction.QuestionCreateTransaction(question);
 
-            var lastNode = await _transactionRepository.GetLastNodeOfUserAsync(message.UserId, token);
-            var t = lastNode.AddTransaction(ActionType.Question, TransactionType.Stake, -message.Price);
             await _transactionRepository.AddAsync(t, token);
 
             //TODO: not right
