@@ -12,6 +12,14 @@
 
     },
     {
+        name: "faqSelect",
+        path: "/faq/:id",
+        display: "FAQ",
+        import: () => import("./faq.vue"),
+        params:(route) => ({id: route.params.id})
+
+    },
+    {
         name: "blog",
         display: "Blog",
         import: ()=>import("./blog.vue"),
