@@ -141,7 +141,7 @@
 
         </v-toolbar>
 
-        <v-navigation-drawer temporary v-model="drawer" light right absolute app v-if=$vuetify.breakpoint.xsOnly
+        <v-navigation-drawer temporary v-model="drawer" light right fixed app v-if=$vuetify.breakpoint.xsOnly
                              width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
