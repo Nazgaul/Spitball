@@ -20,7 +20,7 @@ namespace Cloudents.Core.Entities.Db
             User = user;
             Created = DateTime.UtcNow;
 
-            User.AddTransaction(ActionType.Question, TransactionType.Stake, -price);
+            //User.AddTransaction(ActionType.Question, TransactionType.Stake, -price);
         }
 
         [UsedImplicitly]
@@ -51,18 +51,18 @@ namespace Cloudents.Core.Entities.Db
             }
             CorrectAnswer = correctAnswer;
 
-            //TODO remove from earned or question from user
-            User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
-            User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Stake, Price);
+            ////TODO remove from earned or question from user
+            //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
+            //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Stake, Price);
 
-            foreach (var answer in Answers)
-            {
-                if (answer.Id == correctAnswer.Id)
-                {
-                    answer.User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Earned, Price);
-                }
-                answer.User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Pending, -Price);
-            }
+            //foreach (var answer in Answers)
+            //{
+            //    if (answer.Id == correctAnswer.Id)
+            //    {
+            //        answer.User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Earned, Price);
+            //    }
+            //    answer.User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Pending, -Price);
+            //}
         }
     }
 }

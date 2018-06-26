@@ -21,12 +21,14 @@ namespace Cloudents.Web.Api
         internal const string Email = "email";
         private readonly IServiceBusProvider _queueProvider;
         private readonly UserManager<User> _userManager;
+        private readonly IBlockChainErc20Service _blockChainErc20Service;
 
         public RegisterController(
-            UserManager<User> userManager, IServiceBusProvider queueProvider)
+            UserManager<User> userManager, IServiceBusProvider queueProvider, IBlockChainErc20Service blockChainErc20Service)
         {
             _userManager = userManager;
             _queueProvider = queueProvider;
+            _blockChainErc20Service = blockChainErc20Service;
         }
 
         private static int GenerateRandomNumber()
@@ -46,8 +48,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            var userName = model.Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
-            var user = new User(model.Email, $"{userName}.{GenerateRandomNumber()}");
+            var user = CreateUser(model.Email);
 
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (p.Succeeded)
@@ -62,6 +63,49 @@ namespace Cloudents.Web.Api
             ModelState.AddIdentityModelError(p);
             return BadRequest(ModelState);
         }
+
+        private User CreateUser(string email)
+        {
+            var userName = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
+            return CreateUser(email, userName);
+        }
+
+        private User CreateUser(string email, string name)
+        {
+            var account = _blockChainErc20Service.CreateAccount();
+            return new User(email, $"{name}.{GenerateRandomNumber()}",account.privateKey);
+        }
+
+        [HttpPost("google"), ValidateModel]
+        public async Task<IActionResult> GoogleSignInAsync([FromBody] TokenRequest model,
+            [FromServices] IGoogleAuth service,
+            [FromServices] SbSignInManager signInManager,
+            CancellationToken cancellationToken)
+        {
+            var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
+            if (result == null)
+            {
+                ModelState.AddModelError(string.Empty, "No result from google");
+                return BadRequest(ModelState);
+            }
+            var user = CreateUser(result.Email, result.Name);
+            user.EmailConfirmed = true;
+
+            var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
+            if (p.Succeeded)
+            {
+                //TODO: duplicate link confirm email.
+                // var publicAddress = _blockChainErc20.GetAddress(user.PrivateKey);
+                //var t1 = serviceBusProvider.InsertMessageAsync(
+                //    new BlockChainInitialBalance(publicAddress), cancellationToken);
+                var t2 = signInManager.SignInTwoFactorAsync(user, false);
+                await Task.WhenAll(/*t1,*/ t2).ConfigureAwait(false);
+                return Ok();
+            }
+            ModelState.AddIdentityModelError(p);
+            return BadRequest(ModelState);
+        }
+
 
         [HttpPost("resend")]
         public async Task<IActionResult> ResendEmailAsync(
@@ -81,37 +125,6 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("google"), ValidateModel]
-        public async Task<IActionResult> GoogleSignInAsync([FromBody] TokenRequest model,
-            [FromServices] IGoogleAuth service,
-            [FromServices] SbSignInManager signInManager,
-            CancellationToken cancellationToken)
-        {
-            var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
-            if (result == null)
-            {
-                ModelState.AddModelError(string.Empty, "No result from google");
-                return BadRequest(ModelState);
-            }
-
-            var user = new User(result.Email, $"{result.Name}.{GenerateRandomNumber()}")
-            {
-                EmailConfirmed = true
-            };
-
-            var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
-            if (p.Succeeded)
-            {
-                //TODO: duplicate link confirm email.
-                // var publicAddress = _blockChainErc20.GetAddress(user.PrivateKey);
-                //var t1 = serviceBusProvider.InsertMessageAsync(
-                //    new BlockChainInitialBalance(publicAddress), cancellationToken);
-                var t2 = signInManager.SignInTwoFactorAsync(user, false);
-                await Task.WhenAll(/*t1,*/ t2).ConfigureAwait(false);
-                return Ok();
-            }
-            ModelState.AddIdentityModelError(p);
-            return BadRequest(ModelState);
-        }
+       
     }
 }

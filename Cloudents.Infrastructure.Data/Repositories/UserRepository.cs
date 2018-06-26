@@ -29,15 +29,24 @@ namespace Cloudents.Infrastructure.Data.Repositories
             return Session.Query<User>().FirstOrDefaultAsync(expression, token);
         }
 
-        public Task<UserAccountDto> GetUserDetailAsync(long id, CancellationToken token)
+        public async Task<UserAccountDto> GetUserDetailAsync(long id, CancellationToken token)
         {
-           return Session.Query<User>().Fetch(f => f.LastTransaction).Where(w => w.Id == id).Select(s => new UserAccountDto()
+            var p =  Session.Query<User>().Where(w => w.Id == id).Select(s => new UserAccountDto()
             {
                 Id = s.Id,
-                Balance = s.LastTransaction.Balance,
+                // Balance = s.LastTransaction.Balance,
                 Name = s.Name,
                 Image = s.Image
-            }).SingleOrDefaultAsync(token);
+            }).ToFutureValue();
+
+            var balance = await Session.Query<Transaction>().Where(w => w.User.Id == id && w.NextTransaction == null).Select(s => s.Balance)
+                .SingleOrDefaultAsync(token);
+
+            var user = p.Value;
+
+            user.Balance = balance;
+            return user;
+
         }
 
         public async Task<IList<User>> GetAllUsersAsync(CancellationToken token)

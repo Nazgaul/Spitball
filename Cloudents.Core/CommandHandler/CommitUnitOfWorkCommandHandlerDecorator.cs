@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.CommandHandler
@@ -10,18 +11,23 @@ namespace Cloudents.Core.CommandHandler
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICommandHandler<TCommand> _decoratee;
+        private readonly IRepository<Audit> _repository;
 
         public CommitUnitOfWorkCommandHandlerDecorator(
             IUnitOfWork unitOfWork,
-            ICommandHandler<TCommand> decoratee)
+            ICommandHandler<TCommand> decoratee, IRepository<Audit> repository)
         {
-            this._unitOfWork = unitOfWork;
-            this._decoratee = decoratee;
+            _unitOfWork = unitOfWork;
+            _decoratee = decoratee;
+            _repository = repository;
         }
 
-        public async Task ExecuteAsync(TCommand command, CancellationToken token)
+        public async Task ExecuteAsync(TCommand message, CancellationToken token)
         {
-            await _decoratee.ExecuteAsync(command, token).ConfigureAwait(true);
+            await _decoratee.ExecuteAsync(message, token).ConfigureAwait(true);
+            var audit = new Audit(message);
+            await _repository.AddAsync(audit, token);
+
             await _unitOfWork.CommitAsync(token).ConfigureAwait(true);
         }
     }
@@ -35,18 +41,23 @@ namespace Cloudents.Core.CommandHandler
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICommandHandler<TCommand, TCommandResult> _decoratee;
+        private readonly IRepository<Audit> _repository;
+
 
         public CommitUnitOfWorkCommandHandlerDecorator(
             IUnitOfWork unitOfWork,
-            ICommandHandler<TCommand, TCommandResult> decoratee)
+            ICommandHandler<TCommand, TCommandResult> decoratee, IRepository<Audit> repository)
         {
-            this._unitOfWork = unitOfWork;
-            this._decoratee = decoratee;
+            _unitOfWork = unitOfWork;
+            _decoratee = decoratee;
+            _repository = repository;
         }
 
         public async Task<TCommandResult> ExecuteAsync(TCommand command, CancellationToken token)
         {
             var retVal = await _decoratee.ExecuteAsync(command, token).ConfigureAwait(true);
+            var audit = new Audit(command);
+            await _repository.AddAsync(audit, token);
             await _unitOfWork.CommitAsync(token).ConfigureAwait(true);
             return retVal;
         }

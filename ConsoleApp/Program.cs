@@ -70,11 +70,17 @@ namespace ConsoleApp
 
             //await SendMoneyAsync();
 
-            var command = new MarkAnswerAsCorrectCommand(Guid.Parse("A51FE084-EB39-45A9-B76D-A90600C1F036"), 638);
+            var command = new CreateQuestionCommand()
+            {
+                Text = "Ram test",
+                Files = null,
+                Price = 5,
+                UserId = 638,
+                SubjectId = 1
+            };
 
-            var t = container.Resolve<IUserRepository>();
-            var z = container.Resolve<IUnitOfWork>();
-
+            var t = container.Resolve<ICommandBus>();
+            await t.DispatchAsync(command, default);
 
             
             //var users = await t.GetAllUsersAsync(default);
@@ -90,10 +96,10 @@ namespace ConsoleApp
 
 
             //var z = await t.GetTransactionsAsync(594, default);
-            var user = await t.LoadAsync(594L, default);
-            user.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
-            await t.UpdateAsync(user, default);
-            await z.CommitAsync(default);
+            //var user = await t.LoadAsync(594L, default);
+            ////user.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
+            //await t.UpdateAsync(user, default);
+            //await z.CommitAsync(default);
 
             //385L
             //var newTransaction = new Transaction(user,);

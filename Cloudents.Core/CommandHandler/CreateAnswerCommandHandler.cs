@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
@@ -17,16 +18,18 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<Answer> _answerRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
+        private readonly ITransactionRepository _transactionRepository;
         //private readonly IBlockChainErc20Service _erc20;
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository, 
             IRepository<Answer> answerRepository, IRepository<User> userRepository,
-            IBlobProvider<QuestionAnswerContainer> blobProvider)
+            IBlobProvider<QuestionAnswerContainer> blobProvider, ITransactionRepository transactionRepository)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _userRepository = userRepository;
             _blobProvider = blobProvider;
+            _transactionRepository = transactionRepository;
         }
 
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
@@ -41,7 +44,12 @@ namespace Cloudents.Core.CommandHandler
             await _answerRepository.AddAsync(answer, token).ConfigureAwait(false);
 
             var id = answer.Id;
+            //TODO: not right
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
+
+            var lastNode = await _transactionRepository.GetLastNodeOfUserAsync(message.UserId, token);
+            var t = lastNode.AddTransaction(ActionType.Answer, TransactionType.Pending, question.Price);
+            await _transactionRepository.AddAsync(t, token);
 
             //var blockChainTask = _blockChainProvider.InsertMessageAsync(new BlockChainSubmitAnswer(question.Id, id, _erc20.GetAddress(user.PrivateKey)), token);
             await Task.WhenAll(l/*.Union(new [] { blockChainTask })*/).ConfigureAwait(true);        }

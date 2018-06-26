@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection.Emit;
+using System.Threading;
 using Cloudents.Core.Entities.Db;
 using JetBrains.Annotations;
 
@@ -27,7 +29,7 @@ namespace Cloudents.Infrastructure.Data.Maps
 
             References(x => x.University).ForeignKey("User_University").Nullable();
 
-            References(x => x.LastTransaction).Cascade.SaveUpdate();
+            //References(x => x.LastTransaction).Cascade.SaveUpdate();
 
             //HasMany(x => x.Transactions)
             //    .Inverse()
@@ -48,4 +50,17 @@ namespace Cloudents.Infrastructure.Data.Maps
              */
         }
     }
+
+    public class AuditMap : SpitballClassMap<Audit>
+    {
+        public AuditMap()
+        {
+            Id(x => x.Id).GeneratedBy.GuidComb();
+            Map(x => x.Command).CustomType<JsonType>()
+                .Columns.Add(new []{ "Type" ,"Data"})
+                .Not.Nullable();
+            Map(x => x.DateTime).Not.Nullable();
+        }
+    }
+
 }

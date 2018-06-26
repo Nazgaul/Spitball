@@ -14,6 +14,7 @@ namespace Cloudents.Core.Interfaces
     public interface IRepository<T>  where T : class
     {
        Task<object> AddAsync(T entity, CancellationToken token);
+       Task AddAsync(IEnumerable<T> entities, CancellationToken token);
 
         Task<T> LoadAsync(object id, CancellationToken token);
         Task<T> GetAsync(object id, CancellationToken token);
@@ -58,6 +59,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface ITransactionRepository : IRepository<Transaction>
     {
+        Task<Transaction> GetLastNodeOfUserAsync(long userId, CancellationToken token);
         Task<decimal> GetCurrentBalanceAsync(long userId, CancellationToken token);
         Task<IEnumerable<(TransactionType, decimal)>> GetCurrentBalanceDetailAsync(long userId, CancellationToken token);
         Task<IEnumerable<TransactionDto>> GetTransactionsAsync(long userId, CancellationToken token);
