@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -141,6 +142,14 @@ namespace Cloudents.Infrastructure.Data.Repositories
             dto.Answers = await answersFuture.GetEnumerableAsync(token).ConfigureAwait(false);
 
             return dto;
+        }
+
+
+
+        public async Task<IList<Question>> GetAllQuestionsAsync()
+        {
+            var t = await Session.Query<Question>().ToListAsync();
+            return t;
         }
     }
 }

@@ -50,6 +50,8 @@ namespace Cloudents.Core.Interfaces
 
         Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token);
 
+        Task<IList<Question>> GetAllQuestionsAsync();
+
     }
 
     public interface ICourseRepository : IRepository<Course>

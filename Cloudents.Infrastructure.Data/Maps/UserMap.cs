@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Data.Maps
         {
             DynamicUpdate();
             Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='{nameof(User)}'");
-            Map(e => e.Email).Not.Nullable().Unique();
+            Map(e => e.Email)/*.Not.Nullable()*/.Unique();
             Map(e => e.PrivateKey);
             Map(e => e.PhoneNumber).Column("PhoneNumberHash");
             Map(e => e.Name).Not.Nullable().Unique();
@@ -50,17 +50,4 @@ namespace Cloudents.Infrastructure.Data.Maps
              */
         }
     }
-
-    public class AuditMap : SpitballClassMap<Audit>
-    {
-        public AuditMap()
-        {
-            Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(x => x.Command).CustomType<JsonType>()
-                .Columns.Add(new []{ "Type" ,"Data"})
-                .Not.Nullable();
-            Map(x => x.DateTime).Not.Nullable();
-        }
-    }
-
 }
