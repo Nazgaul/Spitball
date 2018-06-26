@@ -174,7 +174,7 @@
             font-size: 16px;
             line-height: 1.56;
             letter-spacing: -0.4px;
-            color: #3532d5;
+            color: @color-main-purple;
           }
         }
 
@@ -188,7 +188,7 @@
           tr {
             border: none;
             &:nth-child(2n) {
-              background-color: #f0f0f0;
+              background-color: @color-light-grey;
             }
             &:hover {
               background: #d7d7ff;
@@ -204,9 +204,9 @@
 
     .balance-table .table {
       tbody tr:last-child {
-        border-top: solid 1px #3532d5;
+        border-top: solid 1px @color-main-purple;
         td {
-          color: #3532d5;
+          color: @color-main-purple;
           font-weight: bold;
         }
       }
@@ -301,7 +301,7 @@
     .text-wrap {
       .responsive-property(margin-bottom, 32px, null, 24px);
       .responsive-property(font-size, 24px, null, 20px);
-      color: #4a4a4a;
+      color: @color-grey;
       letter-spacing: -0.7px;
       text-align: center;
       .main-text {
@@ -309,7 +309,7 @@
       }
       .points-text span {
         font-weight: bold;
-        color: #3532d5;
+        color: @color-main-purple;
       }
     }
     .cash-out-option {
@@ -333,7 +333,7 @@
     color: white;
     border-top-left-radius: 100px;
     border-bottom-left-radius: 100px;
-    background-image: linear-gradient(to right, #3532d5, #3293f6);
+    background-image: linear-gradient(to right, @color-main-purple, @color-blue);
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
     font-weight: bold;
     font-size: 20px;
