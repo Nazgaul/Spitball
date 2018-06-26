@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
@@ -11,22 +12,21 @@ namespace Cloudents.Core.CommandHandler
     public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IBlockChainErc20Service _blockChainErc20Service;
+        private readonly IRepository<Transaction> _transactionRepository;
 
 
-        private const decimal InitialBalance = 100;
+        
 
-        public CreateUserCommandHandler(IUserRepository userRepository,  IBlockChainErc20Service blockChainErc20Service)
+        public CreateUserCommandHandler(IUserRepository userRepository, IRepository<Transaction> transactionRepository)
         {
             _userRepository = userRepository;
-            _blockChainErc20Service = blockChainErc20Service;
+            _transactionRepository = transactionRepository;
         }
 
         public async Task ExecuteAsync(CreateUserCommand message, CancellationToken token)
         {
-            var (privateKey, _) = _blockChainErc20Service.CreateAccount();
-            message.User.AddTransaction(ActionType.SignUp, TransactionType.Awarded, InitialBalance);
-            message.User.PrivateKey = privateKey;
+            var rootTransaction = Transaction.UserCreateTransaction(message.User);
+            await _transactionRepository.AddAsync(rootTransaction,token);
             await _userRepository.AddAsync(message.User, token).ConfigureAwait(false);
         }
     }

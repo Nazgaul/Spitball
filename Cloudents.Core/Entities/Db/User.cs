@@ -13,11 +13,12 @@ namespace Cloudents.Core.Entities.Db
     public class User
     {
 
-        public User(string email, string name) : this()
+        public User(string email, string name, string privateKey) : this()
         {
             Email = email;
             Name = name;
             TwoFactorEnabled = true;
+            PrivateKey = privateKey;
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
@@ -49,17 +50,17 @@ namespace Cloudents.Core.Entities.Db
         public virtual string PrivateKey { get; set; }
 
 
-        public virtual void AddTransaction(ActionType action, TransactionType type, decimal price)
-        {
-            if (LastTransaction == null)
-            {
-                LastTransaction = Transaction.CreateRoot(this, action, type, price);
-                return;
-            }
-            LastTransaction = LastTransaction.AddTransaction(action, type, price);
-        }
+        //public virtual void AddTransaction(ActionType action, TransactionType type, decimal price)
+        //{
+        //    if (LastTransaction == null)
+        //    {
+        //        LastTransaction = Transaction.CreateRoot(this, action, type, price);
+        //        return;
+        //    }
+        //    LastTransaction = LastTransaction.AddTransaction(action, type, price);
+        //}
 
-        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
-        protected internal virtual Transaction LastTransaction { get; set; }
+        //[SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
+        //protected internal virtual Transaction LastTransaction { get; set; }
     }
 }

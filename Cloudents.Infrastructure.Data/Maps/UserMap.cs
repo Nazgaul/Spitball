@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection.Emit;
+using System.Threading;
 using Cloudents.Core.Entities.Db;
 using JetBrains.Annotations;
 
@@ -11,7 +13,7 @@ namespace Cloudents.Infrastructure.Data.Maps
         {
             DynamicUpdate();
             Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='{nameof(User)}'");
-            Map(e => e.Email).Not.Nullable().Unique();
+            Map(e => e.Email)/*.Not.Nullable()*/.Unique();
             Map(e => e.PrivateKey);
             Map(e => e.PhoneNumber).Column("PhoneNumberHash");
             Map(e => e.Name).Not.Nullable().Unique();
@@ -27,7 +29,7 @@ namespace Cloudents.Infrastructure.Data.Maps
 
             References(x => x.University).ForeignKey("User_University").Nullable();
 
-            References(x => x.LastTransaction).Cascade.SaveUpdate();
+           // References(x => x.LastTransaction);//.Cascade.SaveUpdate();
 
             //HasMany(x => x.Transactions)
             //    .Inverse()

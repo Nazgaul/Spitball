@@ -18,7 +18,7 @@ namespace Cloudents.Core.Entities.Db
             User = user;
             Created = DateTime.UtcNow;
 
-            User.AddTransaction(ActionType.Answer, TransactionType.Pending, Question.Price);
+            //User.AddTransaction(ActionType.Answer, TransactionType.Pending, Question.Price);
         }
 
         [UsedImplicitly]

@@ -13,10 +13,13 @@ namespace Cloudents.Core.CommandHandler
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
         private readonly IRepository<Question> _repository;
+        private readonly ITransactionRepository _transactionRepository;
 
-        public DeleteQuestionCommandHandler(IRepository<Question> repository)
+
+        public DeleteQuestionCommandHandler(IRepository<Question> repository, ITransactionRepository transactionRepository)
         {
             _repository = repository;
+            _transactionRepository = transactionRepository;
         }
 
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
@@ -31,7 +34,9 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new InvalidOperationException("cannot delete question with answers");
             }
-            question.User.AddTransaction(ActionType.DeleteQuestion, TransactionType.Stake, question.Price);
+
+            var t = Transaction.QuestionDeleteTransaction(question);
+            await _transactionRepository.AddAsync(t,token);
             await _repository.DeleteAsync(question, token).ConfigureAwait(false);
         }
     }

@@ -49,14 +49,14 @@ namespace Cloudents.Core
             builder.RegisterType<UpdateMailGunCommandHandler>()
                 .Named<ICommandHandler<UpdateMailGunCommand>>("mailGun");
 
-
-            builder.RegisterDecorator<ICommandHandler<UpdateMailGunCommand>>(
-                (c, inner) =>
-                {
-                    var t = c.ResolveKeyed<IUnitOfWork>(Database.MailGun);
-                    return new CommitUnitOfWorkCommandHandlerDecorator<UpdateMailGunCommand>(t, inner);
-                },
-                fromKey: "mailGun");
+            //TODO: fix that
+            //builder.RegisterDecorator<ICommandHandler<UpdateMailGunCommand>>(
+            //    (c, inner) =>
+            //    {
+            //        var t = c.ResolveKeyed<IUnitOfWork>(Database.MailGun);
+            //        return new CommitUnitOfWorkCommandHandlerDecorator<UpdateMailGunCommand>(t, inner);
+            //    },
+            //    fromKey: "mailGun");
 
 
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<,>));

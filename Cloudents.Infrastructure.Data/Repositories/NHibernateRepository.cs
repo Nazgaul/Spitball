@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
@@ -29,6 +31,20 @@ namespace Cloudents.Infrastructure.Data.Repositories
         //{
         //    return Session.LoadAsync<T>(id, token);
         //}
+
+        public virtual Task<object> AddAsync(T entity, CancellationToken token)
+        {
+            // _unitOfWork.FlagCommit();
+            return Session.SaveAsync(entity, token);
+        }
+
+        public async Task AddAsync(IEnumerable<T> entities, CancellationToken token)
+        {
+            foreach (var entity in entities)
+            {
+                await AddAsync(entity, token);
+            }
+        }
 
         public Task<T> LoadAsync(object id, CancellationToken token)
         {
@@ -63,10 +79,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
         //    return Session.SaveOrUpdateAsync(entity, token);
         //}
 
-        public Task<object> AddAsync(T entity, CancellationToken token)
-        {
-           // _unitOfWork.FlagCommit();
-            return Session.SaveAsync(entity, token);
-        }
+        
     }
 }

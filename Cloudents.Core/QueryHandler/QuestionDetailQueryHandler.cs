@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,19 +28,13 @@ namespace Cloudents.Core.QueryHandler
             var files = filesTask.Result;
             var dto = dtoTask.Result;
 
-            var aggregateFiles = files.ToLookup<Uri, Guid?>(v =>
-            {
-                if (v.Segments.Length == 5)
-                {
-                    return null;
-                }
-
-                return Guid.Parse(v.Segments[5].Replace("/", string.Empty));
-            });
+            
             if (dto == null)
             {
                 return null;
             }
+            //TODO should not be here
+            var aggregateFiles = AggregateFiles(files);
             dto.Files = aggregateFiles[null];
             dto.Answers = dto.Answers.Select(s =>
             {
@@ -50,6 +45,20 @@ namespace Cloudents.Core.QueryHandler
 
             return dto;
 
+        }
+
+        public static ILookup<Guid?, Uri> AggregateFiles(IEnumerable<Uri> files)
+        {
+            var aggregateFiles = files.ToLookup<Uri, Guid?>(v =>
+            {
+                if (v.Segments.Length == 5)
+                {
+                    return null;
+                }
+
+                return Guid.Parse(v.Segments[5].Replace("/", string.Empty));
+            });
+            return aggregateFiles;
         }
     }
 }
