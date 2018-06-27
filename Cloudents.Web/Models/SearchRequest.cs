@@ -18,11 +18,6 @@ namespace Cloudents.Web.Models
         public long[] Course { get; set; }
 
         /// <summary>
-        /// Doc type only for document vertical
-        /// </summary>
-        public string DocType { get; set; }
-
-        /// <summary>
         /// Format of result
         /// </summary>
         [DefaultValue(0)]

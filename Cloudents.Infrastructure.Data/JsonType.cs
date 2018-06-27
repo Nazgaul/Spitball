@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Data.Common;
 using Cloudents.Core.Interfaces;
 using Newtonsoft.Json;
@@ -29,7 +28,7 @@ namespace Cloudents.Infrastructure.Data
     }
     public class JsonType : IUserType
     {
-        public bool Equals(object x, object y)
+        public new bool Equals(object x, object y)
         {
             if (ReferenceEquals(x, y))
             {
@@ -141,7 +140,7 @@ namespace Cloudents.Infrastructure.Data
         {
             return (value == null)
                 ? null
-                : new string[]
+                : new[]
                 {
                     GetType(value),
                     Serialize(value)

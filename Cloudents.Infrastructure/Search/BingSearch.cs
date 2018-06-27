@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure.Search
         {
             if (model == null) throw new ArgumentNullException(nameof(model));
 
-            var query = BuildQuery(model.UniversitySynonym, model.Courses, model.Query, model.DocType,
+            var query = BuildQuery(model.UniversitySynonym, model.Courses, model.Query,
                 model.Key.DefaultPhrase);
             var sourceQuery = BuildSources(model.Sources);
 
@@ -103,7 +103,6 @@ namespace Cloudents.Infrastructure.Search
         private static string BuildQuery(IEnumerable<string> universitySynonym,
             IEnumerable<string> courses,
             IEnumerable<string> terms,
-            string docType,
             string defaultTerm)
         {
             var query = new List<string>();
@@ -121,10 +120,10 @@ namespace Cloudents.Infrastructure.Search
                 query.AddNotNull(string.Join(" AND ", terms.Where(w => !string.IsNullOrWhiteSpace(w)).Select(s => $"({s})")));
             }
 
-            if (!string.IsNullOrEmpty(docType))
-            {
-                query.Add($"({docType})");
-            }
+            //if (!string.IsNullOrEmpty(docType))
+            //{
+            //    query.Add($"({docType})");
+            //}
 
             if (query.Count == 0)
             {

@@ -1,28 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
-using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.QueryHandler;
-using Cloudents.Core.Storage;
 
 namespace ConsoleApp
 {
     public class TransactionPopulation
     {
-        private IContainer container;
+        private IContainer _container;
 
         public TransactionPopulation(IContainer container)
         {
-            this.container = container;
+            _container = container;
         }
 
         public async Task CreateTransactionOnExistingData()
         {
-            using (var child = container.BeginLifetimeScope())
+            using (var child = _container.BeginLifetimeScope())
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
@@ -31,7 +25,7 @@ namespace ConsoleApp
                 }
             }
 
-            using (var child = container.BeginLifetimeScope())
+            using (var child = _container.BeginLifetimeScope())
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
@@ -40,7 +34,7 @@ namespace ConsoleApp
                 }
             }
 
-            using (var child = container.BeginLifetimeScope())
+            using (var child = _container.BeginLifetimeScope())
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
@@ -50,7 +44,7 @@ namespace ConsoleApp
                 }
             }
 
-            using (var child = container.BeginLifetimeScope())
+            using (var child = _container.BeginLifetimeScope())
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
