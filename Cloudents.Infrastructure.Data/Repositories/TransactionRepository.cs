@@ -70,6 +70,8 @@ namespace Cloudents.Infrastructure.Data.Repositories
                 l.Add(xx);
             }
 
+
+
             await l[0].GetValueAsync(token).ConfigureAwait(false);
             var decimals = l.Select(s => s.Value);
             return decimals.Select((s, i) =>

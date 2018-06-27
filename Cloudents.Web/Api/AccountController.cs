@@ -42,7 +42,6 @@ namespace Cloudents.Web.Api
 
         public async Task<IActionResult> GetAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
-            
             var userId = long.Parse(_userManager.GetUserId(User));
             var taskUser = queryBus.QueryAsync<long, UserAccountDto>(userId, token);
             var talkJs = GetToken();

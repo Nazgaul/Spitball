@@ -13,7 +13,6 @@ const allModules = [
     "vue-router",
     "vuex",
     "vue-analytics",
-    "vue-lazyload",
     "axios",
     "query-string",
     "./ClientApp/main.styl",

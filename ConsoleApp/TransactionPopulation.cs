@@ -21,33 +21,33 @@ namespace ConsoleApp
 
         public async Task CreateTransactionOnExistingData()
         {
-            //using (var child = container.BeginLifetimeScope())
-            //{
-            //    using (var t = child.Resolve<IUnitOfWork>())
-            //    {
-            //        await CreateUserAudit(child);
-            //        await t.CommitAsync(default);
-            //    }
-            //}
+            using (var child = container.BeginLifetimeScope())
+            {
+                using (var t = child.Resolve<IUnitOfWork>())
+                {
+                    await CreateUserAudit(child);
+                    await t.CommitAsync(default);
+                }
+            }
 
-            //using (var child = container.BeginLifetimeScope())
-            //{
-            //    using (var t = child.Resolve<IUnitOfWork>())
-            //    {
-            //        await CreateQuestionAudit(child);
-            //        await t.CommitAsync(default);
-            //    }
-            //}
+            using (var child = container.BeginLifetimeScope())
+            {
+                using (var t = child.Resolve<IUnitOfWork>())
+                {
+                    await CreateQuestionAudit(child);
+                    await t.CommitAsync(default);
+                }
+            }
 
-            //using (var child = container.BeginLifetimeScope())
-            //{
-            //    using (var t = child.Resolve<IUnitOfWork>())
-            //    {
+            using (var child = container.BeginLifetimeScope())
+            {
+                using (var t = child.Resolve<IUnitOfWork>())
+                {
 
-            //        await CreateAnswerAudit(child);
-            //        await t.CommitAsync(default);
-            //    }
-            //}
+                    await CreateAnswerAudit(child);
+                    await t.CommitAsync(default);
+                }
+            }
 
             using (var child = container.BeginLifetimeScope())
             {

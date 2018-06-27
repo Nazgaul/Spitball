@@ -33,7 +33,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpGet("balance")]
+        [HttpGet("transaction")]
         public async Task<IActionResult> GetTransactionAsync(CancellationToken token)
         {
             var userId = long.Parse(_userManager.GetUserId(User));

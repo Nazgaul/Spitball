@@ -22,10 +22,12 @@ namespace Cloudents.Core.Entities.Db
             UserCreateTransaction();
         }
 
+        
+
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected User()
         {
-            //Transactions = new List<Transaction>();
+            Transactions = new List<Transaction>();
         }
 
         public virtual long Id { get; set; }

@@ -65,8 +65,16 @@ namespace ConsoleApp
             container = builder.Build();
 
 
-            var p = new TransactionPopulation(container);
-            await p.CreateTransactionOnExistingData();
+            //var t= new AuditPopulation(container);
+            //await t.CreateAuditOnExistingData();
+
+           // var p = new TransactionPopulation(container);
+           // await p.CreateTransactionOnExistingData();
+
+
+            var queryBus = container.Resolve<IQueryBus>();
+            var taskUser = await queryBus.QueryAsync<long, UserAccountDto>(660L, default);
+
             //await SendMoneyAsync();
 
             //var command = new CreateQuestionCommand()
@@ -81,7 +89,7 @@ namespace ConsoleApp
             //var t = container.Resolve<ICommandBus>();
             //await t.DispatchAsync(command, default);
 
-            
+
             //var users = await t.GetAllUsersAsync(default);
 
             //foreach (var user1 in users)
