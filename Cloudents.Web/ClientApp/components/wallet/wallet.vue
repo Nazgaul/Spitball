@@ -23,6 +23,7 @@
                             <v-data-table
                                     :headers="headers.balances"
                                     :items="items"
+                                    :cash="cash"
                                     hide-actions
                                     class="balance-table wallet-table">
                                 <template slot="headerCell" slot-scope="props">
@@ -90,7 +91,7 @@
             <span>Cash out</span>
             <div class="btn-wrap">
                 <div class="cash-out-val-wrap">
-                    <span class="cash-out-value">$ val</span>
+                    <span class="cash-out-value">$ {{cash}}</span>
                 </div>
                 <div class="button-wrap">
                     <button class="cash-out-btn" @click="cashOut = true">Cash Out</button>

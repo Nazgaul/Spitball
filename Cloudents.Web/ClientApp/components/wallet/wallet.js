@@ -18,6 +18,7 @@ export default {
             walletData: {},
             cashOut: false,
             search: '',
+            cash: 0,
             pagination: {
                 rowsPerPage: 6
             },
@@ -99,7 +100,9 @@ export default {
         getBalances() {
             walletService.getBalances()
                 .then(responce => {
-                        this.items = responce.data
+                        this.items = responce.data;
+                        let result = this.items.filter(item => item.type === 'spent' || item.type === 'earned');
+                        this.cash = result[0].value - result[1].value;
                     },
                     error => {
                         console.error('error getting balance:', error)
@@ -122,8 +125,9 @@ export default {
         },
         pages() {
             return this.pagination.rowsPerPage ? Math.ceil(this.items.length / this.pagination.rowsPerPage) : 0
-        },
+        }
     },
+
     created() {
         this.getBalances();
         this.headers.transactions = this.$vuetify.breakpoint.xsOnly ? this.allTransactionsHeaders.filter(header => header.showOnMobile === true) : this.allTransactionsHeaders;

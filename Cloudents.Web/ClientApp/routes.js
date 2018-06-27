@@ -199,7 +199,10 @@ let routes2 = [
             default: viewWallet,
             header: previewHeader
         },
-        name: "wallet"
+        name: "wallet",
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: "/register", components: {

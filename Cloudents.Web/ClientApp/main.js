@@ -227,7 +227,6 @@ function checkUserStatus(to, next) {
         isRequire: to.meta.requiresAuth,
         to
     }).then(() => {
-
         if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
             next("/signin");
         } else {
