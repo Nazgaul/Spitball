@@ -18,17 +18,18 @@ export default {
             walletData: {},
             cashOut: false,
             search: '',
+            cash: 0,
             pagination: {
                 rowsPerPage: 6
             },
             selected: [],
             allTransactionsHeaders: [{
-                    text: 'Date',
-                    align: 'left',
-                    value: 'date',
-                    sortable: true,
-                    showOnMobile: true
-                },
+                text: 'Date',
+                align: 'left',
+                value: 'date',
+                sortable: true,
+                showOnMobile: true
+            },
                 {
                     text: 'Action',
                     align: 'left',
@@ -59,11 +60,11 @@ export default {
                 },
             ],
             allBalanceHeaders: [{
-                    text: '',
-                    align: 'left',
-                    value: 'name',
-                    showOnMobile: true
-                },
+                text: '',
+                align: 'left',
+                value: 'name',
+                showOnMobile: true
+            },
                 {
                     text: 'Points',
                     align: 'left',
@@ -98,8 +99,30 @@ export default {
         },
         getBalances() {
             walletService.getBalances()
-                .then(responce => {
-                        this.items = responce.data
+                .then((response) => {
+                        this.items = response.data;
+                        var total = {
+                            points: 0,
+                            type: "total",
+                            value: 0
+                        };
+
+                        var earnedVal;
+                        for (var item of this.items) {
+                            if (item.type !== 'pending') {
+                                this.cash += item.value;
+
+                                if(item.type === 'earned'){
+                                    earnedVal = item.value
+                                }
+                            }
+
+                            total.points = total.points + item.points;
+                            total.value = total.value + item.value;
+                        }
+
+                        this.cash = Math.min(this.cash, earnedVal);
+                        this.items.push(total);
                     },
                     error => {
                         console.error('error getting balance:', error)
@@ -107,8 +130,8 @@ export default {
                 )
         },
         getTransactions() {
-            walletService.getTransactions().then(responce => {
-                    this.items = responce.data
+            walletService.getTransactions().then(response => {
+                    this.items = response.data
                 },
                 error => {
                     console.error('error getting transactions:', error)
@@ -122,8 +145,9 @@ export default {
         },
         pages() {
             return this.pagination.rowsPerPage ? Math.ceil(this.items.length / this.pagination.rowsPerPage) : 0
-        },
+        }
     },
+
     created() {
         this.getBalances();
         this.headers.transactions = this.$vuetify.breakpoint.xsOnly ? this.allTransactionsHeaders.filter(header => header.showOnMobile === true) : this.allTransactionsHeaders;

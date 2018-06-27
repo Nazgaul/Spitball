@@ -16,7 +16,7 @@
             $_universitySelected(val) {
                 this.$ga.event("Uni_Select",val.name);
                 this.updateUniversity(val);
-                accountService.setUniversity(val);
+                // accountService.setUniversity(val);
             }
         }
     }

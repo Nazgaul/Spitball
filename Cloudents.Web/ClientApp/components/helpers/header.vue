@@ -166,6 +166,18 @@
     import CopyLinkIcon from "./svg/copy-link-icon.svg"
 
     export default {
+        components: {
+            PersonalizeDialog,
+            ShareIcon,
+            FacebookIcon,
+            TwitterIcon,
+            WhatsappIcon,
+            CopyLinkIcon,
+            AppLogo,
+            SearchInput,
+            UserAvatar,
+            menuList
+        },
         placeholders: {
             job: "Your field of expertise...",
             tutor: "Find a tutor...",
@@ -174,6 +186,23 @@
             ask: "Ask anything...",
             flashcard: "Look for flashcards...",
             food: "Search for deals..."
+        },
+        data() {
+            return {
+                settingMenu,
+                notRegMenu,
+                clickOnce: false,
+                drawer: null,
+                toasterTimeout: 5000
+                // isAuthUser:true
+            }
+        },
+        props: {
+            currentSelection: {type: String, default: 'note'},
+            userText: {type: String},
+            submitRoute: {type: String, default: '/ask'},
+            toolbarHeight: {},
+            layoutClass: {}
         },
         computed: {
             ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
@@ -189,38 +218,7 @@
         watch: {
             toolbarHeight(val) {
                 this.height = val;
-            }
-        },
-        components: {
-            PersonalizeDialog,
-            ShareIcon,
-            FacebookIcon,
-            TwitterIcon,
-            WhatsappIcon,
-            CopyLinkIcon,
-            AppLogo,
-            SearchInput,
-            UserAvatar,
-            menuList
-        },
-        props: {
-            currentSelection: {type: String, default: 'note'},
-            userText: {type: String},
-            submitRoute: {type: String, default: '/ask'},
-            toolbarHeight: {},
-            layoutClass: {}
-        },
-        data() {
-            return {
-                settingMenu,
-                notRegMenu,
-                clickOnce: false,
-                drawer: null,
-                toasterTimeout: 5000
-                // isAuthUser:true
-            }
-        },
-        watch: {
+            },
             getShowToaster: function (val) {
                 if (val) {
                     var self = this;

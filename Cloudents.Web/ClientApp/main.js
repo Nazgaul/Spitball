@@ -160,7 +160,7 @@ Vue.filter('ellipsis',
 Vue.filter('fixedPoints', function (value) {
     if (!value) return 0;
     if (value.toString().indexOf('.') === -1) return value;
-    debugger
+    // debugger
     return parseFloat(value).toFixed(2)
 })
 
@@ -227,7 +227,6 @@ function checkUserStatus(to, next) {
         isRequire: to.meta.requiresAuth,
         to
     }).then(() => {
-
         if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
             next("/signin");
         } else {
