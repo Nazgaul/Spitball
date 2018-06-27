@@ -55,7 +55,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
         //}
 
 
-        public async Task<IEnumerable<(TransactionType,decimal)>> GetCurrentBalanceDetailAsync(long userId, CancellationToken token)
+        public async Task<IEnumerable<BalanceDto>> GetCurrentBalanceDetailAsync(long userId, CancellationToken token)
         {
             var l = new List<IFutureValue<decimal?>>();
             foreach (var value in Enum.GetValues(typeof(TransactionType)))
@@ -74,8 +74,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
             await l[0].GetValueAsync(token).ConfigureAwait(false);
             var decimals = l.Select(s => s.Value);
-            return decimals.Select((s, i) =>
-                 ((TransactionType) i, s.GetValueOrDefault()));
+            return decimals.Select((s, i) => new BalanceDto((TransactionType) i, s.GetValueOrDefault()));
         }
 
         public async Task<IEnumerable<TransactionDto>> GetTransactionsAsync(long userId, CancellationToken token)
