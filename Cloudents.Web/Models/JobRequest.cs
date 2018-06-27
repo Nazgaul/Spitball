@@ -16,16 +16,19 @@ namespace Cloudents.Web.Models
         [CanBeNull]
         [ItemCanBeNull]
         public string[] Term { get; set; }
+
         /// <summary>
         /// Sort Request
         /// </summary>
         [DefaultValue(0)]
         [CanBeNull]
         public JobRequestSort? Sort { get; set; }
+
         /// <summary>
         /// Location of user
         /// </summary>
         public LocationQuery Location { get; set; }
+
         /// <summary>
         /// Facet filter got from the api
         /// </summary>

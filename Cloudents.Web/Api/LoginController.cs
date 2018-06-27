@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Storage;
@@ -41,16 +42,18 @@ namespace Cloudents.Web.Api
 
             var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
             var taskSms = client.SendSmsAsync(user, token);
-           // var taskSms = client.InsertMessageAsync(new SmsMessage(user.PhoneNumber, code), token);
 
+            TempData["SMS"] = user.Email;
             await Task.WhenAll(taskSms, taskSignIn).ConfigureAwait(false);
             if (taskSignIn.Result.RequiresTwoFactor)
             {
                 return Ok();
             }
-            
             ModelState.AddModelError(string.Empty,"Some error");
             return BadRequest(ModelState);
         }
+
+        
+
     }
 }

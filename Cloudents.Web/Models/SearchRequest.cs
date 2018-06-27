@@ -16,6 +16,7 @@ namespace Cloudents.Web.Models
         /// User courses id
         /// </summary>
         public long[] Course { get; set; }
+
         /// <summary>
         /// Doc type only for document vertical
         /// </summary>
@@ -26,23 +27,28 @@ namespace Cloudents.Web.Models
         /// </summary>
         [DefaultValue(0)]
         public HighlightTextFormat Format { get; set; }
+
         /// <summary>
         /// Page for paging
         /// </summary>
         public int? Page { get; set; }
+
         /// <summary>
         /// The term array of Ai parse
         /// </summary>
         public string[] Query { get; set; }
+
         /// <summary>
         /// User sort option
         /// </summary>
         [DefaultValue(0)]
         public SearchRequestSort? Sort { get; set; }
+
         /// <summary>
         /// Array of sites to search for
         /// </summary>
         public string[] Source { get; set; }
+
         /// <summary>
         /// User university id
         /// </summary>

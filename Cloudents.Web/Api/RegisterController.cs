@@ -53,15 +53,20 @@ namespace Cloudents.Web.Api
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (p.Succeeded)
             {
-                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-                var link = Url.Link("ConfirmEmail", new { user.Id, code });
-                TempData[Email] = model.Email;
-                var message = new RegistrationEmail(model.Email, HtmlEncoder.Default.Encode(link));
-                await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
+                await GenerateEmailAsync(user, token);
                 return Ok();
             }
             ModelState.AddIdentityModelError(p);
             return BadRequest(ModelState);
+        }
+
+        private async Task GenerateEmailAsync(User user, CancellationToken token)
+        {
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+            var link = Url.Link("ConfirmEmail", new {user.Id, code});
+            TempData[Email] = user.Email;
+            var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link));
+            await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
         }
 
         private User CreateUser(string email)
@@ -95,9 +100,6 @@ namespace Cloudents.Web.Api
             if (p.Succeeded)
             {
                 //TODO: duplicate link confirm email.
-                // var publicAddress = _blockChainErc20.GetAddress(user.PrivateKey);
-                //var t1 = serviceBusProvider.InsertMessageAsync(
-                //    new BlockChainInitialBalance(publicAddress), cancellationToken);
                 var t2 = signInManager.SignInTwoFactorAsync(user, false);
                 await Task.WhenAll(/*t1,*/ t2).ConfigureAwait(false);
                 return Ok();
@@ -111,17 +113,15 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> ResendEmailAsync(
             CancellationToken token)
         {
-            var email = TempData.Peek(Email) ?? throw new ArgumentNullException("TempData", "email is empty"); ;
+            var email = TempData.Peek(Email) ?? throw new ArgumentNullException("TempData", "email is empty");
             var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty, "no user");
                 return BadRequest(ModelState);
             }
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-            var link = Url.Link("ConfirmEmail", new { user.Id, code });
-            var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link));
-            await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
+
+            await GenerateEmailAsync(user, token);
             return Ok();
         }
 

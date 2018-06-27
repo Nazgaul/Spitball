@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -21,12 +22,14 @@ namespace Cloudents.Web.Api
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IServiceBusProvider _serviceBus;
+        private readonly ISmsSender _client;
 
-        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager, IServiceBusProvider serviceBus)
+        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager, IServiceBusProvider serviceBus, ISmsSender client)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _serviceBus = serviceBus;
+            _client = client;
         }
 
         [HttpGet("code")]
@@ -43,7 +46,6 @@ namespace Cloudents.Web.Api
         [HttpPost, ValidateModel]
         public async Task<IActionResult> SmsUserAsync(
             [FromBody]PhoneNumberRequest model,
-            [FromServices] ISmsSender client,
             CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
@@ -67,7 +69,7 @@ namespace Cloudents.Web.Api
             var retVal = t2.Result;
             if (retVal.Succeeded)
             {
-                var result = await client.SendSmsAsync(user, token).ConfigureAwait(false);
+                var result = await _client.SendSmsAsync(user, token).ConfigureAwait(false);
 
                 if (result)
                 {
@@ -95,7 +97,7 @@ namespace Cloudents.Web.Api
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number).ConfigureAwait(false);
-           
+
             if (v.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
@@ -103,6 +105,21 @@ namespace Cloudents.Web.Api
             }
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
+        }
+
+
+        [HttpPost("resend")]
+        public async Task<IActionResult> ResendAsync(CancellationToken token)
+        {
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "email not found");
+                return BadRequest(ModelState);
+            }
+
+            await _client.SendSmsAsync(user, token);
+            return Ok();
         }
     }
 }
