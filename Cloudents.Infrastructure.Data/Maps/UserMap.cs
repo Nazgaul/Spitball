@@ -25,11 +25,10 @@ namespace Cloudents.Infrastructure.Data.Maps
             Map(e => e.Image).Nullable();
             Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
-           // Map(e => e.Balance).CustomSqlType("smallmoney");
 
             References(x => x.University).ForeignKey("User_University").Nullable();
 
-            References(x => x.LastTransaction).ForeignKey("User_Transaction");//.Cascade.SaveUpdate();
+            References(x => x.LastTransaction).ForeignKey("User_Transaction");
 
             HasMany(x => x.Transactions)
                 .Inverse()

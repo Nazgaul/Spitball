@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
@@ -68,6 +69,7 @@ namespace ConsoleApp
             foreach (var user1 in users)
             {
                 user1.UserCreateTransaction();
+                await t.UpdateAsync(user1, default);
                 //var transaction = Transaction.UserCreateTransaction(user1);
                 //await CreateTransactionAsync(transaction, container);
                 //user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
@@ -77,27 +79,33 @@ namespace ConsoleApp
         private async Task CreateQuestionAudit(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
-            var users = await t.GetAllQuestionsAsync();
+            var questions = await t.GetAllQuestionsAsync();
+            var transactionRepository = container.Resolve<ITransactionRepository>();
 
-            foreach (var user1 in users)
+            foreach (var question in questions)
             {
-                user1.QuestionCreateTransaction();
+                var tttt = question.QuestionCreateTransaction();
+                await Task.Delay(TimeSpan.FromMilliseconds(1));
+                await transactionRepository.AddAsync(tttt, default);
                 //var transaction = Transaction.QuestionCreateTransaction(user1);
-               // await CreateTransactionAsync(transaction, container);
+                // await CreateTransactionAsync(transaction, container);
             }
         }
 
         private async Task CreateAnswerAudit(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
-            var blob = container.Resolve<IBlobProvider<QuestionAnswerContainer>>();
+            var transactionRepository = container.Resolve<ITransactionRepository>();
+
             var questions = await t.GetAllQuestionsAsync();
 
             foreach (var question in questions)
             {
                 foreach (var answer in question.Answers)
                 {
-                    answer.AnswerCreateTransaction();
+                    var tttt = answer.AnswerCreateTransaction();
+                    await Task.Delay(TimeSpan.FromMilliseconds(1));
+                    await transactionRepository.AddAsync(tttt, default);
                     //var transaction = Transaction.AnswerCreateTransaction(answer);
                     //await CreateTransactionAsync(transaction, container);
                 }
@@ -108,7 +116,8 @@ namespace ConsoleApp
         private async Task MarkAnswerAudit(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
-            var blob = container.Resolve<IBlobProvider<QuestionAnswerContainer>>();
+            var transactionRepository = container.Resolve<ITransactionRepository>();
+
             var questions = await t.GetAllQuestionsAsync();
 
             foreach (var question in questions)
@@ -116,27 +125,30 @@ namespace ConsoleApp
                 var ca = question.CorrectAnswer;
                 if (ca != null)
                 {
-                    question.MarkCorrectTransaction();
+
+                    var tttt = question.MarkCorrectTransaction();
+                    await Task.Delay(TimeSpan.FromMilliseconds(1));
+                    await transactionRepository.AddAsync(tttt, default);
                     //await CreateTransactionAsync(transaction, container);
 
                 }
             }
         }
 
-        private async Task CreateTransactionAsync(Transaction transaction, ILifetimeScope container)
-        {
-            //var t = container.Resolve<IUnitOfWork>();
-            var _repository = container.Resolve<ITransactionRepository>();
-            await _repository.AddAsync(transaction, default);
-            //await t.CommitAsync(default);
-        }
+        //private async Task CreateTransactionAsync(Transaction transaction, ILifetimeScope container)
+        //{
+        //    //var t = container.Resolve<IUnitOfWork>();
+        //    var _repository = container.Resolve<ITransactionRepository>();
+        //    await _repository.AddAsync(transaction, default);
+        //    //await t.CommitAsync(default);
+        //}
 
-        private async Task CreateTransactionAsync(IEnumerable<Transaction> transaction, ILifetimeScope container)
-        {
-            //var t = container.Resolve<IUnitOfWork>();
-            var _repository = container.Resolve<ITransactionRepository>();
-            await _repository.AddAsync(transaction, default);
-            //await t.CommitAsync(default);
-        }
+        //private async Task CreateTransactionAsync(IEnumerable<Transaction> transaction, ILifetimeScope container)
+        //{
+        //    //var t = container.Resolve<IUnitOfWork>();
+        //    var _repository = container.Resolve<ITransactionRepository>();
+        //    await _repository.AddAsync(transaction, default);
+        //    //await t.CommitAsync(default);
+        //}
     }
 }

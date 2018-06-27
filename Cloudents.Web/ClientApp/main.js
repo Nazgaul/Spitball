@@ -2,10 +2,12 @@
 import App from "./components/app/app.vue";
 import store from "./store";
 
-const scroll = () => import("./components/helpers/infinateScroll.vue");
+const scroll = () =>
+    import ("./components/helpers/infinateScroll.vue");
 import VScroll from "vuetify/es5/directives/scroll";
 
-const GeneralPage = () => import("./components/helpers/generalPage.vue");
+const GeneralPage = () =>
+    import ("./components/helpers/generalPage.vue");
 import VueRouter from "vue-router";
 
 import VueAnalytics from "vue-analytics";
@@ -86,11 +88,12 @@ WebFont.load({
 //});
 //Vue.use(vueSmoothScroll);
 Vue.use(VueRouter);
-Vue.use(Vuetify,
-    {
-        directives: {VScroll},
-        components: vuetifyComponents
-    });
+Vue.use(Vuetify, {
+    directives: {
+        VScroll
+    },
+    components: vuetifyComponents
+});
 Vue.component("scroll-list", scroll);
 //Vue.component("adsense", vueAdsense);
 Vue.component("general-page", GeneralPage);
@@ -102,34 +105,36 @@ const router = new VueRouter({
         if (savedPosition) {
             return savedPosition;
         } else {
-            return {x: 0, y: 0}
+            return {
+                x: 0,
+                y: 0
+            }
         }
     }
 
 });
 
-Vue.use(VueAnalytics,
-    {
-        id: 'UA-100723645-2',
-        disableScriptLoader: true,
-        router,
-        autoTracking: {
-            pageviewOnLoad: false,
-            //ignoreRoutes: ['result'],
-            shouldRouterUpdate(to, from) {
-                return to.path != "/result";
-            },
-            pageviewTemplate(route) {
-                // let title=route.name.charAt(0).toUpperCase() + route.name.slice(1);
-                return {
-                    page: route.path,
-                    title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
-                    location: window.location.href
-                }
-            },
-            exception: true
-        }
-    });
+Vue.use(VueAnalytics, {
+    id: 'UA-100723645-2',
+    disableScriptLoader: true,
+    router,
+    autoTracking: {
+        pageviewOnLoad: false,
+        //ignoreRoutes: ['result'],
+        shouldRouterUpdate(to, from) {
+            return to.path != "/result";
+        },
+        pageviewTemplate(route) {
+            // let title=route.name.charAt(0).toUpperCase() + route.name.slice(1);
+            return {
+                page: route.path,
+                title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
+                location: window.location.href
+            }
+        },
+        exception: true
+    }
+});
 //#region yifat
 Vue.filter('capitalize',
     function (value) {
@@ -150,23 +155,27 @@ Vue.filter('ellipsis',
         if (value.length <= characters)
             return value;
         return value.substr(0, characters) + '...';
-
-
     });
+
 Vue.filter('fixedPoints', function (value) {
     if (!value) return 0;
-    if(value.toString().indexOf('.')===-1)return value;
+    if (value.toString().indexOf('.') === -1) return value;
     debugger
     return parseFloat(value).toFixed(2)
 })
+
 Vue.filter('dollarVal', function (value) {
     if (!value) return 0;
-    return parseFloat(value/40).toFixed(2)
+    return parseFloat(value / 40).toFixed(2)
 })
 
+Vue.filter('dateFromISO', function (value) {
+    let d = new Date(value);
+    return `${d.getUTCMonth()+1}/${d.getUTCDate()}/${d.getUTCFullYear()}`
+})
 
 router.beforeEach((to, from, next) => {
-    if(to.name==='home')next('/ask');
+    if (to.name === 'home') next('/ask');
     checkUserStatus(to, next);
 });
 const app = new Vue({
@@ -214,12 +223,14 @@ const app = new Vue({
 
 function checkUserStatus(to, next) {
 
-    store.dispatch('userStatus',{isRequire:to.meta.requiresAuth,to}).then(() => {
-        
+    store.dispatch('userStatus', {
+        isRequire: to.meta.requiresAuth,
+        to
+    }).then(() => {
+
         if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
             next("/signin");
-        }
-        else {
+        } else {
             next();
         }
     }).catch(error => {
@@ -231,4 +242,7 @@ function checkUserStatus(to, next) {
 //app.$mount("#app");
 //This is for cdn fallback do not touch
 global.mainCdn = true;
-export {app, router};
+export {
+    app,
+    router
+};

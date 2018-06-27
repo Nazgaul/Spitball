@@ -37,17 +37,19 @@ namespace Cloudents.Core.Entities.Db
 
 
 
-        public virtual void AnswerCreateTransaction()
+        public virtual Transaction AnswerCreateTransaction()
         {
-            var t = new Transaction(User, ActionType.Answer, TransactionType.Pending, Question.Price);
+            var t = new Transaction(ActionType.Answer, TransactionType.Pending, Question.Price);
             User.AddTransaction(t);
+            return t;
         }
 
 
         public virtual void AnswerDeleteTransaction()
         {
-            var t =  new Transaction(User, ActionType.Answer, TransactionType.Pending, -Question.Price);
+            var t =  new Transaction(ActionType.Answer, TransactionType.Pending, -Question.Price);
             User.AddTransaction(t);
+           
         }
 
     }
