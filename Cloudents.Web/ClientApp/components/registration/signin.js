@@ -44,6 +44,9 @@ export default {
                     self.errorMessage.email = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
                 });
         },
+        resendSms(){
+            registrationService.resendCode();
+        },
         verifyCode() {
             var self=this;
             if(this.submitForm()) {
