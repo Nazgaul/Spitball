@@ -160,7 +160,7 @@ Vue.filter('ellipsis',
 Vue.filter('fixedPoints', function (value) {
     if (!value) return 0;
     if (value.toString().indexOf('.') === -1) return value;
-    debugger
+    // debugger
     return parseFloat(value).toFixed(2)
 })
 
