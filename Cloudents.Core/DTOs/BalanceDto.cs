@@ -6,12 +6,12 @@ namespace Cloudents.Core.DTOs
     {
         public BalanceDto(TransactionType transaction, decimal points)
         {
-            Transaction = transaction;
+            Type = transaction;
             Points = points;
             Value = points/40;
         }
 
-        public TransactionType Transaction { get; }
+        public TransactionType Type { get; }
         public decimal Points { get; }
 
         public decimal Value { get;  }
