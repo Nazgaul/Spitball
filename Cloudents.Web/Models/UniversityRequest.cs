@@ -10,6 +10,7 @@
         /// </summary>
         //[StringLength(int.MaxValue, MinimumLength = 3)]
         public string Term { get; set; }
+
         /// <summary>
         /// the user location
         /// </summary>

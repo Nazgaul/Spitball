@@ -11,6 +11,7 @@ namespace Cloudents.Web.Models
 
         [DataMember(Order = 2)]
         internal Address Address { get; set; }
+
         [DataMember(Order = 3)]
         internal string Ip { get; set; }
 

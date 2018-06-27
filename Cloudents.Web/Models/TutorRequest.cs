@@ -15,19 +15,23 @@ namespace Cloudents.Web.Models
         /// The term array of Ai parse
         /// </summary>
         public string[] Term { get; set; }
+
         /// <summary>
         /// The filter option
         /// </summary>
         public TutorRequestFilter[] Filter { get; set; }
+
         /// <summary>
         /// The sort option
         /// </summary>
         [DefaultValue(0)]
         public TutorRequestSort? Sort { get; set; }
+
         /// <summary>
         /// The user location
         /// </summary>
         public GeographicCoordinate Location { get; set; }
+
         /// <inheritdoc />
         /// <summary>
         /// Page for paging

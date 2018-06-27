@@ -35,6 +35,7 @@ namespace Cloudents.Web.Api
                 return Json(model);
             }
         }
+
         [NonAction]
         public static IEnumerable<QnA> PassXmlDoc(Stream stream)
         {
