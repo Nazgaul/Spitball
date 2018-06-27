@@ -31,10 +31,10 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
         public async Task<UserAccountDto> GetUserDetailAsync(long id, CancellationToken token)
         {
-            var p = await  Session.Query<User>().Fetch(f=>f.LastTransaction).Where(w => w.Id == id).Select(s => new UserAccountDto()
+            var p = await Session.Query<User>().Fetch(f => f.LastTransaction).Where(w => w.Id == id).Select(s => new UserAccountDto()
             {
                 Id = s.Id,
-                 Balance = s.LastTransaction.Balance,
+                Balance = s.LastTransaction.Balance,
                 Name = s.Name,
                 Image = s.Image
             }).SingleOrDefaultAsync();//.ToFutureValue();
@@ -74,6 +74,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
             var futureQuestions = Session.Query<Question>()
                 .Fetch(f => f.Subject)
                 .Where(w => w.User.Id == id)
+                .OrderByDescending(o => o.Id)
                 .Select(s => new QuestionDto
                 {
                     Text = s.Text,
@@ -88,6 +89,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
             var futureAnswers = Session.Query<Answer>()
                 .Fetch(f => f.Question).ThenFetch(f => f.Subject)
                 .Where(w => w.User.Id == id)
+                .OrderByDescending(o => o.Question.Id)
                 .Select(s => new QuestionDto
                 {
                     Text = s.Question.Text,
