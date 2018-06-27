@@ -5,7 +5,7 @@
             <v-layout row>
             <v-tabs  :scrollable="false" centered>
                 <v-tabs-bar>
-                    <v-tabs-item router v-for="tab in verticals" :key="tab.name" :to="tab.name"
+                    <v-tabs-item router v-for="tab in verticals" :key="tab.name" :to="'/'+tab.name" v-if="tab.display"
                                  class="vertical">
                         {{tab.display}}
                     </v-tabs-item>
