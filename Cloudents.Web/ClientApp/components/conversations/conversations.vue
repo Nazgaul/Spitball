@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper chat-wrapper">
         <div id="chat-container" ></div>
     </div>
 </template>
@@ -23,17 +23,4 @@ export default {
   }
 };
 </script>
-
-<style lang="less" scoped>
-// .wrapper {
-  
-// }
-#chat-container {
-  //margin: 0 auto;
-//height: 100%;
-  //max-height: 680px;
-  margin-top: 24px;
-  //max-width: 420px;
-  //border: 2px solid red;
-}
-</style>
+<style src="./conversations.less" lang="less"></style>
