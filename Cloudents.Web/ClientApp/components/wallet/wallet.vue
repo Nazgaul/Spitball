@@ -23,6 +23,7 @@
                             <v-data-table
                                     :headers="headers.balances"
                                     :items="items"
+                                    :cash="cash"
                                     hide-actions
                                     class="balance-table wallet-table">
                                 <template slot="headerCell" slot-scope="props">
@@ -84,13 +85,12 @@
                 ></cash-out-card>
             </div>
         </div>
-
         <!--<div v-if="activeTab===1" class="cash-out-wrap">-->
         <div class="cash-out" v-if="!cashOut && activeTab===1">
             <span>Cash out</span>
             <div class="btn-wrap">
                 <div class="cash-out-val-wrap">
-                    <span class="cash-out-value">$ val</span>
+                    <span class="cash-out-value">$ {{cash}}</span>
                 </div>
                 <div class="button-wrap">
                     <button class="cash-out-btn" @click="cashOut = true">Cash Out</button>

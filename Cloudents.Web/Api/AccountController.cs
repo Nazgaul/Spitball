@@ -95,6 +95,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> LogOutAsync()
         {
             await _signInManager.SignOutAsync().ConfigureAwait(false);
+            TempData.Clear();
             return Ok();
         }
     }

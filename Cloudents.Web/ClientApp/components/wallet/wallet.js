@@ -18,17 +18,18 @@ export default {
             walletData: {},
             cashOut: false,
             search: '',
+            cash: 0,
             pagination: {
                 rowsPerPage: 6
             },
             selected: [],
             allTransactionsHeaders: [{
-                text: 'Date',
-                align: 'left',
-                value: 'date',
-                sortable: true,
-                showOnMobile: true
-            },
+                    text: 'Date',
+                    align: 'left',
+                    value: 'date',
+                    sortable: true,
+                    showOnMobile: true
+                },
                 {
                     text: 'Action',
                     align: 'left',
@@ -59,11 +60,11 @@ export default {
                 },
             ],
             allBalanceHeaders: [{
-                text: '',
-                align: 'left',
-                value: 'name',
-                showOnMobile: true
-            },
+                    text: '',
+                    align: 'left',
+                    value: 'name',
+                    showOnMobile: true
+                },
                 {
                     text: 'Points',
                     align: 'left',
@@ -112,6 +113,8 @@ export default {
                             total.value = total.value + item.value;
                         }
                         self.items.push(total);
+                        let result = this.items.filter(item => item.type === 'spent' || item.type === 'earned');
+                        this.cash = result[0].points - result[1].value;
                     },
                     error => {
                         console.error('error getting balance:', error)
@@ -134,8 +137,9 @@ export default {
         },
         pages() {
             return this.pagination.rowsPerPage ? Math.ceil(this.items.length / this.pagination.rowsPerPage) : 0
-        },
+        }
     },
+
     created() {
         this.getBalances();
         this.headers.transactions = this.$vuetify.breakpoint.xsOnly ? this.allTransactionsHeaders.filter(header => header.showOnMobile === true) : this.allTransactionsHeaders;
