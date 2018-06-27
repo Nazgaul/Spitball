@@ -11,16 +11,16 @@ namespace ConsoleApp
 {
     public class AuditPopulation
     {
-        private IContainer container;
+        private IContainer _container;
 
         public AuditPopulation(IContainer container)
         {
-            this.container = container;
+            _container = container;
         }
 
         public  async Task CreateAuditOnExistingData()
         {
-            using (var child = container.BeginLifetimeScope())
+            using (var child = _container.BeginLifetimeScope())
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
@@ -29,7 +29,7 @@ namespace ConsoleApp
                 }
             }
 
-            using (var child = container.BeginLifetimeScope())
+            using (var child = _container.BeginLifetimeScope())
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
@@ -38,7 +38,7 @@ namespace ConsoleApp
                 }
             }
 
-            using (var child = container.BeginLifetimeScope())
+            using (var child = _container.BeginLifetimeScope())
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
@@ -48,7 +48,7 @@ namespace ConsoleApp
                 }
             }
 
-            using (var child = container.BeginLifetimeScope())
+            using (var child = _container.BeginLifetimeScope())
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
@@ -107,7 +107,7 @@ namespace ConsoleApp
                     var blobs = await blob.FilesInDirectoryAsync($"question/{question.Id}", default);
                     var xxx = QuestionDetailQueryHandler.AggregateFiles(blobs);
 
-                    var files = xxx[answer.Id]?.Select(s => s.Segments.Last());
+                    var files = xxx[answer.Id].Select(s => s.Segments.Last());
                     var command = new CreateAnswerCommand(question.Id, answer.Text, answer.User.Id, files);
                     await CreateAudit(command, container);
                 }
@@ -118,7 +118,6 @@ namespace ConsoleApp
         private  async Task MarkAnswerAudit(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
-            var blob = container.Resolve<IBlobProvider<QuestionAnswerContainer>>();
             var questions = await t.GetAllQuestionsAsync();
 
             foreach (var question in questions)
@@ -135,9 +134,9 @@ namespace ConsoleApp
         private  async Task CreateAudit(ICommand message, ILifetimeScope container)
         {
             //var t = container.Resolve<IUnitOfWork>();
-            var _repository = container.Resolve<IRepository<Audit>>();
+            var repository = container.Resolve<IRepository<Audit>>();
             var audit = new Audit(message);
-            await _repository.AddAsync(audit, default);
+            await repository.AddAsync(audit, default);
             //await t.CommitAsync(default);
         }
     }

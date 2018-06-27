@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Autofac;
-using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;

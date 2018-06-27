@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities.Db

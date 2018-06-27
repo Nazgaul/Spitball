@@ -5,7 +5,6 @@ using Autofac.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Command;
 using Cloudents.Core.CommandHandler;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using JetBrains.Annotations;

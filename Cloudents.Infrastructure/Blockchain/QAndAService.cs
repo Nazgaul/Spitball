@@ -58,7 +58,7 @@ namespace Cloudents.Infrastructure.Blockchain
         public async Task SubmitAsync(BlockChainUpVote model, CancellationToken token)
         {
             var operationToExe = await GetFunctionAsync("upVote", token).ConfigureAwait(false);
-            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, model.QuestionId, model.AnswerId.ToString(), model.UserAddress.ToString()).ConfigureAwait(false);
+            await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, model.QuestionId, model.AnswerId.ToString(), model.UserAddress).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<string>> UpVoteListAsync(long questionId, Guid answerId, CancellationToken token)
