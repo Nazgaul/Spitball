@@ -14,7 +14,6 @@
     {
         name: "faqSelect",
         path: "/faq/:id",
-        display: "FAQ",
         import: () => import("./faq.vue"),
         params:(route) => ({id: route.params.id})
 
