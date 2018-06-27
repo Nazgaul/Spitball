@@ -1,7 +1,7 @@
 import walletService from '../../services/walletService';
 import {
     cashOutCards
-} from './consts'
+} from './consts';
 import cashOutCard from './cashOutCard/cashOutCard.vue'
 import {
     mapGetters
@@ -24,12 +24,12 @@ export default {
             },
             selected: [],
             allTransactionsHeaders: [{
-                text: 'Date',
-                align: 'left',
-                value: 'date',
-                sortable: true,
-                showOnMobile: true
-            },
+                    text: 'Date',
+                    align: 'left',
+                    value: 'date',
+                    sortable: true,
+                    showOnMobile: true
+                },
                 {
                     text: 'Action',
                     align: 'left',
@@ -60,11 +60,11 @@ export default {
                 },
             ],
             allBalanceHeaders: [{
-                text: '',
-                align: 'left',
-                value: 'name',
-                showOnMobile: true
-            },
+                    text: '',
+                    align: 'left',
+                    value: 'name',
+                    showOnMobile: true
+                },
                 {
                     text: 'Points',
                     align: 'left',
@@ -112,15 +112,13 @@ export default {
                             if (item.type !== 'pending') {
                                 this.cash += item.value;
 
-                                if(item.type === 'earned'){
+                                if (item.type === 'earned') {
                                     earnedVal = item.value
                                 }
                             }
-
                             total.points = total.points + item.points;
                             total.value = total.value + item.value;
                         }
-
                         this.cash = Math.min(this.cash, earnedVal);
                         this.items.push(total);
                     },
