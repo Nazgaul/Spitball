@@ -40,9 +40,6 @@ namespace Cloudents.Web.Api
             }
 
             var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
-
-            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber).ConfigureAwait(false);
-
             var taskSms = client.SendSmsAsync(user, token);
            // var taskSms = client.InsertMessageAsync(new SmsMessage(user.PhoneNumber, code), token);
 
