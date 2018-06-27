@@ -23,12 +23,12 @@ export default {
             },
             selected: [],
             allTransactionsHeaders: [{
-                    text: 'Date',
-                    align: 'left',
-                    value: 'date',
-                    sortable: true,
-                    showOnMobile: true
-                },
+                text: 'Date',
+                align: 'left',
+                value: 'date',
+                sortable: true,
+                showOnMobile: true
+            },
                 {
                     text: 'Action',
                     align: 'left',
@@ -59,11 +59,11 @@ export default {
                 },
             ],
             allBalanceHeaders: [{
-                    text: '',
-                    align: 'left',
-                    value: 'name',
-                    showOnMobile: true
-                },
+                text: '',
+                align: 'left',
+                value: 'name',
+                showOnMobile: true
+            },
                 {
                     text: 'Points',
                     align: 'left',
@@ -97,9 +97,21 @@ export default {
             }
         },
         getBalances() {
+            var self = this;
             walletService.getBalances()
-                .then(responce => {
-                        this.items = responce.data
+                .then(function (response) {
+                        self.items = response.data;
+                        var total = {
+                            points: 0,
+                            type: "total",
+                            value: 0
+                        };
+
+                        for (var item of self.items) {
+                            total.points = total.points + item.points;
+                            total.value = total.value + item.value;
+                        }
+                        self.items.push(total);
                     },
                     error => {
                         console.error('error getting balance:', error)
@@ -107,8 +119,8 @@ export default {
                 )
         },
         getTransactions() {
-            walletService.getTransactions().then(responce => {
-                    this.items = responce.data
+            walletService.getTransactions().then(response => {
+                    this.items = response.data
                 },
                 error => {
                     console.error('error getting transactions:', error)
