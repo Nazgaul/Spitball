@@ -66,7 +66,6 @@ namespace Cloudents.Web.Api
             return Ok(retVal);
         }
 
-
         [HttpDelete("{id}"), ValidateModel]
         public async Task<IActionResult> DeleteQuestionAsync(DeleteQuestionRequest model, CancellationToken token)
         {

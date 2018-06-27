@@ -63,7 +63,6 @@ namespace Cloudents.Functions
         {
             string result = formatString;
             //regex replacement of key with value, where the generic key format is:
-            //Regex foo = new Regex("{(foo)(?:}|(?::(.[^}]*)}))");
             Regex attributeRegex = new Regex("{(" + key + ")(?:}|(?::(.[^}]*)}))");  //for key = foo, matches {foo} and {foo:SomeFormat}
 
             //loop through matches, since each key may be used more than once (and with a different format string)
@@ -81,11 +80,10 @@ namespace Cloudents.Functions
                     replacement = (replacementValue ?? string.Empty).ToString();
                 }
                 //perform replacements, one match at a time
-                result = result.Replace(m.ToString(), replacement);  //attributeRegex.Replace(result, replacement, 1);
+                result = result.Replace(m.ToString(), replacement);
             }
             return result;
         }
-
 
         /// <summary>
         /// Creates a HashTable based on current object state.

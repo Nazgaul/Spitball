@@ -10,7 +10,6 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
     public class User
     {
-
         public User(string email, string name, string privateKey) : this()
         {
             Email = email;
@@ -19,8 +18,6 @@ namespace Cloudents.Core.Entities.Db
             PrivateKey = privateKey;
             UserCreateTransaction();
         }
-
-        
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected User()
@@ -50,7 +47,6 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual string PrivateKey { get; set; }
 
-
         public virtual void AddTransaction(Transaction t)
         {
             t.User = this;
@@ -60,6 +56,7 @@ namespace Cloudents.Core.Entities.Db
         }
 
         private const decimal InitialBalance = 1000;
+
         public virtual Transaction UserCreateTransaction()
         {
             var t =  new Transaction(ActionType.SignUp, TransactionType.Awarded, InitialBalance);

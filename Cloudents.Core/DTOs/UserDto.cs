@@ -17,6 +17,5 @@
         public string Token { get; set; }
         public decimal Balance { get; set; }
         public decimal Dollar => Balance / 40;
-      
     }
 }

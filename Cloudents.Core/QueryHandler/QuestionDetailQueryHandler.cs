@@ -28,7 +28,6 @@ namespace Cloudents.Core.QueryHandler
             var files = filesTask.Result;
             var dto = dtoTask.Result;
 
-            
             if (dto == null)
             {
                 return null;
@@ -42,9 +41,7 @@ namespace Cloudents.Core.QueryHandler
                 return s;
             });
 
-
             return dto;
-
         }
 
         public static ILookup<Guid?, Uri> AggregateFiles(IEnumerable<Uri> files)

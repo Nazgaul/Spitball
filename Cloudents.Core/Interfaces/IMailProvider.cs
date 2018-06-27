@@ -13,7 +13,6 @@ namespace Cloudents.Core.Interfaces
             MailGunRequest parameters,
             CancellationToken cancellationToken);
 
-
         //Task SendEmailAsync(string email, string subject, string message, CancellationToken token);
     }
 }

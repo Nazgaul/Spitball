@@ -44,8 +44,7 @@ namespace Cloudents.Infrastructure.Data
         protected virtual void TransformPersistentChain(object[] tuple
               , List<string> complexAliases, object result, List<string> list)
         {
-            var entity = result as TEntity;
-            if (entity == null)
+            if (!(result is TEntity entity))
             {
                 return;
             }

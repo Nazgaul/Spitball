@@ -10,10 +10,6 @@ namespace Cloudents.Core.CommandHandler
     public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
     {
         private readonly IUserRepository _userRepository;
-        //private readonly IRepository<Transaction> _transactionRepository;
-
-
-        
 
         public CreateUserCommandHandler(IUserRepository userRepository)
         {
@@ -22,8 +18,6 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(CreateUserCommand message, CancellationToken token)
         {
-           // var rootTransaction = Transaction.UserCreateTransaction(message.User);
-            //await _transactionRepository.AddAsync(rootTransaction,token);
             await _userRepository.AddAsync(message.User, token).ConfigureAwait(false);
         }
     }

@@ -57,7 +57,6 @@ namespace Cloudents.Infrastructure.Blockchain
             return Web3.GetAddressFromPrivateKey(privateKey);
         }
 
-
         public (string privateKey, string publicAddress) CreateAccount()
         {
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();

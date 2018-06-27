@@ -14,7 +14,7 @@ namespace Cloudents.Core.Interfaces
     {
         [ItemCanBeNull]
         Task<string> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token);
-        
+
         [ItemCanBeNull]
         Task<string> GetAsync(Uri url, NameValueCollection queryString,
             IEnumerable<KeyValuePair<string, string>> headers,

@@ -12,6 +12,5 @@
 
         LocalStorageData LocalStorageData { get; }
         string ServiceBus { get;  }
-
     }
 }

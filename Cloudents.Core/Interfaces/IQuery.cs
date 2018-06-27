@@ -5,7 +5,6 @@ namespace Cloudents.Core.Interfaces
 {
     //public interface IQuery
     //{
-        
     //}
 
     //public interface IQueryResult
@@ -29,7 +28,6 @@ namespace Cloudents.Core.Interfaces
     {
         Task<TQueryResult> QueryAsync<TQuery, TQueryResult>(TQuery query, CancellationToken token);
            // where TQuery : IQuery;
-
 
         Task<TQueryResult> QueryAsync<TQueryResult>(CancellationToken token);
 

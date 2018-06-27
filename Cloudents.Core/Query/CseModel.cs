@@ -23,7 +23,6 @@ namespace Cloudents.Core.Query
         [CanBeNull, ItemCanBeNull]
         public IEnumerable<string> UniversitySynonym { get; }
 
-
         [CanBeNull, ItemCanBeNull]
         public IEnumerable<string> Sources { get; }
 

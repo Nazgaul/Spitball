@@ -52,7 +52,6 @@ namespace Cloudents.Infrastructure.Framework
             return InsertMessageAsync(message, topicSubscription);
         }
 
-
         private Task InsertMessageAsync(object obj, TopicSubscription subscription)
         {
             var topic = TopicClient.CreateFromConnectionString(_connectionString, subscription.Topic);
@@ -74,7 +73,6 @@ namespace Cloudents.Infrastructure.Framework
             // PART 1 - CREATE THE TOPIC
             var namespaceManager =
                 NamespaceManager.CreateFromConnectionString(_connectionString);
-
 
             foreach (var topic in topicSubscriptions.Select(s => s.Topic).Distinct())
             {

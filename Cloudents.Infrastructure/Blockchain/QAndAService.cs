@@ -22,7 +22,6 @@ namespace Cloudents.Infrastructure.Blockchain
         {
         }
 
-
         public async Task SubmitAsync(BlockChainSubmitQuestion model, CancellationToken token)
         {
             var weiPrice = new BigInteger((double)model.Price * FromWei);
@@ -67,7 +66,7 @@ namespace Cloudents.Infrastructure.Blockchain
             return await function.CallAsync<List<string>>(questionId, answerId.ToString()).ConfigureAwait(false);
         }
 
-        public async Task SpreadFounds(long questionId, CancellationToken token)
+        public async Task SpreadFoundsAsync(long questionId, CancellationToken token)
         {
             var operationToExe = await GetFunctionAsync("spreadFounds", token).ConfigureAwait(false);
             await operationToExe.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, Gas, token, questionId).ConfigureAwait(false);

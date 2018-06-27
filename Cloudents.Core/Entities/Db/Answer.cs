@@ -18,7 +18,6 @@ namespace Cloudents.Core.Entities.Db
             User = user;
             Created = DateTime.UtcNow;
             AnswerCreateTransaction();
-            //User.AddTransaction(ActionType.Answer, TransactionType.Pending, Question.Price);
         }
 
         [UsedImplicitly]
@@ -35,8 +34,6 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual DateTime Created { get; set; }
 
-
-
         public virtual Transaction AnswerCreateTransaction()
         {
             var t = new Transaction(ActionType.Answer, TransactionType.Pending, Question.Price);
@@ -44,13 +41,10 @@ namespace Cloudents.Core.Entities.Db
             return t;
         }
 
-
         public virtual void AnswerDeleteTransaction()
         {
             var t =  new Transaction(ActionType.Answer, TransactionType.Pending, -Question.Price);
             User.AddTransaction(t);
-           
         }
-
     }
 }

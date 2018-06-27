@@ -53,8 +53,6 @@ namespace Cloudents.Functions
             }
         }
 
-
-
         //[FunctionName("BlockChainInitialBalance")]
         public static async Task BlockChainInitialBalanceAsync(
             [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.BlockChainInitialBalance))]
@@ -82,8 +80,6 @@ namespace Cloudents.Functions
             var qnaObject = obj.GetBodyInheritance<BlockChainQnaSubmit>();
             await service.SubmitAsync((dynamic)qnaObject, token).ConfigureAwait(false);
             log.Info("success");
-            //await service.SetInitialBalanceAsync(obj.PublicAddress, token).ConfigureAwait(false);
-            //log.Info("Initial balance success");
         }
     }
 }

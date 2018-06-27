@@ -18,8 +18,6 @@ namespace Cloudents.Core.Query
         private readonly IUniversitySearch _universitySearch;
         private readonly CustomApiKey _api;
 
-
-
         public WebSearch(ISearch search, ISearchConvertRepository searchConvertRepository, CustomApiKey api, IUniversitySearch universitySearch)
         {
             _search = search;
@@ -61,6 +59,5 @@ namespace Cloudents.Core.Query
                 return null;
             }).Where(w => w != null).SelectMany(s => s);
         }
-        
     }
 }

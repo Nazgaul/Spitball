@@ -54,7 +54,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
                 )
                 .Where(w => w.CorrectAnswer == null)
-                //.TransformUsing(Transformers.AliasToBean<QuestionDto>());
                 .TransformUsing(new DeepTransformer<QuestionDto>());
             if (query.Source != null)
             {
@@ -63,11 +62,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
             if (!string.IsNullOrEmpty(query.Term))
             {
-                //var projection = Projections.SqlFunction("FullTextContains",
-                //    NHibernateUtil.Boolean,
-                //    Projections.Property<Question>(x => x.Text),
-                //    Projections.Constant(query.Term));
-
                 queryOverObj.Where(new FullTextCriterion(Projections.Property<Question>(x => x.Text),
                     query.Term));
             }
@@ -82,14 +76,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
             var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(false);
             var facet = await facetsFuture.GetEnumerableAsync(token).ConfigureAwait(false);
 
-            //var retVal =  futureQueryOver.GetEnumerable();
-            //var facet =  facetsFuture.GetEnumerable();
-
-            //return Task.FromResult(new ResultWithFacetDto<QuestionDto>
-            //{
-            //    Result = retVal,
-            //    Facet = facet
-            //});
             return new ResultWithFacetDto<QuestionDto>
             {
                 Result = retVal,
@@ -143,8 +129,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
             return dto;
         }
-
-
 
         public async Task<IList<Question>> GetAllQuestionsAsync()
         {

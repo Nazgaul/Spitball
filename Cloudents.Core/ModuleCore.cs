@@ -25,7 +25,6 @@ namespace Cloudents.Core
             //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandlerAsync<>));//.As(typeof(ICommandHandlerAsync<>));//.AsImplementedInterfaces();
             builder.RegisterType<CommandBus>().As<ICommandBus>();
 
-
             builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
                 .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<,>)))
                 .Select(i => new KeyedService("handler", i)));
@@ -33,7 +32,6 @@ namespace Cloudents.Core
             builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
                 .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)))
                 .Select(i => new KeyedService("handler", i)));
-
 
             builder.RegisterGenericDecorator(
                 typeof(CommitUnitOfWorkCommandHandlerDecorator<>),
@@ -43,7 +41,6 @@ namespace Cloudents.Core
                 typeof(CommitUnitOfWorkCommandHandlerDecorator<,>),
                 typeof(ICommandHandler<,>),
                 fromKey: "handler");
-
 
             builder.RegisterType<UpdateMailGunCommandHandler>()
                 .Named<ICommandHandler<UpdateMailGunCommand>>("mailGun");
@@ -56,7 +53,6 @@ namespace Cloudents.Core
             //        return new CommitUnitOfWorkCommandHandlerDecorator<UpdateMailGunCommand>(t, inner);
             //    },
             //    fromKey: "mailGun");
-
 
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<,>));
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<>));

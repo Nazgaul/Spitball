@@ -14,6 +14,5 @@ namespace Cloudents.Infrastructure.Test.Database
                 .CheckProperty(c => c.AggregateCount, 1)
                 .VerifyTheMappings();
         }
-
     }
 }

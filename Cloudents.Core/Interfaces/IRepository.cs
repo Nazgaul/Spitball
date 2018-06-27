@@ -20,7 +20,6 @@ namespace Cloudents.Core.Interfaces
 
         T Load(object id);
 
-
         Task DeleteAsync(T entity, CancellationToken token);
         Task UpdateAsync(T entity, CancellationToken token);
     }
@@ -50,7 +49,6 @@ namespace Cloudents.Core.Interfaces
         Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token);
 
         Task<IList<Question>> GetAllQuestionsAsync();
-
     }
 
     public interface ICourseRepository : IRepository<Course>
@@ -64,9 +62,7 @@ namespace Cloudents.Core.Interfaces
         Task<IEnumerable<TransactionDto>> GetTransactionsAsync(long userId, CancellationToken token);
     }
 
-
     public interface IMailGunStudentRepository : IRepository<MailGunStudent>
     {
     }
-
 }

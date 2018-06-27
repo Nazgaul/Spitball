@@ -15,7 +15,6 @@ namespace Cloudents.Web.Models
         [Range(0.1, 1000)]
         public decimal Price { get; set; }
 
-
         [MaxLength(4)]
         public IEnumerable<string> Files { get; set; }
     }

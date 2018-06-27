@@ -37,8 +37,6 @@ namespace Cloudents.Core.CommandHandler
             }
             question.MarkAnswerAsCorrect(answer);
 
-
-
             await _questionRepository.UpdateAsync(question, token).ConfigureAwait(false);
 
             // await _blockChainProvider.InsertMessageAsync(new BlockChainMarkQuestionAsCorrect(_blockChain.GetAddress(question.User.PrivateKey), _blockChain.GetAddress(answer.User.PrivateKey), question.Id, answer.Id), token).ConfigureAwait(true);

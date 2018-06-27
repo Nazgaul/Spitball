@@ -65,7 +65,6 @@ namespace Cloudents.Web
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-
             }).AddMvcOptions(o =>
                 {
                     o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));

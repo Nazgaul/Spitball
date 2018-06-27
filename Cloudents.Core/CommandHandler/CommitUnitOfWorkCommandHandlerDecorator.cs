@@ -8,7 +8,6 @@ namespace Cloudents.Core.CommandHandler
     public class CommitUnitOfWorkCommandHandlerDecorator<TCommand>
         : ICommandHandler<TCommand> where TCommand : ICommand
     {
-
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICommandHandler<TCommand> _decoratee;
         private readonly IRepository<Audit> _repository;
@@ -32,17 +31,14 @@ namespace Cloudents.Core.CommandHandler
         }
     }
 
-
     public class CommitUnitOfWorkCommandHandlerDecorator<TCommand, TCommandResult>
         : ICommandHandler<TCommand, TCommandResult>
         where TCommand : ICommand
         where TCommandResult : ICommandResult
     {
-
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICommandHandler<TCommand, TCommandResult> _decoratee;
         private readonly IRepository<Audit> _repository;
-
 
         public CommitUnitOfWorkCommandHandlerDecorator(
             IUnitOfWork unitOfWork,
