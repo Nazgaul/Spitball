@@ -1,5 +1,5 @@
 <template>
-    <div class="cash-out-card available" :class="{ 'active': available }">
+    <div class="cash-out-card available" :class="{'active': available}">
         <div class="data">
             <div class="points">
                 <div class="num">{{cost}}</div>
