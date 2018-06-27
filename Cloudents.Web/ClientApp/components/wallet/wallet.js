@@ -101,6 +101,7 @@ export default {
             walletService.getBalances()
                 .then(responce => {
                         this.items = responce.data;
+                        //calculate total cash for cashout
                         let result = this.items.filter(item => item.type === 'spent' || item.type === 'earned');
                         this.cash = result[0].points - result[1].value;
                     },
