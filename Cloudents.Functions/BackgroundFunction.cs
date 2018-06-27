@@ -55,7 +55,7 @@ namespace Cloudents.Functions
 
 
 
-        [FunctionName("BlockChainInitialBalance")]
+        //[FunctionName("BlockChainInitialBalance")]
         public static async Task BlockChainInitialBalanceAsync(
             [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.BlockChainInitialBalance))]
             BlockChainInitialBalance obj,
@@ -67,7 +67,7 @@ namespace Cloudents.Functions
             log.Info("Initial balance success");
         }
 
-        [FunctionName("BlockChainQna")]
+       // [FunctionName("BlockChainQna")]
         public static async Task BlockChainQnaAsync(
             [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.BlockChainQnA))]
             BrokeredMessage obj,

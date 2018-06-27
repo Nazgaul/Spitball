@@ -14,6 +14,7 @@ namespace Cloudents.Web.Api
         private readonly IReadRepositoryAsync<DocumentDto, long> _repository;
         private readonly Lazy<IDocumentSearch> _documentSearch;
         private readonly IFactoryProcessor _factoryProcessor;
+
         public DocumentController(IReadRepositoryAsync<DocumentDto, long> repository, Lazy<IDocumentSearch> documentSearch, IFactoryProcessor factoryProcessor)
         {
             _repository = repository;

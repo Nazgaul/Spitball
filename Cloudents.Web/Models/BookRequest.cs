@@ -12,6 +12,7 @@ namespace Cloudents.Web.Models
         /// The term array of Ai parse
         /// </summary>
         public string[] Term { get; set; }
+
         /// <inheritdoc />
         /// <summary>
         /// Page for paging

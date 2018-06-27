@@ -71,35 +71,9 @@ namespace Cloudents.Functions
             await options.AddAsync(new SMSMessage
             {
                 To = message.PhoneNumber,
-                Body = message.Message
+                Body = "Your code to enter into Spitball is: " + message.Message
             }, token).ConfigureAwait(false);
             return req.CreateResponse(HttpStatusCode.OK);
-        }
-
-        [FunctionName("FunctionSms")]
-        public static async Task SmsServiceBusAsync(
-            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Sms))]SmsMessage message,
-            [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<SMSMessage> options,
-            TraceWriter log,
-            CancellationToken token
-        )
-        {
-            if (message.Message == null)
-            {
-                log.Error("message is null");
-                return;
-            }
-
-            if (message.PhoneNumber == null)
-            {
-                log.Error("no phone number");
-                return;
-            }
-            await options.AddAsync(new SMSMessage
-            {
-                To = message.PhoneNumber,
-                Body = message.Message
-            }, token).ConfigureAwait(false);
         }
     }
 }

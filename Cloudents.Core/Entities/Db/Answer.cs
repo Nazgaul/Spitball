@@ -17,7 +17,7 @@ namespace Cloudents.Core.Entities.Db
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-
+            AnswerCreateTransaction();
             //User.AddTransaction(ActionType.Answer, TransactionType.Pending, Question.Price);
         }
 

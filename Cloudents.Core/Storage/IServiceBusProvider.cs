@@ -8,7 +8,7 @@ namespace Cloudents.Core.Storage
     {
         Task InsertMessageAsync(BaseEmail message, CancellationToken token);
         Task InsertMessageAsync(TalkJsUser message, CancellationToken token);
-        Task InsertMessageAsync(SmsMessage message, CancellationToken token);
+        //Task InsertMessageAsync(SmsMessage message, CancellationToken token);
         Task InsertMessageAsync(BlockChainInitialBalance message, CancellationToken token);
 
         Task InsertMessageAsync(BlockChainQnaSubmit message, CancellationToken token);

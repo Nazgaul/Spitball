@@ -36,6 +36,7 @@ namespace Cloudents.Web.Middleware
             return _next.Invoke(httpContext);
         }
     }
+
     public static class HeaderRemoverExtensions
     {
         public static IApplicationBuilder UseHeaderRemover(this IApplicationBuilder builder, params string[] headersToRemove)

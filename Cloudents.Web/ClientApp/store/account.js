@@ -3,7 +3,6 @@ import Talk from "talkjs";
 import accountService from "../services/accountService"
 import { debug } from "util";
 import {dollarCalculate} from "./constants";
-//import { stat } from "fs";
 let userLogin = false;
 
 const state = {
@@ -83,11 +82,14 @@ const actions = {
            
             Talk.ready.then(() => {
                 // 
-                const me = new Talk.User(state.user.id);
-                // const me = new Talk.User({
-                //     id : state.user.id,
-                //     configuration : "buyer"
-                // });
+               // const me = new Talk.User(state.user.id);
+                //{id, name, email, phone, photoUrl, welcomeMessage, configuration, custom, availabilityText, locale}
+                 const me = new Talk.User({
+                     id: state.user.id,
+                     name: state.user.name,
+                     photoUrl: state.user.image,
+                     configuration : "buyer"
+                 });
 
                 commit("updateChatUser", me);
                 const talkSession = new Talk.Session({
