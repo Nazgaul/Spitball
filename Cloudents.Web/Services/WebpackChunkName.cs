@@ -48,7 +48,7 @@ namespace Cloudents.Web.Services
                                 webPackBundle.Css = file;
                             }
                         }
-                        _tags.AddOrUpdate(chunk, webPackBundle, (key, existingValue) => existingValue);
+                        _tags.AddOrUpdate(chunk, webPackBundle, (_, existingValue) => existingValue);
                         return webPackBundle;
                     }
                 }

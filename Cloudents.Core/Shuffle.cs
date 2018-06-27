@@ -12,7 +12,6 @@ namespace Cloudents.Core
                 o.PrioritySource.Priority * o.Order).ThenBy(n => n.PrioritySource.Priority).ThenBy(p => p.Order);
         }
 
-
         public IEnumerable<T> ShuffleBySource<T>(IEnumerable<T> result) where T : IShuffleable
         {
             if (result == null)
@@ -46,6 +45,5 @@ namespace Cloudents.Core
 
             return list;
         }
-      
     }
 }

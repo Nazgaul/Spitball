@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure.Auth
             }, cancellationToken).ConfigureAwait(false);
 
 
-            
+
             //return Task.FromResult<AuthDto>(null);
             //var result = await GoogleJsonWebSignature.ValidateAsync(token).ConfigureAwait(false);
             if (result == null)
@@ -79,5 +79,4 @@ namespace Cloudents.Infrastructure.Auth
        // public string Alg { get; set; }
         //public string Kid { get; set; }
     }
-
 }

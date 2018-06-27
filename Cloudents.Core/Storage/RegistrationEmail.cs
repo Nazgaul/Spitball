@@ -14,6 +14,5 @@ namespace Cloudents.Core.Storage
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Using it with reflection")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Using it with reflection")]
         public string Link { get; private set; }
-
     }
 }

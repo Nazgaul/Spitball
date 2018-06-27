@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Request;
-using System;
+
 namespace Cloudents.Core.Interfaces
 {
     public interface IBlockChainQAndAContract

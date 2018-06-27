@@ -22,7 +22,6 @@ namespace Cloudents.Core.Entities.Search
         [DataMember]
         public string Company { get; set; }
 
-
         [DataMember]
         public string City { get; set; }
 

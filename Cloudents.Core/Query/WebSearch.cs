@@ -18,8 +18,6 @@ namespace Cloudents.Core.Query
         private readonly IUniversitySearch _universitySearch;
         private readonly CustomApiKey _api;
 
-
-
         public WebSearch(ISearch search, ISearchConvertRepository searchConvertRepository, CustomApiKey api, IUniversitySearch universitySearch)
         {
             _search = search;
@@ -38,7 +36,7 @@ namespace Cloudents.Core.Query
             }
             var (universitySynonym, courses) = await _searchConvertRepository.ParseUniversityAndCoursesAsync(university, model.Courses, token).ConfigureAwait(false);
 
-            var cseModel = new SearchModel(model.Query, BuildSources(model.Source), _api, courses, universitySynonym, model.DocType);
+            var cseModel = new SearchModel(model.Query, BuildSources(model.Source), _api, courses, universitySynonym);
             var result = await _search.SearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
             var facets = _api.Priority.Select(s => s.Key).OrderBy(s => s);
             return new ResultWithFacetDto<SearchResult>
@@ -61,6 +59,5 @@ namespace Cloudents.Core.Query
                 return null;
             }).Where(w => w != null).SelectMany(s => s);
         }
-        
     }
 }

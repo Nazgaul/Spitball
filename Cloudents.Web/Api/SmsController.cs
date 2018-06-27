@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -106,7 +105,6 @@ namespace Cloudents.Web.Api
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
         }
-
 
         [HttpPost("resend")]
         public async Task<IActionResult> ResendAsync(CancellationToken token)

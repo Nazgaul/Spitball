@@ -34,6 +34,7 @@ namespace Cloudents.Infrastructure.Data
             }
             return sqlBuilder.ToSqlString();
         }
+
         public override TypedValue[] GetTypedValues(ICriteria criteria, ICriteriaQuery criteriaQuery)
         {
             var typedValues = new List<TypedValue>();

@@ -9,6 +9,7 @@ export default {
     smsRegistration: (data) => axios.post("/sms", {number: `+${data}`}),
     smsCodeVerification: (data) => axios.post("/sms/verify", {number: data}),
     signIn: (email,captcha,rememberMe) => axios.post("login", {email, captcha, rememberMe}),
+    resendCode: () => axios.post("/sms/resend"),
     getAccountNum: () => axios.post("/Register/password"),
     getLocalCode:()=>axios.get("/sms/code")
 }

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
@@ -38,8 +36,6 @@ namespace Cloudents.Core.CommandHandler
                 throw new ApplicationException("answer is not connected to question");
             }
             question.MarkAnswerAsCorrect(answer);
-
-
 
             await _questionRepository.UpdateAsync(question, token).ConfigureAwait(false);
 

@@ -1,8 +1,6 @@
-﻿using System.Net;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Storage;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
@@ -52,8 +50,5 @@ namespace Cloudents.Web.Api
             ModelState.AddModelError(string.Empty,"Some error");
             return BadRequest(ModelState);
         }
-
-        
-
     }
 }

@@ -9,5 +9,4 @@ namespace Cloudents.Core.Interfaces
         Task CommitAsync(CancellationToken token);
         Task RollbackAsync(CancellationToken token);
     }
-    
 }

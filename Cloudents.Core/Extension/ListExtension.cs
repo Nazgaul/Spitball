@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Cloudents.Core.Extension
 {
@@ -12,7 +11,6 @@ namespace Cloudents.Core.Extension
                 list.Add(val);
             }
         }
-
 
         public static T RemoveAndGet<T>(this IList<T> list, int index)
         {

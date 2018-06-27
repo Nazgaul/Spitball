@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
@@ -69,16 +68,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
         public Task UpdateAsync(T entity, CancellationToken token)
         {
-            //_unitOfWork.FlagCommit();
             return Session.UpdateAsync(entity, token);
         }
-
-        //public Task AddOrUpdateAsync(T entity, CancellationToken token)
-        //{
-        //    //_unitOfWork.FlagCommit();
-        //    return Session.SaveOrUpdateAsync(entity, token);
-        //}
-
-        
     }
 }

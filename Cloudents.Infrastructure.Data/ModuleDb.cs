@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Autofac;
-using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -26,21 +25,11 @@ namespace Cloudents.Infrastructure.Data
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
 
-            //builder.Register(c => new UnitOfWork(c.Resolve<ISession>()))
-            //    /*.Keyed<IUnitOfWork>(Database.System)*/.InstancePerLifetimeScope();
-
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
                 .AsImplementedInterfaces();
 
-
             var assembly = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsImplementedInterfaces();
-
-            //builder.RegisterType<QuestionSubjectRepository>().AsImplementedInterfaces();
-            //builder.RegisterType<QuestionRepository>().AsImplementedInterfaces();
-            //builder.RegisterType<UserRepository>().AsImplementedInterfaces();
-            //builder.RegisterType<CourseRepository>().AsImplementedInterfaces();
-            //builder.RegisterType<DbConnectionStringProvider>().AsSelf();
 
             base.Load(builder);
         }

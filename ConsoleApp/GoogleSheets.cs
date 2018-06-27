@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 
-
 namespace ConsoleApp
 {
     internal class GoogleSheets
@@ -43,17 +42,14 @@ namespace ConsoleApp
 
             }))
             {
-
                 // Define request parameters.
                 //String spreadsheetId = "1G5mztkX5w9_JcbR0tQCY9_OvlszsTzh2FXuZFecAosw";
                 //String range = "Subjects!B:C";   
                 var request =
                         service.Spreadsheets.Values.Get(spreadsheetId, range);
 
-
                 var response = request.Execute();
                 var subjectList = new List<KeyValuePair<string, string>>();
-
 
                 if (response.Values?.Count > 0)
                 {
@@ -68,7 +64,6 @@ namespace ConsoleApp
                             subjectList.Add(new KeyValuePair<string, string>(response.Values[i][0].ToString(), ""));
                         }
                     }
-
                 }
                 else
                 {

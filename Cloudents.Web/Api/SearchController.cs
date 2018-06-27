@@ -32,7 +32,7 @@ namespace Cloudents.Web.Api
            [FromServices] IWebDocumentSearch searchProvider, CancellationToken token)
         {
             var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
-                 model.DocType, model.GeoPoint.ToGeoPoint());
+                 model.GeoPoint.ToGeoPoint());
             var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
 
             var p = result.Result?.ToList();

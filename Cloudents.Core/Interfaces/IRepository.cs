@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Query;
 using JetBrains.Annotations;
 
@@ -20,7 +19,6 @@ namespace Cloudents.Core.Interfaces
         Task<T> GetAsync(object id, CancellationToken token);
 
         T Load(object id);
-
 
         Task DeleteAsync(T entity, CancellationToken token);
         Task UpdateAsync(T entity, CancellationToken token);
@@ -51,7 +49,6 @@ namespace Cloudents.Core.Interfaces
         Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token);
 
         Task<IList<Question>> GetAllQuestionsAsync();
-
     }
 
     public interface ICourseRepository : IRepository<Course>
@@ -65,9 +62,7 @@ namespace Cloudents.Core.Interfaces
         Task<IEnumerable<TransactionDto>> GetTransactionsAsync(long userId, CancellationToken token);
     }
 
-
     public interface IMailGunStudentRepository : IRepository<MailGunStudent>
     {
     }
-
 }

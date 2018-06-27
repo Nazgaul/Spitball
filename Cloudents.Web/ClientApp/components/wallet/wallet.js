@@ -1,7 +1,7 @@
 import walletService from '../../services/walletService';
 import {
     cashOutCards
-} from './consts';
+} from './consts'
 import cashOutCard from './cashOutCard/cashOutCard.vue'
 import {
     mapGetters
@@ -24,12 +24,12 @@ export default {
             },
             selected: [],
             allTransactionsHeaders: [{
-                    text: 'Date',
-                    align: 'left',
-                    value: 'date',
-                    sortable: true,
-                    showOnMobile: true
-                },
+                text: 'Date',
+                align: 'left',
+                value: 'date',
+                sortable: true,
+                showOnMobile: true
+            },
                 {
                     text: 'Action',
                     align: 'left',
@@ -60,11 +60,11 @@ export default {
                 },
             ],
             allBalanceHeaders: [{
-                    text: '',
-                    align: 'left',
-                    value: 'name',
-                    showOnMobile: true
-                },
+                text: '',
+                align: 'left',
+                value: 'name',
+                showOnMobile: true
+            },
                 {
                     text: 'Points',
                     align: 'left',
@@ -101,6 +101,10 @@ export default {
             walletService.getBalances()
                 .then((response) => {
                         this.items = response.data;
+                        this.items = this.items.map((item)=>{
+                            item.value = item.value.toFixed(2);
+                            return item;
+                        })
                         var total = {
                             points: 0,
                             type: "total",
@@ -110,16 +114,20 @@ export default {
                         var earnedVal;
                         for (var item of this.items) {
                             if (item.type !== 'pending') {
-                                this.cash += item.value;
+                                this.cash += parseFloat(item.value);
 
-                                if (item.type === 'earned') {
-                                    earnedVal = item.value
+                                if(item.type === 'earned'){
+                                    earnedVal = parseFloat(item.value)
                                 }
                             }
-                            total.points = total.points + item.points;
-                            total.value = total.value + item.value;
+
+                            total.points = total.points + parseFloat(item.points);
+                            total.value = total.value + parseFloat(item.value);
                         }
+
                         this.cash = Math.min(this.cash, earnedVal);
+
+                        total.value = total.value.toFixed(2)
                         this.items.push(total);
                     },
                     error => {

@@ -15,22 +15,21 @@ namespace Cloudents.Functions
         [FunctionName("UrlProcess")]
         [UsedImplicitly]
         public static async Task ProcessQueueMessageAsync([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,
-            TraceWriter log, CancellationToken token, [Inject] ICommandBus commandBus)
+            TraceWriter log, [Inject] ICommandBus commandBus, CancellationToken token)
         {
-            await ProcessQueueAsync(content, log, token, commandBus).ConfigureAwait(false);
+            await ProcessQueueAsync(content, log, commandBus, token).ConfigureAwait(false);
         }
-
 
         [FunctionName("UrlProcessPoison")]
         [UsedImplicitly]
         public static async Task ProcessQueueMessagePoisonAsync([QueueTrigger(QueueName.UrlRedirectName + "-poison")] UrlRedirectQueueMessage content,
-            TraceWriter log, CancellationToken token, [Inject] ICommandBus commandBus)
+            TraceWriter log, [Inject] ICommandBus commandBus, CancellationToken token)
         {
-            await ProcessQueueAsync(content, log, token, commandBus).ConfigureAwait(false);
+            await ProcessQueueAsync(content, log, commandBus, token).ConfigureAwait(false);
         }
 
-        private static async Task ProcessQueueAsync(UrlRedirectQueueMessage content, TraceWriter log, CancellationToken token,
-            ICommandBus commandBus)
+        private static async Task ProcessQueueAsync(UrlRedirectQueueMessage content, TraceWriter log, ICommandBus commandBus,
+            CancellationToken token)
         {
             log.Info("Getting Url process message");
             var command = new CreateUrlStatsCommand(content.Host, content.DateTime, content.Url, content.UrlReferrer,

@@ -2,7 +2,6 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
-using AutoMapper;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
@@ -15,7 +14,6 @@ using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Job;
 using Cloudents.Infrastructure.Search.Tutor;
 using JetBrains.Annotations;
-using Microsoft.Azure.Search;
 using BingSearch = Cloudents.Infrastructure.Search.BingSearch;
 using ICacheProvider = Nager.PublicSuffix.ICacheProvider;
 using Module = Autofac.Module;

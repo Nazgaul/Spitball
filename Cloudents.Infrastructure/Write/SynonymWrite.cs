@@ -15,7 +15,6 @@ namespace Cloudents.Infrastructure.Write
             _client = client;
         }
 
-
         public Task CreateOrUpdateAsync(string name, string synonyms, CancellationToken token)
         {
             var synonym = new SynonymMap(name, SynonymMapFormat.Solr, synonyms);

@@ -29,7 +29,6 @@ namespace Cloudents.Core.Interfaces
             where TCommand : ICommand
             where TCommandResult : ICommandResult;
 
-
         Task DispatchAsync<TCommand>(TCommand command, CancellationToken token)
             where TCommand : ICommand;
     }
