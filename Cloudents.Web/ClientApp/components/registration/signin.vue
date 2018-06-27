@@ -30,7 +30,7 @@
                 <button class="continue-btn submit-code" :disabled="submitted||!confirmationCode">Continue</button>
                 </form>
                 <div class="bottom-text signin-strip">
-                    <p class="inline">Didn't get an sms?</p><p class="email-text inline click" @click="verifyCode">&nbsp;Click here to resend.</p>
+                    <p class="inline">Didn't get an sms?</p><p class="email-text inline click" @click="submit">&nbsp;Click here to resend.</p>
                 </div>
             </div>
             <img slot="step-image" :src="require(`../registration/img/confirm-phone.png`)"/>
