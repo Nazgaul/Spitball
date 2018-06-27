@@ -8,7 +8,7 @@
             <div class="header">Spitball FAQ</div>
             <div class="content">
                 <ul class="list">
-                    <li v-for="(item,id) in faqList">
+                    <li v-for="(item,id) in faqList" v-if="id<5">
                         <router-link :to="{name:'faqSelect',params:{id:id}}" target='_blank'>{{item.question}}</router-link>
                     </li>
                 </ul>
