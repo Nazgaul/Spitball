@@ -13,7 +13,6 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<Question> _repository;
 
-
         public DeleteQuestionCommandHandler(IRepository<Question> repository)
         {
             _repository = repository;

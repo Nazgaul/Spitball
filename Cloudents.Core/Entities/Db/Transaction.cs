@@ -33,7 +33,5 @@ namespace Cloudents.Core.Entities.Db
         public virtual TransactionType Type { get; set; }
         public virtual decimal Price { get; set; }
         public virtual decimal Balance { get; set; }
-
-
     }
 }

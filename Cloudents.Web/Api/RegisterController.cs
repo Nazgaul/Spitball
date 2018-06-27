@@ -77,8 +77,8 @@ namespace Cloudents.Web.Api
 
         private User CreateUser(string email, string name)
         {
-            var account = _blockChainErc20Service.CreateAccount();
-            return new User(email, $"{name}.{GenerateRandomNumber()}",account.privateKey);
+            var (privateKey, _) = _blockChainErc20Service.CreateAccount();
+            return new User(email, $"{name}.{GenerateRandomNumber()}",privateKey);
         }
 
         [HttpPost("google"), ValidateModel]
@@ -108,7 +108,6 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-
         [HttpPost("resend")]
         public async Task<IActionResult> ResendEmailAsync(
             CancellationToken token)
@@ -124,7 +123,5 @@ namespace Cloudents.Web.Api
             await GenerateEmailAsync(user, token);
             return Ok();
         }
-
-       
     }
 }

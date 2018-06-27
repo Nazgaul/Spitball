@@ -1,8 +1,7 @@
 ﻿namespace Cloudents.Core.Storage
 {
-    public class SmsMessage 
+    public class SmsMessage
     {
-
         public SmsMessage(string phoneNumber, string code)
         {
             PhoneNumber = phoneNumber;
@@ -24,6 +23,5 @@
         //    set => _message = value;
         //}
 
-       
     }
 }

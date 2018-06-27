@@ -9,12 +9,11 @@ namespace Cloudents.Core.Entities.Db
         {
             Command = command;
             DateTime = DateTime.UtcNow;
-            
         }
 
         public Audit()
         {
-            
+
         }
 
         public virtual Guid Id { get; set; }

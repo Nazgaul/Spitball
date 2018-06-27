@@ -12,7 +12,6 @@ namespace Cloudents.Core.Extension
             }
         }
 
-
         public static T RemoveAndGet<T>(this IList<T> list, int index)
         {
             lock (list)

@@ -106,7 +106,6 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-
         [HttpPost("resend")]
         public async Task<IActionResult> ResendAsync(CancellationToken token)
         {

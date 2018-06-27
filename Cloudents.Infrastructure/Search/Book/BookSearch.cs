@@ -177,7 +177,6 @@ namespace Cloudents.Infrastructure.Search.Book
             public string Image { get; set; }
         }
 
-
         [UsedImplicitly]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public class Offers

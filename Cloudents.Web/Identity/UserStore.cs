@@ -98,51 +98,14 @@ namespace Cloudents.Web.Identity
         public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             var p = long.Parse(userId);
-            //Expression<Func<User, bool>> expression = f => f.Id == p;
             return _queryBus.QueryAsync<long, User>(p, cancellationToken);
         }
 
         public Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            // try
-            //{
-            //nhibernate flush before query base on flushmode.auto
-
             Expression<Func<User, bool>> expression = s => s.NormalizedName == normalizedUserName;
             return _queryBus.QueryAsync<Expression<Func<User, bool>>, User>(expression, cancellationToken);
-
-            //return await _userRepository.Value.GetQueryable()
-            //    .SingleOrDefaultAsync(s => s.NormalizedName == normalizedUserName,
-            //        cancellationToken).ConfigureAwait(false);
-            //}
-            //catch (GenericADOException ex)
-            //{
-            //    if (ex.InnerException is SqlException sql && sql.Number == 2627)
-            //    {
-            //        throw new UserNameExistsException("user exists", ex);
-            //    }
-
-            //    throw;
-            //}
-
         }
-
-        //public Task SetPasswordHashAsync(User user, string passwordHash, CancellationToken cancellationToken)
-        //{
-        //    //user.PublicKey = passwordHash;
-        //    return Task.CompletedTask;
-        //}
-
-        //public Task<string> GetPasswordHashAsync(User user, CancellationToken cancellationToken)
-        //{
-        //    return Task.FromResult(user.PublicKey);
-        //}
-
-        //public Task<bool> HasPasswordAsync(User user, CancellationToken cancellationToken)
-        //{
-
-        //    return Task.FromResult(!string.IsNullOrEmpty(user.PublicKey));
-        //}
 
         public Task SetEmailAsync(User user, string email, CancellationToken cancellationToken)
         {

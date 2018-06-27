@@ -50,8 +50,5 @@ namespace Cloudents.Web.Api
             ModelState.AddModelError(string.Empty,"Some error");
             return BadRequest(ModelState);
         }
-
-        
-
     }
 }

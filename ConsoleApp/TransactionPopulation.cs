@@ -7,21 +7,21 @@ namespace ConsoleApp
 {
     public class TransactionPopulation
     {
-        private IContainer _container;
+        private readonly IContainer _container;
 
         public TransactionPopulation(IContainer container)
         {
             _container = container;
         }
 
-        public async Task CreateTransactionOnExistingData()
+        public async Task CreateTransactionOnExistingDataAsync()
         {
             using (var child = _container.BeginLifetimeScope())
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
-                    await CreateUserAudit(child);
-                    await t.CommitAsync(default);
+                    await CreateUserAuditAsync(child).ConfigureAwait(false);
+                    await t.CommitAsync(default).ConfigureAwait(false);
                 }
             }
 
@@ -29,8 +29,8 @@ namespace ConsoleApp
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
-                    await CreateQuestionAudit(child);
-                    await t.CommitAsync(default);
+                    await CreateQuestionAuditAsync(child).ConfigureAwait(false);
+                    await t.CommitAsync(default).ConfigureAwait(false);
                 }
             }
 
@@ -38,9 +38,8 @@ namespace ConsoleApp
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
-
-                    await CreateAnswerAudit(child);
-                    await t.CommitAsync(default);
+                    await CreateAnswerAuditAsync(child).ConfigureAwait(false);
+                    await t.CommitAsync(default).ConfigureAwait(false);
                 }
             }
 
@@ -48,101 +47,73 @@ namespace ConsoleApp
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
-                    await MarkAnswerAudit(child);
-                    await t.CommitAsync(default);
+                    await MarkAnswerAuditAsync(child).ConfigureAwait(false);
+                    await t.CommitAsync(default).ConfigureAwait(false);
                 }
             }
         }
 
-        private async Task CreateUserAudit(ILifetimeScope container)
+        private static async Task CreateUserAuditAsync(ILifetimeScope container)
         {
             var t = container.Resolve<IUserRepository>();
-            var users = await t.GetAllUsersAsync(default);
-
+            var users = await t.GetAllUsersAsync(default).ConfigureAwait(false);
 
             foreach (var user1 in users)
             {
                 user1.UserCreateTransaction();
-                await t.UpdateAsync(user1, default);
-                //var transaction = Transaction.UserCreateTransaction(user1);
-                //await CreateTransactionAsync(transaction, container);
-                //user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
+                await t.UpdateAsync(user1, default).ConfigureAwait(false);
             }
         }
 
-        private async Task CreateQuestionAudit(ILifetimeScope container)
+        private static async Task CreateQuestionAuditAsync(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
-            var questions = await t.GetAllQuestionsAsync();
+            var questions = await t.GetAllQuestionsAsync().ConfigureAwait(false);
             var transactionRepository = container.Resolve<ITransactionRepository>();
 
             foreach (var question in questions)
             {
                 var tttt = question.QuestionCreateTransaction();
-                await Task.Delay(TimeSpan.FromMilliseconds(1));
-                await transactionRepository.AddAsync(tttt, default);
-                //var transaction = Transaction.QuestionCreateTransaction(user1);
-                // await CreateTransactionAsync(transaction, container);
+                await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+                await transactionRepository.AddAsync(tttt, default).ConfigureAwait(false);
             }
         }
 
-        private async Task CreateAnswerAudit(ILifetimeScope container)
+        private static async Task CreateAnswerAuditAsync(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
             var transactionRepository = container.Resolve<ITransactionRepository>();
 
-            var questions = await t.GetAllQuestionsAsync();
+            var questions = await t.GetAllQuestionsAsync().ConfigureAwait(false);
 
             foreach (var question in questions)
             {
                 foreach (var answer in question.Answers)
                 {
                     var tttt = answer.AnswerCreateTransaction();
-                    await Task.Delay(TimeSpan.FromMilliseconds(1));
-                    await transactionRepository.AddAsync(tttt, default);
-                    //var transaction = Transaction.AnswerCreateTransaction(answer);
-                    //await CreateTransactionAsync(transaction, container);
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+                    await transactionRepository.AddAsync(tttt, default).ConfigureAwait(false);
                 }
-                //user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
             }
         }
 
-        private async Task MarkAnswerAudit(ILifetimeScope container)
+        private static async Task MarkAnswerAuditAsync(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
             var transactionRepository = container.Resolve<ITransactionRepository>();
 
-            var questions = await t.GetAllQuestionsAsync();
+            var questions = await t.GetAllQuestionsAsync().ConfigureAwait(false);
 
             foreach (var question in questions)
             {
                 var ca = question.CorrectAnswer;
                 if (ca != null)
                 {
-
                     var tttt = question.MarkCorrectTransaction();
-                    await Task.Delay(TimeSpan.FromMilliseconds(1));
-                    await transactionRepository.AddAsync(tttt, default);
-                    //await CreateTransactionAsync(transaction, container);
-
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+                    await transactionRepository.AddAsync(tttt, default).ConfigureAwait(false);
                 }
             }
         }
-
-        //private async Task CreateTransactionAsync(Transaction transaction, ILifetimeScope container)
-        //{
-        //    //var t = container.Resolve<IUnitOfWork>();
-        //    var _repository = container.Resolve<ITransactionRepository>();
-        //    await _repository.AddAsync(transaction, default);
-        //    //await t.CommitAsync(default);
-        //}
-
-        //private async Task CreateTransactionAsync(IEnumerable<Transaction> transaction, ILifetimeScope container)
-        //{
-        //    //var t = container.Resolve<IUnitOfWork>();
-        //    var _repository = container.Resolve<ITransactionRepository>();
-        //    await _repository.AddAsync(transaction, default);
-        //    //await t.CommitAsync(default);
-        //}
     }
 }

@@ -30,7 +30,6 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual bool IsDeleted { get; protected set; }
 
-
        // public virtual bool IsDirty { get; set; }
 
         public virtual CourseType Discriminator { get; protected set; }

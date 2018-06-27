@@ -19,48 +19,12 @@ namespace Cloudents.Infrastructure.Data.Repositories
         {
         }
 
-        //public override async Task<object> AddAsync(Transaction entity, CancellationToken token)
-        //{
-        //    var t = await  Session.Query<Transaction>().Where(w => w.User.Id == entity.User.Id)
-        //        .Where(w => w.NextTransaction == null).SingleOrDefaultAsync(token);
-        //    if (t != null)
-        //    {
-        //        t.NextTransaction = entity;
-        //        entity.Balance = t.Balance + entity.Price;
-        //        if (entity.Balance < 0)
-        //        {
-        //            throw new InvalidOperationException("not enough tokens");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        entity.Balance = entity.Price;
-        //    }
-        //    return base.AddAsync(entity, token);
-        //}
-
-        //public Task<decimal> GetCurrentBalanceAsync(long userId, CancellationToken token)
-        //{
-        //    return Session.Query<Transaction>()
-        //        .Where(w => w.User.Id == userId)
-        //        .Where(w=>w.NextTransaction == null)
-        //        .Select(s=>s.Balance)
-        //        .SingleOrDefaultAsync(token);
-        //}
-
-        //public Task<Transaction> GetLastNodeOfUserAsync(long userId, CancellationToken token)
-        //{
-        //    return Session.Query<Transaction>().Where(w => w.User.Id == userId)
-        //        .Where(w => w.NextTransaction == null).SingleOrDefaultAsync(token);
-        //}
-
-
         public async Task<IEnumerable<BalanceDto>> GetCurrentBalanceDetailAsync(long userId, CancellationToken token)
         {
             var l = new List<IFutureValue<decimal?>>();
             foreach (var value in Enum.GetValues(typeof(TransactionType)))
             {
-                //query raise exception when one of the fields is null 
+                //query raise exception when one of the fields is null
                 //TODO check defaultIfEmpty
 
                 var xx = Session.QueryOver<Transaction>()
@@ -70,8 +34,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
                     .FutureValue<decimal?>();
                 l.Add(xx);
             }
-
-
 
             await l[0].GetValueAsync(token).ConfigureAwait(false);
             var decimals = l.Select(s => s.Value);

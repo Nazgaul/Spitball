@@ -12,7 +12,6 @@ namespace Cloudents.Core
 
         public IEnumerable<string> Domains { get; }
 
-
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "We need that for serialization")]
         protected PrioritySource()
         {
@@ -26,7 +25,6 @@ namespace Cloudents.Core
             Priority = priority;
         }
 
-
         private PrioritySource(string source, float priority, IEnumerable<string> domains)
 
         {
@@ -34,8 +32,6 @@ namespace Cloudents.Core
             Priority = priority;
             Domains = domains;
         }
-
-
 
         public static readonly PrioritySource TutorWyzant = new PrioritySource("Wyzant", 1);
         //public static readonly PrioritySource TutorChegg = new PrioritySource("Chegg", 2);
@@ -48,7 +44,6 @@ namespace Cloudents.Core
         public static readonly PrioritySource JobIndeed = new PrioritySource("Indeed", 5);
 
         public static readonly PrioritySource Unknown = new PrioritySource("Unknown", 5);
-
 
         public static readonly IReadOnlyDictionary<string, PrioritySource> DocumentPriority = new List<PrioritySource>
         {
@@ -73,6 +68,5 @@ namespace Cloudents.Core
             new PrioritySource("Koofers",  4,new [] {"koofers.com/flashcards"}),
             new PrioritySource("StudySoup",  10,new [] {"studysoup.com/flashcard"})
         }.ToDictionary(f => f.Source, StringComparer.OrdinalIgnoreCase);
-       
     }
 }

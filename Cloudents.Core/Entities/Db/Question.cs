@@ -44,7 +44,6 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual IList<Answer> Answers { get; protected set; }
 
-
         public virtual Transaction QuestionCreateTransaction()
         {
             var t = new Transaction(ActionType.Question, TransactionType.Stake, -Price);
@@ -78,7 +77,6 @@ namespace Cloudents.Core.Entities.Db
             list.AddRange(new[] { t1, t2 });
             User.AddTransaction(t1);
             User.AddTransaction(t2);
-
 
             //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
             //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Stake, Price);

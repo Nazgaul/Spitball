@@ -11,20 +11,20 @@ namespace ConsoleApp
 {
     public class AuditPopulation
     {
-        private IContainer _container;
+        private readonly IContainer _container;
 
         public AuditPopulation(IContainer container)
         {
             _container = container;
         }
 
-        public  async Task CreateAuditOnExistingData()
+        public  async Task CreateAuditOnExistingDataAsync()
         {
             using (var child = _container.BeginLifetimeScope())
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
-                    await CreateUserAudit(child);
+                    await CreateUserAuditAsync(child);
                     await t.CommitAsync(default);
                 }
             }
@@ -33,7 +33,7 @@ namespace ConsoleApp
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
-                    await CreateQuestionAudit(child);
+                    await CreateQuestionAuditAsync(child);
                     await t.CommitAsync(default);
                 }
             }
@@ -42,8 +42,7 @@ namespace ConsoleApp
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
-
-                    await CreateAnswerAudit(child);
+                    await CreateAnswerAuditAsync(child);
                     await t.CommitAsync(default);
                 }
             }
@@ -52,13 +51,13 @@ namespace ConsoleApp
             {
                 using (var t = child.Resolve<IUnitOfWork>())
                 {
-                    await MarkAnswerAudit(child);
+                    await MarkAnswerAuditAsync(child);
                     await t.CommitAsync(default);
                 }
             }
         }
 
-        private  async Task CreateUserAudit(ILifetimeScope container)
+        private  async Task CreateUserAuditAsync(ILifetimeScope container)
         {
             var t = container.Resolve<IUserRepository>();
             var users = await t.GetAllUsersAsync(default);
@@ -66,12 +65,11 @@ namespace ConsoleApp
             foreach (var user1 in users)
             {
                 var command = new CreateUserCommand(user1);
-                await CreateAudit(command, container);
-                //user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
+                await CreateAuditAsync(command, container);
             }
         }
 
-        private  async Task CreateQuestionAudit(ILifetimeScope container)
+        private  async Task CreateQuestionAuditAsync(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
             var blob = container.Resolve<IBlobProvider<QuestionAnswerContainer>>();
@@ -89,12 +87,12 @@ namespace ConsoleApp
                     UserId = user1.User.Id,
                     SubjectId = user1.Subject.Id
                 };
-                await CreateAudit(command, container);
+                await CreateAuditAsync(command, container);
                 //user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
             }
         }
 
-        private  async Task CreateAnswerAudit(ILifetimeScope container)
+        private  async Task CreateAnswerAuditAsync(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
             var blob = container.Resolve<IBlobProvider<QuestionAnswerContainer>>();
@@ -109,13 +107,12 @@ namespace ConsoleApp
 
                     var files = xxx[answer.Id].Select(s => s.Segments.Last());
                     var command = new CreateAnswerCommand(question.Id, answer.Text, answer.User.Id, files);
-                    await CreateAudit(command, container);
+                    await CreateAuditAsync(command, container);
                 }
-                //user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
             }
         }
 
-        private  async Task MarkAnswerAudit(ILifetimeScope container)
+        private  async Task MarkAnswerAuditAsync(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
             var questions = await t.GetAllQuestionsAsync();
@@ -126,18 +123,16 @@ namespace ConsoleApp
                 if (ca != null)
                 {
                     var command = new MarkAnswerAsCorrectCommand(ca.Id, ca.User.Id);
-                    await CreateAudit(command, container);
+                    await CreateAuditAsync(command, container);
                 }
             }
         }
 
-        private  async Task CreateAudit(ICommand message, ILifetimeScope container)
+        private  async Task CreateAuditAsync(ICommand message, ILifetimeScope container)
         {
-            //var t = container.Resolve<IUnitOfWork>();
             var repository = container.Resolve<IRepository<Audit>>();
             var audit = new Audit(message);
             await repository.AddAsync(audit, default);
-            //await t.CommitAsync(default);
         }
     }
 }

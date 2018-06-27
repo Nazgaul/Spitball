@@ -27,7 +27,6 @@ namespace Cloudents.Infrastructure.Storage
             var blob = GetBlob(blobUrl);
             var ms = new MemoryStream();
             await blob.DownloadToStreamAsync(ms).ConfigureAwait(false);
-            //await blob.DownloadToStreamAsync(ms, cancelToken).ConfigureAwait(false);
             ms.Seek(0, SeekOrigin.Begin);
             return ms;
         }

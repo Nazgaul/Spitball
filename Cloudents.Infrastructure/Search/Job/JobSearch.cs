@@ -21,7 +21,6 @@ namespace Cloudents.Infrastructure.Search.Job
         private readonly IShuffle _shuffle;
         private readonly IMapper _mapper;
 
-
         public const int PageSize = 10;
         public const double RadiusOfFindingJobKm = RadiusOfFindingJobMiles * 1.6;
         public const double RadiusOfFindingJobMiles = 50;

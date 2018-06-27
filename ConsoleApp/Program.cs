@@ -1,5 +1,4 @@
-﻿// ReSharper disable All
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
@@ -32,9 +31,10 @@ using NHibernate.Linq;
 
 namespace ConsoleApp
 {
-    static class Program
+    internal static class Program
     {
         private static IContainer container;
+
         static async Task Main()
         {
             var builder = new ContainerBuilder();
@@ -61,123 +61,20 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
-            //builder.RegisterType<TutorMeSearch>().AsSelf();
             container = builder.Build();
 
-
-            //var t= new AuditPopulation(container);
-            //await t.CreateAuditOnExistingData();
-
             var p = new TransactionPopulation(container);
-            await p.CreateTransactionOnExistingData();
-
-
-            //var queryBus = container.Resolve<IQueryBus>();
-            //var taskUser = await queryBus.QueryAsync<long, UserAccountDto>(660L, default);
-
-            //await SendMoneyAsync();
-
-            //var command = new CreateQuestionCommand()
-            //{
-            //    Text = "Ram test",
-            //    Files = null,
-            //    Price = 5,
-            //    UserId = 638,
-            //    SubjectId = 1
-            //};
-
-            //var t = container.Resolve<ICommandBus>();
-            //await t.DispatchAsync(command, default);
-
-
-            //var users = await t.GetAllUsersAsync(default);
-
-            //foreach (var user1 in users)
-            //{
-            //    user1.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
-            //    await t.UpdateAsync(user1, default);
-            //}
-
-            //await z.CommitAsync(default);
-
-
-
-            //var z = await t.GetTransactionsAsync(594, default);
-            //var user = await t.LoadAsync(594L, default);
-            ////user.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
-            //await t.UpdateAsync(user, default);
-            //await z.CommitAsync(default);
-
-            //385L
-            //var newTransaction = new Transaction(user,);
-            // user.AddTransaction(ActionType.SignUp, TransactionType.Awarded, 100);
-            //var z = await t.GetCurrentBalanceAsync(638, default);
-            //await t.DispatchAsync(command2, default);
-            //await t.DispatchAsync(command, default);
-            //var z = await t.GetUserProfileAsync(551, default);
-
-            //var t = container.Resolve<IQuestionRepository>();
-            //var z = await t.GetQuestionsAsync(new QuestionsQuery()
-            //{
-            //    Term = "Irena's question"
-            //}, default);
-
-
-
-            //var a = container.Resolve<IBlockChainQAndAContract>();
-            //var b = container.Resolve<IBlockChainErc20Service>();
-            ////var b = await a.CashIn("74c79f73068ffe5e3c9b3485a5b5f57d8966cc9d1c15f850603c2c2e559b329f", 10);
-            ////var c = await a.CashIOut("74c79f73068ffe5e3c9b3485a5b5f57d8966cc9d1c15f850603c2c2e559b329f", 10);
-
-            ////Testing events
-
-            ////TransferTokens
-            //Guid answer = Guid.NewGuid();
-            //Guid answer2 = Guid.NewGuid();
-            //var FromAccount = new Account("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4");
-            //var Toaccount = new Account("74c79f73068ffe5e3c9b3485a5b5f57d8966cc9d1c15f850603c2c2e559b329f");
-            ////Console.WriteLine(a.GetBalanceAsync(Toaccount.Address, default).Result);
-            ////var c = await a.TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", Toaccount.Address, 1000, default);
-            ////Console.WriteLine(a.GetBalanceAsync(Toaccount.Address, default).Result);
-
-
-            //BlockChainSubmitQuestion Submittest = new BlockChainSubmitQuestion(1, 10, FromAccount.Address);
-            //BlockChainSubmitAnswer answertest1 = new BlockChainSubmitAnswer(1, answer, Toaccount.Address);
-            //BlockChainSubmitAnswer answertest2 = new BlockChainSubmitAnswer(1, answer2, Toaccount.Address);
-            //BlockChainMarkQuestionAsCorrect correct = new BlockChainMarkQuestionAsCorrect(FromAccount.Address, Toaccount.Address, 1, answer);
-            //BlockChainUpVote UV1 = new BlockChainUpVote(FromAccount.Address, 1, answer);
-            //BlockChainUpVote UV2 = new BlockChainUpVote(FromAccount.Address, 1, answer2);
-
-            //Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
-            //await a.SubmitAsync(Submittest, default);
-            //Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
-            //await a.SubmitAsync(answertest1, default);
-            //Console.WriteLine("SubmitAnswer1");
-            //await a.SubmitAsync(answertest2, default);
-            //Console.WriteLine("SubmitAnswer2");
-            //await a.SubmitAsync(UV1, default);
-            //Console.WriteLine("UpVote1");
-            //await a.SubmitAsync(UV2, default);
-            //Console.WriteLine("UpVote2");
-            //Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
-            //await a.SubmitAsync(correct, default);
-            //Console.WriteLine(b.GetBalanceAsync(FromAccount.Address, default).Result);
-
+            await p.CreateTransactionOnExistingDataAsync();
 
             Console.WriteLine("Finish");
             Console.ReadLine();
-            //await topicClient.CloseAsync();
         }
-
 
         public static Task SendMoneyAsync()
         {
             var t = container.Resolve<IBlockChainErc20Service>();
             var pb = t.GetAddress("38d68c294410244dcd009346c756436a64530d7ddb0611e62fa79f9f721cebb0");
             return t.SetInitialBalanceAsync(pb, default);
-            //
         }
-
     }
-
 }

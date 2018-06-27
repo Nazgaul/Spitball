@@ -66,6 +66,5 @@ namespace Cloudents.Infrastructure.Test
             }
         }
 
-
     }
 }

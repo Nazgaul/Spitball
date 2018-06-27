@@ -26,6 +26,5 @@ namespace Cloudents.Infrastructure.Test.Database
             Session = sessionFactory.OpenSession();
             new SchemaExport(configuration.BuildConfiguration()).Execute(true, true, false, Session.Connection, Console.Out);
         }
-
     }
 }

@@ -60,7 +60,6 @@ namespace Cloudents.Web.Api
         private string GetToken()
         {
             // ReSharper disable once StringLiteralTypo
-           // const string key = _configuration["TalkJsSecret"];// "sk_test_AQGzQ2Rlj0NeiNOEdj1SlosU";
             var message = _userManager.GetUserId(User);
 
             var asciiEncoding = new ASCIIEncoding();
