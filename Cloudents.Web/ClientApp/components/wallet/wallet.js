@@ -102,7 +102,7 @@ export default {
                 .then(responce => {
                         this.items = responce.data;
                         let result = this.items.filter(item => item.type === 'spent' || item.type === 'earned');
-                        this.cash = result[0].value - result[1].value;
+                        this.cash = result[0].points - result[1].value;
                     },
                     error => {
                         console.error('error getting balance:', error)
