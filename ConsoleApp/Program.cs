@@ -40,7 +40,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -68,12 +68,12 @@ namespace ConsoleApp
             //var t= new AuditPopulation(container);
             //await t.CreateAuditOnExistingData();
 
-           // var p = new TransactionPopulation(container);
-           // await p.CreateTransactionOnExistingData();
+            var p = new TransactionPopulation(container);
+            await p.CreateTransactionOnExistingData();
 
 
-            var queryBus = container.Resolve<IQueryBus>();
-            var taskUser = await queryBus.QueryAsync<long, UserAccountDto>(660L, default);
+            //var queryBus = container.Resolve<IQueryBus>();
+            //var taskUser = await queryBus.QueryAsync<long, UserAccountDto>(660L, default);
 
             //await SendMoneyAsync();
 

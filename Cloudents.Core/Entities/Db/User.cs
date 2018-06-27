@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
 
@@ -55,22 +53,18 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual void AddTransaction(Transaction t)
         {
+            t.User = this;
             t.Balance = (LastTransaction?.Balance ?? 0) + t.Price;
             Transactions.Add(t);
             LastTransaction = t;
-            //if (LastTransaction == null)
-            //{
-            //    LastTransaction = Transaction.CreateRoot(this, action, type, price);
-            //    return;
-            //}
-            //LastTransaction = LastTransaction.AddTransaction(action, type, price);
         }
 
         private const decimal InitialBalance = 1000;
-        public virtual void UserCreateTransaction()
+        public virtual Transaction UserCreateTransaction()
         {
-            var t =  new Transaction(this, ActionType.SignUp, TransactionType.Awarded, InitialBalance);
+            var t =  new Transaction(ActionType.SignUp, TransactionType.Awarded, InitialBalance);
             AddTransaction(t);
+            return t;
         }
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]

@@ -45,15 +45,16 @@ namespace Cloudents.Core.Entities.Db
         public virtual IList<Answer> Answers { get; protected set; }
 
 
-        public virtual void QuestionCreateTransaction()
+        public virtual Transaction QuestionCreateTransaction()
         {
-            var t = new Transaction(User, ActionType.Question, TransactionType.Stake, -Price);
+            var t = new Transaction(ActionType.Question, TransactionType.Stake, -Price);
             User.AddTransaction(t);
+            return t;
         }
 
         public virtual void QuestionDeleteTransaction()
         {
-            var t = new Transaction(User, ActionType.DeleteQuestion, TransactionType.Stake, Price);
+            var t = new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
             User.AddTransaction(t);
         }
 
@@ -69,10 +70,14 @@ namespace Cloudents.Core.Entities.Db
             MarkCorrectTransaction();
         }
 
-        public virtual void MarkCorrectTransaction()
+        public virtual IEnumerable<Transaction> MarkCorrectTransaction()
         {
-            User.AddTransaction(new Transaction(User, ActionType.QuestionCorrect, TransactionType.Spent, -Price));
-            User.AddTransaction(new Transaction(User, ActionType.QuestionCorrect, TransactionType.Stake, Price));
+            var list = new List<Transaction>();
+            var t1 = new Transaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
+            var t2 = new Transaction(ActionType.QuestionCorrect, TransactionType.Stake, Price);
+            list.AddRange(new[] { t1, t2 });
+            User.AddTransaction(t1);
+            User.AddTransaction(t2);
 
 
             //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
@@ -82,12 +87,19 @@ namespace Cloudents.Core.Entities.Db
             {
                 if (answer.Id == CorrectAnswer.Id)
                 {
-                    User.AddTransaction(new Transaction(answer.User, ActionType.QuestionCorrect, TransactionType.Earned,
-                        Price));
+                    var t3 = new Transaction(ActionType.QuestionCorrect, TransactionType.Earned,
+                        Price);
+                    answer.User.AddTransaction(t3);
+
+                    list.Add(t3);
                 }
 
-                User.AddTransaction(new Transaction(answer.User, ActionType.QuestionCorrect, TransactionType.Pending, -Price));
+                var t4 = new Transaction(ActionType.QuestionCorrect, TransactionType.Pending, -Price);
+                answer.User.AddTransaction(t4);
+                list.Add(t4);
             }
+
+            return list;
         }
     }
 }
