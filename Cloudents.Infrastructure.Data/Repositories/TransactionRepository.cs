@@ -62,6 +62,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
             {
                 //query raise exception when one of the fields is null 
                 //TODO check defaultIfEmpty
+
                 var xx = Session.QueryOver<Transaction>()
                     .Where(w => w.User.Id == userId)
                     .Where(w => w.Type == (TransactionType) value)
