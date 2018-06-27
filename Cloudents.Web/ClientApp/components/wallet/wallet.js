@@ -24,12 +24,12 @@ export default {
             },
             selected: [],
             allTransactionsHeaders: [{
-                    text: 'Date',
-                    align: 'left',
-                    value: 'date',
-                    sortable: true,
-                    showOnMobile: true
-                },
+                text: 'Date',
+                align: 'left',
+                value: 'date',
+                sortable: true,
+                showOnMobile: true
+            },
                 {
                     text: 'Action',
                     align: 'left',
@@ -60,11 +60,11 @@ export default {
                 },
             ],
             allBalanceHeaders: [{
-                    text: '',
-                    align: 'left',
-                    value: 'name',
-                    showOnMobile: true
-                },
+                text: '',
+                align: 'left',
+                value: 'name',
+                showOnMobile: true
+            },
                 {
                     text: 'Points',
                     align: 'left',
@@ -98,23 +98,31 @@ export default {
             }
         },
         getBalances() {
-            var self = this;
             walletService.getBalances()
-                .then(function (response) {
-                        self.items = response.data;
+                .then((response) => {
+                        this.items = response.data;
                         var total = {
                             points: 0,
                             type: "total",
                             value: 0
                         };
 
-                        for (var item of self.items) {
+                        var earnedVal;
+                        for (var item of this.items) {
+                            if (item.type !== 'pending') {
+                                this.cash += item.value;
+
+                                if(item.type === 'earned'){
+                                    earnedVal = item.value
+                                }
+                            }
+
                             total.points = total.points + item.points;
                             total.value = total.value + item.value;
                         }
-                        self.items.push(total);
-                        let result = this.items.filter(item => item.type === 'spent' || item.type === 'earned');
-                        this.cash = result[0].points - result[1].value;
+
+                        this.cash = Math.min(this.cash, earnedVal);
+                        this.items.push(total);
                     },
                     error => {
                         console.error('error getting balance:', error)
