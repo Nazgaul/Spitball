@@ -1,14 +1,10 @@
 <template>
     <v-flex v-if="cardData&&!isDeleted" class="question-card" :class="{'highlight':flaggedAsCorrect}">
-        <div v-if="!typeAnswer">
-            <div class="q-price pl-3">
-                <span>Earn ${{cardData.price | dollarVal}}</span>
-            </div>
-            <!-- <p class="q-category">{{cardData.subject}}</p> -->
-        </div>
-        <user-block :user="cardData.user" v-if="cardData.user" :name="cardData.subject||'Answer'">
-            <template> · <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span v-if="typeAnswer"
-                                                                                          class="q-answer">
+        <div class="top-block">
+            <user-block :user="cardData.user" v-if="cardData.user" :name="cardData.subject||'Answer'">
+                <template> · <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
+                        v-if="typeAnswer"
+                        class="q-answer">
                     <button class="accept-btn right" @click="markAsCorrect"
                             v-if="showApproveButton && !flaggedAsCorrect">
                         <v-icon>sbf-check-circle</v-icon>
@@ -20,8 +16,14 @@
 
 
                 </span></template>
-        </user-block>
-
+            </user-block>
+            <div v-if="!typeAnswer">
+                <div class="q-price pl-3">
+                    <span>Earn ${{cardData.price | dollarVal}}</span>
+                </div>
+                <!-- <p class="q-category">{{cardData.subject}}</p> -->
+            </div>
+        </div>
 
         <button class="delete" v-if="detailedView && canDelete"
                 @click="deleteQuestion()">
