@@ -24,12 +24,12 @@ export default {
             },
             selected: [],
             allTransactionsHeaders: [{
-                text: 'Date',
-                align: 'left',
-                value: 'date',
-                sortable: true,
-                showOnMobile: true
-            },
+                    text: 'Date',
+                    align: 'left',
+                    value: 'date',
+                    sortable: true,
+                    showOnMobile: true
+                },
                 {
                     text: 'Action',
                     align: 'left',
@@ -60,11 +60,11 @@ export default {
                 },
             ],
             allBalanceHeaders: [{
-                text: '',
-                align: 'left',
-                value: 'name',
-                showOnMobile: true
-            },
+                    text: '',
+                    align: 'left',
+                    value: 'name',
+                    showOnMobile: true
+                },
                 {
                     text: 'Points',
                     align: 'left',
@@ -101,7 +101,7 @@ export default {
             walletService.getBalances()
                 .then((response) => {
                         this.items = response.data;
-                        this.items = this.items.map((item)=>{
+                        this.items = this.items.map((item) => {
                             item.value = item.value.toFixed(2);
                             return item;
                         })
@@ -116,7 +116,7 @@ export default {
                             if (item.type !== 'pending') {
                                 this.cash += parseFloat(item.value);
 
-                                if(item.type === 'earned'){
+                                if (item.type === 'earned') {
                                     earnedVal = parseFloat(item.value)
                                 }
                             }

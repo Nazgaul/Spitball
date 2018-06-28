@@ -41,7 +41,7 @@
             </v-layout>
         </div>
 
-        <!-- Mobile version with tabs -->
+        <!-- Mobile version with tabs hfgfh -->
         <div v-else>
             <v-tabs grow>
 

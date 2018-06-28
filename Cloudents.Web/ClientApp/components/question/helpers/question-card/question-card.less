@@ -17,7 +17,11 @@
   }
 
   p {
-    margin: 16px 44px 16px 16px;
+    padding: 16px 44px 16px 16px;
+    background: #f6f6ff;
+    margin: 16px 16px 10px 16px;
+
+    //margin: 16px 44px 16px 16px;
 
     @media (max-width: @screen-xs) {
       margin: 16px 44px 6px 8px;
@@ -35,7 +39,7 @@
     border-left: 0;
     font-size: 18px;
 
-    color: #47586a;
+    color: @color-main-purple;
     text-align: center;
     padding-left: 26px;
     display: inline-block;
@@ -130,6 +134,7 @@
     text-align: left;
     color: @color-grey;
     white-space: pre-wrap;
+    font-size: 16px;
   }
 
   .gallery {
@@ -193,9 +198,9 @@
   .bottom-section .card-info {
     display: flex;
     justify-content: space-between;
-    padding: 0px 16px 15px 16px;
+    padding: 0px 16px 10px 16px;
     line-height: 32px;
-    min-height: 49px;
+    min-height: 46px;
     align-items: flex-end;
     @media (max-width: @screen-xs) {
       padding: 0px 8px 4px 8px;
@@ -238,6 +243,7 @@
         float: right;
         margin-right: -10px;
         border: 2px solid @color-white;
+        margin-left: -2px;
         i {
           font-size: 10px;
           color: white;
@@ -266,10 +272,8 @@
     }
 
   }
+
   .delete-btn {
-    display: none;
-  }
-  &:hover .delete-btn {
     display: block;
     outline: none;
     background-color: #FF006B;

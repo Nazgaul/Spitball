@@ -182,6 +182,7 @@ let routes2 = [
             default: (route) => ({id: route.params.id}),
         },
     },
+
     {
         path: "/profile/:id",
         components: {
