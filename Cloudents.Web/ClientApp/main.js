@@ -171,7 +171,11 @@ Vue.filter('dollarVal', function (value) {
 
 Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
-    return `${d.getUTCMonth()+1}/${d.getUTCDate()}/${d.getUTCFullYear()}`
+    //return load if no data
+    if (!value) {
+        return  'Loading..'
+    }
+    return `${d.getUTCMonth()+1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 })
 // filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
 Vue.filter('currencyLocalyFilter', function(value){

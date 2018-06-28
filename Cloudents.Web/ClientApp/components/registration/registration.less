@@ -111,6 +111,7 @@
 
   }
 .registration {
+  
   .step-title {
     text-align: center;
     font-size: 26px;
@@ -123,7 +124,9 @@
     top: 12px;
     right: 4px;
     padding: 8px;
-
+    @media (max-width: @screen-xs) {
+      top: 25px;
+    }
     .sbf-close {
       font-size: 16px;
       color: @color-main-purple;
