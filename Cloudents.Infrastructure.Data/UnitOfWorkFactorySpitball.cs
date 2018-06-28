@@ -59,6 +59,11 @@ namespace Cloudents.Infrastructure.Data
             return session;
         }
 
+        public IStatelessSession OpenStatelessSession()
+        {
+            return _factory.OpenStatelessSession();
+        }
+
         private static void BuildSchema(Configuration config)
         {
 #if DEBUG

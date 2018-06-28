@@ -63,8 +63,24 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             container = builder.Build();
 
-            var p = new TransactionPopulation(container);
-            await p.CreateTransactionOnExistingDataAsync();
+            //var p = new TransactionPopulation(container);
+            //await p.CreateTransactionOnExistingDataAsync();
+
+
+            var queryBus = container.Resolve<IQueryBus>();
+            var q = new QuestionsQuery();
+            var t = await queryBus.QueryAsync<ResultWithFacetDto<QuestionDto>>(q, default);
+            var sw = new Stopwatch();
+            sw.Start();
+            sw.Stop();
+            Console.WriteLine(sw.ElapsedTicks);
+
+            var tt = container.Resolve<IQueryHandlerAsync<QuestionDetailQuery, QuestionDetailDto>>();
+            sw.Start();
+            var zz = await tt.GetAsync(new QuestionDetailQuery(1414), default);
+            sw.Stop();
+            Console.WriteLine(sw.ElapsedTicks);
+
 
             Console.WriteLine("Finish");
             Console.ReadLine();

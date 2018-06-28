@@ -23,6 +23,9 @@ namespace Cloudents.Infrastructure.Data
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenSession())
                 .InstancePerLifetimeScope();
 
+            builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenStatelessSession())
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
@@ -30,7 +33,7 @@ namespace Cloudents.Infrastructure.Data
 
             var assembly = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsImplementedInterfaces();
-
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<,>));
             base.Load(builder);
         }
     }

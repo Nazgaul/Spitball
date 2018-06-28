@@ -7,6 +7,7 @@ using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -43,7 +44,8 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
             var userId = long.Parse(_userManager.GetUserId(User));
-            var taskUser = queryBus.QueryAsync<long, UserAccountDto>(userId, token);
+            var query = new UserDataByIdQuery(userId);
+            var taskUser = queryBus.QueryAsync<UserAccountDto>(query, token);
             var talkJs = GetToken();
 
             var user = await taskUser.ConfigureAwait(false);

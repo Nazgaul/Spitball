@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Models
 {
@@ -13,13 +11,7 @@ namespace Cloudents.Web.Models
         [Required(AllowEmptyStrings = false)]
         public string Text { get; set; }
 
-        [MaxLength(4)]
+        //[MaxLength(4)]
         public IEnumerable<string> Files { get; set; }
-    }
-
-    public class DeleteAnswerRequest
-    {
-        [FromRoute]
-        public Guid Id { get; set; }
     }
 }

@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 
 namespace Cloudents.Core.QueryHandler
 {
-    public class UserDataQueryHandler : IQueryHandlerAsync<Expression<Func<User, bool>>, User>
+    public class UserDataQueryHandler : IQueryHandlerAsync<UserDataExpressionQuery, User>
     {
         private readonly IUserRepository _userRepository;
 
@@ -17,14 +18,14 @@ namespace Cloudents.Core.QueryHandler
             _userRepository = userRepository;
         }
 
-        public  Task<User> GetAsync(Expression<Func<User, bool>> query, CancellationToken token)
+        public  Task<User> GetAsync(UserDataExpressionQuery query, CancellationToken token)
         {
-           return _userRepository.GetUserByExpressionAsync(query, token);
+           return _userRepository.GetUserByExpressionAsync(query.QueryExpression, token);
         }
     }
 
 
-    public class UserDataByIdQueryHandler : IQueryHandlerAsync<long, User>
+    public class UserDataByIdQueryHandler : IQueryHandlerAsync<UserDataByIdQuery, User>
     {
         private readonly IUserRepository _userRepository;
 
@@ -33,14 +34,14 @@ namespace Cloudents.Core.QueryHandler
             _userRepository = userRepository;
         }
 
-        public Task<User> GetAsync(long query, CancellationToken token)
+        public Task<User> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
-            return _userRepository.GetAsync(query, token);
+            return _userRepository.GetAsync(query.Id, token);
         }
     }
 
 
-    public class UserAccountDataQueryHandler : IQueryHandlerAsync<long, UserAccountDto>
+    public class UserAccountDataQueryHandler : IQueryHandlerAsync<UserDataByIdQuery, UserAccountDto>
     {
         private readonly IUserRepository _userRepository;
 
@@ -49,9 +50,9 @@ namespace Cloudents.Core.QueryHandler
             _userRepository = userRepository;
         }
 
-        public Task<UserAccountDto> GetAsync(long query, CancellationToken token)
+        public Task<UserAccountDto> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
-            return _userRepository.GetUserDetailAsync(query, token);
+            return _userRepository.GetUserDetailAsync(query.Id, token);
         }
     }
 }

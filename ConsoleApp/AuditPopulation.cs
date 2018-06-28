@@ -6,6 +6,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.QueryHandler;
 using Cloudents.Core.Storage;
+using Cloudents.Infrastructure.Data.Query;
 
 namespace ConsoleApp
 {
