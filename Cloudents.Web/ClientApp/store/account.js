@@ -4,6 +4,7 @@ import accountService from "../services/accountService"
 import { debug } from "util";
 import {dollarCalculate} from "./constants";
 let userLogin = false;
+import { router } from "../main";
 
 const state = {
     login: false,
@@ -52,6 +53,7 @@ const actions = {
     logout({ state, commit }) {
         accountService.logout();
         commit("logout");
+        router.go({path: '/ask', query: {q: ''}});
     },
     userStatus({ dispatch, commit, getters }, { isRequire, to }) {
         const $this = this;
