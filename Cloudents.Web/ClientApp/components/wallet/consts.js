@@ -10,7 +10,7 @@ export const cashOutCards =  [
         image: '50',
     },
     {
-        cost: 1000,
+        cost: 2000,
         pointsForDollar: 80,
         image: '25',
     },
