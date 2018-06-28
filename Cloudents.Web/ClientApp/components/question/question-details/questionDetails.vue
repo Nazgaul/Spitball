@@ -16,7 +16,7 @@
 
 
                 <v-flex class="question-data">
-                    <question-thread v-if="questionData" :questionData="questionData">
+                    <question-thread v-if="questionData" :questionData="questionData" :showDialog="showDialog">
                         <div v-if="enableAnswer" slot="answer-form" class="mb-3">
                             <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                 <extended-text-area uploadUrl="/api/upload/ask"
@@ -83,6 +83,9 @@
 
             </v-tabs>
         </div>
+        <v-dialog v-model="showDialog" max-width="600px" content-class="registration-dialog">
+            <question-suggest-pop-up></question-suggest-pop-up>
+        </v-dialog>
     </div>
 </template>
 

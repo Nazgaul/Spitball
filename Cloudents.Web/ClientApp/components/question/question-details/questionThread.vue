@@ -10,18 +10,7 @@
                            :cardData="answer"
                            class="user-question mb-3 answer-card" detailed-view></question-card>
         </div>
-         <v-dialog v-model="showDialog" max-width="600px" content-class="registration-dialog">
-            <v-card>
-                <button class="close-btn" @click="showDialog = false">
-                    <v-icon>sbf-close</v-icon>
-                </button>
-                <v-card-text class="limited-width">
-                    <h1>Are you sure you want to exit?</h1>
-                    <p>Exit from this process will delete all your progress and information</p>
-                    <button class="continue-btn" @click="$_back">Exit</button>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
+
     </v-layout>
     
 </template>
