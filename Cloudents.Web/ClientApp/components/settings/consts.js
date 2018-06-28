@@ -80,19 +80,8 @@ export let settingMenu = [
 export let notRegMenu = [
     {
         id: typesPersonalize.whoWeAre,
-        title: "Who we are"
-    },
-    {
-        id: typesPersonalize.whatWeUpTo,
-        title: "What we’re Up To"
-    },
-    {
-        id: typesPersonalize.myWallet,
-        title: "My Wallet"
-    },
-    {
-        id: typesPersonalize.trustSafety,
-        title: "Trust & Safety"
+        title: "Who we are",
+        name:"faq"
     },
     {
         id: typesPersonalize.aboutSpitball,
