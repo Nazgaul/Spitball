@@ -87,7 +87,7 @@
                                     <!--</div>-->
 
                                     <router-link  to="/wallet" class="header-wallet" v-if="loggedIn">
-                                        <span class="bold">{{accountUser.balance | fixedPoints}} pts</span>
+                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}} pts</span>
                                         <span>$ {{accountUser.balance | dollarVal}}</span>
                                     </router-link>
 

@@ -173,7 +173,12 @@ Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
     return `${d.getUTCMonth()+1}/${d.getUTCDate()}/${d.getUTCFullYear()}`
 })
-
+// filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
+Vue.filter('currencyLocalyFilter', function(value){
+        let amount = Number(value)
+        return amount && amount.toLocaleString(undefined,{minimumFractionDigits: 2, maximumFractionDigits: 2}) || '0'
+        }    
+)
 router.beforeEach((to, from, next) => {
     if (to.name === 'home') next('/ask');
     checkUserStatus(to, next);
