@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         ...mapMutations({updateLoading:"UPDATE_LOADING"}),
-        ...mapActions(['updateUserBalance']),
+        ...mapActions(['updateUserBalance','updateToasterParams']),
         submitQuestion() {
             if(this.accountUser && this.accountUser.balance < this.price){
                 this.errorMessage = "You don't have enough balance in your account"
@@ -38,13 +38,16 @@ export default {
             if (this.submitForm()) {
                 this.updateLoading(true);
                 console.log('start loading');
-                debugger;
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files)
                     .then(function () {
                         debugger;
                         let val= self.selectedPrice || self.price;
                             self.updateUserBalance(-val);
                             self.$router.push({path: '/ask', query: {q: ''}});
+                                self.updateToasterParams({
+                                    toasterText: 'Question posted, the best brains are working on it right now',
+                                    showToaster: true,
+                                });
                         },
                         function (error) {
                             self.updateLoading(false);

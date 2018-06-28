@@ -136,7 +136,7 @@ let us know! We may be able to add it quickly.
 .Panel {
     background-color: #fff;
     border-radius: 5px;
-    border-width: 1px;
+    border-width: 0px;
     border-color: #dce0e0;
     padding: 10px;
 }
