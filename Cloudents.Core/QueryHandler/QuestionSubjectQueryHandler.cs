@@ -3,10 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 
 namespace Cloudents.Core.QueryHandler
 {
-    public class QuestionSubjectQueryHandler : IQueryHandlerAsync<IEnumerable<QuestionSubjectDto>>
+    public class QuestionSubjectQueryHandler : IQueryHandlerAsync<QuestionSubjectQuery, IEnumerable<QuestionSubjectDto>>
     {
         private readonly IQuestionSubjectRepository _repository;
 
@@ -16,7 +17,7 @@ namespace Cloudents.Core.QueryHandler
         }
 
 
-        public Task<IEnumerable<QuestionSubjectDto>> GetAsync(CancellationToken token)
+        public Task<IEnumerable<QuestionSubjectDto>> GetAsync(QuestionSubjectQuery query, CancellationToken token)
         {
             return _repository.GetAllSubjectAsync(token);
         }

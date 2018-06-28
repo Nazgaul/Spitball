@@ -25,6 +25,8 @@ namespace Cloudents.Infrastructure.Data.Repositories
         {
         }
 
+       
+
         [SuppressMessage("ReSharper", "CoVariantArrayConversion", Justification = "Is in can get all of the types")]
         [SuppressMessage("Microsoft", "CC0030", Justification = "We can't do that nhibernate uses those objects")]
         public async Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token)
@@ -83,52 +85,52 @@ namespace Cloudents.Infrastructure.Data.Repositories
             };
         }
 
-        public async Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token)
-        {
-            //TODO: this is left join query need to fix that
-            var questionFuture = Session.Query<Question>().Where(w => w.Id == id)
-                .Fetch(f => f.Subject)
-                .Fetch(f => f.User)
-                .Select(s => new QuestionDetailDto
-                {
-                    User = new UserDto
-                    {
-                        Id = s.User.Id,
-                        Name = s.User.Name,
-                        Image = s.User.Image
-                    },
-                    Id = s.Id,
-                    Create = s.Created,
-                    Price = s.Price,
-                    Subject = s.Subject.Text,
-                    Text = s.Text,
-                    CorrectAnswerId = s.CorrectAnswer.Id
-                }).ToFutureValue();
-            var answersFuture = Session.Query<Answer>()
-                .Where(w => w.Question.Id == id)
-                .Fetch(f => f.User)
-                .Select(s => new QuestionDetailAnswerDto
-                {
-                    Id = s.Id,
-                    Text = s.Text,
-                    Create = s.Created,
-                    User = new UserDto
-                    {
-                        Id = s.User.Id,
-                        Name = s.User.Name,
-                        Image = s.User.Image
-                    }
-                }).ToFuture();
+        //public async Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token)
+        //{
+        //    //TODO: this is left join query need to fix that
+        //    var questionFuture = Session.Query<Question>().Where(w => w.Id == id)
+        //        .Fetch(f => f.Subject)
+        //        .Fetch(f => f.User)
+        //        .Select(s => new QuestionDetailDto
+        //        {
+        //            User = new UserDto
+        //            {
+        //                Id = s.User.Id,
+        //                Name = s.User.Name,
+        //                Image = s.User.Image
+        //            },
+        //            Id = s.Id,
+        //            Create = s.Created,
+        //            Price = s.Price,
+        //            Subject = s.Subject.Text,
+        //            Text = s.Text,
+        //            CorrectAnswerId = s.CorrectAnswer.Id
+        //        }).ToFutureValue();
+        //    var answersFuture = Session.Query<Answer>()
+        //        .Where(w => w.Question.Id == id)
+        //        .Fetch(f => f.User)
+        //        .Select(s => new QuestionDetailAnswerDto
+        //        {
+        //            Id = s.Id,
+        //            Text = s.Text,
+        //            Create = s.Created,
+        //            User = new UserDto
+        //            {
+        //                Id = s.User.Id,
+        //                Name = s.User.Name,
+        //                Image = s.User.Image
+        //            }
+        //        }).ToFuture();
 
-            var dto = await questionFuture.GetValueAsync(token).ConfigureAwait(false);
-            if (dto == null)
-            {
-                return null;
-            }
-            dto.Answers = await answersFuture.GetEnumerableAsync(token).ConfigureAwait(false);
+        //    var dto = await questionFuture.GetValueAsync(token).ConfigureAwait(false);
+        //    if (dto == null)
+        //    {
+        //        return null;
+        //    }
+        //    dto.Answers = await answersFuture.GetEnumerableAsync(token).ConfigureAwait(false);
 
-            return dto;
-        }
+        //    return dto;
+        //}
 
         public async Task<IList<Question>> GetAllQuestionsAsync()
         {

@@ -43,10 +43,10 @@ namespace Cloudents.Core.Interfaces
 
     public interface IQuestionRepository : IRepository<Question>
     {
-        [ItemCanBeNull]
-        Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token);
+        //[ItemCanBeNull]
+        //Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token);
 
-        Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token);
+        //Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token);
 
         Task<IList<Question>> GetAllQuestionsAsync();
     }

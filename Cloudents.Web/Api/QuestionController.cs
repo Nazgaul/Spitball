@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
@@ -39,9 +40,11 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("subject")]
+        [ResponseCache(Duration = TimeConst.Day)]
         public async Task<IActionResult> GetSubjectsAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
-            var result = await queryBus.QueryAsync<IEnumerable<QuestionSubjectDto>>(token).ConfigureAwait(false);
+            var query = new QuestionSubjectQuery();
+            var result = await queryBus.QueryAsync<IEnumerable<QuestionSubjectDto>>(query, token).ConfigureAwait(false);
             return Ok(result);
         }
 
@@ -58,7 +61,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetQuestionAsync(long id,
             [FromServices] IQueryBus bus, CancellationToken token)
         {
-            var retVal = await bus.QueryAsync<long, QuestionDetailDto>(id, token).ConfigureAwait(false);
+            var retVal = await bus.QueryAsync<QuestionDetailDto>(new QuestionDetailQuery(id), token).ConfigureAwait(false);
             if (retVal == null)
             {
                 return NotFound();
@@ -82,7 +85,7 @@ namespace Cloudents.Web.Api
             var query = _mapper.Map<QuestionsQuery>(model);
             //if (string.IsNullOrWhiteSpace(query.Term))
             //{
-            var result = await queryBus.QueryAsync<QuestionsQuery, ResultWithFacetDto<QuestionDto>>(query, token).ConfigureAwait(false);
+            var result = await queryBus.QueryAsync<ResultWithFacetDto<QuestionDto>>(query, token).ConfigureAwait(false);
             //}
             //else
             //{

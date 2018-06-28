@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using NHibernate.Exceptions;
@@ -98,13 +99,13 @@ namespace Cloudents.Web.Identity
         public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             var p = long.Parse(userId);
-            return _queryBus.QueryAsync<long, User>(p, cancellationToken);
+            return _queryBus.QueryAsync<User>(new UserDataByIdQuery(p), cancellationToken);
         }
 
         public Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
             Expression<Func<User, bool>> expression = s => s.NormalizedName == normalizedUserName;
-            return _queryBus.QueryAsync<Expression<Func<User, bool>>, User>(expression, cancellationToken);
+            return _queryBus.QueryAsync<User>(new UserDataExpressionQuery(expression), cancellationToken);
         }
 
         public Task SetEmailAsync(User user, string email, CancellationToken cancellationToken)
@@ -132,7 +133,7 @@ namespace Cloudents.Web.Identity
         public Task<User> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
         {
             Expression<Func<User, bool>> expression = f => f.NormalizedEmail == normalizedEmail;
-            return _queryBus.QueryAsync<Expression<Func<User, bool>>, User>(expression, cancellationToken);
+            return _queryBus.QueryAsync<User>(new UserDataExpressionQuery(expression), cancellationToken);
         }
 
         public Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancellationToken)
