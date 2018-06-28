@@ -46,7 +46,16 @@ export default {
                         self.answerFiles = [];
                         self.updateLoading(false);
                         self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
+                        this.updateToasterParams({
+                            toasterText: 'Lets see what ' + self.accountUser.name + ' thinks about your answer',
+                            showToaster: true,
+                        });
                     }, () => {
+
+                        this.updateToasterParams({
+                            toasterText: 'Lets see what ' + self.accountUser.name + ' thinks about your answer',
+                            showToaster: true,
+                        });
                         self.submitForm(false);
                         self.updateLoading(true);
                     });
