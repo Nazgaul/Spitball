@@ -1,14 +1,14 @@
 @import "../../../../mixin.less";
 
 .question-card {
-    border-radius: 4px;
-    background-color: @color-white;
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-    min-height: 100px;
-    height: 100%;
-    width: 100%;
-    max-width: @cellWidth;
-    position: relative;
+  border-radius: 4px;
+  background-color: @color-white;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  min-height: 100px;
+  height: 100%;
+  width: 100%;
+  max-width: @cellWidth;
+  position: relative;
 
   .top-block {
     display: flex;
@@ -19,7 +19,7 @@
   p {
     margin: 16px 44px 16px 16px;
 
-    @media(max-width: @screen-xs) {
+    @media (max-width: @screen-xs) {
       margin: 16px 44px 6px 8px;
     }
   }
@@ -28,7 +28,7 @@
     height: 41px;
     //width: 105px;
     overflow: hidden;
-    border-radius:0 4px 0 36px;
+    border-radius: 0 4px 0 36px;
     background-color: @color-light-grey;
     border: solid 0.5px #dddddd;
     border-top: 0;
@@ -132,51 +132,63 @@
     white-space: pre-wrap;
   }
 
-
-    .gallery{
-        //background-color: @color-light-grey;
-        padding: 16px;
-        margin: 16px;
-        .carousel{
-          @media (max-width: @screen-xs) {
-            height: 238px;
+  .gallery {
+    //background-color: @color-light-grey;
+    padding: 16px;
+    margin: 16px;
+    .carousel {
+      @media (max-width: @screen-xs) {
+        height: 238px;
+      }
+      box-shadow: none;
+      .carousel__left {
+        left: 9px;
+        i.sbf {
+          margin-right: 3px;
+        }
+      }
+      .carousel__right {
+        right: 9px;
+        i.sbf {
+          margin-left: 4px;
+        }
+      }
+      button {
+        width: 40px;
+        height: 40px;
+        .btn__content:before {
+          opacity: 0.2;
+          background-color: #000000;
+        }
+        i.sbf {
+          font-size: 20px;
+          margin-top: 0px;
+          &.left {
+            transform: scale(-1, 1);
           }
-            box-shadow: none;
-            .carousel__left{left: 9px;i.sbf{margin-right: 3px;}}
-            .carousel__right{right: 9px; i.sbf{margin-left: 4px;}}
-            button{
-                width: 40px;
-                height: 40px;
-                .btn__content:before{
-                    opacity: 0.2;
-                    background-color: #000000;
-                }
-                i.sbf{
-                    font-size: 20px;
-                    margin-top: 0px;
-                    &.left{ transform: scale(-1,1);}
-                    &.right{ transform: scale(1,1);}
-                }
-
-            }
-          .carousel__item{
-            background-size: contain;
+          &.right {
+            transform: scale(1, 1);
           }
         }
-    }
 
-
-    .q-user-info{
-        bottom: 0;
-        height: 47px;
-        width: 100%;
-        // border-top: 1px solid #ddd;
-        display: flex;
-        align-items: center;
-        font-size: 12px;
-        padding: 10px 10px 13px 17px;
-        justify-content: space-between;
+      }
+      .carousel__item {
+        background-size: contain;
+      }
     }
+  }
+
+  .q-user-info {
+    bottom: 0;
+    height: 47px;
+    width: 100%;
+    // border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    padding: 10px 10px 13px 17px;
+    justify-content: space-between;
+  }
 
   .bottom-section .card-info {
     display: flex;
@@ -185,7 +197,7 @@
     line-height: 32px;
     min-height: 49px;
     align-items: flex-end;
-    @media(max-width: @screen-xs){
+    @media (max-width: @screen-xs) {
       padding: 0px 8px 4px 8px;
     }
 
@@ -254,4 +266,14 @@
     }
 
   }
+  .delete-btn {
+    display: none;
+  }
+  &:hover .delete-btn {
+    display: block;
+    outline: none;
+    background-color: #FF006B;
+    .cellActionBtnMixin();
+  }
+
 }      

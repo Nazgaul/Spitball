@@ -25,16 +25,12 @@
             </div>
         </div>
 
-        <button class="delete" v-if="detailedView && canDelete"
-                @click="deleteQuestion()">
-            <v-icon>sbf-trash</v-icon>
-        </button>
-
         <p class="q-text" :class="{'answer': typeAnswer}">{{cardData.text}}</p>
 
         <!-- v-if="cardData.files.length" -->
         <div class="gallery" v-if="gallery&&gallery.length">
-            <v-carousel left-control-icon="sbf-arrow-right left" right-control-icon="sbf-arrow-right right" interval="600000" cycle full-screen
+            <v-carousel left-control-icon="sbf-arrow-right left" right-control-icon="sbf-arrow-right right"
+                        interval="600000" cycle full-screen
                         hide-delimiters :hide-controls="gallery.length===1">
                 <v-carousel-item v-for="(item,i) in gallery" v-bind:src="item" :key="i"></v-carousel-item>
             </v-carousel>
@@ -70,10 +66,11 @@
                 </div>
 
                 <!--<div class="answer" v-if="!detailedView">-->
-                    <!--<button class="answer-btn">Answer</button>-->
+                <!--<button class="answer-btn">Answer</button>-->
                 <!--</div>-->
             </div>
         </div>
+        <button class="delete-btn" v-if="detailedView && canDelete" @click="deleteQuestion()">Delete</button>
     </v-flex>
 </template>
 
