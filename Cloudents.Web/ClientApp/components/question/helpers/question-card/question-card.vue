@@ -18,7 +18,7 @@
                 </span></template>
             </user-block>
             <div v-if="!typeAnswer">
-                <div class="q-price pl-3">
+                <div class="q-price pr-3">
                     <span>Earn ${{cardData.price | dollarVal}}</span>
                 </div>
                 <!-- <p class="q-category">{{cardData.subject}}</p> -->
