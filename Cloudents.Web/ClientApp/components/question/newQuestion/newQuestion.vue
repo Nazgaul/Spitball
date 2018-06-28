@@ -39,7 +39,7 @@
                                  v-if="index<3" :key="index">
                                 <input :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price"
                                        :value="pricey" v-model="selectedPrice">
-                                <label :for="`${pricey}pts`">{{pricey}} pts</label>
+                                <label :for="`${pricey}pts`">{{pricey}} SBL</label>
                             </div>
                         </div>
                         <div class="points-line">
@@ -47,7 +47,7 @@
                                  v-if="index>=3" :key="index">
                                 <input :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price"
                                        :value="pricey" v-model="selectedPrice">
-                                <label :for="`${pricey}pts`">{{pricey}} pts</label>
+                                <label :for="`${pricey}pts`">{{pricey}} SBL</label>
                             </div>
                             <div class="point-btn other">
                                 <input type="number" placeholder="Other amount" @focus="selectOtherAmount()" step=".01" min="0"

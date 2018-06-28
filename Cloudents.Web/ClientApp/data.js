@@ -12,7 +12,7 @@ export let verticals =
         ask: {
             filter:[{ id: "source", name: "subject" }],
             id: routes.questionRoute,
-            name: "Ask a Question",
+            name: "Homework Help",
             icon: "sbf-ask-q"
 
         },

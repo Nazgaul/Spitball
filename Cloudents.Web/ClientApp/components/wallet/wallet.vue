@@ -31,7 +31,7 @@
                                 </template>
                                 <template slot="items" slot-scope="props">
                                     <td class="text-xs-left">{{ props.item.type }}</td>
-                                    <td class="text-xs-right">{{ props.item.points | currencyLocalyFilter}} pt</td>
+                                    <td class="text-xs-right">{{ props.item.points }} SBL</td>
                                     <td class="text-xs-right bold">$ {{ props.item.value }}</td>
                                 </template>
                             </v-data-table>
@@ -54,9 +54,9 @@
                                     <td class="text-xs-left">{{ props.item.action }}</td>
                                     <td class="text-xs-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}
                                     </td>
-                                    <td class="text-xs-right">{{ props.item.amount}} pt</td>
+                                    <td class="text-xs-right">{{ props.item.amount}} SBL</td>
                                     <td class="text-xs-right bold" v-if="!$vuetify.breakpoint.xsOnly">{{
-                                        props.item.balance }} pt
+                                        props.item.balance }} SBL
                                     </td>
                                 </template>
                             </v-data-table>
@@ -75,7 +75,7 @@
             <div v-else class="cash-out-wrapper">
                 <div class="text-wrap">
                     <div class="main-text">The more points you have, the more valuable they are.</div>
-                    <div class="points-text">You have <span>{{ accountUser.balance | currencyLocalyFilter}} </span> redeemable points</div>
+                    <div class="points-text">You have <span>{{ accountUser.balance }}</span> redeemable points</div>
                 </div>
                 <cash-out-card class="cash-out-option" v-for="(cashOutOption,index) in cashOutOptions" :key="index"
                                :points-for-dollar="cashOutOption.pointsForDollar"
