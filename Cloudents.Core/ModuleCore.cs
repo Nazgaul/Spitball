@@ -21,13 +21,13 @@ namespace Cloudents.Core
         protected override void Load(ContainerBuilder builder)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandler<,>)).AsImplementedInterfaces();
+            //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandler<,>)).AsImplementedInterfaces();
             //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandlerAsync<>));//.As(typeof(ICommandHandlerAsync<>));//.AsImplementedInterfaces();
             builder.RegisterType<CommandBus>().As<ICommandBus>();
 
-            builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
-                .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<,>)))
-                .Select(i => new KeyedService("handler", i)));
+            //builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
+            //    .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<,>)))
+            //    .Select(i => new KeyedService("handler", i)));
 
             builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
                 .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)))
@@ -37,10 +37,10 @@ namespace Cloudents.Core
                 typeof(CommitUnitOfWorkCommandHandlerDecorator<>),
                 typeof(ICommandHandler<>),
                 fromKey: "handler");
-            builder.RegisterGenericDecorator(
-                typeof(CommitUnitOfWorkCommandHandlerDecorator<,>),
-                typeof(ICommandHandler<,>),
-                fromKey: "handler");
+            //builder.RegisterGenericDecorator(
+            //    typeof(CommitUnitOfWorkCommandHandlerDecorator<,>),
+            //    typeof(ICommandHandler<,>),
+            //    fromKey: "handler");
 
             builder.RegisterType<UpdateMailGunCommandHandler>()
                 .Named<ICommandHandler<UpdateMailGunCommand>>("mailGun");

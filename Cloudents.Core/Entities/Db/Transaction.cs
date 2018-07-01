@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities.Db
 {
     public class Transaction
     {
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
         public Transaction( ActionType action, TransactionType type, decimal price)
         {
             //User = user;

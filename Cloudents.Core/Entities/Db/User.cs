@@ -55,7 +55,7 @@ namespace Cloudents.Core.Entities.Db
             LastTransaction = t;
         }
 
-        private const decimal InitialBalance = 1000;
+        private const decimal InitialBalance = 100;
 
         public virtual Transaction UserCreateTransaction()
         {
