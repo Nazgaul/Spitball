@@ -135,6 +135,10 @@ export default {
             let val = !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered);
             this.showForm = (val && !this.questionData.answers.length);
             return val;
+        },
+        //conditionally disable answer submit btn
+        isSubmitBtnDisabled(){
+          return this.textAreaValue
         }
         // isMobile() {
         //     return this.$vuetify.breakpoint.smAndDown;

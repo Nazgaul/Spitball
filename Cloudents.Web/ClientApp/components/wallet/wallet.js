@@ -19,9 +19,11 @@ export default {
             cashOut: false,
             search: '',
             cash: 0,
+            earnedPoints: 0,
             pagination: {
                 rowsPerPage: 6
             },
+
             selected: [],
             allTransactionsHeaders: [{
                     text: 'Date',
@@ -118,15 +120,14 @@ export default {
 
                                 if (item.type === 'earned') {
                                     earnedVal = parseFloat(item.value)
+                                    this.earnedPoints = parseFloat(item.points)
                                 }
                             }
 
                             total.points = total.points + parseFloat(item.points);
                             total.value = total.value + parseFloat(item.value);
                         }
-
                         this.cash = Math.min(this.cash, earnedVal);
-
                         total.value = total.value.toFixed(2)
                         this.items.push(total);
                     },
