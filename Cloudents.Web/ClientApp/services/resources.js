@@ -74,7 +74,7 @@ const searchFunctions = {
 
 const courseFunctions = {
     getCourse: (params) => axios.get("course/search", { params }),
-    createCourse: (data) => axios.post("course/create", data)
+     //createCourse: (data) => axios.post("course/create", data)
 };
 const getBookDetails = ({ type, isbn13 }) => axios.get(`book/${type}`, { params: { isbn13 } });
 const getPlacesDetails = ({ id }) => {

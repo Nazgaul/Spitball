@@ -137,8 +137,8 @@ export default {
             return val;
         },
         //conditionally disable answer submit btn
-        isSubmitBtnDisabled(){
-          return this.textAreaValue
+        isSubmitBtnDisabled() {
+            return this.textAreaValue
         }
         // isMobile() {
         //     return this.$vuetify.breakpoint.smAndDown;

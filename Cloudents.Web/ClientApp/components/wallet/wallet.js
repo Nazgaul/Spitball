@@ -26,12 +26,12 @@ export default {
 
             selected: [],
             allTransactionsHeaders: [{
-                    text: 'Date',
-                    align: 'left',
-                    value: 'date',
-                    sortable: true,
-                    showOnMobile: true
-                },
+                text: 'Date',
+                align: 'left',
+                value: 'date',
+                sortable: true,
+                showOnMobile: true
+            },
                 {
                     text: 'Action',
                     align: 'left',
@@ -62,11 +62,11 @@ export default {
                 },
             ],
             allBalanceHeaders: [{
-                    text: '',
-                    align: 'left',
-                    value: 'name',
-                    showOnMobile: true
-                },
+                text: '',
+                align: 'left',
+                value: 'name',
+                showOnMobile: true
+            },
                 {
                     text: 'Points',
                     align: 'left',

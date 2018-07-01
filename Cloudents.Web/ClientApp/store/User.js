@@ -145,12 +145,12 @@ const actions = {
         return settingsService.getCourse({ term, universityId: context.getters.getUniversity });
     },
 
-    createCourse(context, { name }) {
-        const university = context.getters.getUniversity;
-        return settingsService.createCourse({ courseName: name, university }).then(({ data: body }) => {
-            context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: name }] });
-        });
-    },
+    // createCourse(context, { name }) {
+    //     const university = context.getters.getUniversity;
+    //     return settingsService.createCourse({ courseName: name, university }).then(({ data: body }) => {
+    //         context.commit(USER.UPDATE_USER, { myCourses: [...context.getters.myCourses, { id: body.id, name: name }] });
+    //     });
+    // },
     updateFirstTime({ commit }, val) {
         let ob = { [val]: false };
         commit(USER.UPDATE_USER, ob);
