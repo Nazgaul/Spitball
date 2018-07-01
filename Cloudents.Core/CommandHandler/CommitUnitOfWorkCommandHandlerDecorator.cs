@@ -25,8 +25,7 @@ namespace Cloudents.Core.CommandHandler
         {
             await _decoratee.ExecuteAsync(message, token).ConfigureAwait(true);
             var audit = new Audit(message);
-            await _repository.AddAsync(audit, token);
-
+            await _repository.AddAsync(audit, token).ConfigureAwait(true);
             await _unitOfWork.CommitAsync(token).ConfigureAwait(true);
         }
     }
