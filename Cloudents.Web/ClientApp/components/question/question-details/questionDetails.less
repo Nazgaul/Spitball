@@ -1,135 +1,150 @@
 @import "../../../mixin.less";
 
 .theme--light .btn.btn--disabled:not(.btn--icon):not(.btn--flat) {
-  background-color: rgba(0, 0, 0, 0.12) !important;
+    background-color: rgba(0, 0, 0, 0.12) !important;
 }
 
 .answer-question {
-  .limited-width();
-  @media (max-width: @screen-sm) {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .question-wrap {
-    margin-left: @logoWidth;
-  }
-  .breadcrumbs {
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 22px;
-    a.ask-question {
-      color: @color-dark-blue;
-      display: inline-block;
-    }
-    span.question-category {
-      margin: 0 2px;
-      color: @color-grey;
-    }
-  }
-  .question-data {
-    max-width: @cellWidth;
-    width: 100%;
-  }
-  .chat-wrapper {
-    width: 100%;
-    max-width: 304px;
-    margin-left: 32px;
-    iframe {
-      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-      border-radius: 4px;
-      max-height: 608px;
-    }
-  }
-  .md5 {
-    margin-left: 17px;
-  }
+    .limited-width();
 
-  .xs4 {
-    margin: 0 17px;
-  }
-
-  .question-card {
-    margin: 0 auto;
-  }
-
-  .add_answer {
-    width: 100%;
-    border: 8px solid #c7c7ee !important;
-    border-top: 0px !important;
-    margin: 0;
-    height: 52px;
-    border-radius: 0 0 4px 4px;
-    font-size: 18px;
-    text-transform: none;
-    &.primary {
-      background-color: @color-main-purple !important;
-    }
-    &:disabled {
-      background-color: @color-medium-grey !important;
-      color: white !important;
-    }
-  }
-
-  .tab-padding {
-    padding: 8px;
-    margin-bottom: 40px;
-    .answer-form {
-      width: 100%;
-      max-width: @cellWidth;
-      margin: 0 auto;
-    }
-  }
-
-  .tabs__bar {
-    height: 65px;
-    background-color: @color-white;
-    border-bottom: solid 1px @color-medium-grey;
-    font-size: 18px;
-    padding: 0 8px;
-  }
-
-  .tabs__container {
-
-    .tabs__item {
-      text-transform: none;
-      &.tabs__item--active {
-        color: @color-main-purple !important;
-        font-weight: bold;
-      }
+    @media (max-width: @screen-sm) {
+        padding-left: 0;
+        padding-right: 0;
     }
 
-    .tabs__slider.blue {
-      border-bottom: 2px solid @color-main-purple;
+    .question-wrap {
+        margin-left: @logoWidth;
     }
-  }
 
-  .show-form-trigger {
-    background: white;
-    border: 8px solid #c7c7ee;
-    border-radius: 4px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    padding-left: 12px;
+    .breadcrumbs {
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 22px;
 
-    div {
-      font-size: 14px;
-      letter-spacing: -0.3px;
-      color: @color-main-purple;
+        a.ask-question {
+            color: @color-dark-blue;
+            display: inline-block;
+        }
+
+        span.question-category {
+            margin: 0 2px;
+            color: @color-grey;
+        }
     }
-  }
-// change for ios to fit the screen in case of need, will effect ALL small devices
-  .chat-iframe iframe {
-    @media (max-width: @screen-xs) {
-      min-height: ~"calc(100vh - 190px)";
-      max-height: ~"calc(100vh - 190px)";
-    }
-  }
 
-  //.answer-card:not(:hover) .accept-btn{
-  //    display: none;
-  //}
+    .question-data {
+        max-width: @cellWidth;
+        width: 100%;
+    }
+
+    .chat-wrapper {
+        width: 100%;
+        max-width: 304px;
+        margin-left: 32px;
+
+        .chat-title {
+            color: #3532d5;
+            font-size: 18px;
+            font-weight: 400;
+            border: 1px solid #dce0e0;
+            background-color: rgba(220,224,224,0.3);
+            border-radius:4px;
+        }
+
+        iframe {
+            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            max-height: 608px;
+        }
+    }
+    /*.md5 {
+        margin-left: 17px;
+    }*/
+    /*.xs4 {
+        margin: 0 17px;
+    }*/
+    .question-card {
+        margin: 0 auto;
+    }
+
+    .add_answer {
+        width: 100%;
+        border: 8px solid #c7c7ee !important;
+        border-top: 0px !important;
+        margin: 0;
+        height: 52px;
+        border-radius: 0 0 4px 4px;
+        font-size: 18px;
+        text-transform: none;
+
+        &.primary {
+            background-color: @color-main-purple !important;
+        }
+
+        &:disabled {
+            background-color: @color-medium-grey !important;
+            color: white !important;
+        }
+    }
+
+    .tab-padding {
+        padding: 8px;
+        margin-bottom: 40px;
+
+        .answer-form {
+            width: 100%;
+            max-width: @cellWidth;
+            margin: 0 auto;
+        }
+    }
+
+    .tabs__bar {
+        height: 65px;
+        background-color: @color-white;
+        border-bottom: solid 1px @color-medium-grey;
+        font-size: 18px;
+        padding: 0 8px;
+    }
+
+    .tabs__container {
+
+        .tabs__item {
+            text-transform: none;
+
+            &.tabs__item--active {
+                color: @color-main-purple !important;
+                font-weight: bold;
+            }
+        }
+
+        .tabs__slider.blue {
+            border-bottom: 2px solid @color-main-purple;
+        }
+    }
+
+    .show-form-trigger {
+        background: white;
+        border: 8px solid #c7c7ee;
+        border-radius: 4px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        padding-left: 12px;
+
+        div {
+            font-size: 14px;
+            letter-spacing: -0.3px;
+            color: @color-main-purple;
+        }
+    }
+    // change for ios to fit the screen in case of need, will effect ALL small devices
+    .chat-iframe iframe {
+        @media (max-width: @screen-xs) {
+            min-height: ~"calc(100vh - 190px)";
+            max-height: ~"calc(100vh - 190px)";
+        }
+    }
+    //.answer-card:not(:hover) .accept-btn{
+    //    display: none;
+    //}
 }
-
-
-

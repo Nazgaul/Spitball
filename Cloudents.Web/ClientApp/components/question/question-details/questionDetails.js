@@ -1,15 +1,15 @@
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
-import {mapGetters, mapMutations, mapActions} from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 
 export default {
     mixins: [disableForm],
-    components: {questionThread, questionCard, extendedTextArea},
+    components: { questionThread, questionCard, extendedTextArea },
     props: {
-        id: {Number} // got it from route
+        id: { Number } // got it from route
     },
     data() {
         return {
@@ -25,7 +25,7 @@ export default {
     },
     methods: {
         ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams"]),
-        ...mapMutations({updateLoading: "UPDATE_LOADING"}),
+        ...mapMutations({ updateLoading: "UPDATE_LOADING" }),
         submitAnswer() {
             this.updateLoading(true);
             var self = this;
@@ -100,7 +100,12 @@ export default {
                     subject: "Discussion Board"
                 });
                 //this.talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css");
-                var chatbox = this.talkSession.createChatbox(conversation);
+                var chatbox = this.talkSession.createChatbox(conversation, {
+                    showChatHeader:false
+                    //chatTitleMode: 'subject',
+                    //chatSubtitleMode: null
+                });
+
                 this.$nextTick(() => {
                     chatbox.mount(this.$refs["chat-area"]);
                 });
