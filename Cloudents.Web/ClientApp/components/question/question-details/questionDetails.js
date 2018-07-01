@@ -18,7 +18,8 @@ export default {
             answerFiles: [],
             questionData: null,
             showForm: false,
-            showDialog: false
+            showDialog: false,
+
         };
     },
     beforeRouteLeave(to, from, next) {
@@ -100,9 +101,12 @@ export default {
                 conversation.setParticipant(this.chatAccount);
                 conversation.setParticipant(other1);
                 //this.talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css");
-                var chatbox = this.talkSession.createChatbox(conversation);
+               this.chatbox = this.talkSession.createChatbox(conversation);
                 this.$nextTick(() => {
-                    chatbox.mount(this.$refs["chat-area"]);
+                    console.log('mounted!!!')
+
+
+                    this.chatbox.mount(this.$refs["chat-area"]);
                 });
             }
         },
@@ -112,10 +116,13 @@ export default {
             }
             else {
                 this.updateToasterParams({
-                    toasterText: 'Please <a href="/signin">Login</a> to answer',
+                    toasterText: '<span class="toast-helper">To answer or ask a question you must <a href="/register" class="toast_action">Sign Up</a><span class="toast-helper">  or  </span><a href="/signin" class="toast_action">Login</a>',
                     showToaster: true
                 });
             }
+        },
+        onResize () {
+            console.log( this.chatbox)
         }
     },
     watch: {
@@ -138,11 +145,24 @@ export default {
         },
         //conditionally disable answer submit btn
         isSubmitBtnDisabled() {
-            return this.textAreaValue
+            if (!this.textAreaValue) {
+                return true
+            } else {
+                return false
+            }
         }
         // isMobile() {
         //     return this.$vuetify.breakpoint.smAndDown;
         // },
+    },
+    mounted () {
+        this.onResize()
+        window.addEventListener('resize', this.onResize, { passive: true })
+    },
+    beforeDestroy () {
+        if (typeof window !== 'undefined') {
+            window.removeEventListener('resize', this.onResize, { passive: true })
+        }
     },
     created() {
         this.getData();

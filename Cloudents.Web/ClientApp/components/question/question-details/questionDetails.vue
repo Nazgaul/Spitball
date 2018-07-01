@@ -22,7 +22,7 @@
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                         v-model="textAreaValue"
                                         :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
-                                <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length||submitted"
+                                <v-btn block color="primary" @click="submitAnswer()" :disabled="isSubmitBtnDisabled || submitted"
                                        class="add_answer">Add your answer
                                 </v-btn>
                             </div>
@@ -42,7 +42,7 @@
         </div>
 
         <!-- Mobile version with tabs hfgfh -->
-        <div v-else>
+        <div v-else-if="$vuetify.breakpoint.smAndDown">
             <v-tabs grow>
 
                 <v-tabs-bar>

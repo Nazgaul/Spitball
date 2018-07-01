@@ -77,7 +77,7 @@ export default {
             });
             this.flaggedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
-            this.updateToasterParams({toasterText: '', showToaster: false});
+            this.updateToasterParams({toasterText: '', showToaster: false});//test123
         },
         deleteQuestion() {
             this.updateToasterParams({
