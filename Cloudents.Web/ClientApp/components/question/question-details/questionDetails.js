@@ -96,6 +96,9 @@ export default {
                 );
                 conversation.setParticipant(this.chatAccount);
                 conversation.setParticipant(other1);
+                conversation.setAttributes({
+                    subject: "Discussion Board"
+                });
                 //this.talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css");
                 var chatbox = this.talkSession.createChatbox(conversation);
                 this.$nextTick(() => {
