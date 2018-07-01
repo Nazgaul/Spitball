@@ -24,7 +24,7 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("user is not the one who wrote the answer");
             }
 
-            answer.AnswerDeleteTransaction();
+            //answer.AnswerDeleteTransaction();
             await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
         }
     }

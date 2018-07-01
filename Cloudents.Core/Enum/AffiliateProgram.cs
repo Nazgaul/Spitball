@@ -13,8 +13,8 @@
         //None,
         Awarded,
         Earned,
-        Pending,
-        Stake,
+       // Pending,
+       // Stake,
         Spent
     }
 

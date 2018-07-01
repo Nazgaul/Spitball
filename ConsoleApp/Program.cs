@@ -40,7 +40,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -63,23 +63,23 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             container = builder.Build();
 
-            //var p = new TransactionPopulation(container);
+           // var p = new TransactionPopulation(container);
             //await p.CreateTransactionOnExistingDataAsync();
 
 
             var queryBus = container.Resolve<IQueryBus>();
-            var q = new QuestionsQuery();
-            var t = await queryBus.QueryAsync<ResultWithFacetDto<QuestionDto>>(q, default);
-            var sw = new Stopwatch();
-            sw.Start();
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedTicks);
+            var q = new UserBalanceQuery(36);
+            var t = await queryBus.QueryAsync(q, default);
+            //var sw = new Stopwatch();
+            //sw.Start();
+            //sw.Stop();
+            //Console.WriteLine(sw.ElapsedTicks);
 
-            var tt = container.Resolve<IQueryHandlerAsync<QuestionDetailQuery, QuestionDetailDto>>();
-            sw.Start();
-            var zz = await tt.GetAsync(new QuestionDetailQuery(1414), default);
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedTicks);
+            //var tt = container.Resolve<IQueryHandlerAsync<QuestionDetailQuery, QuestionDetailDto>>();
+            //sw.Start();
+            //var zz = await tt.GetAsync(new QuestionDetailQuery(1414), default);
+            //sw.Stop();
+            //Console.WriteLine(sw.ElapsedTicks);
 
 
             Console.WriteLine("Finish");
