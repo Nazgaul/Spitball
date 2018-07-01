@@ -15,4 +15,11 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.EnsureSuccessStatusCode();
         }
     }
+
+
+    [TestClass]
+    public class WalletTests : ServerInit
+    {
+
+    }
 }

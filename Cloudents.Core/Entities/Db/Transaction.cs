@@ -7,13 +7,11 @@ namespace Cloudents.Core.Entities.Db
     public class Transaction
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-        public Transaction( ActionType action, TransactionType type, decimal price)
+        public Transaction(ActionType action, TransactionType type, decimal price)
         {
-            //User = user;
             Action = action;
             Type = type;
             Price = price;
-            //Balance = balance;
             if (Balance < 0)
             {
                 throw new InvalidOperationException("not enough tokens");
@@ -21,6 +19,7 @@ namespace Cloudents.Core.Entities.Db
             Created = DateTime.UtcNow;
         }
 
+        [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Nhibernate proxy")]
         protected Transaction()
         {
 

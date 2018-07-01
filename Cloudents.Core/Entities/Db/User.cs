@@ -47,12 +47,13 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual string PrivateKey { get; set; }
 
-        public virtual void AddTransaction(Transaction t)
+        public virtual Transaction AddTransaction(Transaction t)
         {
             t.User = this;
             t.Balance = (LastTransaction?.Balance ?? 0) + t.Price;
             Transactions.Add(t);
             LastTransaction = t;
+            return LastTransaction;
         }
 
         private const decimal InitialBalance = 100;

@@ -8,7 +8,11 @@ import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPop
 
 export default {
     mixins: [disableForm],
+<<<<<<< HEAD
+    components: { questionThread, questionCard, extendedTextArea },
+=======
     components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp},
+>>>>>>> e8b98002d1aad0854b2e4a91a696bedf2e1cbb3f
     props: {
         id: { Number } // got it from route
     },
@@ -99,9 +103,9 @@ export default {
                 );
                 conversation.setParticipant(this.chatAccount);
                 conversation.setParticipant(other1);
-                //conversation.setAttributes({
-                //    subject: "Discussion Board"
-                //});
+                conversation.setAttributes({
+                    subject: "Discussion Board"
+                });
                 //this.talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css");
                 var chatbox = this.talkSession.createChatbox(conversation, {
                     showChatHeader:false

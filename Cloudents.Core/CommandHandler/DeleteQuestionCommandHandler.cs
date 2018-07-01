@@ -31,7 +31,7 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("cannot delete question with answers");
             }
 
-            question.QuestionDeleteTransaction();
+            //question.QuestionDeleteTransaction();
             await _repository.DeleteAsync(question, token).ConfigureAwait(false);
         }
     }

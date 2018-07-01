@@ -20,8 +20,7 @@ namespace Cloudents.Core.Entities.Db
             User = user;
             Created = DateTime.UtcNow;
 
-            QuestionCreateTransaction();
-            //User.AddTransaction(ActionType.Question, TransactionType.Stake, -price);
+            //QuestionCreateTransaction();
         }
 
         [UsedImplicitly]
@@ -44,18 +43,20 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual IList<Answer> Answers { get; protected set; }
 
-        public virtual Transaction QuestionCreateTransaction()
-        {
-            var t = new Transaction(ActionType.Question, TransactionType.Stake, -Price);
-            User.AddTransaction(t);
-            return t;
-        }
+        public virtual Transaction Transaction { get; set; }
 
-        public virtual void QuestionDeleteTransaction()
-        {
-            var t = new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
-            User.AddTransaction(t);
-        }
+        //public virtual Transaction QuestionCreateTransaction()
+        //{
+        //    var t = new Transaction(ActionType.Question, TransactionType.Stake, -Price);
+        //    User.AddTransaction(t);
+        //    return t;
+        //}
+
+        //public virtual void QuestionDeleteTransaction()
+        //{
+        //    var t = new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
+        //    User.AddTransaction(t);
+        //}
 
         public virtual void MarkAnswerAsCorrect(Answer correctAnswer)
         {
@@ -66,38 +67,44 @@ namespace Cloudents.Core.Entities.Db
             CorrectAnswer = correctAnswer;
 
             ////TODO remove from earned or question from user
-            MarkCorrectTransaction();
+            MarkCorrectTransaction(correctAnswer);
         }
 
-        public virtual IEnumerable<Transaction> MarkCorrectTransaction()
+        public virtual IEnumerable<Transaction> MarkCorrectTransaction(Answer correctAnswer)
         {
-            var list = new List<Transaction>();
-            var t1 = new Transaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
-            var t2 = new Transaction(ActionType.QuestionCorrect, TransactionType.Stake, Price);
-            list.AddRange(new[] { t1, t2 });
-            User.AddTransaction(t1);
-            User.AddTransaction(t2);
+            //var list = new List<Transaction>();
+            var t  =  new Transaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
+            //var t2 = new Transaction(ActionType.QuestionCorrect, TransactionType.Stake, Price);
+            //list.AddRange(new[] { t1 });
+            Transaction =  User.AddTransaction(t);
+
+
+            var tAnswer = new Transaction(ActionType.QuestionCorrect, TransactionType.Earned,
+                Price);
+            correctAnswer.Transaction = correctAnswer.User.AddTransaction(tAnswer);
+
+            // User.AddTransaction(t2);
 
             //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
             //User.AddTransaction(ActionType.QuestionCorrect, TransactionType.Stake, Price);
 
-            foreach (var answer in Answers)
-            {
-                if (answer.Id == CorrectAnswer.Id)
-                {
-                    var t3 = new Transaction(ActionType.QuestionCorrect, TransactionType.Earned,
-                        Price);
-                    answer.User.AddTransaction(t3);
+            //foreach (var answer in Answers)
+            //{
+            //    if (answer.Id == CorrectAnswer.Id)
+            //    {
+            //        var t3 = new Transaction(ActionType.QuestionCorrect, TransactionType.Earned,
+            //            Price);
+            //        answer.User.AddTransaction(t3);
 
-                    list.Add(t3);
-                }
+            //        list.Add(t3);
+            //    }
 
-                var t4 = new Transaction(ActionType.QuestionCorrect, TransactionType.Pending, -Price);
-                answer.User.AddTransaction(t4);
-                list.Add(t4);
-            }
+            //   // var t4 = new Transaction(ActionType.QuestionCorrect, TransactionType.Pending, -Price);
+            //   // answer.User.AddTransaction(t4);
+            //    //list.Add(t4);
+            //}
 
-            return list;
+            return new [] { correctAnswer.Transaction , Transaction };
         }
     }
 }

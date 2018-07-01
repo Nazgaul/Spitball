@@ -30,7 +30,6 @@ namespace Cloudents.Infrastructure.Data
 
         public UnitOfWorkFactorySpitball(DbConnectionStringProvider connectionString)
         {
-            //TODO: CREATE SCHEMA sb
             var configuration = Fluently.Configure()
                 .Database(
                     FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.GetConnectionString(Database.System))
