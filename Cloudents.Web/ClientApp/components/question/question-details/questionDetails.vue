@@ -16,7 +16,7 @@
 
 
                 <v-flex class="question-data">
-                    <question-thread v-if="questionData" :questionData="questionData">
+                    <question-thread v-if="questionData" :questionData="questionData" :showDialog="showDialog">
                         <div v-if="enableAnswer" slot="answer-form" class="mb-3">
                             <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                 <extended-text-area uploadUrl="/api/upload/ask"
@@ -62,7 +62,7 @@
                                         <extended-text-area uploadUrl="/api/upload/ask"
                                                 v-model="textAreaValue"
                                                 :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
-                                        <v-btn  color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length"
+                                        <v-btn  color="primary" @click="submitAnswer()" :disabled="isSubmitBtnDisabled"
                                                class="add_answer">Add your answer
                                         </v-btn>
                                     </div>
@@ -84,6 +84,9 @@
 
             </v-tabs>
         </div>
+        <v-dialog v-model="showDialog" max-width="600px" content-class="registration-dialog">
+            <question-suggest-pop-up></question-suggest-pop-up>
+        </v-dialog>
     </div>
 </template>
 

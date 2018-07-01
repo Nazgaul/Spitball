@@ -4,10 +4,11 @@ import questionService from "../../../services/questionService";
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
+import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
 
 export default {
     mixins: [disableForm],
-    components: { questionThread, questionCard, extendedTextArea },
+    components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp},
     props: {
         id: { Number } // got it from route
     },
@@ -17,6 +18,7 @@ export default {
             answerFiles: [],
             questionData: null,
             showForm: false,
+            showDialog: false
         };
     },
     beforeRouteLeave(to, from, next) {
@@ -50,6 +52,7 @@ export default {
                             toasterText: 'Lets see what ' + self.accountUser.name + ' thinks about your answer',
                             showToaster: true,
                         });
+                        self.showDialog = true; // question suggest popup dialog
                     }, () => {
 
                         this.updateToasterParams({
@@ -140,6 +143,10 @@ export default {
             let val = !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered);
             this.showForm = (val && !this.questionData.answers.length);
             return val;
+        },
+        //conditionally disable answer submit btn
+        isSubmitBtnDisabled(){
+          return this.textAreaValue
         }
         // isMobile() {
         //     return this.$vuetify.breakpoint.smAndDown;
