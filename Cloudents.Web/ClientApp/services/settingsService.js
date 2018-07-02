@@ -6,7 +6,7 @@ export default {
     getCourse(params) {
         return course.getCourse(params);
     },
-    createCourse(model) {
-        return course.createCourse(model);
-    }
+    // createCourse(model) {
+    //     return course.createCourse(model);
+    // }
 }

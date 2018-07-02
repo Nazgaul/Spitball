@@ -75,7 +75,9 @@
             <div v-else class="cash-out-wrapper">
                 <div class="text-wrap">
                     <div class="main-text">The more points you have, the more valuable they are.</div>
-                    <div class="points-text">You have <span>{{ earnedPoints | currencyLocalyFilter}}</span> redeemable points</div>
+                    <div class="points-text">You have <span>{{ earnedPoints | currencyLocalyFilter}}</span> redeemable
+                        points
+                    </div>
                 </div>
                 <cash-out-card class="cash-out-option" v-for="(cashOutOption,index) in cashOutOptions" :key="index"
                                :points-for-dollar="cashOutOption.pointsForDollar"

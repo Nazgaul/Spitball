@@ -22,7 +22,7 @@
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                         v-model="textAreaValue"
                                         :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
-                                <v-btn block color="primary" @click="submitAnswer()" :disabled="!this.textAreaValue.length||submitted"
+                                <v-btn block color="primary" @click="submitAnswer()" :disabled="isSubmitBtnDisabled || submitted"
                                        class="add_answer">Add your answer
                                 </v-btn>
                             </div>
@@ -84,7 +84,7 @@
 
             </v-tabs>
         </div>
-        <v-dialog v-model="showDialog" max-width="600px" content-class="registration-dialog">
+        <v-dialog v-model="showDialog" max-width="720px" content-class="question-suggest">
             <question-suggest-pop-up></question-suggest-pop-up>
         </v-dialog>
     </div>
