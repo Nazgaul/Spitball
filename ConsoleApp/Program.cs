@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,11 +22,14 @@ using Cloudents.Infrastructure.BlockChain;
 using System.Numerics;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
+using Cloudents.Core.Command;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Framework;
 using Microsoft.Azure.Management.ServiceBus;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Rest;
+using Nethereum.Hex.HexConvertors.Extensions;
+using Nethereum.Hex.HexTypes;
 using Nethereum.Web3.Accounts;
 using NHibernate.Linq;
 
@@ -40,7 +44,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -63,13 +67,15 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             container = builder.Build();
 
-           // var p = new TransactionPopulation(container);
-            //await p.CreateTransactionOnExistingDataAsync();
+            var p = new TransactionPopulation(container);
+            await p.AddToUserMoney(1000M, 78);
+            // await p.CreateTransactionOnExistingDataAsync();
 
 
-            var queryBus = container.Resolve<IQueryBus>();
-            var q = new UserBalanceQuery(36);
-            var t = await queryBus.QueryAsync(q, default);
+          
+
+            //var q = new UserBalanceQuery(36);
+            //var t = await queryBus.QueryAsync(q, default);
             //var sw = new Stopwatch();
             //sw.Start();
             //sw.Stop();

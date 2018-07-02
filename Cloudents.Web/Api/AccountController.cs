@@ -8,6 +8,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize]
 
     public class AccountController : Controller
     {
@@ -39,11 +41,10 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet]
-        [Authorize]
 
         public async Task<IActionResult> GetAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
-            var userId = long.Parse(_userManager.GetUserId(User));
+            var userId = _userManager.GetLongUserId(User);
             var query = new UserDataByIdQuery(userId);
             var taskUser = queryBus.QueryAsync<UserAccountDto>(query, token);
             var talkJs = GetToken();
@@ -81,9 +82,7 @@ namespace Cloudents.Web.Api
             }
         }
 
-        //TODO : need to figure out what well do.
         [HttpPost("university")]
-        [Authorize]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
             var command = _mapper.Map<AssignUniversityToUserCommand>(model);
@@ -92,7 +91,6 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("logout")]
-        [Authorize]
         public async Task<IActionResult> LogOutAsync()
         {
             await _signInManager.SignOutAsync().ConfigureAwait(false);
