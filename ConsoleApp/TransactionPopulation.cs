@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Autofac;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace ConsoleApp
@@ -12,6 +14,23 @@ namespace ConsoleApp
         public TransactionPopulation(IContainer container)
         {
             _container = container;
+        }
+
+
+        public async Task AddToUserMoney(decimal money, long userId)
+        {
+            using (var child = _container.BeginLifetimeScope())
+            {
+                using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                {
+                    var t = child.Resolve<IUserRepository>();
+                    var user = await t.LoadAsync(userId, default);
+                    var p = new Transaction(ActionType.None, TransactionType.Awarded, money);
+                    user.AddTransaction(p);
+                    await t.UpdateAsync(user, default).ConfigureAwait(false);
+                    await unitOfWork.CommitAsync(default);
+                }
+            }
         }
 
         public async Task CreateTransactionOnExistingDataAsync()
