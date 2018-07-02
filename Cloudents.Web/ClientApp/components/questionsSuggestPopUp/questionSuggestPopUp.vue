@@ -1,10 +1,11 @@
 <template>
     <v-card>
-        <button class="close-btn" @click="showDialog = false">
+        <div class="dialog-wrapp" style="padding: 2%;">
+        <button class="close-btn text-md-right" @click="showDialog = false">
             <v-icon>sbf-close</v-icon>
         </button>
 
-        <h2>Great Job!</h2>
+        <h2  class="text-md-left">Great Job!</h2>
         <p>
             Let’s wait for eidan2134 to see if accepts your answer. In the meantime, below is another question that you
             should be able
@@ -17,7 +18,9 @@
                 <question-card :cardData="item" class="user-question mb-3" detailed-view></question-card>
             </v-carousel-item>
         </v-carousel>
+        </div>
     </v-card>
+
 </template>
 
 <script src="./questionSuggestPopUp.js"></script>

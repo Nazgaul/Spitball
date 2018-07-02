@@ -43,7 +43,7 @@
         </div>
 
         <!-- Mobile version with tabs hfgfh -->
-        <div v-else-if="$vuetify.breakpoint.smAndDown">
+        <div v-else>
             <v-tabs grow>
 
                 <v-tabs-bar>
@@ -84,7 +84,7 @@
 
             </v-tabs>
         </div>
-        <v-dialog v-model="showDialog" max-width="600px" content-class="registration-dialog">
+        <v-dialog v-model="showDialog" max-width="720px" content-class="question-suggest">
             <question-suggest-pop-up></question-suggest-pop-up>
         </v-dialog>
     </div>

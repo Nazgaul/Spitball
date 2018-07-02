@@ -1,117 +1,118 @@
 @import "../../mixin.less";
 
-  .registration-dialog {
-    text-align: center;
-    @media (max-width: @screen-xs) {
-      margin: 16px;
-    }
-
-    .card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 392px;
-      @media (max-width: @screen-xs) {
-        min-height: 363px;
-      }
-
-      .close-btn {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 16px;
-
-        i {
-          font-size: 16px;
-          color: @color-main-purple;
-        }
-      }
-    }
-    h1 {
-      font-size: 26px;
-      font-weight: bold;
-      letter-spacing: -0.5px;
-      text-align: center;
-      color: @color-main-purple;
-    }
-    p {
-      font-size: 18px;
-      letter-spacing: -0.3px;
-      text-align: center;
-      color: @color-grey;
-      margin-top: 14px;
-      margin-bottom: 18px;
-      line-height: 1.5;
-
-      b {
-        font-weight: bold;
-        color: @color-main-purple;
-        display: block;
-        margin-bottom: 4px;
-      }
-    }
-
-    .input-wrapper {
-      position: relative;
-      margin-top: 30px;
-
-      input {
-        margin-top: 0;
-        padding-left: 52px;
-        height: @registrationFieldHeight;
-        border-radius: 4px;
-        border: solid 1px #979797;
-        width: 100%;
-        font-size: 18px;
-        letter-spacing: -0.5px;
-        margin-bottom: 4px;
-
-        ~ i {
-          position: absolute;
-          top: 14px;
-          left: 16px;
-        }
-      }
-    }
-    .continue-btn {
-      background: @color-main-purple;
-      font-size: 18px;
-      font-weight: bold;
-      line-height: 1.39;
-      letter-spacing: -0.5px;
-      color: #ffffff;
-      width: 100%;
-      height: @registrationFieldHeight;
-      @media (max-width: @screen-xs) {
-        width: 86%;
-      }
-      margin-top: 28px;
-    }
-
-    .limited-width {
-      max-width: 400px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 32px 0;
-      .custom{
-        padding: 40px 0 47px;
-        height: 393px;
-        @media (max-width: @screen-xs) {
-          padding: 52px 16px 10px;
-          height: 363px;
-        }
-        p{
-          margin-top: 0;
-          @media (max-width: @screen-xs) {
-            margin: 0 16px;
-          }
-        }
-      }
-    }
-
+.registration-dialog {
+  text-align: center;
+  @media (max-width: @screen-xs) {
+    margin: 16px;
   }
+
+  .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 392px;
+    @media (max-width: @screen-xs) {
+      min-height: 363px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 16px;
+
+      i {
+        font-size: 16px;
+        color: @color-main-purple;
+      }
+    }
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: @color-main-purple;
+  }
+  p {
+    font-size: 18px;
+    letter-spacing: -0.3px;
+    text-align: center;
+    color: @color-grey;
+    margin-top: 14px;
+    margin-bottom: 18px;
+    line-height: 1.5;
+
+    b {
+      font-weight: bold;
+      color: @color-main-purple;
+      display: block;
+      margin-bottom: 4px;
+    }
+  }
+
+  .input-wrapper {
+    position: relative;
+    margin-top: 30px;
+
+    input {
+      margin-top: 0;
+      padding-left: 52px;
+      height: @registrationFieldHeight;
+      border-radius: 4px;
+      border: solid 1px #979797;
+      width: 100%;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+
+      ~ i {
+        position: absolute;
+        top: 14px;
+        left: 16px;
+      }
+    }
+  }
+  .continue-btn {
+    background: @color-main-purple;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.39;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    width: 100%;
+    height: @registrationFieldHeight;
+    @media (max-width: @screen-xs) {
+      width: 86%;
+    }
+    margin-top: 28px;
+  }
+
+  .limited-width {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 32px 0;
+    .custom {
+      padding: 40px 0 47px;
+      height: 393px;
+      @media (max-width: @screen-xs) {
+        padding: 52px 16px 10px;
+        height: 363px;
+      }
+      p {
+        margin-top: 0;
+        @media (max-width: @screen-xs) {
+          margin: 0 16px;
+        }
+      }
+    }
+  }
+
+}
+
 .registration {
-  
+
   .step-title {
     text-align: center;
     font-size: 26px;
@@ -137,7 +138,9 @@
     display: flex;
     align-items: stretch;
     min-height: 100vh;
-
+    @media (max-width: @screen-xs) {
+      min-height: 90vh;
+    }
     .side-wrapper {
       align-items: center;
       justify-content: center;
@@ -157,7 +160,7 @@
           padding: 16px 14px 16px 16px;
         }
       }
-      .bottom-text{
+      .bottom-text {
         position: absolute;
         .responsive-property(bottom, 120px, null, 54px);
         left: 0;
@@ -203,12 +206,18 @@
     .limited-width {
       max-width: 400px;
       width: 100%;
-      &.wide{
+      &.wide {
         max-width: 422px;
-        .click{cursor: pointer;}
-        .inline{display: inline-block;}
-        .email-text{color: @color-main-purple;}
-    }
+        .click {
+          cursor: pointer;
+        }
+        .inline {
+          display: inline-block;
+        }
+        .email-text {
+          color: @color-main-purple;
+        }
+      }
     }
     select {
       height: @registrationFieldHeight;
@@ -282,7 +291,7 @@
       right: 0;
     }
 
-    a{
+    a {
       color: @color-main-purple;
     }
 

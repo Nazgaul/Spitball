@@ -7,6 +7,7 @@ export default {
     props: {},
     data() {
         return {
+            showDialog: false,
             cardList: [
                 {
                     "subject":"History",

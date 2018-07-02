@@ -4,7 +4,7 @@
             <img :src="uni.image" class="mr-3 elevation-2" />
             <h5>{{uni.name}}</h5>
         </v-layout>
-        <iframe :src="src"></iframe>
+        <\iframe :src="src"></iframe>
     </div>
 </template>
 

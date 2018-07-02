@@ -1,7 +1,7 @@
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import {mapGetters, mapMutations, mapActions} from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
@@ -10,7 +10,7 @@ export default {
     mixins: [disableForm],
     components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp},
     props: {
-        id: { Number } // got it from route
+        id: {Number} // got it from route
     },
     data() {
         return {
@@ -18,7 +18,10 @@ export default {
             answerFiles: [],
             questionData: null,
             showForm: false,
-            showDialog: false
+            showDialog: false,
+            build: null
+
+
         };
     },
     beforeRouteLeave(to, from, next) {
@@ -27,7 +30,7 @@ export default {
     },
     methods: {
         ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams"]),
-        ...mapMutations({ updateLoading: "UPDATE_LOADING" }),
+        ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         submitAnswer() {
             this.updateLoading(true);
             var self = this;
@@ -48,7 +51,7 @@ export default {
                         self.answerFiles = [];
                         self.updateLoading(false);
                         self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
-                        this.updateToasterParams({
+                        self.updateToasterParams({
                             toasterText: 'Lets see what ' + self.accountUser.name + ' thinks about your answer',
                             showToaster: true,
                         });
@@ -120,11 +123,12 @@ export default {
             }
             else {
                 this.updateToasterParams({
-                    toasterText: 'Please <a href="/signin">Login</a> to answer',
+                    toasterText: '<span class="toast-helper">To answer or ask a question you must <a href="/register" class="toast_action">Sign Up</a><span class="toast-helper">  or  </span><a href="/signin" class="toast_action">Login</a>',
                     showToaster: true
                 });
             }
-        }
+        },
+
     },
     watch: {
         talkSession: function (newVal, oldVal) {
@@ -145,13 +149,18 @@ export default {
             return val;
         },
         //conditionally disable answer submit btn
-        isSubmitBtnDisabled(){
-          return this.textAreaValue
+        isSubmitBtnDisabled() {
+            if (!this.textAreaValue) {
+                return true
+            } else {
+                return false
+            }
         }
         // isMobile() {
         //     return this.$vuetify.breakpoint.smAndDown;
         // },
     },
+
     created() {
         this.getData();
     }

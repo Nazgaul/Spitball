@@ -26,6 +26,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         [ValidateModel, ValidateRecaptcha]
+        
         public async Task<IActionResult> PostAsync(
             [FromBody] LoginRequest model,
             [FromServices] ISmsSender client,

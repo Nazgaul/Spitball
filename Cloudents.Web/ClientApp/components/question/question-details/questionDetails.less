@@ -137,11 +137,19 @@
             color: @color-main-purple;
         }
     }
+    .chat-iframe{
+        @media (max-width: @screen-xs) {
+            width: 100%;
+            height: ~"calc(100% - 260px)";
+            overflow-y: hidden
+        }
+
+    }
     // change for ios to fit the screen in case of need, will effect ALL small devices
     .chat-iframe iframe {
         @media (max-width: @screen-xs) {
-            min-height: ~"calc(100vh - 190px)";
-            max-height: ~"calc(100vh - 190px)";
+
+            min-height: 300px!important;
         }
     }
     //.answer-card:not(:hover) .accept-btn{
