@@ -66,8 +66,8 @@ namespace Cloudents.Infrastructure.Data.Query
             var futureQueryOver = queryOverObj.Future<QuestionDto>();
 
             var facetsFuture = _session.Query<QuestionSubject>().Select(s => s.Text).ToFuture();
-            var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(false);
-            var facet = await facetsFuture.GetEnumerableAsync(token).ConfigureAwait(false);
+            var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(true);
+            var facet = await facetsFuture.GetEnumerableAsync(token).ConfigureAwait(true);
 
             return new ResultWithFacetDto<QuestionDto>
             {

@@ -67,12 +67,15 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             container = builder.Build();
 
-            var p = new TransactionPopulation(container);
-            await p.AddToUserMoney(1000M, 78);
+            // var p = new TransactionPopulation(container);
+            // await p.AddToUserMoney(1000M, 78);
             // await p.CreateTransactionOnExistingDataAsync();
 
 
-          
+
+            var bus = container.Resolve<IQueryBus>();
+            var query = new QuestionsQuery();
+            var result = await bus.QueryAsync<ResultWithFacetDto<QuestionDto>>(query, default);
 
             //var q = new UserBalanceQuery(36);
             //var t = await queryBus.QueryAsync(q, default);

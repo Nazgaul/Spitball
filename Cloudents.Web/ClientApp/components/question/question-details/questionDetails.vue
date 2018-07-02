@@ -35,7 +35,7 @@
 
                 <v-flex class="chat-wrapper">
                     <div class="chat-title pa-2">Discussion Board</div>
-                    <div ref="chat-area"></div>
+                    <div ref="chat-area" class="chat-container"></div>
 
                 </v-flex>
 
