@@ -22,25 +22,13 @@ namespace Cloudents.Core
             using (var child = _container.BeginLifetimeScope())
             {
                 var handlerType =
-                    typeof(IQueryHandlerAsync<,>).MakeGenericType(query.GetType(), typeof(TQueryResult));
+                    typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TQueryResult));
 
                 dynamic handler = child.Resolve(handlerType);
                 var t = handler.GetAsync((dynamic)query, token);
                 return await t;
-                //var obj = child.Resolve<IQueryHandlerAsync<TQuery, TQueryResult>>();
-                //return await obj.GetAsync(query, token).ConfigureAwait(false);
             }
         }
-
-        //public async Task<TQueryResult> QueryAsync<TQueryResult>(CancellationToken token)
-        //{
-        //    //IQueryHandlerAsync<TQueryResult>
-        //    using (var child = _container.BeginLifetimeScope())
-        //    {
-        //        var obj = child.Resolve<IQueryHandlerAsync<TQueryResult>>();
-        //        return await obj.GetAsync(token).ConfigureAwait(false);
-        //    }
-        //}
 
         public void Dispose()
         {

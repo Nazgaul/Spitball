@@ -9,7 +9,7 @@ using Cloudents.Core.Query;
 
 namespace Cloudents.Core.QueryHandler
 {
-    public class UserDataQueryHandler : IQueryHandlerAsync<UserDataExpressionQuery, User>
+    public class UserDataQueryHandler : IQueryHandler<UserDataExpressionQuery, User>
     {
         private readonly IUserRepository _userRepository;
 
@@ -25,7 +25,7 @@ namespace Cloudents.Core.QueryHandler
     }
 
 
-    public class UserDataByIdQueryHandler : IQueryHandlerAsync<UserDataByIdQuery, User>
+    public class UserDataByIdQueryHandler : IQueryHandler<UserDataByIdQuery, User>
     {
         private readonly IUserRepository _userRepository;
 
@@ -41,7 +41,7 @@ namespace Cloudents.Core.QueryHandler
     }
 
 
-    public class UserAccountDataQueryHandler : IQueryHandlerAsync<UserDataByIdQuery, UserAccountDto>
+    public class UserAccountDataQueryHandler : IQueryHandler<UserDataByIdQuery, UserAccountDto>
     {
         private readonly IUserRepository _userRepository;
 

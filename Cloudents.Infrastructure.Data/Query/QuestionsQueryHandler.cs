@@ -7,17 +7,16 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data.Query
 {
-    public class QuestionsQueryHandler : IQueryHandlerAsync<QuestionsQuery, ResultWithFacetDto<QuestionDto>>
+    public class QuestionsQueryHandler : IQueryHandler<QuestionsQuery, ResultWithFacetDto<QuestionDto>>
     {
         private readonly ISession _session;
 
-        public QuestionsQueryHandler(ISession session)
+        public QuestionsQueryHandler(ReadonlySession session)
         {
-            _session = session;
+            _session = session.Session;
         }
 
         public async Task<ResultWithFacetDto<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
@@ -50,7 +49,7 @@ namespace Cloudents.Infrastructure.Data.Query
                 .TransformUsing(new DeepTransformer<QuestionDto>());
             if (query.Source != null)
             {
-                queryOverObj.WhereRestrictionOn(() => commentAlias.Text).IsIn(query.Source);
+                queryOverObj.WhereRestrictionOn(() => commentAlias.Text).IsIn(query.Source.ToArray<object>());
             }
 
             if (!string.IsNullOrEmpty(query.Term))
@@ -65,7 +64,10 @@ namespace Cloudents.Infrastructure.Data.Query
 
             var futureQueryOver = queryOverObj.Future<QuestionDto>();
 
-            var facetsFuture = _session.Query<QuestionSubject>().Select(s => s.Text).ToFuture();
+            var facetsFuture = _session.QueryOver<QuestionSubject>()
+                .Select(s => s.Text).Future<string>();
+
+            //var facetsFuture = _session.Query<QuestionSubject>().Select(s => s.Text).ToFuture();
             var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(false);
             var facet = await facetsFuture.GetEnumerableAsync(token).ConfigureAwait(false);
 

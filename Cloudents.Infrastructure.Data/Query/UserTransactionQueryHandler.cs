@@ -1,30 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using NHibernate;
-using NHibernate.Criterion;
+using System.Linq;
 using NHibernate.Linq;
 
-namespace Cloudents.Infrastructure.Data.Repositories
+namespace Cloudents.Infrastructure.Data.Query
 {
-    public class TransactionRepository : NHibernateRepository<Transaction>, ITransactionRepository
+    public class UserTransactionQueryHandler : IQueryHandler<UserDataByIdQuery,IEnumerable<TransactionDto>>
     {
-        public TransactionRepository(ISession session) : base(session)
+        private readonly IStatelessSession _session;
+
+        public UserTransactionQueryHandler(IStatelessSession session)
         {
+            _session = session;
         }
 
-       
-
-        public async Task<IEnumerable<TransactionDto>> GetTransactionsAsync(long userId, CancellationToken token)
+        public async Task<IEnumerable<TransactionDto>> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
-            var t = await Session.Query<Transaction>()
-                .Where(w => w.User.Id == userId)
+            var t = await _session.Query<Transaction>()
+                .Where(w => w.User.Id == query.Id)
                 .OrderBy(o => o.Id)
                 .Select(s => new TransactionDto
                 {

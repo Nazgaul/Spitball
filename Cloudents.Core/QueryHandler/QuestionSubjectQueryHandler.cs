@@ -7,7 +7,7 @@ using Cloudents.Core.Query;
 
 namespace Cloudents.Core.QueryHandler
 {
-    public class QuestionSubjectQueryHandler : IQueryHandlerAsync<QuestionSubjectQuery, IEnumerable<QuestionSubjectDto>>
+    public class QuestionSubjectQueryHandler : IQueryHandler<QuestionSubjectQuery, IEnumerable<QuestionSubjectDto>>
     {
         private readonly IQuestionSubjectRepository _repository;
 

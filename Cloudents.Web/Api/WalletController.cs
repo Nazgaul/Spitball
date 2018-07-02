@@ -1,11 +1,11 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Filters;
-using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +18,10 @@ namespace Cloudents.Web.Api
     public class WalletController : Controller
     {
         private readonly IQueryBus _queryBus;
-        private readonly ITransactionRepository _transactionRepository;
         private readonly UserManager<User> _userManager;
 
-        public WalletController(ITransactionRepository transactionRepository, UserManager<User> userManager, IQueryBus queryBus)
+        public WalletController(UserManager<User> userManager, IQueryBus queryBus)
         {
-            _transactionRepository = transactionRepository;
             _userManager = userManager;
             _queryBus = queryBus;
         }
@@ -33,7 +31,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetBalanceAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var retVal = await _queryBus.QueryAsync(new UserBalanceQuery(userId),token).ConfigureAwait(false);
+            var retVal = await _queryBus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(userId), token).ConfigureAwait(false);
 
             return Ok(retVal);
         }
@@ -43,13 +41,14 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetTransactionAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var retVal = await _transactionRepository.GetTransactionsAsync(userId, token).ConfigureAwait(false);
+
+            var retVal = await _queryBus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(userId), token).ConfigureAwait(false);
 
             return Ok(retVal);
         }
 
 
-        //[HttpPost("redeem"),ValidateModel]
+        //[HttpPost("redeem"), ValidateModel]
         //public async Task<IActionResult> RedeemAsync(CreateRedeemRequest model, CancellationToken token)
         //{
         //    return Ok();

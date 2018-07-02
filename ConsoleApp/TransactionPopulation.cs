@@ -119,7 +119,7 @@ namespace ConsoleApp
         private static async Task MarkAnswerAuditAsync(ILifetimeScope container)
         {
             var t = container.Resolve<IQuestionRepository>();
-            var transactionRepository = container.Resolve<ITransactionRepository>();
+            var transactionRepository = container.Resolve<IRepository<Transaction>>();
 
             var questions = await t.GetAllQuestionsAsync().ConfigureAwait(false);
 

@@ -143,18 +143,18 @@ module.exports = (env) => {
             new webpack.DllReferencePlugin({
                 context: __dirname,
                 manifest: require("./wwwroot/dist/vendor-manifest.json")
-            }),
-            new StatsWriterPlugin({
-                filename: "main.json",
-                transform: function (data, opts) {
-                    return JSON.stringify(data.assetsByChunkName, null, 2);
-                }
-            }),
-            new Visualizer({
-                filename: "./statistics.html"
             })
         ].concat(isDevBuild
             ? [
+                new StatsWriterPlugin({
+                    filename: "main.json",
+                    transform: function (data, opts) {
+                        return JSON.stringify(data.assetsByChunkName, null, 2);
+                    }
+                }),
+                new Visualizer({
+                    filename: "./statistics.html"
+                }),
                 new webpack.SourceMapDevToolPlugin({
                 filename: "[file].map", // Remove this line if you prefer inline source maps
                 moduleFilenameTemplate:

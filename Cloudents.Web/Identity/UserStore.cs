@@ -105,7 +105,7 @@ namespace Cloudents.Web.Identity
         public Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
             Expression<Func<User, bool>> expression = s => s.NormalizedName == normalizedUserName;
-            return _queryBus.QueryAsync<User>(new UserDataExpressionQuery(expression), cancellationToken);
+            return _queryBus.QueryAsync(new UserDataExpressionQuery(expression), cancellationToken);
         }
 
         public Task SetEmailAsync(User user, string email, CancellationToken cancellationToken)
@@ -133,7 +133,7 @@ namespace Cloudents.Web.Identity
         public Task<User> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
         {
             Expression<Func<User, bool>> expression = f => f.NormalizedEmail == normalizedEmail;
-            return _queryBus.QueryAsync<User>(new UserDataExpressionQuery(expression), cancellationToken);
+            return _queryBus.QueryAsync(new UserDataExpressionQuery(expression), cancellationToken);
         }
 
         public Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancellationToken)

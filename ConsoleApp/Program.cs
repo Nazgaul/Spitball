@@ -1,37 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
-using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Mail;
-using Cloudents.Infrastructure.Search.Tutor;
-using Cloudents.Infrastructure.BlockChain;
-using System.Numerics;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text.RegularExpressions;
-using Cloudents.Core.Command;
-using Cloudents.Core.Query;
-using Cloudents.Infrastructure.Framework;
-using Microsoft.Azure.Management.ServiceBus;
-using Microsoft.Azure.ServiceBus;
-using Microsoft.Rest;
-using Nethereum.Hex.HexConvertors.Extensions;
-using Nethereum.Hex.HexTypes;
-using Nethereum.Web3.Accounts;
-using NHibernate.Linq;
 
 namespace ConsoleApp
 {

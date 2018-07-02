@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
@@ -18,18 +17,15 @@ namespace Cloudents.Web.Api
     public class CourseController : Controller
     {
         private readonly ICourseSearch _courseProvider;
-        private readonly ICommandBus _command;
 
         /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="courseProvider"></param>
-        /// <param name="command"></param>
-        public CourseController(ICourseSearch courseProvider, ICommandBus command)
+        public CourseController(ICourseSearch courseProvider)
         {
             _courseProvider = courseProvider;
-            _command = command;
         }
 
         /// <summary>

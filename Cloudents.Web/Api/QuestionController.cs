@@ -44,7 +44,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetSubjectsAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
             var query = new QuestionSubjectQuery();
-            var result = await queryBus.QueryAsync<IEnumerable<QuestionSubjectDto>>(query, token).ConfigureAwait(false);
+            var result = await queryBus.QueryAsync(query, token).ConfigureAwait(false);
             return Ok(result);
         }
 
@@ -61,7 +61,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetQuestionAsync(long id,
             [FromServices] IQueryBus bus, CancellationToken token)
         {
-            var retVal = await bus.QueryAsync<QuestionDetailDto>(new QuestionDetailQuery(id), token).ConfigureAwait(false);
+            var retVal = await bus.QueryAsync(new QuestionDetailQuery(id), token).ConfigureAwait(false);
             if (retVal == null)
             {
                 return NotFound();
@@ -85,7 +85,7 @@ namespace Cloudents.Web.Api
             var query = _mapper.Map<QuestionsQuery>(model);
             //if (string.IsNullOrWhiteSpace(query.Term))
             //{
-            var result = await queryBus.QueryAsync<ResultWithFacetDto<QuestionDto>>(query, token).ConfigureAwait(false);
+            var result = await queryBus.QueryAsync(query, token).ConfigureAwait(false);
             //}
             //else
             //{

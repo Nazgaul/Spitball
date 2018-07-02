@@ -3,6 +3,7 @@ using Autofac;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Data.Query;
 using Cloudents.Infrastructure.Data.Repositories;
 using JetBrains.Annotations;
 using NHibernate;
@@ -23,6 +24,9 @@ namespace Cloudents.Infrastructure.Data
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenSession())
                 .InstancePerLifetimeScope();
 
+
+            builder.RegisterType<ReadonlySession>();
+
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenStatelessSession())
                 .InstancePerLifetimeScope();
 
@@ -33,7 +37,7 @@ namespace Cloudents.Infrastructure.Data
 
             var assembly = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsImplementedInterfaces();
-            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<,>));
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
             base.Load(builder);
         }
     }
