@@ -1,158 +1,164 @@
 @import "../../../mixin.less";
 
 .theme--light .btn.btn--disabled:not(.btn--icon):not(.btn--flat) {
-    background-color: rgba(0, 0, 0, 0.12) !important;
+  background-color: rgba(0, 0, 0, 0.12) !important;
 }
 
 .answer-question {
-    .limited-width();
+  .limited-width();
+  .answers_wrap {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    margin: 0 auto;
+  }
 
-    @media (max-width: @screen-sm) {
-        padding-left: 0;
-        padding-right: 0;
+  @media (max-width: @screen-sm) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .question-wrap {
+    margin-left: @logoWidth;
+  }
+
+  .breadcrumbs {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 22px;
+
+    a.ask-question {
+      color: @color-dark-blue;
+      display: inline-block;
     }
 
-    .question-wrap {
-        margin-left: @logoWidth;
+    span.question-category {
+      margin: 0 2px;
+      color: @color-grey;
+    }
+  }
+
+  .question-data {
+    max-width: @cellWidth;
+    width: 100%;
+  }
+
+  .chat-wrapper {
+    width: 100%;
+    max-width: 304px;
+    margin-left: 32px;
+
+    .chat-title {
+      color: #3532d5;
+      font-size: 18px;
+      font-weight: 400;
+      border: 1px solid #dce0e0;
+      background-color: rgba(220, 224, 224, 0.3);
+      border-radius: 4px;
     }
 
-    .breadcrumbs {
-        font-size: 12px;
-        font-weight: 600;
-        margin-bottom: 22px;
+    iframe {
+      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      max-height: 608px;
+    }
+  }
+  /*.md5 {
+      margin-left: 17px;
+  }*/
+  /*.xs4 {
+      margin: 0 17px;
+  }*/
+  .question-card {
+    margin: 0 auto;
+  }
 
-        a.ask-question {
-            color: @color-dark-blue;
-            display: inline-block;
-        }
+  .add_answer {
+    width: 100%;
+    border: 8px solid #c7c7ee !important;
+    border-top: 0px !important;
+    margin: 0;
+    height: 52px;
+    border-radius: 0 0 4px 4px;
+    font-size: 18px;
+    text-transform: none;
 
-        span.question-category {
-            margin: 0 2px;
-            color: @color-grey;
-        }
+    &.primary {
+      background-color: @color-main-purple !important;
     }
 
-    .question-data {
-        max-width: @cellWidth;
-        width: 100%;
+    &:disabled {
+      background-color: @color-medium-grey !important;
+      color: white !important;
+    }
+  }
+
+  .tab-padding {
+    padding: 8px;
+    margin-bottom: 40px;
+
+    .answer-form {
+      width: 100%;
+      max-width: @cellWidth;
+      margin: 0 auto;
+    }
+  }
+
+  .tabs__bar {
+    height: 65px;
+    background-color: @color-white;
+    border-bottom: solid 1px @color-medium-grey;
+    font-size: 18px;
+    padding: 0 8px;
+  }
+
+  .tabs__container {
+
+    .tabs__item {
+      text-transform: none;
+
+      &.tabs__item--active {
+        color: @color-main-purple !important;
+        font-weight: bold;
+      }
     }
 
-    .chat-wrapper {
-        width: 100%;
-        max-width: 304px;
-        margin-left: 32px;
-
-        .chat-title {
-            color: #3532d5;
-            font-size: 18px;
-            font-weight: 400;
-            border: 1px solid #dce0e0;
-            background-color: rgba(220,224,224,0.3);
-            border-radius:4px;
-        }
-
-        iframe {
-            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-            border-radius: 4px;
-            max-height: 608px;
-        }
+    .tabs__slider.blue {
+      border-bottom: 2px solid @color-main-purple;
     }
-    /*.md5 {
-        margin-left: 17px;
-    }*/
-    /*.xs4 {
-        margin: 0 17px;
-    }*/
-    .question-card {
-        margin: 0 auto;
+  }
+
+  .show-form-trigger {
+    background: white;
+    border: 8px solid #c7c7ee;
+    border-radius: 4px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+
+    div {
+      font-size: 14px;
+      letter-spacing: -0.3px;
+      color: @color-main-purple;
+    }
+  }
+  .chat-iframe {
+    @media (max-width: @screen-xs) {
+      width: 100%;
+      height: ~"calc(100% - 260px)";
+      overflow-y: hidden
     }
 
-    .add_answer {
-        width: 100%;
-        border: 8px solid #c7c7ee !important;
-        border-top: 0px !important;
-        margin: 0;
-        height: 52px;
-        border-radius: 0 0 4px 4px;
-        font-size: 18px;
-        text-transform: none;
+  }
+  // change for ios to fit the screen in case of need, will effect ALL small devices
+  .chat-iframe iframe {
+    @media (max-width: @screen-xs) {
 
-        &.primary {
-            background-color: @color-main-purple !important;
-        }
-
-        &:disabled {
-            background-color: @color-medium-grey !important;
-            color: white !important;
-        }
+      min-height: 300px !important;
     }
-
-    .tab-padding {
-        padding: 8px;
-        margin-bottom: 40px;
-
-        .answer-form {
-            width: 100%;
-            max-width: @cellWidth;
-            margin: 0 auto;
-        }
-    }
-
-    .tabs__bar {
-        height: 65px;
-        background-color: @color-white;
-        border-bottom: solid 1px @color-medium-grey;
-        font-size: 18px;
-        padding: 0 8px;
-    }
-
-    .tabs__container {
-
-        .tabs__item {
-            text-transform: none;
-
-            &.tabs__item--active {
-                color: @color-main-purple !important;
-                font-weight: bold;
-            }
-        }
-
-        .tabs__slider.blue {
-            border-bottom: 2px solid @color-main-purple;
-        }
-    }
-
-    .show-form-trigger {
-        background: white;
-        border: 8px solid #c7c7ee;
-        border-radius: 4px;
-        height: 56px;
-        display: flex;
-        align-items: center;
-        padding-left: 12px;
-
-        div {
-            font-size: 14px;
-            letter-spacing: -0.3px;
-            color: @color-main-purple;
-        }
-    }
-    .chat-iframe{
-        @media (max-width: @screen-xs) {
-            width: 100%;
-            height: ~"calc(100% - 260px)";
-            overflow-y: hidden
-        }
-
-    }
-    // change for ios to fit the screen in case of need, will effect ALL small devices
-    .chat-iframe iframe {
-        @media (max-width: @screen-xs) {
-
-            min-height: 300px!important;
-        }
-    }
-    //.answer-card:not(:hover) .accept-btn{
-    //    display: none;
-    //}
+  }
+  //.answer-card:not(:hover) .accept-btn{
+  //    display: none;
+  //}
 }
