@@ -40,7 +40,7 @@ export default {
                 console.log('start loading');
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files)
                     .then(function () {
-                        debugger;
+                        // debugger;
                         let val= self.selectedPrice || self.price;
                             self.updateUserBalance(-val);
                             self.$router.push({path: '/ask', query: {q: ''}});

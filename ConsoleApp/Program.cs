@@ -54,7 +54,10 @@ namespace ConsoleApp
 
 
 
-          
+
+            var bus = container.Resolve<IQueryBus>();
+            var query = new QuestionsQuery();
+            var result = await bus.QueryAsync<ResultWithFacetDto<QuestionDto>>(query, default);
 
             //var q = new UserBalanceQuery(36);
             //var t = await queryBus.QueryAsync(q, default);

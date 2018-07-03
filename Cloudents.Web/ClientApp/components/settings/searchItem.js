@@ -51,9 +51,9 @@ export default {
             if (this.currentType === "course") return this.getUniversityName;
             return "Personalize Results";
         },
-        // showCreateCourse: function () {
-        //     return this.val.length > 2 && this.currentType === typesPersonalize.course && !this.isLoading;
-        // },
+        showCreateCourse: function () {
+            return this.val.length > 2 && this.currentType === typesPersonalize.course && !this.isLoading;
+        },
 
         currentItem: function () {
             return searchObjects[this.currentType];
@@ -87,7 +87,7 @@ export default {
     props: { type: { type: String, required: true }, keep: { type: Boolean }, isFirst: { type: Boolean },isShown:{type:Boolean} },
     methods: {
         ...mapMutations({ updateUser: "UPDATE_USER" }),
-        // ...mapActions(["createCourse"]),
+        ...mapActions(["createCourse"]),
         $_removeCourse(val) {
             if(this.val){this.items.push(this.myCourses.find(i => i.id === val));}
             this.updateUser({ myCourses: this.myCourses.filter(i => i.id !== val) });
@@ -125,16 +125,16 @@ export default {
             //}
         },
 
-        // $_submitAddCourse() {
-        //     this.createCourse({ name: this.newCourseName });
-        //     this.newCourseName = "";
-        //     this.$el.querySelector('.results-container').scrollTop = 0;
-        //     this.val="";
-        //     this.showAdd=false;
-        // },
-        // $_clearAddCourse() {
-        //     this.newCourseName = "";
-        //     this.showAdd=false;
-        // }
+        $_submitAddCourse() {
+            this.createCourse({ name: this.newCourseName });
+            this.newCourseName = "";
+            this.$el.querySelector('.results-container').scrollTop = 0;
+            this.val="";
+            this.showAdd=false;
+        },
+        $_clearAddCourse() {
+            this.newCourseName = "";
+            this.showAdd=false;
+        }
     }
 }

@@ -16,7 +16,7 @@
 
 
                 <v-flex class="question-data">
-                    <question-thread v-if="questionData" :questionData="questionData" :showDialog="showDialog">
+                    <question-thread v-if="questionData" :questionData="questionData" :showDialog="showDialog" :hasCorrectAnswer="getCorrectAnswer">
                         <div v-if="enableAnswer" slot="answer-form" class="mb-3">
                             <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                 <extended-text-area uploadUrl="/api/upload/ask"
@@ -35,7 +35,7 @@
 
                 <v-flex class="chat-wrapper">
                     <div class="chat-title pa-2">Discussion Board</div>
-                    <div ref="chat-area"></div>
+                    <div ref="chat-area" class="chat-container"></div>
 
                 </v-flex>
 

@@ -73,7 +73,6 @@ export default {
     },
 
     created() {
-        debugger;
 
     }
 }

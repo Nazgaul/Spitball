@@ -8,6 +8,7 @@ export default {
     mixins: [disableForm],
     components: {userBlock},
     props: {
+        hasAnswer: false,
         typeAnswer: {
             type: Boolean,
             required: false,
@@ -40,7 +41,7 @@ export default {
             toasterText: '',
             timeoutID: null,
             action: null,
-            path: ''
+            path: '',
         }
     },
     computed: {
@@ -62,6 +63,7 @@ export default {
             }
             return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
         }
+
     },
     methods: {
         ...mapActions({
@@ -78,6 +80,7 @@ export default {
             this.flaggedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
             this.updateToasterParams({toasterText: '', showToaster: false});//test123
+
         },
         deleteQuestion() {
             this.updateToasterParams({
@@ -87,12 +90,12 @@ export default {
             this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')}).then(() => {
                 if(!this.typeAnswer ){
                     this.updateBalance(this.cardData.price);
+                    //To DO change to router link use and not text URL
                     this.$router.push('/ask')}else{ this.isDeleted = true}
             });
         },
     },
     mounted() {
-
         timeago().render(document.querySelectorAll('.timeago'));
 // use render method to render nodes in real time
     },

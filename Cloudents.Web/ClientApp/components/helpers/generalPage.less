@@ -41,7 +41,9 @@
         max-width: 400px;
         @media(min-width: (@screen-md)){display: none; }
         @media(max-width: (@screen-md)){  display: block;}
-        @media(max-width: (@screen-xs)){  display: block; margin: 16px auto;}
+        @media(max-width: (@screen-xs)){  display: block; margin: 16px 32px 16px 64px;}
+        @media(max-width: (@screen-sm)){  display: block;
+        }
         font-size: 20px;
         line-height: 40px;
         border-radius: 4px;
@@ -118,7 +120,9 @@
     }
 
     .mobile-filter {
-        flex-direction: row-reverse;
+        flex-direction: row;
+        //flex-direction: row-reverse;
+        //align-items: center;
         .btn__content {
             flex-direction: row-reverse;
             .counter {
@@ -140,7 +144,7 @@
 
         button {
             @media(max-width: @screen-xs) {
-                margin: 3px 0 0 0;
+                margin: 16px 8px 0 0;
                 .sbf-filter{
                     font-size: 19px;
                     color: @color-main-purple;
