@@ -107,7 +107,7 @@ export default {
                 //});
                 //this.talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css");
                 var chatbox = this.talkSession.createChatbox(conversation, {
-                    showChatHeader:false
+                    showChatHeader: false
                     //chatTitleMode: 'subject',
                     //chatSubtitleMode: null
                 });

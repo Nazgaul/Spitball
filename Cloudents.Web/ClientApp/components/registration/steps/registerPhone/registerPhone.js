@@ -39,7 +39,7 @@ export default {
                     }, function (error) {
                         self.submitForm(false);
                         self.updateLoading(false);
-                        debugger;
+                        // debugger;
                         self.errorMessage.phone = "Invalid phone number";
                     });
             }
@@ -53,7 +53,7 @@ export default {
                         self.updateLoading(false);
                         self.$emit('next');
                     }, function (error) {
-                        debugger;
+                        // debugger;
                         self.submitForm(false);
                         self.updateLoading(false);
                         self.errorMessage.code = "Invalid code";

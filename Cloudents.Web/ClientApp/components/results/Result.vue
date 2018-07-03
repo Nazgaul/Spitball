@@ -3,13 +3,14 @@
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
         <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main" >
-            <div class="d-flex mobile-filter hidden-sm-and-up" >
-                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterCondition">
+            <div class="d-flex mobile-filter" >
+                <router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob hidden-md-and-up"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
+                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right hidden-sm-and-up" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
                     <div :class="'counter color-'+$route.path.slice(1)" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
                 </v-btn>
             </div>
-            <div v-if="filterSelection.length" class="pb-3">
+            <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
                 <template v-for="item in filterSelection">
                     <v-chip label class="filter-chip elevation-1">
                         {{$_showSelectedFilter(item) | capitalize}}
@@ -40,7 +41,7 @@
                             </v-flex>
                             <slot name="resultData" :items="items">
                                 <!-- && $vuetify.breakpoint.xsOnly -->
-                                <router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
+                                <router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob  hidden-sm-and-down"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
                                 <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading" class="personalize-wrapper pa-3 mb-3 elevation-1">
                                     <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                                 </v-flex>
