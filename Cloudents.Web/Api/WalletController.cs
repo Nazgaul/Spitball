@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Filters;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -48,10 +52,15 @@ namespace Cloudents.Web.Api
         }
 
 
-        //[HttpPost("redeem"), ValidateModel]
-        //public async Task<IActionResult> RedeemAsync(CreateRedeemRequest model, CancellationToken token)
-        //{
-        //    return Ok();
-        //}
+        [HttpPost("redeem"), ValidateModel]
+        public async Task<IActionResult> RedeemAsync(CreateRedeemRequest model,
+        [FromServices] ICommandBus commandBus,
+        [FromServices] IMapper mapper,
+        CancellationToken token)
+        {
+            var command = mapper.Map<RedeemTokenCommand>(model);
+            await commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            return Ok();
+        }
     }
 }

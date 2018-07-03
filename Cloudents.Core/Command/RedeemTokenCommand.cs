@@ -9,6 +9,10 @@ namespace Cloudents.Core.Command
             UserId = userId;
             Amount = amount;
         }
+        public RedeemTokenCommand()
+        {
+            
+        }
 
         public long UserId { get; set; }
         public decimal Amount { get; set; }

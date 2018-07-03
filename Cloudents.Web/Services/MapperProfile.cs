@@ -45,6 +45,9 @@ namespace Cloudents.Web.Services
 
             CreateMap<DeleteQuestionRequest, DeleteQuestionCommand>()
                 .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
+
+            CreateMap<CreateRedeemRequest, RedeemTokenCommand>()
+                .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
             //DeleteAnswerCommand
 
             //.ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());

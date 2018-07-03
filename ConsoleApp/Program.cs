@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 
 namespace ConsoleApp
 {
@@ -18,7 +21,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -41,9 +44,14 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             container = builder.Build();
 
+
+            var bus = container.Resolve<IQueryBus>();
+            var r= await bus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(638), default);
+
             var p = new TransactionPopulation(container);
-            await p.AddToUserMoney(1000M, 78);
-            // await p.CreateTransactionOnExistingDataAsync();
+           await p.CreateTransactionOnExistingDataAsync();
+
+
 
 
           

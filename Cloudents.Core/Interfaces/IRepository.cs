@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
@@ -38,6 +39,8 @@ namespace Cloudents.Core.Interfaces
         Task<UserAccountDto> GetUserDetailAsync(long id, CancellationToken token);
 
         Task<IList<User>> GetAllUsersAsync(CancellationToken token);
+
+        Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token);
     }
 
     public interface IQuestionRepository : IRepository<Question>

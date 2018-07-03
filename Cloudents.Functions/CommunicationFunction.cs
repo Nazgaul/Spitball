@@ -35,17 +35,21 @@ namespace Cloudents.Functions
             var dynamicBlobAttribute = new BlobAttribute($"mailcontainer/Spitball/{topicMessage.Template}-mail.html");
 
             var htmlTemplate = await binder.BindAsync<string>(dynamicBlobAttribute, token).ConfigureAwait(false);
-            if (htmlTemplate == null)
-            {
-                log.Error("error with template name" + topicMessage.Template);
-                return;
-            }
-            var content = htmlTemplate.Inject(topicMessage);
             var message = new Mail
             {
                 Subject = topicMessage.Subject,
             };
-            message.AddContent(new Content("text/html", content));
+            if (htmlTemplate == null)
+            {
+                message.AddContent(new Content("text/plain", topicMessage.ToString()));
+                log.Error("error with template name" + topicMessage.Template);
+            }
+            else
+            {
+                var content = htmlTemplate.Inject(topicMessage);
+                message.AddContent(new Content("text/html", content));
+            }
+
             var personalization = new Personalization();
             personalization.AddTo(new Email(topicMessage.To));
             message.AddPersonalization(personalization);

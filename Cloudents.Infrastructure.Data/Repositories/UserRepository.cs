@@ -6,9 +6,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
+using NHibernate.Criterion;
 using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data.Repositories
@@ -31,10 +33,11 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
         public async Task<UserAccountDto> GetUserDetailAsync(long id, CancellationToken token)
         {
-            var p = await Session.Query<User>().Fetch(f => f.LastTransaction).Where(w => w.Id == id).Select(s => new UserAccountDto()
+            var p = await Session.Query<User>()
+                .Where(w => w.Id == id).Select(s => new UserAccountDto()
             {
                 Id = s.Id,
-                Balance = s.LastTransaction.Balance,
+                Balance = s.Balance, // s.LastTransaction.Balance,
                 Name = s.Name,
                 Image = s.Image
             }).SingleOrDefaultAsync();//.ToFutureValue();
@@ -100,10 +103,22 @@ namespace Cloudents.Infrastructure.Data.Repositories
                 return null;
             }
 
-            dto.Ask = await futureQuestions.GetEnumerableAsync(token);
-            dto.Answer = await futureAnswers.GetEnumerableAsync(token);
+            dto.Ask = futureQuestions.GetEnumerable();
+            dto.Answer = futureAnswers.GetEnumerable();
 
             return dto;
         }
+
+
+        public Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token)
+        {
+            return Session.QueryOver<Transaction>()
+                .Where(w => w.User.Id == userId)
+                .Where(w => w.Type == TransactionType.Earned)
+                .Select(Projections.Sum<Transaction>(x => x.Price))
+                .SingleOrDefaultAsync<decimal>(token);
+        }
+
+        
     }
 }

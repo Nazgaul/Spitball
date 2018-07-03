@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
@@ -50,10 +51,15 @@ namespace Cloudents.Core.Entities.Db
         public virtual Transaction AddTransaction(Transaction t)
         {
             t.User = this;
-            t.Balance = (LastTransaction?.Balance ?? 0) + t.Price;
+            Balance += t.Price;
+            if (Balance < 0)
+            {
+                throw new InvalidOperationException("not enough tokens");
+            }
+            //t.Balance = (LastTransaction?.Balance ?? 0) + t.Price;
             Transactions.Add(t);
-            LastTransaction = t;
-            return LastTransaction;
+            //LastTransaction = t;
+            return t;
         }
 
         private const decimal InitialBalance = 100;
@@ -65,8 +71,8 @@ namespace Cloudents.Core.Entities.Db
             return t;
         }
 
-        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
-        protected internal virtual Transaction LastTransaction { get; set; }
+
+        public virtual decimal Balance { get; protected set; }
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         protected internal virtual IList<Transaction> Transactions { get; set; }
