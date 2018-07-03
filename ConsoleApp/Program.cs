@@ -45,19 +45,14 @@ namespace ConsoleApp
             container = builder.Build();
 
 
-            var bus = container.Resolve<IQueryBus>();
-            var r= await bus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(638), default);
+            //var bus = container.Resolve<IQueryBus>();
+            //var r= await bus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(638), default);
 
             var p = new TransactionPopulation(container);
            await p.CreateTransactionOnExistingDataAsync();
 
 
 
-
-
-            var bus = container.Resolve<IQueryBus>();
-            var query = new QuestionsQuery();
-            var result = await bus.QueryAsync<ResultWithFacetDto<QuestionDto>>(query, default);
 
             //var q = new UserBalanceQuery(36);
             //var t = await queryBus.QueryAsync(q, default);

@@ -68,7 +68,7 @@ namespace Cloudents.Infrastructure.Data
 #if DEBUG
             config.SetInterceptor(new LoggingInterceptor());
 #endif
-            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
+            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Validate);
         }
     }
 }
