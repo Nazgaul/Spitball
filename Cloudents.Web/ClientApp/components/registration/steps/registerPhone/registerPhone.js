@@ -62,7 +62,7 @@ export default {
         }
     },
     created(){
-        debugger;
+        //debugger;
         registrationService.getLocalCode().then(({data})=>{
             this.phone.countryCode=data.code;
         })

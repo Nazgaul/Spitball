@@ -111,7 +111,7 @@ const actions = {
     },
     updateUserBalance({commit,state},payload){
         let newBalance=state.user.balance+payload;
-        debugger
+       // debugger
         commit('updateUser',{...state.user,balance:newBalance, dollar:dollarCalculate(newBalance)})
     }
 };

@@ -27,7 +27,7 @@ export default {
         },
         togglePreview: function(){this.fullPreview = !this.fullPreview},
         deletePreview: function(index){
-            debugger;
+           // debugger;
             this.previewList.splice(index,1);
             this.$emit('removeFile', index);
         }
@@ -43,7 +43,7 @@ export default {
         multiple.on('files:added', function (val) {
             this.files=val.filter(i=>i.type.indexOf("image")>-1);
             if(this.files.length){
-                debugger;
+               // debugger;
                 this.upload()
             }
         });
@@ -56,7 +56,7 @@ export default {
         });
 
         multiple.on('upload:done', function (response) {
-            debugger;
+          //  debugger;
             self.$emit('addFile', JSON.parse(response).files.toString());
         });
         multiple.on('upload:progress', function (progress) {
