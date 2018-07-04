@@ -22,7 +22,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -46,14 +46,14 @@ namespace ConsoleApp
             container = builder.Build();
 
 
-            var _serviceBusProvider = container.Resolve<IServiceBusProvider>();
+           // var _serviceBusProvider = container.Resolve<IServiceBusProvider>();
             
-            await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(100, 587), default);
+           // await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(100, 587), default);
             //var bus = container.Resolve<IQueryBus>();
             //var r= await bus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(638), default);
 
-          //  var p = new TransactionPopulation(container);
-          // await p.AddToUserMoney(10000,496);
+            var p = new TransactionPopulation(container);
+           await p.AddToUserMoney(10000, 638);
 
 
 

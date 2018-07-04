@@ -15,7 +15,10 @@
         mounted() {
             if (this.talkSession) {
                 const inbox = this.talkSession.createInbox({
-                    showFeedHeader: false
+                    showFeedHeader: false,
+                    chatTitleMode: "subject",
+                    feedConversationTitleMode: "subject",
+                    chatSubtitleMode:null
                 });
                 inbox.mount(document.getElementById("chat-container"));
             }

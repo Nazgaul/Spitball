@@ -1,16 +1,16 @@
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
-import {mapGetters, mapMutations, mapActions} from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
 
 export default {
     mixins: [disableForm],
-    components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp},
+    components: { questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp },
     props: {
-        id: {Number} // got it from route
+        id: { Number } // got it from route
     },
     data() {
         return {
@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams"]),
-        ...mapMutations({updateLoading: "UPDATE_LOADING"}),
+        ...mapMutations({ updateLoading: "UPDATE_LOADING" }),
         submitAnswer() {
             this.updateLoading(true);
             var self = this;
@@ -100,8 +100,14 @@ export default {
                 var conversation = this.talkSession.getOrCreateConversation(
                     `question_${this.id}`
                 );
-                conversation.setParticipant(this.chatAccount);
+                
+                //conversation
+                //conversation.setParticipant(this.chatAccount, { notify: false });
                 conversation.setParticipant(other1);
+                conversation.setAttributes({
+                    photoUrl: `${location.origin}/images/conversation.png`,
+                    subject: `<${location.href}|${this.questionData.text}>`
+                })
                 //conversation.setAttributes({
                 //    subject: "Discussion Board"
                 //});
@@ -111,6 +117,10 @@ export default {
                     //chatTitleMode: 'subject',
                     //chatSubtitleMode: null
                 });
+                chatbox.on("sendMessage", (t) => {
+                    conversation.setParticipant(this.chatAccount, { notify: true })
+                    console.log(t)
+                })
 
                 this.$nextTick(() => {
                     chatbox.mount(this.$refs["chat-area"]);

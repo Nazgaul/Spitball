@@ -23,62 +23,61 @@
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
                                     <!-- <v-menu bottom left>
-                                        <v-btn class="share-btn" icon slot="activator">
-                                            <share-icon></share-icon>
-                                        </v-btn>
-                                        <v-list class="sharing-list">
-                                            <v-list-tile @click="facebookShare">
-                                                <v-list-tile-action>
-                                                    <facebook-icon class="facebook-icon"></facebook-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>
-                                                        <span>Facebook</span>
-                                                    </v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>
-                                            <v-list-tile @click="twitterShare">
-                                                <v-list-tile-action>
-                                                    <twitter-icon class="twitter-icon"></twitter-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>Twitter</v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>
-                                            <div @click="$ga.social('Whatsapp', 'Share')">
-                                            <v-list-tile :href="whatsappLink()" class="btn-copy hidden-sm-and-up" v-if="$vuetify.breakpoint.xs">
-                                                <v-list-tile-action>
-                                                    <whatsapp-icon></whatsapp-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>Whatsapp</v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>
-                                            </div>
-                                            <v-list-tile @click="copyToClipboard" class="btn-copy">
-                                                <v-list-tile-action>
-                                                    <copy-link-icon></copy-link-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>Copy link</v-list-tile-title>
-                                                    <input type="text" id="input-url" value="Copied!">
-                                                </v-list-tile-content>
-                                            </v-list-tile>
-                                        </v-list>
-                                    </v-menu>
-                                    <v-menu bottom left>
-                                        <v-btn icon slot="activator">
-                                            <v-icon>sbf-3-dot</v-icon>
-                                        </v-btn>
-                                        <v-list class="settings-list">
-                                            <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in settingMenu" :key="index" :id="item.id">
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>
-                                        </v-list>
-                                    </v-menu> -->
-
+        <v-btn class="share-btn" icon slot="activator">
+            <share-icon></share-icon>
+        </v-btn>
+        <v-list class="sharing-list">
+            <v-list-tile @click="facebookShare">
+                <v-list-tile-action>
+                    <facebook-icon class="facebook-icon"></facebook-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title>
+                        <span>Facebook</span>
+                    </v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile @click="twitterShare">
+                <v-list-tile-action>
+                    <twitter-icon class="twitter-icon"></twitter-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title>Twitter</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <div @click="$ga.social('Whatsapp', 'Share')">
+            <v-list-tile :href="whatsappLink()" class="btn-copy hidden-sm-and-up" v-if="$vuetify.breakpoint.xs">
+                <v-list-tile-action>
+                    <whatsapp-icon></whatsapp-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title>Whatsapp</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            </div>
+            <v-list-tile @click="copyToClipboard" class="btn-copy">
+                <v-list-tile-action>
+                    <copy-link-icon></copy-link-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title>Copy link</v-list-tile-title>
+                    <input type="text" id="input-url" value="Copied!">
+                </v-list-tile-content>
+            </v-list-tile>
+        </v-list>
+    </v-menu>
+    <v-menu bottom left>
+        <v-btn icon slot="activator">
+            <v-icon>sbf-3-dot</v-icon>
+        </v-btn>
+        <v-list class="settings-list">
+            <v-list-tile @click="$_currentClick(item)" v-for="(item,index) in settingMenu" :key="index" :id="item.id">
+                <v-list-tile-content>
+                    <v-list-tile-title>{{item.id==='university'&&getUniversityName?getUniversityName:item.name}}</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+        </v-list>
+    </v-menu> -->
                                     <!--<div class="header-comments" v-if="loggedIn && !$vuetify.breakpoint.smAndDown">-->
                                     <!--<router-link :to="{name:'conversations'}">-->
                                     <!--<v-icon>sbf-comment</v-icon>-->
@@ -86,7 +85,7 @@
                                     <!--</router-link>                                    -->
                                     <!--</div>-->
 
-                                    <router-link  to="/wallet" class="header-wallet" v-if="loggedIn">
+                                    <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
                                         <span class="bold">{{accountUser.balance | currencyLocalyFilter}} SBL</span>
                                         <span>$ {{accountUser.balance | dollarVal}}</span>
                                     </router-link>
@@ -98,13 +97,12 @@
                                             <!--<v-icon>sbf-rocket</v-icon>-->
                                             <!--</v-btn>-->
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
-                                                         :user-name="accountUser.name"/>
+                                                         :user-name="accountUser.name" />
                                             <menu-list :isAuthUser="loggedIn"
                                                        v-if=!$vuetify.breakpoint.xsOnly></menu-list>
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
-
 
                                     <a v-if="!loggedIn" class="header-login body-1" href="/register">Sign Up</a>
                                     <a v-if="!loggedIn" class="header-login body-1" href="/signin">Login</a>
