@@ -7,9 +7,11 @@
   },
   "scripts": {
     "test": "jest",
-    "prod": "webpack --env.prod",
-    "client": "webpack --config webpack.config.vendor.js",
-    "server": "webpack --config webpack.config.server.js"
+    "client-prod": "node node_modules/webpack/bin/webpack.js --env.prod",
+    "client": "node node_modules/webpack/bin/webpack.js",
+    "vendor": "node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js",
+    "vendor-prod": "node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod",
+    "server": "node node_modules/webpack/bin/webpack.js --config webpack.config.server.js"
   },
   "devDependencies": {
     "@types/jest": "^22.0.1",

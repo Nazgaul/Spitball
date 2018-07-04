@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.CommandHandler
@@ -13,12 +14,14 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
+        private readonly IServiceBusProvider _serviceBusProvider;
 
         public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
-            IRepository<Answer> answerRepository)
+            IRepository<Answer> answerRepository, IServiceBusProvider serviceBusProvider)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
+            _serviceBusProvider = serviceBusProvider;
             // _blockChain = blockChain;
             //_blockChainProvider = blockChainProvider;
         }
@@ -38,8 +41,7 @@ namespace Cloudents.Core.CommandHandler
             question.MarkAnswerAsCorrect(answer);
 
             await _questionRepository.UpdateAsync(question, token).ConfigureAwait(false);
-
-            // await _blockChainProvider.InsertMessageAsync(new BlockChainMarkQuestionAsCorrect(_blockChain.GetAddress(question.User.PrivateKey), _blockChain.GetAddress(answer.User.PrivateKey), question.Id, answer.Id), token).ConfigureAwait(true);
+            await _serviceBusProvider.InsertMessageAsync(new AnswerCorrectEmail(answer.User.Email), token);
         }
     }
 }
