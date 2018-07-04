@@ -55,7 +55,7 @@ export default {
                             toasterText: 'Lets see what ' + self.accountUser.name + ' thinks about your answer',
                             showToaster: true,
                         });
-                        self.showDialog = true; // question suggest popup dialog
+                      //  self.showDialog = true; // question suggest popup dialog
                     }, () => {
 
                         this.updateToasterParams({

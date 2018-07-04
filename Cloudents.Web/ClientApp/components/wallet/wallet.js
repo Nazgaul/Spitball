@@ -102,6 +102,7 @@ export default {
         getBalances() {
             walletService.getBalances()
                 .then((response) => {
+
                         this.items = response.data;
                         this.items = this.items.map((item) => {
                             item.value = item.value.toFixed(2);
@@ -116,9 +117,9 @@ export default {
                         var earnedVal;
                         for (var item of this.items) {
                             if (item.type !== 'pending') {
+                                let flt = parseFloat(item.value);
                                 this.cash += parseFloat(item.value);
-
-                                if (item.type === 'earned') {
+                                if (item.type === 'Earned') {
                                     earnedVal = parseFloat(item.value)
                                     this.earnedPoints = parseFloat(item.points)
                                 }
