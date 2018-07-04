@@ -36,7 +36,6 @@ namespace Cloudents.Core.Interfaces
 
         Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token);
 
-        Task<UserAccountDto> GetUserDetailAsync(long id, CancellationToken token);
 
         Task<IList<User>> GetAllUsersAsync(CancellationToken token);
 

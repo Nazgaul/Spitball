@@ -31,20 +31,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
             return Session.Query<User>().FirstOrDefaultAsync(expression, token);
         }
 
-        public async Task<UserAccountDto> GetUserDetailAsync(long id, CancellationToken token)
-        {
-            var p = await Session.Query<User>()
-                .Where(w => w.Id == id).Select(s => new UserAccountDto()
-            {
-                Id = s.Id,
-                Balance = s.Balance, // s.LastTransaction.Balance,
-                Name = s.Name,
-                Image = s.Image
-            }).SingleOrDefaultAsync();//.ToFutureValue();
-
-            return p;
-        }
-
         public async Task<IList<User>> GetAllUsersAsync(CancellationToken token)
         {
             var t = await Session.Query<User>().Where(w => w.Email != null).ToListAsync(token);

@@ -18,6 +18,7 @@ using Cloudents.Web.Services;
 using Cloudents.Web.Swagger;
 using JetBrains.Annotations;
 using Microsoft.ApplicationInsights.AspNetCore;
+using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.SnapshotCollector;
 using Microsoft.AspNetCore.Builder;
@@ -187,12 +188,16 @@ namespace Cloudents.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
-           if (env.IsDevelopment())
+            var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
+            if (env.IsDevelopment())
             {
+                HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true
                 });
+                
+                configuration.DisableTelemetry = true;
             }
             if (env.IsDevelopment() || env.IsEnvironment(IntegrationTestEnvironmentName))
             {
@@ -266,6 +271,14 @@ namespace Cloudents.Web
                 var snapshotConfigurationOptions = _serviceProvider.GetService<IOptions<SnapshotCollectorConfiguration>>();
                 return new SnapshotCollectorTelemetryProcessor(next, configuration: snapshotConfigurationOptions.Value);
             }
+        }
+    }
+
+    public class UserTelemetryInitializer : ITelemetryInitializer
+    {
+        public void Initialize(ITelemetry telemetry)
+        {
+            throw new NotImplementedException();
         }
     }
 }

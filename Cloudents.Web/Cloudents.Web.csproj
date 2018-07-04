@@ -89,6 +89,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="HibernatingRhinos.Profiler.Appender">
+      <HintPath>..\thirdParties\nhprof\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 

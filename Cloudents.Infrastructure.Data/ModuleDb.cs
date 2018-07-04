@@ -26,6 +26,7 @@ namespace Cloudents.Infrastructure.Data
 
 
             builder.RegisterType<ReadonlySession>();
+            builder.RegisterType<ReadonlyStatelessSession>();
 
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenStatelessSession())
                 .InstancePerLifetimeScope();
