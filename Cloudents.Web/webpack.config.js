@@ -141,18 +141,19 @@ module.exports = (env) => {
             publicPath: "/dist/"
         },
         plugins: [
+            new StatsWriterPlugin({
+                filename: "main.json",
+                transform: function (data, opts) {
+                    return JSON.stringify(data.assetsByChunkName, null, 2);
+                }
+            }),
             new webpack.DllReferencePlugin({
                 context: __dirname,
                 manifest: require("./wwwroot/dist/vendor-manifest.json")
             })
         ].concat(isDevBuild
             ? [
-                new StatsWriterPlugin({
-                    filename: "main.json",
-                    transform: function (data, opts) {
-                        return JSON.stringify(data.assetsByChunkName, null, 2);
-                    }
-                }),
+                
                 new Visualizer({
                     filename: "./statistics.html"
                 }),
