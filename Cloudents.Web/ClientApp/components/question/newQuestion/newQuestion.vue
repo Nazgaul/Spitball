@@ -16,13 +16,16 @@
                 </v-flex>
 
 
-                <extended-text-area uploadUrl="/api/upload/ask" v-model="textAreaValue" @addFile="addFile"
+                <extended-text-area uploadUrl="/api/upload/ask"
+                                    v-model="textAreaValue"
+                                    @addFile="addFile"
                                     actionType="question"
-                                    :error="errorTextArea" @removeFile="removeFile"></extended-text-area>
+                                    :error="errorTextArea"
+                                    @removeFile="removeFile"></extended-text-area>
                 <!--
                                 <span v-if="errorTextArea" class="errorTextArea" >{{errorTextArea}}</span>
                 -->
-                <v-flex xs6 :class="{'has-error':!subject && errorMessageSubject}">
+                <v-flex xs6 :class="{'has-error':!subject && errorMessageSubject}" class="inputBorder">
                     <select v-model="subject">
                         <option value="" disabled hidden>Pick a subject</option>
                         <option v-for="item in subjectList" :value="item">{{item.subject}}</option>

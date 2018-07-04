@@ -1,13 +1,15 @@
 @import "../../../../mixin.less";
 
 .question_area {
-  &.has-error{
+  border: 1px solid transparent;
+  &.has-error {
     border: 1px solid @color-red;
   }
   .textarea {
     background-color: #c7c7ee;
     padding: 8px;
     height: 233px;
+
     @media (max-width: @screen-xs) {
       height: 249px;
     }
@@ -21,7 +23,7 @@
       height: 100%;
       border-radius: 4px;
       position: relative;
-      .error-message{
+      .error-message {
         color: @color-red;
         position: absolute;
         bottom: 0.2em;

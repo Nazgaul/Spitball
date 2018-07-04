@@ -60,7 +60,7 @@ export default {
             var self = this;
             if (this.submitForm()) {
                 this.updateLoading(true);
-                console.log('start loading');
+                console.error('start loading');
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files)
                     .then(function () {
                             // debugger;

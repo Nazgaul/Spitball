@@ -15,6 +15,7 @@ export default {
     data() {
         return {
             textAreaValue: "",
+            errorTextArea: {},
             answerFiles: [],
             questionData: null,
             showForm: false,
@@ -32,6 +33,14 @@ export default {
         ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams"]),
         ...mapMutations({ updateLoading: "UPDATE_LOADING" }),
         submitAnswer() {
+            if(this.textAreaValue && this.textAreaValue.length < 15){
+                this.errorTextArea = {
+                    errorText: 'min. 15 characters',
+                    errorClass: true
+                };
+                return
+            }
+
             this.updateLoading(true);
             var self = this;
             if (this.submitForm()) {
@@ -160,11 +169,12 @@ export default {
         },
         //conditionally disable answer submit btn
         isSubmitBtnDisabled() {
-            if (!this.textAreaValue ||  this.textAreaValue.length < 15) {
-                return true
-            } else {
-                return false
-            }
+            // if (this.textAreaValue.length < 15) {
+            //     return true
+            // } else {
+            //     return false
+            // }
+            return false
         }
         // isMobile() {
         //     return this.$vuetify.breakpoint.smAndDown;

@@ -2,10 +2,12 @@
     <div class="answer-question" v-if="questionData">
 
         <!-- Web version -->
-        <div class="pt-3 question-wrap" v-if="!$vuetify.breakpoint.smAndDown" :class="{'my-question': questionData.cardOwner}">
+        <div class="pt-3 question-wrap" v-if="!$vuetify.breakpoint.smAndDown"
+             :class="{'my-question': questionData.cardOwner}">
             <v-flex xs12 class="breadcrumbs">
                 <router-link class="ask-question" to="/ask">
-                    Ask a question</router-link>
+                    Ask a question
+                </router-link>
 
                 <!--<a class="ask-question" href="/ask">-->
                 <!--<v-icon>sbf-ask-q</v-icon>-->
@@ -13,16 +15,19 @@
                 <span class="question-category">/  Questions  / {{questionData.subject}}</span>
             </v-flex>
             <v-layout row>
-
-
                 <v-flex class="question-data">
-                    <question-thread v-if="questionData" :questionData="questionData" :showDialog="showDialog" :hasCorrectAnswer="getCorrectAnswer">
+                    <question-thread v-if="questionData" :questionData="questionData" :showDialog="showDialog"
+                                     :hasCorrectAnswer="getCorrectAnswer">
                         <div v-if="enableAnswer" slot="answer-form" class="mb-3">
                             <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                 <extended-text-area uploadUrl="/api/upload/ask"
-                                        v-model="textAreaValue"
-                                        :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
-                                <v-btn block color="primary" @click="submitAnswer()" :disabled="isSubmitBtnDisabled || submitted"
+                                                    v-model="textAreaValue"
+                                                    :value="value"
+                                                    :error="errorTextArea"
+                                                    :isFocused="showForm" @addFile="addFile"
+                                                    @removeFile="removeFile"></extended-text-area>
+                                <v-btn block color="primary" @click="submitAnswer()"
+                                       :disabled="isSubmitBtnDisabled || submitted"
                                        class="add_answer">Add your answer
                                 </v-btn>
                             </div>
@@ -56,13 +61,17 @@
 
                     <v-tabs-content :key="'1'" :id="'tab-1'" class="tab-padding">
                         <v-flex xs12>
-                            <question-thread v-if="questionData" :questionData="questionData" :hasCorrectAnswer="getCorrectAnswer">
+                            <question-thread v-if="questionData" :questionData="questionData"
+                                             :hasCorrectAnswer="getCorrectAnswer">
                                 <div slot="answer-form" class="answer-form mb-3 mt-3" v-if="enableAnswer">
                                     <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                         <extended-text-area uploadUrl="/api/upload/ask"
-                                                v-model="textAreaValue"
-                                                :isFocused="showForm" @addFile="addFile" @removeFile="removeFile"></extended-text-area>
-                                        <v-btn  color="primary" @click="submitAnswer()" :disabled="isSubmitBtnDisabled"
+                                                            v-model="textAreaValue"
+                                                            :error="errorTextArea"
+                                                            :isFocused="showForm" @addFile="addFile"
+                                                            @removeFile="removeFile"></extended-text-area>
+                                        <v-btn color="primary" @click="submitAnswer()"
+                                               :disabled="isSubmitBtnDisabled  || submitted"
                                                class="add_answer">Add your answer
                                         </v-btn>
                                     </div>

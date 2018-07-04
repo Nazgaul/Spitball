@@ -1,12 +1,12 @@
 <template>
-        <v-flex xs12 class="question_area" :class="{'has-error': error.errorClass&&  value.length < 15}">
+        <v-flex xs12 class="question_area"  :class="{'has-error': error && error.errorClass &&  value.length < 15}">
             <div class="textarea">
                 <!-- :class="{'with-preview':previewList.length}" v-if="!fullPreview" -->
                 <div class="text-block" >
-                    <span class="error-message" v-if="!isFocused &&  value.length < 15"  :error ="errorTextArea" >{{error.errorText}}</span>
+                    <span class="error-message" v-if="error.errorClass &&  value.length < 15"  :error ="errorTextArea" >{{error.errorText}}</span>
 
                     <textarea rows="9" class="" @input="updateValue($event.target.value)"
-                         :value="value" autofocus="isFocused"
+                        :value="value" autofocus="isFocused"
                         :placeholder="`Type your ${actionType}...`"></textarea>
                     <ul class="actions_text">
                         <!--<li>-->
