@@ -101,7 +101,7 @@ const actions = {
                 });
                 //talkSession.syncThemeForLocalDev("/content/talkjs-theme.css")
                 talkSession.unreads.on("change", m => {
-                    commit("updateMessageCount", conversationIds.length);
+                    commit("updateMessageCount", m.length);
                 });
                 commit("updateTalkSession", talkSession);
             });

@@ -76,12 +76,8 @@ namespace Cloudents.Infrastructure.Data.Query
             var dtoTask = GetFromDbAsync(query.Id, token);
 
             //TODO: this is left join query need to fix that
-            
 
-
-
-
-            var filesTask = _blobProvider.FilesInDirectoryAsync($"question/{query}", token);
+            var filesTask = _blobProvider.FilesInDirectoryAsync($"question/{query.Id}", token);
             await Task.WhenAll(dtoTask, filesTask).ConfigureAwait(false);
             var files = filesTask.Result;
             var dto = dtoTask.Result;

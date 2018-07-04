@@ -3,21 +3,22 @@ using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using NHibernate;
 
-namespace Cloudents.Core.QueryHandler
+namespace Cloudents.Infrastructure.Data.Query
 {
     public class UserDataByIdQueryHandler : IQueryHandler<UserDataByIdQuery, User>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IStatelessSession _session;
 
-        public UserDataByIdQueryHandler(IUserRepository userRepository)
+        public UserDataByIdQueryHandler(ReadonlyStatelessSession session)
         {
-            _userRepository = userRepository;
+            _session = session.Session;
         }
 
         public Task<User> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
-            return _userRepository.GetAsync(query.Id, token);
+            return _session.GetAsync<User>(query.Id, token);
         }
     }
 }

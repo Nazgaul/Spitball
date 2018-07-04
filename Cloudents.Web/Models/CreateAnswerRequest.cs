@@ -9,6 +9,7 @@ namespace Cloudents.Web.Models
         public long QuestionId { get; set; }
 
         [Required(AllowEmptyStrings = false)]
+        [MinLength(15)]
         public string Text { get; set; }
 
         //[MaxLength(4)]

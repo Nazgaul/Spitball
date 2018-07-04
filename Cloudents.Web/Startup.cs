@@ -68,7 +68,7 @@ namespace Cloudents.Web
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             }).AddMvcOptions(o =>
                 {
-                    o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));
+                    o.Filters.Add(new GlobalExceptionFilter());
                     o.ModelBinderProviders.Insert(0, new ApiBinder()); //needed at home
                 });
             if (HostingEnvironment.IsDevelopment())
