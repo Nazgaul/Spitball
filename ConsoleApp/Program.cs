@@ -21,7 +21,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -49,7 +49,7 @@ namespace ConsoleApp
             //var r= await bus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(638), default);
 
             var p = new TransactionPopulation(container);
-           await p.CreateTransactionOnExistingDataAsync();
+           await p.AddToUserMoney(10000,496);
 
 
 

@@ -14,9 +14,9 @@ namespace Cloudents.Infrastructure.Data
         private readonly ITransaction _transaction;
         private readonly ISession _session;
 
-        public UnitOfWork(ISession unitOfFactory)
+        public UnitOfWork(ISession session)
         {
-            _session = unitOfFactory;
+            _session = session;
             _transaction = _session.BeginTransaction(IsolationLevel.ReadCommitted);
         }
 

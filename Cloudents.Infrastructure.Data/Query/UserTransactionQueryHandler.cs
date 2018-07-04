@@ -16,9 +16,10 @@ namespace Cloudents.Infrastructure.Data.Query
     {
         private readonly IStatelessSession _session;
 
-        public UserTransactionQueryHandler(IStatelessSession session)
+        public UserTransactionQueryHandler(ReadonlyStatelessSession session)
         {
-            _session = session;
+            _session = session.Session;
+            
         }
 
         public async Task<IEnumerable<TransactionDto>> GetAsync(UserDataByIdQuery query, CancellationToken token)
