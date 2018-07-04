@@ -1,37 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
-using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Mail;
-using Cloudents.Infrastructure.Search.Tutor;
-using Cloudents.Infrastructure.BlockChain;
-using System.Numerics;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text.RegularExpressions;
-using Cloudents.Core.Command;
 using Cloudents.Core.Query;
-using Cloudents.Infrastructure.Framework;
-using Microsoft.Azure.Management.ServiceBus;
-using Microsoft.Azure.ServiceBus;
-using Microsoft.Rest;
-using Nethereum.Hex.HexConvertors.Extensions;
-using Nethereum.Hex.HexTypes;
-using Nethereum.Web3.Accounts;
-using NHibernate.Linq;
 
 namespace ConsoleApp
 {
@@ -44,7 +21,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -67,15 +44,15 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             container = builder.Build();
 
-            // var p = new TransactionPopulation(container);
-            // await p.AddToUserMoney(1000M, 78);
-            // await p.CreateTransactionOnExistingDataAsync();
+
+            //var bus = container.Resolve<IQueryBus>();
+            //var r= await bus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(638), default);
+
+            var p = new TransactionPopulation(container);
+           await p.CreateTransactionOnExistingDataAsync();
 
 
 
-            var bus = container.Resolve<IQueryBus>();
-            var query = new QuestionsQuery();
-            var result = await bus.QueryAsync<ResultWithFacetDto<QuestionDto>>(query, default);
 
             //var q = new UserBalanceQuery(36);
             //var t = await queryBus.QueryAsync(q, default);

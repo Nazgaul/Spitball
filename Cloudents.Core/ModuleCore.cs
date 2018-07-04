@@ -54,7 +54,7 @@ namespace Cloudents.Core
             //    },
             //    fromKey: "mailGun");
 
-            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<,>));
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
             //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<>));
             builder.RegisterType<QueryBus>().As<IQueryBus>();
 

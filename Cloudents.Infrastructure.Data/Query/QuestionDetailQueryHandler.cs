@@ -13,15 +13,14 @@ using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data.Query
 {
-    public class QuestionDetailQueryHandler: IQueryHandlerAsync<QuestionDetailQuery, QuestionDetailDto>
+    public class QuestionDetailQueryHandler: IQueryHandler<QuestionDetailQuery, QuestionDetailDto>
     {
         private readonly ISession _session;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
-        public QuestionDetailQueryHandler(ISession session, IBlobProvider<QuestionAnswerContainer> blobProvider)
+        public QuestionDetailQueryHandler(ReadonlySession session, IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
-            _session = session;
-            _session.DefaultReadOnly = true;
+            _session = session.Session;
             _blobProvider = blobProvider;
         }
 

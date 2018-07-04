@@ -6,8 +6,8 @@ namespace Cloudents.Core.DTOs
     public class TransactionDto
     {
         public DateTime Date { get; set; }
-        public ActionType Action { get; set; }
-        public TransactionType Type { get; set; }
+        public string Action { get; set; } //TODO: this was an enum
+        public string Type { get; set; } //TODO: this was an enum
         public decimal Amount { get; set; }
         public decimal Balance { get; set; }
     }

@@ -12,10 +12,6 @@ namespace Cloudents.Core.Entities.Db
             Action = action;
             Type = type;
             Price = price;
-            if (Balance < 0)
-            {
-                throw new InvalidOperationException("not enough tokens");
-            }
             Created = DateTime.UtcNow;
         }
 
@@ -33,6 +29,5 @@ namespace Cloudents.Core.Entities.Db
         public virtual ActionType Action { get; set; }
         public virtual TransactionType Type { get; set; }
         public virtual decimal Price { get; set; }
-        public virtual decimal Balance { get; set; }
     }
 }

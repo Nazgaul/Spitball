@@ -2,11 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net47</TargetFramework>
-    <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
+    <!--<MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>-->
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
-    <AssemblyVersion>8.7.2.0</AssemblyVersion>
-    <FileVersion>8.7.2.0</FileVersion>
+    <AssemblyVersion>8.7.3.0</AssemblyVersion>
+    <FileVersion>8.7.3.1</FileVersion>
+    <Version>8.7.3</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

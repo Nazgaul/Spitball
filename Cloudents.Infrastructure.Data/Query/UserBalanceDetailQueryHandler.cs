@@ -10,20 +10,19 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data.Query
 {
-    public class UserBalanceDetailQueryHandler : IQueryHandlerAsync<UserBalanceQuery, IEnumerable<BalanceDto>>
+    public class UserBalanceDetailQueryHandler : IQueryHandler<UserDataByIdQuery, IEnumerable<BalanceDto>>
     {
         private readonly ISession _session;
 
-        public UserBalanceDetailQueryHandler(ISession session)
+        public UserBalanceDetailQueryHandler(ReadonlySession session)
         {
-            _session = session;
+            _session = session.Session;
         }
 
-        public async Task<IEnumerable<BalanceDto>> GetAsync(UserBalanceQuery query, CancellationToken token)
+        public async Task<IEnumerable<BalanceDto>> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
             var l = new List<IFutureValue<decimal?>>();
 
@@ -35,7 +34,7 @@ namespace Cloudents.Infrastructure.Data.Query
                 //TODO check defaultIfEmpty
 
                 var xx = _session.QueryOver<Transaction>()
-                    .Where(w => w.User.Id == query.UserId)
+                    .Where(w => w.User.Id == query.Id)
                     .Where(w => w.Type == (TransactionType)value)
                     .Select(Projections.Sum<Transaction>(x => x.Price))
                     .FutureValue<decimal?>();
@@ -44,7 +43,7 @@ namespace Cloudents.Infrastructure.Data.Query
 
             Question questionAlias = null;
             var pendingFuture = _session.QueryOver<Answer>()
-                  .Where(w => w.User.Id == query.UserId)
+                  .Where(w => w.User.Id == query.Id)
                   //.JoinQueryOver(j => j.Question)
                   .JoinAlias(x => x.Question, () => questionAlias)
                   .Where(() => questionAlias.CorrectAnswer == null)
@@ -55,7 +54,7 @@ namespace Cloudents.Infrastructure.Data.Query
             //.Fetch(f => f.Question)
 
             var stakeFuture = _session.QueryOver<Question>()
-                .Where(w => w.User.Id == query.UserId)
+                .Where(w => w.User.Id == query.Id)
                 .And(w => w.CorrectAnswer == null)
                 .Select(Projections.Sum<Question>(x => x.Price))
                 .FutureValue<decimal?>();

@@ -15,7 +15,8 @@
     ViewBag.metaDescription = ViewBag.metaDescription ?? " Spitball - Curating all of the resources you need. For Free.";
     ViewBag.fbImage = ViewBag.fbImage ?? "/images/3rdParty/fbShare.png";
     ViewBag.imageSrc = ViewBag.imageSrc ?? "/images/3rdParty/fbShare.png";
-    var version = Assembly.GetEntryAssembly().GetName().Version.ToString(4);
+    var version = typeof(Program).Assembly
+        .GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
     var p = Provider.GetTag("vendor");
     var main = Provider.GetTag("main");
     var cdnEndPoint = Constants.GetCdnEndpoint(Environment);
@@ -176,7 +177,8 @@
     <!-- End Inspectlet Embed Code -->
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
-        window.version = '@version';
+    window.version2 = '@version';
+        window.version = '8.7.2';
         window.publicPath = '@cdnEndPoint' + '/dist/';
     window.baseURL = '@Configuration["ApiEndpoint"]';
     window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
