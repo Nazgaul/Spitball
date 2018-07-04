@@ -130,9 +130,9 @@ namespace ConsoleApp
 
         private  async Task CreateAuditAsync(ICommand message, ILifetimeScope container)
         {
-            var repository = container.Resolve<IRepository<Audit>>();
-            var audit = new Audit(message);
-            await repository.AddAsync(audit, default);
+           // var repository = container.Resolve<IRepository<Audit>>();
+           // var audit = new Audit(message);
+          //  await repository.AddAsync(audit, default);
         }
     }
 }

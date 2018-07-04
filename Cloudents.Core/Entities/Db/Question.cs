@@ -66,7 +66,7 @@ namespace Cloudents.Core.Entities.Db
             }
             CorrectAnswer = correctAnswer;
 
-            ////TODO remove from earned or question from user
+            //TODO remove from earned or question from user
             MarkCorrectTransaction(correctAnswer);
         }
 

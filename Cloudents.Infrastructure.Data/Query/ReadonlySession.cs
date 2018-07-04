@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Data.Query
         }
     }
 
-    public sealed class ReadonlyStatelessSession
+    public sealed class ReadonlyStatelessSession : IDisposable
     {
         public IStatelessSession Session { get; }
 

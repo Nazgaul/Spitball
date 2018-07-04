@@ -81,7 +81,7 @@ namespace Cloudents.Infrastructure.Data.Query
 
 
 
-            var filesTask = _blobProvider.FilesInDirectoryAsync($"question/{query}", token);
+            var filesTask = _blobProvider.FilesInDirectoryAsync($"question/{query.Id}", token);
             await Task.WhenAll(dtoTask, filesTask).ConfigureAwait(false);
             var files = filesTask.Result;
             var dto = dtoTask.Result;

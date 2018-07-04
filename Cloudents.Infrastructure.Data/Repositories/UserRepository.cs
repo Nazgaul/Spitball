@@ -26,10 +26,10 @@ namespace Cloudents.Infrastructure.Data.Repositories
         //{
         //}
 
-        public Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token)
-        {
-            return Session.Query<User>().FirstOrDefaultAsync(expression, token);
-        }
+        //public Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token)
+        //{
+        //    return Session.Query<User>().FirstOrDefaultAsync(expression, token);
+        //}
 
         public async Task<IList<User>> GetAllUsersAsync(CancellationToken token)
         {
