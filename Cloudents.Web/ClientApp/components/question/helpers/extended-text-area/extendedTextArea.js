@@ -5,6 +5,7 @@ var Uploader = require('html5-uploader');
 export default {
     props: {
         value: {type: String},
+        error: {},
         actionType:{type:String,default:'answer'},
         isFocused: false,
         uploadUrl: {type: String}
@@ -12,8 +13,9 @@ export default {
     data() {
         return {
             previewList: [],
-            fullPreview:false
-        }
+            fullPreview:false,
+            errorTextArea :{}
+            }
     },
     watch:{
         value(newVal,oldVal){
@@ -24,6 +26,7 @@ export default {
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
+
         },
         togglePreview: function(){this.fullPreview = !this.fullPreview},
         deletePreview: function(index){

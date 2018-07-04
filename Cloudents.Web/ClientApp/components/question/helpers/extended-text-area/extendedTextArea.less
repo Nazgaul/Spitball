@@ -1,7 +1,9 @@
 @import "../../../../mixin.less";
 
 .question_area {
-
+  &.has-error{
+    border: 1px solid @color-red;
+  }
   .textarea {
     background-color: #c7c7ee;
     padding: 8px;
@@ -18,6 +20,14 @@
       width: 100%;
       height: 100%;
       border-radius: 4px;
+      position: relative;
+      .error-message{
+        color: @color-red;
+        position: absolute;
+        bottom: 0.2em;
+        right: 0.5em;
+      }
+
       textarea {
         resize: none;
         padding: 11px 9px 4px;

@@ -150,7 +150,7 @@ export default {
         },
         //conditionally disable answer submit btn
         isSubmitBtnDisabled() {
-            if (!this.textAreaValue) {
+            if (!this.textAreaValue ||  this.textAreaValue.length < 15) {
                 return true
             } else {
                 return false

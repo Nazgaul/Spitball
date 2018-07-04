@@ -40,7 +40,8 @@ const vuetifyComponents = {
     VNavigationDrawer,
     VAvatar,
     VPagination,
-    VDataTable
+    VDataTable,
+
 };
 import {
     Vuetify,
