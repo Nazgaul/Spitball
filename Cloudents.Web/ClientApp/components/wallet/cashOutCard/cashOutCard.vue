@@ -41,13 +41,14 @@
             redeem(amount){
              walletService.redeem(amount)
                  .then(response => {
-                        // show toaster rtext
+                        // show toaster text
                          this.updateToasterParams({
-                             toasterText: 'Successfully redeemed',
+                             toasterText: 'Coupon will be sent via email',
                              showToaster: true,
                          });
                          //update user balance
                          this.updateBalance(-amount);
+                         this.$parent.$emit('updateEarnedPoints', amount);
                      },
                      error => {
                          console.error('error getting transactions:', error)

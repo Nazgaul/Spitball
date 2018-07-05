@@ -19,4 +19,4 @@ export const cashOutCards =  [
         pointsForDollar: 100,
         image: '10',
     }
-]
+];

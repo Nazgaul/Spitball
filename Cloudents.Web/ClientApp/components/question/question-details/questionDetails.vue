@@ -39,7 +39,7 @@
                     </question-thread>
                 </v-flex>
 
-                <v-flex class="chat-wrapper">
+                <v-flex v-if ="accountUser" class="chat-wrapper">
                     <div class="chat-title pa-2">Discussion Board</div>
                     <div ref="chat-area" class="chat-container"></div>
 
@@ -55,7 +55,8 @@
                 <v-tabs-bar>
                     <v-tabs-slider color="blue"></v-tabs-slider>
                     <v-tabs-item :href="'#tab-1'" :key="'1'">Question</v-tabs-item>
-                    <v-tabs-item :href="'#tab-2'" :key="'2'">Chat</v-tabs-item>
+                    <!--show chat tab only when logged in-->
+                    <v-tabs-item :href="'#tab-2'" :key="'2'" v-if="accountUser">Chat</v-tabs-item>
                 </v-tabs-bar>
 
                 <v-tabs-items>

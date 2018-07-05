@@ -98,38 +98,36 @@ export default {
             } else {
                 this.getTransactions();
             }
+
         },
+
         getBalances() {
             walletService.getBalances()
                 .then((response) => {
-
-                        this.items = response.data;
-                        this.items = this.items.map((item) => {
-                            item.value = item.value.toFixed(2);
-                            return item;
-                        })
-                        var total = {
+                    console.log('balances request');
+                        let earnedVal;
+                        const total = {
                             points: 0,
                             type: "total",
                             value: 0
                         };
-
-                        var earnedVal;
-                        for (var item of this.items) {
+                        this.items = response.data;
+                        this.items = this.items.map((item) => {
+                            item.value = item.value.toFixed(2);
                             if (item.type !== 'pending') {
-                                let flt = parseFloat(item.value);
+                                parseFloat(item.value);
                                 this.cash += parseFloat(item.value);
                                 if (item.type === 'Earned') {
                                     earnedVal = parseFloat(item.value)
                                     this.earnedPoints = parseFloat(item.points)
                                 }
                             }
-
                             total.points = total.points + parseFloat(item.points);
                             total.value = total.value + parseFloat(item.value);
-                        }
+                            return item;
+                        });
                         this.cash = Math.min(this.cash, earnedVal);
-                        total.value = total.value.toFixed(2)
+                        total.value = total.value.toFixed(2);
                         this.items.push(total);
                     },
                     error => {
@@ -155,11 +153,17 @@ export default {
             return this.pagination.rowsPerPage ? Math.ceil(this.items.length / this.pagination.rowsPerPage) : 0
         }
     },
-
     created() {
         this.getBalances();
         this.headers.transactions = this.$vuetify.breakpoint.xsOnly ? this.allTransactionsHeaders.filter(header => header.showOnMobile === true) : this.allTransactionsHeaders;
         this.headers.balances = this.$vuetify.breakpoint.xsOnly ? this.allBalanceHeaders.filter(header => header.showOnMobile === true) : this.allBalanceHeaders;
+        // geo to balances tab and get updated user balance
+        this.$on('updateEarnedPoints', () => {
+            this.getBalances();
+            this.cashOut = false;
+
+
+        })
 
     }
 }
