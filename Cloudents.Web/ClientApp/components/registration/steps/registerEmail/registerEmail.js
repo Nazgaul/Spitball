@@ -4,26 +4,30 @@ import registrationService from '../../../../services/registrationService';
 import VueRecaptcha from 'vue-recaptcha';
 import disableForm from '../../../mixins/submitDisableMixin'
 import SbInput from '../../../question/helpers/sbInput/sbInput.vue';
-import {mapMutations} from 'vuex'
+import {mapMutations, mapActions} from 'vuex'
+
 var auth2;
 
 export default {
     components: {stepTemplate, VueRecaptcha, SbInput},
-    mixins:[disableForm],
+    mixins: [disableForm],
     data() {
         return {
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             emailSent: false,
-            agreeTerms:false,
+            agreeTerms: false,
             errorMessage: ''
         }
     },
     methods: {
-        ...mapMutations({updateLoading:"UPDATE_LOADING"}),
+        ...mapMutations({updateLoading: "UPDATE_LOADING"}),
+        ...mapActions({updateToasterParams: 'updateToasterParams'
+        }),
+
         next() {
             self = this;
-            if(this.submitForm()) {
+            if (this.submitForm()) {
                 this.updateLoading(true);
                 registrationService.emailRegistration(this.userEmail, this.recaptcha)
                     .then(function () {
@@ -31,7 +35,7 @@ export default {
                         self.emailSent = true;
                     }, function (error) {
                         self.updateLoading(false);
-                        self.recaptcha="";
+                        self.recaptcha = "";
                         self.$refs.recaptcha.reset();
                         self.submitForm(false);
                         self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
@@ -42,7 +46,7 @@ export default {
             var self = this;
 
             var authInstance = gapi.auth2.getAuthInstance();
-            if(this.submitForm()) {
+            if (this.submitForm()) {
                 this.updateLoading(true);
                 authInstance.signIn().then(function (googleUser) {
                     var idToken = googleUser.getAuthResponse().id_token;
@@ -55,13 +59,22 @@ export default {
                             self.submitForm(false);
                             console.error(reason);
                         });
-                },function (error) {
+                }, function (error) {
                     self.updateLoading(false);
                 });
             }
         },
-        resend(){
+        resend() {
             registrationService.emailResend()
+                .then(response => {
+                        this.updateToasterParams({
+                            toasterText: 'Email sent',
+                            showToaster: true,
+                        })
+                    },
+                    error => {
+                        console.error('resent error',error)
+                    })
         },
         onVerify(response) {
             this.recaptcha = response;

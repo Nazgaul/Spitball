@@ -16,6 +16,7 @@ export default {
         return {
             // step: this.$route.meta.step || 0,
             showDialog: false,
+            toasterTimeout: 5000,
             step: {
                 type: Number
             },REGISTRATION_STEPS
@@ -27,7 +28,7 @@ export default {
     //     },
     // },
     computed: {
-        ...mapGetters(['getRegistrationStep', 'fromPath']),
+        ...mapGetters(['getRegistrationStep', 'fromPath', 'getShowToaster', 'getToasterText']),
         // step() {
         //     if(this.$route.meta.step){
         //         this.updateRegistrationStep(this.$route.meta.step)
@@ -35,8 +36,22 @@ export default {
         //     return this.getRegistrationStep;
         // }
     },
+    watch:{
+        getShowToaster: function (val) {
+            if (val) {
+                var self = this;
+                setTimeout(function () {
+                    self.updateToasterParams({
+                        showToaster: false
+                    })
+                }, this.toasterTimeout)
+            }
+        }
+    },
     methods: {
-        ...mapActions(['incrementRegistrationStep']),
+
+        ...mapActions(['incrementRegistrationStep', 'updateToasterParams']),
+
         $_back() {
             let url = this.fromPath || {path: '/ask', query: {q: ''}};
             this.$router.push({...url});

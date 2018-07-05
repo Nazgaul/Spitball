@@ -5,22 +5,22 @@ import SbInput from "../question/helpers/sbInput/sbInput.vue";
 import pageTemplate from "./registration.vue"
 import disableForm from '../mixins/submitDisableMixin'
 
-import {mapGetters, mapMutations} from 'vuex'
+import {mapGetters, mapMutations, mapActions} from 'vuex'
 
 const defaultSubmitRoute = {path: '/ask', query: {q: ''}};
 
 export default {
-    mixins:[disableForm],
-    components: {stepTemplate, VueRecaptcha, SbInput,pageTemplate},
+    mixins: [disableForm],
+    components: {stepTemplate, VueRecaptcha, SbInput, pageTemplate},
     data() {
         return {
             userEmail: '',
             rememberMe: false,
             submitted: false,
             recaptcha: '',
-            errorMessage:{
-                code:'',
-                email:''
+            errorMessage: {
+                code: '',
+                email: ''
             },
             codeSent: false,
             confirmationCode: ''
@@ -30,7 +30,8 @@ export default {
         ...mapGetters(['fromPath'])
     },
     methods: {
-        ...mapMutations({updateLoading:"UPDATE_LOADING"}),
+        ...mapMutations({updateLoading: "UPDATE_LOADING"}),
+        ...mapActions({updateToasterParams : 'updateToasterParams'}),
         submit() {
             this.updateLoading(true);
             self = this;
@@ -44,12 +45,21 @@ export default {
                     self.errorMessage.email = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
                 });
         },
-        resendSms(){
-            registrationService.resendCode();
+        resendSms() {
+            registrationService.resendCode()
+                    .then(success => {
+                        this.updateToasterParams({
+                            toasterText: 'Code sent',
+                            showToaster: true,
+                        });
+                    },
+                    error => {
+                        console.error(error, 'sign in resend error')
+                    })
         },
         verifyCode() {
-            var self=this;
-            if(this.submitForm()) {
+            var self = this;
+            if (this.submitForm()) {
                 self.updateLoading(false);
                 registrationService.smsCodeVerification(this.confirmationCode)
                     .then(function () {
