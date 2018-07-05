@@ -62,13 +62,14 @@ export default {
                 return false;
             }
             return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
-        }
+        },
+
 
     },
     methods: {
         ...mapActions({
             'delete': 'deleteQuestion',
-            correctAnswer: 'correctAnswer',updateBalance:'updateUserBalance',
+            correctAnswer: 'correctAnswer', updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams'
         }),
         markAsCorrect() {
@@ -87,13 +88,19 @@ export default {
                 toasterText: this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted',
                 showToaster: true,
             });
-            this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')}).then(() => {
-                if(!this.typeAnswer ){
-                    this.updateBalance(this.cardData.price);
-                    //To DO change to router link use and not text URL
-                    this.$router.push('/ask')}else{ this.isDeleted = true}
-            });
-        },
+            this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
+                .then(() => {
+                    if (!this.typeAnswer) {
+                        this.updateBalance(this.cardData.price);
+                        //To DO change to router link use and not text URL
+                        this.$router.push('/ask')
+                    } else {
+                        //emit to parent to update array of answers
+                        this.$parent.$emit('deleteAnswer', this.cardData.id);
+                        this.isDeleted = true
+                    }
+                });
+        }
     },
     mounted() {
         timeago().render(document.querySelectorAll('.timeago'));

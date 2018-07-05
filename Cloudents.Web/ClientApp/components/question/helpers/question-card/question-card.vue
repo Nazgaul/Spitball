@@ -1,5 +1,5 @@
 <template>
-    <v-flex v-if="cardData&&!isDeleted"  class="question-card" :class="{'highlight':flaggedAsCorrect}">
+    <v-flex v-if="cardData && !isDeleted "  class="question-card" :class="{'highlight':flaggedAsCorrect}">
         <div class="top-block">
             <user-block :user="cardData.user" v-if="cardData.user" :name="cardData.subject||'Answer'">
                 <template> · <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span

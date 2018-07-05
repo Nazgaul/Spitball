@@ -16,17 +16,18 @@
             </v-flex>
             <v-layout row>
                 <v-flex class="question-data">
-                    <question-thread v-if="questionData" :questionData="questionData" :showDialog="showDialog"
+                    <question-thread v-if="questionData" :questionData="questionData"
+                                     :showDialog="showDialog"
                                      :hasCorrectAnswer="getCorrectAnswer">
                         <div v-if="enableAnswer" slot="answer-form" class="mb-3">
                             <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                                     v-model="textAreaValue"
-                                                    :value="value"
                                                     :error="errorTextArea"
                                                     :isFocused="showForm" @addFile="addFile"
                                                     @removeFile="removeFile"></extended-text-area>
-                                <v-btn block color="primary" @click="submitAnswer()"
+                                <v-btn block color="primary"
+                                       @click="submitAnswer()"
                                        :disabled="isSubmitBtnDisabled || submitted"
                                        class="add_answer">Add your answer
                                 </v-btn>

@@ -8,14 +8,17 @@
                     <div class="dolar-val">{{pointsForDollar}} points = $1</div>
                 </div>
             </div>
-            <button class="redeem-btn">Redeem</button>
+            <button class="redeem-btn" @click="redeem(cost)">Redeem</button>
         </div>
         <img :src="require(`./../img/${imageSrc}`)"/>
     </div>
 </template>
 
 <script>
+    import walletService from '../../../services/walletService';
+
     export default {
+
         props: {
             pointsForDollar: {
                 type: Number
@@ -30,7 +33,19 @@
                 type: Boolean
             }
         },
-        computed: {
+        methods: {
+            redeem(amount){
+             walletService.redeem(amount)
+                 .then(response => {
+                        console.log(response)
+                     },
+                     error => {
+                         console.error('error getting transactions:', error)
+                     });
+
+            }
+        },
+            computed: {
             imageSrc() {
                 return this.available ? this.image + '-active.png' : this.image + '-disactivate.png'
             }
