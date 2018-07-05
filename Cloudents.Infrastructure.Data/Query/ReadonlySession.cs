@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using NHibernate;
 
 namespace Cloudents.Infrastructure.Data.Query
@@ -12,7 +13,7 @@ namespace Cloudents.Infrastructure.Data.Query
         public ReadonlySession(ISession session)
         {
             Session = session;
-            _transaction = Session.BeginTransaction();
+            _transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
             Session.DefaultReadOnly = true;
             Session.FlushMode = FlushMode.Manual;
         }
@@ -34,7 +35,7 @@ namespace Cloudents.Infrastructure.Data.Query
         public ReadonlyStatelessSession(IStatelessSession session)
         {
             Session = session;
-            _transaction = Session.BeginTransaction();
+            _transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
             //Session.DefaultReadOnly = true;
             //Session.FlushMode = FlushMode.Manual;
         }

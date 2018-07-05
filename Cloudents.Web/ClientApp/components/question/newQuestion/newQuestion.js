@@ -36,7 +36,7 @@ export default {
             let readyToSend = true;
             //error handling stuff ( redo with newer version to validate with in build validators
             if (this.accountUser && this.accountUser.balance < this.price) {
-                this.errorMessage = "You don't have enough balance in your account"
+                this.errorMessage = "You do not have sufficient SBL"
                 //error handling text area, and pass to extended text area component error message
                 readyToSend = false
             }

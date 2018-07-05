@@ -8,14 +8,17 @@
                     <div class="dolar-val">{{pointsForDollar}} points = $1</div>
                 </div>
             </div>
-            <button class="redeem-btn">Redeem</button>
+            <button class="redeem-btn" @click="redeem(cost)">Redeem</button>
         </div>
         <img :src="require(`./../img/${imageSrc}`)"/>
     </div>
 </template>
 
 <script>
+    import walletService from '../../../services/walletService';
+    import { mapActions} from 'vuex';
     export default {
+
         props: {
             pointsForDollar: {
                 type: Number
@@ -30,7 +33,27 @@
                 type: Boolean
             }
         },
-        computed: {
+        methods: {
+            ...mapActions({
+                updateBalance: 'updateUserBalance',
+                updateToasterParams: 'updateToasterParams'
+            }),
+            redeem(amount){
+             walletService.redeem(amount)
+                 .then(response => {
+                         this.updateToasterParams({
+                             toasterText: 'Successfully redeemed',
+                             showToaster: true,
+                         });
+                         this.updateBalance(-amount);
+                     },
+                     error => {
+                         console.error('error getting transactions:', error)
+                     });
+
+            }
+        },
+            computed: {
             imageSrc() {
                 return this.available ? this.image + '-active.png' : this.image + '-disactivate.png'
             }
