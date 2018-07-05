@@ -23,14 +23,14 @@ namespace Cloudents.Infrastructure.Data.Query
 
         public async Task<IEnumerable<QuestionSubjectDto>> GetAsync(QuestionSubjectQuery query, CancellationToken token)
         {
-            var p = await _session.Query<QuestionSubject>()
+            return await _session.Query<QuestionSubject>()
                 .Select(s => new QuestionSubjectDto
                 {
                     Id = s.Id,
                     Subject = s.Text
                 })
+                .OrderBy(o => o.Subject)
                 .ToListAsync(token).ConfigureAwait(false);
-            return p;
         }
     }
 }

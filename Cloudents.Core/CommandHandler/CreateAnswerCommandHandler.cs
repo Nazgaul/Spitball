@@ -45,7 +45,7 @@ namespace Cloudents.Core.CommandHandler
             var id = answer.Id;
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
-            var t = _serviceBusProvider.InsertMessageAsync(new GotAnswerEmail(question.Text, user.Email), token);
+            var t = _serviceBusProvider.InsertMessageAsync(new GotAnswerEmail(question.Text, question.User.Email), token);
             await Task.WhenAll(l.Union(new[] { t })).ConfigureAwait(true);
 
 

@@ -37,7 +37,7 @@ namespace Cloudents.Infrastructure.Data
                 .AsImplementedInterfaces();
 
             var assembly = Assembly.GetExecutingAssembly();
-            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsSelf().AsImplementedInterfaces();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
             base.Load(builder);
         }
