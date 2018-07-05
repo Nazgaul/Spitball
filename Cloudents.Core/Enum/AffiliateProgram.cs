@@ -13,8 +13,7 @@
         //None,
         Awarded,
         Earned,
-       // Pending,
-       // Stake,
+        Stake,
         Spent
     }
 
@@ -24,7 +23,6 @@
         SignUp,
         Question,
         DeleteQuestion,
-        Answer,
         QuestionCorrect,
         CashOut
     }

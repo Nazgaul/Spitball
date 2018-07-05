@@ -65,7 +65,7 @@ namespace Cloudents.Infrastructure.Data.Query
             var futureQueryOver = queryOverObj.Future<QuestionDto>();
 
             var facetsFuture = _session.QueryOver<QuestionSubject>()
-                .OrderBy(o=>o.Text).Asc
+                .OrderBy(o => o.Text).Asc
                 .Select(s => s.Text).Future<string>();
 
             var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(false);

@@ -25,7 +25,8 @@ namespace Cloudents.Infrastructure.Data.Maps
             //    .Not.KeyUpdate()
                 .Cascade.AllDeleteOrphan();
 
-            References(x => x.Transaction).ForeignKey("Question_Transaction").Nullable();
+
+            //References(x => x.Transaction).ForeignKey("Question_Transaction").Nullable();
         }
     }
 }
