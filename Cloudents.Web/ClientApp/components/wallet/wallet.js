@@ -104,7 +104,6 @@ export default {
         getBalances() {
             walletService.getBalances()
                 .then((response) => {
-                    console.log('balances request');
                         let earnedVal;
                         const total = {
                             points: 0,
