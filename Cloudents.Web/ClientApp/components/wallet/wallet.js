@@ -140,7 +140,6 @@ export default {
         getTransactions() {
             walletService.getTransactions().then(response => {
                     this.items = response.data;
-                console.log(this.items)
                 },
                 error => {
                     console.error('error getting transactions:', error)
