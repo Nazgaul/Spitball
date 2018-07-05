@@ -1,7 +1,7 @@
 import stepTemplate from '../stepTemplate.vue'
 import codesJson from './CountryCallingCodes'
 import submitDisable from '../../../mixins/submitDisableMixin'
-import {mapMutations} from 'vuex'
+import {mapMutations, mapActions} from 'vuex'
 
 ﻿import registrationService from '../../../../services/registrationService'
 import SbInput from "../../../question/helpers/sbInput/sbInput.vue";
@@ -26,6 +26,9 @@ export default {
     },
     methods: {
         ...mapMutations({updateLoading:"UPDATE_LOADING"}),
+        ...mapActions({
+            updateToasterParams: 'updateToasterParams'
+        }),
         sendCode() {
             this.updateLoading(true);
             var self = this;
@@ -36,6 +39,10 @@ export default {
                         self.codeSent = true;
                         self.submitForm(false);
                         self.errorMessage.code = '';
+                        this.updateToasterParams({
+                            toasterText: 'Code sent',
+                            showToaster: true,
+                        });
                     }, function (error) {
                         self.submitForm(false);
                         self.updateLoading(false);

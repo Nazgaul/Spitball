@@ -1,5 +1,8 @@
 <template>
     <div class="registration">
+        <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
+            <div class="text-wrap" v-html="getToasterText"></div>
+        </v-snackbar>
         <slot>
         <div class="form-wrap">
             <component :is="`register-${step}`" @next="nextStep"></component>

@@ -4,8 +4,8 @@
             <div class="points">
                 <div class="num">{{cost}}</div>
                 <div class="data">
-                    <div class="text">points</div>
-                    <div class="dolar-val">{{pointsForDollar}} points = $1</div>
+                    <div class="text">SBL</div>
+                    <div class="dolar-val">{{pointsForDollar}} SBL = $1</div>
                 </div>
             </div>
             <button class="redeem-btn" @click="redeem(cost)">Redeem</button>
@@ -41,10 +41,12 @@
             redeem(amount){
              walletService.redeem(amount)
                  .then(response => {
+                        // show toaster rtext
                          this.updateToasterParams({
                              toasterText: 'Successfully redeemed',
                              showToaster: true,
                          });
+                         //update user balance
                          this.updateBalance(-amount);
                      },
                      error => {

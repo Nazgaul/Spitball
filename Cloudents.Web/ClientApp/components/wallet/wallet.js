@@ -29,35 +29,35 @@ export default {
                 text: 'Date',
                 align: 'left',
                 value: 'date',
-                sortable: true,
+                sortable: false,
                 showOnMobile: true
             },
                 {
                     text: 'Action',
                     align: 'left',
                     value: 'action',
-                    sortable: true,
+                    sortable: false,
                     showOnMobile: true
                 },
                 {
                     text: 'Type',
                     align: 'left',
                     value: 'type',
-                    sortable: true,
+                    sortable: false,
                     showOnMobile: false
                 },
                 {
                     text: 'Amount',
                     align: 'right',
                     value: 'amount',
-                    sortable: true,
+                    sortable: false,
                     showOnMobile: true
                 },
                 {
                     text: 'Balance',
                     align: 'right',
                     value: 'balance',
-                    sortable: true,
+                    sortable: false,
                     showOnMobile: false
                 },
             ],

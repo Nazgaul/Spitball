@@ -38,7 +38,7 @@
                 <!-- <v-flex xs12> -->
                 <v-flex xs12 v-if="price < 100 && selectedPrice >currentSum "
                         :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have
-                    {{currentSum | fixedPoints}} points
+                    {{currentSum | fixedPoints}} SBL
                 </v-flex>
                 <v-flex xs12 v-if="price > 100" :class="[price < 100 ? 'text-blue' : 'text-red']">
                     The max. number of SBL is 100 per question

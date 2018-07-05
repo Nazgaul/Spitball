@@ -59,7 +59,7 @@ namespace Cloudents.Core.Entities.Db
             Transactions.Add(t);
         }
 
-        private const decimal InitialBalance = 1000;
+        private const decimal InitialBalance = 100;
 
         public virtual void UserCreateTransaction()
         {
@@ -70,14 +70,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual decimal Balance { get; protected set; }
 
-        public virtual void ChangeBalance(decimal price)
-        {
-            Balance += price;
-            if (Balance < 0)
-            {
-                throw new InvalidOperationException("not enough tokens");
-            }
-        }
+        
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         protected internal virtual IList<Transaction> Transactions { get; set; }
