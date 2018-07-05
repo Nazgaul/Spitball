@@ -114,7 +114,7 @@ export default {
                 );
 
                 //conversation
-                //conversation.setParticipant(this.chatAccount, { notify: false });
+                conversation.setParticipant(this.chatAccount, { notify: false });
                 conversation.setParticipant(other1);
                 conversation.setAttributes({
                     photoUrl: `${location.origin}/images/conversation.png`,

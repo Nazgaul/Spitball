@@ -53,7 +53,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("redeem"), ValidateModel]
-        public async Task<IActionResult> RedeemAsync(CreateRedeemRequest model,
+        public async Task<IActionResult> RedeemAsync([FromBody]CreateRedeemRequest model,
         [FromServices] ICommandBus commandBus,
         [FromServices] IMapper mapper,
         CancellationToken token)

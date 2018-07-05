@@ -22,15 +22,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
         {
         }
 
-        //public UserRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWork) : base(unitOfWork)
-        //{
-        //}
-
-        //public Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token)
-        //{
-        //    return Session.Query<User>().FirstOrDefaultAsync(expression, token);
-        //}
-
         public async Task<IList<User>> GetAllUsersAsync(CancellationToken token)
         {
             var t = await Session.Query<User>().Where(w => w.Email != null).ToListAsync(token);
@@ -98,13 +89,19 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
         public Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token)
         {
-            return Session.QueryOver<Transaction>()
-                .Where(w => w.User.Id == userId)
-                .Where(w => w.Type == TransactionType.Earned)
-                .Select(Projections.Sum<Transaction>(x => x.Price))
+            return UserBalanceByType(userId, TransactionType.Earned)
                 .SingleOrDefaultAsync<decimal>(token);
         }
 
-        
+        internal IQueryOver<Transaction, Transaction> UserBalanceByType(long userId, TransactionType type)
+        {
+            return
+              Session.QueryOver<Transaction>()
+                  .Where(w => w.User.Id == userId)
+                  .Where(w => w.Type == type)
+                  .Select(Projections.Sum<Transaction>(x => x.Price));
+        }
+
+
     }
 }

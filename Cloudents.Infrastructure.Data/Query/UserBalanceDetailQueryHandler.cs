@@ -8,6 +8,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Infrastructure.Data.Repositories;
 using NHibernate;
 using NHibernate.Criterion;
 
@@ -16,9 +17,11 @@ namespace Cloudents.Infrastructure.Data.Query
     public class UserBalanceDetailQueryHandler : IQueryHandler<UserDataByIdQuery, IEnumerable<BalanceDto>>
     {
         private readonly ISession _session;
+        private readonly UserRepository _userRepository;
 
-        public UserBalanceDetailQueryHandler(ReadonlySession session)
+        public UserBalanceDetailQueryHandler(ReadonlySession session, UserRepository userRepository)
         {
+            _userRepository = userRepository;
             _session = session.Session;
         }
 
@@ -33,10 +36,7 @@ namespace Cloudents.Infrastructure.Data.Query
                 //query raise exception when one of the fields is null
                 //TODO check defaultIfEmpty
 
-                var xx = _session.QueryOver<Transaction>()
-                    .Where(w => w.User.Id == query.Id)
-                    .Where(w => w.Type == (TransactionType)value)
-                    .Select(Projections.Sum<Transaction>(x => x.Price))
+                var xx = _userRepository.UserBalanceByType(query.Id, (TransactionType) value)
                     .FutureValue<decimal?>();
                 l.Add(xx);
             }
@@ -49,9 +49,6 @@ namespace Cloudents.Infrastructure.Data.Query
                   .Where(() => questionAlias.CorrectAnswer == null)
                   .Select(Projections.Sum(() => questionAlias.Price))
                   .FutureValue<decimal?>();
-            //.JoinAlias(x => x.Question, () => questionAlias)
-            //.JoinQueryOver(w=>w.Question)
-            //.Fetch(f => f.Question)
 
             var stakeFuture = _session.QueryOver<Question>()
                 .Where(w => w.User.Id == query.Id)
@@ -59,15 +56,10 @@ namespace Cloudents.Infrastructure.Data.Query
                 .Select(Projections.Sum<Question>(x => x.Price))
                 .FutureValue<decimal?>();
 
-            //.Where(w => w.Question.CorrectAnswer != null)
-
-
-
             await l[0].GetValueAsync(token).ConfigureAwait(false);
 
              var pending = new BalanceDto("Pending", pendingFuture.Value.GetValueOrDefault());
             var stake = new BalanceDto("Stake", stakeFuture.Value.GetValueOrDefault());
-
 
             var decimals = l.Select(s => s.Value);
             return decimals.Select(

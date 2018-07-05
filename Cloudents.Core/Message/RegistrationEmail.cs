@@ -19,7 +19,7 @@ namespace Cloudents.Core.Storage
     [Serializable]
     public class GotAnswerEmail: BaseEmail
     {
-        public GotAnswerEmail(string questionText ,string to) : base(to, null, "You got answer to question you asked")
+        public GotAnswerEmail(string questionText ,string to) : base(to, null, "You got an answer to question you asked")
         {
             QuestionText = questionText;
         }
@@ -28,7 +28,7 @@ namespace Cloudents.Core.Storage
 
         public override string ToString()
         {
-            return $"You got answer to question: {QuestionText}";
+            return $"You got an answer to question: {QuestionText}";
         }
     }
 
