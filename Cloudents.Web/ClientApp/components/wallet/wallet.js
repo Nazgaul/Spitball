@@ -103,7 +103,8 @@ export default {
             walletService.getBalances()
                 .then((response) => {
 
-                        this.items = response.data;
+                    this.items = response.data;
+                    //TODO: extra loop - optimize
                         this.items = this.items.map((item) => {
                             item.value = item.value.toFixed(2);
                             return item;
@@ -138,8 +139,10 @@ export default {
                 )
         },
         getTransactions() {
-            walletService.getTransactions().then(response => {
-                    this.items = response.data
+            walletService.getTransactions().then(({ data }) => {
+                console.log(data);
+                this.items = data;
+                //this.items = [data[0], data[1]]
                 },
                 error => {
                     console.error('error getting transactions:', error)

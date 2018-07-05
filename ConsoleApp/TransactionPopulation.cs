@@ -92,9 +92,9 @@ namespace ConsoleApp
 
             foreach (var question in questions)
             {
-                var tttt = question.QuestionCreateTransaction();
+                /*var tttt =*/ question.QuestionCreateTransaction();
                 await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-                await transactionRepository.AddAsync(tttt, default).ConfigureAwait(false);
+                //await transactionRepository.AddAsync(tttt, default).ConfigureAwait(false);
             }
         }
 
@@ -128,9 +128,10 @@ namespace ConsoleApp
                 var ca = question.CorrectAnswer;
                 if (ca != null)
                 {
-                    var tttt = question.MarkCorrectTransaction(ca);
+                    /*var tttt =*/
+                    question.MarkCorrectTransaction(ca);
                     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-                    await transactionRepository.AddAsync(tttt, default).ConfigureAwait(false);
+                    //await transactionRepository.AddAsync(tttt, default).ConfigureAwait(false);
                 }
             }
         }

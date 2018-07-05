@@ -45,11 +45,11 @@ namespace Cloudents.Core.Entities.Db
         public virtual IList<Answer> Answers { get; protected set; }
 
 
-        public virtual Transaction QuestionCreateTransaction()
+        public virtual void QuestionCreateTransaction()
         {
             var t = new Transaction(ActionType.Question, TransactionType.Stake, -Price);
             User.AddTransaction(t);
-            return t;
+            //return t;
         }
 
         public virtual void QuestionDeleteTransaction()
@@ -70,7 +70,7 @@ namespace Cloudents.Core.Entities.Db
             MarkCorrectTransaction(correctAnswer);
         }
 
-        public virtual IEnumerable<Transaction> MarkCorrectTransaction(Answer correctAnswer)
+        public virtual void MarkCorrectTransaction(Answer correctAnswer)
         {
             //var list = new List<Transaction>();
             var questionUser = User;
@@ -86,7 +86,7 @@ namespace Cloudents.Core.Entities.Db
                 Price);
             answerUser.AddTransaction(tAnswer);
 
-            return new[] {t1, t2, tAnswer};
+            //return new[] {t1, t2, tAnswer};
         }
 
 
