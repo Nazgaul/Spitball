@@ -36,7 +36,13 @@
                 </v-flex>
 
                 <!-- <v-flex xs12> -->
-                <v-flex xs12 v-if="price < 100 && selectedPrice >currentSum "
+                <!--05.07.2018-->
+                <!--<v-flex xs12 v-if="price < 100 && selectedPrice >currentSum "-->
+                        <!--:class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have-->
+                    <!--{{currentSum | fixedPoints}} SBL-->
+                <!--</v-flex>-->
+
+                <v-flex xs12 v-if="currentSum "
                         :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have
                     {{currentSum | fixedPoints}} SBL
                 </v-flex>
