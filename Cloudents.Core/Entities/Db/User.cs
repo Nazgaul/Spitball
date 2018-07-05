@@ -48,7 +48,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual string PrivateKey { get; set; }
 
-        public virtual Transaction AddTransaction(Transaction t)
+        public virtual void AddTransaction(Transaction t)
         {
             t.User = this;
             Balance += t.Price;
@@ -56,23 +56,28 @@ namespace Cloudents.Core.Entities.Db
             {
                 throw new InvalidOperationException("not enough tokens");
             }
-            //t.Balance = (LastTransaction?.Balance ?? 0) + t.Price;
             Transactions.Add(t);
-            //LastTransaction = t;
-            return t;
         }
 
-        private const decimal InitialBalance = 100;
+        private const decimal InitialBalance = 1000;
 
-        public virtual Transaction UserCreateTransaction()
+        public virtual void UserCreateTransaction()
         {
             var t =  new Transaction(ActionType.SignUp, TransactionType.Awarded, InitialBalance);
             AddTransaction(t);
-            return t;
         }
 
 
         public virtual decimal Balance { get; protected set; }
+
+        public virtual void ChangeBalance(decimal price)
+        {
+            Balance += price;
+            if (Balance < 0)
+            {
+                throw new InvalidOperationException("not enough tokens");
+            }
+        }
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         protected internal virtual IList<Transaction> Transactions { get; set; }

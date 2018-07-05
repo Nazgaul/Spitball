@@ -42,28 +42,28 @@ namespace Cloudents.Infrastructure.Data.Query
             }
 
             Question questionAlias = null;
-            var pendingFuture = _session.QueryOver<Answer>()
-                  .Where(w => w.User.Id == query.Id)
-                  //.JoinQueryOver(j => j.Question)
-                  .JoinAlias(x => x.Question, () => questionAlias)
-                  .Where(() => questionAlias.CorrectAnswer == null)
-                  .Select(Projections.Sum(() => questionAlias.Price))
-                  .FutureValue<decimal?>();
+            //var pendingFuture = _session.QueryOver<Answer>()
+            //      .Where(w => w.User.Id == query.Id)
+            //      //.JoinQueryOver(j => j.Question)
+            //      .JoinAlias(x => x.Question, () => questionAlias)
+            //      .Where(() => questionAlias.CorrectAnswer == null)
+            //      .Select(Projections.Sum(() => questionAlias.Price))
+            //      .FutureValue<decimal?>();
 
-            var stakeFuture = _session.QueryOver<Question>()
-                .Where(w => w.User.Id == query.Id)
-                .And(w => w.CorrectAnswer == null)
-                .Select(Projections.Sum<Question>(x => x.Price))
-                .FutureValue<decimal?>();
+            //var stakeFuture = _session.QueryOver<Question>()
+            //    .Where(w => w.User.Id == query.Id)
+            //    .And(w => w.CorrectAnswer == null)
+            //    .Select(Projections.Sum<Question>(x => x.Price))
+            //    .FutureValue<decimal?>();
 
             await l[0].GetValueAsync(token).ConfigureAwait(false);
 
-             var pending = new BalanceDto("Pending", pendingFuture.Value.GetValueOrDefault());
-            var stake = new BalanceDto("Stake", stakeFuture.Value.GetValueOrDefault());
+            // var pending = new BalanceDto("Pending", pendingFuture.Value.GetValueOrDefault());
+            //var stake = new BalanceDto("Stake", stakeFuture.Value.GetValueOrDefault());
 
             var decimals = l.Select(s => s.Value);
             return decimals.Select(
-                (s, i) => new BalanceDto((TransactionType)i, s.GetValueOrDefault())).Union(new[] { stake, pending });
+                (s, i) => new BalanceDto((TransactionType)i, s.GetValueOrDefault()))/*.Union(new[] { stake, pending })*/;
         }
     }
 }

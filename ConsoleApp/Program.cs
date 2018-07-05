@@ -49,11 +49,12 @@ namespace ConsoleApp
            // var _serviceBusProvider = container.Resolve<IServiceBusProvider>();
             
            // await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(100, 587), default);
-            var bus = container.Resolve<IQueryBus>();
-            var r= await bus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(638), default);
+           // var bus = container.Resolve<IQueryBus>();
+           // var r= await bus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(638), default);
 
-           // var p = new TransactionPopulation(container);
-          // await p.AddToUserMoney(10000, 638);
+            var p = new TransactionPopulation(container);
+            await p.CreateTransactionOnExistingDataAsync();
+            //await p.AddToUserMoney(10000, 660);
 
 
 
