@@ -22,7 +22,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
