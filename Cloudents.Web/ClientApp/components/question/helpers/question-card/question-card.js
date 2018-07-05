@@ -69,7 +69,8 @@ export default {
     methods: {
         ...mapActions({
             'delete': 'deleteQuestion',
-            correctAnswer: 'correctAnswer', updateBalance: 'updateUserBalance',
+            correctAnswer: 'correctAnswer',
+            updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams'
         }),
         markAsCorrect() {

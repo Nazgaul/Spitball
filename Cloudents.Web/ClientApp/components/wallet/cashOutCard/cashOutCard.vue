@@ -16,7 +16,7 @@
 
 <script>
     import walletService from '../../../services/walletService';
-
+    import { mapActions} from 'vuex';
     export default {
 
         props: {
@@ -34,10 +34,18 @@
             }
         },
         methods: {
+            ...mapActions({
+                updateBalance: 'updateUserBalance',
+                updateToasterParams: 'updateToasterParams'
+            }),
             redeem(amount){
              walletService.redeem(amount)
                  .then(response => {
-                        console.log(response)
+                         this.updateToasterParams({
+                             toasterText: 'Successfully redeemed',
+                             showToaster: true,
+                         });
+                         this.updateBalance(-amount);
                      },
                      error => {
                          console.error('error getting transactions:', error)
