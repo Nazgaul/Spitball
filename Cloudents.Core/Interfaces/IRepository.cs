@@ -52,9 +52,13 @@ namespace Cloudents.Core.Interfaces
         Task<IList<Question>> GetAllQuestionsAsync();
     }
 
-   
+    public interface ICourseRepository : IRepository<Course>
+    {
+        Task<Course> GetCourseAsync(long universityId, string courseName, CancellationToken token);
+    }
 
-    
+
+
 
     public interface IMailGunStudentRepository : IRepository<MailGunStudent>
     {

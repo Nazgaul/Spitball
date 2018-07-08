@@ -46,6 +46,27 @@ namespace Cloudents.Web.Api
             });
         }
 
-       
+        /// <summary>
+        /// Create academic course
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="token">Cancellation token</param>
+        /// <returns>The id of the course created</returns>
+        [Route("create")]
+        [HttpPost]
+        public async Task<IActionResult> CreateAcademicBoxAsync([FromBody]CreateCourseRequest model, CancellationToken token)
+        {
+            if (!ModelState.IsValid || !model.University.HasValue)
+            {
+                return BadRequest(ModelState);
+            }
+            var command = new CreateCourseCommand(model.CourseName, model.University.Value);
+            var response = await _command.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(command, token).ConfigureAwait(false);
+            return Ok(new
+            {
+                response.Id
+            });
+        }
+
     }
 }
