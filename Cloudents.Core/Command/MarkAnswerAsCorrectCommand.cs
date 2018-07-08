@@ -20,9 +20,5 @@ namespace Cloudents.Core.Command
 
         public Guid AnswerId { get; private set; }
         public long UserId { get; private set; }
-
-       // public long QuestionId { get; private set; }
-
-       // public string PrivateKey { get; private set; }
     }
 }

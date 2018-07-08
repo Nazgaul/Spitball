@@ -57,7 +57,7 @@ namespace Cloudents.Core.DTOs
 
         public string Responsibilities
         {
-            get => _responsibilities.RemoveEndOfString(300);
+            get => _responsibilities.Truncate(300);
             set => _responsibilities = value;
         }
 

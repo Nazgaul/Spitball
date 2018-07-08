@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message;
 using Cloudents.Core.Request;
 
 namespace Cloudents.Core.Storage

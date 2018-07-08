@@ -3,12 +3,14 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Framework;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.ServiceBus.Messaging;
+using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
 using Twilio;
@@ -32,22 +34,51 @@ namespace Cloudents.Functions
                 log.Error("error with parsing message");
                 return;
             }
-            var dynamicBlobAttribute = new BlobAttribute($"mailcontainer/Spitball/{topicMessage.Template}-mail.html");
 
-            var htmlTemplate = await binder.BindAsync<string>(dynamicBlobAttribute, token).ConfigureAwait(false);
-            var message = new Mail
-            {
-                Subject = topicMessage.Subject,
-            };
-            if (htmlTemplate == null)
+            var message = new Mail();
+
+            void TextEmail()
             {
                 message.AddContent(new Content("text/plain", topicMessage.ToString()));
+                message.Subject = topicMessage.Subject;
                 log.Error("error with template name" + topicMessage.Template);
+            }
+
+            if (topicMessage.Template != null)
+            {
+                var dynamicBlobAttribute =
+                    new BlobAttribute($"mailcontainer/Spitball/{topicMessage.Template}-mail.html");
+
+                var blob = await binder.BindAsync<CloudBlockBlob>(dynamicBlobAttribute, token).ConfigureAwait(false);
+                if (await blob.ExistsAsync(token))
+                {
+                    var htmlTemplate = await blob.DownloadTextAsync(token);
+
+                    if (!blob.Metadata.TryGetValue("subject", out var subject))
+                    {
+                        subject = topicMessage.Subject;
+                    }
+
+                    message.Subject = subject;
+                    if (htmlTemplate != null)
+                    {
+                        var content = htmlTemplate.Inject(topicMessage);
+                        message.AddContent(new Content("text/html", content));
+                    }
+                    else
+                    {
+                        TextEmail();
+                    }
+                }
+                else
+                {
+                    TextEmail();
+                }
             }
             else
             {
-                var content = htmlTemplate.Inject(topicMessage);
-                message.AddContent(new Content("text/html", content));
+                TextEmail();
+                
             }
 
             var personalization = new Personalization();

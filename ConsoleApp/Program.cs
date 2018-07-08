@@ -8,6 +8,7 @@ using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
 using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 
@@ -22,7 +23,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -46,15 +47,19 @@ namespace ConsoleApp
             container = builder.Build();
 
 
-           // var _serviceBusProvider = container.Resolve<IServiceBusProvider>();
-            
-           // await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(100, 587), default);
-           // var bus = container.Resolve<IQueryBus>();
-           // var r= await bus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(638), default);
+            // var _serviceBusProvider = container.Resolve<IServiceBusProvider>();
 
-            var p = new TransactionPopulation(container);
-            await p.CreateTransactionOnExistingDataAsync();
-            //await p.AddToUserMoney(10000, 660);
+            // await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(100, 587), default);
+            var bus = container.Resolve<IServiceBusProvider>();
+            await bus.InsertMessageAsync(new GotAnswerEmail("This is a question text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
+                "ram@cloudents.com",
+                "This is a answer text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
+                "https://dev.spitball.co"), default);
+            // var r= await bus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(638), default);
+
+            //var p = new TransactionPopulation(container);
+            //await p.CreateTransactionOnExistingDataAsync();
+            // await p.AddToUserMoney(100000, 660);
 
 
 

@@ -25,7 +25,7 @@ namespace ConsoleApp
                 {
                     var t = child.Resolve<IUserRepository>();
                     var user = await t.LoadAsync(userId, default);
-                    var p = new Transaction(ActionType.None, TransactionType.Awarded, money);
+                    var p = new Transaction(ActionType.None, TransactionType.Earned, money);
                     user.AddTransaction(p);
                     await t.UpdateAsync(user, default).ConfigureAwait(false);
                     await unitOfWork.CommitAsync(default);

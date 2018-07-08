@@ -49,7 +49,9 @@ namespace Cloudents.Infrastructure.Data
                     m.FluentMappings.Add(type);
                 }
             });
+            
             _factory = configuration.BuildSessionFactory();
+            
            // _factory.Statistics.IsStatisticsEnabled = true;
         }
 

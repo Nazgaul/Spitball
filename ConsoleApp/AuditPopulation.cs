@@ -20,41 +20,41 @@ namespace ConsoleApp
 
         public  async Task CreateAuditOnExistingDataAsync()
         {
-            using (var child = _container.BeginLifetimeScope())
-            {
-                using (var t = child.Resolve<IUnitOfWork>())
-                {
-                    await CreateUserAuditAsync(child);
-                    await t.CommitAsync(default);
-                }
-            }
+            //using (var child = _container.BeginLifetimeScope())
+            //{
+            //    using (var t = child.Resolve<IUnitOfWork>())
+            //    {
+            //        await CreateUserAuditAsync(child);
+            //        await t.CommitAsync(default);
+            //    }
+            //}
 
-            using (var child = _container.BeginLifetimeScope())
-            {
-                using (var t = child.Resolve<IUnitOfWork>())
-                {
-                    await CreateQuestionAuditAsync(child);
-                    await t.CommitAsync(default);
-                }
-            }
+            //using (var child = _container.BeginLifetimeScope())
+            //{
+            //    using (var t = child.Resolve<IUnitOfWork>())
+            //    {
+            //        await CreateQuestionAuditAsync(child);
+            //        await t.CommitAsync(default);
+            //    }
+            //}
 
-            using (var child = _container.BeginLifetimeScope())
-            {
-                using (var t = child.Resolve<IUnitOfWork>())
-                {
-                    await CreateAnswerAuditAsync(child);
-                    await t.CommitAsync(default);
-                }
-            }
+            //using (var child = _container.BeginLifetimeScope())
+            //{
+            //    using (var t = child.Resolve<IUnitOfWork>())
+            //    {
+            //        await CreateAnswerAuditAsync(child);
+            //        await t.CommitAsync(default);
+            //    }
+            //}
 
-            using (var child = _container.BeginLifetimeScope())
-            {
-                using (var t = child.Resolve<IUnitOfWork>())
-                {
-                    await MarkAnswerAuditAsync(child);
-                    await t.CommitAsync(default);
-                }
-            }
+            //using (var child = _container.BeginLifetimeScope())
+            //{
+            //    using (var t = child.Resolve<IUnitOfWork>())
+            //    {
+            //        await MarkAnswerAuditAsync(child);
+            //        await t.CommitAsync(default);
+            //    }
+            //}
         }
 
         private  async Task CreateUserAuditAsync(ILifetimeScope container)
@@ -92,25 +92,25 @@ namespace ConsoleApp
             }
         }
 
-        private  async Task CreateAnswerAuditAsync(ILifetimeScope container)
-        {
-            var t = container.Resolve<IQuestionRepository>();
-            var blob = container.Resolve<IBlobProvider<QuestionAnswerContainer>>();
-            var questions = await t.GetAllQuestionsAsync();
+        //private  async Task CreateAnswerAuditAsync(ILifetimeScope container)
+        //{
+        //    var t = container.Resolve<IQuestionRepository>();
+        //    var blob = container.Resolve<IBlobProvider<QuestionAnswerContainer>>();
+        //    var questions = await t.GetAllQuestionsAsync();
 
-            foreach (var question in questions)
-            {
-                foreach (var answer in question.Answers)
-                {
-                    var blobs = await blob.FilesInDirectoryAsync($"question/{question.Id}", default);
-                    var xxx = QuestionDetailQueryHandler.AggregateFiles(blobs);
+        //    foreach (var question in questions)
+        //    {
+        //        foreach (var answer in question.Answers)
+        //        {
+        //            var blobs = await blob.FilesInDirectoryAsync($"question/{question.Id}", default);
+        //            var xxx = QuestionDetailQueryHandler.AggregateFiles(blobs);
 
-                    var files = xxx[answer.Id].Select(s => s.Segments.Last());
-                    var command = new CreateAnswerCommand(question.Id, answer.Text, answer.User.Id, files);
-                    await CreateAuditAsync(command, container);
-                }
-            }
-        }
+        //            var files = xxx[answer.Id].Select(s => s.Segments.Last());
+        //            var command = new CreateAnswerCommand(question.Id, answer.Text, answer.User.Id, files);
+        //            await CreateAuditAsync(command, container);
+        //        }
+        //    }
+        //}
 
         private  async Task MarkAnswerAuditAsync(ILifetimeScope container)
         {

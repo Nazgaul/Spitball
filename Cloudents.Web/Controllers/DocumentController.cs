@@ -62,7 +62,7 @@ namespace Cloudents.Web.Controllers
             ViewBag.metaDescription = "Get class notes for free with Spitball";
             if (!string.IsNullOrEmpty(model.Description))
             {
-                ViewBag.metaDescription += ":" + model.Description.RemoveEndOfString(100);
+                ViewBag.metaDescription += ":" + model.Description.Truncate(100);
             }
             ViewBag.metaDescription = WebUtility.HtmlDecode(ViewBag.metaDescription);
             return View();
