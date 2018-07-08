@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -48,6 +49,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
+            if (user == null) throw new ArgumentNullException(nameof(user));
             if (!user.EmailConfirmed)
             {
                 return Unauthorized();
@@ -92,7 +94,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("verify"), ValidateModel]
-        public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model, CancellationToken token)
+        public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number).ConfigureAwait(false);
