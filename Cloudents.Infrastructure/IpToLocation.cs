@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure
             _restClient = restClient;
         }
 
-        //[Cache(TimeConst.Year, nameof(IpToLocation), true)]
+        [Cache(TimeConst.Year, nameof(IpToLocation) + "555", true)]
         public async Task<Location> GetAsync(IPAddress ipAddress, CancellationToken token)
         {
             var uri = new Uri($"http://api.ipstack.com/{ipAddress}?access_key=0b561be1266ad6b1d01f2daedc4703cd");
