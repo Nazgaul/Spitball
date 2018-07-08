@@ -4,21 +4,18 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Command
 {
-    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local", Justification = "Automapper handle that")]
     public class MarkAnswerAsCorrectCommand : ICommand
     {
-        public MarkAnswerAsCorrectCommand()
-        {
-            
-        }
-
-        public MarkAnswerAsCorrectCommand(Guid answerId, long userId)
+        public MarkAnswerAsCorrectCommand(Guid answerId, long userId, string link)
         {
             AnswerId = answerId;
             UserId = userId;
+            Link = link;
         }
 
         public Guid AnswerId { get; private set; }
         public long UserId { get; private set; }
+
+        public string Link { get; private set; }
     }
 }

@@ -18,8 +18,8 @@ namespace Cloudents.Web.Services
             //CreateMap<CreateAnswerRequest, CreateAnswerCommand>()
             //    .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
 
-            CreateMap<MarkAsCorrectRequest, MarkAnswerAsCorrectCommand>()
-                .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
+            //CreateMap<MarkAsCorrectRequest, MarkAnswerAsCorrectCommand>()
+            //    .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
 
             CreateMap<AssignUniversityRequest, AssignUniversityToUserCommand>()
                 .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());

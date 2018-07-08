@@ -23,12 +23,19 @@ namespace Cloudents.Functions
         [FunctionName("FunctionEmail")]
         public static async Task EmailFunctionAsync(
             [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Email))]BrokeredMessage brokeredMessage,
-            [SendGrid(ApiKey = "SendgridKey", From = "no-reply@spitball.co")] IAsyncCollector<Mail> emailProvider,
+            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<Mail> emailProvider,
             IBinder binder,
             TraceWriter log,
             CancellationToken token)
         {
+            if (brokeredMessage.DeliveryCount > 5)
+            {
+                log.Warning("invoking message from queue");
+
+                return;
+            }
             var topicMessage = brokeredMessage.GetBodyInheritance<BaseEmail>();
+            
             if (topicMessage == null)
             {
                 log.Error("error with parsing message");

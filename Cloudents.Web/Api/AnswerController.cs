@@ -32,7 +32,6 @@ namespace Cloudents.Web.Api
         [HttpPost, ValidateModel]
         public async Task<IActionResult> CreateAnswerAsync([FromBody]CreateAnswerRequest model, CancellationToken token)
         {
-            //var command = _mapper.Map<CreateAnswerCommand>(model);
             var link = Url.Link("QuestionRoute", new { id = model.QuestionId });
             var command = new CreateAnswerCommand(model.QuestionId, model.Text, _userManager.GetLongUserId(User), model.Files, link);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);

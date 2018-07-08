@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
@@ -46,15 +47,19 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             container = builder.Build();
 
-
             // var _serviceBusProvider = container.Resolve<IServiceBusProvider>();
 
             // await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(100, 587), default);
             var bus = container.Resolve<IServiceBusProvider>();
-            await bus.InsertMessageAsync(new GotAnswerEmail("This is a question text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
-                "ram@cloudents.com",
+
+
+            var message = new RegistrationEmail("ram@cloudents.com", "https://dev.spitball.co");
+            await bus.InsertMessageAsync(message, default);
+            await bus.InsertMessageAsync(new AnswerCorrectEmail
+            ("ram@cloudents.com",
+                "This is a question text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
                 "This is a answer text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
-                "https://dev.spitball.co"), default);
+                "https://dev.spitball.co", 100), default);
             // var r= await bus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(638), default);
 
             //var p = new TransactionPopulation(container);
@@ -87,6 +92,30 @@ namespace ConsoleApp
             var t = container.Resolve<IBlockChainErc20Service>();
             var pb = t.GetAddress("38d68c294410244dcd009346c756436a64530d7ddb0611e62fa79f9f721cebb0");
             return t.SetInitialBalanceAsync(pb, default);
+        }
+
+
+        internal static bool TryParseAddress(string value)
+        {
+            // email = null;
+
+            if (string.IsNullOrEmpty(value))
+            {
+                return false;
+            }
+
+            try
+            {
+                // MailAddress will auto-parse the name from a string like "testuser@test.com <Test User>"
+                MailAddress mailAddress = new MailAddress(value);
+                string displayName = string.IsNullOrEmpty(mailAddress.DisplayName) ? null : mailAddress.DisplayName;
+                //email = new Email(mailAddress.Address, displayName);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Cloudents.Core.CommandHandler
             question.MarkAnswerAsCorrect(answer);
 
             await _questionRepository.UpdateAsync(question, token).ConfigureAwait(false);
-            await _serviceBusProvider.InsertMessageAsync(new AnswerCorrectEmail(answer.User.Email), token);
+            await _serviceBusProvider.InsertMessageAsync(new AnswerCorrectEmail(answer.User.Email, answer.Question.Text, answer.Text, message.Link, answer.Question.Price), token);
         }
     }
 }
