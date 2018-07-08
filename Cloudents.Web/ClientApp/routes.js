@@ -210,6 +210,7 @@ let routes2 = [
             default: registration,
         }, name: "registration",
     },
+
     {
         path: "/verify-phone",
         components: {
@@ -217,9 +218,10 @@ let routes2 = [
         },
         name: "registrationVerify",
         props: {
-            default: {autoIncrementStep: true}
+            default: {autoIncrementStep: false}
         },
     },
+
     {
         path: "/signin", components: {
             default: signin

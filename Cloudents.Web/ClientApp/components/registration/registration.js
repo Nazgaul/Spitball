@@ -19,7 +19,8 @@ export default {
             toasterTimeout: 5000,
             step: {
                 type: Number
-            },REGISTRATION_STEPS
+            },
+            REGISTRATION_STEPS
         }
     },
     // watch: {
@@ -67,8 +68,11 @@ export default {
         }
     },
     created() {
+        console.log('step!!!!')
+
         if(this.autoIncrementStep){
             this.incrementRegistrationStep();
+            console.log('step2222')
         }
         this.step = this.getRegistrationStep;
     }
