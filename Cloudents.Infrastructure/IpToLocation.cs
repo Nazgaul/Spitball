@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure
             _restClient = restClient;
         }
 
-        [Cache(TimeConst.Year, nameof(IpToLocation), true)]
+        //[Cache(TimeConst.Year, nameof(IpToLocation), true)]
         public async Task<Location> GetAsync(IPAddress ipAddress, CancellationToken token)
         {
             var uri = new Uri($"http://api.ipstack.com/{ipAddress}?access_key=0b561be1266ad6b1d01f2daedc4703cd");
@@ -68,7 +68,7 @@ namespace Cloudents.Infrastructure
         public class IpLocation
         {
             [JsonProperty("geoname_id")]
-            public int GeonameId { get; set; }
+            public int? GeonameId { get; set; }
             public string Capital { get; set; }
             public IpLanguage[] Languages { get; set; }
             [JsonProperty("country_flag")]
