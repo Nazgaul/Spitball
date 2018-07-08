@@ -97,7 +97,7 @@
                                             <!--<v-icon>sbf-rocket</v-icon>-->
                                             <!--</v-btn>-->
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
-                                                         :user-name="accountUser.name" />
+                                                         :user-name="accountUser.name"/>
                                             <menu-list :isAuthUser="loggedIn"
                                                        v-if=!$vuetify.breakpoint.xsOnly></menu-list>
                                         </v-menu>
@@ -277,7 +277,6 @@
                 else {
                     el.select();
                 }
-
                 // execute copy command
                 document.execCommand('copy');
             },

@@ -69,7 +69,6 @@ const resultProps = {
 };
 
 
-
 const bookDetailsProps = {
     default: dynamicDetailsPropsFn,
     header: (route) => (
@@ -178,7 +177,7 @@ let routes2 = [
         },
         name: "question",
         props: {
-            header:{submitRoute:'/ask'},
+            header: {submitRoute: '/ask'},
             default: (route) => ({id: route.params.id}),
         },
     },
@@ -218,7 +217,7 @@ let routes2 = [
         },
         name: "registrationVerify",
         props: {
-            default: {autoIncrementStep: false}
+            default: {autoIncrementStep: true}
         },
     },
 

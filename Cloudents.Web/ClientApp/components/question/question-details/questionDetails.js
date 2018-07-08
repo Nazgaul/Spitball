@@ -90,8 +90,6 @@ export default {
                     self.questionData = response.data;
                     if (self.accountUser) {
                         self.questionData.cardOwner = self.accountUser.id === response.data.user.id;
-
-                        console.log(self.accountUser, 'gfhhh', self.questionData)
                     } else {
                         self.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
                     }
