@@ -1,4 +1,4 @@
-﻿namespace Cloudents.Core.Storage
+﻿namespace Cloudents.Core.Message
 {
     public class SmsMessage
     {

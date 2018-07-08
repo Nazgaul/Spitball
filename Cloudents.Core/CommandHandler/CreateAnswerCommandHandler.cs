@@ -4,7 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 
@@ -45,7 +47,9 @@ namespace Cloudents.Core.CommandHandler
             var id = answer.Id;
 
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
-            var t = _serviceBusProvider.InsertMessageAsync(new GotAnswerEmail(question.Text, question.User.Email), token);
+
+
+            var t = _serviceBusProvider.InsertMessageAsync(new GotAnswerEmail(question.Text, question.User.Email, message.Text, message.QuestionLink), token);
             await Task.WhenAll(l.Union(new[] { t })).ConfigureAwait(true);
 
 

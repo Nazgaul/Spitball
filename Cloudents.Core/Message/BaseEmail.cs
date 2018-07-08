@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Core.Storage
+namespace Cloudents.Core.Message
 {
     [Serializable]
     public abstract class BaseEmail

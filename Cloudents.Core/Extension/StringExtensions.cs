@@ -33,9 +33,28 @@ namespace Cloudents.Core.Extension
             return false;
         }
 
-        public static string RemoveEndOfString(this string word, int length)
+        //public static string RemoveEndOfString(this string word, int length)
+        //{
+        //    return word?.Substring(0, Math.Min(word.Length, length));
+        //}
+
+        public static string Truncate(this string value, int maxChars, bool threeDotsAtTheEnd = false)
         {
-            return word?.Substring(0, Math.Min(word.Length, length));
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            if (value.Length <= maxChars)
+            {
+                return value;
+            }
+
+            var concatString = value.Substring(0, maxChars);
+            if (threeDotsAtTheEnd)
+            {
+               return concatString + "...";
+            }
+
+            return concatString;
         }
 
         public static string UppercaseFirst(this string str)

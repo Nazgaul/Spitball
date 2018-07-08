@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
 using Cloudents.Core.Request;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using NHibernate.Cache;
 using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Data
