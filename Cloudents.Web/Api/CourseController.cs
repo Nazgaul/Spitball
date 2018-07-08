@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
@@ -17,15 +18,19 @@ namespace Cloudents.Web.Api
     public class CourseController : Controller
     {
         private readonly ICourseSearch _courseProvider;
+        private readonly ICommandBus _commandBus;
+
 
         /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="courseProvider"></param>
-        public CourseController(ICourseSearch courseProvider)
+        /// <param name="commandBus"></param>
+        public CourseController(ICourseSearch courseProvider, ICommandBus commandBus)
         {
             _courseProvider = courseProvider;
+            _commandBus = commandBus;
         }
 
         /// <summary>
@@ -46,6 +51,23 @@ namespace Cloudents.Web.Api
             });
         }
 
-       
+        /// <summary>
+        /// Create academic course
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="token">Cancellation token</param>
+        /// <returns>The id of the course created</returns>
+        [Route("create")]
+        [HttpPost,ValidateModel]
+        public async Task<IActionResult> CreateAcademicBoxAsync([FromBody]CreateCourseRequest model, CancellationToken token)
+        {
+            var command = new CreateCourseCommand(model.CourseName, model.University);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            return Ok(new
+            {
+                command.Id
+            });
+        }
+
     }
 }

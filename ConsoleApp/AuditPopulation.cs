@@ -112,21 +112,21 @@ namespace ConsoleApp
         //    }
         //}
 
-        private  async Task MarkAnswerAuditAsync(ILifetimeScope container)
-        {
-            var t = container.Resolve<IQuestionRepository>();
-            var questions = await t.GetAllQuestionsAsync();
+        //private  async Task MarkAnswerAuditAsync(ILifetimeScope container)
+        //{
+        //    var t = container.Resolve<IQuestionRepository>();
+        //    var questions = await t.GetAllQuestionsAsync();
 
-            foreach (var question in questions)
-            {
-                var ca = question.CorrectAnswer;
-                if (ca != null)
-                {
-                    var command = new MarkAnswerAsCorrectCommand(ca.Id, ca.User.Id);
-                    await CreateAuditAsync(command, container);
-                }
-            }
-        }
+        //    foreach (var question in questions)
+        //    {
+        //        var ca = question.CorrectAnswer;
+        //        if (ca != null)
+        //        {
+        //            var command = new MarkAnswerAsCorrectCommand(ca.Id, ca.User.Id);
+        //            await CreateAuditAsync(command, container);
+        //        }
+        //    }
+        //}
 
         private  async Task CreateAuditAsync(ICommand message, ILifetimeScope container)
         {
