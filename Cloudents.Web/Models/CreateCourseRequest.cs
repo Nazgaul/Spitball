@@ -15,6 +15,7 @@ namespace Cloudents.Web.Models
         /// User university
         /// </summary>
         [Required]
-        public long? University { get; set; }
+        [Range(1,long.MaxValue)]
+        public long University { get; set; }
     }
 }
