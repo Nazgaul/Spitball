@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,9 +55,20 @@ namespace Cloudents.Web.Api
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (p.Succeeded)
             {
-                await GenerateEmailAsync(user, token);
+                await GenerateEmailAsync(user, token).ConfigureAwait(false);
                 return Ok();
             }
+
+            if (p.Errors.Any(f => string.Equals(f.Code, "duplicateEmail", StringComparison.OrdinalIgnoreCase)))
+            {
+                user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
+                if (!user.EmailConfirmed)
+                {
+                    await GenerateEmailAsync(user, token).ConfigureAwait(false);
+                    return Ok();
+                }
+            }
+            
             ModelState.AddIdentityModelError(p);
             return BadRequest(ModelState);
         }
@@ -121,7 +133,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            await GenerateEmailAsync(user, token);
+            await GenerateEmailAsync(user, token).ConfigureAwait(false);
             return Ok();
         }
     }
