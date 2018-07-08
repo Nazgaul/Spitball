@@ -413,6 +413,9 @@
     width: 100%;
     text-align: center;
   }
+  @media (max-width: @screen-xs) {
+    height: 88px;
+  }
   .undo-btn {
     text-decoration: underline;
     margin-left: 42px;
@@ -450,9 +453,16 @@
     &:first-child{
       margin-left: 14px;
     }
+    @media (max-width: @screen-xs) {
+      display: inline-block;
+    }
   }
   span.toast-helper{
-    padding: 0 6px;
+    padding: 0 18px;
     font-weight: 200;
+    @media (max-width: @screen-xs) {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
   }
 }

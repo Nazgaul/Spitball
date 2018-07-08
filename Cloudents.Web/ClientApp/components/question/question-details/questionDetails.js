@@ -61,14 +61,14 @@ export default {
                         self.updateLoading(false);
                         self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                         self.updateToasterParams({
-                            toasterText: 'Lets see what ' + self.accountUser.name + ' thinks about your answer',
+                            toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
                             showToaster: true,
                         });
                         //  self.showDialog = true; // question suggest popup dialog
                     }, () => {
 
                         self.updateToasterParams({
-                            toasterText: 'Lets see what ' + self.accountUser.name + ' thinks about your answer',
+                            toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
                             showToaster: true,
                         });
                         self.submitForm(false);
@@ -145,7 +145,7 @@ export default {
             }
             else {
                 this.updateToasterParams({
-                    toasterText: '<span class="toast-helper">To answer or ask a question you must <a href="/register" class="toast_action">Sign Up</a><span class="toast-helper">  or  </span><a href="/signin" class="toast_action">Login</a>',
+                    toasterText: '<span class="toast-helper">To answer or ask a question you must  </span><a href="/register" class="toast_action">Sign Up</a><span class="toast-helper">  or  </span><a href="/signin" class="toast_action">Login</a>',
                     showToaster: true
                 });
             }

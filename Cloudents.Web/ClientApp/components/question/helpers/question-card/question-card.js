@@ -42,6 +42,7 @@ export default {
             timeoutID: null,
             action: null,
             path: '',
+            src : ''
         }
     },
     computed: {
@@ -73,6 +74,9 @@ export default {
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams'
         }),
+        showBigImage(src){
+            console.log('this is src', src)
+        },
         markAsCorrect() {
             var toasterText = this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted';
             this.updateToasterParams({

@@ -25,8 +25,8 @@
             <div slot="step-data" class="limited-width wide">
                 <h1 class="step-title">Enter the confirmation code</h1>
                 <p class="sub-title">We sent the code to you by SMS to (+{{this.phone.countryCode}}) {{this.phone.phoneNum}}</p>
-                <p class="confirm-title">Please enter the code below to confirm it.</p>
-                <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code" v-model="confirmationCode" placeholder="Confirmation code" type="number" :autofocus="true"></sb-input>
+                <p class="confirm-title">We sent a confirmation code to your mobile phone.</p>
+                <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code" v-model="confirmationCode" placeholder="Enter confirmation code" type="number" :autofocus="true"></sb-input>
                 <!--<div class="input-wrapper">-->
                     <!--<input class="code-field input-field" v-model="confirmationCode" placeholder="Confirmation code"></input>-->
                     <!--<v-icon>sbf-key</v-icon>-->
