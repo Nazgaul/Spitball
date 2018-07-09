@@ -4,7 +4,7 @@
     position: -webkit-sticky;
     position: sticky;
     top: @navBarHeightMdAndUp;
-    padding-top: 12px;
+    padding-top: 20px;
     /*position: sticky;
     top: 74px;*/
 
@@ -78,7 +78,7 @@
         }
 
         .mobile-button {
-            background: #eeeeee;
+            background: @Site-Background;
             color: #9b9b9b;
             width: 100%;
             height: 48px;
@@ -160,13 +160,12 @@
                     line-height: 24px;
                     .giveMeEllipsisOne;
                     max-width: 140px;
-                    padding-left: 6px;
+                    //padding-left: 6px;
                     cursor: pointer;
                 }
 
                 input {
                     display: none;
-
                     &:checked ~ .checkmark {
                         background: @color-blue;
                         opacity: 1;
@@ -175,13 +174,18 @@
                             display: block;
                         }
                     }
+                    &:checked ~ .title-label {
+                        color: @color-blue;
+
+                    }
                 }
 
                 .checkmark {
                     width: 12px;
                     height: 12px;
-                    background: #bbbbbb;
+                    background: @color-medium-grey;
                     opacity: 0.8;
+                    display: none;
                 }
 
                 .checkmark:after {
@@ -220,7 +224,7 @@
                 }
 
                 .sort-filter {
-                    padding: 4px 8px;
+                    padding: 4px 0;
                     margin: 4px 0;
                     border-bottom: 1px solid @color-grey;
                     border-top: 0;
@@ -228,6 +232,11 @@
                     border-right: 0;
                     max-height: 250px;
                     overflow-y: scroll;
+                    @media (min-height: 580px) {
+                        &.no-maxHeight {
+                            max-height: inherit;
+                        }
+                    }
                 }
             }
         }

@@ -1,18 +1,28 @@
 import questionCard from "../question/helpers/question-card/question-card.vue";
 import userBlock from '../helpers/user-block/user-block.vue';
-
+import {dollarCalculate} from "../../store/constants";
 import accountService from '../../services/accountService';
 import {mapGetters} from 'vuex'
 
 export default {
     components: {questionCard, userBlock},
-    props:{
-        id:{Number}
+    props: {
+        id: {Number}
     },
     data() {
         return {
             activeTab: 1,
-            profileData: {}
+            profileData: null,
+            emptyState: {
+                questions: {
+                    text: 'You have a homework problem?',
+                    btnText: 'Put it on sale…'
+                },
+                answers: {
+                    text: 'You have a homework problem?',
+                    btnText: 'Put it on sale…'
+                }
+            }
         }
     },
     methods: {
@@ -24,6 +34,44 @@ export default {
         ...mapGetters(["accountUser"]),
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
+        },
+        myAnswers() {
+            return this.profileData.answer ? this.profileData.answer.map(i => {
+                return {
+                    ...i,
+                    user: this.profileData.user,
+                    answersNum: i.answers,
+                    filesNum: i.files,
+                }
+            }) : []
+        },
+        questions() {
+            return this.profileData.ask ? this.profileData.ask.map(i => {
+                return {
+                    ...i,
+                    user: this.profileData.user,
+                    answersNum: i.answers,
+                    filesNum: i.files,
+                }
+            }) : []
+        },
+        isMyProfile() {
+            return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
+        },
+        emptyStateData() {
+            var questions = {
+                text: 'Have a question on your homework?',
+                boldText: 'Post it for points…',
+                btnText: 'Ask Your Question',
+                btnUrl: 'newQuestion'
+            };
+            var answers = {
+                text: 'Help other students <b>and make money</b> by answering questions.',
+                btnText: 'Answer',
+                btnUrl: 'home'
+            };
+            return this.activeTab === 1 ? questions : answers;
+
         }
     },
     created() {

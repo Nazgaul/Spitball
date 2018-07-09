@@ -1,31 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
-using NHibernate.Linq;
+﻿using Cloudents.Core.Entities.Db;
+using NHibernate;
 
 namespace Cloudents.Infrastructure.Data.Repositories
 {
-    [UsedImplicitly]
-    public class QuestionSubjectRepository : NHibernateRepository<QuestionSubject>, IQuestionSubjectRepository
+    public class QuestionSubjectRepository 
     {
-        public QuestionSubjectRepository(UnitOfWork.Factory unitOfWork) : base(unitOfWork)
+        internal IQueryOver<QuestionSubject, QuestionSubject> GetSubjects(IQueryOver<QuestionSubject, QuestionSubject> query)
         {
+            return query.OrderBy(o => o.Text).Asc;
         }
 
-        public async Task<IEnumerable<QuestionSubjectDto>> GetAllSubjectAsync(CancellationToken token)
-        {
-            return await Session.Query<QuestionSubject>()
-                .Select(s=> new QuestionSubjectDto
-                {
-                    Id = s.Id,
-                    Subject = s.Text
-                })
-                .ToListAsync(token).ConfigureAwait(false);
-        }
+
     }
 }

@@ -17,7 +17,7 @@ namespace Cloudents.Infrastructure.Mail
     [UsedImplicitly]
     public class MailProvider : IMailProvider
     {
-        private const string SendGridApiKey = "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";
+        //private const string SendGridApiKey = "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";
 
         private readonly Lazy<IRestClient> _restClient;
 

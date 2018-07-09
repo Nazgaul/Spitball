@@ -25,7 +25,7 @@
 
     .sug {
         font-size: 12px;
-        color: #4a4a4a;
+        color: @color-grey;
         letter-spacing: -0.3px;
     }
 
@@ -57,7 +57,7 @@
         letter-spacing: -0.5px;
         text-align: left;
         color: rgba(255, 255, 255, 0.47);
-        background: #3532d5;
+        background: @color-main-purple;
         padding: 20px 14px;
 
         @media(max-width: @screen-xs){
@@ -70,7 +70,7 @@
         .responsive-property(font-size, 18px, null, 14px);
         line-height: 1.5;
         letter-spacing: -0.3px;
-        color: #4a4a4a;
+        color: @color-grey;
         margin-bottom: 0;
         max-width: 430px;
 
@@ -88,7 +88,7 @@
 
         i {
             font-size: 10px;
-            color: #bbbbbb;
+            color: @color-medium-grey;
         }
     }
 }
@@ -107,7 +107,7 @@
     }
 
     p{
-        color: #3532D5;
+        color: @color-main-purple;
         text-align: left;
         line-height: 1.13;
         letter-spacing: -0.3px;
@@ -115,7 +115,7 @@
     }
     button{
         color: white;
-        background: #3532D5;
+        background: @color-main-purple;
         text-align: center;
         width: 73px;
         height: 24px;
@@ -144,7 +144,7 @@
     }
 }
 /*#region item skeleton*/
-@skeletonWidth: 608px;
+@skeletonWidth: @cellWidth;
 @cardHeight: 184px;
 @cardImageHeight: 160px;
 @titleHeight: 16px;

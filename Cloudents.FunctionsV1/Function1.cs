@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
@@ -16,7 +15,7 @@ namespace Cloudents.FunctionsV1
 
         [FunctionName("UrlProcess")]
         [UsedImplicitly]
-        public static async Task ProcessQueueMessageAsync([QueueTrigger(QueueName.UrlRedirectName,Connection = "TempConnection")] UrlRedirectQueueMessage content,
+        public static async Task ProcessQueueMessageAsync([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,
             TraceWriter log, CancellationToken token, [Inject] ICommandBus commandBus)
         {
             await ProcessQueueAsync(content, log, token, commandBus).ConfigureAwait(false);
@@ -25,7 +24,7 @@ namespace Cloudents.FunctionsV1
 
         [FunctionName("UrlProcessPoison")]
         [UsedImplicitly]
-        public static async Task ProcessQueueMessagePoisonAsync([QueueTrigger(QueueName.UrlRedirectName + "-poison", Connection = "TempConnection")] UrlRedirectQueueMessage content,
+        public static async Task ProcessQueueMessagePoisonAsync([QueueTrigger(QueueName.UrlRedirectName + "-poison")] UrlRedirectQueueMessage content,
             TraceWriter log, CancellationToken token, [Inject] ICommandBus commandBus)
         {
             await ProcessQueueAsync(content, log, token, commandBus).ConfigureAwait(false);

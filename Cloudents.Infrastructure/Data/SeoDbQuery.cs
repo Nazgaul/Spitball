@@ -3,6 +3,7 @@
     public sealed class SeoDbQuery
     {
         public string Query { get; }
+
         private SeoDbQuery(string str)
         {
             Query = str;

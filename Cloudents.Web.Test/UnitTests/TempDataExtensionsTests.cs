@@ -11,8 +11,8 @@ namespace Cloudents.Web.Test.UnitTests
         [TestMethod]
         public void Serialize_Location_CanSerialize()
         {
-            var address = new Location(null, null, null);
-            var serializeMethod = typeof(TempDataExtensions).GetMethod("Serialize", BindingFlags.Static | BindingFlags.NonPublic );
+            var address = new Location(null, null, null, null);
+            var serializeMethod = typeof(TempDataExtensions).GetMethod("Serialize", BindingFlags.Static | BindingFlags.NonPublic);
             if (serializeMethod == null)
             {
                 Assert.Fail("Could not find method");

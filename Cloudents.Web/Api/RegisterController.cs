@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,18 +20,17 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class RegisterController : Controller
     {
+        internal const string Email = "email";
+        private readonly IServiceBusProvider _queueProvider;
         private readonly UserManager<User> _userManager;
-        private readonly IConfigurationKeys _configuration;
-        private readonly IQueueProvider _queueProvider;
-        private readonly SignInManager<User> _signInManager;
+        private readonly IBlockChainErc20Service _blockChainErc20Service;
 
         public RegisterController(
-            UserManager<User> userManager, IConfigurationKeys configuration, IQueueProvider queueProvider, SignInManager<User> signInManager)
+            UserManager<User> userManager, IServiceBusProvider queueProvider, IBlockChainErc20Service blockChainErc20Service)
         {
             _userManager = userManager;
-            _configuration = configuration;
             _queueProvider = queueProvider;
-            _signInManager = signInManager;
+            _blockChainErc20Service = blockChainErc20Service;
         }
 
         private static int GenerateRandomNumber()
@@ -41,141 +41,100 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         [ValidateModel, ValidateRecaptcha]
-        public async Task<IActionResult> CreateUserAsync([FromBody]RegisterEmailRequest model, CancellationToken token)
+        public async Task<IActionResult> CreateUserAsync([FromBody]RegisterEmailRequest model,
+            CancellationToken token)
         {
-            var userName = model.Email.Split(new[] { '.', '@' }, 1, StringSplitOptions.RemoveEmptyEntries)[0];
-            var user = new User
+            if (User.Identity.IsAuthenticated)
             {
-                Email = model.Email,
-                Name = userName + GenerateRandomNumber()
-            };
+                ModelState.AddModelError(string.Empty, "user is already logged in");
+                return BadRequest(ModelState);
+            }
+
+            var user = CreateUser(model.Email);
 
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (p.Succeeded)
             {
-                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-                var link = Url.Link("ConfirmEmail", new { user.Id, code });
-
-                var message = new RegistrationEmail(model.Email, HtmlEncoder.Default.Encode(link));
-                var t1 = _queueProvider.InsertEmailMessageAsync(message, token);
-                var t2 = _signInManager.SignInAsync(user, false);
-                await Task.WhenAll(t1, t2).ConfigureAwait(false);
+                await GenerateEmailAsync(user, token).ConfigureAwait(false);
                 return Ok();
             }
-            return BadRequest(p.Errors);
+
+            if (p.Errors.Any(f => string.Equals(f.Code, "duplicateEmail", StringComparison.OrdinalIgnoreCase)))
+            {
+                user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
+                if (!user.EmailConfirmed)
+                {
+                    await GenerateEmailAsync(user, token).ConfigureAwait(false);
+                    return Ok();
+                }
+            }
+            
+            ModelState.AddIdentityModelError(p);
+            return BadRequest(ModelState);
         }
 
-        [HttpPost("resend"), Authorize]
-        public async Task<IActionResult> ResendEmail(CancellationToken token)
+        private async Task GenerateEmailAsync(User user, CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-            var link = Url.Link("ConfirmEmail", new { user.Id, code });
+            var link = Url.Link("ConfirmEmail", new {user.Id, code});
+            TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link));
-            await _queueProvider.InsertEmailMessageAsync(message, token).ConfigureAwait(false);
-            return Ok();
+            await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
+        }
+
+        private User CreateUser(string email)
+        {
+            var userName = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
+            return CreateUser(email, userName);
+        }
+
+        private User CreateUser(string email, string name)
+        {
+            var (privateKey, _) = _blockChainErc20Service.CreateAccount();
+            return new User(email, $"{name}.{GenerateRandomNumber()}",privateKey);
         }
 
         [HttpPost("google"), ValidateModel]
         public async Task<IActionResult> GoogleSignInAsync([FromBody] TokenRequest model,
             [FromServices] IGoogleAuth service,
+            [FromServices] SbSignInManager signInManager,
             CancellationToken cancellationToken)
         {
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
             if (result == null)
             {
-                return BadRequest();
+                ModelState.AddModelError(string.Empty, "No result from google");
+                return BadRequest(ModelState);
             }
+            var user = CreateUser(result.Email, result.Name);
+            user.EmailConfirmed = true;
 
-            var user = new User
-            {
-                Email = result.Email,
-                Name = result.Name + GenerateRandomNumber(),
-                EmailConfirmed = true
-            };
             var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (p.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
+                //TODO: duplicate link confirm email.
+                var t2 = signInManager.SignInTwoFactorAsync(user, false);
+                await Task.WhenAll(/*t1,*/ t2).ConfigureAwait(false);
                 return Ok();
             }
-            return BadRequest(p.Errors);
+            ModelState.AddIdentityModelError(p);
+            return BadRequest(ModelState);
         }
 
-        [HttpPost("sms"), ValidateModel]
-        [Authorize(Policy = SignInStep.PolicyEmail)]
-        public async Task<IActionResult> SmsUserAsync([FromBody]PhoneNumberRequest model, [FromServices] IRestClient client, CancellationToken token)
-        {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            await _userManager.SetPhoneNumberAsync(user, model.Number).ConfigureAwait(false);
-            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.Number).ConfigureAwait(false);
-
-            var message = new SmsMessage
-            {
-                PhoneNumber = model.Number,
-                Message = code
-            };
-            
-            var result = await client.PostJsonAsync(new Uri($"{_configuration.FunctionEndpoint}/api/sms?code=HhMs8ZVg/HD4CzsN7ujGJsyWVmGmUDAVPv2a/t5c/vuiyh/zBrSTVg=="), message,
-            null, token).ConfigureAwait(false);
-            if (result)
-            {
-                return Ok();
-            }
-
-            return BadRequest();
-        }
-
-        [HttpPost("sms/verify"), ValidateModel]
-        [Authorize(Policy = SignInStep.PolicyEmail)]
-        public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
-        {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user).ConfigureAwait(false);
-            var v = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, model.Number).ConfigureAwait(false);
-            if (v.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
-                return Ok();
-            }
-            return BadRequest();
-        }
-
-        [HttpPost("password")]
-        [Authorize(Policy = SignInStep.PolicyPassword)]
-        public async Task<IActionResult> GeneratePasswordAsync(
-            [FromServices] IBlockChainErc20Service blockChainProvider,
-            [FromServices] IQueueProvider client,
+        [HttpPost("resend")]
+        public async Task<IActionResult> ResendEmailAsync(
             CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var account = blockChainProvider.CreateAccount();
-
-            var t1 = blockChainProvider.SetInitialBalanceAsync(account.publicAddress, token);
-
-            var t3 = client.InsertBackgroundMessageAsync(new TalkJsUser(user.Id)
+            var email = TempData.Peek(Email) ?? throw new ArgumentNullException("TempData", "email is empty");
+            var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
+            if (user == null)
             {
-                Name = user.Name,
-                Email = user.Email,
-                Phone = user.PhoneNumberHash
-            }, token);
-
-
-
-            var privateKey = account.privateKey;
-            var t2 = _userManager.AddPasswordAsync(user, privateKey);
-
-            await Task.WhenAll(t1, t2, t3).ConfigureAwait(false);
-            if (t2.Result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
-                return Ok(
-                new
-                {
-                    password = privateKey
-                });
+                ModelState.AddModelError(string.Empty, "no user");
+                return BadRequest(ModelState);
             }
-            return BadRequest();
+
+            await GenerateEmailAsync(user, token).ConfigureAwait(false);
+            return Ok();
         }
     }
 }

@@ -13,14 +13,12 @@ const allModules = [
     "vue-router",
     "vuex",
     "vue-analytics",
-    "vue-lazyload",
     "axios",
     "query-string",
     "./ClientApp/main.styl",
     "./wwwroot/content/main.less",
     "./ClientApp/myFont.font.js",
     "vuex-persistedstate",
-    "vue-star-rating",
     "vuetify/es5/components/Vuetify",
     "vuetify/es5/components/VApp",
     "vuetify/es5/components/VGrid",
@@ -47,9 +45,10 @@ const allModules = [
     "vuetify/es5/components/VSnackbar",
     "vuetify/es5/components/VNavigationDrawer",
     "vuetify/es5/components/VAvatar",
+    "vuetify/es5/components/VPagination",
+    "vuetify/es5/components/VDataTable",
     "webfontloader",
-    //'smartbanner.js/dist/smartbanner',
-    //'smartbanner.js/dist/smartbanner.css'
+
 ];
 
 module.exports = (env) => {

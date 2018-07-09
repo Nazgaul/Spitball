@@ -1,9 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 
@@ -12,14 +10,39 @@ namespace Cloudents.Infrastructure.Data.Repositories
     public class NHibernateRepository<T> : IRepository<T> where T : class
     {
         protected readonly ISession Session;
-        private readonly IUnitOfWork _unitOfWork;
+        //private readonly IUnitOfWork _unitOfWork;
 
-        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Ioc inject")]
-        public NHibernateRepository(UnitOfWork.Factory unitOfWork)
+        //[SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We can initialize this class as well")]
+        //public NHibernateRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWorks)
+        //{
+        //    var att = typeof(T).GetCustomAttribute<DbAttribute>();
+        //    _unitOfWork = unitOfWorks[att?.Database ?? Core.Enum.Database.System];
+        //    Session = _unitOfWork.Session;
+        //}
+
+        [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We can initialize this class as well")]
+        public NHibernateRepository(ISession session)
         {
-            var att = typeof(T).GetCustomAttribute<DbAttribute>();
-            _unitOfWork = unitOfWork.Invoke(att?.Database ?? Core.Enum.Database.System);
-            Session = _unitOfWork.Session;
+            Session = session;
+        }
+
+        //public Task<T> LoadAsync(object id, CancellationToken token)
+        //{
+        //    return Session.LoadAsync<T>(id, token);
+        //}
+
+        public virtual Task<object> AddAsync(T entity, CancellationToken token)
+        {
+            // _unitOfWork.FlagCommit();
+            return Session.SaveAsync(entity, token);
+        }
+
+        public async Task AddAsync(IEnumerable<T> entities, CancellationToken token)
+        {
+            foreach (var entity in entities)
+            {
+                await AddAsync(entity, token);
+            }
         }
 
         public Task<T> LoadAsync(object id, CancellationToken token)
@@ -32,15 +55,20 @@ namespace Cloudents.Infrastructure.Data.Repositories
             return Session.GetAsync<T>(id, token);
         }
 
-        public IQueryable<T> GetQueryable()
+        public T Load(object id)
         {
-           return Session.Query<T>();
+            return Session.Load<T>(id);
         }
 
-        public Task<object> SaveAsync(T entity, CancellationToken token)
+        public Task DeleteAsync(T entity, CancellationToken token)
         {
-            _unitOfWork.FlagCommit();
-            return Session.SaveAsync(entity, token);
+            //_unitOfWork.FlagCommit();
+            return Session.DeleteAsync(entity, token);
+        }
+
+        public Task UpdateAsync(T entity, CancellationToken token)
+        {
+            return Session.UpdateAsync(entity, token);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Cloudents.Infrastructure.Write
     {
         public const string IndexName = "auto-complete";
         public const string ScoringProfile = "auto-complete-default";
+
         public AutoCompleteSearchWrite(SearchServiceClient client)
             : base(client, IndexName)
         {

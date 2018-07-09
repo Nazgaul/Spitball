@@ -9,8 +9,8 @@ const state = {
         isFirst: true,
         location: null,
         pinnedCards: {},
-        showSmartAppBanner: true,
-        registrationStep: 0
+        showRegistrationBanner: true,
+        registrationStep: consts.REGISTRATION_STEPS[0]
     },
     facet: "",
     historyTermSet: [],
@@ -63,11 +63,17 @@ const mutations = {
             state.historyTermSet = state.historyTermSet.slice(1);
         }
     },
-    [USER.HIDE_SMART_BANNER](state) {
-        state.user.showSmartAppBanner = false;
+    [USER.HIDE_REGISTRATION_BANNER](state) {
+        state.user.showRegistrationBanner = false;
     },
-    [USER.UPDATE_REGISTRATION_STEP](state, step) {
-        state.user.registrationStep = step;
+    [USER.INCREMENT_REGISTRATION_STEP](state) {
+        var currStepIndex = consts.REGISTRATION_STEPS.indexOf(state.user.registrationStep);
+        if(currStepIndex === consts.REGISTRATION_STEPS.length-1){
+            state.user.registrationStep = consts.REGISTRATION_STEPS[0];
+        }
+        else {
+            state.user.registrationStep = consts.REGISTRATION_STEPS[currStepIndex+1];
+        }
     }
 
 
@@ -86,11 +92,12 @@ const getters = {
             let [latitude, longitude] = location.split(',');
             return { latitude, longitude }
         } else { return location }
+        console.log(location, 'dsfsdfsdf')
     },
     pinnedCards:
         state => state.user.pinnedCards,
-    showSmartAppBanner:
-        state => state.user.showSmartAppBanner,
+    showRegistrationBanner:
+        state => state.user.showRegistrationBanner,
     getRegistrationStep:
         state => state.user.registrationStep,
     getUniversity: state => {
@@ -158,11 +165,11 @@ const actions = {
     updateFacet({ commit }, data) {
         commit(USER.UPDATE_FACET, data)
     },
-    hideSmartAppBanner({ commit }, data) {
-        commit(USER.HIDE_SMART_BANNER);
+    hideRegistrationBanner(context) {
+        context.commit(USER.HIDE_REGISTRATION_BANNER);
     },
-    updateRegistrationStep(context, data) {
-        context.commit(USER.UPDATE_REGISTRATION_STEP, data);
+    incrementRegistrationStep(context) {
+        context.commit(USER.INCREMENT_REGISTRATION_STEP);
     }
 
 };

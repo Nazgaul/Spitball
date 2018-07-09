@@ -11,12 +11,16 @@ namespace Cloudents.Core.DTOs
     {
         [DataMember]
         public string Name { get; set; }
+
         [DataMember]
         public string Image { get; set; }
+
         [DataMember]
         public string Url { get; set; }
+
         [DataMember]
         public string City { get; set; }
+
         [DataMember]
         public string State { get; set; }
 
@@ -25,6 +29,7 @@ namespace Cloudents.Core.DTOs
 
         [DataMember]
         public GeoPoint Location { get; set; } //mobile application use that
+
         [DataMember]
         public string Description { get; set; }
 

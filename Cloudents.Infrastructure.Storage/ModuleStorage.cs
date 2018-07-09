@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Storage
             }).SingleInstance().AsImplementedInterfaces();
 
             builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
-            builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
+           // builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
             builder.RegisterGeneric(typeof(BlobProviderContainer<>)).AsImplementedInterfaces();
 
             builder.Register(c =>

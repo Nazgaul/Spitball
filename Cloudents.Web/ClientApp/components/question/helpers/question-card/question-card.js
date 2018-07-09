@@ -1,9 +1,14 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
-import questionService from "../../../../services/questionService";
+import disableForm from "../../../mixins/submitDisableMixin"
+import {mapGetters, mapActions} from 'vuex'
+import timeago from 'timeago.js';
+
 
 export default {
+    mixins: [disableForm],
     components: {userBlock},
     props: {
+        hasAnswer: false,
         typeAnswer: {
             type: Boolean,
             required: false,
@@ -15,10 +20,6 @@ export default {
             default: false
         },
         cardData: {},
-        answerBtn: {
-            type: Boolean,
-            default: false
-        },
         isApproved: {
             type: Boolean,
             default: false
@@ -26,28 +27,91 @@ export default {
         isCorrectAnswer: {
             type: Boolean,
             default: false
+        },
+        detailedView: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
         return {
-            user: {
-                img: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-                name: 'User Name'
-            },
+            isDeleted: false,
+            showActionToaster: false,
+            flaggedAsCorrect: false,
+            toasterText: '',
+            timeoutID: null,
+            action: null,
+            path: '',
+            src : ''
         }
     },
-
     computed: {
+        ...mapGetters(['accountUser', 'getToasterText', 'getShowToaster']),
+        gallery() {
+            return this.cardData.files
+        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
+        cardOwner() {
+            if (this.accountUser && this.cardData.user) {
+                return this.accountUser.id === this.cardData.user.id; // will work once API call will also return userId
+            }
+        },
+        canDelete() {
+            if (!this.cardOwner) {
+                return false;
+            }
+            return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
+        },
+
+
     },
     methods: {
-        markAsCorrect() {
-            this.$parent.markAsCorrect(this.cardData.id); //TODO: MEH :\  check if it can be done in a better way...
+        ...mapActions({
+            'delete': 'deleteQuestion',
+            correctAnswer: 'correctAnswer',
+            updateBalance: 'updateUserBalance',
+            updateToasterParams: 'updateToasterParams'
+        }),
+        showBigImage(src){
+            console.log('this is src', src)
         },
-        upVote(){
-            questionService.upVote(this.cardData.id);
+        markAsCorrect() {
+            var toasterText = this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted';
+            this.updateToasterParams({
+                toasterText: toasterText,
+                showToaster: true,
+            });
+            this.flaggedAsCorrect = true;
+            this.correctAnswer(this.cardData.id);
+            this.updateToasterParams({toasterText: '', showToaster: false});//test123
+
+        },
+        deleteQuestion() {
+            this.updateToasterParams({
+                toasterText: this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted',
+                showToaster: true,
+            });
+            this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
+                .then(() => {
+                    if (!this.typeAnswer) {
+                        this.updateBalance(this.cardData.price);
+                        //To DO change to router link use and not text URL
+                        this.$router.push('/ask')
+                    } else {
+                        //emit to parent to update array of answers
+                        this.$parent.$emit('deleteAnswer', this.cardData.id);
+                        this.isDeleted = true
+                    }
+                });
         }
+    },
+    mounted() {
+        timeago().render(document.querySelectorAll('.timeago'));
+// use render method to render nodes in real time
+    },
+    created() {
+        this.flaggedAsCorrect = this.isCorrectAnswer;
     }
 }

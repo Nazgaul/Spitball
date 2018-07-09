@@ -1,54 +1,65 @@
 <template>
-        <v-flex xs12 class="question_area">
+        <v-flex xs12 class="question_area"  :class="{'has-error': error && error.errorClass &&  value.length < 15}">
             <div class="textarea">
-                <div class="text-block" :class="{'with-preview':previewList.length}" v-if="!fullPreview">
-                    <textarea rows="9" @input="updateValue($event.target.value)" :value="value" autofocus="isFocused"
-                        placeholder="Type in your question (Ex: Find the derivative of y = (x + 2)2 - 5x3)"></textarea>
+                <!-- :class="{'with-preview':previewList.length}" v-if="!fullPreview" -->
+                <div class="text-block" >
+                    <span class="error-message" v-if="error.errorClass &&  value.length < 15"  :error ="errorTextArea" >{{error.errorText}}</span>
+
+                    <textarea rows="9" class="" @input="updateValue($event.target.value)"
+                        :value="value" autofocus="isFocused"
+                        :placeholder="`Type your ${actionType}...`"></textarea>
                     <ul class="actions_text">
-                        <li>
-                            <button class="insert-equation">
-                                <v-icon>sbf-pi-symbol</v-icon>
-                            </button>
-                        </li>
-                        <li>
-                            <button class="insert-symbol">
-                                <v-icon>sbf-omega-symbol</v-icon>
-                            </button>
-                        </li>
+                        <!--<li>-->
+                            <!--<button class="insert-equation">-->
+                                <!--<v-icon>sbf-pi-symbol</v-icon>-->
+                            <!--</button>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<button class="insert-symbol">-->
+                                <!--<v-icon>sbf-omega-symbol</v-icon>-->
+                            <!--</button>-->
+                        <!--</li>-->
                         <li>
                             <label for="file-input" class="attach-file">
                                 <v-icon>sbf-attach</v-icon>
                             </label>
-                            <input id="file-input" type="file" multiple/>
+                            <input id="file-input" type="file" multiple accept='image/*'/>
                         </li>
                     </ul>
-                    <ul class="actions_text">
-                        <li>
-                            <button class="icon"></button>
-                        </li>
-                        <li>
-                            <button class="icon icon-red"></button>
-                        </li>
-                        <li>
-                            <button class="icon icon-purple"></button>
-                        </li>
-                    </ul>
+                    <!--<ul class="actions_text">-->
+                        <!--<li>-->
+                            <!--<button class="icon"></button>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<button class="icon icon-red"></button>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<button class="icon icon-purple"></button>-->
+                        <!--</li>-->
+                    <!--</ul>-->
                 </div>            
-                <ul class="preview-list" :class="{'full-preview':fullPreview}" v-if="previewList.length">
-                    <div class="show-more" v-if="previewList.length>1 && !fullPreview" @click="togglePreview">+ {{previewList.length-1}} more</div> 
-                    <!-- v-html="image"  -->
-                    <li v-if="previewList.length" v-for="(image,index) in previewList" :class="{'use-hover':previewList.length==1 || fullPreview}">
+                
+                <!-- <span class="close-btn" v-if="fullPreview" @click="togglePreview">
+                    <v-icon right>sbf-close</v-icon>
+                </span> -->
+            </div>
+            <transition name="slide-fade">
+            <div class="files pt-3 pb-2" v-if="previewList.length" >
+                <ul class="preview-list" v-if="previewList.length">
+                    <li v-if="previewList.length" v-for="(image,index) in previewList">
                         <button class="hover-trash" @click="deletePreview(index)">
-                            <v-icon>sbf-trash</v-icon>
+                            <v-icon>sbf-close</v-icon>
                         </button>
-                        <div class="background"></div>
                         <img :src="image" />
                     </li>
+                    <li class="add-file">
+                        <label for="file-input">
+                                <v-icon>sbf-close</v-icon>
+                        </label>
+                    </li>
                 </ul>
-                <span class="close-btn" v-if="fullPreview" @click="togglePreview">
-                    <v-icon right>sbf-close</v-icon>
-                </span>
             </div>
+            </transition>
         </v-flex>
 </template>
 <script src="./extendedTextArea.js"></script>

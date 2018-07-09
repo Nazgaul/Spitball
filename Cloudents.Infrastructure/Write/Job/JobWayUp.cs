@@ -87,7 +87,6 @@ namespace Cloudents.Infrastructure.Write.Job
                 dateTime = p;
             }
 
-
             var (_, point) = await _zipToLocation.GeoCodingByZipAsync(obj.Zip, token).ConfigureAwait(false);
             var job = new Core.Entities.Search.Job
             {
@@ -104,7 +103,7 @@ namespace Cloudents.Infrastructure.Write.Job
                 Url = obj.Url,
                 Company = obj.Company,
                 Source = Source
-                
+
             };
             if (job.JobType == JobFilter.None && obj.JobType != null)
             {

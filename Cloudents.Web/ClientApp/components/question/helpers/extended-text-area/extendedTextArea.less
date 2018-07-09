@@ -1,113 +1,149 @@
 @import "../../../../mixin.less";
 
-
 .question_area {
-  background-color: #c7c7ee;
-  height: 233px;
-  padding: 8px;
-
-  @media (max-width: @screen-xs) {
-    height: 249px;
+  border: 1px solid transparent;
+  &.has-error {
+    border: 1px solid @color-red;
   }
+  .textarea {
+    background-color: #c7c7ee;
+    padding: 8px;
+    height: 233px;
 
-  .textarea{
-    background-color: @color-white;
-    border-radius: 4px;
-    height: 100%;
+    @media (max-width: @screen-xs) {
+      height: 249px;
+    }
+
     display: flex;
     position: relative;
 
-    .text-block{
+    .text-block {
+      background-color: @color-white;
       width: 100%;
-      textarea {      
+      height: 100%;
+      border-radius: 4px;
+      position: relative;
+      .error-message {
+        color: @color-red;
+        position: absolute;
+        bottom: 0.2em;
+        right: 0.5em;
+      }
+
+      textarea {
         resize: none;
         padding: 11px 9px 4px;
         letter-spacing: -0.3px;
-        height: 140px;
+        height: 177px;
         overflow-y: auto;
         outline: none;
         width: 100%;
-    
         @media (max-width: @screen-xs) {
-          height: 150px;
-        }      
-      }
-      &.with-preview{
-        width: 70%;
+          height: 192px;
+        }
       }
     }
 
-    .preview-list,.text-block textarea{
-      &::-webkit-scrollbar-track
-      {
-        background-color: @color-white;        
+    .preview-list, .text-block textarea {
+      &::-webkit-scrollbar-track {
+        background-color: @color-white;
       }
-      &::-webkit-scrollbar
-      {
+      &::-webkit-scrollbar {
         height: 6px;
-        width: 4px;        
-        background-color: @color-white;        
+        width: 4px;
+        background-color: @color-white;
       }
-      &::-webkit-scrollbar-thumb
-      {
+      &::-webkit-scrollbar-thumb {
         background-color: #979797;
         border: none;
       }
     }
 
-    .preview-list{
-      width: 30%;
-      display: flex;
+  }
+
+  .files {
+    //transition: visibility 4s, ease-out;
+    background-color: #c7c7ee;
+    padding: 8px;
+    text-align: center;
+    .preview-list {
+      display: inline-block;
       overflow: hidden;
-      margin: 8px;
+      //padding: 1px;
       list-style-type: none;
       position: relative;
-
-      .background{
-        background-blend-mode: multiply;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
-        opacity: 0.6;
-      }
-      
-      li{
-        height: 100%;
-        width: 160px;
+      li {
+        width: 104px;
+        height: 104px;
+        padding: 8px;
+        border-radius: 4px;
+        background-color: #ffffff;
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
         display: inline-flex;
-        margin-right: 8px;
+        margin-bottom: 16px;
         position: relative;
+        float: left;
+        &:not(:last-child) {
+          margin-right: 8px;
+        }
+        @media (max-width: @screen-xs) {
+          margin-right: 16px;
+        }
 
-        .background,.hover-trash{
+        .hover-trash {
           position: absolute;
-          height: 100%;
-          width: 100%;
+          width: 24px;
+          height: 24px;
           display: none;
-        }
-        .hover-trash{
-          z-index: 2;
-          .sbf{
-            font-size: 21px;
-            width: 32px;
-            height: 32px;
-            border: solid 1px @color-white;
-            color: @color-white;
-            border-radius: 15px;
+          right: 2px;
+          top: 4px;
+          background-color: rgba(0, 0, 0, 0.2);
+          border-radius: 15px;
+          outline: none;
+          @media (max-width: @screen-xs) {
+            display: block;
           }
-        }        
-        
-        img{
-          width: 160px;
-          object-fit: cover;
         }
-        &.use-hover:hover{ 
-          .hover-trash,.background{display: block;}
+
+        &.add-file {
+          label {
+            line-height: 88px;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            .sbf {
+              transform: rotate(45deg);
+              color: @color-main-purple;
+              font-size: 16px;
+            }
+          }
+        }
+        .hover-trash {
+          z-index: 2;
+          .sbf {
+            font-size: 12px;
+            color: @color-white;
+            vertical-align: initial;
+          }
+        }
+        img {
+          width: 88px;
+          height: 88px;
+          object-fit: cover;
+          border-radius: inherit;
+        }
+        &:hover {
+          .hover-trash, .background {
+            display: block;
+          }
         }
       }
-      &.full-preview{
+      &.full-preview {
         width: 100%;
         overflow-x: auto;
-      }     
+      }
 
-      .show-more{
+      .show-more {
         opacity: 0.7;
         background-color: #000000;
         color: @color-white;
@@ -118,13 +154,18 @@
         font-size: 14px;
         font-weight: bold;
         line-height: 40px;
-        cursor: pointer;      
+        cursor: pointer;
         z-index: 2;
-        .background{display: block;}
-      }     
-      
+        .background {
+          display: block;
+        }
+        @media (max-width: @screen-xs) {
+          width: 120px;
+        }
+      }
+
     }
-    .close-btn{
+    .close-btn {
       cursor: pointer;
       position: absolute;
       right: 0;
@@ -133,33 +174,39 @@
       padding: 0px 0px 7px 10px;
       border-radius: 0px 0px 0px 8px;
 
-      .sbf{font-size: 16px; color: @color-white;}
+      .sbf {
+        font-size: 16px;
+        color: @color-white;
+      }
     }
-
-    
   }
 
-  
 }
 
-.question_area.small{
+.question_area.small {
   @media (max-width: @screen-xs) {
     height: 220px;
   }
 
-  textarea{
+  textarea {
     @media (max-width: @screen-xs) {
       height: 123px;
     }
   }
-  
+
 }
 
 ul.actions_text {
   list-style: none;
-  margin: 4px;
+  display: inline-block;
+  margin: 1px 9px 1px 3px;
+  &:first-of-type {
+    //width: 135px;
+    //border-right: 1px solid #dddddd;
+  }
+
   @media (max-width: @screen-xs) {
-    margin: 4px 2px 13px;
+    margin: 3px 12px 1px 2px;
   }
   li {
     display: inline;
@@ -167,7 +214,7 @@ ul.actions_text {
     padding: 3px 0;
 
     button, label {
-      background-color: #d8d8d8;
+      //background-color: #d8d8d8;
       width: 25px;
       height: 25px;
       border-radius: 5px;
@@ -195,13 +242,29 @@ ul.actions_text {
         color: @color-main-purple;
       }
     }
-    #file-input{
+    #file-input {
       display: none;
     }
-    #uploader{
+    #uploader {
       width: 25px;
       height: 25px;
       background: blue;
     }
   }
+}
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateY(-10px);
+  opacity: 0;
 }

@@ -20,7 +20,7 @@ namespace Cloudents.Functions
             return formatString.Inject(GetPropertyHash(injectionObject));
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Extension method that replaces keys in a string with the values of matching dictionary entries.
         /// <remarks>Uses <see cref="String.Format()"/> internally; custom formats should match those used for that method.</remarks>
         /// </summary>
@@ -30,7 +30,7 @@ namespace Cloudents.Functions
         public static string Inject(this string formatString, IDictionary dictionary)
         {
             return formatString.Inject(new Hashtable(dictionary));
-        }
+        }*/
 
         /// <summary>
         /// Extension method that replaces keys in a string with the values of matching hashtable entries.
@@ -63,13 +63,12 @@ namespace Cloudents.Functions
         {
             string result = formatString;
             //regex replacement of key with value, where the generic key format is:
-            //Regex foo = new Regex("{(foo)(?:}|(?::(.[^}]*)}))");
             Regex attributeRegex = new Regex("{(" + key + ")(?:}|(?::(.[^}]*)}))");  //for key = foo, matches {foo} and {foo:SomeFormat}
 
             //loop through matches, since each key may be used more than once (and with a different format string)
             foreach (Match m in attributeRegex.Matches(formatString))
             {
-                string replacement = m.ToString();
+                string replacement;
                 if (m.Groups[2].Length > 0) //matched {foo:SomeFormat}
                 {
                     //do a double string.Format - first to build the proper format string, and then to format the replacement value
@@ -81,12 +80,10 @@ namespace Cloudents.Functions
                     replacement = (replacementValue ?? string.Empty).ToString();
                 }
                 //perform replacements, one match at a time
-                result = result.Replace(m.ToString(), replacement);  //attributeRegex.Replace(result, replacement, 1);
+                result = result.Replace(m.ToString(), replacement);
             }
             return result;
-
         }
-
 
         /// <summary>
         /// Creates a HashTable based on current object state.
@@ -108,6 +105,5 @@ namespace Cloudents.Functions
             }
             return values;
         }
-
     }
 }

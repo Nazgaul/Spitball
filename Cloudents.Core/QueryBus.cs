@@ -17,22 +17,16 @@ namespace Cloudents.Core
 
         private readonly ILifetimeScope _container;
 
-        public async Task<TQueryResult> QueryAsync<TQuery, TQueryResult>(TQuery query, CancellationToken token) //where TQuery : IQuery //where TQueryResult : IQueryResult
+        public async Task<TQueryResult> QueryAsync<TQueryResult>(IQuery<TQueryResult> query, CancellationToken token)
         {
             using (var child = _container.BeginLifetimeScope())
             {
-                var obj = child.Resolve<IQueryHandlerAsync<TQuery, TQueryResult>>();
-                return await obj.GetAsync(query, token).ConfigureAwait(false);
-            }
-        }
+                var handlerType =
+                    typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TQueryResult));
 
-        public async Task<TQueryResult> QueryAsync<TQueryResult>(CancellationToken token)
-        {
-            //IQueryHandlerAsync<TQueryResult>
-            using (var child = _container.BeginLifetimeScope())
-            {
-                var obj = child.Resolve<IQueryHandlerAsync<TQueryResult>>();
-                return await obj.GetAsync(token).ConfigureAwait(false);
+                dynamic handler = child.Resolve(handlerType);
+                var t = handler.GetAsync((dynamic)query, token);
+                return await t;
             }
         }
 
@@ -41,4 +35,7 @@ namespace Cloudents.Core
             _container?.Dispose();
         }
     }
+
+
+
 }

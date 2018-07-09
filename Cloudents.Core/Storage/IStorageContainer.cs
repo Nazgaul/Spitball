@@ -23,11 +23,9 @@ namespace Cloudents.Core.Storage
         public string Name { get; }
         public string RelativePath { get; }
 
-
         public static readonly StorageContainer CacheContainer = new StorageContainer("zboxcahce");
         public static readonly StorageContainer SpitballContainer = new StorageContainer("spitball");
         public static readonly StorageContainer QuestionsAndAnswers = new StorageContainer("spitball-files");
         public static readonly StorageContainer Documents = new StorageContainer("zboxFiles");
-        
     }
 }

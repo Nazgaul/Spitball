@@ -3,16 +3,16 @@
 export let verticals =
     {
 
-        marketplace: {
-            id: routes.marketRoute,
-            name: "Marketplace",
-            icon: "sbf-marketplace"
-
-        },
+        // marketplace: {
+        //     id: routes.marketRoute,
+        //     name: "Marketplace",
+        //     icon: "sbf-marketplace"
+        //
+        // },
         ask: {
-            filter:[{ id: "source", name: "sources" }],
+            filter:[{ id: "source", name: "subject" }],
             id: routes.questionRoute,
-            name: "Ask a Question",
+            name: "Homework Help",
             icon: "sbf-ask-q"
 
         },
@@ -72,16 +72,7 @@ export let verticals =
                 { id: "date", name: "date" }
             ],
             icon: "sbf-job"
-        },
-        //TODO: remove food stuff from code
-        // food: {
-        //     id: routes.foodRoute,
-        //     needLocation: true,
-        //     name: "Food and Deals",
-        //     filter: [
-        //         { id: "openNow", name: "Open now" }]
-        // }
-
+        }
     };
 export let details = {
     bookDetails: {

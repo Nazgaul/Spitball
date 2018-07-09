@@ -1,21 +1,21 @@
 @import "../../../../mixin.less";
 
 .step-phone .step-wrapper {
-  .input-wrapper {
+  .input-wrapper, select {
     margin-top: 24px;
-
-    .phone-field {
-      padding-left: 36px;
-      margin-top: 0;
-
-      ~ i {
-        position: absolute;
-        top: 14px;
-        left: 16px;
-      }
-    }
   }
-  .code-field {
+
+  .phone-field input{
+     padding-left: 36px;
+     margin-top: 0;
+
+     ~ i {
+       position: absolute;
+       top: 14px;
+       left: 16px;
+     }
+   }
+  .code-field input{
     margin-top: 0;
     padding-left: 50px;
     margin-bottom: 4px;
@@ -27,7 +27,7 @@
     }
   }
   .continue-btn {
-    margin-top: 40px;
+    margin-top: 24px;
     &.submit-code {
       margin-top: 12px;
     }
@@ -37,5 +37,23 @@
   }
   .confirm-title {
     letter-spacing: -0.3px;
+    margin-top: 48px;
+  }
+
+  .limited-width.wide{
+    height: 315px;
+    p{max-width: none;}
+    .code-field,.continue-btn{max-width: 400px;  margin: 20px auto 0;}
+  }
+
+  /* For Firefox */
+  input[type='number'] {
+    -moz-appearance:textfield;
+  }
+  /* Webkit browsers like Safari and Chrome */
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }

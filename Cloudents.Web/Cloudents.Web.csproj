@@ -2,11 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net47</TargetFramework>
-    <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
+    <!--<MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>-->
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
-    <AssemblyVersion>8.5.29.1</AssemblyVersion>
-    <FileVersion>8.5.29.0</FileVersion>
+    <AssemblyVersion>8.7.8.1</AssemblyVersion>
+    <FileVersion>8.7.8.1</FileVersion>
+    <Version>8.7.8.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,6 +23,17 @@
     <DocumentationFile>bin\Release\net47\Cloudents.Web.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Account\**" />
+    <Compile Remove="Views\Home\**" />
+    <Content Remove="Views\Account\**" />
+    <Content Remove="Views\Home\**" />
+    <EmbeddedResource Remove="Views\Account\**" />
+    <EmbeddedResource Remove="Views\Home\**" />
+    <None Remove="Views\Account\**" />
+    <None Remove="Views\Home\**" />
+  </ItemGroup>
   <ItemGroup>
     <None Remove="ClientApp\components\food\foodheader.vue" />
     <None Remove="ClientApp\components\settings\layout.vue.orig" />
@@ -42,6 +54,7 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.SnapshotCollector" Version="1.2.3" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.2" />
@@ -58,6 +71,7 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
     <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.4.2" />
+    <PackageReference Include="protobuf-net" Version="2.3.7" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
@@ -75,12 +89,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <WCFMetadata Include="Connected Services" />
+    <Reference Include="HibernatingRhinos.Profiler.Appender">
+      <HintPath>..\thirdParties\nhprof\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Account\" />
-    <Folder Include="Views\Home\" />
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
   <ItemGroup>

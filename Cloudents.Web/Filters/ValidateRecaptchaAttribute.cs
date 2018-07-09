@@ -117,7 +117,6 @@ namespace Cloudents.Web.Filters
                 }
                 await base.OnActionExecutionAsync(context, next).ConfigureAwait(false);
             }
-
         }
 
             [SuppressMessage("ReSharper", "MemberCanBePrivate.Local", Justification = "Json.net need to familiar with this")]

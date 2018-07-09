@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
@@ -10,35 +11,39 @@ using JetBrains.Annotations;
 namespace Cloudents.Core.CommandHandler
 {
     [UsedImplicitly]
-    public class CreateQuestionCommandHandler : ICommandHandlerAsync<CreateQuestionCommand>
+    public class CreateQuestionCommandHandler : ICommandHandler<CreateQuestionCommand>
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<QuestionSubject> _questionSubjectRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
-        private readonly IBlockChainQAndAContract _blockChainProvider;
 
-        public CreateQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository, IBlobProvider<QuestionAnswerContainer> blobProvider, IBlockChainQAndAContract blockChainProvider)
+        public CreateQuestionCommandHandler(IRepository<Question> questionRepository,
+            IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository,
+            IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
             _questionRepository = questionRepository;
             _questionSubjectRepository = questionSubjectRepository;
             _userRepository = userRepository;
             _blobProvider = blobProvider;
-            _blockChainProvider = blockChainProvider;
         }
 
-        public async Task HandleAsync(CreateQuestionCommand message, CancellationToken token)
+        public async Task ExecuteAsync(CreateQuestionCommand message, CancellationToken token)
         {
-            var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
-            var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId, token).ConfigureAwait(false);
+            //if you get an exception doing debug make sure the locals window is minimized.
+            var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(true);
+            if (user.Balance < message.Price)
+            {
+                throw new InvalidOperationException("not enough money");
+            }
+            var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId,token).ConfigureAwait(true);
             var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
-            await _questionRepository.SaveAsync(question, token).ConfigureAwait(false);
+            await _questionRepository.AddAsync(question, token).ConfigureAwait(true);
             var id = question.Id;
-            var p = _blockChainProvider.SubmitQuestionAsync(id, message.Price, message.PrivateKey, token);
 
-            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token));
-            
-            await Task.WhenAll(l.Union(new[] { p })).ConfigureAwait(false);
+            //TODO: not right
+            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ?? Enumerable.Empty<Task>();
+            await Task.WhenAll(l).ConfigureAwait(true);
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Cloudents.Core.Storage
 {
     [DataContract]
-    public class UrlRedirectQueueMessage 
+    public class UrlRedirectQueueMessage
     {
         public UrlRedirectQueueMessage(string host,
             string url, string urlReferrer, int? location, string ip)
@@ -23,6 +23,7 @@ namespace Cloudents.Core.Storage
 
         [DataMember(Order = 1)]
         public string Host { get; set; }
+
         [DataMember(Order = 2)]
         public string Url { get; set; }
 
@@ -37,43 +38,5 @@ namespace Cloudents.Core.Storage
 
         [DataMember(Order = 6)]
         public string Ip { get; set; }
-
-       // public QueueName QueueName => QueueName.UrlRedirect;
-    }
-
-
-    [DataContract]
-    public class SmsMessage //: IQueueName
-    {
-        [DataMember]
-        public string PhoneNumber { get; set; }
-        [DataMember]
-        public string Message { get; set; }
-    }
-
-    [Serializable]
-    public class RegistrationEmail : QueueEmail
-    {
-        public RegistrationEmail(string to, string link) : base(to, "register","Welcome to Spitball")
-        {
-            Link = link;
-        }
-
-        public string Link { get; private set; }
-
-    }
-
-    public class TalkJsUser : QueueBackground
-    {
-        public TalkJsUser(long id)
-        {
-            Id = id;
-        }
-
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get;  set; }
-        public string Phone { get;  set; }
-        public string PhotoUrl { get;  set; }
     }
 }

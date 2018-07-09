@@ -10,6 +10,7 @@ export const typesPersonalize = {
     aboutSpitball: "aboutSpitball",
     help: "help",
     termsService: "termsService",
+    feedback:"feedback",
     privacyPolicy: "privacyPolicy"
 
 }
@@ -79,35 +80,33 @@ export let settingMenu = [
 export let notRegMenu = [
     {
         id: typesPersonalize.whoWeAre,
-        name: "Who we are"
-    },
-    {
-        id: typesPersonalize.whatWeUpTo,
-        name: "What we’re Up To"
-    },
-    {
-        id: typesPersonalize.myWallet,
-        name: "My Wallet"
-    },
-    {
-        id: typesPersonalize.trustSafety,
-        name: "Trust & Safety"
+        title: "Who we are",
+        name:"faq"
     },
     {
         id: typesPersonalize.aboutSpitball,
-        name: "About Spitball"
+        title: "About Spitball",
+        name:"about"
     },
     {
         id: typesPersonalize.help,
-        name: "Help"
+        title: "Help",
+        name:"faq"
     },
     {
         id: typesPersonalize.termsService,
-        name: "Terms of Service"
+        title: "Terms of Service",
+        name:"terms"
+    },
+    {
+        id:typesPersonalize.feedback,
+        title:'Feedback',
+        click:()=>Intercom('showNewMessage')
     },
     {
         id: typesPersonalize.privacyPolicy,
-        name: "Privacy Policy"
+        title: "Privacy Policy",
+        name:"privacy"
     },
    
 ];

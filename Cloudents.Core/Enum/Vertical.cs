@@ -11,7 +11,6 @@ namespace Cloudents.Core.Enum
         Ask,
         Job,
         Tutor,
-        Food,
         Book
     }
 }

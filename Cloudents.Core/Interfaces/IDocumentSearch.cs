@@ -11,18 +11,15 @@ namespace Cloudents.Core.Interfaces
         Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken);
     }
 
-
     public interface IWebDocumentSearch
     {
         Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model,
             HighlightTextFormat format, CancellationToken token);
     }
 
-
     public interface IWebFlashcardSearch
     {
         Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model,
             HighlightTextFormat format, CancellationToken token);
     }
-    
 }

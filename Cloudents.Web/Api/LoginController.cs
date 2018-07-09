@@ -1,7 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Filters;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +14,10 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class LoginController : Controller
     {
-        private readonly SignInManager<User> _signInManager;
+        private readonly SbSignInManager _signInManager;
         private readonly UserManager<User> _userManager;
 
-        public LoginController(SignInManager<User> signInManager, UserManager<User> userManager)
+        public LoginController(SbSignInManager signInManager, UserManager<User> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -23,20 +26,30 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         [ValidateModel, ValidateRecaptcha]
-        public async Task<IActionResult> PostAsync([FromBody] LoginRequest model)
+        
+        public async Task<IActionResult> PostAsync(
+            [FromBody] LoginRequest model,
+            [FromServices] ISmsSender client,
+            CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
             if (user == null)
             {
-                return BadRequest("email or password are invalid");
+                ModelState.AddModelError(string.Empty, "email not found");
+                return BadRequest(ModelState);
             }
-            var result = await _signInManager.PasswordSignInAsync(user, model.Key, false, false).ConfigureAwait(false);
 
-            if (result.Succeeded)
+            var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
+            var taskSms = client.SendSmsAsync(user, token);
+
+            TempData["SMS"] = user.Email;
+            await Task.WhenAll(taskSms, taskSignIn).ConfigureAwait(false);
+            if (taskSignIn.Result.RequiresTwoFactor)
             {
                 return Ok();
             }
-            return BadRequest("email or password are invalid");
+            ModelState.AddModelError(string.Empty,"Some error");
+            return BadRequest(ModelState);
         }
     }
 }

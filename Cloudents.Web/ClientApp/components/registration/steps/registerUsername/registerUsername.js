@@ -1,36 +1,41 @@
 import stepTemplate from '../stepTemplate.vue'
+import sbInput from "../../../question/helpers/sbInput/sbInput.vue"
 
 ﻿import accountService from '../../../../services/accountService'
+import disableForm from '../../../mixins/submitDisableMixin'
 
 export default {
-    components: {stepTemplate},
+    mixins: [disableForm],
+    components: {stepTemplate, sbInput},
     data() {
         return {
             username: '',
-            originalUsername:''
+            originalUsername: '',
+            errorMessage: '',
+            focus: false,
+            editable: false
         }
     },
     methods: {
         next() {
-            var self = this;
-            if(this.originalUsername === this.username){
-                self.$emit('next');
-            }
-            else {
-                accountService.setUserName(this.username)
-                    .then(function () {
-                        self.$emit('next');
-                    });
+            if(this.submitForm()) {
+                var self = this;
+                if (this.originalUsername === this.username) {
+                    self.$emit('next');
+                }
+                else {
+                    accountService.setUserName(this.username)
+                        .then(function () {
+                            self.$emit('next');
+                        }, function (error) {
+                            self.submitForm(false);
+                            self.errorMessage = error.response.data ? error.response.data : error.message
+                        });
+                }
             }
         },
-        editUsername(){
-            var userNameField = this.$el.querySelector('.username-field');
-            userNameField.disabled = false;
-            userNameField.focus();
-
-        }
     },
-    created() {
+    beforeCreate() {
         var self = this;
         accountService.getUserName()
             .then(function (response) {

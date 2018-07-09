@@ -2,19 +2,19 @@
 
     ;
 import historyIcon from "./svg/history-icon.svg";
-import {micMixin} from './mic';
+// import {micMixin} from './mic';
 import {mapGetters, mapActions} from 'vuex'
 import * as consts from './consts';
 
 export default {
     name: "search-input",
-    mixins: [micMixin],
+    // mixins: [micMixin],
     components: {historyIcon},
     props: {
         hideOnScroll: {type: Boolean, default: false},
         placeholder: {type: String},
         userText: {String},
-        submitRoute: {String},
+        submitRoute: {String,default:'/ask'},
         suggestionVertical: {String}
     },
     data: () => ({autoSuggestList: [], isFirst: true, showSuggestions: false, focusedIndex: -1, originalMsg: ''}),
@@ -84,12 +84,8 @@ export default {
             this.closeSuggestions();
         },
         search() {
-            if (this.submitRoute) {
                 this.$router.push({path: this.submitRoute, query: {q: this.msg}});
-            }
-            else if (this.msg) {
-                this.$router.push({name: "result", query: {q: this.msg}});
-            }
+
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {

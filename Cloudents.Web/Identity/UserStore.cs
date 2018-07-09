@@ -1,32 +1,37 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using NHibernate.Exceptions;
-using NHibernate.Linq;
 
 namespace Cloudents.Web.Identity
 {
     [UsedImplicitly]
-    public sealed class UserStore : IUserPasswordStore<User>,
+    public sealed class UserStore :
         IUserEmailStore<User>,
-        IUserSecurityStampStore<User>,
-        IUserPhoneNumberStore<User>
+        IUserTwoFactorStore<User>,
+        IUserSecurityStampStore<User>, // need to create token for sms
+        IUserPhoneNumberStore<User>,
+        IUserAuthenticatorKeyStore<User>
     {
-        private readonly IRepository<User> _userRepository;
+        private readonly ICommandBus _bus;
+        private readonly IQueryBus _queryBus;
 
-        public UserStore(IRepository<User> userRepository)
+        public UserStore(ICommandBus bus, IQueryBus queryBus)
         {
-            _userRepository = userRepository;
+            _bus = bus;
+            _queryBus = queryBus;
         }
 
         public void Dispose()
         {
-           // _userRepository.Dispose();
         }
 
         public Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)
@@ -58,15 +63,31 @@ namespace Cloudents.Web.Identity
 
         public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
         {
-            await _userRepository.SaveAsync(user, cancellationToken).ConfigureAwait(false);
-           // await _userRepository.FlushAsync(cancellationToken);
+            var command = new CreateUserCommand(user);
+            await _bus.DispatchAsync(command, cancellationToken).ConfigureAwait(false);
             return IdentityResult.Success;
         }
 
         public async Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
         {
-            await _userRepository.SaveAsync(user, cancellationToken).ConfigureAwait(false);
-           // await _userRepository.FlushAsync(cancellationToken);
+            try
+            {
+                var command = new UpdateUserCommand(user);
+                await _bus.DispatchAsync(command, cancellationToken).ConfigureAwait(false);
+            }
+            catch (GenericADOException ex)
+            {
+                if (ex.InnerException is SqlException sql && sql.Number == 2601)
+                {
+                    return IdentityResult.Failed(new IdentityError
+                    {
+                        Description = "Duplicate",
+                        Code = "Duplicate"
+                    });
+                }
+                return IdentityResult.Failed();
+            }
+
             return IdentityResult.Success;
         }
 
@@ -78,44 +99,13 @@ namespace Cloudents.Web.Identity
         public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             var p = long.Parse(userId);
-            return _userRepository.GetAsync(p, cancellationToken); //it was get to check if the user
+            return _queryBus.QueryAsync<User>(new UserDataByIdQuery(p), cancellationToken);
         }
 
-        public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
+        public Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            try
-            {
-                //nhibernate flush before query base on flushmode.auto
-                return await _userRepository.GetQueryable()
-                    .SingleOrDefaultAsync(s => s.NormalizedName == normalizedUserName,
-                        cancellationToken).ConfigureAwait(false);
-            }
-            catch (GenericADOException ex)
-            {
-                if (ex.InnerException is SqlException sql && sql.Number == 2627)
-                {
-                    throw new UserNameExistsException("user exists", ex);
-                }
-
-                throw;
-            }
-
-        }
-
-        public Task SetPasswordHashAsync(User user, string passwordHash, CancellationToken cancellationToken)
-        {
-            user.PublicKey = passwordHash;
-            return Task.CompletedTask;
-        }
-
-        public Task<string> GetPasswordHashAsync(User user, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(user.PublicKey);
-        }
-
-        public Task<bool> HasPasswordAsync(User user, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(!string.IsNullOrEmpty(user.PublicKey));
+            Expression<Func<User, bool>> expression = s => s.NormalizedName == normalizedUserName;
+            return _queryBus.QueryAsync(new UserDataExpressionQuery(expression), cancellationToken);
         }
 
         public Task SetEmailAsync(User user, string email, CancellationToken cancellationToken)
@@ -142,8 +132,8 @@ namespace Cloudents.Web.Identity
 
         public Task<User> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
         {
-            return _userRepository.GetQueryable()
-                .FirstOrDefaultAsync(f => f.NormalizedEmail == normalizedEmail, cancellationToken: cancellationToken);
+            Expression<Func<User, bool>> expression = f => f.NormalizedEmail == normalizedEmail;
+            return _queryBus.QueryAsync(new UserDataExpressionQuery(expression), cancellationToken);
         }
 
         public Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancellationToken)
@@ -170,13 +160,13 @@ namespace Cloudents.Web.Identity
 
         public Task SetPhoneNumberAsync(User user, string phoneNumber, CancellationToken cancellationToken)
         {
-            user.PhoneNumberHash = phoneNumber;
+            user.PhoneNumber = phoneNumber;
             return Task.CompletedTask;
         }
 
         public Task<string> GetPhoneNumberAsync(User user, CancellationToken cancellationToken)
         {
-            return Task.FromResult(user.PhoneNumberHash);
+            return Task.FromResult(user.PhoneNumber);
         }
 
         public Task<bool> GetPhoneNumberConfirmedAsync(User user, CancellationToken cancellationToken)
@@ -188,6 +178,28 @@ namespace Cloudents.Web.Identity
         {
             user.PhoneNumberConfirmed = confirmed;
             return Task.CompletedTask;
+        }
+
+        public Task SetTwoFactorEnabledAsync(User user, bool enabled, CancellationToken cancellationToken)
+        {
+            user.TwoFactorEnabled = enabled;
+            return Task.CompletedTask;
+        }
+
+        public Task<bool> GetTwoFactorEnabledAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.TwoFactorEnabled);
+        }
+
+        public Task SetAuthenticatorKeyAsync(User user, string key, CancellationToken cancellationToken)
+        {
+            user.AuthenticatorKey = key;
+            return Task.CompletedTask;
+        }
+
+        public Task<string> GetAuthenticatorKeyAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.AuthenticatorKey);
         }
     }
 }

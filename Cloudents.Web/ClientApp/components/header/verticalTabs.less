@@ -1,6 +1,7 @@
 ﻿@import "../../mixin.less";
 
 .verticals.line {
+    .limited-width();
     @media(max-width: @screen-sm) {
         align-items: stretch;
     }
@@ -21,10 +22,9 @@
     }
 
     .verticals-bar {
-        padding-left: 10px;
-
-        @media(max-width: 959px) {
-            padding-left: 0;
+        padding-left: 4px;
+        @media(max-width: @screen-sm) {
+            padding-left: 8px;
         }
 
         .tabs__bar {
@@ -34,35 +34,13 @@
             }
         }
 
-        .vertical-title{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 32px;
-            border-radius: 4px;
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-
-            @media(max-width: @screen-xs){
-                padding: 8px;
-            }
-
-            i{
-                font-size: 21px;
-                margin-right: 8px;
-                margin-bottom: 0;
-                @media(max-width: @screen-xs){
-                    display: none;
-                }
-            }
-        }
         .tabs__bar .tabs__li {
             flex-basis: auto;
+            padding-bottom: 14px;
             @media(max-width: @screen-xs){
-                margin-right: 8px !important;
+                margin-right: 16px !important;
                 margin-bottom: 3px;
+                padding-bottom: 0;
             }
         }
     }

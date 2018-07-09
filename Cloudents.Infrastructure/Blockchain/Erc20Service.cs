@@ -1,58 +1,68 @@
-﻿using Cloudents.Core.Interfaces;
-using System;
-using System.IO;
+﻿using System;
+using Cloudents.Core.Interfaces;
 using System.Numerics;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Infrastructure.BlockChain;
+using JetBrains.Annotations;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;
-using Nethereum.Web3.Accounts;
-using Nethereum.Hex.HexTypes;
-using Nethereum.Contracts;
-using Cloudents.Infrastructure.BlockChain;
 
 namespace Cloudents.Infrastructure.Blockchain
 {
-    class Erc20Service : BlockChainProvider, IBlockChainErc20Service
+    [UsedImplicitly]
+    public class Erc20Service : BlockChainProvider, IBlockChainErc20Service
     {
         protected override string Abi => "TokenAbi";
 
-        protected override string TransactionHash => "0x430fdc71d7b86f432ae0d22d0cc11ce7909f0434942f5943f2288f3140dac07d";
-            
+        protected override string ContractAddress => "0xf80cb7d159afc4b0cd7c970fedca2afc91477123";
 
         public Erc20Service (IConfigurationKeys configurationKeys) : base(configurationKeys)
         {
         }
 
-        public async Task<decimal> GetBalanceAsync(string senderAddress, CancellationToken token)
+        public async Task<decimal> GetBalanceAsync([NotNull] string senderAddress, CancellationToken token)
         {
-            var contract = await GetContractAsync(GenerateWeb3Instance(),  token).ConfigureAwait(false);
-            var function = contract.GetFunction("balanceOf");
-            var parameters = (new object[] { senderAddress });
-            var result = await function.CallAsync<BigInteger>(parameters).ConfigureAwait(false);
+            if (senderAddress == null) throw new ArgumentNullException(nameof(senderAddress));
+            var function = await GetFunctionAsync("balanceOf", token).ConfigureAwait(false);
+            var result = await function.CallAsync<BigInteger>(senderAddress).ConfigureAwait(false);
             var normalAmount = result / new BigInteger(FromWei);
             return (decimal)normalAmount;
         }
 
         public async Task<string> TransferMoneyAsync(string senderPk, string toAddress, float amount, CancellationToken token)
         {
-          
-            var contract = await GetContractAsync(GenerateWeb3Instance(senderPk), token).ConfigureAwait(false);
-            var operationToExe = contract.GetFunction("transfer");
-            var maxGas = new HexBigInteger(70000);
+            var function = await GetFunctionAsync("transfer", token).ConfigureAwait(false);
             var amountTransformed = new BigInteger(amount * FromWei);
-            var parameters = new object[] { toAddress, amountTransformed };
-            var receiptFirstAmountSend = await operationToExe.SendTransactionAndWaitForReceiptAsync(GetPublicAddress(senderPk), maxGas, null, null, parameters).ConfigureAwait(false);
+            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(senderPk, 70000, token, toAddress, amountTransformed).ConfigureAwait(false);
             return receiptFirstAmountSend.BlockHash;
         }
 
-        public async Task<bool> SetInitialBalanceAsync(string address, CancellationToken token)
+        public async Task SetInitialBalanceAsync(string address, CancellationToken token)
         {
-            await TransferMoneyAsync("10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4", address, 10, token).ConfigureAwait(false);
-            return true;
+            await TransferMoneyAsync(SpitballPrivateKey, address, 100, token).ConfigureAwait(false);
         }
 
+        public async Task<string> CreateNewTokens(string toAddress, int amount, CancellationToken token)
+        {
+            var function = await GetFunctionAsync("mintToken", token).ConfigureAwait(false);
+            var amountTransformed = new BigInteger(amount * FromWei);
+            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, MaxGas, token, toAddress, amountTransformed).ConfigureAwait(false);
+            return receiptFirstAmountSend.BlockHash;
+        }
+
+        public string GetAddress([NotNull] string privateKey)
+        {
+            if (privateKey == null) throw new ArgumentNullException(nameof(privateKey));
+            return Web3.GetAddressFromPrivateKey(privateKey);
+        }
+
+        public (string privateKey, string publicAddress) CreateAccount()
+        {
+            var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
+            var privateKey = ecKey.GetPrivateKeyAsBytes();
+            var address = Web3.GetAddressFromPrivateKey(privateKey.ToHex());
+            return (privateKey.ToHex(), address);
+        }
     }
 }

@@ -1,20 +1,22 @@
 <template>
     <div class="registration">
+        <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
+            <div class="text-wrap" v-html="getToasterText"></div>
+        </v-snackbar>
+        <slot>
+        <div class="form-wrap">
+            <component :is="`register-${step}`" @next="nextStep"></component>
+        </div>
+
+        <div class="img-wrap"></div>
+        <div class="progress">
+            <div v-for="page in REGISTRATION_STEPS" :class="{highlighted: page===step}"></div>
+        </div>
+        </slot>
         <button class="back-button" @click="showDialog = true">
             <v-icon right>sbf-close</v-icon>
         </button>
-        <div class="form-wrap">
-            <register-email v-if="step===0" @next="nextStep"></register-email>
-            <register-phone v-else-if="step===1" @next="nextStep"></register-phone>
-            <register-username v-else-if="step===2" @next="nextStep"></register-username>
-            <register-account v-else-if="step===3"></register-account>
-        </div>
-        <div class="img-wrap"></div>
-        <div class="progress">
-            <div v-for="page in [0,1,2,3]" :class="{highlighted: page===step}"></div>
-        </div>
-
-        <v-dialog v-model="showDialog" max-width="600px">
+        <v-dialog v-model="showDialog" max-width="600px" content-class="registration-dialog">
             <v-card>
                 <button class="close-btn" @click="showDialog = false">
                     <v-icon>sbf-close</v-icon>

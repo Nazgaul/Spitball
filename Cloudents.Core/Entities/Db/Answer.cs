@@ -9,13 +9,14 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Answer
     {
-        public Answer( Question question, string text, int attachments, User user)
+        public Answer(Question question, string text, int attachments, User user)
         {
             Question = question;
             Text = text;
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
+            //AnswerCreateTransaction();
         }
 
         [UsedImplicitly]
@@ -32,6 +33,18 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual DateTime Created { get; set; }
 
-        public virtual int? UpVote { get; set; }
+
+        //public virtual Transaction AnswerCreateTransaction()
+        //{
+        //    var t = new Transaction(ActionType.Answer, TransactionType.Pending, Question.Price);
+        //    User.AddTransaction(t);
+        //    return t;
+        //}
+
+        //public virtual void AnswerDeleteTransaction()
+        //{
+        //    var t =  new Transaction(ActionType.Answer, TransactionType.Pending, -Question.Price);
+        //    User.AddTransaction(t);
+        //}
     }
 }

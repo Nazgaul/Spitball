@@ -3,6 +3,7 @@ using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Models;
+using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Places;
@@ -27,7 +28,7 @@ namespace Cloudents.Infrastructure.Mapper
                 .ForMember(m => m.Id, c => c.MapFrom(m => long.Parse(m.Id)))
                 .ForMember(m => m.Price, c => c.MapFrom(m => decimal.Parse(m.Price)));
 
-            CreateMap<Google.Apis.Auth.GoogleJsonWebSignature.Payload, AuthDto>().ConvertUsing(o => new AuthDto
+            CreateMap<GoogleToken, AuthDto>().ConvertUsing(o => new AuthDto
             {
                 Name = o.Name,
                 Email = o.Email

@@ -8,6 +8,7 @@ namespace Cloudents.Web.Swagger
     {
         private static readonly Lazy<ApiParameterDescriptionEqualityComparer> PrivateInstance
             = new Lazy<ApiParameterDescriptionEqualityComparer>(() => new ApiParameterDescriptionEqualityComparer());
+
         public static ApiParameterDescriptionEqualityComparer Instance
             => PrivateInstance.Value;
 
@@ -34,5 +35,4 @@ namespace Cloudents.Web.Swagger
             return true;
         }
     }
-
 }

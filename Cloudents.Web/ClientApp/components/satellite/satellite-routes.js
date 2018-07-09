@@ -1,6 +1,6 @@
 ﻿export const staticRoutes = [
     {
-        name: "work",
+        name: "about",
         display: "How Spitball Works",
         import: () => import("./work.vue")
 
@@ -9,6 +9,13 @@
         name: "faq",
         display: "FAQ",
         import: () => import("./faq.vue")
+
+    },
+    {
+        name: "faqSelect",
+        path: "/faq/:id",
+        import: () => import("./faq.vue"),
+        params:(route) => ({id: route.params.id})
 
     },
     {

@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Core.CommandHandler
 {
     [UsedImplicitly]
-    public class AssignUniversityToUserCommandHandler : ICommandHandlerAsync<AssignUniversityToUserCommand>
+    public class AssignUniversityToUserCommandHandler : ICommandHandler<AssignUniversityToUserCommand>
     {
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<University> _universityRepository;
@@ -19,13 +19,13 @@ namespace Cloudents.Core.CommandHandler
             _universityRepository = universityRepository;
         }
 
-        public async Task HandleAsync(AssignUniversityToUserCommand message, CancellationToken token)
+        public async Task ExecuteAsync(AssignUniversityToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
             var university = await _universityRepository.LoadAsync(message.UniversityId, token).ConfigureAwait(false);
 
             user.University = university;
-            await _userRepository.SaveAsync(user, token).ConfigureAwait(false);
+            await _userRepository.AddAsync(user, token).ConfigureAwait(false);
         }
     }
 }

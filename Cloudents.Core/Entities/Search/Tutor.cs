@@ -14,8 +14,10 @@ namespace Cloudents.Core.Entities.Search
 
         [DataMember]
         public string Name { get; set; }
+
         [DataMember]
         public string Image { get; set; }
+
         [DataMember]
         public string Url { get; set; }
 
@@ -30,6 +32,7 @@ namespace Cloudents.Core.Entities.Search
 
         [DataMember]
         public GeographyPoint Location { get; set; }
+
         [DataMember]
         public double Fee { get; set; }
 
@@ -47,6 +50,7 @@ namespace Cloudents.Core.Entities.Search
 
         [DataMember]
         public string[] Extra { get; set; }
+
         [DataMember]
         public string Source { get; set; }
     }

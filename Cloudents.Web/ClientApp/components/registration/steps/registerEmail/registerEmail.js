@@ -2,49 +2,79 @@ import stepTemplate from '../stepTemplate.vue';
 
 import registrationService from '../../../../services/registrationService';
 import VueRecaptcha from 'vue-recaptcha';
+import disableForm from '../../../mixins/submitDisableMixin'
+import SbInput from '../../../question/helpers/sbInput/sbInput.vue';
+import {mapMutations, mapActions} from 'vuex'
 
 var auth2;
 
 export default {
-    components: {stepTemplate, VueRecaptcha},
+    components: {stepTemplate, VueRecaptcha, SbInput},
+    mixins: [disableForm],
     data() {
         return {
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             emailSent: false,
-            errorMessages: '',
-            disableSubmit: false
+            agreeTerms: false,
+            errorMessage: ''
         }
     },
     methods: {
+        ...mapMutations({updateLoading: "UPDATE_LOADING"}),
+        ...mapActions({updateToasterParams: 'updateToasterParams'
+        }),
+
         next() {
             self = this;
-            self.disableSubmit = true;
-            debugger;
-            registrationService.emailRegistration(this.userEmail, this.recaptcha)
-                .then(function () {
-                    self.emailSent = true
-                    self.disableSubmit = false;
-                }, function (reason) {
-                    console.error(reason);
-                });
+            if (this.submitForm()) {
+                this.updateLoading(true);
+                registrationService.emailRegistration(this.userEmail, this.recaptcha)
+                    .then(function () {
+                        self.updateLoading(false);
+                        self.emailSent = true;
+                    }, function (error) {
+                        self.updateLoading(false);
+                        self.recaptcha = "";
+                        self.$refs.recaptcha.reset();
+                        self.submitForm(false);
+                        self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                    });
+            }
         },
         googleLogIn() {
             var self = this;
 
             var authInstance = gapi.auth2.getAuthInstance();
-
-            authInstance.signIn().then(function (googleUser) {
-                debugger;
-                var idToken = googleUser.getAuthResponse().id_token;
-                registrationService.googleRegistration(idToken)
-                    .then(function () {
-                        self.$emit('next');
-                    }, function (reason) {
-                        debugger;
-                        console.error(reason);
-                    });
-            });
+            if (this.submitForm()) {
+                this.updateLoading(true);
+                authInstance.signIn().then(function (googleUser) {
+                    var idToken = googleUser.getAuthResponse().id_token;
+                    registrationService.googleRegistration(idToken)
+                        .then(function () {
+                            self.updateLoading(false);
+                            self.$emit('next');
+                        }, function (reason) {
+                            self.updateLoading(false);
+                            self.submitForm(false);
+                            console.error(reason);
+                        });
+                }, function (error) {
+                    self.updateLoading(false);
+                });
+            }
+        },
+        resend() {
+            registrationService.emailResend()
+                .then(response => {
+                        this.updateToasterParams({
+                            toasterText: 'Email sent',
+                            showToaster: true,
+                        })
+                    },
+                    error => {
+                        console.error('resent error',error)
+                    })
         },
         onVerify(response) {
             this.recaptcha = response;

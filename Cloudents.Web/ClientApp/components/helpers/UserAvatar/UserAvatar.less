@@ -1,0 +1,32 @@
+@userColor0: #64A9F8;
+@userColor1: #ff9853;
+@userColor2: #e775ce;
+@userColor3: #10b2c1;
+@userColor4: #848fa6;
+@userColor5: #f36f6e;
+@userColor6: #f76446;
+@userColor7: #73b435;
+@userColor8: #a55fff;
+@userColor9: #a27c22;
+@userColor10: #4faf61;
+
+@list-colors: userColor0, userColor1, userColor2, userColor3, userColor4, userColor5, userColor6, userColor7, userColor8, userColor9, userColor10;
+
+.loop(@index) when (@index <= length(@list-colors)) {
+  .loop((@index + 1));
+  @p: extract(@list-colors, @index);
+
+  .@{p} {
+    @color: "@{p}";
+    background-color: @@color !important;
+  }
+}
+
+.loop(1);
+
+
+.user-avatar{
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+}

@@ -1,39 +1,18 @@
-import accountNum from "./accountNum.vue";
 import stepTemplate from '../stepTemplate.vue';
-import registrationService from "../../../../services/registrationService";
+import disableForm from '../../../mixins/submitDisableMixin'
+import {mapActions} from 'vuex'
+const initialPointsNum =100
 
 export default {
-    components: {accountNum, stepTemplate},
-    data() {
-        return {
-            openDialog: false,
-            dialogWasViewed: false,
-            showSummary: false,
-            accountNum: ""
-        }
-    },
+    mixins:[disableForm],
+    components: {stepTemplate},
+    data(){return{initialPointsNum}},
     methods: {
-        next() {
-            if (!this.dialogWasViewed) {
-                this.openDialog = true;
-            }
-            else {
-                this.showSummary = true;
-            }
-        },
-        closeDialog() {
-            this.openDialog = false;
-            this.dialogWasViewed = true;
-        },
+        ...mapActions(['incrementRegistrationStep']),
         finishRegistration() {
-            this.$router.push({path: '/note', query: {q: ''}});
+            window.isAuth = true;
+            this.incrementRegistrationStep();
+            this.$router.push({path: '/ask', query: {q: ''}});
         }
     },
-    beforeCreate() {
-        var self = this;
-        registrationService.getAccountNum()
-            .then(function (response) {
-                self.accountNum = response.data.password;
-            })
-    }
 };

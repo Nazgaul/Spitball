@@ -1,64 +1,72 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.Command;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
-using Cloudents.Web.Filters;
-using Cloudents.Web.Identity;
+using Cloudents.Core.Query;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Policy = SignInStep.PolicyAll)]
+    [Authorize]
 
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly ICommandBus _commandBus;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, ICommandBus commandBus, IMapper mapper)
+        public AccountController(UserManager<User> userManager, ICommandBus commandBus, IMapper mapper,
+            SignInManager<User> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _commandBus = commandBus;
             _mapper = mapper;
+            _signInManager = signInManager;
+            _configuration = configuration;
         }
 
         // GET
         [HttpGet]
-        public async Task<IActionResult> GetAsync([FromServices] IBlockChainErc20Service blockChain, CancellationToken token)
+
+        public async Task<IActionResult> GetAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var balance = await blockChain.GetBalanceAsync(user.PublicKey, token).ConfigureAwait(false);
-            return Ok(new
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserDataByIdQuery(userId);
+            var taskUser = queryBus.QueryAsync<UserAccountDto>(query, token);
+            var talkJs = GetToken();
+
+            var user = await taskUser.ConfigureAwait(false);
+            if (user == null)
             {
-                user.Id,
-                user.Image,
-                user.Email,
-                user.Name,
-                token = GetToken(),
-                balance
-            });
+                ModelState.AddModelError(string.Empty,"user not exists");
+                await _signInManager.SignOutAsync().ConfigureAwait(false);
+                return BadRequest(ModelState);
+            }
+            user.Token = talkJs;
+            return Ok(user);
         }
 
         private string GetToken()
         {
             // ReSharper disable once StringLiteralTypo
-            const string key = "sk_test_AQGzQ2Rlj0NeiNOEdj1SlosU";
             var message = _userManager.GetUserId(User);
 
             var asciiEncoding = new ASCIIEncoding();
-            var keyByte = asciiEncoding.GetBytes(key);
+            var keyByte = asciiEncoding.GetBytes(_configuration["TalkJsSecret"]);
             var messageBytes = asciiEncoding.GetBytes(message);
 
             using (var sha256 = new HMACSHA256(keyByte))
@@ -74,50 +82,6 @@ namespace Cloudents.Web.Api
             }
         }
 
-        [HttpGet("userName")]
-        [Authorize(Policy = SignInStep.PolicyPassword)]
-        public IActionResult GetUserName()
-        {
-            var name = _userManager.GetUserName(User);
-            return Ok(new { name });
-        }
-
-        [HttpPost("userName"), ValidateModel]
-        [Authorize(Policy = SignInStep.PolicyPassword)]
-        public async Task<IActionResult> ChangeUserNameAsync(
-            [FromBody]ChangeUserNameRequest model,
-            [FromServices] IQueueProvider client,
-            CancellationToken token)
-        {
-            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            var t1 = _userManager.SetUserNameAsync(user, model.Name);
-            var userId = user.Id;
-            var t2 = client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
-            {
-                Name = user.Name
-            },token);
-           
-            try
-            {
-                await Task.WhenAll(t1, t2).ConfigureAwait(false);
-            }
-            catch (UserNameExistsException ex)
-            {
-                await client.InsertBackgroundMessageAsync(new TalkJsUser(userId)
-                {
-                    Name = _userManager.GetUserName(User)
-                }, token).ConfigureAwait(false);
-
-                return BadRequest(ex.Message);
-            }
-
-            if (t1.Result.Succeeded)
-            {
-                return Ok();
-            }
-            return BadRequest(t1.Result.Errors);
-        }
-
         [HttpPost("university")]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
@@ -126,5 +90,12 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [HttpPost("logout")]
+        public async Task<IActionResult> LogOutAsync()
+        {
+            await _signInManager.SignOutAsync().ConfigureAwait(false);
+            TempData.Clear();
+            return Ok();
+        }
     }
 }

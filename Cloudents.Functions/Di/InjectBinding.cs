@@ -6,7 +6,6 @@ using Microsoft.Azure.WebJobs.Host.Protocols;
 
 namespace Cloudents.Functions.Di
 {
-
     public class InjectBinding : IBinding
     {
         private readonly Type _type;

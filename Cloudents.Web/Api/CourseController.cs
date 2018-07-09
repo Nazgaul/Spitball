@@ -18,18 +18,19 @@ namespace Cloudents.Web.Api
     public class CourseController : Controller
     {
         private readonly ICourseSearch _courseProvider;
-        private readonly ICommandBus _command;
+        private readonly ICommandBus _commandBus;
+
 
         /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="courseProvider"></param>
-        /// <param name="command"></param>
-        public CourseController(ICourseSearch courseProvider, ICommandBus command)
+        /// <param name="commandBus"></param>
+        public CourseController(ICourseSearch courseProvider, ICommandBus commandBus)
         {
             _courseProvider = courseProvider;
-            _command = command;
+            _commandBus = commandBus;
         }
 
         /// <summary>
@@ -57,19 +58,16 @@ namespace Cloudents.Web.Api
         /// <param name="token">Cancellation token</param>
         /// <returns>The id of the course created</returns>
         [Route("create")]
-        [HttpPost]
+        [HttpPost,ValidateModel]
         public async Task<IActionResult> CreateAcademicBoxAsync([FromBody]CreateCourseRequest model, CancellationToken token)
         {
-            if (!ModelState.IsValid || !model.University.HasValue)
-            {
-                return BadRequest(ModelState);
-            }
-            var command = new CreateCourseCommand(model.CourseName, model.University.Value);
-            var response = await _command.DispatchAsync<CreateCourseCommand, CreateCourseCommandResult>(command, token).ConfigureAwait(false);
+            var command = new CreateCourseCommand(model.CourseName, model.University);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok(new
             {
-                response.Id
+                command.Id
             });
         }
+
     }
 }

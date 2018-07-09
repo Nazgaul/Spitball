@@ -1,14 +1,18 @@
 import axios from "axios";
-import Talk from "talkjs"
-//import { stat } from "fs";
+import Talk from "talkjs";
+import accountService from "../services/accountService"
+import { debug } from "util";
+import {dollarCalculate} from "./constants";
 let userLogin = false;
+import { router } from "../main";
 
 const state = {
     login: false,
     user: null,
     talkSession: null,
     talkMe: null,
-    unreadMessages: 0
+    unreadMessages: 0,
+    fromPath: null
 }
 const mutations = {
     changeLoginStatus(state, val) {
@@ -25,49 +29,90 @@ const mutations = {
     },
     updateMessageCount(state, val) {
         state.unreadMessages = val;
+    },
+    logout(state) {
+        state.fromPath = null;
+        state.login = false;
+        state.user = null;
+    },
+    updateFromPath(state, val) {
+        state.fromPath = val;
     }
 };
 
 const getters = {
-    loginStatus:state=>state.login,
+    fromPath: state => state.fromPath,
+    unreadMessages: state => state.unreadMessages,
+    loginStatus: state => state.login,
     isUser: state => state.user !== null,
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
     accountUser: state => state.user
 };
 const actions = {
-    userStatus({ dispatch, commit,getters }) {
+    logout({ state, commit }) {
+        accountService.logout();
+        commit("logout");
+        router.go({path: '/ask', query: {q: ''}});
+    },
+    userStatus({ dispatch, commit, getters }, { isRequire, to }) {
         const $this = this;
         // if (getters.isUser) {
         //     return Promise.resolve();
         // }
-        if(getters.isUser){
+        if (getters.isUser) {
             return Promise.resolve();
         }
-        return axios.get("account").then(({ data }) => {
-            commit("changeLoginStatus", true);
-            commit("updateUser", data);
-            dispatch("connectToChat");
-        }).catch(_ => {
-            commit("changeLoginStatus", false);
-        });
+        if (window.isAuth) {
+            return axios.get("account").then(({ data }) => {
+                commit("changeLoginStatus", true);
+                commit("updateUser", data);
+                dispatch("connectToChat");
+            }).catch(_ => {
+                isRequire ? commit("updateFromPath", to) : '';
+                commit("changeLoginStatus", false);
+            });
+        }
     },
     connectToChat({ state, commit }) {
         if (!state.user) {
             return;
         }
-        const me = new Talk.User(state.user.id);
-        commit("updateChatUser", me);
-        const talkSession = new Talk.Session({
-            appId: "tXsrQpOx",
-            me: me,
-            signature: state.user.token
-        });
-        talkSession.unreads.on("change", m => {
-            commit("updateMessageCount", conversationIds.length);
-        })
+        try {
 
-        commit("updateTalkSession", talkSession);
+
+           
+            Talk.ready.then(() => {
+                // 
+               // const me = new Talk.User(state.user.id);
+                //{id, name, email, phone, photoUrl, welcomeMessage, configuration, custom, availabilityText, locale}
+                 const me = new Talk.User({
+                     id: state.user.id,
+                     name: state.user.name,
+                     photoUrl: state.user.image,
+                     configuration : "buyer"
+                 });
+
+                commit("updateChatUser", me);
+                const talkSession = new Talk.Session({
+                    appId: window.talkJsId,
+                    me: me,
+                    signature: state.user.token
+                });
+                //talkSession.syncThemeForLocalDev("/content/talkjs-theme.css")
+                talkSession.unreads.on("change", m => {
+                    commit("updateMessageCount", m.length);
+                });
+                commit("updateTalkSession", talkSession);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    },
+    updateUserBalance({commit,state},payload){
+        let newBalance=state.user.balance+payload;
+       // debugger
+        commit('updateUser',{...state.user,balance:newBalance, dollar:dollarCalculate(newBalance)})
     }
 };
 

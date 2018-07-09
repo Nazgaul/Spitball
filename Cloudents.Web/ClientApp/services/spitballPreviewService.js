@@ -21,7 +21,7 @@ const previewMap = {
         // });
     },
     flashcard(id) {
-        debugger;
+        //debugger;
         return spitballPreview.getFlashcard({ id: id });
         //return Promise.resolve({
         //   name: 'Math 1172 - Exam 2',

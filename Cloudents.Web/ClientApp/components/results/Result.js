@@ -4,19 +4,17 @@ const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
 import { page } from '../../data';
-import ResultVideo from './ResultVideo.vue'
-import ResultVideoSkeleton from './ResultVideoSkeleton.vue'
 import SuggestCard from './suggestCard.vue'
-import studyblueCard from './studyblueCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
 import {verticalsName} from '../../data'
 import {typesPersonalize} from "../settings/consts.js";
 import {mapActions, mapGetters} from 'vuex'
-const ACADEMIC_VERTICALS = ['note', 'ask', 'flashcard', 'book', 'tutor'];
+const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 
+import faqBlock from './helpers/faq-block/faq-block.vue'
+
 import {skeletonData} from './consts'
-import {SEARCH} from "../../store/mutation-types";
 //update data function update the page content and selected filters
 let updateData = function (data, isFilterUpdate = false) {
     const {facet} = data;
@@ -28,7 +26,7 @@ let updateData = function (data, isFilterUpdate = false) {
     this.filter = this.filterSelection;
     // this.UPDATE_LOADING(false);
     (this.isLoad) ? this.isLoad = false : this.UPDATE_LOADING(false);
-    if (this.isAcademic && !this.isFirst) {
+    if (this.isAcademic) {
         this.showPersonalizeField = true
     }
 
@@ -64,7 +62,7 @@ export const pageMixin =
         },
         computed: {
             //get data from vuex getters
-            ...mapGetters(['isFirst', 'myCourses', 'getFacet', 'getVerticalData']),
+            ...mapGetters(['isFirst', 'myCourses', 'getFacet', 'getVerticalData', 'accountUser','showRegistrationBanner']),
             ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity'}),
             currentPromotion() {
                 return promotions[this.name]
@@ -132,7 +130,7 @@ export const pageMixin =
                 selectedItem: null,
                 filterObject: null,
                 showFilters: false,
-                showPersonalizeField: false,
+                showPersonalizeField: true,
                 showPromo: this.isPromo,
                 showFilterNotApplied: false,
                 isLoad: false
@@ -143,53 +141,38 @@ export const pageMixin =
             emptyState,
             ResultItem,
             SuggestCard,
-            studyblueCard,
             ResultTutor,
             ResultJob,
-            ResultVideo,
             ResultBook,
-            ResultVideoSkeleton,
-            questionCard
+            questionCard,
+            faqBlock
         },
 
         created() {
-            this.$root.$on("closePersonalize", () => {
-                this.showPersonalizeField = true
-            });
             //If query have courses save those courses
             if (this.query.course) this.setFilteredCourses(this.query.course);
             this.UPDATE_LOADING(true);
             this.items = skeletonData[this.name];
-            let vertical = this.name === "result" ? "" : this.name;
-            this.updateAiData(vertical,this.userText,
-                ({term, result})=>{
-                    if (this.name === "result") { //from homepage
-                        this.UPDATE_LOADING(false);
-                        const routeParams = {path: '/' + result, query: {...this.query, q: this.userText}};
-                        this.$router.replace(routeParams);
-                        return false;
-                    }
-                    return true
-           }).then(() =>{
                 //fetch data with the params
                 this.fetchingData({
                     name: this.name,
-                    params: {...this.query, ...this.params}
-
+                    params: {...this.query, ...this.params,term:this.userText}
                 })
                     .then(({data}) => {
                         updateData.call(this, {...data,vertical:this.name});//irena
                     }).catch(reason => {
+                        console.error(reason);
                     //when error from fetching data remove the loader
                     this.UPDATE_LOADING(false);
                     this.items = [];
                 });
-            });
+            // });
         },
         methods: {
             subFilterVertical(val) {
                 return val.includes('note') || val === 'flashcard' || val === 'job' || val.includes('ask');
             },
+            //for skelaton
             updatePageData(to, from, next) {
                 (to.path === from.path && to.q === from.q) ? this.isLoad = true : this.UPDATE_LOADING(true);
                 const toName = to.path.slice(1);
@@ -197,42 +180,31 @@ export const pageMixin =
                 this.pageData = {};
                 this.items = [];
                 this.items = skeletonData[toName];
-                new Promise(resolve => {
-                    to.query.q===from.query.q ? resolve(): this.updateAiData(toName,to.query.q).then(() =>resolve());
-                }).then(()=>this.updateContentOfPage(to,from,next,itemsBeforeUpdate));
+                this.updateContentOfPage(to,from,next,itemsBeforeUpdate);
             },
-            updateAiData(vertical,text,searchCallback){
-                return  new Promise(resolve => {
-                    let verticalData=this.getVerticalData(vertical);
-                    //if was changed to another vertical that was saved
-                    if(verticalData&&verticalData.text===text){
-                        this.$store.commit(SEARCH.UPDATE_SEARCH_PARAMS,verticalData);
-                        resolve()
-                    }else{
-                        this.updateSearchText({text: text, vertical: vertical}).then((result) => {
-                            searchCallback?searchCallback(result)?resolve():"":resolve();
-                            })
-                    }
-                })
-            },
+
             updateContentOfPage(to,from,next,itemsBeforeUpdate){
                 const toName = to.path.slice(1);
                 const updateFilter = (to.path === from.path && to.query.q === from.query.q);
-                this.fetchingData({name: toName, params: {...to.query, ...to.params}})
+                this.fetchingData({name: toName, params: {...to.query, ...to.params,term:to.query.q}})
                     .then(({data}) => {
                         //update data for this page
                         this.showFilterNotApplied = false;
                         updateData.call(this, {...data,vertical:toName}, updateFilter);
+                        window.scrollTo(0,0);
                         next();
                     }).catch(reason => {
+                    window.scrollTo(0,0)
                     //when error from fetching data remove the loader
                     if (to.path === from.path && to.query.q === from.query.q) {
                         this.isLoad = false;
+                        this.UPDATE_LOADING(false);
                         this.showFilterNotApplied = true;
                         this.items = itemsBeforeUpdate;
                     }
                     else {
                         this.UPDATE_LOADING(false);
+                        this.isLoad = false;
                         this.items = [];
                         next();
                     }
@@ -240,13 +212,14 @@ export const pageMixin =
             },
             leavePage(to, from, next) {
                 if (to.name && to.name === 'home') {
+                    //clear boxes
                     this.cleanData();
                 }
                 next();
             }
             ,
 //Get functions from vuex actions
-            ...mapActions(['updateSearchText', 'fetchingData', 'getAIDataForVertical', 'setFilteredCourses', 'cleanData', 'updateFacet']),
+            ...mapActions(['fetchingData',  'setFilteredCourses', 'cleanData', 'updateFacet']),
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject(vertical) {
                 let currentPage=page[vertical];

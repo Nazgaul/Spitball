@@ -1,0 +1,125 @@
+@import "../../../mixin.less";
+
+.signup-banner {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  .responsive-property(padding-bottom, 39px, null, 24px);
+  justify-content: flex-start;
+  background-size: auto;
+  background: url(./img/1920.png) center no-repeat ;
+  height: 552px;
+
+  @media (min-width: @screen-sm) and (max-width: @screen-md) {
+    background-image: url(./img/1280.png);
+  }
+  @media (min-width: @screen-xs) and (max-width: @screen-sm) {
+    background-image: url(./img/960.png);
+  }
+
+  @media (max-width: @screen-xs) {
+    background-image: url(./img/600.png);
+  }
+
+  .back-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    @media (max-width: @screen-xs) {
+      top: 2px ;
+      right: 2px;
+    }
+    .sbf {
+      font-size: 16px;
+      color: @color-grey;
+    }
+  }
+
+  .text-block {
+    .limited-width();
+    font-size: 18px;
+    width: 362px;
+    color: @color-white;
+
+    .inner-text-block {
+      width: 100%;
+      margin: 0 auto;
+      @media (min-width: @screen-sm) and (max-width: @screen-md) {
+        max-width: 960px;
+      }
+      @media (max-width: @screen-sm) {
+        max-width: 600px;
+      }
+
+      .text-wrap {
+        max-width: 300px;
+        width: 100%;
+        @media (max-width: @screen-xs) {
+          margin: 0 auto;
+        }
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+
+    @media (max-width: @screen-xs) {
+      width: 312px;
+      margin: 0;
+    }
+    .text-right {
+      text-align: right;
+    }
+    .large {
+      font-size: 56px;
+      font-weight: bold;
+      line-height: 0.6;
+      letter-spacing: -0.9px;
+    }
+    .medium {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 2;
+      letter-spacing: -0.1px;
+    }
+    .small {
+      font-size: 18px;
+      color: @color-medium-grey;
+      line-height: 1.33;
+      letter-spacing: -0.2px;
+      text-align: justify;
+    }
+
+    .small, .medium {
+      margin-right: 8px;
+    }
+  }
+
+  .buttons {
+    margin-top: 26px;
+    .sign-up, .learn-more {
+      text-align: center;
+      padding: 6px 16px;
+      min-width: 104px;
+      border-radius: 26.5px;
+      outline: none;
+      letter-spacing: -0.5px;
+      display: inline-block;
+      border: solid 1px @color-white;
+    }
+    .sign-up {
+      background-color: @color-white;
+      color: @color-main-purple;
+      //width: 105px;
+      margin-right: 9px;
+    }
+    .learn-more {
+      color: white;
+    }
+  }
+
+}

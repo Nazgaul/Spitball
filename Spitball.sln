@@ -36,9 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		W-14-scripts.sql = W-14-scripts.sql
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.FunctionsV1", "Cloudents.FunctionsV1\Cloudents.FunctionsV1.csproj", "{BC7951AC-5951-421D-95AB-CB872FBB7603}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Infrastructure.Data", "Cloudents.Infrastructure.Data\Cloudents.Infrastructure.Data.csproj", "{3FCF63C6-8466-4945-B828-23E3756A3E79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Infrastructure.Data", "Cloudents.Infrastructure.Data\Cloudents.Infrastructure.Data.csproj", "{3762BF5C-2CCE-4607-8529-348C81A89371}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,14 +84,10 @@ Global
 		{A9838733-C134-4B25-924D-B15DFB0C077F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9838733-C134-4B25-924D-B15DFB0C077F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9838733-C134-4B25-924D-B15DFB0C077F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BC7951AC-5951-421D-95AB-CB872FBB7603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC7951AC-5951-421D-95AB-CB872FBB7603}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC7951AC-5951-421D-95AB-CB872FBB7603}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC7951AC-5951-421D-95AB-CB872FBB7603}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FCF63C6-8466-4945-B828-23E3756A3E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FCF63C6-8466-4945-B828-23E3756A3E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FCF63C6-8466-4945-B828-23E3756A3E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FCF63C6-8466-4945-B828-23E3756A3E79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3762BF5C-2CCE-4607-8529-348C81A89371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3762BF5C-2CCE-4607-8529-348C81A89371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3762BF5C-2CCE-4607-8529-348C81A89371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3762BF5C-2CCE-4607-8529-348C81A89371}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,8 +103,7 @@ Global
 		{D6F086D9-F99F-4AB0-B396-1880F753C6CB} = {974199DB-E3D7-4CAC-BBEA-6A0801E51009}
 		{44539E5F-400A-4580-8898-85B283CD64DC} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 		{A9838733-C134-4B25-924D-B15DFB0C077F} = {2EB273BF-0342-4FDC-942E-70261335187C}
-		{BC7951AC-5951-421D-95AB-CB872FBB7603} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
-		{3FCF63C6-8466-4945-B828-23E3756A3E79} = {2EB273BF-0342-4FDC-942E-70261335187C}
+		{3762BF5C-2CCE-4607-8529-348C81A89371} = {2EB273BF-0342-4FDC-942E-70261335187C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}

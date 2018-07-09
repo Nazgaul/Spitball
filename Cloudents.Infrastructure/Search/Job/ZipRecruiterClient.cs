@@ -76,6 +76,7 @@ namespace Cloudents.Infrastructure.Search.Job
         {
             [JsonProperty("jobs")]
             public Job[] Jobs { get; set; }
+
             [JsonProperty("success")]
             public bool Success { get; set; }
         }
@@ -84,14 +85,19 @@ namespace Cloudents.Infrastructure.Search.Job
         {
             [JsonProperty("url")]
             public string Url { get; set; }
+
             [JsonProperty("snippet")]
             public string Snippet { get; set; }
+
             [JsonProperty("name")]
             public string Name { get; set; }
+
             [JsonProperty("posted_time")]
             public DateTime PostedTime { get; set; }
+
             [JsonProperty("hiring_company")]
             public HiringCompany HiringCompany { get; set; }
+
             [JsonProperty("location")]
             public string Location { get; set; }
         }

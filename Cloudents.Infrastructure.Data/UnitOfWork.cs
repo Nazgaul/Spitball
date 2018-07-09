@@ -1,4 +1,8 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
 
@@ -8,53 +12,35 @@ namespace Cloudents.Infrastructure.Data
     public sealed class UnitOfWork : IUnitOfWork
     {
         private readonly ITransaction _transaction;
-        private bool _isAlive = true;
-        private bool _isCommitted;
+        private readonly ISession _session;
 
-        [UsedImplicitly]
-        public delegate UnitOfWork Factory(Core.Enum.Database db);
-
-        public UnitOfWork(Core.Enum.Database db, UnitOfWorkAutofacFactory factory)
+        public UnitOfWork(ISession session)
         {
-            var unitOfFactory = factory.GetInstance(db);
-
-            Session = unitOfFactory.OpenSession();
-            _transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
-        }
-
-        public ISession Session
-        {
-            get;
+            _session = session;
+            _transaction = _session.BeginTransaction(IsolationLevel.ReadCommitted);
         }
 
         public void Dispose()
         {
-            if (!_isAlive)
-                return;
-
-            _isAlive = false;
-
-            try
-            {
-                if (_isCommitted)
-                {
-                    _transaction.Commit();
-                    _isCommitted = false;
-                }
-            }
-            finally
-            {
-                _transaction.Dispose();
-                Session.Dispose();
-            }
+            _transaction.Dispose();
+            _session.Dispose();
         }
 
-        public void FlagCommit()
+        public async Task CommitAsync(CancellationToken token)
         {
-            if (!_isAlive)
-                return;
+            if (!_transaction.IsActive)
+            {
+                throw new InvalidOperationException("No active transaction");
+            }
+            await _transaction.CommitAsync(token).ConfigureAwait(false);
+        }
 
-            _isCommitted = true;
+        public async Task RollbackAsync(CancellationToken token)
+        {
+            if (_transaction.IsActive)
+            {
+                await _transaction.RollbackAsync(token).ConfigureAwait(false);
+            }
         }
     }
 }

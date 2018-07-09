@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Interfaces;
+﻿
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Command
 {
@@ -14,15 +15,7 @@ namespace Cloudents.Core.Command
         public string Name { get; }
 
         public long UniversityId { get; }
-    }
 
-    public class CreateCourseCommandResult : ICommandResult
-    {
-        public CreateCourseCommandResult(long courseId)
-        {
-            Id = courseId;
-        }
-
-        public long Id { get; }
+        public long Id { get; set; }
     }
 }

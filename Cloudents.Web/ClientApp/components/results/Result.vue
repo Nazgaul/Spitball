@@ -1,14 +1,16 @@
 ﻿﻿
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
+        <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main" >
-            <div class="d-flex mobile-filter hidden-sm-and-up">
-                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right" v-if="filterCondition">
+         <div class="d-flex mobile-filter" >
+                <router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob hidden-md-and-up"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
+                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right hidden-sm-and-up" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
                     <div :class="'counter color-'+$route.path.slice(1)" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
                 </v-btn>
             </div>
-            <div v-if="filterSelection.length" class="pb-3">
+            <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
                 <template v-for="item in filterSelection">
                     <v-chip label class="filter-chip elevation-1">
                         {{$_showSelectedFilter(item) | capitalize}}
@@ -18,9 +20,9 @@
             </div>
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
                 <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical">
-                    <v-container class="pa-0">
+                    <v-container class="pa-0 ma-0 results-wrapper">
                         <v-layout column>
-                            <v-flex class="promo-cell mb-2 elevation-1" order-xs1 v-if="showPromo">
+                            <v-flex class="promo-cell mb-4 elevation-1" order-xs1 v-if="showPromo">
                                 <button class="close-btn pa-2" @click="showPromo=false">
                                     <v-icon right>sbf-close</v-icon>
                                 </button>
@@ -38,27 +40,29 @@
                                 <button @click="showFilterNotApplied=false">OK</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                                <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading" class="personalize-wrapper pa-3 mb-2 elevation-1">
+                                <!-- && $vuetify.breakpoint.xsOnly -->
+                                <router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob  hidden-sm-and-down"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
+                                <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading" class="personalize-wrapper pa-3 mb-3 elevation-1">
                                     <v-text-field class="elevation-0" type="search" solo prepend-icon="sbf-search" placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                                 </v-flex>
-                                <v-flex class="result-cell elevation-1 mb-2" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                    <component v-if="item.template!=='ask'" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" :class="item.template!='video' ? 'border-color-'+$route.path.slice(1):''"></component>
-                                    <question-card v-else :cardData="item" answer-btn></question-card>
-                                    <!--<div class="show-btn" v-if="item.template!='video'" :class="'color-'+$route.path.slice(1)">Show Me</div>-->
+                                <v-flex class="result-cell  mb-3" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
+                                    <component v-if="item.template!=='ask'" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" ></component>
+                                    <router-link v-else :to="{path:'/question/'+item.id}" class="mb-5">
+                                        <question-card :cardData="item"></question-card>
+                                    </router-link>
+
+                                    <div class="show-btn" v-if="item &&  item.user && accountUser && accountUser.id !== item.user.id || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
                                 </v-flex>
-                                <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-2 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
+                                <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                     <suggest-card :name="currentSuggest"></suggest-card>
                                 </router-link>
-                                <v-flex v-if="name==='ask' && !loading" class="result-cell elevation-1 mb-2 xs-12 order-xs2">
-                                    <studyblue-card :searchterm="userText"></studyblue-card>
-                                </v-flex>
                             </slot>
                         </v-layout>
                     </v-container>
                 </scroll-list>
                 <div v-else>
-                    <div class="result-cell elevation-1 mb-2 empty-state" xs-12>
-                        <v-layout row class="ma-3">
+                    <div class="result-cell elevation-1 mb-3 empty-state" xs-12>
+                        <v-layout row class="pa-3">
                             <v-flex class="img-wrap mr-3">
                                 <empty-state></empty-state>
                             </v-flex>
@@ -107,7 +111,10 @@
         </template>
 
         <template slot="rightSide">
-            <slot name="rightSide"></slot>
+            <slot name="rightSide">
+                <faq-block :isAsk="name==='ask'" :name="currentSuggest" :text="userText"></faq-block>
+            </slot>
+
         </template>
         <!--<component slot="rightSide" v-if="hasExtra&&!isEmpty" :is="name+'-extra'" :place="selectedItem"></component>-->
         <slot name="suggestCell">
@@ -119,10 +126,15 @@
 </template>
 <script>
     import { pageMixin } from './Result'
+    import signupBanner from './../helpers/signup-banner/signup-banner.vue'
     import QuestionCard from "../question/helpers/question-card/question-card";
+    import {mapGetters} from 'vuex';
     export default {
-        components: {QuestionCard},
+        components: {QuestionCard, signupBanner},
         mixins: [pageMixin],
+        computed:{
+            ...mapGetters(["accountUser"])
+        }
     }
 </script>
 <style src="./Result.less" lang="less">

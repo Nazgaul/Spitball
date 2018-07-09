@@ -1,24 +1,24 @@
-﻿using System;
-
-namespace Cloudents.Web.Identity
+﻿namespace Cloudents.Web.Identity
 {
-    [Flags]
-    public enum SignInStepEnum
+    //[Flags]
+    //public enum SignInStepEnum
+    //{
+    //    None = 0,
+    //    All = 1 // = Sms | Password
+    //}
+
+    public static class ClaimsType
     {
-        None = 0,
-        Email = 1,
-        Sms = 2,
-        UntilPassword = Email | Sms,
-        Password = 4,
-        All = Email | Sms | Password
+        //public const string AuthStep = "signInStep";
+        public const string PublicKey = "key";
+
+        //public const string PolicyEmail = "policyEmail";
+        //public const string Sms = "PolicySms";
+        //public const string Password = "PolicyPassword";
     }
 
-    public static class SignInStep
-    {
-        public const string Claim = "signInStep";
-        public const string PolicyEmail = "policyEmail";
-        public const string PolicySms = "PolicySms";
-        public const string PolicyPassword = "PolicyPassword";
-        public const string PolicyAll = "policyAll";
-    }
+    //public static class PolicyType
+    //{
+    //    public const string Finish = "policyAll";
+    //}
 }

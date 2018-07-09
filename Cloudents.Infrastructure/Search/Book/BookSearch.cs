@@ -24,6 +24,7 @@ namespace Cloudents.Infrastructure.Search.Book
 
         private const string Key = "sP8C5AHcdiT0tsMsotT";
         private const string Url = "https://api2.campusbooks.com/13/rest/books";
+
         public BookSearch(IMapper mapper, IRestClient restClient)
         {
             _mapper = mapper;
@@ -150,6 +151,7 @@ namespace Cloudents.Infrastructure.Search.Book
         public class Books
         {
             public BookDetail[] Book { get; [UsedImplicitly] set; }
+
             [JsonProperty("total_pages")]
             public int TotalPages { get; set; }
         }
@@ -174,7 +176,6 @@ namespace Cloudents.Infrastructure.Search.Book
         {
             public string Image { get; set; }
         }
-
 
         [UsedImplicitly]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
@@ -207,6 +208,7 @@ namespace Cloudents.Infrastructure.Search.Book
             //public int Id { get; set; }
             public string Condition { get; set; }
         }
+
         [UsedImplicitly]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public class Merchant

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -11,14 +10,17 @@ using Cloudents.Core;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure;
 using Cloudents.Web.Binders;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
+using Cloudents.Web.Services;
 using Cloudents.Web.Swagger;
 using JetBrains.Annotations;
+using Microsoft.ApplicationInsights.AspNetCore;
+using Microsoft.ApplicationInsights.Channel;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.SnapshotCollector;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -26,9 +28,12 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Swashbuckle.AspNetCore.Swagger;
 using WebMarkupMin.AspNetCore2;
+using Logger = Cloudents.Web.Services.Logger;
 
 namespace Cloudents.Web
 {
@@ -50,21 +55,21 @@ namespace Cloudents.Web
         [UsedImplicitly]
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            // Configure SnapshotCollector from application settings
+            services.Configure<SnapshotCollectorConfiguration>(Configuration.GetSection(nameof(SnapshotCollectorConfiguration)));
+
+            // Add SnapshotCollector telemetry processor.
+            services.AddSingleton<ITelemetryProcessorFactory>(sp => new SnapshotCollectorTelemetryProcessorFactory(sp));
             services.AddWebMarkupMin().AddHtmlMinification();
-            //services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()
-                //.AddRazorPagesOptions(options => { options.RootDirectory = "/Views"; })
                 .AddJsonOptions(options =>
             {
-                options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
-                options.SerializerSettings.Converters.Add(new IsoDateTimeConverter
-                {
-                    DateTimeStyles = DateTimeStyles.AssumeUniversal
-                });
+                options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             }).AddMvcOptions(o =>
                 {
-                    o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));
+                    o.Filters.Add(new GlobalExceptionFilter());
                     o.ModelBinderProviders.Insert(0, new ApiBinder()); //needed at home
                 });
             if (HostingEnvironment.IsDevelopment())
@@ -105,37 +110,27 @@ namespace Cloudents.Web
             var physicalProvider = HostingEnvironment.ContentRootFileProvider;
             services.AddSingleton(physicalProvider);
 
-            services.AddScoped<IPasswordHasher<User>, PasswordHasher>();
+            services.AddScoped<SignInManager<User>, SbSignInManager>();
             services.AddIdentity<User, ApplicationRole>(options =>
-                {
-                    options.SignIn.RequireConfirmedEmail = true;
-                    options.SignIn.RequireConfirmedPhoneNumber = true;
-                    options.User.AllowedUserNameCharacters = null;
-
-                    options.User.RequireUniqueEmail = true;
-                    
-                    options.Password.RequiredLength = 1;
-                    options.Password.RequireDigit = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequiredUniqueChars = 0;
-                }).AddDefaultTokenProviders();
-
-            services.AddAuthorization(options =>
             {
-                options.AddPolicy(SignInStep.PolicyEmail,
-                    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Email.ToString("D")));
-                options.AddPolicy(SignInStep.PolicySms,
-                    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.Sms.ToString("D")));
-                options.AddPolicy(SignInStep.PolicyPassword,
-                    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.UntilPassword.ToString("D")));
-                options.AddPolicy(SignInStep.PolicyAll,
-                    policy => policy.RequireClaim(SignInStep.Claim, SignInStepEnum.All.ToString("D")));
-            });
+                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedPhoneNumber = true;
+                options.User.AllowedUserNameCharacters = null;
+
+                options.User.RequireUniqueEmail = true;
+
+                options.Password.RequiredLength = 1;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredUniqueChars = 0;
+            }).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
+
+            services.AddAuthorization();
             services.ConfigureApplicationCookie(o =>
             {
-                o.Cookie.Name = "sb1";
+                o.Cookie.Name = "sb2";
                 o.Events.OnRedirectToLogin = context =>
                 {
                     context.Response.StatusCode = 401;
@@ -146,17 +141,13 @@ namespace Cloudents.Web
                     context.Response.StatusCode = 401;
                     return Task.CompletedTask;
                 };
-                //o.Events.OnValidatePrincipal = context =>
-                //{
-                //    return Task.CompletedTask;
-                //};
             });
             services.AddAuthentication();
 
             services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
-
+            services.AddTransient<ISmsSender, SmsSender>();
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -178,15 +169,16 @@ namespace Cloudents.Web
                        Configuration["AzureSearch:SearchServiceAdminApiKey"]),
                 Redis = Configuration["Redis"],
                 Storage = Configuration["Storage"],
-                FunctionEndpoint = Configuration["FunctionEndpoint"],
-                BlockChainNetwork = Configuration["BlockChainNetwork"]
+                FunctionEndpoint = Configuration["AzureFunction:EndPoint"],
+                BlockChainNetwork = Configuration["BlockChainNetwork"],
+                ServiceBus = Configuration["ServiceBus"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
-
             containerBuilder.RegisterSystemModules(
                 Core.Enum.System.Web, assembliesOfProgram);
 
+            containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
@@ -197,22 +189,16 @@ namespace Cloudents.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
-            //var supportedCultures = new[]
-            //{
-            //    new CultureInfo("en-US")
-            //};
-            //app.UseRequestLocalization(new RequestLocalizationOptions
-            //{
-            //    DefaultRequestCulture = new RequestCulture(supportedCultures[0]),
-            //    SupportedCultures = supportedCultures,
-            //    SupportedUICultures = supportedCultures
-            //});
             if (env.IsDevelopment())
             {
+                HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true
                 });
+                var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
+                configuration.DisableTelemetry = true;
+
             }
             if (env.IsDevelopment() || env.IsEnvironment(IntegrationTestEnvironmentName))
             {
@@ -262,10 +248,6 @@ namespace Cloudents.Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
-                //routes.MapSpaFallbackRoute(
-                //    name: "spa-fallback",
-                //    defaults: new { controller = "Home", action = "Index" });
             });
             app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
             {
@@ -276,6 +258,28 @@ namespace Cloudents.Web
                         defaults: new { controller = "Home", action = "Index" });
                 });
             });
+        }
+
+        private class SnapshotCollectorTelemetryProcessorFactory : ITelemetryProcessorFactory
+        {
+            private readonly IServiceProvider _serviceProvider;
+
+            public SnapshotCollectorTelemetryProcessorFactory(IServiceProvider serviceProvider) =>
+                _serviceProvider = serviceProvider;
+
+            public ITelemetryProcessor Create(ITelemetryProcessor next)
+            {
+                var snapshotConfigurationOptions = _serviceProvider.GetService<IOptions<SnapshotCollectorConfiguration>>();
+                return new SnapshotCollectorTelemetryProcessor(next, configuration: snapshotConfigurationOptions.Value);
+            }
+        }
+    }
+
+    public class UserTelemetryInitializer : ITelemetryInitializer
+    {
+        public void Initialize(ITelemetry telemetry)
+        {
+            throw new NotImplementedException();
         }
     }
 }

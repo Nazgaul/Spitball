@@ -14,6 +14,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Infrastructure
 {
@@ -141,7 +142,15 @@ namespace Cloudents.Infrastructure
 
         private async Task<bool> TransferJsonBodyAsync<T>(HttpMethod method, Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
-            var jsonInString = JsonConvert.SerializeObject(obj);
+            var jsonInString = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
+            {
+                DefaultValueHandling = DefaultValueHandling.Ignore,
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                }
+                
+            });
             using (var stringContent = new StringContent(jsonInString, Encoding.UTF8, "application/json"))
             {
                 return await TransferHttpContentAsync(method, url, stringContent, headers, token).ConfigureAwait(false);
@@ -150,18 +159,22 @@ namespace Cloudents.Infrastructure
 
         private async Task<bool> TransferHttpContentAsync(HttpMethod method, Uri url, HttpContent obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
-            //var jsonInString = JsonConvert.SerializeObject(obj);
-            //using (var stringContent = new StringContent(jsonInString, Encoding.UTF8, "application/json"))
-            //{
             using (var message = new HttpRequestMessage(method, url)
             {
                 Content = obj
             })
             {
+                if (headers != null)
+                {
+                    foreach (var header in headers)
+                    {
+                        message.Headers.Add(header.Key,header.Value);
+                    }
+                }
+
                 var p = await _client.SendAsync(message, token).ConfigureAwait(false);
                 return p.IsSuccessStatusCode;
             }
-            //}
         }
 
         public void Dispose()

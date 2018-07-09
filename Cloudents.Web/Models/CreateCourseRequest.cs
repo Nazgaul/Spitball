@@ -2,9 +2,6 @@
 
 namespace Cloudents.Web.Models
 {
-    /// <summary>
-    /// Create course object
-    /// </summary>
     public class CreateCourseRequest
     {
         /// <summary>
@@ -18,6 +15,7 @@ namespace Cloudents.Web.Models
         /// User university
         /// </summary>
         [Required]
-        public long? University { get; set; }
+        [Range(1,long.MaxValue)]
+        public long University { get; set; }
     }
 }

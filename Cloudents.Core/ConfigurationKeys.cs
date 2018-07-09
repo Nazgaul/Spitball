@@ -15,6 +15,8 @@ namespace Cloudents.Core
         public string FunctionEndpoint { get; set; }
 
         public string BlockChainNetwork { get; set; }
+
+        public string ServiceBus { get; set; }
     }
 
     public class SearchServiceCredentials

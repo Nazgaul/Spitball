@@ -1,10 +1,7 @@
 const HomePage = () => import("./components/home/home.vue");
-const homePageHeader = () => import("./components/home/header.vue");
 import * as RouteTypes from "./routeTypes";
 
 const resultContent = () => import("./components/results/Result.vue");
-const foodDetails = () => import("./components/food/foodDetails.vue");
-const foodResultPage = () => import("./components/food/Result.vue");
 const dialogToolbar = () => import("./components/dialog-toolbar/DialogToolbar.vue");
 const showItem = () => import("./components/preview/Item.vue");
 const showFlashcard = () => import("./components/preview/Flashcard.vue");
@@ -19,15 +16,19 @@ const documentPreviewHeader = () => import("./components/preview/headerDocument.
 const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
 const registration = () => import("./components/registration/registration.vue");
 const signin = () => import("./components/registration/signin.vue");
-const askQuestion = () => import("./components/question/ask/askQuestion.vue");
+const newQuestion = () => import("./components/question/newQuestion/newQuestion.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const viewProfile = () => import("./components/profile/profile.vue");
+const wallet = () => import("./components/wallet/wallet.vue");
 const profilePageHeader = () => import("./components/profile/header/header.vue");
-const viewChat = () => import("./components/chat/view/chat.vue");
+// const viewChat = () => import("./components/chat/view/chat.vue");
 const userSettings = () => import("./components/settings/view/settings.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
-import store from "./store";
+import * as consts from "./store/constants";
+
+
+// import store from "./store";
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -67,20 +68,7 @@ const resultProps = {
     header: headerResultPageFn
 };
 
-const foodPage = {
-    default: foodResultPage,
-    header: pageHeader,
-};
 
-
-const foodDetailsProps = {
-    default: true,
-    header: () => ({
-        toolbarTitle: "Food & Deals",
-        height: "48", // TODO: why this is string.
-        app: true
-    })
-};
 const bookDetailsProps = {
     default: dynamicDetailsPropsFn,
     header: (route) => (
@@ -95,11 +83,8 @@ let routes2 = [
     {
         path: "/", components: {
             default: HomePage,
-            header: homePageHeader
+            header: HomePage
         }, name: "home"
-    },
-    {
-        path: `/${ RouteTypes.foodRoute}`, name: "food", components: foodPage, props: resultProps
     },
 
     {
@@ -132,15 +117,6 @@ let routes2 = [
             header: bookDetailsHeader
         },
         props: bookDetailsProps
-    },
-    {
-        path: "/food/:id",
-        name: RouteTypes.foodDetailsRoute,
-        components: {
-            default: foodDetails,
-            header: dialogToolbar
-        },
-        props: foodDetailsProps
     },
     {
         path: "/item/:university/:courseId/:courseName/:id/:itemName", name: "item",
@@ -185,20 +161,12 @@ let routes2 = [
         }, name: "jobsV2"
     },
     {
-        path: "/register", components: {
-            default: registration,
-        }, name: "registration",
-        beforeEnter: (to, from, next) => {
-            checkUserStatus(to, next);
-        }
-    },
-    {
-        path: "/askquestion", components: {
-            default: askQuestion,
+        path: "/newquestion", components: {
+            default: newQuestion,
             header: slimHeader,
-        }, name: "askQuestion",
-        beforeEnter: (to, from, next) => {
-            checkUserStatus(to, next);
+        }, name: "newQuestion",
+        meta: {
+            requiresAuth: true
         }
     },
     {
@@ -209,12 +177,11 @@ let routes2 = [
         },
         name: "question",
         props: {
+            header: {submitRoute: '/ask'},
             default: (route) => ({id: route.params.id}),
         },
-        beforeEnter: (to, from, next) => {
-            checkUserStatus(to, next);
-        }
     },
+
     {
         path: "/profile/:id",
         components: {
@@ -225,31 +192,35 @@ let routes2 = [
         props: {
             default: (route) => ({id: route.params.id})
         },
-        beforeEnter: (to, from, next) => {
-            checkUserStatus(to, next);
+    },
+    {
+        path: "/wallet",
+        components: {
+            default: wallet,
+            header: previewHeader
+        },
+        name: "wallet",
+        meta: {
+            requiresAuth: true
         }
     },
-    // {
-    //     path: "/settings", components: {
-    //         default: userSettings,
-    //         slimHeader: pageHeader,
-    //     }, name: "chat"
-    // },
-    //
-    // {//TODO: remove chat component designed by Artem
-    //     path: "/chat", components: {
-    //         default: viewChat,
-    //         slimHeader: pageHeader,
-    //     }, name: "chat"
-    // },
     {
-        path: "/confirmEmail",
+        path: "/register", components: {
+            default: registration,
+        }, name: "registration",
+    },
+
+    {
+        path: "/verify-phone",
         components: {
             default: registration,
         },
-        name: "registration",
-        meta: {step: 1}
+        name: "registrationVerify",
+        props: {
+            default: {autoIncrementStep: true}
+        },
     },
+
     {
         path: "/signin", components: {
             default: signin
@@ -257,13 +228,14 @@ let routes2 = [
     },
     {
         path: "/conversations",
+        name: "conversations",
         components: {
             default: () => import("./components/conversations/conversations.vue"),
             header: slimHeader
         },
-        beforeEnter: (to, from, next) => {
-            checkUserStatus(to, next);
-        }
+        meta: {
+            requiresAuth: true
+        },
     }
 
 ];
@@ -277,23 +249,25 @@ for (let v in staticRoutes) {
             header: satelliteHeader,
             default: item.import
         },
+        meta: {static: true},
         props: {default: (route) => item.params ? item.params(route) : {}}
     })
 }
 
 export const routes = routes2;
 
-
-function checkUserStatus(to, next) {
-    store.dispatch('userStatus').then(response => {
-        if (store.getters.loginStatus) {
-            to.path === "/register" ? next("/") : next();
-        }
-        else {
-            to.path === "/register" ? next() : next("signin");
-        }
-        next()
-    }).catch(error => {
-        next("signin");
-    });
-}
+//
+// function checkUserStatus(to, next) {
+//     store.dispatch('userStatus').then(response => {
+//         if (store.getters.loginStatus) {
+//
+//             to.path === "/register" ? next("/") : next();
+//         }
+//         else {
+//             to.path === "/register" ? next() : next("signin");
+//         }
+//        // next()
+//     }).catch(error => {
+//         next("signin");
+//     });
+// }
