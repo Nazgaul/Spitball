@@ -1,5 +1,4 @@
 ﻿using System;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {

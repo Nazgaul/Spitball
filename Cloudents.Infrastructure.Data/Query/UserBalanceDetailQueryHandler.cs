@@ -10,7 +10,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Data.Repositories;
 using NHibernate;
-using NHibernate.Criterion;
 
 namespace Cloudents.Infrastructure.Data.Query
 {
@@ -41,7 +40,7 @@ namespace Cloudents.Infrastructure.Data.Query
                 l.Add(xx);
             }
 
-            Question questionAlias = null;
+            //Question questionAlias = null;
             //var pendingFuture = _session.QueryOver<Answer>()
             //      .Where(w => w.User.Id == query.Id)
             //      //.JoinQueryOver(j => j.Question)
