@@ -45,6 +45,7 @@ namespace Cloudents.Web
         {
             Configuration = configuration;
             HostingEnvironment = env;
+
         }
 
         private IConfiguration Configuration { get; }
