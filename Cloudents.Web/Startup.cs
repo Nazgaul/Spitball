@@ -221,7 +221,10 @@ namespace Cloudents.Web
 
             app.UseResponseCompression();
             app.UseResponseCaching();
-            app.UseStatusCodePages();
+            app.UseStatusCodePages(f =>
+            {
+                f.
+            });
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor
