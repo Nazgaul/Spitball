@@ -33,6 +33,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Swashbuckle.AspNetCore.Swagger;
 using WebMarkupMin.AspNetCore2;
+using Logger = Cloudents.Web.Services.Logger;
 
 namespace Cloudents.Web
 {
@@ -174,10 +175,10 @@ namespace Cloudents.Web
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
-
             containerBuilder.RegisterSystemModules(
                 Core.Enum.System.Web, assembliesOfProgram);
 
+            containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
@@ -188,7 +189,6 @@ namespace Cloudents.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
-            var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
             if (env.IsDevelopment())
             {
                 HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
@@ -196,8 +196,9 @@ namespace Cloudents.Web
                 {
                     HotModuleReplacement = true
                 });
-                
+                var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
                 configuration.DisableTelemetry = true;
+
             }
             if (env.IsDevelopment() || env.IsEnvironment(IntegrationTestEnvironmentName))
             {
