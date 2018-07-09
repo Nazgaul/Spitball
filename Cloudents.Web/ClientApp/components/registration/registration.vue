@@ -5,7 +5,7 @@
         </v-snackbar>
         <slot>
         <div class="form-wrap">
-            <component :is="`register-${step}`" @next="nextStep"></component>
+            <component :is="`register-email`" @next="nextStep"></component>
         </div>
 
         <div class="img-wrap"></div>

@@ -67,7 +67,7 @@ export default {
         }
     },
     created() {
-        if(this.autoIncrementStep){
+        if(!this.autoIncrementStep){
             this.incrementRegistrationStep();
         }
         this.step = this.getRegistrationStep;

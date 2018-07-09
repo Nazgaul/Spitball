@@ -137,6 +137,7 @@ export default {
         getTransactions() {
             walletService.getTransactions().then(response => {
                     this.items = response.data;
+
                 },
                 error => {
                     console.error('error getting transactions:', error)
