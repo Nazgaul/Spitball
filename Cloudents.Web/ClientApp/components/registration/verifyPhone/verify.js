@@ -30,11 +30,9 @@ export default {
     },
     watch:{
         getShowToaster: function (val) {
-            console.log('val', val);
             if (val) {
                 var self = this;
                 setTimeout(function () {
-                    console.log('timeout')
                     self.updateToasterParams({
                         showToaster: false
                     })
@@ -83,7 +81,6 @@ export default {
         next() {
             var self = this;
             if (this.submitForm()) {
-                console.log('trying to go next')
                 this.updateLoading(true);
                 registrationService.smsCodeVerification(this.confirmationCode)
                     .then(function () {
