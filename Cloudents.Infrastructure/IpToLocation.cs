@@ -59,8 +59,8 @@ namespace Cloudents.Infrastructure
 
         public class IpLocation
         {
-            [JsonProperty("geoname_id")]
-            public int GeonameId { get; set; }
+            //[JsonProperty("geoname_id")]
+            //public int? GeonameId { get; set; }
             //public string Capital { get; set; }
             //public IpLanguage[] Languages { get; set; }
             //[JsonProperty("country_flag")]
