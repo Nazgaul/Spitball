@@ -5,7 +5,7 @@ namespace Cloudents.Core.Message
     [Serializable]
     public class SupportRedeemEmail: BaseEmail
     {
-        public SupportRedeemEmail(decimal amount, long userId) : base("support@spitball.co", null, "Redeem Email")
+        public SupportRedeemEmail(decimal amount, long userId) : base("support@spitball.co", null, $"Redeem Email {userId}")
         {
             Amount = amount;
             UserId = userId;
@@ -13,7 +13,6 @@ namespace Cloudents.Core.Message
 
         public decimal Amount { get; set; }
         public long UserId { get; set; }
-       
 
         public override string ToString()
         {
