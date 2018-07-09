@@ -31,6 +31,7 @@ export default {
     watch:{
         getShowToaster: function (val) {
             if (val) {
+
                 var self = this;
                 setTimeout(function () {
                     self.updateToasterParams({
