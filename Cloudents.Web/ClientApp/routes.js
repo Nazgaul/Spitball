@@ -1,3 +1,5 @@
+import registerAccount from "./components/registration/steps/registerAccount/registerAccount.vue";
+
 const HomePage = () => import("./components/home/home.vue");
 import * as RouteTypes from "./routeTypes";
 
@@ -26,7 +28,7 @@ const userSettings = () => import("./components/settings/view/settings.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
 import * as consts from "./store/constants";
-
+const verifyPhone = () => import("./components/registration/verifyPhone/verify.vue");
 
 // import store from "./store";
 
@@ -210,15 +212,33 @@ let routes2 = [
         }, name: "registration",
     },
 
+    // {
+    //     path: "/verify-phone",
+    //     components: {
+    //         default: registration,
+    //     },
+    //     name: "registrationVerify",
+    //     props: {
+    //         default: {autoIncrementStep: true}
+    //     },
+    // },
+
+    //try to fix registration
     {
         path: "/verify-phone",
         components: {
-            default: registration,
+            default: verifyPhone,
         },
-        name: "registrationVerify",
-        props: {
-            default: {autoIncrementStep: true}
+        name: "phoneVerify",
+
+    },
+    {
+        path: "/congrats",
+        components: {
+            default: registerAccount,
         },
+        name: "congrats",
+
     },
 
     {

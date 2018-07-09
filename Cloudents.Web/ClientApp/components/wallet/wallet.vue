@@ -62,7 +62,7 @@
                             </v-data-table>
                         </v-flex>
                         <div class="bottom-area" v-if="!cashOut">
-                            <v-pagination total-visible=4 v-model="pagination.page" :length="pages"
+                            <v-pagination total-visible=7 v-model="pagination.page" :length="pages"
                                           next-icon="sbf-arrow-right"
                                           prev-icon="sbf-arrow-right left"></v-pagination>
                         </div>

@@ -17,6 +17,7 @@ const getters = {
 };
 const actions = {
     updateToasterParams({commit}, val){
+        console.log('from toaster',commit, val);
         commit(TOASTER.UPDATE_PARAMS, val);
     }
 };
