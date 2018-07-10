@@ -35,6 +35,7 @@ export default {
         submit() {
             this.updateLoading(true);
             self = this;
+            console.log(this.userEmail, this.recaptcha, this.rememberMe)
             registrationService.signIn(this.userEmail, this.recaptcha, this.rememberMe)
                 .then(function () {
                     self.updateLoading(false);

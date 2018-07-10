@@ -1,6 +1,6 @@
 <template>
     <div class="step-phone">
-        <button class="back-button" @click="showDialogFunc()">
+        <button class="back-button verify-close" @click="showDialogFunc()">
             <v-icon right>sbf-close</v-icon>
         </button>
         <v-dialog v-model="showDialog" max-width="600px" content-class="registration-dialog">
