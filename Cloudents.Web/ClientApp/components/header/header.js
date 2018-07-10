@@ -6,7 +6,7 @@ export default {
     },
     beforeRouteUpdate(to, from, next) {
         const toName = to.path.slice(1);
-        let tabs = this.$el.querySelector('.tabs__wrapper');
+        let tabs = this.$el.querySelector('.v-tabs__wrapper');
         let currentItem = this.$el.querySelector(`#${toName}`);
         if (currentItem)
             tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
@@ -14,7 +14,7 @@ export default {
         next();
     },
     mounted() {
-        let tabs = this.$el.querySelector('.tabs__wrapper');
+        let tabs = this.$el.querySelector('.v-tabs__wrapper');
         let currentItem = this.$el.querySelector(`#${this.currentSelection}`);
         if (currentItem)
             tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);

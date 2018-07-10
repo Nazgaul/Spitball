@@ -30,7 +30,7 @@
 
         <!-- v-if="cardData.files.length" -->
         <div class="gallery" v-if="gallery&&gallery.length">
-            <v-carousel left-control-icon="sbf-arrow-right left" right-control-icon="sbf-arrow-right right"
+            <v-carousel prev-icon="sbf-arrow-right left" next-icon="sbf-arrow-right right"
                         interval="600000" cycle full-screen
                         hide-delimiters :hide-controls="gallery.length===1">
                 <v-carousel-item v-for="(item,i) in gallery" v-bind:src="item" :key="i" @click="showBigImage(src)"></v-carousel-item>

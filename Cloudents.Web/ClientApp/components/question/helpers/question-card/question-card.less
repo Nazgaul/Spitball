@@ -145,18 +145,18 @@
     //background-color: @color-light-grey;
     padding: 16px;
     margin: 16px;
-    .carousel {
+    .v-carousel {
       @media (max-width: @screen-xs) {
         height: 238px;
       }
       box-shadow: none;
-      .carousel__left {
+      .v-carousel__left {
         left: 9px;
         i.sbf {
           margin-right: 3px;
         }
       }
-      .carousel__right {
+      .v-carousel__right {
         right: 9px;
         i.sbf {
           margin-left: 4px;
@@ -181,7 +181,7 @@
         }
 
       }
-      .carousel__item {
+      .v-carousel__item {
         //background-size: contain;
         background-size: cover;
         -webkit-background-size: auto 100%;
@@ -252,10 +252,13 @@
         float: right;
         margin-right: -10px;
         border: 2px solid @color-white;
+        border-radius: 50%;
         margin-left: -2px;
+        text-align: center;
         i {
           font-size: 10px;
           color: white;
+          margin: 3px auto;
         }
       }
     }

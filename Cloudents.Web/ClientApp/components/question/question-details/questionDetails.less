@@ -1,6 +1,6 @@
 @import "../../../mixin.less";
 
-.theme--light .btn.btn--disabled:not(.btn--icon):not(.btn--flat) {
+.theme--light .v-btn.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat) {
   background-color: rgba(0, 0, 0, 0.12) !important;
 }
 
@@ -117,7 +117,7 @@
     }
   }
 
-  .tabs__bar {
+  .v-tabs__bar {
     height: 65px;
     background-color: @color-white;
     border-bottom: solid 1px @color-medium-grey;
@@ -125,18 +125,19 @@
     padding: 0 8px;
   }
 
-  .tabs__container {
-
-    .tabs__item {
+  .v-tabs__container {
+    //vutify 1.1.1
+     height: 65px;
+    .v-tabs__item {
       text-transform: none;
-
-      &.tabs__item--active {
+      font-size: 18px;
+      &.v-tabs__item--active {
         color: @color-main-purple !important;
         font-weight: bold;
       }
     }
 
-    .tabs__slider.blue {
+    .v-tabs__slider.blue {
       border-bottom: 2px solid @color-main-purple;
     }
   }

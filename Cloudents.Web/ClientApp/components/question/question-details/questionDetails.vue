@@ -52,16 +52,16 @@
         <div v-else>
             <v-tabs grow>
 
-                <v-tabs-bar>
+                <!--<v-tabs-bar>-->
                     <v-tabs-slider color="blue"></v-tabs-slider>
-                    <v-tabs-item :href="'#tab-1'" :key="'1'">Question</v-tabs-item>
+                    <v-tab :href="'#tab-1'" :key="'1'">Question</v-tab>
                     <!--show chat tab only when logged in-->
-                    <v-tabs-item :href="'#tab-2'" :key="'2'" v-if="accountUser">Chat</v-tabs-item>
-                </v-tabs-bar>
+                    <v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser">Chat</v-tab>
+                <!--</v-tabs-bar>-->
 
-                <v-tabs-items>
+                <v-tab-item :key="'1'" :id="'tab-1'" class="tab-padding">
 
-                    <v-tabs-content :key="'1'" :id="'tab-1'" class="tab-padding">
+                    <!--<v-tabs-content :key="'1'" :id="'tab-1'" class="tab-padding">-->
                         <v-flex xs12>
                             <question-thread v-if="questionData" :questionData="questionData"
                                              :hasCorrectAnswer="getCorrectAnswer">
@@ -83,15 +83,16 @@
                                 </div>
                             </question-thread>
                         </v-flex>
-                    </v-tabs-content>
-
-                    <v-tabs-content :key="'2'" :id="'tab-2'">
+                    <!--</v-tabs-content>-->
+                </v-tab-item>
+                <v-tab-item :key="'2'" :id="'tab-2'">
+                    <!--<v-tabs-content >-->
                         <v-flex xs12>
                             <div ref="chat-area" class="chat-iframe"></div>
                         </v-flex>
-                    </v-tabs-content>
+                    <!--</v-tabs-content>-->
 
-                </v-tabs-items>
+                </v-tab-item>
 
             </v-tabs>
         </div>

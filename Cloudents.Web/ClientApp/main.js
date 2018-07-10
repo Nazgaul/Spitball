@@ -42,6 +42,8 @@ const vuetifyComponents = {
     VPagination,
     VDataTable,
 
+
+
 };
 import {
     Vuetify,

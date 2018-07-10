@@ -29,7 +29,6 @@ export default {
     },
   beforeRouteEnter(to, from, next) {
     help.getFaq().then(val => {
-      console.log(val);
       next(vm => vm.setData(val.data));
     });
   },

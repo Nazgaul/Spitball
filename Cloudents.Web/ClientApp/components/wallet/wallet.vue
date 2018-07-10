@@ -8,17 +8,16 @@
                     <v-icon right>sbf-close</v-icon>
                 </button>
             </div>
-            <v-tabs v-if="!cashOut">
+            <v-tabs v-if="!cashOut" slider-color="white">
                 <div class="tabs-wrapper">
-                    <v-tabs-bar fixed>
-                        <v-tabs-slider color="white"></v-tabs-slider>
-                        <v-tabs-item @click="changeActiveTab(1)" :href="'#tab-1'" :key="1">Balances</v-tabs-item>
-                        <v-tabs-item @click="changeActiveTab(2)" :href="'#tab-2'" :key="2">Transaction</v-tabs-item>
-                    </v-tabs-bar>
+                    <!--<v-tabs-bar fixed>-->
+                        <v-tab @click="changeActiveTab(1)" :href="'#tab-1'" :key="1">Balances</v-tab>
+                        <v-tab @click="changeActiveTab(2)" :href="'#tab-2'" :key="2">Transaction</v-tab>
+                    <!--</v-tabs-bar>-->
                 </div>
 
-                <v-tabs-items>
-                    <v-tabs-content :key="'1'" :id="'tab-1'">
+                <v-tab-item  :key="'1'" :id="'tab-1'">
+                    <!--<v-tabs-content :key="'1'" :id="'tab-1'">-->
                         <v-flex xs12>
                             <v-data-table
                                     :headers="headers.balances"
@@ -36,8 +35,10 @@
                                 </template>
                             </v-data-table>
                         </v-flex>
-                    </v-tabs-content>
-                    <v-tabs-content :key="'2'" :id="'tab-2'" class="tab-padding">
+                    </v-tab-item>
+                    <!--</v-tabs-content>-->
+
+                    <v-tab-item :key="'2'" :id="'tab-2'" class="tab-padding">
                         <v-flex xs12>
                             <v-data-table
                                     :headers="headers.transactions"
@@ -66,10 +67,10 @@
                                           next-icon="sbf-arrow-right"
                                           prev-icon="sbf-arrow-right left"></v-pagination>
                         </div>
-                    </v-tabs-content>
+                    </v-tab-item>
 
 
-                </v-tabs-items>
+
 
             </v-tabs>
             <div v-else class="cash-out-wrapper">

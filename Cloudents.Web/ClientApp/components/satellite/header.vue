@@ -5,10 +5,10 @@
             <v-layout row>
             <v-tabs  :scrollable="false" centered>
                 <!--<v-tabs-bar>-->
-                    <v-tabs-item router v-for="tab in verticals" :key="tab.name" :to="'/'+tab.name" v-if="tab.display"
+                    <v-tab router v-for="tab in verticals" :key="tab.name" :to="'/'+tab.name" v-if="tab.display"
                                  class="vertical">
                         {{tab.display}}
-                    </v-tabs-item>
+                    </v-tab>
                     <v-tabs-slider color="color-dark-blue"></v-tabs-slider>
                 <!--</v-tabs-bar>-->
             </v-tabs>

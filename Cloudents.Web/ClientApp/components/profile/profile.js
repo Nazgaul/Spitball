@@ -66,7 +66,7 @@ export default {
                 btnUrl: 'newQuestion'
             };
             var answers = {
-                text: 'Help other students <b>and make money</b> by answering questions.',
+                text: 'Help other students<br/> <b>and make money</b><br/> by answering questions.',
                 btnText: 'Answer',
                 btnUrl: 'home'
             };
