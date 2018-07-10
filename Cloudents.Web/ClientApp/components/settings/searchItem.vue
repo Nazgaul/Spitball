@@ -36,7 +36,7 @@
         </template>
 
 
-        <v-text-field light solo slot="inputField" @input="(val)=>{val.length > 2 ? isLoading = true : this.isLoading = false}" v-model.lazy="val" class="search-b" ref="searchText" type="search" autofocus :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
+        <v-text-field light flat hide-details solo slot="inputField" @input="(val)=>{val.length > 2 ? isLoading = true : this.isLoading = false}" v-model.lazy="val" class="search-b" ref="searchText" type="search" autofocus :placeholder="currentItem.placeholder" prepend-icon="sbf-search"></v-text-field>
         <template  slot="selectedItems" slot-scope="props" v-if="selectedCourse">
             <v-chip v-if="!isMobile" label class="ma-2">
                 <span class="name" :title="props.course.name">{{ props.course.name }}</span>

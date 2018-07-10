@@ -140,6 +140,10 @@
 
         .search-wrapper {
             padding: 0;
+            .v-input__slot{
+                background-color: transparent;
+                //margin-bottom:  0;
+            }
         }
 
         .search-b {
@@ -154,8 +158,11 @@
             .responsive-property(padding-right, 16px, null, 8px);
             .responsive-property(padding-right, 16px, null, 8px);
 
-
-            .input-group__input {
+            .v-input__prepend-outer{
+                margin-left: 20px;
+                margin-top: 3px;
+            }
+            .input-group__input, .v-input__slot {
                 padding-top: 0;
                 padding-bottom: 0;
                 .responsive-property(padding-left, 16px, null, 12px);
@@ -451,7 +458,7 @@
                 }
 
 
-                .input-group {
+                .input-group, .v-input__slot {
                     padding: 0;
                     .responsive-property(padding-top, null, null, 22px);
 
@@ -468,7 +475,7 @@
                     }
                 }
 
-                .input-group__input {
+                .input-group__input, .v-input__slot {
                     align-items: flex-end;
                 }
 

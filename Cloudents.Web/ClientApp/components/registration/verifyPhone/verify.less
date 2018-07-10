@@ -6,7 +6,7 @@
     margin: 16px;
   }
 
-  .card {
+  .v-card {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -255,9 +255,11 @@
     margin: 0;
   }
 }
-.back-button.verify-close {
+.back-button {
+  &.verify-close{
+    z-index: 9;
+  }
   position: absolute;
-  z-index: 9;
   top: 12px;
   right: 4px;
   padding: 8px;
@@ -383,7 +385,7 @@
     }
   }
 }
-.v-snack__content {
+.snack__content {
   margin-top: 24px;
   width: 616px;
   height: 48px;
