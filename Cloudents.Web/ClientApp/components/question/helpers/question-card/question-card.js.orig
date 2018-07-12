@@ -103,7 +103,11 @@ export default {
                         //To DO change to router link use and not text URL
                         this.$router.push('/ask')
                     } else {
+<<<<<<< HEAD
+                        //emit to parent to update array of answers
+=======
                         //emit to root to update array of answers
+>>>>>>> w14
                         this.$root.$emit('deleteAnswer', this.cardData.id);
                         this.isDeleted = true
                     }

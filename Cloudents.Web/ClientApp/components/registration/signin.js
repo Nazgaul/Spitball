@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
-        ...mapActions({updateToasterParams : 'updateToasterParams'}),
+        ...mapActions({updateToasterParams: 'updateToasterParams'}),
         submit() {
             this.updateLoading(true);
             self = this;
@@ -47,9 +47,9 @@ export default {
         },
         resendSms() {
             registrationService.resendCode()
-                    .then(success => {
+                .then(success => {
                         this.updateToasterParams({
-                            toasterText: 'Code sent',
+                            toasterText: 'A verification code was sent to your phone',
                             showToaster: true,
                         });
                     },
