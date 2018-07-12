@@ -22,7 +22,7 @@
                 <!--<p class="sub-title">We sent the code to you by SMS to (+{{this.phone.countryCode}}) {{this.phone.phoneNum}}</p>-->
                 <p class="confirm-title">We sent a confirmation code to your mobile phone.</p>
                 <form @submit.prevent="verifyCode">
-                <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code" v-model="confirmationCode" placeholder="Enter confirmation code" type="number" :autofocus="true"></sb-input>
+                <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code"  v-model="confirmationCode" placeholder="Enter confirmation code" type="number" :autofocus="true"></sb-input>
                 <!--<div class="input-wrapper">-->
                 <!--<input class="code-field input-field" v-model="confirmationCode" placeholder="Confirmation code"></input>-->
                 <!--<v-icon>sbf-key</v-icon>-->
