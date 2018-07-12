@@ -41,13 +41,14 @@
 
       }
 
-      .back-button {
+      .back-button.wallet {
         margin-right: 14px;
         margin-bottom: 0;
         width: 17px;
         position: relative;
         outline: none;
-        @media (max-width: @screen-xs) {
+        @media (max-width: @screen-sm) {
+          top: 0;
         }
         .icon {
           color: @color-white;
@@ -341,8 +342,8 @@
     font-size: 20px;
     letter-spacing: -0.5px;
     @media (max-width: @screen-xs) {
-      position: absolute;
-      bottom: 26px;
+      //position: absolute;
+      //bottom: 26px;
     }
     .btn-wrap {
       //padding-right: 185px;

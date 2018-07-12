@@ -177,7 +177,7 @@ export const pageMixin =
             hideBanner(e) {
                 this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
                 if (this.offsetTop >= 500) {
-                    this.isBannerVisible = false;
+                    this.hideRegistrationBanner()
                 }
 
             },
@@ -230,7 +230,7 @@ export const pageMixin =
             }
             ,
 //Get functions from vuex actions
-            ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFacet']),
+            ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFacet', 'hideRegistrationBanner']),
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject(vertical) {
                 let currentPage = page[vertical];
