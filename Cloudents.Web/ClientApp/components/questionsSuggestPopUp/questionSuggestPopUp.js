@@ -4,10 +4,13 @@ export default {
     components: {
         questionCard
     },
-    props: {},
+    props: {
+        user: {}
+    },
     data() {
         return {
             showDialog: false,
+            interval: 7000,
             cardList: [
                 {
                     "subject":"History",
@@ -29,7 +32,7 @@ export default {
                 },
                 {
                     "subject":"History",
-                    "id":1265,
+                    "id":1397,
                     "text":"test2",
                     "price":10,
                     "user":{
@@ -47,8 +50,8 @@ export default {
                 },
                 {
                     "subject":"History",
-                    "id":1265,
-                    "text":"test3",
+                    "id":1222,
+                    "text":"triangle has a perimeter of 50. If two of the side lengths are equal and the third side is five more than the equal sides, what is the length of  the third side?",
                     "price":10,
                     "user":{
                         "id":638,
@@ -67,7 +70,19 @@ export default {
         }
 
     },
-    methods: {},
+    methods: {
+
+        requestDialogClose(){
+            console.log('sdfsdf')
+            this.$root.$emit('closeSuggestionPopUp')
+        },
+        answerMore(id){
+            console.log(id)
+            this.requestDialogClose();
+            this.$router.push({path: '/question/'+id});
+        }
+
+    },
     computed: {
 
     },

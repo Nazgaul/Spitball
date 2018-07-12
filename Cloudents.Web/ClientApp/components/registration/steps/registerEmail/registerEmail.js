@@ -48,18 +48,22 @@ export default {
             var authInstance = gapi.auth2.getAuthInstance();
             if (this.submitForm()) {
                 this.updateLoading(true);
+                console.log('INST:',authInstance);
                 authInstance.signIn().then(function (googleUser) {
                     var idToken = googleUser.getAuthResponse().id_token;
+                    console.log('Token:', idToken);
                     registrationService.googleRegistration(idToken)
                         .then(function () {
                             self.updateLoading(false);
+                            console.log('got here')
                             self.$emit('next');
                         }, function (reason) {
                             self.updateLoading(false);
                             self.submitForm(false);
-                            console.error(reason);
+                            console.error(reason, 'res');
                         });
                 }, function (error) {
+                    console.log(error,'errrr')
                     self.updateLoading(false);
                 });
             }

@@ -1,9 +1,6 @@
 import axios from "axios";
-
-
-
 export default {
-    googleRegistration: (data) => axios.post("/Register/google", {token: data}),
+    googleRegistration: (data) =>{ axios.post("/Register/google", {token: data})},
     emailRegistration: (email,recaptcha) => axios.post("register", {email,captcha: recaptcha}),
     emailResend: () => axios.post("/Register/resend"),
     smsRegistration: (data) => axios.post("/sms", {number: `+${data}`}),

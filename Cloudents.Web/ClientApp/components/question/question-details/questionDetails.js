@@ -64,7 +64,7 @@ export default {
                             toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
                             showToaster: true,
                         });
-                        //  self.showDialog = true; // question suggest popup dialog
+                         self.showDialog = true; // question suggest popup dialog
                     }, () => {
 
                         self.updateToasterParams({
@@ -186,8 +186,11 @@ export default {
     created() {
         this.getData();
         // to do may be to consider change to State Store VueX
-        this.$on('deleteAnswer', (id) => {
+        this.$root.$on('deleteAnswer', (id) => {
             this.questionData.answers = this.questionData.answers.filter(item => item.id !== id)
+        });
+        this.$root.$on('closeSuggestionPopUp', ()=> {
+            this.showDialog = false;
         })
     }
 }

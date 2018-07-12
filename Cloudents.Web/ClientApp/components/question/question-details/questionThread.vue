@@ -1,6 +1,6 @@
 <template functional>
     <v-layout column v-if="props.questionData">
-        <question-card :cardData="props.questionData" class="user-question mb-3" detailed-view></question-card>
+        <question-card :cardData="props.questionData" class="user-question mb-3 mt-2" detailed-view></question-card>
         <slot name="answer-form"></slot>
         <div class="answers_wrap">
             <h3 class="Answers ml-2 mb-3 " v-if="props.questionData.answers.length">Answers</h3>

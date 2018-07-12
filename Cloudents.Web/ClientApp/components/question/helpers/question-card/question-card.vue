@@ -1,5 +1,5 @@
 <template>
-    <v-flex v-if="cardData && !isDeleted "  class="question-card" :class="{'highlight':flaggedAsCorrect}">
+    <v-flex v-if="cardData && !isDeleted " class="question-card" :class="{'highlight':flaggedAsCorrect}">
         <div class="top-block">
             <user-block :user="cardData.user" v-if="cardData.user" :name="cardData.subject||'Answer'">
                 <template> · <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
@@ -33,11 +33,10 @@
             <v-carousel prev-icon="sbf-arrow-right left" next-icon="sbf-arrow-right right"
                         interval="600000" cycle full-screen
                         hide-delimiters :hide-controls="gallery.length===1">
-                <v-carousel-item v-for="(item,i) in gallery" v-bind:src="item" :key="i" @click="showBigImage(src)"></v-carousel-item>
+                <v-carousel-item v-for="(item,i) in gallery" v-bind:src="item" :key="i"
+                                 @click.native="showBigImage(item)"></v-carousel-item>
             </v-carousel>
         </div>
-
-
         <div class="bottom-section">
             <!-- <div v-if="detailedView && cardData.user" class="q-user-info card-info detailed">
                 <user-block :user="cardData.user"></user-block>
@@ -65,15 +64,22 @@
                     </div>
                     <span class="user-counter" v-if="cardData.answersNum>3">+{{cardData.answersNum-3}}</span>
                 </div>
-
                 <!--<div class="answer" v-if="!detailedView">-->
                 <!--<button class="answer-btn">Answer</button>-->
                 <!--</div>-->
             </div>
         </div>
         <button class="delete-btn" v-if="detailedView && canDelete" @click="deleteQuestion()">Delete</button>
+
+        <!-- TODO strange behaviour check why is being added tab index-1 to DOM-->
+        <v-dialog v-model="showDialog"  max-width="720px"
+                  transition="scale-transition" content-class="zoom-image">
+            <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
+            <!--<v-card>-->
+                <!--<v-card-media :src="selectedImage"></v-card-media>-->
+            <!--</v-card>-->
+        </v-dialog>
     </v-flex>
 </template>
-
 <style src="./question-card.less" lang="less"></style>
 <script src="./question-card.js"></script>

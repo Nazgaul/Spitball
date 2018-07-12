@@ -42,7 +42,9 @@ export default {
             timeoutID: null,
             action: null,
             path: '',
-            src : ''
+            src : '',
+            selectedImage: '',
+            showDialog: false
         }
     },
     computed: {
@@ -75,6 +77,8 @@ export default {
             updateToasterParams: 'updateToasterParams'
         }),
         showBigImage(src){
+            this.showDialog =true;
+            this.selectedImage = src;
         },
         markAsCorrect() {
             var toasterText = this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted';
@@ -100,7 +104,7 @@ export default {
                         this.$router.push('/ask')
                     } else {
                         //emit to parent to update array of answers
-                        this.$parent.$emit('deleteAnswer', this.cardData.id);
+                        this.$root.$emit('deleteAnswer', this.cardData.id);
                         this.isDeleted = true
                     }
                 });
