@@ -54,12 +54,15 @@ export default {
                         .then(function () {
                             self.updateLoading(false);
                             self.$emit('next');
-                        }, function (reason) {
+                        }, function (error) {
+                            //TODO: duplicate callback
                             self.updateLoading(false);
                             self.submitForm(false);
-                            console.error(reason);
+                            self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                            console.error(error);
                         });
                 }, function (error) {
+                    console.error(reason);
                     self.updateLoading(false);
                 });
             }
