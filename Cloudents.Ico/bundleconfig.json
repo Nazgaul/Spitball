@@ -14,8 +14,8 @@
   {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
-      "wwwroot/js/script.js",
-      "wwwroot/js/jquery.bundle.js"
+      "wwwroot/js/jquery.bundle.js",
+      "wwwroot/js/script.js"
     ],
     // Optionally specify minification options
     "minify": {
