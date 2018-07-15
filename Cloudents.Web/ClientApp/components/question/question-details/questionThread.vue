@@ -11,7 +11,5 @@
                            :cardData="answer"
                            class="user-question mb-3 answer-card" detailed-view></question-card>
         </div>
-
     </v-layout>
-    
 </template>

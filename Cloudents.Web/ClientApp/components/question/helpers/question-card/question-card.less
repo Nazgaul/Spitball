@@ -9,7 +9,9 @@
   width: 100%;
   max-width: @cellWidth;
   position: relative;
-
+  .zoom-image{
+    overflow-y: hidden;
+  }
   .top-block {
     display: flex;
     align-items: start;
@@ -17,13 +19,13 @@
   }
 
   p {
-    padding: 16px 44px 16px 16px;
+    padding: 16px 16px 16px 16px;
     margin: 16px 16px 10px 16px;
 
     //margin: 16px 44px 16px 16px;
 
     @media (max-width: @screen-xs) {
-      margin: 16px 44px 6px 8px;
+      margin: 16px 16px 6px 8px;
     }
   }
 
@@ -146,6 +148,12 @@
     padding: 16px;
     margin: 16px;
     .v-carousel {
+      .v-jumbotron__wrapper{
+        .v-jumbotron__image{
+          height: auto;
+          width: 100%;
+        }
+      }
       @media (max-width: @screen-xs) {
         height: 238px;
       }

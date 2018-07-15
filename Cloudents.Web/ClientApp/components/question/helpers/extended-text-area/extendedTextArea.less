@@ -76,10 +76,11 @@
       //  flex-wrap: wrap;
       //}
       @media (max-width: @screen-xs) {
-        margin-right: 16px;
+        margin-right: 0;
         display: flex;
         flex-wrap: wrap;
-        flex: 0 50%;
+        justify-content: space-around;
+        padding-left: 0;
       }
       li {
         width: 104px;
@@ -94,9 +95,12 @@
         float: left;
         &:not(:last-child) {
           margin-right: 8px;
+          @media (max-width: @screen-xs) {
+            margin-right: 0;
+          }
         }
         @media (max-width: @screen-xs) {
-          margin-right: 16px;
+          margin-right: 0;
         }
 
         .hover-trash {
