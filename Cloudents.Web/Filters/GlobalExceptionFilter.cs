@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
@@ -21,7 +22,7 @@ namespace Cloudents.Web.Filters
         public async Task OnExceptionAsync(ExceptionContext context)
         {
             string body = null;
-            if (context.HttpContext.Request.Method == "post")
+            if (string.Equals(context.HttpContext.Request.Method, "post", StringComparison.OrdinalIgnoreCase))
             {
                 context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
                 using (var sr = new StreamReader(context.HttpContext.Request.Body))
