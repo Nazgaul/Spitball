@@ -137,7 +137,8 @@ export const pageMixin =
                 showFilterNotApplied: false,
                 isLoad: false,
                 offsetTop: 0,
-                isBannerVisible: true
+                isBannerVisible: true,
+                // accountUser: {}
             };
         },
 
