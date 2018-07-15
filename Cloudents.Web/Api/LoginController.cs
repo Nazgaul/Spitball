@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Filters;
@@ -26,7 +27,6 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         [ValidateModel, ValidateRecaptcha]
-        
         public async Task<IActionResult> PostAsync(
             [FromBody] LoginRequest model,
             [FromServices] ISmsSender client,
@@ -38,7 +38,6 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, "email not found");
                 return BadRequest(ModelState);
             }
-
             var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
             var taskSms = client.SendSmsAsync(user, token);
 
