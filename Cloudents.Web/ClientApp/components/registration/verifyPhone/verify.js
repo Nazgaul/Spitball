@@ -39,8 +39,8 @@ export default {
                     })
                 }, this.toasterTimeout)
             }
-        }
-    },
+        },
+     },
     computed:{
         ...mapGetters({getShowToaster:'getShowToaster', getToasterText:'getToasterText'}),
     },
@@ -69,7 +69,7 @@ export default {
                         self.submitForm(false);
                         self.errorMessage.code = '';
                         self.updateToasterParams({
-                            toasterText: 'Code sent',
+                            toasterText: 'A verification code was sent to your phone',
                             showToaster: true,
                         });
                     }, function (error) {

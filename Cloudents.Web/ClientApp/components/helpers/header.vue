@@ -291,14 +291,17 @@
                 (type) => {
                     this.clickOnce = true;
                     this.$nextTick(() => {
-                        this.$refs.personalize.openDialog(type);
+                        if (this.$refs.personalize) {
+                            this.$refs.personalize.openDialog(type);
+                        }
                     })
                 });
             let headerHeight = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.smAndUp ? 60 : 115)
             this.height = headerHeight;
 
             // this.isAuthUser =
-        }
+        },
+
     }
 </script>
 <style src="./header.less" lang="less"></style>

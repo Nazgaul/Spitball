@@ -1,14 +1,16 @@
 ﻿import ResultItem from './ResultItem.vue';
 import questionCard from './../question/helpers/question-card/question-card.vue';
+
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
-import { page } from '../../data';
+import {page} from '../../data';
 import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
 import {verticalsName} from '../../data'
 import {typesPersonalize} from "../settings/consts.js";
 import {mapActions, mapGetters} from 'vuex'
+
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 
@@ -37,7 +39,7 @@ let updateData = function (data, isFilterUpdate = false) {
 };
 //The vue functionality for result page
 export const pageMixin =
-        {
+    {
         //use basic sort and filter functionality( same for book details and result page)
         mixins: [sortAndFilterMixin],
         //when go back to home clear the saved term and classes
@@ -62,13 +64,13 @@ export const pageMixin =
         },
         computed: {
             //get data from vuex getters
-            ...mapGetters(['isFirst', 'myCourses', 'getFacet', 'getVerticalData', 'accountUser','showRegistrationBanner']),
+            ...mapGetters(['isFirst', 'myCourses', 'getFacet', 'getVerticalData', 'accountUser', 'showRegistrationBanner']),
             ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity'}),
             currentPromotion() {
                 return promotions[this.name]
             },
-            filterCondition(){
-                return this.filterSelection.length||(this.filterObject&&this.page&&this.items.length)
+            filterCondition() {
+                return this.filterSelection.length || (this.filterObject && this.page && this.items.length)
             },
             content: {
                 get() {
@@ -133,7 +135,10 @@ export const pageMixin =
                 showPersonalizeField: true,
                 showPromo: this.isPromo,
                 showFilterNotApplied: false,
-                isLoad: false
+                isLoad: false,
+                offsetTop: 0,
+                isBannerVisible: true,
+                // accountUser: {}
             };
         },
 
@@ -153,26 +158,34 @@ export const pageMixin =
             if (this.query.course) this.setFilteredCourses(this.query.course);
             this.UPDATE_LOADING(true);
             this.items = skeletonData[this.name];
-                //fetch data with the params
-                this.fetchingData({
-                    name: this.name,
-                    params: {...this.query, ...this.params,term:this.userText}
-                })
-                    .then(({data}) => {
-                        updateData.call(this, {...data,vertical:this.name});//irena
-                    }).catch(reason => {
-                        console.error(reason);
-                    //when error from fetching data remove the loader
-                    this.UPDATE_LOADING(false);
-                    this.items = [];
-                });
+            //fetch data with the params
+            this.fetchingData({
+                name: this.name,
+                params: {...this.query, ...this.params, term: this.userText}
+            })
+                .then(({data}) => {
+                    updateData.call(this, {...data, vertical: this.name});//irena
+                }).catch(reason => {
+                console.error(reason);
+                //when error from fetching data remove the loader
+                this.UPDATE_LOADING(false);
+                this.items = [];
+            });
             // });
         },
         methods: {
+            //hide banner when scrolled by
+            hideBanner(e) {
+                this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (this.offsetTop >= 360) {
+                    this.hideRegistrationBanner()
+                }
+
+            },
             subFilterVertical(val) {
                 return val.includes('note') || val === 'flashcard' || val === 'job' || val.includes('ask');
             },
-            //for skelaton
+            //for skeleton
             updatePageData(to, from, next) {
                 (to.path === from.path && to.q === from.q) ? this.isLoad = true : this.UPDATE_LOADING(true);
                 const toName = to.path.slice(1);
@@ -180,21 +193,20 @@ export const pageMixin =
                 this.pageData = {};
                 this.items = [];
                 this.items = skeletonData[toName];
-                this.updateContentOfPage(to,from,next,itemsBeforeUpdate);
+                this.updateContentOfPage(to, from, next, itemsBeforeUpdate);
             },
-
-            updateContentOfPage(to,from,next,itemsBeforeUpdate){
+            updateContentOfPage(to, from, next, itemsBeforeUpdate) {
                 const toName = to.path.slice(1);
                 const updateFilter = (to.path === from.path && to.query.q === from.query.q);
-                this.fetchingData({name: toName, params: {...to.query, ...to.params,term:to.query.q}})
+                this.fetchingData({name: toName, params: {...to.query, ...to.params, term: to.query.q}})
                     .then(({data}) => {
                         //update data for this page
                         this.showFilterNotApplied = false;
-                        updateData.call(this, {...data,vertical:toName}, updateFilter);
-                        window.scrollTo(0,0);
+                        updateData.call(this, {...data, vertical: toName}, updateFilter);
+                        window.scrollTo(0, 0);
                         next();
                     }).catch(reason => {
-                    window.scrollTo(0,0)
+                    window.scrollTo(0, 0)
                     //when error from fetching data remove the loader
                     if (to.path === from.path && to.query.q === from.query.q) {
                         this.isLoad = false;
@@ -219,10 +231,10 @@ export const pageMixin =
             }
             ,
 //Get functions from vuex actions
-            ...mapActions(['fetchingData',  'setFilteredCourses', 'cleanData', 'updateFacet']),
+            ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFacet', 'hideRegistrationBanner']),
             //Function for update the filter object(when term or vertical change)
             $_updateFilterObject(vertical) {
-                let currentPage=page[vertical];
+                let currentPage = page[vertical];
                 //validate current page have filters
                 if (!currentPage || !currentPage.filter) {
                     this.filterObject = null
@@ -262,9 +274,9 @@ export const pageMixin =
             }
         },
 //Page props come from the route
-        props: {
-            isPromo: {
-                type: Boolean
-            }
+    props: {
+        isPromo: {
+            type: Boolean
         }
     }
+};

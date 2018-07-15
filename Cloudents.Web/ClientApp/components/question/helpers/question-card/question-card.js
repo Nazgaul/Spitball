@@ -100,8 +100,8 @@ export default {
                         //To DO change to router link use and not text URL
                         this.$router.push('/ask')
                     } else {
-                        //emit to parent to update array of answers
-                        this.$parent.$emit('deleteAnswer', this.cardData.id);
+                        //emit to root to update array of answers
+                        this.$root.$emit('deleteAnswer', this.cardData.id);
                         this.isDeleted = true
                     }
                 });

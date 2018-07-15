@@ -1,6 +1,6 @@
 <template>
     <div class="step-phone">
-        <button class="back-button" @click="showDialogFunc()">
+        <button class="back-button verify-close" @click="showDialogFunc()">
             <v-icon right>sbf-close</v-icon>
         </button>
         <v-dialog v-model="showDialog" max-width="600px" content-class="registration-dialog">
@@ -28,7 +28,7 @@
                         ({{item.callingCode}})
                     </option>
                 </select>
-                <sb-input class="phone-field" icon="sbf-phone" :errorMessage="errorMessage.phone" v-model="phone.phoneNum" placeholder="Enter phone number" name="email" type="tel" :autofocus="true"></sb-input>
+                <sb-input class="phone-field" icon="sbf-phone" :errorMessage="errorMessage.phone" v-model="phone.phoneNum" placeholder="Enter phone number" name="email"  type="tel" :autofocus="true"></sb-input>
 
                 <!--<div class="input-wrapper">-->
                 <!--<input class="phone-field input-field" v-model="phone.phoneNum" placeholder="Enter phone number"/>-->
@@ -47,7 +47,7 @@
                 <h1 class="step-title">Enter the confirmation code</h1>
                 <p class="sub-title">We sent the code to you by SMS to (+{{this.phone.countryCode}}) {{this.phone.phoneNum}}</p>
                 <p class="confirm-title">We sent a confirmation code to your mobile phone.</p>
-                <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code" v-model="confirmationCode" placeholder="Enter confirmation code" type="number" :autofocus="true"></sb-input>
+                <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code" v-model="confirmationCode" placeholder="Enter confirmation code" type="number"  :autofocus="true"></sb-input>
                 <!--<div class="input-wrapper">-->
                 <!--<input class="code-field input-field" v-model="confirmationCode" placeholder="Confirmation code"></input>-->
                 <!--<v-icon>sbf-key</v-icon>-->

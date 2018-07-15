@@ -1,7 +1,7 @@
 ﻿﻿
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
-        <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
+        <signup-banner  slot="signupBanner" v-scroll="hideBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main" >
          <div class="d-flex mobile-filter" >
                 <router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob hidden-md-and-up"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
@@ -51,7 +51,9 @@
                                         <question-card :cardData="item"></question-card>
                                     </router-link>
 
-                                    <div class="show-btn" v-if="item &&  item.user && accountUser && accountUser.id !== item.user.id || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
+                                    <div class="show-btn" v-if="accountUser && item &&  item.user && accountUser.id !== item.user.id || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
+                                    <div class="show-btn" v-if="!accountUser && item && item.user || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
+
                                 </v-flex>
                                 <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                     <suggest-card :name="currentSuggest"></suggest-card>
