@@ -65,11 +65,11 @@
                 <div v-else>
                     <div class="result-cell elevation-1 mb-3 empty-state" xs-12>
                         <v-layout row class="pa-3">
-                            <v-flex class="img-wrap mr-3">
-                                <empty-state></empty-state>
-                            </v-flex>
+                            <!--<v-flex class="img-wrap mr-3">-->
+                                <!--<empty-state></empty-state>-->
+                            <!--</v-flex>-->
                             <v-flex>
-                                <h6 class="mb-3">Your search - {{userText}} - did not match any records.</h6>
+                                <h6 class="mb-3">Your search - <span class="user-search-text">{{userText}}</span> - did not match any records.</h6>
                                 <div class="sug mb-2">Suggestions:</div>
                                 <ul>
                                     <li>Check your spelling.</li>

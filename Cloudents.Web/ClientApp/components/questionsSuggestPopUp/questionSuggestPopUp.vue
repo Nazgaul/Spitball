@@ -21,7 +21,7 @@
                         prev-icon="sbf-arrow-left-carousel"
                         next-icon="sbf-arrow-right-carousel">
 
-                <v-carousel-item v-for="(item,i) in cardList" src="" :key="i"  @click.native="answerMore(item.id)">
+                <v-carousel-item  v-for="(item,i) in cardList" src="" :key="i"  @click.native="answerMore(item.id)">
                     <router-link :item="item" :to="{path:'/question/'+item.id}"  class="mb-5">
                         <question-card :typeAnswer="false" :cardData="item" class="user-question mb-1 mt-1" detailed-view></question-card>
                     <!--<v-btn @click="answerMore(item.id)">test</v-btn>-->
