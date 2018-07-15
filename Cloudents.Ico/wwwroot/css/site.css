@@ -3048,6 +3048,7 @@ select:focus {
 .header-txt {
     position: relative;
     z-index: 3;
+    color: #ffffff;
 }
 
 /* @v111 s*/
@@ -9071,7 +9072,7 @@ select:focus {
     }
 
     .theme-muscari .btn {
-        background: #3455ff;
+        background: #3532d5;
         border-radius: 4px;
     }
 
