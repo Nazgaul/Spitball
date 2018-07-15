@@ -57,10 +57,12 @@ export default {
                             self.updateLoading(false);
                             console.log('got here')
                             self.$emit('next');
-                        }, function (reason) {
+                        }, function (error) {
+                            //TODO: duplicate callback
                             self.updateLoading(false);
                             self.submitForm(false);
-                            console.error(reason, 'res');
+                            self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                            console.error(error);
                         });
                 }, function (error) {
                     console.log(error,'errrr')
