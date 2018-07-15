@@ -137,7 +137,8 @@ export const pageMixin =
                 showFilterNotApplied: false,
                 isLoad: false,
                 offsetTop: 0,
-                isBannerVisible: true
+                isBannerVisible: true,
+                // accountUser: {}
             };
         },
 
@@ -176,7 +177,7 @@ export const pageMixin =
             //hide banner when scrolled by
             hideBanner(e) {
                 this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
-                if (this.offsetTop >= 500) {
+                if (this.offsetTop >= 360) {
                     this.hideRegistrationBanner()
                 }
 

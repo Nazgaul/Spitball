@@ -71,6 +71,16 @@
       //padding: 1px;
       list-style-type: none;
       position: relative;
+      //@media (max-width: @screen-sm) {
+      //  display: flex;
+      //  flex-wrap: wrap;
+      //}
+      @media (max-width: @screen-xs) {
+        margin-right: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 50%;
+      }
       li {
         width: 104px;
         height: 104px;
