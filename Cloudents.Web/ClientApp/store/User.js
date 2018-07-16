@@ -19,7 +19,6 @@ const state = {
         flashcard: [],
         ask: [],
         note: [],
-        food: [],
         tutor: [],
         book: []
     }

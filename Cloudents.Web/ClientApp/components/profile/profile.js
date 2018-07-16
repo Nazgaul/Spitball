@@ -61,7 +61,7 @@ export default {
         emptyStateData() {
             var questions = {
                 text: 'Have a question on your homework?',
-                boldText: 'Post it for points…',
+                boldText: 'Post it for SBL…',
                 btnText: 'Ask Your Question',
                 btnUrl: 'newQuestion'
             };

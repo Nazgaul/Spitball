@@ -9056,7 +9056,8 @@ select:focus {
         }
 
         .theme-muscari .countdown-box.countdown-transparent {
-            background: rgba(0, 33, 205, 0.8) !important;
+            /* background: rgba(0, 33, 205, 0.8) !important; */
+            background: transparent!important;
         }
 
     .theme-muscari .token-status-point::after {

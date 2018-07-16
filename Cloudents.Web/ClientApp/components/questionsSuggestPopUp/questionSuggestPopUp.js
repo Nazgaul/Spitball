@@ -14,7 +14,6 @@ export default {
             interval: 7000,
 
         }
-
     },
     beforeRouteLeave(to, from, next) {
         this.resetQuestion();

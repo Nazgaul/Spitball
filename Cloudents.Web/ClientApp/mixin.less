@@ -34,7 +34,6 @@
 @Tutors: #52ab15;
 @Textbooks: #8c3fbf;
 @Jobs: #f49c20;
-@Food: #2cbfa5;
 @Upload: #94b7cb;
 @Post: #414141;
 @Create-Flashcards: #a40115;
@@ -77,12 +76,25 @@
   max-height: (@lines*@line-height); /* fallback */
 }
 
+//animation stuff
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .giveMeEllipsisOne() {
   white-space: nowrap; //TODO: IRENA - need to fix that
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
+.smoothAnimateFast {
+   transition: opacity .1s ease-in;
+}
+.smoothAnimateSlow {
+  transition: opacity .2s ease-in;
+}
+// animation end
 .imageWrapper(@width,@height,@svgSize: 100%) {
   .img-wrap {
     width: @width;

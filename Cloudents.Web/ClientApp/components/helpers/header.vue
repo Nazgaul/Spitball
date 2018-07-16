@@ -182,8 +182,7 @@
             note: "Find study documents in...",
             book: "Textbook title or ISBN...",
             ask: "Ask anything...",
-            flashcard: "Look for flashcards...",
-            food: "Search for deals..."
+            flashcard: "Look for flashcards..."
         },
         data() {
             return {
