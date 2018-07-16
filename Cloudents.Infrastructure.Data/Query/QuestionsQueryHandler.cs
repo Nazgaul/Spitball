@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using Cloudents.Core.DTOs;
@@ -10,6 +11,7 @@ using NHibernate.Criterion;
 
 namespace Cloudents.Infrastructure.Data.Query
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class QuestionsQueryHandler : IQueryHandler<QuestionsQuery, ResultWithFacetDto<QuestionDto>>
     {
         private readonly ISession _session;
