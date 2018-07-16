@@ -1,6 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -9,11 +11,19 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class ProfileController : Controller
     {
+        private readonly IQueryBus _queryBus;
+
+        public ProfileController(IQueryBus queryBus)
+        {
+            _queryBus = queryBus;
+        }
+
         // GET
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(long id, [FromServices] IUserRepository repository, CancellationToken token)
+        public async Task<IActionResult> GetAsync(long id, CancellationToken token)
         {
-            var retVal = await repository.GetUserProfileAsync(id, token).ConfigureAwait(false);
+            var query = new UserDataByIdQuery(id);
+            var retVal = await _queryBus.QueryAsync<ProfileDto>(query, token).ConfigureAwait(false);
             if (retVal == null)
             {
                 return NotFound();

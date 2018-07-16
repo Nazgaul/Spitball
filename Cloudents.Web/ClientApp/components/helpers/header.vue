@@ -93,9 +93,6 @@
 
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu bottom left offset-y>
-                                            <!--<v-btn icon slot="activator" @click.native="drawer = !drawer">-->
-                                            <!--<v-icon>sbf-rocket</v-icon>-->
-                                            <!--</v-btn>-->
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
                                                          :user-name="accountUser.name"/>
                                             <menu-list :isAuthUser="loggedIn"
@@ -183,7 +180,7 @@
             book: "Textbook title or ISBN...",
             ask: "Ask anything...",
             flashcard: "Look for flashcards...",
-            food: "Search for deals..."
+            food: "Search for deals..." //TODO no more food
         },
         data() {
             return {
@@ -231,6 +228,7 @@
         },
         methods: {
             ...mapActions(['updateToasterParams']),
+            //TODO: what is that
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
                     Intercom('showNewMessage', '');
@@ -241,6 +239,7 @@
                     })
                 }
             },
+            //TODO no more share - check if we use svg
             facebookShare() {
                 const shareFb = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href);
                 this.$ga.social('Facebook', 'Share');
