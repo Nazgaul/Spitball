@@ -192,7 +192,7 @@ Vue.filter('commasFilter', function(value){
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.name === 'home') next('/ask');
+   // if (to.name === 'home') next('/ask');
     checkUserStatus(to, next);
 });
 const app = new Vue({

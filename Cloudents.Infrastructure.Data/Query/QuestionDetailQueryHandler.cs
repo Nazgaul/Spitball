@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +14,8 @@ using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data.Query
 {
-    public class QuestionDetailQueryHandler: IQueryHandler<QuestionDetailQuery, QuestionDetailDto>
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Injected")]
+    public class QuestionDetailQueryHandler: IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>
     {
         private readonly ISession _session;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
@@ -71,7 +73,7 @@ namespace Cloudents.Infrastructure.Data.Query
             return dto;
         }
 
-        public async Task<QuestionDetailDto> GetAsync(QuestionDetailQuery query, CancellationToken token)
+        public async Task<QuestionDetailDto> GetAsync(QuestionDataByIdQuery query, CancellationToken token)
         {
             var dtoTask = GetFromDbAsync(query.Id, token);
 

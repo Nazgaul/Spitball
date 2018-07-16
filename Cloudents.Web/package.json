@@ -71,6 +71,7 @@
     "webpack-merge": "4.1.1",
     "webpack-stats-plugin": "0.1.5",
     "webpack-visualizer-plugin": "0.1.11",
+    "unused-files-webpack-plugin": "^3.4.0",
     "vue-recaptcha": "^1.1.1",
     "html5-uploader": "^0.1.1",
     "talkjs": "^0.1.5"

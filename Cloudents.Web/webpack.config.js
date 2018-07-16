@@ -10,6 +10,7 @@ var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 var t = require("./webpack.global.js");
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { UnusedFilesWebpackPlugin } = require("unused-files-webpack-plugin");
 
 
 module.exports = (env) => {
@@ -162,7 +163,18 @@ module.exports = (env) => {
                 moduleFilenameTemplate:
                     path.relative(bundleOutputDir,
                         "[resourcePath]") // Point sourcemap entries to the original file locations on disk
+                }),
+                new UnusedFilesWebpackPlugin({
+                    patterns: "./ClientApp/**/*.*"
                 })
+                //new UnusedWebpackPlugin({
+                //    // Source directories
+                //    directories: [path.join(__dirname, 'src')],
+                //    // Exclude patterns
+                //    exclude: ['*.test.js',],
+                //    // Root directory (optional)
+                //    root: __dirname,
+                //})
             ] :
             [
                 new webpack.optimize.UglifyJsPlugin({

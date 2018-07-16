@@ -100,8 +100,8 @@
 
 <script>
 
-    import {mapGetters, mapActions} from 'vuex'
-    const notLoggedIn =()=>import( "../img/not-logged-in.svg")
+    import { mapGetters, mapActions } from 'vuex';
+    import notLoggedIn from "../img/not-logged-in.svg";
     import {notRegMenu} from '../../settings/consts';
     import userBlock from "../user-block/user-block.vue"
 

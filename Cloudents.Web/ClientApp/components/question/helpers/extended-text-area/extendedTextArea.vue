@@ -9,6 +9,7 @@
                         :value="value" autofocus="isFocused"
                         :placeholder="`Type your ${actionType}...`"></textarea>
                     <ul class="actions_text">
+                        <!--TODO use svg component and not font-->
                         <!--<li>-->
                             <!--<button class="insert-equation">-->
                                 <!--<v-icon>sbf-pi-symbol</v-icon>-->

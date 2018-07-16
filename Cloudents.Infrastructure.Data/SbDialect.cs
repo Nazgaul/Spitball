@@ -1,8 +1,7 @@
-﻿using System.Diagnostics;
-using NHibernate;
+﻿using System;
 using NHibernate.Dialect;
 using NHibernate.Dialect.Function;
-using NHibernate.SqlCommand;
+using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data
 {
@@ -12,15 +11,14 @@ namespace Cloudents.Infrastructure.Data
         {
             base.RegisterFunctions();
             RegisterFunction("FullTextContains", new StandardSQLFunction("contains", null));
+            //RegisterFunction("NEWID()", new StandardSQLFunction("NEWID()", NHibernateUtil.Guid));
+
+
         }
     }
 
-    public class LoggingInterceptor : EmptyInterceptor
-    {
-        public override SqlString OnPrepareStatement(SqlString sql)
-        {
-            Debug.WriteLine(sql,"nhibernate");
-            return base.OnPrepareStatement(sql);
-        }
-    }
+    //public class SqlFunctions
+    //{
+    //    [LinqExtensionMethod("NEWID")] public static Guid NewID() { return Guid.NewGuid(); }
+    //}
 }

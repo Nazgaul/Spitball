@@ -1,6 +1,6 @@
 import registerAccount from "./components/registration/steps/registerAccount/registerAccount.vue";
 
-const HomePage = () => import("./components/home/home.vue");
+//const HomePage = () => import("./components/home/home.vue");
 import * as RouteTypes from "./routeTypes";
 
 const resultContent = () => import("./components/results/Result.vue");
@@ -83,10 +83,9 @@ const bookDetailsProps = {
 };
 let routes2 = [
     {
-        path: "/", components: {
-            default: HomePage,
-            header: HomePage
-        }, name: "home"
+        path: "/",
+        name: "home",
+        redirect: "/ask"
     },
 
     {

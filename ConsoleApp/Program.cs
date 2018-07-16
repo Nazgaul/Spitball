@@ -50,16 +50,19 @@ namespace ConsoleApp
             // var _serviceBusProvider = container.Resolve<IServiceBusProvider>();
 
             // await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(100, 587), default);
-            var bus = container.Resolve<IServiceBusProvider>();
+            var bus = container.Resolve<IQueryBus>();
+
+            var t = new NextQuestionQuery(121, 638);
+            var z = await bus.QueryAsync<IEnumerable<QuestionDto>>(t, default);
 
 
-            var message = new RegistrationEmail("ram@cloudents.com", "https://dev.spitball.co");
-            await bus.InsertMessageAsync(message, default);
-            await bus.InsertMessageAsync(new AnswerCorrectEmail
-            ("ram@cloudents.com",
-                "This is a question text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
-                "This is a answer text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
-                "https://dev.spitball.co", 100), default);
+            //var message = new RegistrationEmail("ram@cloudents.com", "https://dev.spitball.co");
+            //await bus.InsertMessageAsync(message, default);
+            //await bus.InsertMessageAsync(new AnswerCorrectEmail
+            //("ram@cloudents.com",
+            //    "This is a question text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
+            //    "This is a answer text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
+            //    "https://dev.spitball.co", 100), default);
             // var r= await bus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(638), default);
 
             //var p = new TransactionPopulation(container);

@@ -28,12 +28,6 @@ namespace Cloudents.Core.Interfaces
 
     public interface IUserRepository : IRepository<User>
     {
-        [ItemCanBeNull]
-        Task<ProfileDto> GetUserProfileAsync(long id, CancellationToken token);
-
-        //Task<User> GetUserByExpressionAsync(Expression<Func<User, bool>> expression, CancellationToken token);
-
-
         Task<IList<User>> GetAllUsersAsync(CancellationToken token);
 
         Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token);
@@ -41,11 +35,6 @@ namespace Cloudents.Core.Interfaces
 
     public interface IQuestionRepository : IRepository<Question>
     {
-        //[ItemCanBeNull]
-        //Task<QuestionDetailDto> GetQuestionDtoAsync(long id, CancellationToken token);
-
-        //Task<ResultWithFacetDto<QuestionDto>> GetQuestionsAsync(QuestionsQuery query, CancellationToken token);
-
         Task<IList<Question>> GetAllQuestionsAsync();
     }
 

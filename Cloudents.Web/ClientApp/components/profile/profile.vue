@@ -1,5 +1,5 @@
 <template>
-    <div class="profile-page" v-if="profileData">
+    <div class="profile-page">
         <div>
             <v-layout class="data-wrapper" :class="{'column': isMobile}" wrap justify-start>
 

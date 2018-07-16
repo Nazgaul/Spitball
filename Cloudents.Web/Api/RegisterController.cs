@@ -62,13 +62,12 @@ namespace Cloudents.Web.Api
             if (p.Errors.Any(f => string.Equals(f.Code, "duplicateEmail", StringComparison.OrdinalIgnoreCase)))
             {
                 user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
-                if (!user.EmailConfirmed)
+                if (!user.PhoneNumberConfirmed)
                 {
                     await GenerateEmailAsync(user, token).ConfigureAwait(false);
                     return Ok();
                 }
             }
-            
             ModelState.AddIdentityModelError(p);
             return BadRequest(ModelState);
         }
