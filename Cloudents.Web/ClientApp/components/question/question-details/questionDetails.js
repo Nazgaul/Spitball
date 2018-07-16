@@ -65,7 +65,8 @@ export default {
                             toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
                             showToaster: true,
                         });
-                        self.cardList = response
+                        self.cardList =[];
+                        self.cardList = response.data.nextQuestions;
                          self.showDialog = true; // question suggest popup dialog
 
                     }, () => {

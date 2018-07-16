@@ -6,7 +6,7 @@ export default {
     },
     props: {
         user: {},
-        cardList:{ type: Array, required: false},
+        cardList:{  required: false},
     },
     data() {
         return {
