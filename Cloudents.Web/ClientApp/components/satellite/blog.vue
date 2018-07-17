@@ -37,7 +37,7 @@
 </script>
 <style lang="less">
     .blog-wrap {
-        background: #f0f0f0;
+        background: #fff;
         padding-top: 22px;
         iframe
 

@@ -32,19 +32,19 @@ let bottomIcons = [
     },
     {
         link: "https://medium.com/@spitballstudy",
-        //img: "medium",
+        img: "medium",
         svg: () => import("./svg/medium-icon.svg")
     },
     {
         link: "https://github.com/Cloudents/Spitball",
-        //img: "github",
+        img: "github",
         svg: () => import("./svg/github-icon.svg")
     },
     {
         link: "https://www.linkedin.com/company/spitball/",
         img: "linkedin",
         svg: () => import("./svg/linkedin-icon.svg")
-    },
+    }
 ];
 
 export {

@@ -8,16 +8,17 @@
     {
         name: "faq",
         display: "FAQ",
-        import: () => import("./faq.vue")
-
-    },
-    {
-        name: "faqSelect",
-        path: "/faq/:id",
         import: () => import("./faq.vue"),
-        params:(route) => ({id: route.params.id})
+        params: (route) => ({ id: route.query.id })
 
     },
+    //{
+    //    name: "faqSelect",
+    //    path: "/faq/:id",
+    //    import: () => import("./faq.vue"),
+    //    params:(route) => ({id: route.query.id})
+
+    //},
     {
         name: "blog",
         display: "Blog",
