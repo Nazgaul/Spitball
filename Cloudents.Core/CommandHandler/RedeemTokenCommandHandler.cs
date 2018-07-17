@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
@@ -10,6 +11,7 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.CommandHandler
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class RedeemTokenCommandHandler : ICommandHandler<RedeemTokenCommand>
     {
         private readonly IUserRepository _userRepository;
@@ -30,7 +32,8 @@ namespace Cloudents.Core.CommandHandler
             }
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            user.AddTransaction(new Transaction(ActionType.CashOut, TransactionType.Earned, -message.Amount));
+            //user.AddTransaction(new Transaction(ActionType.CashOut, TransactionType.Earned, -message.Amount));
+            user.AddTransaction(Transaction.CashOut(-message.Amount));
             await _userRepository.UpdateAsync(user, token);
             await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(message.Amount, user.Id), token);
         }

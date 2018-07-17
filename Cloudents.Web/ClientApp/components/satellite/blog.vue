@@ -4,7 +4,7 @@
             <img :src="uni.image" class="mr-3 elevation-2" />
             <h5>{{uni.name}}</h5>
         </v-layout>
-        <\iframe :src="src"></iframe>
+        <iframe :src="src"></iframe>
     </div>
 </template>
 
@@ -15,18 +15,18 @@
     export default {
         data() {
             return {
-                uni:null,
-                src: "https://spitballco.wordpress.com/"
+                uni: null,
+                src: "https://medium.com/@spitballstudy"
             }
         },
-        props:{path:String,university:{}},
+        props: { path: String, university: {} },
         created() {
             let append = this.path || "";
             append.replace("https://spitballco.wordpress.com/", "");
             append.replace("http://spitballco.wordpress.com/", "");
             this.src += append;
             if (this.university) {
-                help.then(({default:aa}) => {
+                help.then(({ default: aa }) => {
                     aa.getBlog(this.university).then(val => {
                         this.uni = val;
                     });
@@ -37,12 +37,11 @@
 </script>
 <style lang="less">
     .blog-wrap {
-        background:#f0f0f0;
-        padding-top:22px;
+        background: #fff;
+        padding-top: 22px;
+        iframe
 
-
-
-     iframe {
+    {
         width: 100%;
         height: 100vh;
         border: 0;
@@ -59,14 +58,13 @@
         font-size: 24px;
         letter-spacing: -0.4px;
         color: #4a4a4a;
-        line-height:56px;
-        vertical-align:middle;
-        font-weight:normal;
+        line-height: 56px;
+        vertical-align: middle;
+        font-weight: normal;
     }
 
     .uni {
         margin: 0 auto 5px;
     }
-
     }
 </style>

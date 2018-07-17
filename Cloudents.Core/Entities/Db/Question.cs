@@ -46,14 +46,13 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual void QuestionCreateTransaction()
         {
-            var t = new Transaction(ActionType.Question, TransactionType.Stake, -Price);
+            var t = Transaction.QuestionCreate(this);// new Transaction(ActionType.Question, TransactionType.Stake, -Price);
             User.AddTransaction(t);
-            //return t;
         }
 
         public virtual void QuestionDeleteTransaction()
         {
-            var t = new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
+            var t =  Transaction.QuestionDelete(this);// new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
             User.AddTransaction(t);
         }
 
@@ -71,18 +70,17 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual void MarkCorrectTransaction(Answer correctAnswer)
         {
-            //var list = new List<Transaction>();
             var questionUser = User;
-            var t1 = new Transaction(ActionType.QuestionCorrect, TransactionType.Stake, Price);
-            var t2 = new Transaction(ActionType.QuestionCorrect, TransactionType.Spent, -Price);
+            var t1 = Transaction.CorrectAnswer(TransactionType.Stake,this,correctAnswer); //new Transaction(ActionType.AnswerCorrect, TransactionType.Stake, Price);
+            var t2 = Transaction.CorrectAnswer(TransactionType.Spent, this, correctAnswer);// new Transaction(ActionType.AnswerCorrect, TransactionType.Spent, -Price);
             questionUser.AddTransaction(t1);
             questionUser.AddTransaction(t2);
 
             var answerUser = correctAnswer.User;
 
 
-            var tAnswer = new Transaction(ActionType.QuestionCorrect, TransactionType.Earned,
-                Price);
+            var tAnswer = Transaction.CorrectAnswer(TransactionType.Earned, this, correctAnswer);// new Transaction(ActionType.AnswerCorrect, TransactionType.Earned,
+                //Price);
             answerUser.AddTransaction(tAnswer);
 
             //return new[] {t1, t2, tAnswer};
