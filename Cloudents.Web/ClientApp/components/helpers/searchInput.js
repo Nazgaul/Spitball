@@ -112,10 +112,7 @@ export default {
                 }
             }
         },
-        //callback for mobile submit mic
-        submitMic() {
-            this.search();
-        },
+
         highlightSearch: function (item) {
             if (!item.type === consts.SUGGEST_TYPE.autoComplete || !this.msg) {
                 return item.text

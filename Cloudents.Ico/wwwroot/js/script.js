@@ -565,7 +565,8 @@
     }
 
      //Telegr4am pop fade out on close
-    $("#closeTelegramPopUp").click(function(){
+    $("#closeTelegramPopUp").click(function(event){
+        event.preventDefault();
         $("#telegramPopUp").fadeOut( "slow", function() {
             // Animation complete.
           });
