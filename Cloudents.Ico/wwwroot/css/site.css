@@ -106,6 +106,24 @@ html, body {
     right:50px; 
     z-index: 9999; 
     text-align: center;
+    box-shadow: 0px 0px 3px 0px rgba( 2, 2, 2, 0.5 ) inset;
+    border-radius: 13px;
+    border: none;
+}
+.card-title{
+    font-size: 22px;
+    text-transform: uppercase;
+    color: #3532d5;
+    text-align: center;
+    font-weight: 700;
+   
+}
+.card-text{
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+    margin-bottom: 20px;
 }
 #closeTelegramPopUp{
     width: 25px; 
@@ -113,6 +131,10 @@ html, body {
     right: 0; 
     top:5px;
 }
+ /* a.popUpbtn{
+    border-radius: 17px;
+
+} */
 h1, h2, h3, h4, h5, h6, p, ul, ol, table {
     margin: 0 0 18px;
 }
@@ -123,7 +145,7 @@ h1, h2, h3, h4, h5, h6, p, ul, ol, table {
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     line-height: 1.33;
-    font-weight: 600;
+    font-weight: 700;
     color: #373e45;
 }
 
@@ -9325,7 +9347,7 @@ select:focus {
         }
 
     .theme-muscari .header-partners {
-        margin-top: -30px;
+        margin-top: 90px;
     }
 
     .theme-muscari .token-section::after {
@@ -9341,15 +9363,17 @@ select:focus {
     }
 
     .theme-muscari .roadmap-item h6:before {
-        background: rgba(51, 153, 255, 0.3);
+        background: #ffa30f;
+        opacity: 0.3;
     }
 
     .theme-muscari .roadmap-item h6:after {
-        background: #3399ff;
+        background: #ffa30f;
     }
 
     .theme-muscari .roadmap-done h6:before {
-        background: rgba(52, 85, 255, 0.3);
+        background: rgb(52, 85, 255);
+        opacity: 0.3;
     }
 
     .theme-muscari .roadmap-done h6:after {
@@ -9448,7 +9472,7 @@ select:focus {
     height: 200%;
     width: 100%;
     content: '';
-    background: #3455ff;
+    background: #3632D5;
     transform: skewY(17deg);
     z-index: 1;
     overflow: hidden;
@@ -9643,7 +9667,7 @@ select:focus {
             width: 80px;
             height: 6px;
             border-radius: 3px;
-            background: #39a9ff;
+            background: #3632D5;
         }
 
 .section-bg-muscari .section-head-s5 .section-title:after {
@@ -9821,8 +9845,8 @@ select:focus {
 }
 
 .section-bg-light .contact-info-alt li .fa {
-    color: #3455ff;
-    background: #3455ff;
+    color: #3532d5;
+    background: #3532d5;
 }
 
     .section-bg-light .contact-info-alt li .fa:after {
