@@ -2760,7 +2760,7 @@ select:focus {
     }
 
     .site-header .navbar-nav > li > a {
-        color: #fff;
+        color: #8484a4;
     }
     #signUpBtn{
         color: #3632D5;
@@ -2794,7 +2794,7 @@ select:focus {
     }
 
     .site-header .navbar.is-transparent {
-        background: transparent;
+        background: #ffffff;
         position: absolute;
         top: 0;
         left: 0;
@@ -2932,14 +2932,14 @@ select:focus {
     }
 
     .language-switcher > a {
-        color: #fff;
+        color: #8484a4;
         font-size: .85em;
         padding: 0 17px;
         position: relative;
     }
 
         .language-switcher > a:hover, .language-switcher > a:focus {
-            color: #fff;
+            color: #8484a4;
         }
 
         .language-switcher > a:after {
