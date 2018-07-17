@@ -1650,7 +1650,7 @@ hr, .hr {
 
     .section-head .section-title {
         margin-bottom: 50px;
-        text-transform: uppercase;
+        text-transform: capitalize;
         position: relative;
         z-index: 2;
     }
@@ -2533,7 +2533,7 @@ select:focus {
 
 .navbar .navbar-nav > li > a {
     background: transparent;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: inherit;
     font-size: 13px;
     font-weight: 500;
@@ -2762,7 +2762,21 @@ select:focus {
     .site-header .navbar-nav > li > a {
         color: #fff;
     }
+    #signUpBtn{
+        color: #3632D5;
+        background-color: #fff;
+        border: 2px solid #ffffff;
+        height: 40px;
+    }
+    #loginBtn{
+        border: 2px solid #fff;
+        height: 40px;
 
+    }
+    #loginBtn:hover{
+     background: transparent;
+
+    }
     .site-header .navbar-nav > li.quote-btn {
         margin-top: 23px;
     }
@@ -9215,7 +9229,14 @@ select:focus {
         border-color: #3532d5;
         color: #3532d5;
     }
-
+    .theme-muscari .site-header.has-fixed .navbar #signUpBtn{
+        background: #3532d5;
+        color: #ffffff;
+        border: 2px solid #3532d5;
+    }
+    .theme-muscari .site-header.has-fixed .navbar #loginBtn{
+       border: 2px solid #3532d5;
+    }
     .theme-muscari .site-header .scroll-down {
         bottom: -90px;
     }
