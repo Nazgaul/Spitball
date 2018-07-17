@@ -15,6 +15,7 @@ export default {
     data() {
         return {
             activeTab: 1,
+            active: null,
             walletData: {},
             cashOut: false,
             search: '',
@@ -68,7 +69,7 @@ export default {
                 showOnMobile: true
             },
                 {
-                    text: 'Points',
+                    text: 'Tokens',
                     align: 'left',
                     value: 'points',
                     align: 'right',
@@ -95,10 +96,13 @@ export default {
             this.activeTab = tabId;
             if (tabId === 1) {
                 this.getBalances();
-            } else {
+            } else if(tabId === 2){
                 this.getTransactions();
             }
 
+        },
+        gotToCashOutTab () {
+            this.active = 'tab-3';
         },
 
         getBalances() {

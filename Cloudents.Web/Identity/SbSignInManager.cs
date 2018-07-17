@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -34,8 +35,14 @@ namespace Cloudents.Web.Identity
     {
         public async Task<SignInResult> SignInTwoFactorAsync(User user, bool isPersistent)
         {
-            var t = await SignInOrTwoFactorAsync(user, isPersistent);
-            return t;
+            var signInResult = await SignInOrTwoFactorAsync(user, isPersistent);
+            if (signInResult.Succeeded)
+            {
+                await this.SignOutAsync();
+                return SignInResult.Failed;
+            }
+            return signInResult;
+
         }
 
         public SbSignInManager(UserManager<User> userManager, IHttpContextAccessor contextAccessor, IUserClaimsPrincipalFactory<User> claimsFactory, IOptions<IdentityOptions> optionsAccessor, ILogger<SignInManager<User>> logger, IAuthenticationSchemeProvider schemes) : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)

@@ -18,6 +18,7 @@ export default {
             errorTextArea: {},
             answerFiles: [],
             questionData: null,
+            cardList: [],
             showForm: false,
             showDialog: false,
             build: null
@@ -46,7 +47,7 @@ export default {
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
                 questionService.answerQuestion(self.id, self.textAreaValue, self.answerFiles)
-                    .then(function () {
+                    .then(function (resp) {
                         //TODO: do this on client side (render data inserted by user without calling server) - see commented out below - all that's left is asking ram to return the answerId in response
                         // var creationTime = new Date();
                         // self.questionData.answers.push({
@@ -64,7 +65,14 @@ export default {
                             toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
                             showToaster: true,
                         });
-                        //  self.showDialog = true; // question suggest popup dialog
+                        console.log('resp',resp);
+                        self.cardList =[];
+                        if(resp.data.nexnextQuestions){
+                            self.cardList = resp.data.nextQuestions;
+                            console.log('SELF ARR', self.cardList)
+                        }
+                        self.showDialog = true; // question suggest popup dialog
+
                     }, () => {
 
                         self.updateToasterParams({
@@ -73,7 +81,9 @@ export default {
                         });
                         self.submitForm(false);
                         self.updateLoading(true);
-                    });
+                    }).then(data=>{
+
+                });
             }
         },
 
@@ -186,8 +196,11 @@ export default {
     created() {
         this.getData();
         // to do may be to consider change to State Store VueX
-        this.$on('deleteAnswer', (id) => {
+        this.$root.$on('deleteAnswer', (id) => {
             this.questionData.answers = this.questionData.answers.filter(item => item.id !== id)
+        });
+        this.$root.$on('closeSuggestionPopUp', ()=> {
+            this.showDialog = false;
         })
     }
 }

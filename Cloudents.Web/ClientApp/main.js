@@ -42,6 +42,8 @@ const vuetifyComponents = {
     VPagination,
     VDataTable,
 
+
+
 };
 import {
     Vuetify,
@@ -163,12 +165,12 @@ Vue.filter('fixedPoints', function (value) {
     if (value.toString().indexOf('.') === -1) return value;
     // debugger
     return parseFloat(value).toFixed(2)
-})
+});
 
 Vue.filter('dollarVal', function (value) {
     if (!value) return 0;
     return parseFloat(value / 40).toFixed(2)
-})
+});
 
 Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
@@ -177,15 +179,20 @@ Vue.filter('dateFromISO', function (value) {
         return  'Loading..'
     }
     return `${d.getUTCMonth()+1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
-})
+});
 // filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
 Vue.filter('currencyLocalyFilter', function(value){
         let amount = Number(value)
         return amount && amount.toLocaleString(undefined,{minimumFractionDigits: 2, maximumFractionDigits: 2}) || '0'
-        }    
-)
+        });
+
+Vue.filter('commasFilter', function(value){
+
+   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+});
+
 router.beforeEach((to, from, next) => {
-    if (to.name === 'home') next('/ask');
+   // if (to.name === 'home') next('/ask');
     checkUserStatus(to, next);
 });
 const app = new Vue({

@@ -9,7 +9,9 @@
   width: 100%;
   max-width: @cellWidth;
   position: relative;
-
+  .zoom-image{
+    overflow-y: hidden;
+  }
   .top-block {
     display: flex;
     align-items: start;
@@ -17,13 +19,13 @@
   }
 
   p {
-    padding: 16px 44px 16px 16px;
+    padding: 16px 16px 16px 16px;
     margin: 16px 16px 10px 16px;
 
     //margin: 16px 44px 16px 16px;
 
     @media (max-width: @screen-xs) {
-      margin: 16px 44px 6px 8px;
+      margin: 16px 16px 6px 8px;
     }
   }
 
@@ -145,18 +147,24 @@
     //background-color: @color-light-grey;
     padding: 16px;
     margin: 16px;
-    .carousel {
+    .v-carousel {
+      .v-jumbotron__wrapper{
+        .v-jumbotron__image{
+          height: auto;
+          width: 100%;
+        }
+      }
       @media (max-width: @screen-xs) {
         height: 238px;
       }
       box-shadow: none;
-      .carousel__left {
+      .v-carousel__left {
         left: 9px;
         i.sbf {
           margin-right: 3px;
         }
       }
-      .carousel__right {
+      .v-carousel__right {
         right: 9px;
         i.sbf {
           margin-left: 4px;
@@ -181,7 +189,7 @@
         }
 
       }
-      .carousel__item {
+      .v-carousel__item {
         //background-size: contain;
         background-size: cover;
         -webkit-background-size: auto 100%;
@@ -252,10 +260,13 @@
         float: right;
         margin-right: -10px;
         border: 2px solid @color-white;
+        border-radius: 50%;
         margin-left: -2px;
+        text-align: center;
         i {
           font-size: 10px;
           color: white;
+          margin: 3px auto;
         }
       }
     }
@@ -288,5 +299,14 @@
     background-color: #FF006B;
     .cellActionBtnMixin();
   }
-
-}      
+  .v-dialog.zoom-image{
+    overflow-y: hidden;
+    width: auto!important;
+    border: 1px solid red;
+  }
+ .zoomed-image{
+   height: auto;
+   width: 100%;
+   max-height: 720px;
+ }
+}

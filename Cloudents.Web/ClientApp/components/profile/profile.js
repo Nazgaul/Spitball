@@ -13,6 +13,7 @@ export default {
         return {
             activeTab: 1,
             profileData: null,
+            //TODO: what is that
             emptyState: {
                 questions: {
                     text: 'You have a homework problem?',
@@ -23,11 +24,19 @@ export default {
                     btnText: 'Put it on sale…'
                 }
             }
+            
         }
     },
     methods: {
         changeActiveTab(tabId) {
             this.activeTab = tabId;
+        },
+        fetchData() {
+            accountService.getProfile(this.id).then(({ data }) => {
+                this.profileData = data;
+            }, error => {
+                window.location = "/error/notfound";
+            })
         }
     },
     computed: {
@@ -36,22 +45,22 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         myAnswers() {
-            return this.profileData.answer ? this.profileData.answer.map(i => {
+            return this.profileData.answers ? this.profileData.answers.map(i => {
                 return {
                     ...i,
-                    user: this.profileData.user,
+                    //user: this.profileData.user,
                     answersNum: i.answers,
                     filesNum: i.files,
                 }
             }) : []
         },
         questions() {
-            return this.profileData.ask ? this.profileData.ask.map(i => {
+            return this.profileData.questions ? this.profileData.questions.map(item => {
                 return {
-                    ...i,
+                    ...item,
                     user: this.profileData.user,
-                    answersNum: i.answers,
-                    filesNum: i.files,
+                    answersNum: item.answers,
+                    filesNum: item.files,
                 }
             }) : []
         },
@@ -61,12 +70,12 @@ export default {
         emptyStateData() {
             var questions = {
                 text: 'Have a question on your homework?',
-                boldText: 'Post it for points…',
+                boldText: 'Post it for SBL…',
                 btnText: 'Ask Your Question',
                 btnUrl: 'newQuestion'
             };
             var answers = {
-                text: 'Help other students <b>and make money</b> by answering questions.',
+                text: 'Help other students<br/> <b>and make money</b><br/> by answering questions.',
                 btnText: 'Answer',
                 btnUrl: 'home'
             };
@@ -74,10 +83,11 @@ export default {
 
         }
     },
+    watch: {
+        '$route': 'fetchData'
+    },
     created() {
-        var self = this;
-        accountService.getProfile(this.id).then(function (response) {
-            self.profileData = response.data;
-        })
+        this.fetchData();
+        
     }
 }

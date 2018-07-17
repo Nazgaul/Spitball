@@ -2,15 +2,15 @@
 
 .header {
   //background-image: linear-gradient(276deg, @Spitball-Main-color, #3023ae);
-  &.toolbar {
+  &.v-toolbar {
     background-color: @color-white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-    .toolbar__content {
+    .v-toolbar__content {
       //.limited-width();
     }
   }
 
-  .toolbar__items {
+  .v-toolbar__items {
     flex-grow: 1;
     display: flex;
     justify-content: space-between;
@@ -20,11 +20,11 @@
     }
   }
 
-  .toolbar__content > .layout {
+  .v-toolbar__content > .layout {
     height: 100%;
   }
 
-  .toolbar__title {
+  .v-toolbar__title {
     .inTheMiddle();
     margin: 0;
     @media (max-width: (@screen-sm)) {
@@ -59,8 +59,8 @@
     }
   }
 
-  .toolbar__content > *:not(.btn):not(.menu):last-child,
-  .toolbar__content > *:not(.btn):not(.menu):first-child {
+  .v-toolbar__content > *:not(.btn):not(.menu):last-child,
+  .v-toolbar__content > *:not(.btn):not(.menu):first-child {
     &.dialog__container {
       margin-right: 0;
     }
@@ -122,7 +122,7 @@
 
   .settings-wrapper {
     line-height: 32px;
-    .btn--icon {
+    .v-btn--icon {
       @media (max-width: 959px) {
         margin-right: 0;
       }
@@ -196,13 +196,7 @@
       font-size: 16px;
 
       .input-group__input {
-        .input-group__append-icon.sbf-mic {
-          padding: 0 14px;
-          display: none;
-          @media (max-width: @screen-xs) {
-            display: none;
-          }
-        }
+
       }
 
       .sbf-search {
@@ -221,7 +215,7 @@
     }
   }
 
-  .btn {
+  .v-btn {
     .sbf-3-dot, .sbf-wallet, .sbf-menu, .sbf-comment, .sbf-feedback {
       color: @color-main-purple;
       font-size: 17px;
@@ -250,7 +244,7 @@
   z-index: 10;
 }
 
-.settings-list .list__tile__title, .menu-list .list__tile__title {
+.settings-list .v-list__tile__title, .menu-list .v-list__tile__title {
   text-transform: capitalize;
 }
 
@@ -283,7 +277,7 @@
     align-items: start;
   }
 
-  .btn {
+  .v-btn {
     margin: 6px 1px 6px 0px;
   }
 
@@ -304,7 +298,7 @@
 
 .menu.gamburger, .header-rocket {
   @media (max-width: (@screen-xs)) {
-    .btn {
+    .v-btn {
       margin: 0;
     }
   }
@@ -322,7 +316,7 @@
     width: 32px;
     border-radius: 50%;
   }
-  button.btn {
+  button.v-btn {
     background-color: @color-blue;
     color: @color-white;
     width: 48px;
@@ -366,7 +360,7 @@
   min-width: 152px;
   padding: 6px 0;
 
-  .list__tile {
+  .v-list__tile {
     padding: 7px 8px;
     height: auto;
     color: @color-grey;
@@ -375,7 +369,7 @@
     letter-spacing: -0.2px;
   }
 
-  .list__tile__action {
+  .v-list__tile__action {
     min-width: 0;
     margin-right: 8px;
 
@@ -399,9 +393,12 @@
     opacity: 0;
   }
 }
-
-.snack__content {
-  margin-top: 24px;
+.v-snack--bottom{
+  top: 55px;
+}
+.v-snack__content {
+  // Vuetify 1.1.1
+  //margin-top: 24px;
   width: 616px;
   height: 48px;
   background-color: @color-blue;
@@ -414,6 +411,9 @@
     text-align: center;
   }
   @media (max-width: @screen-xs) {
+    height: 88px;
+  }
+  @media (max-width: 360px) {
     height: 88px;
   }
   .undo-btn {

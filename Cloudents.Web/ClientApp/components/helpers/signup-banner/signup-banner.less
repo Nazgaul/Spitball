@@ -7,8 +7,9 @@
   .responsive-property(padding-bottom, 39px, null, 24px);
   justify-content: flex-start;
   background-size: auto;
-  background: url(./img/1920.png) center no-repeat ;
-  height: 552px;
+  background: url(./img/1920.png) center no-repeat;
+  //height: 552px;
+  height: 345px;
 
   @media (min-width: @screen-sm) and (max-width: @screen-md) {
     background-image: url(./img/1280.png);
@@ -34,7 +35,10 @@
     }
     .sbf {
       font-size: 16px;
-      color: @color-grey;
+      //color: @color-grey;
+      //user testing
+      color: @color-white;
+      //
     }
   }
 
@@ -47,6 +51,9 @@
     .inner-text-block {
       width: 100%;
       margin: 0 auto;
+      //user testing
+      text-align: center;
+      //
       @media (min-width: @screen-sm) and (max-width: @screen-md) {
         max-width: 960px;
       }
@@ -57,8 +64,12 @@
       .text-wrap {
         max-width: 300px;
         width: 100%;
+        //user testing
+        margin: 0 auto;
+        //
         @media (max-width: @screen-xs) {
-          margin: 0 auto;
+          //margin: 0 auto;
+          margin: 35px auto;
         }
       }
     }
@@ -102,6 +113,7 @@
   .buttons {
     margin-top: 26px;
     .sign-up, .learn-more {
+      text-transform: capitalize;
       text-align: center;
       padding: 6px 16px;
       min-width: 104px;

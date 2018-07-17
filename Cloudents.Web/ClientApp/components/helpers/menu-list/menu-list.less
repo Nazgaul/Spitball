@@ -1,5 +1,6 @@
 @import "../../../mixin.less";
 .menu-list{
+    //.theme--light .v-list .v-list__tile--link:hover
     .unsign .Mask {
         width: 64px;
         height: 64px;
@@ -16,24 +17,32 @@
         padding-top: 0;
     }
 
-    li:hover{
-        background: rgba(0,0,0,0.12);
-    }
-    .list__tile{
+    //div:hover{
+    //    background: rgba(0,0,0,0.12);
+    //}
+
+    .v-list__tile{
         height: 48px;
-        .list__tile__title{
+        .v-list__tile--link{
+
+        }
+        &:hover{
+            background: rgba(0,0,0,0.12)!important;
+        }
+        .v-list__tile__title{
+
             font-size: 20px;
             height: 27px;
             letter-spacing: -0.5px;
         }
-        .list__tile__action{
+        .v-list__tile__action{
             min-width: 42px;
             &.tile-logout{
                 min-width: 39px;
                 width: 30px;
             }
         }
-        .list__tile__avatar {
+        .v-list__tile__avatar {
             display: flex;
             align-items: center;
             .red-counter{
@@ -42,7 +51,7 @@
                 border-color: #d0021b;
             }
         }
-        .sbf.icon{
+        .sbf.v-icon{
             font-size: 16px; color: @color-grey;
             &.sbf-logout{padding-left: 31px;}
         }

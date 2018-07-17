@@ -54,7 +54,6 @@ namespace Cloudents.Web.Api
         [HttpPut("correct"), ValidateModel]
         public async Task<IActionResult> MarkAsCorrectAsync([FromBody]MarkAsCorrectRequest model, CancellationToken token)
         {
-            //var command = _mapper.Map<MarkAnswerAsCorrectCommand>(model);
             var link = Url.Link("WalletRoute", null);
             var command = new MarkAnswerAsCorrectCommand(model.AnswerId, _userManager.GetLongUserId(User), link);
 
@@ -67,7 +66,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetQuestionAsync(long id,
             [FromServices] IQueryBus bus, CancellationToken token)
         {
-            var retVal = await bus.QueryAsync(new QuestionDetailQuery(id), token).ConfigureAwait(false);
+            var retVal = await bus.QueryAsync<QuestionDetailDto>(new QuestionDataByIdQuery(id), token).ConfigureAwait(false);
             if (retVal == null)
             {
                 return NotFound();

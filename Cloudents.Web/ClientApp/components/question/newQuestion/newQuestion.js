@@ -81,7 +81,6 @@ export default {
         },
         addFile(filename) {
             this.files.push(...filename.split(','));
-            console.log(this.files)
         },
         removeFile(index) {
             this.files.splice(index, 1);

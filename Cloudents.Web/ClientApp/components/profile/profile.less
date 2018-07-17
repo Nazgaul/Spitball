@@ -15,7 +15,6 @@
             padding: 0;
         }
     }
-
     .data-wrapper{
         @media(min-width: @screen-sm) {
             margin-left: @logoWidth;
@@ -43,7 +42,6 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-
         font-size: 14px;
         color: #5d5d5d;
         text-align: center;
@@ -54,7 +52,6 @@
             margin-left: 0;
             border-radius: 0;
         }
-
         .menu{
             width: 100%;
             margin: 7px 0px 17px;
@@ -65,6 +62,7 @@
                 width: 100%;
                 text-align: left;
                 list-style-type: none;
+                padding: 0;
                 li{
                     height: 40px;
                     padding: 6px 18px;
@@ -79,7 +77,6 @@
                 }
             }
         }
-
         button.back{
             outline: none;
             position: absolute;
@@ -100,35 +97,34 @@
         }
 
     }
-
-
-
     .tab-padding{
-        .tabs__bar{
-            background-color: @color-white; border-top: solid 1px @color-medium-grey;
+        .v-tabs__bar{
+            background-color: @color-white;
+            border-top: solid 1px @color-medium-grey;
             @media (max-width: @screen-xs) {
                 height: 64px;
                 font-size: 18px;
             }
         }
-        .tabs__container{
-            .tabs__item{
+        .v-tabs__container{
+            border-top: solid 1px @color-medium-grey;
+            height: 64px;
+            .v-tabs__item{
                 text-transform: none;
-                &.tabs__item--active{ color: @color-main-purple!important;font-weight: bold;}
+                font-size: 18px;
+                &.v-tabs__item--active{
+                    color: @color-main-purple!important;
+                    font-weight: bold;}
             }
-            .tabs__slider.blue{
+            .v-tabs__slider.blue{
                 border-bottom: 2px solid @color-main-purple;
             }
         }
     }
-
-
     .column{
         .main-block .user-block{height: 170px;}
         .web-content{ margin: 16px 8px;}
     }
-
-
     .empty-state{
         display: flex;
         flex-direction: column;
@@ -138,7 +134,7 @@
         background-color: @color-white;
         box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
         margin-bottom: 16px;
-        .responsive-property(height, 280px, null, 248px);
+        .responsive-property(height, 228px, null, 248px);
         .text-block{
             flex-grow: 1;
             display: flex;
@@ -151,8 +147,8 @@
                 line-height: 0.9;
                 letter-spacing: -0.3px;
                 color: @color-grey;
-                .responsive-property(font-size, 40px, null, 30px);
-                font-size: 40px;
+                .responsive-property(font-size, 32px, null, 30px);
+                font-size: 32px;
                 .responsive-property(line-height, 1, null, 1.2);
                 margin-bottom: 0;
             }

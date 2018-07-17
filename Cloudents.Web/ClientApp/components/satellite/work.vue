@@ -2,7 +2,6 @@
     <general-page>
         <div class="work">
             <v-layout class="strip" v-for="(data,key,index) in pageData"  row align-center justify-space-between :reverse="$vuetify && $vuetify.breakpoint.smAndUp && index%2" :key="index">
-
                 <v-flex class="text">
                     <h2>{{data.title}}</h2>
                     <p>{{data.text}}</p>
@@ -21,12 +20,12 @@
         whatIsSpitball: {
             image: "how-spitball-works-1.png",
             title: "What is Spitball?",
-            text: "Simply put, Spitball curates resources for students. From class notes & study guides, to tutors, textbooks, jobs, discounts and more, we bring the best that the internet has to offer students, all together in one place."
+            text: "Simply put, Spitball is the global marketplace for students. Spitball allows students to ask and answer questions, share notes, find tutors, buy & sell textbooks and more - making it the ideal one-stop-shop for students. We bring the best that the internet has to offer students, all together in one place."
         },
         Technology: {
             image: "how-spitball-works-2.png",
             title: "Our Technology",
-            text: "Our curation technology leverages Artificial Intelligence and Machine Learning to bring students the most relevant and accurate content. We source from leading educational websites so you can forget about the time-consuming and frustrating search process through the tsunami of online content."
+            text: "Our platform combines artificial intelligence & machine learning with blockchain technology, bringing students the most relevant content and enabling them to exchange peer-to-peer (P2P) safely & securely. We source directly from students and leading educational websites, so you can forget about the time-consuming and frustrating search process through the tsunami of online content."
         },
         Personalization: {
             image: "how-spitball-works-3.png",

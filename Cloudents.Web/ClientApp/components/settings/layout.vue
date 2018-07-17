@@ -16,7 +16,7 @@
             <slot name="search" v-if="props.search">
                 <v-container class="search-wrapper">
                     <v-layout row justify-center>
-                        <v-flex><slot name="inputField"></slot></v-flex>
+                        <v-flex><slot solo name="inputField"></slot></v-flex>
                     </v-layout>
                     <v-container fluid slot="selectedItems" class="selected-items px-2 pt-3 pb-0" v-if="props.selectedCourse && props.selectedCourse.length">
                         <v-layout row wrap justify-start>

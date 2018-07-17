@@ -15,22 +15,22 @@
         min-width: 16px;
     }
 
-    &.toolbar {
+    &.v-toolbar {
         background-color: #ffffff;
     }
 
-    .toolbar__title {
+    .v-toolbar__title {
         .inTheMiddle();
         .responsive-property(padding-left, 26px, 0, 0);
     }
 
-    .toolbar__extension {
+    .v-toolbar__extension {
         @media(max-width: @screen-sm) {
             padding: 0 8px;
         }
     }
 
-    .toolbar__content {
+    .v-toolbar__content {
         max-width: 1280px;
         margin: 0 auto;
         //padding-left: 20px;
@@ -39,7 +39,7 @@
             padding-left: 0;
         }
 
-        .btn__content {
+        .v-btn__content {
             padding: 0 20px 4px 20px;
         }
     }
@@ -77,7 +77,7 @@
         flex-shrink: 0;
     }
 
-    .tabs__bar {
+    .v-tabs__bar {
         .vertical {
             font-size: 14px;
             font-weight: 600;
@@ -85,16 +85,17 @@
             letter-spacing: -0.2px;
             margin: 0 12px;
 
-            .tabs__item {
+            .v-tabs__item {
                 padding: 0;
                 text-transform: capitalize;
             }
         }
 
-        .tabs__slider {
+        .v-tabs__slider {
             height: 3px;
             background: #302eb5;
         }
+
     }
     /*background-color: #fff !important;
 

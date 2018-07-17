@@ -9,7 +9,7 @@
             <div class="content">
                 <ul class="list">
                     <li v-for="(item,id) in faqList" v-if="id<5">
-                        <router-link :to="{name:'faqSelect',params:{id:id}}" target='_blank'>{{item.question}}</router-link>
+                        <router-link :to="{name:'faq',query:{id:id}}" target='_blank'>{{item.question}}</router-link>
                     </li>
                 </ul>
 

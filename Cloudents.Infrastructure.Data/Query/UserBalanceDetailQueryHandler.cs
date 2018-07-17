@@ -15,13 +15,13 @@ namespace Cloudents.Infrastructure.Data.Query
 {
     public class UserBalanceDetailQueryHandler : IQueryHandler<UserDataByIdQuery, IEnumerable<BalanceDto>>
     {
-        private readonly ISession _session;
+        //private readonly ISession _session;
         private readonly UserRepository _userRepository;
 
-        public UserBalanceDetailQueryHandler(ReadonlySession session, UserRepository userRepository)
+        public UserBalanceDetailQueryHandler(/*ReadonlySession session,*/ UserRepository userRepository)
         {
             _userRepository = userRepository;
-            _session = session.Session;
+           // _session = session.Session;
         }
 
         public async Task<IEnumerable<BalanceDto>> GetAsync(UserDataByIdQuery query, CancellationToken token)

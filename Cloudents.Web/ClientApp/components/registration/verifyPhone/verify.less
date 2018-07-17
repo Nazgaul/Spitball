@@ -1,0 +1,438 @@
+@import "../../../mixin.less";
+
+.registration-dialog {
+  text-align: center;
+  @media (max-width: @screen-xs) {
+    margin: 16px;
+  }
+
+  .v-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 392px;
+    @media (max-width: @screen-xs) {
+      min-height: 363px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 16px;
+
+      i {
+        font-size: 16px;
+        color: @color-main-purple;
+      }
+    }
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: @color-main-purple;
+  }
+  p {
+    font-size: 18px;
+    letter-spacing: -0.3px;
+    text-align: center;
+    color: @color-grey;
+    margin-top: 14px;
+    margin-bottom: 18px;
+    line-height: 1.5;
+
+    b {
+      font-weight: bold;
+      color: @color-main-purple;
+      display: block;
+      margin-bottom: 4px;
+    }
+  }
+
+  .input-wrapper {
+    position: relative;
+    margin-top: 30px;
+
+    input {
+      margin-top: 0;
+      padding-left: 52px;
+      height: @registrationFieldHeight;
+      border-radius: 4px;
+      border: solid 1px #979797;
+      width: 100%;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+
+      ~ i {
+        position: absolute;
+        top: 14px;
+        left: 16px;
+      }
+    }
+  }
+  .continue-btn {
+    background: @color-main-purple;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.39;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    width: 100%;
+    height: @registrationFieldHeight;
+    @media (max-width: @screen-xs) {
+      width: 86%;
+    }
+    margin-top: 28px;
+  }
+
+  .limited-width {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 32px 0;
+    .custom {
+      padding: 40px 0 47px;
+      height: 393px;
+      @media (max-width: @screen-xs) {
+        padding: 52px 16px 10px;
+        height: 363px;
+      }
+      p {
+        margin-top: 0;
+        @media (max-width: @screen-xs) {
+          margin: 0 16px;
+        }
+      }
+    }
+  }
+
+}
+
+.registration {
+
+  .step-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    color: @color-main-purple;
+  }
+
+
+  .progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    position: absolute;
+    right: 0;
+    bottom: 52px;
+
+    @media (max-width: @screen-xs) {
+      bottom: 16px;
+      width: 100%;
+    }
+
+    div {
+      background: #d8d8d8;
+      width: 12px;
+      height: 12px;
+      border-radius: 100%;
+      margin: 6px;
+
+      &.highlighted {
+        background: @color-main-purple;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .signin-strip {
+    color: #888b8e;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #888b8e;
+    margin-top: 20px;
+
+    @media (max-width: @screen-xs) {
+      margin-top: 12px;
+      position: absolute;
+      bottom: 38px;
+      left: 0;
+      right: 0;
+    }
+
+    a {
+      color: @color-main-purple;
+    }
+
+    button {
+      color: @color-blue;
+    }
+  }
+}
+
+.small-button {
+  min-width: 160px;
+  height: 24px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  letter-spacing: -0.2px;
+  color: @color-main-purple;
+  margin: 12px 0;
+
+  i {
+    font-size: 14px;
+    margin-right: 8px;
+  }
+}
+
+#app > .overlay.overlay--active:before {
+  background-color: #000000;
+  opacity: 0.6;
+}
+
+.step-phone .step-wrapper {
+  .input-wrapper, select {
+    margin-top: 24px;
+  }
+
+  .phone-field input{
+    padding-left: 36px;
+    margin-top: 0;
+
+    ~ i {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+    }
+  }
+  .code-field input{
+    margin-top: 0;
+    padding-left: 50px;
+    margin-bottom: 4px;
+
+    ~ i {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+    }
+  }
+  .continue-btn {
+    margin-top: 24px;
+    &.submit-code {
+      margin-top: 12px;
+    }
+  }
+  .phone-num {
+    margin-top: 6px;
+  }
+  .confirm-title {
+    letter-spacing: -0.3px;
+    margin-top: 48px;
+  }
+
+  .limited-width.wide{
+    height: 315px;
+    p{max-width: none;}
+    .code-field,.continue-btn{max-width: 400px;  margin: 20px auto 0;}
+  }
+
+  /* For Firefox */
+  input[type='number'] {
+    -moz-appearance:textfield;
+  }
+  /* Webkit browsers like Safari and Chrome */
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+.back-button {
+  &.verify-close{
+    z-index: 9;
+  }
+  position: absolute;
+  top: 12px;
+  right: 4px;
+  padding: 8px;
+  @media (max-width: @screen-xs) {
+    top: 25px;
+  }
+  .sbf-close {
+    font-size: 16px;
+    color: @color-main-purple;
+  }
+}
+
+.step-wrapper {
+  text-align: center;
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
+  @media (max-width: @screen-xs) {
+    min-height: 90vh;
+    //height: 90vh;
+  }
+
+  .side-wrapper {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    position: relative;
+
+    &.image {
+      @media (max-width: @screen-xs) {
+        display: none;
+      }
+    }
+    &.data {
+      background: white;;
+      @media (max-width: @screen-xs) {
+        padding: 16px 14px 16px 16px;
+      }
+    }
+    .bottom-text {
+      position: absolute;
+      .responsive-property(bottom, 120px, null, 54px);
+      left: 0;
+      right: 0;
+    }
+  }
+
+  .step-title {
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  p {
+    font-size: 18px;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: @color-grey;
+    max-width: 350px;
+    margin: 0px auto;
+
+  }
+
+  .continue-btn {
+    background: @color-main-purple;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.39;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    width: 100%;
+    height: @registrationFieldHeight;
+    border-radius: 4px;
+    &:focus {
+      outline: none;
+    }
+    &:disabled {
+      background: @color-medium-grey;
+    }
+  }
+
+  .limited-width {
+    max-width: 400px;
+    width: 100%;
+    &.wide {
+      max-width: 422px;
+      .click {
+        cursor: pointer;
+      }
+      .inline {
+        display: inline-block;
+      }
+      .email-text {
+        color: @color-main-purple;
+      }
+    }
+  }
+  select {
+    height: @registrationFieldHeight;
+    width: 100%;
+    //margin-top: 36px;
+    border-radius: 4px;
+    border: solid 1px #979797;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    padding: 10px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+  select {
+    -webkit-appearance: menulist;
+
+    &:invalid {
+      color: #9b9b9b;
+    }
+    option {
+      color: @color-grey;
+      line-height: 36px;
+    }
+  }
+}
+.snack__content {
+  margin-top: 24px;
+  width: 616px;
+  height: 48px;
+  background-color: @color-blue;
+  font-size: 16px;
+  line-height: 1.35;
+  letter-spacing: -0.4px;
+  color: #ffffff;
+  .text-wrap {
+    width: 100%;
+    text-align: center;
+  }
+  .undo-btn {
+    text-decoration: underline;
+    margin-left: 42px;
+  }
+  .close-btn {
+    font-size: 0;
+    padding: 10px;
+    margin-right: -10px;
+    i {
+      color: @color-white;
+      font-size: 14px;
+    }
+  }
+  a{
+    color: @color-white;
+    text-decoration: underline;
+  }
+  a.toast_action{
+    height: 32px;
+    width: 60px;
+    border-radius: 26.5px;
+    border: solid 1px  @color-white;
+    font-size: 18px;
+    outline: none;
+    align-items: center;
+    justify-content: center;
+    color: @color-white;
+    letter-spacing: -0.5px;
+    padding: 0 20px;
+    min-width: 104px;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  span.toast-helper{
+    padding: 0 6px;
+  }
+}

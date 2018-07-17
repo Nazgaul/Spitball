@@ -8,14 +8,14 @@
     padding-right: 32px;
   }
 
-  .search-menu .type-AutoComplete .list__tile__title {
+  .search-menu .type-AutoComplete .v-list__tile__title {
     color: black;
 
     .highlight {
       color: #302eb5;
     }
 
-    .suggestion.focused .list__tile {
+    .suggestion.focused .v-list__tile {
       background: rgba(0, 0, 0, .12);
     }
   }
@@ -23,9 +23,23 @@
   .search-b-wrapper {
     position: relative;
     flex-grow: 1;
+    .v-input__prepend-outer{
+      margin-top: 3px;
+      margin-left: 12px;
+    }
+    .v-input__control{
+      min-height: 32px;
+      .v-input__slot{
+        box-shadow: none;
+        background: none;
+      }
+    }
     input[type="search"] {
       .clear-field-btn;
+       font-size: 14px;
     }
+
+
   }
   
   .search-b, .search-menu {
@@ -83,7 +97,7 @@
       }
     }
 
-    .list__tile__title {
+    .v-list__tile__title {
       color: #302eb5;
       height: 37px;
       font-size: 18px;
@@ -98,7 +112,7 @@
     /*.list__tile__title {
             line-height: normal;
         }*/
-    .list__tile {
+    .v-list__tile {
       height: 36px;
 
       @media (max-width: @screen-xs) {
@@ -106,14 +120,14 @@
       }
     }
 
-    .list__tile--link {
+    .v-list__tile--link {
       padding-left: 14px;
 
       @media (max-width: @screen-xs) {
         padding-left: 8px;
       }
 
-      .list__tile__action {
+      .v-list__tile__action {
         min-width: 0;
         padding-right: 16px;
         min-width: 40px;
@@ -125,7 +139,7 @@
         @media (max-width: @screen-xs) {
           min-width: 24px;
 
-          .icon {
+          .v-icon {
             font-size: 16px;
           }
 
@@ -146,7 +160,7 @@
     border-radius: 4px;
     z-index: 1;
 
-    i.icon {
+    i.v-icon {
       color: @color-white;
     }
 
@@ -161,14 +175,14 @@
 }
 
 .uni-field .search-menu {
-  .list__tile {
+  .v-list__tile {
     height: 56px;
     .suggestion-image {
       width: 40px;
       height: 40px;
     }
   }
-  .list__tile__title {
+  .v-list__tile__title {
     color: black;
 
     .highlight {

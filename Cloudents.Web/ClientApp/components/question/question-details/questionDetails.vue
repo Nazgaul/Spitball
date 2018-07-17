@@ -19,8 +19,10 @@
                     <question-thread v-if="questionData" :questionData="questionData"
                                      :showDialog="showDialog"
                                      :hasCorrectAnswer="getCorrectAnswer">
+
                         <div v-if="enableAnswer" slot="answer-form" class="mb-3">
-                            <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
+                            <transition name="fade">
+                            <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one" class="smoothAnimateFast">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                                     v-model="textAreaValue"
                                                     :error="errorTextArea"
@@ -32,10 +34,13 @@
                                        class="add_answer">Add your answer
                                 </v-btn>
                             </div>
-                            <div v-else class="show-form-trigger" @click="showAnswerField()">
+
+                            <div v-else class="show-form-trigger smoothAnimateSlow" @click="showAnswerField()"  key="two">
                                 <div><b>Know the answer?</b> Add it here!</div>
                             </div>
+                            </transition>
                         </div>
+
                     </question-thread>
                 </v-flex>
 
@@ -52,20 +57,20 @@
         <div v-else>
             <v-tabs grow>
 
-                <v-tabs-bar>
+                <!--<v-tabs-bar>-->
                     <v-tabs-slider color="blue"></v-tabs-slider>
-                    <v-tabs-item :href="'#tab-1'" :key="'1'">Question</v-tabs-item>
+                    <v-tab :href="'#tab-1'" :key="'1'">Question</v-tab>
                     <!--show chat tab only when logged in-->
-                    <v-tabs-item :href="'#tab-2'" :key="'2'" v-if="accountUser">Chat</v-tabs-item>
-                </v-tabs-bar>
+                    <v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser">Chat</v-tab>
+                <!--</v-tabs-bar>-->
 
-                <v-tabs-items>
+                <v-tab-item :key="'1'" :id="'tab-1'" class="tab-padding">
 
-                    <v-tabs-content :key="'1'" :id="'tab-1'" class="tab-padding">
+                    <!--<v-tabs-content :key="'1'" :id="'tab-1'" class="tab-padding">-->
                         <v-flex xs12>
                             <question-thread v-if="questionData" :questionData="questionData"
                                              :hasCorrectAnswer="getCorrectAnswer">
-                                <div slot="answer-form" class="answer-form mb-3 mt-3" v-if="enableAnswer">
+                                <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer">
                                     <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                         <extended-text-area uploadUrl="/api/upload/ask"
                                                             v-model="textAreaValue"
@@ -83,20 +88,21 @@
                                 </div>
                             </question-thread>
                         </v-flex>
-                    </v-tabs-content>
-
-                    <v-tabs-content :key="'2'" :id="'tab-2'">
+                    <!--</v-tabs-content>-->
+                </v-tab-item>
+                <v-tab-item :key="'2'" :id="'tab-2'">
+                    <!--<v-tabs-content >-->
                         <v-flex xs12>
                             <div ref="chat-area" class="chat-iframe"></div>
                         </v-flex>
-                    </v-tabs-content>
+                    <!--</v-tabs-content>-->
 
-                </v-tabs-items>
+                </v-tab-item>
 
             </v-tabs>
         </div>
-        <v-dialog v-model="showDialog" max-width="720px" content-class="question-suggest">
-            <question-suggest-pop-up></question-suggest-pop-up>
+        <v-dialog v-model="showDialog"  :fullscreen="$vuetify.breakpoint.xs" max-width="720px"  scrollable content-class="question-suggest">
+            <question-suggest-pop-up :user="questionData.user" :cardList="cardList"></question-suggest-pop-up>
         </v-dialog>
     </div>
 </template>

@@ -48,7 +48,7 @@ namespace Cloudents.Functions
             {
                 message.AddContent(new Content("text/plain", topicMessage.ToString()));
                 message.Subject = topicMessage.Subject;
-                log.Error("error with template name" + topicMessage.Template);
+                log.Warning("error with template name" + topicMessage.Template);
             }
 
             if (topicMessage.Template != null)
@@ -57,9 +57,9 @@ namespace Cloudents.Functions
                     new BlobAttribute($"mailcontainer/Spitball/{topicMessage.Template}-mail.html");
 
                 var blob = await binder.BindAsync<CloudBlockBlob>(dynamicBlobAttribute, token).ConfigureAwait(false);
-                if (await blob.ExistsAsync(token))
+                if (await blob.ExistsAsync(token).ConfigureAwait(false))
                 {
-                    var htmlTemplate = await blob.DownloadTextAsync(token);
+                    var htmlTemplate = await blob.DownloadTextAsync(token).ConfigureAwait(false);
 
                     if (!blob.Metadata.TryGetValue("subject", out var subject))
                     {

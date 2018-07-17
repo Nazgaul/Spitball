@@ -1,15 +1,16 @@
 @import "../../../mixin.less";
 .cash-out-card {
   border: solid 1px #dddddd;
-  max-width: 577px;
+  max-width: 450px;
   width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
   padding: 8px;
+  flex-direction: row-reverse;
   &.active {
-    border: 1px dashed #9b9b9b;
+    border: 1px solid @Dividers;
     .points {
       .num, .data .text {
         color: @color-main-purple;
@@ -22,30 +23,40 @@
   .data {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin: 0 auto;
   }
-
+  .points-wrap{
+    padding-left: 9px;
+    align-items: flex-start;
+    padding-bottom: 12px;
+  }
   .points {
     display: flex;
-    align-items: center;
+    flex-direction: row-reverse;
+    align-items: baseline;
+    margin-top: 16px;
+
 
     @media(max-width: @screen-xs){
-      flex-direction: column;
-      align-items: flex-start;
+      //flex-direction: column;
+      //align-items: flex-start;
     }
 
     .num {
       font-weight: bold;
-      .responsive-property(font-size, 42px, null, 38px);
+      padding-left: 4px;
+      .responsive-property(font-size, 42px, null, 34px);
       .responsive-property(line-height, 0.48, null, 30px);
       letter-spacing: -0.6px;
       color: #5d5d5d;
+
     }
 
     .data {
       text-align: left;
       @media(min-width: @screen-xs){
-        margin-left: 4px;
+        //margin-left: 4px;
       }
       .text {
         font-size: 14px;
@@ -53,6 +64,9 @@
         line-height: 1.43;
         letter-spacing: -0.3px;
         color: #5d5d5d;
+        @media(max-width: @screen-xs){
+          font-size: 12px;
+        }
       }
 
       .dollar-val {
@@ -60,6 +74,7 @@
         line-height: 1;
         letter-spacing: -0.3px;
         color: #5d5d5d;
+
       }
     }
   }
@@ -67,11 +82,14 @@
   .redeem-btn {
     border-radius: 2px;
     background-color: #d8d8d8;
-    width: 112px;
+    width: 134px;
     line-height: 24px;
     font-size: 14px;
     font-weight: bold;
     letter-spacing: -0.3px;
     color: #ffffff;
+    @media(max-width: @screen-xs){
+      width: 110px;
+    }
   }
 }

@@ -1,6 +1,10 @@
 @import "../../../../mixin.less";
 
-.step-account .step-wrapper, .dialog .limited-width.custom {
+.step-account .step-wrapper, .v-dialog .limited-width.custom {
+  .blue-points{
+    color: @color-main-purple;
+  }
+
   .continue-btn {
     margin-top: 13px;
     @media (max-width: @screen-xs) {
@@ -9,8 +13,11 @@
   }
 
   .done {
+    p.congrats{
+      margin-bottom: 32px;
+    }
     h1 {
-      margin-bottom: 6px;
+      margin-bottom: 26px;
     }
     .continue-btn {
       margin-top: 100px;

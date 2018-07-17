@@ -20,8 +20,8 @@
       position: relative;
     }
 
-    .tabs__slider {
-      margin-bottom: 2px;
+    .v-tabs__slider.white {
+      margin-bottom: 8px;
     }
     .header {
       height: 76px;
@@ -37,57 +37,68 @@
         letter-spacing: -0.5px;
         text-align: center;
         color: #ffffff;
-        .responsive-property(margin-left, 32px, null, 16px);
+        .responsive-property(margin-left, 16px, null, 16px);
 
       }
 
-      .back-button {
+      .back-button.wallet {
         margin-right: 14px;
-        margin-bottom: 12px;
+        margin-bottom: 2px;
         width: 17px;
         position: relative;
         outline: none;
-        @media (max-width: @screen-xs) {
+        top: 0;
+        @media (max-width: @screen-sm) {
+          top: 0;
         }
-        .icon {
+        .v-icon {
           color: @color-white;
           font-size: 16px;
         }
       }
     }
-    .tabs-wrapper {
+    .tabs-wrapper, v-tabs__wrapper {
       background-color: @color-main-purple;
       color: @color-white;
       //padding: 24px 13px 0 15px;
       margin-bottom: 11px;
       padding-left: 16px;
+      @media (max-width: @screen-xs) {
+        padding-left: 0;
+      }
     }
 
-    .tabs__bar {
+    .v-tabs__bar {
       height: 42px;
+      background-color: @color-main-purple;
+      color: @color-white;
       @media (max-width: @screen-xs) {
-        height: 54px;
+        height: 42px;
         margin-top: 0;
       }
 
     }
-    .tabs:not(.tabs--centered):not(.tabs--grow):not(.tabs--mobile) .tabs__wrapper--scrollable, .tabs:not(.tabs--centered):not(.tabs--grow) .tabs__wrapper--scrollable {
+    .v-tabs{
       margin: 0;
 
-      .tabs__li {
+      .v-tabs__li {
         margin-right: 16px;
       }
-      .tabs__item {
+      .v-tabs__item {
         color: @color-white !important;
         font-size: 16px;
         letter-spacing: -0.2px;
         text-transform: none;
         padding: 0 16px 8px 16px;
-        &.tabs__item--active {
+        @media (max-width: @screen-xs) {
+          padding: 6px 12px;
+        }
+        &.v-tabs__item--active {
           font-weight: bold;
           letter-spacing: -0.3px;
         }
       }
+
 
     }
 
@@ -97,6 +108,7 @@
       // line-height: 1.56;
       letter-spacing: -0.4px;
       border: none;
+
 
       thead {
         background-color: #f3f3ff;
@@ -155,7 +167,7 @@
       height: 100%;
       max-height: 344px;
       text-transform: capitalize;
-      .table {
+      .v-table {
         thead {
           background-color: #f3f3ff;
           tr {
@@ -263,7 +275,7 @@
         margin: 16px;
       }
 
-      .pagination {
+      .v-pagination {
         i.sbf {
           font-size: 17px;
           color: @color-main-purple;
@@ -271,7 +283,7 @@
             transform: scale(-1, 1);
           }
         }
-        .pagination__item, .pagination__navigation, .pagination__item--active.primary {
+        .v-pagination__item, .v-pagination__navigation, .v-pagination__item--active.primary {
           background: none !important;
           border: none;
           box-shadow: none;
@@ -283,10 +295,10 @@
           color: #000000;
           outline: none;
         }
-        .pagination__navigation {
+        .v-pagination__navigation {
           margin: 0 17px;
         }
-        .pagination__item--active.primary {
+        .v-pagination__item--active.primary {
           color: #000000;
           font-weight: bold;
 
@@ -301,7 +313,7 @@
     .responsive-property(margin-top, 22px, null, 16px);
     padding-bottom: 32px;
     .text-wrap {
-      .responsive-property(margin-bottom, 32px, null, 24px);
+      .responsive-property(margin-bottom, 32px, null, 16px);
       .responsive-property(font-size, 24px, null, 20px);
       color: @color-grey;
       letter-spacing: -0.7px;
@@ -341,8 +353,8 @@
     font-size: 20px;
     letter-spacing: -0.5px;
     @media (max-width: @screen-xs) {
-      position: absolute;
-      bottom: 26px;
+      //position: absolute;
+      //bottom: 26px;
     }
     .btn-wrap {
       //padding-right: 185px;
