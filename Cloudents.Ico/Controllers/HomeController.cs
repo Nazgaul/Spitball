@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message;
+using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Mvc;
 using Cloudents.Ico.Models;
 
@@ -10,28 +13,60 @@ namespace Cloudents.Ico.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly Lazy<IServiceBusProvider> _serviceBus;
+
+        public HomeController(Lazy<IServiceBusProvider> serviceBus)
+        {
+            _serviceBus = serviceBus;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        [HttpPost("contact")]
+        public async Task<IActionResult> ContactUs(ContactUs model, CancellationToken token)
         {
-            ViewData["Message"] = "Your application description page.";
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
 
-            return View();
+            }
+
+            await _serviceBus.Value.InsertMessageAsync(new ContactUsEmail(model.Name, model.Email, model.Text), token);
+            return Ok();
         }
 
-        public IActionResult Contact()
+        [HttpPost("subscribe")]
+        public async Task<IActionResult> Subscribe(Subscribe model, CancellationToken token)
         {
-            ViewData["Message"] = "Your contact page.";
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
 
-            return View();
+            }
+            await _serviceBus.Value.InsertMessageAsync(new ContactUsEmail(model.Email), token);
+            return Ok();
         }
 
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //public IActionResult About()
+        //{
+        //    ViewData["Message"] = "Your application description page.";
+
+        //    return View();
+        //}
+
+        //public IActionResult Contact()
+        //{
+        //    ViewData["Message"] = "Your contact page.";
+
+        //    return View();
+        //}
+
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
     }
 }

@@ -47,13 +47,13 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             container = builder.Build();
 
-            // var _serviceBusProvider = container.Resolve<IServiceBusProvider>();
+            var _serviceBusProvider = container.Resolve<IServiceBusProvider>();
 
-            // await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(100, 587), default);
-            var bus = container.Resolve<IQueryBus>();
+             await _serviceBusProvider.InsertMessageAsync(new ContactUsEmail("ram@cloudents.com"), default);
+            //var bus = container.Resolve<IQueryBus>();
 
-            var t = new NextQuestionQuery(121, 638);
-            var z = await bus.QueryAsync<IEnumerable<QuestionDto>>(t, default);
+            //var t = new NextQuestionQuery(121, 638);
+            //var z = await bus.QueryAsync<IEnumerable<QuestionDto>>(t, default);
 
 
             //var message = new RegistrationEmail("ram@cloudents.com", "https://dev.spitball.co");

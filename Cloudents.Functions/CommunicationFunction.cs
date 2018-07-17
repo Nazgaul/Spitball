@@ -48,7 +48,7 @@ namespace Cloudents.Functions
             {
                 message.AddContent(new Content("text/plain", topicMessage.ToString()));
                 message.Subject = topicMessage.Subject;
-                log.Error("error with template name" + topicMessage.Template);
+                log.Warning("error with template name" + topicMessage.Template);
             }
 
             if (topicMessage.Template != null)
