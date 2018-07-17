@@ -59,18 +59,15 @@ namespace Cloudents.Core.Entities.Db
             Transactions.Add(t);
         }
 
-        private const decimal InitialBalance = 100;
 
         public virtual void UserCreateTransaction()
         {
-            var t =  new Transaction(ActionType.SignUp, TransactionType.Awarded, InitialBalance);
+            var t = Transaction.UserCreate();
+            //new Transaction(ActionType.SignUp, TransactionType.Awarded, InitialBalance);
             AddTransaction(t);
         }
 
-
         public virtual decimal Balance { get; protected set; }
-
-        
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         protected internal virtual IList<Transaction> Transactions { get; set; }
