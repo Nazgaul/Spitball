@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
 using JetBrains.Annotations;
+
+[assembly: InternalsVisibleTo("Cloudents.Infrastructure.Data")]
 
 namespace Cloudents.Core.Entities.Db
 {
@@ -43,6 +46,8 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual IList<Answer> Answers { get; protected set; }
 
+        protected internal virtual IList<Transaction> Transactions { get; set; }
+
 
         public virtual void QuestionCreateTransaction()
         {
@@ -52,6 +57,10 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual void QuestionDeleteTransaction()
         {
+            foreach (var transaction in Transactions)
+            {
+                transaction.Question = null;
+            }
             var t =  Transaction.QuestionDelete(this);// new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
             User.AddTransaction(t);
         }
