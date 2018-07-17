@@ -1090,7 +1090,8 @@ a {
     }
 
     .theme-muscari .btn {
-        background: #3455ff;
+        /* background: #3455ff; */
+        background: #3532d5;
         border-radius: 4px;
     }
 
@@ -1162,8 +1163,8 @@ a {
     }
 
     .theme-muscari .site-header.has-fixed .navbar .btn.btn-outline {
-        border-color: #3455ff;
-        color: #3455ff;
+        border-color: #3532d5;
+        color:#3532d5;
     }
 
     .theme-muscari .navbar-toggler {
@@ -1215,7 +1216,7 @@ a {
     }
 
     .theme-muscari .roadmap-done h6:after {
-        background: #3455ff;
+        background: #3532d5;
     }
 
     .theme-muscari .team-member {
@@ -1233,10 +1234,10 @@ a {
         .theme-muscari .team-member .team-title {
             color: #3455ff;
         }
-
+/* 
         .theme-muscari .team-member .team-photo:before {
             background: rgba(52, 85, 255, 0.4);
-        }
+        } */
 
         .theme-muscari .team-member .team-photo:after {
             background: #ffc123;
