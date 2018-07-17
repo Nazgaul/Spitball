@@ -47,7 +47,7 @@ export default {
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
                 questionService.answerQuestion(self.id, self.textAreaValue, self.answerFiles)
-                    .then(function (response) {
+                    .then(function (resp) {
                         //TODO: do this on client side (render data inserted by user without calling server) - see commented out below - all that's left is asking ram to return the answerId in response
                         // var creationTime = new Date();
                         // self.questionData.answers.push({
@@ -65,9 +65,10 @@ export default {
                             toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
                             showToaster: true,
                         });
+                        console.log(resp);
                         self.cardList =[];
-                        self.cardList = response.data.nextQuestions;
-                         self.showDialog = true; // question suggest popup dialog
+
+                        self.showDialog = true; // question suggest popup dialog
 
                     }, () => {
 
