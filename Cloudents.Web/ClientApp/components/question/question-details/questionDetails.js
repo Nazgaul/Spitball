@@ -65,9 +65,12 @@ export default {
                             toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
                             showToaster: true,
                         });
-                        console.log(resp);
+                        console.log('resp',resp);
                         self.cardList =[];
-
+                        if(resp.data.nexnextQuestions){
+                            self.cardList = resp.data.nextQuestions;
+                            console.log('SELF ARR', self.cardList)
+                        }
                         self.showDialog = true; // question suggest popup dialog
 
                     }, () => {
@@ -78,7 +81,9 @@ export default {
                         });
                         self.submitForm(false);
                         self.updateLoading(true);
-                    });
+                    }).then(data=>{
+
+                });
             }
         },
 
