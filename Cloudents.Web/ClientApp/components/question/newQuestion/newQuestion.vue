@@ -42,7 +42,7 @@
                     <!--{{currentSum | fixedPoints}} SBL-->
                 <!--</v-flex>-->
 
-                <v-flex xs12 v-if="currentSum "
+                <v-flex xs12 v-if="currentSum"
                         :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have
                     {{currentSum | fixedPoints}} SBL
                 </v-flex>

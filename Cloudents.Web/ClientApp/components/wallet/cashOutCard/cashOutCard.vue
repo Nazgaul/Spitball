@@ -1,11 +1,11 @@
 <template>
     <div class="cash-out-card" :class="{'active':available}">
-        <div class="data">
+        <div class="data points-wrap">
             <div class="points">
-                <div class="num">{{cost}}</div>
+                <div class="num">{{cost | commasFilter}}</div>
                 <div class="data">
-                    <div class="text">SBL</div>
-                    <div class="dolar-val">{{pointsForDollar}} SBL = $1</div>
+                    <div class="text dolar-val">SBL</div>
+                    <!--<div class="dolar-val">{{pointsForDollar}} SBL = $1</div>-->
                 </div>
             </div>
             <button class="redeem-btn" @click="redeem(cost)">Redeem</button>

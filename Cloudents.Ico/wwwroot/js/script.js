@@ -564,5 +564,11 @@
         );
     }
 
+     //Telegr4am pop fade out on close
+    $("#closeTelegramPopUp").click(function(){
+        $("#telegramPopUp").fadeOut( "slow", function() {
+            // Animation complete.
+          });
+    });
 
 })(jQuery);

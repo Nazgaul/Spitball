@@ -6,7 +6,7 @@ export default {
     },
     props: {
         user: {},
-        cardList:{ type: Array, required: false},
+        cardList:{  required: false},
     },
     data() {
         return {
@@ -14,7 +14,6 @@ export default {
             interval: 7000,
 
         }
-
     },
     beforeRouteLeave(to, from, next) {
         this.resetQuestion();

@@ -19,8 +19,10 @@
                     <question-thread v-if="questionData" :questionData="questionData"
                                      :showDialog="showDialog"
                                      :hasCorrectAnswer="getCorrectAnswer">
+
                         <div v-if="enableAnswer" slot="answer-form" class="mb-3">
-                            <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
+                            <transition name="fade">
+                            <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one" class="smoothAnimateFast">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                                     v-model="textAreaValue"
                                                     :error="errorTextArea"
@@ -32,10 +34,13 @@
                                        class="add_answer">Add your answer
                                 </v-btn>
                             </div>
-                            <div v-else class="show-form-trigger" @click="showAnswerField()">
+
+                            <div v-else class="show-form-trigger smoothAnimateSlow" @click="showAnswerField()"  key="two">
                                 <div><b>Know the answer?</b> Add it here!</div>
                             </div>
+                            </transition>
                         </div>
+
                     </question-thread>
                 </v-flex>
 

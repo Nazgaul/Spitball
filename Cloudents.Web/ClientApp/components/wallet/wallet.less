@@ -37,7 +37,7 @@
         letter-spacing: -0.5px;
         text-align: center;
         color: #ffffff;
-        .responsive-property(margin-left, 32px, null, 16px);
+        .responsive-property(margin-left, 16px, null, 16px);
 
       }
 
@@ -63,6 +63,9 @@
       //padding: 24px 13px 0 15px;
       margin-bottom: 11px;
       padding-left: 16px;
+      @media (max-width: @screen-xs) {
+        padding-left: 0;
+      }
     }
 
     .v-tabs__bar {
@@ -70,7 +73,7 @@
       background-color: @color-main-purple;
       color: @color-white;
       @media (max-width: @screen-xs) {
-        height: 54px;
+        height: 42px;
         margin-top: 0;
       }
 
@@ -87,11 +90,15 @@
         letter-spacing: -0.2px;
         text-transform: none;
         padding: 0 16px 8px 16px;
+        @media (max-width: @screen-xs) {
+          padding: 6px 12px;
+        }
         &.v-tabs__item--active {
           font-weight: bold;
           letter-spacing: -0.3px;
         }
       }
+
 
     }
 
@@ -306,7 +313,7 @@
     .responsive-property(margin-top, 22px, null, 16px);
     padding-bottom: 32px;
     .text-wrap {
-      .responsive-property(margin-bottom, 32px, null, 24px);
+      .responsive-property(margin-bottom, 32px, null, 16px);
       .responsive-property(font-size, 24px, null, 20px);
       color: @color-grey;
       letter-spacing: -0.7px;

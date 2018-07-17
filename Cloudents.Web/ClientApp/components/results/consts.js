@@ -76,11 +76,8 @@ export const skeletonData = {
 //     job: {
 //         title: "Jobs",
 //         content: "Easily search and apply to paid internships, part-time and entry-level jobs from local businesses to Fortune 500 companies."
-//     },
-//     food: {
-//         title: "Food and Deals",
-//         content: "Discover exclusive deals to local businesses, restaurants and bars near campus."
 //     }
+//
 // };
 
 
