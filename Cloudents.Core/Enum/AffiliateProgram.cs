@@ -23,7 +23,7 @@
         SignUp,
         Question,
         DeleteQuestion,
-        QuestionCorrect,
+        AnswerCorrect,
         CashOut
     }
 }
