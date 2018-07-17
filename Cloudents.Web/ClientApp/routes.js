@@ -1,4 +1,3 @@
-import registerAccount from "./components/registration/steps/registerAccount/registerAccount.vue";
 
 //const HomePage = () => import("./components/home/home.vue");
 import * as RouteTypes from "./routeTypes";
@@ -18,6 +17,7 @@ const documentPreviewHeader = () => import("./components/preview/headerDocument.
 const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
 const registration = () => import("./components/registration/registration.vue");
 const signin = () => import("./components/registration/signin.vue");
+const registerAccount = () => import("./components/registration/steps/registerAccount/registerAccount.vue");
 const newQuestion = () => import("./components/question/newQuestion/newQuestion.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const viewProfile = () => import("./components/profile/profile.vue");
@@ -211,18 +211,6 @@ let routes2 = [
         }, name: "registration",
     },
 
-    // {
-    //     path: "/verify-phone",
-    //     components: {
-    //         default: registration,
-    //     },
-    //     name: "registrationVerify",
-    //     props: {
-    //         default: {autoIncrementStep: true}
-    //     },
-    // },
-
-    //try to fix registration
     {
         path: "/verify-phone",
         components: {
@@ -245,6 +233,7 @@ let routes2 = [
             default: signin
         }, name: "signin"
     },
+
     {
         path: "/conversations",
         name: "conversations",

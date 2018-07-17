@@ -15,5 +15,8 @@ export default {
             this.$router.push({path: '/ask', query: {q: ''}});
         }
     },
+    created() {
+        debugger;
+    }
 
 };
