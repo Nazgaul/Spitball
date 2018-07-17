@@ -35,19 +35,24 @@ namespace Cloudents.Web.Api
             var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "email not found");
+                ModelState.AddModelError(string.Empty, "Email not found");
                 return BadRequest(ModelState);
             }
-            var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
-            var taskSms = client.SendSmsAsync(user, token);
 
-            TempData["SMS"] = user.Email;
-            await Task.WhenAll(taskSms, taskSignIn).ConfigureAwait(false);
-            if (taskSignIn.Result.RequiresTwoFactor)
+            if (user.EmailConfirmed && user.PhoneNumberConfirmed)
             {
-                return Ok();
+                var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
+                var taskSms = client.SendSmsAsync(user, token);
+
+                TempData["SMS"] = user.Email;
+                await Task.WhenAll(taskSms, taskSignIn).ConfigureAwait(false);
+                if (taskSignIn.Result.RequiresTwoFactor)
+                {
+                    return Ok();
+                }
             }
-            ModelState.AddModelError(string.Empty,"Some error");
+
+            ModelState.AddModelError(string.Empty, "You need to finish registration process");
             return BadRequest(ModelState);
         }
     }
