@@ -31,8 +31,15 @@ export default {
                 this.updateLoading(true);
                 registrationService.emailRegistration(this.userEmail, this.recaptcha)
                     .then(function (resp) {
-                        resp["step"] = 'confirmEmail';
-                        // this.router.push({ name: 'verify-phone', params: { codeSent: true }})
+                        // TODO step
+                        let step = resp.data.step;
+                        console.log('step', resp);
+                        if(step === "emailConfirmed"){
+                            self.emailSent = true;
+                        }else{
+                            self.$router.push({ name: 'phoneVerify', params: { code: `${step}` }});
+                        }
+
                         self.updateLoading(false);
                         self.emailSent = true;
                     }, function (error) {
@@ -53,9 +60,13 @@ export default {
                 authInstance.signIn().then(function (googleUser) {
                     var idToken = googleUser.getAuthResponse().id_token;
                     registrationService.googleRegistration(idToken)
-                        .then(function () {
+                        .then(function (resp) {
+                            let step = resp.data.step;
+                            console.log('google', step);
+                             self.$router.push({ name: 'phoneVerify', params: { code: `${step}` }});
+                            // }
                             self.updateLoading(false);
-                            self.$emit('next');
+                            // self.$emit('next');
                         }, function (error) {
                             //TODO: duplicate callback
                             self.updateLoading(false);
@@ -96,7 +107,13 @@ export default {
         });
     },
     created(){
-        this.$router.push({ name: 'phoneVerify', params: { code: 'test' }})
+        console.log(this.$route.params.code);
+        if(this.$route.params.code &&  this.$route.params.code ==='emailConfirmed'){
+        this.emailSent = true;
+        }else if(this.$route.params.code &&  this.$route.params.code ==='verifyPhone'){
+            this.$router.push({ name: 'phoneVerify', params: { code: `${step}` }});
+        }
+
     }
 };
 

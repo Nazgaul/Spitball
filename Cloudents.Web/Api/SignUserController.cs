@@ -82,6 +82,7 @@ namespace Cloudents.Web.Api
                             step = NextStep.EmailConfirmed
                         });
                     }
+                    await _signInManager.SignInTwoFactorAsync(user, false);
                     return Ok(new
                     {
                         step = NextStep.EnterPhone

@@ -3,6 +3,7 @@ import codesJson from './CountryCallingCodes';
 import submitDisable from '../../mixins/submitDisableMixin'
 import {mapMutations, mapActions, mapGetters} from 'vuex'
 import registration from '../registration.vue';
+
 ﻿import registrationService from '../../../services/registrationService'
 import SbInput from "../../question/helpers/sbInput/sbInput.vue";
 import {REGISTRATION_STEPS} from "../../../store/constants";
@@ -11,7 +12,6 @@ export default {
     mixins: [submitDisable],
     components: {stepTemplate, SbInput},
     props: {
-        code: '',
         default: false,
     },
     data() {
@@ -33,7 +33,7 @@ export default {
 
         }
     },
-    watch:{
+    watch: {
         getShowToaster: function (val) {
             if (val) {
 
@@ -49,22 +49,26 @@ export default {
         //     console.log('code', this.props.code)
         //     return  this.props.code;
         // }
-     },
-    computed:{
-        ...mapGetters({getShowToaster:'getShowToaster', getToasterText:'getToasterText'}),
+    },
+    computed: {
+        ...mapGetters({getShowToaster: 'getShowToaster', getToasterText: 'getToasterText'}),
+        // codeWatch(){
+        //     return this.code
+        // }
+
     },
     methods: {
-        ...mapMutations({updateLoading:"UPDATE_LOADING"}),
+        ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         ...mapActions({updateToasterParams: 'updateToasterParams'}),
 
         $_back() {
             let url = this.fromPath || {path: '/ask', query: {q: ''}};
             this.$router.push({...url});
         },
-        showDialogFunc(){
+        showDialogFunc() {
             this.showDialog = true
         },
-        hideDialog(){
+        hideDialog() {
             this.showDialog = false
         },
         sendCode() {
@@ -96,8 +100,13 @@ export default {
                     .then(function () {
                         self.updateLoading(false);
                         //got to congratulations route
+                        console.log('code in verify ', self.props);
+                        if(self.codeSent === true){
+                            window.isAuth = true;
+                            self.$router.push({path: '/ask', query: {q: ''}});
+                            return
+                        }
                         self.$router.push({path: '/congrats'});
-
                     }, function (error) {
                         self.submitForm(false);
                         self.updateLoading(false);
@@ -116,10 +125,18 @@ export default {
     //     this.incrementRegistrationStep();
     //     this.step = this.getRegistrationStep;
     // },
-    created(){
-        registrationService.getLocalCode().then(({data})=>{
-            this.phone.countryCode=data.code;
+    created() {
+        registrationService.getLocalCode().then(({data}) => {
+            this.phone.countryCode = data.code;
         });
-        console.log('props code',this.code, 'code',this.$route.params )
+        console.log('props code', this.code, 'code', this.$route.params.code);
+        this.code = this.$route.params.code;
+        if (this.code !== '' && this.code === 'enterPhone') {
+            this.codeSent = false
+        } else if (this.code === 'verifyPhone') {
+            this.codeSent = true
+        }
+
     }
+
 }

@@ -36,8 +36,12 @@ export default {
             this.updateLoading(true);
             self = this;
             registrationService.signIn(this.userEmail, this.recaptcha)
-                .then(({ step }) => {
-                    //TODO: NewSignIn step result
+                .then((response) => {
+                    let step = response.data.step;
+                    if(step ==='emailConfirmed'){
+                        self.$router.push({ name: 'registration', params: { code: `${step}` }});
+                    }
+;                    //TODO: NewSignIn step result
                     self.updateLoading(false);
                     self.codeSent = true;
                 }, function (reason) {
