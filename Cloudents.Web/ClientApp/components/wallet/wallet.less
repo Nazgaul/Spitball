@@ -37,7 +37,8 @@
         letter-spacing: -0.5px;
         text-align: center;
         color: #ffffff;
-        .responsive-property(margin-left, 32px, null, 16px);
+        margin-left: 16px;
+        //.responsive-property(margin-left, 16px, null, 16px);
 
       }
 
@@ -62,11 +63,14 @@
       color: @color-white;
       //padding: 24px 13px 0 15px;
       margin-bottom: 11px;
-      padding-left: 16px;
+     // padding-left: 16px;
     }
 
     .tabs__bar {
       height: 42px;
+      i.icon--right{
+        display: none!important;
+      }
       @media (max-width: @screen-xs) {
         height: 54px;
         margin-top: 0;

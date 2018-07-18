@@ -2,13 +2,14 @@
     <div class="wallet-page">
 
         <div class="flex data-section">
-            <div class="header">
+            <div class="header ">
                 <span class="header-title">My Wallet</span>
                 <button class="back-button wallet" @click="cashOut ? cashOut = false : $router.go(-1)">
                     <v-icon right>sbf-close</v-icon>
                 </button>
             </div>
-            <v-tabs v-if="!cashOut">
+            <!--class="pl-3" style="background: #3532d5"-->
+            <v-tabs v-if="!cashOut" >
                 <div class="tabs-wrapper">
                     <v-tabs-bar fixed>
                         <v-tabs-slider color="white"></v-tabs-slider>
