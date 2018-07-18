@@ -216,6 +216,8 @@ let routes2 = [
         components: {
             default: verifyPhone,
         },
+        // props: { newsletterPopup: false },
+
         name: "phoneVerify",
 
     },

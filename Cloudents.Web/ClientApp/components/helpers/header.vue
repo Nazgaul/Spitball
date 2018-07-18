@@ -95,7 +95,7 @@
             tutor: "Find a tutor...",
             note: "Find study documents in...",
             book: "Textbook title or ISBN...",
-            ask: "Ask anything...",
+            ask: "Search questions",
             flashcard: "Look for flashcards...",
         },
         data() {

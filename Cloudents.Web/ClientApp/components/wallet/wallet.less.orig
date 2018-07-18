@@ -37,15 +37,24 @@
         letter-spacing: -0.5px;
         text-align: center;
         color: #ffffff;
+<<<<<<< HEAD
+        .responsive-property(margin-left, 16px, null, 16px);
+=======
         margin-left: 16px;
         //.responsive-property(margin-left, 16px, null, 16px);
+>>>>>>> w14
 
       }
 
       .back-button.wallet {
         margin-right: 14px;
+<<<<<<< HEAD
         margin-bottom: 2px;
+        width: 17px;
+=======
+        margin-bottom: 0;
         width: 30px;
+>>>>>>> w14
         position: relative;
         outline: none;
         top: 0;
@@ -63,17 +72,26 @@
       color: @color-white;
       //padding: 24px 13px 0 15px;
       margin-bottom: 11px;
-     // padding-left: 16px;
+<<<<<<< HEAD
+      padding-left: 16px;
       @media (max-width: @screen-xs) {
         padding-left: 0;
       }
+=======
+     // padding-left: 16px;
+>>>>>>> w14
     }
 
     .v-tabs__bar {
       height: 42px;
+<<<<<<< HEAD
+      background-color: @color-main-purple;
+      color: @color-white;
+=======
       i.icon--right{
         display: none!important;
       }
+>>>>>>> w14
       @media (max-width: @screen-xs) {
         height: 42px;
         margin-top: 0;
