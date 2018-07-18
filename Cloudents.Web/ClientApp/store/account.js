@@ -51,9 +51,11 @@ const getters = {
 };
 const actions = {
     logout({ state, commit }) {
-        accountService.logout();
-        commit("logout");
-        router.go({path: '/ask', query: {q: ''}});
+        // accountService.logout();
+        // commit("logout");
+
+        window.location.replace("/logout");
+        //router.go({path: '/logout'});
     },
     userStatus({ dispatch, commit, getters }, { isRequire, to }) {
         const $this = this;

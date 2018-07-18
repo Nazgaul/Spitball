@@ -7,6 +7,6 @@ export default {
     getUserName: () => axios.get("/Account/userName"),
     // setUniversity: (universityId) => axios.post("/Account/university", {universityId}),
     getProfile:(id) => axios.get("/Profile/" + id),
-    logout: () => axios.post("/Account/logout"),
+    // logout: () => axios.post("/Account/logout"),
     calculateDollar:(balance)=>dollarCalculate(balance).toFixed(2)
 }

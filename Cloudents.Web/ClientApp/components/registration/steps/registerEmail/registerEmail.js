@@ -22,9 +22,9 @@ export default {
     },
     methods: {
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
-        ...mapActions({updateToasterParams: 'updateToasterParams'
+        ...mapActions({
+            updateToasterParams: 'updateToasterParams'
         }),
-
         next() {
             self = this;
             if (this.submitForm()) {
@@ -34,10 +34,10 @@ export default {
                         // TODO step
                         let step = resp.data.step;
                         console.log('step', resp);
-                        if(step === "emailConfirmed"){
+                        if (step === "emailConfirmed") {
                             self.emailSent = true;
-                        }else{
-                            self.$router.push({ name: 'phoneVerify', params: { code: `${step}` }});
+                        } else {
+                            self.$router.push({name: 'phoneVerify', params: {code: `${step}`}});
                         }
 
                         self.updateLoading(false);
@@ -63,7 +63,7 @@ export default {
                         .then(function (resp) {
                             let step = resp.data.step;
                             console.log('google', step);
-                             self.$router.push({ name: 'phoneVerify', params: { code: `${step}` }});
+                            self.$router.push({name: 'phoneVerify', params: {code: `${step}`}});
                             // }
                             self.updateLoading(false);
                             // self.$emit('next');
@@ -89,7 +89,7 @@ export default {
                         })
                     },
                     error => {
-                        console.error('resent error',error)
+                        console.error('resent error', error)
                     })
         },
         onVerify(response) {
@@ -106,12 +106,12 @@ export default {
             });
         });
     },
-    created(){
+    created() {
         console.log(this.$route.params.code);
-        if(this.$route.params.code &&  this.$route.params.code ==='emailConfirmed'){
-        this.emailSent = true;
-        }else if(this.$route.params.code &&  this.$route.params.code ==='verifyPhone'){
-            this.$router.push({ name: 'phoneVerify', params: { code: `${step}` }});
+        if (this.$route.params.code && this.$route.params.code === 'emailConfirmed') {
+            this.emailSent = true;
+        } else if (this.$route.params.code && this.$route.params.code === 'verifyPhone') {
+            this.$router.push({name: 'phoneVerify', params: {code: `${step}`}});
         }
 
     }
