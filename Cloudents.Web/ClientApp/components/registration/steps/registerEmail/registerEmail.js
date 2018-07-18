@@ -30,7 +30,9 @@ export default {
             if (this.submitForm()) {
                 this.updateLoading(true);
                 registrationService.emailRegistration(this.userEmail, this.recaptcha)
-                    .then(function () {
+                    .then(function (resp) {
+                        resp["step"] = 'confirmEmail';
+                        // this.router.push({ name: 'verify-phone', params: { codeSent: true }})
                         self.updateLoading(false);
                         self.emailSent = true;
                     }, function (error) {
@@ -92,6 +94,9 @@ export default {
                 client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
             });
         });
+    },
+    created(){
+        this.$router.push({ name: 'phoneVerify', params: { code: 'test' }})
     }
 };
 

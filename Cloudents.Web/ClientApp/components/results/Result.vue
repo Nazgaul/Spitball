@@ -1,7 +1,9 @@
 ﻿﻿
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
-        <signup-banner  slot="signupBanner" v-scroll="hideBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
+        <!--<signup-banner  slot="signupBanner"  v-if="!accountUser && showRegistrationBanner"></signup-banner>-->
+
+        <signup-banner  slot="signupBanner"  v-if="!accountUser"></signup-banner>
         <div slot="main" >
          <div class="d-flex mobile-filter" >
                 <router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob hidden-md-and-up"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>

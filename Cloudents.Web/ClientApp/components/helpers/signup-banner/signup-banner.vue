@@ -1,8 +1,8 @@
 <template>
     <v-flex xs12 class="signup-banner">
-        <button class="back-button" @click="hideRegistrationBanner()">
-            <v-icon>sbf-close</v-icon>
-        </button>
+        <!--<button class="back-button" @click="hideRegistrationBanner()">-->
+            <!--<v-icon>sbf-close</v-icon>-->
+        <!--</button>-->
         <v-flex xs12 class="text-block">
             <div class="inner-text-block">
                 <div class="text-wrap">

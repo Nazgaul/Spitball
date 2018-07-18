@@ -216,6 +216,12 @@ let routes2 = [
         components: {
             default: verifyPhone,
         },
+        props: { newsletterPopup: false },
+        beforeEnter: (to, from, next) => {
+                console.log('pppp', to.params)
+            next()
+
+        },
         name: "phoneVerify",
 
     },

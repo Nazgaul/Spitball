@@ -10,10 +10,15 @@ import {REGISTRATION_STEPS} from "../../../store/constants";
 export default {
     mixins: [submitDisable],
     components: {stepTemplate, SbInput},
+    props: {
+        code: '',
+        default: false,
+    },
     data() {
         return {
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
             codeSent: false,
+            confirmed: false,
             confirmationCode: '',
             phone: {
                 phoneNum: '',
@@ -40,6 +45,10 @@ export default {
                 }, this.toasterTimeout)
             }
         },
+        // confirmed(){
+        //     console.log('code', this.props.code)
+        //     return  this.props.code;
+        // }
      },
     computed:{
         ...mapGetters({getShowToaster:'getShowToaster', getToasterText:'getToasterText'}),
@@ -110,7 +119,7 @@ export default {
     created(){
         registrationService.getLocalCode().then(({data})=>{
             this.phone.countryCode=data.code;
-        })
-
+        });
+        console.log('props code',this.code, 'code',this.$route.params )
     }
 }
