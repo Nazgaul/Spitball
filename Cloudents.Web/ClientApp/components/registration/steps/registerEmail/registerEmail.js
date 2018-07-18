@@ -30,7 +30,8 @@ export default {
             if (this.submitForm()) {
                 this.updateLoading(true);
                 registrationService.emailRegistration(this.userEmail, this.recaptcha)
-                    .then(function () {
+                    .then(({ step }) => {
+                        //TODO: NewSignIn step result
                         self.updateLoading(false);
                         self.emailSent = true;
                     }, function (error) {
@@ -51,7 +52,8 @@ export default {
                 authInstance.signIn().then(function (googleUser) {
                     var idToken = googleUser.getAuthResponse().id_token;
                     registrationService.googleRegistration(idToken)
-                        .then(function () {
+                        .then(({ step }) => {
+                            //TODO: NewSignIn step result
                             self.updateLoading(false);
                             self.$emit('next');
                         }, function (error) {
