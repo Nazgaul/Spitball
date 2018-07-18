@@ -21,10 +21,6 @@ namespace Cloudents.Core.Interfaces
         Task UpdateAsync(T entity, CancellationToken token);
     }
 
-    //public interface IQuestionSubjectRepository : IRepository<QuestionSubject>
-    //{
-    //    Task<IEnumerable<QuestionSubjectDto>> GetAllSubjectAsync(CancellationToken token);
-    //}
 
     public interface IUserRepository : IRepository<User>
     {
