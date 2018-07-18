@@ -30,7 +30,7 @@ namespace Cloudents.Web.Controllers
                 return RedirectToAction(nameof(Index), "Home");
             }
 
-            TempData.Remove(RegisterController.Email);
+            TempData.Remove(SignUserController.Email);
             var user = await _userManager.FindByIdAsync(id).ConfigureAwait(false);
             if (user == null)
             {

@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             userEmail: '',
-            rememberMe: false,
+            //rememberMe: false,
             submitted: false,
             recaptcha: '',
             errorMessage: {
@@ -35,8 +35,9 @@ export default {
         submit() {
             this.updateLoading(true);
             self = this;
-            registrationService.signIn(this.userEmail, this.recaptcha, this.rememberMe)
-                .then(function () {
+            registrationService.signIn(this.userEmail, this.recaptcha)
+                .then(({ step }) => {
+                    //TODO: NewSignIn step result
                     self.updateLoading(false);
                     self.codeSent = true;
                 }, function (reason) {
