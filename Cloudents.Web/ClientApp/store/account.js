@@ -53,7 +53,6 @@ const actions = {
     logout({ state, commit }) {
         // accountService.logout();
         // commit("logout");
-
         window.location.replace("/logout");
         //router.go({path: '/logout'});
     },
