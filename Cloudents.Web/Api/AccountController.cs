@@ -90,12 +90,12 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("logout")]
-        public async Task<IActionResult> LogOutAsync()
-        {
-            await _signInManager.SignOutAsync().ConfigureAwait(false);
-            TempData.Clear();
-            return Ok();
-        }
+        //[HttpPost("logout")]
+        //public async Task<IActionResult> LogOutAsync()
+        //{
+        //    await _signInManager.SignOutAsync().ConfigureAwait(false);
+        //    TempData.Clear();
+        //    return Ok();
+        //}
     }
 }

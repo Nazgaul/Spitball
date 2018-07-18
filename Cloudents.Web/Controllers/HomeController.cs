@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -52,6 +55,14 @@ namespace Cloudents.Web.Controllers
                 return this.RedirectToOldSite();
             }
             return View();
+        }
+
+        [Route("logout")]
+        public async Task<IActionResult> LogOutAsync([FromServices] SignInManager<User> signInManager)
+        {
+            await signInManager.SignOutAsync().ConfigureAwait(false);
+            TempData.Clear();
+            return Redirect("/");
         }
     }
 }
