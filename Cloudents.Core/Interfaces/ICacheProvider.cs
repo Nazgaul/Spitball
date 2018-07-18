@@ -13,5 +13,7 @@
         /// <param name="expire">time till expire</param>
         /// <param name="slideExpiration">true is we want sliding   </param>
         void Set(string key, string region, object value, int expire, bool slideExpiration);
+
+        bool Exists(string key, string region);
     }
 }

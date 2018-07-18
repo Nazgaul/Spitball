@@ -1,6 +1,7 @@
 ﻿@import "../../mixin.less";
 
 .verticals.line {
+    .limited-width();
     @media(max-width: @screen-sm) {
         align-items: stretch;
     }
@@ -21,16 +22,25 @@
     }
 
     .verticals-bar {
-        padding-left: 10px;
-
-        @media(max-width: 959px) {
-            padding-left: 0;
+        padding-left: 4px;
+        @media(max-width: @screen-sm) {
+            padding-left: 8px;
         }
 
         .tabs__bar {
             height: 100%;
             .tabs__slider {
                 height: 3px;
+            }
+        }
+
+        .tabs__bar .tabs__li {
+            flex-basis: auto;
+            padding-bottom: 14px;
+            @media(max-width: @screen-xs){
+                margin-right: 16px !important;
+                margin-bottom: 3px;
+                padding-bottom: 0;
             }
         }
     }

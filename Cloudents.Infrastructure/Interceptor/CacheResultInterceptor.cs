@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -14,10 +15,13 @@ namespace Cloudents.Infrastructure.Interceptor
     public class CacheResultInterceptor : BaseTaskInterceptor<CacheAttribute>
     {
         private readonly ICacheProvider _cacheProvider;
+        private readonly ILogger _logger;
 
-        public CacheResultInterceptor(ICacheProvider cacheProvider)
+        [UsedImplicitly]
+        public CacheResultInterceptor(ICacheProvider cacheProvider, ILogger logger)
         {
             _cacheProvider = cacheProvider;
+            _logger = logger;
         }
 
         private static string BuildArgument(IEnumerable<object> argument)
@@ -35,7 +39,7 @@ namespace Cloudents.Infrastructure.Interceptor
                 //}
                 //else
                 //{
-                    sb.Append(result);
+                sb.Append(result);
                 //}
             }
 
@@ -63,6 +67,7 @@ namespace Cloudents.Infrastructure.Interceptor
                 case CancellationToken _:
                     return string.Empty;
                 case IEnumerable collection:
+
                     var list = new List<string>();
                     foreach (var collectionArg in collection)
                     {
@@ -110,17 +115,29 @@ namespace Cloudents.Infrastructure.Interceptor
             if (data == null) return;
             if (typeof(Task).IsAssignableFrom(method.ReturnType))
             {
+                //invocation.ReturnValue = ConvertAsync(data);
                 var taskReturnType = method.ReturnType; //e.g. Task<int>
 
                 var type = taskReturnType.GetGenericArguments()[0]; //get the result type, e.g. int
 
                 var convertMethod =
                     GetType().GetMethod(nameof(ConvertAsync), BindingFlags.Static | BindingFlags.NonPublic)
-                        .MakeGenericMethod(type); //Get the closed version of the Convert method, e.g. Convert<int>
+                        ?.MakeGenericMethod(type); //Get the closed version of the Convert method, e.g. Convert<int>
 
-                invocation.ReturnValue =
-                    convertMethod.Invoke(null,
-                        new[] { data }); //Call the convert method and return the generic Task, e.g. Task<int>
+                if (convertMethod != null)
+                {
+                    try
+                    {
+                        invocation.ReturnValue =
+                            convertMethod.Invoke(null,
+                                new[] {data}); //Call the convert method and return the generic Task, e.g. Task<int>
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        _logger.Exception(ex);
+                        return;
+                    }
+                }
 
                 return;
             }
@@ -131,7 +148,7 @@ namespace Cloudents.Infrastructure.Interceptor
         {
             var key = GetInvocationSignature(invocation);
             var att = invocation.GetCustomAttribute<CacheAttribute>();
-            _cacheProvider.Set(key, att.Region, val, att.Duration,att.Slide); // cacheAttr.Duration);
+            _cacheProvider.Set(key, att.Region, val, att.Duration, att.Slide); // cacheAttr.Duration);
         }
     }
 }

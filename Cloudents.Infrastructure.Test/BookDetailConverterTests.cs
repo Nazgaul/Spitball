@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Autofac.Extras.Moq;
+﻿using Autofac.Extras.Moq;
 using Cloudents.Core.DTOs;
 using Cloudents.Infrastructure.Search.Book;
 using FluentAssertions;
@@ -66,7 +65,6 @@ namespace Cloudents.Infrastructure.Test
                 result.Should().BeNullOrEmpty();
             }
         }
-
 
     }
 }

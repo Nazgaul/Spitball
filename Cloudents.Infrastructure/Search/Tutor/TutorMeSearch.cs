@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Cloudents.Infrastructure.Extensions;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search.Tutor
 {
@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             TutorRequestFilter[] filters,
             TutorRequestSort sort, GeoPoint location, int page, bool isMobile, CancellationToken token)
         {
-            if (filters.Length > 0 
+            if (filters.Length > 0
                 && Array.TrueForAll(filters, t => t == TutorRequestFilter.InPerson))
             {
                 return Task.FromResult<IEnumerable<TutorDto>>(null);
@@ -57,26 +57,32 @@ namespace Cloudents.Infrastructure.Search.Tutor
             {
                 return null;
             }
-            return _mapper.Map<IEnumerable<TutorDto>>(result.Results);
+
+            return _mapper.MapWithPriority<Result,TutorDto>(result.Results);
         }
+
+        public const int TutorMePage = 12;
 
         private static NameValueCollection BuildQueryString(string term, int page)
         {
             return new NameValueCollection
             {
                 ["search"] = term,
-                ["offset"] = (page * 12).ToString()
+                ["offset"] = (page * TutorMePage).ToString()
             };
         }
 
         public class TutorMeResult
         {
-            //public int count { get; set; }
             [JsonProperty("results")]
             public Result[] Results { get; set; }
-            //public object subject { get; set; }
+
             [JsonProperty("group")]
             public Group Group { get; set; }
+
+            //public int count { get; set; }
+            //public object subject { get; set; }
+
         }
 
         public class Group
@@ -87,29 +93,35 @@ namespace Cloudents.Infrastructure.Search.Tutor
 
         public class Result
         {
-            //public int gender { get; set; }
             [JsonProperty("about")]
             public string About { get; set; }
-            //public string tagline { get; set; }
+
             [JsonProperty("shortName")]
             public string ShortName { get; set; }
-            //public bool inSession { get; set; }
+
             [JsonProperty("avatar")]
             public Avatar Avatar { get; set; }
-            //public string firstName { get; set; }
+
             [JsonProperty("id")]
             public int Id { get; set; }
+
             [JsonProperty("isOnline")]
             public bool IsOnline { get; set; }
+
+            //public string firstName { get; set; }
+            //public int gender { get; set; }
+            //public bool inSession { get; set; }
+            //public string tagline { get; set; }
+
         }
 
         public class Avatar
         {
-            //public string x80 { get; set; }
             [JsonProperty("x300")]
             public string X300 { get; set; }
+
+            //public string x80 { get; set; }
+
         }
-
-
     }
 }

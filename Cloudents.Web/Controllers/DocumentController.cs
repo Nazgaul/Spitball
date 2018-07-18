@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class DocumentController : Controller
     {
         private readonly IReadRepositoryAsync<DocumentSeoDto, long> _repository;
@@ -44,7 +45,7 @@ namespace Cloudents.Web.Controllers
                 return this.RedirectToOldSite();
             }
 
-            if (!model.Discriminator.Equals("file", StringComparison.InvariantCultureIgnoreCase))
+            if (!model.Discriminator.Equals("file", StringComparison.OrdinalIgnoreCase))
             {
                 return View();
             }
@@ -61,7 +62,7 @@ namespace Cloudents.Web.Controllers
             ViewBag.metaDescription = "Get class notes for free with Spitball";
             if (!string.IsNullOrEmpty(model.Description))
             {
-                ViewBag.metaDescription += ":" + model.Description.RemoveEndOfString(100);
+                ViewBag.metaDescription += ":" + model.Description.Truncate(100);
             }
             ViewBag.metaDescription = WebUtility.HtmlDecode(ViewBag.metaDescription);
             return View();

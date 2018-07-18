@@ -17,7 +17,8 @@ namespace Cloudents.Web.Api
             _repository = repository;
         }
 
-        public async Task<IActionResult> Get(long id, CancellationToken token)
+        [HttpGet]
+        public async Task<IActionResult> GetAsync(long id, CancellationToken token)
         {
             var result = await _repository.GetAsync(id, token).ConfigureAwait(false);
             return Json(result);

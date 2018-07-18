@@ -19,7 +19,7 @@ export default {
         params: { type: Object }
     },
     computed: {
-        ...mapGetters(['loading']),
+        ...mapGetters({'loading':'getIsLoading'}),
         page() { return page[this.name] },
         sort() { return this.query.sort },
         filterSelection() {

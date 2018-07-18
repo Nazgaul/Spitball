@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
 using Cloudents.Core.Attributes;
 
 namespace Cloudents.Core.Extension
@@ -15,7 +16,7 @@ namespace Cloudents.Core.Extension
 
         public static bool TryToEnum<TEnum>(this string value, out TEnum result) where TEnum : struct
         {
-            if (System.Enum.TryParse(value, out result))
+            if (System.Enum.TryParse(value, true, out result))
             {
                 return true;
             }
@@ -23,7 +24,7 @@ namespace Cloudents.Core.Extension
             {
                 if (Attribute.GetCustomAttribute(field,
                         typeof(ParseAttribute)) is ParseAttribute attribute
-                    && attribute.Description.Equals(value, StringComparison.InvariantCultureIgnoreCase))
+                    && attribute.Description.Equals(value, StringComparison.OrdinalIgnoreCase))
                 {
                     result = (TEnum)System.Enum.Parse(typeof(TEnum), field.Name);
                     return true;
@@ -32,9 +33,28 @@ namespace Cloudents.Core.Extension
             return false;
         }
 
-        public static string RemoveEndOfString(this string word, int length)
+        //public static string RemoveEndOfString(this string word, int length)
+        //{
+        //    return word?.Substring(0, Math.Min(word.Length, length));
+        //}
+
+        public static string Truncate(this string value, int maxChars, bool threeDotsAtTheEnd = false)
         {
-            return word?.Substring(0, Math.Min(word.Length, length));
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            if (value.Length <= maxChars)
+            {
+                return value;
+            }
+
+            var concatString = value.Substring(0, maxChars);
+            if (threeDotsAtTheEnd)
+            {
+               return concatString + "...";
+            }
+
+            return concatString;
         }
 
         public static string UppercaseFirst(this string str)
@@ -48,15 +68,15 @@ namespace Cloudents.Core.Extension
             return char.ToUpperInvariant(str[0]) + str.Substring(1).ToLowerInvariant();
         }
 
-        public static string CamelCase(this string str)
-        {
-            if (string.IsNullOrEmpty(str))
-            {
-                return string.Empty;
-            }
-            // Return char and concat substring.
-            return char.ToLowerInvariant(str[0]) + str.Substring(1);
-        }
+        //public static string CamelCase(this string str)
+        //{
+        //    if (string.IsNullOrEmpty(str))
+        //    {
+        //        return string.Empty;
+        //    }
+        //    // Return char and concat substring.
+        //    return char.ToLowerInvariant(str[0]) + str.Substring(1);
+        //}
 
         /// <summary>
         /// Wraps matched strings in HTML span elements styled with a background-color
@@ -66,22 +86,18 @@ namespace Cloudents.Core.Extension
         /// <param name="fullMatch">false for returning all matches, true for whole word matches only</param>
         /// <returns>string</returns>
         /// <remarks>https://www.mikesdotnetting.com/article/139/highlighting-keywords-found-in-search-results</remarks>
-        public static string HighlightKeyWords(this string text, string[] keywords,  bool fullMatch)
+        public static string HighlightKeyWords(this string text, IEnumerable<string> keywords, bool fullMatch)
         {
-
             if (text?.Length == 0 /*|| keywords == String.Empty*/)
                 return text;
-            if (keywords?.Length == 0)
-            {
-                return text;
-            }
+
             if (!fullMatch)
             {
                 return keywords.Select(word => word.Trim()).Aggregate(text,
                    (current, pattern) =>
                        Regex.Replace(current,
                            pattern,
-$"<b>{"$0"}</b>",
+"<b>$0</b>",
                            RegexOptions.IgnoreCase));
             }
 
@@ -89,9 +105,23 @@ $"<b>{"$0"}</b>",
                 .Aggregate(text, (current, pattern) =>
                     Regex.Replace(current,
                         pattern,
-$"<b>{"$0"}</b>",
+"<b>$0</b>",
                         RegexOptions.IgnoreCase));
+        }
 
+
+        private  static string DecodeHtmlEntities(this string text)
+        {
+            return HttpUtility.HtmlDecode(text);
+        }
+
+        public static string StripAndDecode(this string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return text;
+            }
+            return RegEx.RemoveHtmlTags.Replace(text, string.Empty).DecodeHtmlEntities();
         }
     }
 }

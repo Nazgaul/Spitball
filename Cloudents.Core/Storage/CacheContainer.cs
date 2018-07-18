@@ -2,13 +2,16 @@
 {
     public class CacheContainer : IStorageContainer
     {
-        public string Name => "zboxcahce";
-        public string RelativePath => string.Empty;
+        public StorageContainer Container  => StorageContainer.CacheContainer;
     }
 
     public class SpitballContainer : IStorageContainer
     {
-        public string Name => "spitball";
-        public string RelativePath => string.Empty;
+        public StorageContainer Container =>StorageContainer.SpitballContainer;
+    }
+
+    public class QuestionAnswerContainer : IStorageContainer
+    {
+        public StorageContainer Container =>StorageContainer.QuestionsAndAnswers;
     }
 }

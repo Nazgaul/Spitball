@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Cloudents.Api.Binders;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Framework;
+using Cloudents.Infrastructure.Database;
 using Cloudents.Infrastructure.Storage;
-using Cloudents.MobileApi.Binders;
-using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions.Filters;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
@@ -22,7 +22,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace Cloudents.MobileApi
+namespace Cloudents.Api
 {
     public class Startup
     {
@@ -41,17 +41,36 @@ namespace Cloudents.MobileApi
         [UsedImplicitly]
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolity", builder =>
+                        builder.SetIsOriginAllowed(origin =>
+                    {
+                        if (origin.IndexOf("localhost", StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            return true;
+                        }
+
+                        if (origin.IndexOf("spitball", StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            return true;
+                        }
+                        return false;
+                    })
+                   //need that for 204 - browser trigger that when we want to do post
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                );
+            });
             services.AddMvc().AddMvcOptions(o =>
             {
                 o.Filters.Add(new GlobalExceptionFilter(HostingEnvironment));
-                o.ModelBinderProviders.Insert(0, new LocationModelBinder());
-                o.ModelBinderProviders.Insert(0, new GeoPointModelBinder());
+                //o.ModelBinderProviders.Insert(0, new LocationModelBinder());
+                o.ModelBinderProviders.Insert(0, new ApiBinder());
             }).AddJsonOptions(options =>
             {
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
-
                 options.SerializerSettings.Converters.Add(new IsoDateTimeConverter
                 {
                     DateTimeStyles = DateTimeStyles.AssumeUniversal
@@ -60,11 +79,29 @@ namespace Cloudents.MobileApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
-                //Cloudents.MobileApi
                 var basePath = AppContext.BaseDirectory;
                 var xmlPath = Path.Combine(basePath, "Cloudents.MobileApi.xml");
                 c.IncludeXmlComments(xmlPath);
                 c.DescribeAllEnumsAsStrings();
+                c.DescribeAllParametersInCamelCase();
+                c.ResolveConflictingActions(f =>
+                {
+                    var descriptions = f.ToList();
+                    var parameters = descriptions
+                        .SelectMany(desc => desc.ParameterDescriptions)
+                        .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x },
+                            ApiParameterDescriptionEqualityComparer.Instance)
+                        .ToList();
+                    var description = descriptions[0];
+                    description.ParameterDescriptions.Clear();
+                    parameters.ForEach(x =>
+                    {
+                        if (x.Parameter.RouteInfo != null)
+                            x.Parameter.RouteInfo.IsOptional = x.IsOptional;
+                        description.ParameterDescriptions.Add(x.Parameter);
+                    });
+                    return description;
+                });
             });
             services.AddResponseCompression();
             services.AddResponseCaching();
@@ -86,7 +123,7 @@ namespace Cloudents.MobileApi
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"));
-            
+
             containerBuilder.RegisterModule<ModuleCore>();
             containerBuilder.RegisterModule<ModuleDb>();
             containerBuilder.RegisterModule<ModuleStorage>();
@@ -103,9 +140,9 @@ namespace Cloudents.MobileApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("CorsPolity");
             var reWriterOptions = new RewriteOptions();
-                
+
             if (!env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 reWriterOptions.AddRedirectToHttpsPermanent();
@@ -115,7 +152,8 @@ namespace Cloudents.MobileApi
 
             app.UseResponseCompression();
             app.UseResponseCaching();
-            app.UseDefaultFiles(new DefaultFilesOptions {
+            app.UseDefaultFiles(new DefaultFilesOptions
+            {
                 DefaultFileNames = new
                     List<string> { "default.html" }
             });
@@ -124,11 +162,7 @@ namespace Cloudents.MobileApi
 
             app.UseSwagger();
 
-            app.UseCors(builder =>
-            {
-                //builder.WithOrigins("www.spitball.co", "dev.spitball.co");
-                builder.AllowAnyOrigin();
-            });
+
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {

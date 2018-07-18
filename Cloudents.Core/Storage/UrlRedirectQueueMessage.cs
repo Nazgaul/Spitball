@@ -7,7 +7,7 @@ namespace Cloudents.Core.Storage
     public class UrlRedirectQueueMessage
     {
         public UrlRedirectQueueMessage(string host,
-            string url, string urlReferrer, int location, string ip)
+            string url, string urlReferrer, int? location, string ip)
         {
             Host = host;
             Url = url;
@@ -23,6 +23,7 @@ namespace Cloudents.Core.Storage
 
         [DataMember(Order = 1)]
         public string Host { get; set; }
+
         [DataMember(Order = 2)]
         public string Url { get; set; }
 
@@ -33,7 +34,7 @@ namespace Cloudents.Core.Storage
         public string UrlReferrer { get; set; }
 
         [DataMember(Order = 5)]
-        public int Location { get; set; }
+        public int? Location { get; set; }
 
         [DataMember(Order = 6)]
         public string Ip { get; set; }

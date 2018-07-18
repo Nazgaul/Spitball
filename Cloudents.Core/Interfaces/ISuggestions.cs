@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
@@ -15,6 +14,5 @@ namespace Cloudents.Core.Interfaces
     {
         [ItemCanBeNull]
         Task<string> GetValueAsync(string query, CancellationToken token);
-
     }
 }

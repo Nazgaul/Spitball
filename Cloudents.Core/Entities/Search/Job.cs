@@ -15,15 +15,16 @@ namespace Cloudents.Core.Entities.Search
 
         [DataMember]
         public string Title { get; set; }
+
         [DataMember]
         public string Description { get; set; }
 
         [DataMember]
         public string Company { get; set; }
 
-
         [DataMember]
         public string City { get; set; }
+
         [DataMember]
         public string State { get; set; }
 

@@ -1,58 +1,87 @@
 ﻿@import "../../mixin.less";
 
 .p-result {
+    .limited-width();
     .first-grid {
         width: @resultsFilterWidth;
         .flexSameSize();
-        padding: 0 50px 0 22px;
+        padding-right: 32px;
     }
 }
 
 
 //@spaceFromNavBar: @resultsTabsHeight + 40; //40 px of space according to Shlomi's request
 
-@marginTop: 42px;
+@marginTop: 24px;
 .main-section {
     min-width: 0;
     margin-top: @marginTop;
     @media(max-width: @screen-xs){
         margin-top: 0
     }
+    @media(min-width: (@screen-xs+1)){  margin-top:16px;}
+    @media(min-width: (@screen-sm)){  margin-top: @marginTop;}
 }
 .sec-result {
-    max-width: 504px;
+    max-width: @cellWidth;
+    width: 100%;
+    //max-width: 608px;
     //margin-top: @marginTop;
-    min-width: 0;
+    //min-width: 0;
 
-    @media(max-width: @screen-xs) {
-        margin: 0 8px;
-    }
+    //@media(max-width: @screen-xs) {
+    //    margin: 0 8px;
+    //}
     //margin-top: @spaceFromTop;
+    //.results-wrapper{
+    //    max-width: 608px;
+    //}
+    a.ask-question-mob{
+        width: 100%;
+        max-width: 400px;
+        @media(min-width: (@screen-md)){display: none; }
+        @media(max-width: (@screen-md)){  display: block;}
+        @media(max-width: (@screen-xs)){
+            display: block;
+            margin: 16px 32px 16px 64px;
+            width: 80%;
+        }
+        @media(max-width: (@screen-sm)){  display: block;
+        }
+        font-size: 20px;
+        line-height: 40px;
+        border-radius: 4px;
+        background-color: @color-dark-blue;
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+        color: @color-white;
+        font-weight: bold;
+        letter-spacing: -0.5px;
+        text-align: center;
+        // position: fixed;
+        margin: 0 auto 16px;
+        left: 0;
+        right: 0;
+
+    }
+
     .result-cell {
         border-radius: 4px;
-        overflow: hidden;
+        //overflow: hidden;
         position: relative;
+        width: 100%;
+        max-width: @cellWidth;
         /*@media(max-width: 599px) {
             margin-left: 8px;
             margin-right: 8px;
         }*/
 
-        .show-btn {
-            pointer-events: none;
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            padding: 4px 16px;
-            color: white;
-            border-radius: 4px;
-            .responsive-property(font-size, 14px, null, 10px);
-            @media(max-width: @screen-sm){
-                padding: 1px 11px;
-            }
-        }
+      .show-btn {
+        pointer-events: none;
+        .cellActionBtnMixin();
+      }
 
         .cell-video,
-        &:not(:hover) .cell{
+       .cell{
             border-color: #fff !important;
         }
 
@@ -71,6 +100,12 @@
                     display: block;
                 }
             }
+            @media(max-width: @screen-xs){
+                .cell .show-btn, .show-btn{
+                    display: block;
+                }
+            }
+
         }
     }
 
@@ -82,18 +117,22 @@
         background: #fff;
         border-radius: 4px;
         width: 100%;
-        padding: 6px;
+        padding: 16px;
         &:not(.studyblue) {
             border: 2px solid
         }
 
         @media(max-width: @screen-sm){
             border-color: #fff !important;
+            padding: 8px;
+
         }
     }
 
     .mobile-filter {
-        flex-direction: row-reverse;
+        flex-direction: row;
+        //flex-direction: row-reverse;
+        //align-items: center;
         .btn__content {
             flex-direction: row-reverse;
             .counter {
@@ -115,7 +154,11 @@
 
         button {
             @media(max-width: @screen-xs) {
-                margin: 13px 0 10px 0;
+                margin: 16px 8px 0 0;
+                .sbf-filter{
+                    font-size: 19px;
+                    color: @color-main-purple;
+                }
             }
         }
     }
@@ -128,6 +171,9 @@
     position: sticky;
     max-height: ~"calc(100vh - @{upperSpace} - 16px)"; //container padding from bottom is 16
     top: @upperSpace;
+    margin-left: 32px;
+    max-width: 400px;
+    width: 100%;
 
     .side-bar-wrapper {
         max-width: 300px;

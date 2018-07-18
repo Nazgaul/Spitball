@@ -18,7 +18,7 @@
            </v-container>
         </form>
     </div>
-  
+
 </template>
 <script>
     import {mapActions} from 'vuex'

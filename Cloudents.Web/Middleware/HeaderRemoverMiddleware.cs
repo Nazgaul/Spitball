@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +17,7 @@ namespace Cloudents.Web.Middleware
             _headersToRemove = headersToRemove;
         }
 
+        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "middleware is invoking that")]
         public Task Invoke(HttpContext httpContext)
         {
             httpContext.Response.OnStarting(() =>
@@ -34,6 +36,7 @@ namespace Cloudents.Web.Middleware
             return _next.Invoke(httpContext);
         }
     }
+
     public static class HeaderRemoverExtensions
     {
         public static IApplicationBuilder UseHeaderRemover(this IApplicationBuilder builder, params string[] headersToRemove)

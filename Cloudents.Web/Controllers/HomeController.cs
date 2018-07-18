@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using Cloudents.Core.Models;
+using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Extensions.Extensions;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class HomeController : Controller
     {
         private readonly List<IPAddress> _officeIps = new List<IPAddress>();
@@ -31,7 +34,7 @@ namespace Cloudents.Web.Controllers
         //[ResponseCache()]
         // we can't use that for now.
         // GET
-        public IActionResult Index(Location location, [FromServices]IHostingEnvironment env)
+        public IActionResult Index(LocationQuery location, [FromServices]IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -52,6 +55,14 @@ namespace Cloudents.Web.Controllers
                 return this.RedirectToOldSite();
             }
             return View();
+        }
+
+        [Route("logout")]
+        public async Task<IActionResult> LogOutAsync([FromServices] SignInManager<User> signInManager)
+        {
+            await signInManager.SignOutAsync().ConfigureAwait(false);
+            TempData.Clear();
+            return Redirect("/");
         }
     }
 }

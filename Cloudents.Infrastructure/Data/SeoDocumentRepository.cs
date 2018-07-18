@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
@@ -8,42 +7,50 @@ using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Data
 {
-    //TODO: duplicate
     [UsedImplicitly]
     public class SeoDocumentRepository : IReadRepository<IEnumerable<SiteMapSeoDto>, SeoQuery>
     {
         private readonly DapperRepository _repository;
+        private readonly SeoDbQuery _sqlQuery;
 
-        public SeoDocumentRepository(DapperRepository repository)
+        public SeoDocumentRepository(DapperRepository repository, SeoDbQuery query)
         {
             _repository = repository;
+            _sqlQuery = query;
         }
 
         public IEnumerable<SiteMapSeoDto> Get(SeoQuery query)
         {
             const int pageSize = 49950;
-            IEnumerable<SiteMapSeoDto> DoQuery(IDbConnection conn)
+
+            using (var conn = _repository.OpenConnection())
             {
-                var data = conn.Query<SiteMapSeoDto>(@"WITH boxSeo as (
- select BoxId, BoxName,u.UniversityName from zbox.box b JOIN zbox.University u on u.id = b.University
-and Discriminator = 2
-and b.IsDeleted = 0
-)
-select b.*,i.ItemId as id,i.Name
-from zbox.item i join boxSeo b on i.BoxId = b.BoxId
-where i.IsDeleted = 0
-and i.content is not null
-and i.Discriminator = 'FILE'
-order by boxId
-offset (@pageNumber)*@rowsPerPage ROWS
-FETCH NEXT @rowsPerPage ROWS ONLY", new { rowsPerPage = pageSize, pageNumber = query.Page }, buffered: false);
+                var data = conn.Query<SiteMapSeoDto>(
+                   new CommandDefinition(
+                       _sqlQuery.Query,
+                       new { rowsPerPage = pageSize, pageNumber = query.Page },
+                       flags: CommandFlags.None,
+                       commandTimeout: 90
+                       )
+
+                   );
 
                 foreach (var row in data)
                 {
                     yield return row;
                 }
             }
-            return _repository.WithConnection(DoQuery);
+            //_repository.WithConnection()
+            //IEnumerable<SiteMapSeoDto> DoQuery(IDbConnection conn)
+            //{
+            //    var data = conn.Query<SiteMapSeoDto>(_sqlQuery.Query, new { rowsPerPage = pageSize, pageNumber = query.Page }, buffered: false);
+
+            //    foreach (var row in data)
+            //    {
+            //        yield return row;
+            //    }
+            //}
+            //return _repository.WithConnection(DoQuery);
         }
     }
 }

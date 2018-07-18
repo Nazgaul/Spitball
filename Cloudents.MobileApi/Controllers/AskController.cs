@@ -1,15 +1,14 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Api.Extensions;
+using Cloudents.Api.Models;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
-using Cloudents.MobileApi.Extensions;
-using Cloudents.MobileApi.Models;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cloudents.MobileApi.Controllers
+namespace Cloudents.Api.Controllers
 {
     /// <inheritdoc />
     /// <summary>
@@ -18,18 +17,18 @@ namespace Cloudents.MobileApi.Controllers
     [Route("api/[controller]", Name = "Ask")]
     public class AskController : Controller
     {
-        private readonly IQuestionSearch _searchProvider;
+        private readonly IWebAskSearch _searchProvider;
         private readonly IVideoSearch _videoSearch;
 
         /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="searchProvider"></param>
+        /// <param name="searchFactory"></param>
         /// <param name="videoSearch"></param>
-        public AskController(IQuestionSearch searchProvider, IVideoSearch videoSearch)
+        public AskController(IWebAskSearch searchFactory, IVideoSearch videoSearch)
         {
-            _searchProvider = searchProvider;
+            _searchProvider = searchFactory;
             _videoSearch = videoSearch;
         }
 

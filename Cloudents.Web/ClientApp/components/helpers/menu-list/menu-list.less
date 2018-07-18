@@ -1,0 +1,60 @@
+@import "../../../mixin.less";
+.menu-list{
+    .unsign .Mask {
+        width: 64px;
+        height: 64px;
+        background-color: #9b9b9b;
+    }
+    .blue--text{
+        font-size: 14px;
+        color: @color-main-purple!important;
+    }
+    width: 280px;
+    padding: 14px 0 18px;
+
+    @media (max-width: @screen-xs) {
+        padding-top: 0;
+    }
+
+    li:hover{
+        background: rgba(0,0,0,0.12);
+    }
+    .list__tile{
+        height: 48px;
+        .list__tile__title{
+            font-size: 20px;
+            height: 27px;
+            letter-spacing: -0.5px;
+        }
+        .list__tile__action{
+            min-width: 42px;
+            &.tile-logout{
+                min-width: 39px;
+                width: 30px;
+            }
+        }
+        .list__tile__avatar {
+            display: flex;
+            align-items: center;
+            .red-counter{
+                top:0;
+                position: relative;
+                border-color: #d0021b;
+            }
+        }
+        .sbf.icon{
+            font-size: 16px; color: @color-grey;
+            &.sbf-logout{padding-left: 31px;}
+        }
+    }
+
+    .user-block.university{
+        background-color: @color-light-grey;
+        height: 172px;
+        justify-content: baseline;
+        margin-bottom: 15px;
+        font-size: 16px;
+        .avatar{ margin-top: 36px; }
+        .name{ font-size: 14px;}
+    }
+}

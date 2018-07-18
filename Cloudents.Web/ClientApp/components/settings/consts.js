@@ -1,6 +1,18 @@
-﻿export const typesPersonalize = {
+﻿
+export const typesPersonalize = {
     university: "univeristy",
     course: "course"
+
+    ,whoWeAre: "whoWeAre",
+    whatWeUpTo: "whatWeUpTo",
+    myWallet: "myWallet",
+    trustSafety: "trustSafety",
+    aboutSpitball: "aboutSpitball",
+    help: "help",
+    termsService: "termsService",
+    feedback:"feedback",
+    privacyPolicy: "privacyPolicy"
+
 }
 export let searchObjects = {
     course: {
@@ -61,4 +73,40 @@ export let settingMenu = [
             Intercom('showNewMessage', '');
         }
     }
+];
+
+
+
+export let notRegMenu = [
+    {
+        id: typesPersonalize.whoWeAre,
+        title: "Who we are",
+        name:"faq"
+    },
+    {
+        id: typesPersonalize.aboutSpitball,
+        title: "About Spitball",
+        name:"about"
+    },
+    {
+        id: typesPersonalize.help,
+        title: "Help",
+        name:"faq"
+    },
+    {
+        id: typesPersonalize.termsService,
+        title: "Terms of Service",
+        name:"terms"
+    },
+    {
+        id:typesPersonalize.feedback,
+        title:'Feedback',
+        click:()=>Intercom('showNewMessage')
+    },
+    {
+        id: typesPersonalize.privacyPolicy,
+        title: "Privacy Policy",
+        name:"privacy"
+    },
+   
 ];

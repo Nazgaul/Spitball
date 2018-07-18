@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
 
-namespace Cloudents.MobileApi.Models
+namespace Cloudents.Api.Models
 {
     /// <summary>
     /// Purchase request model
@@ -21,8 +21,8 @@ namespace Cloudents.MobileApi.Models
         /// <summary>
         /// The location of the user
         /// </summary>
-        public GeoPoint Location { get; set; }
+        [Required]
+        public GeographicCoordinate Location { get; set; }
 
-        public string NextPageToken { get; set; }
     }
 }

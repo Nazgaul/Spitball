@@ -41,16 +41,7 @@ const dummyJobObj = {
     title: "Client Service Representative I",
     url: ""
 };
-const dummyFoodObj = {
-    address: "__________________________________________________________________________________ ___________________________________________________________________________________________",
-    hooked: false,
-    location: null,
-    name: "__________________________________",
-    open: true,
-    placeId: "ChIJoaWWguy2AhURwxLmvhjuaxI",
-    rating: parseInt('5'.repeat(14)),
-    template: "food"
-};
+
 let multipleItemSkeletons = [dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj]
 export const skeletonData = {
     result:multipleItemSkeletons,
@@ -58,9 +49,8 @@ export const skeletonData = {
     flashcard: multipleItemSkeletons,
     tutor: [dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj],
     book: [dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj],
-    ask: [{ template: 'video-skeleton' }, ...multipleItemSkeletons],
+    ask: multipleItemSkeletons,
     job: [dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj],
-    food: [dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj, dummyFoodObj]
 };
 // export const promotions = {
 //     note: {
@@ -92,3 +82,21 @@ export const skeletonData = {
 //         content: "Discover exclusive deals to local businesses, restaurants and bars near campus."
 //     }
 // };
+
+
+
+export const faqList = [
+    { text: 'What is Spitball.co?', href:''},
+    { text: 'How does Spitball work?', href:''},
+    { text: 'How does Spitball differ from other student websites?', href:''},
+    { text: 'Where do the tokens come from?', href:''},
+    { text: 'Where does the value of a token come from?', href:''},
+    { text: 'What is Vote up and why do we need it?', href:''}
+];
+export const suggestList={
+    job:"Need some cash? Find the best jobs & internships for students at your school.",
+    tutor:"Still need help? Connect with a tutor and make sure you ace your class.",
+    note:"Searching for study documents for your classes? Look no further.",
+    book:"Buying or selling a textbook? We'll make sure you get the best price!",
+    ask:"Have a question you need answered? Try us.",
+    flashcard:"We found some flashcards that may help you study!"};

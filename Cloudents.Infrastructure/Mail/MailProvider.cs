@@ -11,15 +11,13 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using JetBrains.Annotations;
-using SendGrid;
-using SendGrid.Helpers.Mail;
 
 namespace Cloudents.Infrastructure.Mail
 {
     [UsedImplicitly]
     public class MailProvider : IMailProvider
     {
-        private const string SendGridApiKey = "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";
+        //private const string SendGridApiKey = "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";
 
         private readonly Lazy<IRestClient> _restClient;
 
@@ -28,24 +26,24 @@ namespace Cloudents.Infrastructure.Mail
             _restClient = restClient;
         }
 
-        public Task GenerateSystemEmailAsync(string subject, string text, CancellationToken token)
-        {
-            return SendEmailAsync(subject, text, token);
-        }
+        //public Task GenerateSystemEmailAsync(string subject, string text, CancellationToken token)
+        //{
+        //    return SendEmailAsync("ram@cloudents.com", subject, text, token);
+        //}
 
-        private static Task SendEmailAsync(string subject, string text, CancellationToken token)
-        {
-            var client = new SendGridClient(SendGridApiKey);
-            var msg = new SendGridMessage
-            {
-                From = new EmailAddress("no-reply@spitball.co", "spitball system"),
-                Subject = subject,
-                PlainTextContent = text,
-                //HtmlContent = "<strong>and easy to do anywhere, even with C#</strong>"
-            };
-            msg.AddTo(new EmailAddress("ram@cloudents.com", "Ram Y"));
-            return client.SendEmailAsync(msg, token);
-        }
+        //private static Task SendEmailAsync(string subject, string text, CancellationToken token)
+        //{
+        //    var client = new SendGridClient(SendGridApiKey);
+        //    var msg = new SendGridMessage
+        //    {
+        //        From = new EmailAddress("no-reply@spitball.co", "spitball system"),
+        //        Subject = subject,
+        //        PlainTextContent = text,
+        //        //HtmlContent = "<strong>and easy to do anywhere, even with C#</strong>"
+        //    };
+        //    msg.AddTo(new EmailAddress("ram@cloudents.com", "Ram Y"));
+        //    return client.SendEmailAsync(msg, token);
+        //}
 
         private const string MailGunApiKey = "key-5aea4c42085523a28a112c96d7b016d4";
 
@@ -63,7 +61,7 @@ namespace Cloudents.Infrastructure.Mail
 
             var uri = new Uri($"https://api.mailgun.net/v3/mg{ipPool}.spitball.co/messages");
 
-           var serializedParams =  parameters.GetType().GetProperties().Select(property =>
+            var serializedParams = parameters.GetType().GetProperties().Select(property =>
             {
                 var key = property.Name;
                 if (property.GetCustomAttribute(typeof(DataMemberAttribute)) is DataMemberAttribute att)
@@ -80,6 +78,18 @@ namespace Cloudents.Infrastructure.Mail
                 await _restClient.Value.PostAsync(uri, body, headers, cancellationToken).ConfigureAwait(false);
             }
         }
-    }
 
+        //public Task SendEmailAsync(string email, string subject, string message, CancellationToken token)
+        //{
+        //    var client = new SendGridClient(SendGridApiKey);
+        //    var msg = new SendGridMessage
+        //    {
+        //        From = new EmailAddress("no-reply@spitball.co", "spitball system"),
+        //        Subject = subject,
+        //        HtmlContent = message
+        //    };
+        //    msg.AddTo(new EmailAddress(email));
+        //    return client.SendEmailAsync(msg, token);
+        //}
+    }
 }

@@ -7,7 +7,7 @@
                           required name="q"
                           id="transcript"
                           v-model.trim="msg" :placeholder="placeholder"
-                          prepend-icon="sbf-search" @click="openSuggestions"></v-text-field>
+                          :prepend-icon="prependIcon" @click="openSuggestions"></v-text-field>
             <!--<input type="checkbox" id="toggler"/>-->
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
             <transition name="slide-fade">

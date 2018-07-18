@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Cloudents.Core.Extension
 {
@@ -19,14 +18,8 @@ namespace Cloudents.Core.Extension
             return new List<TSource>(source);
         }
 
-
-        //public static async Task<IEnumerable<T1>> SelectManyAsync<T, T1>(this IEnumerable<T> enumeration, Func<T, Task<IEnumerable<T1>>> func)
-        //{
-        //    return (await Task.WhenAll(enumeration.Select(func)).ConfigureAwait(false)).SelectMany(s => s);
-        //}
-
         //https://stackoverflow.com/questions/13731796/create-batches-in-linq
-        public static IEnumerable<IEnumerable<TSource>> Batch<TSource>(
+        /*public static IEnumerable<IEnumerable<TSource>> Batch<TSource>(
             this IEnumerable<TSource> source, int size)
         {
             TSource[] bucket = null;
@@ -49,6 +42,6 @@ namespace Cloudents.Core.Extension
 
             if (bucket != null && count > 0)
                 yield return bucket.Take(count);
-        }
+        }*/
     }
 }

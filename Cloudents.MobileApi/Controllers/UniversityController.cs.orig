@@ -1,0 +1,63 @@
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Api.Filters;
+using Cloudents.Api.Models;
+using Cloudents.Core.Interfaces;
+<<<<<<< HEAD
+using Cloudents.MobileApi.Filters;
+using Cloudents.MobileApi.Models;
+=======
+>>>>>>> B14
+using Microsoft.AspNetCore.Mvc;
+
+namespace Cloudents.Api.Controllers
+{
+    /// <inheritdoc />
+    /// <summary>
+    /// University api controller
+    /// </summary>
+    [Route("api/[controller]")]
+    public class UniversityController : Controller
+    {
+        private readonly IUniversitySearch _universityProvider;
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="universityProvider"></param>
+        public UniversityController(IUniversitySearch universityProvider)
+        {
+            _universityProvider = universityProvider;
+        }
+
+        /// <summary>
+        /// Get list of universities
+        /// </summary>
+        /// <param name="model">object of query string</param>
+        /// <param name="token"></param>
+        /// <returns>list of universities</returns>
+        [HttpGet]
+        [ValidateModel]
+        public async Task<IActionResult> GetAsync([FromQuery] UniversityRequest model, CancellationToken token)
+        {
+<<<<<<< HEAD
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            var result = await _universityProvider.SearchAsync(model.Term, model.Location, token).ConfigureAwait(false);
+            return Json(result);
+
+=======
+            var result = await _universityProvider.SearchAsync(model.Term,
+                model.Location.ToGeoPoint(), token).ConfigureAwait(false);
+            return Ok(new
+            {
+                universities = result
+            });
+>>>>>>> B14
+        }
+    }
+}

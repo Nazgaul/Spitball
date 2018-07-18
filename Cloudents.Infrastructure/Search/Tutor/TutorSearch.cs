@@ -28,23 +28,22 @@ namespace Cloudents.Infrastructure.Search.Tutor
             _tutorSuggestion = tutorSuggestion;
         }
 
+        
+        
         [BuildLocalUrl("", PageSize, "page")]
         public async Task<IEnumerable<TutorDto>> SearchAsync(IEnumerable<string> term, TutorRequestFilter[] filters, TutorRequestSort sort, GeoPoint location, int page,
             bool isMobile, CancellationToken token)
         {
             var query = string.Join(" ", term ?? Enumerable.Empty<string>());
-            
-
-            query = await _tutorSuggestion.GetValueAsync(query, token) ?? query;
+            query = await _tutorSuggestion.GetValueAsync(query, token).ConfigureAwait(false) ?? query;
             if (string.IsNullOrWhiteSpace(query))
             {
                 query = "Physics";
             }
-           
             if (filters?.Contains(TutorRequestFilter.InPerson) == true && location == null)
                 throw new ArgumentException("Need to location");
 
-            var tasks = _tutorSearch.Select(s => s.SearchAsync(query, filters ?? new TutorRequestFilter[0], sort,
+            var tasks = _tutorSearch.Select(s => s.SearchAsync(query, filters ?? Array.Empty<TutorRequestFilter>(), sort,
                 location, page, isMobile, token));
 
             var result2 = await Task.WhenAll(tasks).ConfigureAwait(false);
@@ -53,7 +52,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
             {
                 return result.OrderBy(o => o.Fee);
             }
-            return _shuffle.DoShuffle(result);
+            return _shuffle.ShuffleByPriority(result);
         }
     }
 }

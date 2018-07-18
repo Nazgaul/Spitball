@@ -11,6 +11,7 @@ namespace Cloudents.Infrastructure.Write.Job
     public class JobSearchWrite : SearchServiceWrite<Core.Entities.Search.Job>
     {
         public const string IndexName = "jobs3";
+
         public JobSearchWrite(SearchServiceClient client)
             : base(client, IndexName)
         {

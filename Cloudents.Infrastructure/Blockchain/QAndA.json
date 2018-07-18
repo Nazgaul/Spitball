@@ -1,0 +1,223 @@
+﻿[
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_qId",
+        "type": "uint256"
+      }
+    ],
+    "name": "returnFoundsToUser",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_qId",
+        "type": "uint256"
+      },
+      {
+        "name": "_answerId",
+        "type": "string"
+      }
+    ],
+    "name": "returnUpVoteList",
+    "outputs": [
+      {
+        "name": "a",
+        "type": "bytes32[]"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "tokenReward",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_qId",
+        "type": "uint256"
+      },
+      {
+        "name": "submiterAddress",
+        "type": "address"
+      },
+      {
+        "name": "_answerId",
+        "type": "string"
+      }
+    ],
+    "name": "submitNewAnswer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_qId",
+        "type": "uint256"
+      }
+    ],
+    "name": "spreadFounds",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_qId",
+        "type": "uint256"
+      },
+      {
+        "name": "_price",
+        "type": "uint256"
+      },
+      {
+        "name": "userAddress",
+        "type": "address"
+      }
+    ],
+    "name": "submitNewQuestion",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_qId",
+        "type": "uint256"
+      },
+      {
+        "name": "_answerId",
+        "type": "string"
+      },
+      {
+        "name": "userAddress",
+        "type": "address"
+      }
+    ],
+    "name": "upVote",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_qId",
+        "type": "uint256"
+      },
+      {
+        "name": "_answerId",
+        "type": "string"
+      },
+      {
+        "name": "_winner",
+        "type": "address"
+      },
+      {
+        "name": "submiterAddress",
+        "type": "address"
+      }
+    ],
+    "name": "approveAnswer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "_addressOfTokenUsedAsReward",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "AnswerAccepted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "answerId",
+        "type": "string"
+      }
+    ],
+    "name": "NewAnswer",
+    "type": "event"
+  }
+]

@@ -5,18 +5,21 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Infrastructure
 {
     [UsedImplicitly]
-    public class RestClient : IRestClient, IDisposable
+    public sealed class RestClient : IRestClient, IDisposable
     {
         private readonly HttpClient _client;
 
@@ -70,7 +73,13 @@ namespace Cloudents.Infrastructure
             var result = await _client.GetAsync(url,
                     HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
             result.EnsureSuccessStatusCode();
-            return (await result.Content.ReadAsStreamAsync().ConfigureAwait(false), result.Headers.ETag);
+            var stream = await result.Content.ReadAsStreamAsync().ConfigureAwait(false);
+            if (result.Content.Headers.ContentType.MediaType.Contains("gzip", StringComparison.OrdinalIgnoreCase))
+            {
+                stream = await Compress.DecompressFromGzipAsync(stream).ConfigureAwait(false);
+            }
+
+            return (stream, result.Headers.ETag);
         }
 
         public async Task<Uri> UrlRedirectAsync(Uri url)
@@ -106,27 +115,71 @@ namespace Cloudents.Infrastructure
             using (var sr = new StreamReader(s))
             using (var reader = new JsonTextReader(sr))
             {
-                var serializer = new JsonSerializer();
+                var serializer = new JsonSerializer
+                {
+                    DefaultValueHandling = DefaultValueHandling.Ignore
+                };
                 return serializer.Deserialize<T>(reader);
             }
         }
 
-        public async Task<bool> PostAsync(Uri url, HttpContent body, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        public  Task<bool> PostAsync(Uri url, HttpContent body, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
-            _client.DefaultRequestHeaders.Clear();
-            foreach (var header in headers ?? Enumerable.Empty<KeyValuePair<string, string>>())
-            {
-                _client.DefaultRequestHeaders.Add(header.Key, header.Value);
-            }
+            return TransferHttpContentAsync(HttpMethod.Post, url, body, headers, token);
+        }
 
-            var p = await _client.PostAsync(url, body, token).ConfigureAwait(false);
-            return p.IsSuccessStatusCode;
+        [Log]
+        public Task<bool> PostJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        {
+            return TransferJsonBodyAsync(HttpMethod.Post, url, obj, headers, token);
+        }
+
+        [Log]
+        public Task<bool> PutJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        {
+            return TransferJsonBodyAsync(HttpMethod.Put, url, obj, headers, token);
+        }
+
+        private async Task<bool> TransferJsonBodyAsync<T>(HttpMethod method, Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        {
+            var jsonInString = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
+            {
+                DefaultValueHandling = DefaultValueHandling.Ignore,
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                }
+                
+            });
+            using (var stringContent = new StringContent(jsonInString, Encoding.UTF8, "application/json"))
+            {
+                return await TransferHttpContentAsync(method, url, stringContent, headers, token).ConfigureAwait(false);
+            }
+        }
+
+        private async Task<bool> TransferHttpContentAsync(HttpMethod method, Uri url, HttpContent obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        {
+            using (var message = new HttpRequestMessage(method, url)
+            {
+                Content = obj
+            })
+            {
+                if (headers != null)
+                {
+                    foreach (var header in headers)
+                    {
+                        message.Headers.Add(header.Key,header.Value);
+                    }
+                }
+
+                var p = await _client.SendAsync(message, token).ConfigureAwait(false);
+                return p.IsSuccessStatusCode;
+            }
         }
 
         public void Dispose()
         {
             _client?.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

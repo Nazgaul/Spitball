@@ -9,6 +9,7 @@ var Visualizer = require("webpack-visualizer-plugin");
 var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 var t = require("./webpack.global.js");
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 
 module.exports = (env) => {
@@ -72,7 +73,7 @@ module.exports = (env) => {
                     test: /\.vue$/,
                     loader: "vue-loader",
                     options: {
-                        preserveWhitespace: isDevBuild ? false : true,
+                        preserveWhitespace: isDevBuild ? true : false,
                         loaders: {
                             css: isDevBuild
                                 ? "vue-style-loader!css-loader"
@@ -132,73 +133,76 @@ module.exports = (env) => {
             ])
     });
 
-        const clientBundleConfig = merge(sharedConfig(), {
-            entry: { 'main': './ClientApp/client.js' },
-            output: {
-                path: path.join(__dirname, bundleOutputDir),
-                filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",
-                publicPath: "/dist/"
-            },
-            plugins: [
-                new webpack.DllReferencePlugin({
-                    context: __dirname,
-                    manifest: require("./wwwroot/dist/vendor-manifest.json")
-                }),
-                new webpack.SourceMapDevToolPlugin({
-                    filename: "[file].map", // Remove this line if you prefer inline source maps
-                    moduleFilenameTemplate:
-                    path.relative(bundleOutputDir,
-                        "[resourcePath]") // Point sourcemap entries to the original file locations on disk
-                }),
-                new StatsWriterPlugin({
-                    filename: "main.json",
-                    transform: function (data, opts) {
-                        return JSON.stringify(data.assetsByChunkName, null, 2);
-                    }
-                }),
+    const clientBundleConfig = merge(sharedConfig(), {
+        entry: { 'main': './ClientApp/client.js' },
+        output: {
+            path: path.join(__dirname, bundleOutputDir),
+            filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",
+            publicPath: "/dist/"
+        },
+        plugins: [
+            new StatsWriterPlugin({
+                filename: "main.json",
+                transform: function (data, opts) {
+                    return JSON.stringify(data.assetsByChunkName, null, 2);
+                }
+            }),
+            new webpack.DllReferencePlugin({
+                context: __dirname,
+                manifest: require("./wwwroot/dist/vendor-manifest.json")
+            })
+        ].concat(isDevBuild
+            ? [
+                
                 new Visualizer({
                     filename: "./statistics.html"
+                }),
+                new webpack.SourceMapDevToolPlugin({
+                filename: "[file].map", // Remove this line if you prefer inline source maps
+                moduleFilenameTemplate:
+                    path.relative(bundleOutputDir,
+                        "[resourcePath]") // Point sourcemap entries to the original file locations on disk
                 })
-            ].concat(isDevBuild
-                ? [] : [
-                    new webpack.optimize.UglifyJsPlugin({
-                        compress: {
-                            warnings: false,
-                            drop_console:true
-                        }
-                    }),
-                ])
-            
-        });
-    
-        const serverBundleConfig = merge(serverConfig(env), {
-            //target: 'node',
-            //entry: { 'main-server': './ClientApp/server.js' },
-            //output: {
-            //    libraryTarget: 'commonjs2',
-            //    path: path.join(__dirname, './ClientApp/dist'),
-            //    filename: '[name].js',
-            //    publicPath: 'dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
-            //},
-            //plugins: [
-            //    new webpack.DllReferencePlugin({
-            //        context: __dirname,
-            //        manifest: require("./ClientApp/dist/vendor-manifest.json"),
-            //        sourceType: 'commonjs2',
-            //        //name: './vendor'
-            //    }),
-            //   // new VueSSRServerPlugin()
-            //]
-            // module: {
-            //     rules: [
-            //         {
-            //             test: /\.json?$/,
-            //             loader: 'json-loader'
-            //         }
-            //     ]
-            // },
-        });
-    
-        return [clientBundleConfig];
+            ] :
+            [
+                new webpack.optimize.UglifyJsPlugin({
+                    compress: {
+                        warnings: false,
+                        drop_console: true
+                    }
+                }),
+            ])
+
+    });
+
+    const serverBundleConfig = merge(serverConfig(env), {
+        //target: 'node',
+        //entry: { 'main-server': './ClientApp/server.js' },
+        //output: {
+        //    libraryTarget: 'commonjs2',
+        //    path: path.join(__dirname, './ClientApp/dist'),
+        //    filename: '[name].js',
+        //    publicPath: 'dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
+        //},
+        //plugins: [
+        //    new webpack.DllReferencePlugin({
+        //        context: __dirname,
+        //        manifest: require("./ClientApp/dist/vendor-manifest.json"),
+        //        sourceType: 'commonjs2',
+        //        //name: './vendor'
+        //    }),
+        //   // new VueSSRServerPlugin()
+        //]
+        // module: {
+        //     rules: [
+        //         {
+        //             test: /\.json?$/,
+        //             loader: 'json-loader'
+        //         }
+        //     ]
+        // },
+    });
+
+    return [clientBundleConfig];
     //];
 }

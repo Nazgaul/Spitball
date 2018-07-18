@@ -5,15 +5,12 @@ namespace Cloudents.Core.Models
     [DataContract]
     public class Location
     {
-        public Location(GeoPoint point, Address address, string ip)
+        public Location(GeoPoint point, Address address, string ip, string callingCode)
         {
             Point = point;
             Address = address;
             Ip = ip;
-        }
-
-        protected Location()
-        {
+            CallingCode = callingCode;
         }
 
         /// <summary>
@@ -27,5 +24,8 @@ namespace Cloudents.Core.Models
 
         [DataMember(Order = 2)]
         public string Ip { get; set; }
+
+        [DataMember(Order = 3)]
+        public string CallingCode { get; set; }
     }
 }

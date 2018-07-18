@@ -36,6 +36,11 @@ namespace Cloudents.Infrastructure.Cache
             }
         }
 
+        public bool Exists(string key, string region)
+        {
+            return _cache.Exists(key, region);
+        }
+
         public void Set(string key, string region, object value, int expire,bool slideExpiration)
         {
             var obj = ConvertEnumerableToList(value);
@@ -61,7 +66,6 @@ namespace Cloudents.Infrastructure.Cache
                           && t.GetGenericTypeDefinition() == typeof(IEnumerable<>));
             if (p != null)
             {
-                
                 var t = p.GetGenericArguments()[0];
                 var listType = typeof(List<>);
                 var constructedListType = listType.MakeGenericType(t);

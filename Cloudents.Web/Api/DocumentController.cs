@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/Document")]
+    [Route("api/[controller]")]
     public class DocumentController : Controller
     {
         private readonly IReadRepositoryAsync<DocumentDto, long> _repository;
         private readonly Lazy<IDocumentSearch> _documentSearch;
         private readonly IFactoryProcessor _factoryProcessor;
+
         public DocumentController(IReadRepositoryAsync<DocumentDto, long> repository, Lazy<IDocumentSearch> documentSearch, IFactoryProcessor factoryProcessor)
         {
             _repository = repository;
@@ -21,7 +22,8 @@ namespace Cloudents.Web.Api
             _factoryProcessor = factoryProcessor;
         }
 
-        public async Task<IActionResult> Get(long id, bool? firstTime, CancellationToken token)
+        [HttpGet]
+        public async Task<IActionResult> GetAsync(long id, bool? firstTime, CancellationToken token)
         {
             var tModel = _repository.GetAsync(id, token);
             var tContent = firstTime.GetValueOrDefault() ?

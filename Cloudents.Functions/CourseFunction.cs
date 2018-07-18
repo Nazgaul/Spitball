@@ -1,28 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AzureFunctions.Autofac;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
-using JetBrains.Annotations;
+using Cloudents.Functions.Di;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Cloudents.Functions
 {
-    [DependencyInjectionConfig(typeof(DiConfig))]
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Azure function")]
     public static class CourseFunction
     {
-       // private const string QueueName = "course-sync";
-
-        [FunctionName("CourseTimer")]
-        [UsedImplicitly]
+       // [FunctionName("CourseTimer")]
         public static async Task RunAsync([TimerTrigger("0 */30 * * * *")]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/course-version.txt", FileAccess.ReadWrite)]
             CloudBlockBlob blob,
@@ -35,7 +32,6 @@ namespace Cloudents.Functions
             {
                 log.Info("pass due run.");
                 return;
-
             }
             await SyncFunc.SyncAsync(blob, repository, searchServiceWrite, write => new Course
             {

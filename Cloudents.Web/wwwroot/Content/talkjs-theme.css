@@ -1,0 +1,142 @@
+/** TalkJS Default Theme **/
+/*
+This is a TalkJS theme file. Themes are designed to allow you to easily change
+the main look and feel of TalkJS. Themes cannot be used to change the layout,
+e.g. you cannot change which panels appear where.
+
+If you understand CSS, you will feel right at home with TalkJS theme files.
+A theme looks like a CSS file, except that the available classes and
+properties are limited to what you see here. If you remove a property, the theme
+will fail to work and TalkJS will revert to the default theme. If you add a
+property, it will be ignored.
+
+The easiest way to make a theme is to start with a default theme (this file)
+and edit it until you're happy with the results.
+
+PLEASE NOTE: We continuously add options and features to TalkJS themes (in a
+backward compatible way). If you need to theme something that you can't access,
+let us know! We may be able to add it quickly.
+*/
+
+/* If you use webfonts, use one or more @font directives as shown below.
+   You usually won't want to change the @version number unless you're upgrading
+   an existing theme.
+*/
+
+/* @version 3 */
+/* @font url("https://cloud.typography.com/7091114/7183352/css/fonts.css"); */
+
+/* Theses properties apply to all TalkJS UI elements. */
+.global {
+    font-family: "Whitney SSm A", "Whitney SSm B", "Helvetica", sans-serif;
+    font-size: 13.3px;
+    line-height: 1.37em;
+    color: #4a4a4a;
+}
+
+/* The following three classes allow you to tune the TalkJS layout.
+   Unlike all other properties in a theme, `width` and `max-width` are both
+   optional.
+   Note: there is no way to give the entire Inbox a maximum width: use CSS
+   in your own app to restrict the with of the container div, if necessary. */
+.chatbox {
+    width: 100%;
+    max-width: 420px;
+}
+
+.inbox-feed-panel {
+    width: 33%;
+    max-width: 328px;
+}
+
+.inbox-chat-panel {
+    /* By using `calc` below we can ensure that the total width of the feed, the chat,
+       and the space in between is precisely 100%. We recommend the same if you also
+       use percentage widths and a margin. */
+    width: calc(66%);
+    max-width: 696px;
+    /* margin-left: 20px; */
+}
+
+/* A panel is a rectangular box, such as the message list or
+   the conversation history box */
+.panel {
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: #dce0e0;
+    background-color: #fff;
+    padding: 10px;
+}
+
+/* Applies to messages written by the current user. */
+.message-balloon-me {
+    width: 75%;
+    height: 100%;
+    color: #4a4a4a;
+    border-color:#dddddd;
+    border-width: 1px;
+    border-radius: 15px 0 15px 15px;
+    background-color: #9ccdff;
+
+}
+
+/* Applies to messages *not* written by the current user. */
+.message-balloon-other {
+    width: 75%;
+    border-radius: 0 15px 15px 15px;
+    color: #4a4a4a;
+    border-color:#dddddd;
+    border-width: 1px;
+    background-color: #ffffff;
+}
+
+/* These are the horizontal markers that separate messages sent on different days */
+.day-marker {
+    color: #d8d8d8;
+}
+
+/* The avatar is the user's picture in the profile panel and in the conversation
+   history. */
+.avatar {
+    border-width: 1px;
+    border-color: #d8d8d8;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #d8d8d8;
+}
+
+/* This applies to the text input box underneath the message list. */
+.text-input {
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: #E0E0E0;
+    background-color: #fff;
+    color: #232529;
+}
+
+/* Styles all links, globally. */
+.link {
+    color: #3293f6;
+}
+
+/* The highlight colors control of the currently selected
+   conversation in the conversation feed, as well as a few accents here and
+   there. */
+.highlight {
+    background-color: #f6f6f6;
+    color: #4a4a4a;
+}
+
+/* This colors the "Desktop Notifications" toggle in the Inbox view. */
+.toggle-button {
+    border-color: #3293f6;
+}
+
+.Panel {
+    background-color: #fff;
+    border-radius: 5px;
+    border-width: 0;
+    border-color: #dce0e0;
+    padding: 10px;
+}

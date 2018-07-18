@@ -2,11 +2,11 @@
 
 export default {
     activateFunction: {
-        ask({ source, university, course, term="", page, sort, q: userText }) {
-            return search.getQna({ source, university, course, term, page, sort, userText });
+        ask({ source, term=""}) {
+            return search.getQuestions({term, source})
         },
-        note({ source, university, course, term="", page, sort, docType }) {
-            return search.getDocument({ source, university, course, query:term, page, sort, docType });
+        note({ source, university, course, term="", page, sort }) {
+            return search.getDocument({ source, university, course, query:term, page, sort });
         },
         flashcard({ source, university, course, term="", page, sort }) {
             return search.getFlashcard({ source, university, course, query:term, page, sort });
@@ -22,13 +22,6 @@ export default {
         },
         bookDetails({ type, isbn13 }) {
             return search.getBookDetails({ type, isbn13 });
-        },
-        foodDetails({ id }) {
-            return search.getPlacesDetails({ id });
-        },
-        food({ term="", filter,  location }) {
-                return search.getFood({ term, filter, location });
-
         }
     },
     autoComplete:(term)=>search.autoComplete(term),

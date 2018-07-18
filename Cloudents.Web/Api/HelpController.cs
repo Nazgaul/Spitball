@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Cloudents.Core.Storage;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -14,22 +15,27 @@ namespace Cloudents.Web.Api
     [Route("api/Help")]
     public class HelpController : Controller
     {
-        private readonly IBlobProvider _blobProvider;
+        private readonly IRestClient _restClient;
 
-        public HelpController(IBlobProvider blobProvider)
+        public HelpController(IRestClient blobProvider)
         {
-            _blobProvider = blobProvider;
+            _restClient = blobProvider;
         }
 
-        public async Task<IActionResult> Get(CancellationToken token)
+        [HttpGet]
+        [ResponseCache(Duration = TimeConst.Hour)]
+        public async Task<IActionResult> GetAsync(CancellationToken token)
         {
             var uri = new Uri("https://zboxstorage.blob.core.windows.net/zboxhelp/new/help.xml");
-            using (var stream = await _blobProvider.DownloadFileAsync(uri, token).ConfigureAwait(false))
+            var t = await _restClient.DownloadStreamAsync(uri, token).ConfigureAwait(false);
+
+            using(var stream = t.stream)
             {
                 var model = PassXmlDoc(stream);
                 return Json(model);
             }
         }
+
         [NonAction]
         public static IEnumerable<QnA> PassXmlDoc(Stream stream)
         {
@@ -40,7 +46,7 @@ namespace Cloudents.Web.Api
                 {
                     Question = content.Element("question")?.Value.Trim(),
                     Answer = content.Element("answer")?.Value.Trim()
-                   
+
                 };
         }
 

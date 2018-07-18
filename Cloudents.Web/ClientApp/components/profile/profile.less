@@ -1,0 +1,180 @@
+@import "../../mixin.less";
+
+.profile-page{
+    .limited-width();
+    margin-top: 16px;
+
+    @media (max-width: @screen-xs) {
+        margin-top: 0;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .container{
+        @media (max-width: @screen-xs) {
+            padding: 0;
+        }
+    }
+
+    .data-wrapper{
+        @media(min-width: @screen-sm) {
+            margin-left: @logoWidth;
+        }
+    }
+
+    .user-question {
+        margin-bottom: 17px;
+    }
+
+    .web-content{
+        margin-left: 16px;
+        max-width: @cellWidth;
+        .question-card-wrapper{
+            display: block;
+            margin-bottom: 16px;
+        }
+    }
+
+    .main-block{
+        // height: 290px;
+        border-radius: 4px;
+        background-color: @color-white;
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        font-size: 14px;
+        color: #5d5d5d;
+        text-align: center;
+        width: 209px;
+
+        @media (max-width: @screen-xs) {
+            width: 100%;
+            margin-left: 0;
+            border-radius: 0;
+        }
+
+        .menu{
+            width: 100%;
+            margin: 7px 0px 17px;
+            @media (max-width: @screen-xs) {
+                margin: 0;
+            }
+            .tabs{
+                width: 100%;
+                text-align: left;
+                list-style-type: none;
+                li{
+                    height: 40px;
+                    padding: 6px 18px;
+                    line-height: 1.79;
+                    border-left: 4px solid @color-white;
+                    cursor: pointer;
+                    &.active{
+                        color:@color-main-purple;
+                        border-color: @color-main-purple;
+                        background-color: @color-light-grey;
+                    }
+                }
+            }
+        }
+
+        button.back{
+            outline: none;
+            position: absolute;
+            left: 7px;
+            top: 9px;
+            padding: 10px;
+
+            .sbf{
+                transform: scale(-1, 1);
+                font-size: 13px;
+                color: @color-main-purple;
+                margin-right: 25px;
+                display: none;
+                @media (max-width: @screen-xs) {
+                    display: block;
+                }
+            }
+        }
+
+    }
+
+
+
+    .tab-padding{
+        .tabs__bar{
+            background-color: @color-white; border-top: solid 1px @color-medium-grey;
+            @media (max-width: @screen-xs) {
+                height: 64px;
+                font-size: 18px;
+            }
+        }
+        .tabs__container{
+            .tabs__item{
+                text-transform: none;
+                &.tabs__item--active{ color: @color-main-purple!important;font-weight: bold;}
+            }
+            .tabs__slider.blue{
+                border-bottom: 2px solid @color-main-purple;
+            }
+        }
+    }
+
+
+    .column{
+        .main-block .user-block{height: 170px;}
+        .web-content{ margin: 16px 8px;}
+    }
+
+
+    .empty-state{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        border-radius: 4px;
+        background-color: @color-white;
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+        margin-bottom: 16px;
+        .responsive-property(height, 280px, null, 248px);
+        .text-block{
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-weight: 300;
+            margin-bottom: 0;
+            .responsive-property(padding-top, 4px, null, 0);
+            p,b{
+                line-height: 0.9;
+                letter-spacing: -0.3px;
+                color: @color-grey;
+                .responsive-property(font-size, 40px, null, 30px);
+                font-size: 40px;
+                .responsive-property(line-height, 1, null, 1.2);
+                margin-bottom: 0;
+            }
+            b{
+                font-weight: bold;
+            }
+        }
+        a{
+            display: inline-block;
+            line-height: 40px;
+            min-width: 208px;
+            margin: 0 auto;
+            background: @color-dark-blue;
+            color: @color-white;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: -0.5px;
+            border-radius: 4px;
+            margin-bottom: 24px;
+        }
+    }
+}
+
+
+

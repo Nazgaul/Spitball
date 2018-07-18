@@ -1,13 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Api.Filters;
+using Cloudents.Api.Models;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
-using Cloudents.MobileApi.Filters;
-using Cloudents.MobileApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cloudents.MobileApi.Controllers
+namespace Cloudents.Api.Controllers
 {
     /// <inheritdoc />
     /// <summary>
@@ -38,7 +37,7 @@ namespace Cloudents.MobileApi.Controllers
         [ValidateModel]
         [ProducesResponseType(typeof(VerticalEngineDto), 200)]
         public async Task<IActionResult> GetAsync(
-            AiRequest model,
+           AiRequest model,
            CancellationToken token)
         {
             var result = await _engineProcess.ProcessRequestAsync(model.Sentence, token).ConfigureAwait(false);

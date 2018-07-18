@@ -23,13 +23,16 @@ namespace Cloudents.Core.Request
 
         [DataMember(Name = "from")]
         public string From => "Olivia Williams <olivia@spitball.co>";
+
         [DataMember(Name = "to")]
         public string To { [UsedImplicitly] get; }
 
         [DataMember(Name = "subject")]
         public string Subject { [UsedImplicitly] get; }
+
         [DataMember(Name = "html")]
         public string Html { [UsedImplicitly]get;  }
+
         [DataMember(Name = "o:tag")]
         public string Tag { [UsedImplicitly] get;  }
 

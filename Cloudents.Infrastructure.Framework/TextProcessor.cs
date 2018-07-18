@@ -75,7 +75,7 @@ namespace Cloudents.Infrastructure.Framework
                 throw new ArgumentException("Stream is 0");
             }
             var sr = await Compress.CompressToGzipAsync(stream, token).ConfigureAwait(false);
-            await _blobProviderCache.UploadByteArrayAsync(cacheFileName, sr, "text/plain", true, 30, token).ConfigureAwait(false);
+            await _blobProviderCache.UploadStreamAsync(cacheFileName, sr, "text/plain", true, 30, token).ConfigureAwait(false);
             return _blobProviderCache.GenerateSharedAccessReadPermission(cacheFileName, 30);
         }
 

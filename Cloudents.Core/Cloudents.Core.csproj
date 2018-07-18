@@ -11,10 +11,27 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Query\Queries\**" />
+    <EmbeddedResource Remove="Query\Queries\**" />
+    <None Remove="Query\Queries\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CommandHandler\UpVoteAnswerCommandHandler.cs" />
+    <Compile Remove="Command\UpVoteAnswerCommand.cs" />
+    <Compile Remove="Interfaces\IBlockChainCrowdsaleService.cs" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="Microsoft.Spatial" Version="7.2.0" />
-    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="Autofac" Version="4.6.1" />
     <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp">
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.CSharp\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.CSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

@@ -1,0 +1,28 @@
+<template>
+    <div class="wrapper chat-wrapper">
+        <div id="chat-container"></div>
+    </div>
+</template>
+
+<script>
+    import {mapGetters} from "vuex";
+    import {debug} from "util";
+
+    export default {
+        computed: {
+            ...mapGetters(["talkSession"])
+        },
+        mounted() {
+            if (this.talkSession) {
+                const inbox = this.talkSession.createInbox({
+                    showFeedHeader: false,
+                    chatTitleMode: "subject",
+                    feedConversationTitleMode: "subject",
+                    chatSubtitleMode:null
+                });
+                inbox.mount(document.getElementById("chat-container"));
+            }
+        }
+    };
+</script>
+<style src="./conversations.less" lang="less"></style>

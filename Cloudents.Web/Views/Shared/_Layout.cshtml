@@ -1,5 +1,5 @@
 ﻿@using System.Reflection
-@using Cloudents.Web.Extensions
+@using Cloudents.Web.Services
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
 @using Microsoft.AspNetCore.Http.Extensions
@@ -7,15 +7,16 @@
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 @inject IHostingEnvironment Environment
 @inject WebPackChunkName Provider
-@inject IConfiguration Configuration 
+@inject IConfiguration Configuration
 
 @{
     const string themeColor = "#4190b";
     ViewBag.title = ViewBag.title ?? "Simplify school | Spitball";
     ViewBag.metaDescription = ViewBag.metaDescription ?? " Spitball - Curating all of the resources you need. For Free.";
-    ViewBag.fbImage = ViewBag.fbImage ??  "/images/3rdParty/fbShare.png";
+    ViewBag.fbImage = ViewBag.fbImage ?? "/images/3rdParty/fbShare.png";
     ViewBag.imageSrc = ViewBag.imageSrc ?? "/images/3rdParty/fbShare.png";
-    var version = Assembly.GetEntryAssembly().GetName().Version.ToString(4);
+    var version = typeof(Program).Assembly
+        .GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
     var p = Provider.GetTag("vendor");
     var main = Provider.GetTag("main");
     var cdnEndPoint = Constants.GetCdnEndpoint(Environment);
@@ -47,7 +48,7 @@
               asp-fallback-test-class="cdn-only2" asp-fallback-test-property="position"
               asp-fallback-test-value="absolute" />
     </environment>
-    @await RenderSectionAsync("styleSection", required:false).ConfigureAwait(false)
+    @await RenderSectionAsync("styleSection", required: false).ConfigureAwait(false)
     <meta charset="utf-8">
     <meta name="theme-color" content="@themeColor">
     <meta name="msapplication-navbutton-color" content="@themeColor">
@@ -67,61 +68,68 @@
     <meta property="og:type" content="website" />
     <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
 
-    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_114.png?v=2" />
-    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_57.png?v=2">
-    <link rel="apple-touch-icon" sizes="60x60" href="@cdnEndPoint/images/favicons/favicon_60.png?v=2">
-    <link rel="apple-touch-icon" sizes="72x72" href="@cdnEndPoint/images/favicons/favicon_72.png?v=2">
-    <link rel="apple-touch-icon" sizes="76x76" href="@cdnEndPoint/images/favicons/favicon_76.png?v=2">
-    <link rel="apple-touch-icon" sizes="114x114" href="@cdnEndPoint/images/favicons/favicon_114.png?v=2">
-    <link rel="apple-touch-icon" sizes="120x120" href="@cdnEndPoint/images/favicons/favicon_120.png?v=2">
-    <link rel="apple-touch-icon" sizes="144x144" href="@cdnEndPoint/images/favicons/favicon_144.png?v=2">
-    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_32.png" sizes="32x32?v=2">
-    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_96.png" sizes="96x96?v=2">
-    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_16.png" sizes="16x16?v=2">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="@cdnEndPoint/images/favicons/favicon_144.png?v=2">
+    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_115.png?v=2" />
+    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_58.png?v=2" />
+    <link rel="apple-touch-icon" sizes="60x60" href="@cdnEndPoint/images/favicons/favicon_61.png?v=2" />
+    <link rel="apple-touch-icon" sizes="72x72" href="@cdnEndPoint/images/favicons/favicon_73.png?v=2" />
+    <link rel="apple-touch-icon" sizes="76x76" href="@cdnEndPoint/images/favicons/favicon_77.png?v=2" />
+    <link rel="apple-touch-icon" sizes="114x114" href="@cdnEndPoint/images/favicons/favicon_115.png?v=2" />
+    <link rel="apple-touch-icon" sizes="120x120" href="@cdnEndPoint/images/favicons/favicon_121.png?v=2" />
+    <link rel="apple-touch-icon" sizes="144x144" href="@cdnEndPoint/images/favicons/favicon_144.png?v=2" />
+    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_33.png" sizes="32x32?v=2" />
+    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_97.png" sizes="96x96?v=2" />
+    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_17.png" sizes="16x16?v=2" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="@cdnEndPoint/images/favicons/favicon_145.png?v=2" />
     <link rel="SHORTCUT ICON" href="@cdnEndPoint/favicon.ico?v=2" />
     @Html.Raw(JavaScriptSnippet.FullScript)
-    
-    <style>.async-hide { opacity: 0 !important} </style>
-    <script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
-h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
-(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
-})(window,document.documentElement,'async-hide','dataLayer',4000,
-{'GTM-NN2LHCV':true});</script>
+
+    <style>
+        .async-hide {
+            opacity: 0 !important
+        }
+    </style>
+    <script>
+        (function (a, s, y, n, c, h, i, d, e) {
+            s.className += ' ' + y; h.start = 1 * new Date;
+            h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
+            (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
+        })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
+            { 'GTM-NN2LHCV': true });</script>
     <!-- Modified Analytics tracking code with Optimize plugin -->
     <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-100723645-2', 'auto');
-    ga('require', 'GTM-NN2LHCV');
-    //ga('send', 'pageview');
+        ga('create', 'UA-100723645-2', 'auto');
+        ga('require', 'GTM-NN2LHCV');
+        //ga('send', 'pageview');
     </script>
     <script type="text/javascript"
-      src="//www.googleadservices.com/pagead/conversion_async.js">
+            src="//www.googleadservices.com/pagead/conversion_async.js">
     </script>
     <!-- Google Tag Manager -->
     <script async>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
                 'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
+                    new Date().getTime(), event: 'gtm.js'
             }); var f = d.getElementsByTagName(s)[0],
                 j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
                     'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-M2BGS2G');</script>
     <!-- End Google Tag Manager -->
+    <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
+    @*<noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2BGS2G"
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    </noscript>*@
     <div>
         @RenderBody()
     </div>
@@ -142,7 +150,8 @@ h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
     <script async>
         (function () {
             window.intercomSettings = {
-                app_id: "njmpgayv"
+                app_id: "njmpgayv",
+                hide_default_launcher: true
             };
             var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator'); ic('update', intercomSettings); } else {
                 var d = document; var i = function () { i.c(arguments) }; i.q = []; i.c = function (args) { i.q.push(args) }; w.Intercom = i; function l() {
@@ -166,10 +175,14 @@ h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
     <!-- End Inspectlet Embed Code -->
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
-        window.version = '@version';
+    window.version = '@version';
+        window.version2 = '8.7.8.1';
         window.publicPath = '@cdnEndPoint' + '/dist/';
-        window.baseURL = '@Configuration["ApiEndpoint"]';
+    window.baseURL = '@Configuration["ApiEndpoint"]';
+    window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
+    window.talkJsId = '@Configuration["TalkJs"]';
     </script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>
 </html>

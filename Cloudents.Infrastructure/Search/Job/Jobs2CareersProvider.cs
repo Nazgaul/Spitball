@@ -5,14 +5,16 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
+using Cloudents.Infrastructure.Extensions;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
@@ -22,7 +24,6 @@ namespace Cloudents.Infrastructure.Search.Job
     [UsedImplicitly]
     public class Jobs2CareersProvider : IJobProvider
     {
-        //
         private readonly IRestClient _client;
         private readonly IMapper _mapper;
 
@@ -32,7 +33,8 @@ namespace Cloudents.Infrastructure.Search.Job
             _mapper = mapper;
         }
 
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(JobProviderRequest jobProviderRequest, CancellationToken token)
+        [Cache(TimeConst.Hour, nameof(Jobs2CareersProvider), false)]
+        public async Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(JobProviderRequest jobProviderRequest, CancellationToken token)
         {
             if (jobProviderRequest.Location?.Address?.City == null || jobProviderRequest.Location.Ip == null)
             {
@@ -54,17 +56,11 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["Limit"] = JobSearch.PageSize.ToString(),
                 ["format"] = "json",
                 ["link"] = 1.ToString(),
-                ["q"] = jobProviderRequest.Term
+                ["q"] = jobProviderRequest.Term,
+                ["sort"] = jobProviderRequest.Sort == JobRequestSort.Date ? "d" : "r",
+                ["d"] = JobSearch.RadiusOfFindingJobKm.ToString(CultureInfo.InvariantCulture)
             };
 
-            if (jobProviderRequest.Sort == JobRequestSort.Date)
-            {
-                nvc.Add("sort", "d");
-            }
-            else
-            {
-                nvc.Add("d", JobSearch.RadiusOfFindingJobKm.ToString(CultureInfo.InvariantCulture));
-            }
             var jobFilter = new List<string>();
             foreach (var filter in jobProviderRequest.JobType ?? Enumerable.Empty<JobFilter>())
             {
@@ -85,9 +81,18 @@ namespace Cloudents.Infrastructure.Search.Job
 
             var result = await _client.GetAsync<Jobs2CareersResult>(new Uri("http://api.jobs2careers.com/api/search.php"), nvc, token).ConfigureAwait(false);
 
-            var jobs = _mapper.Map<IEnumerable<JobDto>>(result);
+            if (result == null)
+            {
+                return null;
+            }
+            if (result.Total == 0)
+            {
+                return null;
+            }
 
-            return new ResultWithFacetDto<JobDto>
+            var jobs = _mapper.MapWithPriority<Job, JobProviderDto>(result.Jobs);
+
+            return new ResultWithFacetDto<JobProviderDto>
             {
                 Result = jobs,
                 Facet = new[]
@@ -103,7 +108,9 @@ namespace Cloudents.Infrastructure.Search.Job
         {
             [JsonProperty("jobs")]
             public Job[] Jobs { get; set; }
-            //public int total { get; set; }
+
+            [JsonProperty("total")]
+            public int Total { get; set; }
             //public int start { get; set; }
             //public int count { get; set; }
         }
@@ -112,17 +119,22 @@ namespace Cloudents.Infrastructure.Search.Job
         {
             [JsonProperty("title")]
             public string Title { get; set; }
+
             [JsonProperty("date")]
             public DateTime Date { get; set; }
+
             [JsonProperty("url")]
             public string Url { get; set; }
+
             [JsonProperty("company")]
             public string Company { get; set; }
+
             [JsonProperty("city")]
             public string[] City { get; set; }
+
             [JsonProperty("description")]
             public string Description { get; set; }
-           
+
             [JsonProperty("id")]
             public string Id { get; set; }
             //public string major_category0 { get; set; }

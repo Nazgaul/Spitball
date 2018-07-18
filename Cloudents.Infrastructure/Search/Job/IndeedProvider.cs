@@ -5,16 +5,16 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
+using Cloudents.Infrastructure.Extensions;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search.Job
 {
@@ -32,7 +32,7 @@ namespace Cloudents.Infrastructure.Search.Job
         }
 
         [Cache(TimeConst.Hour, "job-indeed", false)]
-        public async Task<ResultWithFacetDto<JobDto>> SearchAsync(JobProviderRequest jobProviderRequest, CancellationToken token)
+        public async Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(JobProviderRequest jobProviderRequest, CancellationToken token)
         {
             var locationStr = string.Empty;
             if (jobProviderRequest.Location?.Address != null)
@@ -81,6 +81,7 @@ namespace Cloudents.Infrastructure.Search.Job
                 ["start"] = (jobProviderRequest.Page * JobSearch.PageSize).ToString(),
                 ["highlight"] = 0.ToString(),
                 ["jt"] = string.Join(",", jobFilter),
+                ["radius"] = JobSearch.RadiusOfFindingJobKm.ToString(CultureInfo.InvariantCulture)
                 //["latlong"] = 1.ToString()
             };
 
@@ -88,19 +89,21 @@ namespace Cloudents.Infrastructure.Search.Job
             {
                 nvc.Add("sort", "date");
             }
-            else
-            {
-                nvc.Add("radius", JobSearch.RadiusOfFindingJobKm.ToString(CultureInfo.InvariantCulture));
-            }
-            var result = await _client.GetAsync(new Uri("http://api.indeed.com/ads/apisearch"), nvc, token).ConfigureAwait(false);
+
+            var result = await _client.GetAsync<IndeedResult>(new Uri("http://api.indeed.com/ads/apisearch"), nvc, token).ConfigureAwait(false);
             if (result == null)
             {
                 return null;
             }
-            var p = JsonConvert.DeserializeObject<IndeedResult>(result);
-            var jobs = _mapper.Map<IEnumerable<JobDto>>(p);
 
-            return new ResultWithFacetDto<JobDto>
+            if (result.TotalResults == 0)
+            {
+                return null;
+            }
+
+            var jobs = _mapper.MapWithPriority<Result, JobProviderDto>(result.Results);
+
+            return new ResultWithFacetDto<JobProviderDto>
             {
                 Result = jobs,
                 Facet = new[]
@@ -122,7 +125,8 @@ namespace Cloudents.Infrastructure.Search.Job
             //public string paginationPayload { get; set; }
             // public bool dupefilter { get; set; }
             // public bool highlight { get; set; }
-            // public int totalResults { get; set; }
+            [JsonProperty("totalResults")]
+             public int TotalResults { get; set; }
             //public int start { get; set; }
             //public int end { get; set; }
             //public int pageNumber { get; set; }
@@ -134,6 +138,7 @@ namespace Cloudents.Infrastructure.Search.Job
         {
             [JsonProperty("jobtitle")]
             public string JobTitle { get; set; }
+
             [JsonProperty("company")]
             public string Company { get; set; }
             // public string city { get; set; }
@@ -145,13 +150,16 @@ namespace Cloudents.Infrastructure.Search.Job
             //public string source { get; set; }
             [JsonProperty("date")]
             public DateTime Date { get; set; }
+
             [JsonProperty("snippet")]
             public string Snippet { get; set; }
+
             [JsonProperty("url")]
             public string Url { get; set; }
             //public string onmousedown { get; set; }
             [JsonProperty("latitude")]
             public float Latitude { get; set; }
+
             [JsonProperty("longitude")]
             public float Longitude { get; set; }
             //public string jobkey { get; set; }

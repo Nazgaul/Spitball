@@ -5,7 +5,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cloudents.MobileApi.Controllers
+namespace Cloudents.Api.Controllers
 {
     /// <inheritdoc />
     /// <summary>
