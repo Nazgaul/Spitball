@@ -56,10 +56,7 @@ const actions = {
         // commit("logout");
         window.location.replace("/logout");
         //router.go({path: '/logout'});
-            }, error => {
-                console.error('logout error', error)
-            })
-
+           
     },
     userStatus({dispatch, commit, getters}, {isRequire, to}) {
         const $this = this;
