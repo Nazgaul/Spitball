@@ -5,7 +5,7 @@ import {dollarCalculate} from "../store/constants";
 axios.defaults.paramsSerializer = params => qs.stringify(params, {indices: false});
 axios.defaults.responseType = "json";
 let transferResultQuestion = res => {
-    return { ...res,filesNum:res.files.length,answersNum:res.answers.length}
+    return { ...res,filesNum:res.files.length, answersNum:res.answers.length}
 };
 export default {
     deleteQuestion:({id,type})=> axios.delete(`/${type}/${id}`),

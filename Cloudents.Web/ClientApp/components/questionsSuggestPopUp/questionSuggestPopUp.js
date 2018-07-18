@@ -1,17 +1,21 @@
 import questionCard from "../question/helpers/question-card/question-card.vue";
 import {mapActions} from 'vuex'
+
 export default {
     components: {
         questionCard
     },
     props: {
         user: {},
-        cardList:{  required: false},
+        cardList: {
+            type: Array,
+        },
     },
     data() {
         return {
             showDialog: false,
             interval: 7000,
+
 
         }
     },
@@ -22,21 +26,28 @@ export default {
     methods: {
         ...mapActions(["resetQuestion"]),
         requestDialogClose() {
-            console.log('sdfsdf')
             this.$root.$emit('closeSuggestionPopUp')
         },
         answerMore(id) {
             this.requestDialogClose();
-
-            this.$nextTick(function () {
-                this.$router.push({path: '/question/' + id});
-                this.$forceUpdate()
-            })
+            //
+            // this.$nextTick(function () {
+            //     this.$router.push({path: '/question/' + id});
+            //     this.$forceUpdate()
+            // })
         }
 
     },
-    computed: {},
+    computed: {
+     },
+    watch: {
+        '$props':{
+            handler: function (val, oldVal) {
+                console.log('watch', val)
+            },
+            deep: true
+        }
+    },
     created() {
-
     }
 }

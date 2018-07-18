@@ -15,7 +15,7 @@
                     to with.
                 </p>
             </div>
-            <v-carousel :interval="interval"
+            <v-carousel :interval="interval" v-if="cardList"
                         @click="requestDialogClose()"
                         delimiter-icon="sbf-circle-solid"
                         prev-icon="sbf-arrow-left-carousel"

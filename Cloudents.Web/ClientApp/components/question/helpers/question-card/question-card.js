@@ -66,8 +66,6 @@ export default {
             }
             return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
         },
-
-
     },
     methods: {
         ...mapActions({
@@ -116,5 +114,6 @@ export default {
     },
     created() {
         this.flaggedAsCorrect = this.isCorrectAnswer;
+        console.log('answ',this.cardData.answers, 'files', this.cardData.files)
     }
 }
