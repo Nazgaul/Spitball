@@ -43,7 +43,7 @@ namespace Cloudents.Web.Api
         {
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Sort.GetValueOrDefault(JobRequestSort.Relevance),
-                model.Facet, model.Location.ToLocation(), model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
+                model.Facet, model.Location?.ToLocation(), model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
             string nextPageLink = null;
             result.Result = result.Result?.ToList();
             if (result.Result?.Any() == true)

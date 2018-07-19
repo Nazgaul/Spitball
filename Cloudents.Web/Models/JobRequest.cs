@@ -27,6 +27,7 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// Location of user
         /// </summary>
+        [CanBeNull]
         public LocationQuery Location { get; set; }
 
         /// <summary>
