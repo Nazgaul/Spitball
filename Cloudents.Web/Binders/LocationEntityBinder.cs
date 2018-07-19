@@ -26,11 +26,14 @@ namespace Cloudents.Web.Binders
         {
             var tempData = _tempDataFactory.GetTempData(bindingContext.HttpContext);
 
-            var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.latitude");
-            var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.longitude");
+
+            var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.latitude").FirstValue
+                ?? bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.latitude").FirstValue;
+            var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.longitude").FirstValue
+                ?? bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.longitude").FirstValue;
             var locationFromTemp = tempData.Get<LocationQuery>(KeyName);
-            if (float.TryParse(latitudeStr.FirstValue, out var latitude)
-                && float.TryParse(longitudeStr.FirstValue, out var longitude))
+            if (float.TryParse(latitudeStr, out var latitude)
+                && float.TryParse(longitudeStr, out var longitude))
             {
                 var point = new GeographicCoordinate
                 {

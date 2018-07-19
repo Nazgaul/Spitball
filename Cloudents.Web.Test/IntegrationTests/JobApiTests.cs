@@ -16,6 +16,13 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [TestMethod]
+        public async Task Search_SomeQuery2_ReturnResult()
+        {
+            var response = await Client.GetAsync("/api/job?location.latitude=32.636928&location.longitude=35.3288192&term=").ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+        }
+
+        [TestMethod]
         public async Task Search_OnlyLocationILEmptyTerm_ReturnResult()
         {
             var response =
@@ -35,10 +42,8 @@ namespace Cloudents.Web.Test.IntegrationTests
             var p = d["result"]["result"].Values();
             
             p.Should().HaveCountGreaterOrEqualTo(1);
-            //var p = d.result;
-            //p.Should().HaveCountGreaterOrEqualTo(1);
-            //var obj = JsonConvert.DeserializeObject<WebResponseWithFacet<JobDto>>(result);
-            //obj.Result.Should().HaveCountGreaterOrEqualTo(1);
         }
+
+        
     }
 }
