@@ -26,7 +26,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         public async Task Search_OnlyLocationILEmptyTerm_ReturnResult()
         {
             var response =
-                await Client.GetAsync("api/job?location.Point.latitude=31.9200189&location.Point.longitude=34.8016837&term=");
+                await Client.GetAsync("api/job?term=");
             response.EnsureSuccessStatusCode();
         }
 
