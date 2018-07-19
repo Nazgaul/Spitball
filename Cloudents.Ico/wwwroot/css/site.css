@@ -2518,7 +2518,7 @@ select:focus {
     .site-header .navbar-collapse {
         padding: 0;
         background-color: transparent;
-        color: #3c3c3c;
+        color: #eff6ff;
     }
 
     .site-header .logo-light {
@@ -2526,6 +2526,41 @@ select:focus {
         border-radius: 0;
     }
 
+    /* Solution list section Start */
+
+    ul.solution{
+        color: #ffffff;
+
+    }
+    
+    ul.solution > li{
+        list-style: none;
+        position: relative;
+        line-height: 2;
+        padding-left: 22px;
+        font-size: 14px;
+    }
+    ul.solution > li >span{
+        /* font-weight: 600; */
+        color: #ffc123;
+    }
+    ul.solution  li:before{
+        background: #ffc123;
+        content: "";
+        height: 5px;
+        width: 5px;
+        border-radius: 50%;
+        position: absolute;
+        top: 13px;
+        left: 0;
+    }
+     /* Solution list END */
+li.nav-item{
+    margin-right: 8px;
+}
+.subtitle{
+    margin-bottom: 20px;
+}
 .navbar .navbar-nav > li:hover > a {
     color: #46bdf4;
     background: transparent;
@@ -2533,9 +2568,9 @@ select:focus {
 
 .navbar .navbar-nav > li > a {
     background: transparent;
-    text-transform: capitalize;
+    text-transform: uppercase;
     color: inherit;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 38px;
     margin: 0 8.5px;
@@ -2760,7 +2795,7 @@ select:focus {
     }
 
     .site-header .navbar-nav > li > a {
-        color: #8484a4;
+        color: #fff;
     }
     #signUpBtn{
         color: #3632D5;
@@ -2794,7 +2829,7 @@ select:focus {
     }
 
     .site-header .navbar.is-transparent {
-        background: #ffffff;
+        background: transparent;
         position: absolute;
         top: 0;
         left: 0;
@@ -2932,14 +2967,14 @@ select:focus {
     }
 
     .language-switcher > a {
-        color: #8484a4;
+        color: #ffffff;
         font-size: .85em;
         padding: 0 17px;
         position: relative;
     }
 
         .language-switcher > a:hover, .language-switcher > a:focus {
-            color: #8484a4;
+            color: #ffffff;
         }
 
         .language-switcher > a:after {
@@ -3151,6 +3186,9 @@ select:focus {
     right: -50px;
     bottom: -125px;
 }
+a.tabs-links{
+    padding: 0!important;
+}
 
 .io-dark-light .section-light.page-banner, .io-dark-light .section-light-alt.page-banner {
     background: url(../images/particle-left.png) top left no-repeat, url(../images/particle-right.png) top right no-repeat, #eff6ff;
@@ -3237,7 +3275,7 @@ select:focus {
     }
 
     .site-header .navbar.is-transparent.active {
-        background: #0b0c22;
+        background: #ffffff;
     }
 
     .theme-light .site-header .navbar.is-transparent.active {
@@ -4106,7 +4144,7 @@ select:focus {
 
 .event-info {
     margin-bottom: -30px;
-    pading-right: 20px;
+    padding-right: 20px;
 }
 
     .event-info .event-single-info {
@@ -9208,8 +9246,7 @@ select:focus {
 
     .theme-muscari .site-header.has-fixed .navbar {
         background: #fff;
-        box-shadow: 0 10px 40px rgba(93, 70, 232, 0.15);
-    }
+        box-shadow: 0 10px 20px rgba(136, 130, 136, 0.2);    }
 
     .theme-muscari .site-header.has-fixed .navbar-nav > li > a, .theme-muscari .site-header.has-fixed  .language-switcher > a {
         color: #8484a4;

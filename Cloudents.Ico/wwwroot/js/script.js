@@ -324,39 +324,47 @@
         if (contactForm.length > 0) {
             var selectRec = contactForm.find('select.required'),
                 qf_results = contactForm.find('.form-results');
-            contactForm.validate({
-                invalidHandler: function () { qf_results.slideUp(400); },
-                submitHandler: function (form) {
-                    qf_results.slideUp(400);
-                    $(form).ajaxSubmit({
-                        target: qf_results, dataType: 'json',
-                        success: function (data) {
-                            var type = (data.result === 'error') ? 'alert-danger' : 'alert-success';
-                            qf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html(data.message).slideDown(400);
-                            if (data.result !== 'error') { $(form).clearForm().find('.input-field').removeClass('input-focused'); }
-                        }
-                    });
-                }
-            });
-            selectRec.on('change', function () { $(this).valid(); });
+                $('#contact-form').on('submit', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'post',
+                    url: 'contact',
+                    async: false,
+                    data: contactForm.serialize(),
+                    success: function (data, textStatus) {
+                    var type = (textStatus === 'error') ? 'alert-danger' : 'alert-success';
+                    qf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html('We will get back to you shortly').slideDown(400);
+                    if (textStatus !== 'error') { $(contactForm).clearForm().find('.input-field').removeClass('input-focused'); }
+                    },
+                    error: function (request, textStatus,) {
+                        var type = (textStatus === 'error') ? 'alert-danger' : 'alert-success';
+                        qf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html('Something went wrong, try again').slideDown(400);
+                    }
+                  });
+                })
+           selectRec.on('change', function () { $(this).valid(); });
         }
         // SubscribeForm
         if (subscribeForm.length > 0) {
             var sf_results = subscribeForm.find('.subscribe-results');
-            subscribeForm.validate({
-                invalidHandler: function () { sf_results.slideUp(400); },
-                submitHandler: function (form) {
-                    sf_results.slideUp(400);
-                    $(form).ajaxSubmit({
-                        target: sf_results, dataType: 'json',
-                        success: function (data) {
-                            var type = (data.result === 'error') ? 'alert-danger' : 'alert-success';
-                            sf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html(data.message).slideDown(400);
-                            if (data.result !== 'error') { $(form).clearForm(); }
-                        }
-                    });
-                }
-            });
+            $('#subscribe-form').on('submit', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'post',
+                    url: 'subscribe',
+                    async: false,
+                    data: subscribeForm.serialize(),
+                    success: function (data, textStatus) {
+                    var type = (textStatus === 'error') ? 'alert-danger' : 'alert-success';
+                    sf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html('Thank you for your subscription').slideDown(400);
+                    if (textStatus !== 'error') { $(subscribeForm).clearForm().find('.input-field').removeClass('input-focused'); }
+                    },
+                    error: function (request, textStatus,) {
+                        var type = (textStatus === 'error') ? 'alert-danger' : 'alert-success';
+                        sf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html('Something went wrong, try again').slideDown(400);
+                    }
+                  });
+                })
         }
     }
 

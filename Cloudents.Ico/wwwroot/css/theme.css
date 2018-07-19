@@ -1155,8 +1155,8 @@ a {
 
     .theme-muscari .site-header.has-fixed .navbar {
         background: #fff;
-        box-shadow: 0 10px 40px rgba(93, 70, 232, 0.15);
-    }
+        box-shadow: 0 10px 20px rgba(136, 130, 136, 0.2);  
+      }
 
     .theme-muscari .site-header.has-fixed .navbar-nav > li > a {
         /* color: #8484a4; */
