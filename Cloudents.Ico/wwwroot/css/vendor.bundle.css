@@ -1905,6 +1905,7 @@ pre {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
 }
 
+/* ReSharper disable once CssNotResolved https://css-tricks.com/introduction-reduced-motion-media-query/*/
 @media screen and (prefers-reduced-motion:reduce) {
     .form-control {
         transition: none
@@ -1944,6 +1945,7 @@ pre {
     opacity: 1
 }
 
+/* ReSharper disable once CssNotResolved */
 .form-control::placeholder {
     color: #6c757d;
     opacity: 1
@@ -2355,6 +2357,7 @@ select.form-control:focus::-ms-value {
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
 }
 
+/* ReSharper disable once CssNotResolved */
 @media screen and (prefers-reduced-motion:reduce) {
     .btn {
         transition: none
@@ -2953,6 +2956,10 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     transition: opacity .15s linear
 }
 
+/* ReSharper disable once CssNotResolved */
+/* ReSharper disable once CssNotResolved */
+/* ReSharper disable once CssNotResolved */
+/* ReSharper disable once CssNotResolved */
 @media screen and (prefers-reduced-motion:reduce) {
     .fade {
         transition: none
@@ -2974,6 +2981,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     transition: height .35s ease
 }
 
+/* ReSharper disable once CssNotResolved */
 @media screen and (prefers-reduced-motion:reduce) {
     .collapsing {
         transition: none
@@ -3535,6 +3543,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     border-radius: .25rem;
     -webkit-appearance: none;
     -moz-appearance: none;
+    /* ReSharper disable once CssNotResolved */
     appearance: none
 }
 
@@ -3646,6 +3655,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     background-color: transparent;
     -webkit-appearance: none;
     -moz-appearance: none;
+    /* ReSharper disable once CssNotResolved */
     appearance: none
 }
 
@@ -3665,6 +3675,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
         border: 0;
         border-radius: 1rem;
         -webkit-appearance: none;
+        /* ReSharper disable once CssNotResolved */
         appearance: none
     }
 
@@ -3694,6 +3705,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
         border: 0;
         border-radius: 1rem;
         -moz-appearance: none;
+        /* ReSharper disable once CssNotResolved */
         appearance: none
     }
 
@@ -3722,6 +3734,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
         background-color: #007bff;
         border: 0;
         border-radius: 1rem;
+        /* ReSharper disable once CssNotResolved */
         appearance: none
     }
 
@@ -4979,6 +4992,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     transition: width .6s ease
 }
 
+/* ReSharper disable once CssNotResolved */
 @media screen and (prefers-reduced-motion:reduce) {
     .progress-bar {
         transition: none
@@ -5275,6 +5289,7 @@ button.close {
     transform: translate(0,-25%)
 }
 
+/* ReSharper disable once CssNotResolved */
 @media screen and (prefers-reduced-motion:reduce) {
     .modal.fade .modal-dialog {
         transition: none
@@ -5711,6 +5726,7 @@ button.close {
     perspective: 1000px
 }
 
+/* ReSharper disable once CssNotResolved */
 @media screen and (prefers-reduced-motion:reduce) {
     .carousel-item {
         transition: none

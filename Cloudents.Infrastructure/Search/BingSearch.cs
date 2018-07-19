@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Search
             _shuffle = shuffle;
         }
 
-        [Cache(TimeConst.Day, "bing", false)]
+        [Cache(TimeConst.Day, "bing2", false)]
         [BuildLocalUrl(null, PageSize, "page")]
         public async Task<IEnumerable<SearchResult>> SearchAsync(SearchModel model,
             int page, HighlightTextFormat format, CancellationToken token)

@@ -58,9 +58,11 @@ namespace Cloudents.Core
             //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandlerAsync<>));
             builder.RegisterType<QueryBus>().As<IQueryBus>();
 
-            builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
+            //builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
 
             builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
+
+
             builder.RegisterType<Shuffle>().As<IShuffle>();
 
             //builder.RegisterType<WebSearch>();

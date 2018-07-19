@@ -17,7 +17,7 @@ namespace Cloudents.Web.Controllers
     {
         private readonly List<IPAddress> _officeIps = new List<IPAddress>();
 
-        public HomeController( IConfiguration configuration)
+        public HomeController(IConfiguration configuration)
         {
             var ipsStr = configuration["Ips"];
 
@@ -34,6 +34,7 @@ namespace Cloudents.Web.Controllers
         //[ResponseCache()]
         // we can't use that for now.
         // GET
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index(LocationQuery location, [FromServices]IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -50,7 +51,7 @@ namespace Cloudents.Web.Controllers
             {
                 return View();
             }
-            if (!string.Equals(location?.Address?.CountryCode, "US", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(location?.Address?.CountryCode, "il", StringComparison.InvariantCultureIgnoreCase))
             {
                 return this.RedirectToOldSite();
             }

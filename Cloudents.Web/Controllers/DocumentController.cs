@@ -40,7 +40,7 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (!string.Equals(model.Country, "us", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(model.Country, "il", StringComparison.InvariantCultureIgnoreCase))
             {
                 return this.RedirectToOldSite();
             }
