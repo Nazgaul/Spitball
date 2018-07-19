@@ -11,6 +11,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
@@ -24,6 +25,8 @@ using Microsoft.ApplicationInsights.SnapshotCollector;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
@@ -149,6 +152,7 @@ namespace Cloudents.Web
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
+            services.AddUrlHelper();
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -180,6 +184,7 @@ namespace Cloudents.Web
                 Core.Enum.System.Web, assembliesOfProgram);
 
             containerBuilder.RegisterType<Logger>().As<ILogger>();
+            containerBuilder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

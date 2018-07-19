@@ -2,11 +2,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
+using Cloudents.Core.Request;
 using Cloudents.Core.Storage;
 using Cloudents.Functions.Di;
+using Cloudents.Infrastructure.Framework;
 using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.ServiceBus.Messaging;
 
 namespace Cloudents.Functions
 {
@@ -28,15 +32,32 @@ namespace Cloudents.Functions
             await ProcessQueueAsync(content, log, commandBus, token).ConfigureAwait(false);
         }
 
+
+        [FunctionName("UrlProcessServiceBus")]
+        public static async Task BlockChainQnaAsync(
+            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.UrlRedirect))]
+            UrlRedirectQueueMessage content,
+            TraceWriter log, [Inject] ICommandBus commandBus,
+            CancellationToken token)
+        {
+            await ProcessQueueAsync(content, log, commandBus, token).ConfigureAwait(false);
+            //if (obj.DeliveryCount > 3)
+            //{
+            //    return;
+            //}
+            //var qnaObject = obj.GetBodyInheritance<BlockChainQnaSubmit>();
+            //await service.SubmitAsync((dynamic)qnaObject, token).ConfigureAwait(false);
+            //log.Info("success");
+        }
+
         private static async Task ProcessQueueAsync(UrlRedirectQueueMessage content, TraceWriter log, ICommandBus commandBus,
             CancellationToken token)
         {
             log.Info("Getting Url process message");
-            var command = new CreateUrlStatsCommand(content.Host, content.DateTime, content.Url, content.UrlReferrer,
+            var command = new CreateUrlStatsCommand(content.Host, content.DateTime, content.Url.AbsoluteUri, content.UrlReferrer,
                 content.Location, content.Ip);
 
             await commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-            log.Info("Finish Process");
         }
     }
 }

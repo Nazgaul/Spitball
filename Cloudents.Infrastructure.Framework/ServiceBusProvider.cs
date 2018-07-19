@@ -53,6 +53,12 @@ namespace Cloudents.Infrastructure.Framework
             return InsertMessageAsync(message, topicSubscription);
         }
 
+        public Task InsertMessageAsync(UrlRedirectQueueMessage message, CancellationToken token)
+        {
+            var topicSubscription = TopicSubscription.UrlRedirect;
+            return InsertMessageAsync(message, topicSubscription);
+        }
+
         private Task InsertMessageAsync(object obj, TopicSubscription subscription)
         {
             var topic = TopicClient.CreateFromConnectionString(_connectionString, subscription.Topic);

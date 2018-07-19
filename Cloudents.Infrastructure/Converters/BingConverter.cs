@@ -70,11 +70,7 @@ namespace Cloudents.Infrastructure.Converters
                 PrioritySource = priority,
             };
 
-            if (string.Equals(domain, "courseHero", StringComparison.OrdinalIgnoreCase))
-            {
-                result.Url =
-                    $"http://shareasale.com/r.cfm?b=661825&u=1469379&m=55976&urllink={url.Host + url.PathAndQuery + url.Fragment}&afftrack=";
-            }
+            
             return result;
         }
     }
