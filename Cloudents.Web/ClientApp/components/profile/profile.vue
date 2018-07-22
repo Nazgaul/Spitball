@@ -1,5 +1,5 @@
 <template>
-    <div class="profile-page">
+    <div class="profile-page" v-if="profileData">
         <div>
             <v-layout class="data-wrapper" :class="{'column': isMobile}" wrap justify-start>
 
@@ -8,7 +8,7 @@
                         <button class="back" @click="$router.go(-1)">
                             <v-icon>sbf-arrow-right</v-icon>
                         </button>
-                        <user-block v-if="profileData.user" :user="profileData.user"
+                        <user-block v-if="profileData && profileData.user" :user="profileData.user"
                                     :classType="'university'"></user-block>
 
                         <div class="menu">

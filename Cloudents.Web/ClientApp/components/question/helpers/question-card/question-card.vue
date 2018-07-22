@@ -18,7 +18,7 @@
 
                 </span></template>
             </user-block>
-            <div v-if="!typeAnswer">
+            <div v-if="!typeAnswer && suggestion">
                 <div class="q-price pr-3">
                     <span>Earn ${{cardData.price | dollarVal}}</span>
                 </div>
@@ -56,7 +56,8 @@
                         </template>
                     </div>
                     <div class="users">
-                        <template v-for="i in Math.min(3,cardData.answersNum)">
+                        <!--<template v-for="i in Math.min(3, cardData.answers)">-->
+                        <template v-for="i in cardData.answersNum">
                             <div class="avatar">
                                 <v-icon>sbf-comment-icon</v-icon>
                             </div>
@@ -64,9 +65,10 @@
                     </div>
                     <span class="user-counter" v-if="cardData.answersNum>3">+{{cardData.answersNum-3}}</span>
                 </div>
-                <!--<div class="answer" v-if="!detailedView">-->
-                <!--<button class="answer-btn">Answer</button>-->
-                <!--</div>-->
+                <!--show only if in suggestion popup-->
+                <div class="answer" v-if="suggestion">
+                <button class="answer-btn">Answer</button>
+                </div>
             </div>
         </div>
         <button class="delete-btn" v-if="detailedView && canDelete" @click="deleteQuestion()">Delete</button>

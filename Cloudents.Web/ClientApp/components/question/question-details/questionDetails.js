@@ -10,7 +10,8 @@ export default {
     mixins: [disableForm],
     components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp},
     props: {
-        id: {Number} // got it from route
+        id: {Number}, // got it from route
+        questionId: {Number}
     },
     data() {
         return {
@@ -47,6 +48,7 @@ export default {
             var self = this;
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
+                self.textAreaValue = self.textAreaValue.trim();
                 questionService.answerQuestion(self.id, self.textAreaValue, self.answerFiles)
                     .then(function (resp) {
                         //TODO: do this on client side (render data inserted by user without calling server) - see commented out below - all that's left is asking ram to return the answerId in response
@@ -61,17 +63,16 @@ export default {
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
-                        console.log('resp',resp);
                         self.cardList = resp.data;
-                        console.log('SELF ARR', self.cardList)
+                        // let transferResultQuestion = res => {
+                        //     return { ...res,filesNum:res.files.length, answersNum:res.answers.length}
+                        // };
                         self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                         self.updateToasterParams({
                             toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
                             showToaster: true,
                         });
-
                         self.showDialog = true; // question suggest popup dialog
-
                     }, () => {
 
                         self.updateToasterParams({
@@ -91,6 +92,8 @@ export default {
             this.answerFiles.splice(index, 1);
         },
         getData() {
+            //enable submit btn
+            this.$data.submitted = false;
             var self = this;
             questionService.getQuestion(this.id)
                 .then(function (response) {
@@ -119,7 +122,6 @@ export default {
                 var conversation = this.talkSession.getOrCreateConversation(
                     `question_${this.id}`
                 );
-
                 //conversation
                 conversation.setParticipant(this.chatAccount, { notify: false });
                 conversation.setParticipant(other1);
@@ -140,7 +142,6 @@ export default {
                     conversation.setParticipant(this.chatAccount, {notify: true})
                     // console.log(t)
                 });
-
                 this.$nextTick(() => {
                     chatbox.mount(this.$refs["chat-area"]);
                 });
@@ -164,7 +165,10 @@ export default {
             if (newVal) {
                 this.buildChat();
             }
-        }
+        },
+        //watch route(url query) update, and het question data from server
+        '$route': 'getData'
+
     },
     computed: {
         ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer"]),
@@ -177,18 +181,6 @@ export default {
             this.showForm = (val && !this.questionData.answers.length);
             return val;
         },
-        //conditionally disable answer submit btn
-        isSubmitBtnDisabled() {
-            // if (this.textAreaValue.length < 15) {
-            //     return true
-            // } else {
-            //     return false
-            // }
-            return false
-        }
-        // isMobile() {
-        //     return this.$vuetify.breakpoint.smAndDown;
-        // },
     },
     created() {
         this.getData();
@@ -198,6 +190,7 @@ export default {
         });
         this.$root.$on('closeSuggestionPopUp', ()=> {
             this.showDialog = false;
+
         })
     }
 }
