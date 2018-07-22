@@ -23,6 +23,7 @@ namespace Cloudents.Infrastructure.Data.Maps
             Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
 
+
             References(x => x.University).ForeignKey("User_University").Nullable();
             Map(x => x.Balance).CustomSqlType("smallmoney");
             //References(x => x.LastTransaction).ForeignKey("User_Transaction");
