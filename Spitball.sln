@@ -34,13 +34,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Cloudents2018.pfx = Cloudents2018.pfx
 		Pass.txt = Pass.txt
 		W-14-scripts.sql = W-14-scripts.sql
+		W-15-scripts.sql = W-15-scripts.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Infrastructure.Data", "Cloudents.Infrastructure.Data\Cloudents.Infrastructure.Data.csproj", "{3762BF5C-2CCE-4607-8529-348C81A89371}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Ico", "Cloudents.Ico\Cloudents.Ico.csproj", "{1E559210-81BD-429D-9D5F-2700F865D361}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Management", "Cloudents.Management\Cloudents.Management.csproj", "{EDD969E4-BFBC-491A-9468-18BCDF3BF618}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Management", "Cloudents.Management\Cloudents.Management.csproj", "{EDD969E4-BFBC-491A-9468-18BCDF3BF618}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
