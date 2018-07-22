@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -11,13 +12,14 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using JetBrains.Annotations;
+using Microsoft.Azure.Documents.SystemFunctions;
+using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Mail
 {
     [UsedImplicitly]
     public class MailProvider : IMailProvider
     {
-        //private const string SendGridApiKey = "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";
 
         private readonly Lazy<IRestClient> _restClient;
 
@@ -25,25 +27,6 @@ namespace Cloudents.Infrastructure.Mail
         {
             _restClient = restClient;
         }
-
-        //public Task GenerateSystemEmailAsync(string subject, string text, CancellationToken token)
-        //{
-        //    return SendEmailAsync("ram@cloudents.com", subject, text, token);
-        //}
-
-        //private static Task SendEmailAsync(string subject, string text, CancellationToken token)
-        //{
-        //    var client = new SendGridClient(SendGridApiKey);
-        //    var msg = new SendGridMessage
-        //    {
-        //        From = new EmailAddress("no-reply@spitball.co", "spitball system"),
-        //        Subject = subject,
-        //        PlainTextContent = text,
-        //        //HtmlContent = "<strong>and easy to do anywhere, even with C#</strong>"
-        //    };
-        //    msg.AddTo(new EmailAddress("ram@cloudents.com", "Ram Y"));
-        //    return client.SendEmailAsync(msg, token);
-        //}
 
         private const string MailGunApiKey = "key-5aea4c42085523a28a112c96d7b016d4";
 
@@ -79,17 +62,41 @@ namespace Cloudents.Infrastructure.Mail
             }
         }
 
-        //public Task SendEmailAsync(string email, string subject, string message, CancellationToken token)
+        public async Task<bool> ValidateEmailAsync(string email, CancellationToken token)
+        {
+            var uri = new Uri($"https://api.mailgun.net/v3/address/validate");
+            var nvc = new NameValueCollection()
+            {
+                ["address"] = email,
+                ["api_key"] = "pubkey-871e78a663947b3b87c523a7b81c4b78",
+                ["mailbox_verification"] = "true"
+            };
+            var w = await _restClient.Value.GetAsync<VerifyEmail>(uri, nvc, null, token).ConfigureAwait(false);
+
+            return w?.IsValid ?? false;
+        }
+
+
+        public class VerifyEmail
+        {
+            //public string address { get; set; }
+            //public object did_you_mean { get; set; }
+            //public bool is_disposable_address { get; set; }
+            //public bool is_role_address { get; set; }
+            [JsonProperty("is_valid")]
+            public bool IsValid { get; set; }
+            //public string mailbox_verification { get; set; }
+            //public Parts parts { get; set; }
+            //public object reason { get; set; }
+        }
+
+        //public class Parts
         //{
-        //    var client = new SendGridClient(SendGridApiKey);
-        //    var msg = new SendGridMessage
-        //    {
-        //        From = new EmailAddress("no-reply@spitball.co", "spitball system"),
-        //        Subject = subject,
-        //        HtmlContent = message
-        //    };
-        //    msg.AddTo(new EmailAddress(email));
-        //    return client.SendEmailAsync(msg, token);
+        //    public object display_name { get; set; }
+        //    public string domain { get; set; }
+        //    public string local_part { get; set; }
         //}
+
+
     }
 }
