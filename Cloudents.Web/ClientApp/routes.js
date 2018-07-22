@@ -39,7 +39,7 @@ function dynamicPropsFn(route) {
         name: newName,
         query: route.query,
         params: route.params,
-        isPromo: route.query.hasOwnProperty("promo"),
+        //isPromo: route.query.hasOwnProperty("promo"),
     }
 }
 
