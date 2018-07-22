@@ -206,20 +206,16 @@ namespace Cloudents.Web
                 configuration.DisableTelemetry = true;
 
             }
+            var reWriterOptions = new RewriteOptions()
+                .Add(new RemoveTrailingSlash());
             if (env.IsDevelopment() || env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 app.UseDeveloperExceptionPage();
+                reWriterOptions.AddRedirectToHttpsPermanent();
             }
             else
             {
                 app.UseExceptionHandler("/Error");
-            }
-
-            var reWriterOptions = new RewriteOptions()
-                .Add(new RemoveTrailingSlash());
-            if (env.IsStaging() || env.IsProduction())
-            {
-                reWriterOptions.AddRedirectToHttpsPermanent();
             }
 
             app.UseRewriter(reWriterOptions);
