@@ -32,6 +32,10 @@ namespace Cloudents.Core.CommandHandler
             }
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
+            if (user.Fictive)
+            {
+                throw new UnauthorizedAccessException("Fictive user");
+            }
             //user.AddTransaction(new Transaction(ActionType.CashOut, TransactionType.Earned, -message.Amount));
             user.AddTransaction(Transaction.CashOut(-message.Amount));
             await _userRepository.UpdateAsync(user, token);

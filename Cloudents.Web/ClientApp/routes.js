@@ -14,7 +14,7 @@ const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
-const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
+//const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
 const registration = () => import("./components/registration/registration.vue");
 const signin = () => import("./components/registration/signin.vue");
 const registerAccount = () => import("./components/registration/steps/registerAccount/registerAccount.vue");
@@ -130,37 +130,37 @@ let routes2 = [
         components: {default: showFlashcard, header: previewHeader},
         props: {default: (route) => ({id: route.params.id})}
     },
-    {
-        path: "/landing/get_a_tutor_now", components: {
-            default: landingTemplate,
-        }, name: "tutorV1"
-    },
-    {
-        path: "/landing/tutor", components: {
-            default: landingTemplate,
-        }, name: "tutorV2"
-    },
-    {
-        path: "/landing/get_the_notes_you_need", components: {
-            default: landingTemplate,
-        }, name: "notesV1"
-    },
-    {
-        path: "/landing/notes", components: {
-            default: landingTemplate,
-        }, name: "notesV2"
-    },
-    {
-        path: "/landing/You_Dont_Have_to_Be_Broke",
-        components: {
-            default: landingTemplate,
-        }, name: "jobsV1"
-    },
-    {
-        path: "/landing/jobs", components: {
-            default: landingTemplate,
-        }, name: "jobsV2"
-    },
+    //{
+    //    path: "/landing/get_a_tutor_now", components: {
+    //        default: landingTemplate,
+    //    }, name: "tutorV1"
+    //},
+    //{
+    //    path: "/landing/tutor", components: {
+    //        default: landingTemplate,
+    //    }, name: "tutorV2"
+    //},
+    //{
+    //    path: "/landing/get_the_notes_you_need", components: {
+    //        default: landingTemplate,
+    //    }, name: "notesV1"
+    //},
+    //{
+    //    path: "/landing/notes", components: {
+    //        default: landingTemplate,
+    //    }, name: "notesV2"
+    //},
+    //{
+    //    path: "/landing/You_Dont_Have_to_Be_Broke",
+    //    components: {
+    //        default: landingTemplate,
+    //    }, name: "jobsV1"
+    //},
+    //{
+    //    path: "/landing/jobs", components: {
+    //        default: landingTemplate,
+    //    }, name: "jobsV2"
+    //},
     {
         path: "/newquestion", components: {
             default: newQuestion,
