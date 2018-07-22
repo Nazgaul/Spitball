@@ -38,8 +38,6 @@ namespace Cloudents.Infrastructure.Data.Query
                     .Select(s => s.Price).WithAlias(() => dto.Price)
                     .Select(s => s.Attachments).WithAlias(() => dto.Files)
                     .Select(s => s.Created).WithAlias(() => dto.DateTime)
-                    //.SelectCount(s => s.Answers).WithAlias(() => dto.Answers)
-                    //.Select(_ => userAlias.Name).As("User.Name")
                     .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
                     .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
                     .Select(Projections.Property(() => userAlias.Image).As("User.Image"))

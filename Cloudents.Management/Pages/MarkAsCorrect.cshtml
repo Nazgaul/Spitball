@@ -1,0 +1,14 @@
+﻿@page
+@model Cloudents.Management.Pages.MarkAsCorrectModel
+@{
+}
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <label asp-for="Model.QuestionId"></label>
+    <input asp-for="Model.QuestionId" />
+    <br/>
+    <label asp-for="Model.AnswerId"></label>
+    <input asp-for="Model.AnswerId" />
+    <input type="submit" />
+</form>
