@@ -30,7 +30,7 @@
                                                     @removeFile="removeFile"></extended-text-area>
                                 <v-btn block color="primary"
                                        @click="submitAnswer()"
-                                       :disabled="isSubmitBtnDisabled || submitted"
+                                       :disabled="submitted"
                                        class="add_answer">Add your answer
                                 </v-btn>
                             </div>
@@ -78,7 +78,7 @@
                                                             :isFocused="showForm" @addFile="addFile"
                                                             @removeFile="removeFile"></extended-text-area>
                                         <v-btn color="primary" @click="submitAnswer()"
-                                               :disabled="isSubmitBtnDisabled  || submitted"
+                                               :disabled="submitted"
                                                class="add_answer">Add your answer
                                         </v-btn>
                                     </div>

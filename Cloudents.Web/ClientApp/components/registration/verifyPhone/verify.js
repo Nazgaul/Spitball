@@ -129,7 +129,6 @@ export default {
         registrationService.getLocalCode().then(({data}) => {
             this.phone.countryCode = data.code;
         });
-        console.log('props code', this.code, 'code', this.$route.params.code);
         this.code = this.$route.params.code;
         if (this.code !== '' && this.code === 'enterPhone') {
             this.codeSent = false

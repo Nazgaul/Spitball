@@ -20,6 +20,10 @@ export default {
             default: false
         },
         cardData: {},
+        suggestion: {
+            type: Boolean,
+            default: false,
+        },
         isApproved: {
             type: Boolean,
             default: false
@@ -114,6 +118,6 @@ export default {
     },
     created() {
         this.flaggedAsCorrect = this.isCorrectAnswer;
-        console.log('answ',this.cardData.answers, 'files', this.cardData.files)
+        console.log('answer',this.typeAnswer)
     }
 }
