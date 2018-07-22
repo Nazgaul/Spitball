@@ -22,6 +22,9 @@ namespace Cloudents.Web.Controllers
             _serviceBus = serviceBus;
         }
 
+        private static IList<string> _domains = PrioritySource.DocumentPriority.Values
+            .Union(PrioritySource.FlashcardPriority.Values)
+            .SelectMany(s => s.Domains).ToList();
 
         public async Task<IActionResult> Index(string host,
             Uri url,
@@ -33,10 +36,10 @@ namespace Cloudents.Web.Controllers
             var message = new UrlRedirectQueueMessage(host, url, referer, location, userIp.ToString());
             await _serviceBus.InsertMessageAsync(message, token).ConfigureAwait(false);
 
-            var domains = PrioritySource.DocumentPriority.Values.Union(PrioritySource.FlashcardPriority.Values)
-                .SelectMany(s => s.Domains);
+            //var domains = PrioritySource.DocumentPriority.Values.Union(PrioritySource.FlashcardPriority.Values)
+            //    .SelectMany(s => s.Domains);
 
-            if (!domains.Any(a => a.Contains(url.Host, StringComparison.OrdinalIgnoreCase)))
+            if (!_domains.Any(a => a.Contains(url.Host, StringComparison.OrdinalIgnoreCase)))
                 throw new ArgumentException("invalid url");
 
             
