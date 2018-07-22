@@ -7,6 +7,13 @@ using JetBrains.Annotations;
 
 namespace Cloudents.Core
 {
+
+    public class SystemUrls
+    {
+        public const string WebSiteEndPoint = "https://www.spitball.co/";
+
+        public const string WalletEndPost = WebSiteEndPoint + "wallet";
+    }
     //[UsedImplicitly]
     //public class UrlConst : IUrlBuilder
     //{

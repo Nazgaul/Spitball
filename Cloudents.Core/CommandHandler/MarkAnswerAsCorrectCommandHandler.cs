@@ -23,15 +23,13 @@ namespace Cloudents.Core.CommandHandler
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _serviceBusProvider = serviceBusProvider;
-            // _blockChain = blockChain;
-            //_blockChainProvider = blockChainProvider;
         }
 
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
         {
             var answer = await _answerRepository.LoadAsync(message.AnswerId, token).ConfigureAwait(true); //false will raise an exception
             var question = answer.Question;
-            if (question.User.Id != message.UserId)
+            if (question.User.Id != message.QuestionUserId)
             {
                 throw new ApplicationException("only owner can perform this task");
             }
@@ -41,8 +39,9 @@ namespace Cloudents.Core.CommandHandler
             }
             question.MarkAnswerAsCorrect(answer);
 
-            await _questionRepository.UpdateAsync(question, token).ConfigureAwait(false);
-            await _serviceBusProvider.InsertMessageAsync(new AnswerCorrectEmail(answer.User.Email, answer.Question.Text, answer.Text, message.Link, answer.Question.Price), token);
+            var t1 = _questionRepository.UpdateAsync(question, token);
+            var t2 = _serviceBusProvider.InsertMessageAsync(new AnswerCorrectEmail(answer.User.Email, answer.Question.Text, answer.Text, SystemUrls.WalletEndPost, answer.Question.Price), token);
+            await Task.WhenAll(t1, t2).ConfigureAwait(true);
         }
     }
 }
