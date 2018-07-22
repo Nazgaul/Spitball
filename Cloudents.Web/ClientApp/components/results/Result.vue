@@ -24,7 +24,7 @@
                 <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical">
                     <v-container class="pa-0 ma-0 results-wrapper">
                         <v-layout column>
-                            <v-flex class="promo-cell mb-4 elevation-1" order-xs1 v-if="showPromo">
+                            <!--<v-flex class="promo-cell mb-4 elevation-1" order-xs1 v-if="showPromo">
                                 <button class="close-btn pa-2" @click="showPromo=false">
                                     <v-icon right>sbf-close</v-icon>
                                 </button>
@@ -33,7 +33,7 @@
                                     <p class="mt-1">The one-stop-shop for all your school needs.
                                         From class notes to tutors, textbooks and more, we bring the best that the internet has to offer students, all together in one place.</p>
                                 </div>
-                            </v-flex>
+                            </v-flex>-->
                             <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
                                 <v-layout row align-center justify-space-between>
                                     <img src="./img/emptyFilter.png" alt=""/>

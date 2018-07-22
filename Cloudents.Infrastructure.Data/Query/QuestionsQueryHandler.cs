@@ -6,6 +6,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Infrastructure.Data.Repositories;
 using NHibernate;
 using NHibernate.Criterion;
 
@@ -64,9 +65,9 @@ namespace Cloudents.Infrastructure.Data.Query
 
             var futureQueryOver = queryOverObj.Future<QuestionDto>();
 
-            var facetsFuture = _session.QueryOver<QuestionSubject>()
-                .OrderBy(o => o.Text).Asc
-                .Select(s => s.Text).Future<string>();
+
+            var facetsFuture = QuestionSubjectRepository.GetSubjects(_session.QueryOver<QuestionSubject>()).Select(s => s.Text).Future<string>();
+            
 
             var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(false);
             var facet = await facetsFuture.GetEnumerableAsync(token).ConfigureAwait(false);

@@ -23,9 +23,11 @@ namespace Cloudents.Infrastructure.Data.Maps
             Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
 
+            Map(e => e.Created).Insert().Not.Update();
+            Map(e => e.Fictive).ReadOnly();
+
             References(x => x.University).ForeignKey("User_University").Nullable();
             Map(x => x.Balance).CustomSqlType("smallmoney");
-            //References(x => x.LastTransaction).ForeignKey("User_Transaction");
 
             HasMany(x => x.Transactions)
                 .Inverse()

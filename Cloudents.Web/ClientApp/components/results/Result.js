@@ -133,7 +133,7 @@ export const pageMixin =
                 filterObject: null,
                 showFilters: false,
                 showPersonalizeField: true,
-                showPromo: this.isPromo,
+                //showPromo: this.isPromo,
                 showFilterNotApplied: false,
                 isLoad: false,
                 offsetTop: 0,
@@ -274,9 +274,9 @@ export const pageMixin =
             }
         },
 //Page props come from the route
-    props: {
-        isPromo: {
-            type: Boolean
-        }
-    }
+    //props: {
+    //    isPromo: {
+    //        type: Boolean
+    //    }
+    //}
 };

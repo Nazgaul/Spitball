@@ -10,6 +10,7 @@ namespace Cloudents.Infrastructure.Data.Maps
         {
             Id(x => x.Id).GeneratedBy.Native();
             Map(e => e.Text).Column("Subject");
+            Map(e => e.Order).Column("OrderColumn");
             ReadOnly();
         }
     }

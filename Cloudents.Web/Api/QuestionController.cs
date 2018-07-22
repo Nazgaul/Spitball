@@ -66,7 +66,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetQuestionAsync(long id,
             [FromServices] IQueryBus bus, CancellationToken token)
         {
-            var retVal = await bus.QueryAsync<QuestionDetailDto>(new QuestionDataByIdQuery(id), token).ConfigureAwait(false);
+            var retVal = await bus.QueryAsync(new QuestionDataByIdQuery(id), token).ConfigureAwait(false);
             if (retVal == null)
             {
                 return NotFound();

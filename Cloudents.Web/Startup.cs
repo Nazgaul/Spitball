@@ -217,7 +217,7 @@ namespace Cloudents.Web
 
             var reWriterOptions = new RewriteOptions()
                 .Add(new RemoveTrailingSlash());
-            if (!env.IsEnvironment(IntegrationTestEnvironmentName))
+            if (env.IsStaging() || env.IsProduction())
             {
                 reWriterOptions.AddRedirectToHttpsPermanent();
             }
