@@ -75,7 +75,7 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
 
-        public DateTime Created { get; set; }
-        public bool Fictive { get; set; }
+        public virtual DateTime Created { get; set; }
+        public virtual bool Fictive { get; set; }
     }
 }
