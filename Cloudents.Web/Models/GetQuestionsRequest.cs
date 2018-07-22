@@ -3,7 +3,6 @@
     public class GetQuestionsRequest : IPaging
     {
         public string[] Term { get; set; }
-        public string[] Source { get; set; }
         public int? Page { get; set; }
     }
 }

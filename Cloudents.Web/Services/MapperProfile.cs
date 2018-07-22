@@ -33,7 +33,7 @@ namespace Cloudents.Web.Services
                 .ForMember(f => f.Source, opt => opt.AllowNull())
                 .AfterMap((_,d) =>
                 {
-                    if (d.Source.Length == 0)
+                    if (d.Source?.Length == 0)
                     {
                         d.Source = null;
                     }
