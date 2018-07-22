@@ -1,5 +1,5 @@
 ﻿@page
-@model Cloudents.Management.Pages.DeleteQuestionModel
+@model DeleteQuestionModel
 @{
     ViewData["Title"] = "DeleteQuestion";
 }
@@ -9,8 +9,8 @@
 
 <form method="post">
     <div asp-validation-summary="All"></div>
-    <label asp-for="Model.QuestionId"></label>
-    <input asp-for="Model.QuestionId" />
+    <label asp-for="Model"></label>
+    <textarea asp-for="Model"></textarea>
     <br />
     <input type="submit" />
 </form>

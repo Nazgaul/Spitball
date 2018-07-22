@@ -26,7 +26,6 @@ namespace Cloudents.Management.CommandHandler
             var userId = question.User.Id;
             await _questionRepository.DeleteAsync(question, token);
             await _questionRepository.FlushAsync(token); //TODO: this is not right
-            message.UserId = userId;
 
 
             //await _unitOfWork.CommitAsync(token);

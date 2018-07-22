@@ -6,11 +6,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Management.Command;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Cloudents.Management.Pages
 {
+    [Authorize]
     public class DeleteQuestionModel : PageModel
     {
         private readonly Lazy<ICommandBus> _commandBus;
@@ -26,7 +28,7 @@ namespace Cloudents.Management.Pages
         }
 
 
-        [BindProperty] public DeleteQuestionCommand Model { get; set; }
+        [BindProperty] public string Model { get; set; }
 
 
         public async Task<IActionResult> OnPostAsync(CancellationToken token)
@@ -36,9 +38,19 @@ namespace Cloudents.Management.Pages
                 return Page();
             }
 
-            //var command = new MarkAnswerAsCorrectCommand(Model.AnswerId.Value, Model.QuestionId.Value);
+            var arr = Model.Split(new[] { "," ,Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
 
-            await _commandBus.Value.DispatchAsync(Model, token).ConfigureAwait(false);
+
+            foreach (var t in arr)
+            {
+                if (long.TryParse(t, out var questionId))
+                {
+                    var command = new DeleteQuestionCommand(questionId);
+
+                    await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+                }
+            }
+
             //return Ok();
 
             return RedirectToPage("/Index");

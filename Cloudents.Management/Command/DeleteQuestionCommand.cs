@@ -6,19 +6,14 @@ namespace Cloudents.Management.Command
 {
     public class DeleteQuestionCommand : ICommand
     {
-        [Required,Range(1,long.MaxValue)]
-        public long QuestionId { get; set; }
-
-        [BindNever] public long UserId { get; set; }
-    }
-
-    public class UpdateUserBalanceCommand : ICommand
-    {
-        public UpdateUserBalanceCommand(int id)
+        public DeleteQuestionCommand(long questionId)
         {
-            Id = id;
+            QuestionId = questionId;
         }
 
-        public int Id { get; private set; }
+        public long QuestionId { get;}
+
     }
+
+   
 }
