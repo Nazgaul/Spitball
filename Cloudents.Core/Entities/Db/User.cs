@@ -18,6 +18,8 @@ namespace Cloudents.Core.Entities.Db
             TwoFactorEnabled = true;
             PrivateKey = privateKey;
             UserCreateTransaction();
+            Created = DateTime.UtcNow;
+            Fictive = false;
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
@@ -71,5 +73,9 @@ namespace Cloudents.Core.Entities.Db
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         protected internal virtual IList<Transaction> Transactions { get; set; }
+
+
+        public DateTime Created { get; set; }
+        public bool Fictive { get; set; }
     }
 }
