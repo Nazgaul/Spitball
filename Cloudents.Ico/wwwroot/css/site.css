@@ -1894,7 +1894,10 @@ hr, .hr {
     bottom: 0px;
     max-width: 520px;
 }
-
+img.advisor-co-img{
+    width: 100%;
+    height: auto;
+}
 .imagebg {
     position: absolute;
     height: 100%;
