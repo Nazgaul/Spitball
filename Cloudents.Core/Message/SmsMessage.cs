@@ -1,8 +1,11 @@
-﻿namespace Cloudents.Core.Message
+﻿using System;
+
+namespace Cloudents.Core.Message
 {
-    public class SmsMessage
+    [Serializable]
+    public class SmsMessage2
     {
-        public SmsMessage(string phoneNumber, string code)
+        public SmsMessage2(string phoneNumber, string code)
         {
             PhoneNumber = phoneNumber;
             Message = code;

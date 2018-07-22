@@ -12,7 +12,7 @@ namespace Cloudents.Core
         //public string SystemUrl { get; set; }
 
         public LocalStorageData LocalStorageData { get; set; }
-        public string FunctionEndpoint { get; set; }
+        //public string FunctionEndpoint { get; set; }
 
         public string BlockChainNetwork { get; set; }
 
