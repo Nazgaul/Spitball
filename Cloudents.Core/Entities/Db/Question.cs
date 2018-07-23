@@ -21,7 +21,7 @@ namespace Cloudents.Core.Entities.Db
             Price = price;
             Attachments = attachments;
             User = user;
-            Created = DateTime.UtcNow;
+            Updated = Created = DateTime.UtcNow;
 
             QuestionCreateTransaction();
         }
@@ -46,6 +46,8 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual IList<Answer> Answers { get; protected set; }
 
+        public virtual DateTime Updated { get; set; }
+
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
 
@@ -61,7 +63,7 @@ namespace Cloudents.Core.Entities.Db
             {
                 transaction.Question = null;
             }
-            var t =  Transaction.QuestionDelete(this);// new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
+            var t = Transaction.QuestionDelete(this);// new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
             User.AddTransaction(t);
         }
 
@@ -80,7 +82,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual void MarkCorrectTransaction(Answer correctAnswer)
         {
             var questionUser = User;
-            var t1 = Transaction.CorrectAnswer(TransactionType.Stake,this,correctAnswer); //new Transaction(ActionType.AnswerCorrect, TransactionType.Stake, Price);
+            var t1 = Transaction.CorrectAnswer(TransactionType.Stake, this, correctAnswer); //new Transaction(ActionType.AnswerCorrect, TransactionType.Stake, Price);
             var t2 = Transaction.CorrectAnswer(TransactionType.Spent, this, correctAnswer);// new Transaction(ActionType.AnswerCorrect, TransactionType.Spent, -Price);
             questionUser.AddTransaction(t1);
             questionUser.AddTransaction(t2);
@@ -89,7 +91,7 @@ namespace Cloudents.Core.Entities.Db
 
 
             var tAnswer = Transaction.CorrectAnswer(TransactionType.Earned, this, correctAnswer);// new Transaction(ActionType.AnswerCorrect, TransactionType.Earned,
-                //Price);
+                                                                                                 //Price);
             answerUser.AddTransaction(tAnswer);
 
             //return new[] {t1, t2, tAnswer};

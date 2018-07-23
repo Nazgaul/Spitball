@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure.Data.Query
                 {
                     Text = s.Text,
                     Answers = s.Answers.Count,
-                    DateTime = s.Created,
+                    DateTime = s.Updated,
                     Files = s.Attachments,
                     Price = s.Price,
                     Id = s.Id,
@@ -68,7 +68,7 @@ namespace Cloudents.Infrastructure.Data.Query
                 {
                     Text = s.Question.Text,
                     Answers = s.Question.Answers.Count,
-                    DateTime = s.Question.Created,
+                    DateTime = s.Question.Updated,
                     Files = s.Question.Attachments,
                     Price = s.Question.Price,
                     Id = s.Question.Id,
