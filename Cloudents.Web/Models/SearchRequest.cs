@@ -31,7 +31,8 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// The term array of Ai parse
         /// </summary>
-        public string[] Query { get; set; }
+       // [DisplayFormat(HtmlEncode = true)]
+        public string Query { get; set; }
 
         /// <summary>
         /// User sort option
@@ -42,6 +43,8 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// Array of sites to search for
         /// </summary>
+
+        [DisplayFormat(HtmlEncode = true)]
         public string[] Source { get; set; }
 
         /// <summary>

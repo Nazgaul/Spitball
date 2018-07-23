@@ -32,6 +32,13 @@ namespace Cloudents.Web.Services
             {
                 return url;
             }
+            if (Uri.TryCreate(url,UriKind.RelativeOrAbsolute,out var p))
+            {
+                if (!p.IsAbsoluteUri)
+                {
+                    return url;
+                }
+            }
             //var nvc = new NameValueCollection
             //{
             //    ["url"] = url,
