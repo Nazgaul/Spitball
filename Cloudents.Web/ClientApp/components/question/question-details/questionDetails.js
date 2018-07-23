@@ -23,9 +23,6 @@ export default {
             showForm: false,
             showDialog: false,
             build: null,
-
-
-
         };
     },
 

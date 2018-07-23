@@ -1,7 +1,9 @@
-import axios from "axios";
+
+import { connectivityModule } from "./connectivity.module"
+
 
 export default {
-    getBalances: () => axios.get("/Wallet/balance"),
-    getTransactions: () => axios.get("/Wallet/transaction"),
-    redeem: (amount) => (axios.post("/Wallet/redeem", {amount}))
+    getBalances: () => connectivityModule.http.get("/Wallet/balance"),
+    getTransactions: () => connectivityModule.http.get("/Wallet/transaction"),
+    redeem: (amount) => connectivityModule.http.post("/Wallet/redeem", amount)
 }
