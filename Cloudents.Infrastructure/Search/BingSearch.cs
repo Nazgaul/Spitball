@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Search
             _shuffle = shuffle;
         }
 
-        [Cache(TimeConst.Day, "bing2", false)]
+        [Cache(TimeConst.Day, "bing3", false)]
         [BuildLocalUrl(null, PageSize, "page")]
         public async Task<IEnumerable<SearchResult>> SearchAsync(SearchModel model,
             int page, HighlightTextFormat format, CancellationToken token)
@@ -102,7 +102,7 @@ namespace Cloudents.Infrastructure.Search
 
         private static string BuildQuery(IEnumerable<string> universitySynonym,
             IEnumerable<string> courses,
-            IEnumerable<string> terms,
+            string term,
             string defaultTerm)
         {
             var query = new List<string>();
@@ -115,9 +115,10 @@ namespace Cloudents.Infrastructure.Search
             {
                 query.Add(string.Join(" AND ", courses.Select(s => $"({s})")));
             }
-            if (terms != null)
+            if (!string.IsNullOrEmpty(term))
             {
-                query.AddNotNull(string.Join(" AND ", terms.Where(w => !string.IsNullOrWhiteSpace(w)).Select(s => $"({s})")));
+                query.Add($"({term})");
+                //query.AddNotNull(string.Join(" AND ", terms.Where(w => !string.IsNullOrWhiteSpace(w)).Select(s => $"({s})")));
             }
 
             //if (!string.IsNullOrEmpty(docType))

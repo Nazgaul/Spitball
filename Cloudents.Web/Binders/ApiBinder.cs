@@ -24,9 +24,15 @@ namespace Cloudents.Web.Binders
                 return new BinderTypeModelBinder(typeof(LocationEntityBinder));
             }
 
-            if (Nullable.GetUnderlyingType(context.Metadata.ModelType)?.IsEnum == true)
+            //if (Nullable.GetUnderlyingType(context.Metadata.ModelType)?.IsEnum == true)
+            if (context.Metadata.IsEnum)
             {
                 return new BinderTypeModelBinder(typeof(NullableEnumEntityBinder));
+            }
+
+            if (context.Metadata.ModelType == typeof(string))
+            {
+                return new BinderTypeModelBinder(typeof(HtmlEncodeModelBinder));
             }
 
             return null;
