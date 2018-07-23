@@ -112,7 +112,6 @@ export default {
                 }
             }
         },
-
         highlightSearch: function (item) {
             if (!item.type === consts.SUGGEST_TYPE.autoComplete || !this.msg) {
                 return item.text
