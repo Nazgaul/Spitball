@@ -10,9 +10,7 @@
                     Let’s wait for <span class="user-name">{{user.name}}</span> to see if accepts your answer.
                 </p>
                 <p>
-                    In the meantime, below is another question that you
-                    should be able
-                    to with.
+                    In the meantime, below is another question that you should be able to help with.
                 </p>
             </div>
             <v-carousel :interval="interval" v-if="cardList"
