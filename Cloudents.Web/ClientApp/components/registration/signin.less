@@ -1,3 +1,4 @@
+@import "../../mixin.less";
 
 .registration .step-wrapper {
   .step-title{
@@ -24,7 +25,7 @@
       left: 16px;
     }
   }
-  .sigin-strip{
+  .bottom-text {
     font-size: 18px;
     font-weight: normal;
     font-style: normal;
@@ -33,6 +34,8 @@
     letter-spacing: -0.5px;
     text-align: center;
     color: #888b8e;
+    .responsive-property(bottom, 120px, null, 10px);
+
   }
 
   /* For Firefox */

@@ -1,4 +1,47 @@
 ﻿@import "../../mixin.less";
+.right-in{
+    border: 1px solid @color-main-purple;
+    padding: 25px;
+    text-align: center;
+    p.empty-state{
+        letter-spacing: -.3px;
+        font-size: 40px;
+        font-weight: 300;
+        line-height: 1.1;
+        margin-bottom: 0;
+        color: @color-main-purple;
+        .bold-text{
+            font-weight: 700;
+        }
+    }
+}
+.right-in &:before {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: auto;
+    right: -24px;
+    top: 8px;
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+    border-left: 24px solid @color-main-purple
+}
+
+.right-in &:after{
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: auto;
+    right: -20px;
+    top: 10px;
+    bottom: auto;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 20px solid @color-white;
+}
+
 .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
 }
@@ -138,6 +181,7 @@
 
 .loading-skeleton {
     .result-cell {
+
         pointer-events: none;
 
         .result-cell-content {
@@ -146,7 +190,7 @@
 
         ::-moz-selection {
             color: transparent;
-        }
+        }.header.v-toolbar
 
         ::selection {
             color: transparent;
