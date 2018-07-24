@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Write;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
@@ -22,11 +23,11 @@ namespace Cloudents.Infrastructure.Suggest
 
         public const string VerticalParameter = "vertical";
 
-        public TutorSuggest(ISearchServiceClient client, IKeyGenerator generator, Vertical vertical)
+        public TutorSuggest(ISearchService client, IKeyGenerator generator, Vertical vertical)
         {
             _generator = generator;
             _vertical = vertical;
-            _client = client.Indexes.GetClient(AutoCompleteSearchWrite.IndexName);
+            _client = client.GetClient(AutoCompleteSearchWrite.IndexName);
         }
 
         public async Task<IEnumerable<string>> SuggestAsync(string query, CancellationToken token)

@@ -7,6 +7,7 @@ using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
+using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Places;
 using Microsoft.Azure.Search;
 using Module = Autofac.Module;
@@ -23,13 +24,15 @@ namespace Cloudents.Infrastructure
         {
             base.Load(builder);
             var assembly = Assembly.GetExecutingAssembly();
-            //builder.RegisterModule<ModuleCache>();
-            builder.Register(c =>
-                {
-                    var key = c.Resolve<IConfigurationKeys>().Search;
-                    return new SearchServiceClient(key.Name, new SearchCredentials(key.Key));
-                })
-                .SingleInstance().AsSelf().As<ISearchServiceClient>();
+            //builder.Register(c =>
+            //    {
+            //        var key = c.Resolve<IConfigurationKeys>().Search;
+            //        return new SearchServiceClient(key.Name, new SearchCredentials(key.Key));
+            //    })
+            //    .SingleInstance().AsSelf().As<ISearchServiceClient>();
+
+            builder.RegisterType<SearchService>().As<ISearchService>().SingleInstance();
+
 
             builder.RegisterType<GooglePlacesSearch>().As<IGooglePlacesSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));

@@ -27,9 +27,9 @@ namespace Cloudents.Infrastructure.Search
             nameof(University.Image)
         };
 
-        public UniversitySearch(ISearchServiceClient client, IMapper mapper)
+        public UniversitySearch(ISearchService client, IMapper mapper)
         {
-            _client = client.Indexes.GetClient(UniversitySearchWrite.IndexName);
+            _client = client.GetClient(UniversitySearchWrite.IndexName);
             _mapper = mapper;
         }
 
