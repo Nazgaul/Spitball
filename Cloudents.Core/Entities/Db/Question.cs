@@ -17,7 +17,7 @@ namespace Cloudents.Core.Entities.Db
         public Question(QuestionSubject subject, string text, decimal price, int attachments, User user)
         {
             Subject = subject;
-            Text = text;
+            Text = text?.Trim();
             Price = price;
             Attachments = attachments;
             User = user;

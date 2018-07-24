@@ -30,7 +30,7 @@ namespace Cloudents.Core.CommandHandler
 
         private DateTime NextRandomDate()
         {
-            var range = 2;
+            var range = 1;
             var start = DateTime.UtcNow.AddDays(-range);
 
             return start.AddDays(_randomGenerator.Next(range)).AddHours(_randomGenerator.Next(0, 24)).AddMinutes(_randomGenerator.Next(0, 60)).AddSeconds(_randomGenerator.Next(0, 60));
