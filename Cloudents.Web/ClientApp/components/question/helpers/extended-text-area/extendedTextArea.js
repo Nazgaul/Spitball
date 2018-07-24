@@ -46,7 +46,6 @@ export default {
         multiple.on('files:added', function (val) {
             this.files=val.filter(i=>i.type.indexOf("image")>-1);
             if(this.files.length){
-               // debugger;
                 this.upload()
             }
         });
@@ -59,7 +58,6 @@ export default {
         });
 
         multiple.on('upload:done', function (response) {
-          //  debugger;
             self.$emit('addFile', JSON.parse(response).files.toString());
         });
         multiple.on('upload:progress', function (progress) {
