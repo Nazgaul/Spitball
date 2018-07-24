@@ -9,7 +9,7 @@ namespace Cloudents.Core.CommandHandler
     public class UpdateQuestionTimeCommandHandler : ICommandHandler<UpdateQuestionTimeCommand>
     {
         private readonly IQuestionRepository _questionRepository;
-        readonly Random _randomGenerator = new Random();
+        private readonly Random _randomGenerator = new Random();
 
         public UpdateQuestionTimeCommandHandler(IQuestionRepository questionRepository)
         {

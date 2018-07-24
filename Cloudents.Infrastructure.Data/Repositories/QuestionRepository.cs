@@ -18,10 +18,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
     [UsedImplicitly]
     public class QuestionRepository : NHibernateRepository<Question>, IQuestionRepository
     {
-        //public QuestionRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWork) : base(unitOfWork)
-        //{
-        //}
-
         public QuestionRepository(ISession session) : base(session)
         {
         }
@@ -35,7 +31,9 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
         public async Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token)
         {
-            return await Session.Query<Question>().Where(w => w.Updated < DateTime.UtcNow.AddDays(7)).ToListAsync(token);
+            return await Session.Query<Question>().Where(w => w.Updated < DateTime.UtcNow.AddDays(4))
+                .Where(w=>w.CorrectAnswer == null)
+                .ToListAsync(token).ConfigureAwait(false);
         }
     }
 }
