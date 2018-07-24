@@ -209,11 +209,12 @@ namespace Cloudents.Web
             if (env.IsDevelopment() || env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 app.UseDeveloperExceptionPage();
-                reWriterOptions.AddRedirectToHttpsPermanent();
+               
             }
             else
             {
                 app.UseExceptionHandler("/Error");
+                reWriterOptions.AddRedirectToHttpsPermanent();
             }
 
             app.UseRewriter(reWriterOptions);
