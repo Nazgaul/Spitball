@@ -19,11 +19,13 @@ namespace Cloudents.Web.Controllers
     {
         private readonly IServiceBusProvider _serviceBus;
         private readonly ILogger _logger;
+        private readonly IDomainParser _domainParser;
 
-        public UrlController(IServiceBusProvider serviceBus, ILogger logger)
+        public UrlController(IServiceBusProvider serviceBus, ILogger logger, IDomainParser domainParser)
         {
             _serviceBus = serviceBus;
             _logger = logger;
+            _domainParser = domainParser;
         }
 
         private static IList<string> _domains = PrioritySource.DocumentPriority.Values
@@ -41,13 +43,15 @@ namespace Cloudents.Web.Controllers
             var referer = Request.Headers["Referer"].ToString();
             var userIp = Request.HttpContext.Connection.GetIpAddress();
             var message = new UrlRedirectQueueMessage(model.Host, model.Url, referer, model.Location, userIp.ToString());
-            await _serviceBus.InsertMessageAsync(message, token).ConfigureAwait(false);
 
             //var domains = PrioritySource.DocumentPriority.Values.Union(PrioritySource.FlashcardPriority.Values)
             //    .SelectMany(s => s.Domains);
-
-            if (!_domains.Any(a => a.Contains(model.Url.Host, StringComparison.OrdinalIgnoreCase)))
+            var domain = _domainParser.GetDomain(model.Url.Host);
+            if (!_domains.Any(a => a.Contains(domain, StringComparison.OrdinalIgnoreCase)))
                 throw new ArgumentException("invalid url");
+
+            await _serviceBus.InsertMessageAsync(message, token).ConfigureAwait(false);
+
             if (model.Url.Host.Contains("courseHero", StringComparison.OrdinalIgnoreCase))
             {
                 return Redirect(
