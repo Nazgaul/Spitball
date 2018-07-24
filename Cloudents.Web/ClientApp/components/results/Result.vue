@@ -68,10 +68,9 @@
                     <div class="result-cell elevation-1 mb-3 empty-state tri-right right-in" xs-12>
                         <v-layout row class="pa-3">
                          <v-flex>
-                                <p class="empty-state">You couldn’t find
-                                    the question you were
-                                    searching for..
-                                <br/><span class="bold-text"> Ask it here</span>
+                                <p class="empty-state">We didn’t find an
+                                    answer to your question
+                                    <!--<br/><span class="bold-text"> Ask it here</span>-->
                                 </p>
                             </v-flex>
 

@@ -58,7 +58,7 @@
     "vue-avatar-component": "^1.2.4",
     "vue-jest": "^2.0.0",
     "vue-loader": "^13.3.0",
-    "alopu-vue-particles": "^1.1.11",
+    "vue-particles": "^1.0.9",
     "vue-recaptcha": "^1.1.1",
     "vue-router": "^3.0.1",
     "vue-scrollto": "2.8.0",
