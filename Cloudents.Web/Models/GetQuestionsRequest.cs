@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
-
-namespace Cloudents.Web.Models
+﻿namespace Cloudents.Web.Models
 {
     public class GetQuestionsRequest : IPaging
     {

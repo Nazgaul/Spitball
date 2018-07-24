@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using JetBrains.Annotations;
-using Microsoft.Azure.Documents.SystemFunctions;
 using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Mail
@@ -20,7 +19,6 @@ namespace Cloudents.Infrastructure.Mail
     [UsedImplicitly]
     public class MailProvider : IMailProvider
     {
-
         private readonly Lazy<IRestClient> _restClient;
 
         public MailProvider(Lazy<IRestClient> restClient)
@@ -76,7 +74,6 @@ namespace Cloudents.Infrastructure.Mail
             return w?.IsValid ?? false;
         }
 
-
         public class VerifyEmail
         {
             //public string address { get; set; }
@@ -96,7 +93,6 @@ namespace Cloudents.Infrastructure.Mail
         //    public string domain { get; set; }
         //    public string local_part { get; set; }
         //}
-
 
     }
 }

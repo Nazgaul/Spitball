@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -38,7 +37,7 @@ namespace Cloudents.Web.Identity
             var signInResult = await SignInOrTwoFactorAsync(user, isPersistent);
             if (signInResult.Succeeded)
             {
-                await this.SignOutAsync();
+                await SignOutAsync();
                 return SignInResult.Failed;
             }
             return signInResult;

@@ -152,31 +152,31 @@ a {
 }
 
 .navbar-toggler {
-    background: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
     .navbar-toggler:hover {
-        background: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+        background: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
     }
 
 .btn {
-    background-image: -webkit-linear-gradient(left, #2b56f5 0%, #46bdf4 100%);
-    background-image: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background-image: -webkit-linear-gradient(left, #2b56f5 0, #46bdf4 100%);
+    background-image: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
     .btn:before {
-        background-image: -webkit-linear-gradient(left, #46bdf4 0%, #2b56f5 100%);
-        background-image: linear-gradient(to right, #46bdf4 0%, #2b56f5 100%);
+        background-image: -webkit-linear-gradient(left, #46bdf4 0, #2b56f5 100%);
+        background-image: linear-gradient(to right, #46bdf4 0, #2b56f5 100%);
     }
 
     .btn.btn-alt {
-        background-image: -webkit-linear-gradient(left, #7a0fff 0%, #46bdf4 100%);
-        background-image: linear-gradient(to right, #7a0fff 0%, #46bdf4 100%);
+        background-image: -webkit-linear-gradient(left, #7a0fff 0, #46bdf4 100%);
+        background-image: linear-gradient(to right, #7a0fff 0, #46bdf4 100%);
     }
 
         .btn.btn-alt:before {
-            background-image: -webkit-linear-gradient(left, #46bdf4 0%, #7a0fff 100%);
-            background-image: linear-gradient(to right, #46bdf4 0%, #7a0fff 100%);
+            background-image: -webkit-linear-gradient(left, #46bdf4 0, #7a0fff 100%);
+            background-image: linear-gradient(to right, #46bdf4 0, #7a0fff 100%);
         }
 
     .btn.btn-plane {
@@ -196,15 +196,15 @@ a {
         }
 
 .play-btn .play {
-    background-image: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background-image: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
     .play-btn .play > span {
-        background-image: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+        background-image: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
     }
 
 .play-btn-alt .fa {
-    background: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
 .play-btn > span:last-of-type {
@@ -269,7 +269,7 @@ a {
         }
 
 .section-connect:before {
-    background: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
 .event-info:before {
@@ -297,7 +297,7 @@ a {
     }
 
 .io-azure .countdown-box {
-    background: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
 .theme-light .countdown-box.countdown-header:after {
@@ -337,8 +337,8 @@ a {
 }
 
 .single-roadmap:before {
-    background-image: -webkit-linear-gradient(top, #46bdf4 0%, #7a0fff 100%);
-    background-image: linear-gradient(top, #46bdf4 0%, #7a0fff 100%);
+    background-image: -webkit-linear-gradient(top, #46bdf4 0, #7a0fff 100%);
+    background-image: linear-gradient(top, #46bdf4 0, #7a0fff 100%);
 }
 
 .single-roadmap:after {
@@ -354,13 +354,13 @@ a {
 }
 
 .single-roadmap.roadmap-down:before {
-    background-image: -webkit-linear-gradient(top, #7a0fff 0%, #46bdf4 100%);
-    background-image: linear-gradient(top, #7a0fff 0%, #46bdf4 100%);
+    background-image: -webkit-linear-gradient(top, #7a0fff 0, #46bdf4 100%);
+    background-image: linear-gradient(top, #7a0fff 0, #46bdf4 100%);
 }
 
 .theme-light .single-roadmap:before {
-    background-image: -webkit-linear-gradient(top, #2b56f5 0%, #7a0fff 100%);
-    background-image: linear-gradient(top, #2b56f5 0%, #7a0fff 100%);
+    background-image: -webkit-linear-gradient(top, #2b56f5 0, #7a0fff 100%);
+    background-image: linear-gradient(top, #2b56f5 0, #7a0fff 100%);
 }
 
 .theme-light .single-roadmap:after {
@@ -372,12 +372,12 @@ a {
 }
 
 .theme-light .single-roadmap.roadmap-down:before {
-    background-image: -webkit-linear-gradient(top, #7a0fff 0%, #2b56f5 100%);
-    background-image: linear-gradient(top, #7a0fff 0%, #2b56f5 100%);
+    background-image: -webkit-linear-gradient(top, #7a0fff 0, #2b56f5 100%);
+    background-image: linear-gradient(top, #7a0fff 0, #2b56f5 100%);
 }
 
 .single-roadmap-alt:before {
-    background-image: linear-gradient(to right, transparent 0%, #7a0fff 50%, #7a0fff 100%);
+    background-image: linear-gradient(to right, transparent 0, #7a0fff 50%, #7a0fff 100%);
 }
 
 .single-roadmap-alt:after {
@@ -385,7 +385,7 @@ a {
 }
 
 .single-roadmap-alt.sec-pri:before {
-    background-image: linear-gradient(to right, #7a0fff 0%, #46bdf4 100%);
+    background-image: linear-gradient(to right, #7a0fff 0, #46bdf4 100%);
 }
 
 .single-roadmap-alt.sec-pri:after {
@@ -397,7 +397,7 @@ a {
 }
 
 .single-roadmap-alt.pri-sec:before {
-    background-image: linear-gradient(to right, #46bdf4 0%, #7a0fff 100%);
+    background-image: linear-gradient(to right, #46bdf4 0, #7a0fff 100%);
 }
 
 .single-roadmap-alt.pri-sec:after {
@@ -409,7 +409,7 @@ a {
 }
 
 .single-roadmap-alt.sec-prialt:before {
-    background-image: linear-gradient(to right, #7a0fff 0%, #2b56f5 100%);
+    background-image: linear-gradient(to right, #7a0fff 0, #2b56f5 100%);
 }
 
 .single-roadmap-alt.sec-prialt:after {
@@ -421,7 +421,7 @@ a {
 }
 
 .single-roadmap-alt.prialt-pri:before {
-    background-image: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background-image: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
 .single-roadmap-alt.prialt-pri:after {
@@ -433,7 +433,7 @@ a {
 }
 
 .single-roadmap-alt.pri-last:before {
-    background-image: linear-gradient(to left, transparent 0%, #46bdf4 50%, #46bdf4 100%);
+    background-image: linear-gradient(to left, transparent 0, #46bdf4 50%, #46bdf4 100%);
 }
 
 .single-roadmap-alt h5:before, .single-roadmap-alt h6:before {
@@ -441,8 +441,8 @@ a {
 }
 
 .team-member .team-photo:after {
-    background-image: -webkit- linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
-    background-image: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background-image: -webkit- linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
+    background-image: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
 .team-member .team-title {
@@ -454,8 +454,8 @@ a {
 }
 
 .team-hex .team-info:before {
-    background-image: -webkit- linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
-    background-image: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background-image: -webkit- linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
+    background-image: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
 .team-hex .team-title {
@@ -463,8 +463,8 @@ a {
 }
 
 .team-described .team-title:after {
-    background-image: -webkit- linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
-    background-image: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background-image: -webkit- linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
+    background-image: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
 .team-described .team-social li a {
@@ -476,7 +476,7 @@ a {
 }
 
 .team-circle .team-photo:before {
-    background-image: linear-gradient(to top, #2b56f5 0%, #46bdf4 100%);
+    background-image: linear-gradient(to top, #2b56f5 0, #46bdf4 100%);
 }
 
 .team-circle .team-title {
@@ -484,19 +484,19 @@ a {
 }
 
 .skill-bar-percent {
-    background-image: linear-gradient(to right, #46bdf4 0%, #7a0fff 100%);
+    background-image: linear-gradient(to right, #46bdf4 0, #7a0fff 100%);
 }
 
 .bg-team-exp.mfp-bg {
-    background-image: linear-gradient(to right, #46bdf4 0%, #7a0fff 100%);
+    background-image: linear-gradient(to right, #46bdf4 0, #7a0fff 100%);
 }
 
 .contact-info li .fa {
-    background-image: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background-image: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
 .contact-info-alt li .fa {
-    background-image: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background-image: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
 .form-message .input-field .input-line {
@@ -528,7 +528,7 @@ a {
 }
 
 .blog-photo a:after {
-    background: linear-gradient(to right, #46bdf4 0%, #7a0fff 100%);
+    background: linear-gradient(to right, #46bdf4 0, #7a0fff 100%);
 }
 
 .blog-meta li {
@@ -782,11 +782,11 @@ a {
 }
 
 .io-azure .banner-tokensale .countdown-box .btn.btn-alt {
-    background-image: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background-image: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
     .io-azure .banner-tokensale .countdown-box .btn.btn-alt:before {
-        background-image: linear-gradient(to right, #46bdf4 0%, #7a0fff 100%);
+        background-image: linear-gradient(to right, #46bdf4 0, #7a0fff 100%);
     }
 
 .token-status-bar {
@@ -794,11 +794,11 @@ a {
 }
 
 .token-status-percent {
-    background: linear-gradient(to right, #46bdf4 0%, #2b56f5 100%);
+    background: linear-gradient(to right, #46bdf4 0, #2b56f5 100%);
 }
 
 .io-azure .banner-tokensale .token-status-percent {
-    background: linear-gradient(to right, #2b56f5 0%, #0b39e2 100%);
+    background: linear-gradient(to right, #2b56f5 0, #0b39e2 100%);
 }
 
 .token-status-point:after {
@@ -1009,7 +1009,7 @@ a {
 }
 
 .team-described .team-photo:before {
-    background-image: linear-gradient(to top left, rgba(64, 190, 255, 0.65) 0%, rgba(93, 70, 232, 0.65) 100%);
+    background-image: linear-gradient(to top left, rgba(64, 190, 255, 0.65) 0, rgba(93, 70, 232, 0.65) 100%);
 }
 
 .team-described .team-title {
@@ -1017,7 +1017,7 @@ a {
 }
 
     .team-described .team-title:after {
-        background-image: linear-gradient(to left, #5d46e8 0%, #40beff 100%);
+        background-image: linear-gradient(to left, #5d46e8 0, #40beff 100%);
     }
 
 .team-described .team-social li a {
@@ -1347,11 +1347,11 @@ a {
     }
 
 .play-btn-s2 {
-    background: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
 .play-icon {
-    background: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
 .features-item-s2:before {
@@ -1359,7 +1359,7 @@ a {
 }
 
 .features-icon-s2 {
-    background: linear-gradient(to right, #2b56f5 0%, #46bdf4 100%);
+    background: linear-gradient(to right, #2b56f5 0, #46bdf4 100%);
 }
 
 .text-block ol li:before {
@@ -1371,7 +1371,7 @@ a {
 }
 
 .timeline-list:before {
-    background: linear-gradient(to bottom, #46bdf4 0%, #7a0fff 100%);
+    background: linear-gradient(to bottom, #46bdf4 0, #7a0fff 100%);
 }
 
 .timeline-content:before {
@@ -1428,7 +1428,7 @@ a {
 }
 
 .io-jasmine .section-bg-atob {
-    background-image: linear-gradient(to bottom, #fff 0%, #e7edf5 100%);
+    background-image: linear-gradient(to bottom, #fff 0, #e7edf5 100%);
 }
 
 .io-jasmine .heading-sm {
@@ -1453,14 +1453,14 @@ a {
 
 .io-jasmine .btn {
     border-radius: 6px;
-    background-image: -webkit-linear-gradient(to right, #2b56f5 0%, #16a1ff 100%);
-    background-image: linear-gradient(to right, #2b56f5 0%, #16a1ff 100%);
+    background-image: -webkit-linear-gradient(to right, #2b56f5 0, #16a1ff 100%);
+    background-image: linear-gradient(to right, #2b56f5 0, #16a1ff 100%);
 }
 
     .io-jasmine .btn:before {
         border-radius: 6px;
-        background-image: -webkit-linear-gradient(to right, #16a1ff 0%, #2b56f5 100%);
-        background-image: linear-gradient(to right, #16a1ff 0%, #2b56f5 100%);
+        background-image: -webkit-linear-gradient(to right, #16a1ff 0, #2b56f5 100%);
+        background-image: linear-gradient(to right, #16a1ff 0, #2b56f5 100%);
     }
 
 .io-jasmine .btn-outline {
@@ -1477,7 +1477,7 @@ a {
 }
 
 .io-jasmine .text-block ul:not(.btns) li:before {
-    background: linear-gradient(to right, #2b56f5 0%, #16a1ff 100%);
+    background: linear-gradient(to right, #2b56f5 0, #16a1ff 100%);
 }
 
 .io-jasmine .contact-info-alt li .fa {
@@ -1487,11 +1487,11 @@ a {
 }
 
 .io-jasmine .navbar-toggler {
-    background: linear-gradient(to right, #2b56f5 0%, #16a1ff 100%);
+    background: linear-gradient(to right, #2b56f5 0, #16a1ff 100%);
 }
 
     .io-jasmine .navbar-toggler:hover, .io-jasmine .navbar-toggler:focus {
-        background: linear-gradient(to right, #16a1ff 0%, #2b56f5 100%);
+        background: linear-gradient(to right, #16a1ff 0, #2b56f5 100%);
     }
 
 .io-jasmine .team-circle-des {
@@ -1558,7 +1558,7 @@ a {
     }
 
 .banner-jasmine {
-    background: linear-gradient(-135deg, #dde5f1 0%, #eaeff6 100%);
+    background: linear-gradient(-135deg, #dde5f1 0, #eaeff6 100%);
 }
 
     .banner-jasmine .token-countdown .countdown-text {
@@ -1929,7 +1929,7 @@ a {
     }
 
 .io-lungwort .section-bg-atob {
-    background-image: linear-gradient(to bottom, #3e2bc5 0%, #261986 100%);
+    background-image: linear-gradient(to bottom, #3e2bc5 0, #261986 100%);
 }
 
 .io-lungwort .heading-sm {
@@ -1958,14 +1958,14 @@ a {
 
 .io-lungwort .btn {
     border-radius: 6px;
-    background-image: -webkit-linear-gradient(to right, #2b56f5 0%, #7a0fff 100%);
-    background-image: linear-gradient(to right, #2b56f5 0%, #7a0fff 100%);
+    background-image: -webkit-linear-gradient(to right, #2b56f5 0, #7a0fff 100%);
+    background-image: linear-gradient(to right, #2b56f5 0, #7a0fff 100%);
 }
 
     .io-lungwort .btn:before {
         border-radius: 6px;
-        background-image: -webkit-linear-gradient(to right, #7a0fff 0%, #2b56f5 100%);
-        background-image: linear-gradient(to right, #7a0fff 0%, #2b56f5 100%);
+        background-image: -webkit-linear-gradient(to right, #7a0fff 0, #2b56f5 100%);
+        background-image: linear-gradient(to right, #7a0fff 0, #2b56f5 100%);
     }
 
     .io-lungwort .btn.btn-plane {
@@ -2028,11 +2028,11 @@ a {
 }
 
 .io-lungwort .navbar-toggler {
-    background: linear-gradient(to right, #2b56f5 0%, #7a0fff 100%);
+    background: linear-gradient(to right, #2b56f5 0, #7a0fff 100%);
 }
 
     .io-lungwort .navbar-toggler:hover, .io-lungwort .navbar-toggler:focus {
-        background: linear-gradient(to right, #7a0fff 0%, #2b56f5 100%);
+        background: linear-gradient(to right, #7a0fff 0, #2b56f5 100%);
     }
 
 .io-lungwort .background-shape {
@@ -2278,7 +2278,7 @@ a {
 }
 
 .io-lungwort .subscribe-box {
-    background-image: linear-gradient(-135deg, #4d3dbf 0%, #5a4bc8 100%);
+    background-image: linear-gradient(-135deg, #4d3dbf 0, #5a4bc8 100%);
 }
 
 .io-lungwort .subscribe-section-s2:before {
@@ -2304,7 +2304,7 @@ a {
 }
 
 .banner-lungwort {
-    background: linear-gradient(135deg, #6757d4 0%, #190a85 100%);
+    background: linear-gradient(135deg, #6757d4 0, #190a85 100%);
 }
 
     .banner-lungwort .countdown-box:after {
