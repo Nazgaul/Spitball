@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Enum;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure.Data")]
 namespace Cloudents.Core.Entities.Db

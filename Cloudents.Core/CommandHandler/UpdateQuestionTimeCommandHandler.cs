@@ -23,8 +23,6 @@ namespace Cloudents.Core.CommandHandler
                 question.Updated =  NextRandomDate();
                 await _questionRepository.UpdateAsync(question, token);
             }
-
-          ;
         }
 
 

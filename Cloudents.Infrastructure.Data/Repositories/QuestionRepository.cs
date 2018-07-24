@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using JetBrains.Annotations;
 using NHibernate;
-using NHibernate.Criterion;
 using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data.Repositories
@@ -21,7 +17,6 @@ namespace Cloudents.Infrastructure.Data.Repositories
         public QuestionRepository(ISession session) : base(session)
         {
         }
-
 
         public async Task<IList<Question>> GetAllQuestionsAsync()
         {

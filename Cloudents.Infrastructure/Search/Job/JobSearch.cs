@@ -71,7 +71,7 @@ namespace Cloudents.Infrastructure.Search.Job
             retVal.Facet = retVal.Facet?.Distinct();
             if (sort == JobRequestSort.Date)
             {
-                retVal.Result = retVal.Result.OrderByDescending(o => o.DateTime);
+                retVal.Result = retVal.Result.OrderByDescending(o => o?.DateTime);
             }
             else
             {

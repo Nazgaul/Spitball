@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
@@ -12,8 +13,8 @@ using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc Module registration by reflection")]
     [ModuleRegistration(Core.Enum.System.Console)]
-    //[ModuleRegistration(Core.Enum.System.Api)]
     [ModuleRegistration(Core.Enum.System.Web)]
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
     public class ModuleInfrastructureBase : Module

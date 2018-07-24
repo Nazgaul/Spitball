@@ -1,17 +1,13 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Net;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Framework;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.ServiceBus.Messaging;
 using Microsoft.WindowsAzure.Storage.Blob;
-using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
 using Twilio;
 

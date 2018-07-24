@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Mail;
 using System.Reflection;
@@ -7,12 +6,8 @@ using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Command;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Query;
-using Cloudents.Core.Storage;
 
 namespace ConsoleApp
 {

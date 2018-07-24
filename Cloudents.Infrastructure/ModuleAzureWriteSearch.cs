@@ -1,19 +1,19 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using Autofac;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Write;
-using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc Module registration by reflection")]
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
     [ModuleRegistration(Core.Enum.System.Function)]
-    [UsedImplicitly]
-    public class ModuleAzureSearch : Module
+    public class ModuleAzureWriteSearch : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

@@ -37,7 +37,6 @@ namespace Cloudents.Infrastructure.Data.Query
                 listOfQueries.Add(xx);
             }
 
-
             await listOfQueries[0].GetValueAsync(token).ConfigureAwait(false);
 
             var decimals = listOfQueries.Select(s => s.Value);

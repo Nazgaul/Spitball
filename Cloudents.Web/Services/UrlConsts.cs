@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Text;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -51,7 +50,7 @@ namespace Cloudents.Web.Services
             //}
 
             var uri = _urlHelper.Action("index", "url", new {url, host, location});
-            return uri.ToString();
+            return uri;
         }
 
         public static string NameToQueryString(string name)

@@ -3,14 +3,10 @@ using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
-using Cloudents.Core.Request;
 using Cloudents.Core.Storage;
 using Cloudents.Functions.Di;
-using Cloudents.Infrastructure.Framework;
-using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
-using Microsoft.ServiceBus.Messaging;
 
 namespace Cloudents.Functions
 {

@@ -25,8 +25,6 @@ using Microsoft.ApplicationInsights.SnapshotCollector;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;

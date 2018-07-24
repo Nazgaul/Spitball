@@ -14,7 +14,7 @@ namespace Cloudents.Infrastructure.Extensions
             return MapWithPriority<TSource, TDestination>(mapper, source, _ => { });
         }
 
-        public static IEnumerable<TDestination> MapWithPriority<TSource, TDestination>(this IMapper mapper,
+        private static IEnumerable<TDestination> MapWithPriority<TSource, TDestination>(this IMapper mapper,
             IEnumerable<TSource> source, Action<IMappingOperationOptions<TSource, TDestination>> opts) where TDestination : IShuffleable
         {
             return source?.Select((s, i) =>

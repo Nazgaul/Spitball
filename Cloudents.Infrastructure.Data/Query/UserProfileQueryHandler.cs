@@ -56,7 +56,6 @@ namespace Cloudents.Infrastructure.Data.Query
             answerQuery.ThenFetch(f => f.Subject);
             answerQuery.ThenFetch(f => f.User);
 
-
             //var futureAnswers = _session.Query<Answer>()
             //    .Fetch(f => f.Question)
 

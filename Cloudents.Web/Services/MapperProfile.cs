@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Query;
 using Cloudents.Web.Models;
