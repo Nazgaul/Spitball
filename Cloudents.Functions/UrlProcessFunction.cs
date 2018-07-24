@@ -16,21 +16,21 @@ namespace Cloudents.Functions
 {
     public static class UrlProcessFunction
     {
-        [FunctionName("UrlProcess")]
-        [UsedImplicitly]
-        public static async Task ProcessQueueMessageAsync([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,
-            TraceWriter log, [Inject] ICommandBus commandBus, CancellationToken token)
-        {
-            await ProcessQueueAsync(content, log, commandBus, token).ConfigureAwait(false);
-        }
+        //[FunctionName("UrlProcess")]
+        //[UsedImplicitly]
+        //public static async Task ProcessQueueMessageAsync([QueueTrigger(QueueName.UrlRedirectName)] UrlRedirectQueueMessage content,
+        //    TraceWriter log, [Inject] ICommandBus commandBus, CancellationToken token)
+        //{
+        //    await ProcessQueueAsync(content, log, commandBus, token).ConfigureAwait(false);
+        //}
 
-        [FunctionName("UrlProcessPoison")]
-        [UsedImplicitly]
-        public static async Task ProcessQueueMessagePoisonAsync([QueueTrigger(QueueName.UrlRedirectName + "-poison")] UrlRedirectQueueMessage content,
-            TraceWriter log, [Inject] ICommandBus commandBus, CancellationToken token)
-        {
-            await ProcessQueueAsync(content, log, commandBus, token).ConfigureAwait(false);
-        }
+        //[FunctionName("UrlProcessPoison")]
+        //[UsedImplicitly]
+        //public static async Task ProcessQueueMessagePoisonAsync([QueueTrigger(QueueName.UrlRedirectName + "-poison")] UrlRedirectQueueMessage content,
+        //    TraceWriter log, [Inject] ICommandBus commandBus, CancellationToken token)
+        //{
+        //    await ProcessQueueAsync(content, log, commandBus, token).ConfigureAwait(false);
+        //}
 
 
         [FunctionName("UrlProcessServiceBus")]

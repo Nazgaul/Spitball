@@ -28,7 +28,7 @@ namespace Cloudents.Web.Services
             //    .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
 
             CreateMap<GetQuestionsRequest, QuestionsQuery>()
-                .ForMember(f => f.Term, c => c.MapFrom(f => string.Join(" ", f.Term ?? Enumerable.Empty<string>())))
+                //.ForMember(f => f.Term, c => c.MapFrom(f => string.Join(" ", f.Term ?? Enumerable.Empty<string>())))
                 .ForMember(f => f.Page, c => c.MapFrom(f => f.Page.GetValueOrDefault()))
                 .ForMember(f => f.Source, opt => opt.AllowNull())
                 .AfterMap((_,d) =>

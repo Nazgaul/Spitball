@@ -127,9 +127,9 @@
 </head>
 <body>
     @*<noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2BGS2G"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>*@
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2BGS2G"
+                    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>*@
     <div>
         @RenderBody()
     </div>
@@ -167,7 +167,11 @@
     <script type="text/javascript" id="inspectletjs">
         (function () {
             window.__insp = window.__insp || [];
-            __insp.push(['wid', 348650174]);
+                __insp.push(['wid', 348650174]);
+                @if (User.Identity.IsAuthenticated)
+                {
+                  <text>__insp.push(['identify', '@User.Identity.Name'])</text>
+                }
             var ldinsp = function () { if (typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=348650174&r=' + Math.floor(new Date().getTime() / 3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
             setTimeout(ldinsp, 0);
         })();
@@ -176,9 +180,7 @@
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
     window.version = '@version';
-        window.version2 = '8.7.8.1';
-        window.publicPath = '@cdnEndPoint' + '/dist/';
-    window.baseURL = '@Configuration["ApiEndpoint"]';
+    window.publicPath = '@cdnEndPoint' + '/dist/';
     window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
     window.talkJsId = '@Configuration["TalkJs"]';
     </script>

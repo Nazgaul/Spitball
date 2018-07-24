@@ -77,6 +77,8 @@ import {
 } from "vuetify"
 import * as route from "./routes";
 
+import { constants } from "./utilities/constants";
+
 //TODO: server side fix
 WebFont.load({
     google: {
@@ -192,9 +194,17 @@ Vue.filter('commasFilter', function(value){
    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
 
+
 router.beforeEach((to, from, next) => {
    // if (to.name === 'home') next('/ask');
-    checkUserStatus(to, next);
+    if (!!to.query && Object.keys(to.query).length > 0) {
+        for (let prop in to.query) {
+            if (constants.regExXSSCheck.test(to.query[prop])) {
+                to.query[prop] = "";
+            }
+        }
+    }
+        checkUserStatus(to, next);
 });
 const app = new Vue({
     //el: "#app",

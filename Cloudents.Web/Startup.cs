@@ -174,7 +174,7 @@ namespace Cloudents.Web
                        Configuration["AzureSearch:SearchServiceAdminApiKey"]),
                 Redis = Configuration["Redis"],
                 Storage = Configuration["Storage"],
-                FunctionEndpoint = Configuration["AzureFunction:EndPoint"],
+                //FunctionEndpoint = Configuration["AzureFunction:EndPoint"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"],
                 ServiceBus = Configuration["ServiceBus"]
             };
@@ -206,20 +206,16 @@ namespace Cloudents.Web
                 configuration.DisableTelemetry = true;
 
             }
+            var reWriterOptions = new RewriteOptions()
+                .Add(new RemoveTrailingSlash());
             if (env.IsDevelopment() || env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 app.UseDeveloperExceptionPage();
+                reWriterOptions.AddRedirectToHttpsPermanent();
             }
             else
             {
                 app.UseExceptionHandler("/Error");
-            }
-
-            var reWriterOptions = new RewriteOptions()
-                .Add(new RemoveTrailingSlash());
-            if (env.IsStaging() || env.IsProduction())
-            {
-                reWriterOptions.AddRedirectToHttpsPermanent();
             }
 
             app.UseRewriter(reWriterOptions);

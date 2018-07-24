@@ -32,6 +32,7 @@ namespace Cloudents.Core.Interfaces
     public interface IQuestionRepository : IRepository<Question>
     {
         Task<IList<Question>> GetAllQuestionsAsync();
+        Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token);
     }
 
     public interface ICourseRepository : IRepository<Course>
