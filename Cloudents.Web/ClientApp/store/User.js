@@ -91,7 +91,6 @@ const getters = {
             let [latitude, longitude] = location.split(',');
             return { latitude, longitude }
         } else { return location }
-        console.log(location, 'dsfsdfsdf')
     },
     pinnedCards:
         state => state.user.pinnedCards,

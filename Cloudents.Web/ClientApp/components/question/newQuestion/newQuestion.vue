@@ -49,6 +49,9 @@
                 <v-flex xs12 v-if="price > 100" :class="[price < 100 ? 'text-blue' : 'text-red']">
                     The max. number of SBL is 100 per question
                 </v-flex>
+                <v-flex xs12 v-else-if="price < 1 && price" :class="[price > 1 ? 'text-blue' : 'text-red']">
+                    The min. number of SBL is 1 per question
+                </v-flex>
                 <!-- </v-flex> -->
 
                 <v-flex xs12 class="mb-0">

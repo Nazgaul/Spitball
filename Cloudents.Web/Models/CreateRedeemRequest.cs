@@ -24,7 +24,7 @@ namespace Cloudents.Web.Models
             {
                 return ValidationResult.Success;
             }
-            return new ValidationResult(this.ErrorMessage);
+            return new ValidationResult(ErrorMessage);
         }
     }
 }

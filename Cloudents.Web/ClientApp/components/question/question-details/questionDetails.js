@@ -61,21 +61,17 @@ export default {
                         self.answerFiles = [];
                         self.updateLoading(false);
                         self.cardList = resp.data;
-                        // let transferResultQuestion = res => {
-                        //     return { ...res,filesNum:res.files.length, answersNum:res.answers.length}
-                        // };
                         self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
-                        self.updateToasterParams({
-                            toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
-                            showToaster: true,
-                        });
+                        // self.updateToasterParams({
+                        //     toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
+                        //     showToaster: true,
+                        // });
                         self.showDialog = true; // question suggest popup dialog
                     }, () => {
-
-                        self.updateToasterParams({
-                            toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
-                            showToaster: true,
-                        });
+                        // self.updateToasterParams({
+                        //     toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
+                        //     showToaster: true,
+                        // });
                         self.submitForm(false);
                         self.updateLoading(true);
                     })
@@ -91,16 +87,16 @@ export default {
         getData() {
             //enable submit btn
             this.$data.submitted = false;
-            var self = this;
+            // var self = this;
             questionService.getQuestion(this.id)
-                .then(function (response) {
-                    self.questionData = response.data;
-                    if (self.accountUser) {
-                        self.questionData.cardOwner = self.accountUser.id === response.data.user.id;
+                .then( (response) => {
+                    this.questionData = response.data;
+                    if (this.accountUser) {
+                        this.questionData.cardOwner = this.accountUser.id === response.data.user.id;
                     } else {
-                        self.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
+                        this.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
                     }
-                    self.buildChat();
+                    this.buildChat();
                 }, (error) => {
                     if (error.response.status === 404) {
                         window.location = "/error/notfound";
@@ -187,7 +183,6 @@ export default {
         });
         this.$root.$on('closeSuggestionPopUp', ()=> {
             this.showDialog = false;
-
         })
     }
 }

@@ -11,7 +11,6 @@ namespace Cloudents.Infrastructure.Data
     {
         private readonly ISessionFactory _factory;
 
-
         public UnitOfWorkFactoryMailGun(DbConnectionStringProvider connectionString)
         {
             //TODO: CREATE SCHEMA sb
@@ -24,7 +23,7 @@ namespace Cloudents.Infrastructure.Data
 
                     )
                 .ExposeConfiguration(BuildSchema);
-            
+
                 configuration.Mappings(m =>
                 {
                     m.FluentMappings.Add<MailGunStudentMap>();

@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Data.Query
                     .Select(s => s.Text).WithAlias(() => dto.Text)
                     .Select(s => s.Price).WithAlias(() => dto.Price)
                     .Select(s => s.Attachments).WithAlias(() => dto.Files)
-                    .Select(s => s.Created).WithAlias(() => dto.DateTime)
+                    .Select(s => s.Updated).WithAlias(() => dto.DateTime)
                     .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
                     .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
                     .Select(Projections.Property(() => userAlias.Image).As("User.Image"))
@@ -65,12 +65,10 @@ namespace Cloudents.Infrastructure.Data.Query
 
             var futureQueryOver = queryOverObj.Future<QuestionDto>();
 
-
             var facetsFuture = QuestionSubjectRepository.GetSubjects(_session.QueryOver<QuestionSubject>()).Select(s => s.Text).Future<string>();
-            
 
             var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(false);
-            var facet = await facetsFuture.GetEnumerableAsync(token).ConfigureAwait(false);
+            var facet = facetsFuture.GetEnumerable();
 
             return new ResultWithFacetDto<QuestionDto>
             {

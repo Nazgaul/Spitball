@@ -1,5 +1,58 @@
 @import "../../../mixin.less";
-
+.banner-wrap{
+  position: relative;
+}
+.overlay-bubble {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  div{
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.05);
+    //transform: skewY(-17deg);
+    z-index: 99;
+  }
+  .overlay-bubble-1 {
+    height: 200px;
+    width: 200px;
+    right: calc(5%);
+    top: calc(30%);
+  }
+  .overlay-bubble-2 {
+    height: 650px;
+    width: 650px;
+    right: calc(58%);
+    top: calc(-41%);
+  }
+  .overlay-bubble-3 {
+    height: 273px;
+    width: 273px;
+    right: calc(-6%);
+    top: calc(33%);
+  }
+  .overlay-bubble-4 {
+    height: 300px;
+    width: 300px;
+    left: calc(-4%);
+    top: calc(-37%);
+  }
+  .overlay-bubble-5 {
+    height: 300px;
+    width: 300px;
+    left: calc(35%);
+    top: calc(68%);
+  }
+  .overlay-bubble-6 {
+    height: 525px;
+    width: 525px;
+    left: calc(77%);
+    top: calc(-88%);
+  }
+}
 .signup-banner {
   position: relative;
   display: flex;
@@ -7,20 +60,21 @@
   .responsive-property(padding-bottom, 39px, null, 24px);
   justify-content: flex-start;
   background-size: auto;
-  background: url(./img/1920.png) center no-repeat;
+  //background: url(./img/1920.png) center no-repeat;
   //height: 552px;
   height: 345px;
 
-  @media (min-width: @screen-sm) and (max-width: @screen-md) {
-    background-image: url(./img/1280.png);
-  }
-  @media (min-width: @screen-xs) and (max-width: @screen-sm) {
-    background-image: url(./img/960.png);
-  }
 
-  @media (max-width: @screen-xs) {
-    background-image: url(./img/600.png);
-  }
+  //@media (min-width: @screen-sm) and (max-width: @screen-md) {
+  //  background-image: url(./img/1280.png);
+  //}
+  //@media (min-width: @screen-xs) and (max-width: @screen-sm) {
+  //  background-image: url(./img/960.png);
+  //}
+  //
+  //@media (max-width: @screen-xs) {
+  //  background-image: url(./img/600.png);
+  //}
 
   .back-button {
     position: absolute;

@@ -39,7 +39,5 @@ namespace Cloudents.Infrastructure.Data.Repositories
                   .Where(w => w.Type == type)
                   .Select(Projections.Sum<Transaction>(x => x.Price));
         }
-
-
     }
 }

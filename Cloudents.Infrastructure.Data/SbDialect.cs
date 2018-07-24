@@ -1,7 +1,5 @@
-﻿using System;
-using NHibernate.Dialect;
+﻿using NHibernate.Dialect;
 using NHibernate.Dialect.Function;
-using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data
 {
@@ -12,7 +10,6 @@ namespace Cloudents.Infrastructure.Data
             base.RegisterFunctions();
             RegisterFunction("FullTextContains", new StandardSQLFunction("contains", null));
             //RegisterFunction("NEWID()", new StandardSQLFunction("NEWID()", NHibernateUtil.Guid));
-
 
         }
     }

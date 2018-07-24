@@ -15,18 +15,21 @@
             <div class="filter-switch">
                 <!--removed :value binding cause of error Vuetify 1.1.1-->
                 <v-expansion-panel expand>
-                    <v-expansion-panel-content v-for="k in filterOptions" :key="k.modelId" :value="true" >
+                    <v-expansion-panel-content v-for="k in filterOptions" :key="k.modelId" :value="true">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
                         <template slot="header">
-                            <div class="icon-wrapper"><slot :name="`${k.modelId}TitlePrefix`"></slot></div>
+                            <div class="icon-wrapper">
+                                <slot :name="`${k.modelId}TitlePrefix`"></slot>
+                            </div>
                             <slot name="headerTitle" :title="k.title">
                                 <div>{{k.title}}</div>
                             </slot>
                         </template>
                         <div :class="['sort-filter',$route.path==='/ask'?'no-maxHeight':'']">
                             <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
-                                <input type="checkbox" :id="(s.id?s.id:s)" :checked="filterVal.find(i=>i.key===k.modelId&&i.value===(s.id?s.id.toString():s.toString()))"
-                                       @change="updateFilter({id:k.modelId,val:(s.id?s.id.toString():s),type:$event})" />
+                                <input type="checkbox" :id="(s.id?s.id:s)"
+                                       :checked="filterVal.find(i=>i.key===k.modelId&&i.value===(s.id?s.id.toString():s.toString()))"
+                                       @change="updateFilter({id:k.modelId,val:(s.id?s.id.toString():s),type:$event})"/>
 
                                 <label class="checkmark" :for="(s.id?s.id:s)"></label>
                                 <label class="title-label" :title="s.name?s.name:s" :for="(s.id?s.id:s)">

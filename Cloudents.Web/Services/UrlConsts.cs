@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Text;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -32,6 +31,13 @@ namespace Cloudents.Web.Services
             {
                 return url;
             }
+            if (Uri.TryCreate(url,UriKind.RelativeOrAbsolute,out var p))
+            {
+                if (!p.IsAbsoluteUri)
+                {
+                    return url;
+                }
+            }
             //var nvc = new NameValueCollection
             //{
             //    ["url"] = url,
@@ -44,7 +50,7 @@ namespace Cloudents.Web.Services
             //}
 
             var uri = _urlHelper.Action("index", "url", new {url, host, location});
-            return uri.ToString();
+            return uri;
         }
 
         public static string NameToQueryString(string name)

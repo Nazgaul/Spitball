@@ -2,7 +2,8 @@
 {
     public class GetQuestionsRequest : IPaging
     {
-        public string[] Term { get; set; }
+      //  [DisplayFormat(HtmlEncode = true)]
+        public string Term { get; set; }
         public int? Page { get; set; }
     }
 }

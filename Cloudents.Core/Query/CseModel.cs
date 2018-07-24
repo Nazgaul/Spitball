@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Query
 {
     public class SearchModel
     {
-        public SearchModel(IEnumerable<string> query, IEnumerable<string> sources,
+        public SearchModel(string query, IEnumerable<string> sources,
             CustomApiKey key, IEnumerable<string> courses,
             IEnumerable<string> universitySynonym)
         {
-            Query = query?.Where(w => w != null);
+            Query = query;
             Sources = sources;
             Key = key;
             Courses = courses;
@@ -18,7 +17,7 @@ namespace Cloudents.Core.Query
         }
 
         public IEnumerable<string> Courses { get; }
-        public IEnumerable<string> Query { get; }
+        public string Query { get; }
 
         [CanBeNull, ItemCanBeNull]
         public IEnumerable<string> UniversitySynonym { get; }

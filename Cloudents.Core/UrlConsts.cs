@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Text;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
-
-namespace Cloudents.Core
+﻿namespace Cloudents.Core
 {
 
     public class SystemUrls

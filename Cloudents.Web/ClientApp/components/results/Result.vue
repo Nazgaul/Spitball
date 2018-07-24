@@ -64,6 +64,20 @@
                         </v-layout>
                     </v-container>
                 </scroll-list>
+                <div v-else-if="!items.length && $route.path.slice(1)==='ask' ">
+                    <div class="result-cell elevation-1 mb-3 empty-state tri-right right-in" xs-12>
+                        <v-layout row class="pa-3">
+                         <v-flex>
+                                <p class="empty-state">You couldn’t find
+                                    the question you were
+                                    searching for..
+                                <br/><span class="bold-text"> Ask it here</span>
+                                </p>
+                            </v-flex>
+
+                        </v-layout>
+                    </div>
+                </div>
                 <div v-else>
                     <div class="result-cell elevation-1 mb-3 empty-state" xs-12>
                         <v-layout row class="pa-3">
@@ -80,6 +94,7 @@
                                     <li>Try fewer keywords.</li>
                                 </ul>
                             </v-flex>
+
                         </v-layout>
                     </div>
                 </div>

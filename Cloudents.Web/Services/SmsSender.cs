@@ -10,7 +10,6 @@ using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Services
 {

@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -32,6 +30,7 @@ namespace Cloudents.Core.Interfaces
     public interface IQuestionRepository : IRepository<Question>
     {
         Task<IList<Question>> GetAllQuestionsAsync();
+        Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token);
     }
 
     public interface ICourseRepository : IRepository<Course>

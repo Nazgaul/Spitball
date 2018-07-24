@@ -1,5 +1,3 @@
-using System;
-
 namespace Cloudents.Ico.Models
 {
     public class ErrorViewModel

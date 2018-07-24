@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
+using Cloudents.Core.Command;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Query;
-using Cloudents.Core.Storage;
 
 namespace ConsoleApp
 {
@@ -47,43 +43,11 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             container = builder.Build();
 
-            var _serviceBusProvider = container.Resolve<IServiceBusProvider>();
+            var _serviceBusProvider = container.Resolve<ICommandBus>();
 
-             await _serviceBusProvider.InsertMessageAsync(new ContactUsEmail("ram@cloudents.com"), default);
-            //var bus = container.Resolve<IQueryBus>();
+            var command = new UpdateQuestionTimeCommand();
 
-            //var t = new NextQuestionQuery(121, 638);
-            //var z = await bus.QueryAsync<IEnumerable<QuestionDto>>(t, default);
-
-
-            //var message = new RegistrationEmail("ram@cloudents.com", "https://dev.spitball.co");
-            //await bus.InsertMessageAsync(message, default);
-            //await bus.InsertMessageAsync(new AnswerCorrectEmail
-            //("ram@cloudents.com",
-            //    "This is a question text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
-            //    "This is a answer text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
-            //    "https://dev.spitball.co", 100), default);
-            // var r= await bus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(638), default);
-
-            //var p = new TransactionPopulation(container);
-            //await p.CreateTransactionOnExistingDataAsync();
-            // await p.AddToUserMoney(100000, 660);
-
-
-
-
-            //var q = new UserBalanceQuery(36);
-            //var t = await queryBus.QueryAsync(q, default);
-            //var sw = new Stopwatch();
-            //sw.Start();
-            //sw.Stop();
-            //Console.WriteLine(sw.ElapsedTicks);
-
-            //var tt = container.Resolve<IQueryHandlerAsync<QuestionDetailQuery, QuestionDetailDto>>();
-            //sw.Start();
-            //var zz = await tt.GetAsync(new QuestionDetailQuery(1414), default);
-            //sw.Stop();
-            //Console.WriteLine(sw.ElapsedTicks);
+            await _serviceBusProvider.DispatchAsync(command, default);
 
 
             Console.WriteLine("Finish");

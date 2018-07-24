@@ -3,7 +3,7 @@ import App from "./components/app/app.vue";
 import store from "./store";
 
 const scroll = () =>
-    import ("./components/helpers/infinateScroll.vue");
+import ("./components/helpers/infinateScroll.vue");
 import VScroll from "vuetify/es5/directives/scroll";
 
 const GeneralPage = () =>
@@ -12,7 +12,7 @@ import VueRouter from "vue-router";
 
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-
+ import VueParticles from 'vue-particles';
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
@@ -77,6 +77,8 @@ import {
 } from "vuetify"
 import * as route from "./routes";
 
+import { constants } from "./utilities/constants";
+
 //TODO: server side fix
 WebFont.load({
     google: {
@@ -90,6 +92,7 @@ WebFont.load({
 //    attempt: 1
 //});
 //Vue.use(vueSmoothScroll);
+Vue.use(VueParticles);
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
@@ -191,9 +194,17 @@ Vue.filter('commasFilter', function(value){
    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
 
+
 router.beforeEach((to, from, next) => {
    // if (to.name === 'home') next('/ask');
-    checkUserStatus(to, next);
+    if (!!to.query && Object.keys(to.query).length > 0) {
+        for (let prop in to.query) {
+            if (constants.regExXSSCheck.test(to.query[prop])) {
+                to.query[prop] = "";
+            }
+        }
+    }
+        checkUserStatus(to, next);
 });
 const app = new Vue({
     //el: "#app",
@@ -207,39 +218,9 @@ const app = new Vue({
     //    }
     // }
 });
-// router.onReady(() => {
-// //     intercom(router.currentRoute);
-// function intercom(to) {
-//     if (to.path.indexOf('/landing/') && window.innerWidth < 960) {
-//         intercomSettings.hide_default_launcher = true;
-//     }
-//     if (window.innerWidth < 600) {
-//         let hideLauncher = true
-//         if (to.name === "home") {
-//             hideLauncher = false;
-//         }
-//
-//         intercomSettings.hide_default_launcher = hideLauncher;
-//     }
-//     // Intercom("update");
-// }
 
-//     if(router.currentRoute.meta.requiresAuth ) {
-//         debugger;
-//         store.dispatch('userStatus').then(() => {
-//             if (!store.getters.loginStatus) { //not loggedin
-//                 router.push({path: '/signin'});
-//             }
-//         }).catch(error => {
-//             debugger;
-//             router.push({path: '/signin'});
-//         });
-//     }
-//
-// });
 
 function checkUserStatus(to, next) {
-
     store.dispatch('userStatus', {
         isRequire: to.meta.requiresAuth,
         to

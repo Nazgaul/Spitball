@@ -5,7 +5,6 @@
                 <template> · <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
                         v-if="typeAnswer"
                         class="q-answer">
-                    <!--<h3>{{cardData}}</h3>-->
                     <button class="accept-btn right" @click="markAsCorrect"
                             v-if="showApproveButton && !flaggedAsCorrect && !hasAnswer">
                         <v-icon>sbf-check-circle</v-icon>
@@ -18,7 +17,7 @@
 
                 </span></template>
             </user-block>
-            <div v-if="!typeAnswer && suggestion">
+            <div v-if="cardData.price">
                 <div class="q-price pr-3">
                     <span>Earn ${{cardData.price | dollarVal}}</span>
                 </div>
