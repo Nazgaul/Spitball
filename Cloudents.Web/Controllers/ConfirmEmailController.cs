@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -23,7 +25,7 @@ namespace Cloudents.Web.Controllers
         }
 
         // GET
-        public async Task<IActionResult> Index(string id, string code, CancellationToken token)
+        public async Task<IActionResult> Index(string id,string code, CancellationToken token)
         {
             if (id == null || code == null)
             {
@@ -31,6 +33,7 @@ namespace Cloudents.Web.Controllers
             }
 
             TempData.Remove(SignUserController.Email);
+            code = System.Net.WebUtility.UrlDecode(code);
             var user = await _userManager.FindByIdAsync(id).ConfigureAwait(false);
             if (user == null)
             {

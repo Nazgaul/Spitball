@@ -122,6 +122,8 @@ namespace Cloudents.Web.Api
         private async Task GenerateEmailAsync(User user, CancellationToken token)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+            code = UrlEncoder.Default.Encode(code);
+
             var link = Url.Link("ConfirmEmail", new { user.Id, code });
             TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link));
