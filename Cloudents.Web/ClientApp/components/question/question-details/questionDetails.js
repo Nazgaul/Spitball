@@ -90,9 +90,9 @@ export default {
             // var self = this;
             questionService.getQuestion(this.id)
                 .then( (response) => {
-                    this.questionData = response.data;
+                    this.questionData = response;
                     if (this.accountUser) {
-                        this.questionData.cardOwner = this.accountUser.id === response.data.user.id;
+                        this.questionData.cardOwner = this.accountUser.id === response.user.id;
                     } else {
                         this.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
                     }

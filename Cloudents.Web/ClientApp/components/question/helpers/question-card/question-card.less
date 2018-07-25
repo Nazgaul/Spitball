@@ -2,8 +2,8 @@
 
 .question-card {
   border-radius: 4px;
-  background-color: @color-white;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+ background-color: @color-white;
+  // box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
   min-height: 100px;
   height: 100%;
   width: 100%;
@@ -62,22 +62,27 @@
       width: 88px;
       line-height: 32px;
       border-radius: 4px;
-      background-color: #7ed321;
-      color: @color-white;
+      background-color: transparent;
+      color: @Feed-Date;
       letter-spacing: -0.3px;
       text-align: left;
       font-size: 16px;
       outline: none;
       position: absolute;
-      right: 12px;
+      right: 34px;
+      top: 23px;
+      border: 1px solid @Feed-Date;
       .sbf {
-        color: @color-white;
+        color: @Feed-Date;
         font-size: 16px;
         margin: 0px 4px 0px 8px;
+        position: relative;
+        top: -2px;
       }
       @media (max-width: @screen-xs) {
         background: none;
         width: auto;
+        border: none;
         span {
           display: none;
         }
@@ -94,8 +99,8 @@
       font-size: 12px;
       letter-spacing: -0.2px;
       position: absolute;
-      right: 12px;
-      top: 12px;
+      right: 22px;
+      top: 20px;
       .sbf {
         color: #7ed321;
         font-size: 32px;
@@ -299,6 +304,12 @@
     background-color: #FF006B;
     .cellActionBtnMixin();
   }
+  .delete-btn-answer {
+    display: block;
+    outline: none;
+    background-color: #FF006B;
+    .cellActionBtnMixinAnswer();
+  }
   .v-dialog.zoom-image{
     overflow-y: hidden;
     width: auto!important;
@@ -309,4 +320,57 @@
    width: 100%;
    max-height: 720px;
  }
+
+
+ .question-card-answer{
+  .transparent{
+    background-color:transparent;
+  }
+  .full-width-flex{
+    display:flex;
+    width:100%;
+  }
+  .calc-Margin{
+    .responsive-property(margin-left, -40px, null, -40px);
+  }
+  .answer-block{
+    .triangle{
+      border-top: 0px solid transparent;
+      border-right: 32px solid @Question-Answer-Bg;
+      border-bottom: 20px solid transparent;
+      height: 0;
+      width: 0;
+      margin-right: 5px;
+      margin-top: 14px;
+    }
+    .text-container{
+      background-color: @Question-Answer-Bg;
+      margin: 14px -15px 0 -10px;
+      width: 100%;
+      padding-left: 15px;
+      padding-top: 8px;
+    }
+  }
+
+  .fixed-margin{
+    margin: 0px 25px 0px -13px;
+    background-color: @Question-Answer-Bg;
+  }
+  .column-direction{
+    flex-direction:column;
+  }
+  
+  p {
+    padding: 0 0 30px 0;
+    margin: 0;
+    margin-top: -6px;
+
+    @media (max-width: @screen-xs) {
+      margin: -5px 16px 6px 0px;
+      max-width: 285px;
+    }
+  }
+ }
 }
+
+
