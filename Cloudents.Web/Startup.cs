@@ -46,7 +46,6 @@ namespace Cloudents.Web
         {
             Configuration = configuration;
             HostingEnvironment = env;
-
         }
 
         private IConfiguration Configuration { get; }
@@ -219,7 +218,6 @@ namespace Cloudents.Web
                 app.UseStatusCodePagesWithReExecute("/Error");
                 app.UseExceptionHandler("/Error");
             }
-
 
             if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
             {

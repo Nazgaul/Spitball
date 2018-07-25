@@ -20,7 +20,6 @@ namespace Cloudents.Web.Api
         private readonly ICourseSearch _courseProvider;
         private readonly ICommandBus _commandBus;
 
-
         /// <inheritdoc />
         /// <summary>
         /// Constructor
@@ -68,6 +67,5 @@ namespace Cloudents.Web.Api
                 command.Id
             });
         }
-
     }
 }

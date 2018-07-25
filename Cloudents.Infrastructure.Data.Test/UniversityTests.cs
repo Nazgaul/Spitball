@@ -2,7 +2,7 @@
 using FluentNHibernate.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Cloudents.Infrastructure.Test.Database
+namespace Cloudents.Infrastructure.Data.Test
 {
     [TestClass]
     public class UniversityTests : InMemoryDatabaseTest

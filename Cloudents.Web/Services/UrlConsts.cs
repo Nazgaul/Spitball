@@ -35,7 +35,8 @@ namespace Cloudents.Web.Services
                     return url;
                 }
             }
-            return _urlHelper.Action("index", "url", new {url, host, location});
+
+            return _urlHelper.Link("Url", new {url, host, location});
         }
 
         public static string NameToQueryString(string name)

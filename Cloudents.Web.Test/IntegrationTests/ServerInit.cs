@@ -8,7 +8,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    [TestClass]
     public class ServerInit
     {
         protected static HttpClient Client;

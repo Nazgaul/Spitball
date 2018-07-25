@@ -22,19 +22,16 @@ namespace Cloudents.Web.Services
         public void Warning(string message)
         {
             _telemetry.TrackTrace(message, SeverityLevel.Warning);
-
         }
 
         public void Error(string message)
         {
             _telemetry.TrackTrace(message, SeverityLevel.Error);
-
         }
 
         public void TrackMetric(string name, double value)
         {
             _telemetry.TrackMetric(name, value);
-
         }
     }
 }

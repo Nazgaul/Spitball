@@ -5,15 +5,15 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 
-namespace Cloudents.Infrastructure.Test.Database
+namespace Cloudents.Infrastructure.Data.Test
 {
     public class InMemoryDatabaseTest
     {
-        protected readonly ISession Session;
+        protected static readonly ISession Session;
 
-        protected InMemoryDatabaseTest()
+        static InMemoryDatabaseTest()
         {
-            var assemblyMapping = Assembly.Load("Cloudents.Infrastructure");
+            var assemblyMapping = Assembly.Load("Cloudents.Infrastructure.Data");
             var configuration = Fluently.Configure()
                 .Database(() => SQLiteConfiguration.Standard.InMemory().ShowSql())
                 .Mappings(x => x.FluentMappings.AddFromAssembly(assemblyMapping))

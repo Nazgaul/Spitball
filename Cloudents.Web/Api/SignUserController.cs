@@ -11,7 +11,6 @@ using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,14 +20,12 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     public class SignUserController : Controller
     {
-
         private readonly UserManager<User> _userManager;
         private readonly SbSignInManager _signInManager;
         private readonly ISmsSender _smsClient;
         private readonly IBlockChainErc20Service _blockChainErc20Service;
         private readonly IServiceBusProvider _queueProvider;
         internal const string Email = "email";
-
 
         private enum NextStep
         {
@@ -51,10 +48,6 @@ namespace Cloudents.Web.Api
             _blockChainErc20Service = blockChainErc20Service;
             _queueProvider = queueProvider;
         }
-
-
-        
-
 
         [HttpPost, ValidateModel, ValidateRecaptcha]
         public async Task<IActionResult> SignUser([FromBody]SignUserRequest model, CancellationToken token)
@@ -82,7 +75,7 @@ namespace Cloudents.Web.Api
                             step = NextStep.EmailConfirmed
                         });
                     }
-                    await _signInManager.SignInTwoFactorAsync(user, false);
+                    await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
                     return Ok(new
                     {
                         step = NextStep.EnterPhone
@@ -91,12 +84,21 @@ namespace Cloudents.Web.Api
                 ModelState.AddIdentityModelError(p);
                 return BadRequest(ModelState);
             }
-            if (!user.EmailConfirmed || !user.PhoneNumberConfirmed)
+            if (!user.EmailConfirmed)
             {
                 await GenerateEmailAsync(user, token).ConfigureAwait(false);
                 return Ok(new
                 {
                     step = NextStep.EmailConfirmed
+                });
+            }
+
+            if (!user.PhoneNumberConfirmed)
+            {
+                await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+                return Ok(new
+                {
+                    step = NextStep.EnterPhone
                 });
             }
             var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
@@ -114,8 +116,6 @@ namespace Cloudents.Web.Api
             }
             ModelState.AddModelError(string.Empty, taskSignIn.Result.ToString());
             return BadRequest(ModelState);
-
-
         }
 
 
@@ -130,7 +130,6 @@ namespace Cloudents.Web.Api
             await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
         }
 
-
         [HttpPost("google"), ValidateModel]
         public async Task<IActionResult> GoogleSignInAsync([FromBody] TokenRequest model,
             [FromServices] IGoogleAuth service,
@@ -144,32 +143,10 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            return await SignUser(new SignUserRequest(result.Email, true, result.Name), cancellationToken);
-
-            //var user = CreateUser(result.Email, result.Name);
-            //user.EmailConfirmed = true;
-
-            //var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
-            //if (p.Succeeded)
-            //{
-            //    //TODO: duplicate link confirm email.
-            //    var t2 = signInManager.SignInTwoFactorAsync(user, false);
-            //    await Task.WhenAll(/*t1,*/ t2).ConfigureAwait(false);
-            //    return Ok();
-            //}
-            //ModelState.AddIdentityModelError(p);
-            //return BadRequest(ModelState);
+            return await SignUser(new SignUserRequest(result.Email, true, result.Name), cancellationToken).ConfigureAwait(false);
         }
 
-
-
-        //private User CreateUser(string email)
-        //{
-        //    var userName = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
-        //    return CreateUser(email, userName);
-        //}
-
-        private User CreateUser([NotNull] string email, string name)
+        private User CreateUser(string email, string name)
         {
             if (email == null) throw new ArgumentNullException(nameof(email));
             if (string.IsNullOrEmpty(name))
@@ -186,7 +163,6 @@ namespace Cloudents.Web.Api
             return rdm.Next(1000, 9999);
         }
 
-
         [HttpPost("resend")]
         public async Task<IActionResult> ResendEmailAsync(
             CancellationToken token)
@@ -202,6 +178,5 @@ namespace Cloudents.Web.Api
             await GenerateEmailAsync(user, token).ConfigureAwait(false);
             return Ok();
         }
-
     }
 }
