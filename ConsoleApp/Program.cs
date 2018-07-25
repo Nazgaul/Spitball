@@ -13,7 +13,7 @@ namespace ConsoleApp
 {
     internal static class Program
     {
-        private static IContainer container;
+        private static IContainer _container;
 
         static async Task Main()
         {
@@ -41,9 +41,9 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
-            container = builder.Build();
+            _container = builder.Build();
 
-            var _serviceBusProvider = container.Resolve<ICommandBus>();
+            var _serviceBusProvider = _container.Resolve<ICommandBus>();
 
             var command = new UpdateQuestionTimeCommand();
 
@@ -56,7 +56,7 @@ namespace ConsoleApp
 
         public static Task SendMoneyAsync()
         {
-            var t = container.Resolve<IBlockChainErc20Service>();
+            var t = _container.Resolve<IBlockChainErc20Service>();
             var pb = t.GetAddress("38d68c294410244dcd009346c756436a64530d7ddb0611e62fa79f9f721cebb0");
             return t.SetInitialBalanceAsync(pb, default);
         }

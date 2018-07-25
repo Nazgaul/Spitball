@@ -15,10 +15,7 @@ namespace Cloudents.Web.Services
         public UrlConst(IUrlHelper urlHelper)
         {
             _urlHelper = urlHelper;
-            //_systemUrl = configuration.FunctionEndpoint + "/api/redirect";
         }
-
-        //private readonly string _systemUrl;// = "https://functions.spitball.co/api/redirect";
 
         public string BuildRedirectUrl(string url, string host, int? location)
         {
@@ -38,19 +35,7 @@ namespace Cloudents.Web.Services
                     return url;
                 }
             }
-            //var nvc = new NameValueCollection
-            //{
-            //    ["url"] = url,
-            //    ["host"] = host,
-
-            //};
-            //if (location.HasValue)
-            //{
-            //    nvc["location"] = location.ToString();
-            //}
-
-            var uri = _urlHelper.Action("index", "url", new {url, host, location});
-            return uri;
+            return _urlHelper.Action("index", "url", new {url, host, location});
         }
 
         public static string NameToQueryString(string name)

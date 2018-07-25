@@ -62,6 +62,8 @@ namespace Cloudents.Web
 
             // Add SnapshotCollector telemetry processor.
             services.AddSingleton<ITelemetryProcessorFactory>(sp => new SnapshotCollectorTelemetryProcessorFactory(sp));
+            services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
+
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
                 .AddJsonOptions(options =>
@@ -193,6 +195,7 @@ namespace Cloudents.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
+
             if (env.IsDevelopment())
             {
                 HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
@@ -201,19 +204,25 @@ namespace Cloudents.Web
                     HotModuleReplacement = true
                 });
                 var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-                configuration.DisableTelemetry = true;
+               // configuration.DisableTelemetry = true;
 
             }
             var reWriterOptions = new RewriteOptions()
                 .Add(new RemoveTrailingSlash());
-            if (env.IsDevelopment() || env.IsEnvironment(IntegrationTestEnvironmentName))
+
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-               
             }
             else
             {
+                app.UseStatusCodePagesWithReExecute("/Error");
                 app.UseExceptionHandler("/Error");
+            }
+
+
+            if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
+            {
                 reWriterOptions.AddRedirectToHttpsPermanent();
             }
 
@@ -221,6 +230,7 @@ namespace Cloudents.Web
 
             app.UseResponseCompression();
             app.UseResponseCaching();
+
             app.UseStatusCodePages();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
