@@ -9,6 +9,7 @@ using Entity = Cloudents.Core.Entities.Search;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
+using Cloudents.Core.Models;
 using Cloudents.Infrastructure.Write.Job;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
@@ -22,33 +23,19 @@ namespace Cloudents.Infrastructure.Search.Job
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;
 
-        public AzureJobSearch(ISearchServiceClient client, IMapper mapper)
+        public AzureJobSearch(ISearchService client, IMapper mapper)
         {
             _mapper = mapper;
-            _client = client.Indexes.GetClient(JobSearchWrite.IndexName);
+            _client = client.GetClient(JobSearchWrite.IndexName);
         }
 
         [Cache(TimeConst.Hour, "job-azure", false)]
+        [Log]
         public async Task<ResultWithFacetDto<JobProviderDto>> SearchAsync(JobProviderRequest jobProviderRequest, CancellationToken token)
         {
-            var filterQuery = new List<string>();
             var sortQuery = new List<string>();
 
-            if (jobProviderRequest.JobType != null)
-            {
-                var filterStr = string.Join(" or ", jobProviderRequest.JobType.Select(s =>
-                    $"{nameof(Entity.Job.JobType)} eq '{s.GetDescription()}'"));
-                if (!string.IsNullOrWhiteSpace(filterStr))
-                {
-                    filterStr = $"({filterStr})";
-                }
-                filterQuery.Add(filterStr);
-            }
-
-            if (jobProviderRequest.Location?.Point != null)
-            {
-                filterQuery.Add($"geo.distance({ nameof(Entity.Job.Location)}, geography'POINT({jobProviderRequest.Location.Point.Longitude} {jobProviderRequest.Location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
-            }
+            var filterQuery = BuildFilter(jobProviderRequest.JobType, jobProviderRequest.Location);
 
             if (jobProviderRequest.Sort == JobRequestSort.Date)
             {
@@ -64,7 +51,6 @@ namespace Cloudents.Infrastructure.Search.Job
                     nameof(Entity.Job.City),
                     nameof(Entity.Job.State),
                     nameof(Entity.Job.JobType),
-                    //nameof(Entity.Job.Compensation),
                     nameof(Entity.Job.Url),
                     nameof(Entity.Job.Company),
                     nameof(Entity.Job.Source)
@@ -86,6 +72,29 @@ namespace Cloudents.Infrastructure.Search.Job
                 return null;
             }
             return _mapper.Map<ResultWithFacetDto<JobProviderDto>>(retVal);
+        }
+
+        private static IList<string> BuildFilter(IEnumerable<JobFilter> filters, Location location)
+        {
+            var filterQuery = new List<string>();
+            if (filters != null)
+            {
+                var filterStr = string.Join(" or ", filters.Select(s =>
+                    $"{nameof(Entity.Job.JobType)} eq '{s.GetDescription()}'"));
+                if (!string.IsNullOrWhiteSpace(filterStr))
+                {
+                   // filterStr = $"({filterStr})";
+                    filterQuery.Add($"({filterStr})");
+                }
+            }
+
+            if (location?.Point != null)
+            {
+                filterQuery.Add(
+                    $"geo.distance({nameof(Entity.Job.Location)}, geography'POINT({location.Point.Longitude} {location.Point.Latitude})') le {JobSearch.RadiusOfFindingJobKm}");
+            }
+
+            return filterQuery;
         }
     }
 }

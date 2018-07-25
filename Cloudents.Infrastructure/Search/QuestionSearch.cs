@@ -5,10 +5,10 @@
     //    private readonly ISearchIndexClient _client;
     //    private readonly IMapper _mapper;
 
-    //    public QuestionSearch(ISearchServiceClient client, string indexName, IMapper mapper)
+    //    public QuestionSearch(ISearchService client, string indexName, IMapper mapper)
     //    {
     //        _mapper = mapper;
-    //        _client = client.Indexes.GetClient(indexName);
+    //        _client = client.GetClient(indexName);
     //    }
 
     //    public async Task<ResultWithFacetDto<QuestionDto>> SearchAsync(QuestionsQuery query, CancellationToken token)

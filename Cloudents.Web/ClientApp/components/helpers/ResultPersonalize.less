@@ -3,6 +3,7 @@
 .personalize-wrapper {
     border-radius: 4px;
 
+    
 
     .card__title {
         .responsive-property(font-size, 36px, null, 26px);
@@ -27,24 +28,23 @@
         color: @Feed-Like-count;
     }
 
-    .input-group.input-group--solo {
+    .v-input.v-text-field--solo {
         background: @color-light-grey;
         .responsive-property(min-height, 40px, null, 36px);
         border: 1px solid @Suggestion-Title-Background;
         border-radius: 6px;
-
-        .input-group__input {
+        .v-input__control {
             padding: 4px 12px;
+            min-height: 40px; 
+            height: 38px;
 
+            .v-input__slot{
+                background:transparent;
+                padding:0;
+                top: -3px;
+            }
             input {
                 font-size: 16px;
-            }
-
-            .sbf-search {
-                min-width: 32px;
-                .responsive-property(font-size, null, null, 20px);
-                .responsive-property(padding-top, null, null, 4px);
-                color: #9b9b9b !important;
             }
         }
     }

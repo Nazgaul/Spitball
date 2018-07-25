@@ -21,10 +21,10 @@ namespace Cloudents.Infrastructure.Search.Tutor
         private readonly IMapper _mapper;
         private static readonly int PageSize = (int)PrioritySource.TutorMe.Priority * TutorMeSearch.TutorMePage;
 
-        public TutorAzureSearch(ISearchServiceClient client, IMapper mapper)
+        public TutorAzureSearch(ISearchService client, IMapper mapper)
         {
             _mapper = mapper;
-            _client = client.Indexes.GetClient(TutorSearchWrite.IndexName);
+            _client = client.GetClient(TutorSearchWrite.IndexName);
         }
 
         public async Task<IEnumerable<TutorDto>> SearchAsync(string term, TutorRequestFilter[] filters,

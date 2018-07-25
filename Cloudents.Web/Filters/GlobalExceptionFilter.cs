@@ -23,11 +23,14 @@ namespace Cloudents.Web.Filters
             string body = null;
             if (string.Equals(context.HttpContext.Request.Method, "post", StringComparison.OrdinalIgnoreCase))
             {
-                context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
-                using (var sr = new StreamReader(context.HttpContext.Request.Body))
+                if (context.HttpContext.Request.Body.CanSeek)
                 {
-                    body = await sr.ReadToEndAsync();
+                    context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
+                    using (var sr = new StreamReader(context.HttpContext.Request.Body))
+                    {
+                        body = await sr.ReadToEndAsync();
 
+                    }
                 }
             }
             var telemetry = new TelemetryClient();

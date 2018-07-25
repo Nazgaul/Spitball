@@ -5,6 +5,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Cloudents.Functions.Di;
+using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
@@ -36,6 +37,11 @@ namespace Cloudents.Functions
             TraceWriter log, [Inject] ICommandBus commandBus,
             CancellationToken token)
         {
+            if (content == null)
+            {
+                log.Warning("got null message");
+                return;
+            }
             await ProcessQueueAsync(content, log, commandBus, token).ConfigureAwait(false);
             //if (obj.DeliveryCount > 3)
             //{
@@ -49,7 +55,7 @@ namespace Cloudents.Functions
         private static async Task ProcessQueueAsync(UrlRedirectQueueMessage content, TraceWriter log, ICommandBus commandBus,
             CancellationToken token)
         {
-            log.Info("Getting Url process message");
+            log.Info("Getting Url process message " + content);
             var command = new CreateUrlStatsCommand(content.Host, content.DateTime, content.Url.AbsoluteUri, content.UrlReferrer,
                 content.Location, content.Ip);
 

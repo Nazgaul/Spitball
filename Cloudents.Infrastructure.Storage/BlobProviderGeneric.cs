@@ -52,15 +52,12 @@ namespace Cloudents.Infrastructure.Storage
         {
             var blob = GetBlob(blobName);
             fileContent.Seek(0, SeekOrigin.Begin);
-
             blob.Properties.ContentType = mimeType;
             if (fileGziped)
             {
                 blob.Properties.ContentEncoding = "gzip";
             }
-
             blob.Properties.CacheControl = "private, max-age=" + (TimeConst.Minute * cacheControlMinutes);
-            // blob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
             return blob.UploadFromStreamAsync(fileContent);
         }
 

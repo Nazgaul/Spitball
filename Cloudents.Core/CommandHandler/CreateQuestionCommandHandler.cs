@@ -31,7 +31,7 @@ namespace Cloudents.Core.CommandHandler
         {
             //if you get an exception doing debug make sure the locals window is minimized.
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(true);
-           
+
             var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId,token).ConfigureAwait(true);
             var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
             await _questionRepository.AddAsync(question, token).ConfigureAwait(true);

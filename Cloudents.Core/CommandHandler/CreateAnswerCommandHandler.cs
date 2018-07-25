@@ -58,8 +58,6 @@ namespace Cloudents.Core.CommandHandler
                     new GotAnswerEmail(question.Text, question.User.Email, message.Text, message.QuestionLink), token);
 
             await Task.WhenAll(l.Union(new[] { t })).ConfigureAwait(true);
-
-
         }
     }
 }

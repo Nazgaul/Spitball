@@ -77,9 +77,16 @@ namespace Cloudents.Web.Api
         [HttpDelete("{id}"), ValidateModel]
         public async Task<IActionResult> DeleteQuestionAsync(DeleteQuestionRequest model, CancellationToken token)
         {
-            var command = _mapper.Map<DeleteQuestionCommand>(model);
-            await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
-            return Ok();
+            try
+            {
+                var command = _mapper.Map<DeleteQuestionCommand>(model);
+                await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
         }
 
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
