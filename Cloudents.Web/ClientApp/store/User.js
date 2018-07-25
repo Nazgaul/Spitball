@@ -164,6 +164,7 @@ const actions = {
         commit(USER.UPDATE_FACET, data)
     },
     hideRegistrationBanner(context) {
+        console.log('clicked close btn')
         context.commit(USER.HIDE_REGISTRATION_BANNER);
     },
     incrementRegistrationStep(context) {

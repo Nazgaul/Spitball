@@ -3,61 +3,76 @@
 .banner-wrap {
   position: relative;
   height: 345px;
+  @media( max-width: 600px){
+    height: 280px;
+  }
 @media( max-width: @screen-xs){
   height: 280px;
 }
+  .back-button {
+    z-index: 136;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    @media (max-width: @screen-xs) {
+      top: 2px ;
+      right: 2px;
+    }
+    .sbf {
+      font-size: 16px;
+      color: @color-white;
+      //
+    }
+  }
   .round-free {
     height: 128px;
     width: 128px;
     position: absolute;
     top: 175px;
-    left: calc(~'100% - 465px');
+    left: 75%;
     transform: rotate(14deg);
     background-image: linear-gradient(7deg, #ffffff, #e3e3ff);
     background-size: contain;
     border-radius: 50%;
-    z-index: 99;
+    z-index: 100;
     padding: 24px 0;
     box-shadow: -8px 16px 56px -20px #000;
     @media (max-width: @screen-md-plus) {
-      left: calc(~'100% - 270px');
+      left: 77%;
       top: 190px;
       padding: 28px 0;
     }
+    @media( max-width: @screen-md){
+      left: 70%;
+    }
     @media (max-width: @screen-sm) {
-      left: calc(~'100% - 134px');
       z-index: 100;
       top: 180px;
       padding: 30px 0;
+      left: 73%;
 
     }
-    //@media (max-width: @screen-sm) {
-    //  left: calc(~'100% - 134px');
-    //  z-index: 100;
-    //  top: 180px;
-    //
-    //}
+
     @media (max-width: @screen-xs){
       width: 100px;
       height: 100px;
       padding: 20px 0;
       z-index: 100;
       top: 156px;
-      left: calc(~'100% - 134px');
-
     }
 
     @media(max-width: 600px){
-      width: 95px;
-      height: 95px;
+      width: 100px;
+      height: 100px;
       padding: 20px 0;
       z-index: 100;
-      top: 146px;
-      left: calc(~'100% - 170px');
-
+      top: 160px;
+      left: 68%;
     }
     @media( max-width: @screen-xss){
-      left: calc(~'100% - 110px');
       top: 160px;
       padding: 16px 0;
 
@@ -77,6 +92,11 @@
         letter-spacing: -0.5px;
       }
       @media ( max-width: @screen-xs) {
+        font-size: 14px;
+        line-height: 1.29;
+        letter-spacing: -0.4px;
+      }
+      @media ( max-width: 600px) {
         font-size: 14px;
         line-height: 1.29;
         letter-spacing: -0.4px;
@@ -120,12 +140,12 @@
   color: @color-white;
   top: 25%;
   position: absolute;
-  left: calc(~'100% - 1275px');
-  z-index: 102;
+  z-index: 100;
   text-align: center;
+  left: 0;
+  right: 0;
   //
   @media (max-width: @screen-md-plus) {
-    left: calc(~'100% - 1065px');
     top: 22%;
   }
   @media (min-width: @screen-sm) and (max-width: @screen-md) {
@@ -137,30 +157,28 @@
     line-height: 1.23;
     letter-spacing: -0.3px;
     top: 19%;
-    left: calc(~'100% - 744px');
     z-index: 100;
 
   }
   @media (max-width: @screen-sm) {
     max-width: 600px;
-    left: calc(~'100% - 480px');
-
+    width: 362px;
   }
   @media( max-width: 600px){
-    left: calc(~'100% - 430px');
+    top: 13%;
   }
   @media (max-width: @screen-xs) {
     width: 362px;
     margin: 0;
     top: 13%;
   }
-  @media(max-width: @screen-xss){
-    left: calc(~'100% - 364px');
-
-  }
 
   .title-wrap {
     max-width: 850px;
+    @media(max-width: 600px){
+      width: 362px;
+    }
+
   }
   .text-wrap {
     max-width: 668px;
@@ -171,7 +189,8 @@
       width: 390px;
     }
     @media( max-width: 600px){
-      margin: 4px 0;
+      margin: 16px 0;
+      width: 240px;
     }
     @media (max-width: @screen-xs) {
       margin: 16px 0;
@@ -186,7 +205,6 @@
   p {
     margin: 0;
   }
-
    .text-right {
     text-align: right;
   }
@@ -299,7 +317,6 @@
   align-items: flex-end;
   justify-content: flex-start;
   background-size: auto;
-  //height: 345px;
   height: 100%;
   //@media (min-width: @screen-sm) and (max-width: @screen-md) {
   //  background-image: url(./img/1280.png);
@@ -312,27 +329,7 @@
   //  background-image: url(./img/600.png);
   //}
 
-  .back-button {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 36px;
-    height: 36px;
-    padding: 8px;
-    @media (max-width: @screen-xs) {
-      top: 2px ;
-      right: 2px;
-    }
-    .sbf {
-      font-size: 16px;
-      //color: @color-grey;
-      //user testing
-      color: @color-white;
-      //
-    }
-  }
-
-  .buttons {
+    .buttons {
     margin-top: 26px;
     .sign-up, .learn-more {
       text-transform: capitalize;
@@ -348,7 +345,6 @@
     .sign-up {
       background-color: @color-white;
       color: @color-main-purple;
-      //width: 105px;
       margin-right: 9px;
     }
     .learn-more {
