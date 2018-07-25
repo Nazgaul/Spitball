@@ -35,10 +35,10 @@
         <h2 class="large">{{bannerData.title}}</h2>
         </div>
             <div class="text-wrap">
-        <p class="medium">{{ bannerData.textMain }}</p>
-                <!--<p class="medium">{{ bannerData.textSub }}</p>-->
+        <p class="medium" v-html="$options.filters.bolder(bannerData.textMain, bannerData.boldText)"></p>
         </div>
         </v-flex>
+
         <div class="round-free">
             <p class="round-free-text">Spitball is a completely<br/>
                <span>FREE</span><br/> service.</p>
