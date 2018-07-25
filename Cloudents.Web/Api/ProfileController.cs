@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
@@ -20,6 +21,7 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet("{id}")]
+        [ResponseCache(Duration = TimeConst.Minute * 5)]
         public async Task<IActionResult> GetAsync(long id, CancellationToken token)
         {
             var query = new UserDataByIdQuery(id);
