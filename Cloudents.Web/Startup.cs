@@ -151,7 +151,7 @@ namespace Cloudents.Web
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
-            services.AddUrlHelper();
+            
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -183,7 +183,7 @@ namespace Cloudents.Web
                 Core.Enum.System.Web, assembliesOfProgram);
 
             containerBuilder.RegisterType<Logger>().As<ILogger>();
-            containerBuilder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
+            //containerBuilder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

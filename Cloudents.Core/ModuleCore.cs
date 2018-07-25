@@ -35,8 +35,7 @@ namespace Cloudents.Core
 
 
             builder.RegisterType<UrlRedirectBuilder>().As<IUrlRedirectBuilder>();
-
-
+            builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
             builder.RegisterType<Shuffle>().As<IShuffle>();
 
 
