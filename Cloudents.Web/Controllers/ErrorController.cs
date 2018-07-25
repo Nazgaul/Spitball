@@ -31,12 +31,10 @@ namespace Cloudents.Web.Controllers
             string text = null;
             switch (statusCode)
             {
-                    
                 case HttpStatusCode.NotFound:
-                    return RedirectToAction("NotFound"); 
+                    return RedirectToAction("NotFound");
             }
             //return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, ErrorText = text });
-
 
             //Response.StatusCode = 500;
             return View();

@@ -16,8 +16,6 @@ namespace Cloudents.Web.Filters
         //    _hostingEnvironment = hostingEnvironment;
         //}
 
-        
-
         public async Task OnExceptionAsync(ExceptionContext context)
         {
             string body = null;
@@ -29,7 +27,6 @@ namespace Cloudents.Web.Filters
                     using (var sr = new StreamReader(context.HttpContext.Request.Body))
                     {
                         body = await sr.ReadToEndAsync();
-
                     }
                 }
             }

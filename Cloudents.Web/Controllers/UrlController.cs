@@ -15,6 +15,7 @@ using Cloudents.Web.Models;
 
 namespace Cloudents.Web.Controllers
 {
+    [Route("[controller]", Name = "Url")]
     public class UrlController : Controller
     {
         private readonly IServiceBusProvider _serviceBus;

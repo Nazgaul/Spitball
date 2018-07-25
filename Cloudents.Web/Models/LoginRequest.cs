@@ -25,14 +25,10 @@ namespace Cloudents.Web.Models
         [EmailAddress, Required]
         public string Email { get; set; }
 
-
         [BindNever]
         public bool EmailConfirmed { get; private set; }
 
-
         [BindNever]
         public string Name { get; private set; }
-
-
     }
 }

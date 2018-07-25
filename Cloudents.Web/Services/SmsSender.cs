@@ -57,7 +57,6 @@ namespace Cloudents.Web.Services
             return result?.phone_number;
         }
 
-
         public class PhoneValidator
         {
            // public object caller_name { get; set; }
@@ -68,10 +67,7 @@ namespace Cloudents.Web.Services
            // public object add_ons { get; set; }
            // public string url { get; set; }
         }
-
     }
-
-
 
     public interface ISmsSender
     {
