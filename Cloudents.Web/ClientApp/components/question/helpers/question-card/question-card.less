@@ -2,13 +2,18 @@
 
 .question-card {
   border-radius: 4px;
- background-color: @color-white;
-  // box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  background-color: @color-white;
   min-height: 100px;
   height: 100%;
   width: 100%;
   max-width: @cellWidth;
   position: relative;
+  
+  .box-stroke{
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+  }
+
   .zoom-image{
     overflow-y: hidden;
   }
@@ -53,7 +58,6 @@
   }
 
   .q-answer {
-    //display: flex;
     justify-content: space-between;
     padding: 16px;
     line-height: 32px;

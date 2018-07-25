@@ -1,6 +1,6 @@
 <template>
     <v-flex v-if="cardData && !isDeleted " class="question-card" :class="{'highlight':flaggedAsCorrect}">
-        <div v-if="!typeAnswer">
+        <div v-if="!typeAnswer" class="box-stroke">
             <!-- question Card -->
             <div class="top-block" >
             <user-block :cardData="cardData" :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
