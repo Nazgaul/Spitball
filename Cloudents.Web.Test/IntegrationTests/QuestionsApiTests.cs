@@ -4,13 +4,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [TestClass]
-    public class AskControllerTests : ServerInit
+    public class QuestionsApiTests : ServerInit
     {
         [TestMethod]
-        public async Task Get_Empty_Ok()
+        public async Task GetAsync_QueryXss()
         {
-            var response = await Client.GetAsync("api/ask").ConfigureAwait(false);
+            var response = await Client.GetAsync("/api/Question?term=javascript:alert(219)").ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
+       
     }
 }
