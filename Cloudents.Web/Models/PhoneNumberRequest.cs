@@ -7,7 +7,6 @@ namespace Cloudents.Web.Models
         [Required]
         [RegularExpression(@"^\+?[1-9]\d{1,14}$")]
         public string Number { get; set; }
-
     }
 
     public class CodeRequest

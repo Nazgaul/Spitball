@@ -15,7 +15,6 @@ namespace Cloudents.Web.Models
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-
             var val = (decimal)value;
 
             var validValues = new[] { 1000M, 2000M, 3000M, 4000M };

@@ -40,7 +40,7 @@ namespace Cloudents.Core.CommandHandler
             question.MarkAnswerAsCorrect(answer);
 
             var t1 = _questionRepository.UpdateAsync(question, token);
-            var t2 = _serviceBusProvider.InsertMessageAsync(new AnswerCorrectEmail(answer.User.Email, answer.Question.Text, answer.Text, SystemUrls.WalletEndPost, answer.Question.Price), token);
+            var t2 = _serviceBusProvider.InsertMessageAsync(new AnswerCorrectEmail(answer.User.Email, answer.Question.Text, answer.Text, UrlConst.WalletEndPost, answer.Question.Price), token);
             await Task.WhenAll(t1, t2).ConfigureAwait(true);
         }
     }

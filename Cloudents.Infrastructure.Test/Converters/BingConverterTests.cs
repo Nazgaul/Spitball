@@ -59,9 +59,6 @@ namespace Cloudents.Infrastructure.Test.Converters
 
             };
             var result = _bingConverter.Convert(argument, null, _context);
-            const string resultLink =
-                "http://shareasale.com/r.cfm?b=661825&u=1469379&m=55976&urllink=www.coursehero.com/file/11150425/Calculus-Basics-you-should-know-class-notes/&afftrack=";
-            Assert.AreEqual(result.Url, resultLink);
             result.Source.Should().BeEquivalentTo("coursehero");
         }
 

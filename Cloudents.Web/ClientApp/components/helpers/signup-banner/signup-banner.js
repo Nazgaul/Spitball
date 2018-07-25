@@ -8,7 +8,7 @@ export default {
             bannerData: {
                 title: "",
                 text: "",
-                lineColor :"#ffffff"
+                lineColor: "#ffffff"
             },
         }
     },
@@ -22,12 +22,16 @@ export default {
 
 
         getBannerData() {
-            console.log(nav[this.$route.path.slice(1)].banner)
-            return  this.bannerData = nav[this.$route.path.slice(1)].banner;
+            return this.bannerData = nav[this.$route.path.slice(1)].banner;
         }
     },
-    created(){
+    created() {
         this.getBannerData()
+    },
+    filters: {
+        bolder: function (value, query) {
+            return value.replace(query, '<span class="highlight">' + query + '</span>')
+        }
     }
-
 }
+

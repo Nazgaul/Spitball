@@ -41,7 +41,6 @@ namespace Cloudents.Web.Identity
                 return SignInResult.Failed;
             }
             return signInResult;
-
         }
 
         public SbSignInManager(UserManager<User> userManager, IHttpContextAccessor contextAccessor, IUserClaimsPrincipalFactory<User> claimsFactory, IOptions<IdentityOptions> optionsAccessor, ILogger<SignInManager<User>> logger, IAuthenticationSchemeProvider schemes) : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)
