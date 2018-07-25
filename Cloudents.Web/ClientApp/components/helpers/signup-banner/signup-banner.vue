@@ -1,5 +1,8 @@
 <template>
     <v-flex xs12 :class="'banner-wrap color-'+$route.path.slice(1)">
+        <button class="back-button" @click="hideRegistrationBanner()">
+            <v-icon>sbf-close</v-icon>
+        </button>
         <div class="overlay-bubble">
             <div class="overlay-bubble-1"></div>
             <div class="overlay-bubble-2"></div>
@@ -25,8 +28,7 @@
                        hoverMode="grab"
                        :clickEffect="true"
                        clickMode="push"
-        >
-        </vue-particles>
+        > </vue-particles>
 
         <v-flex  class="text-block">
         <div class="title-wrap">
@@ -35,14 +37,11 @@
             <div class="text-wrap">
         <p class="medium">{{ bannerData.textMain }}</p>
                 <!--<p class="medium">{{ bannerData.textSub }}</p>-->
-        <!--<router-link class="learn-more" :to="{name:'about'}">Learn more</router-link>-->
         </div>
         </v-flex>
         <div class="round-free">
-            <p class="round-free-text">Spitball is
-                a completely<br/>
-               <span>FREE</span><br/>
-                service.</p>
+            <p class="round-free-text">Spitball is a completely<br/>
+               <span>FREE</span><br/> service.</p>
         </div>
     </v-flex>
 </template>
