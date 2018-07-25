@@ -40,6 +40,13 @@ namespace Cloudents.Web.Controllers
                 _logger.Warning($"url is not valid model: {model}");
                 return RedirectToAction("Index", "Home");
             }
+
+            if (!model.Url.IsAbsoluteUri)
+            {
+                _logger.Warning($"url is not valid model: {model}");
+                return RedirectToAction("Index", "Home");
+            }
+            
             var referer = Request.Headers["Referer"].ToString();
             var userIp = Request.HttpContext.Connection.GetIpAddress();
             var message = new UrlRedirectQueueMessage(model.Host, model.Url, referer, model.Location, userIp.ToString());

@@ -193,6 +193,7 @@ namespace Cloudents.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
+
             if (env.IsDevelopment())
             {
                 HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
@@ -206,14 +207,20 @@ namespace Cloudents.Web
             }
             var reWriterOptions = new RewriteOptions()
                 .Add(new RemoveTrailingSlash());
-            if (env.IsDevelopment() || env.IsEnvironment(IntegrationTestEnvironmentName))
+
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-               
             }
             else
             {
+                app.UseStatusCodePagesWithReExecute("/Error");
                 app.UseExceptionHandler("/Error");
+            }
+
+
+            if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
+            {
                 reWriterOptions.AddRedirectToHttpsPermanent();
             }
 
@@ -221,6 +228,7 @@ namespace Cloudents.Web
 
             app.UseResponseCompression();
             app.UseResponseCaching();
+
             app.UseStatusCodePages();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
