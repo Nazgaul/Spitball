@@ -27,7 +27,6 @@ namespace Cloudents.Functions
             if (brokeredMessage.DeliveryCount > 5)
             {
                 log.Warning("invoking message from queue");
-
                 return;
             }
             var topicMessage = brokeredMessage.GetBodyInheritance<BaseEmail>();
@@ -38,6 +37,26 @@ namespace Cloudents.Functions
                 return;
             }
 
+            await ProcessEmail(emailProvider, binder, log, topicMessage, token);
+        }
+
+        [FunctionName("FunctionEmailTest")]
+        public static async Task EmailFunctionTimerAsync(
+            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")]
+            IAsyncCollector<Mail> emailProvider,
+            IBinder binder,
+            TraceWriter log,
+            CancellationToken token)
+        {
+            var topicMessage = new AnswerCorrectEmail("ram@cloudents.com", "text", "xxx",
+                "https://www.spitball.co", 456.23424M);
+            await ProcessEmail(emailProvider, binder, log, topicMessage, token);
+        }
+
+        private static async Task ProcessEmail(IAsyncCollector<Mail> emailProvider, IBinder binder, TraceWriter log,
+            BaseEmail topicMessage, CancellationToken token)
+        {
             var message = new Mail();
 
             void TextEmail()
@@ -81,7 +100,6 @@ namespace Cloudents.Functions
             else
             {
                 TextEmail();
-                
             }
 
             var personalization = new Personalization();
