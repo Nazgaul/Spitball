@@ -11,6 +11,7 @@
 @color-dark-purple: #320161;
 @color-main-purple: #3532d5;
 @color-red: #FF5252;
+@color-transparent: transparent;
 /*
 @color-pink-gradient: fade(#f14d4d, 15%);
 @color-purple-gradient: fade(@color-purple, 15%);
@@ -59,6 +60,7 @@
 @Feed-Like-count: #5d5d5d;
 @Selected-Vertical: #2a7bcf;
 @Feed-Date: #888b8e;
+@Question-Answer-Bg: #f6f6f6;
 
 .inTheMiddle() {
   display: flex;
@@ -153,6 +155,16 @@
   position: absolute;
   .responsive-property(bottom, 14px, null, 6px);
   .responsive-property(right, 16px, null, 8px);
+  padding: 3px 20px;
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.cellActionBtnMixinAnswer(){
+  position: absolute;
+  .responsive-property(bottom, 8px, null, 8px);
+  .responsive-property(right, 34px, null, 33px);
   padding: 3px 20px;
   color: white;
   border-radius: 4px;
@@ -260,7 +272,10 @@
 @registrationFieldHeight: 48px;
 @screen-xs: 599px;
 @screen-sm: 959px;
+@screen-sm-960: 960px;
+@screen-xss: 375px;
 @screen-md: 1263px;
+@screen-md-plus: 1280px;
 @screen-lg: 1904px;
 @logoWidth: 192px;
 @cellWidth: 500px;

@@ -11,6 +11,11 @@
     max-width: 500px;
     position: relative;
     margin: 0 auto;
+    .answer-container{
+      border-radius: 4px;
+      background-color: @color-white;
+      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+    }
   }
 
   @media (max-width: @screen-sm) {
@@ -171,6 +176,16 @@
     //
     //  min-height: 300px !important;
     //}
+  }
+  .answer-card{
+    margin-bottom:0;
+  }
+  .answer-card:nth-last-child(1){
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    .delete-btn-answer{
+      bottom:21px;
+    }
   }
   //.answer-card:not(:hover) .accept-btn{
   //    display: none;

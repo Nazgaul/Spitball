@@ -8,6 +8,10 @@ export default {
             required:true,
             type: Object
         },
+        cardData: {
+            required: true,
+            type: Object
+        },
         classType:{
             type:String,
             required:false,

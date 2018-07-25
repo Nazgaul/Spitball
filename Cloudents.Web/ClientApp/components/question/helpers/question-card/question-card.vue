@@ -1,7 +1,9 @@
 <template>
     <v-flex v-if="cardData && !isDeleted " class="question-card" :class="{'highlight':flaggedAsCorrect}">
-        <div class="top-block">
-            <user-block :user="cardData.user" v-if="cardData.user" :name="cardData.subject||'Answer'">
+        <div v-if="!typeAnswer">
+            <!-- question Card -->
+            <div class="top-block" >
+            <user-block :cardData="cardData" :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
                 <template> · <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
                         v-if="typeAnswer"
                         class="q-answer">
@@ -13,8 +15,6 @@
 
                     <span class="choosen-answer right" v-if="flaggedAsCorrect">
                         <v-icon>sbf-check-circle</v-icon></span>
-
-
                 </span></template>
             </user-block>
             <div v-if="cardData.price">
@@ -36,16 +36,8 @@
                                  @click.native="showBigImage(item)"></v-carousel-item>
             </v-carousel>
         </div>
+
         <div class="bottom-section">
-            <!-- <div v-if="detailedView && cardData.user" class="q-user-info card-info detailed">
-                <user-block :user="cardData.user"></user-block>
-                <div v-if="typeAnswer && showApproveButton">
-                    <label for="mark-correct">Mark as correct answer</label>
-                    <input id="mark-correct" type="checkbox" @click="markAsCorrect" :disabled="isCorrectAnswer"
-                           :checked="isCorrectAnswer"/>
-                </div>
-            </div> -->
-            <!-- v-else -->
             <div class="card-info general" v-if="!typeAnswer">
                 <div class="new-block">
                     <div class="files" v-if="cardData.filesNum">
@@ -70,15 +62,58 @@
                 </div>
             </div>
         </div>
-        <button class="delete-btn" v-if="detailedView && canDelete" @click="deleteQuestion()">Delete</button>
+        
+        </div>
+
+
+        <div v-else class="question-card-answer transparent">
+            <!-- answer Card -->
+            <div class="full-width-flex">
+                <user-block :cardData="cardData" :user="cardData.user"></user-block>
+                <div class="full-width-flex" :class="{'column-direction': gallery && gallery.length}">
+                    <div class="full-width-flex calc-Margin answer-block">
+                        <div class="triangle"></div>
+                        <div class="text-container">
+                            <div class="text">
+                                <span class="user-date">Answer ·</span>
+                                <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
+                                    v-if="typeAnswer"
+                                    class="q-answer">
+                                <button class="accept-btn right" @click="markAsCorrect" v-if="showApproveButton && !flaggedAsCorrect && !hasAnswer">
+                                    <v-icon>sbf-check-circle</v-icon>
+                                    <span>Accept</span>
+                                </button>
+
+                                <span class="choosen-answer right" v-if="flaggedAsCorrect">
+                                    <v-icon>sbf-check-circle</v-icon></span>
+                                </span>
+                            </div>
+
+                            <p class="q-text" :class="{'answer': typeAnswer}">{{cardData.text}}</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery fixed-margin" v-if="gallery && gallery.length">
+                        <v-carousel prev-icon="sbf-arrow-right left" next-icon="sbf-arrow-right right"
+                                    interval="600000" cycle full-screen
+                                    hide-delimiters :hide-controls="gallery.length===1">
+                            <v-carousel-item v-for="(item,i) in gallery" v-bind:src="item" :key="i"
+                                            @click.native="showBigImage(item)"></v-carousel-item>
+                        </v-carousel>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+
+        
+        <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}" v-if="detailedView && canDelete" @click="deleteQuestion()">Delete</button>
 
         <!-- TODO strange behaviour check why is being added tab index-1 to DOM-->
         <v-dialog v-model="showDialog"  max-width="720px"
                   transition="scale-transition" content-class="zoom-image">
             <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
-            <!--<v-card>-->
-                <!--<v-card-media :src="selectedImage"></v-card-media>-->
-            <!--</v-card>-->
         </v-dialog>
     </v-flex>
 </template>
