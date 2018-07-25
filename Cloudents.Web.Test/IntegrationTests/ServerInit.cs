@@ -30,6 +30,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                     new ConfigurationBuilder()
                         .SetBasePath(appRootPath)
                         .AddJsonFile("appsettings.json")
+                        .AddJsonFile("appsettings.Development.json")
                         .Build())
                 .UseStartup<Startup>());
             Client = server.CreateClient();

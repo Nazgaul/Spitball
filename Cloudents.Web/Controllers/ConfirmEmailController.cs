@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Api;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,7 @@ namespace Cloudents.Web.Controllers
         }
 
         // GET
-        public async Task<IActionResult> Index(string id,string code, CancellationToken token)
+        public async Task<IActionResult> Index(long? id,string code, CancellationToken token)
         {
             if (id == null || code == null)
             {
@@ -34,7 +35,7 @@ namespace Cloudents.Web.Controllers
 
             TempData.Remove(SignUserController.Email);
             code = System.Net.WebUtility.UrlDecode(code);
-            var user = await _userManager.FindByIdAsync(id).ConfigureAwait(false);
+            var user = await _userManager.FindByIdAsync(id.ToString()).ConfigureAwait(false);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{id}'.");
