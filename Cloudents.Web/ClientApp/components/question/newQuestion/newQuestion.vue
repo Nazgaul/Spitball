@@ -2,7 +2,6 @@
     <div class="ask_question">
         <v-container class="general-cell">
             <v-layout row wrap>
-
                 <v-flex xs12>
                     <div class="header-row">
                         <div class="student_icon">

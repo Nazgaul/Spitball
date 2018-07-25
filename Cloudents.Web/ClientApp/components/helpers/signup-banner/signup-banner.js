@@ -30,7 +30,7 @@ export default {
     },
     filters: {
         bolder: function (value, query) {
-            return value.replace(query, '<span class="highlight">' + query + '</span>')
+            return value.replace(query, '<span class="bolder">' + query + '</span>')
         }
     }
 }
