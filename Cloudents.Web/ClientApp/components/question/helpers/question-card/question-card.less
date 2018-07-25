@@ -161,6 +161,7 @@
       }
       @media (max-width: @screen-xs) {
         height: 238px;
+        padding: 25px;
       }
       box-shadow: none;
       .v-carousel__left {
@@ -348,7 +349,13 @@
       margin: 14px -15px 0 -10px;
       width: 100%;
       padding-left: 15px;
+      padding-right: 15px;
       padding-top: 8px;
+      max-width: 415px;
+
+      @media (max-width: @screen-xs) {
+        max-width: 435px;
+      }
     }
   }
 
