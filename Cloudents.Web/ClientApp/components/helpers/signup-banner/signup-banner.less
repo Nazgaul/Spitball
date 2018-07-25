@@ -1,7 +1,244 @@
 @import "../../../mixin.less";
-.banner-wrap{
+
+.banner-wrap {
   position: relative;
+  height: 345px;
+@media( max-width: @screen-xs){
+  height: 280px;
 }
+  .round-free {
+    height: 128px;
+    width: 128px;
+    position: absolute;
+    top: 175px;
+    left: calc(~'100% - 465px');
+    transform: rotate(14deg);
+    background-image: linear-gradient(7deg, #ffffff, #e3e3ff);
+    background-size: contain;
+    border-radius: 50%;
+    z-index: 99;
+    padding: 24px 0;
+    box-shadow: -8px 16px 56px -20px #000;
+    @media (max-width: @screen-md-plus) {
+      left: calc(~'100% - 270px');
+      top: 190px;
+      padding: 28px 0;
+    }
+    @media (max-width: @screen-sm) {
+      left: calc(~'100% - 134px');
+      z-index: 100;
+      top: 180px;
+      padding: 30px 0;
+
+    }
+    //@media (max-width: @screen-sm) {
+    //  left: calc(~'100% - 134px');
+    //  z-index: 100;
+    //  top: 180px;
+    //
+    //}
+    @media (max-width: @screen-xs){
+      width: 100px;
+      height: 100px;
+      padding: 20px 0;
+      z-index: 100;
+      top: 156px;
+      left: calc(~'100% - 134px');
+
+    }
+
+    @media(max-width: 600px){
+      width: 95px;
+      height: 95px;
+      padding: 20px 0;
+      z-index: 100;
+      top: 146px;
+      left: calc(~'100% - 170px');
+
+    }
+    @media( max-width: @screen-xss){
+      left: calc(~'100% - 110px');
+      top: 160px;
+      padding: 16px 0;
+
+    }
+    .round-free-text {
+      text-align: center;
+      font-size: 18px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.11;
+      letter-spacing: -0.5px;
+      color: @color-main-purple;
+      @media (max-width: @screen-sm-960) {
+        font-size: 18px;
+        line-height: 1.11;
+        letter-spacing: -0.5px;
+      }
+      @media ( max-width: @screen-xs) {
+        font-size: 14px;
+        line-height: 1.29;
+        letter-spacing: -0.4px;
+      }
+      @media ( max-width: @screen-xss) {
+        font-size: 14px;
+        letter-spacing: -0.4px;
+      }
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+
+  &.color-ask {
+    background-image: linear-gradient(95deg, #3532d5, #3455ff);
+  }
+  &.color-note {
+    background-image: linear-gradient(95deg, #3532d5, #6b29aa);
+  }
+  &.color-flashcard {
+    background-image: linear-gradient(95deg, #3532d5, #f14d4d);
+  }
+  &.color-tutor {
+    background-image: linear-gradient(95deg, #3532d5, #52aa16);
+  }
+  &.color-book {
+    background-image: linear-gradient(96deg, #3532d5, #a650e0);
+  }
+  &.color-job {
+    background-image: linear-gradient(96deg, #3532d5, #f49c20);
+  }
+}
+
+.text-block {
+  .limited-width();
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  font-size: 18px;
+  color: @color-white;
+  top: 25%;
+  position: absolute;
+  left: calc(~'100% - 1275px');
+  z-index: 102;
+  text-align: center;
+  //
+  @media (max-width: @screen-md-plus) {
+    left: calc(~'100% - 1065px');
+    top: 22%;
+  }
+  @media (min-width: @screen-sm) and (max-width: @screen-md) {
+    max-width: 960px;
+    width: 560px;
+    height: 147px;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 1.23;
+    letter-spacing: -0.3px;
+    top: 19%;
+    left: calc(~'100% - 744px');
+    z-index: 100;
+
+  }
+  @media (max-width: @screen-sm) {
+    max-width: 600px;
+    left: calc(~'100% - 480px');
+
+  }
+  @media( max-width: 600px){
+    left: calc(~'100% - 430px');
+  }
+  @media (max-width: @screen-xs) {
+    width: 362px;
+    margin: 0;
+    top: 13%;
+  }
+  @media(max-width: @screen-xss){
+    left: calc(~'100% - 364px');
+
+  }
+
+  .title-wrap {
+    max-width: 850px;
+  }
+  .text-wrap {
+    max-width: 668px;
+    width: 100%;
+    margin: 8px auto;
+    @media (min-width: @screen-sm) and (max-width: @screen-md) {
+      margin: 18px auto;
+      width: 390px;
+    }
+    @media( max-width: 600px){
+      margin: 4px 0;
+    }
+    @media (max-width: @screen-xs) {
+      margin: 16px 0;
+      width: 240px;
+    }
+
+    @media( max-width: @screen-xss){
+      margin: 16px 0;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+
+   .text-right {
+    text-align: right;
+  }
+  .large {
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.17;
+    letter-spacing: -0.4px;
+    @media (min-width: @screen-sm) and (max-width: @screen-md) {
+      font-size: 40px;
+      font-weight: bold;
+      line-height: 1.23;
+      letter-spacing: -0.3px;
+
+    }
+    @media ( max-width: @screen-sm) {
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1.19;
+      letter-spacing: -0.3px;
+      text-align: left;
+    }
+  }
+  .medium {
+    font-size: 26px;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    @media (min-width: @screen-sm) and (max-width: @screen-md) {
+      font-size: 20px;
+      letter-spacing: -0.3px;
+    }
+    @media (max-width: @screen-sm) {
+      font-size: 18px;
+      text-align: left;
+    }
+
+  }
+  .small {
+    font-size: 18px;
+    color: @color-medium-grey;
+    line-height: 1.33;
+    letter-spacing: -0.2px;
+    text-align: justify;
+  }
+
+  .small, .medium {
+    margin-right: 8px;
+  }
+}
+
 .overlay-bubble {
   position: absolute;
   top: 0;
@@ -9,62 +246,61 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
-  div{
+  @media (max-width: @screen-xs) {
+    width: 800px;
+  }
+  div {
     position: absolute;
     border-radius: 50%;
-    background: rgba(255,255,255,.05);
-    //transform: skewY(-17deg);
-    z-index: 99;
+    background: rgba(255, 255, 255, .05);
+    z-index: 1;
   }
   .overlay-bubble-1 {
     height: 200px;
     width: 200px;
-    right: calc(5%);
-    top: calc(30%);
+    right: calc(~'34% - 490px');
+    bottom: calc(~'74% - 240px');
   }
   .overlay-bubble-2 {
     height: 650px;
     width: 650px;
-    right: calc(58%);
+    right: calc(~'58% - 50px');
     top: calc(-41%);
   }
   .overlay-bubble-3 {
     height: 273px;
     width: 273px;
-    right: calc(-6%);
-    top: calc(33%);
+    right: calc(~'33% - 685px');
+    top: calc(~'99% -  240px');
   }
   .overlay-bubble-4 {
     height: 300px;
     width: 300px;
-    left: calc(-4%);
-    top: calc(-37%);
+    right: calc(~'90% - 65px');
+    bottom: calc(~'65% - 10px');
   }
   .overlay-bubble-5 {
     height: 300px;
     width: 300px;
-    left: calc(35%);
-    top: calc(68%);
+    left: calc(~'35% - 65px');
+    top: calc(~'68% - 10px');
   }
   .overlay-bubble-6 {
     height: 525px;
     width: 525px;
-    left: calc(77%);
-    top: calc(-88%);
+    left: calc(~'78% - 65px');
+    bottom: calc(~'50% - 10px');
   }
 }
+
 .signup-banner {
   position: relative;
   display: flex;
   align-items: flex-end;
-  .responsive-property(padding-bottom, 39px, null, 24px);
   justify-content: flex-start;
   background-size: auto;
-  //background: url(./img/1920.png) center no-repeat;
-  //height: 552px;
-  height: 345px;
-
-
+  //height: 345px;
+  height: 100%;
   //@media (min-width: @screen-sm) and (max-width: @screen-md) {
   //  background-image: url(./img/1280.png);
   //}
@@ -93,74 +329,6 @@
       //user testing
       color: @color-white;
       //
-    }
-  }
-
-  .text-block {
-    .limited-width();
-    font-size: 18px;
-    width: 362px;
-    color: @color-white;
-
-    .inner-text-block {
-      width: 100%;
-      margin: 0 auto;
-      //user testing
-      text-align: center;
-      //
-      @media (min-width: @screen-sm) and (max-width: @screen-md) {
-        max-width: 960px;
-      }
-      @media (max-width: @screen-sm) {
-        max-width: 600px;
-      }
-
-      .text-wrap {
-        max-width: 300px;
-        width: 100%;
-        //user testing
-        margin: 0 auto;
-        //
-        @media (max-width: @screen-xs) {
-          //margin: 0 auto;
-          margin: 35px auto;
-        }
-      }
-    }
-
-    p {
-      margin: 0;
-    }
-
-    @media (max-width: @screen-xs) {
-      width: 312px;
-      margin: 0;
-    }
-    .text-right {
-      text-align: right;
-    }
-    .large {
-      font-size: 56px;
-      font-weight: bold;
-      line-height: 0.6;
-      letter-spacing: -0.9px;
-    }
-    .medium {
-      font-size: 20px;
-      font-weight: bold;
-      line-height: 2;
-      letter-spacing: -0.1px;
-    }
-    .small {
-      font-size: 18px;
-      color: @color-medium-grey;
-      line-height: 1.33;
-      letter-spacing: -0.2px;
-      text-align: justify;
-    }
-
-    .small, .medium {
-      margin-right: 8px;
     }
   }
 
