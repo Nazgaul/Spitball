@@ -1,17 +1,24 @@
-import axios from "axios";
-import qs from "query-string";
-import {dollarCalculate} from "../store/constants";
+import { connectivityModule } from "./connectivity.module"
 
-axios.defaults.paramsSerializer = params => qs.stringify(params, {indices: false});
-axios.defaults.responseType = "json";
-let transferResultQuestion = res => {
-    return { ...res,filesNum:res.files.length, answersNum:res.answers.length}
-};
+
 export default {
-    deleteQuestion:({id,type})=> axios.delete(`/${type}/${id}`),
-    getSubjects: () => axios.get("/Question/subject"),
-    postQuestion: (subjectId, text, price, files) => axios.post("/Question", {subjectId, text, price, files}),
-    getQuestion: (id) => axios.get("/Question/"+id,{transformResponse:transferResultQuestion}),
-    answerQuestion: (questionId, text, files) => axios.post("/Answer", {questionId, text, files}),
-    markAsCorrectAnswer: (answerId) => axios.put("/Question/correct", {answerId}),
+    deleteQuestion:({id,type}) => {
+       return connectivityModule.http.delete(`/${type}/${id}`);
+    },
+    getSubjects: () => {
+        return connectivityModule.http.get("/Question/subject")
+    },
+    postQuestion: (subjectId, text, price, files) => {
+       return connectivityModule.http.post("/Question", {subjectId, text, price, files})
+    },
+    getQuestion: (id) => connectivityModule.http.get("/Question/"+id).then(({data}) => {
+        let res = data;
+        return { ...res,filesNum:res.files.length, answersNum:res.answers.length }
+    }),
+    answerQuestion: (questionId, text, files) => {
+       return connectivityModule.http.post("/Answer", {questionId, text, files})
+    },
+    markAsCorrectAnswer: (answerId) => {
+       return connectivityModule.http.put("/Question/correct", {answerId})
+    },
 }

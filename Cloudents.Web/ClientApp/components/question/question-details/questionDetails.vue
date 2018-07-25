@@ -101,7 +101,7 @@
 
             </v-tabs>
         </div>
-        <v-dialog v-model="showDialog"  :fullscreen="$vuetify.breakpoint.xs" max-width="720px"  scrollable content-class="question-suggest">
+        <v-dialog v-model="showDialog" :fullscreen="$vuetify.breakpoint.xs" max-width="720px"  scrollable content-class="question-suggest">
             <question-suggest-pop-up :user="questionData.user" :cardList="cardList.nextQuestions"></question-suggest-pop-up>
         </v-dialog>
     </div>
