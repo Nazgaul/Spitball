@@ -62,6 +62,8 @@ namespace Cloudents.Web
 
             // Add SnapshotCollector telemetry processor.
             services.AddSingleton<ITelemetryProcessorFactory>(sp => new SnapshotCollectorTelemetryProcessorFactory(sp));
+            services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
+
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
                 .AddJsonOptions(options =>
@@ -202,7 +204,7 @@ namespace Cloudents.Web
                     HotModuleReplacement = true
                 });
                 var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-                configuration.DisableTelemetry = true;
+               // configuration.DisableTelemetry = true;
 
             }
             var reWriterOptions = new RewriteOptions()

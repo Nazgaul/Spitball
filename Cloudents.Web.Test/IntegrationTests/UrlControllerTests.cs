@@ -49,10 +49,19 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [TestMethod]
-        public async Task Get_Async_SomeGibrishUrl2_HomePage()
+        public async Task GetAsync_SomeGibrishUrl2_HomePage()
         {
 
             var url = "/url?url=https:%2f%2fwww.google.com%00fasvp\"><a>q2ifd&host=google&location=23";
+            var response = await Client.GetAsync(url).ConfigureAwait(false);
+            var p = response.Headers.Location;
+            Assert.IsTrue(p.OriginalString == "/");
+        }
+
+        [TestMethod]
+        public async Task GetAsync_NotValidUrl_HomePage()
+        {
+            var url = "url?url=%2fetc%2fpasswd&host=google&location=23";
             var response = await Client.GetAsync(url).ConfigureAwait(false);
             var p = response.Headers.Location;
             Assert.IsTrue(p.OriginalString == "/");
