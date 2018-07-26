@@ -8,8 +8,12 @@ export default {
             required:true,
             type: Object
         },
+        showExtended:{
+            required:false,
+            type: Boolean
+        },
         cardData: {
-            required: true,
+            required: false,
             type: Object
         },
         classType:{
