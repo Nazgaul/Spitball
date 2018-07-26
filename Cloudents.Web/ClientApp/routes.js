@@ -39,7 +39,6 @@ function dynamicPropsFn(route) {
         name: newName,
         query: route.query,
         params: route.params,
-        //isPromo: route.query.hasOwnProperty("promo"),
     }
 }
 
@@ -130,41 +129,10 @@ let routes2 = [
         components: {default: showFlashcard, header: previewHeader},
         props: {default: (route) => ({id: route.params.id})}
     },
-    //{
-    //    path: "/landing/get_a_tutor_now", components: {
-    //        default: landingTemplate,
-    //    }, name: "tutorV1"
-    //},
-    //{
-    //    path: "/landing/tutor", components: {
-    //        default: landingTemplate,
-    //    }, name: "tutorV2"
-    //},
-    //{
-    //    path: "/landing/get_the_notes_you_need", components: {
-    //        default: landingTemplate,
-    //    }, name: "notesV1"
-    //},
-    //{
-    //    path: "/landing/notes", components: {
-    //        default: landingTemplate,
-    //    }, name: "notesV2"
-    //},
-    //{
-    //    path: "/landing/You_Dont_Have_to_Be_Broke",
-    //    components: {
-    //        default: landingTemplate,
-    //    }, name: "jobsV1"
-    //},
-    //{
-    //    path: "/landing/jobs", components: {
-    //        default: landingTemplate,
-    //    }, name: "jobsV2"
-    //},
     {
         path: "/newquestion", components: {
             default: newQuestion,
-            header: slimHeader,
+            header: pageHeader,
         }, name: "newQuestion",
         meta: {
             requiresAuth: true
@@ -174,7 +142,7 @@ let routes2 = [
         path: "/question/:id",
         components: {
             default: viewQuestion,
-            header: slimHeader,
+            header: pageHeader,
         },
         name: "question",
         props: {

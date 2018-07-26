@@ -27,6 +27,9 @@ export default {
             build: null,
         };
     },
+    beforeRouteUpdate(to, from, next) {
+        
+    },
 
     beforeRouteLeave(to, from, next) {
         this.resetQuestion();
