@@ -1,6 +1,6 @@
 <template>  
     <div>
-        <div v-if="cardData.subject">
+        <div v-if="showExtended || cardData.subject">
             <!-- question userBlock -->
             <div class="user-block" :class="classType">
             <slot name="icon">
@@ -24,8 +24,8 @@
                     <user-avatar class="avatar-circle" :user-name="user.name" :user-id="user.id"/>
                 </slot>
             </div>
-        </div> 
-        </div>        
+        </div>
+        </div>
     </div>
 </template>
 

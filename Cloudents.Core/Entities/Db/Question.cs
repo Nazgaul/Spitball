@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using JetBrains.Annotations;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure.Data")]
@@ -22,6 +23,11 @@ namespace Cloudents.Core.Entities.Db
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
+
+            if (user.Fictive)
+            {
+                Updated = DateTimeHelpers.NextRandomDate(1);
+            }
 
             QuestionCreateTransaction();
         }
@@ -96,6 +102,8 @@ namespace Cloudents.Core.Entities.Db
 
             //return new[] {t1, t2, tAnswer};
         }
+
+        
 
 
 

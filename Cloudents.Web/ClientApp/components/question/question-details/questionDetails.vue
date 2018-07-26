@@ -101,8 +101,9 @@
 
             </v-tabs>
         </div>
-        <v-dialog v-model="showDialog" :fullscreen="$vuetify.breakpoint.xs" max-width="720px"  scrollable content-class="question-suggest">
-            <question-suggest-pop-up :user="questionData.user" :cardList="cardList.nextQuestions"></question-suggest-pop-up>
+        <v-dialog v-model="showDialog" :type="dialogType" :fullscreen="$vuetify.breakpoint.xs" max-width="720px"  scrollable content-class="question-suggest">
+
+            <question-suggest-pop-up v-if="" :user="questionData.user" :cardList="cardList.nextQuestions"></question-suggest-pop-up>
         </v-dialog>
     </div>
 </template>

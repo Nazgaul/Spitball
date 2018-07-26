@@ -72,8 +72,8 @@
                             </div>
                             <div class="point-btn other inputBorder">
                                 <input type="number" placeholder="Other amount"
-                                       @focus="selectOtherAmount()" step=".01"
-                                       min="0" max="100"
+                                       @focus="selectOtherAmount()" step="1"
+                                       min="1" max="100"
                                        v-model="price"/>
                                 <v-icon right>sbf-hand-coin</v-icon>
                             </div>

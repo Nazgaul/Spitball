@@ -25,7 +25,9 @@ namespace Cloudents.Infrastructure.Data.Maps
             //    .Not.KeyNullable()
             //    .Not.KeyUpdate()
                 .Cascade.AllDeleteOrphan();
-            HasMany(x => x.Transactions).Inverse();
+            HasMany(x => x.Transactions)
+                .Cascade.AllDeleteOrphan()
+                .Inverse();
         }
     }
 }

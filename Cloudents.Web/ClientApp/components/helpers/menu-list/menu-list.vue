@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-list class="menu-list" v-if="!isAuthUser" content-class="s-menu-item">
-            <user-block :user="user" :classType="'university'" v-if="isMobile" class="unsign pb-4">
+            <user-block :user="user" :showExtended="true" :classType="'university'" v-if="isMobile" class="unsign">
                 <div slot="icon" class="mb-3">
                     <v-avatar tag="v-avatar" class="Mask" size="32"><not-logged-in></not-logged-in></v-avatar>
                     </div>

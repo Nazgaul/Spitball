@@ -1,7 +1,7 @@
 ﻿using System;
 using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Management.Command
+namespace Cloudents.Core.Command.Admin
 {
     public class MarkAnswerAsCorrectCommand : ICommand
     {
@@ -13,6 +13,5 @@ namespace Cloudents.Management.Command
 
         public Guid AnswerId { get; private set; }
         public long QuestionId { get; private set; }
-
     }
 }

@@ -145,13 +145,15 @@ export default {
         },
         showAnswerField() {
             if (this.accountUser) {
-                this.showForm = true
+                this.showForm = true;
             }
             else {
-                this.updateToasterParams({
-                    toasterText: '<span class="toast-helper">To answer or ask a question you must  </span><a href="/register" class="toast_action">Sign Up</a><span class="toast-helper">  or  </span><a href="/signin" class="toast_action">Login</a>',
-                    showToaster: true
-                });
+                this.dialogType = ''
+                this.showDialog = true;
+                // this.updateToasterParams({
+                //     toasterText: '<span class="toast-helper">To answer or ask a question you must  </span><a href="/register" class="toast_action">Sign Up</a><span class="toast-helper">  or  </span><a href="/signin" class="toast_action">Login</a>',
+                //     showToaster: true
+                // });
             }
         },
 
