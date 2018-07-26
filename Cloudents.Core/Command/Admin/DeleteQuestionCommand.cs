@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Cloudents.Core.Interfaces;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Management.Command
+namespace Cloudents.Core.Command.Admin
 {
     public class DeleteQuestionCommand : ICommand
     {

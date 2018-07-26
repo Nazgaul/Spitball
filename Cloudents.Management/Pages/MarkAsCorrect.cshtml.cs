@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MarkAnswerAsCorrectCommand = Cloudents.Management.Command.MarkAnswerAsCorrectCommand;
 
 namespace Cloudents.Management.Pages
 {

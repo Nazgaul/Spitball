@@ -70,8 +70,6 @@ namespace Cloudents.Management
 
             // ModuleCore.RegisterCommands(containerBuilder, Assembly.GetExecutingAssembly());
 
-            containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ICommandHandler<>)).AsImplementedInterfaces();
-
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

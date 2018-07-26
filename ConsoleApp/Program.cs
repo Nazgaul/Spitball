@@ -16,7 +16,7 @@ namespace ConsoleApp
     {
         private static IContainer _container;
 
-        static void Main()
+        static async Task Main()
         {
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
@@ -44,12 +44,17 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-            String spreadsheetId = "1Mq1ec4dGp6ADuKmlrAa5rsFm-_-JvT8O0miC8wsd1T8";
-            String range = "All!B:D";
-            var subjectList = new List<CreateQuestionCommand>();
-            subjectList = GoogleSheets.GetData(spreadsheetId, range);
+            string spreadsheetId = "1Mq1ec4dGp6ADuKmlrAa5rsFm-_-JvT8O0miC8wsd1T8";
+            string range = "All!B:D";
 
-           
+            
+            //var subjectList = new List<CreateQuestionCommand>();
+            var subjectList = GoogleSheets.GetData(spreadsheetId, range);
+            foreach (var question in GoogleSheets.GetData(spreadsheetId, range))
+            {
+                var commandBus = _container.Resolve<ICommandBus>();
+                await commandBus.DispatchAsync(question, default);
+            }
 
 
 

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Cloudents.Core.Command;
+using Cloudents.Core.Command.Admin;
 
 namespace ConsoleApp
 {
@@ -58,11 +58,13 @@ namespace ConsoleApp
                     {
                         if (response.Values[i].Count == 3)
                         {
-                            CreateQuestionCommand t = new CreateQuestionCommand();
-                            t.SubjectId = Convert.ToInt32(response.Values[i][2]);
-                            t.Text = response.Values[i][0].ToString();
-                            t.Price = Convert.ToDecimal(response.Values[i][1]);
-                            t.UserId = 1;
+                            CreateQuestionCommand t =
+                                new CreateQuestionCommand
+                                {
+                                    SubjectId = Convert.ToInt32(response.Values[i][2]),
+                                    Text = response.Values[i][0].ToString(),
+                                    Price = Convert.ToDecimal(response.Values[i][1])
+                                };
                             subjectList.Add(t);
                         }
                        /* if (response.Values[i].Count == 2)

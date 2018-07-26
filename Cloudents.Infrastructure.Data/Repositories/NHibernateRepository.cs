@@ -71,9 +71,9 @@ namespace Cloudents.Infrastructure.Data.Repositories
             return Session.UpdateAsync(entity, token);
         }
 
-        public Task FlushAsync(CancellationToken token)
-        {
-            return Session.FlushAsync(token);
-        }
+        //public Task FlushAsync(CancellationToken token)
+        //{
+        //    return Session.FlushAsync(token);
+        //}
     }
 }
