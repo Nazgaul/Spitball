@@ -17,6 +17,8 @@ namespace Cloudents.Core.Interfaces
 
         Task DeleteAsync(T entity, CancellationToken token);
         Task UpdateAsync(T entity, CancellationToken token);
+
+        Task FlushAsync(CancellationToken token);
     }
 
 
@@ -25,6 +27,8 @@ namespace Cloudents.Core.Interfaces
         Task<IList<User>> GetAllUsersAsync(CancellationToken token);
 
         Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token);
+
+        Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
     }
 
     public interface IQuestionRepository : IRepository<Question>

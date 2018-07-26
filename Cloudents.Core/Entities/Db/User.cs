@@ -72,7 +72,7 @@ namespace Cloudents.Core.Entities.Db
             AddTransaction(t);
         }
 
-        public virtual decimal Balance { get; protected set; }
+        public virtual decimal Balance { get; set; }
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         protected internal virtual IList<Transaction> Transactions { get; set; }

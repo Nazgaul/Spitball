@@ -11,7 +11,7 @@ using MarkAnswerAsCorrectCommand = Cloudents.Management.Command.MarkAnswerAsCorr
 
 namespace Cloudents.Management.Pages
 {
-    [Authorize]
+   // [Authorize]
     public class MarkAsCorrectModel : PageModel
     {
 
