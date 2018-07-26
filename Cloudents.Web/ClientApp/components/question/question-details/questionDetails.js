@@ -5,10 +5,11 @@ import {mapGetters, mapMutations, mapActions} from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
-
+import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
+import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue'
 export default {
     mixins: [disableForm],
-    components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp},
+    components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer},
     props: {
         id: {Number}, // got it from route
         questionId: {Number}
@@ -21,7 +22,8 @@ export default {
             questionData: null,
             cardList: [],
             showForm: false,
-            showDialog: false,
+            showDialogSuggestQuestion: false,
+            showDialogLogin: false,
             build: null,
         };
     },
@@ -70,7 +72,7 @@ export default {
                         //     toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
                         //     showToaster: true,
                         // });
-                        self.showDialog = true; // question suggest popup dialog
+                        self.showDialogSuggestQuestion = true; // question suggest popup dialog
                     }, () => {
                         // self.updateToasterParams({
                         //     toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
@@ -150,7 +152,7 @@ export default {
             }
             else {
                 this.dialogType = ''
-                this.showDialog = true;
+                this.showDialogLogin = true;
                 // this.updateToasterParams({
                 //     toasterText: '<span class="toast-helper">To answer or ask a question you must  </span><a href="/register" class="toast_action">Sign Up</a><span class="toast-helper">  or  </span><a href="/signin" class="toast_action">Login</a>',
                 //     showToaster: true
@@ -193,8 +195,12 @@ export default {
         this.$root.$on('deleteAnswer', (id) => {
             this.questionData.answers = this.questionData.answers.filter(item => item.id !== id)
         });
-        this.$root.$on('closeSuggestionPopUp', ()=> {
-            this.showDialog = false;
+        this.$root.$on('closePopUp', (name)=> {
+           if(name === 'suggestions'){
+               this.showDialogSuggestQuestion =false
+           }else{
+               this.showDialogLogin = false
+           }
         })
     }
 }

@@ -16,6 +16,7 @@ namespace Cloudents.Core.Entities.Db
     public class Question
     {
         public Question(QuestionSubject subject, string text, decimal price, int attachments, User user)
+        : this()
         {
             Subject = subject;
             Text = text?.Trim();
@@ -35,6 +36,7 @@ namespace Cloudents.Core.Entities.Db
         [UsedImplicitly]
         protected Question()
         {
+            Answers = Answers ?? new List<Answer>();
         }
 
         public virtual long Id { get; protected set; }
@@ -103,7 +105,7 @@ namespace Cloudents.Core.Entities.Db
             //return new[] {t1, t2, tAnswer};
         }
 
-        
+
 
 
 

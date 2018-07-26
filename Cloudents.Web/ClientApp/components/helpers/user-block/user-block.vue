@@ -1,6 +1,6 @@
 <template>  
     <div>
-        <div v-if="showExtended || cardData.subject">
+        <div v-if="showExtended || cardData && cardData.subject">
             <!-- question userBlock -->
             <div class="user-block" :class="classType">
             <slot name="icon">
