@@ -11,4 +11,9 @@ alter table sb.[question]
 add Updated datetime2(7);
 update sb.Question
 set Updated = Created
-WHERE updated IS null
+WHERE updated IS NULL
+update sb.[user]
+set Fictive = 1
+where email like '%demi.com'
+
+--Done untill here

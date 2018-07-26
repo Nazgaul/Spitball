@@ -41,10 +41,19 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("user cannot answer himself");
             }
 
+            if (question.CorrectAnswer != null)
+            {
+                throw new InvalidOperationException("already answer with question");
+
+            }
             if (user.Fictive)
             {
                 throw new InvalidOperationException("fictive user");
+            }
 
+            if (question.Answers?.Any(a => a.User.Id == user.Id) == true)
+            {
+                throw new InvalidOperationException("user cannot give more the one answer");
             }
             var answer = new Answer(question, message.Text, message.Files?.Count() ?? 0, user);
             await _answerRepository.AddAsync(answer, token).ConfigureAwait(false);
