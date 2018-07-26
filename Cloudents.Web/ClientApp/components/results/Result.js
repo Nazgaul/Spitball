@@ -45,11 +45,13 @@ export default {
         mixins: [sortAndFilterMixin],
         //when go back to home clear the saved term and classes
         beforeRouteLeave(to, from, next) {
-            if(to.name && to.name === 'question'){
-                this.transitionOut(to, from, next);
-            }else{
-                this.leavePage(to, from, next);
-            }
+            // if(to.name && to.name === 'question'){
+            //     this.transitionOut(to, from, next);
+            // }else{
+            //     this.leavePage(to, from, next);
+            // }
+
+            this.leavePage(to, from, next);
         },
 
         //When route has been updated(query,filter,vertical)

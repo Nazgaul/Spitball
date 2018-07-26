@@ -26,6 +26,7 @@ export default {
         };
     },
     beforeRouteUpdate(to, from, next) {
+        this.transitionIn(to, from, next);
         
     },
 
@@ -156,6 +157,12 @@ export default {
                 // });
             }
         },
+        transitionIn(to, from, next){
+            let questionCard = this.$el.querySelector('.question-card');
+            questionCard.classList.add("fade-in");
+
+            next();
+    },
 
     },
     watch: {
