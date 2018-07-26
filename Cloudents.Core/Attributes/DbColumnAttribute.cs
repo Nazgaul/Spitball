@@ -12,4 +12,10 @@ namespace Cloudents.Core.Attributes
             Name = name;
         }
     }
+
+    [AttributeUsage(AttributeTargets.Class)]
+    public class AdminCommandHandler : Attribute
+    {
+
+    }
 }

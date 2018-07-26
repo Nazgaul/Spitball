@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.CommandHandler
@@ -20,18 +21,9 @@ namespace Cloudents.Core.CommandHandler
         {
             foreach (var question in await _questionRepository.GetOldQuestionsAsync(token))
             {
-                question.Updated =  NextRandomDate();
+                question.Updated = DateTimeHelpers.NextRandomDate(1, _randomGenerator);
                 await _questionRepository.UpdateAsync(question, token);
             }
-        }
-
-
-        private DateTime NextRandomDate()
-        {
-            var range = 1;
-            var start = DateTime.UtcNow.AddDays(-range);
-
-            return start.AddDays(_randomGenerator.Next(range)).AddHours(_randomGenerator.Next(0, 24)).AddMinutes(_randomGenerator.Next(0, 60)).AddSeconds(_randomGenerator.Next(0, 60));
         }
     }
 }

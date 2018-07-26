@@ -51,6 +51,10 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual void AddTransaction(Transaction t)
         {
+            if (Fictive)
+            {
+                return;
+            }
             t.User = this;
             Balance += t.Price;
             if (Balance < 0)
