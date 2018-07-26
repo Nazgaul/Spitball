@@ -1,0 +1,87 @@
+@import "../../../../mixin.less";
+
+div.login-popup {
+  max-width: 700px;
+  font-size: 16px;
+  .close-btn {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    .v-icon {
+      font-size: 16px;
+      color: @color-main-purple;
+    }
+  }
+  .dialog-wrapp {
+    height: 100%;
+    padding: 48px 48px 24px 48px;
+    position: relative;
+    @media (max-width: @screen-xs) {
+      padding: 56px 6px 48px 6px;
+    }
+      .wrap-text{
+        width: 416px;
+        margin-bottom: 58px;
+        h2{
+          font-size: 40px;
+          font-weight: 300;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 0.9;
+          letter-spacing: -0.3px;
+          color: @color-main-purple;
+          @media(max-width: @screen-xs){
+            font-size: 48px;
+            font-weight: 300;
+            line-height: 0.88;
+            letter-spacing: -0.5px;
+          }
+        }
+        .dialog-body-text{
+          margin-top: 22px;
+          width: 323px;
+          font-size: 24px;
+          font-weight: 300;
+          line-height: 1;
+          letter-spacing: -0.3px;
+          color:@color-grey;
+          @media(max-width: @screen-xs){
+            font-size: 24px;
+          }
+        }
+        @media(max-width: @screen-xs){
+          margin-top: 150px;
+          width: 368px;;
+        }
+      }
+      .btn-container{
+        display: flex;
+        @media (max-width: @screen-xs) {
+          justify-content: space-around;
+        }
+        .login-btns {
+          height: 32px;
+          width: 104px;
+          margin-right: 10px;
+          border-radius: 26.5px;
+          border: solid 1px @color-main-purple;
+          font-size: 16px!important;
+          outline: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: @color-main-purple;
+          letter-spacing: -0.5px;
+          padding: 0 20px;
+          min-width: 104px;
+
+          &:first-child {
+            background: @color-main-purple;
+            color: @color-white;
+            margin-right: 24px;
+          }
+
+        }
+      }
+  }
+}
