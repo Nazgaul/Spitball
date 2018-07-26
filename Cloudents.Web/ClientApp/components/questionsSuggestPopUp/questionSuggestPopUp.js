@@ -27,7 +27,7 @@ export default {
     methods: {
         ...mapActions(["resetQuestion"]),
         requestDialogClose() {
-            this.$root.$emit('closeSuggestionPopUp')
+            this.$root.$emit('closePopUp', 'suggestions' )
         },
         answerMore(id) {
             let questionId = id;

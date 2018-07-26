@@ -5,7 +5,52 @@
     .first-grid {
         width: @resultsFilterWidth;
         .flexSameSize();
-        padding-right: 32px;
+        padding-right: 32px;   
+        opacity: 1;     
+    }
+
+    .fade-out {
+        animation: fadeOut .2s ease-in-out ;
+        animation-fill-mode: forwards;
+    }
+
+    .display-off{
+        display: none;
+    }
+
+    .fade-in{
+        animation: fadeOut .2s ease-in-out ;
+        animation-fill-mode: forwards;
+        animation-direction: reverse;
+    }
+
+    .width-out{
+        animation-name: fadeOut;
+        animation-duration: .2s;
+        animation-timing-function:  ease-in-out ;
+        animation-delay: .4s;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes displayOff {
+        0%{
+            display: block;
+        }
+        100%{
+            display: none;
+        }
+    }
+
+    @keyframes fadeOut {
+        0%{
+            opacity: 1;
+        }
+        50%{
+            opacity: .5;
+        }
+        100%{
+            opacity: 0;
+        }
     }
 }
 
