@@ -52,7 +52,7 @@ namespace Cloudents.Web.Api
             if (user == null)
             {
                 var ex = new ArgumentNullException(nameof(user));
-                ex.Data.Add("model",model);
+                ex.Data.Add("model", model);
                 throw ex;
             }
             if (!user.EmailConfirmed)
@@ -72,25 +72,19 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, "Invalid phone number");
                 return BadRequest(ModelState);
             }
-            var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id, user.Name)
-            {
-                Email = user.Email
-            }, token);
-            var t2 = _userManager.SetPhoneNumberAsync(user, phoneNumber);
-            var t3 = _client.SendSmsAsync(user, token);
-            await Task.WhenAll(t1, t2, t3).ConfigureAwait(false);
-            var retVal = t2.Result;
+
+            var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber);
+
+            //var retVal = t2.Result;
             if (retVal.Succeeded)
             {
-                //var result = await _client.SendSmsAsync(user, token).ConfigureAwait(false);
-
-                //if (result)
-                //{
+                var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id, user.Name)
+                {
+                    Email = user.Email
+                }, token);
+                var t3 = _client.SendSmsAsync(user, token);
+                await Task.WhenAll(t1, t3).ConfigureAwait(false);
                 return Ok();
-                //}
-
-                //ModelState.AddModelError(string.Empty, "Invalid phone number");
-                //return BadRequest(ModelState);
             }
 
             if (retVal.Errors.Any(a => a.Code == "Duplicate"))
