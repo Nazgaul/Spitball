@@ -45,6 +45,12 @@ namespace Cloudents.Core.Entities.Db
             };
         }
 
+        public static Transaction TestEarned(decimal money)
+        {
+            return new Transaction(ActionType.None, TransactionType.Earned, money);
+
+        }
+
         public static Transaction QuestionDelete(Question question)
         {
             return new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, question.Price);

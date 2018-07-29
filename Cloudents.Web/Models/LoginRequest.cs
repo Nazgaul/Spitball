@@ -3,11 +3,11 @@ using System.Web.ModelBinding;
 
 namespace Cloudents.Web.Models
 {
-    public class LoginRequest
-    {
-        [EmailAddress,Required]
-        public string Email { get; set; }
-    }
+    //public class LoginRequest
+    //{
+    //    [EmailAddress,Required]
+    //    public string Email { get; set; }
+    //}
 
     public class SignUserRequest
     {
