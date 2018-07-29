@@ -1,12 +1,19 @@
 @import "../../../../mixin.less";
 
 div.login-popup {
+  //* {
+  //  border: 1px solid green;
+  //}
   max-width: 700px;
   font-size: 16px;
+  @media (max-width: @screen-xs) {
+
+  }
   .close-btn {
     position: absolute;
     right: 16px;
     top: 16px;
+
     .v-icon {
       font-size: 16px;
       color: @color-main-purple;
@@ -14,32 +21,35 @@ div.login-popup {
   }
   .dialog-wrapp {
     height: 100%;
-    padding: 48px 48px 24px 48px;
+    padding: 48px 48px 48px 48px;
     position: relative;
     @media (max-width: @screen-xs) {
-      padding: 56px 6px 48px 6px;
+      padding: 56px 24px 48px 24px;
     }
       .wrap-text{
-        width: 416px;
+        //width: 416px;
         margin-bottom: 58px;
         h2{
           font-size: 40px;
           font-weight: 300;
           font-style: normal;
           font-stretch: normal;
-          line-height: 0.9;
+          line-height: 42px;
           letter-spacing: -0.3px;
           color: @color-main-purple;
           @media(max-width: @screen-xs){
             font-size: 48px;
             font-weight: 300;
-            line-height: 0.88;
+            line-height: 42px;
             letter-spacing: -0.5px;
           }
         }
+        .wrapper-body-text{
+          max-width: 323px;
+        }
         .dialog-body-text{
           margin-top: 22px;
-          width: 323px;
+          //width: 323px;
           font-size: 24px;
           font-weight: 300;
           line-height: 1;
@@ -50,8 +60,10 @@ div.login-popup {
           }
         }
         @media(max-width: @screen-xs){
-          margin-top: 150px;
-          width: 368px;;
+          margin-top: 10%;
+          margin-left: auto;
+          margin-right: auto;
+          //width: 368px;;
         }
       }
       .btn-container{
