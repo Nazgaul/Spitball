@@ -571,7 +571,6 @@
             // Stop here.
         );
     }
-
      //Telegr4am pop fade out on close
     $("#closeTelegramPopUp").click(function(event){
         event.preventDefault();

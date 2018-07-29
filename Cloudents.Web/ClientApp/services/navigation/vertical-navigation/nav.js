@@ -9,7 +9,7 @@ const nav = {
     },
     note: {
         banner:{
-            "lineColor": "#6b29aa",
+            "lineColor": "#943bfd",
             "title" : "Notes, study guides, exams and more from the best sites.",
             "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
             "boldText" : "your school, classes and preferences"

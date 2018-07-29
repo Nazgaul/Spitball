@@ -234,7 +234,10 @@ export default {
                     let leftSideBar = this.$el.querySelector('.first-grid');
                     leftSideBar.classList.add("fade-out");
                     let sideBar = this.$el.querySelector('.side-bar');
-                    sideBar.classList.add("fade-out");
+                    //added check cause didn't work on mobile( undefined sidebar el)
+                    if(sideBar ){
+                        sideBar.classList.add("fade-out");
+                    }
                     let questionCards = this.$el.querySelectorAll('.question-card')
                     questionCards.forEach((questionCard, index)=>{
                         let parentQuestion = questionCard.parentElement;
