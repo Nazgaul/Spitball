@@ -1,18 +1,19 @@
-﻿import Vue from "vue";
+﻿
+import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
 
 const scroll = () =>
-import ("./components/helpers/infinateScroll.vue");
+    import("./components/helpers/infinateScroll.vue");
 import VScroll from "vuetify/es5/directives/scroll";
 
 const GeneralPage = () =>
-    import ("./components/helpers/generalPage.vue");
+    import("./components/helpers/generalPage.vue");
 import VueRouter from "vue-router";
 
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
- import VueParticles from 'vue-particles';
+import VueParticles from 'vue-particles';
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
@@ -179,24 +180,23 @@ Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
     //return load if no data
     if (!value) {
-        return  'Loading..'
+        return 'Loading..'
     }
-    return `${d.getUTCMonth()+1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
+    return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 });
 // filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
-Vue.filter('currencyLocalyFilter', function(value){
-        let amount = Number(value)
-        return amount && amount.toLocaleString(undefined,{minimumFractionDigits: 2, maximumFractionDigits: 2}) || '0'
-        });
+Vue.filter('currencyLocalyFilter', function (value) {
+    let amount = Number(value)
+    return amount && amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0'
+});
 
-Vue.filter('commasFilter', function(value){
+Vue.filter('commasFilter', function (value) {
 
-   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
 
 
 router.beforeEach((to, from, next) => {
-   // if (to.name === 'home') next('/ask');
     if (!!to.query && Object.keys(to.query).length > 0) {
         for (let prop in to.query) {
             if (constants.regExXSSCheck.test(to.query[prop])) {
@@ -204,7 +204,14 @@ router.beforeEach((to, from, next) => {
             }
         }
     }
-        checkUserStatus(to, next);
+    if (window.innerWidth < 600) {
+        intercomSettings.hide_default_launcher = true;
+    }
+    else {
+        intercomSettings.hide_default_launcher = false;
+    }
+    checkUserStatus(to, next);
+    
 });
 const app = new Vue({
     //el: "#app",
@@ -221,6 +228,7 @@ const app = new Vue({
 
 
 function checkUserStatus(to, next) {
+
     store.dispatch('userStatus', {
         isRequire: to.meta.requiresAuth,
         to
