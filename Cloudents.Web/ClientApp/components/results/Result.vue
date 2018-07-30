@@ -1,5 +1,6 @@
 ﻿﻿
 <template>
+<transition name="fade">
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
         <signup-banner  slot="signupBanner"  v-if="!accountUser && showRegistrationBanner"></signup-banner>
 
@@ -38,14 +39,10 @@
                                     <v-text-field class="elevation-0" type="search" solo flat placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                                 </v-flex>
                                 <v-flex class="result-cell  mb-3" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                    <component v-if="item.template!=='ask'" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" ></component>
-                                    <router-link v-else :to="{path:'/question/'+item.id}" class="mb-5">
-                                        <question-card :cardData="item"></question-card>
-                                    </router-link>
-                                    <!-- <question-card v-else :cardData="item">
-
-                                    </question-card> -->
-
+                                        <component v-if="item.template!=='ask'" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" ></component>
+                                        <router-link v-else :to="{path:'/question/'+item.id}" class="mb-5">
+                                            <question-card :cardData="item"></question-card>
+                                        </router-link>
                                     <div class="show-btn" v-if="accountUser && item &&  item.user && accountUser.id !== item.user.id || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
                                     <div class="show-btn" v-if="!accountUser && item && item.user || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
 
@@ -128,6 +125,7 @@
             </router-link>
         </slot>
     </general-page>
+</transition>
 </template>
 
 <script src="./Result.js"></script>

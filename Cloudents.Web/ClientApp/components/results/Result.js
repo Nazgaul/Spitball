@@ -177,14 +177,6 @@ export default {
             // });
         },
         methods: {
-            //hide banner when scrolled by
-            // hideBanner(e) {
-            //     this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
-            //     if (this.offsetTop >= 360) {
-            //         this.hideRegistrationBanner()
-            //     }
-            //
-            // },
             subFilterVertical(val) {
                 return val.includes('note') || val === 'flashcard' || val === 'job' || val.includes('ask');
             },
