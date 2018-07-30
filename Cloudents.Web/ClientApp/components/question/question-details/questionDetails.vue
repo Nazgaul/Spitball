@@ -1,4 +1,5 @@
 <template>
+<transition name="fade">
     <div class="answer-question" v-if="questionData">
 
         <!-- Web version -->
@@ -17,7 +18,6 @@
                                      :hasCorrectAnswer="getCorrectAnswer">
 
                         <div v-if="enableAnswer" slot="answer-form" class="mb-3">
-                            <transition name="fade">
                             <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                                     v-model="textAreaValue"
@@ -34,7 +34,6 @@
                             <div v-else class="show-form-trigger" @click="showAnswerField()"  key="two">
                                 <div><b>Know the answer?</b> Add it here!</div>
                             </div>
-                            </transition>
                         </div>
                     </question-thread>
                 </v-flex>
@@ -96,6 +95,7 @@
         </sb-dialog>
 
     </div>
+</transition>
 </template>
 
 <style src="./questionDetails.less" lang="less"></style>
