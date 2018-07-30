@@ -46,8 +46,9 @@ export default {
                     }, function (error) {
                         self.submitForm(false);
                         self.updateLoading(false);
-                        // debugger;
-                        self.errorMessage.phone = "Invalid phone number";
+                         debugger;
+
+                        self.errorMessage.phone = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                     });
             }
         },

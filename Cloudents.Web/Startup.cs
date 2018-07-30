@@ -77,34 +77,7 @@ namespace Cloudents.Web
                 });
             if (HostingEnvironment.IsDevelopment())
             {
-                services.AddSwaggerGen(c =>
-                {
-                    c.SwaggerDoc("v1", new Info { Title = "Spitball Api", Version = "v1" });
-                    var basePath = AppContext.BaseDirectory;
-                    var xmlPath = Path.Combine(basePath, "Cloudents.Web.xml");
-                    c.IncludeXmlComments(xmlPath);
-                    c.DescribeAllEnumsAsStrings();
-                    c.DescribeAllParametersInCamelCase();
-                    c.OperationFilter<FormFileOperationFilter>();
-                    c.ResolveConflictingActions(f =>
-                    {
-                        var descriptions = f.ToList();
-                        var parameters = descriptions
-                            .SelectMany(desc => desc.ParameterDescriptions)
-                            .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x },
-                                ApiParameterDescriptionEqualityComparer.Instance)
-                            .ToList();
-                        var description = descriptions[0];
-                        description.ParameterDescriptions.Clear();
-                        parameters.ForEach(x =>
-                        {
-                            if (x.Parameter.RouteInfo != null)
-                                x.Parameter.RouteInfo.IsOptional = x.IsOptional;
-                            description.ParameterDescriptions.Add(x.Parameter);
-                        });
-                        return description;
-                    });
-                });
+                SwaggerInitial(services);
             }
 
             services.AddResponseCompression();
@@ -187,6 +160,38 @@ namespace Cloudents.Web
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
+        }
+
+        private static void SwaggerInitial(IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info {Title = "Spitball Api", Version = "v1"});
+                var basePath = AppContext.BaseDirectory;
+                var xmlPath = Path.Combine(basePath, "Cloudents.Web.xml");
+                c.IncludeXmlComments(xmlPath);
+                c.DescribeAllEnumsAsStrings();
+                c.DescribeAllParametersInCamelCase();
+                c.OperationFilter<FormFileOperationFilter>();
+                c.ResolveConflictingActions(f =>
+                {
+                    var descriptions = f.ToList();
+                    var parameters = descriptions
+                        .SelectMany(desc => desc.ParameterDescriptions)
+                        .GroupBy(x => x, (x, xs) => new {IsOptional = xs.Count() == 1, Parameter = x},
+                            ApiParameterDescriptionEqualityComparer.Instance)
+                        .ToList();
+                    var description = descriptions[0];
+                    description.ParameterDescriptions.Clear();
+                    parameters.ForEach(x =>
+                    {
+                        if (x.Parameter.RouteInfo != null)
+                            x.Parameter.RouteInfo.IsOptional = x.IsOptional;
+                        description.ParameterDescriptions.Add(x.Parameter);
+                    });
+                    return description;
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

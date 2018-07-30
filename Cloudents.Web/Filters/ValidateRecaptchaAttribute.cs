@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
@@ -89,11 +90,7 @@ namespace Cloudents.Web.Filters
                     var t = await JToken.ReadFromAsync(jsonTextReader).ConfigureAwait(false);
                     captcha = t["captcha"].Value<string>();
                 }
-
-                // captcha = context.HttpContext.Request.Form["captcha"];
-
                 var secret = _configuration["GoogleReCaptcha:Secret"];
-
                 var nvc = new NameValueCollection()
                 {
                     ["secret"] = secret,
@@ -119,8 +116,8 @@ namespace Cloudents.Web.Filters
             }
         }
 
-            [SuppressMessage("ReSharper", "MemberCanBePrivate.Local", Justification = "Json.net need to familiar with this")]
-            [UsedImplicitly]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Local", Justification = "Json.net need to familiar with this")]
+        [UsedImplicitly]
         public class RecaptchaResponse
         {
             public bool Success { get; set; }
