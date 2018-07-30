@@ -45,12 +45,6 @@ export default {
         mixins: [sortAndFilterMixin],
         //when go back to home clear the saved term and classes
         beforeRouteLeave(to, from, next) {
-            // if(to.name && to.name === 'question'){
-            //     this.transitionOut(to, from, next);
-            // }else{
-            //     this.leavePage(to, from, next);
-            // }
-
             this.leavePage(to, from, next);
         },
 
@@ -230,28 +224,6 @@ export default {
                         next();
                     }
                 });
-            },
-            
-            transitionOut(to, from, next){
-                    let leftSideBar = this.$el.querySelector('.first-grid');
-                    leftSideBar.classList.add("fade-out");
-                    let sideBar = this.$el.querySelector('.side-bar');
-                    //added check cause didn't work on mobile( undefined sidebar el)
-                    if(sideBar ){
-                        sideBar.classList.add("fade-out");
-                    }
-                    let questionCards = this.$el.querySelectorAll('.question-card')
-                    questionCards.forEach((questionCard, index)=>{
-                        let parentQuestion = questionCard.parentElement;
-                        if(parentQuestion.href.indexOf(to.fullPath) === -1){
-                            questionCard.classList.add("fade-out");                            
-                        }else{
-                            questionCard.classList.add("width-out");
-                        }
-                    })
-                    setTimeout(()=>{
-                        this.leavePage(to, from, next);
-                    }, 500)
             },
             leavePage(to, from, next) {
                 if (to.name && to.name === 'home') {

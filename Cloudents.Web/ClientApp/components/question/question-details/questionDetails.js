@@ -27,11 +27,6 @@ export default {
             build: null,
         };
     },
-    beforeRouteUpdate(to, from, next) {
-        this.transitionIn(to, from, next);
-        
-    },
-
     beforeRouteLeave(to, from, next) {
         this.resetQuestion();
         next()
@@ -153,18 +148,8 @@ export default {
             else {
                 this.dialogType = ''
                 this.showDialogLogin = true;
-                // this.updateToasterParams({
-                //     toasterText: '<span class="toast-helper">To answer or ask a question you must  </span><a href="/register" class="toast_action">Sign Up</a><span class="toast-helper">  or  </span><a href="/signin" class="toast_action">Login</a>',
-                //     showToaster: true
-                // });
             }
         },
-        transitionIn(to, from, next){
-            let questionCard = this.$el.querySelector('.question-card');
-            questionCard.classList.add("fade-in");
-
-            next();
-    },
 
     },
     watch: {
