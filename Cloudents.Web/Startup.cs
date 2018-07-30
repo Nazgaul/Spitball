@@ -208,7 +208,7 @@ namespace Cloudents.Web
                     HotModuleReplacement = true
                 });
                 var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-               // configuration.DisableTelemetry = true;
+                configuration.DisableTelemetry = true;
 
             }
             var reWriterOptions = new RewriteOptions()
