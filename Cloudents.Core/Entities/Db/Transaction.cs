@@ -63,6 +63,8 @@ namespace Cloudents.Core.Entities.Db
             {
                 throw new InvalidOperationException("amount should be negative");
             }
+
+            price = Math.Abs(price);
             return new Transaction(ActionType.CashOut, TransactionType.Earned, -price);
         }
 
