@@ -13,10 +13,10 @@
 
                         <div class="menu">
                             <ul class="tabs" v-if="!isMobile" xs3>
-                                <li :class="{'active': activeTab === 1}" @click="activeTab = 1">
+                                <li :class="{'active': activeTab === 1}" @click="changeActiveTab(1)">
                                     <span v-if="isMyProfile">My&nbsp;</span>Questions
                                 </li>
-                                <li :class="{'active': activeTab === 2}" @click="activeTab = 2">
+                                <li :class="{'active': activeTab === 2}" @click="changeActiveTab(2)">
                                     <span v-if="isMyProfile">My&nbsp;</span>Answers
                                 </li>
                             </ul>
