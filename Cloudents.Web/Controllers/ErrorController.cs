@@ -20,7 +20,6 @@ namespace Cloudents.Web.Controllers
 
         public ActionResult Index()
         {
-            var error = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
             var statusCode = (HttpStatusCode)Response.StatusCode;
 
             // For API errors, responds with just the status code (no page).
@@ -28,7 +27,6 @@ namespace Cloudents.Web.Controllers
                 return StatusCode((int)statusCode);
 
             // Creates a view model for a user-friendly error page.
-            string text = null;
             switch (statusCode)
             {
                 case HttpStatusCode.NotFound:
