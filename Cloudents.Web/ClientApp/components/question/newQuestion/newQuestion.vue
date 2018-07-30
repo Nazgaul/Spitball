@@ -79,7 +79,6 @@
                             </div>
                         </div>
                     </div>
-
                 </v-flex>
 
                 <v-flex xs12 class="error-block">
