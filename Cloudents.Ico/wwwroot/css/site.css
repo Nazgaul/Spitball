@@ -213,7 +213,7 @@ h6, .h6 {
 }
 
 p {
-    font-size: 1em;
+    font-size: 1.37em;
 }
 
     h1.color-secondary, h2.color-secondary, h3.color-secondary, h4.color-secondary, h5.color-secondary, h6.color-secondary, .h1.color-secondary, .h2.color-secondary, .h3.color-secondary, .h4.color-secondary, .h5.color-secondary, .h6.color-secondary, p.color-secondary {
@@ -229,7 +229,7 @@ p {
     }
 
     p.lead {
-        font-size: 1.27em;
+        font-size: 1.37em;
         line-height: 1.68;
     }
 
@@ -2768,9 +2768,14 @@ li.nav-item{
 }
  /* Custom ICO Styles Start */
 .img-holder{
-margin-top: -160px;
+margin-top: -180px;
 text-align: center;
 margin-bottom: 75px;
+}
+.img-holder > img{
+    height: 100%;
+    width: auto;
+    min-height: 350px;
 }
 
 .bg-custom{
@@ -2785,14 +2790,14 @@ ul.main-purple > li:before{
 background: #3532d5!important;
 }
 ul.blocks{
-  width: 412px;
+ width: 379px;
 }
 ul.blocks > li{
-width: 412px;
+width: 379px;
+height: 119px;
 flex: 1;
 display: flex;
 align-items: center;
-height: 108px;
 margin-bottom: 10px;
 padding-top: 5px;
 padding-bottom: 5px;
@@ -2814,6 +2819,34 @@ ul.blocks > li > span.yellow{
 ul.blocks > li:before{
     display: none;
 }
+#whitepaper-nav{
+  /* display: flex; */
+  /* align-items: center;   */
+  height: 33px;
+  border-radius: 8px;
+  
+  /* background-color: #ffffff; */
+}
+.blue{
+    color:  #3532d5!important;
+}
+#whitepaper-nav > a{
+    height: 22px;
+    text-decoration: none;
+    font-family: OpenSans;
+    font-size: 16px;
+    color: #ebbc18;
+    /* font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal; */
+    letter-spacing: -0.3px;
+    
+}
+#telegram-nav > a {
+  color: #6DB5FF;
+}
+
 /* Custom ICO Styles END */
 .theme-light .navbar .navbar-nav .dropdown-menu, .io-dark-light .section-light .navbar .navbar-nav .dropdown-menu, .io-dark-light .section-light-alt .navbar .navbar-nav .dropdown-menu {
     background: #d0e5ff;
@@ -9350,7 +9383,7 @@ a.tabs-links{
     }
 
         .theme-muscari .site-header .banner .banner-content {
-            padding: 70px 0 110px;
+            padding: 0px 0 110px;
         }
 
     .theme-muscari .navbar .navbar-nav > li > a {
@@ -9642,7 +9675,7 @@ a.tabs-links{
         position: absolute;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.05);
-        transform: skewY(-17deg);
+        /* transform: skewY(-17deg); */
     }
 
 .overlay-bubble-1 {
@@ -9788,7 +9821,7 @@ a.tabs-links{
 }
 
 .section-bg-patern.section-bg-light-alt {
-    background: url(../images/pattern-muscari-light.png), #f7f8ff;
+    background:  #E5E8FC;
     background-size: 100%;
     background-position: top 250px center;
     background-repeat: no-repeat;
