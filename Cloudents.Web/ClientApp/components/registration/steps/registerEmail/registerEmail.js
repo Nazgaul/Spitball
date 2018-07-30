@@ -31,6 +31,7 @@ export default {
                 this.updateLoading(true);
                 registrationService.emailRegistration(this.userEmail, this.recaptcha)
                     .then(function (resp) {
+                        debugger;
                         // TODO step
                         let step = resp.data.step;
                         console.log('step', resp);
@@ -57,27 +58,21 @@ export default {
             var authInstance = gapi.auth2.getAuthInstance();
             if (this.submitForm()) {
                 this.updateLoading(true);
-                console.log('INST:',authInstance);
                 authInstance.signIn().then(function (googleUser) {
                     var idToken = googleUser.getAuthResponse().id_token;
-                    console.log('Token:', idToken);
                     registrationService.googleRegistration(idToken)
                         .then(function (resp) {
                             let step = resp.data.step;
-                            console.log('google', step);
                             self.$router.push({name: 'phoneVerify', params: {code: `${step}`}});
-                            // }
                             self.updateLoading(false);
-                            // self.$emit('next');
                         }, function (error) {
-                            //TODO: duplicate callback
                             self.updateLoading(false);
                             self.submitForm(false);
                             self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                             console.error(error);
                         });
                 }, function (error) {
-                    console.log(error,'errrr')
+                    console.error(error,'errrr')
                     self.updateLoading(false);
                 });
             }
