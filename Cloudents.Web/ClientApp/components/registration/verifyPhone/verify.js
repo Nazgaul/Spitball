@@ -7,6 +7,7 @@ import registration from '../registration.vue';
 ﻿import registrationService from '../../../services/registrationService'
 import SbInput from "../../question/helpers/sbInput/sbInput.vue";
 import {REGISTRATION_STEPS} from "../../../store/constants";
+import { debug } from 'util';
 
 export default {
     mixins: [submitDisable],
@@ -88,7 +89,8 @@ export default {
                     }, function (error) {
                         self.submitForm(false);
                         self.updateLoading(false);
-                        self.errorMessage.phone = "Invalid phone number";
+                        debugger;
+                        self.errorMessage.phone= error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                     });
             }
         },

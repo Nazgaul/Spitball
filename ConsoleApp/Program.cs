@@ -44,25 +44,8 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-            string spreadsheetId = "1Mq1ec4dGp6ADuKmlrAa5rsFm-_-JvT8O0miC8wsd1T8";
-            string range = "All!B:D";
-
-            
-            //var subjectList = new List<CreateQuestionCommand>();
-            var subjectList = GoogleSheets.GetData(spreadsheetId, range);
-            foreach (var question in GoogleSheets.GetData(spreadsheetId, range))
-            {
-                var commandBus = _container.Resolve<ICommandBus>();
-                await commandBus.DispatchAsync(question, default);
-            }
-
-
-
-            /* var _serviceBusProvider = _container.Resolve<ICommandBus>();
-
-             var command = new UpdateQuestionTimeCommand();
-
-             await _serviceBusProvider.DispatchAsync(command, default);
+            var t = new TransactionPopulation(_container);
+            await t.AddToUserMoney(3000, 1013);
 
 
              Console.WriteLine("Finish");
@@ -97,7 +80,22 @@ namespace ConsoleApp
              catch (FormatException)
              {
                  return false;
-             }*/
-         }
+             }
         }
+
+        private static async Task PoplateSheetOfQuestion()
+        {
+            string spreadsheetId = "1Mq1ec4dGp6ADuKmlrAa5rsFm-_-JvT8O0miC8wsd1T8";
+            string range = "All!B:D";
+
+
+            //var subjectList = new List<CreateQuestionCommand>();
+            var subjectList = GoogleSheets.GetData(spreadsheetId, range);
+            foreach (var question in GoogleSheets.GetData(spreadsheetId, range))
+            {
+                var commandBus = _container.Resolve<ICommandBus>();
+                await commandBus.DispatchAsync(question, default);
+            }
+        }
+    }
 }

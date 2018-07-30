@@ -4,18 +4,16 @@ using NHibernate;
 
 namespace Cloudents.Infrastructure.Data.Query
 {
-    public sealed class ReadonlySession : IDisposable
+    public sealed class ReadonlyStatelessSession : IDisposable
     {
-        public ISession Session { get; }
+        public IStatelessSession Session { get; }
 
         private readonly ITransaction _transaction;
 
-        public ReadonlySession(ISession session)
+        public ReadonlyStatelessSession(IStatelessSession session)
         {
             Session = session;
             _transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
-            Session.DefaultReadOnly = true;
-            Session.FlushMode = FlushMode.Manual;
         }
 
         public void Dispose()

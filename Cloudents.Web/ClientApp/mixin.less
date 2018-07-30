@@ -89,12 +89,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.smoothAnimateFast {
-   transition: opacity .1s ease-in;
-}
-.smoothAnimateSlow {
-  transition: opacity .2s ease-in;
-}
 // animation end
 .imageWrapper(@width,@height,@svgSize: 100%) {
   .img-wrap {
@@ -179,6 +173,7 @@
   position: -webkit-sticky; // safari
   position: sticky;
 }
+
 
 .flashcard-icon(@width, @frontColor, @backColor, @borderColor, @frontHover, @backHover, @frontText,@height: 0.88*@width) {
   //@height: 0.88*@width;

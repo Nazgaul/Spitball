@@ -25,6 +25,7 @@ namespace Cloudents.Web.Api
         private readonly ISmsSender _smsClient;
         private readonly IBlockChainErc20Service _blockChainErc20Service;
         private readonly IServiceBusProvider _queueProvider;
+       // private readonly IMailProvider _mailProvider;
         internal const string Email = "email";
 
         private enum NextStep
@@ -49,7 +50,7 @@ namespace Cloudents.Web.Api
             _queueProvider = queueProvider;
         }
 
-        [HttpPost, ValidateModel, ValidateRecaptcha]
+        [HttpPost, ValidateModel, ValidateRecaptcha, ValidateEmail]
         public async Task<IActionResult> SignUser([FromBody]SignUserRequest model, CancellationToken token)
         {
             if (User.Identity.IsAuthenticated)
@@ -133,7 +134,6 @@ namespace Cloudents.Web.Api
         [HttpPost("google"), ValidateModel]
         public async Task<IActionResult> GoogleSignInAsync([FromBody] TokenRequest model,
             [FromServices] IGoogleAuth service,
-            [FromServices] SbSignInManager signInManager,
             CancellationToken cancellationToken)
         {
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);

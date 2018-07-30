@@ -18,7 +18,7 @@
 
                         <div v-if="enableAnswer" slot="answer-form" class="mb-3">
                             <transition name="fade">
-                            <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one" class="smoothAnimateFast">
+                            <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                                     v-model="textAreaValue"
                                                     :error="errorTextArea"
@@ -31,7 +31,7 @@
                                 </v-btn>
                             </div>
 
-                            <div v-else class="show-form-trigger smoothAnimateSlow" @click="showAnswerField()"  key="two">
+                            <div v-else class="show-form-trigger" @click="showAnswerField()"  key="two">
                                 <div><b>Know the answer?</b> Add it here!</div>
                             </div>
                             </transition>

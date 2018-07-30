@@ -16,6 +16,7 @@ using Cloudents.Web.Models;
 namespace Cloudents.Web.Controllers
 {
     [Route("[controller]", Name = "Url")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class UrlController : Controller
     {
         private readonly IServiceBusProvider _serviceBus;
