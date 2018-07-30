@@ -1302,7 +1302,8 @@ a {
 }
 
 .text-box.text-box-bg {
-    background: rgba(0, 0, 0, 0.2);
+    /* background: rgba(0, 0, 0, 0.2); */
+    background:  #2b28ab;
 }
 
 .roadmap-carousel-withnav .owl-prev, .roadmap-carousel-withnav .owl-next {
