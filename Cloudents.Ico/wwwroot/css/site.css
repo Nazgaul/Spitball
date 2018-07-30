@@ -37,7 +37,7 @@ Updated	 :	07.09.2018
 @font-face {
     font-family: 'OpenSans Light';
     src: url("../fonts/OpenSans-Light.eot");
-    src: local("OpenSans"), local("OpenSans"), url("../fonts/OpenSans-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/OpenSans-Light.woff") format("woff"), url("../fonts/OpenSans-Light.ttf") format("truetype");
+    src: local("OpenSans Light"), local("OpenSans Light"), url("../fonts/OpenSans-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/OpenSans-Light.woff") format("woff"), url("../fonts/OpenSans-Light.ttf") format("truetype");
     font-weight: 300;
     font-style: normal;
 }
@@ -68,7 +68,7 @@ Updated	 :	07.09.2018
 /*! 02.0 - RESET */
 body {
     /* font-family: "Poppins", sans-serif; */
-    font-family: 'OpenSans', sans-serif;
+    font-family: 'OpenSans Light', sans-serif;
     color: #3c3c3c;
     font-size: 15px;
     line-height: 1.86;
@@ -213,7 +213,7 @@ h6, .h6 {
 }
 
 p {
-    font-size: 1em;
+    font-size: 1.37em;
 }
 
     h1.color-secondary, h2.color-secondary, h3.color-secondary, h4.color-secondary, h5.color-secondary, h6.color-secondary, .h1.color-secondary, .h2.color-secondary, .h3.color-secondary, .h4.color-secondary, .h5.color-secondary, .h6.color-secondary, p.color-secondary {
@@ -229,7 +229,7 @@ p {
     }
 
     p.lead {
-        font-size: 1.27em;
+        font-size: 1.37em;
         line-height: 1.68;
     }
 
@@ -411,6 +411,11 @@ h1, h2, h3, h4, h5, h6, blockquote {
     h1.color-alt-primary, h2.color-alt-primary, h3.color-alt-primary, h4.color-alt-primary, h5.color-alt-primary, h6.color-alt-primary, blockquote.color-alt-primary {
         color: #2b56f5;
     }
+
+   h1.header-title{
+       font-family: 'OpenSans Light';
+       font-weight: 900;
+   }
 
 #preloader {
     position: fixed;
@@ -2761,7 +2766,88 @@ li.nav-item{
     -ms-border-radius: 20px;
     border-radius: 20px;
 }
+ /* Custom ICO Styles Start */
+.img-holder{
+margin-top: -180px;
+text-align: center;
+margin-bottom: 75px;
+}
+.img-holder > img{
+    height: 100%;
+    width: auto;
+    min-height: 350px;
+}
 
+.bg-custom{
+    /* background: url(../images/muscari/spitball_app.png) top left no-repeat!important; */
+}
+ .main-purple > li{
+  color:#3532d5!important;
+ 
+}
+
+ul.main-purple > li:before{
+background: #3532d5!important;
+}
+ul.blocks{
+ width: 379px;
+}
+ul.blocks > li{
+width: 379px;
+height: 119px;
+flex: 1;
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+padding-top: 5px;
+padding-bottom: 5px;
+background-color: rgba(50, 147, 246, 0.25);
+font-size: 24px;
+font-weight: 300;
+font-style: normal;
+font-stretch: normal;
+line-height: normal!important;
+letter-spacing: -0.5px;
+color: #ffffff;
+padding-left: 22px!important;
+}
+ul.blocks > li > span.yellow{
+    font-weight: bold;
+    color: #ebbc18;
+    display: contents;
+}
+ul.blocks > li:before{
+    display: none;
+}
+#whitepaper-nav{
+  /* display: flex; */
+  /* align-items: center;   */
+  height: 33px;
+  border-radius: 8px;
+  
+  /* background-color: #ffffff; */
+}
+.blue{
+    color:  #3532d5!important;
+}
+#whitepaper-nav > a{
+    height: 22px;
+    text-decoration: none;
+    font-family: OpenSans;
+    font-size: 16px;
+    color: #ebbc18;
+    /* font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal; */
+    letter-spacing: -0.3px;
+    
+}
+#telegram-nav > a {
+  color: #6DB5FF;
+}
+
+/* Custom ICO Styles END */
 .theme-light .navbar .navbar-nav .dropdown-menu, .io-dark-light .section-light .navbar .navbar-nav .dropdown-menu, .io-dark-light .section-light-alt .navbar .navbar-nav .dropdown-menu {
     background: #d0e5ff;
 }
@@ -3520,6 +3606,7 @@ a.tabs-links{
 
     .header-txt p.lead {
         font-size: .75em;
+       
     }
 }
 
@@ -5933,17 +6020,27 @@ a.tabs-links{
     margin-bottom: 25px;
 }
 
-.footer-subscription {
+.header-subscription{
+    position: relative;
+    margin-right: 90px;
+    margin-left: 0;
+}
+.header-subscription .white{
+    color: #ffffff;
+    font-family: 'OpenSans Light' sans-serif;
+    font-weight: 100;
+}
+.footer-subscription,  {
     position: relative;
     margin-right: 90px;
     margin-left: -30px;
 }
 
-    .footer-subscription .subscription-form {
+    .footer-subscription, .header-subscription .subscription-form {
         position: relative;
     }
 
-    .footer-subscription .input-round {
+    .footer-subscription , .header-subscription .input-round {
         color: #fff;
         background: #0d44b7;
         border: 1px solid #0d44b7;
@@ -5955,11 +6052,11 @@ a.tabs-links{
         transition: all .5s ease;
     }
 
-        .footer-subscription .input-round.error {
+        .footer-subscription, .header-subscription  .input-round.error {
             border-color: #d2636d;
         }
 
-    .footer-subscription .btn.btn-plane {
+    .footer-subscription, .header-subscription .btn.btn-plane {
         position: absolute;
         top: 15px;
         right: -60px;
@@ -5969,11 +6066,11 @@ a.tabs-links{
         border-radius: 23px;
     }
 
-        .footer-subscription .btn.btn-plane:before {
+        .footer-subscription, .header-subscription .btn.btn-plane:before {
             border-radius: 23px;
         }
 
-    .footer-subscription label.error {
+    .footer-subscription, .header-subscription label.error {
         display: none !important;
     }
 
@@ -6005,12 +6102,12 @@ a.tabs-links{
 }
 
 @media only screen and (max-width: 767px) {
-    .footer-subscription {
+    .footer-subscription, .header-subscription {
         margin-left: 0;
         margin-right: 0;
     }
 
-        .footer-subscription .btn.btn-plane {
+        .footer-subscription, .header-subscription .btn.btn-plane {
             top: 0;
             right: auto;
             margin-top: 20px;
@@ -8010,7 +8107,7 @@ a.tabs-links{
 }
 
 .header-txt h1 span {
-    font-weight: 300;
+    font-weight: 100;
     color: #fff;
 }
 
@@ -9286,7 +9383,7 @@ a.tabs-links{
     }
 
         .theme-muscari .site-header .banner .banner-content {
-            padding: 70px 0 110px;
+            padding: 0px 0 110px;
         }
 
     .theme-muscari .navbar .navbar-nav > li > a {
@@ -9326,11 +9423,11 @@ a.tabs-links{
 
     .theme-muscari .section-bg-light, .theme-muscari [class*=section-bg-light] {
         background: #fff;
-        color: #637097;
+        color: #3532d5;
     }
 
         .theme-muscari .section-bg-light h1, .theme-muscari .section-bg-light h2, .theme-muscari .section-bg-light h3, .theme-muscari .section-bg-light h4, .theme-muscari .section-bg-light h5, .theme-muscari .section-bg-light h6, .theme-muscari [class*=section-bg-light] h1, .theme-muscari [class*=section-bg-light] h2, .theme-muscari [class*=section-bg-light] h3, .theme-muscari [class*=section-bg-light] h4, .theme-muscari [class*=section-bg-light] h5, .theme-muscari [class*=section-bg-light] h6 {
-            color: #374574;
+            color: #3532d5;
         }
 
         .theme-muscari .section-bg-light .small-heading, .theme-muscari [class*=section-bg-light] .small-heading {
@@ -9486,7 +9583,7 @@ a.tabs-links{
                 color: #ffc123;
             }
 
-    .theme-muscari .footer-subscription .input-round {
+    .theme-muscari .footer-subscription, .header-subscription .input-round {
         color: #fff;
         background: rgba(57, 169, 255, 0.5);
         border: 1px solid transparent;
@@ -9555,13 +9652,15 @@ a.tabs-links{
     width: 100%;
     content: '';
     background: #3632D5;
-    transform: skewY(17deg);
+    /*ICO v3*/
+    /*transform: skewY(17deg);*/
     z-index: 1;
     overflow: hidden;
 }
 
     .header-angle-bg .particles-container {
-        transform: skewY(-17deg);
+        /*ICO v3*/
+        /*transform: skewY(-17deg);*/
     }
 
 .overlay-bubble {
@@ -9576,7 +9675,7 @@ a.tabs-links{
         position: absolute;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.05);
-        transform: skewY(-17deg);
+        /* transform: skewY(-17deg); */
     }
 
 .overlay-bubble-1 {
@@ -9709,7 +9808,8 @@ a.tabs-links{
     height: 100%;
     width: 100%;
     content: '';
-    transform: skewY(17deg);
+    /* ICO V3 */
+    /* transform: skewY(17deg); */
     z-index: 1;
 }
 
@@ -9721,7 +9821,7 @@ a.tabs-links{
 }
 
 .section-bg-patern.section-bg-light-alt {
-    background: url(../images/pattern-muscari-light.png), #f7f8ff;
+    background:  #E5E8FC;
     background-size: 100%;
     background-position: top 250px center;
     background-repeat: no-repeat;

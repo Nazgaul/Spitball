@@ -9,6 +9,7 @@ using Cloudents.Core.Command;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using System.Collections.Generic;
+using Cloudents.Core.Query;
 
 namespace ConsoleApp
 {
@@ -44,11 +45,15 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-            var t = new TransactionPopulation(_container);
-            await t.AddToUserMoney(3000, 1013);
+
+            var bus = _container.Resolve<IQueryBus>();
+            var z = new NextQuestionQuery(68, 11);
+            var x = await bus.QueryAsync(z, default);
+            //var t = new TransactionPopulation(_container);
+            //await t.AddToUserMoney(3000, 1013);
 
 
-             Console.WriteLine("Finish");
+            Console.WriteLine("Finish");
              Console.ReadLine();
          }
 
