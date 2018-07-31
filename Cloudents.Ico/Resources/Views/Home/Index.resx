@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FirstParagraph" xml:space="preserve">
+    <value>Enabling &lt;b&gt;1 billion&lt;/b&gt; students around the world to exchange content, knowledge and services directly with each other, without costly 3rd-party intermediaries &lt;b&gt;Disrupting a $150 billion market&lt;/b&gt;</value>
+  </data>
+  <data name="Download Whitepaper" xml:space="preserve">
+    <value>Download Whitepaper</value>
+  </data>
+  <data name="Join Telegram" xml:space="preserve">
+    <value>Join Telegram</value>
+  </data>
+  <data name="Believe" xml:space="preserve">
+    <value>We believe that students are the real driving force of the market, and by using &lt;b&gt;blockchain technology&lt;/b&gt; we aim to &lt;b&gt;put students at the center of the Student Economy -&lt;/b&gt;
+                        &lt;i&gt;giving the power back to the students.&lt;/i&gt;</value>
+  </data>
+  <data name="Buying &amp; selling of textbooks" xml:space="preserve">
+    <value>Buying &amp; selling of textbooks</value>
+  </data>
+  <data name="Buying miscellaneous" xml:space="preserve">
+    <value>Buying &amp; selling of miscellaneous items such as dorm supplies, electronics, clothing, furniture, event tickets and more</value>
+  </data>
+  <data name="Enter your email" xml:space="preserve">
+    <value>Enter your email</value>
+  </data>
+  <data name="Mission" xml:space="preserve">
+    <value>Our &lt;b&gt;mission&lt;/b&gt; is to provide students with a marketplace that serves their needs, where they’ll be able to receive and provide homework help, exchange course notes, find work, buy and sell books and much more.</value>
+  </data>
+  <data name="Peer-to-Peer Tutoring" xml:space="preserve">
+    <value>Peer-to-Peer Tutoring</value>
+  </data>
+  <data name="Sharing of class notes &amp; practice quizzes" xml:space="preserve">
+    <value>Sharing of class notes &amp; practice quizzes</value>
+  </data>
+  <data name="Sharing of instructional material" xml:space="preserve">
+    <value>Sharing of instructional material</value>
+  </data>
+  <data name="Spitball 2.0" xml:space="preserve">
+    <value>Spitball 2.0</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Subscribe</value>
+  </data>
+  <data name="Subscribe to our newsletter" xml:space="preserve">
+    <value>Subscribe to our newsletter</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>&lt;span&gt;The World’s First&lt;/span&gt; Decentralized Student Economy, &lt;span&gt; &lt;br /&gt;Built on Blockchain&lt;/span&gt;</value>
+  </data>
+  <data name="Title2" xml:space="preserve">
+    <value>Living in a world of &lt;b&gt;change...&lt;/b&gt;</value>
+  </data>
+  <data name="UseCase" xml:space="preserve">
+    <value>&lt;b&gt;Selected&lt;/b&gt; Use-Cases</value>
+  </data>
+  <data name="Vision" xml:space="preserve">
+    <value>Our &lt;b&gt;vision&lt;/b&gt; is to create an &lt;b&gt;economy for students&lt;/b&gt; that is &lt;b&gt;Transparent, Secure,&lt;/b&gt; and &lt;b&gt;Direct&lt;/b&gt; (peer-to-peer), in an &lt;b&gt;Efficient Market&lt;/b&gt; with &lt;b&gt;Lower Prices,&lt;/b&gt; Higher Volume and &lt;b&gt;Fair Profit Rewards&lt;/b&gt; for community contributors.</value>
+  </data>
+</root>
