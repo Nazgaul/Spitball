@@ -415,6 +415,7 @@ h1, h2, h3, h4, h5, h6, blockquote {
    h1.header-title{
        font-family: 'OpenSans Light';
        font-weight: 900;
+       margin-bottom: 32px;
    }
 
 #preloader {
@@ -2767,6 +2768,7 @@ li.nav-item{
     border-radius: 20px;
 }
  /* Custom ICO Styles Start */
+ 
 .img-holder{
 margin-top: -180px;
 text-align: center;
@@ -2789,12 +2791,15 @@ margin-bottom: 75px;
 ul.main-purple > li:before{
 background: #3532d5!important;
 }
-ul.blocks{
- width: 379px;
+div.blocks{
+ width: 412px;
 }
-ul.blocks > li{
-width: 379px;
-height: 119px;
+div.blocks > p{
+font-size: 24px;
+}
+div.blocks{
+width: 412px;
+height: 108px;
 flex: 1;
 display: flex;
 align-items: center;
@@ -2809,42 +2814,48 @@ font-stretch: normal;
 line-height: normal!important;
 letter-spacing: -0.5px;
 color: #ffffff;
-padding-left: 22px!important;
+padding-left: 12px!important;
+padding-right: 12px!important;
 }
-ul.blocks > li > span.yellow{
+div.blocks > p > span.yellow{
     font-weight: bold;
     color: #ebbc18;
-    display: contents;
+
 }
-ul.blocks > li:before{
+div.blocks > p:before{
     display: none;
 }
-#whitepaper-nav{
-  /* display: flex; */
-  /* align-items: center;   */
+#whitepaper-nav {
+  display: flex;
+  align-items: center;  
   height: 33px;
   border-radius: 8px;
-  
-  /* background-color: #ffffff; */
+  background-color: #ffffff;
 }
 .blue{
     color:  #3532d5!important;
 }
 #whitepaper-nav > a{
-    height: 22px;
+    height: 33px;
     text-decoration: none;
     font-family: OpenSans;
     font-size: 16px;
-    color: #ebbc18;
-    /* font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal; */
+    color: #3532d5;
+    padding: 0;
     letter-spacing: -0.3px;
     
 }
+#telegram-nav{
+  height: 33px;
+  border-radius: 8px;
+  margin-left: 8px;
+  background-color: #3532d5;
+}
 #telegram-nav > a {
-  color: #6DB5FF;
+    height: 33px;
+    letter-spacing: -0.3px;
+    color: #ffffff;
+    padding: 0;
 }
 
 /* Custom ICO Styles END */
