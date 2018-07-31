@@ -9,6 +9,7 @@ using Cloudents.Core.Command;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using System.Collections.Generic;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query;
 
 namespace ConsoleApp
@@ -45,10 +46,10 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-
-            var bus = _container.Resolve<IQueryBus>();
-            var z = new NextQuestionQuery(68, 11);
-            var x = await bus.QueryAsync(z, default);
+            await UpdateCreationTimeProductionAsync();
+            //var bus = _container.Resolve<IQueryBus>();
+            //var z = new NextQuestionQuery(68, 11);
+            //var x = await bus.QueryAsync(z, default);
             //var t = new TransactionPopulation(_container);
             //await t.AddToUserMoney(3000, 1013);
 
@@ -100,6 +101,31 @@ namespace ConsoleApp
             {
                 var commandBus = _container.Resolve<ICommandBus>();
                 await commandBus.DispatchAsync(question, default);
+            }
+        }
+
+
+        public static async Task UpdateCreationTimeProductionAsync()
+        {
+            using (var child = _container.BeginLifetimeScope())
+            {
+                using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                {
+                    var repository = child.Resolve<IQuestionRepository>();
+                    var questions = await repository.GetAllQuestionsAsync().ConfigureAwait(false);
+
+                    foreach (var question in questions)
+                    {
+                        if (question.CorrectAnswer == null && question.User.Fictive)
+                        {
+                            question.Created = DateTimeHelpers.NextRandomDate(2);
+                            await repository.UpdateAsync(question, default);
+                        }
+                        //user1.UserCreateTransaction();
+                        //await t.UpdateAsync(user1, default).ConfigureAwait(false);
+                    }
+                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+                }
             }
         }
     }
