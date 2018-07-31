@@ -13,8 +13,9 @@
 
             </div>
             <div class="btn-container">
-                <a class="login-btns body-1" href="/register">Sign Up</a>
-                <a class="login-btns body-1" href="/signin">Login</a>
+                <a class="login-btns body-1" @click="register()">Sign Up</a>
+                <!-- <a class="login-btns body-1" href="/signin">Login</a> -->
+                <a class="login-btns body-1" @click="signin()">Login</a>
             </div>
 
         </div>
