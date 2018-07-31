@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -23,11 +24,13 @@ namespace Cloudents.Web.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
+        private readonly ILogger _logger;
 
-        public WalletController(UserManager<User> userManager, IQueryBus queryBus)
+        public WalletController(UserManager<User> userManager, IQueryBus queryBus, ILogger logger)
         {
             _userManager = userManager;
             _queryBus = queryBus;
+            _logger = logger;
         }
 
         // GET
@@ -58,9 +61,21 @@ namespace Cloudents.Web.Api
         [FromServices] IMapper mapper,
         CancellationToken token)
         {
-            var command = mapper.Map<RedeemTokenCommand>(model);
-            await commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-            return Ok();
+            try
+            {
+                var command = mapper.Map<RedeemTokenCommand>(model);
+                await commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                return Ok();
+            }
+            catch (InvalidOperationException e)
+            {
+                _logger.Exception(e, new Dictionary<string, string>()
+                {
+                    ["model"] = model.ToString(),
+                    ["user"] = _userManager.GetUserId(User)
+                });
+                return BadRequest();
+            }
         }
     }
 }
