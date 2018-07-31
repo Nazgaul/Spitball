@@ -48,8 +48,8 @@
                     </div>
                     <div class="users">
                         <!--<template v-for="i in Math.min(3, cardData.answers)">-->
-                        <template v-for="i in cardData.answersNum">
-                            <div class="avatar">
+                        <template v-for="(i, index) in cardData.answersNum">
+                            <div class="avatar" :key="index">
                                 <v-icon>sbf-comment-icon</v-icon>
                             </div>
                         </template>
