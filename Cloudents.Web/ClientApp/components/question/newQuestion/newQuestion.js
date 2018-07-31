@@ -35,6 +35,10 @@ export default {
         submitQuestion() {
             let readyToSend = true;
             //error handling stuff ( redo with newer version to validate with in build validators
+            if(this.price < 1) {
+                readyToSend = false
+            };
+
             if (this.accountUser && this.accountUser.balance < this.price) {
                 this.errorMessage = "You do not have sufficient SBL";
                 //error handling text area, and pass to extended text area component error message
