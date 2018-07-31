@@ -169,7 +169,8 @@ export default {
             return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
         },
         enableAnswer() {
-            let val = !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered);
+            let hasCorrectAnswer = !!this.questionData.correctAnswerId;
+            let val = !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered) && !hasCorrectAnswer;
             this.showForm = (val && !this.questionData.answers.length);
             return val;
         },
