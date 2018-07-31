@@ -58,6 +58,7 @@ export default {
                         //     text: self.textAreaValue,
                         //     user: self.accountUser
                         // });
+                        self.$ga.event("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
