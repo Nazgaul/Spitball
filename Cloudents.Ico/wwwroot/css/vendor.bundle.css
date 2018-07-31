@@ -123,6 +123,7 @@ dfn {
 }
 
 b, strong {
+    font-family: 'OpenSans Bold', sans-serif;
     font-weight: 600;
 }
 
