@@ -8,6 +8,11 @@ namespace Cloudents.Web.Models
     {
         [RedeemValidator]
         public decimal Amount { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(Amount)}: {Amount}";
+        }
     }
 
     [System.AttributeUsage(System.AttributeTargets.All, AllowMultiple = false)]
