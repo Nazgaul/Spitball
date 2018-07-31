@@ -136,14 +136,41 @@
   <data name="Buying miscellaneous" xml:space="preserve">
     <value>Buying &amp; selling of miscellaneous items such as dorm supplies, electronics, clothing, furniture, event tickets and more</value>
   </data>
+  <data name="Developers" xml:space="preserve">
+    <value>Developers</value>
+  </data>
   <data name="Enter your email" xml:space="preserve">
     <value>Enter your email</value>
+  </data>
+  <data name="Founded" xml:space="preserve">
+    <value>Spitball was founded in 2014. These are some of the milestones we have already achieved, and some we are looking forward to achieving in the future with the help of our team, community and investors:</value>
+  </data>
+  <data name="Initial wallet released" xml:space="preserve">
+    <value>Initial wallet released</value>
   </data>
   <data name="Mission" xml:space="preserve">
     <value>Our &lt;b&gt;mission&lt;/b&gt; is to provide students with a marketplace that serves their needs, where they’ll be able to receive and provide homework help, exchange course notes, find work, buy and sell books and much more.</value>
   </data>
+  <data name="Partners" xml:space="preserve">
+    <value>Partners</value>
+  </data>
   <data name="Peer-to-Peer Tutoring" xml:space="preserve">
     <value>Peer-to-Peer Tutoring</value>
+  </data>
+  <data name="Q1 2014" xml:space="preserve">
+    <value>Q1 2014</value>
+  </data>
+  <data name="Q3 2016" xml:space="preserve">
+    <value>Q3 2016</value>
+  </data>
+  <data name="Q3 2017" xml:space="preserve">
+    <value>Q3 2017</value>
+  </data>
+  <data name="Q3 2018" xml:space="preserve">
+    <value>Q3 2018</value>
+  </data>
+  <data name="Roadmap" xml:space="preserve">
+    <value>Roadmap</value>
   </data>
   <data name="Sharing of class notes &amp; practice quizzes" xml:space="preserve">
     <value>Sharing of class notes &amp; practice quizzes</value>
@@ -153,6 +180,15 @@
   </data>
   <data name="Spitball 2.0" xml:space="preserve">
     <value>Spitball 2.0</value>
+  </data>
+  <data name="Spitball is launched in Israel as a social studying app" xml:space="preserve">
+    <value>Spitball is launched in Israel as a social studying app</value>
+  </data>
+  <data name="Spitball is launched in the United States" xml:space="preserve">
+    <value>Spitball is launched in the United States</value>
+  </data>
+  <data name="Spitball partners with 25+ leading educational companies to become the premier aggregator of academic content &amp; services" xml:space="preserve">
+    <value>Spitball partners with 25+ leading educational companies to become the premier aggregator of academic content &amp; services</value>
   </data>
   <data name="Subscribe" xml:space="preserve">
     <value>Subscribe</value>
@@ -166,10 +202,31 @@
   <data name="Title2" xml:space="preserve">
     <value>Living in a world of &lt;b&gt;change...&lt;/b&gt;</value>
   </data>
+  <data name="Token Economy" xml:space="preserve">
+    <value>Token Economy</value>
+  </data>
+  <data name="Token Economy 1" xml:space="preserve">
+    <value>are rewarded for their participation in the Student Economy</value>
+  </data>
+  <data name="Token Economy 2" xml:space="preserve">
+    <value> are rewarded for integrating SBL as a payment system on their sites&lt;/p&gt;</value>
+  </data>
+  <data name="Token Economy 3" xml:space="preserve">
+    <value> are rewarded tokens for creating dApps on the platform&lt;/p&gt;</value>
+  </data>
+  <data name="Token Economy Desc" xml:space="preserve">
+    <value>In the early life of Spitball 2.0,&lt;br /&gt; network participants are rewarded for activities that help stimulate the network</value>
+  </data>
   <data name="UseCase" xml:space="preserve">
     <value>&lt;b&gt;Selected&lt;/b&gt; Use-Cases</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
   <data name="Vision" xml:space="preserve">
     <value>Our &lt;b&gt;vision&lt;/b&gt; is to create an &lt;b&gt;economy for students&lt;/b&gt; that is &lt;b&gt;Transparent, Secure,&lt;/b&gt; and &lt;b&gt;Direct&lt;/b&gt; (peer-to-peer), in an &lt;b&gt;Efficient Market&lt;/b&gt; with &lt;b&gt;Lower Prices,&lt;/b&gt; Higher Volume and &lt;b&gt;Fair Profit Rewards&lt;/b&gt; for community contributors.</value>
+  </data>
+  <data name="Whitepaper published and launch of Spitball 2.0 Homework Help marketplace" xml:space="preserve">
+    <value>Whitepaper published and launch of Spitball 2.0 Homework Help marketplace</value>
   </data>
 </root>
