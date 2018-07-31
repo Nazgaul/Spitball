@@ -88,7 +88,7 @@ namespace ConsoleApp
              }
         }
 
-        private static async Task PoplateSheetOfQuestion()
+        private static async Task PopulateSheetOfQuestion()
         {
             string spreadsheetId = "1Mq1ec4dGp6ADuKmlrAa5rsFm-_-JvT8O0miC8wsd1T8";
             string range = "All!B:D";

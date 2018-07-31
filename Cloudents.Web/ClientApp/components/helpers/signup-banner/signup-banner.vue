@@ -11,7 +11,7 @@
             <div class="overlay-bubble-5"></div>
             <div class="overlay-bubble-6"></div>
         </div>
-        <vue-particles style="z-index:100" :key="bannerData.lineColor"
+        <vue-particles style="z-index:100;" :key="bannerData.lineColor"
                        class="signup-banner"
                        :color="bannerData.lineColor"
                        :particleOpacity="0.7"

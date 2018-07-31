@@ -9,6 +9,8 @@ import SbInput from "../../question/helpers/sbInput/sbInput.vue";
 import {REGISTRATION_STEPS} from "../../../store/constants";
 import { debug } from 'util';
 
+const defaultSubmitRoute = {path: '/ask', query: {q: ''}};
+
 export default {
     mixins: [submitDisable],
     components: {stepTemplate, SbInput},
@@ -52,6 +54,7 @@ export default {
         // }
     },
     computed: {
+        ...mapGetters(['fromPath']),
         ...mapGetters({getShowToaster: 'getShowToaster', getToasterText: 'getToasterText'}),
         // codeWatch(){
         //     return this.code
@@ -104,8 +107,9 @@ export default {
                         //got to congratulations route
                         console.log('code in verify ', self.props);
                         if(self.codeSent === true){
+                            let url = self.fromPath || defaultSubmitRoute;
                             window.isAuth = true;
-                            self.$router.push({path: '/ask', query: {q: ''}});
+                            self.$router.push({...url});
                             return
                         }
                         self.$router.push({path: '/congrats'});
