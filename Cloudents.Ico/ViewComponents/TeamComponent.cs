@@ -21,6 +21,7 @@ namespace Cloudents.Ico.ViewComponents
                 _teams.Add(t);
             }
         }
+
         public Task<IViewComponentResult> InvokeAsync()
         {
             //var items = await GetItemsAsync(maxPriority, isDone);
