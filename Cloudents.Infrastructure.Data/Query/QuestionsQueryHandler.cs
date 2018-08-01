@@ -58,7 +58,7 @@ namespace Cloudents.Infrastructure.Data.Query
                     query.Term));
             }
 
-            queryOverObj.OrderBy(o => o.Id).Desc
+            queryOverObj.OrderBy(o => o.Created).Desc
                 .Skip(query.Page * 50)
                 .Take(50);
 
