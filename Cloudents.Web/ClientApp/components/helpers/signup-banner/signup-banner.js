@@ -1,8 +1,11 @@
 import {mapActions} from 'vuex'
 import nav from '../../../services/navigation/vertical-navigation/nav'
-
+import particles from '../../particles/particles.vue';
+// import QuestionCard from "../../question/helpers/question-card/question-card";
 export default {
-
+    components: {
+        particles
+    },
     data() {
         return {
             bannerData: {

@@ -14,7 +14,6 @@ export let verticals =
             id: routes.questionRoute,
             name: "Homework Help",
             icon: "sbf-ask-q" //TODO do we need this.....
-
         },
         note: {
             id: routes.notesRoute,

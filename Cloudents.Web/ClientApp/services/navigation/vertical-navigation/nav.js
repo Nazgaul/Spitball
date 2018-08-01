@@ -14,9 +14,7 @@ const nav = {
             "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
             "boldText" : "your school, classes and preferences"
         }
-
-
-    },
+     },
     flashcard: {
         banner:{
             "lineColor": "#f14d4d",

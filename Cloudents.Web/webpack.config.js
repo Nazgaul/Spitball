@@ -69,7 +69,6 @@ module.exports = (env) => {
                 {
                     test: /\.js$/,
                     loader: "babel-loader",
-                    //include: [path.resolve('src'), path.resolve('test'), path.resolve('node_modules/vue-particles')]
                 },
                 {
                     test: /\.vue$/,

@@ -1,8 +1,14 @@
 @import "../../../mixin.less";
 
 .banner-wrap {
-    .particles-js {
+    #particles-js {
         max-height:345px;
+        position: absolute;
+        height: 100%;
+        width :100%;
+        top: 0;
+        left: 0;
+        z-index: 100;
         canvas {
             max-height:345px;
         }
