@@ -325,46 +325,35 @@
             z-index: 1;
         }
 
+        //Func to create rules for each bubble dynamically with passed params
+        .createOverlayBubble(@height, @width, @rightPer, @rightPx, @bottomPer, @bottomPx: 0px){
+            height: @height;
+            width: @width;
+            right: ~"calc(@{rightPer} - @{rightPx})";
+            bottom: ~"calc(@{bottomPer} - @{bottomPx})";
+        }
         .overlay-bubble-1 {
-            height: 200px;
-            width: 200px;
-            right: calc(~'34% - 490px');
-            bottom: calc(~'74% - 240px');
+         .createOverlayBubble(200px, 200px, 34%, 490px, 74%, 240px);
         }
 
         .overlay-bubble-2 {
-            height: 650px;
-            width: 650px;
-            right: calc(~'58% - 50px');
-            top: calc(-41%);
+        .createOverlayBubble(650px, 650px, 58%, 50px, -41%);
         }
 
         .overlay-bubble-3 {
-            height: 273px;
-            width: 273px;
-            right: calc(~'33% - 685px');
-            top: calc(~'99% -  240px');
+        .createOverlayBubble(273px, 273px, 33%, 685px, 99%, 365px);
         }
 
         .overlay-bubble-4 {
-            height: 300px;
-            width: 300px;
-            right: calc(~'90% - 65px');
-            bottom: calc(~'65% - 10px');
+        .createOverlayBubble(300px, 300px, 90%, 65px, 65%, 10px);
         }
 
         .overlay-bubble-5 {
-            height: 300px;
-            width: 300px;
-            left: calc(~'35% - 65px');
-            top: calc(~'68% - 10px');
-        }
+        .createOverlayBubble(300px, 300px, 35%, 65px, 68%, 10px);
+       }
 
         .overlay-bubble-6 {
-            height: 525px;
-            width: 525px;
-            left: calc(~'78% - 65px');
-            bottom: calc(~'50% - 10px');
+        .createOverlayBubble(525px, 525px, 78%, 65px, 50%, 10px);
         }
 
         .signup-banner {
