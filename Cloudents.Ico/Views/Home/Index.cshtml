@@ -1,13 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-
-
-
 @inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "Home Page";
 }
-
-
 <!-- Header -->
 <header class="site-header is-sticky">
 
@@ -154,8 +149,6 @@
         </div>
     </div>
 </div>
-<!-- Start Section -->
-<!-- Start Section -->
 <div class="section section-pad-md section-bg-muscari section-muscari" id="apps">
     <div class="overlay-bars">
         <div class="overlay-bar-1"></div>
@@ -248,11 +241,9 @@
                 </div>
             </div>
         </div>
-    </div><!-- .container  -->
+    </div>
 </div>
-<!-- Start Section -->
 @await Component.InvokeAsync("TeamComponent");
-<!-- Start Section -->
 <div class="section section-pad-md section-bg-light">
     <div class="section-bg-angle section-bg-light-alt"></div>
     <div class="container">
@@ -429,19 +420,6 @@
                 </ul>
             </div><!-- .col  -->
             <div class="col-sm-6 col-xl-4 res-l-bttm">
-                <!-- <div class="footer-subscription">
-                                                                                             <h6 class="animated" data-animate="fadeInUp" data-delay=".6">Subscribe to our newsletter</h6>
-                                                                                             <form id = "subscribe-form" class="subscription-form animated" data-animate="fadeInUp" data-delay=".7">
-                                                                                                 <input type = "email" name="email" class="input-round required email" placeholder="Enter your email" required>
-                /**/
-                /**/
-                                                     @*<input type="text" class="d-none" name="form-anti-honeypot" value="">*@
-                /**/
-                /**/
-                                                                                         <button type="submit" class="btn btn-plane">Subscribe</button>
-                                                                                         <div class="subscribe-results"></div>
-                                                                                         </form>
-                </div> -->
             </div><!-- .col  -->
             <div class="col-xl-4">
                 <ul class="link-widget animated" data-animate="fadeInUp" data-delay=".8">
@@ -449,11 +427,9 @@
                     <li><a href="#roadmap" class="menu-link">@Localizer["Roadmap"]</a></li>
                     <li><a href="#apps" class="menu-link">@Localizer["Use Cases"]</a></li>
                     <li><a href="#team" class="menu-link">@Localizer["Team"]</a></li>
-                    <!-- <li><a href="#faq" class="menu-link">@Localizer["FAQs"]</a></li> -->
                     <li><a href="#contact" class="menu-link">@Localizer["Contact Us"]</a></li>
                     <li><a href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="menu-link">@Localizer["Whitepaper"]</a></li>
                     <li><a href="https://www.spitball.co/" target="_blank" class="menu-link">@Localizer["Spitball 1.0"]</a></li>
-                    <!--  <li><a href="#" class="menu-link">Teams</a></li>-->
                 </ul>
             </div><!-- .col  -->
         </div><!-- .row  -->

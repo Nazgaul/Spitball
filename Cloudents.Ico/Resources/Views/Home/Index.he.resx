@@ -268,9 +268,6 @@
   <data name="Contact Us" xml:space="preserve">
     <value>צור קשר</value>
   </data>
-  <data name="FAQs" xml:space="preserve">
-    <value>שאלות נפוצות</value>
-  </data>
   <data name="Team" xml:space="preserve">
     <value>הצוות</value>
   </data>
@@ -297,17 +294,5 @@
   </data>
   <data name="Terms &amp; Conditions" xml:space="preserve">
     <value>חוקים  ותנאי השימוש באתר!</value>
-  </data>
-  <data name="BR" xml:space="preserve">
-    <value>Br</value>
-  </data>
-  <data name="CH" xml:space="preserve">
-    <value>CH!</value>
-  </data>
-  <data name="EN" xml:space="preserve">
-    <value>EN</value>
-  </data>
-  <data name="FR" xml:space="preserve">
-    <value>ו</value>
   </data>
 </root>
