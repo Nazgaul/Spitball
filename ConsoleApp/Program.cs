@@ -47,13 +47,12 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-            //await UpdateCreationTimeProductionAsync();
+            await UpdateCreationTimeProductionAsync();
             //var bus = _container.Resolve<IQueryBus>();
           //  var bus = _container.Resolve<IQueryBus>();
            // var z = new NextQuestionQuery(68, 11);
            // var x = await bus.QueryAsync(z, default);
-            var t = new TransactionPopulation(_container);
-            await t.AddToUserMoney(3000, 773);
+           
 
 
             Console.WriteLine("Finish");
@@ -115,12 +114,13 @@ namespace ConsoleApp
                 {
                     var repository = child.Resolve<IQuestionRepository>();
                     var questions = await repository.GetAllQuestionsAsync().ConfigureAwait(false);
-
+                    var random = new Random();
                     foreach (var question in questions)
                     {
                         if (question.CorrectAnswer == null && question.User.Fictive)
                         {
-                            // question.Created = DateTimeHelpers.NextRandomDate(2);
+                            question.Created = DateTimeHelpers.NextRandomDate(2, random);
+                            Console.WriteLine(question.Created);
                             await repository.UpdateAsync(question, default);
                         }
                         //user1.UserCreateTransaction();
