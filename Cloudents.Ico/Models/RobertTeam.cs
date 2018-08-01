@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Cloudents.Ico.Models
+﻿namespace Cloudents.Ico.Models
 {
     public class RobertTeam : Team
     {
@@ -13,5 +8,6 @@ namespace Cloudents.Ico.Models
 
         public override string Image => "/images/muscari/Rob.png";
         public override string LinkdinLink => "https://www.linkedin.com/in/robertecohen/";
+        protected override int Order => 4;
     }
 }

@@ -3,8 +3,6 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
-
 <!-- Header -->
 <header class="site-header is-sticky">
 
@@ -15,13 +13,8 @@
                 <img class="logo logo-light" alt="logo" src="~/images/logo-beta.svg">
                 <img class="logo logo-dark" alt="logo" src="~/images/logo-beta-blue.svg">
             </a>
-            <div class="language-switcher animated" data-animate="fadeInDown" data-delay=".75">
-                <a href="#" data-toggle="dropdown">EN</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">FR</a>
-                    <a class="dropdown-item" href="#">CN</a>
-                    <a class="dropdown-item" href="#">BR</a>
-                </div>
+            <div class="language-switcher animated header-language-switcher" data-animate="fadeInDown" data-delay=".75">
+                <partial name="_LanguageSwitcher"/>
             </div>
             <a href="https://t.me/Spitball" target="_blank" class="navbar-toggler">
                 <em class="fa fa-paper-plane" style="margin-right: 3px;"></em>
@@ -156,8 +149,6 @@
         </div>
     </div>
 </div>
-<!-- Start Section -->
-<!-- Start Section -->
 <div class="section section-pad-md section-bg-muscari section-muscari" id="apps">
     <div class="overlay-bars">
         <div class="overlay-bar-1"></div>
@@ -180,9 +171,9 @@
                         @Localizer["Token Economy Desc"]
                     </p>
                     <div class="animated" data-animate="fadeInUp" data-delay=".2">
-                        <div class="blocks"><p><span class="yellow">@Localizer["Users"]</span>@Localizer["Token Economy 1"]</p></div>
-                        <div class="blocks"><p><span class="yellow">@Localizer["Partners"]</span>@Localizer["Token Economy 2"]</div>
-                        <div class="blocks"><p><span class="yellow">@Localizer["Developers"]</span>@Localizer["Token Economy 3"]</div>
+                        <div class="blocks"><p><span class="yellow">@Localizer["Users"]</span>&nbsp;@Localizer["Token Economy 1"]</p></div>
+                        <div class="blocks"><p><span class="yellow">@Localizer["Partners"]</span>&nbsp;@Localizer["Token Economy 2"]</p></div>
+                        <div class="blocks"><p><span class="yellow">@Localizer["Developers"]</span>&nbsp;@Localizer["Token Economy 3"]</p></div>
                     </div>
                 </div>
             </div><!-- .col  -->
@@ -250,11 +241,9 @@
                 </div>
             </div>
         </div>
-    </div><!-- .container  -->
+    </div>
 </div>
-<!-- Start Section -->
 @await Component.InvokeAsync("TeamComponent");
-<!-- Start Section -->
 <div class="section section-pad-md section-bg-light">
     <div class="section-bg-angle section-bg-light-alt"></div>
     <div class="container">
@@ -284,15 +273,13 @@
                 <div class="gaps"></div>
                 <p class="animated" data-animate="fadeInUp" data-delay=".1">@Localizer["Any questions? Reach out to us and we’ll get back to you shortly."]</p>
                 <ul class="contact-info-alt">
-                    <li class="animated" data-animate="fadeInUp" data-delay=".2"><em class="fa fa-phone"></em><span>@Localizer["+972 52 883 0686"]</span></li>
+                    <li class="animated" data-animate="fadeInUp" data-delay=".2"><em class="fa fa-phone"></em><span>+972 52 883 0686</span></li>
                     <li class="animated" data-animate="fadeInUp" data-delay=".3"><em class="fa fa-envelope"></em><span> <a href="mailto:token@spitball.co?Subject=Spitball%20Info">token@spitball.co</a></span></li>
                     <li class="animated" data-animate="fadeInUp" data-delay=".4"><em class="fa fa-paper-plane"></em><span><a href="https://t.me/Spitball" target="_blank">@Localizer["Join us on Telegram"]</a></span></li>
                 </ul>
             </div><!-- .col  -->
             <div class="col-lg-5">
                 @*action="form/contact.php" method="post"*@
-                /**/
-                /**/
                 <form id="contact-form" class="form-message text-left">
                     <div class="form-results"></div>
                     <div class="input-field animated" data-animate="fadeInUp" data-delay=".5">
@@ -307,11 +294,6 @@
                         <textarea name="text" class="txtarea input-line required" required></textarea>
                         <label class="input-title">@Localizer["Your Message"]</label>
                     </div>
-                    /**/
-                    /**/
-                    @*<input type="text" class="d-none" name="form-anti-honeypot" value="">*@
-                    /**/
-                    /**/
                     <div class="input-field animated" data-animate="fadeInUp" data-delay=".8">
                         <button type="submit" class="btn">@Localizer["Submit"]</button>
                     </div>
@@ -438,19 +420,6 @@
                 </ul>
             </div><!-- .col  -->
             <div class="col-sm-6 col-xl-4 res-l-bttm">
-                <!-- <div class="footer-subscription">
-                                                                                             <h6 class="animated" data-animate="fadeInUp" data-delay=".6">Subscribe to our newsletter</h6>
-                                                                                             <form id = "subscribe-form" class="subscription-form animated" data-animate="fadeInUp" data-delay=".7">
-                                                                                                 <input type = "email" name="email" class="input-round required email" placeholder="Enter your email" required>
-                /**/
-                /**/
-                                                     @*<input type="text" class="d-none" name="form-anti-honeypot" value="">*@
-                /**/
-                /**/
-                                                                                         <button type="submit" class="btn btn-plane">Subscribe</button>
-                                                                                         <div class="subscribe-results"></div>
-                                                                                         </form>
-                </div> -->
             </div><!-- .col  -->
             <div class="col-xl-4">
                 <ul class="link-widget animated" data-animate="fadeInUp" data-delay=".8">
@@ -458,11 +427,9 @@
                     <li><a href="#roadmap" class="menu-link">@Localizer["Roadmap"]</a></li>
                     <li><a href="#apps" class="menu-link">@Localizer["Use Cases"]</a></li>
                     <li><a href="#team" class="menu-link">@Localizer["Team"]</a></li>
-                    <!-- <li><a href="#faq" class="menu-link">@Localizer["FAQs"]</a></li> -->
                     <li><a href="#contact" class="menu-link">@Localizer["Contact Us"]</a></li>
                     <li><a href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="menu-link">@Localizer["Whitepaper"]</a></li>
                     <li><a href="https://www.spitball.co/" target="_blank" class="menu-link">@Localizer["Spitball 1.0"]</a></li>
-                    <!--  <li><a href="#" class="menu-link">Teams</a></li>-->
                 </ul>
             </div><!-- .col  -->
         </div><!-- .row  -->
@@ -480,12 +447,7 @@
                     <li><a href="https://www.spitball.co/terms" target="_blank">@Localizer["Terms & Conditions"]</a></li>
                     <li>
                         <div class="language-switcher">
-                            <a href="#" data-toggle="dropdown">@Localizer["EN"]</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">@Localizer["FR"]</a>
-                                <a class="dropdown-item" href="#">@Localizer["CH"]</a>
-                                <a class="dropdown-item" href="#">@Localizer["BR"]</a>
-                            </div>
+                            <partial name="_LanguageSwitcher" />
                         </div>
                     </li>
                 </ul>
@@ -496,11 +458,4 @@
 <a id="mobile-whitepaper" href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="btn btn-sm btn-outline menu-link">
     <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]
 </a>
-<!-- <div class="card" id="telegramPopUp">
-    <a href="#" id="closeTelegramPopUp" class="fa fa-times"></a>
-    <div class="card-body">
-        <h5 class="card-title">WE’RE ON TELEGRAM</h5>
-        <h3 class="card-text">come ask us anything!</h3>
-        <a href="https://t.me/Spitball" target="_blank" class="btn popUpbtn"><em class="fa fa-paper-plane" style="margin-right: 8px;"></em>Join us on Telegram</a>
-    </div>
-</div> -->
+

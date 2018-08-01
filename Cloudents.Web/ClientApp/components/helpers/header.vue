@@ -79,7 +79,6 @@
 
     import {mapActions, mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
-
     const PersonalizeDialog = () => import('./ResultPersonalize.vue');
 
     export default {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -17,6 +18,18 @@ namespace Cloudents.Ico
 {
     public class Startup
     {
+        public static readonly CultureInfo[] SupportedCultures = new[]
+         {
+
+            new CultureInfo("en-US"),
+            new CultureInfo("es-ES"),
+            new CultureInfo("de"),
+            new CultureInfo("ru"),
+            new CultureInfo("zh-Hans"),
+            new CultureInfo("ko"),
+            new CultureInfo("ja"),
+        };
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -67,22 +80,14 @@ namespace Cloudents.Ico
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            var supportedCultures = new[]
-            {
-                new CultureInfo("he-IL"),
-                //new CultureInfo("en-US"),
-            };
-
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture(new CultureInfo("he-IL")),
-                
+                DefaultRequestCulture = new RequestCulture(SupportedCultures[0]),
+
                 // Formatting numbers, dates, etc.
-                SupportedCultures = supportedCultures,
+                SupportedCultures = SupportedCultures,
                 // UI strings that we have localized.
-                SupportedUICultures = supportedCultures
-
-
+                SupportedUICultures = SupportedCultures
             });
             app.UseStaticFiles();
 

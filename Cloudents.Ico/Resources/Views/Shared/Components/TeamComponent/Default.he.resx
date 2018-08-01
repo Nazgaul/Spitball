@@ -117,18 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Description" xml:space="preserve">
-    <value>Jordan manages all outbound communication, marketing, and business development, leading the Spitball team in the US.
-                                        He has overseen all aspects of US launch and business development, recruiting 150 Greek partners, 200 campus ambassadors, and over 25 business partners while helping to drive more than 400K students to our service. Previously Jordan was a Media Investment Banker at Jefferies.
-                                        Jordan graduated summa cum laude with a BA in Economics from Vanderbilt University.</value>
-  </data>
-  <data name="FirstName" xml:space="preserve">
-    <value>Jordan</value>
-  </data>
-  <data name="LastName" xml:space="preserve">
-    <value>Weiss</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Chief Operating Officer</value>
+  <data name="The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products." xml:space="preserve">
+    <value>הצוות רוק משלב תשוקה השכלה, מומחיות בתעשייה ו רקורד של בנייה ושיווק מוצרי צריכה מוצלחת.</value>
   </data>
 </root>

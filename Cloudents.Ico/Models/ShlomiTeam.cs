@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Cloudents.Ico.Models
+﻿namespace Cloudents.Ico.Models
 {
     public class ShlomiTeam : Team
     {
@@ -13,5 +8,6 @@ namespace Cloudents.Ico.Models
 
         public override string Image => "/images/muscari/Shlomi.png";
         public override string LinkdinLink => "https://www.linkedin.com/in/kastoryano/";
+        protected override int Order => 5;
     }
 }

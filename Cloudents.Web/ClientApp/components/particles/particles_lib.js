@@ -1411,7 +1411,6 @@ var pJS = function(tag_id, params){
 
 };
 
-
 /* ---------- global functions - vendors  FIX------------ */
 Object.deepExtend = function deepExtendFunction(destination, source) {
     for (var property in source) {
@@ -1517,7 +1516,7 @@ window.particlesJS = function(tag_id, params){
   }
 
 };
-
+//TODO check why there is a request
 window.particlesJS.load = function(tag_id, path_config_json, callback){
 
   /* load json config */
