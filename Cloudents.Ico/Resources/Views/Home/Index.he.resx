@@ -107,108 +107,210 @@
     <value>הצטרפות מברק</value>
   </data>
   <data name="Believe" xml:space="preserve">
-    <value>אנו מאמינים כי התלמידים האמיתי נהיגה הכוח של השוק, באמצעות &lt;b&gt;טכנולוגיית blockchain&lt;/b&gt; אנו שואפים &lt;b&gt;לשים סטודנטים במרכז הכלכלה סטודנט -&lt;/b&gt; &lt;i&gt;לתת את הכוח בחזרה לסטודנטים.&lt;/i&gt;</value>
+    <value>אנו מאמינים כי הסטודנטים הם הכוח המניע האמיתי של השוק, ועל ידי שימוש &lt;b&gt;בטכנולוגיה blockchain&lt;/b&gt; אנו שואפים &lt;b&gt;לשים את התלמידים במרכז של כלכלת הסטודנטים -&lt;/b&gt; &lt;i&gt;נותן את הכוח בחזרה לסטודנטים.&lt;/i&gt; !</value>
   </data>
   <data name="Buying &amp; selling of textbooks" xml:space="preserve">
-    <value>קניית &amp; מוכר של ספרי לימוד</value>
+    <value>קנייה ומכירה של ספרי לימוד!</value>
   </data>
   <data name="Buying miscellaneous" xml:space="preserve">
-    <value>קניית &amp; מוכר של פריטים שונים כגון מעונות אספקה, אלקטרוניקה, ביגוד, ריהוט, כרטיסים לאירועים ועוד</value>
+    <value>קנייה ומכירה של פריטים שונים כגון אספקה ​​במעונות, אלקטרוניקה, בגדים, רהיטים, כרטיסים לאירוע ועוד!</value>
   </data>
   <data name="Developers" xml:space="preserve">
     <value>מפתחים</value>
   </data>
   <data name="Enter your email" xml:space="preserve">
-    <value>הזן את הדוא</value>
+    <value>הזן את הדואר האלקטרוני שלך</value>
   </data>
   <data name="Founded" xml:space="preserve">
-    <value>רוק בשנת 2014. אלה הם חלק אבני הדרך שהשגנו כבר ולאחר כמה אנחנו מסתכלים קדימה להשגת בעתיד עם העזרה של הצוות שלנו, קהילת המשקיעים:</value>
+    <value>Spitball נוסדה בשנת 2014. אלה הם חלק מאבני הדרך שאנחנו כבר השיגו, וכמה אנחנו מצפים להשיג בעתיד בעזרת הצוות שלנו, הקהילה והמשקיעים :!</value>
   </data>
   <data name="Initial wallet released" xml:space="preserve">
-    <value>הארנק הראשונית שוחרר</value>
+    <value>ארנק ראשוני שוחרר!</value>
   </data>
   <data name="Mission" xml:space="preserve">
-    <value>שלנו &lt;b&gt;המשימה&lt;/b&gt; היא להקנות לסטודנטים בשוק כי משמש לצרכים שלהם, שם הם יוכלו לקבל או לספק עזרה שיעורי הבית, להחליף קורס הערות, למצוא עבודה, לקנות ולמכור ספרים ועוד.</value>
+    <value>&lt;b&gt;המשימה&lt;/b&gt; שלנו היא לספק לתלמידים שוק שמשרת את הצרכים שלהם, שם הם יוכלו לקבל ולספק שיעורי בית לעזור, להחליף קורסים, למצוא עבודה, לקנות ולמכור ספרים ועוד.!</value>
   </data>
   <data name="Partners" xml:space="preserve">
     <value>שותפים</value>
   </data>
   <data name="Peer-to-Peer Tutoring" xml:space="preserve">
-    <value>עמית-לעמית שיעורים פרטיים</value>
+    <value>עמית לעמית הוראה!</value>
   </data>
   <data name="Q1 2014" xml:space="preserve">
-    <value>Q1 2014</value>
+    <value>2014</value>
   </data>
   <data name="Q3 2016" xml:space="preserve">
-    <value>Q3 2016</value>
+    <value>2016</value>
   </data>
   <data name="Q3 2017" xml:space="preserve">
-    <value>Q3 2017</value>
+    <value>2017</value>
   </data>
   <data name="Q3 2018" xml:space="preserve">
-    <value>Q3 2018</value>
+    <value>Q3 2018!</value>
   </data>
   <data name="Roadmap" xml:space="preserve">
     <value>מפת הדרכים</value>
   </data>
   <data name="Sharing of class notes &amp; practice quizzes" xml:space="preserve">
-    <value>שיתוף של סיכומי שיעור &amp; תרגול חידונים</value>
+    <value>שיתוף של מחלקה הערות &amp; חידונים בפועל!</value>
   </data>
   <data name="Sharing of instructional material" xml:space="preserve">
-    <value>שיתוף של חומר הדרכה</value>
+    <value>שיתוף חומר הדרכה!</value>
   </data>
   <data name="Spitball 2.0" xml:space="preserve">
-    <value>רוק 2.0</value>
+    <value>ספיטבול 2.0!</value>
   </data>
   <data name="Spitball is launched in Israel as a social studying app" xml:space="preserve">
-    <value>רוק היא השיקה בישראל יישום לימוד</value>
+    <value>ספיטבול משוגר בישראל כאפליקציה לחקר חברתי!</value>
   </data>
   <data name="Spitball is launched in the United States" xml:space="preserve">
-    <value>רוק הוא הושק ב ארצות הברית</value>
+    <value>ספיטבול משוגר בארה&amp;quot;ב!</value>
   </data>
   <data name="Spitball partners with 25+ leading educational companies to become the premier aggregator of academic content &amp; services" xml:space="preserve">
-    <value>רוק משתפת פעולה עם 25 + חברות חינוך להפוך צובר premier של תוכן אקדמי &amp; שירותי מובילות</value>
+    <value>כדורעף שותפים עם 25 + חברות חינוכיות מובילות להפוך את צובר המוביל של תוכן אקדמי ושירותים!</value>
   </data>
   <data name="Subscribe" xml:space="preserve">
-    <value>הצטרף כמנוי</value>
+    <value>רישום כמנוי</value>
   </data>
   <data name="Subscribe to our newsletter" xml:space="preserve">
-    <value>הירשם כמנוי לידיעון שלנו</value>
+    <value>הרשם לקבלת עדכונים</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>&lt;span&gt;הראשונה של העולם&lt;/span&gt; מרכזי בכלכלה סטודנט, &lt;span&gt;&lt; br / &gt; בנוי על Blockchain&lt;/span&gt;</value>
+    <value>&lt;span&gt;הראשון בעולם&lt;/span&gt; מבוזר סטודנט כלכלה, &lt;span&gt;&lt;br /&gt; בנוי על Blockchain&lt;/span&gt; !</value>
   </data>
   <data name="Title2" xml:space="preserve">
-    <value>חיים בעולם של &lt;b&gt;שינוי.&lt;/b&gt;</value>
+    <value>לחיות בעולם של &lt;b&gt;שינוי ...&lt;/b&gt; !</value>
   </data>
   <data name="Token Economy" xml:space="preserve">
-    <value>כלכלת אסימונים</value>
+    <value>כלכלת אסימונים!</value>
   </data>
   <data name="Token Economy 1" xml:space="preserve">
-    <value>מתוגמל על השתתפותם בכלכלה סטודנט</value>
+    <value>מתוגמל על השתתפותם בכלכלה סטודנט!</value>
   </data>
   <data name="Token Economy 2" xml:space="preserve">
-    <value> מתוגמל על שילוב ובינונית ליצירת כמערכת התשלום באתרים שלהם&lt;/p&gt;</value>
+    <value>מתוגמל על שילוב ובינונית ליצירת כמערכת התשלום באתרים שלהם&amp;lt;p&amp;gt;!</value>
   </data>
   <data name="Token Economy 3" xml:space="preserve">
-    <value> הם אסימונים מפוצה ליצירת dApps על הפלטפורמה&lt;/p&gt;</value>
+    <value>הם אסימונים מפוצה ליצירת dApps על הרציף&amp;lt;p&amp;gt;!</value>
   </data>
   <data name="Token Economy Desc" xml:space="preserve">
-    <value>חייו המוקדמים של רוק 2.0, &lt; br / &gt; הרשת המשתתפים מתוגמלים עבור פעילויות המסייעות לגרות את הרשת</value>
+    <value>חייו המוקדמים של רוק 2.0,&amp;lt;br&amp;gt;רשת המשתתפים מתוגמלים עבור פעילויות המסייעות לגרות את הרשת!</value>
   </data>
   <data name="UseCase" xml:space="preserve">
-    <value>&lt;b&gt;נבחרת&lt;/b&gt; השתמש בתיקים</value>
+    <value>&amp;lt;b&amp;gt;נבחרת&amp;lt;/b&amp;gt; השתמש בתיקים!</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>משתמשים</value>
   </data>
   <data name="Vision" xml:space="preserve">
-    <value>שלנו, &lt;b&gt;החזון&lt;/b&gt; הוא ליצור &lt;b&gt;כלכלה לסטודנטים&lt;/b&gt; הוא &lt;b&gt;שקוף, מאובטח,&lt;/b&gt; ו &lt;b&gt;ישיר&lt;/b&gt; (peer-to-peer), &lt;b&gt;שוק יעיל&lt;/b&gt; עם נפח גבוה יותר &lt;b&gt;להוריד מחירים&lt;/b&gt;, &lt;b&gt;תגמולים רווח הוגן&lt;/b&gt; עבור הקהילה התורמים.</value>
+    <value>שלנו, &amp;lt;b&amp;gt;החזון&amp;lt;/b&amp;gt; הוא ליצור &amp;lt;b&amp;gt;כלכלה לסטודנטים&amp;lt;/b&amp;gt; הוא &amp;lt;b&amp;gt;שקוף, מאובטח,&amp;lt;/b&amp;gt; ו &amp;lt;b&amp;gt;ישיר&amp;lt;/b&amp;gt; (peer-to-peer), &amp;lt;b&amp;gt;שוק יעיל&amp;lt;/b&amp;gt; עם נפח גבוה יותר &amp;lt;b&amp;gt;להוריד מחירים&amp;lt;/b&amp;gt; , &amp;lt;b&amp;gt;תגמולים רווח הוגן&amp;lt;/b&amp;gt; עבור תורמים לקהילה!</value>
   </data>
   <data name="Whitepaper published and launch of Spitball 2.0 Homework Help marketplace" xml:space="preserve">
-    <value>סקירה טכנית לאור, השקת שוק רוק 2.0 שיעורי הבית לעזור</value>
+    <value>סקירה טכנית לאור, השקת שוק רוק 2.0 שיעורי הבית לעזור!</value>
+  </data>
+  <data name="Integration with 3rd party sites to accept SBL token" xml:space="preserve">
+    <value>שילוב עם אתרי צד שלישי לקבל ובינונית ליצירת token!</value>
+  </data>
+  <data name="Launch of Spitball Marketplace for all student-related goods and services (tutors, textbooks, class material, second-hand items, etc.)" xml:space="preserve">
+    <value>ההשקה של רוק השוק עבור כל הקשורות סטודנט סחורות ושירותים (מורים, ספרי לימוד, חומר הכיתה, פריטי יד שנייה, וכו '.)!</value>
+  </data>
+  <data name="Q1 2019" xml:space="preserve">
+    <value>Q1</value>
   </data>
   <data name="Q3 &amp; Q4 2018" xml:space="preserve">
-    <value>בלה בלה בלה</value>
+    <value>Q3 המגבר; 2018 ש4!</value>
+  </data>
+  <data name="Q4 2018" xml:space="preserve">
+    <value>2018 ש4!</value>
+  </data>
+  <data name="Spitball expands to new markets (Asia, EU)" xml:space="preserve">
+    <value>רוק מתרחב לשווקים חדשים (אסיה, האיחוד האירופי)!</value>
+  </data>
+  <data name="Q2 2019" xml:space="preserve">
+    <value>Q2 2019!</value>
+  </data>
+  <data name="Integration with 3rd party (offline) stores &amp; universities to accept SBL on campuses" xml:space="preserve">
+    <value>שילוב עם 3 חנויות (לא מקוון) מסיבה &amp; האוניברסיטאות לקבל ובינונית ליצירת בקמפוסים!</value>
+  </data>
+  <data name="+972 52 883 0686" xml:space="preserve">
+    <value>+972 52 883 0686!</value>
+  </data>
+  <data name="Advisory Board to be announced soon..." xml:space="preserve">
+    <value>מייעצת יוכרזו בקרוב...!</value>
+  </data>
+  <data name="Any questions? Reach out to us and we’ll get back to you shortly." xml:space="preserve">
+    <value>יש שאלות? לפנות אלינו, ואנו נחזור אליך תוך זמן קצר.!</value>
+  </data>
+  <data name="Get In Touch" xml:space="preserve">
+    <value>צרו קשר</value>
+  </data>
+  <data name="Join us on Telegram" xml:space="preserve">
+    <value>הצטרפו אלינו מברק!</value>
+  </data>
+  <data name="Our Partners" xml:space="preserve">
+    <value>השותפים שלנו</value>
+  </data>
+  <data name="The Advisory Team" xml:space="preserve">
+    <value>צוות ייעוץ!</value>
+  </data>
+  <data name="As seen in" xml:space="preserve">
+    <value>כפי שניתן לראות!</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>שלח</value>
+  </data>
+  <data name="Your Email" xml:space="preserve">
+    <value>כתובת הדוא"ל שלך</value>
+  </data>
+  <data name="Your Message" xml:space="preserve">
+    <value>ההודעה שלכם</value>
+  </data>
+  <data name="Your Name" xml:space="preserve">
+    <value>השם שלך</value>
+  </data>
+  <data name="Contact Us" xml:space="preserve">
+    <value>צור קשר</value>
+  </data>
+  <data name="FAQs" xml:space="preserve">
+    <value>שאלות נפוצות</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>הצוות</value>
+  </data>
+  <data name="Use Cases" xml:space="preserve">
+    <value>מקרי שימוש!</value>
+  </data>
+  <data name="VisionFooter" xml:space="preserve">
+    <value>חזון</value>
+  </data>
+  <data name="Whitepaper" xml:space="preserve">
+    <value>סקירה טכנית!</value>
+  </data>
+  <data name="Spitball 1.0" xml:space="preserve">
+    <value>כדורי רוק 1.0!</value>
+  </data>
+  <data name="Copyright &amp; 2018, Cloudents LTD ." xml:space="preserve">
+    <value>זכויות יוצרים &amp; 2018, Cloudents בע מ.!</value>
+  </data>
+  <data name="All trademarks and copyrights belong to their respective owners." xml:space="preserve">
+    <value>כל הזכויות והסימנים המסחריים שייכים לבעליהם.!</value>
+  </data>
+  <data name="Privacy Policy" xml:space="preserve">
+    <value>מדיניות פרטיות</value>
+  </data>
+  <data name="Terms &amp; Conditions" xml:space="preserve">
+    <value>חוקים  ותנאי השימוש באתר!</value>
+  </data>
+  <data name="BR" xml:space="preserve">
+    <value>Br</value>
+  </data>
+  <data name="CH" xml:space="preserve">
+    <value>CH!</value>
+  </data>
+  <data name="EN" xml:space="preserve">
+    <value>EN</value>
+  </data>
+  <data name="FR" xml:space="preserve">
+    <value>ו</value>
   </data>
 </root>
