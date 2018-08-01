@@ -13,7 +13,7 @@ import VueRouter from "vue-router";
 
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-import VueParticles from 'vue-particles';
+// import VueParticles from 'alopu-vue-particles';
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
@@ -93,7 +93,7 @@ WebFont.load({
 //    attempt: 1
 //});
 //Vue.use(vueSmoothScroll);
-Vue.use(VueParticles);
+// Vue.use(VueParticles);
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
