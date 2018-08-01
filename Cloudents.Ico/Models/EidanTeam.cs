@@ -8,5 +8,6 @@
 
         public override string Image => "/images/muscari/Eidan.png";
         public override string LinkdinLink => "https://www.linkedin.com/in/apelbaum";
+        protected override int Order => 1;
     }
 }

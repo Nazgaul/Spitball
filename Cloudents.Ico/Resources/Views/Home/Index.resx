@@ -209,10 +209,10 @@
     <value>are rewarded for their participation in the Student Economy</value>
   </data>
   <data name="Token Economy 2" xml:space="preserve">
-    <value> are rewarded for integrating SBL as a payment system on their sites&lt;/p&gt;</value>
+    <value>are rewarded for integrating SBL as a payment system on their sites</value>
   </data>
   <data name="Token Economy 3" xml:space="preserve">
-    <value> are rewarded tokens for creating dApps on the platform&lt;/p&gt;</value>
+    <value>are rewarded tokens for creating dApps on the platform</value>
   </data>
   <data name="Token Economy Desc" xml:space="preserve">
     <value>In the early life of Spitball 2.0,&lt;br /&gt; network participants are rewarded for activities that help stimulate the network</value>
@@ -246,9 +246,6 @@
   </data>
   <data name="Spitball expands to new markets (Asia, EU)" xml:space="preserve">
     <value>Spitball expands to new markets (Asia, EU)</value>
-  </data>
-  <data name="+972 52 883 0686" xml:space="preserve">
-    <value>+972 52 883 0686</value>
   </data>
   <data name="Advisory Board to be announced soon..." xml:space="preserve">
     <value>Advisory Board to be announced soon...</value>

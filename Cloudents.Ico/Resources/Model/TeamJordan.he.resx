@@ -117,10 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="The Leadership Team" xml:space="preserve">
-    <value>The Leadership Team</value>
+  <data name="Description" xml:space="preserve">
+    <value>ירדן מנהלת כל התקשורת היוצאת, שיווק ופיתוח עסקי, מוביל את הצוות רוק בארצות הברית.
+                                        הוא כולל השגיח בכל ההיבטים של ההשקה בארה ב והפיתוח העסקי, גיוס שותפים יווניים 150, 200 הקמפוס שגרירים, ושותפים עסקיים מעל 25 תוך עזרה נסיעה יותר מאשר 400K סטודנטים לשירות שלנו. בעבר הירדן היתה באמצעי התקשורת בנקאי השקעות ב Jefferies.
+                                        ירדן סיים בהצטיינות יתרה עם תואר ראשון בכלכלה מאוניברסיטת ונדרבילט.</value>
   </data>
-  <data name="The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products." xml:space="preserve">
-    <value>The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products.</value>
+  <data name="FirstName" xml:space="preserve">
+    <value>ירדן</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>וייס</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>תפעול ראשי</value>
   </data>
 </root>

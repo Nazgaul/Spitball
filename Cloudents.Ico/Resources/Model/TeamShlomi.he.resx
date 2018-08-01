@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="The Leadership Team" xml:space="preserve">
-    <value>The Leadership Team</value>
+  <data name="Description" xml:space="preserve">
+    <value>שלומי הוא מעצב מיומנים הפלטפורמה מוצלבות עם מעל 5 שנות ניסיון בתכנון ועיצוב (UX &amp; -UI) עבור יישומים ניידים, iOS ו- android, יישומי שולחן העבודה של עיצוב אתרים. בנוסף, שלומי מביא 10 שנים של יצירתיות, עיצוב זהות, להדפיס את החוויה. שלומי הוא אחראי על כל UX ו UI ברחבי האינטרנט של החברה, ניידים, iOS ואנדרואיד.</value>
   </data>
-  <data name="The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products." xml:space="preserve">
-    <value>The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products.</value>
+  <data name="FirstName" xml:space="preserve">
+    <value>שלומי</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Kastoryano</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>אפיון &amp; מעצב ממשק המשתמש</value>
   </data>
 </root>

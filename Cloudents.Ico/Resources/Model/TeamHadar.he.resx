@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="The Leadership Team" xml:space="preserve">
-    <value>The Leadership Team</value>
+  <data name="Description" xml:space="preserve">
+    <value>הדר מביא יכולות פיתוח end-to-end BI מודלים, ניתוח של המצגת ההנהלה הבכירה. ליווי תהליך היישום DW הארגון &amp; יישום של קיבוץ באשכולות אלגוריתמים ומודלים חיזוי. הדר סיים עם תואר BS בהנדסת תעשייה וניהול של המרכז האקדמי רופין.</value>
   </data>
-  <data name="The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products." xml:space="preserve">
-    <value>The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products.</value>
+  <data name="FirstName" xml:space="preserve">
+    <value>הדר</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>קידר</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Blockchain מפתח</value>
   </data>
 </root>

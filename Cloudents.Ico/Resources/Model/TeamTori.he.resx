@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="The Leadership Team" xml:space="preserve">
-    <value>The Leadership Team</value>
+  <data name="Description" xml:space="preserve">
+    <value>טורי בוגר אוניברסיטת פלורידה אטלנטיק עם B.B.A. שיווק, משאבי אנוש, מנהיגות. טורי מביא 5 שנים של ניסיון בעבודה עבור חברות הביטוח המובילות בתוך מחלקות B2B/B2C שיווק ותקשורת. -רוק, היא מספקת, עותק כתיבה, עיצוב וניהול לניהול תקשורת &amp; הקהילה ברורה בכל הערוצים הציבוריים.</value>
   </data>
-  <data name="The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products." xml:space="preserve">
-    <value>The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products.</value>
+  <data name="FirstName" xml:space="preserve">
+    <value>טורי</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Withee</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>מנהל קהילה</value>
   </data>
 </root>

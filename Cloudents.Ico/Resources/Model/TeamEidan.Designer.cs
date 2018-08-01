@@ -61,6 +61,17 @@ namespace Cloudents.Ico.Resources.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Eidan is a veteran Internet professional with extensive experience in leading Internet companies. Prior to Spitball,
+        ///                            Eidan founded the social aggregator Multimi (acquired by AVG),
+        ///                            worked as Director of Product Management and Strategy managing the front page at Yahoo (My Yahoo) and heading the BI team at Yahoo. Eidan holds a Ph.D. in Economics from University of California at Davis..
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eidan.
         /// </summary>
         public static string FirstName {
@@ -75,6 +86,15 @@ namespace Cloudents.Ico.Resources.Model {
         public static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Founder  &amp; CEO.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }
