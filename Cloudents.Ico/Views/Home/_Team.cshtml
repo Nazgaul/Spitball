@@ -1,0 +1,45 @@
+﻿@model Team
+
+<div class="team-member animated" data-animate="fadeInUp" data-delay=".2">
+    <div class="team-photo">
+        <img src="@Model.Image" alt="team">
+        <a href="#team-profile-@ViewData["index"]" class="expand-trigger content-popup"></a>
+    </div>
+    <div class="team-info">
+        <h5 class="team-name">@Model.FirstName <br>@Model.LastName</h5>
+        <span class="team-title">Founder &amp; CEO </span>
+        <ul class="team-social">
+            <li><a href="@Model.LinkdinLink"><em class="fab fa-linkedin-in"></em></a></li>
+        </ul>
+    </div>
+
+    <!-- Start .team-profile  -->
+    <div id="team-profile-@ViewData["index"]" class="team-profile mfp-hide">
+        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+        <div class="container-fluid">
+            <div class="row no-mg">
+                <div class="col-md-6">
+                    <div class="team-profile-photo">
+                        <img src="@Model.Image" alt="team" />
+                    </div>
+                </div><!-- .col  -->
+
+                <div class="col-md-6">
+                    <div class="team-profile-info">
+                        <h3 class="name">@Model.FirstName  @Model.LastName</h3>
+                        <p class="sub-title">Founder  &amp; CEO </p>
+                        <ul class="tpi-social">
+                            <li><a href="@Model.LinkdinLink"><em class="fab fa-linkedin-in"></em></a></li>
+                        </ul>
+                        <p>
+                            Eidan is a veteran Internet professional with extensive experience in leading Internet companies. Prior to Spitball,
+                            Eidan founded the social aggregator Multimi (acquired by AVG),
+                            worked as Director of Product Management and Strategy managing the front page at Yahoo (My Yahoo) and heading the BI team at Yahoo. Eidan holds a Ph.D. in Economics from University of California at Davis.
+                        </p>
+                    </div>
+                </div><!-- .col  -->
+
+            </div><!-- .row  -->
+        </div><!-- .container  -->
+    </div><!-- .team-profile  -->
+</div>

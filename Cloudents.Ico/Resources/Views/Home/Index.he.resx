@@ -106,4 +106,109 @@
   <data name="Join Telegram" xml:space="preserve">
     <value>הצטרפות מברק</value>
   </data>
+  <data name="Believe" xml:space="preserve">
+    <value>אנו מאמינים כי התלמידים האמיתי נהיגה הכוח של השוק, באמצעות &lt;b&gt;טכנולוגיית blockchain&lt;/b&gt; אנו שואפים &lt;b&gt;לשים סטודנטים במרכז הכלכלה סטודנט -&lt;/b&gt; &lt;i&gt;לתת את הכוח בחזרה לסטודנטים.&lt;/i&gt;</value>
+  </data>
+  <data name="Buying &amp; selling of textbooks" xml:space="preserve">
+    <value>קניית &amp; מוכר של ספרי לימוד</value>
+  </data>
+  <data name="Buying miscellaneous" xml:space="preserve">
+    <value>קניית &amp; מוכר של פריטים שונים כגון מעונות אספקה, אלקטרוניקה, ביגוד, ריהוט, כרטיסים לאירועים ועוד</value>
+  </data>
+  <data name="Developers" xml:space="preserve">
+    <value>מפתחים</value>
+  </data>
+  <data name="Enter your email" xml:space="preserve">
+    <value>הזן את הדוא</value>
+  </data>
+  <data name="Founded" xml:space="preserve">
+    <value>רוק בשנת 2014. אלה הם חלק אבני הדרך שהשגנו כבר ולאחר כמה אנחנו מסתכלים קדימה להשגת בעתיד עם העזרה של הצוות שלנו, קהילת המשקיעים:</value>
+  </data>
+  <data name="Initial wallet released" xml:space="preserve">
+    <value>הארנק הראשונית שוחרר</value>
+  </data>
+  <data name="Mission" xml:space="preserve">
+    <value>שלנו &lt;b&gt;המשימה&lt;/b&gt; היא להקנות לסטודנטים בשוק כי משמש לצרכים שלהם, שם הם יוכלו לקבל או לספק עזרה שיעורי הבית, להחליף קורס הערות, למצוא עבודה, לקנות ולמכור ספרים ועוד.</value>
+  </data>
+  <data name="Partners" xml:space="preserve">
+    <value>שותפים</value>
+  </data>
+  <data name="Peer-to-Peer Tutoring" xml:space="preserve">
+    <value>עמית-לעמית שיעורים פרטיים</value>
+  </data>
+  <data name="Q1 2014" xml:space="preserve">
+    <value>Q1 2014</value>
+  </data>
+  <data name="Q3 2016" xml:space="preserve">
+    <value>Q3 2016</value>
+  </data>
+  <data name="Q3 2017" xml:space="preserve">
+    <value>Q3 2017</value>
+  </data>
+  <data name="Q3 2018" xml:space="preserve">
+    <value>Q3 2018</value>
+  </data>
+  <data name="Roadmap" xml:space="preserve">
+    <value>מפת הדרכים</value>
+  </data>
+  <data name="Sharing of class notes &amp; practice quizzes" xml:space="preserve">
+    <value>שיתוף של סיכומי שיעור &amp; תרגול חידונים</value>
+  </data>
+  <data name="Sharing of instructional material" xml:space="preserve">
+    <value>שיתוף של חומר הדרכה</value>
+  </data>
+  <data name="Spitball 2.0" xml:space="preserve">
+    <value>רוק 2.0</value>
+  </data>
+  <data name="Spitball is launched in Israel as a social studying app" xml:space="preserve">
+    <value>רוק היא השיקה בישראל יישום לימוד</value>
+  </data>
+  <data name="Spitball is launched in the United States" xml:space="preserve">
+    <value>רוק הוא הושק ב ארצות הברית</value>
+  </data>
+  <data name="Spitball partners with 25+ leading educational companies to become the premier aggregator of academic content &amp; services" xml:space="preserve">
+    <value>רוק משתפת פעולה עם 25 + חברות חינוך להפוך צובר premier של תוכן אקדמי &amp; שירותי מובילות</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>הצטרף כמנוי</value>
+  </data>
+  <data name="Subscribe to our newsletter" xml:space="preserve">
+    <value>הירשם כמנוי לידיעון שלנו</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>&lt;span&gt;הראשונה של העולם&lt;/span&gt; מרכזי בכלכלה סטודנט, &lt;span&gt;&lt; br / &gt; בנוי על Blockchain&lt;/span&gt;</value>
+  </data>
+  <data name="Title2" xml:space="preserve">
+    <value>חיים בעולם של &lt;b&gt;שינוי.&lt;/b&gt;</value>
+  </data>
+  <data name="Token Economy" xml:space="preserve">
+    <value>כלכלת אסימונים</value>
+  </data>
+  <data name="Token Economy 1" xml:space="preserve">
+    <value>מתוגמל על השתתפותם בכלכלה סטודנט</value>
+  </data>
+  <data name="Token Economy 2" xml:space="preserve">
+    <value> מתוגמל על שילוב ובינונית ליצירת כמערכת התשלום באתרים שלהם&lt;/p&gt;</value>
+  </data>
+  <data name="Token Economy 3" xml:space="preserve">
+    <value> הם אסימונים מפוצה ליצירת dApps על הפלטפורמה&lt;/p&gt;</value>
+  </data>
+  <data name="Token Economy Desc" xml:space="preserve">
+    <value>חייו המוקדמים של רוק 2.0, &lt; br / &gt; הרשת המשתתפים מתוגמלים עבור פעילויות המסייעות לגרות את הרשת</value>
+  </data>
+  <data name="UseCase" xml:space="preserve">
+    <value>&lt;b&gt;נבחרת&lt;/b&gt; השתמש בתיקים</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>משתמשים</value>
+  </data>
+  <data name="Vision" xml:space="preserve">
+    <value>שלנו, &lt;b&gt;החזון&lt;/b&gt; הוא ליצור &lt;b&gt;כלכלה לסטודנטים&lt;/b&gt; הוא &lt;b&gt;שקוף, מאובטח,&lt;/b&gt; ו &lt;b&gt;ישיר&lt;/b&gt; (peer-to-peer), &lt;b&gt;שוק יעיל&lt;/b&gt; עם נפח גבוה יותר &lt;b&gt;להוריד מחירים&lt;/b&gt;, &lt;b&gt;תגמולים רווח הוגן&lt;/b&gt; עבור הקהילה התורמים.</value>
+  </data>
+  <data name="Whitepaper published and launch of Spitball 2.0 Homework Help marketplace" xml:space="preserve">
+    <value>סקירה טכנית לאור, השקת שוק רוק 2.0 שיעורי הבית לעזור</value>
+  </data>
+  <data name="Q3 &amp; Q4 2018" xml:space="preserve">
+    <value>בלה בלה בלה</value>
+  </data>
 </root>
