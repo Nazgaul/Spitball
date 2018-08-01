@@ -1322,11 +1322,12 @@ a {
 
 .section-bg-light .form-message .input-field .input-line, .section-bg-light-alt .form-message .input-field .input-line {
     color: #637097;
-    border-bottom-color: rgba(204, 212, 255, 0.6);
+    /* border-bottom-color: rgba(204, 212, 255, 0.6); */
+    border-bottom-color: rgba(126, 131, 158, 0.6);
 }
 
 .section-bg-light .form-message .input-field .input-title, .section-bg-light-alt .form-message .input-field .input-title {
-    color: rgba(52, 85, 255, 0.5);
+    color: rgba(126, 131, 158, 0.7);
 }
 
 .section-bg-light .contact-info-alt li .fa {

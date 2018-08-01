@@ -19,6 +19,8 @@ namespace Cloudents.Ico.Models
 
         public string FirstName => _rm.GetString("FirstName");
         public string LastName => _rm.GetString("LastName");
+        public string Title => _rm.GetString("Title");
+        public string Description => _rm.GetString("Description");
 
         public abstract string Image { get; }
         public abstract string LinkdinLink { get; }
