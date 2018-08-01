@@ -47,11 +47,18 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
+<<<<<<< HEAD
             //await PoplateSheetOfQuestion();
-            //var bus = _container.Resolve<IQueryBus>();
+
           //  var bus = _container.Resolve<IQueryBus>();
            // var z = new NextQuestionQuery(68, 11);
            // var x = await bus.QueryAsync(z, default);
+=======
+            await UpdateCreationTimeProductionAsync();
+            //var bus = _container.Resolve<IQueryBus>();
+            //var z = new NextQuestionQuery(68, 11);
+            //var x = await bus.QueryAsync(z, default);
+>>>>>>> a66ec50739aaa58343a4a50683d11426284a5c35
             //var t = new TransactionPopulation(_container);
             //await t.AddToUserMoney(3000, 1013);
 
@@ -104,6 +111,7 @@ namespace ConsoleApp
                 var commandBus = _container.Resolve<ICommandBus>();
                 await commandBus.DispatchAsync(question, default);
             }
+           
         }
 
 
@@ -129,7 +137,6 @@ namespace ConsoleApp
                     await unitOfWork.CommitAsync(default).ConfigureAwait(false);
                 }
             }
-           
         }
     }
 }
