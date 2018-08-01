@@ -4,9 +4,9 @@
             <h3>Sort</h3>
             <div class="sort-switch">
                 <template v-for="(o,index) in sortOptions">
-                    <input type="radio" :id="`option${index}`" @click="updateSort(o.id)"
+                    <input type="radio" :id="`option${index}`" @click="updateSort(o.id)" :key="index"
                            name="switch" :value="o.id" :checked="sortVal?sortVal===o.id:index===0">
-                    <label :for="`option${index}`">{{o.name}}</label>
+                    <label :for="`option${index}`" :key="index">{{o.name}}</label>
                 </template>
             </div>
         </template>

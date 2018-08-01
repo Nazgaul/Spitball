@@ -10,7 +10,7 @@
                 <router-link v-if="$route.path.slice(1)==='ask' " :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right hidden-sm-and-up" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
-                    <div :class="'counter color-'+$route.path.slice(1)" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
+                    <div :class="'counter fixedLocation color-'+$route.path.slice(1)" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
                 </v-btn>
             </div>
             <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
