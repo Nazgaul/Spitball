@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize]
     public class UploadController : Controller
     {
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
@@ -32,7 +34,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = userManager.GetUserId(User);
-            var tasks = model.File.Select(s =>
+            var tasks = model.File.Select(async s =>
             {
                 if (!s.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
                 {
@@ -50,8 +52,9 @@ namespace Cloudents.Web.Api
                 {
                     Image.FromStream(sr);
                     var fileName = $"{userId}.{Guid.NewGuid()}.{s.FileName}";
-                    return _blobProvider
-                        .UploadStreamAsync(fileName, sr, s.ContentType, false, 60 * 24, token).ContinueWith(_ => fileName, token);
+                    await _blobProvider
+                        .UploadStreamAsync(fileName, sr, s.ContentType, false, 60 * 24, token);
+                    return fileName;
                 }
             });
             var result = await Task.WhenAll(tasks).ConfigureAwait(false);
