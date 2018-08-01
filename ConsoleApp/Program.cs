@@ -10,6 +10,7 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using System.Collections.Generic;
 using Cloudents.Core.Query;
+using Cloudents.Core.Command.Admin;
 
 namespace ConsoleApp
 {
@@ -22,7 +23,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -45,10 +46,11 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
+            //await PoplateSheetOfQuestion();
 
-            var bus = _container.Resolve<IQueryBus>();
-            var z = new NextQuestionQuery(68, 11);
-            var x = await bus.QueryAsync(z, default);
+          //  var bus = _container.Resolve<IQueryBus>();
+           // var z = new NextQuestionQuery(68, 11);
+           // var x = await bus.QueryAsync(z, default);
             //var t = new TransactionPopulation(_container);
             //await t.AddToUserMoney(3000, 1013);
 
@@ -90,7 +92,7 @@ namespace ConsoleApp
 
         private static async Task PoplateSheetOfQuestion()
         {
-            string spreadsheetId = "1Mq1ec4dGp6ADuKmlrAa5rsFm-_-JvT8O0miC8wsd1T8";
+            string spreadsheetId = "1A2O_jASZuWlI_jIX8a1eiZb61C5RDF9KQ2i7CQzGU30";
             string range = "All!B:D";
 
 
@@ -101,6 +103,7 @@ namespace ConsoleApp
                 var commandBus = _container.Resolve<ICommandBus>();
                 await commandBus.DispatchAsync(question, default);
             }
+           
         }
     }
 }
