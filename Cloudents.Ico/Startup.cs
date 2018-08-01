@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -69,13 +70,14 @@ namespace Cloudents.Ico
 
             var supportedCultures = new[]
             {
+                
+                new CultureInfo("en-US"),
                 new CultureInfo("he-IL"),
-                //new CultureInfo("en-US"),
             };
 
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture(new CultureInfo("he-IL")),
+                DefaultRequestCulture = new RequestCulture(supportedCultures[0]),
                 
                 // Formatting numbers, dates, etc.
                 SupportedCultures = supportedCultures,

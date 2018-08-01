@@ -119,7 +119,7 @@ namespace ConsoleApp
                     {
                         if (question.CorrectAnswer == null && question.User.Fictive)
                         {
-                            question.Created = DateTimeHelpers.NextRandomDate(2, random);
+                           // question.Created = DateTimeHelpers.NextRandomDate(2, random);
                             Console.WriteLine(question.Created);
                             await repository.UpdateAsync(question, default);
                         }

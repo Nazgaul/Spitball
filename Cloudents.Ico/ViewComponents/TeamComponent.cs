@@ -10,29 +10,30 @@ namespace Cloudents.Ico.ViewComponents
 {
     public class TeamComponent : ViewComponent
     {
-        private readonly IList<Team> _teams = new List<Team>();
-        
+        private static readonly List<Team> Teams = new List<Team>();
 
-        public TeamComponent()
+        static TeamComponent()
         {
             foreach (var type in FindDerivedTypes())
             {
                 var t = (Team)Activator.CreateInstance(type);
-                _teams.Add(t);
+                Teams.Add(t);
             }
+
+            Teams.Sort();
         }
 
         public Task<IViewComponentResult> InvokeAsync()
         {
             //var items = await GetItemsAsync(maxPriority, isDone);
-            return Task.FromResult<IViewComponentResult>(View(_teams));
+            return Task.FromResult<IViewComponentResult>(View(Teams));
         }
 
 
-        private IEnumerable<Type> FindDerivedTypes()
+        private static IEnumerable<Type> FindDerivedTypes()
         {
             return Assembly.GetExecutingAssembly().GetTypes().Where(t => t != typeof(Team) &&
-                                                  typeof(Team).IsAssignableFrom(t));
+                                                                         typeof(Team).IsAssignableFrom(t));
         }
     }
 }

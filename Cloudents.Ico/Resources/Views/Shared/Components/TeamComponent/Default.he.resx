@@ -117,10 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="The Leadership Team" xml:space="preserve">
-    <value>The Leadership Team</value>
-  </data>
   <data name="The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products." xml:space="preserve">
-    <value>The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products.</value>
+    <value>הצוות רוק משלב תשוקה השכלה, מומחיות בתעשייה ו רקורד של בנייה ושיווק מוצרי צריכה מוצלחת.</value>
   </data>
 </root>

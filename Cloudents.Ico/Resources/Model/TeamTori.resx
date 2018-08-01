@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="The Leadership Team" xml:space="preserve">
-    <value>The Leadership Team</value>
+  <data name="Description" xml:space="preserve">
+    <value>Tori graduated from Florida Atlantic University with a B.B.A. in Marketing, Human Resources and Leadership. Tori brings 5 years of experience working for top insurance companies within B2B/B2C Marketing and Communications departments. At Spitball, she provides management, copy writing, and design for clear communications &amp; community management on all public channels.</value>
   </data>
-  <data name="The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products." xml:space="preserve">
-    <value>The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products.</value>
+  <data name="FirstName" xml:space="preserve">
+    <value>Tori</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Withee</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Community Manager</value>
   </data>
 </root>
