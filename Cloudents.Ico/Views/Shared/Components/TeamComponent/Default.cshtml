@@ -121,96 +121,100 @@
                     </div>*@
             </div>
 
-            @*<div class="col-md-6 col-lg-4 offset-lg-2 offset-xl-0 col-xl-3 d-inline-flex justify-content-center">
-                    <div class="team-member animated" data-animate="fadeInUp" data-delay=".4">
-                        <div class="team-photo">
-                            <img src="/images/muscari/Jordan.png" alt="team">
-                            <a href="#team-profile-3" class="expand-trigger content-popup"></a>
-                        </div>
-                        <div class="team-info">
-                            <h5 class="team-name">Jordan  <br>Weiss</h5>
-                            <span class="team-title">Chief Operating Officer</span>
-                            <ul class="team-social">
-                                <li><a href="https://www.linkedin.com/in/jordanweiss/"><em class="fab fa-linkedin-in"></em></a></li>
-                            </ul>
-                        </div>
+            <div class="col-md-6 col-lg-4 offset-lg-2 offset-xl-0 col-xl-3 d-inline-flex justify-content-center">
+                @await Html.PartialAsync("_Team", Model[2], new ViewDataDictionary(this.ViewData)
+                                   {
+                                       { "index", 2 }
+                                   })
+                @* <div class="team-member animated" data-animate="fadeInUp" data-delay=".4">
+                <div class="team-photo">
+                    <img src="/images/muscari/Jordan.png" alt="team">
+                    <a href="#team-profile-3" class="expand-trigger content-popup"></a>
+                </div>
+                <div class="team-info">
+                    <h5 class="team-name">Jordan  <br>Weiss</h5>
+                    <span class="team-title">Chief Operating Officer</span>
+                    <ul class="team-social">
+                        <li><a href="https://www.linkedin.com/in/jordanweiss/"><em class="fab fa-linkedin-in"></em></a></li>
+                    </ul>
+                </div>
 
-                        <!-- Start .team-profile  -->
-                        <div id="team-profile-3" class="team-profile mfp-hide">
-                            <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                            <div class="container-fluid">
-                                <div class="row no-mg">
-                                    <div class="col-md-6">
-                                        <div class="team-profile-photo">
-                                            <img src="/images/muscari/Jordan.png" alt="team" />
-                                        </div>
-                                    </div><!-- .col  -->
+                <!-- Start .team-profile  -->
+                <div id="team-profile-3" class="team-profile mfp-hide">
+                    <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+                    <div class="container-fluid">
+                        <div class="row no-mg">
+                            <div class="col-md-6">
+                                <div class="team-profile-photo">
+                                    <img src="/images/muscari/Jordan.png" alt="team" />
+                                </div>
+                            </div><!-- .col  -->
 
-                                    <div class="col-md-6">
-                                        <div class="team-profile-info">
-                                            <h3 class="name">Jordan Weiss</h3>
-                                            <p class="sub-title">Chief Operating Officer</p>
-                                            <ul class="tpi-social">
-                                                <li><a href="https://www.linkedin.com/in/jordanweiss/"><em class="fab fa-linkedin-in"></em></a></li>
-                                            </ul>
-                                            <p>
-                                                Jordan manages all outbound communication, marketing, and business development, leading the Spitball team in the US.
-                                                He has overseen all aspects of US launch and business development, recruiting 150 Greek partners, 200 campus ambassadors, and over 25 business partners while helping to drive more than 400K students to our service. Previously Jordan was a media Investment Banker at Jefferies.
-                                                Jordan graduated summa cum laude with a BA in Economics from Vanderbilt University.
-                                            </p>
+                            <div class="col-md-6">
+                                <div class="team-profile-info">
+                                    <h3 class="name">Jordan Weiss</h3>
+                                    <p class="sub-title">Chief Operating Officer</p>
+                                    <ul class="tpi-social">
+                                        <li><a href="https://www.linkedin.com/in/jordanweiss/"><em class="fab fa-linkedin-in"></em></a></li>
+                                    </ul>
+                                    <p>
+                                        Jordan manages all outbound communication, marketing, and business development, leading the Spitball team in the US.
+                                        He has overseen all aspects of US launch and business development, recruiting 150 Greek partners, 200 campus ambassadors, and over 25 business partners while helping to drive more than 400K students to our service. Previously Jordan was a media Investment Banker at Jefferies.
+                                        Jordan graduated summa cum laude with a BA in Economics from Vanderbilt University.
+                                    </p>
 
-                                        </div>
-                                    </div><!-- .col  -->
+                                </div>
+                            </div><!-- .col  -->
 
-                                </div><!-- .row  -->
-                            </div><!-- .container  -->
-                        </div><!-- .team-profile  -->
+                        </div><!-- .row  -->
+                    </div><!-- .container  -->
+                </div><!-- .team-profile  -->
 
-                    </div>
-                </div><!-- .col  -->
-                <div class="col-md-6 col-lg-4 col-xl-3 d-inline-flex justify-content-center">
-                    <div class="team-member animated" data-animate="fadeInUp" data-delay=".5">
-                        <div class="team-photo">
-                            <img src="/images/muscari/Rob.png" alt="team">
-                            <a href="#team-profile-4" class="expand-trigger content-popup"></a>
-                        </div>
-                        <div class="team-info">
-                            <h5 class="team-name">Robert <br>Cohen</h5>
-                            <span class="team-title">Managing Director &amp; Advisor</span>
-                            <ul class="team-social">
-                                <li><a href="https://www.linkedin.com/in/robertecohen/"><em class="fab fa-linkedin-in"></em></a></li>
-                            </ul>
-                        </div>
+            </div>
+        </div><!-- .col  -->
+        <div class="col-md-6 col-lg-4 col-xl-3 d-inline-flex justify-content-center">
+            <div class="team-member animated" data-animate="fadeInUp" data-delay=".5">
+                <div class="team-photo">
+                    <img src="/images/muscari/Rob.png" alt="team">
+                    <a href="#team-profile-4" class="expand-trigger content-popup"></a>
+                </div>
+                <div class="team-info">
+                    <h5 class="team-name">Robert <br>Cohen</h5>
+                    <span class="team-title">Managing Director &amp; Advisor</span>
+                    <ul class="team-social">
+                        <li><a href="https://www.linkedin.com/in/robertecohen/"><em class="fab fa-linkedin-in"></em></a></li>
+                    </ul>
+                </div>
 
-                        <!-- Start .team-profile  -->
-                        <div id="team-profile-4" class="team-profile mfp-hide">
-                            <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                            <div class="container-fluid">
-                                <div class="row no-mg">
-                                    <div class="col-md-6">
-                                        <div class="team-profile-photo">
-                                            <img src="/images/muscari/Rob.png" alt="team" />
-                                        </div>
-                                    </div><!-- .col  -->
+                <!-- Start .team-profile  -->
+                <div id="team-profile-4" class="team-profile mfp-hide">
+                    <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+                    <div class="container-fluid">
+                        <div class="row no-mg">
+                            <div class="col-md-6">
+                                <div class="team-profile-photo">
+                                    <img src="/images/muscari/Rob.png" alt="team" />
+                                </div>
+                            </div><!-- .col  -->
 
-                                    <div class="col-md-6">
-                                        <div class="team-profile-info">
-                                            <h3 class="name">Robert Cohen</h3>
-                                            <p class="sub-title">Managing Director &amp; Advisor</p>
-                                            <ul class="tpi-social">
-                                                <li><a href="https://www.linkedin.com/in/robertecohen/"><em class="fab fa-linkedin-in"></em></a></li>
-                                            </ul>
-                                            <p>Robert is a focused leader with strong execution skills in strategy building and corporate development activities as well as operational skills across range of skill sets. Robert brings over 20 years experience in private equity and investment banking activities and is currently focused on investing in the platforms of the future, Spitball being top of the list.</p>
-                                        </div>
-                                    </div><!-- .col  -->
+                            <div class="col-md-6">
+                                <div class="team-profile-info">
+                                    <h3 class="name">Robert Cohen</h3>
+                                    <p class="sub-title">Managing Director &amp; Advisor</p>
+                                    <ul class="tpi-social">
+                                        <li><a href="https://www.linkedin.com/in/robertecohen/"><em class="fab fa-linkedin-in"></em></a></li>
+                                    </ul>
+                                    <p>Robert is a focused leader with strong execution skills in strategy building and corporate development activities as well as operational skills across range of skill sets. Robert brings over 20 years experience in private equity and investment banking activities and is currently focused on investing in the platforms of the future, Spitball being top of the list.</p>
+                                </div>
+                            </div><!-- .col  -->
 
-                                </div><!-- .row  -->
-                            </div><!-- .container  -->
-                        </div><!-- .team-profile  -->
+                        </div><!-- .row  -->
+                    </div><!-- .container  -->
+                </div><!-- .team-profile  -->
 
-                    </div>
-                </div><!-- .col  -->*@
-        </div><!-- .row  -->
+            </div>
+        </div><!-- .col  -->*@
+            </div><!-- .row  -->
         <div class="row">
             <div class="col-md-6 col-lg-4 col-xl-3 d-inline-flex justify-content-center">
                 <div class="team-member animated" data-animate="fadeInUp" data-delay=".5">
