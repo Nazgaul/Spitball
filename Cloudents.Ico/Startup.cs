@@ -18,6 +18,18 @@ namespace Cloudents.Ico
 {
     public class Startup
     {
+        public static readonly CultureInfo[] SupportedCultures = new[]
+         {
+
+            new CultureInfo("en-US"),
+            new CultureInfo("es-ES"),
+            new CultureInfo("de"),
+            new CultureInfo("ru"),
+            new CultureInfo("zh-Hans"),
+            new CultureInfo("ko"),
+            new CultureInfo("ja"),
+        };
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -68,23 +80,14 @@ namespace Cloudents.Ico
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            var supportedCultures = new[]
-            {
-                
-                new CultureInfo("en-US"),
-                new CultureInfo("he-IL"),
-            };
-
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture(supportedCultures[0]),
-                
+                DefaultRequestCulture = new RequestCulture(SupportedCultures[0]),
+
                 // Formatting numbers, dates, etc.
-                SupportedCultures = supportedCultures,
+                SupportedCultures = SupportedCultures,
                 // UI strings that we have localized.
-                SupportedUICultures = supportedCultures
-
-
+                SupportedUICultures = SupportedCultures
             });
             app.UseStaticFiles();
 

@@ -1,4 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+
+
 @inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "Home Page";
@@ -15,13 +18,8 @@
                 <img class="logo logo-light" alt="logo" src="~/images/logo-beta.svg">
                 <img class="logo logo-dark" alt="logo" src="~/images/logo-beta-blue.svg">
             </a>
-            <div class="language-switcher animated header-language-switcher" data-animate="fadeInDown" data-delay=".75">
-                <a href="#" data-toggle="dropdown">EN</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">FR</a>
-                    <a class="dropdown-item" href="#">CN</a>
-                    <a class="dropdown-item" href="#">BR</a>
-                </div>
+            <div class="language-switcher animated" data-animate="fadeInDown" data-delay=".75">
+                <partial name="_LanguageSwitcher"/>
             </div>
             <a href="https://t.me/Spitball" target="_blank" class="navbar-toggler">
                 <em class="fa fa-paper-plane" style="margin-right: 3px;"></em>
@@ -473,12 +471,7 @@
                     <li><a href="https://www.spitball.co/terms" target="_blank">@Localizer["Terms & Conditions"]</a></li>
                     <li>
                         <div class="language-switcher">
-                            <a href="#" data-toggle="dropdown">@Localizer["EN"]</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">@Localizer["FR"]</a>
-                                <a class="dropdown-item" href="#">@Localizer["CH"]</a>
-                                <a class="dropdown-item" href="#">@Localizer["BR"]</a>
-                            </div>
+                            <partial name="_LanguageSwitcher" />
                         </div>
                     </li>
                 </ul>
