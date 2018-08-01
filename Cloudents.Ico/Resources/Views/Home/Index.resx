@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FirstParagraph" xml:space="preserve">
-    <value>Enabling &lt;b&gt;1 billion&lt;/b&gt; students around the world to exchange content, knowledge and services directly with each other, without costly 3rd-party intermediaries &lt;b&gt;Disrupting a $150 billion market&lt;/b&gt;</value>
+    <value>Enabling &lt;b&gt;1 billion&lt;/b&gt; students around the world to exchange content, knowledge and services directly with each other, without costly 3rd-party intermediaries&lt;b&gt; - - disrupting a $150 billion market&lt;/b&gt;</value>
   </data>
   <data name="Download Whitepaper" xml:space="preserve">
     <value>Download Whitepaper</value>
@@ -127,7 +127,7 @@
     <value>Join Telegram</value>
   </data>
   <data name="Believe" xml:space="preserve">
-    <value>We believe that students are the real driving force of the market, and by using &lt;b&gt;blockchain technology&lt;/b&gt; we aim to &lt;b&gt;put students at the center of the Student Economy -&lt;/b&gt;
+    <value>We believe that students are the real driving force of the market, and by using &lt;b&gt;blockchain technology&lt;/b&gt; we aim to &lt;b&gt;put students at the center of the student economy -&lt;/b&gt;
                         &lt;i&gt;giving the power back to the students.&lt;/i&gt;</value>
   </data>
   <data name="Buying &amp; selling of textbooks" xml:space="preserve">
@@ -218,16 +218,16 @@
     <value>In the early life of Spitball 2.0,&lt;br /&gt; network participants are rewarded for activities that help stimulate the network</value>
   </data>
   <data name="UseCase" xml:space="preserve">
-    <value>&lt;b&gt;Selected&lt;/b&gt; Use-Cases</value>
+    <value>Selected Use Cases</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Users</value>
   </data>
   <data name="Vision" xml:space="preserve">
-    <value>Our &lt;b&gt;vision&lt;/b&gt; is to create an &lt;b&gt;economy for students&lt;/b&gt; that is &lt;b&gt;Transparent, Secure,&lt;/b&gt; and &lt;b&gt;Direct&lt;/b&gt; (peer-to-peer), in an &lt;b&gt;Efficient Market&lt;/b&gt; with &lt;b&gt;Lower Prices,&lt;/b&gt; Higher Volume and &lt;b&gt;Fair Profit Rewards&lt;/b&gt; for community contributors.</value>
+    <value>Our &lt;b&gt;vision&lt;/b&gt; is to create an &lt;b&gt;economy for students&lt;/b&gt; that is &lt;b&gt;transparent, secure,&lt;/b&gt; and &lt;b&gt;direct&lt;/b&gt; (peer-to-peer), in an &lt;b&gt;efficient market&lt;/b&gt; with &lt;b&gt;lower prices,&lt;/b&gt; higher volume and &lt;b&gt;fair profit rewards&lt;/b&gt; for community contributors.</value>
   </data>
   <data name="Whitepaper published and launch of Spitball 2.0 Homework Help marketplace" xml:space="preserve">
-    <value>Whitepaper published and launch of Spitball 2.0 Homework Help marketplace</value>
+    <value>Whitepaper published and launch of Spitball 2.0 Homework Help Marketplace</value>
   </data>
   <data name="Integration with 3rd party sites to accept SBL token" xml:space="preserve">
     <value>Integration with 3rd party sites to accept SBL token</value>

@@ -1494,8 +1494,9 @@ hr, .hr {
     #mobile-whitepaper{
         position: fixed;
         bottom: 24px;
-        right: 20%;
-        /* left: 0; */
+        left: 0;
+        right: 0;
+        margin: 0% auto; /* Will not center vertically and won't work in IE6/7. */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2418,7 +2419,7 @@ img.advisor-co-img{
 }
 
 @media only screen and (max-width: 767px) {
-    .language-switcher{
+    .header-language-switcher{
         margin-left: -115px;
     } 
     .img-holder{
