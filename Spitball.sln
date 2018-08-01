@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Ico", "Cloudents.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Management", "Cloudents.Management\Cloudents.Management.csproj", "{EDD969E4-BFBC-491A-9468-18BCDF3BF618}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Infrastructure.Data.Test", "Cloudents.Infrastructure.Data.Test\Cloudents.Infrastructure.Data.Test.csproj", "{0F4CDB18-8825-4D7B-A42C-B87C67813C48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Infrastructure.Data.Test", "Cloudents.Infrastructure.Data.Test\Cloudents.Infrastructure.Data.Test.csproj", "{0F4CDB18-8825-4D7B-A42C-B87C67813C48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,6 +128,7 @@ Global
 		{0F4CDB18-8825-4D7B-A42C-B87C67813C48} = {974199DB-E3D7-4CAC-BBEA-6A0801E51009}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_PrefixTranslations = False
 		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
 	EndGlobalSection
 EndGlobal

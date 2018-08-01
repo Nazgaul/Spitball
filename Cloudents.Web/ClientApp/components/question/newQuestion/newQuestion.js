@@ -69,6 +69,7 @@ export default {
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files)
                     .then(function () {
                             // debugger;
+                            self.$ga.event("Submit_question", "Homwork help");
                             let val = self.selectedPrice || self.price;
                             self.updateUserBalance(-val);
                             self.$router.push({path: '/ask', query: {q: ''}});
