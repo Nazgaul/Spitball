@@ -1,0 +1,27 @@
+﻿@page
+@model Cloudents.Management.Pages.AddQuestionModel
+@{
+    ViewData["Title"] = "AddQuestion";
+}
+
+<h2>AddQuestion</h2>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+
+    <label asp-for="Model.Text"></label>
+    <textarea asp-for="Model.Text"></textarea>
+    <br />
+    <label asp-for="Model.SubjectId"></label>
+    <select asp-for="Model.SubjectId"
+            asp-items="@(new SelectList(Model.Subjects, "Id", "Subject"))">
+        <option>Please select one</option>
+    </select>
+    <br />
+    <label asp-for="Model.Price"></label>
+
+    <input asp-for="Model.Price" />
+    <br />
+    <input type="submit" />
+</form>
+
