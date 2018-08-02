@@ -2,13 +2,55 @@
 @model MarkAsCorrectModel
 @{
 }
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-<form method="post">
-    <div asp-validation-summary="All"></div>
-    <label asp-for="Model.QuestionId"></label>
-    <input asp-for="Model.QuestionId" />
-    <br/>
-    <label asp-for="Model.AnswerId"></label>
-    <input asp-for="Model.AnswerId" />
-    <input type="submit" />
-</form>
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+
+<table>
+    <tr>
+        <td>Question Text</td>
+        <td>Answer Text</td>
+        <td>Link</td>
+        <td></td>
+
+        @foreach (var q in Model.Questions)
+        {
+        <tr>
+            <td>@q.QuestionText</td>
+            <td>@q.AnswerText</td>
+            <td><a href="@q.Url" target="_blank">Link</a> </td>
+            <td>
+                <form method="POST">
+                    <input type="hidden" asp-for="@Model.Model.QuestionId" value="@q.QuestionId" />
+                    <input type="hidden" asp-for="@Model.Model.AnswerId" value="@q.AnswerId" />
+                    <input type="submit" value="approve" />
+                </form>
+            </td>
+        </tr>
+    }
+    </table>
+
+    <form method="post">
+        <div asp-validation-summary="All"></div>
+        <label asp-for="Model.QuestionId"></label>
+        <input asp-for="Model.QuestionId" />
+        <br />
+        <label asp-for="Model.AnswerId"></label>
+        <input asp-for="Model.AnswerId" />
+        <input type="submit" />
+    </form>

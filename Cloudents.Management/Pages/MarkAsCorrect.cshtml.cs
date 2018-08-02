@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command.Admin;
+using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,15 +19,23 @@ namespace Cloudents.Management.Pages
     {
 
         private readonly Lazy<ICommandBus> _commandBus;
+        private readonly IQueryBus _queryBus;
 
-        public MarkAsCorrectModel(Lazy<ICommandBus> commandBus)
+
+        public MarkAsCorrectModel(Lazy<ICommandBus> commandBus, IQueryBus queryBus)
         {
             _commandBus = commandBus;
+            _queryBus = queryBus;
         }
 
-        public void OnGet()
+        public async Task OnGet(CancellationToken token)
         {
+            var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
+            Questions = await _queryBus.QueryAsync(query, token);
         }
+
+        [ViewData]
+        public IEnumerable<QuestionWithoutCorrectAnswerDto> Questions { get; set; }
 
         [BindProperty] public QuestionAnswer Model  { get; set; }
 
@@ -51,7 +62,8 @@ namespace Cloudents.Management.Pages
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
             //return Ok();
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("MarkAsCorrect");
+            //return RedirectToPage("/Index");
         }
      }
 }

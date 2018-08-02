@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Query
@@ -14,5 +15,10 @@ namespace Cloudents.Core.Query
 
         public long QuestionId { get; }
         public long UserId { get; }
+    }
+
+    public class FictiveUsersQuestionsWithoutCorrectAnswerQuery : IQuery<IEnumerable<QuestionWithoutCorrectAnswerDto>>
+    {
+
     }
 }

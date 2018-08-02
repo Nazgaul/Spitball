@@ -39,6 +39,11 @@ namespace Cloudents.Infrastructure.Data
             var assembly = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsSelf().AsImplementedInterfaces();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
+
+
+            //builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
+            //    .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)) && i.GetCustomAttribute<AdminCommandHandler>() == null)
+            //    .Select(i => new KeyedService("handler", i)));
             base.Load(builder);
         }
     }
