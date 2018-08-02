@@ -14,8 +14,8 @@
             <h3>Filter</h3>
             <div class="filter-switch">
                 <!--removed :value binding cause of error Vuetify 1.1.1-->
-                <v-expansion-panel expand>
-                    <v-expansion-panel-content v-for="k in filterOptions" :key="k.modelId" :value="true">
+                <v-expansion-panel expand :value="0">
+                    <v-expansion-panel-content v-for="k in filterOptions" :key="k.modelId">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
                         <template slot="header">
                             <div class="icon-wrapper">
