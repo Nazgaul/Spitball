@@ -11,7 +11,6 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
@@ -124,7 +123,7 @@ namespace Cloudents.Web
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
-            
+
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -209,7 +208,6 @@ namespace Cloudents.Web
                 });
                 var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
                 configuration.DisableTelemetry = true;
-
             }
             var reWriterOptions = new RewriteOptions()
                 .Add(new RemoveTrailingSlash());
@@ -253,7 +251,7 @@ namespace Cloudents.Web
             if (env.IsDevelopment())
             {
                 app.UseSwagger();
-                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+                // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
             }
             app.UseAuthentication();

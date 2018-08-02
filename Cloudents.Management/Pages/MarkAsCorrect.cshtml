@@ -18,10 +18,15 @@
     tr:nth-child(even) {
         background-color: #dddddd;
     }
+
     td:last-child {
         width: 85px
     }
-    td:nth-child(3n) {
+
+    td:nth-child(4n) {
+        width: 50px;
+    }
+    td:first-child {
         width: 50px;
     }
     td {
@@ -32,6 +37,7 @@
 
 <table>
     <tr>
+        <td>Question Id</td>
         <td>Question Text</td>
         <td>Answer Text</td>
         <td>Link</td>
@@ -40,6 +46,7 @@
         @foreach (var q in Model.Questions)
         {
         <tr>
+            <td>@q.QuestionId</td>
             <td>@q.QuestionText</td>
             <td>@q.AnswerText</td>
             <td><a href="@q.Url" target="_blank">Link</a> </td>
@@ -54,7 +61,7 @@
     }
     </table>
 
-    <form method="post">
+    @*<form method="post">
         <div asp-validation-summary="All"></div>
         <label asp-for="Model.QuestionId"></label>
         <input asp-for="Model.QuestionId" />
@@ -62,4 +69,4 @@
         <label asp-for="Model.AnswerId"></label>
         <input asp-for="Model.AnswerId" />
         <input type="submit" />
-    </form>
+    </form>*@

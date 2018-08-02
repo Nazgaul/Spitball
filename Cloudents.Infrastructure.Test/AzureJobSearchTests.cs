@@ -2,11 +2,8 @@
 using System.Reflection;
 using Autofac.Extras.Moq;
 using Cloudents.Core.Enum;
-using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Job;
-using Cloudents.Infrastructure.Write.Job;
 using FluentAssertions;
-using Microsoft.Azure.Search;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Infrastructure.Test

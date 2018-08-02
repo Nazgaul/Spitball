@@ -4,7 +4,7 @@ using Cloudents.Ico.Resources.Model;
 
 namespace Cloudents.Ico.Models
 {
-    public abstract class Team :IComparable<Team>
+    public abstract class Team : IComparable<Team>
     {
         private readonly ResourceManager _rm;
 
@@ -21,13 +21,13 @@ namespace Cloudents.Ico.Models
         public abstract string Image { get; }
         public abstract string LinkdinLink { get; }
         protected abstract int Order { get; }
+
         public int CompareTo(Team other)
         {
             if (other == null)
                 return 1;
 
-            else
-                return this.Order.CompareTo(other.Order);
+            return Order.CompareTo(other.Order);
         }
     }
 }

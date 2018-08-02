@@ -45,7 +45,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var url =
                 "/url?url=https:%2F%2Fwww.google.com&host=google&location=23";
 
-            var response = await Client.GetAsync(url).ConfigureAwait(false);
+            await Client.GetAsync(url).ConfigureAwait(false);
         }
 
         [TestMethod]
