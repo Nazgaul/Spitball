@@ -9,6 +9,9 @@ using Cloudents.Core.Command;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using System.Collections.Generic;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Query;
+using Cloudents.Core.Command.Admin;
 
 namespace ConsoleApp
 {
@@ -21,7 +24,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -44,48 +47,52 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-            var t = new TransactionPopulation(_container);
-            await t.AddToUserMoney(3000, 1013);
+            await UpdateCreationTimeProductionAsync();
+            //var bus = _container.Resolve<IQueryBus>();
+          //  var bus = _container.Resolve<IQueryBus>();
+           // var z = new NextQuestionQuery(68, 11);
+           // var x = await bus.QueryAsync(z, default);
+           
 
 
-             Console.WriteLine("Finish");
-             Console.ReadLine();
-         }
-
-         public static Task SendMoneyAsync()
-         {
-             var t = _container.Resolve<IBlockChainErc20Service>();
-             var pb = t.GetAddress("38d68c294410244dcd009346c756436a64530d7ddb0611e62fa79f9f721cebb0");
-             return t.SetInitialBalanceAsync(pb, default);
-         }
-
-
-         internal static bool TryParseAddress(string value)
-         {
-             // email = null;
-
-             if (string.IsNullOrEmpty(value))
-             {
-                 return false;
-             }
-
-             try
-             {
-                 // MailAddress will auto-parse the name from a string like "testuser@test.com <Test User>"
-                 MailAddress mailAddress = new MailAddress(value);
-                 string displayName = string.IsNullOrEmpty(mailAddress.DisplayName) ? null : mailAddress.DisplayName;
-                 //email = new Email(mailAddress.Address, displayName);
-                 return true;
-             }
-             catch (FormatException)
-             {
-                 return false;
-             }
+            Console.WriteLine("Finish");
+            Console.ReadLine();
         }
 
-        private static async Task PoplateSheetOfQuestion()
+        public static Task SendMoneyAsync()
         {
-            string spreadsheetId = "1Mq1ec4dGp6ADuKmlrAa5rsFm-_-JvT8O0miC8wsd1T8";
+            var t = _container.Resolve<IBlockChainErc20Service>();
+            var pb = t.GetAddress("38d68c294410244dcd009346c756436a64530d7ddb0611e62fa79f9f721cebb0");
+            return t.SetInitialBalanceAsync(pb, default);
+        }
+
+
+        internal static bool TryParseAddress(string value)
+        {
+            // email = null;
+
+            if (string.IsNullOrEmpty(value))
+            {
+                return false;
+            }
+
+            try
+            {
+                // MailAddress will auto-parse the name from a string like "testuser@test.com <Test User>"
+                MailAddress mailAddress = new MailAddress(value);
+                string displayName = string.IsNullOrEmpty(mailAddress.DisplayName) ? null : mailAddress.DisplayName;
+                //email = new Email(mailAddress.Address, displayName);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
+        private static async Task PopulateSheetOfQuestion()
+        {
+            string spreadsheetId = "1A2O_jASZuWlI_jIX8a1eiZb61C5RDF9KQ2i7CQzGU30";
             string range = "All!B:D";
 
 
@@ -96,6 +103,33 @@ namespace ConsoleApp
                 var commandBus = _container.Resolve<ICommandBus>();
                 await commandBus.DispatchAsync(question, default);
             }
+        }
+
+
+        public static async Task UpdateCreationTimeProductionAsync()
+        {
+            using (var child = _container.BeginLifetimeScope())
+            {
+                using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                {
+                    var repository = child.Resolve<IQuestionRepository>();
+                    var questions = await repository.GetAllQuestionsAsync().ConfigureAwait(false);
+                    var random = new Random();
+                    foreach (var question in questions)
+                    {
+                        if (question.CorrectAnswer == null && question.User.Fictive)
+                        {
+                           // question.Created = DateTimeHelpers.NextRandomDate(2, random);
+                            Console.WriteLine(question.Created);
+                            await repository.UpdateAsync(question, default);
+                        }
+                        //user1.UserCreateTransaction();
+                        //await t.UpdateAsync(user1, default).ConfigureAwait(false);
+                    }
+                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+                }
+            }
+           
         }
     }
 }

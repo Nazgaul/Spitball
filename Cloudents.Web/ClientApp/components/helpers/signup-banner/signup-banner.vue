@@ -11,24 +11,11 @@
             <div class="overlay-bubble-5"></div>
             <div class="overlay-bubble-6"></div>
         </div>
-        <vue-particles style="z-index:100" :key="bannerData.lineColor"
-                       class="signup-banner"
-                       :color="bannerData.lineColor"
-                       :particleOpacity="0.7"
-                       :particlesNumber="80"
-                       shapeType="circle"
-                       :particleSize="4"
-                       :linesColor="bannerData.lineColor"
-                       :linesWidth="1"
-                       :lineLinked="true"
-                       :lineOpacity="0.4"
-                       :linesDistance="150"
-                       :moveSpeed="3"
-                       :hoverEffect="true"
-                       hoverMode="grab"
-                       :clickEffect="true"
-                       clickMode="push"
-        > </vue-particles>
+        <particles
+                :linesColor="bannerData.lineColor"
+                :key="bannerData.lineColor"
+                class="signup-banner particles-js">
+         </particles>
 
         <v-flex  class="text-block">
         <div class="title-wrap">

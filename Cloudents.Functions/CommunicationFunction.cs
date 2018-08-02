@@ -49,7 +49,7 @@ namespace Cloudents.Functions
             TraceWriter log,
             CancellationToken token)
         {
-            var topicMessage = new AnswerCorrectEmail("ram@cloudents.com", "text", "xxx",
+            var topicMessage = new AnswerCorrectEmail("hadar@cloudents.com", "text", "xxx",
                 "https://www.spitball.co", 456.23424M);
             await ProcessEmail(emailProvider, binder, log, topicMessage, token);
         }

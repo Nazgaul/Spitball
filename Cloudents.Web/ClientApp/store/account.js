@@ -77,6 +77,9 @@ const actions = {
             });
         }
     },
+    saveCurrentPathOnPageChange({commit}, {currentRoute}){
+        commit("updateFromPath", currentRoute);
+    },
     connectToChat({state, commit}) {
         if (!state.user) {
             return;

@@ -35,8 +35,7 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new UnauthorizedAccessException("Fictive user");
             }
-            //user.AddTransaction(new Transaction(ActionType.CashOut, TransactionType.Earned, -message.Amount));
-            user.AddTransaction(Transaction.CashOut(-message.Amount));
+            user.AddTransaction(Transaction.CashOut(message.Amount));
             await _userRepository.UpdateAsync(user, token);
             await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(message.Amount, user.Id), token);
         }

@@ -21,7 +21,6 @@ namespace ConsoleApp
         {
             using (var child = _container.BeginLifetimeScope())
             {
-               
                 using (var unitOfWork = child.Resolve<IUnitOfWork>())
                 {
                     var repository = child.Resolve<IUserRepository>();
