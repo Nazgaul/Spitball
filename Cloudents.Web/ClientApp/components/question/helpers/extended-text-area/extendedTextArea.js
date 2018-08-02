@@ -20,7 +20,7 @@ export default {
     watch:{
         value(newVal,oldVal){
             //clean preview list when text is empty
-            if(!newVal){this.previewList=[];}
+            //if(!newVal){this.previewList=[];}
         }
     },
     methods: {
