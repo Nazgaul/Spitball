@@ -24,7 +24,7 @@ export default {
         ...mapActions(['hideRegistrationBanner']),
 
 
-        getBannerData() {
+    getBannerData() {
             return this.bannerData = nav[this.$route.path.slice(1)].banner;
         }
     },

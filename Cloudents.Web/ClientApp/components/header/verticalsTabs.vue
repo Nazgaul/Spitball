@@ -2,10 +2,7 @@
     <v-flex class="line verticals">
         <v-layout row>
             <div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>
-            <!--vuetify 1.1.1 changed mutation of currentSelection to currentVertical-->
             <v-tabs class="verticals-bar" v-model="currentVertical" :value="currentSelection"  fixed :scrollable="false">
-
-                <!--<v-tabs-bar>-->
                     <v-tab v-for="tab in verticals" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click.prevent="$_updateType(tab.id)"
                                  :class="['spitball-text-'+tab.id,tab.id===currentSelection?'v-tabs__item--active':'']"
@@ -13,7 +10,6 @@
                         {{tab.name}}
                     </v-tab>
                     <v-tabs-slider :color="`color-${currentVertical}`"></v-tabs-slider>
-                <!--</v-tabs-bar>-->
             </v-tabs>
         </v-layout>
     </v-flex>
@@ -21,7 +17,7 @@
 
 <script>
     import {mapActions, mapGetters} from 'vuex'
-    import {verticalsNavbar as verticals} from '../../data'
+    import {verticalsNavbar as verticals}  from "../../services/navigation/vertical-navigation/nav";
 
     export default {
         name: "verticals-tabs",
