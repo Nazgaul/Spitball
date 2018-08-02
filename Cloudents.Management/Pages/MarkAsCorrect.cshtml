@@ -4,9 +4,9 @@
 }
 <style>
     table {
-        font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
+        table-layout: fixed;
     }
 
     td, th {
@@ -17,6 +17,15 @@
 
     tr:nth-child(even) {
         background-color: #dddddd;
+    }
+    td:last-child {
+        width: 85px
+    }
+    td:nth-child(3n) {
+        width: 50px;
+    }
+    td {
+        overflow-wrap: break-word;
     }
 </style>
 

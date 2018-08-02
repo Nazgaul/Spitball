@@ -63,7 +63,7 @@ namespace Cloudents.Management.Pages
             };
 
             await _commandBus.Value.DispatchAsync(command, token);
-            return RedirectToPage("/Index");
+            return RedirectToPage("AddQuestion");
         }
     }
 }
