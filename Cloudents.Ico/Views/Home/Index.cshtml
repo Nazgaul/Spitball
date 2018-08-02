@@ -1,53 +1,32 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
     ViewData["Title"] = "Home Page";
 }
-
-
 <!-- Header -->
 <header class="site-header is-sticky">
 
     <!-- Navbar -->
     <div class="navbar navbar-expand-lg is-transparent" id="mainnav">
         <nav class="container">
-
-                <a class="navbar-brand animated" data-animate="fadeInDown" data-delay=".65" href="https://www.spitball.co/" target="_blank">
-                <img class="logo logo-light" alt="logo" src="~/images/logo-beta.png">
-                <img class="logo logo-dark" alt="logo" src="~/images/logo-beta-blue.png">
+            <a class="navbar-brand animated" data-animate="fadeInDown" data-delay=".65" href="https://www.spitball.co/" target="_blank">
+                <img class="logo logo-light" alt="logo" src="~/images/logo-beta.svg">
+                <img class="logo logo-dark" alt="logo" src="~/images/logo-beta-blue.svg">
             </a>
-
-            <div class="language-switcher animated" data-animate="fadeInDown" data-delay=".75">
-                <a href="#" data-toggle="dropdown">EN</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">FR</a>
-                    <a class="dropdown-item" href="#">CH</a>
-                    <a class="dropdown-item" href="#">BR</a>
-                </div>
+            <div class="language-switcher animated header-language-switcher" data-animate="fadeInDown" data-delay=".75">
+                <partial name="_LanguageSwitcher"/>
             </div>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle">
-                <span class="navbar-toggler-icon">
-                    <span class="ti ti-align-justify"></span>
-                </span>
-            </button>
-
+            <a href="https://t.me/Spitball" target="_blank" class="navbar-toggler">
+                <em class="fa fa-paper-plane" style="margin-right: 3px;"></em>
+            </a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarToggle">
                 <ul class="navbar-nav animated remove-animation" data-animate="fadeInDown" data-delay=".9">
-                    <li class="nav-item"><a class="nav-link menu-link" href="#intro">Vision<span class="sr-only">(current)</span></a></li>
-                    <!-- <li class="nav-item"><a class="nav-link menu-link" href="#tokenSale">Tokens</a></li> -->
-                    <li class="nav-item"><a class="nav-link menu-link" href="#roadmap">Roadmap</a></li>
-                    <li class="nav-item"><a class="nav-link menu-link" href="#apps">Use cases</a></li>
-                    <li class="nav-item"><a class="nav-link menu-link" href="#team">Team</a></li>
-                    <li class="nav-item"><a class="nav-link menu-link" href="#faq" style="text-transform:uppercase;">Faqs</a></li>
-                    <li class="nav-item"><a class="nav-link menu-link" href="#contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link menu-link" href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank">Whitepaper</a></li>
-                    <li class="nav-item"><a class="nav-link menu-link" href="#footer">Subscribe</a></li>
-
-
+                    <li class="nav-item" id="whitepaper-nav">
+                        <a href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="nav-link menu-link"> <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]</a>
+                    </li>
+                    <li class="nav-item" id="telegram-nav"><a href="https://t.me/Spitball" target="_blank" class=" nav-link menu-link"><em class="fa fa-paper-plane" style="margin-right: 14px;"></em>@Localizer["Join Telegram"] </a></li>
                 </ul>
-                @*<ul class="navbar-nav navbar-btns animated remove-animation" data-animate="fadeInDown" data-delay="1.15">
-                        <li class="nav-item"><a class="nav-link btn btn-sm btn-outline menu-link" id="signUpBtn" href="#">Sign up</a></li>
-                        <li class="nav-item"><a class="nav-link btn btn-sm btn-outline menu-link" id="loginBtn" href="#">Log in</a></li>
-                    </ul>*@
+
             </div>
 
         </nav>
@@ -67,300 +46,110 @@
             <div id="particles-js" class="particles-container particles-js"></div>
         </div>
         <div class="container">
-            <div class="banner-content">
+            <div class="banner-content mr--x3">
                 <div class="gaps size-3x d-lg-none"></div>
-                <div class="row align-items-center mobile-center">
-                    <div class="col-lg-6 col-md-12 text-lg-left text-center res-m-bttm">
+                <div class="row align-items-center mobile-center" style="margin-bottom: -90px;">
+                    <div class="col-lg-5 col-md-12 text-lg-left text-center res-m-bttm">
                         <div class="header-txt">
-                            <h1 class="animated" data-animate="fadeInUp"
+                            <h1 class="animated header-title mb-4" data-animate="fadeInUp"
                                 data-delay="1.25">
-                                <img src="~/images/muscari/spitball-2-0.svg" alt="Kiwi standing on oval">
-                              <br class="d-none d-xl-block"><br class="d-none d-xl-block">
+                                @Localizer["Title"]
+                                <br class="d-none d-xl-block">
                             </h1>
-                            <h5 class="subtitle">The World’s First Decentralized Student Economy</h5>
                             <p class="lead animated" data-animate="fadeInUp" data-delay="1.35">
-                                Enabling the 1 billion students around the world to interact directly with each other to exchange content, knowledge and services without the involvement of costly 3rd-party intermediaries.<br class="d-none d-xl-block">
+                                @Localizer["FirstParagraph"]
+
                             </p>
-                            <ul class="btns animated" data-animate="fadeInUp" data-delay="1.45">
-                                <li><a href="https://t.me/Spitball" target="_blank" class="btn btn-outline"><em class="fa fa-paper-plane" style="margin-right: 8px;"></em>Join us on Telegram</a></li>
-                                <li><a href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="btn btn-simple"> <em class="fa fa-file"></em> Download Whitepaper</a></li>
-                            </ul>
                         </div>
-                    </div><!-- .col  -->
-                    <div class="col-lg-6 col-md-12  offset-md-0 res-m-bttm-lg">
+                    </div>
+                    <div class="col-lg-6 col-md-12 offset-lg-1 offset-md-0 res-m-bttm-lg">
                         <div class="animated" data-animate="fadeInUp" data-delay="1.55">
                             <div class="header-image-muscari">
                                 <img src="~/images/muscari/header-image-muscari.png" style="visibility: hidden;" alt="header">
                             </div>
                             <div class="countdown-box countdown-transparent text-center">
                                 <iframe width="100%" height="360" src="https://www.youtube.com/embed/69daYsNqNUA?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
-                                <!-- <span class="extra-line"></span>
-                                <h6>ICO will start in</h6>
-                                <div class="token-countdown d-flex align-content-stretch" data-date="2018/09/05"></div>
-                                <div class="token-status-bar">
-                                    <div class="token-status-percent" style="width:75%;"></div>
-                                    <span class="token-status-point token-status-point-1" style="left:25%;">Pre-Sale</span>
-                                    <span class="token-status-point token-status-point-2" style="left:55%;">Soft Cap</span>
-                                    <span class="token-status-point token-status-point-3" style="left:80%;">Bonus</span>
-                                </div>
-                                <div>
-                                    <a href="#" class="btn btn-alt btn-lg">Register &amp; BUY TOKEN NOW</a>
-                                </div> -->
                             </div>
                         </div>
                     </div><!-- .col  -->
                 </div><!-- .row  -->
+                <div class="row">
+                    <div class="col-lg-5 col-md-12 text-lg-left text-center res-m-bttm res-top-lg">
+                        <div class="header-subscription">
+                            <h6 class="animated white" data-animate="fadeInUp" data-delay=".6">@Localizer["Subscribe to our newsletter"]</h6>
+                            <form id="subscribe-form" class="subscription-form animated" data-animate="fadeInUp" data-delay=".7">
+                                <input type="email" name="email" class="input-round required email" placeholder="@Localizer["Enter your email"]" required>
+                                <button type="submit" class="btn btn-plane">@Localizer["Subscribe"]</button>
+                                <div class="subscribe-results"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div><!-- .banner-content  -->
         </div><!-- .container  -->
     </div>
-    <!-- End Banner/Slider -->
-    <a href="#intro" class="scroll-down menu-link">SCROLL DOWN</a>
+
 </header>
-<!-- End Header -->
-<!-- Start Section -->
-<div class="section section-bg-light header-partners">
-    <div class="container">
-        <div class="gaps size-2x d-lg-none"></div>
-        <div class="row">
-            <div class="col-md-7">
-                <h3 class="animated" style="font-weight: 700;" data-animate="fadeInUp" data-delay="1.65">Our Partners</h3>
-                <img src="~/images/Partners.png" alt="partner">
-                <!-- <ul class="partner-list-s3 row flex-wrap-reverse">
-                    <li class="col-4 animated" data-animate="fadeInUp" data-delay="1.7"><a href="#"><img src="~/images/partner-xs-solid-a.png" alt="partner"></a></li>
-                    <li class="col-4 animated" data-animate="fadeInUp" data-delay="1.75"><a href="#"><img src="~/images/partner-xs-solid-b.png" alt="partner"></a></li>
-                    <li class="col-4 animated" data-animate="fadeInUp" data-delay="1.8"><a href="#"><img src="~/images/partner-xs-solid-c.png" alt="partner"></a></li>
-                    <li class="col-4 animated" data-animate="fadeInUp" data-delay="1.85"><a href="#"><img src="~/images/partner-xs-solid-d.png" alt="partner"></a></li>
-                    <li class="col-4 animated" data-animate="fadeInUp" data-delay="1.9"><a href="#"><img src="~/images/partner-xs-solid-e.png" alt="partner"></a></li>
-                </ul> -->
-            </div>
-        </div><!-- .row  -->
-    </div><!-- .container  -->
-</div>
-<!-- End Section -->
-<!-- Start Section -->
-<div class="section section-bg-light section-pad no-pt into-section" id="intro">
-    <div class="container">
-        <div class="gaps size-3x"></div>
-        <div class="row align-items-center">
-            <!-- <div class="col-md-5 offset-md-1">
-                <div class="res-m-btm animated" data-animate="fadeInUp" data-delay=".1">
-                    <img src="~/images/muscari/graph-muscari-a.png" alt="graph">
-                </div>
-            </div> -->
-            <div class="col-md-12 order-md-first order-last">
-                <div class="text-block">
-                    <h2 class="animated" data-animate="fadeInUp" data-delay=".2">Empowering today’s students...</h2>
-                    <p class="lead animated" data-animate="fadeInUp" data-delay=".3">...through tomorrow’s technology.
-</p>
-                    <p class="animated" data-animate="fadeInUp" data-delay=".4">
-                      Our vision is a next-generation Student Economy defined by transparency, direct P2P interaction between students, and fair profit opportunity for community contributors.
-                                          </p>
-                    <p class="animated" data-animate="fadeInUp" data-delay=".5">Free of intermediaries, Spitball 2.0 will create a self-sustained global ecosystem where students retain control of their academic content and derive profit directly from its exchange, with blockchain-powered records immutably storing intellectual property on a globally distributed ledger.</p> 
-                </div>
-            </div><!-- .col  -->
-        </div><!-- .row  -->
-        <div class="gaps size-3x"></div>
-        <div class="gaps size-3x d-none d-lg-block"></div>
-    </div><!-- .conatiner  -->
-</div>
-<!-- End Section -->
-<!-- Start Section -->
 <div class="section section-pad-md section-bg-muscari section-angle">
-    <div class="section-bg-angle section-muscari"></div>
+    <div class="section-bg-angle section-muscari" style="background-color: #E5E8FC; color:#3532d5;"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
                 <div class="section-head-s4">
-                    <h2 class="section-title animated" data-animate="fadeInUp" data-delay=".1">The Problem</h2>
-                    <p class="animated" data-animate="fadeInUp" data-delay=".2">The existing marketplace suffers from a lack of fair compensation for students, who are the actual driving force of the industry – buying, selling, and sharing services, goods, and knowledge</p>
+                    <h2 class="section-title animated blue mb-4" data-animate="fadeInUp" data-delay=".1">@Localizer["Title2"]</h2>
+                    <p class="lead animated blue" data-animate="fadeInUp" data-delay=".2">
+                        @Localizer["Vision"]
+                    </p>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6 res-m-bttm">
                 <div class="text-box animated" data-animate="fadeInUp" data-delay=".3">
-                    <h4>Opportunity</h4>
-                    <p>Blockchain technology enables a seamless solution for dismantling outdated industry intermediaries; directly connecting students (contributors and consumers); and automating fair payments within the community for students’ transactions.</p>
-                    <p>
-                        Currently one of the world’s largest aggregators of educational resources, Spitball has leveraged our blockchain and AI technologies, as well as our relationships in the education industry to create a convenient, practical solution for students to exchange knowledge, goods and services directly.
+                    <h4></h4>
+                    <p class="lead animated blue">
+                        @Localizer["Mission"]
                     </p>
                 </div>
             </div>
-            <!-- <div class="col-lg-4 res-m-bttm">
-                <div class="text-box animated" data-animate="fadeInUp" data-delay=".4">
-                    <h4>Relation between provider and end-user</h4>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-            </div> -->
             <div class="col-lg-6">
                 <div class="text-box text-box-bg animated" data-animate="fadeInUp" data-delay=".5">
-                    <h6>Our Solution: The Student Economy</h6>
-                    <!-- <h4>The Student Economy</h4> -->
-                    <p>
-                        Spitball 2.0 is a first-of-its-kind, blockchain-based economy that will enable students to monetize and benefit from their contributions, ensuring fair compensation for offered goods, services, and academic knowledge.
+                    <div class="img-holder">
+                        <img src="~/images/muscari/hevra.png" alt="Kiwi standing on oval">
+                    </div>
+                    <h6></h6>
+                    <p class="lead animated">
+                        @Localizer["Believe"]
                     </p>
-                    <p>Key Benefits:</p>
-                        <ul class="animated fadeInUp solution" data-animate="fadeInUp" data-delay=".2" style="visibility: visible; animation-delay: 0.2s;">
-                        <li><span>All-In-One Platform </span> offering class notes & homework help, tutors, textbooks, dorm furnishings and more</li>
-                        <li><span>P2P Marketplace </span> removing intermediaries that currently charge excessive fees and exploit students </li>
-                        <li><span>Global Network </span>enabling students from all over the world to directly exchange content, knowledge and services</li>
-                        <li><span>Opportunity </span>or students to earn from their knowledge in a safe and secure way</li>
-                        <li> <span>Seamless Entry Point </span>or Generation Z students into the cryptocurrency sphere</li>
-                        <li><span>Secure, Fast & Cheap </span>transactions powered by smart contracts</li>
-                        <li><span>Controllable Data </span>providing students proof of ownership to shared content for privacy and security</li>
-                        <li><span>Personalized </span>service for every student based on their school, classes, and preferences</li>
-                        <li><span>Open Source Structure </span>for third party DApp development to improve Student Economy offerings</li>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section section-pad-md token-section section-bg-light-alt" id="tokenSale">
+    <div class="container">
+
+        <div class="row align-items-start">
+            <div class="col-lg-7 res-m-bttm">
+                <img src="/images/muscari/spitball_app.png" alt="spitball app">
+            </div>
+            <div class="col-lg-5">
+                <h2 class="section-title animated fadeInUp">@Localizer["Spitball 2.0"]</h2>
+                <h2 class="section-title animated fadeInUp mb-4">@Localizer["UseCase"]</h2>
+                <div class="text-block">
+                    <ul class="animated fadeInUp main-purple" data-animate="fadeInUp" data-delay=".2" style="visibility: visible; animation-delay: 0.2s;">
+                        <li class="lead">@Localizer["Peer-to-Peer Tutoring"]</li>
+                        <li class="lead">@Localizer["Sharing of instructional material"]</li>
+                        <li class="lead">@Localizer["Sharing of class notes & practice quizzes"]</li>
+                        <li class="lead">@Localizer["Buying & selling of textbooks"]</li>
+                        <li class="lead">@Localizer["Buying miscellaneous"]</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- End Section -->
-<!-- Start Section -->
-<!-- <div class="section section-pad token-section section-bg-light-alt" id="tokenSale">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="section-head-s5 text-center">
-                    <h2 class="section-title animated" data-animate="fadeInUp" data-delay="0">Pre-Sale &amp; Values</h2>
-                    <p class="animated" data-animate="fadeInUp" data-delay=".1">ICO Crypto token will be released on the basis of Ethereum and Bitocin platform. It’s compatibility of the token with third-party services wallets, exchanges etc, and provides easy-to-use integration.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row align-items-center">
-            <div class="col-lg-7 res-m-bttm">
-                <div class="row event-info">
-                    <div class="col-sm-6">
-                        <div class="event-single-info animated" data-animate="fadeInUp" data-delay="0">
-                            <h6>Start</h6>
-                            <p>Feb 8, 2018 (9:00AM GMT)</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="event-single-info animated" data-animate="fadeInUp" data-delay=".1">
-                            <h6>Number of tokens for sale</h6>
-                            <p>900,000 ICC (9%)</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="event-single-info animated" data-animate="fadeInUp" data-delay=".2">
-                            <h6>End</h6>
-                            <p>Feb 20, 2018 (11:00AM GMT)</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="event-single-info animated" data-animate="fadeInUp" data-delay=".3">
-                            <h6>Tokens exchange rate</h6>
-                            <p>1 ETH = 650 ICC, 1 BTC = 1940 ICC</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="event-single-info animated" data-animate="fadeInUp" data-delay=".4">
-                            <h6>Acceptable currencies</h6>
-                            <p>ETH, BTC, LTC</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="event-single-info animated" data-animate="fadeInUp" data-delay=".5">
-                            <h6>Minimal transaction amount</h6>
-                            <p>1 ETH/ 1 BTC/ 1 LTC</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5">
-                <div class="countdown-box text-center animated" data-animate="fadeInUp" data-delay=".6">
-                    <h6>ICO will start in</h6>
-                    <div class="token-countdown d-flex align-content-stretch" data-date="2018/09/05"></div>
-                    <a href="#" class="btn btn-alt btn-lg">Purchase TOKEN NOW</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="gaps size-3x"></div><div class="gaps size-3x d-none d-md-block"></div>
-
-        <div class="row text-center">
-            <div class="col-md-6">
-                <div class="single-chart light res-m-btm">
-                    <h3 class="sub-headinganimated" data-animate="fadeInUp" data-delay=".0">Initial Token Distribution</h3>
-                    <div class="animated" data-animate="fadeInUp" data-delay=".1">
-                        <img src="~/images/muscari/chart-muscari-a.png" alt="chart">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="single-chart light">
-                    <h3 class="sub-headinganimated" data-animate="fadeInUp" data-delay=".2">Sale Proceed Allocation</h3>
-                    <div class="animated" data-animate="fadeInUp" data-delay=".3">
-                        <img src="~/images/muscari/chart-muscari-b.png" alt="chart">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div> -->
-<!-- Start Section -->
-<!-- Start Section -->
-<div class="section section-pad section-bg-light roadmap-section" id="roadmap">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="section-head-s5 text-center">
-                    <h2 class="section-title animated" data-animate="fadeInUp" data-delay=".0">The Roadmap</h2>
-                    <p class="animated" data-animate="fadeInUp" data-delay=".1">
-                       With help from our team, community and investors, these are some of the milestones from our past, as well as some we are looking forward to achieving in the future.</p>
-                </div>
-            </div>
-        </div>
-        <div class="roadmap-carousel-container animated" data-animate="fadeInUp" data-delay=".2">
-            <div class="roadmap-carousel-withnav">
-                <div class="roadmap-item roadmap-done">
-                    <h6>Q1 2014</h6>
-                    <p>Spitball is launched in Israel as a social studying app</p>
-                </div>
-                <div class="roadmap-item roadmap-done">
-                    <h6>Q3 2016</h6>
-                    <p>Spitball is launched in the United States</p>
-                </div>
-                <div class="roadmap-item roadmap-done">
-                    <h6>Q3 2017</h6>
-                    <p>Spitball partners with 25+ leading educational companies to become the premier aggregator of academic content &amp; services</p>
-                </div>
-                <div class="roadmap-item">
-                    <h6>Q3 2018</h6>
-                    <p>Whitepaper published and launch of Spitball 2.0 Homework Help marketplace</p>
-                </div>
-                <div class="roadmap-item">
-                    <h6>Q3 2018 </h6>
-                    <p>Initial wallet released</p>
-                </div>
-                <div class="roadmap-item">
-                    <h6>Q3 &amp; Q4 2018</h6>
-                    <p>Launch of Spitball Marketplace for all student-related goods and services (tutors, textbooks, class material, second-hand items, etc.)</p>
-                </div>
-                <div class="roadmap-item">
-                    <h6>Q4 2018</h6>
-                    <p>Spitball expands to new markets (Asia, EU)</p>
-                </div>
-                <div class="roadmap-item">
-                    <h6>Q1 2019</h6>
-                    <p>Integration with 3rd party sites to accept SBL token</p>
-                </div>
-                <div class="roadmap-item">
-                    <h6>Q2 2019</h6>
-                    <p>Integration with 3rd party (offline) stores &amp; universities to accept SBL on campuses</p>
-                </div>
-            </div>
-        </div>
-    </div><!-- .container  -->
-</div>
-<!-- Start Section -->
-<!-- Start Section -->
-<div class="section section-pad section-bg-muscari section-muscari" id="apps">
+<div class="section section-pad-md section-bg-muscari section-muscari" id="apps">
     <div class="overlay-bars">
         <div class="overlay-bar-1"></div>
         <div class="overlay-bar-2"></div>
@@ -371,1164 +160,110 @@
         <div class="overlay-bar-7"></div>
     </div>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="section-head-s5 text-center">
-                    <h2 class="section-title animated" data-animate="fadeInUp" data-delay=".0">Student Economy on Spitball</h2>
-                    <p class="animated" data-animate="fadeInUp" data-delay=".1">
-                        Anyone with a smartphone and an internet connection can participate in the first decentralized,
-                        global marketplace for students.
-                    </p>
-                </div>
-            </div>
-        </div>
-
         <div class="row align-items-center">
-            <div class="col-md-6 res-m-btm">
+            <div class="col-lg-6 col-md-5 res-m-btm">
                 <div class="text-block">
-                    <p class="lead animated" data-animate="fadeInUp" data-delay=".0">Selected use cases of the Student Economy include:</p>
-                    <!-- <p class="animated" data-animate="fadeInUp" data-delay=".1">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerc itation ullamco laboris nisi commodo consequat. </p> -->
-                    <ul class="animated" data-animate="fadeInUp" data-delay=".2">
-                        <li>Peer-to-Peer Tutoring</li>
-                        <li>Sharing of instructional material</li>
-                        <li>Sharing of class notes & practice quizzes</li>
-                        <li>Buying & selling of textbooks</li>
-                        <li>Buying & selling of miscellaneous items such as dorm supplies, electronics, clothing, furniture, event tickets and more</li>
-                        <li>An entry point for students into the cryptocurrency markets</li>
-                    </ul>
-                    <!-- <ul class="btns animated" data-animate="fadeInUp" data-delay=".3">
-                        <li><a href="#" class="btn btn-sm btn-outline">GET THE APP NOW</a></li>
-                        <li>
-                            <a href="#"><em class="fab fa-apple"></em></a>
-                            <a href="#"><em class="fab fa-android"></em></a>
-                            <a href="#"><em class="fab fa-windows"></em></a>
-                        </li>
-                    </ul> -->
+                    <h2 class="animated" data-animate="fadeInUp" data-delay=".0">
+                        @Localizer["Spitball 2.0"]
+                    </h2>
+                    <h2 class="animated mb-4"><b>@Localizer["Token Economy"]</b></h2>
+                    <p class="lead animated" data-animate="fadeInUp" data-delay=".1">
+                        @Localizer["Token Economy Desc"]
+                    </p>
+                    <div class="animated" data-animate="fadeInUp" data-delay=".2">
+                        <div class="blocks"><p><span class="yellow">@Localizer["Users"]</span>&nbsp;@Localizer["Token Economy 1"]</p></div>
+                        <div class="blocks"><p><span class="yellow">@Localizer["Partners"]</span>&nbsp;@Localizer["Token Economy 2"]</p></div>
+                        <div class="blocks"><p><span class="yellow">@Localizer["Developers"]</span>&nbsp;@Localizer["Token Economy 3"]</p></div>
+                    </div>
                 </div>
             </div><!-- .col  -->
-            <div class="col-md-6">
+            <div class="col-lg-6 col-md-7">
                 <div class="animated" data-animate="fadeInUp" data-delay=".4">
-                    <img src="/images/muscari/mobile-app.png" alt="app">
+                    <img src="/images/muscari/spitball_economy.png" alt="spitball economy">
                 </div>
             </div><!-- .col  -->
         </div><!-- .row  -->
     </div><!-- .container  -->
 </div>
-<!-- Start Section -->
-<!-- Start Section -->
-<div class="section section-pad section-bg-light-alt section-bg-patern team-section section-fix bg-fixed" id="team">
+<div class="section section-pad-md section-bg-light roadmap-section" id="roadmap">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <div class="section-head-s5 text-center">
-                    <h2 class="section-title  animated" data-animate="fadeInUp" data-delay=".0">The Leadership Team</h2>
-                    <p class="animated" data-animate="fadeInUp" data-delay=".1">
-                        The Spitball Team combines a passion for education, industry expertise, and a track record of building and marketing successful consumer products.
+                    <h2 class="section-title animated" data-animate="fadeInUp" data-delay=".0">@Localizer["Roadmap"]</h2>
+                    <p class="lead animated" data-animate="fadeInUp" data-delay=".1">
+                        @Localizer["Founded"]
                     </p>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-4 offset-lg-2 offset-xl-0 col-xl-3 d-inline-flex justify-content-center">
-                <div class="team-member animated" data-animate="fadeInUp" data-delay=".2">
-                    <div class="team-photo">
-                        <img src="/images/muscari/Eidan.png" alt="team">
-                        <a href="#team-profile-1" class="expand-trigger content-popup"></a>
-                    </div>
-                    <div class="team-info">
-                        <h5 class="team-name">Eidan <br>Apelbaum</h5>
-                        <span class="team-title">Founder &amp; CEO </span>
-                        <ul class="team-social">
-                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                            <li><a href="https://www.linkedin.com/in/apelbaum"><em class="fab fa-linkedin-in"></em></a></li>
-                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                        </ul>
-                    </div>
-
-                    <!-- Start .team-profile  -->
-                    <div id="team-profile-1" class="team-profile mfp-hide">
-                        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                        <div class="container-fluid">
-                            <div class="row no-mg">
-                                <div class="col-md-6">
-                                    <div class="team-profile-photo">
-                                        <img src="/images/muscari/Eidan.png" alt="team" />
-                                    </div>
-                                </div><!-- .col  -->
-
-                                <div class="col-md-6">
-                                    <div class="team-profile-info">
-                                        <h3 class="name">Eidan  Apelbaum</h3>
-                                        <p class="sub-title">Founder  &amp; CEO </p>
-                                        <ul class="tpi-social">
-                                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                                            <li><a href="https://www.linkedin.com/in/apelbaum"><em class="fab fa-linkedin-in"></em></a></li>
-                                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                                        </ul>
-                                        <p>
-                                            Eidan is a veteran Internet professional with extensive experience in leading Internet companies. Prior to Spitball,
-                                            Eidan founded the social aggregator Multimi (acquired by AVG),
-                                            worked as Director of Product Management and Strategy managing the front page at Yahoo (My Yahoo) and heading the BI team at Yahoo. Eidan holds a Ph.D. in Economics from University of California at Davis.
-                                        </p>
-                                        <!-- <div class="skill-bars">
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">HTML5</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">85%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:85%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">CSS3</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">90%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:90%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">Java</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">75%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:75%"></div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div><!-- .col  -->
-
-                            </div><!-- .row  -->
-                        </div><!-- .container  -->
-                    </div><!-- .team-profile  -->
-
+        <div class="roadmap-carousel-container animated" data-animate="fadeInUp" data-delay=".2">
+            <div class="roadmap-carousel-withnav">
+                <div class="roadmap-item roadmap-done">
+                    <h6>@Localizer["Q1 2014"]</h6>
+                    <p>@Localizer["Spitball is launched in Israel as a social studying app"]</p>
                 </div>
-            </div><!-- .col  -->
-
-            <div class="col-md-6 col-lg-4 col-xl-3 d-inline-flex justify-content-center">
-                <div class="team-member animated" data-animate="fadeInUp" data-delay=".3">
-                    <div class="team-photo">
-                        <img src="/images/muscari/Ram.png" alt="team">
-                        <a href="#team-profile-2" class="expand-trigger content-popup"></a>
-                    </div>
-                    <div class="team-info">
-                        <h5 class="team-name">Ram <br>Yarri</h5>
-                        <span class="team-title">Chief Architect &amp; CTO</span>
-                        <ul class="team-social">
-                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                            <li><a href="https://www.linkedin.com/in/ramyaari/"><em class="fab fa-linkedin-in"></em></a></li>
-                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                        </ul>
-                    </div>
-
-                    <!-- Start .team-profile  -->
-                    <div id="team-profile-2" class="team-profile mfp-hide">
-                        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                        <div class="container-fluid">
-                            <div class="row no-mg">
-                                <div class="col-md-6">
-                                    <div class="team-profile-photo">
-                                        <img src="/images/muscari/Ram.png" alt="team" />
-                                    </div>
-                                </div><!-- .col  -->
-
-                                <div class="col-md-6">
-                                    <div class="team-profile-info">
-                                        <h3 class="name">Ram Yaari</h3>
-                                        <p class="sub-title">Chief Architect &amp; CTO</p>
-                                        <ul class="tpi-social">
-                                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                                            <li><a href="https://www.linkedin.com/in/ramyaari/"><em class="fab fa-linkedin-in"></em></a></li>
-                                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                                        </ul>
-                                        <p>An accomplished Cloud platform and blockchain developer, Ram is in charge of the entire development process for Spitball. Ram has 11 years of extensive experience in software engineering, as well as over 7 years in the development of AI and machine learning. Ram leads the day-to-day development of the Spitball product and manages the technical team.</p>
-                                        <!-- <div class="skill-bars">
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">HTML5</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">85%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:85%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">CSS3</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">90%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:90%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">Java</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">75%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:75%"></div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div><!-- .col  -->
-
-                            </div><!-- .row  -->
-                        </div><!-- .container  -->
-                    </div><!-- .team-profile  -->
-
+                <div class="roadmap-item roadmap-done">
+                    <h6>@Localizer["Q3 2016"]</h6>
+                    <p>@Localizer["Spitball is launched in the United States"]</p>
                 </div>
-            </div><!-- .col  -->
-
-            <div class="col-md-6 col-lg-4 offset-lg-2 offset-xl-0 col-xl-3 d-inline-flex justify-content-center">
-                <div class="team-member animated" data-animate="fadeInUp" data-delay=".4">
-                    <div class="team-photo">
-                        <img src="/images/muscari/Jordan.png" alt="team">
-                        <a href="#team-profile-3" class="expand-trigger content-popup"></a>
-                    </div>
-                    <div class="team-info">
-                        <h5 class="team-name">Jordan  <br>Weiss</h5>
-                        <span class="team-title">Chief Operating Officer</span>
-                        <ul class="team-social">
-                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                            <li><a href="https://www.linkedin.com/in/jordanweiss/"><em class="fab fa-linkedin-in"></em></a></li>
-                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                        </ul>
-                    </div>
-
-                    <!-- Start .team-profile  -->
-                    <div id="team-profile-3" class="team-profile mfp-hide">
-                        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                        <div class="container-fluid">
-                            <div class="row no-mg">
-                                <div class="col-md-6">
-                                    <div class="team-profile-photo">
-                                        <img src="/images/muscari/Jordan.png" alt="team" />
-                                    </div>
-                                </div><!-- .col  -->
-
-                                <div class="col-md-6">
-                                    <div class="team-profile-info">
-                                        <h3 class="name">Jordan Weiss</h3>
-                                        <p class="sub-title">Chief Operating Officer</p>
-                                        <ul class="tpi-social">
-                                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                                            <li><a href="https://www.linkedin.com/in/jordanweiss/"><em class="fab fa-linkedin-in"></em></a></li>
-                                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                                        </ul>
-                                        <p>
-                                            Jordan manages all outbound communication, marketing, and business development, leading the Spitball team in the US.
-                                            He has overseen all aspects of US launch and business development, recruiting 150 Greek partners, 200 campus ambassadors, and over 25 business partners while helping to drive more than 400K students to our service. Previously Jordan was a media Investment Banker at Jefferies.
-                                            Jordan graduated summa cum laude with a BA in Economics from Vanderbilt University.
-                                        </p>
-                                        <!-- <div class="skill-bars">
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">HTML5</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">85%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:85%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">CSS3</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">90%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:90%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">Java</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">75%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:75%"></div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div><!-- .col  -->
-
-                            </div><!-- .row  -->
-                        </div><!-- .container  -->
-                    </div><!-- .team-profile  -->
-
+                <div class="roadmap-item roadmap-done">
+                    <h6>@Localizer["Q3 2017"]</h6>
+                    <p>@Localizer["Spitball partners with 25+ leading educational companies to become the premier aggregator of academic content & services"]</p>
                 </div>
-            </div><!-- .col  -->
-            <div class="col-md-6 col-lg-4 col-xl-3 d-inline-flex justify-content-center">
-                <div class="team-member animated" data-animate="fadeInUp" data-delay=".5">
-                    <div class="team-photo">
-                        <img src="/images/muscari/Rob.png" alt="team">
-                        <a href="#team-profile-4" class="expand-trigger content-popup"></a>
-                    </div>
-                    <div class="team-info">
-                        <h5 class="team-name">Robert <br>Cohen</h5>
-                        <span class="team-title">Managing Director &amp; Advisor</span>
-                        <ul class="team-social">
-                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                            <li><a href="https://www.linkedin.com/in/robertecohen/"><em class="fab fa-linkedin-in"></em></a></li>
-                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                        </ul>
-                    </div>
-
-                    <!-- Start .team-profile  -->
-                    <div id="team-profile-4" class="team-profile mfp-hide">
-                        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                        <div class="container-fluid">
-                            <div class="row no-mg">
-                                <div class="col-md-6">
-                                    <div class="team-profile-photo">
-                                        <img src="/images/muscari/Rob.png" alt="team" />
-                                    </div>
-                                </div><!-- .col  -->
-
-                                <div class="col-md-6">
-                                    <div class="team-profile-info">
-                                        <h3 class="name">Robert Cohen</h3>
-                                        <p class="sub-title">Managing Director &amp; Advisor</p>
-                                        <ul class="tpi-social">
-                                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                                            <li><a href="https://www.linkedin.com/in/robertecohen/"><em class="fab fa-linkedin-in"></em></a></li>
-                                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                                        </ul>
-                                        <p>Robert is a focused leader with strong execution skills in strategy building and corporate development activities as well as operational skills across range of skill sets. Robert brings over 20 years experience in private equity and investment banking activities and is currently focused on investing in the platforms of the future, Spitball being top of the list.</p>
-                                        <!-- <div class="skill-bars">
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">HTML5</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">85%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:85%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">CSS3</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">90%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:90%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">Java</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">75%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:75%"></div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div><!-- .col  -->
-
-                            </div><!-- .row  -->
-                        </div><!-- .container  -->
-                    </div><!-- .team-profile  -->
-
+                <div class="roadmap-item">
+                    <h6>@Localizer["Q3 2018"]</h6>
+                    <p>@Localizer["Whitepaper published and launch of Spitball 2.0 Homework Help marketplace"]</p>
                 </div>
-            </div><!-- .col  -->
-        </div><!-- .row  -->
-        <div class="row">
-            <div class="col-md-6 col-lg-4 col-xl-3 d-inline-flex justify-content-center">
-                <div class="team-member animated" data-animate="fadeInUp" data-delay=".5">
-                    <div class="team-photo">
-                        <img src="/images/muscari/Shlomi.png" alt="team">
-                        <a href="#team-profile-5" class="expand-trigger content-popup"></a>
-                    </div>
-                    <div class="team-info">
-                        <h5 class="team-name">Shlomi  <br>Kastoryano</h5>
-                        <span class="team-title">UX &amp; UI Designer</span>
-                        <ul class="team-social">
-                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                            <li><a href="https://www.linkedin.com/in/kastoryano/"><em class="fab fa-linkedin-in"></em></a></li>
-                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                        </ul>
-                    </div>
-
-                    <!-- Start .team-profile  -->
-                    <div id="team-profile-5" class="team-profile mfp-hide">
-                        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                        <div class="container-fluid">
-                            <div class="row no-mg">
-                                <div class="col-md-6">
-                                    <div class="team-profile-photo">
-                                        <img src="/images/muscari/Shlomi.png" alt="team" />
-                                    </div>
-                                </div><!-- .col  -->
-
-                                <div class="col-md-6">
-                                    <div class="team-profile-info">
-                                        <h3 class="name">Shlomi Kastoryano</h3>
-                                        <p class="sub-title">UX &amp; UI Designer</p>
-                                        <ul class="tpi-social">
-                                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                                            <li><a href="https://www.linkedin.com/in/kastoryano/"><em class="fab fa-linkedin-in"></em></a></li>
-                                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                                        </ul>
-                                        <p>Shlomi is a highly skilled cross platform designer with over 5 years of experience in planning and design (UX & UI) for mobile applications, iOS and android, desktop apps and web design. In addition, Shlomi brings 10 years of creative, identity design and print experience. Shlomi is responsible for all UX and UI across the company​ ​website,​ ​mobile​, iOS and android applications.</p>
-                                        <!-- <div class="skill-bars">
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">HTML5</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">85%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:85%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">CSS3</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">90%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:90%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">Java</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">75%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:75%"></div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div><!-- .col  -->
-
-                            </div><!-- .row  -->
-                        </div><!-- .container  -->
-                    </div><!-- .team-profile  -->
-
+                <div class="roadmap-item">
+                    <h6>@Localizer["Q3 2018"]</h6>
+                    <p>@Localizer["Initial wallet released"]</p>
                 </div>
-            </div><!-- .col  -->
-            <div class="col-md-6 col-lg-4 col-xl-3 d-inline-flex justify-content-center">
-                <div class="team-member animated" data-animate="fadeInUp" data-delay=".5">
-                    <div class="team-photo">
-                        <img src="/images/muscari/Hadar.png" alt="team">
-                        <a href="#team-profile-6" class="expand-trigger content-popup"></a>
-                    </div>
-                    <div class="team-info">
-                        <h5 class="team-name">Hadar  <br>Keidar</h5>
-                        <span class="team-title">Blockchain Developer</span>
-                        <ul class="team-social">
-                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                            <li><a href="https://www.linkedin.com/in/hadar-keidar-167786124/"><em class="fab fa-linkedin-in"></em></a></li>
-                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                        </ul>
-                    </div>
-
-                    <!-- Start .team-profile  -->
-                    <div id="team-profile-6" class="team-profile mfp-hide">
-                        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                        <div class="container-fluid">
-                            <div class="row no-mg">
-                                <div class="col-md-6">
-                                    <div class="team-profile-photo">
-                                        <img src="/images/muscari/Hadar.png" alt="team" />
-                                    </div>
-                                </div><!-- .col  -->
-
-                                <div class="col-md-6">
-                                    <div class="team-profile-info">
-                                        <h3 class="name">Hadar Keidar</h3>
-                                        <p class="sub-title">Blockchain Developer</p>
-                                        <ul class="tpi-social">
-                                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                                            <li><a href="https://www.linkedin.com/in/hadar-keidar-167786124/"><em class="fab fa-linkedin-in"></em></a></li>
-                                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                                        </ul>
-                                        <p>Hadar brings development skills for end-to-end BI models, analysis and presentation to a senior management. Accompanying a DW implementation process in the organization & implementation of clustering algorithms and prediction models. Hadar graduated with a BS in Industrial Engineering from Ruppin Academic Center.</p>
-                                        <!-- <div class="skill-bars">
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">HTML5</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">85%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:85%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">CSS3</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">90%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:90%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">Java</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">75%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:75%"></div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div><!-- .col  -->
-
-                            </div><!-- .row  -->
-                        </div><!-- .container  -->
-                    </div><!-- .team-profile  -->
-
+                <div class="roadmap-item">
+                    <h6>@Localizer["Q3 & Q4 2018"]</h6>
+                    <p>
+                        @Localizer["Launch of Spitball Marketplace for all student-related goods and services (tutors, textbooks, class material, second-hand items, etc.)"]
+                    </p>
                 </div>
-            </div><!-- .col  -->
-            <div class="col-md-6 col-lg-4 col-xl-3 d-inline-flex justify-content-center">
-                <div class="team-member animated" data-animate="fadeInUp" data-delay=".5">
-                    <div class="team-photo">
-                        <img src="/images/muscari/Tori.png" alt="team">
-                        <a href="#team-profile-7" class="expand-trigger content-popup"></a>
-                    </div>
-                    <div class="team-info">
-                        <h5 class="team-name">Tori  <br>Withee</h5>
-                        <span class="team-title">Community Manager</span>
-                        <ul class="team-social">
-                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                            <li><a href="https://www.linkedin.com/in/toriwithee/"><em class="fab fa-linkedin-in"></em></a></li>
-                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                        </ul>
-                    </div>
-
-                    <!-- Start .team-profile  -->
-                    <div id="team-profile-7" class="team-profile mfp-hide">
-                        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                        <div class="container-fluid">
-                            <div class="row no-mg">
-                                <div class="col-md-6">
-                                    <div class="team-profile-photo">
-                                        <img src="/images/muscari/Tori.png" alt="team" />
-                                    </div>
-                                </div><!-- .col  -->
-
-                                <div class="col-md-6">
-                                    <div class="team-profile-info">
-                                        <h3 class="name">Tori Withee</h3>
-                                        <p class="sub-title">Community Manager</p>
-                                        <ul class="tpi-social">
-                                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                                            <li><a href="https://www.linkedin.com/in/toriwithee/"><em class="fab fa-linkedin-in"></em></a></li>
-                                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                                        </ul>
-                                        <p>
-                                            Tori graduated from Florida Atlantic University with a B.B.A. in Marketing, Human Resources and Leadership. Tori brings 5 years of experience working for top insurance companies within B2B/B2C Marketing and Communications departments. At Spitball, she provides management, copy writing, and design for clear communications & community management on all public channels.
-
-                                        </p>
-                                        <!-- <div class="skill-bars">
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">HTML5</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">85%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:85%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">CSS3</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">90%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:90%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">Java</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">75%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:75%"></div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div><!-- .col  -->
-
-                            </div><!-- .row  -->
-                        </div><!-- .container  -->
-                    </div><!-- .team-profile  -->
-
+                <div class="roadmap-item">
+                    <h6>
+                        @Localizer["Q4 2018"]
+                    </h6>
+                    <p>@Localizer["Spitball expands to new markets (Asia, EU)"]</p>
                 </div>
-            </div><!-- .col  -->
-              <div class="col-md-6 col-lg-4 col-xl-3 d-inline-flex justify-content-center">
-                <div class="team-member animated" data-animate="fadeInUp" data-delay=".5">
-                    <div class="team-photo">
-                        <img src="/images/muscari/Ola.png" alt="team">
-                        <a href="#team-profile-8" class="expand-trigger content-popup"></a>
-                    </div>
-                    <div class="team-info">
-                        <h5 class="team-name">Ola  <br>Jankowska</h5>
-                        <span class="team-title">Chief of Stuff</span>
-                        <ul class="team-social">
-                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                            <li><a href="https://www.linkedin.com/in/toriwithee/"><em class="fab fa-linkedin-in"></em></a></li>
-                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                        </ul>
-                    </div>
-
-                    <!-- Start .team-profile  -->
-                    <div id="team-profile-8" class="team-profile mfp-hide">
-                        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                        <div class="container-fluid">
-                            <div class="row no-mg">
-                                <div class="col-md-6">
-                                    <div class="team-profile-photo">
-                                        <img src="/images/muscari/Ola.png" alt="team" />
-                                    </div>
-                                </div><!-- .col  -->
-
-                                <div class="col-md-6">
-                                    <div class="team-profile-info">
-                                        <h3 class="name">Tori Withee</h3>
-                                        <p class="sub-title">Community Manager</p>
-                                        <ul class="tpi-social">
-                                            <!-- <li><a href=""><em class="fab fa-facebook-f"></em></a></li> -->
-                                            <li><a href="https://www.linkedin.com/in/toriwithee/"><em class="fab fa-linkedin-in"></em></a></li>
-                                            <!-- <li><a href=""><em class="fab fa-twitter"></em></a></li> -->
-                                        </ul>
-                                        <p>
-                                            Tori graduated from Florida Atlantic University with a B.B.A. in Marketing, Human Resources and Leadership. Tori brings 5 years of experience working for top insurance companies within B2B/B2C Marketing and Communications departments. At Spitball, she provides management, copy writing, and design for clear communications & community management on all public channels.
-
-                                        </p>
-                                        <!-- <div class="skill-bars">
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">HTML5</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">85%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:85%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">CSS3</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">90%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:90%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="single-skill-bar">
-                                                <div class="row no-mg">
-                                                    <div class="col-8 no-pd"><span class="skill-title">Java</span></div>
-                                                    <div class="col-4 text-right no-pd"><span class="skill-percent">75%</span></div>
-                                                </div>
-                                                <div class="skill-bar">
-                                                    <div class="skill-bar-percent gradiant-background" style="width:75%"></div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div><!-- .col  -->
-
-                            </div><!-- .row  -->
-                        </div><!-- .container  -->
-                    </div><!-- .team-profile  -->
-
+                <div class="roadmap-item">
+                    <h6>@Localizer["Q1 2019"]</h6>
+                    <p>@Localizer["Integration with 3rd party sites to accept SBL token"]</p>
                 </div>
-            </div><!-- .col  -->
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="gaps size-2x"></div>
-                <h3 class="sub-heading">The Advisory Board</h3>
-                <div class="gaps size-2x"></div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-9 col-md-12">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-xl-4  d-inline-flex justify-content-center">
-
-
-                     <!--!!!!!!!!!@@@@@@ clean style inline after advisors update -->
-                      <div class="team-photo"
-                          style="display: flex;
-                                 align-items: center;">
-                        
-                       <img src="/images/muscari/advise-3.png" alt="advisor" class="advisor-co-img align-middle" style="margin-bottom: 50px;">
-                       </div>
-                        <!-- <div class="team-member animated" data-animate="fadeInUp" data-delay=".1">
-                            <div class="team-photo">
-                                <img src="/images/team-e-sq.jpg" alt="team">
-                                <a href="#team-profile-5" class="expand-trigger content-popup"></a>
-                            </div>
-                            <div class="team-info">
-                                <h5 class="team-name">Dylan <br>Finch</h5>
-                                <span class="team-title">Board Advisor</span>
-                                <ul class="team-social">
-                                    <li><a href=""><em class="fab fa-linkedin-in"></em></a></li>                                  
-                                </ul>
-                            </div>
-
-                            <div id="team-profile-5" class="team-profile mfp-hide">
-                                <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                                <div class="container-fluid">
-                                    <div class="row no-mg">
-                                        <div class="col-md-6">
-                                            <div class="team-profile-photo">
-                                                <img src="/images/team-e-lg.jpg" alt="team" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="team-profile-info">
-                                                <h3 class="name">Dylan Finch</h3>
-                                                <p class="sub-title">Board Advisor</p>
-                                                <ul class="tpi-social">
-                                                    <li><a href=""><em class="fab fa-linkedin-in"></em></a></li>
-                                                </ul>
-                                                <p>He is a great man to work Lorem ipsum dolor sit amet, consec tetur adipis icing elit. Simi lique, autem. </p>
-                                                <p>Tenetur quos facere magnam volupt ates quas esse Sedrep ell endus mole stiae tates quas esse Sed repell endus molesti aela uda ntium quis quam iusto minima thanks.</p>
-                                                <div class="skill-bars">
-                                                    <div class="single-skill-bar">
-                                                        <div class="row no-mg">
-                                                            <div class="col-8 no-pd"><span class="skill-title">HTML5</span></div>
-                                                            <div class="col-4 text-right no-pd"><span class="skill-percent">85%</span></div>
-                                                        </div>
-                                                        <div class="skill-bar">
-                                                            <div class="skill-bar-percent gradiant-background" style="width:85%"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="single-skill-bar">
-                                                        <div class="row no-mg">
-                                                            <div class="col-8 no-pd"><span class="skill-title">CSS3</span></div>
-                                                            <div class="col-4 text-right no-pd"><span class="skill-percent">90%</span></div>
-                                                        </div>
-                                                        <div class="skill-bar">
-                                                            <div class="skill-bar-percent gradiant-background" style="width:90%"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="single-skill-bar">
-                                                        <div class="row no-mg">
-                                                            <div class="col-8 no-pd"><span class="skill-title">Java</span></div>
-                                                            <div class="col-4 text-right no-pd"><span class="skill-percent">75%</span></div>
-                                                        </div>
-                                                        <div class="skill-bar">
-                                                            <div class="skill-bar-percent gradiant-background" style="width:75%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div> -->
-                    </div>
-
-                   <!--!!!!!!!!!@@@@@@ clean style inline after advisors update -->
-                    <div class="col-lg-6 col-md-6 col-xl-4 d-inline-flex justify-content-center">
-                           <div class="team-photo"
-                             style="display: flex;
-                                    align-items: center;">
-                           
-                                <img src="/images/muscari/advise-2.png" alt="advisor" class="advisor-co-img align-middle" style="margin-bottom: 50px;" >
-                                </div>
-                        <!-- <div class="team-member animated" data-animate="fadeInUp" data-delay=".2">
-                            <div class="team-photo">
-                                <img src="/images/team-f-sq.jpg" alt="team">
-                                <a href="#team-profile-6" class="expand-trigger content-popup"></a>
-                            </div>
-                            <div class="team-info">
-                                <h5 class="team-name">Julian <br>Paten</h5>
-                                <span class="team-title">Board Advisor</span>
-                                <ul class="team-social">
-                                    <li><a href=""><em class="fab fa-linkedin-in"></em></a></li>
-                                </ul>
-                            </div>
-
-                            <div id="team-profile-6" class="team-profile mfp-hide">
-                                <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                                <div class="container-fluid">
-                                    <div class="row no-mg">
-                                        <div class="col-md-6">
-                                            <div class="team-profile-photo">
-                                                <img src="/images/team-f-lg.jpg" alt="team" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="team-profile-info">
-                                                <h3 class="name">Julian Paten</h3>
-                                                <p class="sub-title">Board Advisor</p>
-                                                <ul class="tpi-social">
-                                                    <li><a href=""><em class="fab fa-linkedin-in"></em></a></li>
-                                                </ul>
-                                                <p>He is a great man to work Lorem ipsum dolor sit amet, consec tetur adipis icing elit. Simi lique, autem. </p>
-                                                <p>Tenetur quos facere magnam volupt ates quas esse Sedrep ell endus mole stiae tates quas esse Sed repell endus molesti aela uda ntium quis quam iusto minima thanks.</p>
-                                                <div class="skill-bars">
-                                                    <div class="single-skill-bar">
-                                                        <div class="row no-mg">
-                                                            <div class="col-8 no-pd"><span class="skill-title">HTML5</span></div>
-                                                            <div class="col-4 text-right no-pd"><span class="skill-percent">85%</span></div>
-                                                        </div>
-                                                        <div class="skill-bar">
-                                                            <div class="skill-bar-percent gradiant-background" style="width:85%"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="single-skill-bar">
-                                                        <div class="row no-mg">
-                                                            <div class="col-8 no-pd"><span class="skill-title">CSS3</span></div>
-                                                            <div class="col-4 text-right no-pd"><span class="skill-percent">90%</span></div>
-                                                        </div>
-                                                        <div class="skill-bar">
-                                                            <div class="skill-bar-percent gradiant-background" style="width:90%"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="single-skill-bar">
-                                                        <div class="row no-mg">
-                                                            <div class="col-8 no-pd"><span class="skill-title">Java</span></div>
-                                                            <div class="col-4 text-right no-pd"><span class="skill-percent">75%</span></div>
-                                                        </div>
-                                                        <div class="skill-bar">
-                                                            <div class="skill-bar-percent gradiant-background" style="width:75%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div> -->
-                    </div>
-
-                   <!--!!!!!!!!!@@@@@@ clean style inline after advisors update -->
-                    <div class="col-lg-6 col-md-6 col-xl-4 offset-md-3 offset-lg-3 offset-xl-0 d-inline-flex justify-content-center" 
-                    
-                    style="display: flex;
-                           align-items: center;">
-                        <div class="team-photo">
-                           <img src="/images/muscari/advise-1.png" alt="advisor" class="advisor-co-img" style="margin-bottom: 50px;">
-                        </div>
-                        <!-- <div class="team-member animated" data-animate="fadeInUp" data-delay=".4">
-                            <div class="team-photo">
-                                <img src="/images/team-g-sq.jpg" alt="team">
-                                <a href="#team-profile-7" class="expand-trigger content-popup"></a>
-                            </div>
-                            <div class="team-info">
-                                <h5 class="team-name">Jaxon <br>Kilburn</h5>
-                                <span class="team-title">Board Advisor</span>
-                                <ul class="team-social">
-                                    <li><a href=""><em class="fab fa-linkedin-in"></em></a></li>
-                                </ul>
-                            </div>
-
-                            <div id="team-profile-7" class="team-profile mfp-hide">
-                                <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-                                <div class="container-fluid">
-                                    <div class="row no-mg">
-                                        <div class="col-md-6">
-                                            <div class="team-profile-photo">
-                                                <img src="~/images/team-g-lg.jpg" alt="team" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="team-profile-info">
-                                                <h3 class="name">Jaxon Kilburn</h3>
-                                                <p class="sub-title">Board Advisor</p>
-                                                <ul class="tpi-social">
-                                                    <li><a href=""><em class="fab fa-linkedin-in"></em></a></li>
-                                                </ul>
-                                                <p>He is a great man to work Lorem ipsum dolor sit amet, consec tetur adipis icing elit. Simi lique, autem. </p>
-                                                <p>Tenetur quos facere magnam volupt ates quas esse Sedrep ell endus mole stiae tates quas esse Sed repell endus molesti aela uda ntium quis quam iusto minima thanks.</p>
-                                                <div class="skill-bars">
-                                                    <div class="single-skill-bar">
-                                                        <div class="row no-mg">
-                                                            <div class="col-8 no-pd"><span class="skill-title">HTML5</span></div>
-                                                            <div class="col-4 text-right no-pd"><span class="skill-percent">85%</span></div>
-                                                        </div>
-                                                        <div class="skill-bar">
-                                                            <div class="skill-bar-percent gradiant-background" style="width:85%"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="single-skill-bar">
-                                                        <div class="row no-mg">
-                                                            <div class="col-8 no-pd"><span class="skill-title">CSS3</span></div>
-                                                            <div class="col-4 text-right no-pd"><span class="skill-percent">90%</span></div>
-                                                        </div>
-                                                        <div class="skill-bar">
-                                                            <div class="skill-bar-percent gradiant-background" style="width:90%"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="single-skill-bar">
-                                                        <div class="row no-mg">
-                                                            <div class="col-8 no-pd"><span class="skill-title">Java</span></div>
-                                                            <div class="col-4 text-right no-pd"><span class="skill-percent">75%</span></div>
-                                                        </div>
-                                                        <div class="skill-bar">
-                                                            <div class="skill-bar-percent gradiant-background" style="width:75%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div> -->
-                    </div>
+                <div class="roadmap-item">
+                    <h6>@Localizer["Q2 2019"]</h6>
+                    <p>@Localizer["Integration with 3rd party (offline) stores & universities to accept SBL on campuses"]</p>
                 </div>
-            </div>
-        </div>
-         <div class="row">
-            <div class="col-md-12">
-                <div class="gaps size-2x"></div>
-                <h3 class="sub-heading" style="text-transform: capitalize;">Advisory Board to be announced soon...</h3>
-                <div class="gaps size-2x"></div>
             </div>
         </div>
     </div>
-    <div class="gaps size-2x"></div>
-                        
-
-    <div class="gaps size-6x d-none d-lg-block"></div>
 </div>
-         
-<!-- Start Section -->
-<!-- Start Section -->
-<div class="section section-pad faq-section section-angle-top section-bg-light" id="faq">
-    <div class="section-bg-angle section-bg-light"></div>
+@await Component.InvokeAsync("TeamComponent");
+<div class="section section-pad-md section-bg-light">
+    <div class="section-bg-angle section-bg-light-alt"></div>
     <div class="container">
+        <div class="gaps size-2x d-lg-none"></div>
         <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="section-head-s5 text-center">
-                    <h2 class="section-title animated" data-animate="fadeInUp" data-delay=".0">Frequently Asked Questions</h2>
-                    <p class="animated" data-animate="fadeInUp" data-delay=".1">
-                       Below we’ve provided a few answers to some common questions. If you have any others, please get in touch using the contact form below.
-                    </p>
-                </div>
+            <div class="col-md-10 text-center">
+                <h2 class="sub-heading" style="margin-bottom: 30px;">@Localizer["Our Partners"]</h2>
+                <img src="~/images/muscari/partners.png" alt="spitball partners">
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="tab-custom tab-custom-s2">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs text-center animated" data-animate="fadeInUp" data-delay=".2">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#tab-1"></a>
-                        </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-2">Pre-ICO &amp; ICO</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-3">Tokens</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-4">CLIENT</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-5">Legal</a>
-                        </li> -->
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="tab-1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".2">
-                                        <h5>What is Spitball 2.0?</h5>
-                                        <p>
-                                        Spitball 2.0 is the first decentralized global marketplace for students. From class notes &amp; study guides, to textbooks, tutors, jobs and more, Spitball brings the best that the internet has to offer students, all together in one place. Our blockchain technology enables a seamless solution for dismantling outdated industry intermediaries; directly connecting students (contributors and consumers); and automating fair payments within the community for students’ transactions.
-
-                                        </p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".3">
-                                        <h5>What is the SBL token used for?</h5>
-                                        <p>
-                                          The SBL token will be used as currency on Spitball 2.0’s platform: The Student Marketplace. SBL can be used to buy or sell knowledge, goods or services.
-                                        </p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".4">
-                                        <h5>Why is it called Spitball?</h5>
-                                        <p>Rather than the tiny paper missile you’re thinking of, Spitball also means to quickly suggest an idea for discussion. Spitball has been in operation since 2014 and now has nearly 1 million users on the platform. </p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".5">
-                                        <h5>How can I stay up to date with Spitball 2.0?</h5>
-                                        <p>
-                                            In order to stay up to date with all things Spitball 2.0, sign up for our newsletter at the bottom of this page.
-                                        </p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".2">
-                                        <h5>How can I access the existing Spitball platform?</h5>
-                                        <p>
-                                           You can access Spitball 1.0 through our website,  <a class="tabs-links" target="_blank" href="https://www.spitball.co/">www.Spitball.co</a>
-                                        </p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".2">
-                                        <h5>What should I do if I have additional questions?</h5>
-                                        <p>
-                                            You can find most of the answers to your questions in our <a class="tabs-links" href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank">Whitepaper.</a> You are also welcome to join Spitball’s community on <a class="tabs-links" href="https://t.me/Spitball" target="_blank">Telegram</a> and directly ask us a question there.
-                                        </p>
-                                    </div>
-                                </div><!-- .col  -->
-                            </div><!-- .row  -->
-                        </div><!-- End tab-pane -->
-                        <div class="tab-pane fade" id="tab-2">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".2">
-                                        <h5>Which of us ever undertakes laborious?</h5>
-                                        <p>Ut enim ad minim veniam, quis nostrud exerc itation ullamco. Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".3">
-                                        <h5>Who do not know how to pursue rationally?</h5>
-                                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, Lorem ipsum dolor sit amet, consectetur adipis cing elit, quis nostrud exerc itation ullamco.</p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".4">
-                                        <h5>Their separate existence is a myth?</h5>
-                                        <p>ICO Crypto - is unique blockchain platform; that is secure, smart and easy-to-use platform, and completely disrupting the way businesses raise capital,  and the way investors buy and sell. </p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".5">
-                                        <h5>Pityful a rethoric question ran over her cheek?</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerc itation ullamco.</p>
-                                    </div>
-                                </div><!-- .col  -->
-                            </div><!-- .row  -->
-                        </div><!-- End tab-pane -->
-                        <div class="tab-pane fade" id="tab-3">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".2">
-                                        <h5>When she reached the first hills?</h5>
-                                        <p>ICO Crypto - is unique blockchain platform; that is secure, smart and easy-to-use platform, and completely disrupting the way businesses raise capital,  and the way investors buy and sell. </p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".3">
-                                        <h5>Big Oxmox advised her not to do?</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerc itation ullamco.</p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".4">
-                                        <h5>Which roasted parts of sentences fly into your mouth?</h5>
-                                        <p>Ut enim ad minim veniam, quis nostrud exerc itation ullamco. Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".5">
-                                        <h5>Vokalia and Consonantia, there live?</h5>
-                                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, Lorem ipsum dolor sit amet, consectetur adipis cing elit, quis nostrud exerc itation ullamco.</p>
-                                    </div>
-                                </div><!-- .col  -->
-                            </div><!-- .row  -->
-                        </div><!-- End tab-pane -->
-                        <div class="tab-pane fade" id="tab-4">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".2">
-                                        <h5>Who formed us in his own image?</h5>
-                                        <p>Ut enim ad minim veniam, quis nostrud exerc itation ullamco. Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".3">
-                                        <h5>While the lovely valley teems with vapour?</h5>
-                                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, Lorem ipsum dolor sit amet, consectetur adipis cing elit, quis nostrud exerc itation ullamco.</p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".4">
-                                        <h5>Which was created for the bliss of souls like mine?</h5>
-                                        <p>ICO Crypto - is unique blockchain platform; that is secure, smart and easy-to-use platform, and completely disrupting the way businesses raise capital,  and the way investors buy and sell. </p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".5">
-                                        <h5>Wonderful serenity has taken of my entire soul?</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerc itation ullamco.</p>
-                                    </div>
-                                </div><!-- .col  -->
-                            </div><!-- .row  -->
-                        </div><!-- End tab-pane -->
-                        <div class="tab-pane fade" id="tab-5">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".2">
-                                        <h5>Illustrated magazine and housed in a nice?</h5>
-                                        <p>ICO Crypto - is unique blockchain platform; that is secure, smart and easy-to-use platform, and completely disrupting the way businesses raise capital,  and the way investors buy and sell. </p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".3">
-                                        <h5>Samsa was a travelling salesman and above it there?</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerc itation ullamco.</p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".4">
-                                        <h5>Slightly domed and divided by arches?</h5>
-                                        <p>Ut enim ad minim veniam, quis nostrud exerc itation ullamco. Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                </div><!-- .col  -->
-                                <div class="col-md-6">
-                                    <div class="single-faq animated" data-animate="fadeInUp" data-delay=".5">
-                                        <h5>One morning, when Gregor Samsa?</h5>
-                                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, Lorem ipsum dolor sit amet, consectetur adipis cing elit, quis nostrud exerc itation ullamco.</p>
-                                    </div>
-                                </div><!-- .col  -->
-                            </div><!-- .row  -->
-                        </div><!-- End tab-pane -->
-                    </div><!-- End tab-content -->
-                </div><!-- End tab-custom -->
-            </div><!-- .col -->
-        </div><!-- .row -->
-    </div><!-- End container -->
+        </div><!-- .row  -->
+    </div><!-- .container  -->
 </div>
-<!-- End Section -->
-<!-- Start Section -->
-<div class="section section-pad section-bg-light section-angle-bottom contact-section" id="contact">
+
+<div class="section section-pad-md section-bg-light section-angle-bottom contact-section" id="contact">
     <div class="section-bg-angle section-bg-light-alt"></div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="section-head-s5 text-center">
-                    <h2 class="section-title animated" data-animate="fadeInUp" data-delay="0">Get In Touch</h2>
+                    <h2 class="section-title animated" data-animate="fadeInUp" data-delay="0">@Localizer["Get In Touch"]</h2>
                 </div>
             </div>
         </div>
@@ -1536,11 +271,11 @@
         <div class="row">
             <div class="col-lg-4 offset-lg-1">
                 <div class="gaps"></div>
-                <p class="animated" data-animate="fadeInUp" data-delay=".1">Any questions? Reach out to us and we’ll get back to you shortly.</p>
+                <p class="animated" data-animate="fadeInUp" data-delay=".1">@Localizer["Any questions? Reach out to us and we’ll get back to you shortly."]</p>
                 <ul class="contact-info-alt">
                     <li class="animated" data-animate="fadeInUp" data-delay=".2"><em class="fa fa-phone"></em><span>+972 52 883 0686</span></li>
                     <li class="animated" data-animate="fadeInUp" data-delay=".3"><em class="fa fa-envelope"></em><span> <a href="mailto:token@spitball.co?Subject=Spitball%20Info">token@spitball.co</a></span></li>
-                    <li class="animated" data-animate="fadeInUp" data-delay=".4"><em class="fa fa-paper-plane"></em><span><a href="https://t.me/Spitball" target="_blank">Join us on Telegram</a></span></li>
+                    <li class="animated" data-animate="fadeInUp" data-delay=".4"><em class="fa fa-paper-plane"></em><span><a href="https://t.me/Spitball" target="_blank">@Localizer["Join us on Telegram"]</a></span></li>
                 </ul>
             </div><!-- .col  -->
             <div class="col-lg-5">
@@ -1549,19 +284,18 @@
                     <div class="form-results"></div>
                     <div class="input-field animated" data-animate="fadeInUp" data-delay=".5">
                         <input name="name" type="text" class="input-line required" required>
-                        <label class="input-title">Your Name</label>
+                        <label class="input-title">@Localizer["Your Name"]</label>
                     </div>
                     <div class="input-field animated" data-animate="fadeInUp" data-delay=".6">
                         <input name="email" type="email" class="input-line required email" required>
-                        <label class="input-title">Your Email</label>
+                        <label class="input-title">@Localizer["Your Email"]</label>
                     </div>
                     <div class="input-field animated" data-animate="fadeInUp" data-delay=".7">
                         <textarea name="text" class="txtarea input-line required" required></textarea>
-                        <label class="input-title">Your Message</label>
+                        <label class="input-title">@Localizer["Your Message"]</label>
                     </div>
-                    @*<input type="text" class="d-none" name="form-anti-honeypot" value="">*@
                     <div class="input-field animated" data-animate="fadeInUp" data-delay=".8">
-                        <button type="submit" class="btn">Submit</button>
+                        <button type="submit" class="btn">@Localizer["Submit"]</button>
                     </div>
                 </form>
             </div><!-- .col  -->
@@ -1570,7 +304,7 @@
 </div>
 <!-- End Section -->
 <!-- Start Section -->
-<div class="section section-bg-muscari section-muscari section-pad-sm footer-fix" id="partners">
+<div class="section section-bg-muscari section-muscari section-pad-md footer-fix" id="partners">
     <div class="overlay-bars reverse">
         <div class="overlay-bar-1"></div>
         <div class="overlay-bar-2"></div>
@@ -1587,7 +321,7 @@
         <div class="row text-center" style="display:none;">
             <div class="col-md-6 offset-md-3">
                 <div class="section-head">
-                    <h6 class="section-title-sm  animated" data-animate="fadeInUp" data-delay="0">As seen in</h6>
+                    <h6 class="section-title-sm  animated" data-animate="fadeInUp" data-delay="0">@Localizer["As seen in"]</h6>
                 </div>
             </div>
         </div>
@@ -1659,10 +393,10 @@
         <div class="row">
             <div class="col-sm-6 col-xl-4 res-l-bttm">
                 <a class="footer-brand animated" data-animate="fadeInUp" data-delay="0" href="./">
-                    <img class="logo logo-light" alt="logo" src="~/images/logo-beta.png">
+                    <img class="logo logo-light" alt="logo" src="~/images/logo-beta.svg">
                 </a>
                 <ul class="social">
-                     <li class="animated" data-animate="fadeInUp" data-delay=".1">
+                    <li class="animated" data-animate="fadeInUp" data-delay=".1">
                         <a href="https://t.me/Spitball" target="_blank"><em class="fa fa-paper-plane"></em></a>
                     </li>
                     <li class="animated" data-animate="fadeInUp" data-delay=".1">
@@ -1686,28 +420,16 @@
                 </ul>
             </div><!-- .col  -->
             <div class="col-sm-6 col-xl-4 res-l-bttm">
-                <div class="footer-subscription">
-                    <h6 class="animated" data-animate="fadeInUp" data-delay=".6">Subscribe to our newsletter</h6>
-                    <form id="subscribe-form" class="subscription-form animated" data-animate="fadeInUp" data-delay=".7">
-                        <input type="email" name="email" class="input-round required email" placeholder="Enter your email" required>
-                        @*<input type="text" class="d-none" name="form-anti-honeypot" value="">*@
-                        <button type="submit" class="btn btn-plane">Subscribe</button>
-                        <div class="subscribe-results"></div>
-                    </form>
-                </div>
             </div><!-- .col  -->
             <div class="col-xl-4">
                 <ul class="link-widget animated" data-animate="fadeInUp" data-delay=".8">
-                    <li><a href="#intro" class="menu-link">Vision</a></li>
-                    <li><a href="#roadmap" class="menu-link">Roadmap</a></li>
-                    <li><a href="#apps" class="menu-link">Use Cases</a></li>
-                    <li><a href="#team" class="menu-link">Team</a></li>
-                    <li><a href="#faq" class="menu-link">FAQs</a></li>
-                    <li><a href="#contact" class="menu-link">Contact Us</a></li>
-                   <li><a href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="menu-link">Whitepaper</a></li>
-                    <li><a href="https://www.spitball.co/" target="_blank" class="menu-link">Spitball 1.0</a></li> 
-
-                    <!--  <li><a href="#" class="menu-link">Teams</a></li>-->
+                    <li><a href="#intro" class="menu-link">@Localizer["VisionFooter"]</a></li>
+                    <li><a href="#roadmap" class="menu-link">@Localizer["Roadmap"]</a></li>
+                    <li><a href="#apps" class="menu-link">@Localizer["Use Cases"]</a></li>
+                    <li><a href="#team" class="menu-link">@Localizer["Team"]</a></li>
+                    <li><a href="#contact" class="menu-link">@Localizer["Contact Us"]</a></li>
+                    <li><a href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="menu-link">@Localizer["Whitepaper"]</a></li>
+                    <li><a href="https://www.spitball.co/" target="_blank" class="menu-link">@Localizer["Spitball 1.0"]</a></li>
                 </ul>
             </div><!-- .col  -->
         </div><!-- .row  -->
@@ -1715,22 +437,17 @@
         <div class="row">
             <div class="col-md-7">
                 <span class="copyright-text">
-                    Copyright &copy; 2018, ICO Crypto. Cloudents LTD .
-                    <span>All trademarks and copyrights belong to their respective owners.</span>
+                    @Localizer["Copyright & 2018, Cloudents LTD ."]
+                    <span>@Localizer["All trademarks and copyrights belong to their respective owners."]</span>
                 </span>
             </div><!-- .col  -->
             <div class="col-md-5 text-right mobile-left" id="footer">
                 <ul class="footer-links">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms &amp; Conditions</a></li>
+                    <li><a href="https://www.spitball.co/privacy" target="_blank">@Localizer["Privacy Policy"]</a></li>
+                    <li><a href="https://www.spitball.co/terms" target="_blank">@Localizer["Terms & Conditions"]</a></li>
                     <li>
                         <div class="language-switcher">
-                            <a href="#" data-toggle="dropdown">EN</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">FR</a>
-                                <a class="dropdown-item" href="#">CH</a>
-                                <a class="dropdown-item" href="#">BR</a>
-                            </div>
+                            <partial name="_LanguageSwitcher" />
                         </div>
                     </li>
                 </ul>
@@ -1738,15 +455,7 @@
         </div><!-- .row  -->
     </div><!-- .container  -->
 </div>
-<div class="card" id="telegramPopUp">
-    <a href="#" id="closeTelegramPopUp" class="fa fa-times"></a>
-    <div class="card-body">
-        <h5 class="card-title">WE’RE ON TELEGRAM</h5>
-        <h3 class="card-text">come ask us anything!</h3>
-        <a href="https://t.me/Spitball" target="_blank" class="btn popUpbtn"><em class="fa fa-paper-plane" style="margin-right: 8px;"></em>Join us on Telegram</a>
-    </div>
-</div>
+<a id="mobile-whitepaper" href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="btn btn-sm btn-outline menu-link">
+    <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]
+</a>
 
-@section script {
-    
-}

@@ -5,9 +5,9 @@
     <!--<MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>-->
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
-    <AssemblyVersion>8.7.30.0</AssemblyVersion>
-    <FileVersion>8.7.30.0</FileVersion>
-    <Version>8.7.30</Version>
+    <AssemblyVersion>8.8.2.0</AssemblyVersion>
+    <FileVersion>8.8.2.0</FileVersion>
+    <Version>8.8.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -23,25 +23,6 @@
     <DocumentationFile>bin\Release\net47\Cloudents.Web.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
-
-  <!--<ItemGroup>
-    <Compile Remove="Views\Account\**" />
-    <Compile Remove="Views\Home\**" />
-    <Content Remove="Views\Account\**" />
-    <Content Remove="Views\Home\**" />
-    <EmbeddedResource Remove="Views\Account\**" />
-    <EmbeddedResource Remove="Views\Home\**" />
-    <None Remove="Views\Account\**" />
-    <None Remove="Views\Home\**" />
-  </ItemGroup>-->
-
-  <!--<ItemGroup>
-    <None Include="Views\Error\Error.cshtml" />
-    <None Include="wwwroot\Content\ErrorPages\css\error.css" />
-    <None Include="wwwroot\Content\ErrorPages\img\404_image.png" />
-    <None Include="wwwroot\Content\main.less" />
-    <None Include="wwwroot\robots.txt" />
-  </ItemGroup>-->
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.1" />

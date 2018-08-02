@@ -59,11 +59,12 @@ namespace Cloudents.Core.Entities.Db
 
         public static Transaction CashOut(decimal price)
         {
-            if (price > 0)
-            {
-                throw new InvalidOperationException("amount should be negative");
-            }
-            return new Transaction(ActionType.CashOut, TransactionType.Earned, -price);
+            //if (price > 0)
+            //{
+            //    throw new InvalidOperationException("amount should be negative");
+            //}
+            price = -Math.Abs(price);
+            return new Transaction(ActionType.CashOut, TransactionType.Earned, price);
         }
 
         [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Nhibernate proxy")]

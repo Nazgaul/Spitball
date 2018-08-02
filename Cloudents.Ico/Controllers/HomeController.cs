@@ -5,6 +5,8 @@ using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Mvc;
 using Cloudents.Ico.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 
 namespace Cloudents.Ico.Controllers
 {
@@ -45,6 +47,17 @@ namespace Cloudents.Ico.Controllers
             }
             await _serviceBus.Value.InsertMessageAsync(new ContactUsEmail(model.Email), token);
             return Ok();
+        }
+
+        public IActionResult SetLanguage(string culture)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            return LocalRedirect("/");
         }
 
         //public IActionResult About()
