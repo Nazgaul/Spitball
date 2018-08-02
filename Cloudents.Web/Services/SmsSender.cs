@@ -10,6 +10,7 @@ using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 namespace Cloudents.Web.Services
 {
@@ -18,13 +19,11 @@ namespace Cloudents.Web.Services
     {
         private readonly IRestClient _client;
         private readonly IServiceBusProvider _serviceBusProvider;
-       // private readonly IConfiguration _configuration;
         private readonly UserManager<User> _userManager;
 
         public SmsSender(IRestClient client, UserManager<User> userManager, IServiceBusProvider serviceBusProvider)
         {
             _client = client;
-           // _configuration = configuration;
             _userManager = userManager;
             _serviceBusProvider = serviceBusProvider;
         }
@@ -35,11 +34,6 @@ namespace Cloudents.Web.Services
             var message = new SmsMessage2(user.PhoneNumber, code);
 
             await _serviceBusProvider.InsertMessageAsync(message, token);
-            //return await _client.PostJsonAsync(
-            //    new Uri(
-            //        $"{_configuration["AzureFunction:EndPoint"]}/api/sms?code={_configuration["AzureFunction:Secret"]}"),
-            //    message,
-            //    null, token).ConfigureAwait(false);
         }
 
         public async Task<string> ValidateNumberAsync(string phoneNumber, CancellationToken token)
@@ -54,24 +48,19 @@ namespace Cloudents.Web.Services
 
             var result = await _client.GetAsync<PhoneValidator>(uri, null, headers, token);
 
-            return result?.phone_number;
+            return result?.PhoneNumber;
         }
 
         public class PhoneValidator
         {
            // public object caller_name { get; set; }
            // public string country_code { get; set; }
-            public string phone_number { get; set; }
+            [JsonProperty("phone_number")]
+            public string PhoneNumber { get; set; }
            // public string national_format { get; set; }
            // public object carrier { get; set; }
            // public object add_ons { get; set; }
            // public string url { get; set; }
         }
-    }
-
-    public interface ISmsSender
-    {
-        Task SendSmsAsync(User user, CancellationToken token);
-        Task<string> ValidateNumberAsync(string phoneNumber, CancellationToken token);
     }
 }

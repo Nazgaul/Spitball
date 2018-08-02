@@ -18,7 +18,14 @@ namespace Cloudents.Core
         //}
         public const string WebSiteEndPoint = "https://www.spitball.co/";
 
-        public const string WalletEndPost = WebSiteEndPoint + "wallet";
+        public const string WalletEndPoint = WebSiteEndPoint + "wallet";
+        public const string QuestionEndPoint = WebSiteEndPoint + "question";
+
+
+        public static string BuildQuestionEndPoint(long id)
+        {
+            return $"{WebSiteEndPoint}question/{id}";
+        }
 
         public string BuildRedirectUrl(string url, string host, int? location)
         {

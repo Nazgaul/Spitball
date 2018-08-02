@@ -63,9 +63,14 @@ namespace Cloudents.Infrastructure.Data
                 var name = parts[0];
 
                 var propertyInfo = entity.GetType()
-                      .GetProperty(name, BindingFlags.NonPublic
+                    .GetProperty(name, BindingFlags.NonPublic
                                        | BindingFlags.Instance
                                        | BindingFlags.Public);
+
+                if (propertyInfo == null)
+                {
+                    throw new ArgumentNullException($"propery infor of type {entity.GetType().Name} - name {name}");
+                }
 
                 object currentObject = entity;
 
