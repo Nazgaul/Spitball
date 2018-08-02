@@ -35,7 +35,7 @@ export default {
         submitQuestion() {
             let readyToSend = true;
             //error handling stuff ( redo with newer version to validate with in build validators
-            if(this.price < 1) {
+            if(!this.selectedPrice && this.price < 1) {
                 readyToSend = false
             };
 
