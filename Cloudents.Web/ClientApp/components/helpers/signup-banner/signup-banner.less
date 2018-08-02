@@ -1,396 +1,393 @@
 @import "../../../mixin.less";
 
 .banner-wrap {
-    #particles-js {
-        max-height:345px;
-        position: absolute;
-        height: 100%;
-        width :100%;
-        top: 0;
-        left: 0;
-        z-index: 100;
-        canvas {
-            max-height:345px;
-        }
+  #particles-js {
+    max-height: 345px;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    canvas {
+      max-height: 345px;
+    }
+  }
+
+  .highlight {
+    font-weight: bold;
+  }
+
+  position: relative;
+  height: 345px;
+
+  @media ( max-width: 600px) {
+    height: 280px;
+  }
+
+  @media ( max-width: @screen-xs) {
+    height: 280px;
+  }
+
+  .back-button {
+    z-index: 101;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+
+    @media (max-width: @screen-xs) {
+      top: 2px;
+      right: 2px;
     }
 
-    .highlight {
-        font-weight: bold;
+    .sbf {
+      font-size: 16px;
+      color: @color-white;
+      //
+    }
+  }
+
+  .round-free {
+    height: 128px;
+    width: 128px;
+    position: absolute;
+    top: 175px;
+    left: 70%;
+    transform: rotate(14deg);
+    background-image: linear-gradient(7deg, #ffffff, #e3e3ff);
+    background-size: contain;
+    border-radius: 50%;
+    z-index: 100;
+    padding: 24px 0;
+    box-shadow: -8px 16px 56px -20px #000;
+
+    @media (max-width: @screen-md-plus) {
+      left: 77%;
+      top: 190px;
+      padding: 28px 0;
     }
 
-    position: relative;
-    height: 345px;
-
-    @media( max-width: 600px) {
-        height: 280px;
+    @media ( max-width: @screen-md) {
+      left: 70%;
     }
 
-    @media( max-width: @screen-xs) {
-        height: 280px;
+    @media (max-width: @screen-sm) {
+      z-index: 100;
+      top: 180px;
+      padding: 30px 0;
+      left: 73%;
     }
 
-    .back-button {
-        z-index: 101;
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        width: 36px;
-        height: 36px;
-        padding: 8px;
-
-        @media (max-width: @screen-xs) {
-            top: 2px;
-            right: 2px;
-        }
-
-        .sbf {
-            font-size: 16px;
-            color: @color-white;
-            //
-        }
+    @media (max-width: @screen-xs) {
+      width: 100px;
+      height: 100px;
+      padding: 20px 0;
+      z-index: 100;
+      top: 156px;
     }
 
-    .round-free {
-        height: 128px;
-        width: 128px;
-        position: absolute;
-        top: 175px;
-        left: 70%;
-        transform: rotate(14deg);
-        background-image: linear-gradient(7deg, #ffffff, #e3e3ff);
-        background-size: contain;
-        border-radius: 50%;
-        z-index: 100;
-        padding: 24px 0;
-        box-shadow: -8px 16px 56px -20px #000;
-
-        @media (max-width: @screen-md-plus) {
-            left: 77%;
-            top: 190px;
-            padding: 28px 0;
-        }
-
-        @media( max-width: @screen-md) {
-            left: 70%;
-        }
-
-        @media (max-width: @screen-sm) {
-            z-index: 100;
-            top: 180px;
-            padding: 30px 0;
-            left: 73%;
-        }
-
-        @media (max-width: @screen-xs) {
-            width: 100px;
-            height: 100px;
-            padding: 20px 0;
-            z-index: 100;
-            top: 156px;
-        }
-
-        @media(max-width: 600px) {
-            width: 100px;
-            height: 100px;
-            padding: 20px 0;
-            z-index: 100;
-            top: 160px;
-            left: 68%;
-        }
-
-        @media( max-width: @screen-xss) {
-            top: 160px;
-            padding: 16px 0;
-        }
-
-        .round-free-text {
-            text-align: center;
-            font-size: 18px;
-            font-weight: normal;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.11;
-            letter-spacing: -0.5px;
-            color: @color-main-purple;
-
-            @media (max-width: @screen-sm-960) {
-                font-size: 18px;
-                line-height: 1.11;
-                letter-spacing: -0.5px;
-            }
-
-            @media ( max-width: @screen-xs) {
-                font-size: 14px;
-                line-height: 1.29;
-                letter-spacing: -0.4px;
-            }
-
-            @media ( max-width: 600px) {
-                font-size: 14px;
-                line-height: 1.29;
-                letter-spacing: -0.4px;
-            }
-
-            @media ( max-width: @screen-xss) {
-                font-size: 14px;
-                letter-spacing: -0.4px;
-            }
-
-            span {
-                font-weight: 600;
-            }
-        }
+    @media (max-width: 600px) {
+      width: 100px;
+      height: 100px;
+      padding: 20px 0;
+      z-index: 100;
+      top: 160px;
+      left: 68%;
     }
 
-    &.color-ask {
-        background-image: linear-gradient(95deg, #3532d5, #3455ff);
+    @media ( max-width: @screen-xss) {
+      top: 160px;
+      padding: 16px 0;
     }
 
-    &.color-note {
-        background-image: linear-gradient(95deg, #3532d5, #6b29aa);
-    }
+    .round-free-text {
+      text-align: center;
+      font-size: 18px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.11;
+      letter-spacing: -0.5px;
+      color: @color-main-purple;
 
-    &.color-flashcard {
-        background-image: linear-gradient(95deg, #3532d5, #f14d4d);
-    }
-
-    &.color-tutor {
-        background-image: linear-gradient(95deg, #3532d5, #52aa16);
-    }
-
-    &.color-book {
-        background-image: linear-gradient(96deg, #3532d5, #a650e0);
-    }
-
-    &.color-job {
-        background-image: linear-gradient(96deg, #3532d5, #f49c20);
-    }
-
-    .text-block {
-        .limited-width();
-        width: 100%;
-        max-width: 850px;
-        margin: 0 auto;
+      @media (max-width: @screen-sm-960) {
         font-size: 18px;
-        color: @color-white;
-        top: 25%;
-        position: absolute;
-        z-index: 100;
-        text-align: center;
-        left: 0;
-        right: 0;
-        //
-        @media (max-width: @screen-md-plus) {
-            top: 22%;
-        }
+        line-height: 1.11;
+        letter-spacing: -0.5px;
+      }
 
-        @media (min-width: @screen-sm) and (max-width: @screen-md) {
-            max-width: 960px;
-            width: 560px;
-            height: 147px;
-            font-size: 40px;
-            font-weight: bold;
-            line-height: 1.23;
-            letter-spacing: -0.3px;
-            top: 19%;
-            z-index: 100;
-        }
+      @media ( max-width: @screen-xs) {
+        font-size: 14px;
+        line-height: 1.29;
+        letter-spacing: -0.4px;
+      }
 
-        @media (max-width: @screen-sm) {
-            max-width: 600px;
-            width: 362px;
-        }
+      @media ( max-width: 600px) {
+        font-size: 14px;
+        line-height: 1.29;
+        letter-spacing: -0.4px;
+      }
 
-        @media( max-width: 600px) {
-            top: 13%;
-        }
+      @media ( max-width: @screen-xss) {
+        font-size: 14px;
+        letter-spacing: -0.4px;
+      }
 
-        @media (max-width: @screen-xs) {
-            width: 362px;
-            margin: 0 0 0 8px;
-            top: 13%;
-        }
+      span {
+        font-weight: 600;
+      }
+    }
+  }
 
-        .title-wrap {
-            max-width: 850px;
+  &.color-ask {
+    background-image: linear-gradient(95deg, #3532d5, #3455ff);
+  }
 
-            @media(max-width: 600px) {
-                width: 332px;
-            }
-        }
+  &.color-note {
+    background-image: linear-gradient(95deg, #3532d5, #6b29aa);
+  }
 
-        .text-wrap {
-            max-width: 668px;
-            width: 100%;
-            margin: 8px auto;
+  &.color-flashcard {
+    background-image: linear-gradient(95deg, #3532d5, #f14d4d);
+  }
 
-            @media (min-width: @screen-sm) and (max-width: @screen-md) {
-                margin: 18px auto;
-                width: 390px;
-            }
+  &.color-tutor {
+    background-image: linear-gradient(95deg, #3532d5, #52aa16);
+  }
 
-            @media( max-width: 600px) {
-                margin: 16px 0;
-                width: 240px;
-            }
+  &.color-book {
+    background-image: linear-gradient(96deg, #3532d5, #a650e0);
+  }
 
-            @media (max-width: @screen-xs) {
-                margin: 16px 0;
-                width: 240px;
-            }
+  &.color-job {
+    background-image: linear-gradient(96deg, #3532d5, #f49c20);
+  }
 
-            @media( max-width: @screen-xss) {
-                margin: 16px 0;
-            }
-        }
-
-        p {
-            margin: 0;
-        }
-
-        .text-right {
-            text-align: right;
-        }
-
-        .large {
-            font-size: 48px;
-            font-weight: bold;
-            text-align: center;
-            line-height: 1.17;
-            letter-spacing: -0.4px;
-
-            @media (min-width: @screen-sm) and (max-width: @screen-md) {
-                font-size: 40px;
-                font-weight: bold;
-                line-height: 1.23;
-                letter-spacing: -0.3px;
-            }
-
-            @media ( max-width: @screen-sm) {
-                font-size: 32px;
-                font-weight: 300;
-                line-height: 1.19;
-                letter-spacing: -0.3px;
-                text-align: left;
-            }
-        }
-
-        .medium {
-            font-size: 26px;
-            font-weight: 300;
-            line-height: normal;
-            letter-spacing: -0.5px;
-
-            @media (min-width: @screen-sm) and (max-width: @screen-md) {
-                font-size: 20px;
-                letter-spacing: -0.3px;
-            }
-
-            @media (max-width: @screen-sm) {
-                font-size: 18px;
-                text-align: left;
-            }
-        }
-
-        .small {
-            font-size: 18px;
-            color: @color-medium-grey;
-            line-height: 1.33;
-            letter-spacing: -0.2px;
-            text-align: justify;
-        }
-
-        .small, .medium {
-            margin-right: 8px;
-        }
+  .text-block {
+    .limited-width();
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: @color-white;
+    top: 25%;
+    position: absolute;
+    z-index: 100;
+    text-align: center;
+    left: 0;
+    right: 0;
+    //
+    @media (max-width: @screen-md-plus) {
+      top: 22%;
     }
 
-    .overlay-bubble {
-        position: relative;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-
-        // Beny: TODO check if everything is fine removed due to overflowing on IOS
-        //@media (max-width: @screen-xs) {
-        //    width: 800px;
-        //}
-
-        div {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, .05);
-            z-index: 1;
-        }
-
-        //Func to create rules for each bubble dynamically with passed params
-        .createOverlayBubble(@height, @width, @rightPer, @rightPx, @bottomPer, @bottomPx: 0px){
-            height: @height;
-            width: @width;
-            right: ~"calc(@{rightPer} - @{rightPx})";
-            bottom: ~"calc(@{bottomPer} - @{bottomPx})";
-        }
-        .overlay-bubble-1 {
-         .createOverlayBubble(200px, 200px, 34%, 490px, 74%, 240px);
-        }
-
-        .overlay-bubble-2 {
-        .createOverlayBubble(650px, 650px, 58%, 50px, -41%);
-        }
-
-        .overlay-bubble-3 {
-        .createOverlayBubble(273px, 273px, 33%, 685px, 99%, 365px);
-        }
-
-        .overlay-bubble-4 {
-        .createOverlayBubble(300px, 300px, 90%, 65px, 65%, 10px);
-        }
-
-        .overlay-bubble-5 {
-        .createOverlayBubble(300px, 300px, 35%, 65px, 68%, 10px);
-       }
-
-        .overlay-bubble-6 {
-        .createOverlayBubble(525px, 525px, 78%, 65px, 50%, 10px);
-        }
-
-        .signup-banner {
-            position: relative;
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-start;
-            background-size: auto;
-            height: 100%;
-
-            .buttons {
-                margin-top: 26px;
-
-                .sign-up, .learn-more {
-                    text-transform: capitalize;
-                    text-align: center;
-                    padding: 6px 16px;
-                    min-width: 104px;
-                    border-radius: 26.5px;
-                    outline: none;
-                    letter-spacing: -0.5px;
-                    display: inline-block;
-                    border: solid 1px @color-white;
-                }
-
-                .sign-up {
-                    background-color: @color-white;
-                    color: @color-main-purple;
-                    margin-right: 9px;
-                }
-
-                .learn-more {
-                    color: white;
-                }
-            }
-        }
+    @media (min-width: @screen-sm) and (max-width: @screen-md) {
+      max-width: 960px;
+      width: 560px;
+      height: 147px;
+      font-size: 40px;
+      font-weight: bold;
+      line-height: 1.23;
+      letter-spacing: -0.3px;
+      top: 19%;
+      z-index: 100;
     }
+
+    @media (max-width: @screen-sm) {
+      max-width: 600px;
+      width: 362px;
+    }
+
+    @media ( max-width: 600px) {
+      top: 13%;
+    }
+
+    @media (max-width: @screen-xs) {
+      width: 362px;
+      margin: 0 0 0 8px;
+      top: 13%;
+    }
+
+    .title-wrap {
+      max-width: 850px;
+
+      @media (max-width: 600px) {
+        width: 332px;
+      }
+    }
+
+    .text-wrap {
+      max-width: 668px;
+      width: 100%;
+      margin: 8px auto;
+
+      @media (min-width: @screen-sm) and (max-width: @screen-md) {
+        margin: 18px auto;
+        width: 390px;
+      }
+
+      @media ( max-width: 600px) {
+        margin: 16px 0;
+        width: 240px;
+      }
+
+      @media (max-width: @screen-xs) {
+        margin: 16px 0;
+        width: 240px;
+      }
+
+      @media ( max-width: @screen-xss) {
+        margin: 16px 0;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .large {
+      font-size: 48px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.17;
+      letter-spacing: -0.4px;
+
+      @media (min-width: @screen-sm) and (max-width: @screen-md) {
+        font-size: 40px;
+        font-weight: bold;
+        line-height: 1.23;
+        letter-spacing: -0.3px;
+      }
+
+      @media ( max-width: @screen-sm) {
+        font-size: 32px;
+        font-weight: 300;
+        line-height: 1.19;
+        letter-spacing: -0.3px;
+        text-align: left;
+      }
+    }
+
+    .medium {
+      font-size: 26px;
+      font-weight: 300;
+      line-height: normal;
+      letter-spacing: -0.5px;
+
+      @media (min-width: @screen-sm) and (max-width: @screen-md) {
+        font-size: 20px;
+        letter-spacing: -0.3px;
+      }
+
+      @media (max-width: @screen-sm) {
+        font-size: 18px;
+        text-align: left;
+      }
+    }
+
+    .small {
+      font-size: 18px;
+      color: @color-medium-grey;
+      line-height: 1.33;
+      letter-spacing: -0.2px;
+      text-align: justify;
+    }
+
+    .small, .medium {
+      margin-right: 8px;
+    }
+  }
+
+  .overlay-bubble {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    // Beny: TODO check if everything is fine removed due to overflowing on IOS
+    //@media (max-width: @screen-xs) {
+    //    width: 800px;
+    //}
+
+    div {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .05);
+      z-index: 1;
+    }
+
+    //Func to create rules for each bubble dynamically with passed params
+    .createOverlayBubble(@height, @width, @rightPer, @rightPx, @bottomPer, @bottomPx: 0px) {
+      height: @height;
+      width: @width;
+      right: ~"calc(@{rightPer} - @{rightPx})";
+      bottom: ~"calc(@{bottomPer} - @{bottomPx})";
+    }
+    .overlay-bubble-1 {
+      .createOverlayBubble(200px, 200px, 34%, 490px, 74%, 240px);
+    }
+
+    .overlay-bubble-2 {
+      .createOverlayBubble(650px, 650px, 58%, 50px, -41%);
+    }
+
+    .overlay-bubble-3 {
+      .createOverlayBubble(273px, 273px, 33%, 685px, 99%, 365px);
+    }
+    .overlay-bubble-4 {
+      .createOverlayBubble(300px, 300px, 90%, 65px, 65%, 10px);
+    }
+    .overlay-bubble-5 {
+      .createOverlayBubble(300px, 300px, 35%, 65px, 68%, 10px);
+    }
+    .overlay-bubble-6 {
+      .createOverlayBubble(525px, 525px, 78%, 65px, 50%, 10px);
+    }
+
+    .signup-banner {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      background-size: auto;
+      height: 100%;
+
+      .buttons {
+        margin-top: 26px;
+
+        .sign-up, .learn-more {
+          text-transform: capitalize;
+          text-align: center;
+          padding: 6px 16px;
+          min-width: 104px;
+          border-radius: 26.5px;
+          outline: none;
+          letter-spacing: -0.5px;
+          display: inline-block;
+          border: solid 1px @color-white;
+        }
+
+        .sign-up {
+          background-color: @color-white;
+          color: @color-main-purple;
+          margin-right: 9px;
+        }
+
+        .learn-more {
+          color: white;
+        }
+      }
+    }
+  }
 }
 
 
