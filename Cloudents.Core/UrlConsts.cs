@@ -10,12 +10,12 @@ namespace Cloudents.Core
     [UsedImplicitly]
     public class UrlConst : IUrlBuilder
     {
+        private readonly string _webSiteEndPoint;
+
         public UrlConst(IConfigurationKeys configuration)
         {
-            _systemUrl = configuration.FunctionEndpoint + "/api/redirect";
+            _webSiteEndPoint = configuration.SiteEndPoint;
         }
-
-        private readonly string _systemUrl;// = "https://functions.spitball.co/api/redirect";
 
         public string BuildRedirectUrl(string url, string host, int? location)
         {
@@ -39,10 +39,15 @@ namespace Cloudents.Core
                 nvc["location"] = location.ToString();
             }
 
-            var uri = new UriBuilder(new Uri(_systemUrl));
+            var uri = new UriBuilder(new Uri(_webSiteEndPoint))
+            {
+                Path = "url"
+            }; // /*new Uri("/url",UriKind.Relative)*/);
             uri.AddQuery(nvc);
             return uri.ToString();
         }
+
+        public string WalletEndPoint => _webSiteEndPoint + "wallet";
 
         public static string NameToQueryString(string name)
         {

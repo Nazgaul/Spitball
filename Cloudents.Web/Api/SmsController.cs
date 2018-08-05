@@ -49,7 +49,12 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
-            if (user == null) throw new ArgumentNullException(nameof(user));
+            if (user == null)
+            {
+                var ex = new ArgumentNullException(nameof(user));
+                ex.Data.Add("model", model);
+                throw ex;
+            }
             if (!user.EmailConfirmed)
             {
                 return Unauthorized();
@@ -60,30 +65,31 @@ namespace Cloudents.Web.Api
                 return Unauthorized();
             }
 
-            var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id, user.Name)
+
+            var phoneNumber = await _client.ValidateNumberAsync(model.Number, token);
+            if (string.IsNullOrEmpty(phoneNumber))
             {
-                Email = user.Email
-            }, token);
-
-            var t2 = _userManager.SetPhoneNumberAsync(user, model.Number);
-            await Task.WhenAll(t1, t2).ConfigureAwait(false);
-            var retVal = t2.Result;
-            if (retVal.Succeeded)
-            {
-                var result = await _client.SendSmsAsync(user, token).ConfigureAwait(false);
-
-                if (result)
-                {
-                    return Ok();
-                }
-
                 ModelState.AddModelError(string.Empty, "Invalid phone number");
                 return BadRequest(ModelState);
             }
 
+            var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber);
+
+            //var retVal = t2.Result;
+            if (retVal.Succeeded)
+            {
+                var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id, user.Name)
+                {
+                    Email = user.Email
+                }, token);
+                var t3 = _client.SendSmsAsync(user, token);
+                await Task.WhenAll(t1, t3).ConfigureAwait(false);
+                return Ok();
+            }
+
             if (retVal.Errors.Any(a => a.Code == "Duplicate"))
             {
-                ModelState.AddModelError(string.Empty, "Phone number is already in use");
+                ModelState.AddModelError(string.Empty, "This phone number is linked to another email address");
             }
             else
             {
@@ -97,6 +103,12 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
+            if (user == null)
+            {
+                var ex = new ArgumentNullException(nameof(user));
+                ex.Data.Add("model", model);
+                throw ex;
+            }
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number).ConfigureAwait(false);
 
             if (v.Succeeded)

@@ -14,12 +14,10 @@ namespace Cloudents.Web.Test.IntegrationTests
                     "/api/university");
             response.EnsureSuccessStatusCode();
         }
+
+        
     }
 
 
-    [TestClass]
-    public class WalletTests : ServerInit
-    {
-
-    }
+   
 }

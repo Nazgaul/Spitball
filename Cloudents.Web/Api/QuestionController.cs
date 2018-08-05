@@ -54,8 +54,8 @@ namespace Cloudents.Web.Api
         [HttpPut("correct"), ValidateModel]
         public async Task<IActionResult> MarkAsCorrectAsync([FromBody]MarkAsCorrectRequest model, CancellationToken token)
         {
-            var link = Url.Link("WalletRoute", null);
-            var command = new MarkAnswerAsCorrectCommand(model.AnswerId, _userManager.GetLongUserId(User), link);
+           // var link = Url.Link("WalletRoute", null);
+            var command = new MarkAnswerAsCorrectCommand(model.AnswerId, _userManager.GetLongUserId(User));
 
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
             return Ok();
@@ -66,7 +66,7 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> GetQuestionAsync(long id,
             [FromServices] IQueryBus bus, CancellationToken token)
         {
-            var retVal = await bus.QueryAsync<QuestionDetailDto>(new QuestionDataByIdQuery(id), token).ConfigureAwait(false);
+            var retVal = await bus.QueryAsync(new QuestionDataByIdQuery(id), token).ConfigureAwait(false);
             if (retVal == null)
             {
                 return NotFound();
@@ -77,9 +77,16 @@ namespace Cloudents.Web.Api
         [HttpDelete("{id}"), ValidateModel]
         public async Task<IActionResult> DeleteQuestionAsync(DeleteQuestionRequest model, CancellationToken token)
         {
-            var command = _mapper.Map<DeleteQuestionCommand>(model);
-            await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
-            return Ok();
+            try
+            {
+                var command = _mapper.Map<DeleteQuestionCommand>(model);
+                await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
         }
 
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
@@ -88,14 +95,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var query = _mapper.Map<QuestionsQuery>(model);
-            //if (string.IsNullOrWhiteSpace(query.Term))
-            //{
             var result = await queryBus.QueryAsync(query, token).ConfigureAwait(false);
-            //}
-            //else
-            //{
-            //result = await questionSearch.SearchAsync(query, token).ConfigureAwait(false);
-            //}
             var p = result.Result?.ToList();
             string nextPageLink = null;
             if (p?.Any() == true)

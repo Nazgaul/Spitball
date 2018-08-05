@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Framework
             return InsertMessageAsync(message, topicSubscription);
         }
 
-        public Task InsertMessageAsync(SmsMessage message, CancellationToken token)
+        public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
         {
             var topicSubscription = TopicSubscription.Sms;
             return InsertMessageAsync(message, topicSubscription);
@@ -50,6 +50,12 @@ namespace Cloudents.Infrastructure.Framework
         public Task InsertMessageAsync(BlockChainQnaSubmit message, CancellationToken token)
         {
             var topicSubscription = TopicSubscription.BlockChainQnA;
+            return InsertMessageAsync(message, topicSubscription);
+        }
+
+        public Task InsertMessageAsync(UrlRedirectQueueMessage message, CancellationToken token)
+        {
+            var topicSubscription = TopicSubscription.UrlRedirect;
             return InsertMessageAsync(message, topicSubscription);
         }
 

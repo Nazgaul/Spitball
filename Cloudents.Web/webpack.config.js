@@ -68,7 +68,7 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.js$/,
-                    loader: "babel-loader"
+                    loader: "babel-loader",
                 },
                 {
                     test: /\.vue$/,
@@ -164,9 +164,9 @@ module.exports = (env) => {
                     path.relative(bundleOutputDir,
                         "[resourcePath]") // Point sourcemap entries to the original file locations on disk
                 }),
-                new UnusedFilesWebpackPlugin({
-                    patterns: "./ClientApp/**/*.*"
-                })
+                //new UnusedFilesWebpackPlugin({
+                //    patterns: "./ClientApp/**/*.*"
+                //})
                 //new UnusedWebpackPlugin({
                 //    // Source directories
                 //    directories: [path.join(__dirname, 'src')],

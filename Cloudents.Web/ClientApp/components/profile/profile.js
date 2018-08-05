@@ -30,6 +30,7 @@ export default {
     methods: {
         changeActiveTab(tabId) {
             this.activeTab = tabId;
+            this.$router.meta = {previous : tabId}
         },
         fetchData() {
             accountService.getProfile(this.id).then(({ data }) => {
@@ -88,6 +89,11 @@ export default {
     },
     created() {
         this.fetchData();
-        
+        if(this.$router.meta && this.$router.meta.previous ){
+            this.activeTab = this.$router.meta.previous
+        }else{
+            this.activeTab = 1
+        }
+
     }
 }

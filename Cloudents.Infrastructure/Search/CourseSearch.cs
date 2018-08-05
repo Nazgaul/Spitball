@@ -19,9 +19,9 @@ namespace Cloudents.Infrastructure.Search
         private readonly ISearchIndexClient _client;
         private readonly IMapper _mapper;
 
-        public CourseSearch(ISearchServiceClient client, IMapper mapper)
+        public CourseSearch(ISearchService client, IMapper mapper)
         {
-            _client = client.Indexes.GetClient(CourseSearchWrite.IndexName);
+            _client = client.GetClient(CourseSearchWrite.IndexName);
             _mapper = mapper;
         }
 

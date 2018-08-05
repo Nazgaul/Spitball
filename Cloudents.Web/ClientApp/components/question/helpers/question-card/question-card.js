@@ -20,6 +20,14 @@ export default {
             default: false
         },
         cardData: {},
+        fromCarousel: {
+            type: Boolean,
+            required: false
+        },
+        suggestion: {
+            type: Boolean,
+            default: false,
+        },
         isApproved: {
             type: Boolean,
             default: false
@@ -66,8 +74,6 @@ export default {
             }
             return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
         },
-
-
     },
     methods: {
         ...mapActions({
@@ -116,5 +122,6 @@ export default {
     },
     created() {
         this.flaggedAsCorrect = this.isCorrectAnswer;
+        console.log('answer',this.typeAnswer)
     }
 }

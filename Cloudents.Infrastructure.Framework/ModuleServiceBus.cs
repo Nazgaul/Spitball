@@ -8,6 +8,7 @@ namespace Cloudents.Infrastructure.Framework
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Web)]
     [ModuleRegistration(Core.Enum.System.IcoSite)]
+    [ModuleRegistration(Core.Enum.System.Admin)]
     [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Autofac module")]
     public class ModuleServiceBus : Module
     {

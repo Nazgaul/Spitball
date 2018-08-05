@@ -5,12 +5,14 @@ import {mapGetters, mapMutations, mapActions} from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
-
+import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
+import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue'
 export default {
     mixins: [disableForm],
-    components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp},
+    components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer},
     props: {
-        id: {Number} // got it from route
+        id: {Number}, // got it from route
+        questionId: {Number}
     },
     data() {
         return {
@@ -20,13 +22,11 @@ export default {
             questionData: null,
             cardList: [],
             showForm: false,
-            showDialog: false,
-            build: null
-
-
+            showDialogSuggestQuestion: false,
+            showDialogLogin: false,
+            build: null,
         };
     },
-
     beforeRouteLeave(to, from, next) {
         this.resetQuestion();
         next()
@@ -46,6 +46,7 @@ export default {
             var self = this;
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
+                self.textAreaValue = self.textAreaValue.trim();
                 questionService.answerQuestion(self.id, self.textAreaValue, self.answerFiles)
                     .then(function (resp) {
                         //TODO: do this on client side (render data inserted by user without calling server) - see commented out below - all that's left is asking ram to return the answerId in response
@@ -57,33 +58,25 @@ export default {
                         //     text: self.textAreaValue,
                         //     user: self.accountUser
                         // });
+                        self.$ga.event("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
+                        self.cardList = resp.data;
                         self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
-                        self.updateToasterParams({
-                            toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
-                            showToaster: true,
-                        });
-                        console.log('resp',resp);
-                        self.cardList =[];
-                        if(resp.data.nexnextQuestions){
-                            self.cardList = resp.data.nextQuestions;
-                            console.log('SELF ARR', self.cardList)
-                        }
-                        self.showDialog = true; // question suggest popup dialog
-
+                        // self.updateToasterParams({
+                        //     toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
+                        //     showToaster: true,
+                        // });
+                        self.showDialogSuggestQuestion = true; // question suggest popup dialog
                     }, () => {
-
-                        self.updateToasterParams({
-                            toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
-                            showToaster: true,
-                        });
+                        // self.updateToasterParams({
+                        //     toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
+                        //     showToaster: true,
+                        // });
                         self.submitForm(false);
                         self.updateLoading(true);
-                    }).then(data=>{
-
-                });
+                    })
             }
         },
 
@@ -94,16 +87,18 @@ export default {
             this.answerFiles.splice(index, 1);
         },
         getData() {
-            var self = this;
+            //enable submit btn
+            this.$data.submitted = false;
+            // var self = this;
             questionService.getQuestion(this.id)
-                .then(function (response) {
-                    self.questionData = response.data;
-                    if (self.accountUser) {
-                        self.questionData.cardOwner = self.accountUser.id === response.data.user.id;
+                .then( (response) => {
+                    this.questionData = response;
+                    if (this.accountUser) {
+                        this.questionData.cardOwner = this.accountUser.id === response.user.id;
                     } else {
-                        self.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
+                        this.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
                     }
-                    self.buildChat();
+                    this.buildChat();
                 }, (error) => {
                     if (error.response.status === 404) {
                         window.location = "/error/notfound";
@@ -122,7 +117,6 @@ export default {
                 var conversation = this.talkSession.getOrCreateConversation(
                     `question_${this.id}`
                 );
-
                 //conversation
                 conversation.setParticipant(this.chatAccount, { notify: false });
                 conversation.setParticipant(other1);
@@ -143,7 +137,6 @@ export default {
                     conversation.setParticipant(this.chatAccount, {notify: true})
                     // console.log(t)
                 });
-
                 this.$nextTick(() => {
                     chatbox.mount(this.$refs["chat-area"]);
                 });
@@ -151,13 +144,11 @@ export default {
         },
         showAnswerField() {
             if (this.accountUser) {
-                this.showForm = true
+                this.showForm = true;
             }
             else {
-                this.updateToasterParams({
-                    toasterText: '<span class="toast-helper">To answer or ask a question you must  </span><a href="/register" class="toast_action">Sign Up</a><span class="toast-helper">  or  </span><a href="/signin" class="toast_action">Login</a>',
-                    showToaster: true
-                });
+                this.dialogType = ''
+                this.showDialogLogin = true;
             }
         },
 
@@ -167,7 +158,10 @@ export default {
             if (newVal) {
                 this.buildChat();
             }
-        }
+        },
+        //watch route(url query) update, and het question data from server
+        '$route': 'getData'
+
     },
     computed: {
         ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer"]),
@@ -176,22 +170,11 @@ export default {
             return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
         },
         enableAnswer() {
-            let val = !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered);
+            let hasCorrectAnswer = !!this.questionData.correctAnswerId;
+            let val = !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered) && !hasCorrectAnswer;
             this.showForm = (val && !this.questionData.answers.length);
             return val;
         },
-        //conditionally disable answer submit btn
-        isSubmitBtnDisabled() {
-            // if (this.textAreaValue.length < 15) {
-            //     return true
-            // } else {
-            //     return false
-            // }
-            return false
-        }
-        // isMobile() {
-        //     return this.$vuetify.breakpoint.smAndDown;
-        // },
     },
     created() {
         this.getData();
@@ -199,8 +182,12 @@ export default {
         this.$root.$on('deleteAnswer', (id) => {
             this.questionData.answers = this.questionData.answers.filter(item => item.id !== id)
         });
-        this.$root.$on('closeSuggestionPopUp', ()=> {
-            this.showDialog = false;
+        this.$root.$on('closePopUp', (name)=> {
+           if(name === 'suggestions'){
+               this.showDialogSuggestQuestion =false
+           }else{
+               this.showDialogLogin = false
+           }
         })
     }
 }

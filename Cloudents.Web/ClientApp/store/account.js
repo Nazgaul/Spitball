@@ -52,13 +52,10 @@ const getters = {
 };
 const actions = {
     logout({state, commit}) {
-        accountService.logout()
-            .then(resp => {
-                commit("logout");
-                router.go({path: '/ask', query: {q: ''}});
-            }, error => {
-                console.error('logout error', error)
-            })
+        // accountService.logout();
+        // commit("logout");
+        window.location.replace("/logout");
+        //router.go({path: '/logout'});
 
     },
     userStatus({dispatch, commit, getters}, {isRequire, to}) {
@@ -79,6 +76,9 @@ const actions = {
                 commit("changeLoginStatus", false);
             });
         }
+    },
+    saveCurrentPathOnPageChange({commit}, {currentRoute}){
+        commit("updateFromPath", currentRoute);
     },
     connectToChat({state, commit}) {
         if (!state.user) {

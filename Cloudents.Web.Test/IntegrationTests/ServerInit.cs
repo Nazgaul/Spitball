@@ -4,14 +4,16 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
     public class ServerInit
     {
-        protected readonly HttpClient Client;
+        protected static HttpClient Client;
 
-        protected ServerInit()
+
+        static ServerInit()
         {
             Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", Startup.IntegrationTestEnvironmentName);
 
@@ -27,6 +29,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                     new ConfigurationBuilder()
                         .SetBasePath(appRootPath)
                         .AddJsonFile("appsettings.json")
+                        .AddJsonFile("appsettings.Development.json")
                         .Build())
                 .UseStartup<Startup>());
             Client = server.CreateClient();

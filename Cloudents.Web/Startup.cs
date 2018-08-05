@@ -11,6 +11,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
@@ -45,7 +46,6 @@ namespace Cloudents.Web
         {
             Configuration = configuration;
             HostingEnvironment = env;
-
         }
 
         private IConfiguration Configuration { get; }
@@ -61,6 +61,8 @@ namespace Cloudents.Web
 
             // Add SnapshotCollector telemetry processor.
             services.AddSingleton<ITelemetryProcessorFactory>(sp => new SnapshotCollectorTelemetryProcessorFactory(sp));
+            services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
+
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
                 .AddJsonOptions(options =>
@@ -75,34 +77,7 @@ namespace Cloudents.Web
                 });
             if (HostingEnvironment.IsDevelopment())
             {
-                services.AddSwaggerGen(c =>
-                {
-                    c.SwaggerDoc("v1", new Info { Title = "Spitball Api", Version = "v1" });
-                    var basePath = AppContext.BaseDirectory;
-                    var xmlPath = Path.Combine(basePath, "Cloudents.Web.xml");
-                    c.IncludeXmlComments(xmlPath);
-                    c.DescribeAllEnumsAsStrings();
-                    c.DescribeAllParametersInCamelCase();
-                    c.OperationFilter<FormFileOperationFilter>();
-                    c.ResolveConflictingActions(f =>
-                    {
-                        var descriptions = f.ToList();
-                        var parameters = descriptions
-                            .SelectMany(desc => desc.ParameterDescriptions)
-                            .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x },
-                                ApiParameterDescriptionEqualityComparer.Instance)
-                            .ToList();
-                        var description = descriptions[0];
-                        description.ParameterDescriptions.Clear();
-                        parameters.ForEach(x =>
-                        {
-                            if (x.Parameter.RouteInfo != null)
-                                x.Parameter.RouteInfo.IsOptional = x.IsOptional;
-                            description.ParameterDescriptions.Add(x.Parameter);
-                        });
-                        return description;
-                    });
-                });
+                SwaggerInitial(services);
             }
 
             services.AddResponseCompression();
@@ -149,6 +124,7 @@ namespace Cloudents.Web
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
+            
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -163,14 +139,14 @@ namespace Cloudents.Web
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
 
-            var keys = new ConfigurationKeys
+            var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = Configuration.GetConnectionString("DefaultConnection"),
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
                        Configuration["AzureSearch:SearchServiceAdminApiKey"]),
                 Redis = Configuration["Redis"],
                 Storage = Configuration["Storage"],
-                FunctionEndpoint = Configuration["AzureFunction:EndPoint"],
+                //FunctionEndpoint = Configuration["AzureFunction:EndPoint"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"],
                 ServiceBus = Configuration["ServiceBus"]
             };
@@ -180,9 +156,42 @@ namespace Cloudents.Web
                 Core.Enum.System.Web, assembliesOfProgram);
 
             containerBuilder.RegisterType<Logger>().As<ILogger>();
+            //containerBuilder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
+        }
+
+        private static void SwaggerInitial(IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info {Title = "Spitball Api", Version = "v1"});
+                var basePath = AppContext.BaseDirectory;
+                var xmlPath = Path.Combine(basePath, "Cloudents.Web.xml");
+                c.IncludeXmlComments(xmlPath);
+                c.DescribeAllEnumsAsStrings();
+                c.DescribeAllParametersInCamelCase();
+                c.OperationFilter<FormFileOperationFilter>();
+                c.ResolveConflictingActions(f =>
+                {
+                    var descriptions = f.ToList();
+                    var parameters = descriptions
+                        .SelectMany(desc => desc.ParameterDescriptions)
+                        .GroupBy(x => x, (x, xs) => new {IsOptional = xs.Count() == 1, Parameter = x},
+                            ApiParameterDescriptionEqualityComparer.Instance)
+                        .ToList();
+                    var description = descriptions[0];
+                    description.ParameterDescriptions.Clear();
+                    parameters.ForEach(x =>
+                    {
+                        if (x.Parameter.RouteInfo != null)
+                            x.Parameter.RouteInfo.IsOptional = x.IsOptional;
+                        description.ParameterDescriptions.Add(x.Parameter);
+                    });
+                    return description;
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -190,6 +199,7 @@ namespace Cloudents.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
+
             if (env.IsDevelopment())
             {
                 HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
@@ -201,18 +211,20 @@ namespace Cloudents.Web
                 configuration.DisableTelemetry = true;
 
             }
-            if (env.IsDevelopment() || env.IsEnvironment(IntegrationTestEnvironmentName))
+            var reWriterOptions = new RewriteOptions()
+                .Add(new RemoveTrailingSlash());
+
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
+                app.UseStatusCodePagesWithReExecute("/Error");
                 app.UseExceptionHandler("/Error");
             }
 
-            var reWriterOptions = new RewriteOptions()
-                .Add(new RemoveTrailingSlash());
-            if (!env.IsEnvironment(IntegrationTestEnvironmentName))
+            if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 reWriterOptions.AddRedirectToHttpsPermanent();
             }
@@ -221,6 +233,7 @@ namespace Cloudents.Web
 
             app.UseResponseCompression();
             app.UseResponseCaching();
+
             app.UseStatusCodePages();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {

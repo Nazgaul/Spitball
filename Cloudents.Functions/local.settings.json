@@ -15,6 +15,7 @@
     "AzureWebJobsServiceBus": "Endpoint=sb://spitball-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CACOBTEeKVemCY7ScVBHYXBwDkClQcCKUW7QGq8dNfA=",
     "TalkJsSecret": "sk_test_AQGzQ2Rlj0NeiNOEdj1SlosU",
     "TalkJsAppId": "tXsrQpOx",
-    "BlockChainNetwork": "http://spito5-dns-reg1.northeurope.cloudapp.azure.com:8545"
+    "BlockChainNetwork": "http://spito5-dns-reg1.northeurope.cloudapp.azure.com:8545",
+    "SiteEndPoint": "https://dev.spitball.co"
   }
 }

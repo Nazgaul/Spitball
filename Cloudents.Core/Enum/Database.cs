@@ -12,6 +12,7 @@
         Web,
         Console,
         WorkerRole,
-        IcoSite
+        IcoSite,
+        Admin
     }
 }

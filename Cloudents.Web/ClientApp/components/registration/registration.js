@@ -18,7 +18,7 @@ export default {
             showDialog: false,
             toasterTimeout: 5000,
             step: {
-                type: Number
+            type: Number
             },REGISTRATION_STEPS
         }
     },

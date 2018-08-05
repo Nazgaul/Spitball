@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             userEmail: '',
-            rememberMe: false,
+            //rememberMe: false,
             submitted: false,
             recaptcha: '',
             errorMessage: {
@@ -35,10 +35,22 @@ export default {
         submit() {
             this.updateLoading(true);
             self = this;
-            registrationService.signIn(this.userEmail, this.recaptcha, this.rememberMe)
-                .then(function () {
+            registrationService.signIn(this.userEmail, this.recaptcha)
+                .then((response) => {
                     self.updateLoading(false);
-                    self.codeSent = true;
+                    debugger;
+                    let step = response.data.step;
+                    if (step === 'emailConfirmed') {
+                        self.$router.push({ name: 'registration', params: { code: `${step}` } });
+
+                    }
+                    else if (step === 'enterPhone') {
+                        self.$router.push({ name: 'phoneVerify', params: { code: `${step}` } });
+                    }
+                    else {
+                        ;                    //TODO: NewSignIn step result
+                        self.codeSent = true;
+                    }
                 }, function (reason) {
                     self.$refs.recaptcha.reset();
                     self.updateLoading(false);

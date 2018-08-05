@@ -2,14 +2,14 @@
     <div class="wallet-page">
 
         <div class="flex data-section">
-            <div class="header">
+            <div class="header ">
                 <span class="header-title">My Wallet</span>
                 <button class="back-button wallet" @click=" $router.go(-1)">
                     <v-icon right>sbf-close</v-icon>
                 </button>
             </div>
-            <v-tabs :grow="$vuetify.breakpoint.xsOnly" slider-color="white" v-model="active">
-                <!--<div class="tabs-wrapper">-->
+            <!--class="pl-3" style="background: #3532d5"-->
+            <v-tabs v-if="!cashOut" >
                 <!--<v-tabs-bar fixed>-->
                 <v-tab @click="changeActiveTab(1)" :href="'#tab-1'" :key="1">Balances</v-tab>
                 <v-tab @click="changeActiveTab(2)" :href="'#tab-2'" :key="2">Transaction</v-tab>

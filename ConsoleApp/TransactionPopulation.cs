@@ -17,21 +17,40 @@ namespace ConsoleApp
         }
 
 
-        //public async Task AddToUserMoney(decimal money, long userId)
-        //{
-        //    using (var child = _container.BeginLifetimeScope())
-        //    {
-        //        using (var unitOfWork = child.Resolve<IUnitOfWork>())
-        //        {
-        //            var t = child.Resolve<IUserRepository>();
-        //            var user = await t.LoadAsync(userId, default);
-        //            var p = new Transaction(ActionType.None, TransactionType.Earned, money);
-        //            user.AddTransaction(p);
-        //            await t.UpdateAsync(user, default).ConfigureAwait(false);
-        //            await unitOfWork.CommitAsync(default);
-        //        }
-        //    }
-        //}
+        public async Task UpdateBalanceAsync()
+        {
+            using (var child = _container.BeginLifetimeScope())
+            {
+                using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                {
+                    var repository = child.Resolve<IUserRepository>();
+                    var users = await repository.GetAllUsersAsync(default).ConfigureAwait(false);
+
+                    foreach (var user1 in users)
+                    {
+                        //user1.UserCreateTransaction();
+                        //await t.UpdateAsync(user1, default).ConfigureAwait(false);
+                    }
+                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+                }
+            }
+        }
+
+        public async Task AddToUserMoney(decimal money, long userId)
+        {
+            using (var child = _container.BeginLifetimeScope())
+            {
+                using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                {
+                    var t = child.Resolve<IUserRepository>();
+                    var user = await t.LoadAsync(userId, default);
+                    var p = Transaction.TestEarned(money);
+                    user.AddTransaction(p);
+                    await t.UpdateAsync(user, default).ConfigureAwait(false);
+                    await unitOfWork.CommitAsync(default);
+                }
+            }
+        }
 
         public async Task CreateTransactionOnExistingDataAsync()
         {

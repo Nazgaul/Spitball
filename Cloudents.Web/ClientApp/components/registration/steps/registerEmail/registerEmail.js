@@ -22,15 +22,25 @@ export default {
     },
     methods: {
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
-        ...mapActions({updateToasterParams: 'updateToasterParams'
+        ...mapActions({
+            updateToasterParams: 'updateToasterParams'
         }),
-
         next() {
             self = this;
             if (this.submitForm()) {
                 this.updateLoading(true);
                 registrationService.emailRegistration(this.userEmail, this.recaptcha)
-                    .then(function () {
+                    .then(function (resp) {
+                        debugger;
+                        // TODO step
+                        let step = resp.data.step;
+                        console.log('step', resp);
+                        if (step === "emailConfirmed") {
+                            self.emailSent = true;
+                        } else {
+                            self.$router.push({name: 'phoneVerify', params: {code: `${step}`}});
+                        }
+
                         self.updateLoading(false);
                         self.emailSent = true;
                     }, function (error) {
@@ -48,24 +58,21 @@ export default {
             var authInstance = gapi.auth2.getAuthInstance();
             if (this.submitForm()) {
                 this.updateLoading(true);
-                console.log('INST:',authInstance);
                 authInstance.signIn().then(function (googleUser) {
                     var idToken = googleUser.getAuthResponse().id_token;
-                    console.log('Token:', idToken);
                     registrationService.googleRegistration(idToken)
-                        .then(function () {
+                        .then(function (resp) {
+                            let step = resp.data.step;
+                            self.$router.push({name: 'phoneVerify', params: {code: `${step}`}});
                             self.updateLoading(false);
-                            console.log('got here')
-                            self.$emit('next');
                         }, function (error) {
-                            //TODO: duplicate callback
                             self.updateLoading(false);
                             self.submitForm(false);
                             self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                             console.error(error);
                         });
                 }, function (error) {
-                    console.log(error,'errrr')
+                    console.error(error,'errrr')
                     self.updateLoading(false);
                 });
             }
@@ -79,7 +86,7 @@ export default {
                         })
                     },
                     error => {
-                        console.error('resent error',error)
+                        console.error('resent error', error)
                     })
         },
         onVerify(response) {
@@ -95,6 +102,15 @@ export default {
                 client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
             });
         });
+    },
+    created() {
+        console.log(this.$route.params.code);
+        if (this.$route.params.code && this.$route.params.code === 'emailConfirmed') {
+            this.emailSent = true;
+        } else if (this.$route.params.code && this.$route.params.code === 'verifyPhone') {
+            this.$router.push({name: 'phoneVerify', params: {code: `${step}`}});
+        }
+
     }
 };
 

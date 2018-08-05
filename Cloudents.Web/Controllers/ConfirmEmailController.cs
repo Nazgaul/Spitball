@@ -1,8 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Api;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,32 +26,29 @@ namespace Cloudents.Web.Controllers
         }
 
         // GET
-        public async Task<IActionResult> Index(string id, string code, CancellationToken token)
+        public async Task<IActionResult> Index(long? id,string code, CancellationToken token)
         {
             if (id == null || code == null)
             {
                 return RedirectToAction(nameof(Index), "Home");
             }
 
-            TempData.Remove(RegisterController.Email);
-            var user = await _userManager.FindByIdAsync(id).ConfigureAwait(false);
+            TempData.Remove(SignUserController.Email);
+            code = System.Net.WebUtility.UrlDecode(code);
+            var user = await _userManager.FindByIdAsync(id.ToString()).ConfigureAwait(false);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{id}'.");
             }
 
-            //var taskBlockChain = _serviceBusProvider.InsertMessageAsync(
-            //    new BlockChainInitialBalance(_blockChain.GetAddress(user.PrivateKey)), token);
             var result = await _userManager.ConfirmEmailAsync(user, code).ConfigureAwait(false);
             if (!result.Succeeded)
             {
-                throw new ApplicationException($"Error confirming email for user with ID '{id}':");
+                throw new ApplicationException($"Error confirming email for user with ID '{id}': {result}");
             }
 
             await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
-
-            //await taskBlockChain.ConfigureAwait(false);
-            return Redirect("/verify-phone");
+            return Redirect("/verify-phone?newUser");
         }
     }
 }

@@ -11,8 +11,8 @@ let transformLocation = (params) => {
     let location = params.location;
     delete params.location;
     if (location) {
-        params['location.latitude'] = location.latitude;
-        params['location.longitude'] = location.longitude;
+        params['location.point.latitude'] = location.latitude;
+        params['location.point.longitude'] = location.longitude;
     }
     return params;
 };
@@ -74,7 +74,7 @@ const searchFunctions = {
 
 const courseFunctions = {
     getCourse: (params) => axios.get("course/search", { params }),
-     createCourse: (data) => axios.post("course/create", data)
+    createCourse: (data) => axios.post("course/create", data)
 };
 const getBookDetails = ({ type, isbn13 }) => axios.get(`book/${type}`, { params: { isbn13 } });
 const getPlacesDetails = ({ id }) => {

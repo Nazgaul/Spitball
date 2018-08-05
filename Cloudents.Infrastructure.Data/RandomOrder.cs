@@ -8,7 +8,7 @@ namespace Cloudents.Infrastructure.Data
     {
         public RandomOrder() :base (string.Empty,true)
         {
-            
+
         }
         //public RandomOrder(IProjection projection, bool @ascending) : base(projection, @ascending)
         //{

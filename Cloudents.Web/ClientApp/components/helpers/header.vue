@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-toolbar app :fixed="!isMobile" :height="height" class="header">
+        <v-toolbar  app :fixed="!isMobile" :height="height" class="header">
 
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">
@@ -79,7 +79,6 @@
 
     import {mapActions, mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
-
     const PersonalizeDialog = () => import('./ResultPersonalize.vue');
 
     export default {
@@ -95,7 +94,7 @@
             tutor: "Find a tutor...",
             note: "Find study documents in...",
             book: "Textbook title or ISBN...",
-            ask: "Ask anything...",
+            ask: "Search questions",
             flashcard: "Look for flashcards...",
         },
         data() {

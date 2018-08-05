@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Autofac;
-using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Data;
@@ -17,7 +16,6 @@ namespace Cloudents.Infrastructure
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             builder.RegisterType<DapperRepository>().AsSelf();
-            builder.RegisterType<DbConnectionStringProvider>().AsSelf();
             builder.RegisterAssemblyTypes(currentAssembly).AsClosedTypesOf(typeof(IReadRepositoryAsync<,>));
             builder.RegisterAssemblyTypes(currentAssembly).AsClosedTypesOf(typeof(IReadRepositoryAsync<>));
         }

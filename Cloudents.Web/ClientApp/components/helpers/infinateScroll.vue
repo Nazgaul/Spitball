@@ -1,5 +1,5 @@
 ﻿<template>
-    <div v-scroll="{callback:this.scrollList}"><slot></slot></div>
+    <div v-scroll="this.scrollList"><slot></slot></div>
 </template>
 <script>
 
@@ -19,7 +19,8 @@
         },
         watch: {
             '$route': '$_resetScrolling',
-            url(val){
+            url(val) {
+               
                 this.nextPage=val;
             }
         },
@@ -31,6 +32,7 @@
                 let scrollOffset = (currentScroll > (0.75 * totalHeight - document.documentElement.clientHeight));
                 let retVal = ((window.pageYOffset > 0 || document.documentElement.scrollTop > 0) && scrollOffset &&
                     !this.isLoading && !this.isComplete);
+                console.log(retVal)
                 return retVal
             },
             scrollList() {

@@ -41,7 +41,7 @@ namespace Cloudents.Infrastructure.Data.Query
                         Image = s.User.Image
                     },
                     Id = s.Id,
-                    Create = s.Created,
+                    Create = s.Updated,
                     Price = s.Price,
                     Subject = s.Subject.Text,
                     Text = s.Text,

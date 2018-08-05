@@ -19,6 +19,9 @@
 
             .v-expansion-panel__header {
                 padding: 18px 16px;
+                @media( max-width: @screen-sm){
+                    height: auto;
+                }
             }
 
             .v-expansion-panel__body {
@@ -27,7 +30,14 @@
                 line-height: 1.67;
                 letter-spacing: -0.2px;
                 .responsive-property(font-size, 18px, null, 16px);
-                //   padding:24px;
+                img{
+                    // TODO Check where image style is coming from if from server, change
+                    width: auto!important;
+                    height: 100%!important;
+                    @media( max-width: @screen-sm){
+                     max-width: 300px!important;
+                    }
+                }
                 p {
                     margin: 0;
                 }

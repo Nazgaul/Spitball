@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
@@ -10,6 +9,8 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +18,18 @@ namespace Cloudents.Ico
 {
     public class Startup
     {
+        public static readonly CultureInfo[] SupportedCultures = new[]
+         {
+
+            new CultureInfo("en-US"),
+            new CultureInfo("es-ES"),
+            new CultureInfo("de"),
+            new CultureInfo("ru"),
+            new CultureInfo("zh-Hans"),
+            new CultureInfo("ko"),
+            new CultureInfo("ja"),
+        };
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,28 +40,20 @@ namespace Cloudents.Ico
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+
+            services.AddLocalization(x => x.ResourcesPath = "Resources");
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
 
             var containerBuilder = new ContainerBuilder();
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
-                //Assembly.Load("Cloudents.Infrastructure.Storage"),
-                //Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
-                //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.GetExecutingAssembly()
             };
-            var keys = new ConfigurationKeys
+            var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                //Db = Configuration.GetConnectionString("DefaultConnection"),
-                //Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
-                //    Configuration["AzureSearch:SearchServiceAdminApiKey"]),
-                //Redis = Configuration["Redis"],
-                //Storage = Configuration["Storage"],
-                //FunctionEndpoint = Configuration["AzureFunction:EndPoint"],
-                //BlockChainNetwork = Configuration["BlockChainNetwork"],
                 ServiceBus = Configuration["ServiceBus"]
             };
 
@@ -75,6 +80,15 @@ namespace Cloudents.Ico
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(SupportedCultures[0]),
+
+                // Formatting numbers, dates, etc.
+                SupportedCultures = SupportedCultures,
+                // UI strings that we have localized.
+                SupportedUICultures = SupportedCultures
+            });
             app.UseStaticFiles();
 
             app.UseMvc(routes =>

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Enum;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure.Data")]
 namespace Cloudents.Core.Entities.Db
@@ -18,6 +17,8 @@ namespace Cloudents.Core.Entities.Db
             TwoFactorEnabled = true;
             PrivateKey = privateKey;
             UserCreateTransaction();
+            Created = DateTime.UtcNow;
+            Fictive = false;
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
@@ -50,6 +51,10 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual void AddTransaction(Transaction t)
         {
+            if (Fictive)
+            {
+                return;
+            }
             t.User = this;
             Balance += t.Price;
             if (Balance < 0)
@@ -67,9 +72,13 @@ namespace Cloudents.Core.Entities.Db
             AddTransaction(t);
         }
 
-        public virtual decimal Balance { get; protected set; }
+        public virtual decimal Balance { get; set; }
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         protected internal virtual IList<Transaction> Transactions { get; set; }
+
+
+        public virtual DateTime Created { get; set; }
+        public virtual bool Fictive { get; set; }
     }
 }

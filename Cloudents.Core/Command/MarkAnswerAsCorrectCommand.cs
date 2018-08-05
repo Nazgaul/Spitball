@@ -5,16 +5,14 @@ namespace Cloudents.Core.Command
 {
     public class MarkAnswerAsCorrectCommand : ICommand
     {
-        public MarkAnswerAsCorrectCommand(Guid answerId, long userId, string link)
+        public MarkAnswerAsCorrectCommand(Guid answerId, long questionUserId)
         {
             AnswerId = answerId;
-            UserId = userId;
-            Link = link;
+            QuestionUserId = questionUserId;
         }
 
         public Guid AnswerId { get; private set; }
-        public long UserId { get; private set; }
+        public long QuestionUserId { get; private set; }
 
-        public string Link { get; private set; }
     }
 }

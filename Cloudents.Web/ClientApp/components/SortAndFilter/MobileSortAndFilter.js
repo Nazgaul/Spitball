@@ -1,5 +1,6 @@
 import DialogToolbar from '../dialog-toolbar/DialogToolbar.vue'
-import { mapActions } from 'vuex'
+import {mapActions} from 'vuex'
+
 export default {
     model: {
         prop: "value",
@@ -16,20 +17,20 @@ export default {
             sort: this.sortVal ? this.sortVal : (this.sortOptions && this.sortOptions.length) ? this.sortOptions[0].id : ""
         }
     },
-    components: { DialogToolbar },
+    components: {DialogToolbar},
     props: {
-        value: { type: Boolean },
-        sortOptions: { type: Array, default: () => [] },
-        filterOptions: { type: Array, default: () => [] },
-        filterVal: { type: Array, default: () => [] },
+        value: {type: Boolean},
+        sortOptions: {type: Array, default: () => []},
+        filterOptions: {type: Array, default: () => []},
+        filterVal: {type: Array, default: () => []},
         sortVal: {}
     },
     methods: {
         ...mapActions(['setFilteredCourses']),
 
         initFilters(val = []) {
-            this.filters = { source: [], course: [], jobType: [], filter: [] };
-            [].concat(val).forEach(({ key, value }) => {
+            this.filters = {source: [], course: [], jobType: [], filter: []};
+            [].concat(val).forEach(({key, value}) => {
                 this.filters[key] = this.filters[key].concat(value);
             });
         },
@@ -44,7 +45,9 @@ export default {
                 (courseBefore.length !== courseNow.length || isNotEqual)) {
                 this.setFilteredCourses(this.filters.course);
             }
-            if (this.filters.filter.includes('inPerson')) { this.sort = "price" }
+            if (this.filters.filter.includes('inPerson')) {
+                this.sort = "price"
+            }
             let query = {};
             Object.keys(this.filters).forEach(key => {
                 let value = this.filters[key];
@@ -52,7 +55,7 @@ export default {
             });
             if (this.sort) query.sort = this.sort;
             if (this.$route.query.q) query.q = this.$route.query.q;
-            this.$router.push({ query });
+            this.$router.push({query});
             this.$emit('input', false);
         },
 
@@ -61,8 +64,11 @@ export default {
                 this.setFilteredCourses([]);
             }
             this.initFilters();
-            if (this.sortOptions.length) { this.sort = this.sortOptions[0].id; }
-            this.$router.push({ query: { q: this.$route.query.q } });
+            if (this.sortOptions.length) {
+                this.sort = this.sortOptions[0].id;
+            }
+            this.$router.push({query: {q: this.$route.query.q}});
+            this.applyFilters();
             this.$emit('input', false);
         },
 

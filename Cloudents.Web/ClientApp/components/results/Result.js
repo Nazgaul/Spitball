@@ -9,6 +9,8 @@ import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
 import {verticalsName} from '../../data'
 import {typesPersonalize} from "../settings/consts.js";
+import signupBanner from './../helpers/signup-banner/signup-banner.vue'
+import QuestionCard from "../question/helpers/question-card/question-card";
 import {mapActions, mapGetters} from 'vuex'
 
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
@@ -38,8 +40,7 @@ let updateData = function (data, isFilterUpdate = false) {
     }
 };
 //The vue functionality for result page
-export const pageMixin =
-    {
+export default {
         //use basic sort and filter functionality( same for book details and result page)
         mixins: [sortAndFilterMixin],
         //when go back to home clear the saved term and classes
@@ -133,7 +134,7 @@ export const pageMixin =
                 filterObject: null,
                 showFilters: false,
                 showPersonalizeField: true,
-                showPromo: this.isPromo,
+                //showPromo: this.isPromo,
                 showFilterNotApplied: false,
                 isLoad: false,
                 offsetTop: 0,
@@ -150,7 +151,9 @@ export const pageMixin =
             ResultJob,
             ResultBook,
             questionCard,
-            faqBlock
+            faqBlock,
+            signupBanner,
+            QuestionCard
         },
 
         created() {
@@ -174,14 +177,6 @@ export const pageMixin =
             // });
         },
         methods: {
-            //hide banner when scrolled by
-            hideBanner(e) {
-                this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
-                if (this.offsetTop >= 360) {
-                    this.hideRegistrationBanner()
-                }
-
-            },
             subFilterVertical(val) {
                 return val.includes('note') || val === 'flashcard' || val === 'job' || val.includes('ask');
             },
@@ -274,9 +269,9 @@ export const pageMixin =
             }
         },
 //Page props come from the route
-    props: {
-        isPromo: {
-            type: Boolean
-        }
-    }
+    //props: {
+    //    isPromo: {
+    //        type: Boolean
+    //    }
+    //}
 };

@@ -33,12 +33,26 @@ namespace Cloudents.Infrastructure
             var point = new GeoPoint(ipDto.Longitude, ipDto.Latitude);
             var address = new Address(ipDto.City, ipDto.RegionCode, ipDto.CountryCode);
             return new Location(point, address, ipAddress.ToString(), ipDto.Location.CallingCode);
+            //var uri = new Uri($"http://freegeoip.net/json/{ipAddress}");
+            //var ipDto = await _restClient.GetAsync<IpDto>(uri, null, token).ConfigureAwait(false);
+            //if (ipDto == null)
+            //{
+            //    return null;
+            //}
+            //var point = new GeoPoint(ipDto.Longitude, ipDto.Latitude);
+            //var address = new Address(ipDto.City, ipDto.RegionCode, ipDto.CountryCode);
+            //return new Location(point, address, ipAddress.ToString());
         }
 
 
         public class IpDto
         {
             //public string Ip { get; set; }
+            //public string Type { get; set; }
+            //[JsonProperty("continent_code")]
+            //public string ContinentCode { get; set; }
+            //[JsonProperty("continent_name")]
+            //public string ContinentName { get; set; }
             //public string Type { get; set; }
             //[JsonProperty("continent_code")]
             //public string ContinentCode { get; set; }
@@ -73,6 +87,13 @@ namespace Cloudents.Infrastructure
             //[JsonProperty("is_eu")]
             //public bool IsEu { get; set; }
         }
+
+        //public class IpLanguage
+        //{
+        //    public string Code { get; set; }
+        //    public string Name { get; set; }
+        //    public string Native { get; set; }
+        //}
 
         //public class IpLanguage
         //{

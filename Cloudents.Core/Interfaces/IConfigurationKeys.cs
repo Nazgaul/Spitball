@@ -7,10 +7,12 @@
         SearchServiceCredentials Search { get; }
         string Redis { get; }
         string Storage { get; }
-        string FunctionEndpoint { get; }
+       // string FunctionEndpoint { get; }
         string BlockChainNetwork { get; }
 
         LocalStorageData LocalStorageData { get; }
         string ServiceBus { get;  }
+
+        string SiteEndPoint { get; }
     }
 }

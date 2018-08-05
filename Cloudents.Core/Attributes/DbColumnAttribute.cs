@@ -3,7 +3,7 @@
 namespace Cloudents.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class DbColumnAttribute : Attribute
+    public sealed class DbColumnAttribute : Attribute
     {
         public string Name { get;  }
 
@@ -11,5 +11,11 @@ namespace Cloudents.Core.Attributes
         {
             Name = name;
         }
+    }
+
+    [AttributeUsage(AttributeTargets.Class)]
+    public sealed class AdminCommandHandler : Attribute
+    {
+
     }
 }

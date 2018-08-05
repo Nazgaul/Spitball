@@ -2,6 +2,7 @@
 import historyIcon from "./svg/history-icon.svg";
 import {mapGetters, mapActions} from 'vuex'
 import * as consts from './consts';
+import { constants } from "../../utilities/constants";
 
 export default {
     name: "search-input",
@@ -80,8 +81,9 @@ export default {
             this.closeSuggestions();
         },
         search() {
+            if (!constants.regExXSSCheck.test(this.msg)){
                 this.$router.push({path: this.submitRoute, query: {q: this.msg}});
-
+            }
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
@@ -112,10 +114,13 @@ export default {
                 }
             }
         },
-
         highlightSearch: function (item) {
             if (!item.type === consts.SUGGEST_TYPE.autoComplete || !this.msg) {
-                return item.text
+                if (!constants.regExXSSCheck.test(item.text)){
+                    return item.text
+                }else{
+                    return "";
+                }
             }
             else {
                 let term = this.msg.toLowerCase();

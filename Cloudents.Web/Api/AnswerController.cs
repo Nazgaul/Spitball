@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.Command;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
@@ -55,9 +54,16 @@ namespace Cloudents.Web.Api
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAnswerAsync(DeleteAnswerRequest model, CancellationToken token)
         {
-            var command = _mapper.Map<DeleteAnswerCommand>(model);
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-            return Ok();
+            try
+            {
+                var command = _mapper.Map<DeleteAnswerCommand>(model);
+                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
         }
     }
 }

@@ -27,6 +27,7 @@
                     <button class="sides" color="primary" dark slot="activator">
                         <settings-icon></settings-icon>
                     </button>
+
                     <v-list class="sides">
                         <v-list-tile @click="slideFront=1">
                             <v-list-tile-title>

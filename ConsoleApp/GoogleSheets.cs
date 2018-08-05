@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using Cloudents.Core.Command.Admin;
 
 namespace ConsoleApp
 {
@@ -14,7 +15,7 @@ namespace ConsoleApp
         static readonly string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
         private const string ApplicationName = "Google Sheets API";
 
-        public static List<KeyValuePair<string, string>> GetData(string spreadsheetId, string range)
+        public static List<CreateQuestionCommand> GetData(string spreadsheetId, string range)
         {
             UserCredential credential;
 
@@ -49,20 +50,31 @@ namespace ConsoleApp
                         service.Spreadsheets.Values.Get(spreadsheetId, range);
 
                 var response = request.Execute();
-                var subjectList = new List<KeyValuePair<string, string>>();
+                var subjectList = new List<CreateQuestionCommand>();
 
                 if (response.Values?.Count > 0)
                 {
                     for (int i = 0; i < response.Values.Count; i++)
                     {
-                        if (response.Values[i].Count == 2)
+                        if (response.Values[i].Count == 3)
+                        {
+                            CreateQuestionCommand t =
+                                new CreateQuestionCommand
+                                {
+                                    SubjectId = Convert.ToInt32(response.Values[i][2]),
+                                    Text = response.Values[i][0].ToString(),
+                                    Price = Convert.ToDecimal(response.Values[i][1])
+                                };
+                            subjectList.Add(t);
+                        }
+                       /* if (response.Values[i].Count == 2)
                         {
                             subjectList.Add(new KeyValuePair<string, string>(response.Values[i][0].ToString(), response.Values[i][1].ToString()));
                         }
                         else
                         {
                             subjectList.Add(new KeyValuePair<string, string>(response.Values[i][0].ToString(), ""));
-                        }
+                        }*/
                     }
                 }
                 else

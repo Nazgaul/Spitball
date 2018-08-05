@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using JetBrains.Annotations;
+
+[assembly: InternalsVisibleTo("Cloudents.Infrastructure.Data")]
 
 namespace Cloudents.Core.Entities.Db
 {
@@ -12,13 +16,19 @@ namespace Cloudents.Core.Entities.Db
     public class Question
     {
         public Question(QuestionSubject subject, string text, decimal price, int attachments, User user)
+        : this()
         {
             Subject = subject;
-            Text = text;
+            Text = text?.Trim();
             Price = price;
             Attachments = attachments;
             User = user;
-            Created = DateTime.UtcNow;
+            Updated = Created = DateTime.UtcNow;
+
+            if (user.Fictive)
+            {
+                Updated = DateTimeHelpers.NextRandomDate(1);
+            }
 
             QuestionCreateTransaction();
         }
@@ -26,6 +36,7 @@ namespace Cloudents.Core.Entities.Db
         [UsedImplicitly]
         protected Question()
         {
+            Answers = Answers ?? new List<Answer>();
         }
 
         public virtual long Id { get; protected set; }
@@ -43,6 +54,10 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual IList<Answer> Answers { get; protected set; }
 
+        public virtual DateTime Updated { get; set; }
+
+        protected internal virtual IList<Transaction> Transactions { get; set; }
+
 
         public virtual void QuestionCreateTransaction()
         {
@@ -52,7 +67,11 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual void QuestionDeleteTransaction()
         {
-            var t =  Transaction.QuestionDelete(this);// new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
+            foreach (var transaction in Transactions)
+            {
+                transaction.Question = null;
+            }
+            var t = Transaction.QuestionDelete(this);// new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
             User.AddTransaction(t);
         }
 
@@ -71,7 +90,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual void MarkCorrectTransaction(Answer correctAnswer)
         {
             var questionUser = User;
-            var t1 = Transaction.CorrectAnswer(TransactionType.Stake,this,correctAnswer); //new Transaction(ActionType.AnswerCorrect, TransactionType.Stake, Price);
+            var t1 = Transaction.CorrectAnswer(TransactionType.Stake, this, correctAnswer); //new Transaction(ActionType.AnswerCorrect, TransactionType.Stake, Price);
             var t2 = Transaction.CorrectAnswer(TransactionType.Spent, this, correctAnswer);// new Transaction(ActionType.AnswerCorrect, TransactionType.Spent, -Price);
             questionUser.AddTransaction(t1);
             questionUser.AddTransaction(t2);
@@ -80,11 +99,13 @@ namespace Cloudents.Core.Entities.Db
 
 
             var tAnswer = Transaction.CorrectAnswer(TransactionType.Earned, this, correctAnswer);// new Transaction(ActionType.AnswerCorrect, TransactionType.Earned,
-                //Price);
+                                                                                                 //Price);
             answerUser.AddTransaction(tAnswer);
 
             //return new[] {t1, t2, tAnswer};
         }
+
+
 
 
 
