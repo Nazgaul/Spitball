@@ -48,16 +48,24 @@ namespace Cloudents.Web.Controllers
                 _logger.Warning($"url is not valid model: {model}");
                 return RedirectToAction("Index", "Home");
             }
-            
+
             var referer = Request.Headers["Referer"].ToString();
             var userIp = Request.HttpContext.Connection.GetIpAddress();
-            var message = new UrlRedirectQueueMessage(model.Host, model.Url, referer, model.Location, userIp.ToString());
 
-            //var domains = PrioritySource.DocumentPriority.Values.Union(PrioritySource.FlashcardPriority.Values)
-            //    .SelectMany(s => s.Domains);
-            var domain = _domainParser.GetDomain(model.Url.Host);
-            if (!_domains.Any(a => a.Contains(domain, StringComparison.OrdinalIgnoreCase)))
-                throw new ArgumentException("invalid url");
+
+            if (!Uri.TryCreate(referer, UriKind.Absolute, out var refererUri))
+            {
+                throw new ArgumentException("invalid referer");
+            }
+
+            if (refererUri.PathAndQuery.Contains(new[] { "flashcard", "note" }, StringComparison.OrdinalIgnoreCase))
+            {
+                var domain = _domainParser.GetDomain(model.Url.Host);
+                if (!_domains.Any(a => a.Contains(domain, StringComparison.OrdinalIgnoreCase)))
+                    throw new ArgumentException("invalid url");
+            }
+         
+            var message = new UrlRedirectQueueMessage(model.Host, model.Url, referer, model.Location, userIp.ToString());
 
             await _serviceBus.InsertMessageAsync(message, token).ConfigureAwait(false);
 
