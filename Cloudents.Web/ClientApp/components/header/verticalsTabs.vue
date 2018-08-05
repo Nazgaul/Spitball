@@ -2,7 +2,7 @@
     <v-flex class="line verticals">
         <v-layout row>
             <div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>
-            <v-tabs class="verticals-bar" v-model="currentVertical" :value="currentSelection"  fixed :scrollable="false">
+            <v-tabs class="verticals-bar" v-model="currentVertical" :value="currentSelection"   :scrollable="false">
                     <v-tab v-for="tab in verticals" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click.prevent="$_updateType(tab.id)"
                                  :class="['spitball-text-'+tab.id,tab.id===currentSelection?'v-tabs__item--active':'']"
