@@ -19,7 +19,6 @@ const state = {
         flashcard: [],
         ask: [],
         note: [],
-        food: [],
         tutor: [],
         book: []
     }
@@ -92,7 +91,6 @@ const getters = {
             let [latitude, longitude] = location.split(',');
             return { latitude, longitude }
         } else { return location }
-        console.log(location, 'dsfsdfsdf')
     },
     pinnedCards:
         state => state.user.pinnedCards,
@@ -166,6 +164,7 @@ const actions = {
         commit(USER.UPDATE_FACET, data)
     },
     hideRegistrationBanner(context) {
+        console.log('clicked close btn')
         context.commit(USER.HIDE_REGISTRATION_BANNER);
     },
     incrementRegistrationStep(context) {

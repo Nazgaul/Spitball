@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudents.Web.Filters
@@ -17,18 +16,18 @@ namespace Cloudents.Web.Filters
         //    _hostingEnvironment = hostingEnvironment;
         //}
 
-        
-
         public async Task OnExceptionAsync(ExceptionContext context)
         {
             string body = null;
             if (string.Equals(context.HttpContext.Request.Method, "post", StringComparison.OrdinalIgnoreCase))
             {
-                context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
-                using (var sr = new StreamReader(context.HttpContext.Request.Body))
+                if (context.HttpContext.Request.Body.CanSeek)
                 {
-                    body = await sr.ReadToEndAsync();
-
+                    context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
+                    using (var sr = new StreamReader(context.HttpContext.Request.Body))
+                    {
+                        body = await sr.ReadToEndAsync();
+                    }
                 }
             }
             var telemetry = new TelemetryClient();

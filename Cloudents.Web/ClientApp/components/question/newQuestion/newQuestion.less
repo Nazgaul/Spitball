@@ -2,7 +2,6 @@
 
 .ask_question {
   .inputBorder{
-    //border: 1px solid transparent;
   }
   .error-block {
     text-align: center;
@@ -61,7 +60,7 @@
       top: 9px;
     }
 
-    .icon {
+    .v-icon {
       color: @color-main-purple;
       font-size: 16px;
     }
@@ -235,12 +234,12 @@
           position: absolute;
           top: 0;
           bottom: 0;
-          left: 16px;
+          left: 12px;
           color: #979797;
           margin-right: 32px;
         }
         input {
-          padding-left: 64px;
+          padding-left: 50px;
           width: 100%;
           display: block;
           height: 48px;
@@ -279,7 +278,7 @@
     }
   }
 
-  .btn.ask_btn {
+  .v-btn.ask_btn {
     position: relative;
     height: 48px;
     border-radius: 3px;
@@ -292,8 +291,19 @@
       width: 611px;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
-      margin: -9px 0 0px -17px;
+      margin: -9px 0 0px -16px;
     }
+
+    @media (min-width: @screen-md) {
+      width: 611px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      margin: -9px 0 0px -24px;
+    }
+    @media(min-width: @screen-sm){
+      margin: -9px 0 0px -24px;
+    }
+
   }
   .ask_btn.primary {
     background-color: @color-main-purple !important;

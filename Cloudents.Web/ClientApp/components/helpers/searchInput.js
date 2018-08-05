@@ -1,14 +1,11 @@
-﻿import debounce from "lodash/debounce"
-
-    ;
+﻿import debounce from "lodash/debounce";
 import historyIcon from "./svg/history-icon.svg";
-// import {micMixin} from './mic';
 import {mapGetters, mapActions} from 'vuex'
 import * as consts from './consts';
+import { constants } from "../../utilities/constants";
 
 export default {
     name: "search-input",
-    // mixins: [micMixin],
     components: {historyIcon},
     props: {
         hideOnScroll: {type: Boolean, default: false},
@@ -84,8 +81,9 @@ export default {
             this.closeSuggestions();
         },
         search() {
+            if (!constants.regExXSSCheck.test(this.msg)){
                 this.$router.push({path: this.submitRoute, query: {q: this.msg}});
-
+            }
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
@@ -116,13 +114,13 @@ export default {
                 }
             }
         },
-        //callback for mobile submit mic
-        submitMic() {
-            this.search();
-        },
         highlightSearch: function (item) {
             if (!item.type === consts.SUGGEST_TYPE.autoComplete || !this.msg) {
-                return item.text
+                if (!constants.regExXSSCheck.test(item.text)){
+                    return item.text
+                }else{
+                    return "";
+                }
             }
             else {
                 let term = this.msg.toLowerCase();

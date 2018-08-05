@@ -1,7 +1,4 @@
 import axios from "axios";
-
-
-
 export default {
     googleRegistration: (data) => axios.post("/SignUser/google", {token: data}), //Ram change
     emailRegistration: (email,recaptcha) => axios.post("signuser", {email,captcha: recaptcha}), //Ram change

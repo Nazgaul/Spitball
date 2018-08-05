@@ -23,12 +23,10 @@ namespace Cloudents.Core.Extension
                 {
                     var modules = assembly.GetTypes()
                         .Where(w => typeof(IModule).IsAssignableFrom(w))
-                        .Where(w =>
-                        {
-                            var info = w.GetTypeInfo().GetCustomAttributes<ModuleRegistrationAttribute>();
-                            return info.FirstOrDefault(f => f.System == system) != null;
-                            //return info?.System == system;
-                        });
+                        .Where(w => GetModuleAttribute(w, system) != null
+                           // var info = w.GetTypeInfo().GetCustomAttributes<ModuleRegistrationAttribute>();
+                            //return info.FirstOrDefault(f => f.System == system) != null;
+                        ).OrderBy(o => GetModuleAttribute(o,system).Order);
                     foreach (var module in modules)
                     {
                         var p2 = Activator.CreateInstance(module);
@@ -44,6 +42,12 @@ namespace Cloudents.Core.Extension
                     throw loaderExceptions[0];
                 }
             }
+        }
+
+        private static ModuleRegistrationAttribute GetModuleAttribute(Type type, Enum.System system)
+        {
+            var info = type.GetTypeInfo().GetCustomAttributes<ModuleRegistrationAttribute>();
+            return info.FirstOrDefault(f => f.System == system);
         }
     }
 }

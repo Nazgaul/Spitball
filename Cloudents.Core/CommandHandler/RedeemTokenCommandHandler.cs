@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
@@ -32,8 +31,11 @@ namespace Cloudents.Core.CommandHandler
             }
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            //user.AddTransaction(new Transaction(ActionType.CashOut, TransactionType.Earned, -message.Amount));
-            user.AddTransaction(Transaction.CashOut(-message.Amount));
+            if (user.Fictive)
+            {
+                throw new UnauthorizedAccessException("Fictive user");
+            }
+            user.AddTransaction(Transaction.CashOut(message.Amount));
             await _userRepository.UpdateAsync(user, token);
             await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(message.Amount, user.Id), token);
         }

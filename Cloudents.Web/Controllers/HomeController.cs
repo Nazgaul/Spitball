@@ -34,7 +34,7 @@ namespace Cloudents.Web.Controllers
         //[ResponseCache()]
         // we can't use that for now.
         // GET
-        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index(LocationQuery location, [FromServices]IHostingEnvironment env)
         {
             if (env.IsDevelopment())

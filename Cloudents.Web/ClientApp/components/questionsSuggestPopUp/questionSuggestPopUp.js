@@ -1,78 +1,43 @@
 import questionCard from "../question/helpers/question-card/question-card.vue";
+import {mapActions} from 'vuex'
+import disableForm from "../mixins/submitDisableMixin";
 
 export default {
+    mixins: [disableForm],
     components: {
         questionCard
     },
-    props: {},
+    props: {
+        user: {},
+        cardList: {
+            type: Array,
+        },
+    },
     data() {
         return {
             showDialog: false,
-            cardList: [
-                {
-                    "subject":"History",
-                    "id":1265,
-                    "text":"test1",
-                    "price":10,
-                    "user":{
-                        "id":638,
-                        "name":"yaari.9181"
-                    },
-                    "answers":[
-                    ],
-                    "create":"2018-06-28T10:50:58.7196568Z",
-                    "files":[
-                    ],
-                    "filesNum":0,
-                    "answersNum":0,
-                    "cardOwner":false
-                },
-                {
-                    "subject":"History",
-                    "id":1265,
-                    "text":"test2",
-                    "price":10,
-                    "user":{
-                        "id":638,
-                        "name":"yaari.9181"
-                    },
-                    "answers":[
-                    ],
-                    "create":"2018-06-28T10:50:58.7196568Z",
-                    "files":[
-                    ],
-                    "filesNum":0,
-                    "answersNum":0,
-                    "cardOwner":false
-                },
-                {
-                    "subject":"History",
-                    "id":1265,
-                    "text":"test3",
-                    "price":10,
-                    "user":{
-                        "id":638,
-                        "name":"yaari.9181"
-                    },
-                    "answers":[
-                    ],
-                    "create":"2018-06-28T10:50:58.7196568Z",
-                    "files":[
-                    ],
-                    "filesNum":0,
-                    "answersNum":0,
-                    "cardOwner":false
-                },
-            ]
+            interval: 7000,
+            typeAnswer: false
         }
-
     },
-    methods: {},
+    beforeRouteLeave(to, from, next) {
+        this.resetQuestion();
+        next()
+    },
+    methods: {
+        ...mapActions(["resetQuestion"]),
+        requestDialogClose() {
+            this.$root.$emit('closePopUp', 'suggestions' )
+        },
+        answerMore(id) {
+            let questionId = id;
+            this.$router.push({name: 'question', params:{id: questionId}});
+            this.requestDialogClose();
+        }
+    },
     computed: {
-
-    },
+     },
 
     created() {
-
     }
 }

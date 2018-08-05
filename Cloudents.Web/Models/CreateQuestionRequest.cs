@@ -13,7 +13,7 @@ namespace Cloudents.Web.Models
         public string Text { get; set; }
 
         [Required]
-        [Range(0.1, 100)]
+        [Range(1, 100)]
         public decimal Price { get; set; }
 
         //[MaxLength(4)]

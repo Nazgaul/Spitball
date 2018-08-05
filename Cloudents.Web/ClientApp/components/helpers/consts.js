@@ -20,7 +20,6 @@ export const buildInSuggest={
     tutor:["biology help","esl tutors","accounting homework help"],
     book:["ISBN 1133112285","Biology: The Core 2nd Edition","Gregory Mankiw textbook"],
     ask:["plate tectonics explained","how to solve logarithms","facts about the triassic period"],
-    job:["brand ambassador jobs","student internship","ux/ui design"],
-    food:["chinese near me","local pizza places","closest bars around"]
+    job:["brand ambassador jobs","student internship","ux/ui design"]
 };
 export const SUGGEST_TYPE={history:"History",buildIn:"BuildIn",autoComplete:"AutoComplete"};

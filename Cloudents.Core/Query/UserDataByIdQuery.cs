@@ -8,7 +8,9 @@ namespace Cloudents.Core.Query
     public class UserDataByIdQuery : IQuery<User>,
         IQuery<UserAccountDto>,
         IQuery<IEnumerable<BalanceDto>>,
-        IQuery<IEnumerable<TransactionDto>>, IQuery<IQuery<IEnumerable<TransactionDto>>>
+        IQuery<IEnumerable<TransactionDto>>, 
+        IQuery<ProfileDto>
+
     {
         public UserDataByIdQuery(long id)
         {

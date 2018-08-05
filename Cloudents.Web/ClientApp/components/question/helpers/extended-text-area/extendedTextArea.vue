@@ -9,6 +9,7 @@
                         :value="value" autofocus="isFocused"
                         :placeholder="`Type your ${actionType}...`"></textarea>
                     <ul class="actions_text">
+                        <!--TODO use svg component and not font-->
                         <!--<li>-->
                             <!--<button class="insert-equation">-->
                                 <!--<v-icon>sbf-pi-symbol</v-icon>-->
@@ -23,7 +24,7 @@
                             <label for="file-input" class="attach-file">
                                 <v-icon>sbf-attach</v-icon>
                             </label>
-                            <input id="file-input" type="file" multiple accept='image/*'/>
+                            <input id="file-input" type="file" multiple accept="image/*"/>
                         </li>
                     </ul>
                     <!--<ul class="actions_text">-->
@@ -46,7 +47,7 @@
             <transition name="slide-fade">
             <div class="files pt-3 pb-2" v-if="previewList.length" >
                 <ul class="preview-list" v-if="previewList.length">
-                    <li v-if="previewList.length" v-for="(image,index) in previewList">
+                    <li v-if="previewList.length" v-for="(image,index) in previewList" :key="index">
                         <button class="hover-trash" @click="deletePreview(index)">
                             <v-icon>sbf-close</v-icon>
                         </button>

@@ -23,7 +23,7 @@
                 </button>
                 <v-card-text class="limited-width">
                     <h1>Are you sure you want to exit?</h1>
-                    <p>Exit from this process will delete all your progress and information</p>
+                    <p>Exiting from this process will delete all your progress and information</p>
                     <button class="continue-btn" @click="$_back">Exit</button>
                 </v-card-text>
             </v-card>

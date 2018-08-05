@@ -20,5 +20,6 @@ namespace Cloudents.Core.Storage
         public static readonly TopicSubscription TalkJs = new TopicSubscription(Background, nameof(TalkJs));
         public static readonly TopicSubscription BlockChainInitialBalance = new TopicSubscription(Background, nameof(BlockChainInitialBalance));
         public static readonly TopicSubscription BlockChainQnA = new TopicSubscription(Background, nameof(BlockChainQnA));
+        public static readonly TopicSubscription UrlRedirect = new TopicSubscription(Background, nameof(UrlRedirect));
     }
 }

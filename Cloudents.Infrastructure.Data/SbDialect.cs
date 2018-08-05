@@ -1,26 +1,35 @@
-﻿using System.Diagnostics;
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.Dialect;
 using NHibernate.Dialect.Function;
-using NHibernate.SqlCommand;
 
 namespace Cloudents.Infrastructure.Data
 {
     public class SbDialect : MsSql2012Dialect
     {
+        internal const string RandomOrder = "random_Order";
+
         protected override void RegisterFunctions()
         {
             base.RegisterFunctions();
             RegisterFunction("FullTextContains", new StandardSQLFunction("contains", null));
+
+            RegisterFunction(RandomOrder, new StandardSQLFunction("NEWID", NHibernateUtil.Guid));
+            //RegisterFunction("NEWID()", new StandardSQLFunction("NEWID()", NHibernateUtil.Guid));
+
         }
     }
 
-    public class LoggingInterceptor : EmptyInterceptor
+    public class MySqliteDialect : SQLiteDialect
     {
-        public override SqlString OnPrepareStatement(SqlString sql)
+        protected override void RegisterFunctions()
         {
-            Debug.WriteLine(sql,"nhibernate");
-            return base.OnPrepareStatement(sql);
+            base.RegisterFunctions();
+            RegisterFunction(SbDialect.RandomOrder, new StandardSQLFunction("random", NHibernateUtil.Guid));
         }
     }
+
+    //public class SqlFunctions
+    //{
+    //    [LinqExtensionMethod("NEWID")] public static Guid NewID() { return Guid.NewGuid(); }
+    //}
 }

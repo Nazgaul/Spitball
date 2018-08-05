@@ -11,6 +11,8 @@
 @color-dark-purple: #320161;
 @color-main-purple: #3532d5;
 @color-red: #FF5252;
+@color-transparent: transparent;
+@color-black: #000000;
 /*
 @color-pink-gradient: fade(#f14d4d, 15%);
 @color-purple-gradient: fade(@color-purple, 15%);
@@ -26,15 +28,12 @@
     background: -o-linear-gradient(top, @startColor, @endColor);
 }*/
 
-//new stuff
-
 @Ask-a-Question: #0455a8;
 @Class-Material: #320161;
 @Flashcards: #f14d4d;
 @Tutors: #52ab15;
 @Textbooks: #8c3fbf;
 @Jobs: #f49c20;
-@Food: #2cbfa5;
 @Upload: #94b7cb;
 @Post: #414141;
 @Create-Flashcards: #a40115;
@@ -60,6 +59,7 @@
 @Feed-Like-count: #5d5d5d;
 @Selected-Vertical: #2a7bcf;
 @Feed-Date: #888b8e;
+@Question-Answer-Bg: #f6f6f6;
 
 .inTheMiddle() {
   display: flex;
@@ -78,11 +78,11 @@
 }
 
 .giveMeEllipsisOne() {
-  white-space: nowrap; //TODO: IRENA - need to fix that
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
+// animation end
 .imageWrapper(@width,@height,@svgSize: 100%) {
   .img-wrap {
     width: @width;
@@ -139,8 +139,18 @@
 
 .cellActionBtnMixin(){
   position: absolute;
-  .responsive-property(bottom, 14px, null, 6px);
-  .responsive-property(right, 16px, null, 8px);
+  .responsive-property(bottom, 8px, null, 6px);
+  .responsive-property(right, 8px, null, 8px);
+  padding: 3px 20px;
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.cellActionBtnMixinAnswer(){
+  position: absolute;
+  .responsive-property(bottom, 8px, null, 8px);
+  .responsive-property(right, 25px, null, 33px);
   padding: 3px 20px;
   color: white;
   border-radius: 4px;
@@ -156,6 +166,7 @@
   position: -webkit-sticky; // safari
   position: sticky;
 }
+
 
 .flashcard-icon(@width, @frontColor, @backColor, @borderColor, @frontHover, @backHover, @frontText,@height: 0.88*@width) {
   //@height: 0.88*@width;
@@ -248,7 +259,10 @@
 @registrationFieldHeight: 48px;
 @screen-xs: 599px;
 @screen-sm: 959px;
+@screen-sm-960: 960px;
+@screen-xss: 375px;
 @screen-md: 1263px;
+@screen-md-plus: 1280px;
 @screen-lg: 1904px;
 @logoWidth: 192px;
 @cellWidth: 500px;

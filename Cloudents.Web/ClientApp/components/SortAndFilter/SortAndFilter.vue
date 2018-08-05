@@ -4,28 +4,32 @@
             <h3>Sort</h3>
             <div class="sort-switch">
                 <template v-for="(o,index) in sortOptions">
-                    <input type="radio" :id="`option${index}`" @click="updateSort(o.id)"
+                    <input type="radio" :id="`option${index}`" @click="updateSort(o.id)" :key="index"
                            name="switch" :value="o.id" :checked="sortVal?sortVal===o.id:index===0">
-                    <label :for="`option${index}`">{{o.name}}</label>
+                    <label :for="`option${index}`" :key="index">{{o.name}}</label>
                 </template>
             </div>
         </template>
         <div v-if="filterOptions&&filterOptions.length">
             <h3>Filter</h3>
             <div class="filter-switch">
-                <v-expansion-panel :value="true" expand>
+                <!--removed :value binding cause of error Vuetify 1.1.1-->
+                <v-expansion-panel expand>
                     <v-expansion-panel-content v-for="k in filterOptions" :key="k.modelId" :value="true">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
                         <template slot="header">
-                            <div class="icon-wrapper"><slot :name="`${k.modelId}TitlePrefix`"></slot></div>
+                            <div class="icon-wrapper">
+                                <slot :name="`${k.modelId}TitlePrefix`"></slot>
+                            </div>
                             <slot name="headerTitle" :title="k.title">
                                 <div>{{k.title}}</div>
                             </slot>
                         </template>
                         <div :class="['sort-filter',$route.path==='/ask'?'no-maxHeight':'']">
                             <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
-                                <input type="checkbox" :id="(s.id?s.id:s)" :checked="filterVal.find(i=>i.key===k.modelId&&i.value===(s.id?s.id.toString():s.toString()))"
-                                       @change="updateFilter({id:k.modelId,val:(s.id?s.id.toString():s),type:$event})" />
+                                <input type="checkbox" :id="(s.id?s.id:s)"
+                                       :checked="filterVal.find(i=>i.key===k.modelId&&i.value===(s.id?s.id.toString():s.toString()))"
+                                       @change="updateFilter({id:k.modelId,val:(s.id?s.id.toString():s),type:$event})"/>
 
                                 <label class="checkmark" :for="(s.id?s.id:s)"></label>
                                 <label class="title-label" :title="s.name?s.name:s" :for="(s.id?s.id:s)">

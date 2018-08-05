@@ -1,13 +1,18 @@
 ﻿@import "../../mixin.less";
 
 .verticals.line {
-    .limited-width();
+    height:1px; //edge fix
+    .limited-width()!important;
     @media(max-width: @screen-sm) {
         align-items: stretch;
+        padding-right: 0px !important;
+        padding-left: 0px !important;
     }
 
-    .tabs__item {
+
+    .v-tabs__item {
         text-transform: capitalize;
+        //Vuetify 1.1.1
         padding: 0 !important;
         font-size: 14px;
         font-weight: 600;
@@ -27,14 +32,18 @@
             padding-left: 8px;
         }
 
-        .tabs__bar {
+        .v-tabs__bar {
             height: 100%;
-            .tabs__slider {
+            .v-tabs__slider-wrapper{
+                bottom: 4px;
+            }
+            .v-tabs__slider {
                 height: 3px;
+                bottom: 4px;
             }
         }
 
-        .tabs__bar .tabs__li {
+        .v-tabs__bar .v-tabs__li {
             flex-basis: auto;
             padding-bottom: 14px;
             @media(max-width: @screen-xs){
@@ -43,5 +52,10 @@
                 padding-bottom: 0;
             }
         }
+    }
+
+    //remove the background added to the button when clicking on it
+    .v-ripple__animation{
+        display: none;
     }
 }

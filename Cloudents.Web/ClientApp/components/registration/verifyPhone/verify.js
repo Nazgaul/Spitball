@@ -7,6 +7,9 @@ import registration from '../registration.vue';
 ﻿import registrationService from '../../../services/registrationService'
 import SbInput from "../../question/helpers/sbInput/sbInput.vue";
 import {REGISTRATION_STEPS} from "../../../store/constants";
+import { debug } from 'util';
+
+const defaultSubmitRoute = {path: '/ask', query: {q: ''}};
 
 export default {
     mixins: [submitDisable],
@@ -28,6 +31,7 @@ export default {
                 phone: '',
                 code: ''
             },
+            isNewUser: false,
             showDialog: false,
             toasterTimeout: 5000,
 
@@ -51,6 +55,7 @@ export default {
         // }
     },
     computed: {
+        ...mapGetters(['fromPath']),
         ...mapGetters({getShowToaster: 'getShowToaster', getToasterText: 'getToasterText'}),
         // codeWatch(){
         //     return this.code
@@ -88,7 +93,8 @@ export default {
                     }, function (error) {
                         self.submitForm(false);
                         self.updateLoading(false);
-                        self.errorMessage.phone = "Invalid phone number";
+                        debugger;
+                        self.errorMessage.phone= error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                     });
             }
         },
@@ -101,9 +107,13 @@ export default {
                         self.updateLoading(false);
                         //got to congratulations route
                         console.log('code in verify ', self.props);
-                        if(self.codeSent === true){
+                        if(self.isNewUser){
+                            self.$router.push({path: '/congrats'});
+                            return;
+                        }else if(self.codeSent === true){
+                            let url = self.fromPath || defaultSubmitRoute;
                             window.isAuth = true;
-                            self.$router.push({path: '/ask', query: {q: ''}});
+                            self.$router.push({...url});
                             return
                         }
                         self.$router.push({path: '/congrats'});
@@ -129,8 +139,8 @@ export default {
         registrationService.getLocalCode().then(({data}) => {
             this.phone.countryCode = data.code;
         });
-        console.log('props code', this.code, 'code', this.$route.params.code);
         this.code = this.$route.params.code;
+        this.isNewUser = this.$route.query['newUser'] !== undefined;
         if (this.code !== '' && this.code === 'enterPhone') {
             this.codeSent = false
         } else if (this.code === 'verifyPhone') {

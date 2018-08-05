@@ -11,9 +11,8 @@
                           :hide-on-scroll="isHome?hideOnScroll:false" @click="openSuggestions"></v-text-field>
             <!--<input type="checkbox" id="toggler"/>-->
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
-            <transition name="slide-fade">
                 <v-list class="search-menu" v-show="showSuggestions">
-                    <v-subheader v-if="!msg.length || (focusedIndex >= 0 && !originalMsg.length)">Some things you can ask me:</v-subheader>
+                    <v-subheader v-if="(!!msg && !msg.length) || (focusedIndex >= 0 && !originalMsg.length)">Some things you can ask me:</v-subheader>
                     <template v-for="(item, index) in suggestList">
                         <!--{{item.type}}-->
                         <v-list-tile class="suggestion" @click="selectos({item:item,index})"
@@ -29,7 +28,6 @@
                         </v-list-tile>
                     </template>
                 </v-list>
-            </transition>
         </div>
         <slot name="searchBtn" :search="search"></slot>
     </div>

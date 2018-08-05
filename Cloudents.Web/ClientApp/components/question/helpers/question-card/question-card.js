@@ -20,6 +20,14 @@ export default {
             default: false
         },
         cardData: {},
+        fromCarousel: {
+            type: Boolean,
+            required: false
+        },
+        suggestion: {
+            type: Boolean,
+            default: false,
+        },
         isApproved: {
             type: Boolean,
             default: false
@@ -42,7 +50,9 @@ export default {
             timeoutID: null,
             action: null,
             path: '',
-            src : ''
+            src : '',
+            selectedImage: '',
+            showDialog: false
         }
     },
     computed: {
@@ -64,8 +74,6 @@ export default {
             }
             return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
         },
-
-
     },
     methods: {
         ...mapActions({
@@ -75,7 +83,8 @@ export default {
             updateToasterParams: 'updateToasterParams'
         }),
         showBigImage(src){
-            console.log('this is src', src)
+            this.showDialog =true;
+            this.selectedImage = src;
         },
         markAsCorrect() {
             var toasterText = this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted';
@@ -113,5 +122,6 @@ export default {
     },
     created() {
         this.flaggedAsCorrect = this.isCorrectAnswer;
+        console.log('answer',this.typeAnswer)
     }
 }

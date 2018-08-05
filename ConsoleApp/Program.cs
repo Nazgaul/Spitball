@@ -1,30 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
+using Cloudents.Core.Command;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
+using System.Collections.Generic;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query;
-using Cloudents.Core.Storage;
+using Cloudents.Core.Command.Admin;
 
 namespace ConsoleApp
 {
     internal static class Program
     {
-        private static IContainer container;
+        private static IContainer _container;
 
         static async Task Main()
         {
             var builder = new ContainerBuilder();
-            var keys = new ConfigurationKeys
+            var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -45,45 +45,16 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
-            container = builder.Build();
+            _container = builder.Build();
 
-            // var _serviceBusProvider = container.Resolve<IServiceBusProvider>();
+            //await UpdateCreationTimeProductionAsync();
+            var bus = _container.Resolve<IQueryBus>();
+            var query = new NextQuestionQuery(2255, 638);
+            var t = await bus.QueryAsync(query, default);
+          //  var bus = _container.Resolve<IQueryBus>();
+          // var z = new NextQuestionQuery(68, 11);
+          // var x = await bus.QueryAsync(z, default);
 
-            // await _serviceBusProvider.InsertMessageAsync(new SupportRedeemEmail(100, 587), default);
-            //var bus = container.Resolve<IServiceBusProvider>();
-
-            var t = new TransactionPopulation(container);
-            await t.CreateTransactionOnExistingDataAsync();
-
-
-            //var message = new RegistrationEmail("ram@cloudents.com", "https://dev.spitball.co");
-            //await bus.InsertMessageAsync(message, default);
-            //await bus.InsertMessageAsync(new AnswerCorrectEmail
-            //("ram@cloudents.com",
-            //    "This is a question text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
-            //    "This is a answer text which is very very long and i dont know why it is very very long. hi hi hi , yo yo yo",
-            //    "https://dev.spitball.co", 100), default);
-            // var r= await bus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(638), default);
-
-            //var p = new TransactionPopulation(container);
-            //await p.CreateTransactionOnExistingDataAsync();
-            // await p.AddToUserMoney(100000, 660);
-
-
-
-
-            //var q = new UserBalanceQuery(36);
-            //var t = await queryBus.QueryAsync(q, default);
-            //var sw = new Stopwatch();
-            //sw.Start();
-            //sw.Stop();
-            //Console.WriteLine(sw.ElapsedTicks);
-
-            //var tt = container.Resolve<IQueryHandlerAsync<QuestionDetailQuery, QuestionDetailDto>>();
-            //sw.Start();
-            //var zz = await tt.GetAsync(new QuestionDetailQuery(1414), default);
-            //sw.Stop();
-            //Console.WriteLine(sw.ElapsedTicks);
 
 
             Console.WriteLine("Finish");
@@ -92,7 +63,7 @@ namespace ConsoleApp
 
         public static Task SendMoneyAsync()
         {
-            var t = container.Resolve<IBlockChainErc20Service>();
+            var t = _container.Resolve<IBlockChainErc20Service>();
             var pb = t.GetAddress("38d68c294410244dcd009346c756436a64530d7ddb0611e62fa79f9f721cebb0");
             return t.SetInitialBalanceAsync(pb, default);
         }
@@ -119,6 +90,48 @@ namespace ConsoleApp
             {
                 return false;
             }
+        }
+
+        private static async Task PopulateSheetOfQuestion()
+        {
+            string spreadsheetId = "1A2O_jASZuWlI_jIX8a1eiZb61C5RDF9KQ2i7CQzGU30";
+            string range = "All!B:D";
+
+
+            //var subjectList = new List<CreateQuestionCommand>();
+            var subjectList = GoogleSheets.GetData(spreadsheetId, range);
+            foreach (var question in GoogleSheets.GetData(spreadsheetId, range))
+            {
+                var commandBus = _container.Resolve<ICommandBus>();
+                await commandBus.DispatchAsync(question, default);
+            }
+        }
+
+
+        public static async Task UpdateCreationTimeProductionAsync()
+        {
+            using (var child = _container.BeginLifetimeScope())
+            {
+                using (var unitOfWork = child.Resolve<IUnitOfWork>())
+                {
+                    var repository = child.Resolve<IQuestionRepository>();
+                    var questions = await repository.GetAllQuestionsAsync().ConfigureAwait(false);
+                    var random = new Random();
+                    foreach (var question in questions)
+                    {
+                        if (question.CorrectAnswer == null && question.User.Fictive)
+                        {
+                           // question.Created = DateTimeHelpers.NextRandomDate(2, random);
+                            Console.WriteLine(question.Created);
+                            await repository.UpdateAsync(question, default);
+                        }
+                        //user1.UserCreateTransaction();
+                        //await t.UpdateAsync(user1, default).ConfigureAwait(false);
+                    }
+                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+                }
+            }
+           
         }
     }
 }

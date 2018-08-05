@@ -8,6 +8,11 @@ namespace Cloudents.Web.Models
     {
         [RedeemValidator]
         public decimal Amount { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(Amount)}: {Amount}";
+        }
     }
 
     [System.AttributeUsage(System.AttributeTargets.All, AllowMultiple = false)]
@@ -15,7 +20,6 @@ namespace Cloudents.Web.Models
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-
             var val = (decimal)value;
 
             var validValues = new[] { 1000M, 2000M, 3000M, 4000M };
@@ -24,7 +28,7 @@ namespace Cloudents.Web.Models
             {
                 return ValidationResult.Success;
             }
-            return new ValidationResult(this.ErrorMessage);
+            return new ValidationResult(ErrorMessage);
         }
     }
 }

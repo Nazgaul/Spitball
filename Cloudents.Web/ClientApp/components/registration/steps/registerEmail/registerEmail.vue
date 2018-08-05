@@ -6,6 +6,7 @@
                 <p class="sub-title" v-if="$vuetify.breakpoint.smAndDown">Start with your email. We need to know how to contact you.</p>
                 <button class="google-signin" @click="googleLogIn">
                     <span>Sign Up with Google</span>
+                    <!--TODO do not use v-icon-->
                     <span>
                         <v-icon>sbf-google-icon</v-icon>
                     </span>

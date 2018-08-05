@@ -18,6 +18,7 @@ namespace Cloudents.Core
 
         }
 
+        //TODO: only public because of unit test
         public PrioritySource(string source, float priority)
 
         {
@@ -34,7 +35,6 @@ namespace Cloudents.Core
         }
 
         public static readonly PrioritySource TutorWyzant = new PrioritySource("Wyzant", 1);
-        //public static readonly PrioritySource TutorChegg = new PrioritySource("Chegg", 2);
         public static readonly PrioritySource TutorMe = new PrioritySource("TutorMe", 1.33f);
 
         public static readonly PrioritySource JobWayUp = new PrioritySource("WayUp", 1);

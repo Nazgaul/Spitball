@@ -48,7 +48,7 @@
             outline: none;
         }
 
-        .icon {
+        .v-icon {
             transition: none;
         }
 
@@ -140,6 +140,10 @@
 
         .search-wrapper {
             padding: 0;
+            .v-input__slot{
+                background-color: transparent;
+                //margin-bottom:  0;
+            }
         }
 
         .search-b {
@@ -154,15 +158,18 @@
             .responsive-property(padding-right, 16px, null, 8px);
             .responsive-property(padding-right, 16px, null, 8px);
 
-
-            .input-group__input {
+            .v-input__prepend-outer{
+                margin-left: 20px;
+                margin-top: 3px;
+            }
+            .input-group__input, .v-input__slot {
                 padding-top: 0;
                 padding-bottom: 0;
                 .responsive-property(padding-left, 16px, null, 12px);
                 .responsive-property(padding-right, 16px, null, 12px);
             }
 
-            .icon {
+            .v-icon {
                 .responsive-property(font-size, 32px, null, 26px);
                 .responsive-property(min-width, 36px, null, 36px);
                 color: #9b9b9b;
@@ -193,12 +200,12 @@
 
 
         .selected-items {
-            .chip {
+            .v-chip {
                 background: none;
                 border: none;
             }
 
-            .chip__content {
+            .v-chip__content {
                 padding: 8px 0 8px 8px;
                 border-radius: 4px;
                 overflow: hidden;
@@ -451,7 +458,7 @@
                 }
 
 
-                .input-group {
+                .input-group, .v-input__slot {
                     padding: 0;
                     .responsive-property(padding-top, null, null, 22px);
 
@@ -468,7 +475,7 @@
                     }
                 }
 
-                .input-group__input {
+                .input-group__input, .v-input__slot {
                     align-items: flex-end;
                 }
 
@@ -501,7 +508,7 @@
                         }
                     }
 
-                    .btn.btn--disabled:not(.btn--icon):not(.btn--flat) {
+                    .v-btn.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat) {
                         background-color: @color-medium-grey !important;
                         color: white !important;
                     }
@@ -639,11 +646,11 @@
                 min-width: 0;
                 margin: 6px;
 
-                &.save:not(.btn--disabled) {
+                &.save:not(.v-btn--disabled) {
                     color: @color-blue;
                 }
 
-                .btn__content {
+                .v-btn__content {
                     padding: 0 8px;
                 }
             }

@@ -1,0 +1,17 @@
+﻿@page
+@model DeleteQuestionModel
+@{
+    ViewData["Title"] = "DeleteQuestion";
+}
+
+<h2>DeleteQuestion</h2>
+
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <label asp-for="Model"></label>
+    <textarea asp-for="Model"></textarea>
+    <br />
+    <input type="submit" />
+</form>
+

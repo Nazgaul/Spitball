@@ -9,11 +9,10 @@
     public enum System
     {
         Function,
-        //FunctionV1,
-
-        // Api,
         Web,
         Console,
-        WorkerRole
+        WorkerRole,
+        IcoSite,
+        Admin
     }
 }

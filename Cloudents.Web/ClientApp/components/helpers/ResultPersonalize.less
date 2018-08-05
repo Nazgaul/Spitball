@@ -3,6 +3,7 @@
 .personalize-wrapper {
     border-radius: 4px;
 
+    
 
     .card__title {
         .responsive-property(font-size, 36px, null, 26px);
@@ -15,7 +16,7 @@
         display: block; //override
     }
 
-    .card__text {
+    .v-card__text {
         letter-spacing: -0.3px;
         text-align: center;
         .responsive-property(padding-right, 24px, null, 8px); // TODO: Irena - need to see how to combine these lines into one 0px 24px rule (only desktop css is generated now)
@@ -27,24 +28,23 @@
         color: @Feed-Like-count;
     }
 
-    .input-group.input-group--solo {
+    .v-input.v-text-field--solo {
         background: @color-light-grey;
         .responsive-property(min-height, 40px, null, 36px);
         border: 1px solid @Suggestion-Title-Background;
         border-radius: 6px;
-
-        .input-group__input {
+        .v-input__control {
             padding: 4px 12px;
+            min-height: 40px; 
+            height: 38px;
 
+            .v-input__slot{
+                background:transparent;
+                padding:0;
+                top: -3px;
+            }
             input {
                 font-size: 16px;
-            }
-
-            .sbf-search {
-                min-width: 32px;
-                .responsive-property(font-size, null, null, 20px);
-                .responsive-property(padding-top, null, null, 4px);
-                color: #9b9b9b !important;
             }
         }
     }
@@ -54,7 +54,7 @@
         margin-right: 6px;
         .responsive-property(padding-top, null, null, 16px);
 
-        .btn {
+        .v-btn {
             min-width: 0;
             margin: 0 10px;
             text-transform: none;
@@ -62,7 +62,7 @@
             letter-spacing: -0.3px;
             color: @Spitball-Main-color;
 
-            .btn__content {
+            .v-btn__content {
                 padding: 4px;
             }
         }

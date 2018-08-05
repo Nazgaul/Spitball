@@ -2,7 +2,6 @@
     <div class="ask_question">
         <v-container class="general-cell">
             <v-layout row wrap>
-
                 <v-flex xs12>
                     <div class="header-row">
                         <div class="student_icon">
@@ -42,12 +41,15 @@
                     <!--{{currentSum | fixedPoints}} SBL-->
                 <!--</v-flex>-->
 
-                <v-flex xs12 v-if="currentSum "
+                <v-flex xs12 v-if="currentSum"
                         :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have
                     {{currentSum | fixedPoints}} SBL
                 </v-flex>
                 <v-flex xs12 v-if="price > 100" :class="[price < 100 ? 'text-blue' : 'text-red']">
                     The max. number of SBL is 100 per question
+                </v-flex>
+                <v-flex xs12 v-else-if="price < 1 && price" :class="[price > 1 ? 'text-blue' : 'text-red']">
+                    The min. number of SBL is 1 per question
                 </v-flex>
                 <!-- </v-flex> -->
 
@@ -70,8 +72,8 @@
                             </div>
                             <div class="point-btn other inputBorder">
                                 <input type="number" placeholder="Other amount"
-                                       @focus="selectOtherAmount()" step=".01"
-                                       min="0" max="100"
+                                       @focus="selectOtherAmount()" step="1"
+                                       min="1" max="100"
                                        v-model="price"/>
                                 <v-icon right>sbf-hand-coin</v-icon>
                             </div>

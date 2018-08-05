@@ -14,6 +14,7 @@ namespace Cloudents.Infrastructure.Data
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Web)]
     [ModuleRegistration(Core.Enum.System.Function)]
+    [ModuleRegistration(Core.Enum.System.Admin)]
     [UsedImplicitly]
     public class ModuleDb : Module
     {
@@ -23,7 +24,6 @@ namespace Cloudents.Infrastructure.Data
 
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenSession())
                 .InstancePerLifetimeScope();
-
 
             builder.RegisterType<ReadonlySession>();
             builder.RegisterType<ReadonlyStatelessSession>();
