@@ -89,7 +89,7 @@ namespace Cloudents.Web.Api
 
             if (retVal.Errors.Any(a => a.Code == "Duplicate"))
             {
-                ModelState.AddModelError(string.Empty, "Phone number is already in use");
+                ModelState.AddModelError(string.Empty, "This phone number is linked to another email address");
             }
             else
             {

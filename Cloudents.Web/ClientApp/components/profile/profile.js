@@ -89,7 +89,7 @@ export default {
     },
     created() {
         this.fetchData();
-        if(this.$router.meta.previous ){
+        if(this.$router.meta && this.$router.meta.previous ){
             this.activeTab = this.$router.meta.previous
         }else{
             this.activeTab = 1
