@@ -1,7 +1,23 @@
 ﻿import { search} from "./resources";
+import { connectivityModule } from "./connectivity.module"
+
+const getQuestions = (params) => {
+    return connectivityModule.http.get("/Question", { params });
+}
+
+let transferResultAsk = response => {
+    let res = response.data;
+    let itemResult = res.result || [];
+    let items = itemResult.map(val => { return { ...val, template: "ask",filesNum:val.files,answersNum:val.answers } });
+    return { data: items, source: res.result.facet, facet: res.facet,nextPage: res.nextPageLink }
+};
+
 
 export default {
     activateFunction: {
+        // ask({ source, term=""}) {
+        //     return getQuestions({term, source}).then(transferResultAsk);
+        // },
         ask({ source, term=""}) {
             return search.getQuestions({term, source})
         },

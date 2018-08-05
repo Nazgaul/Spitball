@@ -1,5 +1,6 @@
 ﻿import axios from "axios";
 import qs from "query-string";
+import { connectivityModule } from "./connectivity.module"
 
 axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: false });
 axios.defaults.responseType = "json";
@@ -83,10 +84,10 @@ const getPlacesDetails = ({ id }) => {
 export const getUniversity = (params) => axios.get("university", { params: transformLocation(params) });
 export const search = { getBookDetails, ...searchFunctions, getPlacesDetails, autoComplete: (data) => axios.get("suggest", { params: { sentence: data.term, vertical: data.vertical } }) };
 export const course = { ...courseFunctions };
-export const help = {
-    getFaq: () => axios.get("help", { baseURL: "api/" }),
-    getUniData: (id) => axios.get("blog", { baseURL: "api/", params: { id: id } })
-};
+// export const help = {
+//     getFaq: () => axios.get("help", { baseURL: "api/" }),
+//     getUniData: (id) => axios.get("blog", { baseURL: "api/", params: { id: id } })
+// };
 
 export const spitballPreview = {
     getFlashcard: ({ id }) => axios.get("flashcard", { params: { id: Number(id) } }),
