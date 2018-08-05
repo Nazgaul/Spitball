@@ -58,7 +58,7 @@ namespace Cloudents.Management
 
             var containerBuilder = new ContainerBuilder();
 
-            var keys = new ConfigurationKeys
+            var keys = new ConfigurationKeys("https://www.spitball.co")
             {
                 Db = Configuration.GetConnectionString("DefaultConnection"),
                 ServiceBus = Configuration["ServiceBus"]

@@ -22,7 +22,7 @@ namespace ConsoleApp
         static async Task Main()
         {
             var builder = new ContainerBuilder();
-            var keys = new ConfigurationKeys
+            var keys = new ConfigurationKeys("https://www.spitball.co")
             {
                 Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,

@@ -52,7 +52,7 @@ namespace Cloudents.Ico
                 Assembly.Load("Cloudents.Core"),
                 Assembly.GetExecutingAssembly()
             };
-            var keys = new ConfigurationKeys
+            var keys = new ConfigurationKeys("https://www.spitball.co")
             {
                 ServiceBus = Configuration["ServiceBus"]
             };
