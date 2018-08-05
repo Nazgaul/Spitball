@@ -1,6 +1,7 @@
 <template>
     <div>
-        <v-toolbar app :fixed="!isMobile" :height="height" class="header">
+        <!--TODO check if worsk well-->
+        <v-toolbar :app="!isMobile"  :fixed="!isMobile" :height="height" class="header">
 
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">

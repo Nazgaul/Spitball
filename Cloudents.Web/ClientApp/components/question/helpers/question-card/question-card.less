@@ -137,7 +137,6 @@
       font-size: 16px;
     }
     font-size: 20px;
-
     font-weight: bold;
     color: #125fac;
   }
@@ -153,7 +152,6 @@
   }
 
   .gallery {
-    //background-color: @color-light-grey;
     padding: 16px;
     margin: 16px;
     .v-carousel {
@@ -168,39 +166,27 @@
         padding: 25px;
       }
       box-shadow: none;
-      .v-carousel__left {
-        left: 9px;
-        i.sbf {
-          margin-right: 3px;
-        }
-      }
-      .v-carousel__right {
-        right: 9px;
-        i.sbf {
-          margin-left: 4px;
-        }
-      }
       button {
         width: 40px;
         height: 40px;
-        .btn__content:before {
+        &:before {
           opacity: 0.2;
           background-color: #000000;
         }
-        i.sbf {
-          font-size: 20px;
-          margin-top: 0px;
+        .v-icon  {
+         font-size: 20px!important;
           &.left {
             transform: scale(-1, 1);
+            margin-right: 3px;
           }
           &.right {
             transform: scale(1, 1);
+            margin-left: 4px;
           }
         }
 
       }
       .v-carousel__item {
-        //background-size: contain;
         background-size: cover;
         -webkit-background-size: auto 100%;
         -moz-background-size: auto 100%;
@@ -214,7 +200,6 @@
     bottom: 0;
     height: 47px;
     width: 100%;
-    // border-top: 1px solid #ddd;
     display: flex;
     align-items: center;
     font-size: 12px;
@@ -245,7 +230,7 @@
       display: flex;
       flex-direction: row;
 
-      .sbf-attach {
+      .sbf-attach  {
         transform: rotate(260deg);
         &::before {
           transform: scale(1, -1);
@@ -257,7 +242,6 @@
         color: @color-grey;
         margin-left: 4px;
         font-size: 16px;
-        // line-height: 1.69;
         letter-spacing: -0.3px;
       }
 
@@ -382,8 +366,7 @@
 
     @media (max-width: @screen-xs) {
       margin: -5px 16px 6px 0px;
-      //max-width: 285px;
-      // max-width: 190px;
+
     }
   }
  }
