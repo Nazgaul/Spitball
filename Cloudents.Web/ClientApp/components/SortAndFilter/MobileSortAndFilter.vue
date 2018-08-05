@@ -9,7 +9,7 @@
                     <h3>Sort</h3>
                     <div class="sort-switch">
                         <template v-for="(o,index) in sortOptions">
-                            <input type="radio" :id="`option${index}`" v-model="sort" :key="index"
+                            <input type="radio" :id="`option${index}`" v-model="sort" :key="`option${index}`"
                                 name="switch" :value="o.id">
                             <label :for="`option${index}`" :key="index">{{o.name}}</label>
                         </template>
