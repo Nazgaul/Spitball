@@ -61,7 +61,9 @@ namespace Cloudents.Infrastructure.Data.Query
                 .Where(w => w.CorrectAnswer == null)
                 .Where(w => w.User.Id != query.UserId)
                 .Where(w => w.Id != query.QuestionId)
-                .WithSubquery.WhereNotExists(QueryOver.Of<Answer>().Where(w => w.User.Id == query.UserId).Select(s => s.Question.Id))
+                //.Where(w=>w.Id != QueryOver.Of<Answer>().Where(v => v.User.Id == query.UserId).Select(s => s.Question.Id).As<long>())
+                .WithSubquery.WhereProperty(x=>x.Id ).NotIn(QueryOver.Of<Answer>().Where(w => w.User.Id == query.UserId).Select(s => s.Question.Id))
+                //.WithSubquery.WhereNotExists(QueryOver.Of<Answer>().Where(w => w.User.Id == query.UserId).Select(s => s.Question.Id))
                 
                 //.WithSubquery.Where(p => p.Subject.Id == QueryOver.Of<Question>()
                 //                             .Select(s => s.Subject.Id)

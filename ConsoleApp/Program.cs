@@ -49,7 +49,7 @@ namespace ConsoleApp
 
             //await UpdateCreationTimeProductionAsync();
             var bus = _container.Resolve<IQueryBus>();
-            var query = new NextQuestionQuery(2255, 996);
+            var query = new NextQuestionQuery(2255, 638);
             var t = await bus.QueryAsync(query, default);
           //  var bus = _container.Resolve<IQueryBus>();
           // var z = new NextQuestionQuery(68, 11);
