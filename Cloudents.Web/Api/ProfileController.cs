@@ -21,7 +21,7 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet("{id}")]
-        [ResponseCache(Duration = TimeConst.Minute * 5)]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> GetAsync(long id, CancellationToken token)
         {
             var query = new UserDataByIdQuery(id);
