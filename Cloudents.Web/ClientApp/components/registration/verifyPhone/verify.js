@@ -31,6 +31,7 @@ export default {
                 phone: '',
                 code: ''
             },
+            isNewUser: false,
             showDialog: false,
             toasterTimeout: 5000,
 
@@ -106,7 +107,10 @@ export default {
                         self.updateLoading(false);
                         //got to congratulations route
                         console.log('code in verify ', self.props);
-                        if(self.codeSent === true){
+                        if(self.isNewUser){
+                            self.$router.push({path: '/congrats'});
+                            return;
+                        }else if(self.codeSent === true){
                             let url = self.fromPath || defaultSubmitRoute;
                             window.isAuth = true;
                             self.$router.push({...url});
@@ -136,6 +140,7 @@ export default {
             this.phone.countryCode = data.code;
         });
         this.code = this.$route.params.code;
+        this.isNewUser = this.$route.query['newUser'] !== undefined;
         if (this.code !== '' && this.code === 'enterPhone') {
             this.codeSent = false
         } else if (this.code === 'verifyPhone') {
