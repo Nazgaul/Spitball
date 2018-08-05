@@ -47,12 +47,14 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-            await UpdateCreationTimeProductionAsync();
-            //var bus = _container.Resolve<IQueryBus>();
+            //await UpdateCreationTimeProductionAsync();
+            var bus = _container.Resolve<IQueryBus>();
+            var query = new NextQuestionQuery(114, 36);
+            var t = await bus.QueryAsync(query, default);
           //  var bus = _container.Resolve<IQueryBus>();
-           // var z = new NextQuestionQuery(68, 11);
-           // var x = await bus.QueryAsync(z, default);
-           
+          // var z = new NextQuestionQuery(68, 11);
+          // var x = await bus.QueryAsync(z, default);
+
 
 
             Console.WriteLine("Finish");
