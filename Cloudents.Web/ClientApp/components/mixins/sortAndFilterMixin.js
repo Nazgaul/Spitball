@@ -1,5 +1,5 @@
 import { mapGetters, mapMutations } from "vuex";
-import { page } from '../../data'
+import { page }  from "../../services/navigation/vertical-navigation/nav";
 const MobileSortAndFilter = () => import('../SortAndFilter/MobileSortAndFilter.vue');
 const SortAndFilter = () => import('../SortAndFilter/SortAndFilter.vue');
 const plusBtn = () => import("../settings/svg/plus-button.svg");

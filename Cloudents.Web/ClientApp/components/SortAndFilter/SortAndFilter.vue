@@ -3,8 +3,8 @@
         <template v-if="sortOptions.length">
             <h3>Sort</h3>
             <div class="sort-switch">
-                <template v-for="(o,index) in sortOptions">
-                    <input type="radio" :id="`option${index}`" @click="updateSort(o.id)" :key="index"
+                <template v-for="(o, index) in sortOptions">
+                    <input type="radio" :id="`option${index}`" @click="updateSort(o.id)" :key="`option${index}`"
                            name="switch" :value="o.id" :checked="sortVal?sortVal===o.id:index===0">
                     <label :for="`option${index}`" :key="index">{{o.name}}</label>
                 </template>
@@ -15,9 +15,9 @@
             <div class="filter-switch">
                 <!--removed :value binding cause of error Vuetify 1.1.1-->
                 <v-expansion-panel expand :value="0">
-                    <v-expansion-panel-content v-for="k in filterOptions" :key="k.modelId">
+                    <v-expansion-panel-content v-for="(k, index) in filterOptions" :key="index">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
-                        <template slot="header">
+                         <template slot="header">
                             <div class="icon-wrapper">
                                 <slot :name="`${k.modelId}TitlePrefix`"></slot>
                             </div>
