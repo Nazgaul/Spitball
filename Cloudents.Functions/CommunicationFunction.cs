@@ -20,7 +20,7 @@ namespace Cloudents.Functions
     {
         [FunctionName("FunctionEmail")]
         public static async Task EmailFunctionAsync(
-            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Email))]BrokeredMessage brokeredMessage,
+            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Email), AccessRights.Listen)]BrokeredMessage brokeredMessage,
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<Mail> emailProvider,
             IBinder binder,
             TraceWriter log,
@@ -104,18 +104,18 @@ namespace Cloudents.Functions
 
         [FunctionName("FunctionSms")]
         public static async Task SmsServiceBusAsync(
-            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Sms))]BrokeredMessage message,
+            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Sms), AccessRights.Listen)]BrokeredMessage message,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<SMSMessage> options,
             [ServiceBus(TopicSubscription.Communication)] IAsyncCollector<BrokeredMessage> meg,
             TraceWriter log,
             CancellationToken token
         )
         {
-            //if (message.DeliveryCount > 1)
-            //{
-            //    log.Warning("invoking message from queue");
-            //    return;
-            //}
+            if (message.DeliveryCount > 2)
+            {
+                log.Warning("invoking message from queue");
+                return;
+            }
 
             if (message.EnqueuedTimeUtc < DateTime.Now.AddDays(-1))
             {
@@ -126,13 +126,13 @@ namespace Cloudents.Functions
             if (message.Label == "Email")
             {
                 log.Warning("Getting message in topic sms of email - need to check it out");
-                var topicMessage = message.GetBodyInheritance<BaseEmail>();
-                var msMessage = new BrokeredMessage(topicMessage)
-                {
-                    Label = nameof(TopicSubscription.Email)
-                };
-                msMessage.Properties["messageType"] = topicMessage.GetType().AssemblyQualifiedName;
-                await meg.AddAsync(msMessage);
+                //var topicMessage = message.GetBodyInheritance<BaseEmail>();
+                //var msMessage = new BrokeredMessage(topicMessage)
+                //{
+                //    Label = nameof(TopicSubscription.Email)
+                //};
+                //msMessage.Properties["messageType"] = topicMessage.GetType().AssemblyQualifiedName;
+                //await meg.AddAsync(msMessage);
                 return;
             }
             var msg = message.GetBody<SmsMessage2>();
