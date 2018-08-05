@@ -35,12 +35,6 @@ namespace Cloudents.Infrastructure.Data.Query
                 .Where(w => w.Id == query.QuestionId)
                 .Take(1);
 
-            var detachedQuery2 = QueryOver.Of<Answer>().Where(w => w.User.Id != query.UserId).Select(s => s.Question.Id)
-                .DetachedCriteria;
-                
-
-
-
             return await _session.QueryOver(() => questionAlias)
                 .JoinAlias(x => x.Subject, () => commentAlias)
                 .JoinAlias(x => x.User, () => userAlias)
@@ -61,15 +55,7 @@ namespace Cloudents.Infrastructure.Data.Query
                 .Where(w => w.CorrectAnswer == null)
                 .Where(w => w.User.Id != query.UserId)
                 .Where(w => w.Id != query.QuestionId)
-                //.Where(w=>w.Id != QueryOver.Of<Answer>().Where(v => v.User.Id == query.UserId).Select(s => s.Question.Id).As<long>())
                 .WithSubquery.WhereProperty(x=>x.Id ).NotIn(QueryOver.Of<Answer>().Where(w => w.User.Id == query.UserId).Select(s => s.Question.Id))
-                //.WithSubquery.WhereNotExists(QueryOver.Of<Answer>().Where(w => w.User.Id == query.UserId).Select(s => s.Question.Id))
-                
-                //.WithSubquery.Where(p => p.Subject.Id == QueryOver.Of<Question>()
-                //                             .Select(s => s.Subject.Id)
-
-                //                             .Where(w => w.Id == query.QuestionId)
-                //                             .Take(1).As<int>())
                 .TransformUsing(new DeepTransformer<QuestionDto>())
                 .OrderBy(Projections.Conditional(
                     Subqueries.PropertyEq(nameof(Question.Subject), detachedQuery.DetachedCriteria)

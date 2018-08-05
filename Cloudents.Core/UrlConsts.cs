@@ -7,8 +7,6 @@ using JetBrains.Annotations;
 
 namespace Cloudents.Core
 {
-
-    
     [UsedImplicitly]
     public class UrlConst : IUrlBuilder
     {
@@ -17,11 +15,7 @@ namespace Cloudents.Core
         public UrlConst(IConfigurationKeys configuration)
         {
             _webSiteEndPoint = configuration.SiteEndPoint;
-            //_systemUrl = configuration.FunctionEndpoint + "/api/redirect";
         }
-       // public const string WebSiteEndPoint = "https://www.spitball.co/";
-
-        //public const string WalletEndPost = WebSiteEndPoint + "wallet";
 
         public string BuildRedirectUrl(string url, string host, int? location)
         {
@@ -44,8 +38,11 @@ namespace Cloudents.Core
             {
                 nvc["location"] = location.ToString();
             }
-            var uri = new UriBuilder(new Uri(_webSiteEndPoint));// /*new Uri("/url",UriKind.Relative)*/);
-            uri.Path = "url";
+
+            var uri = new UriBuilder(new Uri(_webSiteEndPoint))
+            {
+                Path = "url"
+            }; // /*new Uri("/url",UriKind.Relative)*/);
             uri.AddQuery(nvc);
             return uri.ToString();
         }
