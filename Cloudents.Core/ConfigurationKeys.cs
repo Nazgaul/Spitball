@@ -4,6 +4,11 @@ namespace Cloudents.Core
 {
     public class ConfigurationKeys : IConfigurationKeys
     {
+        public ConfigurationKeys(string siteEndPoint)
+        {
+            SiteEndPoint = siteEndPoint;
+        }
+
         public string Db { get; set; }
         public string MailGunDb { get; set; }
         public SearchServiceCredentials Search { get; set; }
@@ -17,6 +22,7 @@ namespace Cloudents.Core
         public string BlockChainNetwork { get; set; }
 
         public string ServiceBus { get; set; }
+        public string SiteEndPoint { get; }
     }
 
     public class SearchServiceCredentials
