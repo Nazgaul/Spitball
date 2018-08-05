@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <p class="q-text" :class="{'answer': typeAnswer}">{{cardData.text}}</p>
+        <p class="q-text" :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text}}</p>
 
         <!-- v-if="cardData.files.length" -->
         <div class="gallery" v-if="gallery&&gallery.length">
