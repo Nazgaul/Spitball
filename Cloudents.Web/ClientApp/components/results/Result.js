@@ -166,7 +166,7 @@ export default {
             name: this.name,
             params: {...this.query, ...this.params, term: this.userText}
         })
-            .then(({data}) => {
+            .then((data) => {
                 updateData.call(this, {...data, vertical: this.name});//irena
             }).catch(reason => {
             console.error(reason);
@@ -194,7 +194,7 @@ export default {
             const toName = to.path.slice(1);
             const updateFilter = (to.path === from.path && to.query.q === from.query.q);
             this.fetchingData({name: toName, params: {...to.query, ...to.params, term: to.query.q}})
-                .then(({data}) => {
+                .then((data) => {
                     //update data for this page
                     this.showFilterNotApplied = false;
                     updateData.call(this, {...data, vertical: toName}, updateFilter);

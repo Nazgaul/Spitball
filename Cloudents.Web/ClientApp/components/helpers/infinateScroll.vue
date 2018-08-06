@@ -40,7 +40,7 @@
                     //debugger;
                     this.isLoading = true;
                     this.$store.dispatch('nextPage', { vertical: this.vertical, url: this.nextPage })
-                        .then(({ data: res }) => {
+                        .then((res) => {
                             if (res.data && res.data.length) {
                                 this.$emit('scroll', res.data);
                                 this.nextPage=res.nextPage;
