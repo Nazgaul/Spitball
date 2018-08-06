@@ -82,6 +82,5 @@ namespace Cloudents.Web.Filters
                 return null;
             }
         }
-
     }
 }

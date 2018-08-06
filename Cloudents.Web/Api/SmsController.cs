@@ -52,7 +52,7 @@ namespace Cloudents.Web.Api
             if (user == null)
             {
                 var ex = new ArgumentNullException(nameof(user));
-                ex.Data.Add("model", model);
+                ex.Data.Add("model", model.ToString());
                 throw ex;
             }
             if (!user.EmailConfirmed)
@@ -65,15 +65,14 @@ namespace Cloudents.Web.Api
                 return Unauthorized();
             }
 
-
-            var phoneNumber = await _client.ValidateNumberAsync(model.Number, token);
+            var phoneNumber = await _client.ValidateNumberAsync(model.Number, token).ConfigureAwait(false);
             if (string.IsNullOrEmpty(phoneNumber))
             {
                 ModelState.AddModelError(string.Empty, "Invalid phone number");
                 return BadRequest(ModelState);
             }
 
-            var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber);
+            var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
 
             //var retVal = t2.Result;
             if (retVal.Succeeded)
@@ -102,6 +101,7 @@ namespace Cloudents.Web.Api
         [HttpPost("verify"), ValidateModel]
         public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
         {
+            
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {
@@ -126,11 +126,11 @@ namespace Cloudents.Web.Api
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "email not found");
+                ModelState.AddModelError(string.Empty, "We cannot resend email");
                 return BadRequest(ModelState);
             }
 
-            await _client.SendSmsAsync(user, token);
+            await _client.SendSmsAsync(user, token).ConfigureAwait(false);
             return Ok();
         }
     }
