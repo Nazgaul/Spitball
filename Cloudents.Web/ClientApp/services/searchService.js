@@ -1,6 +1,8 @@
 ﻿import { search} from "./resources";
 import { connectivityModule } from "./connectivity.module"
 
+let currentVertical = 'item';
+
 const getQuestions = (params) => {
     return connectivityModule.http.get("/Question", { params });
 }
@@ -28,6 +30,15 @@ const getBook = (params) => {
 const getBookDetails = ({ type, isbn13 }) => {
     return connectivityModule.http.get(`book/${type}`, { params: { isbn13 } })
 }
+
+const getNextPage = ({ url, vertical }) => {
+    currentVertical = vertical;
+    return connectivityModule.http.get(url, { baseURL: "" })
+}
+
+const autoComplete = (data) => {
+    return connectivityModule.http.get("suggest", { params: { sentence: data.term, vertical: data.vertical } })
+} 
     
 let transformLocation = (params) => {
     let location = params.location;
@@ -79,54 +90,50 @@ let transferBookDetails = response => {
     return { details: body.details, data: prices.map(val => { return { ...val, template: "book-price" } }) }
 };
 
+let transferNextPage = (res) => {
+    let { data, nextPage } = transferMap[currentVertical](res);
+    return { data, nextPage }
+};
+
+const transferMap = {
+    ask: (res) => transferResultAsk(res),
+    flashcard: (res) => transferResultNote(res),
+    note: (res) => transferResultNote(res),
+    job: (res) => transferJob(res),
+    tutor: (res) => transferResultTutor(res),
+    book: (res) => transferBook(res)
+}
+
 
 export default {
     activateFunction: {
         ask({ source, term=""}) {
             return getQuestions({term, source}).then(transferResultAsk);
         },
-        // ask({ source, term=""}) {
-        //     return search.getQuestions({term, source})
-        // },
         note({ source, university, course, term="", page, sort }) {
             return getDocument({ source, university, course, query:term, page, sort }).then(transferResultNote);
         },
-        // note({ source, university, course, term="", page, sort }) {
-        //     return search.getDocument({ source, university, course, query:term, page, sort });
-        // },
         flashcard({ source, university, course, term="", page, sort }) {
             return getFlashcard({ source, university, course, query:term, page, sort }).then(transferResultNote);
         },
-        // flashcard({ source, university, course, term="", page, sort }) {
-        //     return search.getFlashcard({ source, university, course, query:term, page, sort });
-        // },
         tutor({ term="", filter, sort, page, location }) {
             return getTutor({ term, filter, sort, location, page }).then(transferResultTutor);
         },
-        // tutor({ term="", filter, sort, page, location }) {
-        //     return search.getTutor({ term, filter, sort, location, page });
-        // },
         job({ term="", filter, sort, jobType: facet, page, location }) {
             return getJob({ term, filter, sort, location, facet, page }).then(transferJob);
         },
-        // job({ term="", filter, sort, jobType: facet, page, location }) {
-        //     return search.getJob({ term, filter, sort, location, facet, page });
-        // },
         book({ term="", page }) {
             return getBook({ term, page }).then(transferBook);
         },
-        // book({ term="", page }) {
-        //     return search.getBook({ term, page });
-        // },
         bookDetails({ type, isbn13 }) {
             return getBookDetails({ type, isbn13 }).then(transferBookDetails);
         }
-        // bookDetails({ type, isbn13 }) {
-        //     return search.getBookDetails({ type, isbn13 });
-        // }
     },
     autoComplete:(term)=>{
-        return search.autoComplete(term);
+        return autoComplete(term);
     },
-    nextPage:(params)=>search.getNextPage(params)
+
+    nextPage:(params)=>{
+        return getNextPage(params).then(transferNextPage)
+    }
 }
