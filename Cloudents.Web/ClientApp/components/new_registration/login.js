@@ -8,6 +8,7 @@ import SbInput from "../question/helpers/sbInput/sbInput.vue";
 const defaultSubmitRoute = {path: '/ask', query: {q: ''}};
 const initialPointsNum = 100;
 var auth2;
+
 export default {
     components: {stepTemplate, SbInput, VueRecaptcha},
     props: {
@@ -17,6 +18,7 @@ export default {
         return {
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
             // codeSent: false,
+            googleApi: false,
             confirmed: false,
             confirmationCode: '',
             initialPointsNum,
@@ -173,12 +175,16 @@ export default {
             this.$router.push({...url});
      }
     },
-    beforeCreate() {
-        gapi.load('auth2', function () {
-            auth2 = gapi.auth2.init({
-                client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
-            });
-        });
+    mounted() {
+        // TODO try to fix and use without timeout
+        setTimeout(function () {
+            gapi.load('auth2', function () {
+                auth2 = gapi.auth2.init({
+                    client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
+                })
+            })
+        }, 500);
+
     },
     created() {
         registrationService.getLocalCode().then(({data}) => {
