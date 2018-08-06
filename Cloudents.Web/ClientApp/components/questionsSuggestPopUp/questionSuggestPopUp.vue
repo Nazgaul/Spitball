@@ -19,7 +19,7 @@
                         next-icon="sbf-arrow-right-carousel">
 
                 <v-carousel-item  v-for="(item,i) in cardList" src="" :key="i"  @click.native="answerMore(item.id)">
-                        <question-card  :cardData="item" :typeAnswer="typeAnswer" :suggestion="true" class="user-question mb-1 mt-1" detailed-view ></question-card>
+                        <question-card :fromCarousel="true" :cardData="item" :typeAnswer="typeAnswer" :suggestion="true" class="user-question mb-1 mt-1" detailed-view ></question-card>
                     <!--<v-btn @click="answerMore(item.id)">test</v-btn>-->
                 </v-carousel-item>
             </v-carousel>

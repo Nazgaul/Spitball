@@ -7,21 +7,15 @@ using JetBrains.Annotations;
 
 namespace Cloudents.Core
 {
-
-    
     [UsedImplicitly]
     public class UrlConst : IUrlBuilder
     {
-        //public UrlConst(IConfigurationKeys configuration)
-        //{
-        //    _systemUrl = configuration.FunctionEndpoint + "/api/redirect";
-        //}
-        public const string WebSiteEndPoint = "https://www.spitball.co/";
+        private readonly string _webSiteEndPoint;
 
-        public const string WalletEndPoint = WebSiteEndPoint + "wallet";
-        public const string QuestionEndPoint = WebSiteEndPoint + "question";
-
-
+        public UrlConst(IConfigurationKeys configuration)
+        {
+            _webSiteEndPoint = configuration.SiteEndPoint;
+        }
         public static string BuildQuestionEndPoint(long id)
         {
             return $"{WebSiteEndPoint}question/{id}";
@@ -48,10 +42,16 @@ namespace Cloudents.Core
             {
                 nvc["location"] = location.ToString();
             }
-            var uri = new UriBuilder(new Uri(WebSiteEndPoint + "url"));// /*new Uri("/url",UriKind.Relative)*/);
+
+            var uri = new UriBuilder(new Uri(_webSiteEndPoint))
+            {
+                Path = "url"
+            }; // /*new Uri("/url",UriKind.Relative)*/);
             uri.AddQuery(nvc);
             return uri.ToString();
         }
+
+        public string WalletEndPoint => _webSiteEndPoint + "wallet";
 
         public static string NameToQueryString(string name)
         {

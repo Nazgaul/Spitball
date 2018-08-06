@@ -20,6 +20,10 @@ export default {
             default: false
         },
         cardData: {},
+        fromCarousel: {
+            type: Boolean,
+            required: false
+        },
         suggestion: {
             type: Boolean,
             default: false,

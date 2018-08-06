@@ -19,5 +19,6 @@ namespace Cloudents.Core.Message
 
         public string Template { get; private set; }
         public string Subject { get; private set; }
+        
     }
 }
