@@ -118,13 +118,15 @@ export default {
         // book({ term="", page }) {
         //     return search.getBook({ term, page });
         // },
-        // bookDetails({ type, isbn13 }) {
-        //     return getBookDetails({ type, isbn13 }).then(transferBookDetails);
-        // }
         bookDetails({ type, isbn13 }) {
-            return search.getBookDetails({ type, isbn13 });
+            return getBookDetails({ type, isbn13 }).then(transferBookDetails);
         }
+        // bookDetails({ type, isbn13 }) {
+        //     return search.getBookDetails({ type, isbn13 });
+        // }
     },
-    autoComplete:(term)=>search.autoComplete(term),
+    autoComplete:(term)=>{
+        return search.autoComplete(term);
+    },
     nextPage:(params)=>search.getNextPage(params)
 }
