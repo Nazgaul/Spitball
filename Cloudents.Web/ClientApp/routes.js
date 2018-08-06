@@ -29,7 +29,7 @@ const userSettings = () => import("./components/settings/view/settings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
 import * as consts from "./store/constants";
 const verifyPhone = () => import("./components/registration/verifyPhone/verify.vue");
-const login =()=> import("./components/new_registration/login");
+const login = () => import("./components/new_registration/login");
 // import store from "./store";
 
 function dynamicPropsFn(route) {
@@ -195,8 +195,6 @@ let routes2 = [
     {
         path: "/login",
         component: require('./components/new_registration/login.vue').default,
-        // props: { newsletterPopup: false },
-
         name: "login",
 
     },

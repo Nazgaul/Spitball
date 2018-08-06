@@ -37,7 +37,6 @@ export default {
             registrationService.signIn(this.userEmail, this.recaptcha)
                 .then((response) => {
                     self.updateLoading(false);
-                    debugger;
                     let step = response.data.step;
                     if (step === 'emailConfirmed') {
                         self.$router.push({ name: 'registration', params: { code: `${step}` } });
@@ -47,7 +46,7 @@ export default {
                         self.$router.push({ name: 'phoneVerify', params: { code: `${step}` } });
                     }
                     else {
-                        ;                    //TODO: NewSignIn step result
+                        //TODO: NewSignIn step result
                         self.codeSent = true;
                     }
                 }, function (reason) {

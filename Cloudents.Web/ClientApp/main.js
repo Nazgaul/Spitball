@@ -93,7 +93,7 @@ WebFont.load({
 //    attempt: 1
 //});
 //Vue.use(vueSmoothScroll);
-// Vue.use(VueParticles);
+
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
@@ -225,12 +225,7 @@ const app = new Vue({
     router: router,
     render: h => h(App),
     store,
-    // filters: {
-    //    fixed2:function(value){
-    //        if (!value) return '';
-    //        return value.toFixed(2)
-    //    }
-    // }
+
 });
 
 

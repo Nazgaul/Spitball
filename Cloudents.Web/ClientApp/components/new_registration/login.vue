@@ -41,10 +41,7 @@
                     </div>
                     <img :src="require(`./img/registerEmail.png`)"/>
                 </div>
-
-
             </step-template>
-
         </div>
         <!--step email end-->
 
@@ -138,7 +135,6 @@
         <button class="back-button" @click="showDialog = true">
             <v-icon right>sbf-close</v-icon>
         </button>
-
         <!--exit dialog-->
         <v-dialog v-model="showDialog" max-width="600px" content-class="registration-dialog">
             <v-card>

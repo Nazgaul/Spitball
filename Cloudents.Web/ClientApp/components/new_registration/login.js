@@ -2,12 +2,12 @@ import stepTemplate from './helpers/stepTemplate.vue'
 import codesJson from './helpers/CountryCallingCodes';
 import {mapMutations, mapActions, mapGetters} from 'vuex'
 import VueRecaptcha from 'vue-recaptcha';
-
 ﻿import registrationService from '../../services/registrationService'
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
 
 const defaultSubmitRoute = {path: '/ask', query: {q: ''}};
-
+const initialPointsNum = 100;
+var auth2;
 export default {
     components: {stepTemplate, SbInput, VueRecaptcha},
     props: {
@@ -16,9 +16,10 @@ export default {
     data() {
         return {
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
-            codeSent: false,
+            // codeSent: false,
             confirmed: false,
             confirmationCode: '',
+            initialPointsNum,
             phone: {
                 phoneNum: '',
                 countryCode: ''
@@ -73,6 +74,7 @@ export default {
             }
             console.log('step!!!222', this.stepNumber)
         },
+
         googleLogIn() {
             var self = this;
             var authInstance = gapi.auth2.getAuthInstance();
@@ -93,8 +95,8 @@ export default {
                 console.error(error, 'errrr')
                 self.updateLoading(false);
             });
-
         },
+
         onVerify(response) {
             this.recaptcha = response;
         },
@@ -164,7 +166,19 @@ export default {
                     self.updateLoading(false);
                     self.errorMessage.code = "Invalid code";
                 });
-        }
+        },
+        finishRegistration() {
+            let url = self.fromPath || defaultSubmitRoute;
+            window.isAuth = true;
+            this.$router.push({...url});
+     }
+    },
+    beforeCreate() {
+        gapi.load('auth2', function () {
+            auth2 = gapi.auth2.init({
+                client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
+            });
+        });
     },
     created() {
         registrationService.getLocalCode().then(({data}) => {
@@ -172,5 +186,7 @@ export default {
         });
         //check if new user param exists in email url
         this.isNewUser = this.$route.query['newUser'] !== undefined;
-     }
+
+     },
+
 }
