@@ -7,20 +7,16 @@ using System.Threading.Tasks;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
-using Microsoft.AspNetCore.Authorization;
+using Cloudents.Core.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Cloudents.Management.Pages
 {
-   // [Authorize]
     public class MarkAsCorrectModel : PageModel
     {
-
         private readonly Lazy<ICommandBus> _commandBus;
         private readonly IQueryBus _queryBus;
-
 
         public MarkAsCorrectModel(Lazy<ICommandBus> commandBus, IQueryBus queryBus)
         {
