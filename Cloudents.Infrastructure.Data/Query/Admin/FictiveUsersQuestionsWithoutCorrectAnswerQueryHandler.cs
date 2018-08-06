@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.Admin;
@@ -13,9 +14,11 @@ namespace Cloudents.Infrastructure.Data.Query.Admin
     public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<FictiveUsersQuestionsWithoutCorrectAnswerQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
         private readonly IStatelessSession _session;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler(ReadonlyStatelessSession session)
+        public FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler(ReadonlyStatelessSession session, IUrlBuilder urlBuilder)
         {
+            _urlBuilder = urlBuilder;
             _session = session.Session;
         }
 
@@ -29,7 +32,7 @@ namespace Cloudents.Infrastructure.Data.Query.Admin
             User userAlias = null;
 
 
-            return await _session.QueryOver<Question>()
+            var t = await _session.QueryOver<Question>()
                 .JoinAlias(x => x.Answers, () => answerAlias)
                 .JoinAlias(x => x.User, () => userAlias)
                 .Where(w => w.CorrectAnswer == null)
@@ -45,6 +48,12 @@ namespace Cloudents.Infrastructure.Data.Query.Admin
                 .TransformUsing(Transformers.AliasToBean<QuestionWithoutCorrectAnswerDto>())
                 .OrderBy(o => o.Id).Asc
                 .ListAsync<QuestionWithoutCorrectAnswerDto>(token).ConfigureAwait(false);
+
+            return t.Select(s =>
+            {
+                s.Url = _urlBuilder.BuildQuestionEndPoint(s.QuestionId);
+                return s;
+            });
         }
     }
 }

@@ -7,6 +7,8 @@ namespace Cloudents.Core.Interfaces
         string BuildRedirectUrl(string url, string host, int? location);
 
         string WalletEndPoint { get; }
+
+        string BuildQuestionEndPoint(long id);
     }
 
     public interface IUrlRedirectBuilder

@@ -16,9 +16,10 @@ namespace Cloudents.Core
         {
             _webSiteEndPoint = configuration.SiteEndPoint;
         }
-        public static string BuildQuestionEndPoint(long id)
+
+        public string BuildQuestionEndPoint(long id)
         {
-            return $"{WebSiteEndPoint}question/{id}";
+            return $"{_webSiteEndPoint}question/{id}";
         }
 
         public string BuildRedirectUrl(string url, string host, int? location)
