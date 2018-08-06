@@ -64,6 +64,11 @@ namespace Cloudents.Web
 
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
+                .AddCookieTempDataProvider(o =>
+                {
+                    o.Cookie.Name = "td";
+                    o.Cookie.HttpOnly = true;
+                })
                 .AddJsonOptions(options =>
             {
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;

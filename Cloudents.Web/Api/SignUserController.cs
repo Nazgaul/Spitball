@@ -50,6 +50,19 @@ namespace Cloudents.Web.Api
             _queueProvider = queueProvider;
         }
 
+        private class ReturnSignUser
+        {
+            public ReturnSignUser(NextStep step, bool isNew)
+            {
+                Step = step;
+                IsNew = isNew;
+            }
+
+            public NextStep Step { get; set; }
+            public bool IsNew { get; set; }
+
+        }
+
         [HttpPost, ValidateModel, ValidateRecaptcha, ValidateEmail]
         public async Task<IActionResult> SignUser([FromBody]SignUserRequest model, CancellationToken token)
         {
@@ -71,16 +84,12 @@ namespace Cloudents.Web.Api
                     if (!user.EmailConfirmed)
                     {
                         await GenerateEmailAsync(user, token).ConfigureAwait(false);
-                        return Ok(new
-                        {
-                            step = NextStep.EmailConfirmed
-                        });
+                        return Ok(new ReturnSignUser(NextStep.EmailConfirmed, true));
+                        
                     }
                     await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
-                    return Ok(new
-                    {
-                        step = NextStep.EnterPhone
-                    });
+                    return Ok(new ReturnSignUser(NextStep.EnterPhone, true));
+                    
                 }
                 ModelState.AddIdentityModelError(p);
                 return BadRequest(ModelState);
@@ -88,19 +97,13 @@ namespace Cloudents.Web.Api
             if (!user.EmailConfirmed)
             {
                 await GenerateEmailAsync(user, token).ConfigureAwait(false);
-                return Ok(new
-                {
-                    step = NextStep.EmailConfirmed
-                });
+                return Ok(new ReturnSignUser(NextStep.EmailConfirmed, false));
             }
 
             if (!user.PhoneNumberConfirmed)
             {
                 await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
-                return Ok(new
-                {
-                    step = NextStep.EnterPhone
-                });
+                return Ok(new ReturnSignUser(NextStep.EnterPhone, false));
             }
             var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
             var taskSms = _smsClient.SendSmsAsync(user, token);
@@ -110,10 +113,7 @@ namespace Cloudents.Web.Api
 
             if (taskSignIn.Result.RequiresTwoFactor)
             {
-                return Ok(new
-                {
-                    step = NextStep.VerifyPhone
-                });
+                return Ok(new ReturnSignUser(NextStep.VerifyPhone, false));
             }
             ModelState.AddModelError(string.Empty, taskSignIn.Result.ToString());
             return BadRequest(ModelState);

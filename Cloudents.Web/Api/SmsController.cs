@@ -101,6 +101,7 @@ namespace Cloudents.Web.Api
         [HttpPost("verify"), ValidateModel]
         public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
         {
+            
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {
@@ -125,7 +126,7 @@ namespace Cloudents.Web.Api
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "email not found");
+                ModelState.AddModelError(string.Empty, "We cannot resend email");
                 return BadRequest(ModelState);
             }
 
