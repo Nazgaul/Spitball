@@ -29,7 +29,6 @@ namespace Cloudents.Web.Controllers
             {
                 return RedirectToAction(nameof(Index), "Home");
             }
-
             TempData.Remove(SignUserController.Email);
             code = System.Net.WebUtility.UrlDecode(code);
             var user = await _userManager.FindByIdAsync(id.ToString()).ConfigureAwait(false);
@@ -45,7 +44,7 @@ namespace Cloudents.Web.Controllers
             }
 
             await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
-            return Redirect("/verify-phone");
+            return Redirect("/verify-phone?newUser");
         }
     }
 }

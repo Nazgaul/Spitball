@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure.Data.Query
             Question questionAlias = null;
             User userAlias = null;
 
-            var detachSubQuery = DetachedCriteria.For<Question>();
+            //var detachSubQuery = DetachedCriteria.For<Question>();
 
             var detachedQuery = QueryOver.Of<Question>()
                 .Select(s => s.Subject.Id)
@@ -55,40 +55,13 @@ namespace Cloudents.Infrastructure.Data.Query
                 .Where(w => w.CorrectAnswer == null)
                 .Where(w => w.User.Id != query.UserId)
                 .Where(w => w.Id != query.QuestionId)
-                //.WithSubquery.Where(p => p.Subject.Id == QueryOver.Of<Question>()
-                //                             .Select(s => s.Subject.Id)
-
-                //                             .Where(w => w.Id == query.QuestionId)
-                //                             .Take(1).As<int>())
+                .WithSubquery.WhereProperty(x=>x.Id ).NotIn(QueryOver.Of<Answer>().Where(w => w.User.Id == query.UserId).Select(s => s.Question.Id))
                 .TransformUsing(new DeepTransformer<QuestionDto>())
                 .OrderBy(Projections.Conditional(
-                    
                     Subqueries.PropertyEq(nameof(Question.Subject), detachedQuery.DetachedCriteria)
-                    
-
-                    //Restrictions.on
-                    //Subqueries.PropertyEq("", detachSubQuery)
-                    //Restrictions.Where(()=> commentAlias.Id == detachedQuery.As<int>())
-                    //Restrictions.EqProperty(() => questionAlias.Subject.Id, QueryOver.Of<Question>()
-                    //                                 .Select(s => s.Subject.Id)
-
-                    //                                 .Where(w => w.Id == query.QuestionId)
-                    //                                 .Take(1).DetachedCriteria())
-                    // Restrictions.Where(Subqueries.PropertyEq("xxx", detachSubQuery)))
-
-                    //Restrictions.Where(() => questionAlias.Subject.Id == 
-                    //                         QueryOver.Of<Question>()
-                    //                             .Select(s => s.Subject.Id)
-
-                    //                             .Where(w => w.Id == query.QuestionId)
-                    //                             .Take(1).As<int>()
-                    //                         )
                     , Projections.Constant(0), Projections.Constant(1)
                     )).Asc
-                
                 .ThenBy(Projections.SqlFunction(SbDialect.RandomOrder, NHibernateUtil.Guid)).Asc
-               
-                //.OrderByRandom()
                 .Take(3).ListAsync<QuestionDto>(token).ConfigureAwait(false);
         }
     }

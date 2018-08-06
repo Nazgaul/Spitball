@@ -20,6 +20,10 @@ export default {
             default: false
         },
         cardData: {},
+        fromCarousel: {
+            type: Boolean,
+            required: false
+        },
         suggestion: {
             type: Boolean,
             default: false,
@@ -46,9 +50,10 @@ export default {
             timeoutID: null,
             action: null,
             path: '',
-            src : '',
+            src: '',
             selectedImage: '',
-            showDialog: false
+            showDialog: false,
+            limitedCardAnswers: []
         }
     },
     computed: {
@@ -78,8 +83,8 @@ export default {
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams'
         }),
-        showBigImage(src){
-            this.showDialog =true;
+        showBigImage(src) {
+            this.showDialog = true;
             this.selectedImage = src;
         },
         markAsCorrect() {
@@ -110,6 +115,18 @@ export default {
                         this.isDeleted = true
                     }
                 });
+        },
+        calculateAnswerToLimit() {
+            // limit card answer could be a number or array depends on route(view)
+            if (typeof  this.cardData.answers === "number") {
+                if (this.cardData.answers > 3) {
+                    this.limitedCardAnswers = 3;
+                } else {
+                    this.limitedCardAnswers = this.cardData.answers;
+                }
+            } else if (!!this.cardData && !!this.cardData.answers) {
+                this.limitedCardAnswers = this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
+            }
         }
     },
     mounted() {
@@ -118,6 +135,6 @@ export default {
     },
     created() {
         this.flaggedAsCorrect = this.isCorrectAnswer;
-        console.log('answer',this.typeAnswer)
+        this.calculateAnswerToLimit();
     }
 }

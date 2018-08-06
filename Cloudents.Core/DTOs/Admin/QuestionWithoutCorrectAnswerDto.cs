@@ -10,7 +10,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string  QuestionText { get; set; }
         public string AnswerText { get; set; }
 
-        public string Url => UrlConst.BuildQuestionEndPoint(QuestionId);
+        public string Url { get; set; } //=> UrlConst.BuildQuestionEndPoint(QuestionId);
 
     }
 }
