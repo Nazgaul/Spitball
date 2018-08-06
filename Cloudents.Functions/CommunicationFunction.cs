@@ -106,7 +106,6 @@ namespace Cloudents.Functions
         public static async Task SmsServiceBusAsync(
             [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Sms), AccessRights.Listen)]BrokeredMessage message,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<SMSMessage> options,
-            [ServiceBus(TopicSubscription.Communication)] IAsyncCollector<BrokeredMessage> meg,
             TraceWriter log,
             CancellationToken token
         )

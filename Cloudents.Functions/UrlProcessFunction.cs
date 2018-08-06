@@ -8,6 +8,7 @@ using Cloudents.Functions.Di;
 using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.ServiceBus.Messaging;
 
 namespace Cloudents.Functions
 {
@@ -32,7 +33,7 @@ namespace Cloudents.Functions
 
         [FunctionName("UrlProcessServiceBus")]
         public static async Task BlockChainQnaAsync(
-            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.UrlRedirect))]
+            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.UrlRedirect), AccessRights.Listen)]
             UrlRedirectQueueMessage content,
             TraceWriter log, [Inject] ICommandBus commandBus,
             CancellationToken token)
