@@ -209,7 +209,11 @@ namespace Cloudents.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
-
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Frame-Options", " DENY");
+                await next();
+            });
             if (env.IsDevelopment())
             {
                 //HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();

@@ -72,6 +72,11 @@ namespace Cloudents.Ico
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Frame-Options", " DENY");
+                await next();
+            });
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -83,7 +88,7 @@ namespace Cloudents.Ico
                 app.UseHsts();
                 
             }
-
+            
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture(SupportedCultures[0]),
