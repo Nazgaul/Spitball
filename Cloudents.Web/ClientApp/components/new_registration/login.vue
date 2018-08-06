@@ -1,7 +1,7 @@
 <template>
     <div class="registration">
         <!--step email-->
-        <div class="step-email" v-if="stepNumber == 1">
+        <div class="step-email" v-if="stepNumber === 'start'">
             <step-template>
                 <div slot="step-data" class="limited-width form-wrap">
                     <h1 class="step-title" v-if="$vuetify.breakpoint.smAndDown">Get started</h1>
@@ -22,7 +22,7 @@
                         <vue-recaptcha class="recaptcha-wrapper" sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
                                        ref="recaptcha"
                                        @verify="onVerify" @expired="onExpired"></vue-recaptcha>
-                        <input :disabled="submitted||!recaptcha.length" class="continue-btn input-field" type="submit"
+                        <input :disabled="!recaptcha.length" class="continue-btn input-field" type="submit"
                                value="Continue">
                         <div class="checkbox-terms">
                             <span>By joining, I agree to Spitball <router-link
@@ -49,7 +49,7 @@
         <!--step email end-->
 
         <!--step verify email-->
-        <div v-else-if="stepNumber == 2">
+        <div v-else-if="stepNumber === 'emailConfirmed' ">
             <step-template>
                 <v-icon>sbf-email</v-icon>
                 <div slot="step-data" class="limited-width wide">
@@ -69,7 +69,7 @@
         <!--step verify email end-->
 
         <!--step phone number-->
-        <div class="step-phone" v-if="stepNumber == 3">
+        <div class="step-phone" v-if="stepNumber === 'enterPhone' ">
             <step-template>
                 <div slot="step-data" class="limited-width">
                     <h1 class="step-title">Enter your phone number</h1>
@@ -83,13 +83,8 @@
                     <sb-input class="phone-field" icon="sbf-phone" :errorMessage="errorMessage.phone"
                               v-model="phone.phoneNum" placeholder="Enter phone number" name="email" type="tel"
                               :autofocus="true"></sb-input>
-
-                    <!--<div class="input-wrapper">-->
-                    <!--<input class="phone-field input-field" v-model="phone.phoneNum" placeholder="Enter phone number"/>-->
-                    <!--<v-icon>sbf-phone</v-icon>-->
-                    <!--</div>-->
                     <button class="continue-btn" @click="sendCode()"
-                            :disabled="submitted||!(phone.phoneNum&&phone.countryCode)">Continue
+                            :disabled="!(phone.phoneNum&&phone.countryCode)">Continue
                     </button>
                 </div>
                 <img slot="step-image" :src="require(`./img/enter-phone.png`)"/>
@@ -98,7 +93,7 @@
         <!--step phone number end-->
 
         <!--step verify phone number-->
-        <div class="step-phone" v-if="stepNumber == 4">
+        <div class="step-phone" v-if="stepNumber === 'verifyPhone' ">
             <step-template>
                 <div slot="step-data" class="limited-width wide">
                     <h1 class="step-title">Enter the confirmation code</h1>
@@ -108,11 +103,7 @@
                     <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code"
                               v-model="confirmationCode" placeholder="Enter confirmation code" type="number"
                               :autofocus="true"></sb-input>
-                    <!--<div class="input-wrapper">-->
-                    <!--<input class="code-field input-field" v-model="confirmationCode" placeholder="Confirmation code"></input>-->
-                    <!--<v-icon>sbf-key</v-icon>-->
-                    <!--</div>-->
-                    <button class="continue-btn submit-code" @click="next" :disabled="submitted||!confirmationCode">
+                            <button class="continue-btn submit-code" @click="smsCodeVerify" :disabled="!confirmationCode">
                         Continue
                     </button>
 
@@ -121,14 +112,13 @@
                         <p class="email-text inline click" @click="sendCode">&nbsp;Click here to resend.</p>
                     </div>
                 </div>
-
                 <img slot="step-image" :src="require(`./img/confirm-phone.png`)"/>
             </step-template>
         </div>
         <!--step verify phone number end-->
 
         <!--step congrats -->
-        <div class="step-account" v-if="stepNumber == 5">
+        <div class="step-account" v-if="stepNumber === 'congrats' ">
                 <step-template>
                     <div slot="step-data" class="limited-width done">
                         <h1 class="congrats-heading">CONGRATS!</h1>
