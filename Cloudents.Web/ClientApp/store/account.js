@@ -1,4 +1,3 @@
-import axios from "axios";
 import Talk from "talkjs";
 import accountService from "../services/accountService"
 import {debug} from "util";
@@ -52,10 +51,7 @@ const getters = {
 };
 const actions = {
     logout({state, commit}) {
-        // accountService.logout();
-        // commit("logout");
         window.location.replace("/logout");
-        //router.go({path: '/logout'});
 
     },
     userStatus({dispatch, commit, getters}, {isRequire, to}) {
@@ -67,7 +63,7 @@ const actions = {
             return Promise.resolve();
         }
         if (window.isAuth) {
-            return axios.get("account").then(({data}) => {
+            return accountService.getAccount().then(({data}) => {
                 commit("changeLoginStatus", true);
                 commit("updateUser", data);
                 dispatch("connectToChat");

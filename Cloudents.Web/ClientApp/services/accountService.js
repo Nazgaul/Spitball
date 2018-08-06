@@ -12,11 +12,9 @@ export default {
     getUserName: () => {
         return connectivityModule.http.get("/Account/userName")
     },
-    // setUniversity: (universityId) => axios.post("/Account/university", {universityId}),
     getProfile:(id) => {
         return connectivityModule.http.get("/Profile/" + id)
     },
-    // logout: () => axios.post("/Account/logout"),
     calculateDollar:(balance)=> {
         return dollarCalculate(balance).toFixed(2)
     }
