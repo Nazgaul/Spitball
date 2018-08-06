@@ -194,9 +194,7 @@ let routes2 = [
     },
     {
         path: "/login",
-        components: {
-            default: login,
-        },
+        component: require('./components/new_registration/login.vue').default,
         // props: { newsletterPopup: false },
 
         name: "login",
@@ -216,7 +214,8 @@ let routes2 = [
     {
         path: "/signin", components: {
             default: signin
-        }, name: "signin"
+        },
+        name: "signin"
     },
 
     {

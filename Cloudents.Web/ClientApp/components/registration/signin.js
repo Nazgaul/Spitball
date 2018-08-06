@@ -15,7 +15,6 @@ export default {
     data() {
         return {
             userEmail: '',
-            //rememberMe: false,
             submitted: false,
             recaptcha: '',
             errorMessage: {
