@@ -84,6 +84,12 @@ namespace Cloudents.Web
                 SwaggerInitial(services);
             }
 
+            services.AddHsts(options =>
+            {
+                options.MaxAge = TimeSpan.FromDays(365);
+                options.IncludeSubDomains = true;
+                options.Preload = true;
+            });
             services.AddResponseCompression();
             services.AddResponseCaching();
 
@@ -202,7 +208,7 @@ namespace Cloudents.Web
         [UsedImplicitly]
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-           // app.UseHeaderRemover("X-HTML-Minification-Powered-By");
+            app.UseHeaderRemover("X-HTML-Minification-Powered-By");
 
             if (env.IsDevelopment())
             {
@@ -225,6 +231,7 @@ namespace Cloudents.Web
             {
                 app.UseStatusCodePagesWithReExecute("/Error");
                 app.UseExceptionHandler("/Error");
+                app.UseHsts();
             }
 
             if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))

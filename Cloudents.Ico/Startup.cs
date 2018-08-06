@@ -41,7 +41,12 @@ namespace Cloudents.Ico
         {
             services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
-
+            services.AddHsts(options =>
+            {
+                options.MaxAge = TimeSpan.FromDays(365);
+                options.IncludeSubDomains = true;
+                options.Preload = true;
+            });
             var containerBuilder = new ContainerBuilder();
             var assembliesOfProgram = new[]
             {
@@ -75,6 +80,8 @@ namespace Cloudents.Ico
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+                
             }
 
             app.UseRequestLocalization(new RequestLocalizationOptions
