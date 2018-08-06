@@ -61,7 +61,7 @@ namespace Cloudents.Web
             // Add SnapshotCollector telemetry processor.
             services.AddSingleton<ITelemetryProcessorFactory>(sp => new SnapshotCollectorTelemetryProcessorFactory(sp));
             services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
-
+            //services.AddDataProtection().P
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
                 .AddCookieTempDataProvider(o =>
@@ -202,11 +202,11 @@ namespace Cloudents.Web
         [UsedImplicitly]
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseHeaderRemover("X-HTML-Minification-Powered-By");
+           // app.UseHeaderRemover("X-HTML-Minification-Powered-By");
 
             if (env.IsDevelopment())
             {
-                HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+                //HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true
