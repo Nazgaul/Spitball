@@ -1,4 +1,4 @@
-﻿import { search} from "./resources";
+﻿ import { transformLocation } from "./resources";
 import { connectivityModule } from "./connectivity.module"
 
 let currentVertical = 'item';
@@ -39,16 +39,6 @@ const getNextPage = ({ url, vertical }) => {
 const autoComplete = (data) => {
     return connectivityModule.http.get("suggest", { params: { sentence: data.term, vertical: data.vertical } })
 } 
-    
-let transformLocation = (params) => {
-    let location = params.location;
-    delete params.location;
-    if (location) {
-        params['location.point.latitude'] = location.latitude;
-        params['location.point.longitude'] = location.longitude;
-    }
-    return params;
-};
 
 let transferResultAsk = response => {
     let res = response.data;
