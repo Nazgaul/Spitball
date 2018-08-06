@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query;
 using Cloudents.Core.Command.Admin;
+using Cloudents.Core.Query.Admin;
 
 namespace ConsoleApp
 {
@@ -49,7 +50,7 @@ namespace ConsoleApp
 
             //await UpdateCreationTimeProductionAsync();
             var bus = _container.Resolve<IQueryBus>();
-            var query = new NextQuestionQuery(2255, 638);
+            var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
             var t = await bus.QueryAsync(query, default);
           //  var bus = _container.Resolve<IQueryBus>();
           // var z = new NextQuestionQuery(68, 11);

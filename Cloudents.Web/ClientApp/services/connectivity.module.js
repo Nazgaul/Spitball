@@ -7,15 +7,15 @@ axios.defaults.baseURL = '/api';
 
 export const connectivityModule = {
     http: {
-        get: function(path, callback){
+        get: function(path, params="", callback){
             if(callback){
-                axios.get(path).then(function(data){
+                axios.get(path, params).then(function(data){
                     callback(data);
                 },function(err){
                     callback(err, true);
                 });
             }else{
-                return axios.get(path);
+                return axios.get(path, params);
             }
         },
         post: function(path, body, callback){

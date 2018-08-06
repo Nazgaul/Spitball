@@ -1,12 +1,23 @@
-import axios from "axios";
+import { connectivityModule } from "./connectivity.module"
 import {dollarCalculate} from "../store/constants";
 
+
 export default {
-    getAccount:() => axios.get("/Account"),
-    setUserName: (data) => axios.post("/Account/userName", {name: data}),
-    getUserName: () => axios.get("/Account/userName"),
+    getAccount:() => {
+       return connectivityModule.http.get("/Account")
+    },
+    setUserName: (data) => {
+        return connectivityModule.http.post("/Account/userName", {name: data})
+    },
+    getUserName: () => {
+        return connectivityModule.http.get("/Account/userName")
+    },
     // setUniversity: (universityId) => axios.post("/Account/university", {universityId}),
-    getProfile:(id) => axios.get("/Profile/" + id),
+    getProfile:(id) => {
+        return connectivityModule.http.get("/Profile/" + id)
+    },
     // logout: () => axios.post("/Account/logout"),
-    calculateDollar:(balance)=>dollarCalculate(balance).toFixed(2)
+    calculateDollar:(balance)=> {
+        return dollarCalculate(balance).toFixed(2)
+    }
 }

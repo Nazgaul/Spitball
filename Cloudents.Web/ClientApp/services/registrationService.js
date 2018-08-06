@@ -1,12 +1,34 @@
-import axios from "axios";
+import { connectivityModule } from "./connectivity.module"
+
+
 export default {
-    googleRegistration: (data) => axios.post("/SignUser/google", {token: data}), //Ram change
-    emailRegistration: (email,recaptcha) => axios.post("signuser", {email,captcha: recaptcha}), //Ram change
-    emailResend: () => axios.post("/SignUser/resend"),
-    smsRegistration: (data) => axios.post("/sms", {number: `+${data}`}),
-    smsCodeVerification: (data) => axios.post("/sms/verify", {number: data}),
-    signIn: (email, captcha) => axios.post("signuser", {email, captcha}), //Ram change
-    resendCode: () => axios.post("/sms/resend"),
-    getAccountNum: () => axios.post("/Register/password"),
-    getLocalCode:()=>axios.get("/sms/code")
+    googleRegistration: (data) => { 
+        //Ram change
+        return connectivityModule.http.post("/SignUser/google", {token: data})
+    }, 
+    emailRegistration: (email,recaptcha) => {
+        //Ram change
+        return connectivityModule.http.post("signuser", {email,captcha: recaptcha})
+    }, 
+    emailResend: () => {
+        return connectivityModule.http.post("/SignUser/resend")
+    },
+    smsRegistration: (data) => {
+        return connectivityModule.http.post("/sms", {number: `+${data}`})
+    },
+    smsCodeVerification: (data) => {
+        return connectivityModule.http.post("/sms/verify", {number: data})},
+    signIn: (email, captcha) => {
+        //Ram change
+        return connectivityModule.http.post("signuser", {email, captcha})
+    }, 
+    resendCode: () => {
+        return connectivityModule.http.post("/sms/resend")
+    },
+    getAccountNum: () => {
+        return connectivityModule.http.post("/Register/password")
+    },
+    getLocalCode:()=> {
+        return connectivityModule.http.get("/sms/code")
+    }
 }

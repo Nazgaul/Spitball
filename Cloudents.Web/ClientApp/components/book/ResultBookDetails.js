@@ -16,7 +16,7 @@ export default {
             pageName: "bookDetails",
             isbn13: this.params.id,
             type: "buy"
-        }).then(({data}) => {
+        }).then((data) => {
             this.pageData = data;
             this.UPDATE_LOADING(false);
         });

@@ -46,23 +46,6 @@ export default {
             this.msg = val;
             this.isFirst = true;
         },
-        msg: debounce(function (val) {
-            if (this.focusedIndex >= 0 && this.msg !== this.suggestList[this.focusedIndex].text) {
-                this.focusedIndex = -1;
-            }
-            if (this.focusedIndex < 0) {
-                this.originalMsg = this.msg;
-                this.$emit('input', val);
-                if (val && !this.isFirst) {
-                    this.getAutocmplete({term: val, vertical:this.suggestionVertical ? this.suggestionVertical : this.getCurrentVertical}).then(({data}) => {
-                        this.autoSuggestList = data
-                    })
-                } else {
-                    this.autoSuggestList = [];
-                }
-                this.isFirst = false;
-            }
-        }, 250),
         focusedIndex(val) {
             if (val < 0) {
                 this.msg = this.originalMsg;
@@ -97,6 +80,23 @@ export default {
                 this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4) + "px";
             }
         },
+        changeMsg: debounce(function (val) {
+            if (this.focusedIndex >= 0 && this.msg !== this.suggestList[this.focusedIndex].text) {
+                this.focusedIndex = -1;
+            }
+            if (this.focusedIndex < 0) {
+                this.originalMsg = this.msg;
+                this.$emit('input', val);
+                if (val && !this.isFirst) {
+                    this.getAutocmplete({term: val, vertical:this.suggestionVertical ? this.suggestionVertical : this.getCurrentVertical}).then(({data}) => {
+                        this.autoSuggestList = data
+                    })
+                } else {
+                    this.autoSuggestList = [];
+                }
+                this.isFirst = false;
+            }
+        }, 250),
         closeSuggestions() {
             this.$el.querySelector('.search-b input').blur();
             this.focusedIndex = -1;
