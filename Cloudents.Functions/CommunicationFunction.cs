@@ -26,7 +26,7 @@ namespace Cloudents.Functions
             TraceWriter log,
             CancellationToken token)
         {
-            if (brokeredMessage.DeliveryCount > 5)
+            if (brokeredMessage.DeliveryCount > 1)
             {
                 log.Warning("invoking message from queue");
                 return;
@@ -39,6 +39,8 @@ namespace Cloudents.Functions
                 return;
             }
             await ProcessEmail(emailProvider, binder, log, topicMessage, token);
+
+            log.Info("finish sending email");
         }
 
 
