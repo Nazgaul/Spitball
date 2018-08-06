@@ -180,9 +180,12 @@ let routes2 = [
     },
 
     {
-        path: "/verify-phone",
+        path: "/verify-phone/:newUser?",
         components: {
             default: verifyPhone,
+        },
+        props: {
+            default: (route) => ({newUser: route.params.newUser})
         },
         // props: { newsletterPopup: false },
 

@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <p class="q-text" :class="{'answer': typeAnswer}">{{cardData.text}}</p>
+        <p class="q-text" :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text}}</p>
 
         <!-- v-if="cardData.files.length" -->
         <div class="gallery" v-if="gallery&&gallery.length">
@@ -47,8 +47,7 @@
                         </template>
                     </div>
                     <div class="users">
-                        <!--<template v-for="i in Math.min(3, cardData.answers)">-->
-                        <template v-for="(i, index) in cardData.answersNum">
+                        <template v-for="(i, index) in limitedCardAnswers">
                             <div class="avatar" :key="index">
                                 <v-icon>sbf-comment-icon</v-icon>
                             </div>
@@ -92,7 +91,6 @@
                             <p class="q-text" :class="{'answer': typeAnswer}">{{cardData.text}}</p>
                         </div>
                     </div>
-
                     <div class="gallery fixed-margin" v-if="gallery && gallery.length">
                         <v-carousel prev-icon="sbf-arrow-right left" next-icon="sbf-arrow-right right"
                                     interval="600000" cycle full-screen
@@ -104,17 +102,12 @@
                 </div>
             </div>
             <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}" v-if="detailedView && canDelete" @click="deleteQuestion()">Delete</button>
-        </div>
-
-
-        
-        
-
         <!-- TODO strange behaviour check why is being added tab index-1 to DOM-->
         <v-dialog v-model="showDialog"  max-width="720px"
                   transition="scale-transition" content-class="zoom-image">
             <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
         </v-dialog>
+        </div>
     </v-flex>
 </template>
 <style src="./question-card.less" lang="less"></style>

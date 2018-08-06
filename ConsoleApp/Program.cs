@@ -22,7 +22,7 @@ namespace ConsoleApp
         static async Task Main()
         {
             var builder = new ContainerBuilder();
-            var keys = new ConfigurationKeys
+            var keys = new ConfigurationKeys("https://www.spitball.co")
             {
                 Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
@@ -47,12 +47,14 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-            await UpdateCreationTimeProductionAsync();
-            //var bus = _container.Resolve<IQueryBus>();
+            //await UpdateCreationTimeProductionAsync();
+            var bus = _container.Resolve<IQueryBus>();
+            var query = new NextQuestionQuery(2255, 638);
+            var t = await bus.QueryAsync(query, default);
           //  var bus = _container.Resolve<IQueryBus>();
-           // var z = new NextQuestionQuery(68, 11);
-           // var x = await bus.QueryAsync(z, default);
-           
+          // var z = new NextQuestionQuery(68, 11);
+          // var x = await bus.QueryAsync(z, default);
+
 
 
             Console.WriteLine("Finish");

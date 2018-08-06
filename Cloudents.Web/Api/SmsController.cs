@@ -106,7 +106,7 @@ namespace Cloudents.Web.Api
             if (user == null)
             {
                 var ex = new ArgumentNullException(nameof(user));
-                ex.Data.Add("model", model);
+                ex.Data.Add("model", model.ToString());
                 throw ex;
             }
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number).ConfigureAwait(false);

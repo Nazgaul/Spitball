@@ -23,13 +23,13 @@
 
                             <v-tabs v-else grow class="tab-padding" xs12>
                                 <!--<v-tabs-bar>-->
-                                    <v-tabs-slider color="blue"></v-tabs-slider>
-                                    <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
-                                            v-if="isMyProfile">My&nbsp;</span>Questions
-                                    </v-tab>
-                                    <v-tab @click="activeTab = 2" :href="'#tab-2'" :key="2"><span
-                                            v-if="isMyProfile">My&nbsp;</span>Answers
-                                    </v-tab>
+                                <v-tabs-slider color="blue"></v-tabs-slider>
+                                <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
+                                        v-if="isMyProfile">My&nbsp;</span>Questions
+                                </v-tab>
+                                <v-tab @click="activeTab = 2" :href="'#tab-2'" :key="2"><span
+                                        v-if="isMyProfile">My&nbsp;</span>Answers
+                                </v-tab>
                                 <!--</v-tabs-bar>-->
                             </v-tabs>
                         </div>

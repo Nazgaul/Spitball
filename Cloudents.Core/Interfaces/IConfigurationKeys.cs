@@ -12,5 +12,7 @@
 
         LocalStorageData LocalStorageData { get; }
         string ServiceBus { get;  }
+
+        string SiteEndPoint { get; }
     }
 }

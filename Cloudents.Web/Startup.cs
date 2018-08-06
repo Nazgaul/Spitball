@@ -138,7 +138,7 @@ namespace Cloudents.Web
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
 
-            var keys = new ConfigurationKeys
+            var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = Configuration.GetConnectionString("DefaultConnection"),
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],

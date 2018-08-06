@@ -9,6 +9,7 @@ using Cloudents.Core.Storage;
 using Cloudents.Functions.Di;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.ServiceBus.Messaging;
 
 namespace Cloudents.Functions
 {
@@ -17,7 +18,7 @@ namespace Cloudents.Functions
     {
         [FunctionName("FunctionTalkJs")]
         public static async Task BackgroundFunctionAsync(
-            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.TalkJs))]TalkJsUser obj,
+            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.TalkJs), AccessRights.Listen)]TalkJsUser obj,
             [Inject] IRestClient chatService,
             TraceWriter log,
             CancellationToken token)

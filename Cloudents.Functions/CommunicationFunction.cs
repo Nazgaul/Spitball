@@ -1,4 +1,6 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Message;
@@ -18,41 +20,30 @@ namespace Cloudents.Functions
     {
         [FunctionName("FunctionEmail")]
         public static async Task EmailFunctionAsync(
-            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Email))]BrokeredMessage brokeredMessage,
+            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Email), AccessRights.Listen)]BrokeredMessage brokeredMessage,
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<Mail> emailProvider,
             IBinder binder,
             TraceWriter log,
             CancellationToken token)
         {
-            if (brokeredMessage.DeliveryCount > 5)
+            if (brokeredMessage.DeliveryCount > 1)
             {
                 log.Warning("invoking message from queue");
                 return;
             }
             var topicMessage = brokeredMessage.GetBodyInheritance<BaseEmail>();
-            
+
             if (topicMessage == null)
             {
                 log.Error("error with parsing message");
                 return;
             }
-
             await ProcessEmail(emailProvider, binder, log, topicMessage, token);
+
+            log.Info("finish sending email");
         }
 
-        [FunctionName("FunctionEmailTest")]
-        public static async Task EmailFunctionTimerAsync(
-            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")]
-            IAsyncCollector<Mail> emailProvider,
-            IBinder binder,
-            TraceWriter log,
-            CancellationToken token)
-        {
-            var topicMessage = new AnswerCorrectEmail("hadar@cloudents.com", "text", "xxx",
-                "https://www.spitball.co", 456.23424M);
-            await ProcessEmail(emailProvider, binder, log, topicMessage, token);
-        }
+
 
         private static async Task ProcessEmail(IAsyncCollector<Mail> emailProvider, IBinder binder, TraceWriter log,
             BaseEmail topicMessage, CancellationToken token)
@@ -82,6 +73,7 @@ namespace Cloudents.Functions
                     }
 
                     message.Subject = subject;
+                    message.AddCategory(message.Subject);
                     if (htmlTemplate != null)
                     {
                         var content = htmlTemplate.Inject(topicMessage);
@@ -105,57 +97,63 @@ namespace Cloudents.Functions
             var personalization = new Personalization();
             personalization.AddTo(new Email(topicMessage.To));
             message.AddPersonalization(personalization);
+
             await emailProvider.AddAsync(message, token).ConfigureAwait(false);
         }
 
-        //in the us there is no alpha numeric phone https://support.twilio.com/hc/en-us/articles/223133767-International-support-for-Alphanumeric-Sender-ID?_ga=2.130088527.199542025.1529834887-1745228096.1524564655
-        //[FunctionName("SmsHttp")]
-        //public static async Task<HttpResponseMessage> SmsHttpAsync(
-        //    [HttpTrigger(AuthorizationLevel.Function, "post", Route = "sms")]HttpRequestMessage req,
-        //    [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<SMSMessage> options,
-        //    TraceWriter log,
-        //    CancellationToken token
-        //    )
-        //{
-        //    var jsonContent = await req.Content.ReadAsStringAsync().ConfigureAwait(false);
-        //    var message = JsonConvert.DeserializeObject<SmsMessage>(jsonContent);
-        //    if (message.Message == null)
-        //    {
-        //        log.Error("no body " + jsonContent);
-        //        req.CreateResponse(HttpStatusCode.BadRequest);
-        //    }
-        //    await options.AddAsync(new SMSMessage
-        //    {
-        //        To = message.PhoneNumber,
-        //        Body = "Your code to enter into Spitball is: " + message.Message
-        //    }, token).ConfigureAwait(false);
-        //    return req.CreateResponse(HttpStatusCode.OK);
-        //}
+
 
 
         [FunctionName("FunctionSms")]
         public static async Task SmsServiceBusAsync(
-            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Sms))]SmsMessage2 message,
+            [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Sms), AccessRights.Listen)]BrokeredMessage message,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<SMSMessage> options,
             TraceWriter log,
             CancellationToken token
         )
         {
-            if (message.Message == null)
+            if (message.DeliveryCount > 2)
+            {
+                log.Warning("invoking message from queue");
+                return;
+            }
+
+            if (message.EnqueuedTimeUtc < DateTime.Now.AddDays(-1))
+            {
+                log.Warning("Too late of a message");
+                return;
+            }
+
+            if (message.Label == "Email")
+            {
+                log.Warning("Getting message in topic sms of email - need to check it out");
+                //var topicMessage = message.GetBodyInheritance<BaseEmail>();
+                //var msMessage = new BrokeredMessage(topicMessage)
+                //{
+                //    Label = nameof(TopicSubscription.Email)
+                //};
+                //msMessage.Properties["messageType"] = topicMessage.GetType().AssemblyQualifiedName;
+                //await meg.AddAsync(msMessage);
+                return;
+            }
+            var msg = message.GetBody<SmsMessage2>();
+
+
+            if (msg.Message == null)
             {
                 log.Error("message is null");
                 return;
             }
 
-            if (message.PhoneNumber == null)
+            if (msg.PhoneNumber == null)
             {
                 log.Error("no phone number");
                 return;
             }
             await options.AddAsync(new SMSMessage
             {
-                To = message.PhoneNumber,
-                Body = "Your code to enter into Spitball is: " + message.Message
+                To = msg.PhoneNumber,
+                Body = "Your code to enter into Spitball is: " + msg.Message
             }, token).ConfigureAwait(false);
         }
     }
