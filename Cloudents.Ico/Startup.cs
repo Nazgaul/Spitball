@@ -6,6 +6,7 @@ using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -72,11 +73,7 @@ namespace Cloudents.Ico
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.Use(async (context, next) =>
-            {
-                context.Response.Headers.Add("X-Frame-Options", " DENY");
-                await next();
-            });
+            app.UseClickJacking();
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();

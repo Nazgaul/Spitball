@@ -11,6 +11,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
@@ -209,11 +210,7 @@ namespace Cloudents.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
-            app.Use(async (context, next) =>
-            {
-                context.Response.Headers.Add("X-Frame-Options", " DENY");
-                await next();
-            });
+            app.UseClickJacking();
             if (env.IsDevelopment())
             {
                 //HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
