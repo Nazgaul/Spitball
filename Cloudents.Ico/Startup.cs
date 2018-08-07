@@ -10,6 +10,8 @@ using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,7 +43,17 @@ namespace Cloudents.Ico
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddLocalization(x => x.ResourcesPath = "Resources");
-            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+            services.AddMvc()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddMvcOptions(o=>
+                {
+                    o.Filters.Add(new ResponseCacheAttribute
+                    {
+                        NoStore = true,
+                        Location = ResponseCacheLocation.None
+                    });
+                    //o.Filters.Add(new o.Filters.Add(new ResponseCacheFilter(new CacheProfile())))
+                });
             services.AddHsts(options =>
             {
                 options.MaxAge = TimeSpan.FromDays(365);
@@ -95,7 +107,13 @@ namespace Cloudents.Ico
                 // UI strings that we have localized.
                 SupportedUICultures = SupportedCultures
             });
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=864000");
+                }
+            });
 
             app.UseMvc(routes =>
             {

@@ -25,6 +25,8 @@ using Microsoft.ApplicationInsights.SnapshotCollector;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
@@ -77,7 +79,13 @@ namespace Cloudents.Web
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             }).AddMvcOptions(o =>
                 {
+                    
                     o.Filters.Add(new GlobalExceptionFilter());
+                    o.Filters.Add(new ResponseCacheAttribute
+                    {
+                        NoStore = true,
+                        Location = ResponseCacheLocation.None
+                    });
                     o.ModelBinderProviders.Insert(0, new ApiBinder()); //needed at home
                 });
             if (HostingEnvironment.IsDevelopment())

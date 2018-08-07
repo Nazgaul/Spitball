@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Internal;
+using Microsoft.Extensions.Logging;
 
 namespace Cloudents.Web.Filters
 {
     public class GlobalExceptionFilter : IAsyncExceptionFilter
     {
-        //private readonly IHostingEnvironment _hostingEnvironment;
-
-        //public GlobalExceptionFilter(IHostingEnvironment hostingEnvironment)
-        //{
-        //    _hostingEnvironment = hostingEnvironment;
-        //}
-
         public async Task OnExceptionAsync(ExceptionContext context)
         {
             string body = null;
@@ -42,7 +38,7 @@ namespace Cloudents.Web.Filters
             {
                 ["body"] = body
             });
-            //return Task.CompletedTask;
         }
     }
+
 }
