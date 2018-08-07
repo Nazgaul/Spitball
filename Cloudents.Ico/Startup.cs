@@ -7,12 +7,14 @@ using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
+using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -45,7 +47,7 @@ namespace Cloudents.Ico
             services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddMvc()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                .AddMvcOptions(o=>
+                .AddMvcOptions(o =>
                 {
                     o.Filters.Add(new ResponseCacheAttribute
                     {
@@ -86,6 +88,19 @@ namespace Cloudents.Ico
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseClickJacking();
+            app.UseCsp(csp =>
+            {
+                csp.AllowImages.FromSelf().OnlyOverHttps();
+                csp.AllowFonts.FromSelf().OnlyOverHttps();
+                csp.AllowStyles.FromSelf().AllowUnsafeInline().OnlyOverHttps();
+                csp.AllowScripts.FromSelf().AllowUnsafeInline().OnlyOverHttps();
+                csp.AllowFrames.From("https://www.youtube.com/").OnlyOverHttps();
+                csp.AllowConnections.OnlyOverHttps().ToSelf();
+                csp.ByDefaultAllow.FromNowhere();
+                
+                //csp.SetReportOnly();
+                //csp.ReportViolationsTo("/csp-report");
+            });
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -93,11 +108,15 @@ namespace Cloudents.Ico
             }
             else
             {
+                var reWriterOptions = new RewriteOptions();
+                reWriterOptions.AddRedirectToHttpsPermanent();
+
+                app.UseRewriter(reWriterOptions);
                 app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-                
+                HstsBuilderExtensions.UseHsts(app);
+
             }
-            
+
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture(SupportedCultures[0]),

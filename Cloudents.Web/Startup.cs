@@ -228,12 +228,7 @@ namespace Cloudents.Web
                 });
                 var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
                 configuration.DisableTelemetry = true;
-            }
-            var reWriterOptions = new RewriteOptions()
-                .Add(new RemoveTrailingSlash());
 
-            if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -242,7 +237,8 @@ namespace Cloudents.Web
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
+            var reWriterOptions = new RewriteOptions()
+                .Add(new RemoveTrailingSlash());
             if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 reWriterOptions.AddRedirectToHttpsPermanent();
