@@ -3172,7 +3172,10 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     }
 
 .dropdown-menu.show {
-    display: block
+    display: block!important;
+    opacity: 1!important;
+    visibility: visible!important;
+
 }
 
 .dropdown-header {
