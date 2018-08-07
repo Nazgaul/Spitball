@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -37,6 +38,7 @@ namespace Cloudents.Core.Interfaces
     {
         Task<IList<Question>> GetAllQuestionsAsync();
         Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token);
+        Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token);
     }
 
     public interface ICourseRepository : IRepository<Course>

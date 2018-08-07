@@ -32,4 +32,20 @@ namespace Cloudents.Core.Message
 
         }
     }
+
+    [Serializable]
+    public class ReportEmail:BaseEmail
+    {
+        public ReportEmail(string subject, string message) : base("ram@cloudents.com", null, subject)
+        {
+            Message = message;
+        }
+
+        public string Message { get; private set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(Message)}: {Message}";
+        }
+    }
 }
