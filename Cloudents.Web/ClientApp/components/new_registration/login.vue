@@ -1,7 +1,10 @@
 <template>
     <div class="registration">
+        <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
+            <div class="text-wrap" v-html="getToasterText"></div>
+        </v-snackbar>
         <!--step email-->
-        <div class="step-email" v-if="stepNumber === 'start'">
+        <div class="step-email" v-if="stepNumber === 1">
             <step-template>
                 <div slot="step-data" class="limited-width form-wrap">
                     <h1 class="step-title" v-if="$vuetify.breakpoint.smAndDown">Get started</h1>
@@ -21,7 +24,7 @@
                                   :autofocus="true"></sb-input>
                         <vue-recaptcha class="recaptcha-wrapper" sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
                                        ref="recaptcha"
-                                       @verify="onVerify" @expired="onExpired"></vue-recaptcha>
+                                       @verify="onVerify" @expired="onExpired()"></vue-recaptcha>
                         <input :disabled="!recaptcha.length" class="continue-btn input-field" type="submit"
                                value="Continue">
                         <div class="checkbox-terms">
@@ -46,7 +49,7 @@
         <!--step email end-->
 
         <!--step verify email-->
-        <div v-else-if="stepNumber === 'emailConfirmed' ">
+        <div class="step-verifyEmail" v-else-if="stepNumber === 2 ">
             <step-template>
                 <v-icon>sbf-email</v-icon>
                 <div slot="step-data" class="limited-width wide">
@@ -57,7 +60,7 @@
                     <img :src="require(`./img/checkEmail.png`)"/>
                     <div class="bottom-text">
                         <p class="inline">Didn’t get an email?</p>
-                        <p class="email-text inline click" @click="resend()">&nbsp;Click here to resend.</p>
+                        <p class="email-text inline click"  @click="resendEmail()">&nbsp;Click here to resend.</p>
                     </div>
                 </div>
                 <img slot="step-image" :src="require(`./img/checkEmail.png`)"/>
@@ -66,7 +69,7 @@
         <!--step verify email end-->
 
         <!--step phone number-->
-        <div class="step-phone" v-if="stepNumber === 'enterPhone' ">
+        <div class="step-phone" v-if="stepNumber === 3 ">
             <step-template>
                 <div slot="step-data" class="limited-width">
                     <h1 class="step-title">Enter your phone number</h1>
@@ -80,7 +83,7 @@
                     <sb-input class="phone-field" icon="sbf-phone" :errorMessage="errorMessage.phone"
                               v-model="phone.phoneNum" placeholder="Enter phone number" name="email" type="tel"
                               :autofocus="true"></sb-input>
-                    <button class="continue-btn" @click="sendCode()"
+                    <button class="continue-btn"  @click="sendCode()"
                             :disabled="!(phone.phoneNum&&phone.countryCode)">Continue
                     </button>
                 </div>
@@ -90,7 +93,7 @@
         <!--step phone number end-->
 
         <!--step verify phone number-->
-        <div class="step-phone" v-if="stepNumber === 'verifyPhone' ">
+        <div class="step-phone" v-if="stepNumber === 4 ">
             <step-template>
                 <div slot="step-data" class="limited-width wide">
                     <h1 class="step-title">Enter the confirmation code</h1>
@@ -106,7 +109,7 @@
 
                     <div class="bottom-text">
                         <p class="inline">Didn't get an sms?</p>
-                        <p class="email-text inline click" @click="sendCode">&nbsp;Click here to resend.</p>
+                        <p class="email-text inline click" @click="resendSms()">&nbsp;Click here to resend.</p>
                     </div>
                 </div>
                 <img slot="step-image" :src="require(`./img/confirm-phone.png`)"/>
@@ -115,7 +118,7 @@
         <!--step verify phone number end-->
 
         <!--step congrats -->
-        <div class="step-account" v-if="stepNumber === 'congrats' ">
+        <div class="step-account" v-if="stepNumber === 5 ">
                 <step-template>
                     <div slot="step-data" class="limited-width done">
                         <h1 class="congrats-heading">CONGRATS!</h1>
@@ -130,9 +133,9 @@
         </div>
         <!--step congrats end-->
         <div class="progress">
-            <div v-for="page in 4" :class="{highlighted: page===stepNumber}"></div>
+            <div v-for="page in progressSteps" :class="{highlighted: page===stepNumber}"></div>
         </div>
-        <button class="back-button" @click="showDialog = true">
+        <button class="back-button" @click="showDialog = true" v-if="stepNumber !== 5">
             <v-icon right>sbf-close</v-icon>
         </button>
         <!--exit dialog-->

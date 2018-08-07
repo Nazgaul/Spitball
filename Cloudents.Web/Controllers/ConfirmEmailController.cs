@@ -44,7 +44,7 @@ namespace Cloudents.Web.Controllers
             }
 
             await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
-            return Redirect("/verify-phone?newUser");
+            return Redirect("/login?newUser&step=enterPhone");
         }
     }
 }

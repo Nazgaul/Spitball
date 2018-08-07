@@ -17,9 +17,7 @@ export default {
     data() {
         return {
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
-            // codeSent: false,
-            googleApi: false,
-            confirmed: false,
+            progressSteps: 0,
             confirmationCode: '',
             initialPointsNum,
             phone: {
@@ -33,24 +31,22 @@ export default {
             isNewUser: false,
             showDialog: false,
             toasterTimeout: 5000,
-            stepNumber: 'start',
+            stepNumber: 1,
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
-            emailSent: false,
             agreeTerms: false,
             stepsEnum: {
-                "verifyPhone": "verifyPhone",
-                "enterPhone": "enterPhone",
-                "emailConfirmed": "emailConfirmed",
-                "congrats": "congrats"
-
+                "verifyPhone": 4,
+                "enterPhone": 3,
+                "emailConfirmed": 2,
+                "congrats": 5,
+                "startStep": 1
             }
         }
     },
     watch: {
         getShowToaster: function (val) {
             if (val) {
-
                 var self = this;
                 setTimeout(function () {
                     self.updateToasterParams({
@@ -62,19 +58,18 @@ export default {
 
     },
     computed: {
-        ...mapGetters(['fromPath']),
-        ...mapGetters({getShowToaster: 'getShowToaster', getToasterText: 'getToasterText'}),
+        ...mapGetters({getShowToaster: 'getShowToaster', getToasterText: 'getToasterText', fromPath: 'fromPath'}),
     },
     methods: {
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         ...mapActions({updateToasterParams: 'updateToasterParams'}),
 
-        //do not change step, only here
+        //do not change step, only from here
         changeStepNumber(step) {
             if (this.stepsEnum.hasOwnProperty(step)) {
                 this.stepNumber = this.stepsEnum[step];
             }
-            console.log('step!!!222', this.stepNumber)
+            console.log('step name-::',step, 'step number-::',this.stepNumber);
         },
 
         googleLogIn() {
@@ -98,13 +93,14 @@ export default {
                 self.updateLoading(false);
             });
         },
-
+        // captcha events methods
         onVerify(response) {
             this.recaptcha = response;
         },
         onExpired() {
             this.recaptcha = "";
         },
+
         $_back() {
             let url = this.fromPath || {path: '/ask', query: {q: ''}};
             this.$router.push({...url});
@@ -115,6 +111,7 @@ export default {
         hideDialog() {
             this.showDialog = false
         },
+        //sms code
         sendCode() {
             this.updateLoading(true);
             let self = this;
@@ -126,19 +123,30 @@ export default {
                         toasterText: 'A verification code was sent to your phone',
                         showToaster: true,
                     });
-                    let step = resp.data;
-                    self.changeStepNumber(step);
+                    self.changeStepNumber('verifyPhone');
                 }, function (error) {
                     self.updateLoading(false);
                     self.errorMessage.phone = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                 })
+        },
+        resendSms() {
+            registrationService.resendCode()
+                .then((success) => {
+                        this.updateToasterParams({
+                            toasterText: 'A verification code was sent to your phone',
+                            showToaster: true,
+                        });
+                    },
+                    error => {
+                        self.errorMessage = error.text;
+                        console.error(error, 'sign in resend error')
+                    })
         },
         emailSend() {
             let self = this;
             this.updateLoading(true);
             registrationService.emailRegistration(this.userEmail, this.recaptcha)
                 .then(function (resp) {
-                    // TODO step
                     let step = resp.data.step;
                     self.changeStepNumber(step);
                     self.updateLoading(false);
@@ -148,6 +156,18 @@ export default {
                     self.$refs.recaptcha.reset();
                     self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                 });
+        },
+        resendEmail() {
+            registrationService.emailResend()
+                .then(response => {
+                        this.updateToasterParams({
+                            toasterText: 'Email sent',
+                            showToaster: true,
+                        })
+                    },
+                    error => {
+                        console.error('resent error', error)
+                    })
         },
         smsCodeVerify() {
             let self = this;
@@ -170,7 +190,7 @@ export default {
                 });
         },
         finishRegistration() {
-            let url = self.fromPath || defaultSubmitRoute;
+            let url = this.fromPath || defaultSubmitRoute;
             window.isAuth = true;
             this.$router.push({...url});
      }
@@ -184,7 +204,6 @@ export default {
                 })
             })
         }, 500);
-
     },
     created() {
         registrationService.getLocalCode().then(({data}) => {
@@ -192,7 +211,14 @@ export default {
         });
         //check if new user param exists in email url
         this.isNewUser = this.$route.query['newUser'] !== undefined;
-
+        //define number of steps to complete
+        if(this.isNewUser){
+            this.progressSteps = 5; // will show congrats page
+        }else{
+            this.progressSteps = 4;
+        }
+        let step = this.$route.query.step || 'startStep';
+        this.changeStepNumber(step);
      },
 
 }
