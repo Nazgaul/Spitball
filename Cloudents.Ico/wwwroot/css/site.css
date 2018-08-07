@@ -147,7 +147,7 @@ html, body {
         width: 412px;
         height: 108px;
     }
-    #mobile-whitepaper{
+    #mobile-whitepaper-wrap{
         display: none;
     }
  /* a.popUpbtn{
@@ -1491,15 +1491,20 @@ hr, .hr {
     img.advisor-co-img{
         max-width: 225px;
     }
-    #mobile-whitepaper{
-        position: fixed;
+    #mobile-whitepaper-wrap{
+        display: block;
+        z-index: 99999;
+        position:fixed; 
         bottom: 24px;
         left: 0;
         right: 0;
-        margin: 0 auto; /* Will not center vertically and won't work in IE6/7. */
+        margin: 0 auto; 
+        height: auto;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    #mobile-whitepaper{
         height: 36px;
         border-radius: 8px;
         background-color: #ebbc18;
@@ -1507,6 +1512,17 @@ hr, .hr {
         width: 250px;
         color: #3532d5;
     
+    }
+    #mobile-whitepaper::after{
+        transform: rotate(180deg);
+    }
+    .mob-whitepaper{
+        min-width: 250px!important;
+        left: auto!important;
+        bottom: 100%!important;
+        top: auto!important;
+
+
     }
     div.blocks{
          width: 100%;
@@ -2716,7 +2732,7 @@ li.nav-item{
 }
 
 .navbar .navbar-nav .dropdown-menu {
-    background: #1b1e4b;
+    /* background: #1b1e4b; */
     border: 0;
     border-radius: 0;
     padding: 10px 0;
@@ -2724,7 +2740,8 @@ li.nav-item{
     top: 100%;
     display: block;
     opacity: 0;
-    width: 200px;
+    /* width: 200px; */
+    width: auto;
     visibility: hidden;
     transition: all .3s;
     border-radius: 2px;

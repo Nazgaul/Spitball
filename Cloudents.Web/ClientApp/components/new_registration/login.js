@@ -74,10 +74,10 @@ export default {
 
         googleLogIn() {
             var self = this;
-            var authInstance = gapi.auth2.getAuthInstance();
+            let authInstance = gapi.auth2.getAuthInstance();
             this.updateLoading(true);
             authInstance.signIn().then(function (googleUser) {
-                var idToken = googleUser.getAuthResponse().id_token;
+                let idToken = googleUser.getAuthResponse().id_token;
                 registrationService.googleRegistration(idToken)
                     .then(function (resp) {
                         let step = resp.data.step;
@@ -89,7 +89,6 @@ export default {
                         console.error(error);
                     });
             }, function (error) {
-                console.error(error, 'errrr')
                 self.updateLoading(false);
             });
         },
