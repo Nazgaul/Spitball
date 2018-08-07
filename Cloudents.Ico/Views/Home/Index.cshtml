@@ -21,8 +21,15 @@
             </a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarToggle">
                 <ul class="navbar-nav animated remove-animation" data-animate="fadeInDown" data-delay=".9">
-                    <li class="nav-item" id="whitepaper-nav">
+         <!-- !!!!    DO NOT DELETE  -->
+                    <!-- <li class="nav-item dropdown-toggle" id="whitepaper-nav" dropdown-toggle type="button" data-toggle="dropdown">
                         <a href="https://zboxstorage.blob.core.windows.net/zboxhelp/ico/Spitball-WP.pdf" target="_blank" class="nav-link menu-link"> <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]</a>
+                    </li>
+                     <ul class="dropdown-menu whitepaper">
+                        <li><a href="#">Download</a></li>
+                        <li><a href="#">One Pager</a></li>
+                    </ul> -->
+                    <li class="nav-item dropdown-toggle" id="whitepaper-nav">
                     </li>
                     <li class="nav-item" id="telegram-nav"><a href="https://t.me/Spitball" target="_blank" class=" nav-link menu-link"><em class="fa fa-paper-plane" style="margin-right: 14px;"></em>@Localizer["Join Telegram"] </a></li>
                 </ul>
@@ -455,7 +462,19 @@
         </div><!-- .row  -->
     </div><!-- .container  -->
 </div>
-<a id="mobile-whitepaper" href="https://zboxstorage.blob.core.windows.net/zboxhelp/ico/Spitball-WP.pdf" target="_blank" class="btn btn-sm btn-outline menu-link">
+
+<div  id ="mobile-whitepaper-wrap" style="">
+   
+<a id="mobile-whitepaper" href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" 
+ class="btn btn-sm btn-outline menu-link" > 
     <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]
 </a>
+   <!-- 
+       add attributes to above link in order for dropdown to work
+      ////>>>>>  dropdown-toggle type="button" data-toggle="dropdown"
+       <ul class="dropdown-menu mob-whitepaper">
+                        <li><a href="#">Download</a></li>
+                        <li><a href="#">One Pager</a></li>
+                    </ul> -->
+</div>
 

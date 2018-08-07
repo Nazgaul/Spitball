@@ -3,6 +3,11 @@
     'use strict';
     var $win = $(window), $body_m = $('body'), $navbar = $('.navbar');
 
+    //toggle nested ul
+    // $("#whitepaper-nav").click(function() {
+    //     $(this).find("ul.assignments").toggleClass('hide');
+    //   });
+
     // Touch Class
     if (!("ontouchstart" in document.documentElement)) {
         $body_m.addClass("no-touch");

@@ -1,4 +1,3 @@
-import axios from "axios";
 import Talk from "talkjs";
 import accountService from "../services/accountService"
 import {debug} from "util";
@@ -6,6 +5,30 @@ import {dollarCalculate} from "./constants";
 
 let userLogin = false;
 import {router} from "../main";
+
+function setIntercomSettings(data){
+    let app_id = "njmpgayv";
+    let hide_default_launcher = intercomSettings.hide_default_launcher;
+    let user_id = null;
+    let user_name = null;
+    if(!!data){
+        user_id = "Sb_" + data.id;
+        user_name = data.name;
+    }
+    window.intercomSettings = {
+        app_id,
+        hide_default_launcher,
+        user_id,
+        name: user_name
+    }
+
+    window.Intercom('boot', {intercomSettings});
+}
+
+function removeIntercomeData(){
+    window.Intercom('shutdown');
+}
+
 
 const state = {
     login: false,
@@ -52,10 +75,9 @@ const getters = {
 };
 const actions = {
     logout({state, commit}) {
-        // accountService.logout();
-        // commit("logout");
+        removeIntercomeData();
+        setIntercomSettings();
         window.location.replace("/logout");
-        //router.go({path: '/logout'});
 
     },
     userStatus({dispatch, commit, getters}, {isRequire, to}) {
@@ -67,14 +89,21 @@ const actions = {
             return Promise.resolve();
         }
         if (window.isAuth) {
-            return axios.get("account").then(({data}) => {
+            return accountService.getAccount().then(({data}) => {
+                setIntercomSettings(data);
                 commit("changeLoginStatus", true);
                 commit("updateUser", data);
                 dispatch("connectToChat");
+                
             }).catch(_ => {
+                setIntercomSettings();
                 isRequire ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
+                
             });
+        }else{
+            removeIntercomeData();
+            setIntercomSettings();
         }
     },
     saveCurrentPathOnPageChange({commit}, {currentRoute}){

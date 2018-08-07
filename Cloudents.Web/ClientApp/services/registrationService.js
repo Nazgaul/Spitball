@@ -1,14 +1,13 @@
 import { connectivityModule } from "./connectivity.module"
 
-
 export default {
     googleRegistration: (data) => { 
         //Ram change
         return connectivityModule.http.post("/SignUser/google", {token: data})
     }, 
-    emailRegistration: (email,recaptcha) => {
+    emailRegistration: (email, recaptcha) => {
         //Ram change
-        return connectivityModule.http.post("signuser", {email,captcha: recaptcha})
+        return connectivityModule.http.post("signuser", {email, captcha: recaptcha})
     }, 
     emailResend: () => {
         return connectivityModule.http.post("/SignUser/resend")
