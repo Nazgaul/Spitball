@@ -6,6 +6,30 @@ import {dollarCalculate} from "./constants";
 let userLogin = false;
 import {router} from "../main";
 
+function setIntercomSettings(data){
+    let app_id = "njmpgayv";
+    let hide_default_launcher = intercomSettings.hide_default_launcher;
+    let user_id = null;
+    let user_name = null;
+    if(!!data){
+        user_id = "Sb_" + data.id;
+        user_name = data.name;
+    }
+    window.intercomSettings = {
+        app_id,
+        hide_default_launcher,
+        user_id,
+        name: user_name
+    }
+
+    window.Intercom('boot', {intercomSettings});
+}
+
+function removeIntercomeData(){
+    window.Intercom('shutdown');
+}
+
+
 const state = {
     login: false,
     user: null,
@@ -51,6 +75,8 @@ const getters = {
 };
 const actions = {
     logout({state, commit}) {
+        removeIntercomeData();
+        setIntercomSettings();
         window.location.replace("/logout");
 
     },
@@ -64,13 +90,20 @@ const actions = {
         }
         if (window.isAuth) {
             return accountService.getAccount().then(({data}) => {
+                setIntercomSettings(data);
                 commit("changeLoginStatus", true);
                 commit("updateUser", data);
                 dispatch("connectToChat");
+                
             }).catch(_ => {
+                setIntercomSettings();
                 isRequire ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
+                
             });
+        }else{
+            removeIntercomeData();
+            setIntercomSettings();
         }
     },
     saveCurrentPathOnPageChange({commit}, {currentRoute}){
