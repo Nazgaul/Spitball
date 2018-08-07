@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
     <ProjectReference Include="..\Cloudents.Infrastructure.Framework\Cloudents.Infrastructure.Framework.csproj" />
+    <ProjectReference Include="..\Cloudents.Web.Extensions\Cloudents.Web.Extensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

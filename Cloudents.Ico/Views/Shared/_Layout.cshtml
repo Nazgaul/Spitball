@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Cloudents.Web.Extensions
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -9,12 +10,13 @@
     <environment include="Development">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="~/css/theme.css"  />
-        <link rel="stylesheet" href="~/css/vendor.bundle.css"  />
+        <link rel="stylesheet" href="~/css/theme.css" />
+        <link rel="stylesheet" href="~/css/vendor.bundle.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/dist/site.min.css" asp-append-version="true"  />
+        <link rel="stylesheet" href="~/dist/site.min.css" asp-append-version="true" />
     </environment>
+    @Html.Raw(ClickJackingTagHelper.FullScript)
 </head>
 <body class="theme-muscari io-mascari" data-spy="scroll" data-target="#mainnav" data-offset="80">
     @RenderBody()
