@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
@@ -12,12 +13,12 @@ namespace Cloudents.Core.CommandHandler
     [UsedImplicitly]
     public class CreateQuestionCommandHandler : ICommandHandler<CreateQuestionCommand>
     {
-        private readonly IRepository<Question> _questionRepository;
+        private readonly IQuestionRepository _questionRepository;
         private readonly IRepository<QuestionSubject> _questionSubjectRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
-        public CreateQuestionCommandHandler(IRepository<Question> questionRepository,
+        public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
             IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository,
             IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
@@ -31,6 +32,14 @@ namespace Cloudents.Core.CommandHandler
         {
             //if you get an exception doing debug make sure the locals window is minimized.
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(true);
+
+            var oldQuestion = await _questionRepository.GetUserLastQuestionAsync(user.Id, token);
+
+            if (oldQuestion?.Created.AddMinutes(2) > DateTime.UtcNow)
+            {
+                throw new InvalidOperationException("You need to wait before asking more questions");
+            }
+            
 
             var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId,token).ConfigureAwait(true);
             var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
