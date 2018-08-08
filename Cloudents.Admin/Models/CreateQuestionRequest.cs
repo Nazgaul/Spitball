@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Cloudents.Web.Models
+namespace Cloudents.Admin.Models
 {
     public class CreateQuestionRequest
     {

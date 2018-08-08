@@ -20,8 +20,9 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [ApiController]
     [Authorize]
-    public class QuestionController : Controller
+    public class QuestionController : ControllerBase
     {
         private readonly Lazy<ICommandBus> _commandBus;
         private readonly UserManager<User> _userManager;
