@@ -46,7 +46,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Management", "Clo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Infrastructure.Data.Test", "Cloudents.Infrastructure.Data.Test\Cloudents.Infrastructure.Data.Test.csproj", "{0F4CDB18-8825-4D7B-A42C-B87C67813C48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Web.Extensions", "Cloudents.Web.Extensions\Cloudents.Web.Extensions.csproj", "{5E402ABD-00DC-4640-ACF5-2C6F948920F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Web.Extensions", "Cloudents.Web.Extensions\Cloudents.Web.Extensions.csproj", "{5E402ABD-00DC-4640-ACF5-2C6F948920F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.Admin", "Cloudents.Admin\Cloudents.Admin.csproj", "{B681C8BA-4E3E-4A1D-A4C5-DA0A911AF534}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -114,6 +116,10 @@ Global
 		{5E402ABD-00DC-4640-ACF5-2C6F948920F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E402ABD-00DC-4640-ACF5-2C6F948920F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E402ABD-00DC-4640-ACF5-2C6F948920F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B681C8BA-4E3E-4A1D-A4C5-DA0A911AF534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B681C8BA-4E3E-4A1D-A4C5-DA0A911AF534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B681C8BA-4E3E-4A1D-A4C5-DA0A911AF534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B681C8BA-4E3E-4A1D-A4C5-DA0A911AF534}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +140,7 @@ Global
 		{EDD969E4-BFBC-491A-9468-18BCDF3BF618} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 		{0F4CDB18-8825-4D7B-A42C-B87C67813C48} = {974199DB-E3D7-4CAC-BBEA-6A0801E51009}
 		{5E402ABD-00DC-4640-ACF5-2C6F948920F6} = {2EB273BF-0342-4FDC-942E-70261335187C}
+		{B681C8BA-4E3E-4A1D-A4C5-DA0A911AF534} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		RESX_PrefixTranslations = True
