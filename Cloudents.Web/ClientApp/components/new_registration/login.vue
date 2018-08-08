@@ -156,12 +156,9 @@
         </div>
         <!--step congrats end-->
 
-        <div class="progress">
+        <div class="progress" v-if="stepNumber !== 6">
             <div v-for="page  in  progressSteps" :class="{highlighted: page===stepNumber}"></div>
         </div>
-
-
-
 
         <button class="back-button" @click="showDialog = true" v-if="stepNumber !== 5">
             <v-icon right>sbf-close</v-icon>

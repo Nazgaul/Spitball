@@ -1,10 +1,11 @@
 @import "../../mixin.less";
 @import "../../mixin.less";
 
-#app > .overlay.overlay--active:before {
-  background-color: #000000;
-  opacity: 0.6;
-}
+//#app > .overlay.overlay--active:before {
+//  background-color: #000000;
+//  opacity: 1;
+//}
+
 .registration {
   background: @color-white;
   height: 100%;
@@ -97,7 +98,9 @@
       width: 100%;
       position: relative;
 
+
       &.image {
+        background: #eee;
         @media (max-width: @screen-xs) {
           display: none;
         }
@@ -124,7 +127,7 @@
     }
     p {
       font-size: 18px;
-      line-height: normal;
+      //line-height: normal;
       letter-spacing: -0.5px;
       text-align: center;
       color: @color-grey;
@@ -338,11 +341,11 @@
   //step confirm phone
   .step-phone-confirm .step-wrapper {
 
-    .step-title{
-      @media (max-width: @screen-xs) {
-        margin-top: 16px;
-      }
-    }
+    //.step-title{
+    //  @media (max-width: @screen-xs) {
+    //    margin-top: 16px;
+    //  }
+    //}
     .limited-width {
       padding-bottom: 54px;
       &.wide {
@@ -409,15 +412,6 @@
       margin-top: 48px;
     }
 
-    .limited-width.wide{
-      height: 315px;
-      p{max-width: none;}
-      .code-field,.continue-btn{
-        max-width: 400px;
-        margin: 20px auto 0;
-      }
-    }
-
     /* For Firefox */
     input[type='number'] {
       -moz-appearance:textfield;
@@ -476,10 +470,10 @@
       }
       .bottom-text {
         font-size: 18px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
+        //font-weight: normal;
+        //font-style: normal;
+        //font-stretch: normal;
+        //line-height: normal;
         letter-spacing: -0.5px;
         text-align: center;
         color: #888b8e;
@@ -505,10 +499,10 @@
     .google-signin {
       background: @google-btn-bg;
       font-size: 18px;
-      font-weight: normal;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: normal;
+      //font-weight: normal;
+      //font-style: normal;
+      //font-stretch: normal;
+      //line-height: normal;
       letter-spacing: -0.5px;
       text-align: center;
       color: #ffffff;
@@ -568,7 +562,7 @@
         position: absolute;
         left: 16px;
         top: 17px;
-        line-height: normal;
+        //line-height: normal;
         font-size: 18px;
       }
     }
@@ -645,14 +639,13 @@
     }
 
     .side-wrapper.image{
+      background: #eee;
       .text{
         height: 135px;
       }
       img{margin: 25px 0;}
 
     }
-
-
     .step-title{
       @media (max-width: @screen-xs) {
         margin-top: 16px;
@@ -868,25 +861,7 @@
       }
     }
   }
-
 }
 
 // end dialog
-//.small-button {
-//  min-width: 160px;
-//  height: 24px;
-//  border-radius: 4px;
-//  background-color: #ffffff;
-//  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-//  font-size: 14px;
-//  letter-spacing: -0.2px;
-//  color: @color-main-purple;
-//  margin: 12px 0;
-//
-//  i {
-//    font-size: 14px;
-//    margin-right: 8px;
-//  }
-//}
-
 

@@ -5,7 +5,10 @@
                 <div slot="icon" class="mb-3">
                     <v-avatar tag="v-avatar" class="Mask" size="32"><not-logged-in></not-logged-in></v-avatar>
                     </div>
-                <template slot="text" class="mb-3"><span class="mb-4 blue--text"><router-link class="blue--text" to="/register">Sign up</router-link>  or  <router-link to="/signin" class="blue--text">Log in</router-link></span></template>
+                <template slot="text" class="mb-3"><span class="mb-4 blue--text">
+                    <router-link class="blue--text":to="{ path: '/register' }">Sign up</router-link>  or
+                    <router-link class="blue--text" :to="{ path: '/signin' }" >Log in</router-link>
+                </span></template>
             </user-block>
             <template v-for="(item) in notRegMenu">
                 <template v-if="item.name">

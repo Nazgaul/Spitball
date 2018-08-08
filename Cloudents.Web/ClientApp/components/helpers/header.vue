@@ -32,9 +32,8 @@
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
 
-                                    <a v-if="!loggedIn" class="header-login body-1" href="/register">Sign Up</a>
-                                    <a v-if="!loggedIn" class="header-login body-1" href="/signin">Login</a>
-
+                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/register' }">Sign Up</router-link>
+                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}">Login</router-link>
 
                                     <v-menu bottom left offset-y class="gamburger"
                                             v-if="!loggedIn && $vuetify.breakpoint.xsOnly">
