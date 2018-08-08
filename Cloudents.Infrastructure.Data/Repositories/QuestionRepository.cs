@@ -30,5 +30,11 @@ namespace Cloudents.Infrastructure.Data.Repositories
                 .Where(w=>w.CorrectAnswer == null)
                 .ToListAsync(token).ConfigureAwait(false);
         }
+
+        public Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token)
+        {
+            return Session.Query<Question>().Where(w => w.User.Id == userId).OrderByDescending(o => o.Id).Take(1)
+                .SingleOrDefaultAsync(cancellationToken: token);
+        }
     }
 }
