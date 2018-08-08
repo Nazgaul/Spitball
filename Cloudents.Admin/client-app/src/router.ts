@@ -1,7 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+
 import Home from './views/Home.vue'
-import Main from './components/main/main'
+import Question from '@/components/question/question'
+import QMark from '@/components/question/questionComponents/mark/mark'
+import QDelete from '@/components/question/questionComponents/delete/delete'
+import QAdd from '@/components/question/questionComponents/add/add'
 
 Vue.use(Router)
 
@@ -10,22 +15,42 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home
     },
     {
-      path: '/main',
-      name: 'main',
-      component: Main
-    },
-    {
-      path: '/about',
-      name: 'about',
+      path: '/question',
+      name: 'question',
       // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
+      // this generates a separate chunk (question.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
+      // component: () => import(/* webpackChunkName: "about" */ './components/question/question')
+      component: Question,
+      children: [
+        {
+          path: '',
+          redirect: 'mark',
+        },
+        {
+          path: 'mark',
+          component: QMark
+        },
+        {
+          path:'delete',
+          component: QDelete
+        },
+        {
+          path:'add',
+          component: QAdd
+        },
+      ]
+    },
+
+
+    {
+      path: '/*',
+      redirect: '/home',
+    },
   ]
 })
