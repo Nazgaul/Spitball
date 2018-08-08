@@ -2,14 +2,11 @@
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,30 +16,31 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize, ApiController]
 
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly ICommandBus _commandBus;
-        private readonly IMapper _mapper;
+        //private readonly ICommandBus _commandBus;
+        //private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, ICommandBus commandBus, IMapper mapper,
+        public AccountController(UserManager<User> userManager, /*ICommandBus commandBus, IMapper mapper,*/
             SignInManager<User> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
-            _commandBus = commandBus;
-            _mapper = mapper;
+           // _commandBus = commandBus;
+           // _mapper = mapper;
             _signInManager = signInManager;
             _configuration = configuration;
         }
 
         // GET
         [HttpGet]
-
-        public async Task<IActionResult> GetAsync([FromServices] IQueryBus queryBus, CancellationToken token)
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult<UserAccountDto>> GetAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserDataByIdQuery(userId);
@@ -57,7 +55,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             user.Token = talkJs;
-            return Ok(user);
+            return user;
         }
 
         private string GetToken()
@@ -82,19 +80,11 @@ namespace Cloudents.Web.Api
             }
         }
 
-        [HttpPost("university")]
-        public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
-        {
-            var command = _mapper.Map<AssignUniversityToUserCommand>(model);
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-            return Ok();
-        }
-
-        //[HttpPost("logout")]
-        //public async Task<IActionResult> LogOutAsync()
+        //[HttpPost("university")]
+        //public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         //{
-        //    await _signInManager.SignOutAsync().ConfigureAwait(false);
-        //    TempData.Clear();
+        //    var command = _mapper.Map<AssignUniversityToUserCommand>(model);
+        //    await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
         //    return Ok();
         //}
     }

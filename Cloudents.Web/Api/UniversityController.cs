@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
-using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,8 +11,8 @@ namespace Cloudents.Web.Api
     /// University api controller
     /// </summary>
     [Produces("application/json")]
-    [Route("api/[controller]")]
-    public class UniversityController : Controller
+    [Route("api/[controller]"), ApiController]
+    public class UniversityController : ControllerBase
     {
         private readonly IUniversitySearch _universityProvider;
 
@@ -34,15 +33,11 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
         [HttpGet]
-        [ValidateModel]
-        public async Task<IActionResult> GetAsync([FromQuery] UniversityRequest model, CancellationToken token)
+        public async Task<UniversityResponse> GetAsync([FromQuery] UniversityRequest model, CancellationToken token)
         {
             var result = await _universityProvider.SearchAsync(model.Term,
                 model.Location.ToGeoPoint(), token).ConfigureAwait(false);
-            return Ok(new
-            {
-                universities = result
-            });
+            return new UniversityResponse(result);
         }
     }
 }

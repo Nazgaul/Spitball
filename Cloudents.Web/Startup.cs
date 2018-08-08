@@ -27,6 +27,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Joonasw.AspNetCore.SecurityHeaders;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
@@ -64,7 +65,15 @@ namespace Cloudents.Web
             // Add SnapshotCollector telemetry processor.
             services.AddSingleton<ITelemetryProcessorFactory>(sp => new SnapshotCollectorTelemetryProcessorFactory(sp));
             services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
-            //services.AddDataProtection().P
+
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
                 .AddCookieTempDataProvider(o =>
@@ -87,18 +96,13 @@ namespace Cloudents.Web
                         Location = ResponseCacheLocation.None
                     });
                     o.ModelBinderProviders.Insert(0, new ApiBinder()); //needed at home
-                });
+                }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             if (HostingEnvironment.IsDevelopment())
             {
                 SwaggerInitial(services);
             }
 
-            //services.AddHsts(options =>
-            //{
-            //    options.MaxAge = TimeSpan.FromDays(365);
-            //    options.IncludeSubDomains = true;
-            //    options.Preload = true;
-            //});
+            
             services.AddResponseCompression();
             services.AddResponseCaching();
 
@@ -333,6 +337,7 @@ namespace Cloudents.Web
                     return Task.CompletedTask;
                 };
             });
+
             if (env.IsDevelopment())
             {
                 //HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();

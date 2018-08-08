@@ -13,7 +13,7 @@ namespace Cloudents.Web.Services
 
         public RequestBodyInitializer(IHttpContextAccessor httpContextAccessor)
         {
-            this._httpContextAccessor = httpContextAccessor;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public void Initialize(ITelemetry telemetry)

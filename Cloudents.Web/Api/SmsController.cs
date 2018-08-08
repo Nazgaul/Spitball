@@ -6,7 +6,6 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
@@ -15,35 +14,33 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/[controller]"),ApiController]
 
-    public class SmsController : Controller
+    public class SmsController : ControllerBase
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IServiceBusProvider _serviceBus;
         private readonly ISmsSender _client;
 
-        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager, IServiceBusProvider serviceBus, ISmsSender client)
+        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager, IServiceBusProvider serviceBus,
+            ISmsSender client)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _serviceBus = serviceBus;
             _client = client;
+
         }
 
         [HttpGet("code")]
-        public async Task<IActionResult> GetCountryCallingCodeAsync([FromServices] IIpToLocation service, CancellationToken token)
+        public async Task<CallingCallResponse> GetCountryCallingCodeAsync([FromServices] IIpToLocation service, CancellationToken token)
         {
             var result = await service.GetAsync(HttpContext.Connection.GetIpAddress(), token).ConfigureAwait(false);
-            return Ok(
-                new
-                {
-                    code = result?.CallingCode
-                });
+            return new CallingCallResponse(result?.CallingCode);
         }
 
-        [HttpPost, ValidateModel]
+        [HttpPost]
         public async Task<IActionResult> SmsUserAsync(
             [FromBody]PhoneNumberRequest model,
             CancellationToken token)
@@ -55,12 +52,7 @@ namespace Cloudents.Web.Api
                 ex.Data.Add("model", model.ToString());
                 throw ex;
             }
-            if (!user.EmailConfirmed)
-            {
-                return Unauthorized();
-            }
-
-            if (user.PhoneNumberConfirmed)
+            if (!user.EmailConfirmed || user.PhoneNumberConfirmed)
             {
                 return Unauthorized();
             }
@@ -74,7 +66,6 @@ namespace Cloudents.Web.Api
 
             var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
 
-            //var retVal = t2.Result;
             if (retVal.Succeeded)
             {
                 var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id, user.Name)
@@ -98,10 +89,9 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        [HttpPost("verify"), ValidateModel]
+        [HttpPost("verify")]
         public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
         {
-            
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {

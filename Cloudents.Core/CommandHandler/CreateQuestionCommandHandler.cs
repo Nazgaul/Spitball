@@ -49,6 +49,8 @@ namespace Cloudents.Core.CommandHandler
             //TODO: not right
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ?? Enumerable.Empty<Task>();
             await Task.WhenAll(l).ConfigureAwait(true);
+
+            message.Id = id;
         }
     }
 }
