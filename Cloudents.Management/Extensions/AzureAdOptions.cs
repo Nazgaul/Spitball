@@ -1,4 +1,4 @@
-﻿namespace Microsoft.AspNetCore.Authentication
+﻿namespace Cloudents.Management.Extensions
 {
     public class AzureAdOptions
     {

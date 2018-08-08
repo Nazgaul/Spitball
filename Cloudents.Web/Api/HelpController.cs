@@ -12,8 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/Help")]
-    public class HelpController : Controller
+    [Route("api/Help"), ApiController]
+    public class HelpController : ControllerBase
     {
         private readonly IRestClient _restClient;
 
@@ -24,15 +24,15 @@ namespace Cloudents.Web.Api
 
         [HttpGet]
         [ResponseCache(Duration = TimeConst.Hour)]
-        public async Task<IActionResult> GetAsync(CancellationToken token)
+        public async Task<IEnumerable<QnA>> GetAsync(CancellationToken token)
         {
             var uri = new Uri("https://zboxstorage.blob.core.windows.net/zboxhelp/new/help.xml");
             var t = await _restClient.DownloadStreamAsync(uri, token).ConfigureAwait(false);
 
-            using(var stream = t.stream)
+            using (var stream = t.stream)
             {
                 var model = PassXmlDoc(stream);
-                return Json(model);
+                return model;
             }
         }
 
@@ -41,13 +41,13 @@ namespace Cloudents.Web.Api
         {
             var data = XDocument.Load(stream);
             return from content in data.Descendants("content")
-                orderby int.Parse(content.Attribute("order")?.Value ?? "0")
-                select new QnA
-                {
-                    Question = content.Element("question")?.Value.Trim(),
-                    Answer = content.Element("answer")?.Value.Trim()
+                   orderby int.Parse(content.Attribute("order")?.Value ?? "0")
+                   select new QnA
+                   {
+                       Question = content.Element("question")?.Value.Trim(),
+                       Answer = content.Element("answer")?.Value.Trim()
 
-                };
+                   };
         }
 
         public class QnA

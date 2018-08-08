@@ -15,8 +15,8 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize]
-    public class UploadController : Controller
+    [Authorize, ApiController]
+    public class UploadController : ControllerBase
     {
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
         private readonly string[] _supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
@@ -29,7 +29,7 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpPost("ask")]
-        public async Task<IActionResult> UploadFileAsync(UploadFileRequest model,
+        public async Task<UploadAskFileResponse> UploadFileAsync(UploadFileRequest model,
             [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {
@@ -58,10 +58,7 @@ namespace Cloudents.Web.Api
                 }
             });
             var result = await Task.WhenAll(tasks).ConfigureAwait(false);
-            return Ok(new
-            {
-                files = result
-            });
+            return new UploadAskFileResponse(result);
         }
     }
 }

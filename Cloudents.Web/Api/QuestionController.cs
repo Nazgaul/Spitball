@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,7 +11,6 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,8 +20,8 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize]
-    public class QuestionController : Controller
+    [Authorize, ApiController]
+    public class QuestionController : ControllerBase
     {
         private readonly Lazy<ICommandBus> _commandBus;
         private readonly UserManager<User> _userManager;
@@ -34,27 +34,37 @@ namespace Cloudents.Web.Api
             _userManager = userManager;
         }
 
-        [HttpPost, ValidateModel]
-        public async Task<IActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model, CancellationToken token)
+        [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model, CancellationToken token)
         {
-            var command = _mapper.Map<CreateQuestionCommand>(model);
-            await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
-            return Ok();
+            try
+            {
+                var command = _mapper.Map<CreateQuestionCommand>(model);
+                await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
+
+                return CreatedAtAction(nameof(GetQuestionAsync), new {id = command.Id});
+            }
+            catch (InvalidOperationException)
+            {
+                ModelState.AddModelError(string.Empty,"You need to wait before asking a new question");
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpGet("subject")]
         [ResponseCache(Duration = TimeConst.Day)]
-        public async Task<IActionResult> GetSubjectsAsync([FromServices] IQueryBus queryBus, CancellationToken token)
+        public async Task<IEnumerable<QuestionSubjectDto>> GetSubjectsAsync([FromServices] IQueryBus queryBus, CancellationToken token)
         {
             var query = new QuestionSubjectQuery();
-            var result = await queryBus.QueryAsync(query, token).ConfigureAwait(false);
-            return Ok(result);
+            return await queryBus.QueryAsync(query, token).ConfigureAwait(false);
         }
 
-        [HttpPut("correct"), ValidateModel]
+        [HttpPut("correct")]
         public async Task<IActionResult> MarkAsCorrectAsync([FromBody]MarkAsCorrectRequest model, CancellationToken token)
         {
-           // var link = Url.Link("WalletRoute", null);
+            // var link = Url.Link("WalletRoute", null);
             var command = new MarkAnswerAsCorrectCommand(model.AnswerId, _userManager.GetLongUserId(User));
 
             await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
@@ -63,7 +73,9 @@ namespace Cloudents.Web.Api
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetQuestionAsync(long id,
+        [ProducesResponseType(404)]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult<QuestionDetailDto>> GetQuestionAsync(long id,
             [FromServices] IQueryBus bus, CancellationToken token)
         {
             var retVal = await bus.QueryAsync(new QuestionDataByIdQuery(id), token).ConfigureAwait(false);
@@ -71,10 +83,12 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            return Ok(retVal);
+            return retVal;
         }
 
-        [HttpDelete("{id}"), ValidateModel]
+        [HttpDelete("{id}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> DeleteQuestionAsync(DeleteQuestionRequest model, CancellationToken token)
         {
             try
@@ -90,7 +104,7 @@ namespace Cloudents.Web.Api
         }
 
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
-        public async Task<IActionResult> GetQuestionsAsync(GetQuestionsRequest model,
+        public async Task<ActionResult<WebResponseWithFacet<QuestionDto>>> GetQuestionsAsync([FromQuery]GetQuestionsRequest model,
             [FromServices] IQueryBus queryBus,
             CancellationToken token)
         {
@@ -103,12 +117,12 @@ namespace Cloudents.Web.Api
                 nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }
 
-            return Ok(new WebResponseWithFacet<QuestionDto>
+            return new WebResponseWithFacet<QuestionDto>
             {
                 Result = p,
                 Facet = result.Facet,
                 NextPageLink = nextPageLink
-            });
+            };
         }
     }
 }

@@ -12,8 +12,8 @@ namespace Cloudents.Web.Api
     /// Flashcard controller
     /// </summary>
     [Produces("application/json")]
-    [Route("api/[controller]")]
-    public class FlashcardController : Controller
+    [Route("api/[controller]"), ApiController]
+    public class FlashcardController : ControllerBase
     {
         private readonly IReadRepositoryAsync<Flashcard, long> _repository;
 
@@ -26,6 +26,10 @@ namespace Cloudents.Web.Api
         {
             _repository = repository;
         }
+
+
+        //TODO we need to fix that
+
 
         /// <summary>
         /// Get flashcard data

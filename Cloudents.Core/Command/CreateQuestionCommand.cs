@@ -18,5 +18,8 @@ namespace Cloudents.Core.Command
 
         [CanBeNull]
         public IEnumerable<string> Files { get;  set; }
+
+
+        public long Id { get; set; }
     }
 }

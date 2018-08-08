@@ -7,7 +7,6 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -17,8 +16,8 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize]
-    public class AnswerController : Controller
+    [Authorize, ApiController]
+    public class AnswerController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
         private readonly IMapper _mapper;
@@ -31,8 +30,8 @@ namespace Cloudents.Web.Api
             _userManager = userManager;
         }
 
-        [HttpPost, ValidateModel]
-        public async Task<IActionResult> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
+        [HttpPost]
+        public async Task<CreateAnswerResponse> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
             [FromServices] IQueryBus queryBus,
             CancellationToken token)
         {
@@ -45,13 +44,16 @@ namespace Cloudents.Web.Api
             var t2 = queryBus.QueryAsync(query, token);
             await Task.WhenAll(t1, t2).ConfigureAwait(false);
 
-            return Ok(new
+            return new CreateAnswerResponse
             {
-                nextQuestions = t2.Result
-            });
+                NextQuestions = t2.Result
+            };
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+
         public async Task<IActionResult> DeleteAnswerAsync(DeleteAnswerRequest model, CancellationToken token)
         {
             try

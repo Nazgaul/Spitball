@@ -33,11 +33,11 @@ namespace Cloudents.Core.CommandHandler
             var question = answer.Question;
             if (question.User.Id != message.QuestionUserId)
             {
-                throw new ApplicationException("only owner can perform this task");
+                throw new InvalidOperationException("only owner can perform this task");
             }
             if (answer.Question.Id != question.Id)
             {
-                throw new ApplicationException("answer is not connected to question");
+                throw new InvalidOperationException("answer is not connected to question");
             }
             question.MarkAnswerAsCorrect(answer);
 
