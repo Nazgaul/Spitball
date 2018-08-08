@@ -3,7 +3,7 @@
         <router-view name="header"></router-view>
         <v-content class="site-content" :class="{'loading':getIsLoading}">
             <div class="loader" v-show="getIsLoading">
-                <v-progress-circular indeterminate color="amber" v-bind:size="50"></v-progress-circular>
+                <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
             </div>
             <router-view ref="mainPage"></router-view>
         </v-content>

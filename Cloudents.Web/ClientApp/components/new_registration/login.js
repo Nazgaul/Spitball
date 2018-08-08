@@ -2,6 +2,7 @@ import stepTemplate from './helpers/stepTemplate.vue'
 import codesJson from './helpers/CountryCallingCodes';
 import {mapMutations, mapActions, mapGetters} from 'vuex'
 import VueRecaptcha from 'vue-recaptcha';
+
 ﻿import registrationService from '../../services/registrationService'
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
 
@@ -36,11 +37,12 @@ export default {
             recaptcha: '',
             agreeTerms: false,
             stepsEnum: {
-                "verifyPhone": 4,
-                "enterPhone": 3,
+                "startStep": 1,
                 "emailConfirmed": 2,
+                "enterPhone": 3,
+                "verifyPhone": 4,
                 "congrats": 5,
-                "startStep": 1
+                "loginStep": 6
             }
         }
     },
@@ -69,7 +71,25 @@ export default {
             if (this.stepsEnum.hasOwnProperty(step)) {
                 this.stepNumber = this.stepsEnum[step];
             }
-            console.log('step name-::',step, 'step number-::',this.stepNumber);
+            console.log('step name-::', step, 'step number-::', this.stepNumber);
+        },
+        goToLogin(){
+            this.changeStepNumber('loginStep');
+        },
+        submit() {
+            this.updateLoading(true);
+            self = this;
+            registrationService.signIn(this.userEmail, this.recaptcha)
+                .then((response) => {
+                    self.updateLoading(false);
+                    let step = response.data.step;
+                    console.log('signIn step func', step)
+                    this.changeStepNumber(step)
+                }, function (reason) {
+                    self.$refs.recaptcha.reset();
+                    self.updateLoading(false);
+                    self.errorMessage.email = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
+                });
         },
 
         googleLogIn() {
@@ -192,7 +212,7 @@ export default {
             let url = this.fromPath || defaultSubmitRoute;
             window.isAuth = true;
             this.$router.push({...url});
-     }
+        }
     },
     mounted() {
         // TODO try to fix and use without timeout
@@ -205,19 +225,29 @@ export default {
         }, 500);
     },
     created() {
+        if (this.$route.fullPath === '/login') {
+            this.changeStepNumber('loginStep');
+        } else if (this.$route.query && this.$route.query.step) {
+            let step = this.$route.query.step;
+            this.changeStepNumber(step);
+        } else {
+            let step = 'startStep';
+            this.changeStepNumber(step);
+        }
         registrationService.getLocalCode().then(({data}) => {
             this.phone.countryCode = data.code;
         });
         //check if new user param exists in email url
         this.isNewUser = this.$route.query['newUser'] !== undefined;
         //define number of steps to complete
-        if(this.isNewUser){
-            this.progressSteps = 5; // will show congrats page
-        }else{
-            this.progressSteps = 4;
+        if (this.isNewUser) {
+            this.progressSteps = 6; // will show congrats page
         }
-        let step = this.$route.query.step || 'startStep';
-        this.changeStepNumber(step);
-     },
+        else {
+            this.progressSteps = 5;
+        }
+
+
+    },
 
 }

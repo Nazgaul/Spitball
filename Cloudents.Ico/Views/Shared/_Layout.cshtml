@@ -14,6 +14,16 @@
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/dist/site.min.css" asp-append-version="true"  />
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-100723645-3"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-100723645-3');
+        </script>
+
     </environment>
 </head>
 <body class="theme-muscari io-mascari" data-spy="scroll" data-target="#mainnav" data-offset="80">
