@@ -5,7 +5,7 @@
     <DebugType>full</DebugType>
     <UserSecretsId>aspnet-Cloudents.Admin-79B17709-0CE8-4581-9717-99F1E59E8B6F</UserSecretsId>
     <WebProject_DirectoryAccessLevelKey>0</WebProject_DirectoryAccessLevelKey>
-    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
