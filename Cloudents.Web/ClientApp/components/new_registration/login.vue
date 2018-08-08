@@ -33,7 +33,7 @@
                         </div>
                     </form>
                     <div class="signin-strip">Do you already have an account?
-                        <router-link to="signin">Sign in</router-link>
+                        <p class="click" @click="goToLogin()">Sign in</p>
                     </div>
                 </div>
 
@@ -47,6 +47,27 @@
             </step-template>
         </div>
         <!--step email end-->
+
+        <!--step login-->
+        <div class="step-login" v-else-if="stepNumber === 6 ">
+        <step-template>
+            <div slot="step-data" class="limited-width">
+                <h1 class="step-title">Login</h1>
+                <form @submit.prevent="submit">
+                    <sb-input :errorMessage="errorMessage.email" :required="true" class="email-field" type="email" name="email" id="input-url" v-model="userEmail" placeholder="Enter your email address"></sb-input>
+                    <vue-recaptcha class="recaptcha-wrapper" ref="recaptcha"
+                                   sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
+                                   @verify="onVerify" @expired="onExpired"></vue-recaptcha>
+                    <input class="continue-btn" type="submit" value="Login" :disabled=" !userEmail || !recaptcha">
+                </form>
+                <div class="signin-strip">Need an account?
+                    <router-link to="register">Sign up</router-link>
+                </div>
+            </div>
+            <img slot="step-image" :src="require(`./img/signin.png`)"/>
+        </step-template>
+        </div>
+        <!--step login end-->
 
         <!--step verify email-->
         <div class="step-verifyEmail" v-else-if="stepNumber === 2 ">
@@ -67,6 +88,8 @@
             </step-template>
         </div>
         <!--step verify email end-->
+
+
 
         <!--step phone number-->
         <div class="step-phone" v-if="stepNumber === 3 ">
@@ -93,7 +116,7 @@
         <!--step phone number end-->
 
         <!--step verify phone number-->
-        <div class="step-phone" v-if="stepNumber === 4 ">
+        <div class="step-phone-confirm" v-if="stepNumber === 4 ">
             <step-template>
                 <div slot="step-data" class="limited-width wide">
                     <h1 class="step-title">Enter the confirmation code</h1>
@@ -132,9 +155,14 @@
                 </step-template>
         </div>
         <!--step congrats end-->
+
         <div class="progress">
-            <div v-for="page in progressSteps" :class="{highlighted: page===stepNumber}"></div>
+            <div v-for="page  in  progressSteps" :class="{highlighted: page===stepNumber}"></div>
         </div>
+
+
+
+
         <button class="back-button" @click="showDialog = true" v-if="stepNumber !== 5">
             <v-icon right>sbf-close</v-icon>
         </button>
