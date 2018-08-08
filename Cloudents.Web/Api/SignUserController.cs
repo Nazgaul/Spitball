@@ -13,7 +13,6 @@ using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Cloudents.Web.Api
 {
@@ -31,8 +30,8 @@ namespace Cloudents.Web.Api
        
 
         public SignUserController(UserManager<User> userManager, SbSignInManager signInManager, ISmsSender smsClient,
-            IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider,
-            ITempDataDictionaryFactory tempDataFactory)
+            IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;

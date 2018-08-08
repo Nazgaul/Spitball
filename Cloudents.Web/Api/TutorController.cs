@@ -44,7 +44,7 @@ namespace Cloudents.Web.Api
             var result = (await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Relevance),
-                model.Location.ToGeoPoint(),
+                model.Location?.ToGeoPoint(),
                 model.Page.GetValueOrDefault(), isMobile, token).ConfigureAwait(false)).ToListIgnoreNull();
             string nextPageLink = null;
             if (result.Count > 0)
