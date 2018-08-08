@@ -68,14 +68,5 @@ namespace Cloudents.Admin.Api
 
         }
 
-        //[HttpPut("correct")]
-        //public async Task<IActionResult> MarkAsCorrectAsync([FromBody]MarkAsCorrectRequest model, CancellationToken token)
-        //{
-        //    // var link = Url.Link("WalletRoute", null);
-        //    var command = new MarkAnswerAsCorrectCommand(model.AnswerId, _userManager.GetLongUserId(User));
-
-        //    await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
-        //    return Ok();
-        //}
     }
 }
