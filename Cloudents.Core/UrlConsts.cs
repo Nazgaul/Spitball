@@ -14,7 +14,13 @@ namespace Cloudents.Core
 
         public UrlConst(IConfigurationKeys configuration)
         {
-            _webSiteEndPoint = configuration.SiteEndPoint;
+            var siteEndpoint = configuration.SiteEndPoint;
+            if (!siteEndpoint.EndsWith("/"))
+            {
+                siteEndpoint += "/";
+            }
+            _webSiteEndPoint = siteEndpoint;
+            
         }
 
         public string BuildQuestionEndPoint(long id)
