@@ -12,9 +12,17 @@
 <style lang="scss" scoped>
 .question-table{
     display:flex;
-    border: 1px solid black;
+    border: 1px solid #9a9a9a;
+    height: 90px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
     span{
-        flex-grow: 1
+        flex-grow: 1;
+        width:1px;
+    }
+    &:nth-child(odd){
+        background-color: #b6b6b6;
     }
 }
 </style>

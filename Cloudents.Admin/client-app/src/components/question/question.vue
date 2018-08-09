@@ -32,7 +32,7 @@
             font-weight: bold;
             color: #5d5d5d;
         }
-        .router-link-exact-active{
+        .router-link-active{
                 color:#97ed82;
             }
     }

@@ -3,13 +3,13 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 
 export class QuestionDetail implements IQuestionDetail {
-    questionId: number;
+    questionId: any;
     questionText: string;
     answerText: string;
     link: string;
     aproveUrl: string;
 
-    constructor(questionId: number, questionText: string, answerText: string, link: string, aproveUrl: string){
+    constructor(questionId: any, questionText: string, answerText: string, link: string, aproveUrl: string){
         this.questionId= questionId;
         this.questionText= questionText;
         this.answerText= answerText;
@@ -22,7 +22,7 @@ export class QuestionDetail implements IQuestionDetail {
 export default class QuestionDetailComponent extends Vue{ 
     @Prop({
         type: QuestionDetail,
-        default: function(){return new QuestionDetail(1, "questionText","answerText","link","aproveUrl")}
+        default: function(){return new QuestionDetail("Question Id", "QuestionText","AnswerText","Link","Aprove Url")}
     }) 
     question!: QuestionDetail        
     
