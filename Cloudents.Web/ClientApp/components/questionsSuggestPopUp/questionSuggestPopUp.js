@@ -27,17 +27,14 @@ export default {
     methods: {
         ...mapActions(["resetQuestion"]),
         requestDialogClose() {
-            this.$root.$emit('closePopUp', 'suggestions' )
+            this.$root.$emit('closePopUp', 'suggestions')
         },
         answerMore(id) {
             let questionId = id;
-            this.$router.push({name: 'question', params:{id: questionId}});
+            this.$router.push({name: 'question', params: {id: questionId}});
             this.requestDialogClose();
         }
     },
-    computed: {
-     },
+    computed: {},
 
-    created() {
-    }
 }

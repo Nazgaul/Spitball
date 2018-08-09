@@ -49,31 +49,14 @@ export default {
                 self.textAreaValue = self.textAreaValue.trim();
                 questionService.answerQuestion(self.id, self.textAreaValue, self.answerFiles)
                     .then(function (resp) {
-                        //TODO: do this on client side (render data inserted by user without calling server) - see commented out below - all that's left is asking ram to return the answerId in response
-                        // var creationTime = new Date();
-                        // self.questionData.answers.push({
-                        //     create: creationTime.toISOString(),
-                        //     files: self.answerFiles.map(fileName => "https://spitballdev.blob.core.windows.net/spitball-files/question/"+self.id+"/answer/"+response.data.answerId+"/"+fileName), //this will work only if answerid returns from server
-                        //     id: response.data.answerId,
-                        //     text: self.textAreaValue,
-                        //     user: self.accountUser
-                        // });
                         self.$ga.event("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
                         self.cardList = resp.data;
                         self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
-                        // self.updateToasterParams({
-                        //     toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
-                        //     showToaster: true,
-                        // });
                         self.showDialogSuggestQuestion = true; // question suggest popup dialog
                     }, () => {
-                        // self.updateToasterParams({
-                        //     toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
-                        //     showToaster: true,
-                        // });
                         self.submitForm(false);
                         self.updateLoading(true);
                     })

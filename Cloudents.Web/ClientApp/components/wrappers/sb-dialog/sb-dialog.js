@@ -39,4 +39,7 @@ export default {
     },
     methods: {
     },
+    created(){
+        console.log('werwerwer DIALOG')
+    }
 }

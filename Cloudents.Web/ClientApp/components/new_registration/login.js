@@ -6,7 +6,7 @@ import VueRecaptcha from 'vue-recaptcha';
 ﻿import registrationService from '../../services/registrationService'
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
 
-const defaultSubmitRoute = {path: '/ask', query: {q: ''}};
+const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;
 
@@ -80,6 +80,9 @@ export default {
         goToLogin() {
             this.changeStepNumber('loginStep');
         },
+        showRegistration(){
+            this.changeStepNumber('startStep');
+        },
         submit() {
             this.updateLoading(true);
             self = this;
@@ -87,7 +90,7 @@ export default {
                 .then((response) => {
                     self.updateLoading(false);
                     let step = response.data.step;
-                    this.changeStepNumber(step)
+                    self.changeStepNumber(step)
                 }, function (reason) {
                     self.$refs.recaptcha.reset();
                     self.updateLoading(false);
@@ -125,7 +128,7 @@ export default {
 
         $_back() {
             let url = this.fromPath || {path: '/ask', query: {q: ''}};
-            this.$router.push({...url});
+            this.$router.push({ path: `${url.path }`});
         },
         showDialogFunc() {
             this.showDialog = true
@@ -205,8 +208,8 @@ export default {
                     } else {
                         let url = self.lastActiveRoute || defaultSubmitRoute;
                         window.isAuth = true;
-                        self.$router.push({...url});
-                        return
+                        self.$router.push({ path: `${url.path }`});
+
                     }
                 }, function (error) {
                     self.updateLoading(false);
@@ -216,7 +219,7 @@ export default {
         finishRegistration() {
             let url = this.toUrl ||  defaultSubmitRoute;
             window.isAuth = true;
-            this.$router.push({...url});
+            this.$router.push({ path: `${url.path }`});
         }
     },
     mounted() {

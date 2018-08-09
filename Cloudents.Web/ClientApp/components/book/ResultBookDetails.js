@@ -1,7 +1,6 @@
 ﻿import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 import ResultBook from './bookCell.vue';
 import TabsSort from "./bookDetailsSort"
-// import { details } from "../../data";
 import { details } from "../../services/navigation/vertical-navigation/nav";
 
 const all = "all";

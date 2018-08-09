@@ -35,14 +35,12 @@ export default {
         submitQuestion() {
             let readyToSend = true;
             //error handling stuff ( redo with newer version to validate with in build validators
-            if(!this.selectedPrice && this.price < 1) {
+            if (!this.selectedPrice && this.price < 1) {
                 readyToSend = false
-            };
-
-            if (this.accountUser && this.accountUser.balance < this.price) {
-                this.errorMessage = "You do not have sufficient SBL";
-                //error handling text area, and pass to extended text area component error message
-                readyToSend = false
+            }
+            //if
+            if (this.currentSum < 0) {
+               readyToSend = false
             }
             if (!this.selectedPrice) {
                 this.errorSelectPrice = "Please select amount you want to pay"
@@ -64,8 +62,7 @@ export default {
             var self = this;
             if (this.submitForm()) {
                 this.updateLoading(true);
-                console.error('start loading');
-                this.textAreaValue =   this.textAreaValue.trim();
+                this.textAreaValue = this.textAreaValue.trim();
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files)
                     .then(function () {
                             // debugger;

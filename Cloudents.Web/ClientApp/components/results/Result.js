@@ -4,7 +4,7 @@ import questionCard from './../question/helpers/question-card/question-card.vue'
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
-import {page}  from "../../services/navigation/vertical-navigation/nav";
+import {page} from "../../services/navigation/vertical-navigation/nav";
 import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
 import {verticalsName} from "../../services/navigation/vertical-navigation/nav";
@@ -12,6 +12,8 @@ import {typesPersonalize} from "../settings/consts.js";
 import signupBanner from './../helpers/signup-banner/signup-banner.vue'
 import QuestionCard from "../question/helpers/question-card/question-card";
 import {mapActions, mapGetters} from 'vuex'
+import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
+import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
 
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
@@ -19,6 +21,7 @@ import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 import faqBlock from './helpers/faq-block/faq-block.vue'
 
 import {skeletonData} from './consts'
+import account from "../../store/account";
 //update data function update the page content and selected filters
 let updateData = function (data, isFilterUpdate = false) {
     const {facet} = data;
@@ -139,6 +142,8 @@ export default {
             isLoad: false,
             offsetTop: 0,
             isBannerVisible: true,
+            showDialog: false
+
             // accountUser: {}
         };
     },
@@ -153,7 +158,9 @@ export default {
         questionCard,
         faqBlock,
         signupBanner,
-        QuestionCard
+        QuestionCard,
+        sbDialog,
+        loginToAnswer
     },
 
     created() {
@@ -259,10 +266,16 @@ export default {
 //Open the personalize dialog when click on select course in class filter
 
         $_openPersonalize() {
-            this.$root.$emit("personalize", typesPersonalize.course);
-        }
-        ,
-//The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
+            if (!this.accountUser) {
+                this.$root.$emit("showLoginPopUp");
+
+            }else {
+                this.$root.$emit("personalize", typesPersonalize.course);
+
+            }
+
+        },
+        //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
         $_showSelectedFilter({value, key}) {
             if (this.page && !this.subFilterVertical(this.name)) return this.page.filter.find(i => i.id === value).name;
             return key === 'course' && this.myCourses.find(x => x.id === Number(value)) ? this.myCourses.find(x => x.id === Number(value)).name : value;
