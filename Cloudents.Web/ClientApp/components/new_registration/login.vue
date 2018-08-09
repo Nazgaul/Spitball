@@ -120,7 +120,6 @@
             <step-template>
                 <div slot="step-data" class="limited-width wide">
                     <h1 class="step-title">Enter the confirmation code</h1>
-
                     <p v-if="phone.phoneNum" class="sub-title">We sent the code to you by SMS to (+{{phone.countryCode}})
                         {{phone.phoneNum}}</p>
                     <p class="confirm-title">We sent a confirmation code to your mobile phone.</p>
@@ -160,17 +159,20 @@
         <!--step expired link-->
         <div class="step-expired" v-if="stepNumber === 7 ">
             <step-template>
-                <div slot="step-data" class="limited-width done">
-                    <!--<h1 class="congrats-heading"></h1>-->
-                    <!--<h2 class="congrats-heading">Error</h2>-->
-                    <p>You signed up but didn't finish the process</p>
-                    <p> sadly your confirmation link has expired</p>
-                    <!--<h2 class="congrats-heading"><span class="blue-points">{{initialPointsNum}} SBL</span></h2>-->
-                    <img class="money-done-img"  :src="require(`./img/money-done.png`)"/>
-                    <p class="congrats"></p>
-                    <button class="continue-btn" @click="finishRegistration">Resend confirmation link</button>
+                <v-icon>sbf-email</v-icon>
+                <div slot="step-data" class="limited-width wide">
+                    <h1 class="step-title">You didn't complete the registration process </h1>
+                    <p class="inline">Your confirmation link has expired</p>
+                    <p>You will not be able to log into Spitball.co until you activate your account.</p>
+                    <img :src="require(`./img/checkEmail.png`)"/>
+                    <button class="continue-btn" @click="showRegistration()">Register</button>
+
+                    <!--<div class="bottom-text">-->
+                        <!--<p class="inline">Didn’t get an email?</p>-->
+                        <!--<p class="email-text inline click"  @click="resendEmail()">&nbsp;Click here to resend.</p>-->
+                    <!--</div>-->
                 </div>
-                <img  slot="step-image" :src="require(`./img/done.png`)"/>
+                <img slot="step-image" :src="require(`./img/checkEmail.png`)"/>
             </step-template>
         </div>
         <!--step expired link end-->

@@ -338,6 +338,25 @@
   }
   //end step phone
 
+  //step-expired
+  .step-expired{
+    .limited-width{
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      @media (max-width: @screen-xs) {
+        display: block;
+      }
+
+      h2{
+        color: @color-main-purple;
+      }
+    }
+    
+
+  }
+
+  //end step expired
   //step confirm phone
   .step-phone-confirm .step-wrapper {
 
