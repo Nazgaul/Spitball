@@ -120,7 +120,8 @@
             <step-template>
                 <div slot="step-data" class="limited-width wide">
                     <h1 class="step-title">Enter the confirmation code</h1>
-                    <p class="sub-title">We sent the code to you by SMS to (+{{phone.countryCode}})
+
+                    <p v-if="phone.phoneNum" class="sub-title">We sent the code to you by SMS to (+{{phone.countryCode}})
                         {{phone.phoneNum}}</p>
                     <p class="confirm-title">We sent a confirmation code to your mobile phone.</p>
                     <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code"
