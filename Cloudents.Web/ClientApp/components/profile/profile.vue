@@ -2,15 +2,13 @@
     <div class="profile-page" v-if="profileData">
         <div>
             <v-layout class="data-wrapper" :class="{'column': isMobile}" wrap justify-start>
-
                 <div>
                     <div class="main-block">
                         <button class="back" @click="$router.go(-1)">
                             <v-icon>sbf-arrow-right</v-icon>
                         </button>
                         <user-block v-if="profileData && profileData.user" :user="profileData.user"
-                                    :classType="'university'"></user-block>
-
+                                    :classType="'university'" :showExtended="true"></user-block>
                         <div class="menu">
                             <ul class="tabs" v-if="!isMobile" xs3>
                                 <li :class="{'active': activeTab === 1}" @click="changeActiveTab(1)">
@@ -22,7 +20,6 @@
                             </ul>
 
                             <v-tabs v-else grow class="tab-padding" xs12>
-                                <!--<v-tabs-bar>-->
                                 <v-tabs-slider color="blue"></v-tabs-slider>
                                 <v-tab @click="activeTab = 1" :href="'#tab-1'" :key="1"><span
                                         v-if="isMyProfile">My&nbsp;</span>Questions
@@ -30,7 +27,6 @@
                                 <v-tab @click="activeTab = 2" :href="'#tab-2'" :key="2"><span
                                         v-if="isMyProfile">My&nbsp;</span>Answers
                                 </v-tab>
-                                <!--</v-tabs-bar>-->
                             </v-tabs>
                         </div>
                     </div>

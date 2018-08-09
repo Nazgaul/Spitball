@@ -163,7 +163,7 @@ export default {
 
 
         function closeSuggestions(TogglerElm, shouldHide, closeFn){
-            if(TogglerElm[0].style.display !== "none"){
+            if(TogglerElm[0] && TogglerElm[0].style.display !== "none"){
                 if (shouldHide) {
                     closeFn();
                 }
@@ -171,7 +171,7 @@ export default {
         }
 
         //close the search suggestion menu from pressing out of the search box
-        //or by pressing excape button 
+        //or by pressing escape button
         let bodyElm = document.getElementsByTagName("body");
         let menuTogglerElm = document.getElementsByClassName("menu-toggler");
         bodyElm[0].addEventListener("click", ()=>{

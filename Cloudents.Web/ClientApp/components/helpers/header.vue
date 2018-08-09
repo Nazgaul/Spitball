@@ -1,7 +1,7 @@
 <template>
     <div>
         <!--TODO check if worsk well-->
-        <v-toolbar :app="!isMobile"  :fixed="!isMobile" :height="height" class="header">
+        <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header">
 
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">
@@ -32,9 +32,12 @@
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
 
-                                    <a v-if="!loggedIn" class="header-login body-1" href="/register">Sign Up</a>
-                                    <a v-if="!loggedIn" class="header-login body-1" href="/signin">Login</a>
-
+                                    <router-link v-if="!loggedIn" class="header-login body-1"
+                                                 :to="{ path: '/register' }">Sign Up
+                                    </router-link>
+                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}">
+                                        Login
+                                    </router-link>
 
                                     <v-menu bottom left offset-y class="gamburger"
                                             v-if="!loggedIn && $vuetify.breakpoint.xsOnly">
@@ -68,7 +71,9 @@
                              width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
-
+        <sb-dialog :showDialog="showDialogLogin" :popUpType="'loginPop'" :content-class="'login-popup'">
+            <login-to-answer></login-to-answer>
+        </sb-dialog>
     </div>
 </template>
 
@@ -80,7 +85,10 @@
 
     import {mapActions, mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
+
     const PersonalizeDialog = () => import('./ResultPersonalize.vue');
+    import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
+    import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
 
     export default {
         components: {
@@ -88,7 +96,9 @@
             AppLogo,
             SearchInput,
             UserAvatar,
-            menuList
+            menuList,
+            sbDialog,
+            loginToAnswer
         },
         placeholders: {
             job: "Your field of expertise...",
@@ -104,7 +114,8 @@
                 notRegMenu,
                 clickOnce: false,
                 drawer: null,
-                toasterTimeout: 5000
+                toasterTimeout: 5000,
+                showDialogLogin: false
                 // isAuthUser:true
             }
         },
@@ -166,6 +177,17 @@
                         }
                     })
                 });
+            this.$root.$on("showLoginPopUp",
+                (type) => {
+                    this.showDialogLogin = true;
+                });
+            this.$root.$on('closePopUp', (name) => {
+                if (name === 'suggestions') {
+                    this.showDialogSuggestQuestion = false
+                } else {
+                    this.showDialogLogin = false
+                }
+            });
             let headerHeight = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.smAndUp ? 60 : 115)
             this.height = headerHeight;
 

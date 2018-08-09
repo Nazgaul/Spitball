@@ -6,7 +6,7 @@ import VueRecaptcha from 'vue-recaptcha';
 ﻿import registrationService from '../../services/registrationService'
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
 
-const defaultSubmitRoute = {path: '/ask', query: {q: ''}};
+const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;
 
@@ -18,7 +18,8 @@ export default {
     data() {
         return {
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
-            progressSteps: 0,
+            toUrl: '',
+            progressSteps: 5,
             confirmationCode: '',
             initialPointsNum,
             phone: {
@@ -60,7 +61,11 @@ export default {
 
     },
     computed: {
-        ...mapGetters({getShowToaster: 'getShowToaster', getToasterText: 'getToasterText', fromPath: 'fromPath'}),
+        ...mapGetters({
+            getShowToaster: 'getShowToaster',
+            getToasterText: 'getToasterText',
+            lastActiveRoute: 'lastActiveRoute'
+        }),
     },
     methods: {
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
@@ -71,10 +76,12 @@ export default {
             if (this.stepsEnum.hasOwnProperty(step)) {
                 this.stepNumber = this.stepsEnum[step];
             }
-            console.log('step name-::', step, 'step number-::', this.stepNumber);
         },
-        goToLogin(){
+        goToLogin() {
             this.changeStepNumber('loginStep');
+        },
+        showRegistration(){
+            this.changeStepNumber('startStep');
         },
         submit() {
             this.updateLoading(true);
@@ -83,8 +90,7 @@ export default {
                 .then((response) => {
                     self.updateLoading(false);
                     let step = response.data.step;
-                    console.log('signIn step func', step)
-                    this.changeStepNumber(step)
+                    self.changeStepNumber(step)
                 }, function (reason) {
                     self.$refs.recaptcha.reset();
                     self.updateLoading(false);
@@ -122,7 +128,7 @@ export default {
 
         $_back() {
             let url = this.fromPath || {path: '/ask', query: {q: ''}};
-            this.$router.push({...url});
+            this.$router.push({ path: `${url.path }`});
         },
         showDialogFunc() {
             this.showDialog = true
@@ -149,6 +155,7 @@ export default {
                 })
         },
         resendSms() {
+            this.$ga.event("Registration", "Resend SMS");
             registrationService.resendCode()
                 .then((success) => {
                         this.updateToasterParams({
@@ -177,6 +184,7 @@ export default {
                 });
         },
         resendEmail() {
+           this.$ga.event("Registration", "Resend Email");
             registrationService.emailResend()
                 .then(response => {
                         this.updateToasterParams({
@@ -198,10 +206,10 @@ export default {
                     if (self.isNewUser) {
                         self.changeStepNumber('congrats')
                     } else {
-                        let url = self.fromPath || defaultSubmitRoute;
+                        let url = self.lastActiveRoute || defaultSubmitRoute;
                         window.isAuth = true;
-                        self.$router.push({...url});
-                        return
+                        self.$router.push({ path: `${url.path }`});
+
                     }
                 }, function (error) {
                     self.updateLoading(false);
@@ -209,9 +217,9 @@ export default {
                 });
         },
         finishRegistration() {
-            let url = this.fromPath || defaultSubmitRoute;
+            let url = this.toUrl ||  defaultSubmitRoute;
             window.isAuth = true;
-            this.$router.push({...url});
+            this.$router.push({ path: `${url.path }`});
         }
     },
     mounted() {
@@ -225,29 +233,21 @@ export default {
         }, 500);
     },
     created() {
-        if (this.$route.fullPath === '/login') {
-            this.changeStepNumber('loginStep');
-        } else if (this.$route.query && this.$route.query.step) {
+        //check if returnUrl exists
+        if (!!this.$route.query.returnUrl) {
+            this.toUrl = {path: `${this.$route.query.returnUrl}`, query: {q: ''}};
+        }
+        if (this.$route.query && this.$route.query.step) {
             let step = this.$route.query.step;
             this.changeStepNumber(step);
-        } else {
-            let step = 'startStep';
-            this.changeStepNumber(step);
+        }else if (this.$route.fullPath === '/signin') {
+            this.changeStepNumber('loginStep')
         }
+
         registrationService.getLocalCode().then(({data}) => {
             this.phone.countryCode = data.code;
         });
         //check if new user param exists in email url
         this.isNewUser = this.$route.query['newUser'] !== undefined;
-        //define number of steps to complete
-        if (this.isNewUser) {
-            this.progressSteps = 6; // will show congrats page
-        }
-        else {
-            this.progressSteps = 5;
-        }
-
-
     },
-
 }

@@ -124,6 +124,7 @@
                 <suggest-card :name="currentSuggest"></suggest-card>
             </router-link>
         </slot>
+
     </general-page>
 </transition>
 </template>

@@ -25,7 +25,7 @@
                         <vue-recaptcha class="recaptcha-wrapper" sitekey="6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1"
                                        ref="recaptcha"
                                        @verify="onVerify" @expired="onExpired()"></vue-recaptcha>
-                        <input :disabled="!recaptcha.length" class="continue-btn input-field" type="submit"
+                        <input :disabled=" !userEmail || !recaptcha.length" class="continue-btn input-field" type="submit"
                                value="Continue">
                         <div class="checkbox-terms">
                             <span>By joining, I agree to Spitball <router-link
@@ -61,7 +61,7 @@
                     <input class="continue-btn" type="submit" value="Login" :disabled=" !userEmail || !recaptcha">
                 </form>
                 <div class="signin-strip">Need an account?
-                    <router-link to="register">Sign up</router-link>
+                    <a @click="showRegistration">Sign up</a>
                 </div>
             </div>
             <img slot="step-image" :src="require(`./img/signin.png`)"/>
@@ -120,8 +120,9 @@
             <step-template>
                 <div slot="step-data" class="limited-width wide">
                     <h1 class="step-title">Enter the confirmation code</h1>
-                    <p class="sub-title">We sent the code to you by SMS to (+{{this.phone.countryCode}})
-                        {{this.phone.phoneNum}}</p>
+
+                    <p v-if="phone.phoneNum" class="sub-title">We sent the code to you by SMS to (+{{phone.countryCode}})
+                        {{phone.phoneNum}}</p>
                     <p class="confirm-title">We sent a confirmation code to your mobile phone.</p>
                     <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code"
                               v-model="confirmationCode" placeholder="Enter confirmation code" type="number"
@@ -156,12 +157,9 @@
         </div>
         <!--step congrats end-->
 
-        <div class="progress">
+        <div class="progress" v-if="stepNumber !== 6">
             <div v-for="page  in  progressSteps" :class="{highlighted: page===stepNumber}"></div>
         </div>
-
-
-
 
         <button class="back-button" @click="showDialog = true" v-if="stepNumber !== 5">
             <v-icon right>sbf-close</v-icon>

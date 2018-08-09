@@ -7,7 +7,7 @@ namespace Cloudents.Core.Message
     public class AnswerCorrectEmail : BaseEmail
     {
         public AnswerCorrectEmail(string to, string questionText, string answerText, string link, decimal tokens) 
-            : base(to, "accepted-answer", "Congratulations, your answer has been accepted")
+            : base(to, "accepted-answer", "Congratulations, your answer has been accepted", "SendGrid", "Email", "AnswerCorrect")
         {
             QuestionText = questionText.Truncate(40, true);
             AnswerText = answerText.Truncate(40, true);

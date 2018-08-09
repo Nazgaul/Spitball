@@ -21,9 +21,7 @@
                                     actionType="question"
                                     :error="errorTextArea"
                                     @removeFile="removeFile"></extended-text-area>
-                <!--
-                                <span v-if="errorTextArea" class="errorTextArea" >{{errorTextArea}}</span>
-                -->
+
                 <v-flex xs6 :class="{'has-error':!subject && errorMessageSubject}" class="inputBorder">
                     <select v-model="subject">
                         <option value="" disabled hidden>Pick a subject</option>
@@ -34,14 +32,7 @@
                     <span>{{errorMessageSubject}}</span>
                 </v-flex>
 
-                <!-- <v-flex xs12> -->
-                <!--05.07.2018-->
-                <!--<v-flex xs12 v-if="price < 100 && selectedPrice >currentSum "-->
-                        <!--:class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have-->
-                    <!--{{currentSum | fixedPoints}} SBL-->
-                <!--</v-flex>-->
-
-                <v-flex xs12 v-if="currentSum"
+                  <v-flex xs12 v-if="currentSum"
                         :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have
                     {{currentSum | fixedPoints}} SBL
                 </v-flex>
@@ -93,7 +84,7 @@
                         price will make the sale</p>
                 </v-flex>
                 <v-flex class="submit-btn-wrap" xs12>
-                    <div v-if="errorMessage.length" class="error-message">{{errorMessage}}</div>
+                    <div v-if="currentSum < 0" class="error-message">You do not have sufficient SBL</div>
                     <v-btn block color="primary" @click="submitQuestion()" :disabled="submitted"
                            class="ask_btn">Ask
                     </v-btn>

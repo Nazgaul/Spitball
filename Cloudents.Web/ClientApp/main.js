@@ -217,6 +217,7 @@ router.beforeEach((to, from, next) => {
     else {
         intercomSettings.hide_default_launcher = false;
     }
+    store.dispatch('changeLastActiveRoute', from);
     checkUserStatus(to, next);
     
 });
