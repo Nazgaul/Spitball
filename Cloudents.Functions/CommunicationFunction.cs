@@ -53,6 +53,7 @@ namespace Cloudents.Functions
             {
                 message.AddContent(new Content("text/plain", topicMessage.ToString()));
                 message.Subject = topicMessage.Subject;
+
                 log.Warning("error with template name" + topicMessage.Template);
             }
 
@@ -73,6 +74,10 @@ namespace Cloudents.Functions
 
                     message.Subject = subject;
                     message.AddCategory(message.Subject);
+
+                    message.TrackingSettings.Ganalytics.UtmCampaign = topicMessage.Campaign;
+                    message.TrackingSettings.Ganalytics.UtmSource = topicMessage.Source;
+                    message.TrackingSettings.Ganalytics.UtmMedium = topicMessage.Medium;
                     if (htmlTemplate != null)
                     {
                         var content = htmlTemplate.Inject(topicMessage);

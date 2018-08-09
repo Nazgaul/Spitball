@@ -6,7 +6,8 @@ namespace Cloudents.Core.Message
     [Serializable]
     public class RegistrationEmail : BaseEmail
     {
-        public RegistrationEmail(string to, string link) : base(to, "register","Welcome to Spitball")
+        public RegistrationEmail(string to, string link) 
+            : base(to, "register","Welcome to Spitball", "SendGrid", "Email", "Registration")
         {
             Link = link;
         }
