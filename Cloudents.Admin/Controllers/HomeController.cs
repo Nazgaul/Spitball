@@ -16,7 +16,7 @@ namespace Cloudents.Admin.Controllers
         public IActionResult Index()
         {
             var file = Path.Combine(Directory.GetCurrentDirectory(),
-                            "wwwroot", "index.html");
+                            "wwwroot", "dist", "index.html");
 
             return PhysicalFile(file, "text/html");
         }

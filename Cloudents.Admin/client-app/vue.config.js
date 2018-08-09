@@ -1,5 +1,5 @@
 ﻿module.exports = {
-    outputDir: '../wwwroot',
+    outputDir: '../wwwroot/dist',
 
     configureWebpack: {
         output: {
