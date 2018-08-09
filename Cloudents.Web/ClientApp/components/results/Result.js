@@ -264,8 +264,8 @@ export default {
         }
         ,
 //Open the personalize dialog when click on select course in class filter
-
         $_openPersonalize() {
+            //emit event to open Login Dialog
             if (!this.accountUser) {
                 this.$root.$emit("showLoginPopUp");
 

@@ -43,7 +43,8 @@ export default {
                 "enterPhone": 3,
                 "verifyPhone": 4,
                 "congrats": 5,
-                "loginStep": 6
+                "loginStep": 6,
+                "expiredStep": 7
             }
         }
     },

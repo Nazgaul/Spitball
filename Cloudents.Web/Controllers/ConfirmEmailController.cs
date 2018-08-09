@@ -40,7 +40,8 @@ namespace Cloudents.Web.Controllers
             var result = await _userManager.ConfirmEmailAsync(user, code).ConfigureAwait(false);
             if (!result.Succeeded)
             {
-                throw new ApplicationException($"Error confirming email for user with ID '{id}': {result}");
+                //  throw new ApplicationException($"Error confirming email for user with ID '{id}': {result}");
+                return Redirect("/register?newUser&step=expiredStep");
             }
 
             await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
