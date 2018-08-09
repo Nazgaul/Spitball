@@ -1,4 +1,3 @@
-
 //const HomePage = () => import("./components/home/home.vue");
 import * as RouteTypes from "./routeTypes";
 
@@ -31,6 +30,7 @@ import * as consts from "./store/constants";
 // import login from "./components/new_registration/login";
 const verifyPhone = () => import("./components/registration/verifyPhone/verify.vue");
 const login = () => import("./components/new_registration/login.vue");
+
 // import store from "./store";
 
 function dynamicPropsFn(route) {
@@ -174,11 +174,11 @@ let routes2 = [
             requiresAuth: true
         }
     },
-    {
-        path: "/register", components: {
-            default: registration,
-        }, name: "registration",
-    },
+    // {
+    //     path: "/register", components: {
+    //         default: registration,
+    //     }, name: "registration",
+    // },
 
     {
         path: "/verify-phone/:newUser?",
@@ -194,29 +194,34 @@ let routes2 = [
 
     },
     {
-        path: "/registertest",alias: ['/login'],
-        components:{
-           default: login,
-            },
-        name: "login",
-    },
-
-
-    {
-        path: "/congrats",
+        path: "/register", alias: ['/signin'],
         components: {
-            default: registerAccount,
+            default: login,
         },
-        name: "congrats",
-
+        // meta: {
+        //     isLogin: (function(){
+        //        if( window.location.pathname === "/signin" )
+        //            return true
+        //     })()
+        // },
+        name: "registration",
     },
 
-    {
-        path: "/signin", components: {
-            default: signin
-        },
-        name: "signin"
-    },
+    // {
+    //     path: "/congrats",
+    //     components: {
+    //         default: registerAccount,
+    //     },
+    //     name: "congrats",
+    //
+    // },
+
+    // {
+    //     path: "/signin", components: {
+    //         default: signin
+    //     },
+    //     name: "signin"
+    // },
 
     {
         path: "/conversations",

@@ -36,7 +36,8 @@ const state = {
     talkSession: null,
     talkMe: null,
     unreadMessages: 0,
-    fromPath: null
+    fromPath: null,
+    lastActiveRoute: null
 }
 const mutations = {
     changeLoginStatus(state, val) {
@@ -61,6 +62,9 @@ const mutations = {
     },
     updateFromPath(state, val) {
         state.fromPath = val;
+    },
+    setLastActiveRoute(state, val){
+        state.lastActiveRoute = val;
     }
 };
 
@@ -71,7 +75,8 @@ const getters = {
     isUser: state => state.user !== null,
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
-    accountUser: state => state.user
+    accountUser: state => state.user,
+    lastActiveRoute: state => state.lastActiveRoute
 };
 const actions = {
     logout({state, commit}) {
@@ -79,6 +84,9 @@ const actions = {
         setIntercomSettings();
         window.location.replace("/logout");
 
+    },
+    changeLastActiveRoute({commit}, route){
+        commit("setLastActiveRoute", route)
     },
     userStatus({dispatch, commit, getters}, {isRequire, to}) {
         const $this = this;

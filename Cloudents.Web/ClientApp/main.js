@@ -204,6 +204,7 @@ Vue.filter('commasFilter', function (value) {
 
 
 router.beforeEach((to, from, next) => {
+    console.log(router)
     if (!!to.query && Object.keys(to.query).length > 0) {
         for (let prop in to.query) {
             if (constants.regExXSSCheck.test(to.query[prop])) {
@@ -217,6 +218,7 @@ router.beforeEach((to, from, next) => {
     else {
         intercomSettings.hide_default_launcher = false;
     }
+    store.dispatch('changeLastActiveRoute', from);
     checkUserStatus(to, next);
     
 });

@@ -8,14 +8,6 @@ namespace Cloudents.Web.Controllers
         // GET
         [Route("register")]
         [Route("signin")]
-        [HttpGet]
-        public IActionResult Redirect()
-        {
-            return RedirectToRoute("login");
-        }
-
-
-        [Route("login",Name="login")]
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
