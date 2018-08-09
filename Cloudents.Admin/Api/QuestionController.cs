@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Admin.Api
 {
     [Route("api/[controller]")]
-    [ApiController, Authorize]
+    [ApiController/*, Authorize*/]
     public class QuestionController : ControllerBase
     {
         private readonly Lazy<ICommandBus> _commandBus;
