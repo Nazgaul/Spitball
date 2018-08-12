@@ -5,6 +5,8 @@ axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: fals
 axios.defaults.responseType = "json";
 axios.defaults.baseURL = '/api';
 
+
+
 export const connectivityModule = {
     http: {
         get: function(path, params="", callback){
@@ -66,6 +68,29 @@ export const connectivityModule = {
 
     ws: {
         
+    },
+
+    //todo add error handler
+    signalR: {
+        getConnection: function(url){
+            const connection = new signalR.HubConnectionBuilder()
+            .withUrl(url)
+            .build();
+            return connection;
+        },
+        on: function(connection){
+            return connection.on;
+        },
+        invoke: function(connection, messageString, messageObj){
+            return connection.invoke(messageString, messageObj);
+        },
+        start: function(connections){
+            if(!!connections && connections.length > 0){
+                connections.forEach(connection => {
+                    connection.start();
+                })
+            }
+        }
     }
 
 
