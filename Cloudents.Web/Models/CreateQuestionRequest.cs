@@ -20,7 +20,7 @@ namespace Cloudents.Web.Models
         //[MaxLength(4)]
         public IEnumerable<string> Files { get; set; }
 
-        public QuestionAnswerColor Color { get; set; }
+        public QuestionColor Color { get; set; }
        
     }
 }

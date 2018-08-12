@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
@@ -21,5 +22,8 @@ namespace Cloudents.Core.Command
 
 
         public long Id { get; set; }
+
+        public QuestionColor Color { get; set; }
+
     }
 }

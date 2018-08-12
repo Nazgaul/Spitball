@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
@@ -33,5 +34,6 @@ namespace Cloudents.Core.Command
         public IEnumerable<string> Files { get; private set; }
 
         public string QuestionLink { get; private set; }
+
     }
 }
