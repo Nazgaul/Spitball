@@ -17,6 +17,7 @@ export default {
     },
     data() {
         return {
+            siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
             toUrl: '',
             progressSteps: 5,

@@ -27,17 +27,17 @@
                             <input id="file-input" type="file" multiple accept="image/*"/>
                         </li>
                     </ul>
-                    <!--<ul class="actions_text">-->
-                        <!--<li>-->
-                            <!--<button class="icon"></button>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<button class="icon icon-red"></button>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<button class="icon icon-purple"></button>-->
-                        <!--</li>-->
-                    <!--</ul>-->
+                    <ul class="actions_text">
+                        <li>
+                            <button class="icon icon-green"></button>
+                        </li>
+                        <li>
+                            <button class="icon icon-red"></button>
+                        </li>
+                        <li>
+                            <button class="icon icon-purple"></button>
+                        </li>
+                    </ul>
                 </div>            
                 
                 <!-- <span class="close-btn" v-if="fullPreview" @click="togglePreview">

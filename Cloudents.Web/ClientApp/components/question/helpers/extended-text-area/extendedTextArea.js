@@ -1,5 +1,4 @@
-//import questionService from "../../../../services/questionService";
-
+import colorsSet from '../colorsSet';
 var Uploader = require('html5-uploader');
 
 export default {
@@ -14,7 +13,8 @@ export default {
         return {
             previewList: [],
             fullPreview:false,
-            errorTextArea :{}
+            errorTextArea :{},
+            colorsSet: colorsSet
             }
     },
     watch:{
