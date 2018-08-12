@@ -19,12 +19,6 @@ namespace Cloudents.Core.Command
             QuestionLink = questionLink;
         }
 
-        //[SuppressMessage("ReSharper", "UnusedMember.Global" ,Justification = "Automapper")]
-        //public CreateAnswerCommand()
-        //{
-            
-        //}
-
         public long QuestionId { get; private set; }
         public string Text { get; private set; }
 
@@ -36,4 +30,16 @@ namespace Cloudents.Core.Command
         public string QuestionLink { get; private set; }
 
     }
+
+    //public class CreateAnswerCommandResult : ICommandResult
+    //{
+    //    public CreateAnswerCommandResult(long questionId, long questionUserId)
+    //    {
+    //        QuestionId = questionId;
+    //        QuestionUserId = questionUserId;
+    //    }
+
+    //    public long QuestionId { get; set; }
+    //    public long QuestionUserId { get; set; }
+    //}
 }

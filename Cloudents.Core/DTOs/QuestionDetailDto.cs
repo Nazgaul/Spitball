@@ -25,7 +25,7 @@ namespace Cloudents.Core.DTOs
 
         public Guid? CorrectAnswerId { get; set; }
 
-        public QuestionColor Color { get; set; }
+        public QuestionColor? Color { get; set; }
     }
 
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]

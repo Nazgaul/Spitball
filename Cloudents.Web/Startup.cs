@@ -10,6 +10,8 @@ using Cloudents.Core;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
+using Cloudents.Web.Api;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
@@ -164,10 +166,9 @@ namespace Cloudents.Web
                 Assembly.GetExecutingAssembly()
             };
             services.AddAutoMapper(c => c.DisableConstructorMapping(), assembliesOfProgram);
-
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
-
+            containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = Configuration.GetConnectionString("DefaultConnection"),
