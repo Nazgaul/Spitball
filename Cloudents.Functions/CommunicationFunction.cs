@@ -87,7 +87,7 @@ namespace Cloudents.Functions
                     }
 
                     message.Subject = subject;
-                    message.AddCategory(message.Subject);
+                    message.AddCategory(topicMessage.Campaign);
 
                     message.TrackingSettings.Ganalytics.UtmCampaign = topicMessage.Campaign;
                     message.TrackingSettings.Ganalytics.UtmSource = topicMessage.Source;
