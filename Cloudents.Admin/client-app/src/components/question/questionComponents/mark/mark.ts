@@ -2,6 +2,7 @@ import { Component } from 'vue-property-decorator'
 import Question from '@/components/question/question'
 import QuestionDetailComponent, { QuestionDetail } from '@/components/question/questionComponents/mark/questionDetail/questionDetail'
 import { getAllQUestions } from './markService'
+import { inherits } from 'util';
 
 
 @Component({
@@ -9,20 +10,30 @@ import { getAllQUestions } from './markService'
 })
 export default class QMark extends Question{
     msg: string = "Hello From Mark"
-    questions: any = getAllQUestions();   
-    createQuestionDetail(quantity: number = 5) : QuestionDetail[]{
-        let list: QuestionDetail[] = []
-        list.push(new QuestionDetail("Question Id", "QuestionText","AnswerText","Link","Aprove Url"));
-        for(let i = 0; i < quantity; i++){
-            list.push(new QuestionDetail(i, `text${i}`,`text${i}`,`text${i}`,`text${i}`))
+    filter: string = ""
+    
+    questions: QuestionDetail[] = [];
+        
+    get filteredQuestions(){
+        if(this.filter === ""){
+            return this.questions;
         }
-        return list;
-    } 
-    //questions: QuestionDetail[] = this.createQuestionDetail(5);
+        return this.questions.filter((question:QuestionDetail) => {
+            return question.questionId.toString().indexOf(this.filter) > -1  || question.questionText.indexOf(this.filter) > -1 || question.answerText.indexOf(this.filter) > -1;
+        })
+    }
 
+    pushQuestionsData(data:any){
+        this.questions = data;
+    }
 
-    // filterQuestions(text: string){
-    //     this.questions = this.questions.filter((question)=>{
-    //     })
-    // }
+    init(){
+        getAllQUestions(this.pushQuestionsData)   
+    }
+
+    constructor(){
+        super();
+        this.init();
+    }
+
 }

@@ -15,7 +15,10 @@
 
 <style lang="scss">
 html,body {
-   height: 100%; margin: 0px; padding: 0px; 
+  height: 100%;
+  margin: 0px;
+  padding: 0px; 
+  background-color: #e0e0e0;
 }
 
 #app {
@@ -25,7 +28,6 @@ html,body {
   text-align: center;
   color: #5d5d5d;
   display: flex;
-  background-color: #e0e0e0;
   height:100%;
 }
 
@@ -35,6 +37,8 @@ html,body {
   border-right: 2px solid #575f67;  
   width: 200px;
   max-width: 200px;
+  position:sticky;
+  top:0;
   a {
     font-weight: bold;
     color: #5d5d5d;
@@ -57,5 +61,6 @@ html,body {
 #app-body{
   flex-grow: 1;
   padding: 2px;
+  overflow: auto;
 }
 </style>
