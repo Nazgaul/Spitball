@@ -100,7 +100,8 @@ namespace Cloudents.Web
                         NoStore = true,
                         Location = ResponseCacheLocation.None
                     });
-                    o.ModelBinderProviders.Insert(0, new ApiBinder()); //needed at home
+                    o.ModelBinderProviders.Insert(0, new ApiBinder());
+                    //o.ModelBinderProviders.Insert(0,new ProtectedIdModelBinderProvider());
                 }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             if (HostingEnvironment.IsDevelopment())
             {
