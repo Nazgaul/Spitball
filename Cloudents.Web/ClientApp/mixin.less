@@ -166,7 +166,13 @@
   position: -webkit-sticky; // safari
   position: sticky;
 }
-
+//transition mixin
+.transition (@transition) {
+  -webkit-transition: @transition;
+  -moz-transition:    @transition;
+  -ms-transition:     @transition;
+  -o-transition:      @transition;
+}
 
 .flashcard-icon(@width, @frontColor, @backColor, @borderColor, @frontHover, @backHover, @frontText,@height: 0.88*@width) {
   //@height: 0.88*@width;

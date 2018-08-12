@@ -7,6 +7,13 @@
 //}
 
 .registration {
+  .continue-btn{
+    .transition (all .2s ease-in-out);
+    background: @color-main-purple;
+    &:hover {
+      background: lighten(@color-main-purple, 10%);
+    }
+  }
   background: @color-white;
   height: 100%;
   @google-btn-bg: #4285f4;
@@ -137,7 +144,7 @@
     }
 
     .continue-btn {
-      background: @color-main-purple;
+      //background: @color-main-purple;
       font-size: 18px;
       font-weight: bold;
       line-height: 1.39;
@@ -528,6 +535,10 @@
       width: 100%;
       height: @registrationFieldHeight;
       margin-top: 40px;
+      .transition (all .2s ease-in-out);
+      &:hover {
+        background-: lighten(@google-btn-bg, 10%);
+      }
       @media (max-width: @screen-xs) {
         margin-top: 24px;
       }
@@ -837,7 +848,6 @@
       font-size: 18px;
       letter-spacing: -0.5px;
       margin-bottom: 4px;
-
       ~ i {
         position: absolute;
         top: 14px;

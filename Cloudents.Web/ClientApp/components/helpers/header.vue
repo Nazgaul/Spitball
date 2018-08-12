@@ -33,7 +33,7 @@
                                     </div>
 
                                     <router-link v-if="!loggedIn" class="header-login body-1"
-                                                 :to="{ path: '/register' }">Sign Up
+                                                 :to="{ path: '/register', query:{returnUrl : $route.path}  }">Sign Up
                                     </router-link>
                                     <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}">
                                         Login

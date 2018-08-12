@@ -152,6 +152,17 @@
         background: @color-main-purple;
         color: @color-white;
         margin-right: 24px;
+        .transition (all .2s ease-in-out);
+        &:hover {
+          background: lighten(@color-main-purple, 10%);
+        }
+
+      }
+      &:last-child{
+        .transition (all .2s ease-in-out);
+        &:hover {
+          background: darken(@color-white, 10%);
+        }
       }
 
     }
