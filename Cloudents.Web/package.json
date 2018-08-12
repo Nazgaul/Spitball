@@ -85,6 +85,7 @@
     }
   },
   "dependencies": {
+    "@aspnet/signalr": "^1.0.2",
     "timeago.js": "^3.0.2"
   }
 }

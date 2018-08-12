@@ -1,5 +1,6 @@
 import axios from "axios";
 import qs from "query-string";
+import signalR from '@aspnet/signalr';
 
 axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: false });
 axios.defaults.responseType = "json";
