@@ -5,7 +5,7 @@ export default {
     props: {
         value: {type: String},
         error: {},
-        actionType:{type:String,default:'answer'},
+        actionType:{type:String, default:'answer'},
         isFocused: false,
         uploadUrl: {type: String}
     },
@@ -14,7 +14,8 @@ export default {
             previewList: [],
             fullPreview:false,
             errorTextArea :{},
-            colorsSet: colorsSet
+            colorsSet: colorsSet,
+            activeColor: 0
             }
     },
     watch:{
@@ -33,6 +34,10 @@ export default {
            // debugger;
             this.previewList.splice(index,1);
             this.$emit('removeFile', index);
+        },
+        updateColor(color){
+           this.activeColor = color || colorsSet[0];
+           this.$parent.$emit('colorSelected', this.activeColor);
         }
     },
     mounted() {

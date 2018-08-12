@@ -18,7 +18,9 @@ export default {
             errorMessage: '',
             errorMessageSubject: '',
             errorSelectPrice: '',
-            pricesList: [10, 20, 40, 80]
+            pricesList: [10, 20, 40, 80],
+            actionType:"question",
+            selectedColor: {}
         }
     },
     watch: {
@@ -63,7 +65,8 @@ export default {
             if (this.submitForm()) {
                 this.updateLoading(true);
                 this.textAreaValue = this.textAreaValue.trim();
-                questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files)
+                console.log('sbm color',this.selectedColor.name );
+                questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default' )
                     .then(function () {
                             // debugger;
                             self.$ga.event("Submit_question", "Homwork help");
@@ -112,5 +115,10 @@ export default {
         questionService.getSubjects().then(function (response) {
             self.subjectList = response.data
         })
+        this.$on('colorSelected', (activeColor)=>{
+             this.selectedColor.name = activeColor.name;
+             console.log(this.selectedColor.name);
+        });
+
     }
 }

@@ -18,9 +18,11 @@
                 <extended-text-area uploadUrl="/api/upload/ask"
                                     v-model="textAreaValue"
                                     @addFile="addFile"
-                                    actionType="question"
+                                    :actionType = "actionType"
                                     :error="errorTextArea"
-                                    @removeFile="removeFile"></extended-text-area>
+                                    @removeFile="removeFile">
+
+                </extended-text-area>
 
                 <v-flex xs6 :class="{'has-error':!subject && errorMessageSubject}" class="inputBorder">
                     <select v-model="subject">
