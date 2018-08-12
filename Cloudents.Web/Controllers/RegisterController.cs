@@ -6,7 +6,7 @@ namespace Cloudents.Web.Controllers
     public class RegisterController : Controller
     {
         // GET
-        [Route("register")]
+        [Route("register",Name = "Register")]
         [Route("signin")]
         public IActionResult Index()
         {

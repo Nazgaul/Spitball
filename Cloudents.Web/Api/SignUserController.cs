@@ -6,6 +6,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
@@ -27,7 +28,7 @@ namespace Cloudents.Web.Api
         private readonly IServiceBusProvider _queueProvider;
         internal const string Email = "email";
 
-       
+
 
         public SignUserController(UserManager<User> userManager, SbSignInManager signInManager, ISmsSender smsClient,
             IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider
@@ -40,10 +41,11 @@ namespace Cloudents.Web.Api
             _queueProvider = queueProvider;
         }
 
-        
+
 
         [HttpPost, ValidateRecaptcha, ValidateEmail]
-        public async Task<ActionResult<ReturnSignUserResponse>> SignUser([FromBody]SignUserRequest model, CancellationToken token)
+        public async Task<ActionResult<ReturnSignUserResponse>> SignUser([FromBody]SignUserRequest model,
+             ReturnUrlRequest returnUrl, CancellationToken token)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -62,7 +64,7 @@ namespace Cloudents.Web.Api
                 {
                     if (!user.EmailConfirmed)
                     {
-                        await GenerateEmailAsync(user, token).ConfigureAwait(false);
+                        await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
                         return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
 
                     }
@@ -75,7 +77,7 @@ namespace Cloudents.Web.Api
             }
             if (!user.EmailConfirmed)
             {
-                await GenerateEmailAsync(user, token).ConfigureAwait(false);
+                await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
                 return new ReturnSignUserResponse(NextStep.EmailConfirmed, false);
             }
 
@@ -87,7 +89,7 @@ namespace Cloudents.Web.Api
             var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
             var taskSms = _smsClient.SendSmsAsync(user, token);
 
-            
+
             TempData["SMS"] = user.Email;
             await Task.WhenAll(taskSms, taskSignIn).ConfigureAwait(false);
 
@@ -100,19 +102,24 @@ namespace Cloudents.Web.Api
         }
 
 
-        private async Task GenerateEmailAsync(User user, CancellationToken token)
+        private async Task GenerateEmailAsync(User user, ReturnUrlRequest returnUrl, CancellationToken token)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
             code = UrlEncoder.Default.Encode(code);
-
-            var link = Url.Link("ConfirmEmail", new { user.Id, code });
+            var url = returnUrl.Url;
+            if (!Url.IsLocalUrl(url))
+            {
+                url = null;
+            }
+            var link = Url.Link("ConfirmEmail", new { user.Id, code, returnUrl =  url });
             TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link));
             await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
         }
 
         [HttpPost("google")]
-        public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync([FromBody] TokenRequest model,
+        public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync([FromBody] GoogleTokenRequest model,
+            ReturnUrlRequest returnUrl,
             [FromServices] IGoogleAuth service,
             CancellationToken cancellationToken)
         {
@@ -123,7 +130,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            return await SignUser(new SignUserRequest(result.Email, true, result.Name), cancellationToken).ConfigureAwait(false);
+            return await SignUser(new SignUserRequest(result.Email, true, result.Name), returnUrl, cancellationToken).ConfigureAwait(false);
         }
 
         private User CreateUser(string email, string name)
@@ -145,6 +152,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost("resend")]
         public async Task<IActionResult> ResendEmailAsync(
+            ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
             var email = TempData.Peek(Email) ?? throw new ArgumentNullException("TempData", "email is empty");
@@ -155,7 +163,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            await GenerateEmailAsync(user, token).ConfigureAwait(false);
+            await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
             return Ok();
         }
     }
