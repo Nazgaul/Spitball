@@ -170,7 +170,6 @@ export default {
                         });
                     },
                     error => {
-
                         self.errorMessage = error.text;
                         console.error(error, 'sign in resend error')
                     })

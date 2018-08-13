@@ -12,19 +12,8 @@ const colorsSet = {
             'color': '#000000'
         }
     },
-    red:{
+    green:{
         id: 1,
-        name: "red",
-        active:false,
-        cssRule:{
-            "background-color":"#d0021b"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
-    },
-    purple:{
-        id: 2,
         name: "purple",
         active:false,
         cssRule:{
@@ -34,8 +23,8 @@ const colorsSet = {
             'color': '#ffffff'
         }
     },
-    black:{
-        id: 3,
+    purple:{
+        id: 2,
         name: "black",
         active:false,
         cssRule:{
@@ -45,7 +34,18 @@ const colorsSet = {
             'color': '#ffffff'
         }
     },
-    GradientPurple:{
+    red:{
+        id: 3,
+        name: "GradientPurple",
+        active:false,
+        cssRule:{
+            "background-image": "linear-gradient(135deg, #3023ae, #c86dd7)"
+        },
+        textColor:{
+            'color': '#ffffff'
+        }
+    },
+    yellow:{
         id: 4,
         name: "GradientPurple",
         active:false,
@@ -56,7 +56,7 @@ const colorsSet = {
             'color': '#ffffff'
         }
     },
-    gradientRed:{
+    blue:{
         id: 5,
         name: "gradientRed",
         active:false,
@@ -67,7 +67,7 @@ const colorsSet = {
             'color': '#ffffff'
         }
     },
-    blueSquare:{
+    turquoise:{
         id: 6,
         name: "blueSquare",
         active:false,
@@ -78,7 +78,7 @@ const colorsSet = {
             'color': '#ffffff'
         }
     },
-    grey:{
+    lightBlue:{
         id: 7,
         name: "grey",
         active:false,
@@ -89,8 +89,7 @@ const colorsSet = {
             'color': '#ffffff'
         }
     },
-
-    lightBlue:{
+    grey:{
         id: 8,
         name: "lightBlue",
         active:false,
@@ -102,8 +101,20 @@ const colorsSet = {
         }
     },
 
-    gradientBlue:{
+    olive:{
         id: 9,
+        name: "lightBlue",
+        active:false,
+        cssRule:{
+            "background-color":"#bbbbbb"
+        },
+        textColor:{
+            'color': '#ffffff'
+        }
+    },
+
+    pink:{
+        id: 10,
         name: "gradientBlue",
         active:false,
         cssRule:{
@@ -113,29 +124,5 @@ const colorsSet = {
             'color': '#ffffff'
         }
     },
-
-    gradientBlueGreen:{
-        id: 10,
-        name: "gradientBlueGreen",
-        active:false,
-        cssRule:{
-            "background-image": "linear-gradient(to bottom, #3023ae, #53a0fd)"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
-    },
-
-    gradientYellowPurple:{
-        id: 11,
-        name: "gradientYellowPurple",
-        active:false,
-        cssRule:{
-            "background-image": "linear-gradient(to top, #6523ae, #dc650a 48%, #f6ec00)"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
-    }
 };
 export  default  colorsSet;

@@ -3,9 +3,16 @@
     public enum QuestionColor
     {
         Default,
-        Red,
         Green,
-        Blue
+        purple,
+        red,
+        yellow,
+        blue,
+        turquoise,
+        lightBlue,
+        grey,
+        olive,
+        pink
 
     }
 }

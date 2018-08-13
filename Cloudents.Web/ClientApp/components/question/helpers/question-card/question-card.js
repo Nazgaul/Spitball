@@ -142,9 +142,14 @@ export default {
     },
     created() {
         //set color for card
-        if(this.cardData.color){
-            this.cssRule.backgroundColor = this.colorsSet[`${this.cardData.color}`].cssRule;
-            this.cssRule.fontColor = this.colorsSet[`${this.cardData.color}`].textColor;
+        if (this.cardData.color && this.colorsSet[`${this.cardData.color}`]) {
+                this.cssRule.backgroundColor = this.colorsSet[`${this.cardData.color}`].cssRule;
+                this.cssRule.fontColor = this.colorsSet[`${this.cardData.color}`].textColor;
+
+        } else {
+            let colDefault = 'default';
+            this.cssRule.backgroundColor = this.colorsSet[`${colDefault}`].cssRule;
+            this.cssRule.fontColor = this.colorsSet[`${colDefault}`].textColor;
         }
 
 

@@ -29,6 +29,91 @@
         right: 0.5em;
       }
 
+      .action-holder {
+        display: flex;
+        .v-divider--vertical{
+          height: auto;
+          max-height: 25px;
+        }
+        ul.actions_text {
+          &.files-actions{
+           //border-right:  1px solid grey;
+            //li{
+            //  background-color: #d8d8d8;
+            //  border-radius: 4px;
+            //}
+          }
+          &.colors-actions{
+            //border-left:  1px solid grey;
+          }
+          align-self: flex-end;
+          list-style: none;
+          display: inline-block;
+          margin: 1px 9px 1px 3px;
+          padding-left: 0;
+          &:first-of-type {
+            //width: 135px;
+            //border-right: 1px solid #dddddd;
+          }
+
+          @media (max-width: @screen-xs) {
+            margin: 3px 12px 1px 2px;
+          }
+          li {
+            display: inline;
+            margin: 6px;
+            padding: 3px 0;
+            @media (max-width: @screen-xs) {
+              margin: 2px;
+            }
+            button, label {
+              //background-color: #d8d8d8;
+              width: 25px;
+              height: 25px;
+              border-radius: 5px;
+              outline: none;
+              display: inline-block;
+              line-height: 25px;
+              text-align: center;
+              box-sizing: border-box;
+              @media (max-width: @screen-xs) {
+                width: 20px;
+                height: 20px;
+              }
+              &.active {
+                border: 1px solid @color-white;
+              }
+              &.icon-red {
+                background-color: #d0021b !important;
+              }
+              &.icon-purple {
+                background-color: #9013fe !important;
+              }
+              &.insert-equation i {
+                font-size: 14px;
+              }
+              &.insert-symbol i {
+                font-size: 15px;
+              }
+              &.attach-file i {
+                font-size: 17px;
+              }
+              .icon {
+                color: @color-main-purple;
+              }
+            }
+            #file-input {
+              display: none;
+            }
+            #uploader {
+              width: 25px;
+              height: 25px;
+              background: blue;
+            }
+          }
+        }
+      }
+
       textarea {
         resize: none;
         padding: 11px 9px 4px;
@@ -209,63 +294,5 @@
 
 }
 
-ul.actions_text {
-  list-style: none;
-  display: inline-block;
-  margin: 1px 9px 1px 3px;
-  padding-left: 0;
-  &:first-of-type {
-    //width: 135px;
-    //border-right: 1px solid #dddddd;
-  }
 
-  @media (max-width: @screen-xs) {
-    margin: 3px 12px 1px 2px;
-  }
-  li {
-    display: inline;
-    margin: 6px;
-    padding: 3px 0;
-
-    button, label {
-      //background-color: #d8d8d8;
-      width: 25px;
-      height: 25px;
-      border-radius: 5px;
-      outline: none;
-      display: inline-block;
-      line-height: 25px;
-      text-align: center;
-      &.active{
-        border: 1px solid @color-white;
-      }
-      &.icon-red {
-        background-color: #d0021b !important;
-      }
-      &.icon-purple {
-        background-color: #9013fe !important;
-      }
-      &.insert-equation i {
-        font-size: 14px;
-      }
-      &.insert-symbol i {
-        font-size: 15px;
-      }
-      &.attach-file i {
-        font-size: 17px;
-      }
-      .icon {
-        color: @color-main-purple;
-      }
-    }
-    #file-input {
-      display: none;
-    }
-    #uploader {
-      width: 25px;
-      height: 25px;
-      background: blue;
-    }
-  }
-}
 
