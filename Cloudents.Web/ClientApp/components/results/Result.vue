@@ -22,7 +22,8 @@
                 </template>
             </div>
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
-                <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical">
+                <scroll-list v-if="items.length" @scroll="updateOnScroll" :url="pageData.nextPage" :vertical="pageData.vertical">
+                <!-- <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
                     <v-container class="pa-0 ma-0 results-wrapper">
                         <v-layout column>
                             <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">

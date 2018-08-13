@@ -34,10 +34,6 @@ namespace Cloudents.Web.Controllers
             {
                 return RedirectToAction(nameof(Index), "Home");
             }
-            //if (model.Id == null || model.Code == null)
-            //{
-            //    return RedirectToAction(nameof(Index), "Home");
-            //}
             TempData.Remove(SignUserController.Email);
             model.Code = System.Net.WebUtility.UrlDecode(model.Code);
             var user = await _userManager.FindByIdAsync(model.Id.ToString()).ConfigureAwait(false);

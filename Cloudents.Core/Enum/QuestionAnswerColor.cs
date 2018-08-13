@@ -4,15 +4,14 @@
     {
         Default,
         Green,
-        purple,
-        red,
-        yellow,
-        blue,
-        turquoise,
-        lightBlue,
-        grey,
-        olive,
-        pink
-
+        Purple,
+        Red,
+        Yellow,
+        Blue,
+        Turquoise,
+        LightBlue,
+        Grey,
+        Olive,
+        Pink
     }
 }
