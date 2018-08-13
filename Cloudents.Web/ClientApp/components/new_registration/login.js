@@ -170,6 +170,7 @@ export default {
                         });
                     },
                     error => {
+
                         self.errorMessage = error.text;
                         console.error(error, 'sign in resend error')
                     })
@@ -259,6 +260,9 @@ export default {
         });
         //check if new user param exists in email url
         this.isNewUser = this.$route.query['newUser'] !== undefined;
+        if(this.isNewUser && this.stepNumber === 3){
+            this.$ga.event("Registration", "Email Verified");
+        }
 
     },
 }
