@@ -36,7 +36,6 @@ export default {
         fetchData() {
             accountService.getProfile(this.id).then(({ data }) => {
                 this.profileData = data;
-                console.log(' this.profileData ', this.profileData )
             }, error => {
                 window.location = "/error/notfound";
             })
