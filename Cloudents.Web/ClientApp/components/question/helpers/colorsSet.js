@@ -14,7 +14,7 @@ const colorsSet = {
     },
     green:{
         id: 1,
-        name: "purple",
+        name: "green",
         active:false,
         cssRule:{
             "background-image":"linear-gradient(to top, #c9ea8e, #48b21e)"
@@ -25,7 +25,7 @@ const colorsSet = {
     },
     purple:{
         id: 2,
-        name: "black",
+        name: "purple",
         active:false,
         cssRule:{
             "background-image":"linear-gradient(to bottom, #ae40f6, #deacff)"
@@ -36,7 +36,7 @@ const colorsSet = {
     },
     red:{
         id: 3,
-        name: "GradientPurple",
+        name: "red",
         active:false,
         cssRule:{
             "background-image": "linear-gradient(to top, #f77a85, #e81031)"
@@ -47,7 +47,7 @@ const colorsSet = {
     },
     yellow:{
         id: 4,
-        name: "GradientPurple",
+        name: "yellow",
         active:false,
         cssRule:{
             "background-image": "linear-gradient(to top, #f0d881, #e1a527)"
@@ -58,7 +58,7 @@ const colorsSet = {
     },
     blue:{
         id: 5,
-        name: "gradientRed",
+        name: "blue",
         active:false,
         cssRule:{
             "background-image": "linear-gradient(to top, #b2b0f9, #3532d5)"
@@ -69,7 +69,7 @@ const colorsSet = {
     },
     turquoise:{
         id: 6,
-        name: "blueSquare",
+        name: "turquoise",
         active:false,
         cssRule:{
             "background-image":"linear-gradient(to top, #85ead7, #18a88c)"
@@ -80,7 +80,7 @@ const colorsSet = {
     },
     lightBlue:{
         id: 7,
-        name: "grey",
+        name: "lightBlue",
         active:false,
         cssRule:{
             "background-image":" linear-gradient(to top, #bed3ec, #53a0fd)"
@@ -91,7 +91,7 @@ const colorsSet = {
     },
     grey:{
         id: 8,
-        name: "lightBlue",
+        name: "grey",
         active:false,
         cssRule:{
             "background-image":"linear-gradient(to top, #d6d6d6, #8d8d8d)"
@@ -103,7 +103,7 @@ const colorsSet = {
 
     olive:{
         id: 9,
-        name: "lightBlue",
+        name: "olive",
         active:false,
         cssRule:{
             "background-image":"linear-gradient(to top, #dae0af, #8d983e)"
@@ -115,7 +115,7 @@ const colorsSet = {
 
     pink:{
         id: 10,
-        name: "gradientBlue",
+        name: "pink",
         active:false,
         cssRule:{
             "background-image":" linear-gradient(to top, #fbc6ed, #e24cb8)"
