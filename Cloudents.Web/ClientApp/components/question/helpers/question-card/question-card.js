@@ -102,7 +102,6 @@ export default {
             this.flaggedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
             this.updateToasterParams({toasterText: '', showToaster: false});//test123
-
         },
         deleteQuestion() {
             this.updateToasterParams({
@@ -113,10 +112,12 @@ export default {
                 .then(() => {
                     if (!this.typeAnswer) {
                         this.updateBalance(this.cardData.price);
-                        //To DO change to router link use and not text URL
+                        this.$ga.event("Delete_question", "Homework help");
+                        //ToDO change to router link use and not text URL
                         this.$router.push('/ask')
                     } else {
                         //emit to root to update array of answers
+                        this.$ga.event("Delete_answer", "Homework help");
                         this.$root.$emit('deleteAnswer', this.cardData.id);
                         this.isDeleted = true
                     }
