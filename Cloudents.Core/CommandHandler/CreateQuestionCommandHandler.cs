@@ -39,10 +39,10 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new InvalidOperationException("You need to wait before asking more questions");
             }
-            
 
-            var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId,token).ConfigureAwait(true);
-            var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
+
+            var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId, token).ConfigureAwait(true);
+            var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user, message.Color);
             await _questionRepository.AddAsync(question, token).ConfigureAwait(true);
             var id = question.Id;
 

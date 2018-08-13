@@ -1,4 +1,5 @@
 ﻿using System;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
@@ -14,5 +15,7 @@ namespace Cloudents.Core.DTOs
         public UserDto User { get; set; }
 
         public DateTime DateTime { get; set; }
+
+        public QuestionColor Color { get; set; }
     }
 }

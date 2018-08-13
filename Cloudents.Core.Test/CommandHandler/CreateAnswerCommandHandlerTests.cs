@@ -4,6 +4,7 @@ using Autofac.Extras.Moq;
 using Cloudents.Core.Command;
 using Cloudents.Core.CommandHandler;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -23,7 +24,7 @@ namespace Cloudents.Core.Test.CommandHandler
             {
                 Id = 2
             };
-            var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser);
+            var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.None);
 
             question.Answers.Add(new Answer(question, "some text", 0, user));
 
@@ -49,7 +50,7 @@ namespace Cloudents.Core.Test.CommandHandler
             {
                 Id = 2
             };
-            var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser);
+            var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.None);
 
             //question.Answers.Add(new Answer(question, "some text", 0, user));
 

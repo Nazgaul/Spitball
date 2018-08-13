@@ -1,6 +1,6 @@
 ﻿namespace Cloudents.Core.Enum
 {
-    public enum QuestionAnswerColor
+    public enum QuestionColor
     {
         None,
         Red,

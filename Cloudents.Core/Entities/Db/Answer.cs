@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities.Db
@@ -16,7 +17,6 @@ namespace Cloudents.Core.Entities.Db
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
-            //AnswerCreateTransaction();
         }
 
         [UsedImplicitly]
@@ -33,18 +33,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual DateTime Created { get; set; }
 
+       
 
-        //public virtual Transaction AnswerCreateTransaction()
-        //{
-        //    var t = new Transaction(ActionType.Answer, TransactionType.Pending, Question.Price);
-        //    User.AddTransaction(t);
-        //    return t;
-        //}
-
-        //public virtual void AnswerDeleteTransaction()
-        //{
-        //    var t =  new Transaction(ActionType.Answer, TransactionType.Pending, -Question.Price);
-        //    User.AddTransaction(t);
-        //}
     }
 }
