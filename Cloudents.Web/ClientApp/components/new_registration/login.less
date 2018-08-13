@@ -275,6 +275,10 @@
     }
     a {
       color: @color-main-purple;
+      .transition (all .2s ease-in-out);
+      &:hover {
+        color: lighten(@color-main-purple, 10%);
+      }
     }
 
     button {
@@ -537,7 +541,7 @@
       margin-top: 40px;
       .transition (all .2s ease-in-out);
       &:hover {
-        background-: lighten(@google-btn-bg, 10%);
+        background: lighten(@google-btn-bg, 10%);
       }
       @media (max-width: @screen-xs) {
         margin-top: 24px;
@@ -864,6 +868,10 @@
     color: #ffffff;
     width: 100%;
     height: @registrationFieldHeight;
+    .transition (all .2s ease-in-out);
+    &:hover {
+      background: lighten(@color-main-purple, 10%);
+    }
     @media (max-width: @screen-xs) {
       width: 86%;
     }

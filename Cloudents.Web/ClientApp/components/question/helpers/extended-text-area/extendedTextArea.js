@@ -1,12 +1,11 @@
-//import questionService from "../../../../services/questionService";
-
+import colorsSet from '../colorsSet';
 var Uploader = require('html5-uploader');
 
 export default {
     props: {
         value: {type: String},
         error: {},
-        actionType:{type:String,default:'answer'},
+        actionType:{type:String, default:'answer'},
         isFocused: false,
         uploadUrl: {type: String}
     },
@@ -14,7 +13,9 @@ export default {
         return {
             previewList: [],
             fullPreview:false,
-            errorTextArea :{}
+            errorTextArea :{},
+            colorsSet: colorsSet,
+            activeColor: 0
             }
     },
     watch:{
@@ -33,6 +34,10 @@ export default {
            // debugger;
             this.previewList.splice(index,1);
             this.$emit('removeFile', index);
+        },
+        updateColor(color){
+           this.activeColor = color || colorsSet[0];
+           this.$parent.$emit('colorSelected', this.activeColor);
         }
     },
     mounted() {

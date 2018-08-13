@@ -2,10 +2,10 @@
         <v-flex xs12 class="question_area"  :class="{'has-error': error && error.errorClass &&  value.length < 15}">
             <div class="textarea">
                 <!-- :class="{'with-preview':previewList.length}" v-if="!fullPreview" -->
-                <div class="text-block" >
+                <div class="text-block" :style="activeColor.cssRule" >
                     <span class="error-message" v-if="error.errorClass &&  value.length < 15"  :error ="errorTextArea" >{{error.errorText}}</span>
 
-                    <textarea rows="9" class="" @input="updateValue($event.target.value)"
+                    <textarea rows="9" class="":style="activeColor.textColor" @input="updateValue($event.target.value)"
                         :value="value" autofocus="isFocused"
                         :placeholder="`Type your ${actionType}...`"></textarea>
                     <ul class="actions_text">
@@ -27,17 +27,11 @@
                             <input id="file-input" type="file" multiple accept="image/*"/>
                         </li>
                     </ul>
-                    <!--<ul class="actions_text">-->
-                        <!--<li>-->
-                            <!--<button class="icon"></button>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<button class="icon icon-red"></button>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<button class="icon icon-purple"></button>-->
-                        <!--</li>-->
-                    <!--</ul>-->
+                    <ul class="actions_text" v-if="actionType ==='question'">
+                        <li v-for="color in colorsSet" :key="color.id">
+                            <button :style="color.cssRule" :class="{ active: color.id === activeColor.id}" @click="updateColor(color)"></button>
+                        </li>
+                    </ul>
                 </div>            
                 
                 <!-- <span class="close-btn" v-if="fullPreview" @click="togglePreview">

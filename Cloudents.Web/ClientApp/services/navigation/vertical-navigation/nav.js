@@ -12,7 +12,8 @@ const nav = {
             filter:[{ id: "source", name: "subject" }],
             id: routes.questionRoute,
             name: "Homework Help",
-            icon: "sbf-ask-q" //TODO do we need this.....
+            icon: "sbf-ask-q", //TODO do we need this.....
+            show: true
         }
     },
     note: {
@@ -31,7 +32,8 @@ const nav = {
                 { id: "relevance", name: "relevance" },
                 { id: "date", name: "date" }
             ],
-            icon: "sbf-note"
+            icon: "sbf-note",
+            show: false
         }
 
      },
