@@ -1,6 +1,7 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import disableForm from "../../../mixins/submitDisableMixin"
 import {mapGetters, mapActions} from 'vuex'
+import colorsSet from '../colorsSet';
 import timeago from 'timeago.js';
 
 
@@ -53,7 +54,12 @@ export default {
             src: '',
             selectedImage: '',
             showDialog: false,
-            limitedCardAnswers: []
+            limitedCardAnswers: [],
+            colorsSet: colorsSet,
+            cssRule: {
+                backgroundColor: '#ffffff',
+                fontColor: '#ffffff'
+            }
         }
     },
     computed: {
@@ -134,6 +140,13 @@ export default {
 // use render method to render nodes in real time
     },
     created() {
+        //set color for card
+        if(this.cardData.color){
+            this.cssRule.backgroundColor = this.colorsSet[`${this.cardData.color}`].cssRule;
+            this.cssRule.fontColor = this.colorsSet[`${this.cardData.color}`].textColor;
+        }
+
+
         this.flaggedAsCorrect = this.isCorrectAnswer;
         this.calculateAnswerToLimit();
     }

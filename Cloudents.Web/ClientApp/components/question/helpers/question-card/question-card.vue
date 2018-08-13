@@ -1,9 +1,9 @@
 <template>
-    <v-flex v-if="cardData && !isDeleted " class="question-card" :class="{'highlight':flaggedAsCorrect}">
+    <v-flex v-if="cardData && !isDeleted " class="question-card" :style="cssRule.backgroundColor" :class="{'highlight':flaggedAsCorrect}">
         <div v-if="!typeAnswer" class="box-stroke">
             <!-- question Card -->
             <div class="top-block" >
-            <user-block :cardData="cardData" :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
+            <user-block :style="cssRule.fontColor" :cardData="cardData" :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
                 <template> · <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
                         v-if="typeAnswer"
                         class="q-answer">
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <p class="q-text" :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text}}</p>
+        <p class="q-text" :style="cssRule.fontColor"  :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text}}</p>
 
         <!-- v-if="cardData.files.length" -->
         <div class="gallery" v-if="gallery&&gallery.length">
@@ -63,7 +63,6 @@
         </div>
         <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}" v-if="detailedView && canDelete" @click="deleteQuestion()">Delete</button>
         
-        <!-- TODO strange behaviour check why is being added tab index-1 to DOM-->
         <v-dialog v-if="gallery&&gallery.length" v-model="showDialog"  max-width="720px"
                   transition="scale-transition" content-class="zoom-image">
             <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
