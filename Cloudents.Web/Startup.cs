@@ -69,17 +69,18 @@ namespace Cloudents.Web
             // Add SnapshotCollector telemetry processor.
             services.AddSingleton<ITelemetryProcessorFactory>(sp => new SnapshotCollectorTelemetryProcessorFactory(sp));
             services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
+            services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
 
             services.AddDataProtection(o =>
             {
                 o.ApplicationDiscriminator = "spitball";
             }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            //services.Configure<CookiePolicyOptions>(options =>
+            //{
+            //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+            //    options.CheckConsentNeeded = context => true;
+            //    options.MinimumSameSitePolicy = SameSiteMode.None;
+            //});
 
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
@@ -91,7 +92,7 @@ namespace Cloudents.Web
                 .AddJsonOptions(options =>
             {
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
+                options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             }).AddMvcOptions(o =>
                 {
@@ -353,7 +354,7 @@ namespace Cloudents.Web
                     HotModuleReplacement = true
                 });
                 var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-                configuration.DisableTelemetry = true;
+                //configuration.DisableTelemetry = true;
 
                 app.UseDeveloperExceptionPage();
             }
@@ -435,11 +436,12 @@ namespace Cloudents.Web
         }
     }
 
-    public class UserTelemetryInitializer : ITelemetryInitializer
-    {
-        public void Initialize(ITelemetry telemetry)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //public class UserTelemetryInitializer : ITelemetryInitializer
+    //{
+    //    public void Initialize(ITelemetry telemetry)
+    //    {
+    //        telemetry.Context.
+            
+    //    }
+    //}
 }

@@ -22,6 +22,7 @@ namespace Cloudents.Web.Api
         [HttpGet("{id}")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
+        
         public async Task<ActionResult<ProfileDto>> GetAsync(long id, CancellationToken token)
         {
             var query = new UserDataByIdQuery(id);
