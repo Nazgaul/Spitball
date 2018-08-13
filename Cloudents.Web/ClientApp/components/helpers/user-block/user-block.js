@@ -25,7 +25,8 @@ export default {
             type:String,
             required:false,
             default:''
-        }
+        },
+
     },
     data() {
         return {

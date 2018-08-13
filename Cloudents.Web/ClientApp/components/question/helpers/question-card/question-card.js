@@ -104,24 +104,28 @@ export default {
             this.updateToasterParams({toasterText: '', showToaster: false});//test123
         },
         deleteQuestion() {
-            this.updateToasterParams({
-                toasterText: this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted',
-                showToaster: true,
-            });
-            this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
-                .then(() => {
-                    if (!this.typeAnswer) {
-                        this.updateBalance(this.cardData.price);
-                        this.$ga.event("Delete_question", "Homework help");
-                        //ToDO change to router link use and not text URL
-                        this.$router.push('/ask')
-                    } else {
-                        //emit to root to update array of answers
-                        this.$ga.event("Delete_answer", "Homework help");
-                        this.$root.$emit('deleteAnswer', this.cardData.id);
-                        this.isDeleted = true
+           this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
+                .then((success) => {
+                        this.updateToasterParams({
+                            toasterText: this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted',
+                            showToaster: true,
+                        });
+                        if (!this.typeAnswer) {
+                            this.updateBalance(this.cardData.price);
+                            this.$ga.event("Delete_question", "Homework help");
+                            //ToDO change to router link use and not text URL
+                            this.$router.push('/ask')
+                        } else {
+                            //emit to root to update array of answers
+                            this.$ga.event("Delete_answer", "Homework help");
+                            this.$root.$emit('deleteAnswer', this.cardData.id);
+                            this.isDeleted = true
+                        }
+                    },
+                    (error) => {
+                        console.error(error)
                     }
-                });
+                );
         },
         calculateAnswerToLimit() {
             // limit card answer could be a number or array depends on route(view)
@@ -143,8 +147,8 @@ export default {
     created() {
         //set color for card
         if (this.cardData.color && this.colorsSet[`${this.cardData.color}`]) {
-                this.cssRule.backgroundColor = this.colorsSet[`${this.cardData.color}`].cssRule;
-                this.cssRule.fontColor = this.colorsSet[`${this.cardData.color}`].textColor;
+            this.cssRule.backgroundColor = this.colorsSet[`${this.cardData.color}`].cssRule;
+            this.cssRule.fontColor = this.colorsSet[`${this.cardData.color}`].textColor;
 
         } else {
             let colDefault = 'default';
