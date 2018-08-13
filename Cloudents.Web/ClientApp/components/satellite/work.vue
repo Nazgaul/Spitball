@@ -19,18 +19,22 @@
     const pageData = {
         whatIsSpitball: {
             image: "how-spitball-works-1.png",
-            title: "What is Spitball?",
-            text: "Simply put, Spitball is the global marketplace for students. Spitball allows students to ask and answer questions, share notes, find tutors, buy & sell textbooks and more - making it the ideal one-stop-shop for students. We bring the best that the internet has to offer students, all together in one place."
+            title: "How Spitball Works",
+            text: "Our Homework Help offers students a quick and simple way to Ask and Answer tricky homework questions.  Spitball incentivizes knowledgeable students to support one another for profit, bringing students from all over the world together to help each other succeed in school. Ask Your Question OR answer someone else’s, a win-win!"
         },
         Technology: {
             image: "how-spitball-works-2.png",
             title: "Our Technology",
-            text: "Our platform combines artificial intelligence & machine learning with blockchain technology, bringing students the most relevant content and enabling them to exchange peer-to-peer (P2P) safely & securely. We source directly from students and leading educational websites, so you can forget about the time-consuming and frustrating search process through the tsunami of online content."
+            text: `Our platform combines artificial intelligence & machine learning with blockchain technology. This means we are able to bring you customized, relevant content while eliminating the “middle man” (aka, outdated banking systems and other controlling websites), enabling students to directly exchange knowledge, goods and services. By doing this, we can greatly reduce transaction fees and put the power back in the hands of students! 
+                   Spitball’s technology uses “smart contracts” (a piece of code programmed to execute automatically) to keep track of your knowledge and reward you for asking and answering questions; in a safe, secure & extremely efficient way. It doesn’t get any better than this! We promise.`
+
         },
         Personalization: {
             image: "how-spitball-works-3.png",
-            title: "Personalization",
-            text: "Spitball offers personalized results based on your school, classes, and preferences. Our AI engine combined with your specific user preferences provides curated, relevant results for you. Missed class and need some notes? Spitball it. Need a tutor? Spitball it. Buying textbooks? You get the idea..."
+            title: "Cashing Out",
+            text: `Ah, the good stuff. So you wanna cash out? No problem! Just go to your wallet (make sure you have enough redeemable SBL), click on Cash Out and choose your reward. Your Amazon Coupon will be sent to your email within 24 hours.\n
+             Easy Peasy! \n
+             Tip: We encourage students to save some SBL Tokens in order to ask tough homework questions in the future.`
         },
     }
     export default {
