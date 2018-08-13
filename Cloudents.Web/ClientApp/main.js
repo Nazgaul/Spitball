@@ -2,6 +2,7 @@
 import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
+import { Language } from "./services/language/langDirective"
 
 const scroll = () =>
     import("./components/helpers/infinateScroll.vue");
@@ -128,6 +129,8 @@ const router = new VueRouter({
 
 });
 
+
+
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',
     disableScriptLoader: true,
@@ -149,6 +152,11 @@ Vue.use(VueAnalytics, {
         exception: true
     }
 });
+
+
+Vue.directive('language', Language);
+
+
 //#region yifat
 Vue.filter('capitalize',
     function (value) {
