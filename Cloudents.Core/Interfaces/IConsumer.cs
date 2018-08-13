@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Autofac;
 
 namespace Cloudents.Core.Interfaces
 {
+    //public interface IEventMessage
+    //{
+
+    //}
+
     public interface IConsumer<T>
     {
-        void Handle(T eventMessage);
+        Task HandleAsync(T eventMessage, CancellationToken token);
     }
 
     public interface ISubscriptionService
@@ -23,8 +30,7 @@ namespace Cloudents.Core.Interfaces
             var consumerType = typeof(T);
 
             consumerType.GetInterfaces()
-                .Where(x => x.IsGenericType)
-                .Where(x => x.GetGenericTypeDefinition() == typeof(IConsumer<>))
+                .Where(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IConsumer<>))
                 .ToList()
                 .ForEach(x => builder.RegisterType(x));
         }
@@ -43,7 +49,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IEventPublisher
     {
-        void Publish<T>(T eventMessage);
+        Task PublishAsync<T>(T eventMessage, CancellationToken token);
     }
 
 
@@ -56,17 +62,19 @@ namespace Cloudents.Core.Interfaces
             _subscriptionService = subscriptionService;
         }
 
-        public void Publish<T>(T eventMessage)
+        public async Task PublishAsync<T>(T eventMessage, CancellationToken token)
         {
             var subscriptions = _subscriptionService.GetSubscriptions<T>();
-            subscriptions.ToList().ForEach(x => PublishToConsumer(x, eventMessage));
+
+            var tasks = subscriptions.Select(s => PublishToConsumerAsync(s, eventMessage, token));
+            await Task.WhenAll(tasks).ConfigureAwait(false);
         }
 
-        private static void PublishToConsumer<T>(IConsumer<T> x, T eventMessage)
+        private static async Task PublishToConsumerAsync<T>(IConsumer<T> x, T eventMessage, CancellationToken token)
         {
             try
             {
-                x.Handle(eventMessage);
+                await x.HandleAsync(eventMessage, token);
             }
             catch (Exception e)
             {

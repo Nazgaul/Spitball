@@ -24,7 +24,7 @@ namespace Cloudents.Core.Test.CommandHandler
             {
                 Id = 2
             };
-            var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.None);
+            var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.Default);
 
             question.Answers.Add(new Answer(question, "some text", 0, user));
 
@@ -50,7 +50,7 @@ namespace Cloudents.Core.Test.CommandHandler
             {
                 Id = 2
             };
-            var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.None);
+            var question = new Question(new QuestionSubject(), "some text", 0, 0, questionUser, QuestionColor.Default);
 
             //question.Answers.Add(new Answer(question, "some text", 0, user));
 

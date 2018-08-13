@@ -24,7 +24,11 @@ namespace Cloudents.Core.Entities.Db
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
-            Color = color;
+            if (color != QuestionColor.Default)
+            {
+                Color = color;
+            }
+
             if (user.Fictive)
             {
                 Updated = DateTimeHelpers.NextRandomDate(1);
@@ -58,7 +62,7 @@ namespace Cloudents.Core.Entities.Db
 
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
-        public virtual QuestionColor Color { get; set; }
+        public virtual QuestionColor? Color { get; set; }
 
 
         public virtual void QuestionCreateTransaction()

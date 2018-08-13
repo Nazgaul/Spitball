@@ -19,7 +19,7 @@ namespace Cloudents.Web.Api
     [Produces("application/json")]
     [Route("api/[controller]")]
     [Authorize, ApiController]
-    public class AnswerController : ControllerBase, IConsumer<AnswerCreatedEvent>
+    public class AnswerController : ControllerBase
     {
         internal const string CreateAnswerPurpose = "CreateAnswer";
         private readonly ICommandBus _commandBus;
@@ -41,7 +41,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var code = _dataProtector.Protect(userId.ToString(), DateTimeOffset.UtcNow.AddDays(2));
+           // var code = _dataProtector.Protect(userId.ToString(), DateTimeOffset.UtcNow.AddDays(2));
             var link = Url.Action("Index", "Question", new { id = model.QuestionId });
             var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files, link);
             var t1 = _commandBus.DispatchAsync(command, token);
@@ -60,7 +60,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
 
-        public async Task<IActionResult> DeleteAnswerAsync(DeleteAnswerRequest model, CancellationToken token)
+        public async Task<IActionResult> DeleteAnswerAsync([FromRoute]DeleteAnswerRequest model, CancellationToken token)
         {
             try
             {
@@ -73,11 +73,6 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
         }
-
-        public void Handle(AnswerCreatedEvent eventMessage)
-        {
-            var code = _dataProtector.Protect(eventMessage.QuestionUserId.ToString(), DateTimeOffset.UtcNow.AddDays(2));
-            var link = Url.Action("Index", "Question", new { id = eventMessage.QuestionId, code });
-        }
+        
     }
 }
