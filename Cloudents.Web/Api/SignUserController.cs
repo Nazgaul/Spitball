@@ -12,6 +12,7 @@ using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,7 +46,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost, ValidateRecaptcha, ValidateEmail]
         public async Task<ActionResult<ReturnSignUserResponse>> SignUser([FromBody]SignUserRequest model,
-             ReturnUrlRequest returnUrl, CancellationToken token)
+           [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -102,11 +103,11 @@ namespace Cloudents.Web.Api
         }
 
 
-        private async Task GenerateEmailAsync(User user, ReturnUrlRequest returnUrl, CancellationToken token)
+        private async Task GenerateEmailAsync(User user,[CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
             code = UrlEncoder.Default.Encode(code);
-            var url = returnUrl.Url;
+            var url = returnUrl?.Url;
             if (!Url.IsLocalUrl(url))
             {
                 url = null;
