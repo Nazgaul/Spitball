@@ -16,6 +16,6 @@ namespace Cloudents.Core.DTOs
 
         public DateTime DateTime { get; set; }
 
-        public QuestionColor Color { get; set; }
+        public QuestionColor? Color { get; set; }
     }
 }

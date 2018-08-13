@@ -56,22 +56,19 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new InvalidOperationException("user cannot give more the one answer");
             }
-            //var answer = new Answer(question, message.Text, message.Files?.Count() ?? 0, user);
-            //await _answerRepository.AddAsync(answer, token).ConfigureAwait(false);
+            var answer = new Answer(question, message.Text, message.Files?.Count() ?? 0, user);
+            await _answerRepository.AddAsync(answer, token).ConfigureAwait(false);
 
-            //var id = answer.Id;
+            var id = answer.Id;
 
-            //var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
-            _eventPublisher.Publish(new AnswerCreatedEvent
-            {
-                QuestionId = question.Id,
-                QuestionUserId = question.User.Id
-            });
+            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
+            var t = _eventPublisher.PublishAsync(new AnswerCreatedEvent(question.Id, id), token);
+
 
             //var t = _serviceBusProvider.InsertMessageAsync(
             //        new GotAnswerEmail(question.Text, question.User.Email, message.Text, message.QuestionLink), token);
 
-           // await Task.WhenAll(l.Union(new[] { t })).ConfigureAwait(true);
+            await Task.WhenAll(l.Union(new[] { t })).ConfigureAwait(true);
         }
     }
 }

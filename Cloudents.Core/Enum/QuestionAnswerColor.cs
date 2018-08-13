@@ -2,7 +2,7 @@
 {
     public enum QuestionColor
     {
-        None,
+        Default,
         Red,
         Green,
         Blue

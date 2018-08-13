@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
