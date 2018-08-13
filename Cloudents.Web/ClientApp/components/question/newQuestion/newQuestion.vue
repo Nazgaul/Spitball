@@ -1,5 +1,6 @@
 <template>
-    <div class="ask_question">
+<transition name="fade">
+<div class="ask_question">
         <v-container class="general-cell">
             <v-layout row wrap>
                 <v-flex xs12>
@@ -99,6 +100,7 @@
             </div> -->
         </v-container>
     </div>
+</transition>
 </template>
 <script src="./newQuestion.js"></script>
 <style src="./newQuestion.less" lang="less"></style>

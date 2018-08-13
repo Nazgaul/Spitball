@@ -1,9 +1,9 @@
 ﻿<template>
     <main-header ref="mainHeader"
                  :toolbarHeight="$vuetify.breakpoint.smAndUp ? 108 : 104">
-        <v-flex class="line" slot="extraHeader" v-if="$vuetify.breakpoint.mdAndUp">
+        <v-flex class="line" slot="extraHeader">
             <v-layout row>
-            <v-tabs  :scrollable="false" centered>
+            <v-tabs :scrollable="false" centered>
                     <v-tab router v-for="tab in verticals" :key="tab.name" :to="'/'+tab.name" v-if="tab.display"
                                  class="vertical">
                         {{tab.display}}

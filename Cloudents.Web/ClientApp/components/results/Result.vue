@@ -1,6 +1,5 @@
 ﻿﻿
 <template>
-<transition name="fade">
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
         <signup-banner  slot="signupBanner"  v-if="!accountUser && showRegistrationBanner"></signup-banner>
 
@@ -127,7 +126,6 @@
         </slot>
 
     </general-page>
-</transition>
 </template>
 
 <script src="./Result.js"></script>
