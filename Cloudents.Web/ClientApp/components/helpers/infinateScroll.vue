@@ -12,7 +12,10 @@
             }
         },
 
-        props: { url: String,vertical:String },
+        props: { 
+            url: String,
+            vertical:String
+        },
 
         created() {
             this.nextPage = this.url;
@@ -32,7 +35,7 @@
                 let scrollOffset = (currentScroll > (0.75 * totalHeight - document.documentElement.clientHeight));
                 let retVal = ((window.pageYOffset > 0 || document.documentElement.scrollTop > 0) && scrollOffset &&
                     !this.isLoading && !this.isComplete);
-                console.log(retVal)
+                //console.log(retVal)
                 return retVal
             },
             scrollList() {

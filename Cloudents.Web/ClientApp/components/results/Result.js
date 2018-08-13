@@ -11,7 +11,7 @@ import {verticalsName} from "../../services/navigation/vertical-navigation/nav";
 import {typesPersonalize} from "../settings/consts.js";
 import signupBanner from './../helpers/signup-banner/signup-banner.vue'
 import QuestionCard from "../question/helpers/question-card/question-card";
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters, mapMutations} from 'vuex'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
 
@@ -28,7 +28,8 @@ let updateData = function (data, isFilterUpdate = false) {
     facet ? this.updateFacet(facet) : '';
     this.pageData = {};
     this.content = data;
-    this.$emit('dataUpdated', data.data.length ? data.data[0] : null);
+    this.$emit('dataUpdated', this.items.length ? this.items[0] : null);
+    //this.$emit('dataUpdated', data.data.length ? data.data[0] : null);
     // (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterSelection;
     // this.UPDATE_LOADING(false);
@@ -69,12 +70,15 @@ export default {
     computed: {
         //get data from vuex getters
         ...mapGetters(['isFirst', 'myCourses', 'getFacet', 'getVerticalData', 'accountUser', 'showRegistrationBanner']),
-        ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity'}),
+        // ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity'}),
+        ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
+        
         currentPromotion() {
             return promotions[this.name]
         },
         filterCondition() {
-            return this.filterSelection.length || (this.filterObject && this.page && this.items.length)
+            return this.filterSelection.length || (this.filterObject && this.page)
+            // return this.filterSelection.length || (this.filterObject && this.page && this.items.length)
         },
         content: {
             get() {
@@ -83,9 +87,12 @@ export default {
             set(val) {
                 if (val) {
                     this.pageData = val;
-                    this.items = val.data;
+                    this.updateItems(val.data);
+                    // this.items = val.data;
                     this.$nextTick(() => {
                         if (!this.items.length) {
+                            // gaby: according to my understanding this code exists in order to notify
+                            // google analytics that we have no questions in the page
                             Promise.resolve(() => {
                                 let filters = {};
                                 Object.entries(this.query).forEach(([key, currentVal]) => {
@@ -131,7 +138,7 @@ export default {
 
     data() {
         return {
-            items: '',
+            //items: '',
             pageData: '',
             selectedItem: null,
             filterObject: null,
@@ -164,10 +171,12 @@ export default {
     },
 
     created() {
+        
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);
-        this.items = skeletonData[this.name];
+        // this.items = skeletonData[this.name];
+        this.updateItems(skeletonData[this.name])
         //fetch data with the params
         this.fetchingData({
             name: this.name,
@@ -179,11 +188,13 @@ export default {
             console.error(reason);
             //when error from fetching data remove the loader
             this.UPDATE_LOADING(false);
-            this.items = [];
+            this.updateItems([]);
+            // this.items = [];
         });
         // });
     },
     methods: {
+        ...mapMutations({updateItems: "UPDATE_ITEMS"}),
         subFilterVertical(val) {
             return val.includes('note') || val === 'flashcard' || val === 'job' || val.includes('ask');
         },
@@ -193,9 +204,15 @@ export default {
             const toName = to.path.slice(1);
             const itemsBeforeUpdate = this.items;
             this.pageData = {};
-            this.items = [];
-            this.items = skeletonData[toName];
+            
+            this.updateItems(skeletonData[this.name])
+            // this.items = [];
+            // this.items = skeletonData[toName];
             this.updateContentOfPage(to, from, next, itemsBeforeUpdate);
+        },
+        updateOnScroll(value){
+            this.updateItems(this.items.concat(value))
+            // this.items=this.items.concat(value)
         },
         updateContentOfPage(to, from, next, itemsBeforeUpdate) {
             const toName = to.path.slice(1);
@@ -214,12 +231,14 @@ export default {
                     this.isLoad = false;
                     this.UPDATE_LOADING(false);
                     this.showFilterNotApplied = true;
-                    this.items = itemsBeforeUpdate;
+                    this.updateItems(itemsBeforeUpdate)
+                    // this.items = itemsBeforeUpdate;
                 }
                 else {
                     this.UPDATE_LOADING(false);
                     this.isLoad = false;
-                    this.items = [];
+                    this.updateItems([])
+                    // this.items = [];
                     next();
                 }
             });
