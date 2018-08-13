@@ -4,7 +4,7 @@ const colorsSet = {
     default:{
         id: 0,
         name: "default",
-        active:false,
+        active:true,
         cssRule:{
             "background-color":"#ffffff"
         },
