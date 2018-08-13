@@ -17,7 +17,7 @@ const colorsSet = {
         name: "purple",
         active:false,
         cssRule:{
-            "background-color":"#9013fe"
+            "background-image":"linear-gradient(to top, #c9ea8e, #48b21e)"
         },
         textColor:{
             'color': '#ffffff'
@@ -28,7 +28,7 @@ const colorsSet = {
         name: "black",
         active:false,
         cssRule:{
-            "background-color":"#000000"
+            "background-image":"linear-gradient(to bottom, #ae40f6, #deacff)"
         },
         textColor:{
             'color': '#ffffff'
@@ -39,7 +39,7 @@ const colorsSet = {
         name: "GradientPurple",
         active:false,
         cssRule:{
-            "background-image": "linear-gradient(135deg, #3023ae, #c86dd7)"
+            "background-image": "linear-gradient(to top, #f77a85, #e81031)"
         },
         textColor:{
             'color': '#ffffff'
@@ -50,7 +50,7 @@ const colorsSet = {
         name: "GradientPurple",
         active:false,
         cssRule:{
-            "background-image": "linear-gradient(135deg, #3023ae, #c86dd7)"
+            "background-image": "linear-gradient(to top, #f0d881, #e1a527)"
         },
         textColor:{
             'color': '#ffffff'
@@ -61,7 +61,7 @@ const colorsSet = {
         name: "gradientRed",
         active:false,
         cssRule:{
-            "background-image": "linear-gradient(135deg, #3023ae, #c40000)"
+            "background-image": "linear-gradient(to top, #b2b0f9, #3532d5)"
         },
         textColor:{
             'color': '#ffffff'
@@ -72,7 +72,7 @@ const colorsSet = {
         name: "blueSquare",
         active:false,
         cssRule:{
-            "background-color":"#9b93f9"
+            "background-image":"linear-gradient(to top, #85ead7, #18a88c)"
         },
         textColor:{
             'color': '#ffffff'
@@ -83,7 +83,7 @@ const colorsSet = {
         name: "grey",
         active:false,
         cssRule:{
-            "background-color":"#4a4a4a"
+            "background-image":" linear-gradient(to top, #bed3ec, #53a0fd)"
         },
         textColor:{
             'color': '#ffffff'
@@ -94,7 +94,7 @@ const colorsSet = {
         name: "lightBlue",
         active:false,
         cssRule:{
-            "background-color":"#bbbbbb"
+            "background-image":"linear-gradient(to top, #d6d6d6, #8d8d8d)"
         },
         textColor:{
             'color': '#ffffff'
@@ -106,7 +106,7 @@ const colorsSet = {
         name: "lightBlue",
         active:false,
         cssRule:{
-            "background-color":"#bbbbbb"
+            "background-image":"linear-gradient(to top, #dae0af, #8d983e)"
         },
         textColor:{
             'color': '#ffffff'
@@ -118,7 +118,7 @@ const colorsSet = {
         name: "gradientBlue",
         active:false,
         cssRule:{
-            "background-image":"linear-gradient(to bottom, #3023ae, #53a0fd)"
+            "background-image":" linear-gradient(to top, #fbc6ed, #e24cb8)"
         },
         textColor:{
             'color': '#ffffff'
