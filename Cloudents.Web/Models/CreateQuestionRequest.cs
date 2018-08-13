@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Cloudents.Core.Enum;
+using Cloudents.Web.Binders;
+using Newtonsoft.Json;
 
 namespace Cloudents.Web.Models
 {
@@ -20,7 +22,7 @@ namespace Cloudents.Web.Models
         //[MaxLength(4)]
         public IEnumerable<string> Files { get; set; }
 
-        public QuestionColor Color { get; set; }
+        public QuestionColor? Color { get; set; }
        
     }
 }

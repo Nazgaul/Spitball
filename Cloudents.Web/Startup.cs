@@ -92,7 +92,7 @@ namespace Cloudents.Web
                 .AddJsonOptions(options =>
             {
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
+                options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             }).AddMvcOptions(o =>
                 {

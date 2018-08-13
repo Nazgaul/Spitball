@@ -89,7 +89,7 @@ namespace Cloudents.Web.Api
         [HttpDelete("{id}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> DeleteQuestionAsync(DeleteQuestionRequest model, CancellationToken token)
+        public async Task<IActionResult> DeleteQuestionAsync([FromRoute]DeleteQuestionRequest model, CancellationToken token)
         {
             try
             {
