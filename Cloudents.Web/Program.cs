@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Cloudents.Web
 {
@@ -15,6 +16,12 @@ namespace Cloudents.Web
                 .UseKestrel(p => p.AddServerHeader = false)
                 .UseApplicationInsights()
                 .UseStartup<Startup>()
-                .Build();
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    if (hostingContext.HostingEnvironment.IsDevelopment())
+                    {
+                        logging.AddLog4Net();
+                    }
+                }).Build();
     }
 }

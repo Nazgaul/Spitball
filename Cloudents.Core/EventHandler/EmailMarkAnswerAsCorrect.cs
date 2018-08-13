@@ -9,37 +9,35 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
 {
-    public class EmailAnswerCreated : IConsumer<AnswerCreatedEvent>
+
+    public class EmailMarkAnswerAsCorrect : IConsumer<MarkAsCorrectEvent>
     {
-        public const string CreateAnswer = "CreateAnswer";
+        public const string ProtectPurpose = "MarkAnswerAsCorrect";
         private readonly IServiceBusProvider _serviceBusProvider;
         private readonly IDataProtect _dataProtect;
-        private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
         private readonly IUrlBuilder _urlBuilder;
 
 
-        public EmailAnswerCreated(IServiceBusProvider serviceBusProvider, IDataProtect dataProtect,
-            IRepository<Question> questionRepository, IRepository<Answer> answerRepository, IUrlBuilder urlBuilder)
+        public EmailMarkAnswerAsCorrect(IServiceBusProvider serviceBusProvider, IDataProtect dataProtect,
+             IRepository<Answer> answerRepository, IUrlBuilder urlBuilder)
         {
             _serviceBusProvider = serviceBusProvider;
             _dataProtect = dataProtect;
-            _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _urlBuilder = urlBuilder;
         }
 
 
-        public async Task HandleAsync(AnswerCreatedEvent eventMessage, CancellationToken token)
+        public async Task HandleAsync(MarkAsCorrectEvent eventMessage, CancellationToken token)
         {
-            var question = await _questionRepository.LoadAsync(eventMessage.QuestionId, token);
             var answer = await _answerRepository.LoadAsync(eventMessage.AnswerId, token);
 
-            var code = _dataProtect.Protect(CreateAnswer, question.User.Id.ToString(),
+            var code = _dataProtect.Protect(ProtectPurpose, answer.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(2));
-            var link = _urlBuilder.BuildQuestionEndPoint(question.Id, new { code });
+            var link = _urlBuilder.BuildWalletEndPoint(new { code });
             await _serviceBusProvider.InsertMessageAsync(
-                   new GotAnswerEmail(question.Text, question.User.Email, answer.Text, link), token);
+                new AnswerCorrectEmail(answer.User.Email, answer.Question.Text, answer.Text, link, answer.Question.Price), token).ConfigureAwait(false);
         }
     }
 }
