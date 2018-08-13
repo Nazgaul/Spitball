@@ -8,7 +8,7 @@ export default {
     getSubjects: () => {
         return connectivityModule.http.get("/Question/subject")
     },
-    postQuestion: (subjectId, text, price, files) => {
+    postQuestion: (subjectId, text, price, files, color) => {
        return connectivityModule.http.post("/Question", {subjectId, text, price, files, color})
     },
     getQuestion: (id) => connectivityModule.http.get("/Question/"+id).then(({data}) => {
