@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
@@ -15,16 +16,14 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
-        private readonly IServiceBusProvider _serviceBusProvider;
-        private readonly IUrlBuilder _urlBuilder;
+        private readonly IEventPublisher _eventPublisher;
 
         public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
-            IRepository<Answer> answerRepository, IServiceBusProvider serviceBusProvider, IUrlBuilder urlBuilder)
+            IRepository<Answer> answerRepository, IEventPublisher eventPublisher)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
-            _serviceBusProvider = serviceBusProvider;
-            _urlBuilder = urlBuilder;
+            _eventPublisher = eventPublisher;
         }
 
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
@@ -42,7 +41,8 @@ namespace Cloudents.Core.CommandHandler
             question.MarkAnswerAsCorrect(answer);
 
             var t1 = _questionRepository.UpdateAsync(question, token);
-            var t2 = _serviceBusProvider.InsertMessageAsync(new AnswerCorrectEmail(answer.User.Email, answer.Question.Text, answer.Text, _urlBuilder.WalletEndPoint, answer.Question.Price), token);
+            var t2 = _eventPublisher.PublishAsync(new MarkAsCorrectEvent(answer.Id), token);
+            //var t2 = _serviceBusProvider.InsertMessageAsync(new AnswerCorrectEmail(answer.User.Email, answer.Question.Text, answer.Text, _urlBuilder.WalletEndPoint, answer.Question.Price), token);
             await Task.WhenAll(t1, t2).ConfigureAwait(true);
         }
     }

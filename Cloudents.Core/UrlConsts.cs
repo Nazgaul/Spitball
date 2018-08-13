@@ -20,15 +20,20 @@ namespace Cloudents.Core
                 siteEndpoint = siteEndpoint.Remove(siteEndpoint.Length - 1);
             }
             _webSiteEndPoint = new Uri(siteEndpoint);
-            
         }
 
-        public string BuildQuestionEndPoint(long id, object parameters = null)
+        public string BuildWalletEndPoint(object parameters = null)
+        {
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = "wallet" };
+            builder.AddQuery(parameters);
+            return builder.ToString();
+        }
+
+        public string BuildQuestionEndPoint
+            (long id, object parameters = null)
         {
             var builder = new UriBuilder(_webSiteEndPoint) {Path = $"question/{id}"};
-
             builder.AddQuery(parameters);
-
             return builder.ToString();
         }
 
