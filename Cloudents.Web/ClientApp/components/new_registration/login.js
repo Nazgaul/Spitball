@@ -18,6 +18,7 @@ export default {
     data() {
         return {
             siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
+            gaCategory: '',
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
             toUrl: '',
             progressSteps: 5,
@@ -90,6 +91,7 @@ export default {
             self = this;
             registrationService.signIn(this.userEmail, this.recaptcha)
                 .then((response) => {
+                    self.$ga.event("Login", "Start ");
                     self.updateLoading(false);
                     let step = response.data.step;
                     self.changeStepNumber(step)
@@ -110,6 +112,7 @@ export default {
                     .then(function (resp) {
                         let step = resp.data.step;
                         self.changeStepNumber(step);
+                        self.$ga.event("Registration", "Start Google");
                         self.updateLoading(false);
                     }, function (error) {
                         self.updateLoading(false);
@@ -150,6 +153,7 @@ export default {
                         toasterText: 'A verification code was sent to your phone',
                         showToaster: true,
                     });
+                    self.$ga.event("Registration", "Phone Submitted");
                     self.changeStepNumber('verifyPhone');
                 }, function (error) {
                     self.updateLoading(false);
@@ -166,6 +170,7 @@ export default {
                         });
                     },
                     error => {
+
                         self.errorMessage = error.text;
                         console.error(error, 'sign in resend error')
                     })
@@ -177,6 +182,7 @@ export default {
                 .then(function (resp) {
                     let step = resp.data.step;
                     self.changeStepNumber(step);
+                    self.$ga.event("Registration", "Start");
                     self.updateLoading(false);
                 }, function (error) {
                     self.updateLoading(false);
@@ -207,7 +213,9 @@ export default {
                     //got to congratulations route if new user
                     if (self.isNewUser) {
                         self.changeStepNumber('congrats')
+                        self.$ga.event("Registration", "Phone Verified");
                     } else {
+                        self.$ga.event("Login", "Phone Verified");
                         let url = self.lastActiveRoute || defaultSubmitRoute;
                         window.isAuth = true;
                         self.$router.push({ path: `${url.path }`});
@@ -219,6 +227,7 @@ export default {
                 });
         },
         finishRegistration() {
+            this.$ga.event("Registration", "Congrats");
             let url = this.toUrl ||  defaultSubmitRoute;
             window.isAuth = true;
             this.$router.push({ path: `${url.path }`});
@@ -251,5 +260,9 @@ export default {
         });
         //check if new user param exists in email url
         this.isNewUser = this.$route.query['newUser'] !== undefined;
+        if(this.isNewUser && this.stepNumber === 3){
+            this.$ga.event("Registration", "Email Verified");
+        }
+
     },
 }

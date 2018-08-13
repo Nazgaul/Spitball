@@ -1,6 +1,7 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import disableForm from "../../../mixins/submitDisableMixin"
 import {mapGetters, mapActions} from 'vuex'
+import colorsSet from '../colorsSet';
 import timeago from 'timeago.js';
 
 
@@ -53,7 +54,12 @@ export default {
             src: '',
             selectedImage: '',
             showDialog: false,
-            limitedCardAnswers: []
+            limitedCardAnswers: [],
+            colorsSet: colorsSet,
+            cssRule: {
+                backgroundColor: '#ffffff',
+                fontColor: '#ffffff'
+            }
         }
     },
     computed: {
@@ -96,7 +102,6 @@ export default {
             this.flaggedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
             this.updateToasterParams({toasterText: '', showToaster: false});//test123
-
         },
         deleteQuestion() {
             this.updateToasterParams({
@@ -107,10 +112,12 @@ export default {
                 .then(() => {
                     if (!this.typeAnswer) {
                         this.updateBalance(this.cardData.price);
-                        //To DO change to router link use and not text URL
+                        this.$ga.event("Delete_question", "Homework help");
+                        //ToDO change to router link use and not text URL
                         this.$router.push('/ask')
                     } else {
                         //emit to root to update array of answers
+                        this.$ga.event("Delete_answer", "Homework help");
                         this.$root.$emit('deleteAnswer', this.cardData.id);
                         this.isDeleted = true
                     }
@@ -134,6 +141,13 @@ export default {
 // use render method to render nodes in real time
     },
     created() {
+        //set color for card
+        if(this.cardData.color){
+            this.cssRule.backgroundColor = this.colorsSet[`${this.cardData.color}`].cssRule;
+            this.cssRule.fontColor = this.colorsSet[`${this.cardData.color}`].textColor;
+        }
+
+
         this.flaggedAsCorrect = this.isCorrectAnswer;
         this.calculateAnswerToLimit();
     }
