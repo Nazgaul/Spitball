@@ -6,10 +6,11 @@ namespace Cloudents.Web.Controllers
     public class QuestionController : Controller
     {
         // GET
-        [Route("[controller]/{id}", Name = "QuestionRoute")]
+        [Route("[controller]/{id}")]
         public IActionResult Index()
         {
             return
+
             View();
         }
     }

@@ -15,10 +15,14 @@ namespace Cloudents.Web.Binders
             if (Uri.TryCreate(url, UriKind.Absolute, out var referer))
             {
                 var queryDictionary = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseNullableQuery(referer.Query);
-
-                var returnUrl = queryDictionary["returnUrl"].ToString();
-
-                bindingContext.Result = ModelBindingResult.Success(new ReturnUrlRequest { Url = returnUrl });
+                if (queryDictionary == null)
+                {
+                    return Task.CompletedTask;
+                }
+                if (queryDictionary.TryGetValue("returnUrl",out var val))
+                {
+                    bindingContext.Result = ModelBindingResult.Success(new ReturnUrlRequest { Url = val });
+                }
                 return Task.CompletedTask;
 
 
