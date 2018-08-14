@@ -86,13 +86,13 @@ export default {
             this.changeStepNumber('startStep');
         },
         submit() {
-            this.updateLoading(true);
             let self = this;
+            self.updateLoading(true);
             registrationService.signIn(this.userEmail, this.recaptcha)
                 .then((response) => {
-                    self.updateLoading(false);
                     eventService.sb_unitedEvent('Login', 'Start');
                     let step = response.data.step;
+                    self.updateLoading(false);
                     self.changeStepNumber(step)
                 }, function (reason) {
                     self.$refs.recaptcha.reset();
@@ -102,8 +102,8 @@ export default {
         },
 
         googleLogIn() {
-            this.updateLoading(true);
             var self = this;
+            self.updateLoading(true);
             let authInstance = gapi.auth2.getAuthInstance();
             authInstance.signIn().then(function (googleUser) {
                 let idToken = googleUser.getAuthResponse().id_token;
@@ -143,8 +143,8 @@ export default {
         },
         //sms code
         sendCode() {
-            this.updateLoading(true);
             let self = this;
+            self.updateLoading(true);
             registrationService.smsRegistration(this.phone.countryCode + '' + this.phone.phoneNum)
                 .then(function (resp) {
                     self.updateLoading(false);
@@ -161,10 +161,13 @@ export default {
                 })
         },
         resendSms() {
+            let self = this;
+            self.updateLoading(true);
             eventService.sb_unitedEvent('Registration', 'Resend SMS');
             registrationService.resendCode()
                 .then((success) => {
-                        this.updateToasterParams({
+                        self.updateLoading(false);
+                        self.updateToasterParams({
                             toasterText: 'A verification code was sent to your phone',
                             showToaster: true,
                         });
@@ -176,7 +179,7 @@ export default {
         },
         emailSend() {
             let self = this;
-            this.updateLoading(true);
+            self.updateLoading(true);
             registrationService.emailRegistration(this.userEmail, this.recaptcha)
                 .then(function (resp) {
                     let step = resp.data.step;
@@ -191,21 +194,25 @@ export default {
                 });
         },
         resendEmail() {
+            var self = this;
+            self.updateLoading(true);
             eventService.sb_unitedEvent('Registration', 'Resend Email');
             registrationService.emailResend()
                 .then(response => {
-                        this.updateToasterParams({
+                    self.updateLoading(false);
+                        self.updateToasterParams({
                             toasterText: 'Email sent',
                             showToaster: true,
                         })
                     },
                     error => {
+                        self.updateLoading(false);
                         console.error('resent error', error)
                     })
         },
         smsCodeVerify() {
             let self = this;
-            this.updateLoading(true);
+            self.updateLoading(true);
             registrationService.smsCodeVerification(this.confirmationCode)
                 .then(function () {
                     self.updateLoading(false);
