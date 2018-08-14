@@ -6,6 +6,19 @@ axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: fals
 axios.defaults.responseType = "json";
 axios.defaults.baseURL = '/api';
 
+const promiseReturn = function(data){
+    return data;
+}
+
+const errorHandler = function(err){
+    if(err.response.status === 401){
+        window.location = '/signin';
+    }else if(err.response.status === 404){
+        window.location = '/error/notfound';
+    }else{
+        return err;
+    }
+}
 
 
 export const connectivityModule = {
@@ -18,7 +31,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.get(path, params);
+                return axios.get(path, params).then(promiseReturn, errorHandler)                
             }
         },
         post: function(path, body, callback){
@@ -29,7 +42,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.post(path,body);
+                return axios.post(path,body).then(promiseReturn, errorHandler)  
             }
         },
         put: function(path, body, callback){
@@ -40,7 +53,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.put(path, body);
+                return axios.put(path, body).then(promiseReturn, errorHandler)  
             }
         },
         patch: function(path, body, callback){
@@ -51,7 +64,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.patch(path, body);
+                return axios.patch(path, body).then(promiseReturn, errorHandler)
             }
         },
         delete: function(path, callback){
@@ -62,7 +75,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.delete(path);
+                return axios.delete(path).then(promiseReturn, errorHandler)
             }
         }
     },
