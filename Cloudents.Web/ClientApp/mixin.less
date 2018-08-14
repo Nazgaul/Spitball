@@ -101,22 +101,26 @@
   }
 }
 
-.placeholder-color(@color) {
+.placeholder-color(@color, @opacity:1 ) {
 
   &::-webkit-input-placeholder {
     color: @color !important;
+    opacity: @opacity!important;
   }
 
   &::-moz-placeholder {
     color: @color !important;
+    opacity: @opacity!important;
   }
 
   &:-ms-input-placeholder {
     color: @color !important;
+    opacity: @opacity!important;
   }
 
   &:-moz-placeholder {
     color: @color !important;
+    opacity: @opacity!important;
   }
 }
 

@@ -62,8 +62,7 @@ let transferResultTutor = response => {
 
 let transferJob = response => {
     let body = response.data;
-    let { result, nextPageLink: nextPage } = body;
-    let { result: items, facet: jobType } = result;
+    let { result: items, nextPageLink: nextPage, facet: jobType } = body;
     return { jobType, data: items.map(val => { return { ...val, template: "job" } }), nextPage };
 };
 

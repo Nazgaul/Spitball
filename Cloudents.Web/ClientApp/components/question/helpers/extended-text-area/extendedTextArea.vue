@@ -5,7 +5,9 @@
                 <div class="text-block" :style="activeColor.cssRule" >
                     <span class="error-message" v-if="error.errorClass &&  value.length < 15"  :error ="errorTextArea" >{{error.errorText}}</span>
 
-                    <textarea rows="9" class="" :style="activeColor.textColor" @input="updateValue($event.target.value)"
+                    <textarea rows="9" class="" :style="activeColor.textColor" required
+                         :class="{ active: activeColor.id !== 0 }"
+                         @input="updateValue($event.target.value)"
                         :value="value" autofocus="isFocused"
                         :placeholder="`Type your ${actionType}...`"></textarea>
                     <div class="action-holder">
@@ -28,10 +30,10 @@
                             <input id="file-input" type="file" multiple accept="image/*"/>
                         </li>
                     </ul>
-                        <v-divider vertical></v-divider>
+                     <v-divider vertical></v-divider>
                     <ul class="actions_text colors-actions"  v-if="actionType ==='question'">
                         <li v-for="color in colorsSet" :key="color.id">
-                            <button :style="color.cssRule" :class="{ active: color.id === activeColor.id}" @click="updateColor(color)"></button>
+                            <button :style="color.cssRule" :class="{ active: color.id === activeColor.id ||  color.id === 0 }" @click="updateColor(color)"></button>
                         </li>
                     </ul >
                     </div>

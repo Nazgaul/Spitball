@@ -6,6 +6,7 @@ import {mapGetters, mapMutations, mapActions} from 'vuex'
 export default {
     mixins: [disableForm],
     components: {extendedTextArea},
+
     data() {
         return {
             subjectList: [],

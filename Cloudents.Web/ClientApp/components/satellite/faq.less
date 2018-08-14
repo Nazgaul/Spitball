@@ -2,7 +2,10 @@
 
 .faq {
     .responsive-property(padding-top, 18px, null, 0px);
-
+        @media(max-width: @screen-xs) {
+            margin-top: 20px;
+            padding: 0 8px;
+        }
     .v-expansion-panel {
         .v-expansion-panel__container {
             background-color: transparent;
