@@ -232,6 +232,84 @@ namespace Cloudents.Web
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
             app.UseClickJacking();
 
+            BuildCsp(app);
+
+            if (env.IsDevelopment())
+            {
+                //HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true
+                });
+                var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
+                configuration.DisableTelemetry = true;
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseStatusCodePagesWithReExecute("/Error");
+                app.UseExceptionHandler("/Error");
+                app.UseHsts(new HstsOptions()
+                {
+                    Duration = TimeSpan.FromDays(365),
+                    IncludeSubDomains = true,
+                    Preload = true
+                });
+            }
+            var reWriterOptions = new RewriteOptions()
+                .Add(new RemoveTrailingSlash());
+            if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
+            {
+                reWriterOptions.AddRedirectToHttpsPermanent();
+            }
+
+            app.UseRewriter(reWriterOptions);
+
+            app.UseResponseCompression();
+            app.UseResponseCaching();
+
+            app.UseStatusCodePages();
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor
+                | Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto
+            });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=864000");
+                    ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                }
+            });
+
+            app.UseWebMarkupMin();
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
+            }
+            app.UseAuthentication();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+            app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
+            {
+                builder.UseMvc(routes =>
+                {
+                    routes.MapSpaFallbackRoute(
+                        name: "spa-fallback",
+                        defaults: new { controller = "Home", action = "Index" });
+                });
+            });
+        }
+
+        private static void BuildCsp(IApplicationBuilder app)
+        {
             app.UseCsp(csp =>
             {
                 // If nothing is mentioned for a resource class, allow from this domain
@@ -305,18 +383,18 @@ namespace Cloudents.Web
 
                 // Allow AJAX, WebSocket and EventSource connections to:
                 csp.AllowConnections.ToSelf()
-                .To("https://api.intercom.io")
-                .To("https://api-iam.intercom.io")
-                .To("https://api-ping.intercom.io")
-                .To("https://nexus-websocket-a.intercom.io")
-                .To("https://nexus-websocket-b.intercom.io")
-                .To("https://nexus-long-poller-a.intercom.io")
-                .To("https://nexus-long-poller-b.intercom.io")
-                .To("wss://nexus-websocket-a.intercom.io")
-                .To("wss://nexus-websocket-b.intercom.io")
-                .To("https://uploads.intercomcdn.com")
-                .To("https://uploads.intercomusercontent.com")
-                .To("https://app.getsentry.com")
+                    .To("https://api.intercom.io")
+                    .To("https://api-iam.intercom.io")
+                    .To("https://api-ping.intercom.io")
+                    .To("https://nexus-websocket-a.intercom.io")
+                    .To("https://nexus-websocket-b.intercom.io")
+                    .To("https://nexus-long-poller-a.intercom.io")
+                    .To("https://nexus-long-poller-b.intercom.io")
+                    .To("wss://nexus-websocket-a.intercom.io")
+                    .To("wss://nexus-websocket-b.intercom.io")
+                    .To("https://uploads.intercomcdn.com")
+                    .To("https://uploads.intercomusercontent.com")
+                    .To("https://app.getsentry.com")
                     .To("https://www.google-analytics.com/")
                     .To("*.inspectlet.com")
                     .To("*.talkjs.com");
@@ -344,80 +422,6 @@ namespace Cloudents.Web
                     context.ShouldNotSend = context.HttpContext.Request.Path.StartsWithSegments("/api");
                     return Task.CompletedTask;
                 };
-            });
-
-            if (env.IsDevelopment())
-            {
-                //HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                    HotModuleReplacement = true
-                });
-                var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-                //configuration.DisableTelemetry = true;
-
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseStatusCodePagesWithReExecute("/Error");
-                app.UseExceptionHandler("/Error");
-                app.UseHsts(new HstsOptions()
-                {
-                    Duration = TimeSpan.FromDays(365),
-                    IncludeSubDomains = true,
-                    Preload = true
-                });
-            }
-            var reWriterOptions = new RewriteOptions()
-                .Add(new RemoveTrailingSlash());
-            if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
-            {
-                reWriterOptions.AddRedirectToHttpsPermanent();
-            }
-
-            app.UseRewriter(reWriterOptions);
-
-            app.UseResponseCompression();
-            app.UseResponseCaching();
-
-            app.UseStatusCodePages();
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor
-                | Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto
-            });
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                OnPrepareResponse = ctx =>
-                {
-                    ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=864000");
-                    ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
-                }
-            });
-
-            app.UseWebMarkupMin();
-            if (env.IsDevelopment())
-            {
-                app.UseSwagger();
-                // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
-            }
-            app.UseAuthentication();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-            app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
-            {
-                builder.UseMvc(routes =>
-                {
-                    routes.MapSpaFallbackRoute(
-                        name: "spa-fallback",
-                        defaults: new { controller = "Home", action = "Index" });
-                });
             });
         }
 
