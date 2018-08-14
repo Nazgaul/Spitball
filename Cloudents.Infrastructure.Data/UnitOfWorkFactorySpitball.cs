@@ -11,7 +11,7 @@ using NHibernate.Cfg;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public class UnitOfWorkFactorySpitball : IUnitOfWorkFactory
+    public class UnitOfWorkFactorySpitball 
     {
         private readonly ISessionFactory _factory;
 
@@ -49,20 +49,20 @@ namespace Cloudents.Infrastructure.Data
                     m.FluentMappings.Add(type);
                 }
             });
-            //configuration.Cache(x =>
-            //{
-            //    x.UseSecondLevelCache();
-            //    x.UseQueryCache();
-            //    x.RegionPrefix("nhibernate-");
-               
-            //   // var redisCache = new RedisFactory(connectionString._keys.Redis, "master");
-            //    //var p = redisCache.BuildCache();
-                
-                
-            //    x.ProviderClass<NHibernate.Caches.CoreDistributedCache.CoreDistributedCacheProvider>();
-                
-            //    //x.ProviderClass<NHibernate.Caches.CoreDistributedCache.Redis.RedisFactory>()
-            //});
+            configuration.Cache(x =>
+            {
+                x.UseSecondLevelCache();
+                x.UseQueryCache();
+                x.RegionPrefix("nhibernate-");
+
+                // var redisCache = new RedisFactory(connectionString._keys.Redis, "master");
+                //var p = redisCache.BuildCache();
+
+
+                //x.ProviderClass<NHibernate.Caches.CoreDistributedCache.CoreDistributedCacheProvider>();
+
+                //x.ProviderClass<NHibernate.Caches.CoreDistributedCache.Redis.RedisFactory>()
+            });
             _factory = configuration.BuildSessionFactory();
 
            // _factory.Statistics.IsStatisticsEnabled = true;
