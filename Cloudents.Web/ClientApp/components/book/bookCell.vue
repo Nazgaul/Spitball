@@ -1,5 +1,5 @@
 ﻿<template functional>
-    <v-container class="pa-0 book-cell" v-if="!!props.item">
+    <v-container class="pa-0 book-cell">
         <v-layout row class="result-cell-content">
             <div class="img-wrap">
                 <img :src="props.item.image" alt="">
