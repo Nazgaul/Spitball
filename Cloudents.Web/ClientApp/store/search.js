@@ -9,7 +9,6 @@ const state = {
 
 const mutations = {
     [SEARCH.UPDATE_LOADING](state, payload) {
-        // debugger;
         state.loading = payload;
     },
     [SEARCH.UPDATE_SEARCH_PARAMS](state, updatedDate) {

@@ -2,8 +2,8 @@ import stepTemplate from './helpers/stepTemplate.vue'
 import codesJson from './helpers/CountryCallingCodes';
 import {mapMutations, mapActions, mapGetters} from 'vuex'
 import VueRecaptcha from 'vue-recaptcha';
-
 ﻿import registrationService from '../../services/registrationService'
+import eventService from '../../services/events.service';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
 
 const defaultSubmitRoute = {path: '/ask'};
@@ -61,7 +61,6 @@ export default {
                 }, this.toasterTimeout)
             }
         },
-
     },
     computed: {
         ...mapGetters({
@@ -88,11 +87,11 @@ export default {
         },
         submit() {
             this.updateLoading(true);
-            self = this;
+            let self = this;
             registrationService.signIn(this.userEmail, this.recaptcha)
                 .then((response) => {
-                    self.$ga.event("Login", "Start ");
                     self.updateLoading(false);
+                    eventService.sb_unitedEvent('Login', 'Start');
                     let step = response.data.step;
                     self.changeStepNumber(step)
                 }, function (reason) {
@@ -103,17 +102,18 @@ export default {
         },
 
         googleLogIn() {
+            this.updateLoading(true);
             var self = this;
             let authInstance = gapi.auth2.getAuthInstance();
-            this.updateLoading(true);
             authInstance.signIn().then(function (googleUser) {
                 let idToken = googleUser.getAuthResponse().id_token;
                 registrationService.googleRegistration(idToken)
                     .then(function (resp) {
+                        self.updateLoading(true);
                         let step = resp.data.step;
                         self.changeStepNumber(step);
-                        self.$ga.event("Registration", "Start Google");
-                        self.updateLoading(false);
+                        eventService.sb_unitedEvent('Registration', 'Start Google');
+
                     }, function (error) {
                         self.updateLoading(false);
                         self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
@@ -153,7 +153,7 @@ export default {
                         toasterText: 'A verification code was sent to your phone',
                         showToaster: true,
                     });
-                    self.$ga.event("Registration", "Phone Submitted");
+                    eventService.sb_unitedEvent('Registration', 'Phone Submitted');
                     self.changeStepNumber('verifyPhone');
                 }, function (error) {
                     self.updateLoading(false);
@@ -161,7 +161,7 @@ export default {
                 })
         },
         resendSms() {
-            this.$ga.event("Registration", "Resend SMS");
+            eventService.sb_unitedEvent('Registration', 'Resend SMS');
             registrationService.resendCode()
                 .then((success) => {
                         this.updateToasterParams({
@@ -181,7 +181,7 @@ export default {
                 .then(function (resp) {
                     let step = resp.data.step;
                     self.changeStepNumber(step);
-                    self.$ga.event("Registration", "Start");
+                    eventService.sb_unitedEvent('Registration', 'Start');
                     self.updateLoading(false);
                 }, function (error) {
                     self.updateLoading(false);
@@ -191,7 +191,7 @@ export default {
                 });
         },
         resendEmail() {
-           this.$ga.event("Registration", "Resend Email");
+            eventService.sb_unitedEvent('Registration', 'Resend Email');
             registrationService.emailResend()
                 .then(response => {
                         this.updateToasterParams({
@@ -212,9 +212,9 @@ export default {
                     //got to congratulations route if new user
                     if (self.isNewUser) {
                         self.changeStepNumber('congrats')
-                        self.$ga.event("Registration", "Phone Verified");
+                        eventService.sb_unitedEvent('Registration', 'Phone Verified');
                     } else {
-                        self.$ga.event("Login", "Phone Verified");
+                        eventService.sb_unitedEvent('Login', 'Phone Verified');
                         let url = self.lastActiveRoute || defaultSubmitRoute;
                         window.isAuth = true;
                         self.$router.push({ path: `${url.path }`});
@@ -226,7 +226,7 @@ export default {
                 });
         },
         finishRegistration() {
-            this.$ga.event("Registration", "Congrats");
+            eventService.sb_unitedEvent('Registration', 'Congrats');
             let url = this.toUrl ||  defaultSubmitRoute;
             window.isAuth = true;
             this.$router.push({ path: `${url.path }`});
@@ -260,7 +260,8 @@ export default {
         //check if new user param exists in email url
         this.isNewUser = this.$route.query['newUser'] !== undefined;
         if(this.isNewUser && this.stepNumber === 3){
-            this.$ga.event("Registration", "Email Verified");
+            eventService.sb_unitedEvent('Registration', 'Email Verified');
+
         }
 
     },
