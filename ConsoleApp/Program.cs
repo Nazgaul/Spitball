@@ -13,6 +13,8 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Query.Admin;
+using Cloudents.Infrastructure.Data.Repositories;
+using NHibernate;
 
 namespace ConsoleApp
 {
@@ -25,7 +27,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -47,6 +49,16 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
+
+            
+            //TransactionPopulation tp = new TransactionPopulation(_container);
+           // await tp.AddToUserMoney(1000, 1014);
+
+            var b = _container.Resolve<ISession>();
+            QuestionRepository c = new QuestionRepository(b);
+            Console.WriteLine(c.GetOldQuestionsAsync(default));
+
+
 
             //await UpdateCreationTimeProductionAsync();
             var bus = _container.Resolve<IQueryBus>();
