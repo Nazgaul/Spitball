@@ -1,6 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
+using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
@@ -17,7 +16,6 @@ using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
 using Cloudents.Web.Services;
-using Cloudents.Web.Swagger;
 using JetBrains.Annotations;
 using Microsoft.ApplicationInsights.AspNetCore;
 using Microsoft.ApplicationInsights.Extensibility;
@@ -28,22 +26,28 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
-using Swashbuckle.AspNetCore.Swagger;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
 namespace Cloudents.Web
 {
-    public class Startup
+    public partial class Startup
     {
         public const string IntegrationTestEnvironmentName = "Integration-Test";
+
+        public static readonly CultureInfo[] SupportedCultures = new[]
+        {
+
+            new CultureInfo("en"),
+            new CultureInfo("he"),
+        };
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
@@ -54,7 +58,7 @@ namespace Cloudents.Web
         private IConfiguration Configuration { get; }
         private IHostingEnvironment HostingEnvironment { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        // For more information on how to conapp\Cloudents.Web\Startup.csfigure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 
         [UsedImplicitly]
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -66,6 +70,7 @@ namespace Cloudents.Web
             services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
             services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
 
+            services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddDataProtection(o =>
             {
                 o.ApplicationDiscriminator = "spitball";
@@ -193,38 +198,6 @@ namespace Cloudents.Web
             return new AutofacServiceProvider(container);
         }
 
-        private static void SwaggerInitial(IServiceCollection services)
-        {
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "Spitball Api", Version = "v1" });
-                var basePath = AppContext.BaseDirectory;
-                var xmlPath = Path.Combine(basePath, "Cloudents.Web.xml");
-                c.IncludeXmlComments(xmlPath);
-                c.DescribeAllEnumsAsStrings();
-                c.DescribeAllParametersInCamelCase();
-                c.OperationFilter<FormFileOperationFilter>();
-                c.ResolveConflictingActions(f =>
-                {
-                    var descriptions = f.ToList();
-                    var parameters = descriptions
-                        .SelectMany(desc => desc.ParameterDescriptions)
-                        .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x },
-                            ApiParameterDescriptionEqualityComparer.Instance)
-                        .ToList();
-                    var description = descriptions[0];
-                    description.ParameterDescriptions.Clear();
-                    parameters.ForEach(x =>
-                    {
-                        if (x.Parameter.RouteInfo != null)
-                            x.Parameter.RouteInfo.IsOptional = x.IsOptional;
-                        description.ParameterDescriptions.Add(x.Parameter);
-                    });
-                    return description;
-                });
-            });
-        }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         [UsedImplicitly]
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -269,10 +242,19 @@ namespace Cloudents.Web
             app.UseResponseCaching();
 
             app.UseStatusCodePages();
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            //app.UseForwardedHeaders(new ForwardedHeadersOptions
+            //{
+            //    ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor
+            //    | Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto
+            //});
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor
-                | Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto
+                DefaultRequestCulture = new RequestCulture(SupportedCultures[0]),
+                // Formatting numbers, dates, etc.
+                SupportedCultures = SupportedCultures,
+                // UI strings that we have localized.
+                SupportedUICultures = SupportedCultures
             });
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -430,28 +412,5 @@ namespace Cloudents.Web
                 };
             });
         }
-
-        private class SnapshotCollectorTelemetryProcessorFactory : ITelemetryProcessorFactory
-        {
-            private readonly IServiceProvider _serviceProvider;
-
-            public SnapshotCollectorTelemetryProcessorFactory(IServiceProvider serviceProvider) =>
-                _serviceProvider = serviceProvider;
-
-            public ITelemetryProcessor Create(ITelemetryProcessor next)
-            {
-                var snapshotConfigurationOptions = _serviceProvider.GetService<IOptions<SnapshotCollectorConfiguration>>();
-                return new SnapshotCollectorTelemetryProcessor(next, configuration: snapshotConfigurationOptions.Value);
-            }
-        }
     }
-
-    //public class UserTelemetryInitializer : ITelemetryInitializer
-    //{
-    //    public void Initialize(ITelemetry telemetry)
-    //    {
-    //        telemetry.Context.
-            
-    //    }
-    //}
 }

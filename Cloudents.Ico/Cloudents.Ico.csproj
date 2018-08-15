@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.8.391" />
-    <PackageReference Include="Joonasw.AspNetCore.SecurityHeaders" Version="2.6.0" />
+    <PackageReference Include="Joonasw.AspNetCore.SecurityHeaders" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.1.1" />
     <!--<PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.1" />-->
