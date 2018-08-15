@@ -49,20 +49,20 @@ namespace Cloudents.Infrastructure.Data
                     m.FluentMappings.Add(type);
                 }
             });
-            configuration.Cache(x =>
-            {
-                x.UseSecondLevelCache();
-                x.UseQueryCache();
-                x.RegionPrefix("nhibernate-");
+            //configuration.Cache(x =>
+            //{
+            //    x.UseSecondLevelCache();
+            //    x.UseQueryCache();
+            //    x.RegionPrefix("nhibernate-");
 
-                // var redisCache = new RedisFactory(connectionString._keys.Redis, "master");
-                //var p = redisCache.BuildCache();
+            //    // var redisCache = new RedisFactory(connectionString._keys.Redis, "master");
+            //    //var p = redisCache.BuildCache();
 
 
-                //x.ProviderClass<NHibernate.Caches.CoreDistributedCache.CoreDistributedCacheProvider>();
+            //    //x.ProviderClass<NHibernate.Caches.CoreDistributedCache.CoreDistributedCacheProvider>();
 
-                //x.ProviderClass<NHibernate.Caches.CoreDistributedCache.Redis.RedisFactory>()
-            });
+            //    //x.ProviderClass<NHibernate.Caches.CoreDistributedCache.Redis.RedisFactory>()
+            //});
             _factory = configuration.BuildSessionFactory();
 
            // _factory.Statistics.IsStatisticsEnabled = true;

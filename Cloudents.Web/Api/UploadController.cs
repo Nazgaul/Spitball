@@ -13,9 +13,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
 {
+    //DO NOT ADD API CONTROLLER - UPLOAD WILL NOT WORK
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize, ApiController]
+    [Authorize]
     public class UploadController : ControllerBase
     {
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
