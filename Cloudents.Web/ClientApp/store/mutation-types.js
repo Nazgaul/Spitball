@@ -25,7 +25,7 @@ const LUIS={
 };
 const TOASTER = {
     UPDATE_PARAMS: 'UPDATE_PARAMS'
-}
+};
 export{
     USER, SEARCH, PREVIEW,LUIS,TOASTER
 }

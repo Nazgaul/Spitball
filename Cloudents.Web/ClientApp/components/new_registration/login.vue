@@ -29,6 +29,7 @@
                                        @expired="onExpired()">
 
                         </vue-recaptcha>
+
                         <input :disabled=" !userEmail " class="continue-btn input-field" type="submit"
                                value="Continue">
                         <div class="checkbox-terms">
