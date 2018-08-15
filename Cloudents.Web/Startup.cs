@@ -331,7 +331,9 @@ namespace Cloudents.Web
                     .From("*.google.com")
                     .From("https://www.gstatic.com/")
                     .From("*.inspectlet.com")
-                    .From("*.talkjs.com");
+                    .From("*.talkjs.com")
+                    .From("https://connect.facebook.net/en_US/fbevents.js")
+                    .From("https://connect.facebook.net/signals/config/1770276176567240");
 
 
                 //csp.AllowScripts.FromSelf().AllowUnsafeInline().AllowUnsafeEval()
@@ -353,7 +355,11 @@ namespace Cloudents.Web
                     .From("https://gifs.intercomcdn.com")
                     .From("https://www.google-analytics.com/")
                     .From("*.talkjs.com")
-                    .From("https://www.googletagmanager.com");
+                    .From("https://www.googletagmanager.com")
+                    .From("https://www.facebook.com/tr/")
+                    .From("https://stats.g.doubleclick.net/r/collect")
+                    .From("https://www.google.com/ads/ga-audiences")
+                    .From("https://www.google.co.il/ads/ga-audiences");
 
                 // Contained iframes can be sourced from:
                 csp.AllowFrames
