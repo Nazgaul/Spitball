@@ -32,10 +32,11 @@ namespace Cloudents.Web.Binders
                 return new BinderTypeModelBinder(typeof(NullableEnumEntityBinder));
             }
 
-            if (context.Metadata.ModelType == typeof(string))
-            {
-                return new BinderTypeModelBinder(typeof(HtmlEncodeModelBinder));
-            }
+            //if (context.Metadata.ModelType == typeof(string))
+            //{
+                //this cause problem
+                //return new BinderTypeModelBinder(typeof(HtmlEncodeModelBinder));
+            //}
             return null;
         }
     }
