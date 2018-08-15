@@ -115,8 +115,8 @@
                     </select>
                     <sb-input class="phone-field" icon="sbf-phone" :errorMessage="errorMessage.phone"
                               v-model="phone.phoneNum" placeholder="Enter phone number" name="email" type="tel"
-                              :autofocus="true"></sb-input>
-                    <button class="continue-btn" @click="sendCode()" @keyup.enter="sendCode()"
+                              :autofocus="true" @keyup.enter.native="sendCode()"></sb-input>
+                    <button class="continue-btn" @click="sendCode()"
                             :disabled="!(phone.phoneNum&&phone.countryCode)">Continue
                     </button>
                 </div>
@@ -136,8 +136,8 @@
                     <p class="confirm-title">We sent a confirmation code to your mobile phone.</p>
                     <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code"
                               v-model="confirmationCode" placeholder="Enter confirmation code" type="number"
-                              :autofocus="true"></sb-input>
-                    <button class="continue-btn submit-code" @click="smsCodeVerify()" @keyup.enter="smsCodeVerify()" :disabled="!confirmationCode">
+                              :autofocus="true" @keyup.enter.native="smsCodeVerify()"></sb-input>
+                    <button class="continue-btn submit-code" @click="smsCodeVerify()"  :disabled="!confirmationCode">
                         Continue
                     </button>
 
