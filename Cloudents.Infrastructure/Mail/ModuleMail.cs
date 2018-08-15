@@ -14,6 +14,7 @@ namespace Cloudents.Infrastructure.Mail
         {
             base.Load(builder);
             builder.RegisterType<MailProvider>().As<IMailProvider>();
+            builder.RegisterType<SmsProvider>().As<ISmsProvider>().SingleInstance();
         }
     }
 }
