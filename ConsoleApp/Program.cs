@@ -52,11 +52,11 @@ namespace ConsoleApp
 
             
             //TransactionPopulation tp = new TransactionPopulation(_container);
-           // await tp.AddToUserMoney(1000, 1014);
+            //await tp.AddToUserMoney(1000, 1642);
 
-            var b = _container.Resolve<ISession>();
-            QuestionRepository c = new QuestionRepository(b);
-            Console.WriteLine(c.GetOldQuestionsAsync(default));
+           // var b = _container.Resolve<ISession>();
+           // QuestionRepository c = new QuestionRepository(b);
+           // Console.WriteLine(c.GetOldQuestionsAsync(default));
 
 
 
