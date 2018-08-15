@@ -89,7 +89,7 @@
                     <h1 class="step-title">Check your email to activate your account</h1>
                     <p class="inline">An activation email has been sent to</p>
                     <div class="email-hold">
-                        <p class="email-text inline">veniamin.muler@gmail.com</p>
+                        <p class="email-text inline">{{userEmail}}</p>
                         <span class="email-change" @click="showRegistration()">Change</span>
 
                     </div>
