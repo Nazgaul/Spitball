@@ -15,4 +15,9 @@ namespace Cloudents.Core.Interfaces
         Task<bool> ValidateEmailAsync(string email, CancellationToken token);
 
     }
+
+    public interface ISmsProvider
+    {
+        Task<string> ValidateNumberAsync(string phoneNumber, CancellationToken token);
+    }
 }
