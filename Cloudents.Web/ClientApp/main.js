@@ -129,8 +129,6 @@ const router = new VueRouter({
 
 });
 
-
-
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',
     disableScriptLoader: true,
@@ -142,7 +140,6 @@ Vue.use(VueAnalytics, {
             return to.path != "/result";
         },
         pageviewTemplate(route) {
-            // let title=route.name.charAt(0).toUpperCase() + route.name.slice(1);
             return {
                 page: route.path,
                 title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
