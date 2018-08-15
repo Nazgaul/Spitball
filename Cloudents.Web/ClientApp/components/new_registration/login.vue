@@ -29,7 +29,7 @@
                                        @expired="onExpired()">
 
                         </vue-recaptcha>
-
+                        <!--<div style="width: 300px; height:74px; background: grey;  margin: 24px 0 10px 0;"></div>-->
                         <input :disabled=" !userEmail " class="continue-btn input-field" type="submit"
                                value="Continue">
                         <div class="checkbox-terms">
@@ -69,6 +69,7 @@
                                        @expired="onExpired">
 
                         </vue-recaptcha>
+                        <!--<div style="width: 300px; height:74px; background: grey;  margin: 24px 0 10px 0;"></div>-->
                         <input class="continue-btn" type="submit" value="Login" :disabled=" !userEmail">
                     </form>
                     <div class="signin-strip">Need an account?
@@ -87,7 +88,10 @@
                 <div slot="step-data" class="limited-width wide">
                     <h1 class="step-title">Check your email to activate your account</h1>
                     <p class="inline">An activation email has been sent to</p>
-                    <p class="email-text inline">&nbsp;{{userEmail}}</p>
+                    <div>
+                        <p class="email-text inline">{{userEmail}}</p>
+
+                    </div>
                     <p>You will not be able to log into Spitball.co until you activate your account.</p>
                     <img :src="require(`./img/checkEmail.png`)"/>
                     <div class="bottom-text">

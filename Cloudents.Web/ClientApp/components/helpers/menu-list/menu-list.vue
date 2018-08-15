@@ -25,8 +25,9 @@
                 </v-list-tile>
             </template>
         </v-list>
+        <!--mobile side menu open template-->
         <v-list class="menu-list" v-else>
-            <user-block :user=user :classType="'university'" v-if=isMobile></user-block>
+            <user-block :user=user :showExtended="true" :classType="'university'" v-if=isMobile></user-block>
             <router-link tag="v-list-tile" :to="{name:'wallet'}">
                 <v-list-tile-action>
                     <v-icon>sbf-wallet</v-icon>
@@ -110,7 +111,7 @@
 
 
     export default {
-        components: {userBlock,notLoggedIn},
+        components: {userBlock, notLoggedIn},
         props: {
             counter: {
                 required: false,
@@ -144,8 +145,13 @@
             },
             user(){
                 return {...this.accountUser, universityName: this.getUniversityName}
-            }
+            },
+
+
         },
+        created(){
+            console.log('menu',this.accountUser, this.user)
+    }
     }
 </script>
 
