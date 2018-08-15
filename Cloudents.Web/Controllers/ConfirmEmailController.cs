@@ -32,7 +32,6 @@ namespace Cloudents.Web.Controllers
             {
                 return RedirectToAction(nameof(Index), "Home");
             }
-            TempData.Remove(SignUserController.Email);
             code = System.Net.WebUtility.UrlDecode(code);
             var user = await _userManager.FindByIdAsync(id.ToString()).ConfigureAwait(false);
             if (user == null)
@@ -43,9 +42,9 @@ namespace Cloudents.Web.Controllers
             var result = await _userManager.ConfirmEmailAsync(user, code).ConfigureAwait(false);
             if (!result.Succeeded)
             {
-                throw new ApplicationException($"Error confirming email for user with ID '{id}': {result}");
+                throw new ApplicationException($"Error confirming email for user with ID '{id}': {result}, User: {user}");
             }
-
+            TempData.Remove(SignUserController.Email);
             await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
             return Redirect("/verify-phone?newUser");
         }
