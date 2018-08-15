@@ -243,6 +243,7 @@ namespace Cloudents.Web
                     HotModuleReplacement = true
                 });
                 var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
+                
                 configuration.DisableTelemetry = true;
                 app.UseDeveloperExceptionPage();
             }
