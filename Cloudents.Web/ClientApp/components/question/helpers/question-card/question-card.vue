@@ -42,8 +42,8 @@
                 <div class="new-block">
                     <div class="files" v-if="cardData.filesNum">
                         <template>
-                            <v-icon>sbf-attach</v-icon>
-                            <span>{{cardData.filesNum}}</span>
+                            <v-icon :style="cssRule.fontColor">sbf-attach</v-icon>
+                            <span :style="cssRule.fontColor">{{cardData.filesNum}}</span>
                         </template>
                     </div>
                     <div class="users">

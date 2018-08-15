@@ -35,7 +35,7 @@ export default {
             isNewUser: false,
             showDialog: false,
             toasterTimeout: 5000,
-            stepNumber: 2,
+            stepNumber: 1,
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             agreeTerms: false,
