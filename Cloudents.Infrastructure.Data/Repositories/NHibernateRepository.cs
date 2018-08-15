@@ -10,15 +10,7 @@ namespace Cloudents.Infrastructure.Data.Repositories
     public class NHibernateRepository<T> : IRepository<T> where T : class
     {
         protected readonly ISession Session;
-        //private readonly IUnitOfWork _unitOfWork;
-
-        //[SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We can initialize this class as well")]
-        //public NHibernateRepository(IIndex<Core.Enum.Database, IUnitOfWork> unitOfWorks)
-        //{
-        //    var att = typeof(T).GetCustomAttribute<DbAttribute>();
-        //    _unitOfWork = unitOfWorks[att?.Database ?? Core.Enum.Database.System];
-        //    Session = _unitOfWork.Session;
-        //}
+       
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We can initialize this class as well")]
         public NHibernateRepository(ISession session)

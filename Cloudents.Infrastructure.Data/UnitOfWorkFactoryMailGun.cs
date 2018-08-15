@@ -7,7 +7,7 @@ using NHibernate.Cfg;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public class UnitOfWorkFactoryMailGun : IUnitOfWorkFactory
+    public class UnitOfWorkFactoryMailGun 
     {
         private readonly ISessionFactory _factory;
 
