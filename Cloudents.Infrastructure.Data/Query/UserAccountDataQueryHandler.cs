@@ -14,9 +14,9 @@ namespace Cloudents.Infrastructure.Data.Query
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UserAccountDataQueryHandler : IQueryHandler<UserDataByIdQuery, UserAccountDto>
     {
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
 
-        public UserAccountDataQueryHandler(ReadonlySession readonlySession)
+        public UserAccountDataQueryHandler(ReadonlyStatelessSession readonlySession)
         {
             _session = readonlySession.Session;
         }
