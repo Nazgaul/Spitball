@@ -79,6 +79,12 @@ namespace Cloudents.Core.Entities.Db
 
 
         public virtual DateTime Created { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
+        }
+
         public virtual bool Fictive { get; set; }
     }
 }

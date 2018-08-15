@@ -11,7 +11,6 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using Cloudents.Web.Api;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
@@ -21,7 +20,6 @@ using Cloudents.Web.Services;
 using Cloudents.Web.Swagger;
 using JetBrains.Annotations;
 using Microsoft.ApplicationInsights.AspNetCore;
-using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.SnapshotCollector;
 using Microsoft.AspNetCore.Builder;
@@ -30,7 +28,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +35,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Swashbuckle.AspNetCore.Swagger;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
@@ -81,6 +77,11 @@ namespace Cloudents.Web
             //    options.CheckConsentNeeded = context => true;
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
+
+            services.AddDataProtection(o =>
+            {
+                o.ApplicationDiscriminator = "spitball";
+            }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
 
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
@@ -236,7 +237,7 @@ namespace Cloudents.Web
 
             if (env.IsDevelopment())
             {
-                //HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+                HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true

@@ -34,7 +34,6 @@ namespace Cloudents.Web.Controllers
             {
                 return RedirectToAction(nameof(Index), "Home");
             }
-            TempData.Remove(SignUserController.Email);
             model.Code = System.Net.WebUtility.UrlDecode(model.Code);
             var user = await _userManager.FindByIdAsync(model.Id.ToString()).ConfigureAwait(false);
             if (user == null)
@@ -45,10 +44,10 @@ namespace Cloudents.Web.Controllers
             var result = await _userManager.ConfirmEmailAsync(user, model.Code).ConfigureAwait(false);
             if (!result.Succeeded)
             {
-                _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}");
+                _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
                 return RedirectToRoute("Register", new { step = "expiredStep" });
             }
-
+            TempData.Remove(SignUserController.Email);
             await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
 
             return RedirectToRoute("Register", 

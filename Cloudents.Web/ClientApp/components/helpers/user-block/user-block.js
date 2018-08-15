@@ -32,7 +32,10 @@ export default {
         return {
         }
     },
-    created(){
-    }
+
+        created(){
+            console.log('block', this.user)
+        }
+
    
 }

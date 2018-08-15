@@ -1,5 +1,5 @@
 <template functional>
-    <div>
+    <div class="step-wrapp-one">
         <div class="step-wrapper">
              <div class="side-wrapper image">
                 <slot name="step-image"></slot>

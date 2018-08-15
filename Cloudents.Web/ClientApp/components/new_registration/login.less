@@ -4,9 +4,15 @@
 //  background-color: #000000;
 //  opacity: 1;
 //}
+.application--wrap {
+  @media (max-width: @screen-xs) {
+    //min-height: 100%;
+  }
+}
 
 .registration {
-  .continue-btn{
+  position: relative;
+  .continue-btn {
     .transition (all .2s ease-in-out);
     background: @color-main-purple;
     &:hover {
@@ -42,15 +48,15 @@
         font-size: 14px;
       }
     }
-    a{
+    a {
       color: @color-white;
       text-decoration: underline;
     }
-    a.toast_action{
+    a.toast_action {
       height: 32px;
       width: 60px;
       border-radius: 26.5px;
-      border: solid 1px  @color-white;
+      border: solid 1px @color-white;
       font-size: 18px;
       outline: none;
       align-items: center;
@@ -62,7 +68,7 @@
       background-color: transparent;
       text-decoration: none;
     }
-    span.toast-helper{
+    span.toast-helper {
       padding: 0 6px;
     }
   }
@@ -91,10 +97,10 @@
     text-align: center;
     display: flex;
     align-items: stretch;
-    min-height: 100vh;
+    //min-height: 100vh;
     @media (max-width: @screen-xs) {
-      min-height: 90vh;
-      height: 90vh;
+      //min-height: 100vh;
+      //height: 100vh;
     }
     .side-wrapper {
       align-items: center;
@@ -103,7 +109,6 @@
       flex-grow: 1;
       width: 100%;
       position: relative;
-
 
       &.image {
         background: #eee;
@@ -231,10 +236,10 @@
     width: 50%;
     position: absolute;
     right: 0;
-    bottom: 52px;
+    bottom: 0px;
 
     @media (max-width: @screen-xs) {
-      bottom: 16px;
+      //bottom: 16px;
       width: 100%;
     }
 
@@ -260,7 +265,7 @@
     text-align: center;
     margin-top: 20px;
 
-    .click{
+    .click {
       color: @color-main-purple;
       display: inline;
       cursor: pointer;
@@ -284,73 +289,90 @@
       color: @color-blue;
     }
   }
-//step phone
+  //step phone
 
-  .step-phone .step-wrapper {
-    .input-wrapper, select {
-      margin-top: 24px;
-    }
+  .step-phone {
+    height: 100%;
+    .step-wrapp-one {
+      height: 100%;
+      .step-wrapper {
+        height: 100%;
+        .input-wrapper, select {
+          margin-top: 24px;
+        }
 
-    .phone-field input{
-      padding-left: 36px;
-      margin-top: 0;
+        .phone-field input {
+          padding-left: 36px;
+          margin-top: 0;
 
-      ~ i {
-        position: absolute;
-        top: 14px;
-        left: 16px;
+          ~ i {
+            position: absolute;
+            top: 14px;
+            left: 16px;
+          }
+        }
+        .code-field input {
+          margin-top: 0;
+          padding-left: 50px;
+          margin-bottom: 4px;
+
+          ~ i {
+            position: absolute;
+            top: 14px;
+            left: 16px;
+          }
+        }
+        .continue-btn {
+          margin-top: 24px;
+          &.submit-code {
+            margin-top: 12px;
+          }
+        }
+        .phone-num {
+          margin-top: 6px;
+        }
+        .confirm-title {
+          letter-spacing: -0.3px;
+          margin-top: 48px;
+        }
+
+        .limited-width.wide {
+          height: 315px;
+          p {
+            max-width: none;
+          }
+          .code-field, .continue-btn {
+            max-width: 400px;
+            margin: 20px auto 0;
+          }
+        }
+
+        /* For Firefox */
+        input[type='number'] {
+          -moz-appearance: textfield;
+        }
+        /* Webkit browsers like Safari and Chrome */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
       }
-    }
-    .code-field input{
-      margin-top: 0;
-      padding-left: 50px;
-      margin-bottom: 4px;
-
-      ~ i {
-        position: absolute;
-        top: 14px;
-        left: 16px;
-      }
-    }
-    .continue-btn {
-      margin-top: 24px;
-      &.submit-code {
-        margin-top: 12px;
-      }
-    }
-    .phone-num {
-      margin-top: 6px;
-    }
-    .confirm-title {
-      letter-spacing: -0.3px;
-      margin-top: 48px;
-    }
-
-    .limited-width.wide{
-      height: 315px;
-      p{max-width: none;}
-      .code-field,.continue-btn{
-        max-width: 400px;
-        margin: 20px auto 0;
-      }
-    }
-
-    /* For Firefox */
-    input[type='number'] {
-      -moz-appearance:textfield;
-    }
-    /* Webkit browsers like Safari and Chrome */
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
     }
   }
   //end step phone
 
   //step-expired
-  .step-expired{
-    .limited-width{
+  .step-expired {
+    height: 100%;
+    .step-wrapp-one {
+      height: 100%;
+      .step-wrapper {
+        height: 100%;
+      }
+
+    }
+    .limited-width {
       display: flex;
       justify-content: space-between;
       flex-direction: column;
@@ -358,105 +380,116 @@
         display: block;
       }
 
-      h2{
+      h2 {
         color: @color-main-purple;
       }
     }
-    
 
   }
 
   //end step expired
   //step confirm phone
-  .step-phone-confirm .step-wrapper {
+  .step-phone-confirm {
+    height: 100%;
+    .step-wrapp-one {
+      height: 100%;
+      .step-wrapper {
+        height: 100%;
 
-    //.step-title{
-    //  @media (max-width: @screen-xs) {
-    //    margin-top: 16px;
-    //  }
-    //}
-    .limited-width {
-      padding-bottom: 54px;
-      &.wide {
-        height: 400px;
-        @media (max-width: @screen-xs) {
-          height: 500px;
-        }
-        .step-title {
-          margin: 0px 10px 10px;
-          @media (max-width: @screen-xs) {
-            margin: 0px 10px 10px;
+        //.step-title{
+        //  @media (max-width: @screen-xs) {
+        //    margin-top: 16px;
+        //  }
+        //}
+        .limited-width {
+          padding-bottom: 54px;
+          &.wide {
+            height: 400px;
+            @media (max-width: @screen-xs) {
+              height: 500px;
+            }
+            .step-title {
+              margin: 0px 10px 10px;
+              @media (max-width: @screen-xs) {
+                margin: 0px 10px 10px;
+              }
+            }
+            p {
+              max-width: 400px;
+            }
+            img {
+              display: none;
+              width: 251px;
+              height: 154px;
+              @media (max-width: @screen-xs) {
+                display: flex;
+                margin: 75px auto;
+              }
+            }
           }
         }
-        p {
-          max-width: 400px;
+        .input-wrapper, select {
+          margin-top: 24px;
         }
-        img {
-          display: none;
-          width: 251px;
-          height: 154px;
-          @media (max-width: @screen-xs) {
-            display: flex;
-            margin: 75px auto;
+
+        .phone-field input {
+          padding-left: 36px;
+          margin-top: 0;
+
+          ~ i {
+            position: absolute;
+            top: 14px;
+            left: 16px;
           }
         }
-      }
-    }
-    .input-wrapper, select {
-      margin-top: 24px;
-    }
+        .code-field input {
+          margin-top: 0;
+          padding-left: 50px;
+          margin-bottom: 4px;
 
-    .phone-field input{
-      padding-left: 36px;
-      margin-top: 0;
+          ~ i {
+            position: absolute;
+            top: 14px;
+            left: 16px;
+          }
+        }
+        .continue-btn {
+          margin-top: 24px;
+          &.submit-code {
+            margin-top: 12px;
+          }
+        }
+        .phone-num {
+          margin-top: 6px;
+        }
+        .confirm-title {
+          letter-spacing: -0.3px;
+          margin-top: 48px;
+        }
 
-      ~ i {
-        position: absolute;
-        top: 14px;
-        left: 16px;
+        /* For Firefox */
+        input[type='number'] {
+          -moz-appearance: textfield;
+        }
+        /* Webkit browsers like Safari and Chrome */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
       }
-    }
-    .code-field input{
-      margin-top: 0;
-      padding-left: 50px;
-      margin-bottom: 4px;
-
-      ~ i {
-        position: absolute;
-        top: 14px;
-        left: 16px;
-      }
-    }
-    .continue-btn {
-      margin-top: 24px;
-      &.submit-code {
-        margin-top: 12px;
-      }
-    }
-    .phone-num {
-      margin-top: 6px;
-    }
-    .confirm-title {
-      letter-spacing: -0.3px;
-      margin-top: 48px;
-    }
-
-    /* For Firefox */
-    input[type='number'] {
-      -moz-appearance:textfield;
-    }
-    /* Webkit browsers like Safari and Chrome */
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
     }
   }
   //end step confirm phone
 
-//  step login
+  //  step login
   .step-login {
+    height: 90%;
+    .step-wrapp-one {
+      height: 100%;
+    }
     .step-wrapper {
+      height: 100%;
       .limited-width {
         max-width: 400px;
         width: 100%;
@@ -499,10 +532,6 @@
       }
       .bottom-text {
         font-size: 18px;
-        //font-weight: normal;
-        //font-style: normal;
-        //font-stretch: normal;
-        //line-height: normal;
         letter-spacing: -0.5px;
         text-align: center;
         color: #888b8e;
@@ -524,191 +553,197 @@
   }
   //end step login
   //step email
-  .step-email .step-wrapper {
-    .google-signin {
-      background: @google-btn-bg;
-      font-size: 18px;
-      //font-weight: normal;
-      //font-style: normal;
-      //font-stretch: normal;
-      //line-height: normal;
-      letter-spacing: -0.5px;
-      text-align: center;
-      color: #ffffff;
-      width: 100%;
-      height: @registrationFieldHeight;
-      margin-top: 40px;
-      .transition (all .2s ease-in-out);
-      &:hover {
-        background: lighten(@google-btn-bg, 10%);
-      }
-      @media (max-width: @screen-xs) {
-        margin-top: 24px;
-      }
+  .step-email {
+    .step-wrapp-one {
+      height: 100%;
     }
-
-    .sbf-google-icon {
-      color: @google-btn-bg;
-      background: white;
-      border-radius: 100%;
-      padding-top: 2px;
-      padding-left: 1px;
-      padding-right: 1px;
-      border: 3px solid white;
-      font-size: 17px;
-      margin-left: 8px;
-    }
-
-    .seperator-text {
-      display: flex;
-      align-items: center;
-      margin: 22px 0 18px 0;
-      padding: 15px 0;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: -0.3px;
-      color: #888b8e;
-
-      @media (max-width: @screen-xs) {
-        margin: 0 0 11px;
-      }
-
-      &:before, &:after {
-        content: '';
-        width: 100%;
-        background: #888b8e;
-        height: 1px;
-        display: block;
-      }
-
-      span {
-        flex-shrink: 0;
-        padding: 0 12px;
-      }
-    }
-    .input-wrapper.email-field{
-      input{
-        padding-left: 54px;
-        margin-top: 0;
-      }
-      i {
-        position: absolute;
-        left: 16px;
-        top: 17px;
-        //line-height: normal;
+    height: 100%;
+    .step-wrapper {
+      height: 100%;
+      .google-signin {
+        background: @google-btn-bg;
         font-size: 18px;
-      }
-    }
-
-    .continue-btn {
-      margin-top: 16px;
-      @media (max-width: @screen-xs) {
-        margin-top: 0;
-      }
-    }
-
-    .email {
-      margin-top: 6px;
-    }
-    .email-check {
-      margin: 22px auto 64px auto;
-    }
-    .resend-title {
-      font-size: 14px;
-      letter-spacing: -0.4px;
-      color: #888b8e;
-    }
-
-    .recaptcha-wrapper {
-      margin: 24px 0 10px 0;
-    }
-    .recaptcha-wrapper > div:first-child{
-      height: 100px;
-    }
-
-    .checkbox-terms{
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin-top: 30px;
-
-      &,a{
-        color:#90949c;
-      }
-      a{
-        text-decoration: underline;
-      }
-      @media (max-width: @screen-xs) {
-        margin: 0;
-        padding: 15px 0 4px 25px;
-        font-size: 11px;
-        letter-spacing: -0.3px;
+        letter-spacing: -0.5px;
         text-align: center;
-        color: #90949c;
-      }
-
-      input{
-        width: 16px;
-        height: 16px;
-      }
-      label{
-        font-size: 11px;
-        margin-bottom: 1px;
-        letter-spacing: -0.3px;
-        color: #90949c;
-        margin-left: 6px;
-      }
-    }
-
-    .signin-strip{
-      font-size: 16px;
-      letter-spacing: -0.4px;
-      text-align: center;
-      color: #888b8e;
-      margin: 47px 0 16px;
-      @media (max-width: @screen-xs) {
-        font-size: 18px;
-        margin: 0px 0 16px;
-
-      }
-    }
-
-    .side-wrapper.image{
-      background: #eee;
-      .text{
-        height: 135px;
-      }
-      img{margin: 25px 0;}
-
-    }
-    .step-title{
-      @media (max-width: @screen-xs) {
-        margin-top: 16px;
-      }
-    }
-    .limited-width {
-      padding-bottom: 54px;
-      &.wide {
-        height: 400px;
+        color: #ffffff;
+        width: 100%;
+        height: @registrationFieldHeight;
+        margin-top: 40px;
+        .transition (all .2s ease-in-out);
+        &:hover {
+          background: lighten(@google-btn-bg, 10%);
+        }
         @media (max-width: @screen-xs) {
-          height: 500px;
+          margin-top: 24px;
         }
-        .step-title {
-          margin: 70px 10px 10px;
-          @media (max-width: @screen-xs) {
-            margin: 0px 10px 10px;
-          }
+      }
+
+      .sbf-google-icon {
+        color: @google-btn-bg;
+        background: white;
+        border-radius: 100%;
+        padding-top: 2px;
+        padding-left: 1px;
+        padding-right: 1px;
+        border: 3px solid white;
+        font-size: 17px;
+        margin-left: 8px;
+      }
+
+      .seperator-text {
+        display: flex;
+        align-items: center;
+        margin: 22px 0 18px 0;
+        padding: 15px 0;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: -0.3px;
+        color: #888b8e;
+
+        @media (max-width: @screen-xs) {
+          margin: 0 0 11px;
         }
-        p {
-          max-width: 400px;
+
+        &:before, &:after {
+          content: '';
+          width: 100%;
+          background: #888b8e;
+          height: 1px;
+          display: block;
+        }
+
+        span {
+          flex-shrink: 0;
+          padding: 0 12px;
+        }
+      }
+      .input-wrapper.email-field {
+        input {
+          padding-left: 54px;
+          margin-top: 0;
+        }
+        i {
+          position: absolute;
+          left: 16px;
+          top: 17px;
+          //line-height: normal;
+          font-size: 18px;
+        }
+      }
+
+      .continue-btn {
+        margin-top: 16px;
+        @media (max-width: @screen-xs) {
+          margin-top: 0;
+        }
+      }
+
+      .email {
+        margin-top: 6px;
+      }
+      .email-check {
+        margin: 22px auto 64px auto;
+      }
+      .resend-title {
+        font-size: 14px;
+        letter-spacing: -0.4px;
+        color: #888b8e;
+      }
+
+      .recaptcha-wrapper {
+        margin: 24px 0 10px 0;
+      }
+      .recaptcha-wrapper > div:first-child {
+        height: 100px;
+      }
+
+      .checkbox-terms {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 30px;
+
+        &, a {
+          color: #90949c;
+        }
+        a {
+          text-decoration: underline;
+        }
+        @media (max-width: @screen-xs) {
+          margin: 0;
+          padding: 15px 0 4px 25px;
+          font-size: 11px;
+          letter-spacing: -0.3px;
+          text-align: center;
+          color: #90949c;
+        }
+
+        input {
+          width: 16px;
+          height: 16px;
+        }
+        label {
+          font-size: 11px;
+          margin-bottom: 1px;
+          letter-spacing: -0.3px;
+          color: #90949c;
+          margin-left: 6px;
+        }
+      }
+
+      .signin-strip {
+        font-size: 16px;
+        letter-spacing: -0.4px;
+        text-align: center;
+        color: #888b8e;
+        margin: 47px 0 16px;
+        @media (max-width: @screen-xs) {
+          font-size: 18px;
+          margin: 0px 0 16px;
+
+        }
+      }
+
+      .side-wrapper.image {
+        background: #eee;
+        .text {
+          height: 135px;
         }
         img {
-          display: none;
-          width: 251px;
-          height: 154px;
+          margin: 25px 0;
+        }
+
+      }
+      .step-title {
+        @media (max-width: @screen-xs) {
+          margin-top: 16px;
+        }
+      }
+      .limited-width {
+        padding-bottom: 54px;
+        position: relative;
+        &.wide {
+          height: 400px;
           @media (max-width: @screen-xs) {
-            display: flex;
-            margin: 75px auto;
+            height: 500px;
+          }
+          .step-title {
+            margin: 70px 10px 10px;
+            @media (max-width: @screen-xs) {
+              margin: 0px 10px 10px;
+            }
+          }
+          p {
+            max-width: 400px;
+          }
+          img {
+            display: none;
+            width: 251px;
+            height: 154px;
+            @media (max-width: @screen-xs) {
+              display: flex;
+              margin: 75px auto;
+            }
           }
         }
       }
@@ -716,76 +751,97 @@
   }
   //end step email
 
-
   //step account
-  .step-account .step-wrapper, .v-dialog .limited-width.custom {
+  .step-account {
+    height: 100%;
+    .step-wrapp-one {
+      height: 100%;
+      .step-wrapper {
+        height: 100%;
+      }
+      .step-wrapper, .v-dialog .limited-width.custom {
 
-    .blue-points{
-      color: @color-main-purple;
-      font-size: 32px;
-    }
-    .money-done-img{
-      max-width: 220px;
-      margin-bottom: 32px;
-      margin-top: 32px;
-    }
-    .continue-btn {
-      margin-top: 13px;
-      @media (max-width: @screen-xs) {
-        margin-top: 0px;
-      }
-    }
-    .done {
-      p.congrats{
-        margin-bottom: 8px;
-
-      }
-      h1 {
-        margin-bottom: 26px;
-        color: @color-main-purple;
-        font-size: 26px;
-      }
-      .congrats-heading{
-        color: @color-main-purple;
-        font-size: 26px;
-        margin-bottom: 1px;
-      }
-      .continue-btn {
-        margin-top: 100px;
-      }
-    }
-
-    .input-wrapper {
-      margin-top: 30px;
-      @media (max-width: @screen-xs) {
-        margin-top: 0px;
-      }
-      input {
-        margin-top: 0;
-        padding-left: 52px;
-
-        ~ i {
-          position: absolute;
-          top: 14px;
-          left: 16px;
+        .blue-points {
+          color: @color-main-purple;
+          font-size: 32px;
         }
+        .money-done-img {
+          max-width: 220px;
+          margin-bottom: 32px;
+          margin-top: 32px;
+        }
+        .continue-btn {
+          margin-top: 13px;
+          @media (max-width: @screen-xs) {
+            margin-top: 0px;
+          }
+        }
+        .done {
+          p.congrats {
+            margin-bottom: 8px;
+
+          }
+          h1 {
+            margin-bottom: 26px;
+            color: @color-main-purple;
+            font-size: 26px;
+          }
+          .congrats-heading {
+            color: @color-main-purple;
+            font-size: 26px;
+            margin-bottom: 1px;
+          }
+          .continue-btn {
+            margin-top: 100px;
+          }
+        }
+
+        .input-wrapper {
+          margin-top: 30px;
+          @media (max-width: @screen-xs) {
+            margin-top: 0px;
+          }
+          input {
+            margin-top: 0;
+            padding-left: 52px;
+
+            ~ i {
+              position: absolute;
+              top: 14px;
+              left: 16px;
+            }
+          }
+        }
+
+        .small-button {
+          box-shadow: none;
+          outline: none;
+          .sbf-copy {
+            color: @color-main-purple;
+          }
+        }
+
       }
     }
-
-    .small-button{
-      box-shadow: none;
-      outline: none;
-      .sbf-copy{color: @color-main-purple;}
-    }
-
-
   }
 
- //end step account
+  //end step account
+  .step-verifyEmail {
+    height: 100%;
+    @media (max-width: @screen-xs) {
+      height: auto;
+    }
+    .step-wrapp-one {
+      height: 100%;
+      .step-wrapper {
+        height: 100%;
+      }
+    }
+  }
 
-
-//end registration div
+  //end registration div
 }
+
 //dialog modal
 
 .registration-dialog {
