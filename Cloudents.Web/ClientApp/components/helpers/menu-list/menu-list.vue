@@ -150,7 +150,6 @@
 
         },
         created(){
-            console.log('menu',this.accountUser, this.user)
     }
     }
 </script>

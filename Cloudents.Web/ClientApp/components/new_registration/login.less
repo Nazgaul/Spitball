@@ -828,13 +828,29 @@
   //end step account
   .step-verifyEmail {
     height: 100%;
-    @media (max-width: @screen-xs) {
-      height: auto;
-    }
     .step-wrapp-one {
       height: 100%;
       .step-wrapper {
         height: 100%;
+        .step-title{
+              margin: 70px 30px 16px 12px;
+        }
+
+        .email-hold{
+          margin-bottom: 16px;
+          .email-text{
+            color: @color-black;
+            font-weight: 600;
+          }
+          .email-change{
+            color: @color-main-purple;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 6px;
+          }
+        }
+
       }
     }
   }

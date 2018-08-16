@@ -17,7 +17,7 @@ const colorsSet = {
         name: "green",
         active:false,
         cssRule:{
-            "background-image":"linear-gradient(to top, #c9ea8e, #48b21e)"
+            "background-color":"#6bc248"
         },
         textColor:{
             'color': '#ffffff'
@@ -28,7 +28,7 @@ const colorsSet = {
         name: "purple",
         active:false,
         cssRule:{
-            "background-image":"linear-gradient(to bottom, #ae40f6, #deacff)"
+            "background-color":"#a757db"
         },
         textColor:{
             'color': '#ffffff'
@@ -39,7 +39,7 @@ const colorsSet = {
         name: "red",
         active:false,
         cssRule:{
-            "background-image": "linear-gradient(to top, #f77a85, #e81031)"
+            "background-color": "#e5455d"
         },
         textColor:{
             'color': '#ffffff'
@@ -50,7 +50,7 @@ const colorsSet = {
         name: "yellow",
         active:false,
         cssRule:{
-            "background-image": "linear-gradient(to top, #f0d881, #e1a527)"
+            "background-color": "#edaf2e"
         },
         textColor:{
             'color': '#ffffff'
@@ -61,7 +61,7 @@ const colorsSet = {
         name: "blue",
         active:false,
         cssRule:{
-            "background-image": "linear-gradient(to top, #b2b0f9, #3532d5)"
+            "background-color": "#7472ff"
         },
         textColor:{
             'color': '#ffffff'
@@ -72,7 +72,7 @@ const colorsSet = {
         name: "turquoise",
         active:false,
         cssRule:{
-            "background-image":"linear-gradient(to top, #85ead7, #18a88c)"
+            "background-color":"#3bbda4"
         },
         textColor:{
             'color': '#ffffff'
@@ -83,7 +83,7 @@ const colorsSet = {
         name: "lightBlue",
         active:false,
         cssRule:{
-            "background-image":" linear-gradient(to top, #bed3ec, #53a0fd)"
+            "background-color":"#53a0fd"
         },
         textColor:{
             'color': '#ffffff'
@@ -94,7 +94,7 @@ const colorsSet = {
         name: "grey",
         active:false,
         cssRule:{
-            "background-image":"linear-gradient(to top, #d6d6d6, #8d8d8d)"
+            "background-color":"#a09c9c"
         },
         textColor:{
             'color': '#ffffff'
@@ -106,7 +106,7 @@ const colorsSet = {
         name: "olive",
         active:false,
         cssRule:{
-            "background-image":"linear-gradient(to top, #dae0af, #8d983e)"
+            "background-color":"#abb55e"
         },
         textColor:{
             'color': '#ffffff'
@@ -118,7 +118,7 @@ const colorsSet = {
         name: "pink",
         active:false,
         cssRule:{
-            "background-image":" linear-gradient(to top, #fbc6ed, #e24cb8)"
+            "background-color":"#d251ae"
         },
         textColor:{
             'color': '#ffffff'

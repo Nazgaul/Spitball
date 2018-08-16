@@ -121,7 +121,7 @@ namespace Cloudents.Functions
 
 
 
-
+        //From = "Spitball"
         [FunctionName("FunctionSms")]
         public static async Task SmsServiceBusAsync(
             [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Sms), AccessRights.Listen)]BrokeredMessage message,
