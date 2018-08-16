@@ -41,6 +41,15 @@ namespace Cloudents.Web.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{model.Id}'.");
             }
 
+            if (user.EmailConfirmed)
+            {
+                return RedirectToRoute("Register",
+               new
+               {
+                   step = "enterPhone",
+                   returnUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl : null
+               });
+            }
             var result = await _userManager.ConfirmEmailAsync(user, model.Code).ConfigureAwait(false);
             if (!result.Succeeded)
             {
@@ -50,13 +59,13 @@ namespace Cloudents.Web.Controllers
             TempData.Remove(SignUserController.Email);
             await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
 
-            return RedirectToRoute("Register", 
-                new {
+            return RedirectToRoute("Register",
+                new
+                {
                     step = "enterPhone",
                     newUser = true,
                     returnUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl : null
-            });
-            //return Redirect("/register?newUser&step=enterPhone");
+                });
         }
     }
 }
