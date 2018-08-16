@@ -37,46 +37,9 @@ namespace Cloudents.Web.Services
             await _serviceBusProvider.InsertMessageAsync(message, token);
         }
 
-        public async Task<string> ValidateNumberAsync(string phoneNumber, CancellationToken token)
+        public Task<string> ValidateNumberAsync(string phoneNumber, CancellationToken token)
         {
-            var result = await _smsProvider.ValidateNumberAsync(phoneNumber, token);
-            //var uri = new Uri($"https://lookups.twilio.com/v1/PhoneNumbers/{phoneNumber}");
-
-            //var byteArray = Encoding.ASCII.GetBytes($"AC1796f09281da07ec03149db53b55db8d:c4cdf14c4f6ca25c345c3600a72e8b49");
-            //var authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-            //var headers = new List<KeyValuePair<string, string>>();
-
-            //headers.Add(new KeyValuePair<string, string>("Authorization", authorization.ToString()));
-
-            //var result = await _client.GetAsync<PhoneValidator>(uri, null, headers, token);
-
-            return result;
-        }
-
-      
-            public string PhoneNumber { get; set; }
-    }
-
-
-    public class DataProtection : IDataProtect
-    {
-        private readonly IDataProtectionProvider _dataProtectionProvider;
-
-        public DataProtection(IDataProtectionProvider dataProtectionProvider)
-        {
-            _dataProtectionProvider = dataProtectionProvider;
-        }
-
-        public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
-        {
-            var dataProtector = _dataProtectionProvider.CreateProtector(purpose).ToTimeLimitedDataProtector();
-            return dataProtector.Protect(plaintext, expiration);
-        }
-
-        public string Unprotect(string purpose, string protectedData)
-        {
-            var dataProtector = _dataProtectionProvider.CreateProtector(purpose).ToTimeLimitedDataProtector();
-            return dataProtector.Unprotect(protectedData);
+            return _smsProvider.ValidateNumberAsync(phoneNumber, token);
         }
     }
 }
