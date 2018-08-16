@@ -1,4 +1,4 @@
-const eventService = {
+const analyticsService = {
 
     sb_unitedEvent: (category, action, label = '') => {
         if (category && action) {
@@ -20,4 +20,4 @@ const eventService = {
 
 
 };
-export default eventService;
+export default analyticsService;

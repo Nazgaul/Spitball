@@ -87,6 +87,8 @@ export default {
         },
         addFile(filename) {
             this.files.push(...filename.split(','));
+            console.log('add new question', this.files)
+
         },
         removeFile(index) {
             this.files.splice(index, 1);
