@@ -3,7 +3,7 @@
             <div class="textarea">
                 <!-- :class="{'with-preview':previewList.length}" v-if="!fullPreview" -->
                 <div class="text-block" :style="activeColor.cssRule" >
-                    <span class="error-message" v-if="error.errorClass &&  value.length < 15"  :error ="errorTextArea" >{{error.errorText}}</span>
+                    <span class="error-message" :class="{'answer': actionType === 'answer'}" v-if="error.errorClass &&  value.length < 15"  :error ="errorTextArea" >{{error.errorText}}</span>
 
                     <textarea rows="9" class="" :style="activeColor.textColor" required
                          :class="{ active: activeColor.id !== 0 }"
