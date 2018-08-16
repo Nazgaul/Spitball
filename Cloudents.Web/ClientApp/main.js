@@ -168,12 +168,16 @@ Vue.filter('capitalize',
         //return value.charAt(0).toUpperCase() + value.slice(1);
     });
 //#endregion
+
 Vue.filter('ellipsis',
-    function (value, characters) {
+    function (value, characters, datailedView) {
         value = value || '';
-        if (value.length <= characters)
+        if (value.length <= characters || datailedView){
             return value;
-        return value.substr(0, characters) + '...';
+        }else{
+            return value.substr(0, characters) + '...';
+
+        }
     });
 
 Vue.filter('fixedPoints', function (value) {

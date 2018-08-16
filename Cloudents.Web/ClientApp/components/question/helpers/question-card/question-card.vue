@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <p class="q-text" :style="cssRule.fontColor"  :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text}}</p>
+        <p class="q-text" :style="cssRule.fontColor"  :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text | ellipsis(150, detailedView)}}</p>
 
         <!-- v-if="cardData.files.length" -->
         <div class="gallery" v-if="gallery&&gallery.length">
@@ -42,8 +42,8 @@
                 <div class="new-block">
                     <div class="files" v-if="cardData.filesNum">
                         <template>
-                            <v-icon>sbf-attach</v-icon>
-                            <span>{{cardData.filesNum}}</span>
+                            <v-icon :style="cssRule.fontColor">sbf-attach</v-icon>
+                            <span :style="cssRule.fontColor">{{cardData.filesNum}}</span>
                         </template>
                     </div>
                     <div class="users">
