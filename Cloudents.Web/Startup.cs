@@ -13,6 +13,7 @@ using Cloudents.Core.Storage;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
+using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
 using Cloudents.Web.Services;
@@ -115,8 +116,8 @@ namespace Cloudents.Web
             {
                 SwaggerInitial(services);
             }
+            services.AddSignalR();
 
-            
             services.AddResponseCompression();
             services.AddResponseCaching();
 
@@ -274,6 +275,10 @@ namespace Cloudents.Web
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
             }
             app.UseAuthentication();
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<QuestionHub>("/questionHub");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
