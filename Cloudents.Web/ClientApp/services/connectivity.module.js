@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "query-string";
 import signalR from '@aspnet/signalr';
-import eventService from './events.service'
+import analyticsService from './analytics.service'
 
 axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: false });
 axios.defaults.responseType = "json";
@@ -11,7 +11,7 @@ axios.defaults.baseURL = '/api';
 const promiseReturn = function(data){
     // "this" is bound to the timerObject
     let endTime = new Date().getTime();
-    eventService.sb_fireTimingAnalytic(this.requestMethod, this.path, endTime - this.startTime, "SUCCESS")
+    analyticsService.sb_fireTimingAnalytic(this.requestMethod, this.path, endTime - this.startTime, "SUCCESS")
 
     return data;
 }
@@ -19,7 +19,7 @@ const promiseReturn = function(data){
 const errorHandler = function(err){
     // "this" is bound to the timerObject
     let endTime = new Date().getTime();
-    eventService.sb_fireTimingAnalytic(this.requestMethod, this.path, endTime - this.startTime, "ERROR")
+    analyticsService.sb_fireTimingAnalytic(this.requestMethod, this.path, endTime - this.startTime, "ERROR")
     
     if(err.response.status === 401){
         window.location = '/signin';

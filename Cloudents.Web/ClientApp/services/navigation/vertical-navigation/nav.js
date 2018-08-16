@@ -1,13 +1,23 @@
 import * as routes from "../../../routeTypes";
+import { bannerData } from './campaign';
+
+
+function getPromoQueryFromRoute(path, query){
+    if(!!query && query.hasOwnProperty("promo")){
+        if(!!bannerData[query.promo]){
+            return bannerData[query.promo][path].banner;
+        }else{
+            return bannerData["navDefault"][path].banner;
+        }
+    }else{
+        return bannerData["navDefault"][path].banner;
+    }
+}
+
 
 const nav = {
     ask: {
-        banner:{
-            "lineColor": "#00c0fa",
-            "title" : "Make money while helping others with their homework.",
-            "textMain" : "Answer HW questions and cash out to Amazon Coupons. There’s no catch!",
-            "boldText" : "cash out to Amazon Coupons"
-        },
+        banner: getPromoQueryFromRoute,
         data:{
             filter:[{ id: "source", name: "subject" }],
             id: routes.questionRoute,
@@ -17,12 +27,7 @@ const nav = {
         }
     },
     note: {
-        banner:{
-            "lineColor": "#943bfd",
-            "title" : "Notes, study guides, exams and more from the best sites.",
-            "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
-            "boldText" : "your school, classes and preferences"
-        },
+        banner: getPromoQueryFromRoute,
         data:{
             id: routes.notesRoute,
             name: "Study Documents",
@@ -35,15 +40,9 @@ const nav = {
             icon: "sbf-note",
             show: false
         }
-
      },
     flashcard: {
-        banner:{
-            "lineColor": "#f14d4d",
-            "title" : "Study from millions of flashcard sets to improve your grades.",
-            "textMain" : "Filtered by your school, classes and preferences. Saving you time!" ,
-            "boldText" : "your school, classes and preferences"
-        },
+        banner: getPromoQueryFromRoute,
         data:{
             id: routes.flashcardRoute,
             name: "Flashcards",
@@ -60,12 +59,7 @@ const nav = {
         }
     },
     tutor: {
-        banner: {
-            "lineColor": "#52aa16",
-            "title": "Find an expert to help you ace your classes in-person or online.",
-            "textMain": "No matter the subject, a tutor is here to help you succeed.",
-            "boldText" : "here to help you succeed."
-        },
+        banner: getPromoQueryFromRoute,
         data:{
             id: routes.tutorRoute,
             name: "Tutors",
@@ -83,12 +77,7 @@ const nav = {
         }
     },
     book: {
-        banner:{
-            "lineColor": "#a650e0",
-            "title" : "Compare the best prices to buy, rent or sell your textbooks.",
-            "textMain" : "Preview quotes from hundreds of sites simultaneously.",
-            "boldText" : "hundreds of sites simultaneously."
-        },
+        banner: getPromoQueryFromRoute,
         data:{
             id: routes.bookRoute,
             name: "Textbooks",
@@ -98,12 +87,7 @@ const nav = {
 
     },
     job: {
-        banner:{
-            "lineColor": "#f49c20",
-            "title" : "Find jobs and internships catered specifically to students. ",
-            "textMain" : "Filtered by your experience and location preference.",
-            "boldText" : "experience and location preference."
-        },
+        banner: getPromoQueryFromRoute,
         data:{
             id: routes.jobRoute,
             name: "Jobs",
@@ -118,6 +102,7 @@ const nav = {
         }
     }
 };
+
 export let details = {
     bookDetails: {
         filter: [{id: "new", name: "new"}, {id: "rental", name: "rental"}, {id: "eBook", name: "eBook"}, {
