@@ -37,7 +37,7 @@ namespace Cloudents.Infrastructure.Data.Maps
                 //    .Not.KeyNullable()
                 //    .Not.KeyUpdate()
                 .Cascade.AllDeleteOrphan();
-
+            Cache.ReadWrite().Region("nHibernate-User");
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
                ON sb.[User](PhoneNumberHash)

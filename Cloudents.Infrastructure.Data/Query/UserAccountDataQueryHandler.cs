@@ -30,6 +30,10 @@ namespace Cloudents.Infrastructure.Data.Query
                     Balance = s.Balance, // s.LastTransaction.Balance,
                     Name = s.Name,
                     Image = s.Image
+                }).WithOptions(o =>
+                {
+                    o.SetCacheable(true)
+                        .SetReadOnly(true);
                 }).SingleOrDefaultAsync(cancellationToken: token).ConfigureAwait(false);
 
             return p;
