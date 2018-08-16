@@ -1,0 +1,31 @@
+﻿@page
+@model SendTokensModel
+@{
+    ViewData["Title"] = "SendTokens";
+}
+
+<h2>CashOut</h2>
+
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="Model.UserId"></label>
+        <input asp-for="Model.UserId" />
+    </div>
+
+    <div>
+        <label asp-for="Model.Price"></label>
+
+        <input asp-for="Model.Price" />
+    </div>
+    <div>
+        <label asp-for="Model.TypeId"></label>
+        <select asp-for="Model.TypeId"
+                asp-items="@(new SelectList(Model.Types))">
+            <option>Please select one</option>
+        </select>
+    </div>
+    <input type="submit" />
+
+</form>

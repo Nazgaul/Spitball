@@ -44,7 +44,7 @@ namespace ConsoleApp
                 {
                     var t = child.Resolve<IUserRepository>();
                     var user = await t.LoadAsync(userId, default);
-                    var p = Transaction.TestEarned(money);
+                    var p = Transaction.SendTokens(money, TransactionType.Awarded);
                     user.AddTransaction(p);
                     await t.UpdateAsync(user, default).ConfigureAwait(false);
                     await unitOfWork.CommitAsync(default);
