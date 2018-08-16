@@ -4,10 +4,7 @@
                 <!-- :class="{'with-preview':previewList.length}" v-if="!fullPreview" -->
                 <div class="text-block" :style="activeColor.cssRule" >
                     <span class="error-message" v-if="error.errorClass &&  value.length < 15"  :error ="errorTextArea" >{{error.errorText}}</span>
-                    <!--<quill-editor  :content="content"-->
-                                  <!--:options="editorOption"-->
-                                  <!--@blur="onEditorBlur($event)">-->
-                    <!--</quill-editor>-->
+
                     <textarea rows="9" class="" :style="activeColor.textColor" required
                          :class="{ active: activeColor.id !== 0 }"
                          @input="updateValue($event.target.value)"

@@ -1,6 +1,5 @@
 import colorsSet from '../colorsSet';
 var Uploader = require('html5-uploader');
-// import VueQuillEditor from 'vue-quill-editor'
 
 export default {
 

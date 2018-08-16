@@ -7,12 +7,7 @@ import { Language } from "./services/language/langDirective"
 const scroll = () =>
     import("./components/helpers/infinateScroll.vue");
 import VScroll from "vuetify/es5/directives/scroll";
-import VueQuillEditor from 'vue-quill-editor'
 
-// require styles
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
 const GeneralPage = () =>
     import("./components/helpers/generalPage.vue");
 import VueRouter from "vue-router";
@@ -99,7 +94,6 @@ WebFont.load({
 //    attempt: 1
 //});
 //Vue.use(vueSmoothScroll);
-Vue.use(VueQuillEditor, /* { default global options } */)
 
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
