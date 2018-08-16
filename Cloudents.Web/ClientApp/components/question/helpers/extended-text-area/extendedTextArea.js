@@ -18,12 +18,8 @@ export default {
             errorTextArea :{},
             colorsSet: colorsSet,
             activeColor: 0,
-            counter: 0
-
-
-
-
-
+            counter: 0,
+            uploadLimit: 4
             }
     },
     watch:{
@@ -38,10 +34,7 @@ export default {
         },
         togglePreview: function(){this.fullPreview = !this.fullPreview},
         deletePreview: function(index){
-            console.log('before',this.counter)
-
             this.counter = this.counter -1;
-            console.log('after',this.counter)
             this.previewList.splice(index,1);
             this.$emit('removeFile', index);
         },
@@ -59,17 +52,19 @@ export default {
         });
 
         multiple.on('files:added', function (val) {
-            if(val.length <= 4){
+            self.errorTextArea.errorText = '4 files only';
+            if(val.length <= self.uploadLimit){
             this.files=val.filter(i=>i.type.indexOf("image")>-1);
              this.upload()
             }
         });
 
         multiple.on('file:preview', function (file, $img) {
-            if ($img) {
+             let files = this.getFiles();
+            if ($img && files.length < self.uploadLimit) {
                 self.counter = self.counter + 1;
                 // self.previewList.push($img.outerHTML);
-                if(self.counter <= 4){
+                if(self.counter <= self.uploadLimit){
                     self.previewList.push($img.src);
                 }
 
