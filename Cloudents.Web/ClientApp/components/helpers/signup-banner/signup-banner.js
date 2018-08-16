@@ -22,13 +22,12 @@ export default {
     },
     methods: {
         ...mapActions(['hideRegistrationBanner']),
-
-
     getBannerData() {
             let route = this.$route;
             let path = route.path.slice(1);
             let query = route.query;
-            return this.bannerData = nav[path].banner(path, query);
+             this.bannerData = nav[path].banner(path, query);
+             console.log(this.bannerData.showOverlay)
         }
     },
     created() {

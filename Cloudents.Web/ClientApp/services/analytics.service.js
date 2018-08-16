@@ -4,6 +4,7 @@ const analyticsService = {
         if (category && action) {
             window.ga( 'send', 'event', `${category}`, `${action}`, `${label}`);
             window.dataLayer.push({
+                'event': 'Spitball',
                 'category': `${category}`,
                 'action': `${action}`,
                 'label': `${label}`
