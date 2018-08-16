@@ -107,21 +107,19 @@ export const connectivityModule = {
     //todo add error handler
     sr: {
         createConnection: function(url){
-            const connection = new signalR.HubConnectionBuilder().withUrl(url).build();
+            const connection = new signalR.HubConnectionBuilder()
+            .withUrl(url)
+            .build();
             return connection;
         },
-        on: function(connection){
-            return connection.on;
-        },
-        invoke: function(connection, messageString, messageObj){
-            return connection.invoke(messageString, messageObj);
-        },
-        start: function(connections){
-            if(!!connections && connections.length > 0){
-                connections.forEach(connection => {
-                    connection.start();
-                })
+        on: function(connection, message, callback){
+            if(!callback){
+                console.error(`A callback function must be provided to handle the registered event`);
             }
+            connection.on(message, callback);
+        },
+        invoke: function(connection, message, data){
+            return connection.invoke(message, data);
         }
     }
 
