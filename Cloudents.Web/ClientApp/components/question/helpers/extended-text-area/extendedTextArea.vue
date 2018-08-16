@@ -4,7 +4,10 @@
                 <!-- :class="{'with-preview':previewList.length}" v-if="!fullPreview" -->
                 <div class="text-block" :style="activeColor.cssRule" >
                     <span class="error-message" v-if="error.errorClass &&  value.length < 15"  :error ="errorTextArea" >{{error.errorText}}</span>
-
+                    <!--<quill-editor  :content="content"-->
+                                  <!--:options="editorOption"-->
+                                  <!--@blur="onEditorBlur($event)">-->
+                    <!--</quill-editor>-->
                     <textarea rows="9" class="" :style="activeColor.textColor" required
                          :class="{ active: activeColor.id !== 0 }"
                          @input="updateValue($event.target.value)"
@@ -24,13 +27,13 @@
                             <!--</button>-->
                         <!--</li>-->
                         <li>
-                            <label for="file-input" class="attach-file">
+                            <label for="file-input" class="attach-file" v-show="previewList.length < 4">
                                 <v-icon :style="activeColor.textColor">sbf-attach</v-icon>
                             </label>
-                            <input id="file-input" type="file" multiple accept="image/*"/>
+                            <input id="file-input" type="file" multiple accept="image/*" />
                         </li>
                     </ul>
-                     <v-divider vertical></v-divider>
+                     <v-divider v-if="actionType ==='question'" vertical></v-divider>
                     <ul class="actions_text colors-actions"  v-if="actionType ==='question'">
                         <li v-for="color in colorsSet" :key="color.id">
                             <button :style="color.cssRule" :class="{ active: color.id === activeColor.id ||  color.id === 0 }" @click="updateColor(color)"></button>
@@ -52,7 +55,7 @@
                         </button>
                         <img :src="image" />
                     </li>
-                    <li class="add-file">
+                    <li class="add-file" v-show="previewList.length < 4" >
                         <label for="file-input">
                                 <v-icon>sbf-close</v-icon>
                         </label>
