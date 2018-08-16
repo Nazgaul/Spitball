@@ -25,7 +25,10 @@ export default {
 
 
     getBannerData() {
-            return this.bannerData = nav[this.$route.path.slice(1)].banner;
+            let route = this.$route;
+            let path = route.path.slice(1);
+            let query = route.query;
+            return this.bannerData = nav[path].banner(path, query);
         }
     },
     created() {
