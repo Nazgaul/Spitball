@@ -1,6 +1,6 @@
 import axios from "axios";
 import qs from "query-string";
-import signalR from '@aspnet/signalr';
+import * as signalR from '@aspnet/signalr';
 import analyticsService from './analytics.service'
 
 axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: false });
@@ -105,11 +105,9 @@ export const connectivityModule = {
     },
 
     //todo add error handler
-    signalR: {
+    sr: {
         createConnection: function(url){
-            const connection = new signalR.HubConnectionBuilder()
-            .withUrl(url)
-            .build();
+            const connection = new signalR.HubConnectionBuilder().withUrl(url).build();
             return connection;
         },
         on: function(connection){

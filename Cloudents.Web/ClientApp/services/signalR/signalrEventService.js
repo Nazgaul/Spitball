@@ -11,17 +11,18 @@ function Notification(name, eventObj){
 }
 
 function registerEvents(connection){
-   return connectivityModule.signalR.on(connection)
+   return connectivityModule.sr.on(connection)
 }
 
-function init(connString){
-    const mainConnection = connectivityModule.signalR.createConnection(connString)
-    connectivityModule.signalR.start([mainConnection]);
-    let connection = registerEvents(mainConnection);
-    connection.on("message", function(name, message){
-        let notificationObj = new Notification(name, message);
-        SignlaREventService[notificationObj.name](notificationObj)
+export default function init(connString = '/questionHub'){
+    const mainConnection = connectivityModule.sr.createConnection(connString)
+    connectivityModule.sr.start([mainConnection]);
+    let connectionOn = registerEvents(mainConnection);
+    connectionOn("ReceiveMessage", function (message) {
+        console.log(message);
+        //let notificationObj = new Notification(message);
+        //SignlaREventService[notificationObj.name](notificationObj)
     })
 }
 
-init('/connString');
+ 

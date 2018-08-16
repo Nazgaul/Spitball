@@ -4,6 +4,8 @@ import App from "./components/app/app.vue";
 import store from "./store";
 import { Language } from "./services/language/langDirective"
 
+import signalRService from './services/signalR/signalrEventService'
+
 const scroll = () =>
     import("./components/helpers/infinateScroll.vue");
 import VScroll from "vuetify/es5/directives/scroll";
@@ -255,6 +257,9 @@ function checkUserStatus(to, next) {
         next("/signin");
     });
 }
+
+
+signalRService();
 
 //app.$mount("#app");
 //This is for cdn fallback do not touch
