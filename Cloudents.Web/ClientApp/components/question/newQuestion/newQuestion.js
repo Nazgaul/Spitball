@@ -66,7 +66,6 @@ export default {
             if (this.submitForm()) {
                 this.updateLoading(true);
                 this.textAreaValue = this.textAreaValue.trim();
-                console.log('sbm color',this.selectedColor.name );
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default' )
                     .then(function () {
                             // debugger;
@@ -118,7 +117,6 @@ export default {
         })
         this.$on('colorSelected', (activeColor)=>{
              this.selectedColor.name = activeColor.name;
-             console.log(this.selectedColor.name);
         });
 
     }

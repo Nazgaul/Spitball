@@ -106,7 +106,7 @@ export const connectivityModule = {
 
     //todo add error handler
     signalR: {
-        getConnection: function(url){
+        createConnection: function(url){
             const connection = new signalR.HubConnectionBuilder()
             .withUrl(url)
             .build();
