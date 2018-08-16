@@ -1,6 +1,7 @@
 @import "../../../mixin.less";
 
 .banner-wrap {
+
   #particles-js {
     max-height: 345px;
     position: absolute;
@@ -147,44 +148,75 @@
   &.color-ask {
     background-image: linear-gradient(95deg, #3532d5, #3455ff);
     &.campaign-ask-campaignX{
-      background-image: linear-gradient(95deg, #f0f0f0, #f14d4d);
+      background-image: url("./img/x-1920.png");
+      @media (max-width: @screen-md-plus) {
+        background-image: url("./img/x-1280.png");
+      }
+      @media (max-width: @screen-sm) {
+        background-image: url("./img/x-960.png");
+      }
+      @media (max-width: @screen-xs) {
+        background-image: url("./img/x-600.png");
+      }
+      @media (max-width: @screen-xss) {
+        background-image: url("./img/x-375.png");
+      }
+    }
+    &.campaign-ask-campaignY{
+      background-image: url("./img/y-1920.png");
+      @media (max-width: @screen-md-plus) {
+      background-image: url("./img/y-1280.png");
+    }
+      @media (max-width: @screen-sm) {
+        background-image: url("./img/y-960.png");
+      }
+      @media (max-width: @screen-xs) {
+        background-image: url("./img/y-600.png");
+      }
+      @media (max-width: @screen-xss) {
+        background-image: url("./img/y-375.png");
+      }
+    }
+    &.campaign-ask-campaignZ{
+      background-image: url("./img/z-1920.png");
+      @media (max-width: @screen-md-plus) {
+        background-image: url("./img/z-1280.png");
+      }
+      @media (max-width: @screen-sm) {
+        background-image: url("./img/z-960.png");
+      }
+      @media (max-width: @screen-xs) {
+        background-image: url("./img/z-600.png");
+      }
+      @media (max-width: @screen-xss) {
+        background-image: url("./img/z-375.png");
+      }
     }
   }
 
   &.color-note {
     background-image: linear-gradient(95deg, #3532d5, #6b29aa);
-    &.campaign-note-campaignX{
-      background-image: linear-gradient(95deg, #f0f0f0, #f14d4d);
-    }
+
   }
 
   &.color-flashcard {
     background-image: linear-gradient(95deg, #3532d5, #f14d4d);
-    &.campaign-flashcard-campaignX{
-      background-image: linear-gradient(95deg, #f0f0f0, #f14d4d);
-    }
+
   }
 
   &.color-tutor {
     background-image: linear-gradient(95deg, #3532d5, #52aa16);
-    &.campaign-tutor-campaignX{
-      background-image: linear-gradient(95deg, #f0f0f0, #f14d4d);
-    }
 
   }
 
   &.color-book {
     background-image: linear-gradient(96deg, #3532d5, #a650e0);
-    &.campaign-book-campaignX{
-      background-image: linear-gradient(95deg, #f0f0f0, #f14d4d);
-    }
+
   }
 
   &.color-job {
     background-image: linear-gradient(96deg, #3532d5, #f49c20);
-    &.campaign-job-campaignX{
-      background-image: linear-gradient(95deg, #f0f0f0, #f14d4d);
-    }
+
   }
 
   .text-block {
@@ -295,13 +327,15 @@
         text-align: left;
       }
     }
-
     .medium {
       font-size: 26px;
       font-weight: 300;
       line-height: normal;
       letter-spacing: -0.5px;
-
+      //.bolder{
+      //  font-weight: bold;
+      //  font-size: 1.6em;
+      //}
       @media (min-width: @screen-sm) and (max-width: @screen-md) {
         font-size: 20px;
         letter-spacing: -0.3px;

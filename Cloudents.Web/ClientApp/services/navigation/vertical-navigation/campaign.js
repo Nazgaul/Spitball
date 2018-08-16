@@ -70,11 +70,11 @@ const campaignX = {
     ask: {
         banner:{
             "lineColor": "#00c0fa",
-            "title" : "aaaaMake money while helping others with their homework.",
-            "textMain" : "aaaAnswer HW questions and cash out to Amazon Coupons. There’s no catch!",
-            "boldText" : "aaacash out to Amazon Coupons",
+            "title" : "Ask your question now and get fast answers from top students.",
+            "textMain" : "Sign up now!",
+            "boldText" : "",
             url: '',
-            showOverlay: true,
+            showOverlay: false,
             campaignClass: 'ask-campaignX',
         },
     },
@@ -136,9 +136,150 @@ const campaignX = {
     },
 
 };
+const campaignY = {
+    ask: {
+        banner:{
+            "lineColor": "#00c0fa",
+            "title" : "Ask your question now and get fast answers from top students.",
+            "textMain" : "Sign up now!",
+            "boldText" : "Sign up now!",
+            url: '',
+            showOverlay: false,
+            campaignClass: 'ask-campaignY',
+        },
+    },
+    note: {
+        banner:{
+            "lineColor": "#943bfd",
+            "title" : "Notes, study guides, exams and more from the best sites.",
+            "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
+            "boldText" : "your school, classes and preferences",
+            url: '',
+            showOverlay: true,
+            campaignClass: 'note-campaignY',
 
+        }
+    },
+    flashcard: {
+        banner:{
+            "lineColor": "#f14d4d",
+            "title" : "Study from millions of flashcard sets to improve your grades.",
+            "textMain" : "Filtered by your school, classes and preferences. Saving you time!" ,
+            "boldText" : "your school, classes and preferences",
+            url: '',
+            showOverlay: true,
+            campaignClass: 'flashcard-campaignY',
+        }
+    },
+    tutor: {
+        banner: {
+            "lineColor": "#52aa16",
+            "title": "Find an expert to help you ace your classes in-person or online.",
+            "textMain": "No matter the subject, a tutor is here to help you succeed.",
+            "boldText" : "here to help you succeed.",
+            url: '',
+            showOverlay: true,
+            campaignClass: 'tutor-campaignY',
+        }
+    },
+    book: {
+        banner:{
+            "lineColor": "#a650e0",
+            "title" : "Compare the best prices to buy, rent or sell your textbooks.",
+            "textMain" : "Preview quotes from hundreds of sites simultaneously.",
+            "boldText" : "hundreds of sites simultaneously.",
+            url: '',
+            showOverlay: true,
+            campaignClass: 'book-campaignY',
+        }
+    },
+    job: {
+        banner:{
+            "lineColor": "#f49c20",
+            "title" : "Find jobs and internships catered specifically to students. ",
+            "textMain" : "Filtered by your experience and location preference.",
+            "boldText" : "experience and location preference.",
+            url: '',
+            showOverlay: true,
+            campaignClass: 'job-campaignY',
+        }
+    },
 
+};
+const campaignZ = {
+    ask: {
+        banner:{
+            "lineColor": "#00c0fa",
+            "title" : "Ask your question now and get fast answers from top students.",
+            "textMain" : "Sign up now!",
+            "boldText" : "",
+            url: '',
+            showOverlay: false,
+            campaignClass: 'ask-campaignZ',
+        },
+    },
+    note: {
+        banner:{
+            "lineColor": "#943bfd",
+            "title" : "Notes, study guides, exams and more from the best sites.",
+            "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
+            "boldText" : "your school, classes and preferences",
+            url: '',
+            showOverlay: false,
+            campaignClass: 'note-campaignZ',
+
+        }
+    },
+    flashcard: {
+        banner:{
+            "lineColor": "#f14d4d",
+            "title" : "Study from millions of flashcard sets to improve your grades.",
+            "textMain" : "Filtered by your school, classes and preferences. Saving you time!" ,
+            "boldText" : "your school, classes and preferences",
+            url: '',
+            showOverlay: false,
+            campaignClass: 'flashcard-campaignZ',
+        }
+    },
+    tutor: {
+        banner: {
+            "lineColor": "#52aa16",
+            "title": "Find an expert to help you ace your classes in-person or online.",
+            "textMain": "No matter the subject, a tutor is here to help you succeed.",
+            "boldText" : "here to help you succeed.",
+            url: '',
+            showOverlay: false,
+            campaignClass: 'tutor-campaignZ',
+        }
+    },
+    book: {
+        banner:{
+            "lineColor": "#a650e0",
+            "title" : "Compare the best prices to buy, rent or sell your textbooks.",
+            "textMain" : "Preview quotes from hundreds of sites simultaneously.",
+            "boldText" : "hundreds of sites simultaneously.",
+            url: '',
+            showOverlay: false,
+            campaignClass: 'book-campaignZ',
+        }
+    },
+    job: {
+        banner:{
+            "lineColor": "#f49c20",
+            "title" : "Find jobs and internships catered specifically to students. ",
+            "textMain" : "Filtered by your experience and location preference.",
+            "boldText" : "experience and location preference.",
+            url: '',
+            showOverlay: false,
+            campaignClass: 'job-campaignZ',
+        }
+    },
+
+};
 export const bannerData = {
     navDefault,
-    campaignX
+    campaignX,
+    campaignY,
+    campaignZ
+
 };

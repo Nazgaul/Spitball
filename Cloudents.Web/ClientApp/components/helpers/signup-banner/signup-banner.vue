@@ -1,5 +1,5 @@
 <template>
-    <v-flex xs12 :class="'banner-wrap campaign-'+ bannerData.campaign +' color-'+$route.path.slice(1) ">
+    <v-flex xs12 :class="'banner-wrap campaign-'+ bannerData.campaignClass +' color-'+$route.path.slice(1) ">
         <button class="back-button" @click="hideRegistrationBanner()">
             <v-icon>sbf-close</v-icon>
         </button>
