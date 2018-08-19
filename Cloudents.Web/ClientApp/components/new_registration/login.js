@@ -5,7 +5,6 @@ import VueRecaptcha from 'vue-recaptcha';
 ﻿import registrationService from '../../services/registrationService'
 import analyticsService from '../../services/analytics.service';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
-
 const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;

@@ -1,7 +1,6 @@
 @import "../../../mixin.less";
 
 .banner-wrap {
-
   #particles-js {
     max-height: 345px;
     position: absolute;
@@ -47,7 +46,6 @@
     .sbf {
       font-size: 16px;
       color: @color-white;
-      //
     }
   }
 
@@ -147,6 +145,7 @@
 
   &.color-ask {
     background-image: linear-gradient(95deg, #3532d5, #3455ff);
+
     &.campaign-ask-campaignX{
       background-image: url("./img/x-1920.png");
       @media (max-width: @screen-md-plus) {
@@ -162,6 +161,7 @@
         background-image: url("./img/x-375.png");
       }
     }
+
     &.campaign-ask-campaignY{
       background-image: url("./img/y-1920.png");
       @media (max-width: @screen-md-plus) {
@@ -177,6 +177,7 @@
         background-image: url("./img/y-375.png");
       }
     }
+
     &.campaign-ask-campaignZ{
       background-image: url("./img/z-1920.png");
       @media (max-width: @screen-md-plus) {
@@ -196,27 +197,22 @@
 
   &.color-note {
     background-image: linear-gradient(95deg, #3532d5, #6b29aa);
-
   }
 
   &.color-flashcard {
     background-image: linear-gradient(95deg, #3532d5, #f14d4d);
-
   }
 
   &.color-tutor {
     background-image: linear-gradient(95deg, #3532d5, #52aa16);
-
   }
 
   &.color-book {
     background-image: linear-gradient(96deg, #3532d5, #a650e0);
-
   }
 
   &.color-job {
     background-image: linear-gradient(96deg, #3532d5, #f49c20);
-
   }
 
   .text-block {
@@ -367,11 +363,6 @@
     height: 100%;
     width: 100%;
     overflow: hidden;
-
-    // Beny: TODO check if everything is fine removed due to overflowing on IOS
-    //@media (max-width: @screen-xs) {
-    //    width: 800px;
-    //}
 
     div {
       position: absolute;

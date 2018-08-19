@@ -612,10 +612,17 @@
         width: 100%;
         height: @registrationFieldHeight;
         margin-top: 40px;
-        .transition (all .2s ease-in-out);
         &:hover {
           background: lighten(@google-btn-bg, 10%);
         }
+        &:disabled{
+          background: #bbbbbb;
+          &:hover{
+            background: #bbbbbb;
+          }
+        }
+        .transition (all .2s ease-in-out);
+
         @media (max-width: @screen-xs) {
           margin-top: 24px;
         }
