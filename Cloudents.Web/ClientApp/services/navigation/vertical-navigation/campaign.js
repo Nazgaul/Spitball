@@ -70,9 +70,9 @@ const campaignX = {
     ask: {
         banner:{
             "lineColor": "#00c0fa",
-            "title" : "Ask your question now and get fast answers from top students.",
+            "title" : "Ask your HW question now and get fast answers from top students.",
             "textMain" : "Sign up now!",
-            "boldText" : "",
+            "boldText" : "Sign up now!",
             url: '',
             showOverlay: false,
             campaignClass: 'ask-campaignX',
@@ -85,7 +85,7 @@ const campaignX = {
             "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
             "boldText" : "your school, classes and preferences",
             url: '',
-            showOverlay: false,
+            showOverlay: true,
             campaignClass: 'note-campaignX',
 
         }
@@ -97,7 +97,7 @@ const campaignX = {
             "textMain" : "Filtered by your school, classes and preferences. Saving you time!" ,
             "boldText" : "your school, classes and preferences",
             url: '',
-            showOverlay: false,
+            showOverlay: true,
             campaignClass: 'flashcard-campaignX',
         }
     },
@@ -108,7 +108,7 @@ const campaignX = {
             "textMain": "No matter the subject, a tutor is here to help you succeed.",
             "boldText" : "here to help you succeed.",
             url: '',
-            showOverlay: false,
+            showOverlay: true,
             campaignClass: 'tutor-campaignX',
         }
     },
@@ -119,7 +119,7 @@ const campaignX = {
             "textMain" : "Preview quotes from hundreds of sites simultaneously.",
             "boldText" : "hundreds of sites simultaneously.",
             url: '',
-            showOverlay: false,
+            showOverlay: true,
             campaignClass: 'book-campaignX',
         }
     },
@@ -130,7 +130,7 @@ const campaignX = {
             "textMain" : "Filtered by your experience and location preference.",
             "boldText" : "experience and location preference.",
             url: '',
-            showOverlay: false,
+            showOverlay: true,
             campaignClass: 'job-campaignX',
         }
     },
@@ -140,7 +140,7 @@ const campaignY = {
     ask: {
         banner:{
             "lineColor": "#00c0fa",
-            "title" : "Ask your question now and get fast answers from top students.",
+            "title" : "Ask your HW question now and get fast answers from top students.",
             "textMain" : "Sign up now!",
             "boldText" : "Sign up now!",
             url: '',
@@ -157,7 +157,6 @@ const campaignY = {
             url: '',
             showOverlay: true,
             campaignClass: 'note-campaignY',
-
         }
     },
     flashcard: {
@@ -225,7 +224,7 @@ const campaignZ = {
             "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
             "boldText" : "your school, classes and preferences",
             url: '',
-            showOverlay: false,
+            showOverlay: true,
             campaignClass: 'note-campaignZ',
 
         }
@@ -237,7 +236,7 @@ const campaignZ = {
             "textMain" : "Filtered by your school, classes and preferences. Saving you time!" ,
             "boldText" : "your school, classes and preferences",
             url: '',
-            showOverlay: false,
+            showOverlay: true,
             campaignClass: 'flashcard-campaignZ',
         }
     },
@@ -248,7 +247,7 @@ const campaignZ = {
             "textMain": "No matter the subject, a tutor is here to help you succeed.",
             "boldText" : "here to help you succeed.",
             url: '',
-            showOverlay: false,
+            showOverlay: true,
             campaignClass: 'tutor-campaignZ',
         }
     },
@@ -259,7 +258,7 @@ const campaignZ = {
             "textMain" : "Preview quotes from hundreds of sites simultaneously.",
             "boldText" : "hundreds of sites simultaneously.",
             url: '',
-            showOverlay: false,
+            showOverlay: true,
             campaignClass: 'book-campaignZ',
         }
     },
@@ -270,7 +269,7 @@ const campaignZ = {
             "textMain" : "Filtered by your experience and location preference.",
             "boldText" : "experience and location preference.",
             url: '',
-            showOverlay: false,
+            showOverlay: true,
             campaignClass: 'job-campaignZ',
         }
     },

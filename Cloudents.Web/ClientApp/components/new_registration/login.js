@@ -2,9 +2,11 @@ import stepTemplate from './helpers/stepTemplate.vue'
 import codesJson from './helpers/CountryCallingCodes';
 import {mapMutations, mapActions, mapGetters} from 'vuex'
 import VueRecaptcha from 'vue-recaptcha';
+
 ﻿import registrationService from '../../services/registrationService'
 import analyticsService from '../../services/analytics.service';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
+
 const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;
@@ -18,6 +20,9 @@ export default {
         return {
             siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
             gaCategory: '',
+            marketingData: {
+
+            },
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
             toUrl: '',
             progressSteps: 5,
@@ -65,12 +70,14 @@ export default {
         ...mapGetters({
             getShowToaster: 'getShowToaster',
             getToasterText: 'getToasterText',
-            lastActiveRoute: 'lastActiveRoute'
+            lastActiveRoute: 'lastActiveRoute',
+            campaignName: 'getCampaignName',
+            campaignData: 'getCampaignData'
         }),
     },
     methods: {
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
-        ...mapActions({updateToasterParams: 'updateToasterParams'}),
+        ...mapActions({updateToasterParams: 'updateToasterParams', updateCampaign: 'updateCampaign'}),
 
         //do not change step, only from here
         changeStepNumber(step) {
@@ -81,7 +88,7 @@ export default {
         goToLogin() {
             this.changeStepNumber('loginStep');
         },
-        showRegistration(){
+        showRegistration() {
             this.changeStepNumber('startStep');
         },
         submit() {
@@ -111,9 +118,9 @@ export default {
                         self.updateLoading(false);
                         let newUser = resp.data.isNew;
                         console.log(newUser);
-                        if(newUser){
+                        if (newUser) {
                             analyticsService.sb_unitedEvent('Registration', 'Start Google');
-                        }else{
+                        } else {
                             analyticsService.sb_unitedEvent('Login', 'Start Google');
                         }
                         let step = resp.data.step;
@@ -138,7 +145,7 @@ export default {
 
         $_back() {
             let url = this.fromPath || {path: '/ask', query: {q: ''}};
-            this.$router.push({ path: `${url.path }`});
+            this.$router.push({path: `${url.path }`});
         },
         showDialogFunc() {
             this.showDialog = true
@@ -204,7 +211,7 @@ export default {
             analyticsService.sb_unitedEvent('Registration', 'Resend Email');
             registrationService.emailResend()
                 .then(response => {
-                    self.updateLoading(false);
+                        self.updateLoading(false);
                         self.updateToasterParams({
                             toasterText: 'Email sent',
                             showToaster: true,
@@ -223,13 +230,13 @@ export default {
                     self.updateLoading(false);
                     //got to congratulations route if new user
                     if (self.isNewUser) {
-                        self.changeStepNumber('congrats')
+                        self.changeStepNumber('congrats');
                         analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
                     } else {
                         analyticsService.sb_unitedEvent('Login', 'Phone Verified');
                         let url = self.lastActiveRoute || defaultSubmitRoute;
                         window.isAuth = true;
-                        self.$router.push({ path: `${url.path }`});
+                        self.$router.push({path: `${url.path }`});
 
                     }
                 }, function (error) {
@@ -239,9 +246,9 @@ export default {
         },
         finishRegistration() {
             analyticsService.sb_unitedEvent('Registration', 'Congrats');
-            let url = this.toUrl ||  defaultSubmitRoute;
+            let url = this.toUrl || defaultSubmitRoute;
             window.isAuth = true;
-            this.$router.push({ path: `${url.path }`});
+            this.$router.push({path: `${url.path }`});
         }
     },
     mounted() {
@@ -255,6 +262,9 @@ export default {
         }, 500);
     },
     created() {
+        // if(!this.campaignName || this.campaignName === '' ){
+        //     this.updateCampaign('noCampaign');
+        // }
         //check if returnUrl exists
         if (!!this.$route.query.returnUrl) {
             this.toUrl = {path: `${this.$route.query.returnUrl}`, query: {q: ''}};
@@ -262,7 +272,7 @@ export default {
         if (this.$route.query && this.$route.query.step) {
             let step = this.$route.query.step;
             this.changeStepNumber(step);
-        }else if (this.$route.fullPath === '/signin') {
+        } else if (this.$route.fullPath === '/signin') {
             this.changeStepNumber('loginStep')
         }
 
@@ -271,7 +281,7 @@ export default {
         });
         //check if new user param exists in email url
         this.isNewUser = this.$route.query['newUser'] !== undefined;
-        if(this.isNewUser && this.stepNumber === 3){
+        if (this.isNewUser && this.stepNumber === 3) {
             analyticsService.sb_unitedEvent('Registration', 'Email Verified');
 
         }

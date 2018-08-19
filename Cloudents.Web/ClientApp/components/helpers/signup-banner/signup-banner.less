@@ -2,7 +2,7 @@
 
 .banner-wrap {
   #particles-js {
-    max-height: 345px;
+    max-height: 340px;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -10,7 +10,7 @@
     left: 0;
     z-index: 100;
     canvas {
-      max-height: 345px;
+      max-height: 340px;
     }
   }
 
@@ -19,7 +19,7 @@
   }
 
   position: relative;
-  height: 345px;
+  height: 340px;
 
   @media ( max-width: 600px) {
     height: 280px;
@@ -100,8 +100,9 @@
     }
 
     @media ( max-width: @screen-xss) {
-      top: 160px;
+      top: 170px;
       padding: 16px 0;
+      left: 70%;
     }
 
     .round-free-text {
@@ -145,17 +146,64 @@
 
   &.color-ask {
     background-image: linear-gradient(95deg, #3532d5, #3455ff);
-
     &.campaign-ask-campaignX{
+      .text-wrap{
+        margin: 38px auto;
+      }
+      .large {
+        font-size: 42px;
+        font-weight: normal;
+        text-align: center;
+        line-height: 1.17;
+        letter-spacing: -0.4px;
+
+        @media (min-width: @screen-sm) and (max-width: @screen-md) {
+          font-size: 40px;
+          font-weight: normal;
+          line-height: 1.23;
+          letter-spacing: -0.3px;
+        }
+
+        @media ( max-width: @screen-sm) {
+          font-size: 32px;
+          font-weight: normal;
+          line-height: 1.19;
+          letter-spacing: -0.3px;
+          text-align: left;
+        }
+      }
+      .medium {
+        font-size: 42px;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: -0.5px;
+
+        @media (min-width: @screen-sm) and (max-width: @screen-md) {
+          font-size: 40px;
+          letter-spacing: -0.3px;
+        }
+
+        @media (max-width: @screen-sm) {
+          font-size: 32px;
+          text-align: left;
+        }
+      }
+
       background-image: url("./img/x-1920.png");
       @media (max-width: @screen-md-plus) {
         background-image: url("./img/x-1280.png");
       }
-      @media (max-width: @screen-sm) {
+      @media (max-width: @screen-sm-960) {
         background-image: url("./img/x-960.png");
+        .text-wrap{
+          margin: 8px 0;
+        }
       }
       @media (max-width: @screen-xs) {
         background-image: url("./img/x-600.png");
+        .text-wrap{
+          margin: 8px 0;
+        }
       }
       @media (max-width: @screen-xss) {
         background-image: url("./img/x-375.png");
@@ -163,15 +211,68 @@
     }
 
     &.campaign-ask-campaignY{
+      .text-wrap{
+        margin: 38px auto;
+      }
+      .large {
+        font-size: 42px;
+        font-weight: normal;
+        text-align: center;
+        line-height: 1.17;
+        letter-spacing: -0.4px;
+
+        @media (min-width: @screen-sm) and (max-width: @screen-md) {
+          font-size: 40px;
+          font-weight: normal;
+          line-height: 1.23;
+          letter-spacing: -0.3px;
+        }
+
+        @media ( max-width: @screen-sm) {
+          font-size: 32px;
+          font-weight: normal;
+          line-height: 1.19;
+          letter-spacing: -0.3px;
+          text-align: left;
+
+        }
+      }
+      .medium {
+        font-size: 42px;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: -0.5px;
+
+        @media (min-width: @screen-sm) and (max-width: @screen-md) {
+          font-size: 40px;
+          letter-spacing: -0.3px;
+        }
+
+        @media (max-width: @screen-sm) {
+          font-size: 32px;
+          text-align: left;
+        }
+      }
       background-image: url("./img/y-1920.png");
       @media (max-width: @screen-md-plus) {
       background-image: url("./img/y-1280.png");
     }
-      @media (max-width: @screen-sm) {
+      @media (max-width: @screen-sm-960 ){
+        .text-wrap{
+          margin: 8px auto;
+        }
         background-image: url("./img/y-960.png");
+      }
+      @media(max-width: @screen-sm){
+        .text-wrap{
+          margin: 8px 0;
+        }
       }
       @media (max-width: @screen-xs) {
         background-image: url("./img/y-600.png");
+        .text-wrap{
+          margin: 8px 0;
+        }
       }
       @media (max-width: @screen-xss) {
         background-image: url("./img/y-375.png");
@@ -179,15 +280,63 @@
     }
 
     &.campaign-ask-campaignZ{
+      .text-wrap{
+        margin: 38px auto;
+      }
+      .large {
+        font-size: 42px;
+        font-weight: normal;
+        text-align: center;
+        line-height: 1.17;
+        letter-spacing: -0.4px;
+
+        @media (min-width: @screen-sm) and (max-width: @screen-md) {
+          font-size: 40px;
+          font-weight: normal;
+          line-height: 1.23;
+          letter-spacing: -0.3px;
+        }
+
+        @media ( max-width: @screen-sm) {
+          font-size: 32px;
+          font-weight: normal;
+          line-height: 1.19;
+          letter-spacing: -0.3px;
+          text-align: left;
+        }
+      }
+      .medium {
+        font-size: 42px;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: -0.5px;
+
+        @media (min-width: @screen-sm) and (max-width: @screen-md) {
+          font-size: 40px;
+          letter-spacing: -0.3px;
+        }
+
+        @media (max-width: @screen-sm) {
+          font-size: 32px;
+          text-align: left;
+        }
+      }
+
       background-image: url("./img/z-1920.png");
       @media (max-width: @screen-md-plus) {
         background-image: url("./img/z-1280.png");
       }
-      @media (max-width: @screen-sm) {
+      @media (max-width: @screen-sm-960) {
         background-image: url("./img/z-960.png");
+        .text-wrap{
+          margin: 8px auto;
+        }
       }
       @media (max-width: @screen-xs) {
         background-image: url("./img/z-600.png");
+        .text-wrap{
+          margin: 8px 0;
+        }
       }
       @media (max-width: @screen-xss) {
         background-image: url("./img/z-375.png");
@@ -251,20 +400,20 @@
     }
 
     @media ( max-width: 600px) {
-      top: 13%;
+      top: 11%;
     }
 
     @media (max-width: @screen-xs) {
       width: 362px;
       margin: 0 0 0 8px;
-      top: 13%;
+      top: 11%;
     }
 
     .title-wrap {
       max-width: 850px;
 
       @media (max-width: 600px) {
-        width: 332px;
+        width: 300px;
       }
     }
 

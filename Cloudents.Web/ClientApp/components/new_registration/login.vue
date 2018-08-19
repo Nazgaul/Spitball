@@ -8,8 +8,7 @@
             <step-template>
                 <div slot="step-data" class="limited-width form-wrap">
                     <h1 class="step-title" v-if="$vuetify.breakpoint.smAndDown">Get started</h1>
-                    <p class="sub-title" v-if="$vuetify.breakpoint.smAndDown">Start with your email. We need to know how
-                        to contact you.</p>
+                    <p class="sub-title" v-if="$vuetify.breakpoint.smAndDown">{{campaignData.stepOne.text}}</p>
                     <button class="google-signin" @click="googleLogIn" :disabled="!agreeTerms">
                         <span>Sign Up with Google</span>
                         <!--TODO do not use v-icon-->
@@ -47,7 +46,7 @@
                 <div slot="step-image">
                     <div class="text">
                         <h1 class="step-title">Get started</h1>
-                        <p class="sub-title">Start with your email. We need to know how to contact you.</p>
+                        <p class="sub-title">{{campaignData.stepOne.text}}</p>
                     </div>
                     <img :src="require(`./img/registerEmail.png`)"/>
                 </div>

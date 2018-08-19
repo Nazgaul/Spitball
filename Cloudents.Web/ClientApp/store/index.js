@@ -9,6 +9,7 @@ import SpitballPreview from "./SpitballPreview";
 import LuisData from "./luisData";
 import Account from "./account";
 import Toaster from "./Toaster";
+import MarketingCampaign from './marketingCampaigns'
 //TODO: server side fix
 import createPersistedState from "vuex-persistedstate"
 
@@ -47,7 +48,7 @@ if (storage) {
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
-    modules: { Search, User, SpitballPreview,LuisData , Account,Question, Toaster},
+    modules: { Search, User, SpitballPreview,LuisData , Account,Question, Toaster, MarketingCampaign },
     plugins: plugins
 });
 export default store;
