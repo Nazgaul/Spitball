@@ -116,7 +116,7 @@ namespace Cloudents.Web
             {
                 SwaggerInitial(services);
             }
-            services.AddSignalR();
+            services.AddSignalR().AddRedis(Configuration["Redis"]);
 
             services.AddResponseCompression();
             services.AddResponseCaching();
