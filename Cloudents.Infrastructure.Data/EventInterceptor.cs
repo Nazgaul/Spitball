@@ -17,12 +17,12 @@ namespace Cloudents.Infrastructure.Data
 
         public async Task OnPostInsertAsync(PostInsertEvent @event, CancellationToken cancellationToken)
         {
-            if (!(@event.Entity is IHaveEvent entity)) return;
+            //if (!(@event.Entity is IHaveEvent entity)) return;
 
-            foreach (var eventMessage in entity.Events)
-            {
-               await _eventPublisher.PublishAsync(eventMessage, cancellationToken);
-            }
+            //foreach (var eventMessage in entity.Events)
+            //{
+            //   await _eventPublisher.PublishAsync(eventMessage, cancellationToken);
+            //}
            
         }
 
