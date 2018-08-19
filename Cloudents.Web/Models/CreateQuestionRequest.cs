@@ -22,7 +22,7 @@ namespace Cloudents.Web.Models
         [Range(1, 100)]
         public decimal Price { get; set; }
 
-        [ValidateFilesAttribute]
+        [ArrayMaxSize(4)]
         public IEnumerable<string> Files { get; set; }
 
         public QuestionColor? Color { get; set; }

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query;
 using Cloudents.Core.Command.Admin;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Query.Admin;
 using Cloudents.Infrastructure.Data.Repositories;
 using NHibernate;
@@ -62,8 +63,9 @@ namespace ConsoleApp
 
             //await UpdateCreationTimeProductionAsync();
             var bus = _container.Resolve<IQueryBus>();
-            var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
-            var t = await bus.QueryAsync(query, default);
+            var query = new UserDataByIdQuery(1642);
+            //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
+            var t = await bus.QueryAsync< ProfileDto>(query, default);
           //  var bus = _container.Resolve<IQueryBus>();
           // var z = new NextQuestionQuery(68, 11);
           // var x = await bus.QueryAsync(z, default);
