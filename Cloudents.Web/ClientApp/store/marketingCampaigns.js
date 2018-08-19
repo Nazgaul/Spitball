@@ -13,7 +13,6 @@ const mutations = {
 const getters = {
     getCampaignName: (state) => state.campaignName,
     getCampaignData: (state) => {
-        console.log(state);
         return state.campaignData
     }
 };

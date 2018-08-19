@@ -145,12 +145,10 @@ export default {
 // use render method to render nodes in real time
     },
     created() {
-        console.log(this.cardData)
         //set color for card
         if (this.cardData.color && this.colorsSet[`${this.cardData.color}`]) {
             this.cssRule.backgroundColor = this.colorsSet[`${this.cardData.color}`].cssRule;
             this.cssRule.fontColor = this.colorsSet[`${this.cardData.color}`].textColor;
-
         } else {
             let colDefault = 'default';
             this.cssRule.backgroundColor = this.colorsSet[`${colDefault}`].cssRule;
