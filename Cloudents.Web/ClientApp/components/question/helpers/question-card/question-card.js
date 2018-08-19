@@ -145,6 +145,7 @@ export default {
 // use render method to render nodes in real time
     },
     created() {
+        console.log(this.cardData)
         //set color for card
         if (this.cardData.color && this.colorsSet[`${this.cardData.color}`]) {
             this.cssRule.backgroundColor = this.colorsSet[`${this.cardData.color}`].cssRule;
@@ -155,8 +156,6 @@ export default {
             this.cssRule.backgroundColor = this.colorsSet[`${colDefault}`].cssRule;
             this.cssRule.fontColor = this.colorsSet[`${colDefault}`].textColor;
         }
-
-
         this.flaggedAsCorrect = this.isCorrectAnswer;
         this.calculateAnswerToLimit();
     }

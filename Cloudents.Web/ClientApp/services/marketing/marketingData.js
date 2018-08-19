@@ -5,7 +5,7 @@ const marketingData = {
                 text: 'Start with your email. We need to know how to contact you.'
             },
             stepTwo: {
-                text: ''
+                text: 'We need to send you a confirmation code'
             }
         },
         campaignX: {
@@ -13,7 +13,7 @@ const marketingData = {
                 text: 'Sign up with your email to get your HW questions answered now.'
             },
             stepTwo: {
-                text: 'You\'re 1 step away from getting free SBLs and getting answers from top students! Please enter your mobile number.'
+                text: 'You\'re 1 step away from getting free SBLs and getting answers from top students!'
             }
         },
         campaignY: {
@@ -21,7 +21,7 @@ const marketingData = {
                 text: 'Sign up with your email to get your HW questions answered now.'
             },
             stepTwo: {
-                text: 'You\'re 1 step away from getting free SBLs and getting answers from top students! Please enter your mobile number.'
+                text: 'You\'re 1 step away from getting free SBLs and getting answers from top students!'
             }
         },
         campaignZ: {
@@ -29,7 +29,7 @@ const marketingData = {
                 text: 'Sign up with your email to get your HW questions answered now.'
             },
             stepTwo: {
-                text: 'You\'re 1 step away from getting free SBLs and getting answers from top students! Please enter your mobile number.'
+                text: 'You\'re 1 step away from getting free SBLs and getting answers from top students!'
             }
         }
     }

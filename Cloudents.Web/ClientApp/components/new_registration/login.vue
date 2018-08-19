@@ -112,7 +112,7 @@
             <step-template>
                 <div slot="step-data" class="limited-width">
                     <h1 class="step-title">Enter your phone number</h1>
-                    <p class="sub-title">We need to send you a confirmation code.</p>
+                    <p class="sub-title">{{campaignData.stepTwo.text}}</p>
                     <select v-model="phone.countryCode" class="mb-1">
                         <option value="" disabled hidden>Select your country code</option>
                         <option v-for="item in countryCodesList" :value="item.callingCode">{{item.name}}
