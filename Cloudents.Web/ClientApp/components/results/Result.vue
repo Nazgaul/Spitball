@@ -43,7 +43,7 @@
                                         <router-link v-else :to="{path:'/question/'+item.id}" class="mb-5">
                                             <question-card :cardData="item"></question-card>
                                         </router-link>
-                                    <div class="show-btn" v-if="accountUser && item &&  item.user && accountUser.id !== item.user.id || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
+                                    <div class="show-btn" v-if="accountUser && item &&  item.user && accountUser.id !== item.user.id || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask' && !item.hasCorrectAnswer?'Answer':'Show Me'}}</div>
                                     <div class="show-btn" v-if="!accountUser && item && item.user || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
 
                                 </v-flex>

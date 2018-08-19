@@ -171,7 +171,7 @@ export default {
     },
 
     created() {
-        
+        console.log('sdfsd',this.items)
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);
