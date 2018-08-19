@@ -33,6 +33,7 @@ const mutations = {
 const getters = {
     getVerticalData:state=>(vertical)=>state[getLuisType(vertical)]||{},
     currentText:state=>state.currentText,
+    // getCurrentVertical is used in the search store
     getCurrentVertical:state=>state.currentVertical
 };
 const actions = {

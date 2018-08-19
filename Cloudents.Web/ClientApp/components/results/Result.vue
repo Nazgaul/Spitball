@@ -21,7 +21,7 @@
                 </template>
             </div>
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
-                <scroll-list v-if="items.length" @scroll="updateOnScroll" :url="pageData.nextPage" :vertical="pageData.vertical">
+                <scroll-list v-if="items.length" :url="pageData.nextPage" :vertical="pageData.vertical">
                 <!-- <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
                     <v-container class="pa-0 ma-0 results-wrapper">
                         <v-layout column>
@@ -33,7 +33,6 @@
                                 <button @click="showFilterNotApplied=false">OK</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                               
                                 <router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob  hidden-sm-and-down"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
                                 <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading" class="personalize-wrapper pa-3 mb-3 elevation-1">
                                     <v-text-field class="elevation-0" type="search" solo flat placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>

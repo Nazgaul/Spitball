@@ -1,5 +1,5 @@
 import DialogToolbar from '../dialog-toolbar/DialogToolbar.vue'
-import {mapActions} from 'vuex'
+import {mapActions, mapMutations} from 'vuex'
 
 export default {
     model: {
@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         ...mapActions(['setFilteredCourses']),
-
+        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         initFilters(val = []) {
             this.filters = {source: [], course: [], jobType: [], filter: []};
             [].concat(val).forEach(({key, value}) => {
@@ -35,6 +35,7 @@ export default {
             });
         },
         applyFilters() {
+            this.UPDATE_SEARCH_LOADING(true);
             //if filters have courses and courses has been changed save the changes
             let courseBefore = this.filterVal.filter(i => i.key === 'course').map(i => i.value);
             let courseNow = this.filters.course;

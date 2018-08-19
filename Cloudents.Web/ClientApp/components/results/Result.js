@@ -25,7 +25,7 @@ import account from "../../store/account";
 //update data function update the page content and selected filters
 let updateData = function (data, isFilterUpdate = false) {
     const {facet} = data;
-    facet ? this.updateFacet(facet) : '';
+    facet ? this.updateFacet(facet) : this.updateFacet(null);
     this.pageData = {};
     this.content = data;
     this.$emit('dataUpdated', this.items.length ? this.items[0] : null);
@@ -33,6 +33,7 @@ let updateData = function (data, isFilterUpdate = false) {
     // (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
     this.filter = this.filterSelection;
     // this.UPDATE_LOADING(false);
+    this.UPDATE_SEARCH_LOADING(false);
     (this.isLoad) ? this.isLoad = false : this.UPDATE_LOADING(false);
     if (this.isAcademic) {
         this.showPersonalizeField = true
@@ -87,7 +88,7 @@ export default {
             set(val) {
                 if (val) {
                     this.pageData = val;
-                    this.updateItems(val.data);
+                    //this.updateItems(val.data);
                     // this.items = val.data;
                     this.$nextTick(() => {
                         if (!this.items.length) {
@@ -115,6 +116,7 @@ export default {
                             });
                         }
                         this.UPDATE_LOADING(false);
+                        this.UPDATE_SEARCH_LOADING(false);
                     });
                 }
             }
@@ -176,7 +178,7 @@ export default {
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);
         // this.items = skeletonData[this.name];
-        this.updateItems(skeletonData[this.name])
+        //this.updateItems(skeletonData[this.name])
         //fetch data with the params
         this.fetchingData({
             name: this.name,
@@ -188,13 +190,14 @@ export default {
             console.error(reason);
             //when error from fetching data remove the loader
             this.UPDATE_LOADING(false);
-            this.updateItems([]);
+            //this.updateItems([]);
             // this.items = [];
         });
         // });
     },
     methods: {
-        ...mapMutations({updateItems: "UPDATE_ITEMS"}),
+        //...mapMutations({updateItems: "UPDATE_ITEMS"}),
+        ...mapMutations(["UPDATE_SEARCH_LOADING"]),
         subFilterVertical(val) {
             return val.includes('note') || val === 'flashcard' || val === 'job' || val.includes('ask');
         },
@@ -205,13 +208,13 @@ export default {
             const itemsBeforeUpdate = this.items;
             this.pageData = {};
             
-            this.updateItems(skeletonData[this.name])
+            //this.updateItems(skeletonData[this.name])
             // this.items = [];
             // this.items = skeletonData[toName];
             this.updateContentOfPage(to, from, next, itemsBeforeUpdate);
         },
         updateOnScroll(value){
-            this.updateItems(this.items.concat(value))
+            //this.updateItems(this.items.concat(value))
             // this.items=this.items.concat(value)
         },
         updateContentOfPage(to, from, next, itemsBeforeUpdate) {
@@ -230,14 +233,16 @@ export default {
                 if (to.path === from.path && to.query.q === from.query.q) {
                     this.isLoad = false;
                     this.UPDATE_LOADING(false);
+                    this.UPDATE_SEARCH_LOADING(false);
                     this.showFilterNotApplied = true;
-                    this.updateItems(itemsBeforeUpdate)
+                    //this.updateItems(itemsBeforeUpdate)
                     // this.items = itemsBeforeUpdate;
                 }
                 else {
                     this.UPDATE_LOADING(false);
+                    this.UPDATE_SEARCH_LOADING(false);
                     this.isLoad = false;
-                    this.updateItems([])
+                    //this.updateItems([])
                     // this.items = [];
                     next();
                 }
@@ -276,6 +281,7 @@ export default {
 
 //functionality when remove filter from the selected filters
         $_removeFilter({value, key}) {
+            this.UPDATE_SEARCH_LOADING(true);
             let updatedList = this.query[key];
             updatedList = [].concat(updatedList).filter(i => i.toString() !== value.toString());
             key === 'course' ? this.setFilteredCourses(updatedList) : "";
