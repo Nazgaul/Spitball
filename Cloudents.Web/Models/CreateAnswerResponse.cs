@@ -56,12 +56,12 @@ namespace Cloudents.Web.Models
 
     public class UploadAskFileResponse
     {
-        public UploadAskFileResponse(string[] files)
+        public UploadAskFileResponse(IEnumerable<string> files)
         {
             Files = files;
         }
 
-        public string[] Files { get; set; }
+        public IEnumerable<string> Files { get; set; }
     }
 
     public enum NextStep
