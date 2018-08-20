@@ -206,7 +206,7 @@ namespace Cloudents.Web
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
             app.UseClickJacking();
 
-            BuildCsp(app);
+           // BuildCsp(app);
 
             if (env.IsDevelopment())
             {
