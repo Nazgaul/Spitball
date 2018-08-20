@@ -86,7 +86,7 @@ const actions = {
             //get location if needed
             let VerticalName = context.getters.getCurrentVertical;
             let verticalItems = context.state.itemsPerVertical[VerticalName];
-            if(!!verticalItems && !!verticalItems.data && verticalItems.data.length > 0 && !context.state.serachLoading){
+            if(!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading){
                 return verticalItems
             }else{
                 return new Promise((resolve) => {
