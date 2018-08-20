@@ -43,13 +43,9 @@ namespace Cloudents.Management.Pages
         [ViewData]
         public IEnumerable<string> Types { get; set; }
 
-        public async Task OnGet(CancellationToken token)
+        public void OnGet(CancellationToken token)
         {
-            // var query = new TransactionTypeQuery();
-            //Types = await _queryBus.QueryAsync(query, token).ConfigureAwait(false);
-       
              Types = Enum.GetNames(typeof(TransactionType));
-            //return Ok(result);
         }
 
         public async Task<IActionResult> OnPostAsync(CancellationToken token)
