@@ -5,6 +5,7 @@ using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Domain;
@@ -42,6 +43,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<ReplaceImageProvider>().As<IReplaceImageProvider>();
 
             builder.RegisterType<WebSearch>();
+
+            builder.RegisterType<DataProtection>().As<IDataProtect>();
 
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
 

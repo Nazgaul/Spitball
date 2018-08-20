@@ -39,12 +39,12 @@ function createConnection(connString){
 }
 
 //init function is launched from the main.js
-export default function init(connString = '/questionHub'){
+export default function init(connString = '/sbHub'){
     //create a signalR Connection
     let connection = createConnection(connString)
     
     //open the connection and register the events
-    startConnection(connection, "ReceiveMessage"); 
+    startConnection(connection, "Message"); 
 }
 
 export function getMainConnection(){

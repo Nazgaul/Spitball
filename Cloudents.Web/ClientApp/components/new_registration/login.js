@@ -252,14 +252,13 @@ export default {
         }
     },
     mounted() {
-        // TODO try to fix and use without timeout
-        setTimeout(function () {
+        this.$nextTick(function () {
             gapi.load('auth2', function () {
                 auth2 = gapi.auth2.init({
                     client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
                 })
             })
-        }, 500);
+        })
     },
     created() {
         // if(!this.campaignName || this.campaignName === '' ){

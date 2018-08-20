@@ -24,7 +24,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IUserRepository : IRepository<User>
     {
-        Task<IList<User>> GetAllUsersAsync(CancellationToken token);
+        //Task<IList<User>> GetAllUsersAsync(CancellationToken token);
 
         Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token);
 

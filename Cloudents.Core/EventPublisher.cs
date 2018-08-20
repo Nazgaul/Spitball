@@ -9,7 +9,6 @@ namespace Cloudents.Core
 {
     public class EventPublisher : IEventPublisher
     {
-        // private readonly ISubscriptionService _subscriptionService;
         private readonly ILifetimeScope _container;
 
         public EventPublisher(ILifetimeScope subscriptionService)
@@ -22,11 +21,18 @@ namespace Cloudents.Core
             var handlerType = typeof(IEventHandler<>).MakeGenericType(eventMessage.GetType());
             var handlerCollectionType = typeof(IEnumerable<>).MakeGenericType(handlerType);
 
+
+            var tasks = new List<Task>();
+            
             if (_container.Resolve(handlerCollectionType) is IEnumerable eventHandlers)
                 foreach (dynamic handler in eventHandlers)
                 {
-                    await handler.HandleAsync((dynamic)eventMessage, token);
+                    var t = handler.HandleAsync((dynamic) eventMessage, token);
+                    tasks.Add(t);
+                   // await handler.HandleAsync((dynamic)eventMessage, token);
                 }
+
+            await Task.WhenAll(tasks);
         }
     }
 }

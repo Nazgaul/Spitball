@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Hubs
 {
-    public class QuestionHub :Hub
+    public class SbHub :Hub
     {
+
+        public const string MethodName = "Message";
         public async Task SendMessage(string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", message);
+            await Clients.All.SendAsync(MethodName, message);
         }
     }
 }
