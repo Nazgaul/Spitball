@@ -178,10 +178,9 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
-                Db = Configuration.GetConnectionString("DefaultConnection"),
+                Db = new DbConnectionString( Configuration.GetConnectionString("DefaultConnection"),Configuration["Redis"]),
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
                        Configuration["AzureSearch:SearchServiceAdminApiKey"]),
-                Redis = Configuration["Redis"],
                 Storage = Configuration["Storage"],
                 //FunctionEndpoint = Configuration["AzureFunction:EndPoint"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"],
