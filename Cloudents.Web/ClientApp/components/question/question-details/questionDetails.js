@@ -32,7 +32,7 @@ export default {
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams"]),
+        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState"]),
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
@@ -131,7 +131,7 @@ export default {
             }
             else {
                 this.dialogType = ''
-                this.showDialogLogin = true;
+                this.updateLoginDialogState(true);
             }
         },
 
@@ -144,10 +144,10 @@ export default {
         },
         //watch route(url query) update, and het question data from server
         '$route': 'getData'
-
     },
     computed: {
-        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer"]),
+        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState"]),
+
         userNotAnswered() {
             this.isDeletedAnswer ? this.submitForm(false) : "";
             return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
@@ -167,9 +167,9 @@ export default {
         });
         this.$root.$on('closePopUp', (name)=> {
            if(name === 'suggestions'){
-               this.showDialogSuggestQuestion =false
+               this.showDialogSuggestQuestion = false;
            }else{
-               this.showDialogLogin = false
+               this.updateLoginDialogState(false);
            }
         })
     }
