@@ -2,7 +2,7 @@
 using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.DataProtection;
 
-namespace Cloudents.Web.Services
+namespace Cloudents.Infrastructure
 {
 
 

@@ -54,6 +54,11 @@ namespace Cloudents.Infrastructure.Cache
             //return obj;
         }
 
+        public void Delete(string region)
+        {
+            _cache.ClearRegion(region);
+        }
+
         /// <summary>
         /// Detect if object is IEnumerable if yes return it as IList otherwise as the same type
         /// </summary>
