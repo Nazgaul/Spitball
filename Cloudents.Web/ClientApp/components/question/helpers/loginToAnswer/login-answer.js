@@ -1,3 +1,5 @@
+import {mapGetters, mapActions} from 'vuex'
+
 export default {
     props: {
 
@@ -5,11 +7,17 @@ export default {
     data: function () {
         return {}
     },
-    watch: {},
+    computed: {
+        ...mapGetters({
+            loginDialogState: 'loginDialogState'
+        }),
+    },
     methods: {
+        ...mapActions(["updateLoginDialogState"]),
         //close dialog
         requestDialogClose() {
-            this.$root.$emit('closePopUp', 'loginPop')
+            this.updateLoginDialogState(false)
         },
     },
+
 }

@@ -61,7 +61,7 @@ namespace Cloudents.Management
 
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = Configuration.GetConnectionString("DefaultConnection"),
+                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
                 ServiceBus = Configuration["ServiceBus"],
                 Storage =  Configuration["Storage"]
             };

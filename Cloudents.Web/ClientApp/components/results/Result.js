@@ -171,7 +171,6 @@ export default {
     },
 
     created() {
-        
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);
@@ -197,6 +196,14 @@ export default {
         ...mapMutations({updateItems: "UPDATE_ITEMS"}),
         subFilterVertical(val) {
             return val.includes('note') || val === 'flashcard' || val === 'job' || val.includes('ask');
+        },
+        goToAskQuestion(){
+            if(this.accountUser == null){
+                // this.$root.$emit("showLoginPopUp");
+                this.updateLoginDialogState(true);
+            }else{
+                this.$router.push({name: 'newQuestion'});
+            }
         },
         //for skeleton
         updatePageData(to, from, next) {
@@ -252,7 +259,7 @@ export default {
         }
         ,
 //Get functions from vuex actions
-        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFacet', 'hideRegistrationBanner']),
+        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFacet', 'hideRegistrationBanner', 'updateLoginDialogState']),
         //Function for update the filter object(when term or vertical change)
         $_updateFilterObject(vertical) {
             let currentPage = page[vertical];
@@ -286,7 +293,7 @@ export default {
         $_openPersonalize() {
             //emit event to open Login Dialog
             if (!this.accountUser) {
-                this.$root.$emit("showLoginPopUp");
+                this.updateLoginDialogState(true);
 
             }else {
                 this.$root.$emit("personalize", typesPersonalize.course);

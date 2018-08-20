@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Data
         {
             var configuration = Fluently.Configure()
                 .Database(
-                    FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.Db)
+                    FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.Db.Db)
                         .DefaultSchema("sb").Dialect<SbDialect>()
 
 #if DEBUG
@@ -53,7 +53,7 @@ namespace Cloudents.Infrastructure.Data
             });
             configuration.Cache(c =>
             {
-                CoreDistributedCacheProvider.CacheFactory = new RedisFactory(connectionString.Redis, "master");
+                CoreDistributedCacheProvider.CacheFactory = new RedisFactory(connectionString.Db.Redis, "master");
                 c.UseSecondLevelCache().RegionPrefix("nhibernate")
                     .UseQueryCache().ProviderClass<CoreDistributedCacheProvider>();
             });

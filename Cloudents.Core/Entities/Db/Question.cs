@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure.Data")]
@@ -13,7 +14,7 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Question
+    public class Question //: IHaveEvent
     {
         public Question(QuestionSubject subject, string text, decimal price, int attachments, User user, QuestionColor color)
         : this()
@@ -35,6 +36,8 @@ namespace Cloudents.Core.Entities.Db
             }
 
             QuestionCreateTransaction();
+
+           
         }
 
         [UsedImplicitly]
@@ -112,8 +115,6 @@ namespace Cloudents.Core.Entities.Db
         }
 
 
-
-
-
+       // public virtual IList Events => new List<IEventMessage>();
     }
 }

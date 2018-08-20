@@ -9,8 +9,7 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
 {
-
-    public class EmailMarkAnswerAsCorrect : IConsumer<MarkAsCorrectEvent>
+    public class EmailMarkAnswerAsCorrect : IEventHandler<MarkAsCorrectEvent>
     {
         public const string ProtectPurpose = "MarkAnswerAsCorrect";
         private readonly IServiceBusProvider _serviceBusProvider;
