@@ -1,4 +1,5 @@
 <template>
+<div class="reps">
   <general-page header="reps-header.png" icon="reps.png">
       
       <div class="reps text-xs-center text-sm-left">
@@ -6,6 +7,8 @@
           <a href="mailto:work@spitball.co">work@spitball.co</a>
       </div>
   </general-page>
+</div>
+
 </template>
 
 <script>
@@ -14,5 +17,7 @@ export default {
   components: {generalPage}
 }
 </script>
+
+<style src="./reps.less" lang="less"></style>
 
 

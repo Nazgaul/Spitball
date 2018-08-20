@@ -3172,7 +3172,10 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     }
 
 .dropdown-menu.show {
-    display: block
+    display: block!important;
+    opacity: 1!important;
+    visibility: visible!important;
+
 }
 
 .dropdown-header {
@@ -4416,8 +4419,8 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
         .card-deck .card {
             display: -ms-flexbox;
             display: flex;
-            -ms-flex: 1 0 0%;
-            flex: 1 0 0%;
+            -ms-flex: 1 0 0;
+            flex: 1 0 0;
             -ms-flex-direction: column;
             flex-direction: column;
             margin-right: 15px;
@@ -15341,8 +15344,8 @@ a.text-dark:focus, a.text-dark:hover {
     }
 
     to {
-        -webkit-transform: rotate3d(0,0,1,0deg);
-        transform: rotate3d(0,0,1,0deg)
+        -webkit-transform: rotate3d(0,0,1,0);
+        transform: rotate3d(0,0,1,0)
     }
 }
 
@@ -15368,8 +15371,8 @@ a.text-dark:focus, a.text-dark:hover {
     }
 
     to {
-        -webkit-transform: rotate3d(0,0,1,0deg);
-        transform: rotate3d(0,0,1,0deg)
+        -webkit-transform: rotate3d(0,0,1,0);
+        transform: rotate3d(0,0,1,0)
     }
 }
 
@@ -18846,9 +18849,9 @@ a.text-dark:focus, a.text-dark:hover {
     border-top: none;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    background-image: -webkit-linear-gradient(top, #fff 0%, #eee 50%);
-    background-image: -o-linear-gradient(top, #fff 0%, #eee 50%);
-    background-image: linear-gradient(to bottom, #fff 0%, #eee 50%);
+    background-image: -webkit-linear-gradient(top, #fff 0, #eee 50%);
+    background-image: -o-linear-gradient(top, #fff 0, #eee 50%);
+    background-image: linear-gradient(to bottom, #fff 0, #eee 50%);
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0)
 }

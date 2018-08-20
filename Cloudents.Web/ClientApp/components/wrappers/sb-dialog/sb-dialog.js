@@ -1,3 +1,4 @@
+import {mapGetters, mapActions} from 'vuex';
 export default {
     props: {
         showDialog: {
@@ -19,6 +20,11 @@ export default {
             show: false
         }
     },
+    computed: {
+        ...mapGetters({
+            loginDialogState: 'loginDialogState'
+        }),
+    },
     watch: {
         //changed from parent only!!!
         showDialog(){
@@ -31,12 +37,15 @@ export default {
         //changed locally
         show(){
             if(!this.show){
-                this.$root.$emit('closePopUp', this.popUpType)
+                this.updateLoginDialogState(false);
+                this.$root.$emit('closePopUp', this.popUpType);
             }
         }
     },
-    computed:{
-    },
+
     methods: {
+        ...mapActions(["updateLoginDialogState"]),
     },
+
+
 }

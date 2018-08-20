@@ -3,7 +3,6 @@ using System.Reflection;
 using Autofac;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.Search;
 using Module = Autofac.Module;

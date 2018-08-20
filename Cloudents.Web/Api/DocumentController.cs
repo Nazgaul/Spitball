@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
-    public class DocumentController : Controller
+    [Route("api/[controller]"), ApiController]
+    public class DocumentController : ControllerBase
     {
         private readonly IReadRepositoryAsync<DocumentDto, long> _repository;
         private readonly Lazy<IDocumentSearch> _documentSearch;
@@ -22,6 +22,7 @@ namespace Cloudents.Web.Api
             _factoryProcessor = factoryProcessor;
         }
 
+        //TODO we need to fix that
         [HttpGet]
         public async Task<IActionResult> GetAsync(long id, bool? firstTime, CancellationToken token)
         {
@@ -36,7 +37,7 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            return Json(
+            return Ok(
                 new
                 {
                     details = model,

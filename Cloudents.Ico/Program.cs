@@ -12,6 +12,7 @@ namespace Cloudents.Ico
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(p => p.AddServerHeader = false)
                 .UseStartup<Startup>()
                 .Build();
     }

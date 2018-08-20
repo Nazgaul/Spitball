@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
@@ -23,6 +24,8 @@ namespace Cloudents.Core.DTOs
         public IEnumerable<Uri> Files { get; set; }
 
         public Guid? CorrectAnswerId { get; set; }
+
+        public QuestionColor? Color { get; set; }
     }
 
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]

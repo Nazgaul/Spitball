@@ -9,7 +9,9 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 namespace Cloudents.Web.Services
 {
@@ -17,13 +19,11 @@ namespace Cloudents.Web.Services
     public class SmsSender : ISmsSender
     {
         private readonly IServiceBusProvider _serviceBusProvider;
-       // private readonly IConfiguration _configuration;
         private readonly UserManager<User> _userManager;
         private readonly ISmsProvider _smsProvider;
 
         public SmsSender(UserManager<User> userManager, IServiceBusProvider serviceBusProvider, ISmsProvider smsProvider)
         {
-           // _configuration = configuration;
             _userManager = userManager;
             _serviceBusProvider = serviceBusProvider;
             _smsProvider = smsProvider;
@@ -35,35 +35,11 @@ namespace Cloudents.Web.Services
             var message = new SmsMessage2(user.PhoneNumber, code);
 
             await _serviceBusProvider.InsertMessageAsync(message, token);
-            //return await _client.PostJsonAsync(
-            //    new Uri(
-            //        $"{_configuration["AzureFunction:EndPoint"]}/api/sms?code={_configuration["AzureFunction:Secret"]}"),
-            //    message,
-            //    null, token).ConfigureAwait(false);
         }
 
-        public async Task<string> ValidateNumberAsync(string phoneNumber, CancellationToken token)
+        public Task<string> ValidateNumberAsync(string phoneNumber, CancellationToken token)
         {
-            var result = await _smsProvider.ValidateNumberAsync(phoneNumber, token);
-            //var uri = new Uri($"https://lookups.twilio.com/v1/PhoneNumbers/{phoneNumber}");
-
-            //var byteArray = Encoding.ASCII.GetBytes($"AC1796f09281da07ec03149db53b55db8d:c4cdf14c4f6ca25c345c3600a72e8b49");
-            //var authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-            //var headers = new List<KeyValuePair<string, string>>();
-
-            //headers.Add(new KeyValuePair<string, string>("Authorization", authorization.ToString()));
-
-            //var result = await _client.GetAsync<PhoneValidator>(uri, null, headers, token);
-
-            return result;
+            return _smsProvider.ValidateNumberAsync(phoneNumber, token);
         }
-
-      
-    }
-
-    public interface ISmsSender
-    {
-        Task SendSmsAsync(User user, CancellationToken token);
-        Task<string> ValidateNumberAsync(string phoneNumber, CancellationToken token);
     }
 }

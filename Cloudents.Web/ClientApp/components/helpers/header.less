@@ -109,7 +109,7 @@
       align-items: flex-end;
       margin-right: 8px;
       @media (max-width: 599px) {
-      margin-right: 0px;
+        margin-right: 0px;
       }
     }
 
@@ -135,7 +135,7 @@
       margin-right: 10px;
       border-radius: 26.5px;
       border: solid 1px @color-main-purple;
-      font-size: 16px!important;
+      font-size: 16px !important;
       outline: none;
       display: flex;
       align-items: center;
@@ -152,6 +152,17 @@
         background: @color-main-purple;
         color: @color-white;
         margin-right: 24px;
+        .transition (all .2s ease-in-out);
+        &:hover {
+          background: lighten(@color-main-purple, 10%);
+        }
+
+      }
+      &:last-child {
+        .transition (all .2s ease-in-out);
+        &:hover {
+          background: darken(@color-white, 10%);
+        }
       }
 
     }
@@ -299,11 +310,10 @@
 }
 
 .header-rocket {
-  height: 32px;
+  height: 34px;
   padding-left: 24px;
   border-left: 1px solid #dddddd;
   margin-left: 20px;
-  height: 32px;
 
   img {
     height: 32px;
@@ -321,25 +331,24 @@
     }
   }
   .red-counter {
-    //top: -7px;
-    //right:-7px;
     right: -10px;
-    top: -10px;
-    //test
+    top: -4px;
     @media (max-width: @screen-xs) {
       top: 0px;
+      right: -7px;
     }
   }
 }
 
 .red-counter {
+  display: flex;
+  justify-content: center;
   width: auto;
   min-width: 23px;
+  min-height: 23px;
   line-height: 20px;
-  // height: 22px;
   padding: 0 2px;
   background-color: #d0021b;
-  border: solid 1px @color-white;
   color: @color-white;
   font-size: 14px;
   border-radius: 50%;
@@ -350,7 +359,7 @@
 }
 
 .sharing-list {
-  padding: 0;
+  //padding: 0;
   min-width: 152px;
   padding: 6px 0;
 
@@ -387,9 +396,11 @@
     opacity: 0;
   }
 }
-.v-snack--bottom{
+
+.v-snack--bottom {
   top: 55px;
 }
+
 .v-snack__content {
   // Vuetify 1.1.1
   //margin-top: 24px;
@@ -426,16 +437,16 @@
       font-size: 14px;
     }
   }
-  a{
+  a {
     color: @color-white;
     text-decoration: underline;
   }
-  a.toast_action{
+  a.toast_action {
     height: 32px;
     width: 60px;
     padding: 3px 20px;
     border-radius: 26.5px;
-    border: solid 1px  @color-white;
+    border: solid 1px @color-white;
     font-size: 16px;
     font-weight: 200;
     outline: none;
@@ -447,14 +458,14 @@
     min-width: 104px;
     background-color: transparent;
     text-decoration: none;
-    &:first-child{
+    &:first-child {
       margin-left: 14px;
     }
     @media (max-width: @screen-xs) {
       display: inline-block;
     }
   }
-  span.toast-helper{
+  span.toast-helper {
     padding: 0 18px;
     font-weight: 200;
     @media (max-width: @screen-xs) {

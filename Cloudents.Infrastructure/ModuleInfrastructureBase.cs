@@ -9,7 +9,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Places;
-using Microsoft.Azure.Search;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure

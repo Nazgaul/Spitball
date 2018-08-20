@@ -9,13 +9,6 @@ namespace Cloudents.Web.Filters
 {
     public class GlobalExceptionFilter : IAsyncExceptionFilter
     {
-        //private readonly IHostingEnvironment _hostingEnvironment;
-
-        //public GlobalExceptionFilter(IHostingEnvironment hostingEnvironment)
-        //{
-        //    _hostingEnvironment = hostingEnvironment;
-        //}
-
         public async Task OnExceptionAsync(ExceptionContext context)
         {
             string body = null;
@@ -42,7 +35,7 @@ namespace Cloudents.Web.Filters
             {
                 ["body"] = body
             });
-            //return Task.CompletedTask;
         }
     }
+
 }

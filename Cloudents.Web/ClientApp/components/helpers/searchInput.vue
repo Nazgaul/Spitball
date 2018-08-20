@@ -6,13 +6,13 @@
                           @keyup.up="arrowNavigation(-1)"
                           required name="q"
                           id="transcript"
-                          v-model.trim="msg" :placeholder="placeholder"
+                          v-model="msg" @input="changeMsg" :placeholder="placeholder"
                           prepend-icon="sbf-search"
                           :hide-on-scroll="isHome?hideOnScroll:false" @click="openSuggestions"></v-text-field>
             <!--<input type="checkbox" id="toggler"/>-->
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
                 <v-list class="search-menu" v-show="showSuggestions">
-                    <v-subheader v-if="(!!msg && !msg.length) || (focusedIndex >= 0 && !originalMsg.length)">Some things you can ask me:</v-subheader>
+                    <!-- <v-subheader v-if="(!!msg && !msg.length) || (focusedIndex >= 0 && !originalMsg.length)">Some things you can ask me:</v-subheader> -->
                     <template v-for="(item, index) in suggestList">
                         <!--{{item.type}}-->
                         <v-list-tile class="suggestion" @click="selectos({item:item,index})"

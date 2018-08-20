@@ -1158,9 +1158,7 @@ a {
         box-shadow: 0 10px 20px rgba(136, 130, 136, 0.2);  
       }
 
-    .theme-muscari .site-header.has-fixed .navbar-nav > li > a {
-        /* color: #8484a4; */
-    }
+   
 
     .theme-muscari .site-header.has-fixed .navbar .btn.btn-outline {
         border-color: #3532d5;

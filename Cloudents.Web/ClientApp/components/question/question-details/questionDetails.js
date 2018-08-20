@@ -32,10 +32,10 @@ export default {
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams"]),
+        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState"]),
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         submitAnswer() {
-            if (!this.textAreaValue || this.textAreaValue.length < 15) {
+            if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
                 this.errorTextArea = {
                     errorText: 'min. 15 characters',
                     errorClass: true
@@ -49,31 +49,14 @@ export default {
                 self.textAreaValue = self.textAreaValue.trim();
                 questionService.answerQuestion(self.id, self.textAreaValue, self.answerFiles)
                     .then(function (resp) {
-                        //TODO: do this on client side (render data inserted by user without calling server) - see commented out below - all that's left is asking ram to return the answerId in response
-                        // var creationTime = new Date();
-                        // self.questionData.answers.push({
-                        //     create: creationTime.toISOString(),
-                        //     files: self.answerFiles.map(fileName => "https://spitballdev.blob.core.windows.net/spitball-files/question/"+self.id+"/answer/"+response.data.answerId+"/"+fileName), //this will work only if answerid returns from server
-                        //     id: response.data.answerId,
-                        //     text: self.textAreaValue,
-                        //     user: self.accountUser
-                        // });
                         self.$ga.event("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
                         self.cardList = resp.data;
                         self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
-                        // self.updateToasterParams({
-                        //     toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
-                        //     showToaster: true,
-                        // });
                         self.showDialogSuggestQuestion = true; // question suggest popup dialog
                     }, () => {
-                        // self.updateToasterParams({
-                        //     toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
-                        //     showToaster: true,
-                        // });
                         self.submitForm(false);
                         self.updateLoading(true);
                     })
@@ -148,7 +131,7 @@ export default {
             }
             else {
                 this.dialogType = ''
-                this.showDialogLogin = true;
+                this.updateLoginDialogState(true);
             }
         },
 
@@ -161,10 +144,10 @@ export default {
         },
         //watch route(url query) update, and het question data from server
         '$route': 'getData'
-
     },
     computed: {
-        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer"]),
+        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState"]),
+
         userNotAnswered() {
             this.isDeletedAnswer ? this.submitForm(false) : "";
             return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
@@ -184,9 +167,9 @@ export default {
         });
         this.$root.$on('closePopUp', (name)=> {
            if(name === 'suggestions'){
-               this.showDialogSuggestQuestion =false
+               this.showDialogSuggestQuestion = false;
            }else{
-               this.showDialogLogin = false
+               this.updateLoginDialogState(false);
            }
         })
     }

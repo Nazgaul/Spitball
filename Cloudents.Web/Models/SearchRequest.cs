@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
+using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
 {
@@ -54,6 +55,7 @@ namespace Cloudents.Web.Models
         public long? University { get; set; }
 
         //[BindNever]
+        [CanBeNull]
         public GeographicCoordinate GeoPoint { get; set; }
     }
 }

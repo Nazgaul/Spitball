@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.ComponentModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -10,13 +9,14 @@ namespace Cloudents.Functions
     {
         /// <summary>
         /// Extension method that replaces keys in a string with the values of matching object properties.
-        /// <remarks>Uses <see cref="String.Format()"/> internally; custom formats should match those used for that method.</remarks>
+        /// <remarks>Uses string.format internally; custom formats should match those used for that method.</remarks>
         /// </summary>
         /// <param name="formatString">The format string, containing keys like {foo} and {foo:SomeFormat}.</param>
         /// <param name="injectionObject">The object whose properties should be injected in the string</param>
         /// <returns>A version of the formatString string with keys replaced by (formatted) key values.</returns>
         public static string Inject(this string formatString, object injectionObject)
         {
+            
             return formatString.Inject(GetPropertyHash(injectionObject));
         }
 
@@ -34,7 +34,7 @@ namespace Cloudents.Functions
 
         /// <summary>
         /// Extension method that replaces keys in a string with the values of matching hashtable entries.
-        /// <remarks>Uses <see cref="String.Format()"/> internally; custom formats should match those used for that method.</remarks>
+        /// <remarks>Uses string.format internally; custom formats should match those used for that method.</remarks>
         /// </summary>
         /// <param name="formatString">The format string, containing keys like {foo} and {foo:SomeFormat}.</param>
         /// <param name="attributes">A <see cref="Hashtable"/> with keys and values to inject into the string</param>

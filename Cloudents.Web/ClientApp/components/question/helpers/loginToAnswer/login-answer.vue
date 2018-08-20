@@ -9,19 +9,13 @@
                 <div class="wrapper-body-text">
                     <p class="dialog-body-text">You are a couple of mouse clicks away from FREE access to making serious money.</p>
                 </div>
-
-
             </div>
             <div class="btn-container">
-                <a class="login-btns body-1" @click="register()">Sign Up</a>
-                <!-- <a class="login-btns body-1" href="/signin">Login</a> -->
-                <a class="login-btns body-1" @click="signin()">Login</a>
+                <router-link  class="login-btns body-1" :to="{ path: '/register', query:{returnUrl : $route.path}}">Sign Up</router-link>
+                <router-link  class="login-btns body-1" :to="{ path: '/signin'}">Login</router-link>
             </div>
-
         </div>
     </v-card>
-
-
 </template>
 
 <script src="./login-answer.js"></script>
