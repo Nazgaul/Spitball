@@ -50,6 +50,9 @@ const mutations = {
 const getters = {
     getIsLoading: state => state.loading,
     getSearchItems: function(state, {getCurrentVertical}) { 
+        if(getCurrentVertical === ""){ 
+            return [];
+        };
         if(state.loading || state.serachLoading){
             //return skeleton
             return state.itemsSkeletonPerVertical[getCurrentVertical];
