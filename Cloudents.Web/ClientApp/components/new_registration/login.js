@@ -42,7 +42,7 @@ export default {
             stepNumber: 1,
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
-            agreeTerms: false,
+            // agreeTerms: false,
             stepsEnum: {
                 "startStep": 1,
                 "emailConfirmed": 2,

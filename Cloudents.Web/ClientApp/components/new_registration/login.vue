@@ -9,7 +9,7 @@
                 <div slot="step-data" class="limited-width form-wrap">
                     <h1 class="step-title" v-if="$vuetify.breakpoint.smAndDown">Get started</h1>
                     <p class="sub-title" v-if="$vuetify.breakpoint.smAndDown">{{campaignData.stepOne.text}}</p>
-                    <button class="google-signin" @click="googleLogIn" :disabled="!agreeTerms">
+                    <button class="google-signin" @click="googleLogIn">
                         <span>Sign Up with Google</span>
                         <!--TODO do not use v-icon-->
                         <span>
@@ -29,12 +29,10 @@
 
                         </vue-recaptcha>
                         <!--<div style="width: 300px; height:74px; background: grey;  margin: 24px 0 10px 0;"></div>-->
-                        <input :disabled=" !userEmail || !agreeTerms" class="continue-btn input-field" type="submit"
+                        <input :disabled=" !userEmail" class="continue-btn input-field" type="submit"
                                value="Continue">
                         <div class="checkbox-terms">
-                            <input type="checkbox" id="terms"
-                                   v-model="agreeTerms"/>
-                            <span>By joining, I agree to Spitball <router-link
+                           <span>By joining, I agree to Spitball <router-link
                                     to="terms">Terms of Services</router-link> and <router-link to="privacy">Privacy Policy</router-link></span>
                         </div>
                     </form>
