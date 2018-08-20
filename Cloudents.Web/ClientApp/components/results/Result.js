@@ -156,7 +156,7 @@ export default {
     },
 
     methods: {
-        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFacet', 'hideRegistrationBanner', 'hideRegistrationBanner', 'updateLoginDialogState']),
+        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFacet', 'updateLoginDialogState']),
         ...mapMutations(["UPDATE_SEARCH_LOADING"]),
 
         subFilterVertical(val) {
@@ -164,7 +164,6 @@ export default {
         },
         goToAskQuestion(){
             if(this.accountUser == null){
-                // this.$root.$emit("showLoginPopUp");
                 this.updateLoginDialogState(true);
             }else{
                 this.$router.push({name: 'newQuestion'});
