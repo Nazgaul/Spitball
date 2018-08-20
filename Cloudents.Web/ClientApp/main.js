@@ -114,9 +114,13 @@ const router = new VueRouter({
     routes: route.routes,
     scrollBehavior(to, from, savedPosition) {
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
-              resolve({ x: 0, y: 0 });
-            }, 500);
+           // setTimeout(() => {
+                if(savedPosition){
+                    resolve({ x: savedPosition.x, y: savedPosition.y });
+                }else{
+                    resolve({ x: 0, y: 0 });
+                }
+            //}, 500);
           });
           
         //gaby: deprecated not actually saving the last scroll position.
