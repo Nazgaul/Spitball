@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query;
 using Cloudents.Core.Command.Admin;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Event;
 using Cloudents.Core.Query.Admin;
 using Cloudents.Core.Storage;
@@ -56,18 +57,19 @@ namespace ConsoleApp
 
             //TransactionPopulation tp = new TransactionPopulation(_container);
             //await tp.AddToUserMoney(1000, 1642);
-
-            // var b = _container.Resolve<ISession>();
+            IEvent e = new AnswerCreatedEvent(null);
+             var b = _container.Resolve<IEventPublisher>();
+            await b.PublishAsync(e, default);
             // QuestionRepository c = new QuestionRepository(b);
             // Console.WriteLine(c.GetOldQuestionsAsync(default));
 
 
 
             //await UpdateCreationTimeProductionAsync();
-            IEventMessage z = new AnswerCreatedEvent(null);
-
-            var bus = _container.Resolve<IEventPublisher>();
-            await bus.PublishAsync(z, default);
+            //IEventMessage z = new AnswerCreatedEvent(null);
+            //var query = new UserDataByIdQuery(1642);
+            //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
+            //var t = await bus.QueryAsync< ProfileDto>(query, default);
             //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
             //var t = await bus.QueryAsync(query, default);
             //  var bus = _container.Resolve<IQueryBus>();

@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="btn-container">
-                <router-link  class="login-btns body-1" :to="{ path: '/register', query:{returnUrl : $route.path} }">Sign Up</router-link>
+                <router-link  class="login-btns body-1" :to="{ path: '/register', query:{returnUrl : $route.path}}">Sign Up</router-link>
                 <router-link  class="login-btns body-1" :to="{ path: '/signin'}">Login</router-link>
             </div>
         </div>

@@ -90,7 +90,7 @@
 
         </sb-dialog>
 
-        <sb-dialog :showDialog="showDialogLogin" :popUpType="'loginPop'"  :content-class="'login-popup'">
+        <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">
                 <login-to-answer></login-to-answer>
         </sb-dialog>
 
