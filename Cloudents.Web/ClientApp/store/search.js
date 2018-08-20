@@ -78,7 +78,7 @@ const actions = {
             return data;
         });
     },
-    fetchingData(context, { name, params, page }){
+    fetchingData(context, { name, params, page, skipLoad}){
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
          let paramsList = {...context.state.search,...params, university, page};
             //update box terms
@@ -86,7 +86,7 @@ const actions = {
             //get location if needed
             let VerticalName = context.getters.getCurrentVertical;
             let verticalItems = context.state.itemsPerVertical[VerticalName];
-            if(!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading){
+            if((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skipLoad){
                 return verticalItems
             }else{
                 return new Promise((resolve) => {

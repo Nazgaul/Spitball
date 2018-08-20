@@ -73,7 +73,8 @@ export default {
         //fetch data with the params
         this.fetchingData({
             name: this.name,
-            params: {...this.query, ...this.params, term: this.userText}
+            params: {...this.query, ...this.params, term: this.userText},
+            skipLoad: this.$options._parentElm.childElementCount > 1
         }).then((data) => {
                 this.updateData.call(this, {...data, vertical: this.name})
             }).catch(reason => {
@@ -168,7 +169,7 @@ export default {
         updateContentOfPage(to, from, next) {
             const toName = to.path.slice(1);
             const updateFilter = (to.path === from.path && to.query.q === from.query.q);
-            this.fetchingData({name: toName, params: {...to.query, ...to.params, term: to.query.q}})
+            this.fetchingData({name: toName, params: {...to.query, ...to.params, term: to.query.q}}, true)
                 .then((data) => {
                     //update data for this page
                     this.showFilterNotApplied = false;
