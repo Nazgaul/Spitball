@@ -147,7 +147,7 @@ html, body {
         width: 412px;
         height: 108px;
     }
-    #mobile-whitepaper{
+    #mobile-whitepaper-wrap{
         display: none;
     }
  /* a.popUpbtn{
@@ -1491,15 +1491,20 @@ hr, .hr {
     img.advisor-co-img{
         max-width: 225px;
     }
-    #mobile-whitepaper{
-        position: fixed;
+    #mobile-whitepaper-wrap{
+        display: block;
+        z-index: 99999;
+        position:fixed; 
         bottom: 24px;
         left: 0;
         right: 0;
-        margin: 0% auto; /* Will not center vertically and won't work in IE6/7. */
+        margin: 0 auto; 
+        height: auto;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    #mobile-whitepaper{
         height: 36px;
         border-radius: 8px;
         background-color: #ebbc18;
@@ -1507,6 +1512,17 @@ hr, .hr {
         width: 250px;
         color: #3532d5;
     
+    }
+    #mobile-whitepaper::after{
+        transform: rotate(180deg);
+    }
+    .mob-whitepaper{
+        min-width: 250px!important;
+        left: auto!important;
+        bottom: 100%!important;
+        top: auto!important;
+
+
     }
     div.blocks{
          width: 100%;
@@ -2716,7 +2732,7 @@ li.nav-item{
 }
 
 .navbar .navbar-nav .dropdown-menu {
-    background: #1b1e4b;
+    /* background: #1b1e4b; */
     border: 0;
     border-radius: 0;
     padding: 10px 0;
@@ -2724,7 +2740,8 @@ li.nav-item{
     top: 100%;
     display: block;
     opacity: 0;
-    width: 200px;
+    /* width: 200px; */
+    width: auto;
     visibility: hidden;
     transition: all .3s;
     border-radius: 2px;
@@ -2857,9 +2874,7 @@ li.nav-item{
     max-width: 350px;
 }
 
-.bg-custom{
-    /* background: url(../images/muscari/spitball_app.png) top left no-repeat!important; */
-}
+
  .main-purple > li{
   color:#3532d5!important;
  
@@ -3425,9 +3440,6 @@ a.tabs-links{
     .navbar .navbar-nav > li > a {
         font-size: 12px;
         margin: 0 6.5px;
-    }
-
-    .header-image { /* @v1.1.0 s */ /* @v1.1.0 e */
     }
 
         .header-image .left-icon {
@@ -4216,8 +4228,7 @@ a.tabs-links{
         }
 }
 /*! 07.0 - FEATURES SECTION */
-.text-block { /* @v1.1.0 s */
-}
+
 
     .text-block p:not(.lead) {
         color: #a2b4d2;
@@ -5889,8 +5900,6 @@ a.tabs-links{
         }
 }
 
-.form-message { /* @v1.1.0 s */ /* @v1.1.0 e */
-}
 
     .form-message .input-field {
         margin-bottom: 20px;
@@ -9500,7 +9509,7 @@ a.tabs-links{
     }
 
         .theme-muscari .site-header .banner .banner-content {
-            padding: 0px 0 110px;
+            padding: 0 0 110px;
         }
 
     .theme-muscari .navbar .navbar-nav > li > a {
@@ -9784,10 +9793,7 @@ a.tabs-links{
     overflow: hidden;
 }
 
-    .header-angle-bg .particles-container {
-        /*ICO v3*/
-        /*transform: skewY(-17deg);*/
-    }
+
 
 .overlay-bubble {
     position: absolute;
@@ -9989,13 +9995,6 @@ a.tabs-links{
 }
 
 @media only screen and (max-width: 1024px) {
-    .section-bg-angle {
-        /* transform: skewY(10deg); */
-    }
-
-    .header-bg-angle {
-        /* transform: skewY(10deg); */
-    }
 
     .theme-muscari .banner-tokensale .countdown-box {
         left: 50%;
@@ -10011,9 +10010,7 @@ a.tabs-links{
         /* transform: scale(0.5) skewY(-10deg); */
     }
 
-        .overlay-bubble div {
-            /* transform: skewY(-10deg); */
-        }
+       
 }
 
 @media only screen and (max-width: 767px) {

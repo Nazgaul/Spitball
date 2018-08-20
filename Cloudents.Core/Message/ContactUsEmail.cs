@@ -6,7 +6,7 @@ namespace Cloudents.Core.Message
     public class ContactUsEmail : BaseEmail
     {
         public ContactUsEmail(string name, string email, string text) 
-            : base("support@spitball.co", null, $"Contact us Ico {email}")
+            : base("support@spitball.co", null, $"Contact us Ico {email}", "SendGrid", "Email", "ContactUs")
         {
             Name = name;
             Email = email;
@@ -14,7 +14,7 @@ namespace Cloudents.Core.Message
         }
 
         public ContactUsEmail(string email)
-            : base("support@spitball.co", null, $"Subscribe Ico {email}")
+            : base("support@spitball.co", null, $"Subscribe Ico {email}", "SendGrid", "Email", "ContactUs")
         {
             Email = email;
         }
@@ -30,6 +30,23 @@ namespace Cloudents.Core.Message
             }
             return $"Contact us name: {Name}, email: {Email}, Text: {Text} ";
 
+        }
+    }
+
+    [Serializable]
+    public class ReportEmail:BaseEmail
+    {
+        public ReportEmail(string subject, string message) 
+            : base("ram@cloudents.com", null, subject, "SendGrid", "Email", "Report")
+        {
+            Message = message;
+        }
+
+        public string Message { get; private set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(Message)}: {Message}";
         }
     }
 }

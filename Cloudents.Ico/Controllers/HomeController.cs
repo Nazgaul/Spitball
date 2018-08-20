@@ -30,7 +30,6 @@ namespace Cloudents.Ico.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-
             }
 
             await _serviceBus.Value.InsertMessageAsync(new ContactUsEmail(model.Name, model.Email, model.Text), token);
@@ -43,7 +42,6 @@ namespace Cloudents.Ico.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-
             }
             await _serviceBus.Value.InsertMessageAsync(new ContactUsEmail(model.Email), token);
             return Ok();

@@ -10,11 +10,31 @@ namespace Cloudents.Core
     [UsedImplicitly]
     public class UrlConst : IUrlBuilder
     {
-        private readonly string _webSiteEndPoint;
+        private readonly Uri _webSiteEndPoint;
 
         public UrlConst(IConfigurationKeys configuration)
         {
-            _webSiteEndPoint = configuration.SiteEndPoint;
+            var siteEndpoint = configuration.SiteEndPoint;
+            if (siteEndpoint.EndsWith("/"))
+            {
+                siteEndpoint = siteEndpoint.Remove(siteEndpoint.Length - 1);
+            }
+            _webSiteEndPoint = new Uri(siteEndpoint);
+        }
+
+        public string BuildWalletEndPoint(object parameters = null)
+        {
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = "wallet" };
+            builder.AddQuery(parameters);
+            return builder.ToString();
+        }
+
+        public string BuildQuestionEndPoint
+            (long id, object parameters = null)
+        {
+            var builder = new UriBuilder(_webSiteEndPoint) {Path = $"question/{id}"};
+            builder.AddQuery(parameters);
+            return builder.ToString();
         }
 
         public string BuildRedirectUrl(string url, string host, int? location)
@@ -39,10 +59,10 @@ namespace Cloudents.Core
                 nvc["location"] = location.ToString();
             }
 
-            var uri = new UriBuilder(new Uri(_webSiteEndPoint))
+            var uri = new UriBuilder(_webSiteEndPoint)
             {
                 Path = "url"
-            }; // /*new Uri("/url",UriKind.Relative)*/);
+            };
             uri.AddQuery(nvc);
             return uri.ToString();
         }

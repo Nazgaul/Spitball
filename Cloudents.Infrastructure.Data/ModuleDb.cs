@@ -25,8 +25,8 @@ namespace Cloudents.Infrastructure.Data
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenSession())
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<ReadonlySession>();
-            builder.RegisterType<ReadonlyStatelessSession>();
+            builder.RegisterType<ReadonlySession>().InstancePerLifetimeScope();
+            builder.RegisterType<ReadonlyStatelessSession>().InstancePerLifetimeScope();
 
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenStatelessSession())
                 .InstancePerLifetimeScope();
@@ -34,11 +34,17 @@ namespace Cloudents.Infrastructure.Data
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
-                .AsImplementedInterfaces();
+                .AsImplementedInterfaces().InstancePerLifetimeScope();
 
             var assembly = Assembly.GetExecutingAssembly();
-            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsSelf().AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsSelf()
+                .AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
+
+
+            //builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
+            //    .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)) && i.GetCustomAttribute<AdminCommandHandler>() == null)
+            //    .Select(i => new KeyedService("handler", i)));
             base.Load(builder);
         }
     }

@@ -1,4 +1,3 @@
-
 //const HomePage = () => import("./components/home/home.vue");
 import * as RouteTypes from "./routeTypes";
 
@@ -14,10 +13,6 @@ const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
-//const landingTemplate = () => import("./components/landing-pages/pageTemplate.vue");
-const registration = () => import("./components/registration/registration.vue");
-const signin = () => import("./components/registration/signin.vue");
-const registerAccount = () => import("./components/registration/steps/registerAccount/registerAccount.vue");
 const newQuestion = () => import("./components/question/newQuestion/newQuestion.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const viewProfile = () => import("./components/profile/profile.vue");
@@ -28,7 +23,7 @@ const userSettings = () => import("./components/settings/view/settings.vue");
 //const userSettings = () => import("./components/settings/userSettings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
 import * as consts from "./store/constants";
-const verifyPhone = () => import("./components/registration/verifyPhone/verify.vue");
+const login = () => import("./components/new_registration/login.vue");
 
 // import store from "./store";
 
@@ -173,39 +168,15 @@ let routes2 = [
             requiresAuth: true
         }
     },
-    {
-        path: "/register", components: {
-            default: registration,
-        }, name: "registration",
-    },
 
     {
-        path: "/verify-phone/:newUser?",
+        path: "/register", alias: ['/signin'],
         components: {
-            default: verifyPhone,
+            default: login,
         },
-        props: {
-            default: (route) => ({newUser: route.params.newUser})
-        },
-        // props: { newsletterPopup: false },
-
-        name: "phoneVerify",
-
-    },
-    {
-        path: "/congrats",
-        components: {
-            default: registerAccount,
-        },
-        name: "congrats",
-
+        name: "registration",
     },
 
-    {
-        path: "/signin", components: {
-            default: signin
-        }, name: "signin"
-    },
 
     {
         path: "/conversations",

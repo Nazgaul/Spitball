@@ -15,6 +15,7 @@ namespace Cloudents.Infrastructure.Data.Maps
             Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable().Not.Update();
             Map(x => x.Updated).Not.Nullable();
+            Map(x => x.Color);
             References(x => x.Subject).ForeignKey("Question_AskQuestionSubject").Not.Nullable();
             References(x => x.User).Column("UserId").ForeignKey("Question_User").Not.Nullable();
             //HasOne(x => x.CorrectAnswer).Not.ForeignKey();
@@ -22,8 +23,8 @@ namespace Cloudents.Infrastructure.Data.Maps
             HasMany(x => x.Answers)
                 .Inverse()
                 //TODO: this is generate exception when creating new answer. need to figure it out
-            //    .Not.KeyNullable()
-            //    .Not.KeyUpdate()
+                //    .Not.KeyNullable()
+                //    .Not.KeyUpdate()
                 .Cascade.AllDeleteOrphan();
             HasMany(x => x.Transactions)
                 .Cascade.AllDeleteOrphan()

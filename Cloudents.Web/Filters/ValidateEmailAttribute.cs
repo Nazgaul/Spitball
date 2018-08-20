@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +11,6 @@ namespace Cloudents.Web.Filters
 {
     public sealed class ValidateEmailAttribute : TypeFilterAttribute
     {
-
         public ValidateEmailAttribute() : base(typeof(ValidateEmailImpl))
         {
         }
@@ -42,14 +40,12 @@ namespace Cloudents.Web.Filters
 
                         break;
                     }
-                   
                 }
                 await base.OnActionExecutionAsync(context, next);
             }
 
             private object ScanObject(object obj)
             {
-
                 switch (obj)
                 {
                     case CancellationToken _:
@@ -66,7 +62,6 @@ namespace Cloudents.Web.Filters
                             return propValue;
                         }
                     }
-
                     else if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType))
                     {
                         return null;
@@ -87,7 +82,5 @@ namespace Cloudents.Web.Filters
                 return null;
             }
         }
-
-
     }
 }

@@ -3,22 +3,27 @@ import searchService from "./../services/searchService"
 const LOCATION_VERTICALS= new Map([["tutor",true],["job",true]]);
 const state = {
     loading: false,
-    search:{}
+    search:{},
+    items: []
 };
 
 const mutations = {
     [SEARCH.UPDATE_LOADING](state, payload) {
-        // debugger;
         state.loading = payload;
     },
     [SEARCH.UPDATE_SEARCH_PARAMS](state, updatedDate) {
         state.search = {...updatedDate};
+    },
+    [SEARCH.UPDATE_ITEMS](state, itemsData){
+        state.items = itemsData;
     }
 };
 
 const getters = {
-    getIsLoading: state => state.loading
+    getIsLoading: state => state.loading,
+    getSearchItems: state => state.items    
 };
+
 const actions = {
     //Always update the current route according the flow
     bookDetails: (context, { pageName, isbn13, type }) => {
@@ -44,7 +49,7 @@ const actions = {
                     });
                 } else { resolve(); }
             }).then(() => {
-                return searchService.activateFunction[name](paramsList);
+                return searchService.activateFunction[name](paramsList)
             });
     }
 };

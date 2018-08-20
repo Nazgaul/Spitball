@@ -5,7 +5,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,8 +15,8 @@ namespace Cloudents.Web.Api
     /// Tutor api controller
     /// </summary>
     [Produces("application/json")]
-    [Route("api/[controller]", Name = "Tutor")]
-    public class TutorController : Controller
+    [Route("api/[controller]", Name = "Tutor"), ApiController]
+    public class TutorController : ControllerBase
     {
         private readonly ITutorSearch _tutorSearch;
 
@@ -37,17 +36,15 @@ namespace Cloudents.Web.Api
         /// <param name="model">The model to parse</param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet, ValidateModel]
-        [ProducesResponseType(typeof(WebResponseWithFacet<TutorDto>), 200)]
-
-        public async Task<IActionResult> GetAsync([FromQuery]TutorRequest model, CancellationToken token)
+        [HttpGet]
+        public async Task<WebResponseWithFacet<TutorDto>> GetAsync([FromQuery]TutorRequest model, CancellationToken token)
         {
             var t = Request.GetCapabilities();
             var isMobile = t?.IsMobileDevice ?? true;
             var result = (await _tutorSearch.SearchAsync(model.Term,
                 model.Filter,
                 model.Sort.GetValueOrDefault(TutorRequestSort.Relevance),
-                model.Location.ToGeoPoint(),
+                model.Location?.ToGeoPoint(),
                 model.Page.GetValueOrDefault(), isMobile, token).ConfigureAwait(false)).ToListIgnoreNull();
             string nextPageLink = null;
             if (result.Count > 0)
@@ -55,11 +52,11 @@ namespace Cloudents.Web.Api
                 nextPageLink = Url.NextPageLink("Tutor", null, model);
             }
 
-            return Ok(new WebResponseWithFacet<TutorDto>
+            return new WebResponseWithFacet<TutorDto>
             {
                 Result = result,
                 NextPageLink = nextPageLink
-            });
+            };
         }
     }
 }

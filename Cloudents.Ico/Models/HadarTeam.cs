@@ -1,6 +1,5 @@
 ﻿namespace Cloudents.Ico.Models
 {
-    
     public class HadarTeam : Team
     {
         public HadarTeam() : base("Hadar")
@@ -11,6 +10,5 @@
         public override string LinkdinLink => "https://www.linkedin.com/in/hadar-keidar-167786124/";
         protected override int Order => 6;
     }
-  
  }
 

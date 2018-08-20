@@ -56,16 +56,22 @@ div.question-suggest {
         background-color: transparent;
       }
       .v-carousel__prev, .v-carousel__next {
+        .v-btn__content{
+          v-icon{
+            font-size: 24px;
+          }
+        }
         @media (max-width: @screen-xs) {
           display: none;
         }
+
         top: 90%;
         z-index: 3;
 
       }
       .v-icon {
         color: @color-main-purple;
-        font-size: 24px !important;
+        font-size: 10px ;
       }
       .question-card {
         margin: auto;

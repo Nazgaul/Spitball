@@ -1,12 +1,13 @@
 ﻿using System.Runtime.Serialization;
 using Cloudents.Core.Models;
+using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
 {
     [DataContract]
     public class LocationQuery
     {
-        [DataMember(Order = 1)]
+        [DataMember(Order = 1), CanBeNull]
         public GeographicCoordinate Point { get; set; }
 
         [DataMember(Order = 2)]
@@ -20,7 +21,7 @@ namespace Cloudents.Web.Models
 
         public Location ToLocation()
         {
-            return new Location(Point.ToGeoPoint(),Address,Ip, CallingCode);
+            return new Location(Point?.ToGeoPoint(), Address, Ip, CallingCode);
         }
     }
 }

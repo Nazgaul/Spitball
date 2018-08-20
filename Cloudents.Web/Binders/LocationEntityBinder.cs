@@ -26,12 +26,13 @@ namespace Cloudents.Web.Binders
         {
             var tempData = _tempDataFactory.GetTempData(bindingContext.HttpContext);
 
-
             var latitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.latitude").FirstValue
                 ?? bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.latitude").FirstValue;
             var longitudeStr = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.point.longitude").FirstValue
                 ?? bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.longitude").FirstValue;
-            var locationFromTemp = tempData.Get<LocationQuery>(KeyName);
+
+
+            var locationFromTemp = tempData.Get<LocationQuery>(KeyName);//tempData.Get<LocationQuery>(KeyName);
             if (float.TryParse(latitudeStr, out var latitude)
                 && float.TryParse(longitudeStr, out var longitude))
             {
@@ -79,7 +80,6 @@ namespace Cloudents.Web.Binders
                 Point = GeographicCoordinate.FromPoint(retVal.Point),
                 Ip = bindingContext.HttpContext.Connection.GetIpAddress().ToString()
             };
-
             tempData.Put(KeyName, locationFromTemp);
             bindingContext.Result = ModelBindingResult.Success(locationFromTemp);
         }

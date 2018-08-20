@@ -1,6 +1,5 @@
 ﻿namespace Cloudents.Ico.Models
 {
-
     public class RamTeam : Team
     {
         public RamTeam() : base("Ram")

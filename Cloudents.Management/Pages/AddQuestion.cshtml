@@ -1,0 +1,38 @@
+﻿@page
+@model AddQuestionModel
+@{
+    ViewData["Title"] = "AddQuestion";
+}
+
+<h2>AddQuestion</h2>
+
+<style>
+    textarea {
+        width: 550px;
+        height: 200px;
+    }
+
+   
+</style>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="Model.Text"></label>
+        <textarea asp-for="Model.Text"></textarea>
+    </div>
+    <div>
+        <label asp-for="Model.SubjectId"></label>
+        <select asp-for="Model.SubjectId"
+                asp-items="@(new SelectList(Model.Subjects, "Id", "Subject"))">
+            <option>Please select one</option>
+        </select>
+    </div>
+    <div>
+        <label asp-for="Model.Price"></label>
+
+        <input asp-for="Model.Price" />
+    </div>
+    <input type="submit" />
+</form>
+

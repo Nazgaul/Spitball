@@ -1,5 +1,6 @@
 <template>
-    <div class="ask_question">
+<transition name="fade">
+<div class="ask_question">
         <v-container class="general-cell">
             <v-layout row wrap>
                 <v-flex xs12>
@@ -18,12 +19,12 @@
                 <extended-text-area uploadUrl="/api/upload/ask"
                                     v-model="textAreaValue"
                                     @addFile="addFile"
-                                    actionType="question"
+                                    :actionType = "actionType"
                                     :error="errorTextArea"
-                                    @removeFile="removeFile"></extended-text-area>
-                <!--
-                                <span v-if="errorTextArea" class="errorTextArea" >{{errorTextArea}}</span>
-                -->
+                                    @removeFile="removeFile">
+
+                </extended-text-area>
+
                 <v-flex xs6 :class="{'has-error':!subject && errorMessageSubject}" class="inputBorder">
                     <select v-model="subject">
                         <option value="" disabled hidden>Pick a subject</option>
@@ -34,14 +35,7 @@
                     <span>{{errorMessageSubject}}</span>
                 </v-flex>
 
-                <!-- <v-flex xs12> -->
-                <!--05.07.2018-->
-                <!--<v-flex xs12 v-if="price < 100 && selectedPrice >currentSum "-->
-                        <!--:class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have-->
-                    <!--{{currentSum | fixedPoints}} SBL-->
-                <!--</v-flex>-->
-
-                <v-flex xs12 v-if="currentSum"
+                  <v-flex xs12 v-if="currentSum"
                         :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have
                     {{currentSum | fixedPoints}} SBL
                 </v-flex>
@@ -79,7 +73,6 @@
                             </div>
                         </div>
                     </div>
-
                 </v-flex>
 
                 <v-flex xs12 class="error-block">
@@ -94,7 +87,7 @@
                         price will make the sale</p>
                 </v-flex>
                 <v-flex class="submit-btn-wrap" xs12>
-                    <div v-if="errorMessage.length" class="error-message">{{errorMessage}}</div>
+                    <div v-if="currentSum < 0" class="error-message">You do not have sufficient SBL</div>
                     <v-btn block color="primary" @click="submitQuestion()" :disabled="submitted"
                            class="ask_btn">Ask
                     </v-btn>
@@ -107,6 +100,7 @@
             </div> -->
         </v-container>
     </div>
+</transition>
 </template>
 <script src="./newQuestion.js"></script>
 <style src="./newQuestion.less" lang="less"></style>

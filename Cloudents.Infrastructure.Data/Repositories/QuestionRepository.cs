@@ -26,9 +26,16 @@ namespace Cloudents.Infrastructure.Data.Repositories
 
         public async Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token)
         {
+          //TODO: we can do this better maybe
             return await Session.Query<Question>().Where(w => w.Updated < DateTime.UtcNow.AddDays(4))
-                .Where(w=>w.CorrectAnswer == null)
+                .Where(w=> Session.Query<Answer>().Where(x => x.Question.Id == w.Id).FirstOrDefault() == null)
                 .ToListAsync(token).ConfigureAwait(false);
+        }
+
+        public Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token)
+        {
+            return Session.Query<Question>().Where(w => w.User.Id == userId).OrderByDescending(o => o.Id).Take(1)
+                .SingleOrDefaultAsync(cancellationToken: token);
         }
     }
 }

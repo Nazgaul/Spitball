@@ -11,7 +11,7 @@ export default {
                 pageName: "bookDetails",
                 isbn13: _this.id,
                 type: val
-            }).then(({ data }) => {
+            }).then(( data ) => {
                 _this.$root.$children[0].$refs.mainPage.pageData = data;
                 _this.$root.$children[0].$refs.mainPage.sortVal = val;
                 this.isLoad=false;

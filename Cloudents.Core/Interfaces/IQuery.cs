@@ -13,6 +13,7 @@ namespace Cloudents.Core.Interfaces
     {
         Task<TQueryResult> GetAsync(TQuery query, CancellationToken token);
     }
+    
 
     public interface IQueryBus
     {

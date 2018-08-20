@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Data.Query
         public ReadonlySession(ISession session)
         {
             Session = session;
-            _transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
+            _transaction = Session.BeginTransaction(IsolationLevel.ReadUncommitted);
             Session.DefaultReadOnly = true;
             Session.FlushMode = FlushMode.Manual;
         }

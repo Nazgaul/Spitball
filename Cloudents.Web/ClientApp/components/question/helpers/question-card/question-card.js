@@ -1,6 +1,7 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import disableForm from "../../../mixins/submitDisableMixin"
 import {mapGetters, mapActions} from 'vuex'
+import colorsSet from '../colorsSet';
 import timeago from 'timeago.js';
 
 
@@ -50,9 +51,15 @@ export default {
             timeoutID: null,
             action: null,
             path: '',
-            src : '',
+            src: '',
             selectedImage: '',
-            showDialog: false
+            showDialog: false,
+            limitedCardAnswers: [],
+            colorsSet: colorsSet,
+            cssRule: {
+                backgroundColor: '#ffffff',
+                fontColor: '#ffffff'
+            }
         }
     },
     computed: {
@@ -82,8 +89,8 @@ export default {
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams'
         }),
-        showBigImage(src){
-            this.showDialog =true;
+        showBigImage(src) {
+            this.showDialog = true;
             this.selectedImage = src;
         },
         markAsCorrect() {
@@ -95,25 +102,42 @@ export default {
             this.flaggedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
             this.updateToasterParams({toasterText: '', showToaster: false});//test123
-
         },
         deleteQuestion() {
-            this.updateToasterParams({
-                toasterText: this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted',
-                showToaster: true,
-            });
-            this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
-                .then(() => {
-                    if (!this.typeAnswer) {
-                        this.updateBalance(this.cardData.price);
-                        //To DO change to router link use and not text URL
-                        this.$router.push('/ask')
-                    } else {
-                        //emit to root to update array of answers
-                        this.$root.$emit('deleteAnswer', this.cardData.id);
-                        this.isDeleted = true
+           this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
+                .then((success) => {
+                        this.updateToasterParams({
+                            toasterText: this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted',
+                            showToaster: true,
+                        });
+                        if (!this.typeAnswer) {
+                            this.updateBalance(this.cardData.price);
+                            this.$ga.event("Delete_question", "Homework help");
+                            //ToDO change to router link use and not text URL
+                            this.$router.push('/ask')
+                        } else {
+                            //emit to root to update array of answers
+                            this.$ga.event("Delete_answer", "Homework help");
+                            this.$root.$emit('deleteAnswer', this.cardData.id);
+                            this.isDeleted = true
+                        }
+                    },
+                    (error) => {
+                        console.error(error)
                     }
-                });
+                );
+        },
+        calculateAnswerToLimit() {
+            // limit card answer could be a number or array depends on route(view)
+            if (typeof  this.cardData.answers === "number") {
+                if (this.cardData.answers > 3) {
+                    this.limitedCardAnswers = 3;
+                } else {
+                    this.limitedCardAnswers = this.cardData.answers;
+                }
+            } else if (!!this.cardData && !!this.cardData.answers) {
+                this.limitedCardAnswers = this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
+            }
         }
     },
     mounted() {
@@ -121,7 +145,16 @@ export default {
 // use render method to render nodes in real time
     },
     created() {
+        //set color for card
+        if (this.cardData.color && this.colorsSet[`${this.cardData.color}`]) {
+            this.cssRule.backgroundColor = this.colorsSet[`${this.cardData.color}`].cssRule;
+            this.cssRule.fontColor = this.colorsSet[`${this.cardData.color}`].textColor;
+        } else {
+            let colDefault = 'default';
+            this.cssRule.backgroundColor = this.colorsSet[`${colDefault}`].cssRule;
+            this.cssRule.fontColor = this.colorsSet[`${colDefault}`].textColor;
+        }
         this.flaggedAsCorrect = this.isCorrectAnswer;
-        console.log('answer',this.typeAnswer)
+        this.calculateAnswerToLimit();
     }
 }

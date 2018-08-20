@@ -6,6 +6,7 @@ import {mapGetters, mapMutations, mapActions} from 'vuex'
 export default {
     mixins: [disableForm],
     components: {extendedTextArea},
+
     data() {
         return {
             subjectList: [],
@@ -18,7 +19,9 @@ export default {
             errorMessage: '',
             errorMessageSubject: '',
             errorSelectPrice: '',
-            pricesList: [10, 20, 40, 80]
+            pricesList: [10, 20, 40, 80],
+            actionType:"question",
+            selectedColor: {}
         }
     },
     watch: {
@@ -35,14 +38,12 @@ export default {
         submitQuestion() {
             let readyToSend = true;
             //error handling stuff ( redo with newer version to validate with in build validators
-            if(!this.selectedPrice && this.price < 1) {
+            if (!this.selectedPrice && this.price < 1) {
                 readyToSend = false
-            };
-
-            if (this.accountUser && this.accountUser.balance < this.price) {
-                this.errorMessage = "You do not have sufficient SBL";
-                //error handling text area, and pass to extended text area component error message
-                readyToSend = false
+            }
+            //if
+            if (this.currentSum < 0) {
+               readyToSend = false
             }
             if (!this.selectedPrice) {
                 this.errorSelectPrice = "Please select amount you want to pay"
@@ -64,9 +65,8 @@ export default {
             var self = this;
             if (this.submitForm()) {
                 this.updateLoading(true);
-                console.error('start loading');
-                this.textAreaValue =   this.textAreaValue.trim();
-                questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files)
+                this.textAreaValue = this.textAreaValue.trim();
+                questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default' )
                     .then(function () {
                             // debugger;
                             self.$ga.event("Submit_question", "Homwork help");
@@ -87,6 +87,8 @@ export default {
         },
         addFile(filename) {
             this.files.push(...filename.split(','));
+            console.log('add new question', this.files)
+
         },
         removeFile(index) {
             this.files.splice(index, 1);
@@ -115,5 +117,9 @@ export default {
         questionService.getSubjects().then(function (response) {
             self.subjectList = response.data
         })
+        this.$on('colorSelected', (activeColor)=>{
+             this.selectedColor.name = activeColor.name;
+        });
+
     }
 }

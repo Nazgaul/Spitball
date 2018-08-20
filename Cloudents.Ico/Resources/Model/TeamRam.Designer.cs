@@ -61,7 +61,7 @@ namespace Cloudents.Ico.Resources.Model {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An accomplished Cloud platform and blockchain developer, Ram is in charge of the entire development process for Spitball. Ram has 11 years of extensive experience in software engineering, as well as over 7 years in the development of AI and machine learning. Ram leads the day-to-day development of the Spitball product and manages the technical team..
+        ///   Looks up a localized string similar to An accomplished Cloud platform and blockchain developer, Ram is in charge of the entire development process for Spitball. Ram has 11 years of extensive experience in software engineering. Ram leads the day-to-day development of the Spitball product and manages the technical team..
         /// </summary>
         public static string Description {
             get {

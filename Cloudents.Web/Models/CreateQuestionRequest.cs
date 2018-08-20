@@ -1,5 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using Cloudents.Core.Enum;
+using Cloudents.Web.Binders;
+using Cloudents.Web.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Newtonsoft.Json;
 
 namespace Cloudents.Web.Models
 {
@@ -16,7 +22,12 @@ namespace Cloudents.Web.Models
         [Range(1, 100)]
         public decimal Price { get; set; }
 
-        //[MaxLength(4)]
+        [ArrayMaxSize(4)]
         public IEnumerable<string> Files { get; set; }
+
+        public QuestionColor? Color { get; set; }
+
+
+      
     }
 }

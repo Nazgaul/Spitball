@@ -5,7 +5,8 @@ namespace Cloudents.Core.Message
     [Serializable]
     public class SupportRedeemEmail: BaseEmail
     {
-        public SupportRedeemEmail(decimal amount, long userId) : base("support@spitball.co", null, $"Redeem Email {userId}")
+        public SupportRedeemEmail(decimal amount, long userId) 
+            : base("support@spitball.co", null, $"Redeem Email {userId}", "SendGrid", "Email", "SupportRedeem")
         {
             Amount = amount;
             UserId = userId;

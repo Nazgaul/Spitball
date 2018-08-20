@@ -45,6 +45,7 @@ namespace Cloudents.Infrastructure.Data.Query
                     Price = s.Price,
                     Subject = s.Subject.Text,
                     Text = s.Text,
+                    Color = s.Color,
                     CorrectAnswerId = s.CorrectAnswer.Id
                 }).ToFutureValue();
             var answersFuture = _session.Query<Answer>()

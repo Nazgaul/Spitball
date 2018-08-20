@@ -14,7 +14,10 @@ namespace Cloudents.Core.Extension
             rangeInDays = Math.Abs(rangeInDays);
             var start = DateTime.UtcNow.AddDays(-rangeInDays);
 
-            return start.AddDays(rand.Next(rangeInDays)).AddHours(rand.Next(0, 24)).AddMinutes(rand.Next(0, 60)).AddSeconds(rand.Next(0, 60));
+            return start.AddDays(rand.Next(rangeInDays))
+                        .AddHours(rand.Next(0, 24))
+                        .AddMinutes(rand.Next(0, 60))
+                        .AddSeconds(rand.Next(0, 60));
         }
     }
 }

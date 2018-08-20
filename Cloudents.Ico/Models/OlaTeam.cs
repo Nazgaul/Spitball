@@ -10,5 +10,4 @@
         public override string LinkdinLink => "https://www.linkedin.com/in/aleksandra-jankowska-28a3bb126/?locale=en_US";
         protected override int Order => 8;
     }
-
 }

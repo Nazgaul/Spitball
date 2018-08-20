@@ -13,6 +13,7 @@
 @color-red: #FF5252;
 @color-transparent: transparent;
 @color-black: #000000;
+@color-red-heavy: #d0021b;
 /*
 @color-pink-gradient: fade(#f14d4d, 15%);
 @color-purple-gradient: fade(@color-purple, 15%);
@@ -101,22 +102,26 @@
   }
 }
 
-.placeholder-color(@color) {
+.placeholder-color(@color, @opacity:1 ) {
 
   &::-webkit-input-placeholder {
     color: @color !important;
+    opacity: @opacity!important;
   }
 
   &::-moz-placeholder {
     color: @color !important;
+    opacity: @opacity!important;
   }
 
   &:-ms-input-placeholder {
     color: @color !important;
+    opacity: @opacity!important;
   }
 
   &:-moz-placeholder {
     color: @color !important;
+    opacity: @opacity!important;
   }
 }
 
@@ -139,7 +144,7 @@
 
 .cellActionBtnMixin(){
   position: absolute;
-  .responsive-property(bottom, 8px, null, 6px);
+  .responsive-property(bottom, 8px, null, 8px);
   .responsive-property(right, 8px, null, 8px);
   padding: 3px 20px;
   color: white;
@@ -166,7 +171,13 @@
   position: -webkit-sticky; // safari
   position: sticky;
 }
-
+//transition mixin
+.transition (@transition) {
+  -webkit-transition: @transition;
+  -moz-transition:    @transition;
+  -ms-transition:     @transition;
+  -o-transition:      @transition;
+}
 
 .flashcard-icon(@width, @frontColor, @backColor, @borderColor, @frontHover, @backHover, @frontText,@height: 0.88*@width) {
   //@height: 0.88*@width;

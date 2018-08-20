@@ -21,8 +21,16 @@
             </a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarToggle">
                 <ul class="navbar-nav animated remove-animation" data-animate="fadeInDown" data-delay=".9">
-                    <li class="nav-item" id="whitepaper-nav">
+         <!-- !!!!    DO NOT DELETE  -->
+                    <!-- <li class="nav-item dropdown-toggle" id="whitepaper-nav" dropdown-toggle type="button" data-toggle="dropdown">
                         <a href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="nav-link menu-link"> <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]</a>
+                    </li>
+                     <ul class="dropdown-menu whitepaper">
+                        <li><a href="#">Download</a></li>
+                        <li><a href="#">One Pager</a></li>
+                    </ul> -->
+                    <li class="nav-item dropdown-toggle" id="whitepaper-nav">
+                        <a href="https://zboxstorage.blob.core.windows.net/zboxhelp/ico/Spitball-WP.pdf" target="_blank" class="nav-link menu-link"> <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]</a>
                     </li>
                     <li class="nav-item" id="telegram-nav"><a href="https://t.me/Spitball" target="_blank" class=" nav-link menu-link"><em class="fa fa-paper-plane" style="margin-right: 14px;"></em>@Localizer["Join Telegram"] </a></li>
                 </ul>
@@ -62,13 +70,13 @@
                             </p>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-12 offset-lg-1 offset-md-0 res-m-bttm-lg">
+                    <div class="col-lg-7 col-md-12  offset-md-0 res-m-bttm-lg">
                         <div class="animated" data-animate="fadeInUp" data-delay="1.55">
                             <div class="header-image-muscari">
                                 <img src="~/images/muscari/header-image-muscari.png" style="visibility: hidden;" alt="header">
                             </div>
                             <div class="countdown-box countdown-transparent text-center">
-                                <iframe width="100%" height="360" src="https://www.youtube.com/embed/69daYsNqNUA?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+                                <iframe width="100%" height="360" src="https://www.youtube.com/embed/4oU186qsHbI" frameborder="0" allow="autoplay; encrypted-media"></iframe>
                             </div>
                         </div>
                     </div><!-- .col  -->
@@ -423,12 +431,13 @@
             </div><!-- .col  -->
             <div class="col-xl-4">
                 <ul class="link-widget animated" data-animate="fadeInUp" data-delay=".8">
-                    <li><a href="#intro" class="menu-link">@Localizer["VisionFooter"]</a></li>
+                    @*<li><a href="#intro" class="menu-link">@Localizer["VisionFooter"]</a></li>*@
                     <li><a href="#roadmap" class="menu-link">@Localizer["Roadmap"]</a></li>
                     <li><a href="#apps" class="menu-link">@Localizer["Use Cases"]</a></li>
                     <li><a href="#team" class="menu-link">@Localizer["Team"]</a></li>
                     <li><a href="#contact" class="menu-link">@Localizer["Contact Us"]</a></li>
-                    <li><a href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="menu-link">@Localizer["Whitepaper"]</a></li>
+                    <li><a href="https://zboxstorage.blob.core.windows.net/zboxhelp/ico/Spitball-WP.pdf" target="_blank" class="menu-link">@Localizer["Whitepaper"]</a></li>
+                    
                     <li><a href="https://www.spitball.co/" target="_blank" class="menu-link">@Localizer["Spitball 1.0"]</a></li>
                 </ul>
             </div><!-- .col  -->
@@ -455,7 +464,19 @@
         </div><!-- .row  -->
     </div><!-- .container  -->
 </div>
-<a id="mobile-whitepaper" href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="btn btn-sm btn-outline menu-link">
+
+<div  id ="mobile-whitepaper-wrap" style="">
+   
+<a id="mobile-whitepaper" href="https://zboxstorage.blob.core.windows.net/zboxhelp/ico/Spitball-WP.pdf" target="_blank" 
+ class="btn btn-sm btn-outline menu-link" > 
     <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]
 </a>
+   <!-- 
+       add attributes to above link in order for dropdown to work
+      ////>>>>>  dropdown-toggle type="button" data-toggle="dropdown"
+       <ul class="dropdown-menu mob-whitepaper">
+                        <li><a href="#">Download</a></li>
+                        <li><a href="#">One Pager</a></li>
+                    </ul> -->
+</div>
 

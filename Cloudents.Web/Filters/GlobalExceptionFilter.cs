@@ -9,13 +9,6 @@ namespace Cloudents.Web.Filters
 {
     public class GlobalExceptionFilter : IAsyncExceptionFilter
     {
-        //private readonly IHostingEnvironment _hostingEnvironment;
-
-        //public GlobalExceptionFilter(IHostingEnvironment hostingEnvironment)
-        //{
-        //    _hostingEnvironment = hostingEnvironment;
-        //}
-
         public async Task OnExceptionAsync(ExceptionContext context)
         {
             string body = null;
@@ -23,10 +16,17 @@ namespace Cloudents.Web.Filters
             {
                 if (context.HttpContext.Request.Body.CanSeek)
                 {
-                    context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
-                    using (var sr = new StreamReader(context.HttpContext.Request.Body))
+                    try
                     {
-                        body = await sr.ReadToEndAsync();
+                        context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
+                        using (var sr = new StreamReader(context.HttpContext.Request.Body))
+                        {
+                            body = await sr.ReadToEndAsync();
+                        }
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        //do nothing
                     }
                 }
             }
@@ -37,4 +37,5 @@ namespace Cloudents.Web.Filters
             });
         }
     }
+
 }

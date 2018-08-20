@@ -1,8 +1,19 @@
-import {spitballPreview} from "./resources"
+
+import { connectivityModule } from "./connectivity.module"
+
+const getDocument = ({ id }) => {
+   return connectivityModule.http.get("document", { baseURL: "api/", params: { id: Number(id) } })
+}
+
+const getFlashcard = ({ id }) => {
+    return connectivityModule.http.get("flashcard", { params: { id: Number(id) } })
+}
+
+
 const previewMap = {
     item(id) {
 
-        return spitballPreview.getDocument({ id: id })
+        return getDocument({ id: id })
         // return Promise.resolve({
         //     //blob: ["https://zboxstorage.blob.core.windows.net/zboxcahce/850de13a-001a-4284-9fa8-68d97dcd81adV6_0_.docx.svg?sv=2016-05-31&sr=b&sig=3Ymn%2BX5WFN%2BuBA3kaxImosiQQhdSeK0QmZNcItQQUX8%3D&st=2017-11-07T09%3A19%3A47Z&se=2017-11-07T09%3A40%3A47Z&sp=r", "https://zboxstorage.blob.core.windows.net/zboxcahce/850de13a-001a-4284-9fa8-68d97dcd81adV6_1_.docx.svg?sv=2016-05-31&sr=b&sig=zhbfiY%2Fi6Z%2F6i2995OevC1CXsJU9jTx7eaekzl8m9pA%3D&st=2017-11-07T09%3A19%3A47Z&se=2017-11-07T09%3A40%3A47Z&sp=r"]
         //     //            blob: ["https://zboxstorage.blob.core.windows.net/zboxcahce/c0a06374-acc2-4815-89cc-8f5bb11cda4cV3_.cpp.html?sv=2016-05-31&sr=b&sig=4EowLDbARoM5%2F3CiSJe1YQwHVhnKEdbn%2BadeIuE%2BsPc%3D&st=2017-11-07T09%3A24%3A23Z&se=2017-11-07T09%3A55%3A23Z&sp=r"
@@ -22,7 +33,7 @@ const previewMap = {
     },
     flashcard(id) {
         //debugger;
-        return spitballPreview.getFlashcard({ id: id });
+        return getFlashcard({ id: id });
         //return Promise.resolve({
         //   name: 'Math 1172 - Exam 2',
         //   author: 'Ola Jankowska',

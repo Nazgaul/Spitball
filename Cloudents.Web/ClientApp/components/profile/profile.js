@@ -28,6 +28,7 @@ export default {
         }
     },
     methods: {
+
         changeActiveTab(tabId) {
             this.activeTab = tabId;
             this.$router.meta = {previous : tabId}

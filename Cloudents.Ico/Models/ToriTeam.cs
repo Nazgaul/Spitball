@@ -10,5 +10,4 @@
         public override string LinkdinLink => "https://www.linkedin.com/in/toriwithee/";
         protected override int Order => 7;
     }
-    
 }

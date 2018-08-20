@@ -15,7 +15,7 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Question
     {
-        public Question(QuestionSubject subject, string text, decimal price, int attachments, User user)
+        public Question(QuestionSubject subject, string text, decimal price, int attachments, User user, QuestionColor color)
         : this()
         {
             Subject = subject;
@@ -24,6 +24,10 @@ namespace Cloudents.Core.Entities.Db
             Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
+            if (color != QuestionColor.Default)
+            {
+                Color = color;
+            }
 
             if (user.Fictive)
             {
@@ -57,6 +61,8 @@ namespace Cloudents.Core.Entities.Db
         public virtual DateTime Updated { get; set; }
 
         protected internal virtual IList<Transaction> Transactions { get; set; }
+
+        public virtual QuestionColor? Color { get; set; }
 
 
         public virtual void QuestionCreateTransaction()
