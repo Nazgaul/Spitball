@@ -4,10 +4,11 @@
         <v-flex class="line" slot="extraHeader">
             <v-layout row>
             <v-tabs :scrollable="false" centered>
-                    <v-tab router v-for="tab in verticals" :key="tab.name" :to="'/'+tab.name" v-if="tab.display"
+                    <v-tab router v-for="tab in verticals" :key="tab.name"  v-if="tab.display" @click.prevent ="showTab(tab.name)"
                                  class="vertical">
                         {{tab.display}}
                     </v-tab>
+
                     <v-tabs-slider color="color-dark-blue"></v-tabs-slider>
             </v-tabs>
             </v-layout>
@@ -28,6 +29,17 @@
             return {
                 verticals: staticRoutes
             }
+        },
+        methods:{
+            showTab(name, $event){
+                if(`${name}` ==='blog'){
+                    window.open('https://medium.com/@spitballstudy','_blank');
+                    this.$router.push({path: '/about' })
+                }else{
+                    this.$router.push({path: `${name}` })
+                }
+            }
         }
+
     }
 </script>
