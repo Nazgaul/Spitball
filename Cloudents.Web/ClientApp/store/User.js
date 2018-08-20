@@ -10,7 +10,7 @@ const state = {
         location: null,
         pinnedCards: {},
         showRegistrationBanner: true,
-        registrationStep: consts.REGISTRATION_STEPS[0]
+
     },
     facet: "",
     historyTermSet: [],
@@ -65,17 +65,6 @@ const mutations = {
     [USER.HIDE_REGISTRATION_BANNER](state) {
         state.user.showRegistrationBanner = false;
     },
-    [USER.INCREMENT_REGISTRATION_STEP](state) {
-        var currStepIndex = consts.REGISTRATION_STEPS.indexOf(state.user.registrationStep);
-        if(currStepIndex === consts.REGISTRATION_STEPS.length-1){
-            state.user.registrationStep = consts.REGISTRATION_STEPS[0];
-        }
-        else {
-            state.user.registrationStep = consts.REGISTRATION_STEPS[currStepIndex+1];
-        }
-    }
-
-
 };
 const getters = {
     historyTermSet: state => state.historyTermSet,
@@ -166,9 +155,7 @@ const actions = {
     hideRegistrationBanner(context) {
         context.commit(USER.HIDE_REGISTRATION_BANNER);
     },
-    incrementRegistrationStep(context) {
-        context.commit(USER.INCREMENT_REGISTRATION_STEP);
-    }
+
 
 };
 export default {

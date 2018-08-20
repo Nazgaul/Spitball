@@ -19,6 +19,7 @@
       background: lighten(@color-main-purple, 10%);
     }
   }
+
   background: @color-white;
   height: 100%;
   @google-btn-bg: #4285f4;
@@ -237,6 +238,14 @@
     position: absolute;
     right: 0;
     bottom: 0px;
+      @media only screen
+      and (min-device-width: 768px)
+      and (max-device-width: 1024px)
+      and (orientation: portrait) {
+        width: 100%;
+        left: 0;
+        right: 0;
+      }
 
     @media (max-width: @screen-xs) {
       //bottom: 16px;
@@ -296,6 +305,14 @@
     .step-wrapp-one {
       height: 100%;
       .step-wrapper {
+        .image {
+          @media only screen
+          and (min-device-width: 768px)
+          and (max-device-width: 1024px)
+          and (orientation: portrait) {
+            display: none;
+          }
+        }
         height: 100%;
         .input-wrapper, select {
           margin-top: 24px;
@@ -368,6 +385,14 @@
     .step-wrapp-one {
       height: 100%;
       .step-wrapper {
+        .image {
+          @media only screen
+          and (min-device-width: 768px)
+          and (max-device-width: 1024px)
+          and (orientation: portrait) {
+            display: none;
+          }
+        }
         height: 100%;
       }
 
@@ -395,13 +420,15 @@
       height: 100%;
       .step-wrapper {
         height: 100%;
-
-        //.step-title{
-        //  @media (max-width: @screen-xs) {
-        //    margin-top: 16px;
-        //  }
-        //}
-        .limited-width {
+        .image {
+          @media only screen
+          and (min-device-width: 768px)
+          and (max-device-width: 1024px)
+          and (orientation: portrait) {
+            display: none;
+          }
+        }
+          .limited-width {
           padding-bottom: 54px;
           &.wide {
             height: 400px;
@@ -484,12 +511,24 @@
 
   //  step login
   .step-login {
-    height: 90%;
+    height: 100%;
+    @media (max-width: @screen-xs){
+      height: 90%;
+    }
+
     .step-wrapp-one {
       height: 100%;
     }
     .step-wrapper {
-      height: 100%;
+    height: 100%;
+      .image {
+        @media only screen
+        and (min-device-width: 768px)
+        and (max-device-width: 1024px)
+        and (orientation: portrait) {
+          display: none;
+        }
+      }
       .limited-width {
         max-width: 400px;
         width: 100%;
@@ -560,6 +599,14 @@
     height: 100%;
     .step-wrapper {
       height: 100%;
+      .image {
+        @media only screen
+        and (min-device-width: 768px)
+        and (max-device-width: 1024px)
+        and (orientation: portrait) {
+          display: none;
+        }
+      }
       .google-signin {
         background: @google-btn-bg;
         font-size: 18px;
@@ -569,10 +616,17 @@
         width: 100%;
         height: @registrationFieldHeight;
         margin-top: 40px;
-        .transition (all .2s ease-in-out);
         &:hover {
           background: lighten(@google-btn-bg, 10%);
         }
+        &:disabled{
+          background: #bbbbbb;
+          &:hover{
+            background: #bbbbbb;
+          }
+        }
+        .transition (all .2s ease-in-out);
+
         @media (max-width: @screen-xs) {
           margin-top: 24px;
         }
@@ -758,6 +812,14 @@
       height: 100%;
       .step-wrapper {
         height: 100%;
+        .image {
+          @media only screen
+          and (min-device-width: 768px)
+          and (max-device-width: 1024px)
+          and (orientation: portrait) {
+            display: none;
+          }
+        }
       }
       .step-wrapper, .v-dialog .limited-width.custom {
 
@@ -831,6 +893,14 @@
     .step-wrapp-one {
       height: 100%;
       .step-wrapper {
+        .image {
+          @media only screen
+          and (min-device-width: 768px)
+          and (max-device-width: 1024px)
+          and (orientation: portrait) {
+            display: none;
+          }
+        }
         height: 100%;
         .step-title{
               margin: 70px 30px 16px 12px;
@@ -880,7 +950,6 @@
       top: 0;
       right: 0;
       padding: 16px;
-
       i {
         font-size: 16px;
         color: @color-main-purple;
@@ -950,7 +1019,6 @@
     }
     margin-top: 28px;
   }
-
   .limited-width {
     max-width: 400px;
     width: 100%;

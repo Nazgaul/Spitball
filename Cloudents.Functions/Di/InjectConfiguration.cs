@@ -30,9 +30,11 @@ namespace Cloudents.Functions.Di
         }
         private static void RegisterServices(ContainerBuilder builder)
         {
-            var keys = new ConfigurationKeys(GetEnvironmentVariable("SiteEndPoint") ?? "https://www.spitball.co")
+            var keys = new ConfigurationKeys(
+                GetEnvironmentVariable("SiteEndPoint") ?? "https://www.spitball.co")
             {
-                Db = GetEnvironmentVariable("ConnectionString"),
+                Db = new DbConnectionString(GetEnvironmentVariable("ConnectionString"), GetEnvironmentVariable("Redis")),
+                Redis = GetEnvironmentVariable("Redis"),
                 Search = new SearchServiceCredentials(
                     GetEnvironmentVariable("SearchServiceName"),
                     GetEnvironmentVariable("SearchServiceAdminApiKey")),

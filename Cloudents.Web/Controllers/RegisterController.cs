@@ -5,8 +5,10 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class RegisterController : Controller
     {
+
+        internal const string RegisterRouteName = "Register";
         // GET
-        [Route("register",Name = "Register")]
+        [Route("register",Name = RegisterRouteName)]
         [Route("signin")]
         public IActionResult Index()
         {

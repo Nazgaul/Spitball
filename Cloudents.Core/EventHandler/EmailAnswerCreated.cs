@@ -9,7 +9,7 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
 {
-    public class EmailAnswerCreated : IConsumer<AnswerCreatedEvent>
+    public class EmailAnswerCreated : IEventHandler<AnswerCreatedEvent>
     {
         public const string CreateAnswer = "CreateAnswer";
         private readonly IServiceBusProvider _serviceBusProvider;
@@ -32,14 +32,14 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(AnswerCreatedEvent eventMessage, CancellationToken token)
         {
-            var question = await _questionRepository.LoadAsync(eventMessage.QuestionId, token);
-            var answer = await _answerRepository.LoadAsync(eventMessage.AnswerId, token);
-
+            //var question = await _questionRepository.LoadAsync(eventMessage.QuestionId, token);
+            //var answer = await _answerRepository.LoadAsync(eventMessage.AnswerId, token);
+            var question = eventMessage.Answer.Question;
             var code = _dataProtect.Protect(CreateAnswer, question.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(2));
             var link = _urlBuilder.BuildQuestionEndPoint(question.Id, new { code });
             await _serviceBusProvider.InsertMessageAsync(
-                   new GotAnswerEmail(question.Text, question.User.Email, answer.Text, link), token);
+                   new GotAnswerEmail(question.Text, question.User.Email, eventMessage.Answer.Text, link), token);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Cloudents.Web.Models
         [MinLength(15)]
         public string Text { get; set; }
 
-        [ValidateFilesAttribute]
+        [ArrayMaxSize(4)]
         public IEnumerable<string> Files { get; set; }
        
 

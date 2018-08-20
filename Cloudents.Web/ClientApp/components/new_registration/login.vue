@@ -8,8 +8,7 @@
             <step-template>
                 <div slot="step-data" class="limited-width form-wrap">
                     <h1 class="step-title" v-if="$vuetify.breakpoint.smAndDown">Get started</h1>
-                    <p class="sub-title" v-if="$vuetify.breakpoint.smAndDown">Start with your email. We need to know how
-                        to contact you.</p>
+                    <p class="sub-title" v-if="$vuetify.breakpoint.smAndDown">{{campaignData.stepOne.text}}</p>
                     <button class="google-signin" @click="googleLogIn">
                         <span>Sign Up with Google</span>
                         <!--TODO do not use v-icon-->
@@ -30,10 +29,10 @@
 
                         </vue-recaptcha>
                         <!--<div style="width: 300px; height:74px; background: grey;  margin: 24px 0 10px 0;"></div>-->
-                        <input :disabled=" !userEmail " class="continue-btn input-field" type="submit"
+                        <input :disabled=" !userEmail" class="continue-btn input-field" type="submit"
                                value="Continue">
                         <div class="checkbox-terms">
-                            <span>By joining, I agree to Spitball <router-link
+                           <span>By joining, I agree to Spitball <router-link
                                     to="terms">Terms of Services</router-link> and <router-link to="privacy">Privacy Policy</router-link></span>
                         </div>
                     </form>
@@ -45,7 +44,7 @@
                 <div slot="step-image">
                     <div class="text">
                         <h1 class="step-title">Get started</h1>
-                        <p class="sub-title">Start with your email. We need to know how to contact you.</p>
+                        <p class="sub-title">{{campaignData.stepOne.text}}</p>
                     </div>
                     <img :src="require(`./img/registerEmail.png`)"/>
                 </div>
@@ -111,7 +110,7 @@
             <step-template>
                 <div slot="step-data" class="limited-width">
                     <h1 class="step-title">Enter your phone number</h1>
-                    <p class="sub-title">We need to send you a confirmation code.</p>
+                    <p class="sub-title">{{campaignData.stepTwo.text}}</p>
                     <select v-model="phone.countryCode" class="mb-1">
                         <option value="" disabled hidden>Select your country code</option>
                         <option v-for="item in countryCodesList" :value="item.callingCode">{{item.name}}
@@ -142,7 +141,7 @@
                     <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code"
                               v-model="confirmationCode" placeholder="Enter confirmation code" type="number"
                               :autofocus="true" @keyup.enter.native="smsCodeVerify()"></sb-input>
-                    <button class="continue-btn submit-code" @click="smsCodeVerify()"  :disabled="!confirmationCode">
+                    <button class="continue-btn submit-code" @click="smsCodeVerify()" :disabled="!confirmationCode">
                         Continue
                     </button>
 

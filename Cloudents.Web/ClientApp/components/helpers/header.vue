@@ -71,7 +71,7 @@
                              width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
-        <sb-dialog :showDialog="showDialogLogin" :popUpType="'loginPop'" :content-class="'login-popup'">
+        <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'" :content-class="'login-popup'">
             <login-to-answer></login-to-answer>
         </sb-dialog>
     </div>
@@ -127,7 +127,7 @@
             layoutClass: {}
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
+            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText', 'loginDialogState']),
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
@@ -154,7 +154,7 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams']),
+            ...mapActions(['updateToasterParams', 'updateLoginDialogState']),
             //TODO: what is that
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
@@ -177,21 +177,19 @@
                         }
                     })
                 });
-            this.$root.$on("showLoginPopUp",
-                (type) => {
-                    this.showDialogLogin = true;
-                });
+            // this.$root.$on("showLoginPopUp",
+            //     (type) => {
+            //         this.updateLoginDialogState(true);
+            //     });
             this.$root.$on('closePopUp', (name) => {
                 if (name === 'suggestions') {
                     this.showDialogSuggestQuestion = false
                 } else {
-                    this.showDialogLogin = false
+                    this.updateLoginDialogState(false)
                 }
             });
             let headerHeight = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.smAndUp ? 60 : 115)
             this.height = headerHeight;
-
-            // this.isAuthUser =
         },
 
     }

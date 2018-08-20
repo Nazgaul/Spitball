@@ -35,7 +35,7 @@ namespace Cloudents.Core.CommandHandler
 
             var oldQuestion = await _questionRepository.GetUserLastQuestionAsync(user.Id, token);
 
-            if (oldQuestion?.Created.AddMinutes(2) > DateTime.UtcNow)
+            if (oldQuestion?.Created.AddSeconds(20) > DateTime.UtcNow)
             {
                 throw new InvalidOperationException("You need to wait before asking more questions");
             }

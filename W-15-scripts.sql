@@ -22,3 +22,7 @@ alter table sb.question
 add color nvarchar(255);
 alter table sb.answer
 add color nvarchar(255)
+
+
+ALTER TABLE sb.[User]
+ADD fraudScore INT;

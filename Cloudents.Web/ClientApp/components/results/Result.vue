@@ -6,7 +6,7 @@
         <!--<signup-banner  slot="signupBanner"  v-if="!accountUser"></signup-banner>-->
         <div slot="main">
          <div class="d-flex mobile-filter" >
-                <router-link v-if="$route.path.slice(1)==='ask' " :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
+                <a v-if="$route.path.slice(1)==='ask' " :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] " @click.prevent="goToAskQuestion()">Ask Your Question</a>
                 <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right hidden-sm-and-up" v-if="filterCondition">
                     <v-icon>sbf-filter</v-icon>
                     <div :class="'counter fixedLocation color-'+$route.path.slice(1)" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
@@ -42,7 +42,7 @@
                                         <router-link v-else :to="{path:'/question/'+item.id}" class="mb-5">
                                             <question-card :cardData="item" :key="index"></question-card>
                                         </router-link>
-                                    <div class="show-btn" v-if="accountUser && item &&  item.user && accountUser.id !== item.user.id || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
+                                    <div class="show-btn" v-if="accountUser && item &&  item.user && accountUser.id !== item.user.id || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask' && !item.hasCorrectAnswer?'Answer':'Show Me'}}</div>
                                     <div class="show-btn" v-if="!accountUser && item && item.user || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
                                 </v-flex>
                                 <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">

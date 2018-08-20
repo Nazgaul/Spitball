@@ -156,11 +156,19 @@ export default {
     },
 
     methods: {
-        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFacet', 'hideRegistrationBanner']),
+        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFacet', 'hideRegistrationBanner', 'hideRegistrationBanner', 'updateLoginDialogState']),
         ...mapMutations(["UPDATE_SEARCH_LOADING"]),
 
         subFilterVertical(val) {
             return val.includes('note') || val === 'flashcard' || val === 'job' || val.includes('ask');
+        },
+        goToAskQuestion(){
+            if(this.accountUser == null){
+                // this.$root.$emit("showLoginPopUp");
+                this.updateLoginDialogState(true);
+            }else{
+                this.$router.push({name: 'newQuestion'});
+            }
         },
         updatePageData(to, from, next) {
             (to.path === from.path && to.q === from.q) ? this.isLoad = true : this.UPDATE_LOADING(true);
@@ -198,6 +206,7 @@ export default {
             }
             next();
         },
+       
         //Function for update the filter object(when term or vertical change)
         $_updateFilterObject(vertical) {
             let currentPage = page[vertical];
@@ -246,7 +255,7 @@ export default {
         $_openPersonalize() {
             //emit event to open Login Dialog
             if (!this.accountUser) {
-                this.$root.$emit("showLoginPopUp");
+                this.updateLoginDialogState(true);
 
             }else {
                 this.$root.$emit("personalize", typesPersonalize.course);

@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Web.Filters
 {
-    public class ValidateFilesAttribute : ValidationAttribute
+    [AttributeUsage(AttributeTargets.Property)]
+    public sealed class ArrayMaxSizeAttribute : ValidationAttribute
     {
+        private readonly int _maxSize;
+
+        public ArrayMaxSizeAttribute(int maxSize)
+        {
+            _maxSize = maxSize;
+        }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if (value is IEnumerable<string> t)
             {
-                if (t.Count() < 4)
+                if (t.Count() <= _maxSize)
                 {
                     return ValidationResult.Success;
                 }
@@ -23,7 +30,7 @@ namespace Cloudents.Web.Filters
 
         private string GetErrorMessage()
         {
-            return "Maximum 4 files";
+            return $"Maximum {_maxSize} files";
         }
 
     }
