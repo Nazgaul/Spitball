@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json;
 
 namespace Cloudents.Web.Services
 {

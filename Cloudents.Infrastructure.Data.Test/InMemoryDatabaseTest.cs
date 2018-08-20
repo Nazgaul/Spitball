@@ -3,7 +3,6 @@ using System.Reflection;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
-using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 
 namespace Cloudents.Infrastructure.Data.Test

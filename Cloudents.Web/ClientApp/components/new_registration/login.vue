@@ -29,7 +29,7 @@
 
                         </vue-recaptcha>
                         <!--<div style="width: 300px; height:74px; background: grey;  margin: 24px 0 10px 0;"></div>-->
-                        <input :disabled=" !userEmail" class="continue-btn input-field" type="submit"
+                        <input :disabled=" !userEmail || !recaptcha" class="continue-btn input-field" type="submit"
                                value="Continue">
                         <div class="checkbox-terms">
                            <span>By joining, I agree to Spitball <router-link
@@ -69,7 +69,7 @@
 
                         </vue-recaptcha>
                         <!--<div style="width: 300px; height:74px; background: grey;  margin: 24px 0 10px 0;"></div>-->
-                        <input class="continue-btn" type="submit" value="Login" :disabled=" !userEmail">
+                        <input class="continue-btn" type="submit" value="Login" :disabled=" !userEmail || !recaptcha">
                     </form>
                     <div class="signin-strip">Need an account?
                         <a @click="showRegistration">Sign up</a>

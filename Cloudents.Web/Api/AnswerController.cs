@@ -4,13 +4,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,18 +19,16 @@ namespace Cloudents.Web.Api
     [Authorize, ApiController]
     public class AnswerController : ControllerBase
     {
-        internal const string CreateAnswerPurpose = "CreateAnswer";
+        //internal const string CreateAnswerPurpose = "CreateAnswer";
         private readonly ICommandBus _commandBus;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        private readonly ITimeLimitedDataProtector _dataProtector;
 
-        public AnswerController(ICommandBus commandBus, IMapper mapper, UserManager<User> userManager, IDataProtectionProvider xxx)
+        public AnswerController(ICommandBus commandBus, IMapper mapper, UserManager<User> userManager)
         {
             _commandBus = commandBus;
             _mapper = mapper;
             _userManager = userManager;
-            _dataProtector = xxx.CreateProtector(CreateAnswerPurpose).ToTimeLimitedDataProtector();
         }
 
         [HttpPost]

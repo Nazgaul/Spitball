@@ -31,6 +31,13 @@ export default {
             let query = route.query;
             this.bannerData = nav[path].banner(path, query);
             this.updateCampaign(query.promo);
+        },
+        goToUrl(){
+            let url = this.bannerData.url;
+            if(url){
+                this.$router.push({path: `${url}`});
+            }
+
         }
     },
     created() {
