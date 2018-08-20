@@ -5,19 +5,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
-using Cloudents.Core.Command;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using System.Collections.Generic;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Query;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Event;
-using Cloudents.Core.Query.Admin;
 using Cloudents.Core.Storage;
-using Cloudents.Infrastructure.Data.Repositories;
-using NHibernate;
 
 namespace ConsoleApp
 {

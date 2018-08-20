@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Web.Extensions;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
