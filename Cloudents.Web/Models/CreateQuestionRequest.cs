@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Cloudents.Core.Enum;
-using Cloudents.Web.Binders;
 using Cloudents.Web.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Newtonsoft.Json;
 
 namespace Cloudents.Web.Models
 {

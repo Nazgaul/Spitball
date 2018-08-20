@@ -58,7 +58,7 @@ namespace Cloudents.Infrastructure.Data
             var persistenceContext = sessionImpl.PersistenceContext;
             var changedObjects = (from EntityEntry entityEntry in persistenceContext.EntityEntries.Values
                     select persistenceContext.GetEntity(entityEntry.EntityKey))
-                .OfType<IHaveEvent>()
+                .OfType<IEvents>()
                 .Where(ev => ev.Events.Count > 0)
                 .ToList();
 
