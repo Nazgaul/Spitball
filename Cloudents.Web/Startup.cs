@@ -179,6 +179,7 @@ namespace Cloudents.Web
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = new DbConnectionString( Configuration.GetConnectionString("DefaultConnection"),Configuration["Redis"]),
+                Redis = Configuration["Redis"],
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
                        Configuration["AzureSearch:SearchServiceAdminApiKey"]),
                 Storage = Configuration["Storage"],
