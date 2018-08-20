@@ -61,7 +61,12 @@ namespace Cloudents.Infrastructure.Data
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
 
-            builder.Register(c => new UnitOfWork(c.ResolveKeyed<ISession>(Database.MailGun)))
+            builder.Register(c =>
+                {
+                    var session = c.ResolveKeyed<ISession>(Database.MailGun);
+                    var @event = c.Resolve<IEventPublisher>();
+                    return new UnitOfWork(session, @event);
+                })
                 .Keyed<IUnitOfWork>(Database.MailGun).InstancePerLifetimeScope();
 
             builder.Register(c =>

@@ -1,18 +1,21 @@
 ﻿using System;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Event
 {
-    public class AnswerCreatedEvent
+    //public abstract class BaseEvent
+    //{
+
+    //}
+
+    public class AnswerCreatedEvent : IEventMessage
     {
-        public AnswerCreatedEvent(long questionId, Guid answerId)
+        public AnswerCreatedEvent(Answer answer)
         {
-            QuestionId = questionId;
-            AnswerId = answerId;
+            Answer = answer;
         }
 
-        // public long QuestionUserId { get; set; }
-        public long QuestionId { get; set; }
-
-        public Guid AnswerId { get; set; }
+        public Answer Answer { get; private set; }
     }
 }

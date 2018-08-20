@@ -36,24 +36,31 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
-        public async Task<CreateAnswerResponse> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
+        public async Task<ActionResult<CreateAnswerResponse>> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
             [FromServices] IQueryBus queryBus,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
            // var code = _dataProtector.Protect(userId.ToString(), DateTimeOffset.UtcNow.AddDays(2));
             var link = Url.Action("Index", "Question", new { id = model.QuestionId });
-            var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files, link);
-            var t1 = _commandBus.DispatchAsync(command, token);
-
-            var query = new NextQuestionQuery(model.QuestionId, userId);
-            var t2 = queryBus.QueryAsync(query, token);
-            await Task.WhenAll(t1, t2).ConfigureAwait(false);
-
-            return new CreateAnswerResponse
+            try
             {
-                NextQuestions = t2.Result
-            };
+                var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files, link);
+                var t1 = _commandBus.DispatchAsync(command, token);
+
+                var query = new NextQuestionQuery(model.QuestionId, userId);
+                var t2 = queryBus.QueryAsync(query, token);
+                await Task.WhenAll(t1, t2).ConfigureAwait(false);
+
+                return new CreateAnswerResponse
+                {
+                    NextQuestions = t2.Result
+                };
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("{id}")]

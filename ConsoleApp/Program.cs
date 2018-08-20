@@ -12,7 +12,9 @@ using System.Collections.Generic;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query;
 using Cloudents.Core.Command.Admin;
+using Cloudents.Core.Event;
 using Cloudents.Core.Query.Admin;
+using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Data.Repositories;
 using NHibernate;
 
@@ -41,6 +43,7 @@ namespace ConsoleApp
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
+            builder.RegisterType<PPP>().As<IDataProtect>();
             builder.RegisterSystemModules(
                 Cloudents.Core.Enum.System.Console,
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -50,29 +53,33 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-            
+
             //TransactionPopulation tp = new TransactionPopulation(_container);
             //await tp.AddToUserMoney(1000, 1642);
 
-           // var b = _container.Resolve<ISession>();
-           // QuestionRepository c = new QuestionRepository(b);
-           // Console.WriteLine(c.GetOldQuestionsAsync(default));
+            // var b = _container.Resolve<ISession>();
+            // QuestionRepository c = new QuestionRepository(b);
+            // Console.WriteLine(c.GetOldQuestionsAsync(default));
 
 
 
             //await UpdateCreationTimeProductionAsync();
-            var bus = _container.Resolve<IQueryBus>();
-            var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
-            var t = await bus.QueryAsync(query, default);
-          //  var bus = _container.Resolve<IQueryBus>();
-          // var z = new NextQuestionQuery(68, 11);
-          // var x = await bus.QueryAsync(z, default);
+            IEventMessage z = new AnswerCreatedEvent(null);
+
+            var bus = _container.Resolve<IEventPublisher>();
+            await bus.PublishAsync(z, default);
+            //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
+            //var t = await bus.QueryAsync(query, default);
+            //  var bus = _container.Resolve<IQueryBus>();
+            // var z = new NextQuestionQuery(68, 11);
+            // var x = await bus.QueryAsync(z, default);
 
 
 
             Console.WriteLine("Finish");
             Console.ReadLine();
         }
+
 
         public static Task SendMoneyAsync()
         {
@@ -145,6 +152,19 @@ namespace ConsoleApp
                 }
             }
            
+        }
+    }
+
+    public class PPP: IDataProtect
+    {
+        public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Unprotect(string purpose, string protectedData)
+        {
+            throw new NotImplementedException();
         }
     }
 }

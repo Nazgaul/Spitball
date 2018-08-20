@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities.Db
@@ -8,20 +12,23 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Answer
+    public class Answer : IHaveEvent
     {
-        public Answer(Question question, string text, int attachments, User user)
+        public Answer(Question question, string text, int attachments, User user) : this()
         {
             Question = question;
             Text = text;
             Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
+
+            Events.Add(new AnswerCreatedEvent(this));
         }
 
         [UsedImplicitly]
         protected Answer()
         {
+            Events = new List<IEventMessage>();
         }
 
         public virtual Guid Id { get; set; }
@@ -33,7 +40,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual DateTime Created { get; set; }
 
-       
 
+        public virtual IList<IEventMessage> Events { get; }
     }
 }
