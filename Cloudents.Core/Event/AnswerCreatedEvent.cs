@@ -9,7 +9,7 @@ namespace Cloudents.Core.Event
 
     //}
 
-    public class AnswerCreatedEvent : IEventMessage
+    public class AnswerCreatedEvent : IEvent
     {
         public AnswerCreatedEvent(Answer answer)
         {

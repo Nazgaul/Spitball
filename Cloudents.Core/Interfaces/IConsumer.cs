@@ -9,17 +9,17 @@ using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Interfaces
 {
-    public interface IEventMessage
+    public interface IEvent
     {
 
     }
 
     public interface IHaveEvent
     {
-        IList<IEventMessage> Events { get; }
+        IList<IEvent> Events { get; }
     }
 
-    public interface IEventHandler<in T> where T : IEventMessage
+    public interface IEventHandler<in T> where T : IEvent
     {
         Task HandleAsync(T eventMessage, CancellationToken token);
     }
@@ -61,7 +61,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IEventPublisher
     {
-        Task PublishAsync<T>(T eventMessage, CancellationToken token) where T : IEventMessage;
+        Task PublishAsync<T>(T eventMessage, CancellationToken token) where T : IEvent;
     }
 
 
@@ -75,45 +75,16 @@ namespace Cloudents.Core.Interfaces
             _container = subscriptionService;
         }
 
-        public async Task PublishAsync<T>(T eventMessage, CancellationToken token) where T : IEventMessage
+        public async Task PublishAsync<T>(T eventMessage, CancellationToken token) where T : IEvent
         {
-
-
             var handlerType = typeof(IEventHandler<>).MakeGenericType(eventMessage.GetType());
             var handlerCollectionType = typeof(IEnumerable<>).MakeGenericType(handlerType);
 
             if (_container.Resolve(handlerCollectionType) is IEnumerable eventHandlers)
-                foreach (var handler in (dynamic)eventHandlers)
+                foreach (dynamic handler in eventHandlers)
                 {
-                    await handler.HandleAsync(eventMessage, token);
+                    await handler.HandleAsync((dynamic)eventMessage, token);
                 }
-
-            //IEnumerable<IConsumer<T>> GetSubscriptions<T>() 
-
-            // var subscriptions = _subscriptionService.GetSubscriptions<T>();
-
-           // var tasks = subscriptions.Select(s => PublishToConsumerAsync(s, eventMessage, token));
-            //await Task.WhenAll(tasks).ConfigureAwait(false);
         }
-
-        //private static async Task PublishToConsumerAsync<T>(IConsumer<T> x, T eventMessage, CancellationToken token)// where T : BaseEvent
-        //{
-        //    try
-        //    {
-        //        await x.HandleAsync(eventMessage, token);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        //log and handle internally
-        //    }
-        //    finally
-        //    {
-        //        var instance = x as IDisposable;
-        //        if (instance != null)
-        //        {
-        //            instance.Dispose();
-        //        }
-        //    }
-        //}
     }
 }

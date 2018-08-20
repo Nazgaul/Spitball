@@ -28,7 +28,7 @@ namespace Cloudents.Core.Entities.Db
         [UsedImplicitly]
         protected Answer()
         {
-            Events = new List<IEventMessage>();
+            Events = new List<IEvent>();
         }
 
         public virtual Guid Id { get; set; }
@@ -41,6 +41,6 @@ namespace Cloudents.Core.Entities.Db
         public virtual DateTime Created { get; set; }
 
 
-        public virtual IList<IEventMessage> Events { get; }
+        public virtual IList<IEvent> Events { get; }
     }
 }
