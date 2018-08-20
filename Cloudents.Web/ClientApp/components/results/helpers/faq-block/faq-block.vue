@@ -16,7 +16,6 @@
                 <router-link tag="button" to="/faq">More</router-link>
             </div>
         </v-flex>
-
         <v-flex xs12 class="card-block mt-3">
             <div class="header">Spitball</div>
             <div class="content">
@@ -26,10 +25,6 @@
                 <router-link tag="button" :to="{path:'/'+name,query:{q:text}}">Show me</router-link>
             </div>
         </v-flex>
-
-        <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">
-            <login-to-answer></login-to-answer>
-        </sb-dialog>
     </v-flex>
 </template>
 

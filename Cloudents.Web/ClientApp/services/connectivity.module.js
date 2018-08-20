@@ -26,7 +26,7 @@ const errorHandler = function(err){
     }else if(err.response.status === 404){
         window.location = '/error/notfound';
     }else{
-        return err;
+        return Promise.reject(err);
     }
 }
 
@@ -47,7 +47,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{        
-                return axios.get(path, params).then(promiseReturn.bind(timeProps), errorHandler.bind(timeProps))                
+                return axios.get(path, params).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
             }
         },
         post: function(path, body, callback){
@@ -59,7 +59,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.post(path,body).then(promiseReturn.bind(timeProps), errorHandler.bind(timeProps))  
+                return axios.post(path,body).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
             }
         },
         put: function(path, body, callback){
@@ -71,7 +71,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.put(path, body).then(promiseReturn.bind(timeProps), errorHandler.bind(timeProps))  
+                return axios.put(path, body).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
             }
         },
         patch: function(path, body, callback){
@@ -83,7 +83,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.patch(path, body).then(promiseReturn.bind(timeProps), errorHandler.bind(timeProps))
+                return axios.patch(path, body).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
             }
         },
         delete: function(path, callback){
@@ -95,7 +95,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.delete(path).then(promiseReturn.bind(timeProps), errorHandler.bind(timeProps))
+                return axios.delete(path).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
             }
         }
     },
