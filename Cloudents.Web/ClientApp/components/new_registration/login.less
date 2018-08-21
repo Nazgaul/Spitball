@@ -12,9 +12,10 @@
 
 .registration {
   position: relative;
-  .continue-btn {
+  button.continue-btn{
     .transition (all .2s ease-in-out);
     background: @color-main-purple;
+    text-transform: none;
     &:hover {
       background: lighten(@color-main-purple, 10%);
     }
@@ -148,8 +149,10 @@
 
     }
 
-    .continue-btn {
-      //background: @color-main-purple;
+    button.continue-btn {
+      background: @color-main-purple!important;
+      margin-left: 0;
+      margin-right: 0;
       font-size: 18px;
       font-weight: bold;
       line-height: 1.39;
@@ -556,6 +559,7 @@
       }
       .continue-btn {
         margin-top: 40px;
+        background: @color-main-purple;
       }
 
       .code-field input {
