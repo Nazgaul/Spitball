@@ -4,11 +4,10 @@
         <v-flex class="line" slot="extraHeader">
             <v-layout row>
             <v-tabs :scrollable="false" centered>
-                    <v-tab router v-for="tab in verticals" :key="tab.name"  v-if="tab.display" @click.prevent ="showTab(tab.name)"
-                                 class="vertical">
-                        {{tab.display}}
+                    <v-tab router v-for="tab in verticals" :key="tab.name" :ripple="false" :href="tab.name === 'blog'" v-if="tab.display" class="vertical">
+                        <a v-if="tab.name == 'blog'" href="https://medium.com/@spitballstudy" target="_blank">{{tab.display}}</a>
+                        <router-link  v-else :to="tab.name">{{tab.display}}</router-link>
                     </v-tab>
-
                     <v-tabs-slider color="color-dark-blue"></v-tabs-slider>
             </v-tabs>
             </v-layout>
@@ -27,19 +26,11 @@
         },
         data() {
             return {
-                verticals: staticRoutes
+                verticals: staticRoutes,
             }
         },
         methods:{
-            showTab(name, $event){
-                if(`${name}` ==='blog'){
-                    window.open('https://medium.com/@spitballstudy','_blank');
-                    this.$router.push({path: '/about' })
-                }else{
-                    this.$router.push({path: `${name}` })
-                }
-            }
-        }
 
+        }
     }
 </script>
