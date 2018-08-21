@@ -56,10 +56,6 @@ export default {
             showDialog: false,
             limitedCardAnswers: [],
             colorsSet: colorsSet,
-            cssRule: {
-                backgroundColor: '#ffffff',
-                fontColor: '#ffffff'
-            }
         }
     },
     computed: {
@@ -81,6 +77,12 @@ export default {
             }
             return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
         },
+        cssRuleFontColor(){
+            return this.getQuestionColor("textColor") 
+        },
+        cssRuleBackgroundColor(){
+            return this.getQuestionColor("cssRule")                
+        }
     },
     methods: {
         ...mapActions({
@@ -89,6 +91,14 @@ export default {
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams'
         }),
+        getQuestionColor(type){
+                if (!!this.cardData && this.cardData.color && this.colorsSet[`${this.cardData.color}`]) {
+                    return this.colorsSet[`${this.cardData.color}`][type]
+                } else {
+                    let colDefault = 'default';
+                    return  this.colorsSet[`${colDefault}`][type]
+                }
+        },
         showBigImage(src) {
             this.showDialog = true;
             this.selectedImage = src;
@@ -146,14 +156,7 @@ export default {
     },
     created() {
         //set color for card
-        if (this.cardData.color && this.colorsSet[`${this.cardData.color}`]) {
-            this.cssRule.backgroundColor = this.colorsSet[`${this.cardData.color}`].cssRule;
-            this.cssRule.fontColor = this.colorsSet[`${this.cardData.color}`].textColor;
-        } else {
-            let colDefault = 'default';
-            this.cssRule.backgroundColor = this.colorsSet[`${colDefault}`].cssRule;
-            this.cssRule.fontColor = this.colorsSet[`${colDefault}`].textColor;
-        }
+        
         this.flaggedAsCorrect = this.isCorrectAnswer;
         this.calculateAnswerToLimit();
     }

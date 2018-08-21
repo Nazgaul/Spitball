@@ -44,6 +44,9 @@ const mutations = {
     [SEARCH.UPDATE_ITEMS_BY_VERTICAL](state, verticalObj){
         state.itemsPerVertical[verticalObj.verticalName].data = state.itemsPerVertical[verticalObj.verticalName].data.concat(verticalObj.verticalData.data)
         state.itemsPerVertical[verticalObj.verticalName].nextPage = verticalObj.verticalData.nextPage
+    },
+    [SEARCH.ADD_QUESTION](state, questionToAdd){
+        state.itemsPerVertical.ask.data.unshift(questionToAdd);
     }
 };
 
@@ -118,6 +121,10 @@ const actions = {
     },
     updateDataByVerticalType({ commit }, verticalObj){
         commit(SEARCH.UPDATE_ITEMS_BY_VERTICAL, verticalObj);
+    },
+    addQuestionItemAction({ commit }, notificationQuestionObject){
+       let questionObj = searchService.createQuestionItem(notificationQuestionObject);
+       commit(SEARCH.ADD_QUESTION, questionObj);
     }
 };
 

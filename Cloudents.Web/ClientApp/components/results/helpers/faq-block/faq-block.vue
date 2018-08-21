@@ -1,10 +1,10 @@
 <template>
     <v-flex class="right-sidebar">
         <v-flex xs12 v-if="isAsk">
-            <a class="ask-question" @click="goToAskQuestion()">Ask Your Question</a>
+            <a class="ask-question" @click="goToAskQuestion()" v-language:inner>ask</a>
         </v-flex>
         <v-flex xs12 class="card-block">
-            <div class="header">Spitball FAQ</div>
+            <div class="header" v-language:inner>faq</div>
             <div class="content">
                 <ul class="list">
                     <li v-for="(item,id) in faqList" v-if="id<5">
@@ -13,16 +13,16 @@
                 </ul>
             </div>
             <div class="footer">
-                <router-link tag="button" to="/faq">More</router-link>
+                <router-link tag="button" to="/faq" v-language:inner>more</router-link>
             </div>
         </v-flex>
         <v-flex xs12 class="card-block mt-3">
-            <div class="header">Spitball</div>
+            <div class="header" v-language:inner>spitball</div>
             <div class="content">
                 <p>{{suggestList[name]}}</p>
             </div>
             <div class="footer">
-                <router-link tag="button" :to="{path:'/'+name,query:{q:text}}">Show me</router-link>
+                <router-link tag="button" :to="{path:'/'+name,query:{q:text}}" v-language:inner>show_me</router-link>
             </div>
         </v-flex>
     </v-flex>

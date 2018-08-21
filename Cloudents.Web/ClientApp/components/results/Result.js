@@ -111,7 +111,7 @@ export default {
                 if (val) {
                     this.pageData = val;
                     this.$nextTick(() => {
-                        if (!this.items.length) {
+                        if (!!this.items && !this.items.length) {
                             // gaby: according to my understanding this code exists in order to notify
                             // google analytics that we have no questions in the page
                             Promise.resolve(() => {
