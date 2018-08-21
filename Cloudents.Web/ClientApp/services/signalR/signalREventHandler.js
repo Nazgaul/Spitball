@@ -1,16 +1,15 @@
 import store from '../../store/index'
 
-const signalREventHandler = {
-    questions: {
-        add: function(eventObj){
-            store.dispatch("addQuestionItemaaaaaaa", eventObj);
+export const signlaREvents = {
+    question: {
+        add: function(arrEventObj){
+            arrEventObj.forEach((questionToAdd)=>{
+                store.dispatch("addQuestionItemAction", questionToAdd);
+            })
+            
         },
         delete: function(eventObj){
             store.dispatch("removeQuestionItem", eventObj);
         }
     }
-}
-
-export const signlaREvents = {
-    "NT_QUESTION_ADDED": signalREventHandler.questions.add,
 }
