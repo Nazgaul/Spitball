@@ -154,7 +154,7 @@
                     <p v-if="phone.phoneNum" class="sub-title">We sent the code to you by SMS to
                         (+{{phone.countryCode}})
                         {{phone.phoneNum}}</p>
-                    <p class="confirm-title">We sent a confirmation code to your mobile phone.</p>
+                    <p class="confirm-title">We sent a confirmation code<br/> to your mobile phone.</p>
                     <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code"
                               v-model="confirmationCode" placeholder="Enter confirmation code" type="number"
                               :autofocus="true" @keyup.enter.native="smsCodeVerify()"></sb-input>
@@ -188,7 +188,7 @@
                     <img class="money-done-img" :src="require(`./img/money-done.png`)"/>
                     <p class="congrats">You can spend them to get help with your <br/> Homework questions.</p>
                     <v-btn  class="continue-btn submit-code"
-                            value="Login"
+                            value="congrats"
                             :loading="loading"
                             @click="finishRegistration">Let's Start</v-btn>
                     <!--<button class="continue-btn" @click="finishRegistration">Let's Start</button>-->
