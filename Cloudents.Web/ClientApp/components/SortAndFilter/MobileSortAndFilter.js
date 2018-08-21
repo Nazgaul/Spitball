@@ -89,7 +89,6 @@ export default {
 
     created() {
         this.initFilters(this.filterVal);
-        var container = this.$el.querySelector("#cont");
-        container.scrollTop = container.scrollHeight;
+
     }
 }
