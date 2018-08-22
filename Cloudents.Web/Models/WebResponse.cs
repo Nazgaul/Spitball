@@ -9,4 +9,17 @@ namespace Cloudents.Web.Models
 
         public string NextPageLink { get; set; }
     }
+
+
+    public class WebResponseWithFacet2<T>
+    {
+        public IEnumerable<T> Result { get; set; }
+        public Dictionary<string, IEnumerable<string>> Filters { get; set; }
+
+        public IEnumerable<string> Sort { get; set; }
+
+
+        public string NextPageLink { get; set; }
+    }
+
 }
