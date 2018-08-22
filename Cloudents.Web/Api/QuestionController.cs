@@ -104,7 +104,7 @@ namespace Cloudents.Web.Api
         }
 
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
-        public async Task<ActionResult<WebResponseWithFacet2<QuestionDto>>> GetQuestionsAsync([FromQuery]GetQuestionsRequest model,
+        public async Task<ActionResult<WebResponseWithFacet<QuestionDto>>> GetQuestionsAsync([FromQuery]GetQuestionsRequest model,
             [FromServices] IQueryBus queryBus,
             CancellationToken token)
         {
@@ -117,7 +117,7 @@ namespace Cloudents.Web.Api
                 nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }
 
-            return new WebResponseWithFacet2<QuestionDto>
+            return new WebResponseWithFacet<QuestionDto>
             {
                 Result = p,
                 Filters = new Dictionary<string, IEnumerable<string>>
@@ -125,6 +125,7 @@ namespace Cloudents.Web.Api
                     ["Content"] = result.Facet,
                     ["State"] = new []
                     {
+                        //TODO : enum
                         "Unanswered",
                         "Answered",
                         "Sold"
