@@ -91,23 +91,23 @@
                        :filterOptions="filterObject"
                        :filterVal="filterSelection">
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage" />
-                <template slot="courseEmptyState" v-if="!myCourses.length">
-                    <div class="course-empty-state">
-                        <div class="text">Add your school and courses for better results</div>
-                        <button class="mobile-button" v-if="$vuetify.breakpoint.xsOnly" @click="$_openPersonalize">
-                            <v-icon class="hidden-sm-and-up">sbf-search</v-icon>
-                            <span class="hidden-sm-and-up" v-if="!university">Where do you go to school?</span>
-                            <span class="hidden-sm-and-up" v-else>What class are you taking</span>
-                        </button>
-                        <v-btn v-else @click="$_openPersonalize">Personalize</v-btn>
-                    </div>
-                </template>
-                <template slot="courseExtraState" v-else>
-                    <button class="add-course" @click="$_openPersonalize" type="button">
-                        <plus-btn></plus-btn><span>Add Course</span>
-                    </button>
-                </template>
-                <button v-if="$vuetify.breakpoint.xsOnly" slot="courseMobileExtraState" class="edit-list" @click.stop.prevent="$_openPersonalize()" type="button">Edit List</button>
+                <!--<template slot="courseEmptyState" v-if="!myCourses.length">-->
+                    <!--<div class="course-empty-state">-->
+                        <!--<div class="text">Add your school and courses for better results</div>-->
+                        <!--<button class="mobile-button" v-if="$vuetify.breakpoint.xsOnly" @click="$_openPersonalize">-->
+                            <!--<v-icon class="hidden-sm-and-up">sbf-search</v-icon>-->
+                            <!--<span class="hidden-sm-and-up" v-if="!university">Where do you go to school?</span>-->
+                            <!--<span class="hidden-sm-and-up" v-else>What class are you taking</span>-->
+                        <!--</button>-->
+                        <!--<v-btn v-else @click="$_openPersonalize">Personalize</v-btn>-->
+                    <!--</div>-->
+                <!--</template>-->
+                <!--<template slot="courseExtraState" v-else>-->
+                    <!--<button class="add-course" @click="$_openPersonalize" type="button">-->
+                        <!--<plus-btn></plus-btn><span>Add Course</span>-->
+                    <!--</button>-->
+                <!--</template>-->
+                <!--<button v-if="$vuetify.breakpoint.xsOnly" slot="courseMobileExtraState" class="edit-list" @click.stop.prevent="$_openPersonalize()" type="button">Edit List</button>-->
             </component>
         </template>
 
