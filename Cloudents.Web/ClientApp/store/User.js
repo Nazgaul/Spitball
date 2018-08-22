@@ -12,7 +12,7 @@ const state = {
         showRegistrationBanner: true,
 
     },
-    facet: "",
+    filters: "",
     historyTermSet: [],
     historySet: {
         job: [],
@@ -101,7 +101,7 @@ const getters = {
     },
     myCourses: state => state.user.myCourses,
     myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i => i.id) : []),
-    getFacet: state => state.facet
+    getFacet: state => state.filters
 };
 const actions = {
     updateHistorySet({ commit }, term) {

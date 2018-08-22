@@ -122,7 +122,8 @@ export default {
                                     }
                                 });
                                 return filters;
-                            }).then(filters => {
+                            })
+                                .then(filters => {
                                 let myFilters = filters();
                                 let ExtraContent = "";
                                 if (myFilters && Object.keys(myFilters).length) {
