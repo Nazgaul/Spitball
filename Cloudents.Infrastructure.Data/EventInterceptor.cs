@@ -14,20 +14,21 @@ namespace Cloudents.Infrastructure.Data
             _eventPublisher = eventPublisher;
         }
 
-        public async Task OnPostInsertAsync(PostInsertEvent @event, CancellationToken cancellationToken)
+        public Task OnPostInsertAsync(PostInsertEvent @event, CancellationToken cancellationToken)
         {
+            throw new System.NotImplementedException();
             //if (!(@event.Entity is IHaveEvent entity)) return;
 
             //foreach (var eventMessage in entity.Events)
             //{
             //   await _eventPublisher.PublishAsync(eventMessage, cancellationToken);
             //}
-           
+
         }
 
         public void OnPostInsert(PostInsertEvent @event)
         {
-            //throw new System.NotImplementedException();
+            throw new System.NotImplementedException();
         }
 
         public Task OnPostDeleteAsync(PostDeleteEvent @event, CancellationToken cancellationToken)
