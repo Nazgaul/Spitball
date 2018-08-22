@@ -15,15 +15,7 @@ namespace Cloudents.Web.Hubs
 
         public async Task Message(object entity)
         {
-
-
-
-            //var newObj = new
-            //{
-            //    type="entity",
-
-            //}
-            //await Clients.All.SendAsync(MethodName, new SignalRTransportType<object>("entity", SignalRAction.Add, dto))
+            await Clients.All.SendAsync(MethodName, entity);
         }
     }
 }
