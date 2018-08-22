@@ -33,19 +33,19 @@ namespace Cloudents.Management.Pages
         public class SendToken
         {
             [Required]
-            public int UserId { get; set; }
+            public long UserId { get; set; }
             [Required]
-            public int Price { get; set; }
+            public decimal Price { get; set; }
             [Required]
-            public int TypeId { get; set; }
+            public TransactionType TypeId { get; set; }
         }
 
-        [ViewData]
-        public IEnumerable<string> Types { get; set; }
+
 
         public void OnGet(CancellationToken token)
         {
-             Types = Enum.GetNames(typeof(TransactionType));
+                    
+                      
         }
 
         public async Task<IActionResult> OnPostAsync(CancellationToken token)
@@ -59,6 +59,7 @@ namespace Cloudents.Management.Pages
 
             await _commandBus.Value.DispatchAsync(command, token);
             return RedirectToPage("SendTokens");
+
         }
     }
     
