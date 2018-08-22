@@ -4,7 +4,9 @@
     ViewData["Title"] = "SendTokens";
 }
 
-<h2>CashOut</h2>
+
+
+<h2>SendTokens</h2>
 
 
 <form method="post">
@@ -21,10 +23,10 @@
     </div>
     <div>
         <label asp-for="Model.TypeId"></label>
-        <select asp-for="Model.TypeId"
-                asp-items="@(new SelectList(Model.Types))">
-            <option>Please select one</option>
-        </select>
+        @Html.DropDownList("form-control",
+              new SelectList(Enum.GetValues(typeof(Cloudents.Core.Enum.TransactionType))),
+                                "Transaction Type",
+                                new { @class = "form-control" })
     </div>
     <input type="submit" />
 

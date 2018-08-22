@@ -1,10 +1,28 @@
-﻿namespace Cloudents.Core.Entities.Search
+﻿using System;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+
+namespace Cloudents.Core.Entities.Search
 {
-    public class Question
+    public class Question : ISearchObject
     {
-        public string Id { get; set; }
-        public string Subject { get; set; }
-        public string Price { get; set; }
+        public long UserId { get; set; }
+        public string UserName { get; set; }
+        public string UserImage { get; set; }
+
+
+        public string Id { get; set; } //key
+
+        public int AnswerCount { get; set; }
+        public DateTime DateTime { get; set; }
+        public int FilesCount { get; set; }
+        public bool HasCorrectAnswer { get; set; }
+        public float Price { get; set; }
         public string Text { get; set; }
+
+        public QuestionColor Color { get; set; }
+
+        public string Subject { get; set; } // facetable
+
     }
 }

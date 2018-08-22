@@ -47,5 +47,13 @@ namespace Cloudents.Infrastructure.Data.Repositories
                   .Where(w => w.Type == type)
                   .Select(Projections.Sum<Transaction>(x => x.Price));
         }
+
+        public Task<User> GetUserByEmail(string email, CancellationToken token)
+        {
+            return 
+               Session.Query<User>()
+                .Where(x => x.Email == email)
+                .SingleOrDefaultAsync<User>();
+        }
     }
 }
