@@ -15,5 +15,7 @@
         void Set(string key, string region, object value, int expire, bool slideExpiration);
 
         bool Exists(string key, string region);
+
+        void Delete(string region);
     }
 }
