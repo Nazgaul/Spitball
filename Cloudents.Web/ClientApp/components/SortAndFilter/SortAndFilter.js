@@ -1,4 +1,4 @@
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 export default {
     name: "sort-and-filter",
     props: {
@@ -9,10 +9,13 @@ export default {
     },
     methods: {
         ...mapActions(['setFilteredCourses']),
+        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         updateSort(val) {
+            
             this.$router.push({ query: { ...this.$route.query, sort: val } });
         },
         updateFilter({ id, val, type }) {
+            this.UPDATE_SEARCH_LOADING(true);
             let query = {};
             let isChecked = type.target.checked;
             Object.assign(query, this.$route.query);

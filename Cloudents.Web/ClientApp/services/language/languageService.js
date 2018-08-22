@@ -1,8 +1,11 @@
 const dictionary = {
-    key: "value from dictionary",
-    s: "value from dictionary",
-    
+    ask: "Ask Your Question",
+    faq:"Spitball FAQ",
+    more: "More",
+    show_me:"Show me",
+    spitball:"Spitball",
 }
+
 
 export const LanguageService = {
     getValueByKey: (key) => {

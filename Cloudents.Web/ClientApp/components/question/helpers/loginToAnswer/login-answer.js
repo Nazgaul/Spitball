@@ -2,7 +2,6 @@ import {mapGetters, mapActions} from 'vuex'
 
 export default {
     props: {
-
     },
     data: function () {
         return {}
@@ -19,5 +18,7 @@ export default {
             this.updateLoginDialogState(false)
         },
     },
-
+    beforeDestroy(){
+        this.updateLoginDialogState(false)
+    }
 }

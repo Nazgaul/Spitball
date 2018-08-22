@@ -9,9 +9,9 @@ namespace Cloudents.Web
 {
     public partial class Startup
     {
-        public class SnapshotCollectorTelemetryProcessorFactory : ITelemetryProcessorFactory
+        private class SnapshotCollectorTelemetryProcessorFactory : ITelemetryProcessorFactory
         {
-             IServiceProvider _serviceProvider;
+            private readonly IServiceProvider _serviceProvider;
 
             public SnapshotCollectorTelemetryProcessorFactory(IServiceProvider serviceProvider) =>
                 _serviceProvider = serviceProvider;

@@ -40,11 +40,38 @@ const autoComplete = (data) => {
     return connectivityModule.http.get("suggest", { params: { sentence: data.term, vertical: data.vertical } })
 } 
 
+function QuestionItem(objInit){
+    this.id = objInit.id;
+    this.subject = objInit.subject;
+    this.price = objInit.price;
+    this.text = objInit.text;
+    this.files = objInit.files;
+    this.answers = objInit.answers;
+    this.user = objInit.user;
+    this.dateTime = objInit.dateTime;
+    this.color = !!objInit.color ? objInit.color : undefined;
+    this.hasCorrectAnswer = objInit.hasCorrectAnswer;
+    this.template = objInit.template;
+    this.filesNum = objInit.filesNum;
+    this.answersNum = objInit.answersNum;
+    this.template = "ask";
+    this.filesNum = this.files;
+    this.answersNum = this.answers;
+}
+
+
 let transferResultAsk = response => {
     let res = response.data;
     let itemResult = res.result || [];
-    let items = itemResult.map(val => { return { ...val, template: "ask",filesNum:val.files,answersNum:val.answers } });
-    return { data: items, source: res.result.facet, facet: res.facet,nextPage: res.nextPageLink }
+    let items = itemResult.map(val => {
+            return new QuestionItem(val);
+        });
+    return { 
+        data: items,
+        source: res.result.facet,
+        facet: res.facet,
+        nextPage: res.nextPageLink
+    }
 };
 
 let transferResultNote = response => {
@@ -63,7 +90,7 @@ let transferResultTutor = response => {
 let transferJob = response => {
     let body = response.data;
     let { result: items, nextPageLink: nextPage, facet: jobType } = body;
-    return { jobType, data: items.map(val => { return { ...val, template: "job" } }), nextPage };
+    return { jobType, data: items ? items.map(val => { return { ...val, template: "job" } }) : [], nextPage };
 };
 
 let transferBook = response => {
@@ -124,5 +151,9 @@ export default {
 
     nextPage:(params)=>{
         return getNextPage(params).then(transferNextPage)
+    },
+
+    createQuestionItem:(objInit)=>{
+        return new QuestionItem(objInit);
     }
 }

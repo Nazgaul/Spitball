@@ -81,6 +81,10 @@ export default {
                         function (error) {
                             self.updateLoading(false);
                             console.error(error);
+                            self.updateToasterParams({
+                                toasterText: `${error.response.data[""][0]}` || 'Something went wrong. Try again',
+                                showToaster: true,
+                            });
                             self.submitForm(false);
                         });
             }

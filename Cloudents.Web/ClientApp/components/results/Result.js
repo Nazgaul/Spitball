@@ -22,31 +22,40 @@ import faqBlock from './helpers/faq-block/faq-block.vue'
 
 import {skeletonData} from './consts'
 import account from "../../store/account";
-//update data function update the page content and selected filters
-let updateData = function (data, isFilterUpdate = false) {
-    const {facet} = data;
-    facet ? this.updateFacet(facet) : '';
-    this.pageData = {};
-    this.content = data;
-    this.$emit('dataUpdated', this.items.length ? this.items[0] : null);
-    //this.$emit('dataUpdated', data.data.length ? data.data[0] : null);
-    // (data.data.length && this.hasExtra) ? this.selectedItem = data.data[0].placeId : '';
-    this.filter = this.filterSelection;
-    // this.UPDATE_LOADING(false);
-    (this.isLoad) ? this.isLoad = false : this.UPDATE_LOADING(false);
-    if (this.isAcademic) {
-        this.showPersonalizeField = true
-    }
 
-    //if the vertical or search term has been changed update the optional filters according
-    if (!isFilterUpdate) {
-        this.$_updateFilterObject(data.vertical);
-    }
-};
 //The vue functionality for result page
 export default {
+    data() {
+        return {
+            pageData: '',
+            selectedItem: null,
+            filterObject: null,
+            showFilters: false,
+            showPersonalizeField: true,
+            showFilterNotApplied: false,
+            isLoad: false,
+            showDialog: false
+        };
+    },
+
+    components: {
+        emptyState,
+        ResultItem,
+        SuggestCard,
+        ResultTutor,
+        ResultJob,
+        ResultBook,
+        questionCard,
+        faqBlock,
+        signupBanner,
+        QuestionCard,
+        sbDialog,
+        loginToAnswer
+    },
+
     //use basic sort and filter functionality( same for book details and result page)
     mixins: [sortAndFilterMixin],
+
     //when go back to home clear the saved term and classes
     beforeRouteLeave(to, from, next) {
         this.leavePage(to, from, next);
@@ -55,6 +64,24 @@ export default {
     //When route has been updated(query,filter,vertical)
     beforeRouteUpdate(to, from, next) {
         this.updatePageData(to, from, next)
+    },
+
+    created() {
+        //If query have courses save those courses
+        if (this.query.course) this.setFilteredCourses(this.query.course);
+        this.UPDATE_LOADING(true);
+        //fetch data with the params
+        this.fetchingData({
+            name: this.name,
+            params: {...this.query, ...this.params, term: this.userText},
+            skipLoad: this.$options._parentElm.childElementCount > 1
+        }).then((data) => {
+                this.updateData.call(this, {...data, vertical: this.name})
+            }).catch(reason => {
+            console.error(reason);
+            //when error from fetching data remove the loader
+            this.UPDATE_LOADING(false);
+        });
     },
 
     watch: {
@@ -70,16 +97,12 @@ export default {
     computed: {
         //get data from vuex getters
         ...mapGetters(['isFirst', 'myCourses', 'getFacet', 'getVerticalData', 'accountUser', 'showRegistrationBanner']),
-        // ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity'}),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
         
-        currentPromotion() {
-            return promotions[this.name]
-        },
         filterCondition() {
             return this.filterSelection.length || (this.filterObject && this.page)
-            // return this.filterSelection.length || (this.filterObject && this.page && this.items.length)
         },
+
         content: {
             get() {
                 return this.pageData;
@@ -87,10 +110,8 @@ export default {
             set(val) {
                 if (val) {
                     this.pageData = val;
-                    this.updateItems(val.data);
-                    // this.items = val.data;
                     this.$nextTick(() => {
-                        if (!this.items.length) {
+                        if (!!this.items && !this.items.length) {
                             // gaby: according to my understanding this code exists in order to notify
                             // google analytics that we have no questions in the page
                             Promise.resolve(() => {
@@ -115,12 +136,10 @@ export default {
                             });
                         }
                         this.UPDATE_LOADING(false);
+                        this.UPDATE_SEARCH_LOADING(false);
                     });
                 }
             }
-        },
-        isEmpty: function () {
-            return this.pageData.data ? !this.pageData.data.length : true
         },
         currentSuggest() {
             return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]
@@ -136,116 +155,45 @@ export default {
         }
     },
 
-    data() {
-        return {
-            //items: '',
-            pageData: '',
-            selectedItem: null,
-            filterObject: null,
-            showFilters: false,
-            showPersonalizeField: true,
-            //showPromo: this.isPromo,
-            showFilterNotApplied: false,
-            isLoad: false,
-            offsetTop: 0,
-            isBannerVisible: true,
-            showDialog: false
-
-            // accountUser: {}
-        };
-    },
-
-    components: {
-        emptyState,
-        ResultItem,
-        SuggestCard,
-        ResultTutor,
-        ResultJob,
-        ResultBook,
-        questionCard,
-        faqBlock,
-        signupBanner,
-        QuestionCard,
-        sbDialog,
-        loginToAnswer
-    },
-
-    created() {
-        //If query have courses save those courses
-        if (this.query.course) this.setFilteredCourses(this.query.course);
-        this.UPDATE_LOADING(true);
-        // this.items = skeletonData[this.name];
-        this.updateItems(skeletonData[this.name])
-        //fetch data with the params
-        this.fetchingData({
-            name: this.name,
-            params: {...this.query, ...this.params, term: this.userText}
-        })
-            .then((data) => {
-                updateData.call(this, {...data, vertical: this.name});//irena
-            }).catch(reason => {
-            console.error(reason);
-            //when error from fetching data remove the loader
-            this.UPDATE_LOADING(false);
-            this.updateItems([]);
-            // this.items = [];
-        });
-        // });
-    },
     methods: {
-        ...mapMutations({updateItems: "UPDATE_ITEMS"}),
+        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFacet', 'updateLoginDialogState']),
+        ...mapMutations(["UPDATE_SEARCH_LOADING"]),
+
         subFilterVertical(val) {
             return val.includes('note') || val === 'flashcard' || val === 'job' || val.includes('ask');
         },
         goToAskQuestion(){
             if(this.accountUser == null){
-                // this.$root.$emit("showLoginPopUp");
                 this.updateLoginDialogState(true);
             }else{
                 this.$router.push({name: 'newQuestion'});
             }
         },
-        //for skeleton
         updatePageData(to, from, next) {
             (to.path === from.path && to.q === from.q) ? this.isLoad = true : this.UPDATE_LOADING(true);
-            const toName = to.path.slice(1);
-            const itemsBeforeUpdate = this.items;
-            this.pageData = {};
-            
-            this.updateItems(skeletonData[this.name])
-            // this.items = [];
-            // this.items = skeletonData[toName];
-            this.updateContentOfPage(to, from, next, itemsBeforeUpdate);
+            this.updateContentOfPage(to, from, next);
         },
-        updateOnScroll(value){
-            this.updateItems(this.items.concat(value))
-            // this.items=this.items.concat(value)
-        },
-        updateContentOfPage(to, from, next, itemsBeforeUpdate) {
+        updateContentOfPage(to, from, next) {
             const toName = to.path.slice(1);
             const updateFilter = (to.path === from.path && to.query.q === from.query.q);
-            this.fetchingData({name: toName, params: {...to.query, ...to.params, term: to.query.q}})
+            this.fetchingData({name: toName, params: {...to.query, ...to.params, term: to.query.q}}, true)
                 .then((data) => {
                     //update data for this page
                     this.showFilterNotApplied = false;
-                    updateData.call(this, {...data, vertical: toName}, updateFilter);
-                    window.scrollTo(0, 0);
+                    this.updateData.call(this, {...data, vertical: toName}, updateFilter);
                     next();
                 }).catch(reason => {
-                window.scrollTo(0, 0)
                 //when error from fetching data remove the loader
                 if (to.path === from.path && to.query.q === from.query.q) {
                     this.isLoad = false;
                     this.UPDATE_LOADING(false);
+                    this.UPDATE_SEARCH_LOADING(false);
                     this.showFilterNotApplied = true;
-                    this.updateItems(itemsBeforeUpdate)
-                    // this.items = itemsBeforeUpdate;
                 }
                 else {
                     this.UPDATE_LOADING(false);
+                    this.UPDATE_SEARCH_LOADING(false);
                     this.isLoad = false;
-                    this.updateItems([])
-                    // this.items = [];
                     next();
                 }
             });
@@ -256,10 +204,8 @@ export default {
                 this.cleanData();
             }
             next();
-        }
-        ,
-//Get functions from vuex actions
-        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFacet', 'hideRegistrationBanner', 'updateLoginDialogState']),
+        },
+       
         //Function for update the filter object(when term or vertical change)
         $_updateFilterObject(vertical) {
             let currentPage = page[vertical];
@@ -278,18 +224,33 @@ export default {
                     return item;
                 });
             }
-        }
-        ,
-
-//functionality when remove filter from the selected filters
+        },
+        updateData(data, isFilterUpdate = false) {
+            const {facet} = data;
+            facet ? this.updateFacet(facet) : this.updateFacet(null);
+            this.pageData = {};
+            this.content = data;
+            //this.$emit('dataUpdated', this.items.length ? this.items[0] : null);
+            this.filter = this.filterSelection;
+            this.UPDATE_SEARCH_LOADING(false);
+            (this.isLoad) ? this.isLoad = false : this.UPDATE_LOADING(false);
+            if (this.isAcademic) {
+                this.showPersonalizeField = true
+            }
+            //if the vertical or search term has been changed update the optional filters according
+            if (!isFilterUpdate) {
+                this.$_updateFilterObject(data.vertical);
+            }
+        },
+        //functionality when remove filter from the selected filters
         $_removeFilter({value, key}) {
+            this.UPDATE_SEARCH_LOADING(true);
             let updatedList = this.query[key];
             updatedList = [].concat(updatedList).filter(i => i.toString() !== value.toString());
             key === 'course' ? this.setFilteredCourses(updatedList) : "";
             this.$router.push({path: this.name, query: {...this.query, [key]: updatedList}});
-        }
-        ,
-//Open the personalize dialog when click on select course in class filter
+        },
+        //Open the personalize dialog when click on select course in class filter
         $_openPersonalize() {
             //emit event to open Login Dialog
             if (!this.accountUser) {
@@ -297,9 +258,7 @@ export default {
 
             }else {
                 this.$root.$emit("personalize", typesPersonalize.course);
-
             }
-
         },
         //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
         $_showSelectedFilter({value, key}) {
@@ -307,10 +266,4 @@ export default {
             return key === 'course' && this.myCourses.find(x => x.id === Number(value)) ? this.myCourses.find(x => x.id === Number(value)).name : value;
         }
     },
-//Page props come from the route
-    //props: {
-    //    isPromo: {
-    //        type: Boolean
-    //    }
-    //}
 };

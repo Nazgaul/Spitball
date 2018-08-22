@@ -18,7 +18,7 @@ export default {
             colorsSet: colorsSet,
             activeColor: 0,
             counter: 0,
-            uploadLimit: 4
+            uploadLimit: 4,
             }
     },
     watch:{

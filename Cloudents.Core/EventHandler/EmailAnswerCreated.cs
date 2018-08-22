@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
@@ -14,18 +13,14 @@ namespace Cloudents.Core.EventHandler
         public const string CreateAnswer = "CreateAnswer";
         private readonly IServiceBusProvider _serviceBusProvider;
         private readonly IDataProtect _dataProtect;
-        private readonly IRepository<Question> _questionRepository;
-        private readonly IRepository<Answer> _answerRepository;
         private readonly IUrlBuilder _urlBuilder;
 
 
         public EmailAnswerCreated(IServiceBusProvider serviceBusProvider, IDataProtect dataProtect,
-            IRepository<Question> questionRepository, IRepository<Answer> answerRepository, IUrlBuilder urlBuilder)
+             IUrlBuilder urlBuilder)
         {
             _serviceBusProvider = serviceBusProvider;
             _dataProtect = dataProtect;
-            _questionRepository = questionRepository;
-            _answerRepository = answerRepository;
             _urlBuilder = urlBuilder;
         }
 

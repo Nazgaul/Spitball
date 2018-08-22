@@ -1,10 +1,10 @@
 <template>
-    <v-flex v-if="cardData && !isDeleted " class="question-card" :style="cssRule.backgroundColor" :class="{'highlight':flaggedAsCorrect}">
+    <v-flex v-if="cardData && !isDeleted " class="question-card" :style="cssRuleBackgroundColor" :class="{'highlight':flaggedAsCorrect}">
         <div v-if="!typeAnswer" class="box-stroke">
             <!-- question Card -->
             <div class="top-block" >
-            <user-block :style="cssRule.fontColor" :cardData="cardData" :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
-                <template> · <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
+            <user-block :style="cssRuleFontColor" :cardData="cardData" :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
+                <template> · <span class="timeago" :datetime="cardTime"></span><span
                         v-if="typeAnswer"
                         class="q-answer">
                     <button class="accept-btn right" @click="markAsCorrect"
@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <p class="q-text" :style="cssRule.fontColor"  :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text | ellipsis(150, detailedView)}}</p>
+        <p class="q-text" :style="cssRuleFontColor"  :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text | ellipsis(150, detailedView)}}</p>
 
         <!-- v-if="cardData.files.length" -->
         <div class="gallery" v-if="gallery&&gallery.length">
@@ -44,8 +44,8 @@
                 <div class="new-block">
                     <div class="files" v-if="cardData.filesNum">
                         <template>
-                            <v-icon :style="cssRule.fontColor">sbf-attach</v-icon>
-                            <span :style="cssRule.fontColor">{{cardData.filesNum}}</span>
+                            <v-icon :style="cssRuleFontColor">sbf-attach</v-icon>
+                            <span :style="cssRuleFontColor">{{cardData.filesNum}}</span>
                         </template>
                     </div>
                     <div class="users">

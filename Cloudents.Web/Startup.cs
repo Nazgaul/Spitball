@@ -175,14 +175,14 @@ namespace Cloudents.Web
             services.AddAutoMapper(c => c.DisableConstructorMapping(), assembliesOfProgram);
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
-            containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
+            //containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = new DbConnectionString( Configuration.GetConnectionString("DefaultConnection"),Configuration["Redis"]),
+                Redis = Configuration["Redis"],
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
                        Configuration["AzureSearch:SearchServiceAdminApiKey"]),
                 Storage = Configuration["Storage"],
-                //FunctionEndpoint = Configuration["AzureFunction:EndPoint"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"],
                 ServiceBus = Configuration["ServiceBus"]
             };
@@ -190,7 +190,7 @@ namespace Cloudents.Web
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterSystemModules(
                 Core.Enum.System.Web, assembliesOfProgram);
-
+            containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             //containerBuilder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
             containerBuilder.Populate(services);
@@ -205,7 +205,7 @@ namespace Cloudents.Web
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
             app.UseClickJacking();
 
-            BuildCsp(app);
+           // BuildCsp(app);
 
             if (env.IsDevelopment())
             {
@@ -276,7 +276,7 @@ namespace Cloudents.Web
             app.UseAuthentication();
             app.UseSignalR(routes =>
             {
-                routes.MapHub<QuestionHub>("/questionHub");
+                routes.MapHub<SbHub>("/SbHub");
             });
             app.UseMvc(routes =>
             {

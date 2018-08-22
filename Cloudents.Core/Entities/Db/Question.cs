@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
@@ -14,7 +16,7 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Question //: IHaveEvent
+    public class Question : IEvents
     {
         public Question(QuestionSubject subject, string text, decimal price, int attachments, User user, QuestionColor color)
         : this()
@@ -36,14 +38,16 @@ namespace Cloudents.Core.Entities.Db
             }
 
             QuestionCreateTransaction();
+            Events.Add(new QuestionCreatedEvent(this));
 
-           
+
         }
 
         [UsedImplicitly]
         protected Question()
         {
             Answers = Answers ?? new List<Answer>();
+            Events = new List<IEvent>();
         }
 
         public virtual long Id { get; protected set; }
@@ -92,8 +96,9 @@ namespace Cloudents.Core.Entities.Db
             }
             CorrectAnswer = correctAnswer;
 
-            //TODO remove from earned or question from user
             MarkCorrectTransaction(correctAnswer);
+
+            Events.Add(new MarkAsCorrectEvent(correctAnswer));
         }
 
         public virtual void MarkCorrectTransaction(Answer correctAnswer)
@@ -115,6 +120,6 @@ namespace Cloudents.Core.Entities.Db
         }
 
 
-       // public virtual IList Events => new List<IEventMessage>();
+        public virtual IList<IEvent> Events { get; protected set; }
     }
 }

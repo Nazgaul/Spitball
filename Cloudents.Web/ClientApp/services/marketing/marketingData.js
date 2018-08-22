@@ -8,7 +8,7 @@ const marketingData = {
                 text: 'We need to send you a confirmation code'
             }
         },
-        campaignX: {
+        askaquestion: {
             stepOne: {
                 text: 'Sign up with your email to get your HW questions answered now.'
             },

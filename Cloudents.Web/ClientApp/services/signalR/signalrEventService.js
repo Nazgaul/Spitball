@@ -5,19 +5,22 @@ import { signlaREvents } from './signalREventHandler'
 let signalRConnectionPool = [];
 
 
-function Notification(name, eventObj){
-    this.name = `NT_ ${name}`;
-    this.extraData = eventObj.extraData;
+function Notification(eventObj){
+    let type = eventObj.type.toLowerCase();
+    let action = eventObj.action.toLowerCase();
+    this.type = type;
+    this.data = eventObj.data;
+    this.action = action;
 }
 
 
 function messageHandler(message){
     //Todo create Notification Object
-    /*let notification = new Notification("test", message)*/
+    let notificationObj = new Notification(message)
     console.log(message);
 
     //Todo fire signlaREvents correct event
-    /*signlaREvents[notification.name]();*/
+    signlaREvents[notificationObj.type][notificationObj.action](notificationObj.data);
 }
 
 function connectionOn(connection, message, callback){
@@ -39,12 +42,12 @@ function createConnection(connString){
 }
 
 //init function is launched from the main.js
-export default function init(connString = '/questionHub'){
+export default function init(connString = '/sbHub'){
     //create a signalR Connection
     let connection = createConnection(connString)
     
     //open the connection and register the events
-    startConnection(connection, "ReceiveMessage"); 
+    startConnection(connection, "Message"); 
 }
 
 export function getMainConnection(){

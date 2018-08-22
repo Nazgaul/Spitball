@@ -9,7 +9,6 @@ import initSignalRService from './services/signalR/signalrEventService'
 const scroll = () =>
     import("./components/helpers/infinateScroll.vue");
 import VScroll from "vuetify/es5/directives/scroll";
-
 const GeneralPage = () =>
     import("./components/helpers/generalPage.vue");
 import VueRouter from "vue-router";
@@ -35,6 +34,7 @@ const vuetifyComponents = {
     VTextField,
     VSelect,
     VBtn,
+    VBtnToggle,
     VTooltip,
     VMenu,
     VSwitch,
@@ -68,6 +68,7 @@ import {
     VDivider,
     VDialog,
     VBtn,
+    VBtnToggle,
     VTooltip,
     VMenu,
     VSwitch,
@@ -77,7 +78,8 @@ import {
     VNavigationDrawer,
     VAvatar,
     VPagination,
-    VDataTable
+    VDataTable,
+
 
 } from "vuetify";
 import * as route from "./routes";
@@ -114,9 +116,13 @@ const router = new VueRouter({
     routes: route.routes,
     scrollBehavior(to, from, savedPosition) {
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
-              resolve({ x: 0, y: 0 });
-            }, 500);
+           // setTimeout(() => {
+                if(savedPosition){
+                    resolve({ x: savedPosition.x, y: savedPosition.y });
+                }else{
+                    resolve({ x: 0, y: 0 });
+                }
+            //}, 500);
           });
           
         //gaby: deprecated not actually saving the last scroll position.

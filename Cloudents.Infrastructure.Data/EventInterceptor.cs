@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
-using NHibernate;
 using NHibernate.Event;
 
 namespace Cloudents.Infrastructure.Data
