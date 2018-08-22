@@ -12,8 +12,10 @@ export default {
                 source: [],
                 course: [],
                 jobType: [],
-                filter: []
+                filter: [],
+
             },
+            staticFilter: ['Unanswered', 'Answered', 'Sold'],
             sort: this.sortVal ? this.sortVal : (this.sortOptions && this.sortOptions.length) ? this.sortOptions[0].id : ""
         }
     },
@@ -21,7 +23,7 @@ export default {
     props: {
         value: {type: Boolean},
         sortOptions: {type: Array, default: () => []},
-        filterOptions: {type: Array, default: () => []},
+        filterOptions: {type: Array, default:()=>[]},
         filterVal: {type: Array, default: () => []},
         sortVal: {}
     },
@@ -35,15 +37,14 @@ export default {
             });
         },
         applyFilters() {
+            console.log('filter:::::', this.filters);
             this.UPDATE_SEARCH_LOADING(true);
             //if filters have courses and courses has been changed save the changes
             let courseBefore = this.filterVal.filter(i => i.key === 'course').map(i => i.value);
             let courseNow = this.filters.course;
             let mergedCourseSet = new Set([...courseNow, ...courseBefore]);
             let isNotEqual = courseNow.length < mergedCourseSet.size;
-            console.log(isNotEqual);
-            if ((this.filterOptions.find(i => i.modelId === 'course')) &&
-                (courseBefore.length !== courseNow.length || isNotEqual)) {
+            if ((this.filterOptions.find(i => i.modelId === 'course')) && (courseBefore.length !== courseNow.length || isNotEqual)) {
                 this.setFilteredCourses(this.filters.course);
             }
             if (this.filters.filter.includes('inPerson')) {
@@ -88,5 +89,6 @@ export default {
 
     created() {
         this.initFilters(this.filterVal);
+
     }
 }
