@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Autofac;
+using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -40,6 +41,7 @@ namespace Cloudents.Infrastructure.Data
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsSelf()
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
+                //EnableInterfaceInterceptors().InterceptedBy(typeof(CacheResultInterceptor));
 
 
             //builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()

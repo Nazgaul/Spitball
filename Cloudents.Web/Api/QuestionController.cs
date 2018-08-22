@@ -120,7 +120,17 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<QuestionDto>
             {
                 Result = p,
-                Facet = result.Facet,
+                Filters = new Dictionary<string, IEnumerable<string>>
+                {
+                    ["Content"] = result.Facet,
+                    ["State"] = new []
+                    {
+                        //TODO : enum
+                        "Unanswered",
+                        "Answered",
+                        "Sold"
+                    }
+                } ,
                 NextPageLink = nextPageLink
             };
         }

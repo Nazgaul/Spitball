@@ -25,11 +25,6 @@ namespace Cloudents.Infrastructure.Write
         public Task UpdateDataAsync(IEnumerable<T> items, CancellationToken token)
         {
             if (items == null) throw new ArgumentNullException(nameof(items));
-            //var docs = items as IList<T> ?? items.ToList();
-            //if (docs.Count == 0)
-            //{
-            //    return Task.CompletedTask;
-            //}
             var batch = IndexBatch.MergeOrUpload(items);
             return IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
         }
@@ -37,11 +32,6 @@ namespace Cloudents.Infrastructure.Write
         public Task DeleteDataAsync(IEnumerable<string> ids, CancellationToken token)
         {
             if (ids == null) throw new ArgumentNullException(nameof(ids));
-            //var docs = ids as IList<string> ?? ids.ToList();
-            //if (docs.Count == 0)
-            //{
-            //    return Task.CompletedTask;
-            //}
             var batch = IndexBatch.Delete(ids.Select(s => new T
             {
                 Id = s

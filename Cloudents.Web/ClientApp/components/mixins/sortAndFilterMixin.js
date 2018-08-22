@@ -30,6 +30,7 @@ export default {
                     [].concat(val).forEach(value => filterOptions = filterOptions.concat({ key, value }));
                 }
             });
+            console.log('options',filterOptions)
             return filterOptions;
         }
     },

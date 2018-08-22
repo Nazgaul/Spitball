@@ -154,9 +154,17 @@ export default {
                     }
                 );
         },
+        renderQuestionTime(className){
+            timeago().render(document.querySelectorAll(className));
+        }
     },
     mounted() {
-        timeago().render(document.querySelectorAll('.timeago'));
+        this.renderQuestionTime('.timeago')
         // use render method to render nodes in real time
+    },
+    updated(){
+        // when signalR adds a question we want the time to be rerendered to show correct time
+        // thats why we have same function on mounted and updated
+        this.renderQuestionTime('.timeago')
     },
 }

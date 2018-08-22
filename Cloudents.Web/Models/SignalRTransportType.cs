@@ -7,24 +7,24 @@ namespace Cloudents.Web.Models
 {
     public class SignalRTransportType<T>
     {
-        private readonly SignalRAction _action;
         public SignalRTransportType(string type, SignalRAction action, IEnumerable<T> data)
         {
             Type = type;
-            _action = action;
+            Action = action;
             Data = data;
         }
 
         public SignalRTransportType(string type, SignalRAction action, T data)
         {
             Type = type;
-            _action = action;
+            Action = action;
             Data = new[] { data };
         }
 
         public string Type { get; }
 
-        public string Action => _action.ToString("G");
+        public SignalRAction Action { get; set; }
+    
         public IEnumerable<T> Data { get; }
     }
 

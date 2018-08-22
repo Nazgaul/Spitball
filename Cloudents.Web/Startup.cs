@@ -9,7 +9,6 @@ using Cloudents.Core;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
@@ -116,7 +115,12 @@ namespace Cloudents.Web
             {
                 SwaggerInitial(services);
             }
-            services.AddSignalR().AddRedis(Configuration["Redis"]);
+            services.AddSignalR().AddRedis(Configuration["Redis"]).AddJsonProtocol(o =>
+                {
+                    o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                    o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
+                });
 
             services.AddResponseCompression();
             services.AddResponseCaching();
