@@ -14,6 +14,7 @@ namespace Cloudents.Core.CommandHandler.Admin
    
         private readonly IUserRepository _userRepository;
 
+
         public DeleteUserCommandHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
@@ -22,7 +23,12 @@ namespace Cloudents.Core.CommandHandler.Admin
 
         public async Task ExecuteAsync(DeleteUserCommand message, CancellationToken token)
         {
+         
             var user = await _userRepository.GetUserByEmail(message.Email, token);
+            foreach (var q in user.Questions)
+                            q.CorrectAnswer = null;
+            
+        
             await _userRepository.DeleteAsync(user, token);
         }
     }
