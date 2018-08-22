@@ -22,6 +22,7 @@ namespace Cloudents.Infrastructure.Data.Maps
             Map(e => e.Image).Nullable();
             Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
+            Map(e => e.FraudScore);
 
             Map(e => e.Created).Insert().Not.Update();
             Map(e => e.Fictive).ReadOnly();

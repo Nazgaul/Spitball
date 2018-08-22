@@ -21,15 +21,15 @@ namespace Cloudents.Core.CommandHandler.Admin
         }
 
 
-        public async Task ExecuteAsync(DeleteUserCommand message, CancellationToken token)
+         public async Task ExecuteAsync(DeleteUserCommand message, CancellationToken token)
         {
-         
-            var user = await _userRepository.GetUserByEmail(message.Email, token);
-            foreach (var q in user.Questions)
-                            q.CorrectAnswer = null;
-            
-        
-            await _userRepository.DeleteAsync(user, token);
+
+            /*var user = await _userRepository.GetUserByEmail(message.Email, token);
+             foreach (var q in user.Questions)
+                             q.CorrectAnswer = null;
+
+
+             await _userRepository.DeleteAsync(user, token);*/
         }
     }
 }
