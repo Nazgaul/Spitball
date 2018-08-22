@@ -5,9 +5,9 @@
     <!--<MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>-->
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
-    <AssemblyVersion>8.8.20.0</AssemblyVersion>
-    <FileVersion>8.8.20.0</FileVersion>
-    <Version>8.8.20</Version>
+    <AssemblyVersion>8.8.22.0</AssemblyVersion>
+    <FileVersion>8.8.22.0</FileVersion>
+    <Version>8.8.22</Version>
     <UserSecretsId>edbe3a22-9985-49e7-8ceb-7cd343f48247</UserSecretsId>
   </PropertyGroup>
 
