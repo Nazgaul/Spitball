@@ -25,8 +25,8 @@ namespace Cloudents.Core.CommandHandler.Admin
         {
          
             var user = await _userRepository.GetUserByEmail(message.Email, token);
-            foreach (var q in user.Questions)
-                            q.CorrectAnswer = null;
+            //foreach (var q in user.Questions)
+            //                q.CorrectAnswer = null;
             
         
             await _userRepository.DeleteAsync(user, token);
