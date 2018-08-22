@@ -173,7 +173,7 @@ namespace Cloudents.Web
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
-                Assembly.Load("Cloudents.Infrastructure.Data"),
+                //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.GetExecutingAssembly()
             };
             services.AddAutoMapper(c => c.DisableConstructorMapping(), assembliesOfProgram);

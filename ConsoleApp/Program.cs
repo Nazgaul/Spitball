@@ -44,7 +44,7 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
-                Assembly.Load("Cloudents.Infrastructure.Data"),
+                //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 

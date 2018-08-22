@@ -49,7 +49,7 @@ namespace Cloudents.Functions.Di
             builder.RegisterSystemModules(
                 Core.Enum.System.Function,
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
-                Assembly.Load("Cloudents.Infrastructure.Data"),
+                //Assembly.Load("Cloudents.Infrastructure.Data"),
                 //Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"));
