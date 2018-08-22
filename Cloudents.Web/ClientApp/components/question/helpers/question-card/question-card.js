@@ -109,6 +109,7 @@ export default {
             updateToasterParams: 'updateToasterParams'
         }),
         getQuestionColor(type){
+            
                 if (!!this.cardData && this.cardData.color && this.colorsSet[`${this.cardData.color}`]) {
                     return this.colorsSet[`${this.cardData.color}`][type]
                 } else {
