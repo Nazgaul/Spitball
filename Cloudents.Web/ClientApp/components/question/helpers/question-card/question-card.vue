@@ -4,7 +4,7 @@
             <!-- question Card -->
             <div class="top-block" >
             <user-block :style="cssRuleFontColor" :cardData="cardData" :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
-                <template> · <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
+                <template> · <span class="timeago" :datetime="cardTime"></span><span
                         v-if="typeAnswer"
                         class="q-answer">
                     <button class="accept-btn right" @click="markAsCorrect"

@@ -1,7 +1,6 @@
 ﻿@import "../../mixin.less";
 
 .verticals.line {
-    height:1px; //edge fix
     .limited-width()!important;
     @media(max-width: @screen-sm) {
         align-items: stretch;
@@ -9,6 +8,9 @@
         padding-left: 0px !important;
     }
 
+    .v-tabs__container{
+        height:44px;
+    }
 
     .v-tabs__item {
         text-transform: capitalize;

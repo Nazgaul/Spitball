@@ -46,7 +46,7 @@ export default {
         return {
             isDeleted: false,
             showActionToaster: false,
-            flaggedAsCorrect: false,
+            //flaggedAsCorrect: false,
             toasterText: '',
             timeoutID: null,
             action: null,
@@ -54,7 +54,7 @@ export default {
             src: '',
             selectedImage: '',
             showDialog: false,
-            limitedCardAnswers: [],
+            //limitedCardAnswers: [],
             colorsSet: colorsSet,
         }
     },
@@ -82,6 +82,23 @@ export default {
         },
         cssRuleBackgroundColor(){
             return this.getQuestionColor("cssRule")                
+        },
+        limitedCardAnswers(){
+            if (typeof  this.cardData.answers === "number") {
+                if (this.cardData.answers > 3) {
+                   return  3;
+                } else {
+                    return this.cardData.answers;
+                }
+            } else if (!!this.cardData && !!this.cardData.answers) {
+                return this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
+            }
+        },
+        flaggedAsCorrect(){ 
+            return this.isCorrectAnswer
+        },
+        cardTime(){
+            return this.cardData.dateTime || this.cardData.create
         }
     },
     methods: {
@@ -137,27 +154,9 @@ export default {
                     }
                 );
         },
-        calculateAnswerToLimit() {
-            // limit card answer could be a number or array depends on route(view)
-            if (typeof  this.cardData.answers === "number") {
-                if (this.cardData.answers > 3) {
-                    this.limitedCardAnswers = 3;
-                } else {
-                    this.limitedCardAnswers = this.cardData.answers;
-                }
-            } else if (!!this.cardData && !!this.cardData.answers) {
-                this.limitedCardAnswers = this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
-            }
-        }
     },
     mounted() {
         timeago().render(document.querySelectorAll('.timeago'));
-// use render method to render nodes in real time
+        // use render method to render nodes in real time
     },
-    created() {
-        //set color for card
-        
-        this.flaggedAsCorrect = this.isCorrectAnswer;
-        this.calculateAnswerToLimit();
-    }
 }
