@@ -13,7 +13,7 @@
                 </ul>
             </div>
             <div class="footer">
-                <router-link tag="button" to="/faq" v-language:inner>more</router-link>
+                <router-link class="footer-btn" tag="button" to="/faq" v-language:inner>more</router-link>
             </div>
         </v-flex>
         <v-flex xs12 class="card-block mt-3">
@@ -22,7 +22,7 @@
                 <p>{{suggestList[name]}}</p>
             </div>
             <div class="footer">
-                <router-link tag="button" :to="{path:'/'+name,query:{q:text}}" v-language:inner>show_me</router-link>
+                <router-link class="footer-btn" tag="button" :to="{path:'/'+name,query:{q:text}}" v-language:inner>show_me</router-link>
             </div>
         </v-flex>
     </v-flex>
