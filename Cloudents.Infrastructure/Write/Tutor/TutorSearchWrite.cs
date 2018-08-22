@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
@@ -12,7 +13,7 @@ namespace Cloudents.Infrastructure.Write.Tutor
     {
         public const string IndexName = "tutors4";
 
-        public TutorSearchWrite(SearchServiceClient client)
+        public TutorSearchWrite(SearchService client)
             : base(client, IndexName)
         {
 

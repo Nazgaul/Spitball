@@ -12,7 +12,8 @@ namespace Cloudents.Infrastructure.Search
     //Taken from https://github.com/auth0/blog/blob/master/_posts/2017-01-05-azure-search-with-aspnetcore.markdown
     public class SearchService : ISearchService
     {
-        private SearchServiceClient client;
+        private readonly SearchServiceClient _client;
+        private readonly bool _isDevelop;
 
         //Maintaining a Dictionary of Index Clients is better performant
         private ConcurrentDictionary<string, ISearchIndexClient> indexClients;
@@ -20,7 +21,8 @@ namespace Cloudents.Infrastructure.Search
         public SearchService(IConfigurationKeys configuration)
         {
             var key = configuration.Search;
-            client = new SearchServiceClient(key.Name, new SearchCredentials(key.Key));
+            _isDevelop = key.isDevelop;
+            _client = new SearchServiceClient(key.Name, new SearchCredentials(key.Key));
             indexClients = new ConcurrentDictionary<string, ISearchIndexClient>();
         }
 
@@ -31,7 +33,13 @@ namespace Cloudents.Infrastructure.Search
         /// <returns></returns>
         public ISearchIndexClient GetClient(string indexName)
         {
-            return indexClients.GetOrAdd(indexName, client.Indexes.GetClient(indexName));
+            if (_isDevelop)
+            {
+                indexName += "-dev";
+            }
+            return indexClients.GetOrAdd(indexName, _client.Indexes.GetClient(indexName));
         }
+
+        public SearchServiceClient Client => _client;
     }
 }

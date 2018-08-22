@@ -37,7 +37,9 @@ namespace Cloudents.Functions.Di
                 Redis = GetEnvironmentVariable("Redis"),
                 Search = new SearchServiceCredentials(
                     GetEnvironmentVariable("SearchServiceName"),
-                    GetEnvironmentVariable("SearchServiceAdminApiKey")),
+                    GetEnvironmentVariable("SearchServiceAdminApiKey"),
+                    bool.Parse(GetEnvironmentVariable("IsDevelop"))
+                    ),
                 MailGunDb = GetEnvironmentVariable("MailGunConnectionString"),
                 BlockChainNetwork = GetEnvironmentVariable("BlockChainNetwork")
             };

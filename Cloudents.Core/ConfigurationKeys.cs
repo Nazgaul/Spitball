@@ -28,14 +28,17 @@ namespace Cloudents.Core
 
     public class SearchServiceCredentials
     {
-        public SearchServiceCredentials(string name, string key)
+        public SearchServiceCredentials(string name, string key, bool isDevelop)
         {
             Name = name;
             Key = key;
+            this.isDevelop = isDevelop;
         }
 
         public string Name { get; }
         public string Key { get; }
+
+        public bool isDevelop { get; }
     }
 
     public class DbConnectionString
