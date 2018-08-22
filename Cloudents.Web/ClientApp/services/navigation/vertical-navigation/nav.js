@@ -32,7 +32,9 @@ const nav = {
             id: routes.notesRoute,
             name: "Study Documents",
             needLocation:false,
-            filter: [{ id: "course", name: "My Courses" }, { id: "source", name: "sources" }],
+            //TODO Beny refactor filter
+            // filter: [{ id: "course", name: "My Courses" }, { id: "source", name: "sources" }],
+            filter: [ { id: "source", name: "sources" }],
             sort: [
                 { id: "relevance", name: "relevance" },
                 { id: "date", name: "date" }
@@ -48,7 +50,8 @@ const nav = {
             name: "Flashcards",
             needLocation: false,
             filter: [
-                { id: "course", name: "My Courses" },
+                //TODO Beny refactor filter
+                // { id: "course", name: "My Courses" },
                 { id: "source", name: "sources" }
             ],
             sort: [

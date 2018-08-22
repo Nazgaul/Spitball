@@ -25,7 +25,7 @@ namespace Cloudents.Core.Message
 
         public override string ToString()
         {
-            return $"Congratz one of your answers is correct";
+            return "Congratz one of your answers is correct";
         }
     }
 }

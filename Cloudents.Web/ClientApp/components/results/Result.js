@@ -88,7 +88,7 @@ export default {
         //update the course list of filters if have in page while the course list changes
         myCourses(val) {
             if (this.filterObject) {
-                const courseIndex = this.filterObject.findIndex(i => i.modelId === "course");
+                const courseIndex = this.filterObject.findIndex(item => item.modelId === "course");
                 if (courseIndex > -1)
                     this.filterObject[courseIndex].data = val;
             }
@@ -230,7 +230,6 @@ export default {
             facet ? this.updateFacet(facet) : this.updateFacet(null);
             this.pageData = {};
             this.content = data;
-            //this.$emit('dataUpdated', this.items.length ? this.items[0] : null);
             this.filter = this.filterSelection;
             this.UPDATE_SEARCH_LOADING(false);
             (this.isLoad) ? this.isLoad = false : this.UPDATE_LOADING(false);
