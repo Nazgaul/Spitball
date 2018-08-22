@@ -37,7 +37,6 @@ export default {
             });
         },
         applyFilters() {
-            console.log('filter:::::', this.filters);
             this.UPDATE_SEARCH_LOADING(true);
             //if filters have courses and courses has been changed save the changes
             let courseBefore = this.filterVal.filter(i => i.key === 'course').map(i => i.value);
