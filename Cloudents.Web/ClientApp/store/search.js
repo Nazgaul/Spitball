@@ -6,7 +6,6 @@ const state = {
     loading: false,
     serachLoading: false,
     search:{},
-    items: [],
     itemsPerVertical: {
         ask:[],
         note:[],
@@ -35,9 +34,6 @@ const mutations = {
     [SEARCH.UPDATE_SEARCH_PARAMS](state, updatedDate) {
         state.search = {...updatedDate};
     },
-    [SEARCH.UPDATE_ITEMS](state, itemsData){
-        //state.items = itemsData;
-    },
     [SEARCH.SET_ITEMS_BY_VERTICAL](state, verticalObj){
         state.itemsPerVertical[verticalObj.verticalName] = verticalObj.verticalData;
     },
@@ -47,6 +43,16 @@ const mutations = {
     },
     [SEARCH.ADD_QUESTION](state, questionToAdd){
         state.itemsPerVertical.ask.data.unshift(questionToAdd);
+    },
+    [SEARCH.REMOVE_QUESTION](state, questionToRemove){
+        for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; i++ ){
+            let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
+            if(currentQuestion.id === questionToRemove.id){
+                //remove the question from the list
+                state.itemsPerVertical.ask.data.splice(questionIndex, 1);
+                return;
+            }
+        }
     }
 };
 
@@ -125,6 +131,10 @@ const actions = {
     addQuestionItemAction({ commit }, notificationQuestionObject){
        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
        commit(SEARCH.ADD_QUESTION, questionObj);
+    },
+    removeQuestionItemAction({ commit }, notificationQuestionObject){
+        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
+       commit(SEARCH.REMOVE_QUESTION, questionObj);
     }
 };
 

@@ -6,10 +6,11 @@ export const signlaREvents = {
             arrEventObj.forEach((questionToAdd)=>{
                 store.dispatch("addQuestionItemAction", questionToAdd);
             })
-            
         },
-        delete: function(eventObj){
-            store.dispatch("removeQuestionItem", eventObj);
+        delete: function(arrEventObj){
+            arrEventObj.forEach((questionToRemove)=>{
+                store.dispatch("removeQuestionItemAction", questionToRemove);
+            })
         }
     }
 }
