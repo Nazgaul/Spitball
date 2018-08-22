@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -10,16 +12,16 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.EventHandler
 {
-    public class SignalRQuestionCreated : IEventHandler<QuestionCreatedEvent>
+    public class SignalRQuestionDelete : IEventHandler<QuestionDeletedEvent>
     {
         private readonly IHubContext<SbHub> _hubContext;
 
-        public SignalRQuestionCreated(IHubContext<SbHub> hubContext)
+        public SignalRQuestionDelete(IHubContext<SbHub> hubContext)
         {
             _hubContext = hubContext;
         }
 
-        public async Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
+        public async Task HandleAsync(QuestionDeletedEvent eventMessage, CancellationToken token)
         {
             var dto = new QuestionDto
             {
@@ -31,7 +33,7 @@ namespace Cloudents.Web.EventHandler
                 },
                 Answers = 0,
                 Id = eventMessage.Question.Id,
-                DateTime = DateTime.UtcNow,
+                DateTime = eventMessage.Question.Updated,
                 Files = eventMessage.Question.Attachments,
                 HasCorrectAnswer = false,
                 Price = eventMessage.Question.Price,
@@ -39,7 +41,7 @@ namespace Cloudents.Web.EventHandler
                 Color = eventMessage.Question.Color,
                 Subject = eventMessage.Question.Subject.Text
             };
-            await _hubContext.Clients.All.SendAsync(SbHub.MethodName, new SignalRTransportType<QuestionDto>("question", SignalRAction.Add, dto), token);
+            await _hubContext.Clients.All.SendAsync(SbHub.MethodName, new SignalRTransportType<QuestionDto>("question", SignalRAction.Delete, dto), token);
         }
     }
 }
