@@ -11,7 +11,6 @@ export default {
         ...mapActions(['setFilteredCourses']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         updateSort(val) {
-            
             this.$router.push({ query: { ...this.$route.query, sort: val } });
         },
         updateFilter({ id, val, type }) {
@@ -30,8 +29,6 @@ export default {
         }
     },
     created(){
-
-
         console.log('options filter::',this.filterOptions,   'val filter::',  this.filterVal)
     }
 }

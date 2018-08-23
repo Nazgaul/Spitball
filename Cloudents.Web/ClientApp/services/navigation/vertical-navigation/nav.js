@@ -19,7 +19,7 @@ const nav = {
     ask: {
         banner: getPromoQueryFromRoute,
         data:{
-            filter:[{ id: "Content", name: "subject" }, { id: "State", name: "type" }],
+            filter:[], //TODO filters refactor check if we still need this
             id: routes.questionRoute,
             name: "Homework Help",
             icon: "sbf-ask-q", //TODO do we need this.....

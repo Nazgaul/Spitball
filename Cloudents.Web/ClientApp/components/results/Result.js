@@ -177,7 +177,9 @@ export default {
         updateContentOfPage(to, from, next) {
             const toName = to.path.slice(1);
             const updateFilter = (to.path === from.path && to.query.q === from.query.q);
-            this.fetchingData({name: toName, params: {...to.query, ...to.params, term: to.query.q}}, true)
+            let params=  {...to.query, ...to.params, term: to.query.q};
+            console.log('params', params)
+            this.fetchingData({name: toName, params}, true)
                 .then((data) => {
                     //update data for this page
                     this.showFilterNotApplied = false;
@@ -206,7 +208,6 @@ export default {
             }
             next();
         },
-       
         //Function for update the filter object(when term or vertical change)
         $_updateFilterObject(vertical) {
             let currentPage = page[vertical];

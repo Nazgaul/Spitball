@@ -123,8 +123,12 @@ const transferMap = {
 
 export default {
     activateFunction: {
-        ask({ source, term=""}) {
-            return getQuestions({term, source}).then(transferResultAsk);
+        // ask({ source, term=""}) {
+        //     return getQuestions({term, source}).then(transferResultAsk);
+        // },
+        ask(params) {
+            console.log(params)
+            return getQuestions(params).then(transferResultAsk);
         },
         note({ source, university, course, term="", page, sort }) {
             return getDocument({ source, university, course, query:term, page, sort }).then(transferResultNote);
