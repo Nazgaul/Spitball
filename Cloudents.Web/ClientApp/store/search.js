@@ -53,6 +53,16 @@ const mutations = {
                 return;
             }
         }
+    },
+    [SEARCH.ADD_QUESTION_VIEWR](state, question){
+        let questionIndex = state.itemsPerVertical.ask.data.indexOf(question);
+        state.itemsPerVertical.ask.data[questionIndex].watchingNow++; 
+    },
+    [SEARCH.REMOVE_QUESTION_VIEWR](state, question){
+        let questionIndex = state.itemsPerVertical.ask.data.indexOf(question);
+        if(state.itemsPerVertical.ask.data[questionIndex].watchingNow > 0){
+            state.itemsPerVertical.ask.data[questionIndex].watchingNow--; 
+        }
     }
 };
 
@@ -135,6 +145,14 @@ const actions = {
     removeQuestionItemAction({ commit }, notificationQuestionObject){
         let questionObj = searchService.createQuestionItem(notificationQuestionObject);
        commit(SEARCH.REMOVE_QUESTION, questionObj);
+    },
+    addQuestionViewr({ commit }, notificationQuestionObject){
+        let questionObj = notificationQuestionObject;
+        commit(SEARCH.ADD_QUESTION_VIEWR, questionObj);
+    },
+    removeQuestionViewr({ commit }, notificationQuestionObject){
+        let questionObj = notificationQuestionObject;
+        commit(SEARCH.REMOVE_QUESTION_VIEWR, questionObj);
     }
 };
 

@@ -5,7 +5,7 @@ import { signlaREvents } from './signalREventHandler'
 let signalRConnectionPool = [];
 
 
-function Notification(eventObj){
+export function Notification(eventObj){
     let type = eventObj.type.toLowerCase();
     let action = eventObj.action.toLowerCase();
     this.type = type;

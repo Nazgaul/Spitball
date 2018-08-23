@@ -57,6 +57,7 @@ function QuestionItem(objInit){
     this.template = "ask";
     this.filesNum = this.files;
     this.answersNum = this.answers;
+    this.watchingNow = 0;
 }
 
 

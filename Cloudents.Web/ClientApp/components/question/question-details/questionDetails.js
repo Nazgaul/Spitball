@@ -29,6 +29,7 @@ export default {
     },
     beforeRouteLeave(to, from, next) {
         this.resetQuestion();
+        console.log("leaving question");
         next()
     },
     methods: {
@@ -160,6 +161,7 @@ export default {
         },
     },
     created() {
+        console.log("entering question");
         this.getData();
         // to do may be to consider change to State Store VueX
         this.$root.$on('deleteAnswer', (id) => {
