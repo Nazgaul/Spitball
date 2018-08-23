@@ -8,7 +8,7 @@ describe('user store', function () {
         test('filters', ()=> {
             let state={};
             let facetList=["full time", "part time", "contractor", "internship", "campus rep"];
-            store.mutations[USER.UPDATE_FACET](state,facetList);
+            store.mutations[USER.UPDATE_FILTERS](state,facetList);
             expect(state.filters.length).toBeTruthy();
             expect(state.filters).toBe(facetList);
         });

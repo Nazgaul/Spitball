@@ -109,6 +109,7 @@ const actions = {
                         });
                     } else { resolve(); }
                 }).then(() => {
+
                     return searchService.activateFunction[name](paramsList).then((data) => {
                         let verticalObj = {
                             verticalName: name,
