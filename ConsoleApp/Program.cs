@@ -5,10 +5,13 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
+using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Event;
 using Cloudents.Core.Storage;
+using Cloudents.Infrastructure.Write;
+using Microsoft.Azure.Search.Models;
 
 namespace ConsoleApp
 {
@@ -26,7 +29,7 @@ namespace ConsoleApp
                 Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                    ConfigurationManager.AppSettings["AzureSearchKey"]),
+                    ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
@@ -41,15 +44,16 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
-                Assembly.Load("Cloudents.Infrastructure.Data"),
+                //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
 
+            FluentSearchField<Question>.Make.Map(x => x.Id, DataType.String).Build();
             //TransactionPopulation tp = new TransactionPopulation(_container);
             //await tp.AddToUserMoney(1000, 1642);
             IEvent e = new AnswerCreatedEvent(null);
-             var b = _container.Resolve<IEventPublisher>();
+            var b = _container.Resolve<IEventPublisher>();
             await b.PublishAsync(e, default);
             // QuestionRepository c = new QuestionRepository(b);
             // Console.WriteLine(c.GetOldQuestionsAsync(default));
@@ -134,7 +138,7 @@ namespace ConsoleApp
                     {
                         if (question.CorrectAnswer == null && question.User.Fictive)
                         {
-                           // question.Created = DateTimeHelpers.NextRandomDate(2, random);
+                            // question.Created = DateTimeHelpers.NextRandomDate(2, random);
                             Console.WriteLine(question.Created);
                             await repository.UpdateAsync(question, default);
                         }
@@ -144,11 +148,11 @@ namespace ConsoleApp
                     await unitOfWork.CommitAsync(default).ConfigureAwait(false);
                 }
             }
-           
+
         }
     }
 
-    public class PPP: IDataProtect
+    public class PPP : IDataProtect
     {
         public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
         {

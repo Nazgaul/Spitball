@@ -9,7 +9,7 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
-[assembly: InternalsVisibleTo("Cloudents.Infrastructure.Data")]
+[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
 namespace Cloudents.Core.Entities.Db
 {

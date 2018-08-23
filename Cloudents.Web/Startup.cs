@@ -173,7 +173,7 @@ namespace Cloudents.Web
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
-                Assembly.Load("Cloudents.Infrastructure.Data"),
+                //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.GetExecutingAssembly()
             };
             services.AddAutoMapper(c => c.DisableConstructorMapping(), assembliesOfProgram);
@@ -182,10 +182,12 @@ namespace Cloudents.Web
             //containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
-                Db = new DbConnectionString( Configuration.GetConnectionString("DefaultConnection"),Configuration["Redis"]),
+                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
                 Redis = Configuration["Redis"],
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
-                       Configuration["AzureSearch:SearchServiceAdminApiKey"]),
+                       Configuration["AzureSearch:SearchServiceAdminApiKey"],
+                    !HostingEnvironment.IsProduction()
+                    ),
                 Storage = Configuration["Storage"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"],
                 ServiceBus = Configuration["ServiceBus"]
@@ -209,7 +211,7 @@ namespace Cloudents.Web
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
             app.UseClickJacking();
 
-           // BuildCsp(app);
+            // BuildCsp(app);
 
             if (env.IsDevelopment())
             {
@@ -219,7 +221,7 @@ namespace Cloudents.Web
                     HotModuleReplacement = true
                 });
                 var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-                
+
                 configuration.DisableTelemetry = true;
                 app.UseDeveloperExceptionPage();
             }

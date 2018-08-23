@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Infrastructure.Search;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -14,7 +15,7 @@ namespace Cloudents.Infrastructure.Write
         public const string ScoringProfile = "university-default";
         public const string DistanceScoringParameter = "currentLocation";
 
-        public UniversitySearchWrite(SearchServiceClient client)
+        public UniversitySearchWrite(SearchService client)
             : base(client, IndexName)
         {
         }
