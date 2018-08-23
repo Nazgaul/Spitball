@@ -1,10 +1,5 @@
-const dictionary = {
-    ask: "Ask Your Question",
-    faq:"Spitball FAQ",
-    more: "More",
-    show_me:"Show me",
-    spitball:"Spitball",
-}
+import {dictionary} from "./languageDictionary"
+
 
 
 export const LanguageService = {

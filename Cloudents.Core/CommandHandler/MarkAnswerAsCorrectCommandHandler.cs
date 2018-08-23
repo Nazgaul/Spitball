@@ -14,13 +14,15 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
         //private readonly IEventPublisher _eventPublisher;
+        private readonly IRepository<User> _userRepository;
 
         public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
-            IRepository<Answer> answerRepository/*, IEventPublisher eventPublisher*/)
+            IRepository<Answer> answerRepository/*, IEventPublisher eventPublisher*/, IRepository<User> userRepository)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
-           // _eventPublisher = eventPublisher;
+            // _eventPublisher = eventPublisher;
+            _userRepository = userRepository;
         }
 
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
@@ -36,6 +38,16 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("answer is not connected to question");
             }
             question.MarkAnswerAsCorrect(answer);
+
+
+            if (System.DateTime.Now.Subtract(answer.Created).Minutes < 8)
+            {
+                var user = await _userRepository.LoadAsync(question.User.Id, token).ConfigureAwait(false);
+                user.FraudScore++;
+                if (System.DateTime.Now.Subtract(answer.Created).Minutes < 4)
+                    user.FraudScore++;
+                await _userRepository.UpdateAsync(user, default);
+            }
 
             var t1 = _questionRepository.UpdateAsync(question, token);
            // var t2 = _eventPublisher.PublishAsync(new MarkAsCorrectEvent(answer.Id), token);
