@@ -28,13 +28,13 @@ namespace Cloudents.Infrastructure.Database.Repositories
                 .SingleOrDefaultAsync<decimal>(token);
         }
 
-        public Task<User> GetRandomFictiveUserAsync(CancellationToken token)
-        {
-            return Session.QueryOver<User>().Where(w => w.Fictive)
-                   .OrderByRandom()
-                   .Take(1)
-                   .SingleOrDefaultAsync<User>(token);
-        }
+        //public Task<User> GetRandomFictiveUserAsync(CancellationToken token)
+        //{
+        //    return Session.QueryOver<User>().Where(w => w.Fictive)
+        //           .OrderByRandom()
+        //           .Take(1)
+        //           .SingleOrDefaultAsync<User>(token);
+        //}
 
         internal IQueryOver<Transaction, Transaction> UserBalanceByType(long userId, TransactionType type)
         {

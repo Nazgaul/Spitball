@@ -1,5 +1,9 @@
 ﻿namespace Cloudents.Core.Storage.Dto
 {
+    /// <summary>
+    /// New message of to pass to azure function to invoke new create question message.
+    /// NOTE: you cannot pass blob because it will not work on azure function.
+    /// </summary>
     public class NewQuestionMessage
     {
         public NewQuestionMessage(int subjectId, string text, decimal price,long userId)

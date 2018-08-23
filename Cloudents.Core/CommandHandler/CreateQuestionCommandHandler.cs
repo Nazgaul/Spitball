@@ -20,7 +20,7 @@ namespace Cloudents.Core.CommandHandler
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
             IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository,
-            IBlobProvider<QuestionAnswerContainer> blobProvider)
+            IBlobProvider<QuestionAnswerContainer> blobProvider = null)
         {
             _questionRepository = questionRepository;
             _questionSubjectRepository = questionSubjectRepository;
@@ -47,8 +47,13 @@ namespace Cloudents.Core.CommandHandler
             var id = question.Id;
 
             //TODO: not right
-            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ?? Enumerable.Empty<Task>();
-            await Task.WhenAll(l).ConfigureAwait(true);
+            if (_blobProvider != null)
+            {
+                var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ??
+                        Enumerable.Empty<Task>();
+                await Task.WhenAll(l).ConfigureAwait(true);
+            }
+            
 
             message.Id = id;
         }

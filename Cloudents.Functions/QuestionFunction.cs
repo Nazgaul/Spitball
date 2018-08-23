@@ -53,6 +53,7 @@ namespace Cloudents.Functions
                 UserId = answerMessage.UserId
             };
             await commandBus.DispatchAsync(command, token);
+            await queue.DeleteMessageAsync(msg, token);
             log.Info($"QuestionPopulate function executed at: {DateTime.Now}");
         }
 
