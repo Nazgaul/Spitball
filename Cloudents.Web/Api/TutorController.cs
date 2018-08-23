@@ -58,9 +58,9 @@ namespace Cloudents.Web.Api
             {
                 Result = result,
                 Sort = Enum.GetNames(typeof(TutorRequestSort)),
-                Filters = new Dictionary<string, IEnumerable<string>>
+                Filters = new[]
                 {
-                    ["Status"] = Enum.GetNames(typeof(TutorRequestFilter))
+                    new Models.Filters(nameof(TutorRequest.Filter),"Status", Enum.GetNames(typeof(TutorRequestFilter)))
                 },
                 NextPageLink = nextPageLink
             };

@@ -53,10 +53,14 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<JobDto>()
             {
                 Result = result.Result,
-                Filters = new Dictionary<string, IEnumerable<string>>
+                Filters = new []
                 {
-                    ["Subject"] = result.Facet
+                    new Models.Filters(nameof(JobRequest.Facet),"Subject", result.Facet)
                 },
+                //Filters = new Dictionary<string, IEnumerable<string>>
+                //{
+                //    ["Subject"] = result.Facet
+                //},
                 Sort = Enum.GetNames(typeof(JobRequestSort)),
                 NextPageLink = nextPageLink
             };

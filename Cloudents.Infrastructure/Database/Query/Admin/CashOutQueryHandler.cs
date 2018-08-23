@@ -9,7 +9,7 @@ using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
-    public class CashOutQueryHandler : IQueryHandler<CashOutQuery, IEnumerable<CashOutDto>>
+    public class CashOutQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<CashOutDto>>
     {
         private readonly IStatelessSession _session;
 
@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             _session = session.Session;
         }
 
-        public async Task<IEnumerable<CashOutDto>> GetAsync(CashOutQuery query, CancellationToken token)
+        public async Task<IEnumerable<CashOutDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
 
             var sqlQuery = _session.CreateSQLQuery(@"

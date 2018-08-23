@@ -54,6 +54,7 @@ namespace Cloudents.Management
                 Assembly.Load("Cloudents.Core"),
                 //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"), 
+                Assembly.Load("Cloudents.Infrastructure"), 
                 Assembly.GetExecutingAssembly()
             };
 

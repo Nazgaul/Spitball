@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using Cloudents.Core.Command;
 using Cloudents.Core.Command.Admin;
 
 namespace ConsoleApp
@@ -15,7 +16,7 @@ namespace ConsoleApp
         static readonly string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
         private const string ApplicationName = "Google Sheets API";
 
-        public static List<CreateQuestionCommand> GetData(string spreadsheetId, string range)
+        public static List<object> GetData(string spreadsheetId, string range)
         {
             UserCredential credential;
 
@@ -101,7 +102,8 @@ namespace ConsoleApp
                 //    Console.WriteLine("No data found.");
                 //}
                 //Console.Read();
-                return subjectList;
+               // return subjectList;
+                return null;
             }
         }
     }

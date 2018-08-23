@@ -26,8 +26,8 @@ namespace Cloudents.Management.Pages
 
         public async Task OnGet(CancellationToken token)
         {
-            var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
-            Questions = await _queryBus.QueryAsync(query, token);
+            var query = new AdminEmptyQuery();
+            Questions = await _queryBus.QueryAsync< IEnumerable<QuestionWithoutCorrectAnswerDto>>(query, token);
         }
 
         [ViewData]
