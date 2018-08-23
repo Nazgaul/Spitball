@@ -15,29 +15,35 @@
             <div class="filter-switch">
                 <!--removed :value binding cause of error Vuetify 1.1.1-->
                 <v-expansion-panel expand :value="0">
-                    <v-expansion-panel-content v-for="(k, index) in filterOptions" :key="index">
+                    <v-expansion-panel-content v-for="(singleFilter, index) in filterOptions" :key="index">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
-                         <template slot="header">
+                        <template slot="header">
                             <div class="icon-wrapper">
-                                <slot :name="`${k.modelId}TitlePrefix`"></slot>
+                                <slot :name="`${singleFilter.modelId}TitlePrefix`"></slot>
                             </div>
-                            <slot name="headerTitle" :title="k.title">
-                                <div>{{k.title}}</div>
+
+                            <slot name="headerTitle" :title="singleFilter.title">
+                                <div>{{singleFilter.title}}</div>
                             </slot>
                         </template>
                         <div :class="['sort-filter',$route.path==='/ask'?'no-maxHeight':'']">
-                            <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
-                                <input type="checkbox" :id="(s.id?s.id:s)"
-                                       :checked="filterVal.find(i=>i.key===k.modelId&&i.value===(s.id?s.id.toString():s.toString()))"
-                                       @change="updateFilter({id:k.modelId,val:(s.id?s.id.toString():s),type:$event})"/>
+                            <div v-for="filterItem in singleFilter.data"
+                                 :key="(filterItem.id ? filterItem.id : filterItem)" class="filter">
+                                <input type="checkbox" :id="(filterItem.id ? filterItem.id : filterItem)"
+                                       :checked="filterVal.find(i=>i.key===singleFilter.modelId && i.value===( filterItem.id ? filterItem.id.toString() : filterItem.toString()))"
+                                       @change="updateFilter({
+                                       id : singleFilter.modelId,
+                                       val:(filterItem.id ? filterItem.id.toString() : filterItem),
+                                       type : $event} )"/>
 
-                                <label class="checkmark" :for="(s.id?s.id:s)"></label>
-                                <label class="title-label" :title="s.name?s.name:s" :for="(s.id?s.id:s)">
-                                    {{s.name?s.name:s | capitalize}}
+                                <label class="checkmark" :for="(filterItem.id ? filterItem.id : filterItem)"></label>
+                                <label class="title-label" :title="filterItem.name ? filterItem.name : filterItem" :for="(filterItem.id ? filterItem.id : filterItem)">
+                                    {{filterItem.name ? filterItem.name : filterItem | capitalize}}
                                 </label>
                             </div>
-                            <slot :name="`${k.modelId}EmptyState`" v-if="k.data&&k.data.length===0"></slot>
-                            <slot :name="`${k.modelId}ExtraState`" v-else></slot>
+                            <slot :name="`${singleFilter.modelId}EmptyState`"
+                                  v-if="singleFilter.data && singleFilter.data.length===0"></slot>
+                            <slot :name="`${singleFilter.modelId}ExtraState`" v-else></slot>
                         </div>
                     </v-expansion-panel-content>
                 </v-expansion-panel>

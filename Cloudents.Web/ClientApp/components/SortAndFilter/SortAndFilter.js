@@ -28,5 +28,10 @@ export default {
             if (id === 'course') { this.setFilteredCourses(query.course) }
             this.$router.push({ query });
         }
+    },
+    created(){
+
+
+        console.log('options filter::',this.filterOptions,   'val filter::',  this.filterVal)
     }
 }

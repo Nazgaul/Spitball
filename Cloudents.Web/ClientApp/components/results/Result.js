@@ -96,7 +96,7 @@ export default {
     },
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getFacet', 'getVerticalData', 'accountUser', 'showRegistrationBanner']),
+        ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
         
         filterCondition() {
@@ -157,7 +157,7 @@ export default {
     },
 
     methods: {
-        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFacet', 'updateLoginDialogState']),
+        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFilters', 'updateLoginDialogState']),
         ...mapMutations(["UPDATE_SEARCH_LOADING"]),
 
         subFilterVertical(val) {
@@ -219,16 +219,35 @@ export default {
             }
             else {
                 //create filter object as the above structure but from list while the data is computed according to the filter id
-                this.filterObject = currentPage.filter.map((i) => {
-                    const item = {title: i.name, modelId: i.id};
-                    item.data = (i.id === "course") ? this.myCourses : this.pageData[i.id] ? this.pageData[i.id] : this.getFacet ? this.getFacet : [];
-                    return item;
-                });
+                //TODO filter refactor
+                this.filterObject = [];
+                let filterNames = Object.keys(this.getFilters);
+                for(let i = 0; i < filterNames.length; i++){
+                        let item = {title: `${filterNames[i]}`, modelId: `${filterNames[i]}`};
+                        item.data = this.getFilters ? this.getFilters[filterNames[i]] : [];
+                            this.filterObject.push(item);
+                }
+                console.log(this.filterObject)
+                //     this.getFilters.map((singleItem, index) => {
+                //     const item = {title: singleItem, modelId: singleItem};
+                //     item.data = (singleItem.id === "course") ? this.myCourses : this.pageData[singleItem.id] ? this.pageData[singleItem.id] : this.getFilters ? this.getFilters[singleItem.id]: [];
+                //     return item;
+                // });
+                //     currentPage.filter.map((singleItem, index) => {
+                //     const item = {title: singleItem.name, modelId: singleItem.id};
+                //     item.data = (singleItem.id === "course") ? this.myCourses : this.pageData[singleItem.id] ? this.pageData[singleItem.id] : this.getFilters ? this.getFilters[singleItem.id]: [];
+                //     return item;
+                // });
+                // this.filterObject = currentPage.filter.map((singleItem, index) => {
+                //     const item = {title: singleItem.name, modelId: singleItem.id};
+                //     item.data = (singleItem.id === "course") ? this.myCourses : this.pageData[singleItem.id] ? this.pageData[singleItem.id] : this.getFilters ? this.getFilters[singleItem.id]: [];
+                //     return item;
+                // });
             }
         },
         updateData(data, isFilterUpdate = false) {
-            const {facet} = data;
-            facet ? this.updateFacet(facet) : this.updateFacet(null);
+            const filters = data.filters;
+            filters ? this.updateFilters(filters) : this.updateFilters(null);
             this.pageData = {};
             this.content = data;
             this.filter = this.filterSelection;

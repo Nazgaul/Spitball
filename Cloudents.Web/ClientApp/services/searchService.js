@@ -69,7 +69,7 @@ let transferResultAsk = response => {
     return { 
         data: items,
         source: res.result.filters,
-        filters: res.filters.Content,
+        filters: res.filters,
         nextPage: res.nextPageLink
     }
 };

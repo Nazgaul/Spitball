@@ -122,8 +122,8 @@ namespace Cloudents.Web.Api
                 Result = p,
                 Filters = new Dictionary<string, IEnumerable<string>>
                 {
-                    ["Content"] = result.Facet,
-                    ["State"] = new []
+                    ["subject"] = result.Facet,
+                    ["type"] = new []
                     {
                         //TODO : enum
                         "Unanswered",
