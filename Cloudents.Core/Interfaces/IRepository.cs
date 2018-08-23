@@ -26,7 +26,7 @@ namespace Cloudents.Core.Interfaces
     {
         //Task<IList<User>> GetAllUsersAsync(CancellationToken token);
 
-        Task<User> GetUserByEmail(string email, CancellationToken token);
+        //Task<User> GetUserByEmail(string email, CancellationToken token);
 
         Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token);
 
