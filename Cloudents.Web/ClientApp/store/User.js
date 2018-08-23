@@ -13,6 +13,7 @@ const state = {
 
     },
     filters: "",
+    sort: "",
     historyTermSet: [],
     historySet: {
         job: [],
@@ -105,7 +106,6 @@ const getters = {
     myCourses: state => state.user.myCourses,
     myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i => i.id) : []),
     getFilters (state) {
-      console.log('store filters', state)
       return  state.filters
     },
     getSort(state){

@@ -101,6 +101,8 @@ const actions = {
             let VerticalName = context.getters.getCurrentVertical;
             let verticalItems = context.state.itemsPerVertical[VerticalName];
             if((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skipLoad){
+                let filtersData = !!verticalItems.filters ? verticalItems.filters : null;
+                context.dispatch('updateFilters', filtersData);
                 return verticalItems
             }else{
                 return new Promise((resolve) => {

@@ -19,7 +19,7 @@
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
                         <template slot="header">
                             <div class="icon-wrapper">
-                                <slot :name="`${singleFilter.modelId}TitlePrefix`"></slot>
+                                <slot :name="`${singleFilter.title}TitlePrefix`"></slot>
                             </div>
 
                             <slot name="headerTitle" :title="singleFilter.title">
@@ -30,10 +30,10 @@
                             <div v-for="filterItem in singleFilter.data"
                                  :key="(filterItem.id ? filterItem.id : filterItem)" class="filter">
                                 <input type="checkbox" :id="(filterItem.id ? filterItem.id : filterItem)"
-                                       :checked="filterVal.find(i=>i.key===singleFilter.modelId && i.value===( filterItem.id ? filterItem.id.toString() : filterItem.toString()))"
+                                       :checked="isChecked(singleFilter, filterItem)"
                                        @change="updateFilter({
-                                       id : singleFilter.modelId,
-                                       val:(filterItem.id ? filterItem.id.toString() : filterItem),
+                                       id : singleFilter.id,
+                                       val: filterItem,
                                        type : $event} )"/>
 
                                 <label class="checkmark" :for="(filterItem.id ? filterItem.id : filterItem)"></label>
@@ -41,9 +41,9 @@
                                     {{filterItem.name ? filterItem.name : filterItem | capitalize}}
                                 </label>
                             </div>
-                            <slot :name="`${singleFilter.modelId}EmptyState`"
+                            <slot :name="`${singleFilter.id}EmptyState`"
                                   v-if="singleFilter.data && singleFilter.data.length===0"></slot>
-                            <slot :name="`${singleFilter.modelId}ExtraState`" v-else></slot>
+                            <slot :name="`${singleFilter.id}ExtraState`" v-else></slot>
                         </div>
                     </v-expansion-panel-content>
                 </v-expansion-panel>

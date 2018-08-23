@@ -135,17 +135,17 @@ export default {
         note(params) {
             return getDocument(params).then(transferResultNote);
         },
-        flashcard({ source, university, course, term="", page, sort }) {
-            return getFlashcard({ source, university, course, query:term, page, sort }).then(transferResultNote);
+        flashcard(params) {
+            return getFlashcard(params).then(transferResultNote);
         },
-        tutor({ term="", filter, sort, page, location }) {
-            return getTutor({ term, filter, sort, location, page }).then(transferResultTutor);
+        tutor(params) {
+            return getTutor(params).then(transferResultTutor);
         },
-        job({ term="", filter, sort, jobType: facet, page, location }) {
-            return getJob({ term, filter, sort, location, facet: filters, page }).then(transferJob);
+        job(params) {
+            return getJob(params).then(transferJob);
         },
-        book({ term="", page }) {
-            return getBook({ term, page }).then(transferBook);
+        book(params) {
+            return getBook(params).then(transferBook);
         },
         bookDetails({ type, isbn13 }) {
             return getBookDetails({ type, isbn13 }).then(transferBookDetails);

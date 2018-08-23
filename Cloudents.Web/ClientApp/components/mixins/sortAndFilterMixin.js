@@ -26,10 +26,15 @@ export default {
         filterSelection() {
             let filterOptions = [];
             let filtersList = [];
-            if(!!this.getFilters){
-                filtersList = Object.keys(this.getFilters);
+            // if(!!this.getFilters){
+            //     filtersList = this.getFilters;
+            // }
+            let filters = this.getFilters;
+            if(!!filters){
+                filtersList = filters.map((item)=>{
+                    return item.id
+                })
             }
-
 
             // let filtersList = ['jobType', 'subject', 'course', 'filter'];
             Object.entries(this.query).forEach(([key, val]) => {

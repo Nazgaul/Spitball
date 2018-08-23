@@ -5,10 +5,12 @@ export default {
         sortOptions: { type: Array, default: () => [] },
         sortVal: {},
         filterOptions: { type: Array, default: () => [] },
-        filterVal: { type: Array, default: () => [] }
+        filterVal: { type: Array, default: () => [] },
+       
     },
     computed:{
         filterList(){
+            console.log('FILTERS',this.filterOptions)
             return this.filterOptions;
         }
     },
@@ -17,6 +19,10 @@ export default {
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         updateSort(val) {
             this.$router.push({ query: { ...this.$route.query, sort: val } });
+        },
+        isChecked(singleFilter, filterItem){
+            return this.filterVal.find((item)=>{
+               return item.key===singleFilter.id && item.value === ( filterItem.id ? filterItem.id.toString() : filterItem.toString())});
         },
         updateFilter({ id, val, type }) {
             this.UPDATE_SEARCH_LOADING(true);

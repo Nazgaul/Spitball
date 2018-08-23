@@ -182,7 +182,6 @@ export default {
             const toName = to.path.slice(1);
             //const updateFilter = (to.path === from.path && to.query.q === from.query.q);
             let params=  {...to.query, ...to.params, term: to.query.q};
-            console.log('params', params)
             this.fetchingData({name: toName, params}, true)
                 .then((data) => {
                     //update data for this page
@@ -224,30 +223,15 @@ export default {
             }
             else {
                 //create filter object as the above structure but from list while the data is computed according to the filter id
-                //TODO filter refactor
-                this.filterObject = [];
-                let filterNames = Object.keys(this.getFilters);
-                for(let i = 0; i < filterNames.length; i++){
-                        let item = {title: `${filterNames[i]}`, modelId: `${filterNames[i]}`};
-                        item.data = this.getFilters ? this.getFilters[filterNames[i]] : [];
-                            this.filterObject.push(item);
-                }
-                console.log(this.filterObject)
-                //     this.getFilters.map((singleItem, index) => {
-                //     const item = {title: singleItem, modelId: singleItem};
-                //     item.data = (singleItem.id === "course") ? this.myCourses : this.pageData[singleItem.id] ? this.pageData[singleItem.id] : this.getFilters ? this.getFilters[singleItem.id]: [];
-                //     return item;
-                // });
-                //     currentPage.filter.map((singleItem, index) => {
-                //     const item = {title: singleItem.name, modelId: singleItem.id};
-                //     item.data = (singleItem.id === "course") ? this.myCourses : this.pageData[singleItem.id] ? this.pageData[singleItem.id] : this.getFilters ? this.getFilters[singleItem.id]: [];
-                //     return item;
-                // });
-                // this.filterObject = currentPage.filter.map((singleItem, index) => {
-                //     const item = {title: singleItem.name, modelId: singleItem.id};
-                //     item.data = (singleItem.id === "course") ? this.myCourses : this.pageData[singleItem.id] ? this.pageData[singleItem.id] : this.getFilters ? this.getFilters[singleItem.id]: [];
-                //     return item;
-                // });
+                this.filterObject =this.getFilters;
+                // let filterNames = Object.keys(this.getFilters);
+                // for(let i = 0; i < filterNames.length; i++){
+                //         let item = {title: `${filterNames[i]}`, modelId: `${filterNames[i]}`};
+                //         item.data = this.getFilters ? this.getFilters[filterNames[i]] : [];
+                //             this.filterObject.push(item);
+                // }
+                // console.log(this.filterObject)
+               
             }
         },
         updateData(data, isFilterUpdate = false) {
