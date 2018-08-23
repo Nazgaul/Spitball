@@ -78,7 +78,10 @@ let transferResultNote = response => {
     let res = response.data;
     let result = res ? res.result : [];
     if (!res) return { data: [] };
-    return { source: res.filters, filters: res.filters, data: result.map(val => { return { ...val, template: 'item' } }), nextPage: res.nextPageLink }
+    return {
+        source: res.filters,
+        filters: res.filters,
+        data: result.map(val => { return { ...val, template: 'item' } }), nextPage: res.nextPageLink }
 };
 
 let transferResultTutor = response => {
@@ -127,11 +130,10 @@ export default {
         //     return getQuestions({term, source}).then(transferResultAsk);
         // },
         ask(params) {
-            console.log(params)
             return getQuestions(params).then(transferResultAsk);
         },
-        note({ source, university, course, term="", page, sort }) {
-            return getDocument({ source, university, course, query:term, page, sort }).then(transferResultNote);
+        note(params) {
+            return getDocument(params).then(transferResultNote);
         },
         flashcard({ source, university, course, term="", page, sort }) {
             return getFlashcard({ source, university, course, query:term, page, sort }).then(transferResultNote);

@@ -30,6 +30,9 @@ const mutations = {
     [USER.UPDATE_FILTERS](state, payload) {
         state.filters = payload;
     },
+    [USER.UPDATE_SORT](state, payload) {
+        state.sort = payload;
+    },
     [USER.UPDATE_SEARCH_SET_VERTICAL](state, { term, vertical }) {
         if (!term || !term.trim()) return;
         if (!state.historySet[vertical]) { state.historySet[vertical] = []; }
@@ -104,6 +107,9 @@ const getters = {
     getFilters (state) {
       console.log('store filters', state)
       return  state.filters
+    },
+    getSort(state){
+        return state.sort
     }
 };
 const actions = {
@@ -154,6 +160,9 @@ const actions = {
     },
     updateFilters({ commit }, data) {
         commit(USER.UPDATE_FILTERS, data)
+    },
+    updateSort({ commit }, data) {
+        commit(USER.UPDATE_SORT, data)
     },
     hideRegistrationBanner(context) {
         context.commit(USER.HIDE_REGISTRATION_BANNER);

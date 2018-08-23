@@ -8,7 +8,8 @@ const plusBtn = () => import("../settings/svg/plus-button.svg");
 export default {
     data() {
         return {
-            filter: ''
+            filter: '',
+            filtersDefault:{}
         };
     },
     components: { SortAndFilter, plusBtn, MobileSortAndFilter },
@@ -24,7 +25,12 @@ export default {
         sort() { return this.query.sort },
         filterSelection() {
             let filterOptions = [];
-            let filtersList = Object.keys(this.getFilters);
+            let filtersList = [];
+            if(!!this.getFilters){
+                filtersList = Object.keys(this.getFilters);
+            }
+
+
             // let filtersList = ['jobType', 'subject', 'course', 'filter'];
             Object.entries(this.query).forEach(([key, val]) => {
                 if (val && val.length && filtersList.includes(key)) {
@@ -39,5 +45,9 @@ export default {
     },
     methods: {
         ...mapMutations(['UPDATE_LOADING'])
+    },
+    created(){
+        console.log('mixin created')
     }
+
 };

@@ -1,6 +1,5 @@
 ﻿import ResultItem from './ResultItem.vue';
 import questionCard from './../question/helpers/question-card/question-card.vue';
-
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
@@ -67,6 +66,7 @@ export default {
     },
 
     created() {
+        console.log('result ccreated')
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);
@@ -99,9 +99,13 @@ export default {
         ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
         
+
+        //not interesting
         filterCondition() {
             return this.filterSelection.length || (this.filterObject && this.page)
         },
+
+        
 
         content: {
             get() {
@@ -176,14 +180,14 @@ export default {
         },
         updateContentOfPage(to, from, next) {
             const toName = to.path.slice(1);
-            const updateFilter = (to.path === from.path && to.query.q === from.query.q);
+            //const updateFilter = (to.path === from.path && to.query.q === from.query.q);
             let params=  {...to.query, ...to.params, term: to.query.q};
             console.log('params', params)
             this.fetchingData({name: toName, params}, true)
                 .then((data) => {
                     //update data for this page
                     this.showFilterNotApplied = false;
-                    this.updateData.call(this, {...data, vertical: toName}, updateFilter);
+                    this.updateData.call(this, {...data, vertical: toName});
                     next();
                 }).catch(reason => {
                 //when error from fetching data remove the loader
@@ -247,8 +251,8 @@ export default {
             }
         },
         updateData(data, isFilterUpdate = false) {
-            const filters = data.filters;
-            filters ? this.updateFilters(filters) : this.updateFilters(null);
+            // const filters = data.filters;
+            //filters ? this.updateFilters(filters) : this.updateFilters(null);
             this.pageData = {};
             this.content = data;
             this.filter = this.filterSelection;

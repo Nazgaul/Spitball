@@ -7,6 +7,11 @@ export default {
         filterOptions: { type: Array, default: () => [] },
         filterVal: { type: Array, default: () => [] }
     },
+    computed:{
+        filterList(){
+            return this.filterOptions;
+        }
+    },
     methods: {
         ...mapActions(['setFilteredCourses']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),

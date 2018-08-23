@@ -10,12 +10,12 @@
                 </template>
             </div>
         </template>
-        <div v-if="filterOptions&&filterOptions.length">
+        <div v-if="filterOptions && filterOptions.length">
             <h3>Filter</h3>
             <div class="filter-switch">
                 <!--removed :value binding cause of error Vuetify 1.1.1-->
                 <v-expansion-panel expand :value="0">
-                    <v-expansion-panel-content v-for="(singleFilter, index) in filterOptions" :key="index">
+                    <v-expansion-panel-content v-for="(singleFilter, index) in filterList" :key="index">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
                         <template slot="header">
                             <div class="icon-wrapper">

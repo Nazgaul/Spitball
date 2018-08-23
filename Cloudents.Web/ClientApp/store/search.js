@@ -90,6 +90,8 @@ const actions = {
             return data;
         });
     },
+
+    
     fetchingData(context, { name, params, page, skipLoad}){
         let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
          let paramsList = {...context.state.search,...params, university, page};
@@ -109,13 +111,16 @@ const actions = {
                         });
                     } else { resolve(); }
                 }).then(() => {
-
                     return searchService.activateFunction[name](paramsList).then((data) => {
                         let verticalObj = {
                             verticalName: name,
                             verticalData: data
                         }
                         context.dispatch('setDataByVerticalType', verticalObj);
+                        let sortData = !!data.sort ? data.sort : null;
+                        context.dispatch('updateSort', sortData);   
+                        let filtersData = !!data.filters ? data.filters : null;
+                        context.dispatch('updateFilters', filtersData);
                         return data;
                     },(err) => {
                         return err;
