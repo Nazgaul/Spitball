@@ -7,6 +7,8 @@ import disableForm from "../../mixins/submitDisableMixin.js"
 import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue'
+import { sendEventList } from '../../../services/signalR/signalREventSender'
+
 export default {
     mixins: [disableForm],
     components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer},
@@ -76,6 +78,10 @@ export default {
             questionService.getQuestion(this.id)
                 .then( (response) => {
                     this.questionData = response;
+
+                    console.log("entering question");
+                    sendEventList.question.addViewr(this.questionData);
+
                     if (this.accountUser) {
                         this.questionData.cardOwner = this.accountUser.id === response.user.id;
                     } else {
@@ -158,8 +164,16 @@ export default {
             this.showForm = (val && !this.questionData.answers.length);
             return val;
         },
+        removeViewer(){
+            console.log("leaving question");
+            sendEventList.question.removeViewer(this.questionData);
+        },
     },
     created() {
+        global.addEventListener('beforeunload', () => {
+            this.removeViewer();
+        })
+
         this.getData();
         // to do may be to consider change to State Store VueX
         this.$root.$on('deleteAnswer', (id) => {
@@ -172,5 +186,8 @@ export default {
                this.updateLoginDialogState(false);
            }
         })
+    },
+    destroyed(){
+        this.removeViewer();
     }
 }

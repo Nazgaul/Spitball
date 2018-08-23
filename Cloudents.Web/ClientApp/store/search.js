@@ -53,6 +53,27 @@ const mutations = {
                 return;
             }
         }
+    },
+    [SEARCH.ADD_QUESTION_VIEWR](state, question){
+        if(!!state.itemsPerVertical.ask && state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length){
+            state.itemsPerVertical.ask.data.forEach((ask, index) => {
+                if(ask.id === question.id){
+                    state.itemsPerVertical.ask.data[index].watchingNow++; 
+                }
+            });
+        }
+    },
+    [SEARCH.REMOVE_QUESTION_VIEWR](state, question){
+        if(!!state.itemsPerVertical.ask && state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length){
+            state.itemsPerVertical.ask.data.forEach((ask, index) => {
+                if(ask.id === question.id){
+                    if(state.itemsPerVertical.ask.data[index].watchingNow > 0){
+                        state.itemsPerVertical.ask.data[index].watchingNow--; 
+                    }
+                    
+                }
+            });
+        }
     }
 };
 
@@ -136,6 +157,14 @@ const actions = {
     removeQuestionItemAction({ commit }, notificationQuestionObject){
         let questionObj = searchService.createQuestionItem(notificationQuestionObject);
        commit(SEARCH.REMOVE_QUESTION, questionObj);
+    },
+    addQuestionViewr({ commit }, notificationQuestionObject){
+        let questionObj = notificationQuestionObject;
+        commit(SEARCH.ADD_QUESTION_VIEWR, questionObj);
+    },
+    removeQuestionViewr({ commit }, notificationQuestionObject){
+        let questionObj = notificationQuestionObject;
+        commit(SEARCH.REMOVE_QUESTION_VIEWR, questionObj);
     }
 };
 
