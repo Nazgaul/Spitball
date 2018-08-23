@@ -30,7 +30,7 @@ namespace Cloudents.Core.Interfaces
 
         Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token);
 
-       // Task<User> GetRandomFictiveUserAsync(CancellationToken token);
+        Task<User> GetRandomFictiveUserAsync(CancellationToken token);
         
         //Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
     }

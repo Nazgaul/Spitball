@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading;
 using Cloudents.Core.Command;
 using Cloudents.Core.Command.Admin;
+using CreateQuestionCommand = Cloudents.Core.Command.Admin.CreateQuestionCommand;
 
 namespace ConsoleApp
 {
@@ -16,7 +17,7 @@ namespace ConsoleApp
         static readonly string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
         private const string ApplicationName = "Google Sheets API";
 
-        public static List<object> GetData(string spreadsheetId, string range)
+        public static List<CreateQuestionCommand> GetData(string spreadsheetId, string range)
         {
             UserCredential credential;
 
