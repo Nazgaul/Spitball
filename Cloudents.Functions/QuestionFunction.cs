@@ -29,15 +29,12 @@ namespace Cloudents.Functions
 
         [FunctionName("QuestionPopulate")]
         public static async Task QuestionPopulateAsync([TimerTrigger("0 */15 * * * *",RunOnStartup = true)]TimerInfo myTimer,
-           // [Queue(QueueName.QuestionsQueueName)] NewQuestionMessage answerMessage,
-           [Queue(QueueName.QuestionsQueueName)] CloudQueue queue,
-
+            [Queue(QueueName.QuestionsQueueName)] CloudQueue queue,
             [Inject] ICommandBus commandBus,
             TraceWriter log,
             CancellationToken token)
         {
             log.Info("QuestionPopulate invoke");
-
             var msg = await queue.GetMessageAsync(token);
             if (msg == null)
             {
@@ -53,6 +50,7 @@ namespace Cloudents.Functions
                 UserId = answerMessage.UserId
             };
             await commandBus.DispatchAsync(command, token);
+            await queue.DeleteMessageAsync(msg, token);
             log.Info($"QuestionPopulate function executed at: {DateTime.Now}");
         }
 
