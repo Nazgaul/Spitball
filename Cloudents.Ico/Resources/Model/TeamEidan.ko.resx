@@ -118,15 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Ola studies Design &amp;amp; Technology at Parsons School of Design and helps out with a little bit of everything. That’s why we call her the Chief of Stuff :)</value>
+    <value>Eidan은 최고의 인터넷 회사에서 폭넓은 경험을 가진 베테랑 인터넷 전문가입니다. Spitball 이전에,
+ Eidan은소셜 애그리게이터(aggregator) Multimi (AVG가 인수)를 설립했으며,
+ 야후에서 프론트 페이지(My Yahoo)를 관리하고 야후에서 BI 팀을 이끌고 제품 관리 및 전략 담당 이사로 일했습니다. Eidan은 University of California에서 경제학 박사 학위를 소지하고 있습니다.</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Ola</value>
+    <value>Eidan</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Jankowska</value>
+    <value>Apelbaum</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Chief of Stuff</value>
+    <value>창립자 &amp; CEO</value>
   </data>
 </root>

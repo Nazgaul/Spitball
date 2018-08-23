@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Ola studies Design &amp;amp; Technology at Parsons School of Design and helps out with a little bit of everything. That’s why we call her the Chief of Stuff :)</value>
+    <value>Shlomi는 모바일 응용 프로그램, iOS 및 Android, 데스크톱 응용 프로그램 및 웹 디자인을 위한 계획 및 디자인(UX 및 UI)에서 5년 이상의 경력을 쌓은 고도로 련된 크로스 플랫폼 디자이너입니다. 또한, Shlomi는 크리에이티브 디자인 및 아이덴티티 디자인 및 인쇄 관련 10년 경력을 가지고 있습니다. Shlomi는 회사 웹사이트, 모바일, iOS 및 안드로이드 응용 프로그램 전반의 모든 UX 및 UI를 담당합니다.</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Ola</value>
+    <value>Shlomi</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Jankowska</value>
+    <value>Kastoryano</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Chief of Stuff</value>
+    <value>UX &amp; UI 디자이너</value>
   </data>
 </root>

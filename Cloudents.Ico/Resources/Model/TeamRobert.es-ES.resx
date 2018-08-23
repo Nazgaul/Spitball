@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Ola studies Design &amp;amp; Technology at Parsons School of Design and helps out with a little bit of everything. That’s why we call her the Chief of Stuff :)</value>
+    <value>Robert es un líder centrado con fuertes habilidades de ejecución en construcción de estrategias y actividades de desarrollo corporativo, así como tiene habilidades operativas en toda la gama de capacidades. Robert trae 20 años de experiencia en actividades de capital privado y banca de inversión, y está actualmente enfocado en invertir en las plataformas del futuro, con Spitball a la cabeza de la lista.</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Ola</value>
+    <value>Robert</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Jankowska</value>
+    <value>Cohen</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Chief of Stuff</value>
+    <value>Director Administrativo y Asesor</value>
   </data>
 </root>

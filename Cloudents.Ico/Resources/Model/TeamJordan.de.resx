@@ -118,15 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Ola studies Design &amp;amp; Technology at Parsons School of Design and helps out with a little bit of everything. That’s why we call her the Chief of Stuff :)</value>
+    <value>Jordan leitet die gesamte Outbound-Kommunikation, das Marketing und die Geschäftsentwicklung während er dem Spitball-Team in den USA vorsteht.
+ Er hat alle Aspekte der Einführung und Geschäftsentwicklung in den USA überwacht und 150 griechische Partner, 200 Campus-Botschafter und mehr als 25 Geschäftspartner rekrutiert, während er mithalf, mehr als 400.000 Studenten zu unserem Service zu führen. Zuvor war Jordan als Media Investment Banker bei Jefferies tätig.
+ Jordan hat mit einem BA in Volkswirtschaftslehre der Vanderbilt University Summa cum laude abgeschlossen.</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Ola</value>
+    <value>Jordan</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Jankowska</value>
+    <value>Weiss</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Chief of Stuff</value>
+    <value>Betriebsleiter</value>
   </data>
 </root>

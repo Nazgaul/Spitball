@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Ola studies Design &amp;amp; Technology at Parsons School of Design and helps out with a little bit of everything. That’s why we call her the Chief of Stuff :)</value>
+    <value>Ola는 Parsons School of Design에서 디자인 &amp;amp; 테크놀로지를 공부하고 모든 것을 조금씩 도와줍니다. 그래서 우리는 그녀를 참모장이라고 부른답니다:)</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Ola</value>
@@ -127,6 +127,6 @@
     <value>Jankowska</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Chief of Stuff</value>
+    <value>참모장</value>
   </data>
 </root>

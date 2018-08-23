@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Ola studies Design &amp;amp; Technology at Parsons School of Design and helps out with a little bit of everything. That’s why we call her the Chief of Stuff :)</value>
+    <value>Hadar 拥有开发端到端 BI 模型的技能，并为高级管理层进行分析和演示。他还擅长组织和实施聚类算法和预测模型时的 DW 实施过程。Hadar 毕业于鲁宾研究中心，获得了工业工程学士学位。</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Ola</value>
+    <value>Hadar</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Jankowska</value>
+    <value>Keidar</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Chief of Stuff</value>
+    <value>区块链开发者</value>
   </data>
 </root>

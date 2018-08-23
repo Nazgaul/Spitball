@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Ola studies Design &amp;amp; Technology at Parsons School of Design and helps out with a little bit of everything. That’s why we call her the Chief of Stuff :)</value>
+    <value>Robert 是一位专注的领导者，在战略制定和企业发展活动方面拥有强大的执行能力，在其他各方面也有出色的经营技能。Robert 在私募股权和投资银行业务方面拥有超过 20 年的经验，目前专注于投资未来的平台，Spitball 是其最看重的选择。</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Ola</value>
+    <value>Robert</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Jankowska</value>
+    <value>Cohen</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Chief of Stuff</value>
+    <value>董事总经理兼顾问</value>
   </data>
 </root>

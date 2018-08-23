@@ -118,15 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Ola studies Design &amp;amp; Technology at Parsons School of Design and helps out with a little bit of everything. That’s why we call her the Chief of Stuff :)</value>
+    <value>Jordan은 모든 아웃바운드 커뮤니케이션, 마케팅 및 비즈니스 개발을 관리하며 미국의 Spitball 팀을 이끌고 있습니다.
+ 그는 150,000명의 그리스 파트너, 200명의 캠퍼스 대사 및 25개 이상의 비즈니스 파트너를 모집하면서 400,000명 이상의 학생들이 우리의 서비스를 이용하도록 하여 미국 진출 및 사업 개발과 관련된 모든 측면을 감독했습니다.
+ 이전에 Jordan은 Jefferies의 Media Investment Banker였습니다. Jordan은 Vanderbilt University에서 경제학 학사 학위를 취득하였으며, 최우등으로 졸업하였습니다.</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Ola</value>
+    <value>Jordan</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Jankowska</value>
+    <value>Weiss</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Chief of Stuff</value>
+    <value>최고 운영 책임자(COO)</value>
   </data>
 </root>
