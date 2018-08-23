@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Infrastructure.Search;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -13,7 +14,7 @@ namespace Cloudents.Infrastructure.Write
         public const string IndexName = "course";
         public const string ScoringProfile = "course-default";
 
-        public CourseSearchWrite(SearchServiceClient client) : base(client, IndexName)
+        public CourseSearchWrite(SearchService client) : base(client, IndexName)
         {
         }
 

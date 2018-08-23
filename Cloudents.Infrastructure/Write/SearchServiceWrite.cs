@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
@@ -15,10 +16,11 @@ namespace Cloudents.Infrastructure.Write
         protected readonly ISearchIndexClient IndexClient;
         private readonly string _indexName;
 
-        protected SearchServiceWrite(SearchServiceClient client, string indexName)
+        protected SearchServiceWrite(SearchService client, string indexName)
         {
-            Client = client;
-            IndexClient = client.Indexes.GetClient(indexName);
+            //client.GetClient(indexName);
+            Client = client.Client;
+            IndexClient = client.GetClient(indexName);
             _indexName = indexName;
         }
 
@@ -64,10 +66,15 @@ namespace Cloudents.Infrastructure.Write
 
         public virtual Task CreateOrUpdateAsync(CancellationToken token)
         {
+            
             return Client.Indexes.CreateOrUpdateAsync(GetIndexStructure(_indexName), cancellationToken: token);
         }
 
         protected abstract Index GetIndexStructure(string indexName);
+
+
+        public FluentSearchField<T> GetFieldBuilder => FluentSearchField<T>.Make;
+        
 
         public void Dispose()
         {
