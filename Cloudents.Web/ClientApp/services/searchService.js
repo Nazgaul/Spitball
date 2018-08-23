@@ -68,8 +68,8 @@ let transferResultAsk = response => {
         });
     return { 
         data: items,
-        source: res.result.facet,
-        facet: res.facet,
+        source: res.result.filters,
+        filters: res.filters.Content,
         nextPage: res.nextPageLink
     }
 };
@@ -78,7 +78,7 @@ let transferResultNote = response => {
     let res = response.data;
     let result = res ? res.result : [];
     if (!res) return { data: [] };
-    return { source: res.facet, facet: res.facet, data: result.map(val => { return { ...val, template: 'item' } }), nextPage: res.nextPageLink }
+    return { source: res.filters, filters: res.filters, data: result.map(val => { return { ...val, template: 'item' } }), nextPage: res.nextPageLink }
 };
 
 let transferResultTutor = response => {
@@ -136,7 +136,7 @@ export default {
             return getTutor({ term, filter, sort, location, page }).then(transferResultTutor);
         },
         job({ term="", filter, sort, jobType: facet, page, location }) {
-            return getJob({ term, filter, sort, location, facet, page }).then(transferJob);
+            return getJob({ term, filter, sort, location, facet: filters, page }).then(transferJob);
         },
         book({ term="", page }) {
             return getBook({ term, page }).then(transferBook);

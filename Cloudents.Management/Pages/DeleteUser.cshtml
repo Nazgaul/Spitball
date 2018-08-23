@@ -1,0 +1,17 @@
+﻿@page
+@model Cloudents.Management.Pages.DeleteUserModel
+@{
+    ViewData["Title"] = "DeleteUser";
+}
+
+<h2>DeleteUser</h2>
+<h2 style="color: red">THIS ACTION CAN NOT BE UNDONE</h2>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="Model.Email"></label>
+        <input asp-for="Model.Email" />
+    </div>
+    <input type="submit" />
+</form>

@@ -5,12 +5,12 @@ import { USER} from "./mutation-types";
 import * as consts from './constants';
 describe('user store', function () {
     describe('mutations', function () {
-        test('facet', ()=> {
+        test('filters', ()=> {
             let state={};
             let facetList=["full time", "part time", "contractor", "internship", "campus rep"];
             store.mutations[USER.UPDATE_FACET](state,facetList);
-            expect(state.facet.length).toBeTruthy();
-            expect(state.facet).toBe(facetList);
+            expect(state.filters.length).toBeTruthy();
+            expect(state.filters).toBe(facetList);
         });
         describe('history set vertical', function () {
             test('add term', ()=> {

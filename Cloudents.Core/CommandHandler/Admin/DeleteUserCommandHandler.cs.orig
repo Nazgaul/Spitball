@@ -1,0 +1,45 @@
+﻿using Cloudents.Core.Command.Admin;
+using Cloudents.Core.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Cloudents.Core.CommandHandler.Admin
+{
+    class DeleteUserCommandHandler : ICommandHandler<DeleteUserCommand>
+    {
+
+   
+        private readonly IUserRepository _userRepository;
+
+
+        public DeleteUserCommandHandler(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+
+         public async Task ExecuteAsync(DeleteUserCommand message, CancellationToken token)
+        {
+<<<<<<< HEAD
+
+            /*var user = await _userRepository.GetUserByEmail(message.Email, token);
+             foreach (var q in user.Questions)
+                             q.CorrectAnswer = null;
+
+
+             await _userRepository.DeleteAsync(user, token);*/
+=======
+         
+            var user = await _userRepository.GetUserByEmail(message.Email, token);
+            //foreach (var q in user.Questions)
+            //                q.CorrectAnswer = null;
+            
+        
+            await _userRepository.DeleteAsync(user, token);
+>>>>>>> da98c9619917bcb5745963264de914ecefb6a43e
+        }
+    }
+}

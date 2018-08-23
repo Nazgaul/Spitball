@@ -48,6 +48,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual string AuthenticatorKey { get; set; }
 
         public virtual string PrivateKey { get; set; }
+        public virtual int FraudScore { get; set; }
 
         public virtual void AddTransaction(Transaction t)
         {
@@ -76,7 +77,8 @@ namespace Cloudents.Core.Entities.Db
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         protected internal virtual IList<Transaction> Transactions { get; set; }
-
+        protected internal virtual IList<Question> Questions { get; set; }
+        protected internal virtual IList<Answer> Answers { get; set; }
 
         public virtual DateTime Created { get; set; }
 
