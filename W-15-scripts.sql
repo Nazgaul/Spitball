@@ -25,4 +25,4 @@ add color nvarchar(255)
 
 
 ALTER TABLE sb.[User]
-ADD fraudScore INT;
+ADD FraudScore INT;

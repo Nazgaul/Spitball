@@ -23,6 +23,7 @@ namespace Cloudents.Core.CommandHandler.Admin
 
          public async Task ExecuteAsync(DeleteUserCommand message, CancellationToken token)
         {
+<<<<<<< HEAD
 
             /*var user = await _userRepository.GetUserByEmail(message.Email, token);
              foreach (var q in user.Questions)
@@ -30,6 +31,15 @@ namespace Cloudents.Core.CommandHandler.Admin
 
 
              await _userRepository.DeleteAsync(user, token);*/
+=======
+         
+            var user = await _userRepository.GetUserByEmail(message.Email, token);
+            //foreach (var q in user.Questions)
+            //                q.CorrectAnswer = null;
+            
+        
+            await _userRepository.DeleteAsync(user, token);
+>>>>>>> da98c9619917bcb5745963264de914ecefb6a43e
         }
     }
 }

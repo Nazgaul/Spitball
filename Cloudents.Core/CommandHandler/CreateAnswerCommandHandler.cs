@@ -63,6 +63,13 @@ namespace Cloudents.Core.CommandHandler
 
             var id = answer.Id;
 
+            if (answer.Created.Subtract(question.Created).Minutes < 5)
+            {
+                user.FraudScore++;
+                if (answer.Created.Subtract(question.Created).Minutes < 2)
+                    user.FraudScore++;
+                await _userRepository.UpdateAsync(user, default);
+            }
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
            // var t = _eventPublisher.PublishAsync(new AnswerCreatedEvent(question.Id, id), token);
 
