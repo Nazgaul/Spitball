@@ -46,7 +46,6 @@ namespace Cloudents.Core.CommandHandler
             await _questionRepository.AddAsync(question, token).ConfigureAwait(true);
             var id = question.Id;
 
-            //TODO: not right
             if (_blobProvider != null)
             {
                 var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ??

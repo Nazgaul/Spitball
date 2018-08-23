@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
 using NHibernate;
+using NHibernate.Linq;
 using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
@@ -20,7 +24,8 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
         public async Task<IEnumerable<CashOutDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-
+            //TODO: remove the unessary stuff.
+            //Use nhibernate future - note you need to use ISession
             var sqlQuery = _session.CreateSQLQuery(@"
                     select U.id as UserId, T1.Price as CashOutPrice, T1.Created as CashOutTime
 	                    ,case when avg(DATEDIFF(SECOND, Q.Created, A.Created)) < 80 
@@ -40,6 +45,16 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                     group by U.id, T1.Price, T1.Created
                     order by T1.Created"
                 );
+
+            //_session.Query<Transaction>()
+            //    .Fetch(f=>f.User)
+            //    .Where(w=>w.Action == ActionType.CashOut)
+            //    .Select(s=> new
+            //    {
+            //        s.User.Email,
+                    
+            //    })
+            //_session.Query<User>().Fetch(f=>f.Transactions).Where(w=>w.Transactions.)
             
             sqlQuery.SetResultTransformer(Transformers.AliasToBean<CashOutDto>());
 
