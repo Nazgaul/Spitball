@@ -38,6 +38,7 @@ namespace Cloudents.Infrastructure.Database
             var assembly = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsSelf()
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
+
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
                 //EnableInterfaceInterceptors().InterceptedBy(typeof(CacheResultInterceptor));
 

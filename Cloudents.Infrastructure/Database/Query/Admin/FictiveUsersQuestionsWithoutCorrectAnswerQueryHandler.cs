@@ -11,7 +11,7 @@ using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
-    public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<FictiveUsersQuestionsWithoutCorrectAnswerQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
+    public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
         private readonly IStatelessSession _session;
         private readonly IUrlBuilder _urlBuilder;
@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
 
 
-        public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(FictiveUsersQuestionsWithoutCorrectAnswerQuery query, CancellationToken token)
+        public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
             //Question questionAlias = null;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,9 +47,9 @@ namespace Cloudents.Web.Api
             {
                 Result = p,
                 Sort = Enum.GetNames(typeof(SearchRequestSort)),
-                Filters = new Dictionary<string, IEnumerable<string>>
+                Filters = new []
                 {
-                    ["Sources"] = result.Facet
+                    new Models.Filters(nameof(SearchRequest.Source),"Sources",result.Facet)
                 },
                 //Facet = result.Facet,
                 NextPageLink = nextPageLink
@@ -80,12 +79,24 @@ namespace Cloudents.Web.Api
             {
                 Result = p,
                 Sort = Enum.GetNames(typeof(SearchRequestSort)),
-                Filters = new Dictionary<string, IEnumerable<string>>
+                Filters = new[]
                 {
-                    ["Sources"] = result.Facet
+                    new Models.Filters(nameof(SearchRequest.Source),"Sources",result.Facet)
                 },
+                //Facet = result.Facet,
                 NextPageLink = nextPageLink
             };
+
+            //return new WebResponseWithFacet<SearchResult>
+            //{
+            //    Result = p,
+            //    Sort = Enum.GetNames(typeof(SearchRequestSort)),
+            //    Filters = new Dictionary<string, IEnumerable<string>>
+            //    {
+            //        ["Sources"] = result.Facet
+            //    },
+            //    NextPageLink = nextPageLink
+            //};
         }
     }
 }
