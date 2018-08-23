@@ -27,8 +27,8 @@ namespace Cloudents.Management.Pages
 
         public async Task OnGet(CancellationToken token)
         {
-            var query = new CashOutQuery();
-            CashOuts = await _queryBus.QueryAsync(query, token);
+            var query = new AdminEmptyQuery();
+            CashOuts = await _queryBus.QueryAsync<IEnumerable<CashOutDto>>(query, token);
         }
 
         [ViewData]
