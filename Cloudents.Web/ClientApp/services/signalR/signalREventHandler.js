@@ -12,15 +12,11 @@ export const signlaREvents = {
                 store.dispatch("removeQuestionItemAction", questionToRemove);
             })
         },
-        addviewr: function(arrEventObj){
-            arrEventObj.forEach((question)=>{
-                store.dispatch("addQuestionViewr", question);
-            })
+        addviewr: function(question){
+            store.dispatch("addQuestionViewr", question);
         },
-        removeviewr: function(arrEventObj){
-            arrEventObj.forEach((question)=>{
-                store.dispatch("removeQuestionViewr", question);
-            })
+        removeviewr: function(question){
+            store.dispatch("removeQuestionViewr", question);
         },
     }
 }

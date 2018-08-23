@@ -55,13 +55,24 @@ const mutations = {
         }
     },
     [SEARCH.ADD_QUESTION_VIEWR](state, question){
-        let questionIndex = state.itemsPerVertical.ask.data.indexOf(question);
-        state.itemsPerVertical.ask.data[questionIndex].watchingNow++; 
+        if(!!state.itemsPerVertical.ask && state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length){
+            state.itemsPerVertical.ask.data.forEach((ask, index) => {
+                if(ask.id === question.id){
+                    state.itemsPerVertical.ask.data[index].watchingNow++; 
+                }
+            });
+        }
     },
     [SEARCH.REMOVE_QUESTION_VIEWR](state, question){
-        let questionIndex = state.itemsPerVertical.ask.data.indexOf(question);
-        if(state.itemsPerVertical.ask.data[questionIndex].watchingNow > 0){
-            state.itemsPerVertical.ask.data[questionIndex].watchingNow--; 
+        if(!!state.itemsPerVertical.ask && state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length){
+            state.itemsPerVertical.ask.data.forEach((ask, index) => {
+                if(ask.id === question.id){
+                    if(state.itemsPerVertical.ask.data[index].watchingNow > 0){
+                        state.itemsPerVertical.ask.data[index].watchingNow--; 
+                    }
+                    
+                }
+            });
         }
     }
 };

@@ -15,7 +15,7 @@ export const signalRSender = {
 }
 
 
-sendEventList = {
+export const sendEventList = {
     question:{
             addViewr: function(question){
                 let questionEvent = {
@@ -26,7 +26,7 @@ sendEventList = {
                 let notificationObj = new Notification(questionEvent);
                 signalRSender.send("Message", notificationObj);
             },
-            removeViewr: function(question){
+            removeViewer: function(question){
                 let questionEvent = {
                     type: "question",
                     action: "removeviewr",
