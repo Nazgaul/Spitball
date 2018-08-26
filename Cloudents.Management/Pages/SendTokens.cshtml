@@ -19,16 +19,16 @@
     </div>
 
     <div>
-        <label asp-for="Model.Price"></label>
+        <label asp-for="Model.SBL"></label>
 
-        <input asp-for="Model.Price" />
+        <input asp-for="Model.SBL" />
     </div>
     <div>
         <label asp-for="Model.TypeId"></label>
-        @Html.DropDownList("form-control",
+        @Html.DropDownList("Model.TypeId",
               new SelectList(Enum.GetValues(typeof(Cloudents.Core.Enum.TransactionType))),
                                 "Transaction Type",
-                                new { @class = "form-control" })
+                                new { @class = "Model.TypeId" })
     </div>
     <input type="submit" />
 
