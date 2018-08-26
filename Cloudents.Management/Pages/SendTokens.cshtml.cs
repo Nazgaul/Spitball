@@ -35,7 +35,7 @@ namespace Cloudents.Management.Pages
             [Required]
             public long UserId { get; set; }
             [Required]
-            public decimal Price { get; set; }
+            public decimal SBL { get; set; }
             [Required]
             public TransactionType TypeId { get; set; }
         }
@@ -43,9 +43,7 @@ namespace Cloudents.Management.Pages
 
 
         public void OnGet(CancellationToken token)
-        {
-                    
-                      
+        {     
         }
 
         public async Task<IActionResult> OnPostAsync(CancellationToken token)
@@ -53,7 +51,7 @@ namespace Cloudents.Management.Pages
             var command = new CreateSendTokensCommand
             {
                UserId = Model.UserId,
-               Price = Model.Price,
+               Price = Model.SBL,
                TypeId = Model.TypeId
             };
 
