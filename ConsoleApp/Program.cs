@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Entities.Search;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Event;
+using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.Search.Models;
@@ -49,12 +51,32 @@ namespace ConsoleApp
             _container = builder.Build();
 
 
-            FluentSearchField<Question>.Make.Map(x => x.Id, DataType.String).Build();
-            //TransactionPopulation tp = new TransactionPopulation(_container);
-            //await tp.AddToUserMoney(1000, 1642);
-            IEvent e = new AnswerCreatedEvent(null);
-            var b = _container.Resolve<IEventPublisher>();
-            await b.PublishAsync(e, default);
+            var t = new QuestionsQuery()
+            {
+                Filter = QuestionFilter.All
+            };
+
+
+
+            var b = _container.Resolve<IQueryBus>();
+            //await b.QueryAsync(t, default);
+
+
+            t = new QuestionsQuery()
+            {
+                Filter = QuestionFilter.Answered
+            };
+            await b.QueryAsync(t, default);
+            t = new QuestionsQuery()
+            {
+                Filter = QuestionFilter.Sold
+            };
+            await b.QueryAsync(t, default);
+            t = new QuestionsQuery()
+            {
+                Filter = QuestionFilter.Unanswered
+            };
+            await b.QueryAsync(t, default);
             // QuestionRepository c = new QuestionRepository(b);
             // Console.WriteLine(c.GetOldQuestionsAsync(default));
 

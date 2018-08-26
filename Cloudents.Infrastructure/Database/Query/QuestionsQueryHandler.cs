@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.EventHandler;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
@@ -65,6 +67,25 @@ namespace Cloudents.Infrastructure.Database.Query
             {
                 queryOverObj.Where(new FullTextCriterion(Projections.Property<Question>(x => x.Text),
                     query.Term));
+            }
+
+            switch (query.Filter)
+            {
+                case QuestionFilter.All:
+                    break;
+                case QuestionFilter.Unanswered:
+                    queryOverObj.WithSubquery.WhereNotExists(QueryOver.Of<Answer>()
+                        .Where(tx => tx.Question.Id == questionAlias.Id).Select(x=>x.Id));
+                    break;
+                case QuestionFilter.Answered:
+                    queryOverObj.WithSubquery.WhereExists(QueryOver.Of<Answer>()
+                        .Where(tx => tx.Question.Id == questionAlias.Id).Select(x => x.Id));
+                    break;
+                case QuestionFilter.Sold:
+                    queryOverObj.Where(w => w.CorrectAnswer != null);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             queryOverObj.OrderBy(o => o.Updated).Desc
