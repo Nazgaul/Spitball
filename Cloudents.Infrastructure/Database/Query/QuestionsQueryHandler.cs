@@ -6,6 +6,7 @@ using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.EventHandler;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Database.Repositories;
@@ -24,7 +25,7 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.Session;
         }
 
-        [Cache(TimeConst.Minute * 15, "Question", true)]
+        [Cache(TimeConst.Minute * 15, RemoveQuestionCacheEventHandler.CacheRegion, true)]
         public async Task<ResultWithFacetDto<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
         {
             QuestionDto dto = null;
