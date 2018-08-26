@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
@@ -22,6 +24,7 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.Session;
         }
 
+        [Cache(TimeConst.Minute * 15, "Question", true)]
         public async Task<ResultWithFacetDto<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
         {
             QuestionDto dto = null;
@@ -41,8 +44,8 @@ namespace Cloudents.Infrastructure.Database.Query
                     .Select(s => s.Updated).WithAlias(() => dto.DateTime)
                     .Select(s => s.Color).WithAlias(() => dto.Color)
                     .Select(Projections.Conditional(
-                        Restrictions.Where(()=> questionAlias.CorrectAnswer != null),
-                                Projections.Constant(true),Projections.Constant(false) )).WithAlias(() => dto.HasCorrectAnswer)
+                        Restrictions.Where(() => questionAlias.CorrectAnswer != null),
+                                Projections.Constant(true), Projections.Constant(false))).WithAlias(() => dto.HasCorrectAnswer)
                     .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
                     .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
                     .Select(Projections.Property(() => userAlias.Image).As("User.Image"))

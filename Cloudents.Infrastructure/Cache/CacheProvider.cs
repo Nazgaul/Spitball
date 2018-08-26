@@ -36,12 +36,17 @@ namespace Cloudents.Infrastructure.Cache
             }
         }
 
+        public T Get<T>(string key, string region)
+        {
+            return _cache.Get<T>(key, region);
+        }
+
         public bool Exists(string key, string region)
         {
             return _cache.Exists(key, region);
         }
 
-        public void Set(string key, string region, object value, int expire,bool slideExpiration)
+        public void Set(string key, string region, object value, int expire, bool slideExpiration)
         {
             var obj = ConvertEnumerableToList(value);
             if (obj == null)
@@ -54,7 +59,7 @@ namespace Cloudents.Infrastructure.Cache
             //return obj;
         }
 
-        public void Delete(string region)
+        public void DeleteRegion(string region)
         {
             _cache.ClearRegion(region);
         }
