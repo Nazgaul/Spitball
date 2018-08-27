@@ -19,7 +19,7 @@ const nav = {
     ask: {
         banner: getPromoQueryFromRoute,
         data:{
-            filter:[], //TODO filters refactor check if we still need this
+            filter:[],
             id: routes.questionRoute,
             name: "Homework Help",
             icon: "sbf-ask-q", //TODO do we need this.....
@@ -36,8 +36,7 @@ const nav = {
             // filter: [{ id: "course", name: "My Courses" }, { id: "source", name: "sources" }],
             filter: [ { id: "source", name: "sources" }],
             sort: [
-                { id: "relevance", name: "relevance" },
-                { id: "date", name: "date" }
+                // { id: "relevance", name: "relevance" },  { id: "date", name: "date" }
             ],
             icon: "sbf-note",
             show: false
@@ -52,11 +51,11 @@ const nav = {
             filter: [
                 //TODO Beny refactor filter
                 // { id: "course", name: "My Courses" },
-                { id: "source", name: "sources" }
+                // { id: "source", name: "sources" }
             ],
             sort: [
-                { id: "relevance", name: "relevance" },
-                { id: "date", name: "date" }
+                // { id: "relevance", name: "relevance" },
+                // { id: "date", name: "date" }
             ],
             icon: "sbf-flashcards"
         }
@@ -68,12 +67,12 @@ const nav = {
             name: "Tutors",
             needLocation: true,
             filter: [
-                { id: "online", name: "Online Lessons" },
-                { id: "inPerson", name: "In Person" }
+                // { id: "online", name: "Online Lessons" },
+                // { id: "inPerson", name: "In Person" }
             ],
             sort: [
-                { id: "relevance", name: "relevance" },
-                { id: "price", name: "price" }
+                // { id: "relevance", name: "relevance" },
+                // { id: "price", name: "price" }
                 // { id: "distance", name: "distance" }
             ],
             icon: "sbf-tutor"
@@ -95,11 +94,13 @@ const nav = {
             id: routes.jobRoute,
             name: "Jobs",
             needLocation: true,
-            filter: [{ id: "jobType", name: "job type" }],
+            filter: [
+                // { id: "jobType", name: "job type" }
+                ],
             sort: [
-                { id: "relevance", name: "relevance" },
+                // { id: "relevance", name: "relevance" },
                 // { id: "distance", name: "distance" },
-                { id: "date", name: "date" }
+                // { id: "date", name: "date" }
             ],
             icon: "sbf-job"
         }
@@ -108,11 +109,15 @@ const nav = {
 
 export let details = {
     bookDetails: {
-        filter: [{id: "new", name: "new"}, {id: "rental", name: "rental"}, {id: "eBook", name: "eBook"}, {
-            id: "used",
-            name: "used"
-        }],
-        sort: [{id: "price", name: "price"}]
+        filter: [
+        //     {id: "new", name: "new"}, {id: "rental", name: "rental"}, {id: "eBook", name: "eBook"}, {
+        //     id: "used",
+        //     name: "used"
+        // }
+        ],
+        sort: [
+            // {id: "price", name: "price"}
+            ]
     }
 };
 export let verticalsList = [];

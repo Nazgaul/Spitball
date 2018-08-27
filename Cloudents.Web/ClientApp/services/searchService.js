@@ -69,7 +69,7 @@ let transferResultAsk = response => {
         });
     return { 
         data: items,
-        source: res.result.filters,
+        sort: res.sort,
         filters: res.filters,
         nextPage: res.nextPageLink
     }
@@ -80,7 +80,7 @@ let transferResultNote = response => {
     let result = res ? res.result : [];
     if (!res) return { data: [] };
     return {
-        source: res.filters,
+        sort: res.sort,
         filters: res.filters,
         data: result.map(val => { return { ...val, template: 'item' } }), nextPage: res.nextPageLink }
 };

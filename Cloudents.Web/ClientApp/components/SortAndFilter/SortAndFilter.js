@@ -10,7 +10,6 @@ export default {
     },
     computed:{
         filterList(){
-            console.log('FILTERS',this.filterOptions)
             return this.filterOptions;
         }
     },
@@ -24,15 +23,16 @@ export default {
             return this.filterVal.find((item)=>{
                return item.key===singleFilter.id && item.value === ( filterItem.id ? filterItem.id.toString() : filterItem.toString())});
         },
-        updateFilter({ id, val, type }) {
+        updateFilter({ id, val, event }) {
             this.UPDATE_SEARCH_LOADING(true);
             let query = {};
-            let isChecked = type.target.checked;
+            let isChecked = event.target.checked;
+            // data from query to obj
             Object.assign(query, this.$route.query);
             let currentFilter = query[id] ? [].concat(query[id]) : [];
             query[id] = [].concat([...currentFilter, val]);
             if (!isChecked) {
-                query[id] = query[id].filter(i => i !== val);
+                query[id] = query[id].filter(item => item !== val);
             }
             if (val === 'inPerson' && isChecked) { query.sort = "price" }
             if (id === 'course') { this.setFilteredCourses(query.course) }

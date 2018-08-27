@@ -10,7 +10,7 @@
                 </template>
             </div>
         </template>
-        <div v-if="filterOptions && filterOptions.length">
+        <div v-if="filterList && filterList.length">
             <h3>Filter</h3>
             <div class="filter-switch">
                 <!--removed :value binding cause of error Vuetify 1.1.1-->
@@ -34,7 +34,7 @@
                                        @change="updateFilter({
                                        id : singleFilter.id,
                                        val: filterItem,
-                                       type : $event} )"/>
+                                       event : $event} )"/>
 
                                 <label class="checkmark" :for="(filterItem.id ? filterItem.id : filterItem)"></label>
                                 <label class="title-label" :title="filterItem.name ? filterItem.name : filterItem" :for="(filterItem.id ? filterItem.id : filterItem)">
