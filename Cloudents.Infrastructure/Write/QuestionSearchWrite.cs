@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Cloudents.Core.Entities.Search;
+using Cloudents.Core.Extension;
 using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -67,8 +68,7 @@ namespace Cloudents.Infrastructure.Write
 
         public FluentSearchField<T> Map(Expression<Func<T, object>> memberExpression, DataType type)
         {
-            var expression = (MemberExpression)memberExpression.Body;
-            string name = expression.Member.Name;
+            string name = memberExpression.GetName();
             _field.Name = name;
             _field.Type = type;
             return this;
@@ -81,16 +81,11 @@ namespace Cloudents.Infrastructure.Write
         public FluentSearchField<T> Map(Expression<Func<T, object>> memberExpression)
         {
             var expression = (MemberExpression)memberExpression.Body;
-            string name = expression.Member.Name;
-
-
+            string name = memberExpression.GetName();
             var propertyInfo = (PropertyInfo)expression.Member;
             _field.Name = name;
             _field.Type = GetDataType(propertyInfo.PropertyType, name);
             return this;
-
-            //var z = memberExpression;
-            //  return new Field();
         }
 
         public FluentSearchField<T> IsSearchable()

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
@@ -32,10 +30,10 @@ namespace Cloudents.Core.Entities.Db
                 Color = color;
             }
 
-            if (user.Fictive)
-            {
-                Updated = DateTimeHelpers.NextRandomDate(1);
-            }
+            //if (user.Fictive)
+            //{
+            //    Updated = DateTimeHelpers.NextRandomDate(1);
+            //}
 
             QuestionCreateTransaction();
             Events.Add(new QuestionCreatedEvent(this));

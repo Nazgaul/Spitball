@@ -118,17 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Eidan は、大手インターネット企業での経験が豊富なベテランのインターネット専門家です。Spitball に先立ち、
-                            Eiden はソーシャルアグリゲータの Multimi （AVGにより買収）を創業、
-                            プロダクト マネージメント ディレクターとして従事し、Yahoo のフロントページの戦略マネジメント（My Yahoo）や Yahoo で BI （ビジネス インテリジェンス）チームを率いた経歴を有しています。Eidan はカリフォルニア大学デービス校、経済博士号を保持しています。</value>
+    <value>Ola はパーソンズ美術大学でデザイン&amp;amp;テクノロジーを学んでおり、あらゆる内容を広く浅くサポートしています。それが「最高庶務責任者」と呼ばれている所以です:)</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Eidan</value>
+    <value>Ola</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Apelbaum</value>
+    <value>Jankowska</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>創業者、最高経営責任者（CEO）</value>
+    <value>最高庶務責任者（Chief of Stuff）</value>
   </data>
 </root>

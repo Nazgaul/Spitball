@@ -1,9 +1,14 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
 using Autofac;
+using Autofac.Core;
+using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Database.Maps;
 using Cloudents.Infrastructure.Database.Query;
 using Cloudents.Infrastructure.Database.Repositories;
+using Cloudents.Infrastructure.Interceptor;
 using JetBrains.Annotations;
 using NHibernate;
 using Module = Autofac.Module;
@@ -39,13 +44,16 @@ namespace Cloudents.Infrastructure.Database
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsSelf()
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
-                //EnableInterfaceInterceptors().InterceptedBy(typeof(CacheResultInterceptor));
+            //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
+            builder.RegisterType<QueryBuilder>().AsSelf().SingleInstance();
+            builder.RegisterGenericDecorator(
+                typeof(CacheQueryHandlerDecorator<,>),
+                typeof(IQueryHandler<,>),
+                fromKey: "handler");
 
-
-            //builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
-            //    .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)) && i.GetCustomAttribute<AdminCommandHandler>() == null)
-            //    .Select(i => new KeyedService("handler", i)));
+            builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
+                .Where(i => i.IsClosedTypeOf(typeof(IQueryHandler<,>)))
+                .Select(i => new KeyedService("handler", i)));
             base.Load(builder);
         }
     }
