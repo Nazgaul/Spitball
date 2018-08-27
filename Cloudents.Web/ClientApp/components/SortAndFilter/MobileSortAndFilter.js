@@ -13,7 +13,6 @@ export default {
             sort: '',
             filtersSelected: []
         }
-
     },
     props: {
         value: {type: Boolean},
@@ -35,7 +34,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['setFilteredCourses']),
+        ...mapActions(['setFilteredCourses', 'updateSort']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
 
         initFilters(filters = []) {
