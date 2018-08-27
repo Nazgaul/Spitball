@@ -145,7 +145,8 @@ html, body {
     }
     div.blocks{
         width: 412px;
-        height: 108px;
+        height: auto;
+        min-height: 108px;
     }
     #mobile-whitepaper-wrap{
         display: none;
