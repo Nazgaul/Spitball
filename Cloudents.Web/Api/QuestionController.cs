@@ -9,6 +9,7 @@ using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
@@ -123,7 +124,7 @@ namespace Cloudents.Web.Api
                 Result = p,
                 Filters = new []
                 {
-                    new Models.Filters(nameof(GetQuestionsRequest.Filter),"Type", Enum.GetNames(typeof(QuestionFilter))),
+                    new Models.Filters(nameof(GetQuestionsRequest.Filter),"Type", EnumExtension.GetPublicEnumNames(typeof(QuestionFilter))),
                     new Models.Filters(nameof(GetQuestionsRequest.Source),"Subject", result.Facet)
                 },
                 NextPageLink = nextPageLink

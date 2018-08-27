@@ -59,7 +59,7 @@ const mutations = {
             }
         }
     },
-    [SEARCH.ADD_QUESTION_VIEWR](state, question){
+    [SEARCH.ADD_QUESTION_VIEWER](state, question){
         if(!!state.itemsPerVertical.ask && state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length){
             state.itemsPerVertical.ask.data.forEach((ask, index) => {
                 if(ask.id === question.id){
@@ -68,7 +68,7 @@ const mutations = {
             });
         }
     },
-    [SEARCH.REMOVE_QUESTION_VIEWR](state, question){
+    [SEARCH.REMOVE_QUESTION_VIEWER](state, question){
         if(!!state.itemsPerVertical.ask && state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length){
             state.itemsPerVertical.ask.data.forEach((ask, index) => {
                 if(ask.id === question.id){
@@ -173,13 +173,13 @@ const actions = {
         let questionObj = searchService.createQuestionItem(notificationQuestionObject);
        commit(SEARCH.REMOVE_QUESTION, questionObj);
     },
-    addQuestionViewr({ commit }, notificationQuestionObject){
+    addQuestionViewer({ commit }, notificationQuestionObject){
         let questionObj = notificationQuestionObject;
-        commit(SEARCH.ADD_QUESTION_VIEWR, questionObj);
+        commit(SEARCH.ADD_QUESTION_VIEWER, questionObj);
     },
-    removeQuestionViewr({ commit }, notificationQuestionObject){
+    removeQuestionViewer({ commit }, notificationQuestionObject){
         let questionObj = notificationQuestionObject;
-        commit(SEARCH.REMOVE_QUESTION_VIEWR, questionObj);
+        commit(SEARCH.REMOVE_QUESTION_VIEWER, questionObj);
     }
 };
 
