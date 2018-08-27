@@ -45,7 +45,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(ITypeConverter<,>));
 
-            builder.RegisterType<Logger>().As<ILogger>();
         }
     }
 }

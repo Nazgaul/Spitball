@@ -11,6 +11,7 @@ namespace Cloudents.Infrastructure
     //[ModuleRegistration(Core.Enum.System.Api)]
     [ModuleRegistration(Core.Enum.System.Web)]
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
+    [ModuleRegistration(Core.Enum.System.Admin)]
     public class ModuleCache : Module
     {
         //private readonly string _redisConnectionString;
@@ -40,6 +41,8 @@ namespace Cloudents.Infrastructure
             })).AsSelf().SingleInstance().AsImplementedInterfaces();
 
             builder.RegisterType<CacheProvider>().AsImplementedInterfaces();
+
+
         }
     }
 }
