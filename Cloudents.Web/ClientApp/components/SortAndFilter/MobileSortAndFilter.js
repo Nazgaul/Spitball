@@ -6,15 +6,14 @@ export default {
         prop: "value",
         event: "input"
     },
+    components: {DialogToolbar},
     data() {
         return {
             filters: {},
             sort: '',
             filtersSelected: []
         }
-
     },
-    components: {DialogToolbar},
     props: {
         value: {type: Boolean},
         // sortOptions: {type: Array, default: () => []},
@@ -22,8 +21,20 @@ export default {
         filterVal: {type: Array, default: () => []},
         sortVal: {}
     },
+    computed:{
+        ...mapGetters(['getFilters', 'getSort']),
+        filterList(){
+            return this.filterOptions
+        }
+    },
+    watch: {
+        filterVal(val) {
+            this.initFilters(val);
+            this.sort = this.sortVal ? this.sortVal : (this.sortOptions && this.sortOptions.length) ? this.sortOptions[0] : "";
+        }
+    },
     methods: {
-        ...mapActions(['setFilteredCourses']),
+        ...mapActions(['setFilteredCourses', 'updateSort']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
 
         initFilters(filters = []) {
@@ -35,8 +46,9 @@ export default {
                 }else{
                     this.sort = this.sortOptions[0];
                 }
+            }else{
+                this.sort = "";
             }
-
 
             //init filters
             this.filters = this.getFilters;
@@ -45,8 +57,6 @@ export default {
                 this.filtersSelected.push(`${filter.key}_${filter.value}`);
             })
         },
-
-
         applyFilters() {
             let query = {};
             this.filtersSelected.forEach((filter)=>{
@@ -61,7 +71,6 @@ export default {
             if (this.sort){
                 query.sort = this.sort;
             }
-
             if (this.$route.query.q){
                 query.q = this.$route.query.q;
             }
@@ -90,18 +99,7 @@ export default {
             this.$emit('input', false)
         }
     },
-    computed:{
-        ...mapGetters(['getFilters', 'getSort']),
-        filterList(){
-            return this.filterOptions
-        }
-    },
-    watch: {
-        filterVal(val) {
-            this.initFilters(val);
-            this.sort = this.sortVal ? this.sortVal : (this.sortOptions && this.sortOptions.length) ? this.sortOptions[0] : "";
-        }
-    },
+
 
     created() {
         this.initFilters(this.filterVal);

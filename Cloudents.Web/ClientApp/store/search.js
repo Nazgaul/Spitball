@@ -128,7 +128,10 @@ const actions = {
             let verticalItems = context.state.itemsPerVertical[VerticalName];
             if((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skipLoad){
                 let filtersData = !!verticalItems.filters ? verticalItems.filters : null;
+                let sortData = !!verticalItems.sort  ? verticalItems.sort : null;
+                context.dispatch('updateSort', sortData);
                 context.dispatch('updateFilters', filtersData);
+
                 return verticalItems
             }else{
                 return new Promise((resolve) => {
