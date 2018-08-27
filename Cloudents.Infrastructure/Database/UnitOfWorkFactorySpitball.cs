@@ -72,6 +72,11 @@ namespace Cloudents.Infrastructure.Database
             return session;
         }
 
+        public ISessionFactory GetFactory()
+        {
+            return _factory;
+        }
+
         public IStatelessSession OpenStatelessSession()
         {
             return _factory.OpenStatelessSession();

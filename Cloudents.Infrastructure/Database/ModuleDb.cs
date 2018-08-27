@@ -5,6 +5,7 @@ using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Database.Maps;
 using Cloudents.Infrastructure.Database.Query;
 using Cloudents.Infrastructure.Database.Repositories;
 using Cloudents.Infrastructure.Interceptor;
@@ -44,7 +45,7 @@ namespace Cloudents.Infrastructure.Database
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
             //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
-
+            builder.RegisterType<QueryBuilder>().AsSelf().SingleInstance();
             builder.RegisterGenericDecorator(
                 typeof(CacheQueryHandlerDecorator<,>),
                 typeof(IQueryHandler<,>),

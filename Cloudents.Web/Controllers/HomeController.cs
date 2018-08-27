@@ -35,7 +35,7 @@ namespace Cloudents.Web.Controllers
         // we can't use that for now.
         // GET
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Index(LocationQuery location, [FromServices]IHostingEnvironment env)
+        public IActionResult Index(LocationQuery location,[FromQuery] bool? isNew, [FromServices]IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -43,6 +43,11 @@ namespace Cloudents.Web.Controllers
             }
 
             if (env.IsStaging())
+            {
+                return View();
+            }
+
+            if (isNew.GetValueOrDefault(false))
             {
                 return View();
             }
