@@ -6,9 +6,10 @@
   height: 100vh;
   position: fixed;
   z-index: 3;
-  .progress-circular {
+  .v-progress-circular {
     color: #302eb5;
   }
+
 }
 
 .loading {
@@ -23,4 +24,8 @@
 
 .cdn-only2 {
   position: absolute;
+}
+
+.v-overlay--active::before {
+  opacity: 0.6 !important;
 }

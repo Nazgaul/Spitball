@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Cloudents.Core.Enum;
+using Cloudents.Web.Filters;
 
 namespace Cloudents.Web.Models
 {
@@ -13,10 +15,15 @@ namespace Cloudents.Web.Models
         public string Text { get; set; }
 
         [Required]
-        [Range(0.1, 100)]
+        [Range(1, 100)]
         public decimal Price { get; set; }
 
-        //[MaxLength(4)]
+        [ArrayMaxSize(4)]
         public IEnumerable<string> Files { get; set; }
+
+        public QuestionColor? Color { get; set; }
+
+
+      
     }
 }

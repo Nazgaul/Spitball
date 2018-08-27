@@ -1,0 +1,35 @@
+﻿@page
+@using System
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model SendTokensModel
+@{
+    ViewData["Title"] = "SendTokens";
+}
+
+
+
+<h2>SendTokens</h2>
+
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="Model.UserId"></label>
+        <input asp-for="Model.UserId" />
+    </div>
+
+    <div>
+        <label asp-for="Model.SBL"></label>
+
+        <input asp-for="Model.SBL" />
+    </div>
+    <div>
+        <label asp-for="Model.TypeId"></label>
+        @Html.DropDownList("Model.TypeId",
+              new SelectList(Enum.GetValues(typeof(Cloudents.Core.Enum.TransactionType))),
+                                "Transaction Type",
+                                new { @class = "Model.TypeId" })
+    </div>
+    <input type="submit" />
+
+</form>

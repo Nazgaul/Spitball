@@ -5,11 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Chat;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Request;
 using Cloudents.Core.Storage;
 using Cloudents.Functions.Di;
-using Cloudents.Infrastructure.Framework;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.ServiceBus.Messaging;
@@ -21,7 +18,7 @@ namespace Cloudents.Functions
     {
         [FunctionName("FunctionTalkJs")]
         public static async Task BackgroundFunctionAsync(
-            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.TalkJs))]TalkJsUser obj,
+            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.TalkJs), AccessRights.Listen)]TalkJsUser obj,
             [Inject] IRestClient chatService,
             TraceWriter log,
             CancellationToken token)
@@ -55,33 +52,33 @@ namespace Cloudents.Functions
         }
 
         //[FunctionName("BlockChainInitialBalance")]
-        public static async Task BlockChainInitialBalanceAsync(
-            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.BlockChainInitialBalance))]
-            BlockChainInitialBalance obj,
-            [Inject] IBlockChainErc20Service service,
-            TraceWriter log,
-            CancellationToken token)
-        {
-            await service.SetInitialBalanceAsync(obj.PublicAddress, token).ConfigureAwait(false);
-            log.Info("Initial balance success");
-        }
+       // public static async Task BlockChainInitialBalanceAsync(
+       //     [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.BlockChainInitialBalance))]
+       //     BlockChainInitialBalance obj,
+       //     [Inject] IBlockChainErc20Service service,
+       //     TraceWriter log,
+       //     CancellationToken token)
+       // {
+       //     await service.SetInitialBalanceAsync(obj.PublicAddress, token).ConfigureAwait(false);
+       //     log.Info("Initial balance success");
+       // }
 
-       // [FunctionName("BlockChainQna")]
-        public static async Task BlockChainQnaAsync(
-            [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.BlockChainQnA))]
-            BrokeredMessage obj,
-            [Inject] IBlockChainQAndAContract service,
-            TraceWriter log,
-            CancellationToken token)
-        {
-            if (obj.DeliveryCount > 3)
-            {
-                return;
-            }
-            var qnaObject = obj.GetBodyInheritance<BlockChainQnaSubmit>();
-            await service.SubmitAsync((dynamic)qnaObject, token).ConfigureAwait(false);
-            log.Info("success");
-        }
+       //// [FunctionName("BlockChainQna")]
+       // public static async Task BlockChainQnaAsync(
+       //     [ServiceBusTrigger(TopicSubscription.Background, nameof(TopicSubscription.BlockChainQnA))]
+       //     BrokeredMessage obj,
+       //     [Inject] IBlockChainQAndAContract service,
+       //     TraceWriter log,
+       //     CancellationToken token)
+       // {
+       //     if (obj.DeliveryCount > 3)
+       //     {
+       //         return;
+       //     }
+       //     var qnaObject = obj.GetBodyInheritance<BlockChainQnaSubmit>();
+       //     await service.SubmitAsync((dynamic)qnaObject, token).ConfigureAwait(false);
+       //     log.Info("success");
+       // }
     }
 }
 

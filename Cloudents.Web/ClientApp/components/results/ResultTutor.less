@@ -10,7 +10,9 @@
     .tutor-title {
         font-size: 17px;
         letter-spacing: -0.3px;
-        color: @Tutors;
+        //TODO ui changes
+        //color: @Tutors;
+        color: @color-main-purple;
         font-weight: bold;
     }
 
@@ -22,13 +24,9 @@
         height: 41px;
         min-width: 128px;
         max-width: 128px;
-        //width: 105px;
         overflow: hidden;
         border-radius: 0 4px 0 36px;
         background-color: @color-light-grey;
-        //border: solid 0.5px #dddddd;
-        //border-top: 0;
-        //border-left: 0;
         font-size: 18px;
         position: absolute;
         top: 0;
@@ -37,10 +35,7 @@
         text-align: center;
         padding-left: 16px;
         display: inline-block;
-
-
         span {
-            //line-height: 40px;
             display: block;
             letter-spacing: -0.4px;
             margin: 9px auto;
@@ -51,7 +46,9 @@
         margin-right: 8px;
         font-size: 17px;
         letter-spacing: -0.4px;
-        color: @Tutor-Price;
+        //TODO ui changes
+        //color: @Tutor-Price;
+        color: @color-main-purple;
     }
 
     .location {
@@ -62,15 +59,12 @@
 
     .description-wrap {
         margin-top: 14px;
-
         .description {
             font-size: 16px;
             letter-spacing: -0.3px;
             color: @Book-Info;
-            overflow: hidden;
             .giveMeEllipsis(4,15px);
             margin-right: 36px;
-
             @media(max-width: 600px) {
                 margin-right: 16px;
             }
@@ -79,7 +73,6 @@
 
     .bottom-wrap {
         flex-grow: 0;
-
         .bottom {
             flex-grow: 0;
             margin-bottom: -4px;

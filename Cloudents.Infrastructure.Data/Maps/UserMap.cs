@@ -22,11 +22,13 @@ namespace Cloudents.Infrastructure.Data.Maps
             Map(e => e.Image).Nullable();
             Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
+            Map(e => e.FraudScore);
 
+            Map(e => e.Created).Insert().Not.Update();
+            Map(e => e.Fictive).ReadOnly();
 
             References(x => x.University).ForeignKey("User_University").Nullable();
             Map(x => x.Balance).CustomSqlType("smallmoney");
-            //References(x => x.LastTransaction).ForeignKey("User_Transaction");
 
             HasMany(x => x.Transactions)
                 .Inverse()
@@ -37,6 +39,17 @@ namespace Cloudents.Infrastructure.Data.Maps
                 //    .Not.KeyUpdate()
                 .Cascade.AllDeleteOrphan();
 
+            HasMany(x => x.Answers)
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
+
+            HasMany(x => x.Questions)
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
+
+            Cache.ReadWrite().Region("nHibernate-User");
+           
+           
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
                ON sb.[User](PhoneNumberHash)

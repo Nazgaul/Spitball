@@ -4,7 +4,13 @@ namespace Cloudents.Core
 {
     public class ConfigurationKeys : IConfigurationKeys
     {
-        public string Db { get; set; }
+        public ConfigurationKeys(string siteEndPoint)
+        {
+            SiteEndPoint = siteEndPoint;
+            
+        }
+
+        public DbConnectionString Db { get; set; }
         public string MailGunDb { get; set; }
         public SearchServiceCredentials Search { get; set; }
         public string Redis { get; set; }
@@ -12,23 +18,40 @@ namespace Cloudents.Core
         //public string SystemUrl { get; set; }
 
         public LocalStorageData LocalStorageData { get; set; }
-        public string FunctionEndpoint { get; set; }
+        //public string FunctionEndpoint { get; set; }
 
         public string BlockChainNetwork { get; set; }
 
         public string ServiceBus { get; set; }
+        public string SiteEndPoint { get; }
     }
 
     public class SearchServiceCredentials
     {
-        public SearchServiceCredentials(string name, string key)
+        public SearchServiceCredentials(string name, string key, bool isDevelop)
         {
             Name = name;
             Key = key;
+            this.isDevelop = isDevelop;
         }
 
         public string Name { get; }
         public string Key { get; }
+
+        public bool isDevelop { get; }
+    }
+
+    public class DbConnectionString
+    {
+        public DbConnectionString(string db, string redis)
+        {
+            Db = db;
+            Redis = redis;
+        }
+
+        public string Db { get;  }
+
+        public string Redis { get;  }
     }
 
     public class LocalStorageData

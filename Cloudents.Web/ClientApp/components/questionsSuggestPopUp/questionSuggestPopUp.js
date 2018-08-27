@@ -1,7 +1,9 @@
 import questionCard from "../question/helpers/question-card/question-card.vue";
 import {mapActions} from 'vuex'
+import disableForm from "../mixins/submitDisableMixin";
 
 export default {
+    mixins: [disableForm],
     components: {
         questionCard
     },
@@ -15,8 +17,7 @@ export default {
         return {
             showDialog: false,
             interval: 7000,
-
-
+            typeAnswer: false
         }
     },
     beforeRouteLeave(to, from, next) {
@@ -26,28 +27,14 @@ export default {
     methods: {
         ...mapActions(["resetQuestion"]),
         requestDialogClose() {
-            this.$root.$emit('closeSuggestionPopUp')
+            this.$root.$emit('closePopUp', 'suggestions')
         },
         answerMore(id) {
+            this.$router.push({name: 'question', params: {id: `${id}`}});
+            console.log(this.$router)
             this.requestDialogClose();
-            //
-            // this.$nextTick(function () {
-            //     this.$router.push({path: '/question/' + id});
-            //     this.$forceUpdate()
-            // })
         }
+    },
+    computed: {},
 
-    },
-    computed: {
-     },
-    watch: {
-        '$props':{
-            handler: function (val, oldVal) {
-                console.log('watch', val)
-            },
-            deep: true
-        }
-    },
-    created() {
-    }
 }

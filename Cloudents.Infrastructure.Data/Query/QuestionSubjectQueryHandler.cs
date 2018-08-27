@@ -6,8 +6,8 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
-using System.Linq;
-using NHibernate.Linq;
+using Cloudents.Infrastructure.Data.Repositories;
+using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Data.Query
 {
@@ -20,17 +20,14 @@ namespace Cloudents.Infrastructure.Data.Query
             _session = session.Session;
         }
 
-
         public async Task<IEnumerable<QuestionSubjectDto>> GetAsync(QuestionSubjectQuery query, CancellationToken token)
         {
-            return await _session.Query<QuestionSubject>()
-                .Select(s => new QuestionSubjectDto
-                {
-                    Id = s.Id,
-                    Subject = s.Text
-                })
-                .OrderBy(o => o.Subject)
-                .ToListAsync(token).ConfigureAwait(false);
+            QuestionSubjectDto dto = null;
+           return await QuestionSubjectRepository.GetSubjects(_session.QueryOver<QuestionSubject>()).SelectList(l =>
+                   l.Select(s => s.Id).WithAlias(() => dto.Id)
+                       .Select(s => s.Text).WithAlias(() => dto.Subject)
+               ).TransformUsing(Transformers.AliasToBean<QuestionSubjectDto>())
+               .ListAsync<QuestionSubjectDto>(token).ConfigureAwait(false) ;
         }
     }
 }

@@ -14,6 +14,20 @@ namespace Cloudents.Core.Extension
             return source.IndexOf(toCheck, comp) >= 0;
         }
 
+        public static bool Contains(this string source, IEnumerable<string> toCheck, StringComparison comp)
+        {
+            foreach (var check in toCheck)
+            {
+                if (source.Contains(check, comp))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+
+        }
+
         public static bool TryToEnum<TEnum>(this string value, out TEnum result) where TEnum : struct
         {
             if (System.Enum.TryParse(value, true, out result))

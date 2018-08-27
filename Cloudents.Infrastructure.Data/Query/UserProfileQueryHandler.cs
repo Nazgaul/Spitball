@@ -43,11 +43,13 @@ namespace Cloudents.Infrastructure.Data.Query
                 {
                     Text = s.Text,
                     Answers = s.Answers.Count,
-                    DateTime = s.Created,
+                    DateTime = s.Updated,
                     Files = s.Attachments,
                     Price = s.Price,
                     Id = s.Id,
-                    Subject = s.Subject.Text
+                    Subject = s.Subject.Text,
+                    Color = s.Color,
+                    HasCorrectAnswer = s.CorrectAnswer != null
                 }).ToFuture();
 
             var answerQuery = _session.Query<Answer>()
@@ -55,7 +57,6 @@ namespace Cloudents.Infrastructure.Data.Query
 
             answerQuery.ThenFetch(f => f.Subject);
             answerQuery.ThenFetch(f => f.User);
-
 
             //var futureAnswers = _session.Query<Answer>()
             //    .Fetch(f => f.Question)
@@ -68,11 +69,13 @@ namespace Cloudents.Infrastructure.Data.Query
                 {
                     Text = s.Question.Text,
                     Answers = s.Question.Answers.Count,
-                    DateTime = s.Question.Created,
+                    DateTime = s.Question.Updated,
                     Files = s.Question.Attachments,
                     Price = s.Question.Price,
                     Id = s.Question.Id,
                     Subject = s.Question.Subject.Text,
+                    Color = s.Question.Color,
+                    HasCorrectAnswer = s.Question.CorrectAnswer != null,
                     User = new UserDto
                     {
                         Id = s.Question.User.Id,

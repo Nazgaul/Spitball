@@ -24,4 +24,25 @@ namespace Cloudents.Core.CommandHandler
             await _unitOfWork.CommitAsync(token).ConfigureAwait(true);
         }
     }
+
+    public class EventPublisherCommandHandlerDecorator<TCommand>
+        : ICommandHandler<TCommand> where TCommand : ICommand
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ICommandHandler<TCommand> _decoratee;
+
+        public EventPublisherCommandHandlerDecorator(
+            IUnitOfWork unitOfWork,
+            ICommandHandler<TCommand> decoratee)
+        {
+            _unitOfWork = unitOfWork;
+            _decoratee = decoratee;
+        }
+
+        public async Task ExecuteAsync(TCommand message, CancellationToken token)
+        {
+            await _decoratee.ExecuteAsync(message, token).ConfigureAwait(true);
+            await _unitOfWork.CommitAsync(token).ConfigureAwait(true);
+        }
+    }
 }

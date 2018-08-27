@@ -8,6 +8,7 @@ namespace Cloudents.Infrastructure.Storage
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
     [ModuleRegistration(Core.Enum.System.Web)]
+    [ModuleRegistration(Core.Enum.System.Admin)]
     [UsedImplicitly]
     public class ModuleStorage : Module
     {
@@ -20,7 +21,7 @@ namespace Cloudents.Infrastructure.Storage
             }).SingleInstance().AsImplementedInterfaces();
 
             builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
-           // builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
+            builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
             builder.RegisterGeneric(typeof(BlobProviderContainer<>)).AsImplementedInterfaces();
 
             builder.Register(c =>

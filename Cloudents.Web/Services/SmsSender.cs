@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
@@ -7,38 +6,34 @@ using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Services
 {
     [UsedImplicitly]
     public class SmsSender : ISmsSender
     {
-        private readonly IRestClient _client;
-        private readonly IConfiguration _configuration;
+        private readonly IServiceBusProvider _serviceBusProvider;
         private readonly UserManager<User> _userManager;
+        private readonly ISmsProvider _smsProvider;
 
-        public SmsSender(IRestClient client, IConfiguration configuration, UserManager<User> userManager)
+        public SmsSender(UserManager<User> userManager, IServiceBusProvider serviceBusProvider, ISmsProvider smsProvider)
         {
-            _client = client;
-            _configuration = configuration;
             _userManager = userManager;
+            _serviceBusProvider = serviceBusProvider;
+            _smsProvider = smsProvider;
         }
 
-        public async Task<bool> SendSmsAsync(User user, CancellationToken token)
+        public async Task SendSmsAsync(User user, CancellationToken token)
         {
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber).ConfigureAwait(false);
-            var message = new SmsMessage(user.PhoneNumber, code);
-            return await _client.PostJsonAsync(
-                new Uri(
-                    $"{_configuration["AzureFunction:EndPoint"]}/api/sms?code={_configuration["AzureFunction:Secret"]}"),
-                message,
-                null, token).ConfigureAwait(false);
-        }
-    }
+            var message = new SmsMessage2(user.PhoneNumber, code);
 
-    public interface ISmsSender
-    {
-        Task<bool> SendSmsAsync(User user, CancellationToken token);
+            await _serviceBusProvider.InsertMessageAsync(message, token);
+        }
+
+        public Task<string> ValidateNumberAsync(string phoneNumber, CancellationToken token)
+        {
+            return _smsProvider.ValidateNumberAsync(phoneNumber, token);
+        }
     }
 }

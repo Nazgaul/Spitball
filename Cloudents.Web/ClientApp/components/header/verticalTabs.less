@@ -4,18 +4,26 @@
     .limited-width()!important;
     @media(max-width: @screen-sm) {
         align-items: stretch;
+        padding-right: 0px !important;
+        padding-left: 0px !important;
     }
 
+    .v-tabs__container{
+        height:44px;
+    }
 
     .v-tabs__item {
         text-transform: capitalize;
-        //padding: 0 0 16px 0 !important;
         //Vuetify 1.1.1
         padding: 0 !important;
         font-size: 14px;
         font-weight: 600;
         letter-spacing: -0.2px;
         opacity: 1;
+        color: #8888d5;
+        &.v-tabs__item--active{
+            color: @color-main-purple;
+        }
     }
 
 
@@ -50,5 +58,10 @@
                 padding-bottom: 0;
             }
         }
+    }
+
+    //remove the background added to the button when clicking on it
+    .v-ripple__animation{
+        display: none;
     }
 }

@@ -1,25 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Query;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
-
-namespace Cloudents.Infrastructure.Search
+﻿namespace Cloudents.Infrastructure.Search
 {
     //public class QuestionSearch //: IQuestionSearch
     //{
     //    private readonly ISearchIndexClient _client;
     //    private readonly IMapper _mapper;
 
-    //    public QuestionSearch(ISearchServiceClient client, string indexName, IMapper mapper)
+    //    public QuestionSearch(ISearchService client, string indexName, IMapper mapper)
     //    {
     //        _mapper = mapper;
-    //        _client = client.Indexes.GetClient(indexName);
+    //        _client = client.GetClient(indexName);
     //    }
 
     //    public async Task<ResultWithFacetDto<QuestionDto>> SearchAsync(QuestionsQuery query, CancellationToken token)

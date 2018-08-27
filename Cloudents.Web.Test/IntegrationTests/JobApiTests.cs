@@ -18,7 +18,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [TestMethod]
         public async Task Search_SomeQuery2_ReturnResult()
         {
-            var response = await Client.GetAsync("/api/job?location.latitude=32.636928&location.longitude=35.3288192&term=").ConfigureAwait(false);
+            var response = await Client.GetAsync("/api/Job?Location.Point.Latitude=33.71&Location.Point.Longitude=-117.9478&Facet=Part+Time%2CInternship&Page=1").ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
 

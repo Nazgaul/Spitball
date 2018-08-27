@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Microsoft.AspNetCore.Authentication;
+using Cloudents.Management.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -55,16 +52,19 @@ namespace Cloudents.Management
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Core"),
-                Assembly.Load("Cloudents.Infrastructure.Data"),
+                //Assembly.Load("Cloudents.Infrastructure.Data"),
+                Assembly.Load("Cloudents.Infrastructure.Storage"), 
+                Assembly.Load("Cloudents.Infrastructure"), 
                 Assembly.GetExecutingAssembly()
             };
 
             var containerBuilder = new ContainerBuilder();
 
-            var keys = new ConfigurationKeys
+            var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = Configuration.GetConnectionString("DefaultConnection"),
-                ServiceBus = Configuration["ServiceBus"]
+                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
+                ServiceBus = Configuration["ServiceBus"],
+                Storage =  Configuration["Storage"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
@@ -72,8 +72,6 @@ namespace Cloudents.Management
                 Core.Enum.System.Admin, assembliesOfProgram);
 
             // ModuleCore.RegisterCommands(containerBuilder, Assembly.GetExecutingAssembly());
-
-            containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(ICommandHandler<>)).AsImplementedInterfaces();
 
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();

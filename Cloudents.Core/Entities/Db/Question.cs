@@ -3,32 +3,49 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
-[assembly: InternalsVisibleTo("Cloudents.Infrastructure.Data")]
+[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
 namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class Question
+    public class Question : IEvents
     {
-        public Question(QuestionSubject subject, string text, decimal price, int attachments, User user)
+        public Question(QuestionSubject subject, string text, decimal price, int attachments, User user, QuestionColor color)
+        : this()
         {
             Subject = subject;
-            Text = text;
+            Text = text?.Trim();
             Price = price;
             Attachments = attachments;
             User = user;
-            Created = DateTime.UtcNow;
+            Updated = Created = DateTime.UtcNow;
+            if (color != QuestionColor.Default)
+            {
+                Color = color;
+            }
+
+            //if (user.Fictive)
+            //{
+            //    Updated = DateTimeHelpers.NextRandomDate(1);
+            //}
 
             QuestionCreateTransaction();
+            Events.Add(new QuestionCreatedEvent(this));
+
+
         }
 
         [UsedImplicitly]
         protected Question()
         {
+            Answers = Answers ?? new List<Answer>();
+            Events = new List<IEvent>();
         }
 
         public virtual long Id { get; protected set; }
@@ -46,7 +63,11 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual IList<Answer> Answers { get; protected set; }
 
+        public virtual DateTime Updated { get; set; }
+
         protected internal virtual IList<Transaction> Transactions { get; set; }
+
+        public virtual QuestionColor? Color { get; set; }
 
 
         public virtual void QuestionCreateTransaction()
@@ -61,8 +82,10 @@ namespace Cloudents.Core.Entities.Db
             {
                 transaction.Question = null;
             }
-            var t =  Transaction.QuestionDelete(this);// new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
+            var t = Transaction.QuestionDelete(this);// new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
             User.AddTransaction(t);
+
+            Events.Add(new QuestionDeletedEvent(this));
         }
 
         public virtual void MarkAnswerAsCorrect(Answer correctAnswer)
@@ -73,14 +96,15 @@ namespace Cloudents.Core.Entities.Db
             }
             CorrectAnswer = correctAnswer;
 
-            //TODO remove from earned or question from user
             MarkCorrectTransaction(correctAnswer);
+
+            Events.Add(new MarkAsCorrectEvent(correctAnswer));
         }
 
         public virtual void MarkCorrectTransaction(Answer correctAnswer)
         {
             var questionUser = User;
-            var t1 = Transaction.CorrectAnswer(TransactionType.Stake,this,correctAnswer); //new Transaction(ActionType.AnswerCorrect, TransactionType.Stake, Price);
+            var t1 = Transaction.CorrectAnswer(TransactionType.Stake, this, correctAnswer); //new Transaction(ActionType.AnswerCorrect, TransactionType.Stake, Price);
             var t2 = Transaction.CorrectAnswer(TransactionType.Spent, this, correctAnswer);// new Transaction(ActionType.AnswerCorrect, TransactionType.Spent, -Price);
             questionUser.AddTransaction(t1);
             questionUser.AddTransaction(t2);
@@ -89,13 +113,13 @@ namespace Cloudents.Core.Entities.Db
 
 
             var tAnswer = Transaction.CorrectAnswer(TransactionType.Earned, this, correctAnswer);// new Transaction(ActionType.AnswerCorrect, TransactionType.Earned,
-                //Price);
+                                                                                                 //Price);
             answerUser.AddTransaction(tAnswer);
 
             //return new[] {t1, t2, tAnswer};
         }
 
 
-
+        public virtual IList<IEvent> Events { get; protected set; }
     }
 }

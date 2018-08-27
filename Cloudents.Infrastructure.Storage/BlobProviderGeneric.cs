@@ -51,16 +51,17 @@ namespace Cloudents.Infrastructure.Storage
             string mimeType, bool fileGziped, int cacheControlMinutes, CancellationToken token)
         {
             var blob = GetBlob(blobName);
+            if (!fileContent.CanSeek)
+            {
+                throw new ArgumentException("stream should need to be able to seek");
+            }
             fileContent.Seek(0, SeekOrigin.Begin);
-
             blob.Properties.ContentType = mimeType;
             if (fileGziped)
             {
                 blob.Properties.ContentEncoding = "gzip";
             }
-
             blob.Properties.CacheControl = "private, max-age=" + (TimeConst.Minute * cacheControlMinutes);
-            // blob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
             return blob.UploadFromStreamAsync(fileContent);
         }
 

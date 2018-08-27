@@ -43,44 +43,19 @@ const dummyJobObj = {
 };
 
 let multipleItemSkeletons = [dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj, dummyItemObj]
+let multipleDummyTutorObj = [dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj]
+let multipleDummyBookObj = [dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj]
+let multipleDummyJobObj = [dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj]
+
 export const skeletonData = {
     result:multipleItemSkeletons,
     note: multipleItemSkeletons,
     flashcard: multipleItemSkeletons,
-    tutor: [dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj, dummyTutorObj],
-    book: [dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj, dummyBookObj],
+    tutor: multipleDummyTutorObj,
+    book: multipleDummyBookObj,
     ask: multipleItemSkeletons,
-    job: [dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj, dummyJobObj],
+    job: multipleDummyJobObj,
 };
-// export const promotions = {
-//     note: {
-//         title: "Study Documents",
-//         content: "Study documents curated from the best sites on the web filtered by your school, classes and preferences."
-//     },
-//     flashcard: {
-//         title: "Flashcards",
-//         content: "Search millions of study sets and improve your grades by studying with flashcards."
-//     },
-//     ask: {
-//         title: "Ask A Question",
-//         content: "Ask any school related question and immediately get answers related specifically to you, your classes, and university."
-//     },
-//     tutor: {
-//         title: "Tutors",
-//         content: "Spitball has teamed up with the most trusted tutoring services to help you ace your classes."
-//     },
-//     book: {
-//         title: "Textbooks",
-//         content: "Find the best prices to buy, rent and sell your textbooks by comparing hundreds of sites simultaneously."
-//     },
-//     job: {
-//         title: "Jobs",
-//         content: "Easily search and apply to paid internships, part-time and entry-level jobs from local businesses to Fortune 500 companies."
-//     }
-//
-// };
-
-
 
 export const faqList = [
     { text: 'What is Spitball.co?', href:''},

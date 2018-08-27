@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -20,22 +18,28 @@ namespace Cloudents.Core.Interfaces
         Task DeleteAsync(T entity, CancellationToken token);
         Task UpdateAsync(T entity, CancellationToken token);
 
-        Task FlushAsync(CancellationToken token);
+       // Task FlushAsync(CancellationToken token);
     }
 
 
     public interface IUserRepository : IRepository<User>
     {
-        Task<IList<User>> GetAllUsersAsync(CancellationToken token);
+        //Task<IList<User>> GetAllUsersAsync(CancellationToken token);
+
+        //Task<User> GetUserByEmail(string email, CancellationToken token);
 
         Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token);
 
-        Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
+        Task<User> GetRandomFictiveUserAsync(CancellationToken token);
+        
+        //Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
     }
 
     public interface IQuestionRepository : IRepository<Question>
     {
         Task<IList<Question>> GetAllQuestionsAsync();
+        Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token);
+        Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token);
     }
 
     public interface ICourseRepository : IRepository<Course>

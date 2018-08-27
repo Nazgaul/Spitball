@@ -5,8 +5,11 @@
     .first-grid {
         width: @resultsFilterWidth;
         .flexSameSize();
-        padding-right: 32px;
+        padding-right: 32px;   
+        opacity: 1;     
     }
+
+    
 }
 
 
@@ -43,15 +46,18 @@
         @media(max-width: (@screen-md)){  display: block;}
         @media(max-width: (@screen-xs)){
             display: block;
-            margin: 16px 32px 16px 64px;
+            margin: 10px 32px 10px 64px;
             width: 80%;
+            &.no-filter-btn{
+                margin: 16px 48px;
+            }
         }
         @media(max-width: (@screen-sm)){  display: block;
         }
-        font-size: 20px;
+        font-size: 18px;
         line-height: 40px;
         border-radius: 4px;
-        background-color: @color-dark-blue;
+        background-color: @color-main-purple;
         box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
         color: @color-white;
         font-weight: bold;
@@ -78,6 +84,10 @@
       .show-btn {
         pointer-events: none;
         .cellActionBtnMixin();
+      }
+
+      .question-viewer{
+        .cellActionViewerMixin();
       }
 
         .cell-video,
@@ -147,6 +157,11 @@
                 font-size: 12px;
                 border-color: #eee !important;
             }
+            .fixedLocation{
+                position: absolute;
+                right: 32px;
+                top: 4px;
+            }
         }
         @media(max-width: @screen-xs) {
             min-height: 42px;
@@ -154,12 +169,23 @@
 
         button {
             @media(max-width: @screen-xs) {
-                margin: 16px 8px 0 0;
+                margin: 10px 8px 10px 0;
                 .sbf-filter{
                     font-size: 19px;
-                    color: @color-main-purple;
+                    //color: @color-main-purple;
+                    position: absolute;
+                    right: 10px;
                 }
             }
+        }
+
+        //remove the eliptic shape when clicking the sort ans filter button on mobile
+        .v-btn:before{
+            display: none;
+        }
+        .v-ripple__container{
+            display:none;
+            
         }
     }
 }

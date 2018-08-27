@@ -1,7 +1,8 @@
 ﻿import debounce from "lodash/debounce";
 import historyIcon from "./svg/history-icon.svg";
-import {mapGetters, mapActions} from 'vuex'
+import {mapGetters, mapActions, mapMutations} from 'vuex'
 import * as consts from './consts';
+import { constants } from "../../utilities/constants";
 
 export default {
     name: "search-input",
@@ -11,7 +12,7 @@ export default {
         placeholder: {type: String},
         userText: {String},
         submitRoute: {String,default:'/ask'},
-        suggestionVertical: {String}
+        suggestionVertical: {String},
     },
     data: () => ({autoSuggestList: [], isFirst: true, showSuggestions: false, focusedIndex: -1, originalMsg: ''}),
     computed: {
@@ -45,7 +46,43 @@ export default {
             this.msg = val;
             this.isFirst = true;
         },
-        msg: debounce(function (val) {
+        focusedIndex(val) {
+            if (val < 0) {
+                this.msg = this.originalMsg;
+            }
+            else {
+                this.msg = this.suggestList[this.focusedIndex].text;
+            }
+        }
+    },
+    methods: {
+        ...mapActions(['getAutocmplete']),
+        ...mapMutations(['UPDATE_SEARCH_LOADING']),
+        selectos({item, index}) {
+            this.msg = item.text;
+            this.$ga.event('Search_suggestions', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
+            this.search();
+            this.closeSuggestions();
+        },
+        search() {
+            if (!constants.regExXSSCheck.test(this.msg)){
+                this.UPDATE_SEARCH_LOADING(true);
+                this.$router.push({path: this.submitRoute, query: {q: this.msg}});
+            }
+            this.closeSuggestions();
+            // to remove keyboard on mobile
+            this.$nextTick(() => {
+                this.$el.querySelector('input').blur();
+            });
+        },
+        openSuggestions() {
+            this.showSuggestions = true;
+            if (this.$root.$el.querySelector('.box-search')) { // Limit height Only in home page
+                var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
+                this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4) + "px";
+            }
+        },
+        changeMsg: debounce(function (val) {
             if (this.focusedIndex >= 0 && this.msg !== this.suggestList[this.focusedIndex].text) {
                 this.focusedIndex = -1;
             }
@@ -62,39 +99,6 @@ export default {
                 this.isFirst = false;
             }
         }, 250),
-        focusedIndex(val) {
-            if (val < 0) {
-                this.msg = this.originalMsg;
-            }
-            else {
-                this.msg = this.suggestList[this.focusedIndex].text;
-            }
-        }
-    },
-    methods: {
-        ...mapActions(['getAutocmplete']),
-        selectos({item, index}) {
-            this.msg = item.text;
-            this.$ga.event('Search_suggestions', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
-            this.search();
-            this.closeSuggestions();
-        },
-        search() {
-                this.$router.push({path: this.submitRoute, query: {q: this.msg}});
-
-            this.closeSuggestions();
-            // to remove keyboard on mobile
-            this.$nextTick(() => {
-                this.$el.querySelector('input').blur();
-            });
-        },
-        openSuggestions() {
-            this.showSuggestions = true;
-            if (this.$root.$el.querySelector('.box-search')) { // Limit height Only in home page
-                var rect = this.$root.$el.querySelector('.box-search').getBoundingClientRect();
-                this.$el.querySelector('.search-menu').style.maxHeight = (window.innerHeight - rect.top - rect.height - 4) + "px";
-            }
-        },
         closeSuggestions() {
             this.$el.querySelector('.search-b input').blur();
             this.focusedIndex = -1;
@@ -112,10 +116,13 @@ export default {
                 }
             }
         },
-
         highlightSearch: function (item) {
             if (!item.type === consts.SUGGEST_TYPE.autoComplete || !this.msg) {
-                return item.text
+                if (!constants.regExXSSCheck.test(item.text)){
+                    return item.text
+                }else{
+                    return "";
+                }
             }
             else {
                 let term = this.msg.toLowerCase();
@@ -155,5 +162,31 @@ export default {
         if (!this.isHome) {
             this.msg = this.userText ? this.userText : this.globalTerm ? this.globalTerm : "";
         }
+
+
+        function closeSuggestions(TogglerElm, shouldHide, closeFn){
+            if(TogglerElm[0] && TogglerElm[0].style.display !== "none"){
+                if (shouldHide) {
+                    closeFn();
+                }
+            }
+        }
+
+        //close the search suggestion menu from pressing out of the search box
+        //or by pressing escape button
+        let bodyElm = document.getElementsByTagName("body");
+        let menuTogglerElm = document.getElementsByClassName("menu-toggler");
+        bodyElm[0].addEventListener("click", ()=>{
+            closeSuggestions(menuTogglerElm, this.showSuggestions, this.closeSuggestions);
+        });
+        bodyElm[0].addEventListener("keydown", (event)=>{
+            if(event.keyCode === 27){
+                //escape button pressed
+                closeSuggestions(menuTogglerElm, this.showSuggestions, this.closeSuggestions);
+            }
+        });
+        
+        
     }
+
 }

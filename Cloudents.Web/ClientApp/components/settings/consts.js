@@ -27,7 +27,8 @@ export let searchObjects = {
             this.$refs.searchText.focus();
         },
         action: "add"
-    }, university: {
+    }, 
+    university: {
         id: typesPersonalize.university,
         searchApi: "getUniversities",
         placeholder: 'Where do you go to school?',

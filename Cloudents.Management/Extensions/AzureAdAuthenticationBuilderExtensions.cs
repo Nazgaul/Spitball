@@ -1,10 +1,10 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Microsoft.AspNetCore.Authentication
+namespace Cloudents.Management.Extensions
 {
     public static class AzureAdAuthenticationBuilderExtensions
     {        

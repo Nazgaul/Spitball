@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Cloudents.Web.Binders
@@ -33,11 +34,30 @@ namespace Cloudents.Web.Binders
                 bindingContext.Result = ModelBindingResult.Success(null);
                 return Task.CompletedTask;
             }
+        }
+    }
 
-            //var enumObj = Enum.ToObject(typeOfEnum, strValue.FirstValue);
+    public class EmailEntityBinder : IModelBinder
+    {
+        private readonly IMailProvider _mailProvider;
 
-            //bindingContext.Result = ModelBindingResult.Success(enumObj);
-            //return Task.CompletedTask;
+        public EmailEntityBinder(IMailProvider mailProvider)
+        {
+            _mailProvider = mailProvider;
+        }
+
+        public async Task BindModelAsync(ModelBindingContext bindingContext)
+        {
+            var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+
+            var t = await _mailProvider.ValidateEmailAsync(valueProviderResult.FirstValue, bindingContext.HttpContext.RequestAborted);
+            if (t)
+            {
+                bindingContext.Result = ModelBindingResult.Success(valueProviderResult.FirstValue);
+                return;
+            }
+
+            bindingContext.Result = ModelBindingResult.Failed();
         }
     }
 }

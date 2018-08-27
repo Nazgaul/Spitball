@@ -5,6 +5,7 @@ using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Domain;
@@ -43,6 +44,8 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<WebSearch>();
 
+            builder.RegisterType<DataProtection>().As<IDataProtect>();
+
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
 
             #region Tutor
@@ -59,7 +62,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(currentAssembly)
                 .Where(w => typeof(IJobProvider).IsAssignableFrom(w))
                 .As<IJobProvider>()
-                .EnableInterfaceInterceptors().InterceptedBy(typeof(CacheResultInterceptor));
+                .EnableInterfaceInterceptors().InterceptedBy(typeof(CacheResultInterceptor), typeof(LogInterceptor));
             builder.RegisterType<JobSearch>().As<IJobSearch>()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor));
@@ -69,18 +72,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
 
-            builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
-            //builder.Register(c =>
-            //{
-            //    var key = c.Resolve<IConfigurationKeys>().Db.Contains("Develop");
-            //    var index = "question";
-            //    if (key)
-            //    {
-            //        index += "-dev";
-            //    }
-
-            //    return new QuestionSearch(c.Resolve<ISearchServiceClient>(), index, c.Resolve<IMapper>());
-            //}).As<IQuestionSearch>();
+            builder.RegisterType<UniversitySearch>().As<IUniversitySearch>().EnableInterfaceInterceptors().InterceptedBy(typeof(LogInterceptor));
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();

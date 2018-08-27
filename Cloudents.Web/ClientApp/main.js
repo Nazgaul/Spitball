@@ -1,18 +1,21 @@
-﻿import Vue from "vue";
+﻿
+import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
+import { Language } from "./services/language/langDirective"
+
+import initSignalRService from './services/signalR/signalrEventService'
 
 const scroll = () =>
-    import ("./components/helpers/infinateScroll.vue");
+    import("./components/helpers/infinateScroll.vue");
 import VScroll from "vuetify/es5/directives/scroll";
-
 const GeneralPage = () =>
-    import ("./components/helpers/generalPage.vue");
+    import("./components/helpers/generalPage.vue");
 import VueRouter from "vue-router";
 
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-
+// import VueParticles from 'alopu-vue-particles';
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
@@ -31,6 +34,7 @@ const vuetifyComponents = {
     VTextField,
     VSelect,
     VBtn,
+    VBtnToggle,
     VTooltip,
     VMenu,
     VSwitch,
@@ -41,6 +45,7 @@ const vuetifyComponents = {
     VAvatar,
     VPagination,
     VDataTable,
+
 
 
 
@@ -63,6 +68,7 @@ import {
     VDivider,
     VDialog,
     VBtn,
+    VBtnToggle,
     VTooltip,
     VMenu,
     VSwitch,
@@ -72,10 +78,13 @@ import {
     VNavigationDrawer,
     VAvatar,
     VPagination,
-    VDataTable
+    VDataTable,
 
-} from "vuetify"
+
+} from "vuetify";
 import * as route from "./routes";
+
+import { constants } from "./utilities/constants";
 
 //TODO: server side fix
 WebFont.load({
@@ -90,6 +99,7 @@ WebFont.load({
 //    attempt: 1
 //});
 //Vue.use(vueSmoothScroll);
+
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
@@ -105,14 +115,25 @@ const router = new VueRouter({
     mode: "history",
     routes: route.routes,
     scrollBehavior(to, from, savedPosition) {
-        if (savedPosition) {
-            return savedPosition;
-        } else {
-            return {
-                x: 0,
-                y: 0
-            }
-        }
+        return new Promise((resolve, reject) => {
+           // setTimeout(() => {
+                if(savedPosition){
+                    resolve({ x: savedPosition.x, y: savedPosition.y });
+                }else{
+                    resolve({ x: 0, y: 0 });
+                }
+            //}, 500);
+          });
+          
+        //gaby: deprecated not actually saving the last scroll position.
+        // if (savedPosition) {
+        //     return savedPosition;
+        // } else {
+        //     return {
+        //         x: 0,
+        //         y: 0
+        //     }
+        // }
     }
 
 });
@@ -128,16 +149,20 @@ Vue.use(VueAnalytics, {
             return to.path != "/result";
         },
         pageviewTemplate(route) {
-            // let title=route.name.charAt(0).toUpperCase() + route.name.slice(1);
             return {
                 page: route.path,
                 title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
                 location: window.location.href
-            }
+            };
         },
         exception: true
     }
 });
+
+
+Vue.directive('language', Language);
+
+
 //#region yifat
 Vue.filter('capitalize',
     function (value) {
@@ -148,95 +173,80 @@ Vue.filter('capitalize',
             var tempVal = values[v];
             values[v] = tempVal.charAt(0).toUpperCase() + tempVal.slice(1);
         }
-        return values.join(" ")
+        return values.join(" ");
         //return value.charAt(0).toUpperCase() + value.slice(1);
     });
 //#endregion
+
 Vue.filter('ellipsis',
-    function (value, characters) {
+    function (value, characters, datailedView) {
         value = value || '';
-        if (value.length <= characters)
+        if (value.length <= characters || datailedView){
             return value;
-        return value.substr(0, characters) + '...';
+        }else{
+            return value.substr(0, characters) + '...';
+
+        }
     });
 
 Vue.filter('fixedPoints', function (value) {
     if (!value) return 0;
     if (value.toString().indexOf('.') === -1) return value;
     // debugger
-    return parseFloat(value).toFixed(2)
+    return parseFloat(value).toFixed(2);
 });
 
 Vue.filter('dollarVal', function (value) {
     if (!value) return 0;
-    return parseFloat(value / 40).toFixed(2)
+    return parseFloat(value / 40).toFixed(2);
 });
 
 Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
     //return load if no data
     if (!value) {
-        return  'Loading..'
+        return 'Loading..';
     }
-    return `${d.getUTCMonth()+1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
+    return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 });
 // filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
-Vue.filter('currencyLocalyFilter', function(value){
-        let amount = Number(value)
-        return amount && amount.toLocaleString(undefined,{minimumFractionDigits: 2, maximumFractionDigits: 2}) || '0'
-        });
-
-Vue.filter('commasFilter', function(value){
-
-   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+Vue.filter('currencyLocalyFilter', function (value) {
+    let amount = Number(value);
+    return amount && amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0';
 });
 
+Vue.filter('commasFilter', function (value) {
+
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+});
+
+
 router.beforeEach((to, from, next) => {
-   // if (to.name === 'home') next('/ask');
+    if (!!to.query && Object.keys(to.query).length > 0) {
+        for (let prop in to.query) {
+            if (constants.regExXSSCheck.test(to.query[prop])) {
+                to.query[prop] = "";
+            }
+        }
+    }
+    if (window.innerWidth < 600) {
+        intercomSettings.hide_default_launcher = true;
+    }
+    else {
+        intercomSettings.hide_default_launcher = false;
+    }
+    store.dispatch('changeLastActiveRoute', from);
     checkUserStatus(to, next);
+    
 });
 const app = new Vue({
     //el: "#app",
     router: router,
     render: h => h(App),
     store,
-    // filters: {
-    //    fixed2:function(value){
-    //        if (!value) return '';
-    //        return value.toFixed(2)
-    //    }
-    // }
-});
-// router.onReady(() => {
-// //     intercom(router.currentRoute);
-// function intercom(to) {
-//     if (to.path.indexOf('/landing/') && window.innerWidth < 960) {
-//         intercomSettings.hide_default_launcher = true;
-//     }
-//     if (window.innerWidth < 600) {
-//         let hideLauncher = true
-//         if (to.name === "home") {
-//             hideLauncher = false;
-//         }
-//
-//         intercomSettings.hide_default_launcher = hideLauncher;
-//     }
-//     // Intercom("update");
-// }
 
-//     if(router.currentRoute.meta.requiresAuth ) {
-//         debugger;
-//         store.dispatch('userStatus').then(() => {
-//             if (!store.getters.loginStatus) { //not loggedin
-//                 router.push({path: '/signin'});
-//             }
-//         }).catch(error => {
-//             debugger;
-//             router.push({path: '/signin'});
-//         });
-//     }
-//
-// });
+});
+
 
 function checkUserStatus(to, next) {
 
@@ -254,6 +264,8 @@ function checkUserStatus(to, next) {
         next("/signin");
     });
 }
+
+initSignalRService();
 
 //app.$mount("#app");
 //This is for cdn fallback do not touch

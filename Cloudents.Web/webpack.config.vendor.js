@@ -36,6 +36,7 @@ const allModules = [
     "vuetify/es5/components/VDivider",
     "vuetify/es5/components/VDialog",
     "vuetify/es5/components/VBtn",
+    "vuetify/es5/components/VBtnToggle",
     "vuetify/es5/components/VTooltip",
     "vuetify/es5/components/VMenu",
     "vuetify/es5/components/VSwitch",
@@ -48,6 +49,7 @@ const allModules = [
     "vuetify/es5/components/VPagination",
     "vuetify/es5/components/VDataTable",
     "webfontloader",
+   
 
 ];
 

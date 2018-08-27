@@ -6,7 +6,8 @@ namespace Cloudents.Core.Message
     [Serializable]
     public class GotAnswerEmail : BaseEmail
     {
-        public GotAnswerEmail(string questionText, string to, string answerText, string link) : base(to, "Answer", "Someone has answered your question")
+        public GotAnswerEmail(string questionText, string to, string answerText, string link) 
+            : base(to, "Answer", "Someone has answered your question", "SendGrid", "Email", "GotAnswer")
         {
             QuestionText = questionText.Truncate(40, true);
             AnswerText = answerText.Truncate(40, true);

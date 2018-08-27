@@ -6,6 +6,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Infrastructure.Data.Repositories;
 using NHibernate;
 using NHibernate.Criterion;
 
@@ -37,7 +38,11 @@ namespace Cloudents.Infrastructure.Data.Query
                     .Select(s => s.Text).WithAlias(() => dto.Text)
                     .Select(s => s.Price).WithAlias(() => dto.Price)
                     .Select(s => s.Attachments).WithAlias(() => dto.Files)
-                    .Select(s => s.Created).WithAlias(() => dto.DateTime)
+                    .Select(s => s.Updated).WithAlias(() => dto.DateTime)
+                    .Select(s => s.Color).WithAlias(() => dto.Color)
+                    .Select(Projections.Conditional(
+                        Restrictions.Where(()=> questionAlias.CorrectAnswer != null),
+                                Projections.Constant(true),Projections.Constant(false) )).WithAlias(() => dto.HasCorrectAnswer)
                     .Select(Projections.Property(() => userAlias.Name).As("User.Name"))
                     .Select(Projections.Property(() => userAlias.Id).As("User.Id"))
                     .Select(Projections.Property(() => userAlias.Image).As("User.Image"))
@@ -45,7 +50,7 @@ namespace Cloudents.Infrastructure.Data.Query
                         .Where(w => w.Question.Id == questionAlias.Id).ToRowCountQuery()).WithAlias(() => dto.Answers)
 
                 )
-                .Where(w => w.CorrectAnswer == null)
+                //.Where(w => w.CorrectAnswer == null)
                 .TransformUsing(new DeepTransformer<QuestionDto>());
             if (query.Source != null)
             {
@@ -58,25 +63,24 @@ namespace Cloudents.Infrastructure.Data.Query
                     query.Term));
             }
 
-            queryOverObj.OrderBy(o => o.Id).Desc
+            queryOverObj.OrderBy(o => o.Updated).Desc
                 .Skip(query.Page * 50)
                 .Take(50);
 
             var futureQueryOver = queryOverObj.Future<QuestionDto>();
 
-            var facetsFuture = _session.QueryOver<QuestionSubject>()
-                .OrderBy(o => o.Text).Asc
-                .Select(s => s.Text).Future<string>();
+            var facetsFuture = QuestionSubjectRepository.GetSubjects(_session.QueryOver<QuestionSubject>()).Select(s => s.Text)
+                .Cacheable().CacheMode(CacheMode.Normal)
+                .Future<string>();
 
             var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(false);
-            var facet = await facetsFuture.GetEnumerableAsync(token).ConfigureAwait(false);
+            var facet = facetsFuture.GetEnumerable();
 
             return new ResultWithFacetDto<QuestionDto>
             {
                 Result = retVal,
                 Facet = facet
             };
-            // return _questionRepository.GetQuestionsAsync(query, token);
         }
     }
 }

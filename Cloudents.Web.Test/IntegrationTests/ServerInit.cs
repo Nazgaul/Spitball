@@ -4,11 +4,9 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
-    [TestClass]
     public class ServerInit
     {
         protected static HttpClient Client;
@@ -30,6 +28,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                     new ConfigurationBuilder()
                         .SetBasePath(appRootPath)
                         .AddJsonFile("appsettings.json")
+                        .AddJsonFile("appsettings.Development.json")
                         .Build())
                 .UseStartup<Startup>());
             Client = server.CreateClient();

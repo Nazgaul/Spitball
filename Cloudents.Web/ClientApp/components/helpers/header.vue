@@ -1,6 +1,7 @@
 <template>
     <div>
-        <v-toolbar app :fixed="!isMobile" :height="height" class="header">
+        <!--TODO check if worsk well-->
+        <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header">
 
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">
@@ -31,9 +32,12 @@
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
 
-                                    <a v-if="!loggedIn" class="header-login body-1" href="/register">Sign Up</a>
-                                    <a v-if="!loggedIn" class="header-login body-1" href="/signin">Login</a>
-
+                                    <router-link v-if="!loggedIn" class="header-login body-1"
+                                                 :to="{ path: '/register', query:{returnUrl : $route.path}  }">Sign Up
+                                    </router-link>
+                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}">
+                                        Login
+                                    </router-link>
 
                                     <v-menu bottom left offset-y class="gamburger"
                                             v-if="!loggedIn && $vuetify.breakpoint.xsOnly">
@@ -67,7 +71,9 @@
                              width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
-
+        <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'" :content-class="'login-popup'">
+            <login-to-answer></login-to-answer>
+        </sb-dialog>
     </div>
 </template>
 
@@ -81,6 +87,8 @@
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
     const PersonalizeDialog = () => import('./ResultPersonalize.vue');
+    import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
+    import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
 
     export default {
         components: {
@@ -88,7 +96,9 @@
             AppLogo,
             SearchInput,
             UserAvatar,
-            menuList
+            menuList,
+            sbDialog,
+            loginToAnswer
         },
         placeholders: {
             job: "Your field of expertise...",
@@ -104,7 +114,8 @@
                 notRegMenu,
                 clickOnce: false,
                 drawer: null,
-                toasterTimeout: 5000
+                toasterTimeout: 5000,
+                showDialogLogin: false
                 // isAuthUser:true
             }
         },
@@ -116,7 +127,7 @@
             layoutClass: {}
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
+            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText', 'loginDialogState']),
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
@@ -143,7 +154,7 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams']),
+            ...mapActions(['updateToasterParams', 'updateLoginDialogState']),
             //TODO: what is that
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
@@ -166,10 +177,19 @@
                         }
                     })
                 });
+            // this.$root.$on("showLoginPopUp",
+            //     (type) => {
+            //         this.updateLoginDialogState(true);
+            //     });
+            this.$root.$on('closePopUp', (name) => {
+                if (name === 'suggestions') {
+                    this.showDialogSuggestQuestion = false
+                } else {
+                    this.updateLoginDialogState(false)
+                }
+            });
             let headerHeight = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.smAndUp ? 60 : 115)
             this.height = headerHeight;
-
-            // this.isAuthUser =
         },
 
     }

@@ -1,15 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Reflection;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Web.Extensions;
+using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +21,18 @@ namespace Cloudents.Ico
 {
     public class Startup
     {
+        public static readonly CultureInfo[] SupportedCultures = new[]
+         {
+
+            new CultureInfo("en-US"),
+            new CultureInfo("es-ES"),
+            new CultureInfo("de"),
+            new CultureInfo("ru"),
+            new CultureInfo("zh-Hans"),
+            new CultureInfo("ko"),
+            new CultureInfo("ja"),
+        };
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,28 +43,33 @@ namespace Cloudents.Ico
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-
-
+            services.AddLocalization(x => x.ResourcesPath = "Resources");
+            services.AddMvc()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddMvcOptions(o =>
+                {
+                    o.Filters.Add(new ResponseCacheAttribute
+                    {
+                        NoStore = true,
+                        Location = ResponseCacheLocation.None
+                    });
+                    //o.Filters.Add(new o.Filters.Add(new ResponseCacheFilter(new CacheProfile())))
+                });
+            services.AddHsts(options =>
+            {
+                options.MaxAge = TimeSpan.FromDays(365);
+                options.IncludeSubDomains = true;
+                options.Preload = true;
+            });
             var containerBuilder = new ContainerBuilder();
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
-                //Assembly.Load("Cloudents.Infrastructure.Storage"),
-                //Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
-                //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.GetExecutingAssembly()
             };
-            var keys = new ConfigurationKeys
+            var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                //Db = Configuration.GetConnectionString("DefaultConnection"),
-                //Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
-                //    Configuration["AzureSearch:SearchServiceAdminApiKey"]),
-                //Redis = Configuration["Redis"],
-                //Storage = Configuration["Storage"],
-                //FunctionEndpoint = Configuration["AzureFunction:EndPoint"],
-                //BlockChainNetwork = Configuration["BlockChainNetwork"],
                 ServiceBus = Configuration["ServiceBus"]
             };
 
@@ -65,6 +86,20 @@ namespace Cloudents.Ico
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseClickJacking();
+            app.UseCsp(csp =>
+            {
+                csp.AllowImages.FromSelf().OnlyOverHttps();
+                csp.AllowFonts.FromSelf().OnlyOverHttps();
+                csp.AllowStyles.FromSelf().AllowUnsafeInline().OnlyOverHttps();
+                csp.AllowScripts.FromSelf().AllowUnsafeInline().OnlyOverHttps();
+                csp.AllowFrames.From("https://www.youtube.com/").OnlyOverHttps();
+                csp.AllowConnections.OnlyOverHttps().ToSelf();
+                csp.ByDefaultAllow.FromNowhere();
+                
+                //csp.SetReportOnly();
+                //csp.ReportViolationsTo("/csp-report");
+            });
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -72,10 +107,31 @@ namespace Cloudents.Ico
             }
             else
             {
+                var reWriterOptions = new RewriteOptions();
+                reWriterOptions.AddRedirectToHttpsPermanent();
+
+                app.UseRewriter(reWriterOptions);
                 app.UseExceptionHandler("/Home/Error");
+                HstsBuilderExtensions.UseHsts(app);
+
             }
 
-            app.UseStaticFiles();
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(SupportedCultures[0]),
+
+                // Formatting numbers, dates, etc.
+                SupportedCultures = SupportedCultures,
+                // UI strings that we have localized.
+                SupportedUICultures = SupportedCultures
+            });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=864000");
+                }
+            });
 
             app.UseMvc(routes =>
             {

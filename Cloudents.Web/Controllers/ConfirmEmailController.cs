@@ -2,8 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
 using Cloudents.Web.Api;
 using Cloudents.Web.Identity;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,40 +17,55 @@ namespace Cloudents.Web.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SbSignInManager _signInManager;
+        private readonly ILogger _logger;
 
-        public ConfirmEmailController(UserManager<User> userManager, SbSignInManager signInManager)
+
+        public ConfirmEmailController(UserManager<User> userManager, SbSignInManager signInManager, ILogger logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _logger = logger;
         }
 
         // GET
-        public async Task<IActionResult> Index(string id, string code, CancellationToken token)
+        public async Task<IActionResult> Index(ConfirmEmailRequest model, CancellationToken token)
         {
-            if (id == null || code == null)
+            if (!ModelState.IsValid)
             {
                 return RedirectToAction(nameof(Index), "Home");
             }
-
-            TempData.Remove(SignUserController.Email);
-            var user = await _userManager.FindByIdAsync(id).ConfigureAwait(false);
+            model.Code = System.Net.WebUtility.UrlDecode(model.Code);
+            var user = await _userManager.FindByIdAsync(model.Id.ToString()).ConfigureAwait(false);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{id}'.");
+                throw new ApplicationException($"Unable to load user with ID '{model.Id}'.");
             }
 
-            //var taskBlockChain = _serviceBusProvider.InsertMessageAsync(
-            //    new BlockChainInitialBalance(_blockChain.GetAddress(user.PrivateKey)), token);
-            var result = await _userManager.ConfirmEmailAsync(user, code).ConfigureAwait(false);
+            if (user.EmailConfirmed)
+            {
+                return RedirectToRoute(RegisterController.RegisterRouteName,
+               new
+               {
+                   step = NextStep.EnterPhone,
+                   returnUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl : null
+               });
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, model.Code).ConfigureAwait(false);
             if (!result.Succeeded)
             {
-                throw new ApplicationException($"Error confirming email for user with ID '{id}': {result}");
+                _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
+                return RedirectToRoute(RegisterController.RegisterRouteName, new { step = "expiredStep" });
             }
-
+            TempData.Remove(SignUserController.Email);
             await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
 
-            //await taskBlockChain.ConfigureAwait(false);
-            return Redirect("/verify-phone");
+            return RedirectToRoute(RegisterController.RegisterRouteName,
+                new
+                {
+                    step = NextStep.EnterPhone,
+                    newUser = true,
+                    returnUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl : null
+                });
         }
     }
 }

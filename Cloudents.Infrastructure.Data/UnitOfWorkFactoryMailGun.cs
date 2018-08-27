@@ -7,10 +7,9 @@ using NHibernate.Cfg;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public class UnitOfWorkFactoryMailGun : IUnitOfWorkFactory
+    public class UnitOfWorkFactoryMailGun 
     {
         private readonly ISessionFactory _factory;
-
 
         public UnitOfWorkFactoryMailGun(DbConnectionStringProvider connectionString)
         {
@@ -24,7 +23,7 @@ namespace Cloudents.Infrastructure.Data
 
                     )
                 .ExposeConfiguration(BuildSchema);
-            
+
                 configuration.Mappings(m =>
                 {
                     m.FluentMappings.Add<MailGunStudentMap>();

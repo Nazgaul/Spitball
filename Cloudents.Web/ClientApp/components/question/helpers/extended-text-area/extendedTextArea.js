@@ -1,12 +1,12 @@
-//import questionService from "../../../../services/questionService";
-
+import colorsSet from '../colorsSet';
 var Uploader = require('html5-uploader');
 
 export default {
+
     props: {
         value: {type: String},
         error: {},
-        actionType:{type:String,default:'answer'},
+        actionType:{type:String, default:'answer'},
         isFocused: false,
         uploadUrl: {type: String}
     },
@@ -14,25 +14,32 @@ export default {
         return {
             previewList: [],
             fullPreview:false,
-            errorTextArea :{}
+            errorTextArea :{},
+            colorsSet: colorsSet,
+            activeColor: 0,
+            counter: 0,
+            uploadLimit: 4,
             }
     },
     watch:{
         value(newVal,oldVal){
             //clean preview list when text is empty
-            if(!newVal){this.previewList=[];}
+            //if(!newVal){this.previewList=[];}
         }
     },
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
-
         },
         togglePreview: function(){this.fullPreview = !this.fullPreview},
         deletePreview: function(index){
-           // debugger;
+            this.counter = this.counter -1;
             this.previewList.splice(index,1);
             this.$emit('removeFile', index);
+        },
+        updateColor(color){
+           this.activeColor = color || colorsSet[0];
+           this.$parent.$emit('colorSelected', this.activeColor);
         }
     },
     mounted() {
@@ -44,28 +51,32 @@ export default {
         });
 
         multiple.on('files:added', function (val) {
+            self.errorTextArea.errorText = '4 files only';
+            if(val.length <= self.uploadLimit){
             this.files=val.filter(i=>i.type.indexOf("image")>-1);
-            if(this.files.length){
-               // debugger;
-                this.upload()
+             this.upload()
             }
         });
 
         multiple.on('file:preview', function (file, $img) {
-            if ($img) {
+             let files = this.getFiles();
+            if ($img && files.length < self.uploadLimit) {
+                self.counter = self.counter + 1;
                 // self.previewList.push($img.outerHTML);
-                self.previewList.push($img.src);
+                if(self.counter <= self.uploadLimit){
+                    self.previewList.push($img.src);
+                }
+
             }
         });
 
         multiple.on('upload:done', function (response) {
-          //  debugger;
             self.$emit('addFile', JSON.parse(response).files.toString());
         });
         multiple.on('upload:progress', function (progress) {
             console.log('progress: %s', progress);
         });
 
-    }
+    },
 
 }

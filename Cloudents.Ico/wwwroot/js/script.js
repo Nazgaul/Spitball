@@ -3,6 +3,11 @@
     'use strict';
     var $win = $(window), $body_m = $('body'), $navbar = $('.navbar');
 
+    //toggle nested ul
+    // $("#whitepaper-nav").click(function() {
+    //     $(this).find("ul.assignments").toggleClass('hide');
+    //   });
+
     // Touch Class
     if (!("ontouchstart" in document.documentElement)) {
         $body_m.addClass("no-touch");
@@ -333,12 +338,12 @@
                     data: contactForm.serialize(),
                     success: function (data, textStatus) {
                     var type = (textStatus === 'error') ? 'alert-danger' : 'alert-success';
-                    qf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html('We will get back to you shortly').slideDown(400);
+                    qf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html('We will get back to you shortly').slideDown('slow').delay(1500).slideUp('slow');
                     if (textStatus !== 'error') { $(contactForm).clearForm().find('.input-field').removeClass('input-focused'); }
                     },
                     error: function (request, textStatus,) {
                         var type = (textStatus === 'error') ? 'alert-danger' : 'alert-success';
-                        qf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html('Something went wrong, try again').slideDown(400);
+                        qf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html('Something went wrong, try again').slideDown('slow').delay(1500).slideUp('slow');
                     }
                   });
                 })
@@ -356,12 +361,13 @@
                     data: subscribeForm.serialize(),
                     success: function (data, textStatus) {
                     var type = (textStatus === 'error') ? 'alert-danger' : 'alert-success';
-                    sf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html('Thank you for your subscription').slideDown(400);
+                    sf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html('Thank you for your subscription').slideDown('slow').delay(1500).slideUp('slow');
+                    $(subscribeForm).clearForm().find('.input-field').removeClass('input-focused');         
                     if (textStatus !== 'error') { $(subscribeForm).clearForm().find('.input-field').removeClass('input-focused'); }
                     },
                     error: function (request, textStatus,) {
                         var type = (textStatus === 'error') ? 'alert-danger' : 'alert-success';
-                        sf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html('Something went wrong, try again').slideDown(400);
+                        sf_results.removeClass('alert-danger alert-success').addClass('alert ' + type).html('Something went wrong, try again').slideDown('slow').delay(1500).slideUp('slow');
                     }
                   });
                 })
@@ -571,7 +577,6 @@
             // Stop here.
         );
     }
-
      //Telegr4am pop fade out on close
     $("#closeTelegramPopUp").click(function(event){
         event.preventDefault();

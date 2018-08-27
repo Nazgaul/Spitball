@@ -3,38 +3,47 @@
         <template v-if="sortOptions.length">
             <h3>Sort</h3>
             <div class="sort-switch">
-                <template v-for="(o,index) in sortOptions">
-                    <input type="radio" :id="`option${index}`" @click="updateSort(o.id)"
+                <template v-for="(o, index) in sortOptions">
+                    <input type="radio" :id="`option${index}`" @click="updateSort(o.id)" :key="`option${index}`"
                            name="switch" :value="o.id" :checked="sortVal?sortVal===o.id:index===0">
-                    <label :for="`option${index}`">{{o.name}}</label>
+                    <label :for="`option${index}`" :key="index">{{o.name}}</label>
                 </template>
             </div>
         </template>
-        <div v-if="filterOptions&&filterOptions.length">
+        <div v-if="filterOptions && filterOptions.length">
             <h3>Filter</h3>
             <div class="filter-switch">
                 <!--removed :value binding cause of error Vuetify 1.1.1-->
-                <v-expansion-panel expand>
-                    <v-expansion-panel-content v-for="k in filterOptions" :key="k.modelId" :value="true" >
+                <v-expansion-panel expand :value="0">
+                    <v-expansion-panel-content v-for="(singleFilter, index) in filterList" :key="index">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
                         <template slot="header">
-                            <div class="icon-wrapper"><slot :name="`${k.modelId}TitlePrefix`"></slot></div>
-                            <slot name="headerTitle" :title="k.title">
-                                <div>{{k.title}}</div>
+                            <div class="icon-wrapper">
+                                <slot :name="`${singleFilter.title}TitlePrefix`"></slot>
+                            </div>
+
+                            <slot name="headerTitle" :title="singleFilter.title">
+                                <div>{{singleFilter.title}}</div>
                             </slot>
                         </template>
                         <div :class="['sort-filter',$route.path==='/ask'?'no-maxHeight':'']">
-                            <div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter">
-                                <input type="checkbox" :id="(s.id?s.id:s)" :checked="filterVal.find(i=>i.key===k.modelId&&i.value===(s.id?s.id.toString():s.toString()))"
-                                       @change="updateFilter({id:k.modelId,val:(s.id?s.id.toString():s),type:$event})" />
+                            <div v-for="filterItem in singleFilter.data"
+                                 :key="(filterItem.id ? filterItem.id : filterItem)" class="filter">
+                                <input type="checkbox" :id="(filterItem.id ? filterItem.id : filterItem)"
+                                       :checked="isChecked(singleFilter, filterItem)"
+                                       @change="updateFilter({
+                                       id : singleFilter.id,
+                                       val: filterItem,
+                                       type : $event} )"/>
 
-                                <label class="checkmark" :for="(s.id?s.id:s)"></label>
-                                <label class="title-label" :title="s.name?s.name:s" :for="(s.id?s.id:s)">
-                                    {{s.name?s.name:s | capitalize}}
+                                <label class="checkmark" :for="(filterItem.id ? filterItem.id : filterItem)"></label>
+                                <label class="title-label" :title="filterItem.name ? filterItem.name : filterItem" :for="(filterItem.id ? filterItem.id : filterItem)">
+                                    {{filterItem.name ? filterItem.name : filterItem | capitalize}}
                                 </label>
                             </div>
-                            <slot :name="`${k.modelId}EmptyState`" v-if="k.data&&k.data.length===0"></slot>
-                            <slot :name="`${k.modelId}ExtraState`" v-else></slot>
+                            <slot :name="`${singleFilter.id}EmptyState`"
+                                  v-if="singleFilter.data && singleFilter.data.length===0"></slot>
+                            <slot :name="`${singleFilter.id}ExtraState`" v-else></slot>
                         </div>
                     </v-expansion-panel-content>
                 </v-expansion-panel>

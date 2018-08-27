@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Test
                 var sut = mock.Create<BingSearch>();
                 var privateObj = new PrivateObject(sut);
                 var result =  privateObj.Invoke("BuildQuery",
-                    BindingFlags.Static | BindingFlags.NonPublic, null, null, null, null, "hi");
+                    BindingFlags.Static | BindingFlags.NonPublic, null, null, null, "hi");
 
                 Assert.AreEqual("hi", result);
             }
@@ -33,7 +33,7 @@ namespace Cloudents.Infrastructure.Test
                 var privateObj = new PrivateObject(sut);
                 var university = new[] {"uni1", "uni2"};
                 var result = privateObj.Invoke("BuildQuery",
-                    BindingFlags.Static | BindingFlags.NonPublic, university, null, null, null, "hi");
+                    BindingFlags.Static | BindingFlags.NonPublic, university, null, null, "hi");
 
                 Assert.AreEqual(@"(""uni1"" OR ""uni2"")", result);
             }
@@ -48,7 +48,7 @@ namespace Cloudents.Infrastructure.Test
                 var privateObj = new PrivateObject(sut);
                 var courses = new[] {"course1", "course2"};
                 var result = privateObj.Invoke("BuildQuery",
-                    BindingFlags.Static | BindingFlags.NonPublic, null, courses, null, null, "hi");
+                    BindingFlags.Static | BindingFlags.NonPublic, null, courses,  null, "hi");
                 Assert.AreEqual("(course1) AND (course2)", result);
             }
         }
@@ -60,10 +60,10 @@ namespace Cloudents.Infrastructure.Test
             {
                 var sut = mock.Create<BingSearch>();
                 var privateObj = new PrivateObject(sut);
-                var subject = new[] {"sub1", "sub2"};
+                var subject = "sub1";
                 var result = privateObj.Invoke("BuildQuery",
-                    BindingFlags.Static | BindingFlags.NonPublic, null, null, subject, null, "hi");
-                Assert.AreEqual("(sub1) AND (sub2)", result);
+                    BindingFlags.Static | BindingFlags.NonPublic, null, null, subject,  "hi");
+                Assert.AreEqual("(sub1)", result);
             }
         }
 
@@ -76,12 +76,11 @@ namespace Cloudents.Infrastructure.Test
                 var privateObj = new PrivateObject(sut);
                 var university = new[] {"uni1", "uni2"};
                 var courses = new[] {"course1", "course2"};
-                var subject = new[] {"sub1", "sub2"};
-                const string docType = "doc1";
+                var subject = "sub1";
                 var result = privateObj.Invoke("BuildQuery",
-                    BindingFlags.Static | BindingFlags.NonPublic, university, courses, subject, docType, "hi");
+                    BindingFlags.Static | BindingFlags.NonPublic, university, courses, subject, "hi");
 
-                Assert.AreEqual(@"(""uni1"" OR ""uni2"") AND (course1) AND (course2) AND (sub1) AND (sub2) AND (doc1)",
+                Assert.AreEqual(@"(""uni1"" OR ""uni2"") AND (course1) AND (course2) AND (sub1)",
                     result);
             }
         }
@@ -93,9 +92,8 @@ namespace Cloudents.Infrastructure.Test
             {
                 var sut = mock.Create<BingSearch>();
                 var privateObj = new PrivateObject(sut);
-                var subject = new string[] {null};
                 var result = privateObj.Invoke("BuildQuery",
-                    BindingFlags.Static | BindingFlags.NonPublic, null, null, subject, null, "hi");
+                    BindingFlags.Static | BindingFlags.NonPublic, null, null, null, "hi");
 
                 Assert.AreEqual("hi", result);
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
@@ -9,8 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
-    public class SuggestController : Controller
+    [Route("api/[controller]"),ApiController]
+    public class SuggestController : ControllerBase
     {
         private readonly IIndex<Vertical, Lazy<ISuggestions>> _suggestions;
         private readonly Lazy<ISuggestions> _defaultSuggestions;
@@ -22,15 +23,14 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync(string sentence, Vertical? vertical, CancellationToken token)
+        public async Task<IEnumerable<string>> GetAsync(string sentence, Vertical? vertical, CancellationToken token)
         {
             var suggestProvider = _defaultSuggestions;
             if (_suggestions.TryGetValue(vertical.GetValueOrDefault(Vertical.None), out var suggest))
             {
                 suggestProvider = suggest;
             }
-            var result = await suggestProvider.Value.SuggestAsync(sentence, token).ConfigureAwait(false);
-            return Json(result);
+            return await suggestProvider.Value.SuggestAsync(sentence, token).ConfigureAwait(false);
         }
     }
 }

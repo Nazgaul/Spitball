@@ -1,5 +1,5 @@
 ﻿<template>
-    <div v-scroll="{callback:this.scrollList}"><slot></slot></div>
+    <div v-scroll="this.scrollList"><slot></slot></div>
 </template>
 <script>
 
@@ -12,14 +12,18 @@
             }
         },
 
-        props: { url: String,vertical:String },
+        props: { 
+            url: String,
+            vertical:String
+        },
 
         created() {
             this.nextPage = this.url;
         },
         watch: {
             '$route': '$_resetScrolling',
-            url(val){
+            url(val) {
+               
                 this.nextPage=val;
             }
         },
@@ -31,6 +35,7 @@
                 let scrollOffset = (currentScroll > (0.75 * totalHeight - document.documentElement.clientHeight));
                 let retVal = ((window.pageYOffset > 0 || document.documentElement.scrollTop > 0) && scrollOffset &&
                     !this.isLoading && !this.isComplete);
+                //console.log(retVal)
                 return retVal
             },
             scrollList() {
@@ -38,9 +43,9 @@
                     //debugger;
                     this.isLoading = true;
                     this.$store.dispatch('nextPage', { vertical: this.vertical, url: this.nextPage })
-                        .then(({ data: res }) => {
+                        .then((res) => {
                             if (res.data && res.data.length) {
-                                this.$emit('scroll', res.data);
+                                //this.$emit('scroll', res.data);
                                 this.nextPage=res.nextPage;
                                 this.isLoading = false;
                             } else {

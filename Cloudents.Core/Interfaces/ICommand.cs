@@ -7,6 +7,10 @@ namespace Cloudents.Core.Interfaces
     {
     }
 
+    //public interface ICommand<T> : ICommand
+    //{
+    //}
+
     //public interface ICommandResult
     //{
     //}

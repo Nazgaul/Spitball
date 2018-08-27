@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Cloudents.Web.Filters;
 
 namespace Cloudents.Web.Models
 {
@@ -12,7 +13,9 @@ namespace Cloudents.Web.Models
         [MinLength(15)]
         public string Text { get; set; }
 
-        //[MaxLength(4)]
+        [ArrayMaxSize(4)]
         public IEnumerable<string> Files { get; set; }
+       
+
     }
 }

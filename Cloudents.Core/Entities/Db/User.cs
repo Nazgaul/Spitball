@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Enum;
 
-[assembly: InternalsVisibleTo("Cloudents.Infrastructure.Data")]
+[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 namespace Cloudents.Core.Entities.Db
 {
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Nhibernate proxy")]
@@ -18,6 +17,8 @@ namespace Cloudents.Core.Entities.Db
             TwoFactorEnabled = true;
             PrivateKey = privateKey;
             UserCreateTransaction();
+            Created = DateTime.UtcNow;
+            Fictive = false;
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
@@ -47,9 +48,14 @@ namespace Cloudents.Core.Entities.Db
         public virtual string AuthenticatorKey { get; set; }
 
         public virtual string PrivateKey { get; set; }
+        public virtual int FraudScore { get; set; }
 
         public virtual void AddTransaction(Transaction t)
         {
+            if (Fictive)
+            {
+                return;
+            }
             t.User = this;
             Balance += t.Price;
             if (Balance < 0)
@@ -71,5 +77,16 @@ namespace Cloudents.Core.Entities.Db
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
         protected internal virtual IList<Transaction> Transactions { get; set; }
+        protected internal virtual IList<Question> Questions { get; set; }
+        protected internal virtual IList<Answer> Answers { get; set; }
+
+        public virtual DateTime Created { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
+        }
+
+        public virtual bool Fictive { get; set; }
     }
 }

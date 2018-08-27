@@ -16,6 +16,7 @@ namespace Cloudents.Infrastructure.Framework
     [UsedImplicitly]
     public class ServiceBusProvider : IServiceBusProvider, IStartable
     {
+        public const string MessageType = "messageType";
         private readonly string _connectionString;
 
         public ServiceBusProvider(IConfigurationKeys configurationKeys)
@@ -35,7 +36,7 @@ namespace Cloudents.Infrastructure.Framework
             return InsertMessageAsync(message, topicSubscription);
         }
 
-        public Task InsertMessageAsync(SmsMessage message, CancellationToken token)
+        public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
         {
             var topicSubscription = TopicSubscription.Sms;
             return InsertMessageAsync(message, topicSubscription);
@@ -66,7 +67,7 @@ namespace Cloudents.Infrastructure.Framework
             {
                 Label = subscription.Subscription
             };
-            msMessage.Properties["messageType"] = obj.GetType().AssemblyQualifiedName;
+            msMessage.Properties[MessageType] = obj.GetType().AssemblyQualifiedName;
 
             return topic.SendAsync(msMessage);
         }

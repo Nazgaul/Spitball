@@ -30,14 +30,19 @@ namespace Cloudents.Functions.Di
         }
         private static void RegisterServices(ContainerBuilder builder)
         {
-            var keys = new ConfigurationKeys
+            var keys = new ConfigurationKeys(
+                GetEnvironmentVariable("SiteEndPoint") ?? "https://www.spitball.co")
             {
-                Db = GetEnvironmentVariable("ConnectionString"),
+                Db = new DbConnectionString(GetEnvironmentVariable("ConnectionString"), GetEnvironmentVariable("Redis")),
+                Redis = GetEnvironmentVariable("Redis"),
                 Search = new SearchServiceCredentials(
                     GetEnvironmentVariable("SearchServiceName"),
-                    GetEnvironmentVariable("SearchServiceAdminApiKey")),
+                    GetEnvironmentVariable("SearchServiceAdminApiKey"),
+                    bool.Parse(GetEnvironmentVariable("IsDevelop"))
+                    ),
                 MailGunDb = GetEnvironmentVariable("MailGunConnectionString"),
-                BlockChainNetwork = GetEnvironmentVariable("BlockChainNetwork")
+                BlockChainNetwork = GetEnvironmentVariable("BlockChainNetwork"),
+                Storage = GetEnvironmentVariable("AzureWebJobsStorage")
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
@@ -45,8 +50,6 @@ namespace Cloudents.Functions.Di
             builder.RegisterSystemModules(
                 Core.Enum.System.Function,
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
-                Assembly.Load("Cloudents.Infrastructure.Data"),
-                //Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"));
 

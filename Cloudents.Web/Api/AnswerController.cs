@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.Command;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,9 +16,10 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize]
-    public class AnswerController : Controller
+    [Authorize, ApiController]
+    public class AnswerController : ControllerBase
     {
+        //internal const string CreateAnswerPurpose = "CreateAnswer";
         private readonly ICommandBus _commandBus;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
@@ -32,32 +31,51 @@ namespace Cloudents.Web.Api
             _userManager = userManager;
         }
 
-        [HttpPost, ValidateModel]
-        public async Task<IActionResult> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
+        [HttpPost]
+        public async Task<ActionResult<CreateAnswerResponse>> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
             [FromServices] IQueryBus queryBus,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var link = Url.Link("QuestionRoute", new { id = model.QuestionId });
-            var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files, link);
-            var t1 = _commandBus.DispatchAsync(command, token);
-
-            var query = new NextQuestionQuery(model.QuestionId, userId);
-            var t2 = queryBus.QueryAsync(query, token);
-            await Task.WhenAll(t1, t2).ConfigureAwait(false);
-
-            return Ok(new
+           // var code = _dataProtector.Protect(userId.ToString(), DateTimeOffset.UtcNow.AddDays(2));
+            var link = Url.Action("Index", "Question", new { id = model.QuestionId });
+            try
             {
-                nextQuestions = t2.Result
-            });
+                var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files, link);
+                var t1 = _commandBus.DispatchAsync(command, token);
+
+                var query = new NextQuestionQuery(model.QuestionId, userId);
+                var t2 = queryBus.QueryAsync(query, token);
+                await Task.WhenAll(t1, t2).ConfigureAwait(false);
+
+                return new CreateAnswerResponse
+                {
+                    NextQuestions = t2.Result
+                };
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAnswerAsync(DeleteAnswerRequest model, CancellationToken token)
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+
+        public async Task<IActionResult> DeleteAnswerAsync([FromRoute]DeleteAnswerRequest model, CancellationToken token)
         {
-            var command = _mapper.Map<DeleteAnswerCommand>(model);
-            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-            return Ok();
+            try
+            {
+                var command = _mapper.Map<DeleteAnswerCommand>(model);
+                await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
         }
+        
     }
 }

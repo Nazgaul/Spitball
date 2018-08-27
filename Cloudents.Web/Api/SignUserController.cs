@@ -18,10 +18,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/[controller]"), ApiController]
     public class SignUserController : Controller
     {
-
         private readonly UserManager<User> _userManager;
         private readonly SbSignInManager _signInManager;
         private readonly ISmsSender _smsClient;
@@ -30,20 +29,10 @@ namespace Cloudents.Web.Api
         internal const string Email = "email";
 
 
-        private enum NextStep
-        {
-            EmailConfirmed,
-            VerifyPhone,
-            EnterPhone
-        }
 
-        //private class SignUserModel
-        //{
-        //    public string Email { get; set; }
-
-        //}
-
-        public SignUserController(UserManager<User> userManager, SbSignInManager signInManager, ISmsSender smsClient, IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider)
+        public SignUserController(UserManager<User> userManager, SbSignInManager signInManager, ISmsSender smsClient,
+            IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -53,11 +42,10 @@ namespace Cloudents.Web.Api
         }
 
 
-        
 
-
-        [HttpPost, ValidateModel, ValidateRecaptcha]
-        public async Task<IActionResult> SignUser([FromBody]SignUserRequest model, CancellationToken token)
+        [HttpPost, ValidateRecaptcha, ValidateEmail]
+        public async Task<ActionResult<ReturnSignUserResponse>> SignUser([FromBody]SignUserRequest model,
+           [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -68,7 +56,7 @@ namespace Cloudents.Web.Api
             var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
             if (user == null)
             {
-                user = CreateUser(model.Email,model.Name);
+                user = CreateUser(model.Email, model.Name);
                 user.EmailConfirmed = model.EmailConfirmed;
 
                 var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
@@ -76,63 +64,63 @@ namespace Cloudents.Web.Api
                 {
                     if (!user.EmailConfirmed)
                     {
-                        await GenerateEmailAsync(user, token).ConfigureAwait(false);
-                        return Ok(new
-                        {
-                            step = NextStep.EmailConfirmed
-                        });
+                        await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
+                        return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
+
                     }
-                    await _signInManager.SignInTwoFactorAsync(user, false);
-                    return Ok(new
-                    {
-                        step = NextStep.EnterPhone
-                    });
+                    await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+                    return new ReturnSignUserResponse(NextStep.EnterPhone, true);
+
                 }
                 ModelState.AddIdentityModelError(p);
                 return BadRequest(ModelState);
             }
-            if (!user.EmailConfirmed || !user.PhoneNumberConfirmed)
+            if (!user.EmailConfirmed)
             {
-                await GenerateEmailAsync(user, token).ConfigureAwait(false);
-                return Ok(new
-                {
-                    step = NextStep.EmailConfirmed
-                });
+                await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
+                return new ReturnSignUserResponse(NextStep.EmailConfirmed, false);
+            }
+
+            if (!user.PhoneNumberConfirmed)
+            {
+                await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+                return new ReturnSignUserResponse(NextStep.EnterPhone, false);
             }
             var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
             var taskSms = _smsClient.SendSmsAsync(user, token);
+
 
             TempData["SMS"] = user.Email;
             await Task.WhenAll(taskSms, taskSignIn).ConfigureAwait(false);
 
             if (taskSignIn.Result.RequiresTwoFactor)
             {
-                return Ok(new
-                {
-                    step = NextStep.VerifyPhone
-                });
+                return new ReturnSignUserResponse(NextStep.VerifyPhone, false);
             }
             ModelState.AddModelError(string.Empty, taskSignIn.Result.ToString());
             return BadRequest(ModelState);
-
-
         }
 
 
-        private async Task GenerateEmailAsync(User user, CancellationToken token)
+        private async Task GenerateEmailAsync(User user,[CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-            var link = Url.Link("ConfirmEmail", new { user.Id, code });
+            code = UrlEncoder.Default.Encode(code);
+            var url = returnUrl?.Url;
+            if (!Url.IsLocalUrl(url))
+            {
+                url = null;
+            }
+            var link = Url.Link("ConfirmEmail", new { user.Id, code, returnUrl =  url });
             TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link));
             await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
         }
 
-
-        [HttpPost("google"), ValidateModel]
-        public async Task<IActionResult> GoogleSignInAsync([FromBody] TokenRequest model,
+        [HttpPost("google")]
+        public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync([FromBody] GoogleTokenRequest model,
+            ReturnUrlRequest returnUrl,
             [FromServices] IGoogleAuth service,
-            [FromServices] SbSignInManager signInManager,
             CancellationToken cancellationToken)
         {
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
@@ -142,32 +130,10 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            return await SignUser(new SignUserRequest(result.Email, true, result.Name), cancellationToken);
-
-            //var user = CreateUser(result.Email, result.Name);
-            //user.EmailConfirmed = true;
-
-            //var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
-            //if (p.Succeeded)
-            //{
-            //    //TODO: duplicate link confirm email.
-            //    var t2 = signInManager.SignInTwoFactorAsync(user, false);
-            //    await Task.WhenAll(/*t1,*/ t2).ConfigureAwait(false);
-            //    return Ok();
-            //}
-            //ModelState.AddIdentityModelError(p);
-            //return BadRequest(ModelState);
+            return await SignUser(new SignUserRequest(result.Email, true, result.Name), returnUrl, cancellationToken).ConfigureAwait(false);
         }
 
-
-
-        //private User CreateUser(string email)
-        //{
-        //    var userName = email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0];
-        //    return CreateUser(email, userName);
-        //}
-
-        private User CreateUser([NotNull] string email, string name)
+        private User CreateUser(string email, string name)
         {
             if (email == null) throw new ArgumentNullException(nameof(email));
             if (string.IsNullOrEmpty(name))
@@ -184,9 +150,9 @@ namespace Cloudents.Web.Api
             return rdm.Next(1000, 9999);
         }
 
-
         [HttpPost("resend")]
         public async Task<IActionResult> ResendEmailAsync(
+            ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
             var email = TempData.Peek(Email) ?? throw new ArgumentNullException("TempData", "email is empty");
@@ -197,9 +163,8 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            await GenerateEmailAsync(user, token).ConfigureAwait(false);
+            await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
             return Ok();
         }
-
     }
 }

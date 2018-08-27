@@ -5,12 +5,16 @@ import {mapGetters, mapMutations, mapActions} from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
+import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
+import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue'
+import { sendEventList } from '../../../services/signalR/signalREventSender'
 
 export default {
     mixins: [disableForm],
-    components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp},
+    components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer},
     props: {
-        id: {Number} // got it from route
+        id: {Number}, // got it from route
+        questionId: {Number}
     },
     data() {
         return {
@@ -20,23 +24,20 @@ export default {
             questionData: null,
             cardList: [],
             showForm: false,
-            showDialog: false,
+            showDialogSuggestQuestion: false,
+            showDialogLogin: false,
             build: null,
-
-
-
         };
     },
-
     beforeRouteLeave(to, from, next) {
         this.resetQuestion();
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams"]),
+        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState"]),
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         submitAnswer() {
-            if (!this.textAreaValue || this.textAreaValue.length < 15) {
+            if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
                 this.errorTextArea = {
                     errorText: 'min. 15 characters',
                     errorClass: true
@@ -47,37 +48,17 @@ export default {
             var self = this;
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
+                self.textAreaValue = self.textAreaValue.trim();
                 questionService.answerQuestion(self.id, self.textAreaValue, self.answerFiles)
                     .then(function (resp) {
-                        //TODO: do this on client side (render data inserted by user without calling server) - see commented out below - all that's left is asking ram to return the answerId in response
-                        // var creationTime = new Date();
-                        // self.questionData.answers.push({
-                        //     create: creationTime.toISOString(),
-                        //     files: self.answerFiles.map(fileName => "https://spitballdev.blob.core.windows.net/spitball-files/question/"+self.id+"/answer/"+response.data.answerId+"/"+fileName), //this will work only if answerid returns from server
-                        //     id: response.data.answerId,
-                        //     text: self.textAreaValue,
-                        //     user: self.accountUser
-                        // });
+                        self.$ga.event("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
-                        console.log('resp',resp);
                         self.cardList = resp.data;
-                        console.log('SELF ARR', self.cardList)
                         self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
-                        self.updateToasterParams({
-                            toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
-                            showToaster: true,
-                        });
-
-                        self.showDialog = true; // question suggest popup dialog
-
+                        self.showDialogSuggestQuestion = true; // question suggest popup dialog
                     }, () => {
-
-                        self.updateToasterParams({
-                            toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
-                            showToaster: true,
-                        });
                         self.submitForm(false);
                         self.updateLoading(true);
                     })
@@ -91,16 +72,22 @@ export default {
             this.answerFiles.splice(index, 1);
         },
         getData() {
-            var self = this;
+            //enable submit btn
+            this.$data.submitted = false;
+            // var self = this;
             questionService.getQuestion(this.id)
-                .then(function (response) {
-                    self.questionData = response.data;
-                    if (self.accountUser) {
-                        self.questionData.cardOwner = self.accountUser.id === response.data.user.id;
+                .then( (response) => {
+                    this.questionData = response;
+
+                    console.log("entering question");
+                    sendEventList.question.addViewr(this.questionData);
+
+                    if (this.accountUser) {
+                        this.questionData.cardOwner = this.accountUser.id === response.user.id;
                     } else {
-                        self.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
+                        this.questionData.cardOwner = false; // if accountUser is null the chat shouldn't appear
                     }
-                    self.buildChat();
+                    this.buildChat();
                 }, (error) => {
                     if (error.response.status === 404) {
                         window.location = "/error/notfound";
@@ -119,7 +106,6 @@ export default {
                 var conversation = this.talkSession.getOrCreateConversation(
                     `question_${this.id}`
                 );
-
                 //conversation
                 conversation.setParticipant(this.chatAccount, { notify: false });
                 conversation.setParticipant(other1);
@@ -140,7 +126,6 @@ export default {
                     conversation.setParticipant(this.chatAccount, {notify: true})
                     // console.log(t)
                 });
-
                 this.$nextTick(() => {
                     chatbox.mount(this.$refs["chat-area"]);
                 });
@@ -148,13 +133,11 @@ export default {
         },
         showAnswerField() {
             if (this.accountUser) {
-                this.showForm = true
+                this.showForm = true;
             }
             else {
-                this.updateToasterParams({
-                    toasterText: '<span class="toast-helper">To answer or ask a question you must  </span><a href="/register" class="toast_action">Sign Up</a><span class="toast-helper">  or  </span><a href="/signin" class="toast_action">Login</a>',
-                    showToaster: true
-                });
+                this.dialogType = ''
+                this.updateLoginDialogState(true);
             }
         },
 
@@ -164,40 +147,47 @@ export default {
             if (newVal) {
                 this.buildChat();
             }
-        }
+        },
+        //watch route(url query) update, and het question data from server
+        '$route': 'getData'
     },
     computed: {
-        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer"]),
+        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState"]),
+
         userNotAnswered() {
             this.isDeletedAnswer ? this.submitForm(false) : "";
             return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
         },
         enableAnswer() {
-            let val = !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered);
+            let hasCorrectAnswer = !!this.questionData.correctAnswerId;
+            let val = !this.questionData.cardOwner && (!this.accountUser || this.userNotAnswered) && !hasCorrectAnswer;
             this.showForm = (val && !this.questionData.answers.length);
             return val;
         },
-        //conditionally disable answer submit btn
-        isSubmitBtnDisabled() {
-            // if (this.textAreaValue.length < 15) {
-            //     return true
-            // } else {
-            //     return false
-            // }
-            return false
-        }
-        // isMobile() {
-        //     return this.$vuetify.breakpoint.smAndDown;
-        // },
+        removeViewer(){
+            console.log("leaving question");
+            sendEventList.question.removeViewer(this.questionData);
+        },
     },
     created() {
+        global.addEventListener('beforeunload', () => {
+            this.removeViewer();
+        })
+
         this.getData();
         // to do may be to consider change to State Store VueX
         this.$root.$on('deleteAnswer', (id) => {
             this.questionData.answers = this.questionData.answers.filter(item => item.id !== id)
         });
-        this.$root.$on('closeSuggestionPopUp', ()=> {
-            this.showDialog = false;
+        this.$root.$on('closePopUp', (name)=> {
+           if(name === 'suggestions'){
+               this.showDialogSuggestQuestion = false;
+           }else{
+               this.updateLoginDialogState(false);
+           }
         })
+    },
+    destroyed(){
+        this.removeViewer();
     }
 }

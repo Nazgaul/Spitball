@@ -1,9 +1,14 @@
-﻿import { help } from './resources';
+﻿// import { help } from './resources';
+import { connectivityModule } from "./connectivity.module"
+
 export default {
-    getFaq() {
-        return help.getFaq();
+    getFaq:() => {
+        return connectivityModule.http.get("help")
     },
-    getBlog(id) {
-        return help.getUniData(id).then(f=> f.data);
+
+    getBlog:(id) => {
+        connectivityModule.get("blog?id=" + id).then((f)=> {
+            return f.data
+        });
     }
 }

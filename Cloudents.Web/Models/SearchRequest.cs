@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
+using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
 {
@@ -31,7 +32,8 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// The term array of Ai parse
         /// </summary>
-        public string[] Query { get; set; }
+       // [DisplayFormat(HtmlEncode = true)]
+        public string Query { get; set; }
 
         /// <summary>
         /// User sort option
@@ -42,6 +44,8 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// Array of sites to search for
         /// </summary>
+
+        [DisplayFormat(HtmlEncode = true)]
         public string[] Source { get; set; }
 
         /// <summary>
@@ -51,6 +55,7 @@ namespace Cloudents.Web.Models
         public long? University { get; set; }
 
         //[BindNever]
+        [CanBeNull]
         public GeographicCoordinate GeoPoint { get; set; }
     }
 }

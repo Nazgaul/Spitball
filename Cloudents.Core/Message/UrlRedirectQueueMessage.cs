@@ -38,5 +38,10 @@ namespace Cloudents.Core.Message
 
         [DataMember(Order = 6)]
         public string Ip { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(Host)}: {Host}, {nameof(Url)}: {Url}, {nameof(DateTime)}: {DateTime}, {nameof(UrlReferrer)}: {UrlReferrer}, {nameof(Location)}: {Location}, {nameof(Ip)}: {Ip}";
+        }
     }
 }
