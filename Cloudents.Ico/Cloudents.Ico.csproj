@@ -2,11 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net47</TargetFramework>
+    <UserSecretsId>9f8b95ee-1e1c-4428-b004-ffcf6a14c6bb</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.8.391" />
-    <PackageReference Include="Joonasw.AspNetCore.SecurityHeaders" Version="2.6.0" />
+    <PackageReference Include="Joonasw.AspNetCore.SecurityHeaders" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.1.1" />
     <!--<PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.1" />-->

@@ -1,19 +1,19 @@
 ﻿using System;
+using JetBrains.Annotations;
 using Microsoft.ServiceBus.Messaging;
 
 namespace Cloudents.Infrastructure.Framework
 {
     public static class BrokeredMessageExtensions
     {
+        [CanBeNull]
         public static T GetBodyInheritance<T>(this BrokeredMessage message) where T : class
         {
-            if (message.Properties.TryGetValue("messageType", out var messageType))
+            if (message.Properties.TryGetValue(ServiceBusProvider.MessageType, out var messageType))
             {
                 var messageBodyType = Type.GetType(messageType.ToString());
                 if (messageBodyType == null)
                 {
-                    //Should never get here as a messagebodytype should
-                    //always be set BEFORE putting the message on the queue
                     message.DeadLetter();
                 }
 

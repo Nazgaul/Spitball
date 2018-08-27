@@ -5,6 +5,7 @@
 @color-medium-grey: #bbbbbb;
 @color-light-grey: #f0f0f0;
 @color-light-grey-2: #fbfbfb;
+@color-divider-grey: #cccccc;
 @color-green: #52ab15;
 @color-orange: #f5a623;
 @color-purple: #8c3fbf;
@@ -149,6 +150,15 @@
   padding: 3px 20px;
   color: white;
   border-radius: 4px;
+  font-size: 14px;
+}
+
+.cellActionViewerMixin(){
+  position: absolute;
+  .responsive-property(bottom, 8px, null, 8px);
+  .responsive-property(right, 8px, null, 8px);
+  padding: 0px 100px 3px 0px;
+  color: #707070;
   font-size: 14px;
 }
 

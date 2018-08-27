@@ -10,7 +10,9 @@
 
     .ask-question{       
         border-radius: 4px;
-        background-color: @color-dark-blue; 
+        //TODO ui changes
+        //background-color: @color-dark-blue;
+        background-color: @color-main-purple;
         color: @color-white;  
         font-size: 20px;
         font-weight: bold;
@@ -22,7 +24,7 @@
         margin-bottom: 17px;
         .transition (all .2s ease-in-out);
         &:hover {
-            background-color: lighten(@color-dark-blue, 10%);
+            background-color: lighten(@color-main-purple, 10%);
         }
     }
 
@@ -82,7 +84,13 @@
                 box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
                 letter-spacing: -0.2px;
                 color: @color-main-purple;
+                .transition (all .2s ease-in-out);
+                &:hover {
+                    background-color:@color-main-purple;
+                    color: @color-white;
+                }
             }
+
         }
     }
     

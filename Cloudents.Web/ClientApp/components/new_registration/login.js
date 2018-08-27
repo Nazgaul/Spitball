@@ -23,6 +23,8 @@ export default {
             marketingData: {
 
             },
+            loader: null,
+            loading: false,
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
             toUrl: '',
             progressSteps: 5,
@@ -42,15 +44,14 @@ export default {
             stepNumber: 1,
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
-            // agreeTerms: false,
             stepsEnum: {
-                "startStep": 1,
-                "emailConfirmed": 2,
-                "enterPhone": 3,
-                "verifyPhone": 4,
+                "startstep": 1,
+                "emailconfirmed": 2,
+                "enterphone": 3,
+                "verifyphone": 4,
                 "congrats": 5,
-                "loginStep": 6,
-                "expiredStep": 7
+                "loginstep": 6,
+                "expiredstep": 7
             }
         }
     },
@@ -65,6 +66,7 @@ export default {
                 }, this.toasterTimeout)
             }
         },
+
     },
     computed: {
         ...mapGetters({
@@ -80,10 +82,13 @@ export default {
         ...mapActions({updateToasterParams: 'updateToasterParams', updateCampaign: 'updateCampaign'}),
 
         //do not change step, only from here
-        changeStepNumber(step) {
+        changeStepNumber(param) {
+            let step = param.toLowerCase();
+            console.log(step)
             if (this.stepsEnum.hasOwnProperty(step)) {
                 this.stepNumber = this.stepsEnum[step];
             }
+            console.log(this.stepNumber)
         },
         goToLogin() {
             this.changeStepNumber('loginStep');
@@ -93,16 +98,16 @@ export default {
         },
         submit() {
             let self = this;
-            self.updateLoading(true);
+            self.loading = true;
             registrationService.signIn(this.userEmail, this.recaptcha)
                 .then((response) => {
+                    self.loading = false;
                     analyticsService.sb_unitedEvent('Login', 'Start');
                     let step = response.data.step;
-                    self.updateLoading(false);
                     self.changeStepNumber(step)
                 }, function (reason) {
                     self.$refs.recaptcha.reset();
-                    self.updateLoading(false);
+                    self.loading = false;
                     self.errorMessage.email = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
                 });
         },
@@ -156,19 +161,19 @@ export default {
         //sms code
         sendCode() {
             let self = this;
-            self.updateLoading(true);
+            self.loading = true;
             registrationService.smsRegistration(this.phone.countryCode + '' + this.phone.phoneNum)
                 .then(function (resp) {
-                    self.updateLoading(false);
                     self.errorMessage.code = '';
                     self.updateToasterParams({
                         toasterText: 'A verification code was sent to your phone',
                         showToaster: true,
                     });
+                    self.loading = false;
                     analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
                     self.changeStepNumber('verifyPhone');
                 }, function (error) {
-                    self.updateLoading(false);
+                    self.loading = false;
                     self.errorMessage.phone = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                 })
         },
@@ -191,17 +196,17 @@ export default {
         },
         emailSend() {
             let self = this;
-            self.updateLoading(true);
+            self.loading = true;
             registrationService.emailRegistration(this.userEmail, this.recaptcha)
                 .then(function (resp) {
                     let step = resp.data.step;
                     self.changeStepNumber(step);
                     analyticsService.sb_unitedEvent('Registration', 'Start');
-                    self.updateLoading(false);
+                    self.loading = false;
                 }, function (error) {
-                    self.updateLoading(false);
                     self.recaptcha = "";
                     self.$refs.recaptcha.reset();
+                    self.loading = false;
                     self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                 });
         },
@@ -224,15 +229,17 @@ export default {
         },
         smsCodeVerify() {
             let self = this;
-            self.updateLoading(true);
+            self.loading = true;
             registrationService.smsCodeVerification(this.confirmationCode)
                 .then(function () {
-                    self.updateLoading(false);
                     //got to congratulations route if new user
                     if (self.isNewUser) {
                         self.changeStepNumber('congrats');
                         analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
+                        self.loading = false;
+
                     } else {
+                        self.loading = false;
                         analyticsService.sb_unitedEvent('Login', 'Phone Verified');
                         let url = self.lastActiveRoute || defaultSubmitRoute;
                         window.isAuth = true;
@@ -240,26 +247,27 @@ export default {
 
                     }
                 }, function (error) {
-                    self.updateLoading(false);
+                    self.loading = false;
                     self.errorMessage.code = "Invalid code";
                 });
         },
         finishRegistration() {
+            this.loading = true;
             analyticsService.sb_unitedEvent('Registration', 'Congrats');
             let url = this.toUrl || defaultSubmitRoute;
             window.isAuth = true;
+            this.loading = false;
             this.$router.push({path: `${url.path }`});
         }
     },
     mounted() {
-        // TODO try to fix and use without timeout
-        setTimeout(function () {
+        this.$nextTick(function () {
             gapi.load('auth2', function () {
                 auth2 = gapi.auth2.init({
                     client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
                 })
             })
-        }, 500);
+        })
     },
     created() {
         // if(!this.campaignName || this.campaignName === '' ){

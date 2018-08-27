@@ -52,8 +52,9 @@ namespace Cloudents.Management
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Core"),
-                Assembly.Load("Cloudents.Infrastructure.Data"),
+                //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"), 
+                Assembly.Load("Cloudents.Infrastructure"), 
                 Assembly.GetExecutingAssembly()
             };
 
@@ -61,9 +62,10 @@ namespace Cloudents.Management
 
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = Configuration.GetConnectionString("DefaultConnection"),
+                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
                 ServiceBus = Configuration["ServiceBus"],
-                Storage =  Configuration["Storage"]
+                Storage =  Configuration["Storage"],
+                Redis = Configuration["Redis"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();

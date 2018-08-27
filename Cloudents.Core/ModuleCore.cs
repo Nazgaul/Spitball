@@ -60,10 +60,12 @@ namespace Cloudents.Core
             //    typeof(CommitUnitOfWorkCommandHandlerDecorator<,>),
             //    typeof(ICommandHandler<,>),
             //    fromKey: "handler");
-            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IConsumer<>));
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IEventHandler<>));
 
-            builder.RegisterType<EventSubscriptions>().As<ISubscriptionService>();
+                //builder.RegisterType<EventSubscriptions>().As<ISubscriptionService>();
             builder.RegisterType<EventPublisher>().As<IEventPublisher>();
+            builder.RegisterType<Logger>().As<ILogger>();
+
         }
     }
 }

@@ -12,7 +12,8 @@ const state = {
         showRegistrationBanner: true,
 
     },
-    facet: "",
+    filters: "",
+    sort: "",
     historyTermSet: [],
     historySet: {
         job: [],
@@ -27,8 +28,11 @@ const mutations = {
     [USER.UPDATE_USER](state, payload) {
         state.user = { ...state.user, ...payload };
     },
-    [USER.UPDATE_FACET](state, payload) {
-        state.facet = payload;
+    [USER.UPDATE_FILTERS](state, payload) {
+        state.filters = payload;
+    },
+    [USER.UPDATE_SORT](state, payload) {
+        state.sort = payload;
     },
     [USER.UPDATE_SEARCH_SET_VERTICAL](state, { term, vertical }) {
         if (!term || !term.trim()) return;
@@ -101,7 +105,12 @@ const getters = {
     },
     myCourses: state => state.user.myCourses,
     myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i => i.id) : []),
-    getFacet: state => state.facet
+    getFilters (state) {
+      return  state.filters
+    },
+    getSort(state){
+        return state.sort
+    }
 };
 const actions = {
     updateHistorySet({ commit }, term) {
@@ -149,8 +158,11 @@ const actions = {
     updatePinnedCards(context, data) {
         context.commit(USER.UPDATE_USER, { pinnedCards: { ...context.getters.pinnedCards, ...data } });
     },
-    updateFacet({ commit }, data) {
-        commit(USER.UPDATE_FACET, data)
+    updateFilters({ commit }, data) {
+        commit(USER.UPDATE_FILTERS, data)
+    },
+    updateSort({ commit }, data) {
+        commit(USER.UPDATE_SORT, data)
     },
     hideRegistrationBanner(context) {
         context.commit(USER.HIDE_REGISTRATION_BANNER);

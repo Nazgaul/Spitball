@@ -5,17 +5,15 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
-using Cloudents.Core.Command;
+using Cloudents.Core.Entities.Search;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using System.Collections.Generic;
-using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Event;
 using Cloudents.Core.Query;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Query.Admin;
-using Cloudents.Infrastructure.Data.Repositories;
-using NHibernate;
+using Cloudents.Core.Storage;
+using Cloudents.Infrastructure.Write;
+using Microsoft.Azure.Search.Models;
 
 namespace ConsoleApp
 {
@@ -28,12 +26,12 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
                     ConfigurationManager.AppSettings["AzureSearchServiceName"],
-                    ConfigurationManager.AppSettings["AzureSearchKey"]),
+                    ConfigurationManager.AppSettings["AzureSearchKey"], true),
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
@@ -42,39 +40,65 @@ namespace ConsoleApp
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
+            builder.RegisterType<PPP>().As<IDataProtect>();
             builder.RegisterSystemModules(
                 Cloudents.Core.Enum.System.Console,
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
-                Assembly.Load("Cloudents.Infrastructure.Data"),
+                //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-            
-            //TransactionPopulation tp = new TransactionPopulation(_container);
-            //await tp.AddToUserMoney(1000, 1642);
 
-           // var b = _container.Resolve<ISession>();
-           // QuestionRepository c = new QuestionRepository(b);
-           // Console.WriteLine(c.GetOldQuestionsAsync(default));
+            var t = new QuestionsQuery()
+            {
+                Filter = QuestionFilter.All
+            };
+
+
+
+            var b = _container.Resolve<IQueryBus>();
+            //await b.QueryAsync(t, default);
+
+
+            t = new QuestionsQuery()
+            {
+                Filter = QuestionFilter.Answered
+            };
+            await b.QueryAsync(t, default);
+            t = new QuestionsQuery()
+            {
+                Filter = QuestionFilter.Sold
+            };
+            await b.QueryAsync(t, default);
+            t = new QuestionsQuery()
+            {
+                Filter = QuestionFilter.Unanswered
+            };
+            await b.QueryAsync(t, default);
+            // QuestionRepository c = new QuestionRepository(b);
+            // Console.WriteLine(c.GetOldQuestionsAsync(default));
 
 
 
             //await UpdateCreationTimeProductionAsync();
-            var bus = _container.Resolve<IQueryBus>();
-            var query = new UserDataByIdQuery(1642);
+            //IEventMessage z = new AnswerCreatedEvent(null);
+            //var query = new UserDataByIdQuery(1642);
             //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
-            var t = await bus.QueryAsync< ProfileDto>(query, default);
-          //  var bus = _container.Resolve<IQueryBus>();
-          // var z = new NextQuestionQuery(68, 11);
-          // var x = await bus.QueryAsync(z, default);
+            //var t = await bus.QueryAsync< ProfileDto>(query, default);
+            //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
+            //var t = await bus.QueryAsync(query, default);
+            //  var bus = _container.Resolve<IQueryBus>();
+            // var z = new NextQuestionQuery(68, 11);
+            // var x = await bus.QueryAsync(z, default);
 
 
 
             Console.WriteLine("Finish");
             Console.ReadLine();
         }
+
 
         public static Task SendMoneyAsync()
         {
@@ -112,13 +136,14 @@ namespace ConsoleApp
             string spreadsheetId = "1A2O_jASZuWlI_jIX8a1eiZb61C5RDF9KQ2i7CQzGU30";
             string range = "All!B:D";
 
+            //TODO: TALK TO RAM. THIS IS NOT THE WAY WE DO STUFF NOW.
 
             //var subjectList = new List<CreateQuestionCommand>();
             var subjectList = GoogleSheets.GetData(spreadsheetId, range);
             foreach (var question in GoogleSheets.GetData(spreadsheetId, range))
             {
                 var commandBus = _container.Resolve<ICommandBus>();
-                await commandBus.DispatchAsync(question, default);
+               // await commandBus.DispatchAsync(question, default);
             }
         }
 
@@ -136,7 +161,7 @@ namespace ConsoleApp
                     {
                         if (question.CorrectAnswer == null && question.User.Fictive)
                         {
-                           // question.Created = DateTimeHelpers.NextRandomDate(2, random);
+                            // question.Created = DateTimeHelpers.NextRandomDate(2, random);
                             Console.WriteLine(question.Created);
                             await repository.UpdateAsync(question, default);
                         }
@@ -146,7 +171,20 @@ namespace ConsoleApp
                     await unitOfWork.CommitAsync(default).ConfigureAwait(false);
                 }
             }
-           
+
+        }
+    }
+
+    public class PPP : IDataProtect
+    {
+        public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Unprotect(string purpose, string protectedData)
+        {
+            throw new NotImplementedException();
         }
     }
 }

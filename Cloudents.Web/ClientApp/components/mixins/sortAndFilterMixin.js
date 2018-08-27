@@ -8,7 +8,8 @@ const plusBtn = () => import("../settings/svg/plus-button.svg");
 export default {
     data() {
         return {
-            filter: ''
+            filter: '',
+            filtersDefault:{}
         };
     },
     components: { SortAndFilter, plusBtn, MobileSortAndFilter },
@@ -19,21 +20,39 @@ export default {
         params: { type: Object }
     },
     computed: {
-        ...mapGetters({'loading':'getIsLoading'}),
+        ...mapGetters({'loading':'getIsLoading', 'getFilters': 'getFilters'}),
         page() { return page[this.name] },
         sort() { return this.query.sort },
         filterSelection() {
             let filterOptions = [];
-            let filtersList = ['jobType', 'source', 'course', 'filter'];
+            let filtersList = [];
+            // if(!!this.getFilters){
+            //     filtersList = this.getFilters;
+            // }
+            let filters = this.getFilters;
+            if(!!filters){
+                filtersList = filters.map((item)=>{
+                    return item.id
+                })
+            }
+
+            // let filtersList = ['jobType', 'subject', 'course', 'filter'];
             Object.entries(this.query).forEach(([key, val]) => {
                 if (val && val.length && filtersList.includes(key)) {
-                    [].concat(val).forEach(value => filterOptions = filterOptions.concat({ key, value }));
+                    [].concat(val).forEach((value) =>{
+                        return  filterOptions = filterOptions.concat({ key, value })
+                    }) ;
                 }
             });
+            console.log('options',filterOptions)
             return filterOptions;
         }
     },
     methods: {
         ...mapMutations(['UPDATE_LOADING'])
+    },
+    created(){
+        console.log('mixin created')
     }
+
 };

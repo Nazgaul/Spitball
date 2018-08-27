@@ -30,16 +30,28 @@ namespace Cloudents.Functions
                 log.Warning("invoking message from queue");
                 return;
             }
-            var topicMessage = brokeredMessage.GetBodyInheritance<BaseEmail>();
 
-            if (topicMessage == null)
+            try
             {
-                log.Error("error with parsing message");
-                return;
-            }
-            await ProcessEmail(emailProvider, binder, log, topicMessage, token);
+                var topicMessage = brokeredMessage.GetBodyInheritance<BaseEmail>();
 
-            log.Info("finish sending email");
+                if (topicMessage == null)
+                {
+                    log.Error("error with parsing message");
+                    return;
+                }
+
+                await ProcessEmail(emailProvider, binder, log, topicMessage, token);
+
+                log.Info("finish sending email");
+            }
+            catch (System.Runtime.Serialization.SerializationException ex)
+            {
+                if (brokeredMessage.Properties.TryGetValue(ServiceBusProvider.MessageType, out var messageType))
+                {
+                    log.Error($"Can't serialize {messageType}", ex);
+                }
+            }
         }
 
         //[FunctionName("FunctionEmailTest")]
@@ -59,10 +71,11 @@ namespace Cloudents.Functions
         private static async Task ProcessEmail(IAsyncCollector<Mail> emailProvider, IBinder binder, TraceWriter log,
             BaseEmail topicMessage, CancellationToken token)
         {
-            var message = new Mail();
-            message.TrackingSettings = new TrackingSettings();
-            message.TrackingSettings.Ganalytics = new Ganalytics();
-            message.TrackingSettings.Ganalytics.Enable = true;
+            var message = new Mail
+            {
+                TrackingSettings = new TrackingSettings { Ganalytics = new Ganalytics { Enable = true } }
+            };
+
             void TextEmail()
             {
                 message.AddContent(new Content("text/plain", topicMessage.ToString()));

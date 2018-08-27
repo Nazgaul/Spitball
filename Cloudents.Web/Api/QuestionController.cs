@@ -8,6 +8,7 @@ using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
@@ -120,7 +121,11 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<QuestionDto>
             {
                 Result = p,
-                Facet = result.Facet,
+                Filters = new []
+                {
+                    new Models.Filters(nameof(GetQuestionsRequest.Source),"Subject", result.Facet),
+                    new Models.Filters(nameof(GetQuestionsRequest.Filter),"Type", Enum.GetNames(typeof(QuestionFilter)))
+                },
                 NextPageLink = nextPageLink
             };
         }

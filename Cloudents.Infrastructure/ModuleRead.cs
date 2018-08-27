@@ -5,6 +5,7 @@ using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Domain;
@@ -43,6 +44,8 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<WebSearch>();
 
+            builder.RegisterType<DataProtection>().As<IDataProtect>();
+
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
 
             #region Tutor
@@ -69,7 +72,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
 
-            builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
+            builder.RegisterType<UniversitySearch>().As<IUniversitySearch>().EnableInterfaceInterceptors().InterceptedBy(typeof(LogInterceptor));
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();

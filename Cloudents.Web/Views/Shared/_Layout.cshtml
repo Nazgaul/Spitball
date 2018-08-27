@@ -161,7 +161,7 @@
             //Intercom('boot', { app_id: 'njmpgayv' })
         })()
     </script>
-    <!-- Begin Inspectlet Embed Code -->
+    @*Begin Inspectlet Embed Code *@
     <script type="text/javascript" id="inspectletjs">
         (function () {
             window.__insp = window.__insp || [];
@@ -174,14 +174,14 @@
             setTimeout(ldinsp, 0);
         })();
     </script>
-    <!-- End Inspectlet Embed Code -->
-    @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>*@
+    @* End Inspectlet Embed Code *@
     <script>
-    window.version = '@version';
-    window.publicPath = '@cdnEndPoint' + '/dist/';
-    window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
-    window.talkJsId = '@Configuration["TalkJs"]';
+            window.version = '@version';
+            window.publicPath = '@cdnEndPoint' + '/dist/';
+            window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
+            window.talkJsId = '@Configuration["TalkJs"]';
     </script>
+    <partial name="_Resource" />
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>

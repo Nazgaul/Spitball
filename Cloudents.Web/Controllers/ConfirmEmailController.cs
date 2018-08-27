@@ -43,10 +43,10 @@ namespace Cloudents.Web.Controllers
 
             if (user.EmailConfirmed)
             {
-                return RedirectToRoute("Register",
+                return RedirectToRoute(RegisterController.RegisterRouteName,
                new
                {
-                   step = "enterPhone",
+                   step = NextStep.EnterPhone,
                    returnUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl : null
                });
             }
@@ -54,15 +54,15 @@ namespace Cloudents.Web.Controllers
             if (!result.Succeeded)
             {
                 _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
-                return RedirectToRoute("Register", new { step = "expiredStep" });
+                return RedirectToRoute(RegisterController.RegisterRouteName, new { step = "expiredStep" });
             }
             TempData.Remove(SignUserController.Email);
             await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
 
-            return RedirectToRoute("Register",
+            return RedirectToRoute(RegisterController.RegisterRouteName,
                 new
                 {
-                    step = "enterPhone",
+                    step = NextStep.EnterPhone,
                     newUser = true,
                     returnUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl : null
                 });

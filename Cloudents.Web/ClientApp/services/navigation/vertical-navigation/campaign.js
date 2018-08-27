@@ -66,16 +66,16 @@ const navDefault = {
     },
 };
 
-const campaignX = {
+const askaquestion= {
     ask: {
         banner:{
             "lineColor": "#00c0fa",
             "title" : "Ask your HW question now and get fast answers from top students.",
             "textMain" : "Sign up now!",
             "boldText" : "Sign up now!",
-            url: '',
+            url: '/register',
             showOverlay: false,
-            campaignClass: 'ask-campaignX',
+            campaignClass: 'ask-askaquestion‎',
         },
     },
     note: {
@@ -84,9 +84,9 @@ const campaignX = {
             "title" : "Notes, study guides, exams and more from the best sites.",
             "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
             "boldText" : "your school, classes and preferences",
-            url: '',
+            url: '/register',
             showOverlay: true,
-            campaignClass: 'note-campaignX',
+            campaignClass: 'note-askaquestion‎',
 
         }
      },
@@ -96,9 +96,9 @@ const campaignX = {
             "title" : "Study from millions of flashcard sets to improve your grades.",
             "textMain" : "Filtered by your school, classes and preferences. Saving you time!" ,
             "boldText" : "your school, classes and preferences",
-            url: '',
+            url: '/register',
             showOverlay: true,
-            campaignClass: 'flashcard-campaignX',
+            campaignClass: 'flashcard-askaquestion‎',
         }
     },
     tutor: {
@@ -107,9 +107,9 @@ const campaignX = {
             "title": "Find an expert to help you ace your classes in-person or online.",
             "textMain": "No matter the subject, a tutor is here to help you succeed.",
             "boldText" : "here to help you succeed.",
-            url: '',
+            url: '/register',
             showOverlay: true,
-            campaignClass: 'tutor-campaignX',
+            campaignClass: 'tutor-askaquestion‎',
         }
     },
     book: {
@@ -118,9 +118,9 @@ const campaignX = {
             "title" : "Compare the best prices to buy, rent or sell your textbooks.",
             "textMain" : "Preview quotes from hundreds of sites simultaneously.",
             "boldText" : "hundreds of sites simultaneously.",
-            url: '',
+            url: '/register',
             showOverlay: true,
-            campaignClass: 'book-campaignX',
+            campaignClass: 'book-askaquestion‎',
         }
     },
     job: {
@@ -129,9 +129,9 @@ const campaignX = {
             "title" : "Find jobs and internships catered specifically to students. ",
             "textMain" : "Filtered by your experience and location preference.",
             "boldText" : "experience and location preference.",
-            url: '',
+            url: '/register',
             showOverlay: true,
-            campaignClass: 'job-campaignX',
+            campaignClass: 'job-askaquestion‎',
         }
     },
 
@@ -277,7 +277,7 @@ const campaignZ = {
 };
 export const bannerData = {
     navDefault,
-    campaignX,
+    askaquestion,
     campaignY,
     campaignZ
 

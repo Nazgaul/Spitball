@@ -45,7 +45,7 @@
                     this.$store.dispatch('nextPage', { vertical: this.vertical, url: this.nextPage })
                         .then((res) => {
                             if (res.data && res.data.length) {
-                                this.$emit('scroll', res.data);
+                                //this.$emit('scroll', res.data);
                                 this.nextPage=res.nextPage;
                                 this.isLoading = false;
                             } else {

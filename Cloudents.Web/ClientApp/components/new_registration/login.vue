@@ -11,7 +11,6 @@
                     <p class="sub-title" v-if="$vuetify.breakpoint.smAndDown">{{campaignData.stepOne.text}}</p>
                     <button class="google-signin" @click="googleLogIn">
                         <span>Sign Up with Google</span>
-                        <!--TODO do not use v-icon-->
                         <span>
                         <v-icon>sbf-google-icon</v-icon>
                     </span>
@@ -29,11 +28,17 @@
 
                         </vue-recaptcha>
                         <!--<div style="width: 300px; height:74px; background: grey;  margin: 24px 0 10px 0;"></div>-->
-                        <input :disabled=" !userEmail" class="continue-btn input-field" type="submit"
-                               value="Continue">
+                        <!--<input :disabled=" !userEmail || !recaptcha" class="continue-btn input-field" type="submit"-->
+                               <!--value="Continue">-->
+                        <v-btn  class="continue-btn"
+                                value="Login"
+                                :loading="loading"
+                                :disabled="!userEmail || !recaptcha "
+                                type="submit"
+                        >Continue</v-btn>
                         <div class="checkbox-terms">
                            <span>By joining, I agree to Spitball <router-link
-                                    to="terms">Terms of Services</router-link> and <router-link to="privacy">Privacy Policy</router-link></span>
+                                   to="terms">Terms of Services</router-link> and <router-link to="privacy">Privacy Policy</router-link></span>
                         </div>
                     </form>
                     <div class="signin-strip">Do you already have an account?
@@ -69,7 +74,13 @@
 
                         </vue-recaptcha>
                         <!--<div style="width: 300px; height:74px; background: grey;  margin: 24px 0 10px 0;"></div>-->
-                        <input class="continue-btn" type="submit" value="Login" :disabled=" !userEmail">
+                        <!--<input class="continue-btn" type="submit" value="Login" :disabled=" !userEmail || !recaptcha">-->
+                        <v-btn  class="continue-btn loginBtn"
+                                value="Login"
+                                :loading="loading"
+                                :disabled="!userEmail || !recaptcha "
+                                type="submit"
+                        >Login</v-btn>
                     </form>
                     <div class="signin-strip">Need an account?
                         <a @click="showRegistration">Sign up</a>
@@ -120,9 +131,15 @@
                     <sb-input class="phone-field" icon="sbf-phone" :errorMessage="errorMessage.phone"
                               v-model="phone.phoneNum" placeholder="Enter phone number" name="email" type="tel"
                               :autofocus="true" @keyup.enter.native="sendCode()"></sb-input>
-                    <button class="continue-btn" @click="sendCode()"
-                            :disabled="!(phone.phoneNum&&phone.countryCode)">Continue
-                    </button>
+                    <v-btn  class="continue-btn"
+                            value="Login"
+                            :loading="loading"
+                            :disabled="!(phone.phoneNum&&phone.countryCode)"
+                            @click="sendCode()"
+                    >Continue</v-btn>
+                    <!--<button class="continue-btn" @click="sendCode()"-->
+                            <!--:disabled="!(phone.phoneNum&&phone.countryCode)">Continue-->
+                    <!--</button>-->
                 </div>
                 <img slot="step-image" :src="require(`./img/enter-phone.png`)"/>
             </step-template>
@@ -137,13 +154,19 @@
                     <p v-if="phone.phoneNum" class="sub-title">We sent the code to you by SMS to
                         (+{{phone.countryCode}})
                         {{phone.phoneNum}}</p>
-                    <p class="confirm-title">We sent a confirmation code to your mobile phone.</p>
+                    <p class="confirm-title">We sent a confirmation code<br/> to your mobile phone.</p>
                     <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code"
                               v-model="confirmationCode" placeholder="Enter confirmation code" type="number"
                               :autofocus="true" @keyup.enter.native="smsCodeVerify()"></sb-input>
-                    <button class="continue-btn submit-code" @click="smsCodeVerify()" :disabled="!confirmationCode">
-                        Continue
-                    </button>
+                    <v-btn  class="continue-btn submit-code"
+                            value="Login"
+                            :loading="loading"
+                            :disabled="!confirmationCode"
+                            @click="smsCodeVerify()"
+                    >Continue</v-btn>
+                    <!--<button class="continue-btn submit-code" @click="smsCodeVerify()" :disabled="!confirmationCode">-->
+                        <!--Continue-->
+                    <!--</button>-->
 
                     <div class="bottom-text">
                         <p class="inline">Didn't get an sms?</p>
@@ -164,7 +187,11 @@
                     <h2 class="congrats-heading"><span class="blue-points">{{initialPointsNum}} SBL</span></h2>
                     <img class="money-done-img" :src="require(`./img/money-done.png`)"/>
                     <p class="congrats">You can spend them to get help with your <br/> Homework questions.</p>
-                    <button class="continue-btn" @click="finishRegistration">Let's Start</button>
+                    <v-btn  class="continue-btn submit-code"
+                            value="congrats"
+                            :loading="loading"
+                            @click="finishRegistration">Let's Start</v-btn>
+                    <!--<button class="continue-btn" @click="finishRegistration">Let's Start</button>-->
                 </div>
                 <img slot="step-image" :src="require(`./img/done.png`)"/>
             </step-template>
