@@ -1,5 +1,6 @@
 ﻿@page
 @using System
+@using Cloudents.Core.Extension
 @using Microsoft.AspNetCore.Mvc.Rendering
 @model SendTokensModel
 @{
@@ -26,7 +27,7 @@
     <div>
         <label asp-for="Model.TypeId"></label>
         @Html.DropDownList("Model.TypeId",
-              new SelectList(Enum.GetValues(typeof(Cloudents.Core.Enum.TransactionType))),
+              new SelectList(EnumExtension.GetPublicEnumNames(typeof(Cloudents.Core.Enum.TransactionType))),
                                 "Transaction Type",
                                 new { @class = "Model.TypeId" })
     </div>

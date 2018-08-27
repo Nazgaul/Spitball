@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Cloudents.Core.Attributes;
 
 namespace Cloudents.Core.Extension
@@ -20,6 +22,19 @@ namespace Cloudents.Core.Extension
             }
 
             throw new InvalidCastException();
+        }
+
+        public static IEnumerable<string> GetPublicEnumNames(Type value)
+        {
+            var memberInfos = value.GetFields(BindingFlags.Public | BindingFlags.Static);
+
+            foreach (var memberInfo in memberInfos)
+            {
+                if (memberInfo.GetCustomAttribute<PublicValueAttribute>() != null)
+                {
+                    yield return memberInfo.Name;
+                }
+            }
         }
     }
 }
