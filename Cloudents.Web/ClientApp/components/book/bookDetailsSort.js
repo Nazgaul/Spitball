@@ -1,13 +1,18 @@
-let sortOptions = [{id: 'buy', name: 'BUY/RENT'}, {id: 'sell', name: 'SELL'}];
+import { USER } from '../../store/mutation-types'
 import {mapMutations} from 'vuex'
 
+let sortOptions = ['buy', 'sell'];
 export default {
     props: {id: {Number}},
     data: () => {
         return {sortOptions, isLoad: false}
     },
     methods: {
-        ...mapMutations(["UPDATE_LOADING"]),
+        ...mapMutations(["UPDATE_LOADING", "UPDATE_CURRENT_SORT"]),
+        updateSort(mobile){
+            let options = mobile? null : sortOptions;
+            this.UPDATE_CURRENT_SORT(options);
+        },
         $_changeTab(val) {
             this.isLoad = true;
             let _this = this;
@@ -23,6 +28,7 @@ export default {
         }
     },
     created() {
+        updateSort(this.$vuetify.breakpoint.xsOnly);
     }
 
 }

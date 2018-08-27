@@ -218,9 +218,9 @@ export default {
             if (!currentPage || !currentPage.filter) {
                 this.filterObject = null
             }
-            else if (!this.subFilterVertical(vertical)) {
-                this.filterObject = [{title: 'Status', modelId: "filter", data: currentPage.filter}];
-            }
+            // else if (!this.subFilterVertical(vertical)) {
+            //     this.filterObject = [{title: 'Status', modelId: "filter", data: currentPage.filter}];
+            // }
             else {
                 //create filter object as the above structure but from list while the data is computed according to the filter id
                 this.filterObject =this.getFilters;
@@ -270,8 +270,7 @@ export default {
         },
         //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
         $_showSelectedFilter({value, key}) {
-            if (this.page && !this.subFilterVertical(this.name)) return this.page.filter.find(i => i.id === value).name;
-            return key === 'course' && this.myCourses.find(x => x.id === Number(value)) ? this.myCourses.find(x => x.id === Number(value)).name : value;
+            return value;
         }
     },
 };

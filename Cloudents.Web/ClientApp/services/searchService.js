@@ -88,13 +88,31 @@ let transferResultNote = response => {
 let transferResultTutor = response => {
     let data = response.data;
     let body = data || {};
-    return { data: body.result.map(val => { return { ...val, template: "tutor" } }), nextPage: body.nextPageLink };
+    return { 
+        sort: body.sort,
+        filters: body.filters,
+        data: body.result.map((val) => {
+             return {
+                  ...val,
+                   template: "tutor" 
+                } 
+            }),
+        nextPage: body.nextPageLink 
+        };
 };
 
 let transferJob = response => {
     let body = response.data;
-    let { result: items, nextPageLink: nextPage, facet: jobType } = body;
-    return { jobType, data: items ? items.map(val => { return { ...val, template: "job" } }) : [], nextPage };
+    let { result: items, nextPageLink: nextPage } = body;
+    return { 
+        filters: body.filters,
+        data: items ? items.map((val) => {
+             return {
+                  ...val,
+                  template: "job" 
+                }}) : [],
+            nextPage 
+        };
 };
 
 let transferBook = response => {

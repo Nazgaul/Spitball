@@ -110,14 +110,11 @@ const nav = {
 export let details = {
     bookDetails: {
         filter: [
-        //     {id: "new", name: "new"}, {id: "rental", name: "rental"}, {id: "eBook", name: "eBook"}, {
-        //     id: "used",
-        //     name: "used"
-        // }
+            "new","rental","eBook"
         ],
         sort: [
-            // {id: "price", name: "price"}
-            ]
+            "price",
+        ]
     }
 };
 export let verticalsList = [];
