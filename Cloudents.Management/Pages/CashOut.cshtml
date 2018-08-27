@@ -25,7 +25,7 @@
         width: 85px
     }
 
-    td:nth-child(4n) {
+    td:nth-child(5n) {
         width: 50px;
     }
 
@@ -46,16 +46,18 @@
     <tr>
         <td>User Id</td>
         <td>Cash Out Amount</td>
+        <td>User Email</td>
         <td>Cash Out Time</td>
         <td>Is suspect?</td>
-
+    </tr>
         @foreach (var q in Model.CashOuts)
         {
-        <tr>
-            <td>@q.UserId</td>
-            <td>@q.CashOutPrice</td>
-            <td>@q.CashOutTime</td>
-            <td>"@q.IsSuspect"</td>
-        </tr>
-    }
+<tr>
+        <td>@q.UserId</td>
+        <td>@q.CashOutPrice</td>
+        <td>@q.UserEmail</td>
+        <td>@q.CashOutTime</td>
+        <td>@q.IsSuspect</td>
+</tr>
+        }
     </table>

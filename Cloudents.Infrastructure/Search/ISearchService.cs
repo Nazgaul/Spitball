@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Search
         {
             if (_isDevelop)
             {
-                indexName += "-dev";
+                //indexName += "-dev";
             }
             return indexClients.GetOrAdd(indexName, _client.Indexes.GetClient(indexName));
         }
