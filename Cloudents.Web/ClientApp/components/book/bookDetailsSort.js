@@ -9,8 +9,8 @@ export default {
     },
     methods: {
         ...mapMutations(["UPDATE_LOADING", "UPDATE_CURRENT_SORT"]),
-        updateSort(mobile){
-            let options = mobile? null : sortOptions;
+        setStoreSort(mobile){
+            let options = mobile ? null : sortOptions;
             this.UPDATE_CURRENT_SORT(options);
         },
         $_changeTab(val) {
@@ -28,7 +28,7 @@ export default {
         }
     },
     created() {
-        updateSort(this.$vuetify.breakpoint.xsOnly);
+        this.setStoreSort(this.$vuetify.breakpoint.xsOnly);
     }
 
 }
