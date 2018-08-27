@@ -13,10 +13,10 @@ export const signlaREvents = {
             })
         },
         addviewr: function(question){
-            store.dispatch("addQuestionViewr", question);
+            store.dispatch("addQuestionViewer", question);
         },
-        removeviewr: function(question){
-            store.dispatch("removeQuestionViewr", question);
+        removeviewer: function(question){
+            store.dispatch("removeQuestionViewer", question);
         },
     }
 }
