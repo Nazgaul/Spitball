@@ -1,22 +1,27 @@
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 export default {
     name: "sort-and-filter",
     props: {
-        sortOptions: { type: Array, default: () => [] },
+        // sortOptions: { type: Array, default: () => [] },
         sortVal: {},
         filterOptions: { type: Array, default: () => [] },
         filterVal: { type: Array, default: () => [] },
        
     },
     computed:{
+        ...mapGetters(['getSort']),
         filterList(){
             return this.filterOptions;
+        },
+        sortOptions(){
+            return this.getSort;
         }
     },
     methods: {
         ...mapActions(['setFilteredCourses']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         updateSort(val) {
+            this.UPDATE_SEARCH_LOADING(true);
             this.$router.push({ query: { ...this.$route.query, sort: val } });
         },
         isChecked(singleFilter, filterItem){
@@ -40,6 +45,7 @@ export default {
         }
     },
     created(){
+        // this.sortOptions = this.getSort;
         console.log('options filter::',this.filterOptions,   'val filter::',  this.filterVal)
     }
 }

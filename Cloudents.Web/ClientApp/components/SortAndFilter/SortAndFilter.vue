@@ -1,12 +1,17 @@
 <template>
     <div class="sort-filter-wrap">
-        <template v-if="sortOptions.length">
+        <template v-if="sortOptions &&  sortOptions.length">
             <h3>Sort</h3>
             <div class="sort-switch">
-                <template v-for="(o, index) in sortOptions">
-                    <input type="radio" :id="`option${index}`" @click="updateSort(o.id)" :key="`option${index}`"
-                           name="switch" :value="o.id" :checked="sortVal?sortVal===o.id:index===0">
-                    <label :for="`option${index}`" :key="index">{{o.name}}</label>
+                <template v-for="(singleSort, index) in sortOptions">
+                    <input type="radio" :id="`option${index}`"
+                           @click="updateSort(singleSort)"
+                           :key="`option${index}`"
+                           name="switch"
+                           :value="singleSort"
+                           :checked="sortVal ? sortVal === singleSort : index===0">
+                    <label :for="`option${index}`"
+                           :key="index">{{singleSort}}</label>
                 </template>
             </div>
         </template>

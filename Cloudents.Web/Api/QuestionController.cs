@@ -123,8 +123,8 @@ namespace Cloudents.Web.Api
                 Result = p,
                 Filters = new []
                 {
-                    new Models.Filters(nameof(GetQuestionsRequest.Source),"Subject", result.Facet),
-                    new Models.Filters(nameof(GetQuestionsRequest.Filter),"Type", Enum.GetNames(typeof(QuestionFilter)))
+                    new Models.Filters(nameof(GetQuestionsRequest.Filter),"Type", Enum.GetNames(typeof(QuestionFilter))),
+                    new Models.Filters(nameof(GetQuestionsRequest.Source),"Subject", result.Facet)
                 },
                 NextPageLink = nextPageLink
             };

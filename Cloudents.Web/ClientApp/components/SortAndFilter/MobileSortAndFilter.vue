@@ -4,19 +4,8 @@
             <v-btn slot="rightElement" flat class="clear-btn" @click="resetFilters">Clear all</v-btn>
         </dialog-toolbar>
         <div class="content-container">
-            <div class="sort-wrap">
-                <!--<template v-if="sortOptions && sortOptions.length">-->
-                    <!--<h3>Sort by</h3>-->
-                    <!--<div class="sort-switch">-->
-                        <!--<template v-for="(singleSort, index) in sortOptions">-->
-                            <!--<input type="radio" :id="`option${index}`" v-model="sort" :key="`option${index}`"-->
-                                   <!--name="switch" :value="singleSort.id">-->
-                            <!--<label :for="`option${index}`" :key="index">{{singleSort.name}}</label>-->
-                        <!--</template>-->
-                    <!--</div>-->
-                <!--</template>-->
-
-                <template v-if="sortOptions && sortOptions.length">
+            <div class="sort-wrap" v-if="sortOptions && sortOptions.length">
+              <template>
                 <h3>Sort by</h3>
                 <div class="sort-switch">
                 <template v-for="(singleSort, index) in sortOptions">
