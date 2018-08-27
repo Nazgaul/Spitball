@@ -6,6 +6,7 @@ namespace Cloudents.Core.DTOs.Admin
     {
         public long UserId { get; set; }
         public decimal CashOutPrice { get; set; }
+        public string UserEmail { get; set; }
         public DateTime CashOutTime { get; set; }
 
         //TODO:
@@ -14,6 +15,12 @@ namespace Cloudents.Core.DTOs.Admin
         //add the 3rd sql statement 0
         //isSuspect will be getter only that will compute from both properties
 
-        public bool IsSuspect { get; set; }
+        public bool IsSuspect { get
+            {
+                return FraudScore > 10 || userQueryRatio < 0.2M;
+            }
+        }
+        public int FraudScore { get; set; }
+        public decimal userQueryRatio { get; set; }
     }
 }
