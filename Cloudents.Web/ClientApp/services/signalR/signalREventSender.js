@@ -29,7 +29,7 @@ export const sendEventList = {
             removeViewer: function(question){
                 let questionEvent = {
                     type: "question",
-                    action: "removeviewr",
+                    action: "removeviewer",
                     data: question
                 }
                 let notificationObj = new Notification(questionEvent);
