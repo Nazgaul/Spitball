@@ -48,7 +48,4 @@ export default {
     methods: {
         ...mapMutations(['UPDATE_LOADING'])
     },
-    created(){
-    }
-
-};
+  };
