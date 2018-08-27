@@ -14,4 +14,12 @@
         Olive,
         Pink
     }
+
+    public enum QuestionFilter
+    {
+        All,
+        Unanswered,
+        Answered,
+        Sold
+    }
 }

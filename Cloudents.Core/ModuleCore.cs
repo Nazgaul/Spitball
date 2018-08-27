@@ -64,6 +64,8 @@ namespace Cloudents.Core
 
                 //builder.RegisterType<EventSubscriptions>().As<ISubscriptionService>();
             builder.RegisterType<EventPublisher>().As<IEventPublisher>();
+            builder.RegisterType<Logger>().As<ILogger>();
+
         }
     }
 }

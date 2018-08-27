@@ -16,8 +16,6 @@ update sb.[user]
 set Fictive = 1
 where email like '%demi.com'
 
---Done untill here
-
 alter table sb.question
 add color nvarchar(255);
 alter table sb.answer
@@ -26,3 +24,4 @@ add color nvarchar(255)
 
 ALTER TABLE sb.[User]
 ADD FraudScore INT;
+--Done untill here

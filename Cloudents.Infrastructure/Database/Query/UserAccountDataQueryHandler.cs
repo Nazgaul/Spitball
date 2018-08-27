@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
         public async Task<UserAccountDto> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
-            var p = await _session.Query<User>()
+            return await _session.Query<User>()
                 .Where(w => w.Id == query.Id).Select(s => new UserAccountDto()
                 {
                     Id = s.Id,
@@ -35,8 +35,6 @@ namespace Cloudents.Infrastructure.Database.Query
                     o.SetCacheable(true)
                         .SetReadOnly(true);
                 }).SingleOrDefaultAsync(cancellationToken: token).ConfigureAwait(false);
-
-            return p;
         }
     }
 }

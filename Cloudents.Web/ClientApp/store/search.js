@@ -42,15 +42,20 @@ const mutations = {
         state.itemsPerVertical[verticalObj.verticalName].nextPage = verticalObj.verticalData.nextPage
     },
     [SEARCH.ADD_QUESTION](state, questionToAdd){
-        state.itemsPerVertical.ask.data.unshift(questionToAdd);
+        if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
+            state.itemsPerVertical.ask.data.unshift(questionToAdd);
+        }
+       
     },
     [SEARCH.REMOVE_QUESTION](state, questionToRemove){
-        for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; i++ ){
-            let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
-            if(currentQuestion.id === questionToRemove.id){
-                //remove the question from the list
-                state.itemsPerVertical.ask.data.splice(questionIndex, 1);
-                return;
+        if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
+            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; i++ ){
+                let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
+                if(currentQuestion.id === questionToRemove.id){
+                    //remove the question from the list
+                    state.itemsPerVertical.ask.data.splice(questionIndex, 1);
+                    return;
+                }
             }
         }
     },

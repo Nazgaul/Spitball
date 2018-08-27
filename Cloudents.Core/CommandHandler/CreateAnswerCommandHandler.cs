@@ -17,18 +17,16 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<Answer> _answerRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
-        private readonly IEventPublisher _eventPublisher;
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
             IRepository<Answer> answerRepository, IRepository<User> userRepository,
-            IBlobProvider<QuestionAnswerContainer> blobProvider, IEventPublisher eventPublisher)
+            IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _userRepository = userRepository;
             _blobProvider = blobProvider;
-            _eventPublisher = eventPublisher;
         }
 
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)

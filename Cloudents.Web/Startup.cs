@@ -82,11 +82,6 @@ namespace Cloudents.Web
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
 
-            services.AddDataProtection(o =>
-            {
-                o.ApplicationDiscriminator = "spitball";
-            }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
-
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
                 .AddCookieTempDataProvider(o =>
