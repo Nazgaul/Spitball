@@ -93,6 +93,18 @@ const mutations = {
             }
         }
     },
+    [SEARCH.UPDATE_QUESTION](state, questionToUpdate){
+        if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
+            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; i++ ){
+                let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
+                if(currentQuestion.id === questionToUpdate.id){
+                    //replace the question from the list
+                    state.itemsPerVertical.ask.data[i] = questionToUpdate;
+                    return;
+                }
+            }
+        }
+    },
     [SEARCH.ADD_QUESTION_VIEWER](state, question){
         if(!!state.itemsPerVertical.ask && state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length){
             state.itemsPerVertical.ask.data.forEach((ask, index) => {
@@ -224,8 +236,12 @@ const actions = {
        commit(SEARCH.ADD_QUESTION, questionToSend);
     },
     removeQuestionItemAction({ commit }, notificationQuestionObject){
-        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
+       let questionObj = searchService.createQuestionItem(notificationQuestionObject);
        commit(SEARCH.REMOVE_QUESTION, questionObj);
+    },
+    updateQuestionItem({ commit }, notificationQuestionObject){
+        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
+        commit(SEARCH.UPDATE_QUESTION, questionObj);
     },
     addQuestionViewer({ commit }, notificationQuestionObject){
         let questionObj = notificationQuestionObject;
