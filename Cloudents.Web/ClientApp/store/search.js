@@ -126,7 +126,8 @@ const actions = {
             //get location if needed
             let VerticalName = context.getters.getCurrentVertical;
             let verticalItems = context.state.itemsPerVertical[VerticalName];
-            if((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skipLoad){
+            let skip = VerticalName === 'ask' ? skipLoad : false;
+            if((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skip){
                 let filtersData = !!verticalItems.filters ? verticalItems.filters : null;
                 let sortData = !!verticalItems.sort  ? verticalItems.sort : null;
                 context.dispatch('updateSort', sortData);
