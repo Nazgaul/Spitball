@@ -49,14 +49,24 @@ const mutations = {
         state.itemsPerVertical[verticalObj.verticalName].data = state.itemsPerVertical[verticalObj.verticalName].data.concat(verticalObj.verticalData.data)
         state.itemsPerVertical[verticalObj.verticalName].nextPage = verticalObj.verticalData.nextPage
     },
-    [SEARCH.ADD_QUESTION](state, questionToAdd){
+    [SEARCH.ADD_QUESTION](state, questionObj){
         //check if ask Tab was loaded at least once
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
             //put the question in que (pop up should show)
-            state.queItemsPerVertical.ask.unshift(questionToAdd);
-            //state.itemsPerVertical.ask.data.unshift(questionToAdd);
+            if(!!questionObj.user){
+                //check if cuurent active user is the same as the user that posted the message
+                let author = questionObj.question.user;
+                let currentUser = questionObj.user;
+                let questionToAdd = questionObj.question;
+                if(currentUser.id === author.id){
+                    state.itemsPerVertical.ask.data.unshift(questionToAdd);
+                }else{
+                    state.queItemsPerVertical.ask.unshift(questionToAdd);
+                }
+            }else{
+                state.queItemsPerVertical.ask.unshift(questionToAdd);
+            }
         }
-       
     },
     [SEARCH.INJECT_QUESTION](state){
         //check if ask Tab was loaded at least once
@@ -121,7 +131,7 @@ const getters = {
         }
     },
     getShowQuestionToaster: function(state, {getCurrentVertical}){
-        return state.queItemsPerVertical[getCurrentVertical].length > 0;
+        return !!state.queItemsPerVertical[getCurrentVertical] ? state.queItemsPerVertical[getCurrentVertical].length > 0 : false;
     }
 };
 
@@ -203,9 +213,14 @@ const actions = {
     updateDataByVerticalType({ commit }, verticalObj){
         commit(SEARCH.UPDATE_ITEMS_BY_VERTICAL, verticalObj);
     },
-    addQuestionItemAction({ commit }, notificationQuestionObject){
+    addQuestionItemAction({ commit, getters }, notificationQuestionObject){
+       let user = getters.accountUser;
        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
-       commit(SEARCH.ADD_QUESTION, questionObj);
+       let questionToSend = {
+           user,
+           question: questionObj
+       }
+       commit(SEARCH.ADD_QUESTION, questionToSend);
     },
     removeQuestionItemAction({ commit }, notificationQuestionObject){
         let questionObj = searchService.createQuestionItem(notificationQuestionObject);
