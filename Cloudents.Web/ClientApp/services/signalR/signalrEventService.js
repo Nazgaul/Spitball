@@ -46,8 +46,17 @@ export default function init(connString = '/sbHub'){
     //create a signalR Connection
     let connection = createConnection(connString)
     
+    //reconnect in case connection closes for some reason
+    connection.onclose(function(){
+        connectivityModule.sr.reconnect(connection);
+    });
+
     //open the connection and register the events
     startConnection(connection, "Message"); 
+}
+
+function reconnect(err){
+    console.log(err);
 }
 
 export function getMainConnection(){

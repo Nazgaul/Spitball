@@ -6,6 +6,14 @@ const state = {
     loading: false,
     serachLoading: false,
     search:{},
+    queItemsPerVertical: {
+        ask:[],
+        note:[],
+        flashcard:[],
+        tutor:[],
+        book:[],
+        job:[]
+    },
     itemsPerVertical: {
         ask:[],
         note:[],
@@ -41,11 +49,37 @@ const mutations = {
         state.itemsPerVertical[verticalObj.verticalName].data = state.itemsPerVertical[verticalObj.verticalName].data.concat(verticalObj.verticalData.data)
         state.itemsPerVertical[verticalObj.verticalName].nextPage = verticalObj.verticalData.nextPage
     },
-    [SEARCH.ADD_QUESTION](state, questionToAdd){
+    [SEARCH.ADD_QUESTION](state, questionObj){
+        //check if ask Tab was loaded at least once
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
-            state.itemsPerVertical.ask.data.unshift(questionToAdd);
+            //put the question in que (pop up should show)
+            if(!!questionObj.user){
+                //check if cuurent active user is the same as the user that posted the message
+                let author = questionObj.question.user;
+                let currentUser = questionObj.user;
+                let questionToAdd = questionObj.question;
+                if(currentUser.id === author.id){
+                    state.itemsPerVertical.ask.data.unshift(questionToAdd);
+                }else{
+                    state.queItemsPerVertical.ask.unshift(questionToAdd);
+                }
+            }else{
+                state.queItemsPerVertical.ask.unshift(questionToAdd);
+            }
         }
-       
+    },
+    [SEARCH.INJECT_QUESTION](state){
+        //check if ask Tab was loaded at least once
+        for(let verticalName in state.queItemsPerVertical){
+            if(state.queItemsPerVertical[verticalName].length > 0){
+                state.queItemsPerVertical[verticalName].forEach((itemToAdd)=>{
+                    if(!!state.itemsPerVertical[verticalName].data && state.itemsPerVertical[verticalName].data.length > 0){
+                        state.itemsPerVertical[verticalName].data.unshift(itemToAdd);
+                    }                    
+                })
+                state.queItemsPerVertical[verticalName] = [];
+            }
+        }
     },
     [SEARCH.REMOVE_QUESTION](state, questionToRemove){
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
@@ -54,6 +88,18 @@ const mutations = {
                 if(currentQuestion.id === questionToRemove.id){
                     //remove the question from the list
                     state.itemsPerVertical.ask.data.splice(questionIndex, 1);
+                    return;
+                }
+            }
+        }
+    },
+    [SEARCH.UPDATE_QUESTION](state, questionToUpdate){
+        if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
+            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; i++ ){
+                let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
+                if(currentQuestion.id === questionToUpdate.id){
+                    //replace the question from the list
+                    state.itemsPerVertical.ask.data[i] = questionToUpdate;
                     return;
                 }
             }
@@ -69,6 +115,7 @@ const mutations = {
         }
     },
     [SEARCH.REMOVE_QUESTION_VIEWER](state, question){
+        if(!question) return;
         if(!!state.itemsPerVertical.ask && state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length){
             state.itemsPerVertical.ask.data.forEach((ask, index) => {
                 if(ask.id === question.id){
@@ -95,6 +142,9 @@ const getters = {
             //return data
             return state.itemsPerVertical[getCurrentVertical].data;   
         }
+    },
+    getShowQuestionToaster: function(state, {getCurrentVertical}){
+        return !!state.queItemsPerVertical[getCurrentVertical] ? state.queItemsPerVertical[getCurrentVertical].length > 0 : false;
     }
 };
 
@@ -126,14 +176,25 @@ const actions = {
             //get location if needed
             let VerticalName = context.getters.getCurrentVertical;
             let verticalItems = context.state.itemsPerVertical[VerticalName];
-            if((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skipLoad){
-                let filtersData = !!verticalItems.filters ? verticalItems.filters : null;
-                let sortData = !!verticalItems.sort  ? verticalItems.sort : null;
-                context.dispatch('updateSort', sortData);
-                context.dispatch('updateFilters', filtersData);
+            let skip = VerticalName === 'ask' ? skipLoad : false;
+            let haveQueItems = context.state.queItemsPerVertical[VerticalName].length;
+                if((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skip){
+                    if(haveQueItems){
+                        context.commit(SEARCH.INJECT_QUESTION)
+                    }                
+                    
+                    let filtersData = !!verticalItems.filters ? verticalItems.filters : null;
+                    let sortData = !!verticalItems.sort  ? verticalItems.sort : null;
+                    context.dispatch('updateSort', sortData);
+                    context.dispatch('updateFilters', filtersData);
+    
+                    return verticalItems
+                }else{
+                   return getData();
+                }
+            
 
-                return verticalItems
-            }else{
+            function getData(){
                 return new Promise((resolve) => {
                     if (LOCATION_VERTICALS.has(name) && !paramsList.location) {
                         context.dispatch("updateLocation").then((location) => {
@@ -165,13 +226,22 @@ const actions = {
     updateDataByVerticalType({ commit }, verticalObj){
         commit(SEARCH.UPDATE_ITEMS_BY_VERTICAL, verticalObj);
     },
-    addQuestionItemAction({ commit }, notificationQuestionObject){
+    addQuestionItemAction({ commit, getters }, notificationQuestionObject){
+       let user = getters.accountUser;
        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
-       commit(SEARCH.ADD_QUESTION, questionObj);
+       let questionToSend = {
+           user,
+           question: questionObj
+       }
+       commit(SEARCH.ADD_QUESTION, questionToSend);
     },
     removeQuestionItemAction({ commit }, notificationQuestionObject){
-        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
+       let questionObj = searchService.createQuestionItem(notificationQuestionObject);
        commit(SEARCH.REMOVE_QUESTION, questionObj);
+    },
+    updateQuestionItem({ commit }, notificationQuestionObject){
+        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
+        commit(SEARCH.UPDATE_QUESTION, questionObj);
     },
     addQuestionViewer({ commit }, notificationQuestionObject){
         let questionObj = notificationQuestionObject;

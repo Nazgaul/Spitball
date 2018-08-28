@@ -4,6 +4,13 @@ export default {
     components: {
         mainHeader,verticalsTabs
     },
+    computed:{
+        hideHeaderMobile(){
+            let path = this.$route.name;
+            let isMobile = this.$vuetify.breakpoint.xsOnly;
+            return path === 'question' && isMobile;
+        }
+    },
     beforeRouteUpdate(to, from, next) {
         const toName = to.path.slice(1);
         let tabs = this.$el.querySelector('.v-tabs__wrapper');

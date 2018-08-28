@@ -48,14 +48,14 @@
                             <span :style="cssRuleFontColor">{{cardData.filesNum}}</span>
                         </template>
                     </div>
-                    <div class="users">
+                    <div class="users" v-if="!detailedView">
                         <template v-for="(i, index) in limitedCardAnswers">
                             <div class="avatar" :key="index">
                                 <v-icon>sbf-comment-icon</v-icon>
                             </div>
                         </template>
                     </div>
-                    <span class="user-counter" v-if="cardData.answersNum>3">+{{cardData.answersNum-3}}</span>
+                    <span class="user-counter" v-if="!detailedView ? cardData.answersNum>3 : ''">+{{cardData.answersNum-3}}</span>
                 </div>
                 <!--show only if in suggestion popup-->
                 <div class="answer" v-if="suggestion">

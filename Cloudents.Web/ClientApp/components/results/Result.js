@@ -96,7 +96,7 @@ export default {
     },
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner']),
+        ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
         
 
@@ -104,9 +104,9 @@ export default {
         filterCondition() {
             return this.filterSelection.length || (this.filterObject && this.page)
         },
-
-        
-
+        showQuestionToaster(){
+            return this.getShowQuestionToaster;
+        },
         content: {
             get() {
                 return this.pageData;
@@ -162,8 +162,12 @@ export default {
 
     methods: {
         ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFilters', 'updateLoginDialogState']),
-        ...mapMutations(["UPDATE_SEARCH_LOADING"]),
+        ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
 
+        loadNewQuestions(){
+            this.INJECT_QUESTION();
+            console.log("new question loading");
+        },
         subFilterVertical(val) {
             return val.includes('note') || val === 'flashcard' || val === 'job' || val.includes('ask');
         },
