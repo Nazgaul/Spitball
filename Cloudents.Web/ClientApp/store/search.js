@@ -103,6 +103,7 @@ const mutations = {
         }
     },
     [SEARCH.REMOVE_QUESTION_VIEWER](state, question){
+        if(!question) return;
         if(!!state.itemsPerVertical.ask && state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length){
             state.itemsPerVertical.ask.data.forEach((ask, index) => {
                 if(ask.id === question.id){
