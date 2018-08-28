@@ -6,6 +6,14 @@ const state = {
     loading: false,
     serachLoading: false,
     search:{},
+    queItemsPerVertical: {
+        ask:[],
+        note:[],
+        flashcard:[],
+        tutor:[],
+        book:[],
+        job:[]
+    },
     itemsPerVertical: {
         ask:[],
         note:[],
@@ -42,10 +50,26 @@ const mutations = {
         state.itemsPerVertical[verticalObj.verticalName].nextPage = verticalObj.verticalData.nextPage
     },
     [SEARCH.ADD_QUESTION](state, questionToAdd){
+        //check if ask Tab was loaded at least once
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
-            state.itemsPerVertical.ask.data.unshift(questionToAdd);
+            //put the question in que (pop up should show)
+            state.queItemsPerVertical.ask.unshift(questionToAdd);
+            //state.itemsPerVertical.ask.data.unshift(questionToAdd);
         }
        
+    },
+    [SEARCH.INJECT_QUESTION](state){
+        //check if ask Tab was loaded at least once
+        for(let verticalName in state.queItemsPerVertical){
+            if(state.queItemsPerVertical[verticalName].length > 0){
+                state.queItemsPerVertical[verticalName].forEach((itemToAdd)=>{
+                    if(!!state.itemsPerVertical[verticalName].data && state.itemsPerVertical[verticalName].data.length > 0){
+                        state.itemsPerVertical[verticalName].data.unshift(itemToAdd);
+                    }                    
+                })
+                state.queItemsPerVertical[verticalName] = [];
+            }
+        }
     },
     [SEARCH.REMOVE_QUESTION](state, questionToRemove){
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
@@ -95,6 +119,9 @@ const getters = {
             //return data
             return state.itemsPerVertical[getCurrentVertical].data;   
         }
+    },
+    getShowQuestionToaster: function(state, {getCurrentVertical}){
+        return state.queItemsPerVertical[getCurrentVertical].length > 0;
     }
 };
 
@@ -127,14 +154,24 @@ const actions = {
             let VerticalName = context.getters.getCurrentVertical;
             let verticalItems = context.state.itemsPerVertical[VerticalName];
             let skip = VerticalName === 'ask' ? skipLoad : false;
-            if((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skip){
-                let filtersData = !!verticalItems.filters ? verticalItems.filters : null;
-                let sortData = !!verticalItems.sort  ? verticalItems.sort : null;
-                context.dispatch('updateSort', sortData);
-                context.dispatch('updateFilters', filtersData);
+            let haveQueItems = context.state.queItemsPerVertical[VerticalName].length;
+                if((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skip){
+                    if(haveQueItems){
+                        context.commit(SEARCH.INJECT_QUESTION)
+                    }                
+                    
+                    let filtersData = !!verticalItems.filters ? verticalItems.filters : null;
+                    let sortData = !!verticalItems.sort  ? verticalItems.sort : null;
+                    context.dispatch('updateSort', sortData);
+                    context.dispatch('updateFilters', filtersData);
+    
+                    return verticalItems
+                }else{
+                   return getData();
+                }
+            
 
-                return verticalItems
-            }else{
+            function getData(){
                 return new Promise((resolve) => {
                     if (LOCATION_VERTICALS.has(name) && !paramsList.location) {
                         context.dispatch("updateLocation").then((location) => {

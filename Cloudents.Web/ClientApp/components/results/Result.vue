@@ -5,12 +5,12 @@
 
         <!--<signup-banner  slot="signupBanner"  v-if="!accountUser"></signup-banner>-->
         <div slot="main">
-         <div class="d-flex mobile-filter" >
-                <a v-if="$route.path.slice(1)==='ask' " :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] " @click.prevent="goToAskQuestion()">Ask Your Question</a>
-                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right hidden-sm-and-up" v-if="filterCondition">
-                    <v-icon>sbf-filter</v-icon>
-                    <div :class="'counter fixedLocation color-'+$route.path.slice(1)" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
-                </v-btn>
+            <div class="d-flex mobile-filter" >
+                    <a v-if="$route.path.slice(1)==='ask' " :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] " @click.prevent="goToAskQuestion()">Ask Your Question</a>
+                    <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right hidden-sm-and-up" v-if="filterCondition">
+                        <v-icon>sbf-filter</v-icon>
+                        <div :class="'counter fixedLocation color-'+$route.path.slice(1)" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
+                    </v-btn>
             </div>
             <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
                 <template v-for="(item, index) in filterSelection">
@@ -20,6 +20,11 @@
                     </v-chip>
                 </template>
             </div>
+            <v-snackbar v-if="$route.path.slice(1)==='ask'" class="question-toaster" @click="loadNewQuestions()" :top="true" :timeout="5000" :value="showQuestionToaster">
+                <div class="text-wrap">
+                    <v-icon class="refresh-style">sbf-refresh</v-icon> &nbsp; <span>New questions</span> 
+                </div>
+            </v-snackbar>
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
                 <scroll-list v-if="items.length" :url="pageData.nextPage" :vertical="pageData.vertical">
                 <!-- <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
