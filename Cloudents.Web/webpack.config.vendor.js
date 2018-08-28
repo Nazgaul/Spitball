@@ -48,7 +48,7 @@ const allModules = [
     "vuetify/es5/components/VAvatar",
     "vuetify/es5/components/VPagination",
     "vuetify/es5/components/VDataTable",
-    "webfontloader",
+\    "webfontloader",
    
 
 ];

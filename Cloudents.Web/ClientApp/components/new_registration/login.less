@@ -11,8 +11,55 @@
 }
 
 .registration {
+  .text-block-top {
+    background: @color-main-purple;
+    color: @color-white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .text-block-slot {
+      text-align: left;
+      width: 100%;
+      //padding: 26px;
+      .checkbox-terms {
+        background: @color-light-grey;
+        border-radius: 22px 22px 0 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 18px 36px;
+        input[type=checkbox] {
+          height: 24px;
+          width: 24px;
+          margin-right: 16px;
+        }
+        span, a {
+          color: @color-main-purple;
+          font-size: 15px;
+        }
+        a {
+
+          text-decoration: underline;
+        }
+      }
+      .text-wrap-top {
+        padding: 52px 32px 0 32px;
+        //width: 75%;
+        width: 100%;
+        .text-block-title {
+          font-size: 28px;
+        }
+        .text-block-sub-title {
+          font-size: 28px;
+          font-weight: 100;
+        }
+      }
+      //width: 80%;
+      margin: 0 auto;
+    }
+  }
   position: relative;
-  button.continue-btn{
+  button.continue-btn {
     .transition (all .2s ease-in-out);
     background: @color-main-purple;
     text-transform: none;
@@ -92,6 +139,9 @@
     .sbf-close {
       font-size: 16px;
       color: @color-main-purple;
+      @media (max-width: @screen-xs) {
+        color: @color-white;
+      }
     }
   }
 
@@ -101,8 +151,7 @@
     align-items: stretch;
     //min-height: 100vh;
     @media (max-width: @screen-xs) {
-      //min-height: 100vh;
-      //height: 100vh;
+      background: @color-main-purple;
     }
     .side-wrapper {
       align-items: center;
@@ -111,7 +160,9 @@
       flex-grow: 1;
       width: 100%;
       position: relative;
-
+      @media (max-width: @screen-xs) {
+      align-items: flex-start;
+      }
       &.image {
         background: #eee;
         @media (max-width: @screen-xs) {
@@ -119,16 +170,23 @@
         }
       }
       &.data {
-        background: white;;
+        background: white;
         @media (max-width: @screen-xs) {
-          padding: 16px 14px 16px 16px;
+          padding: 32px 14px 16px 16px;
+          border-radius: 22px 22px 0 0;
         }
+
       }
       .bottom-text {
-        position: absolute;
-        .responsive-property(bottom, 120px, null, 54px);
-        left: 0;
-        right: 0;
+        //position: absolute;
+        .responsive-property(margin-top, 120px, null, 54px);
+        //left: 0;
+        //right: 0;
+        margin-top: 54px;
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        align-items: flex-end;
       }
     }
 
@@ -150,7 +208,7 @@
     }
 
     button.continue-btn {
-      background: @color-main-purple!important;
+      background: @color-main-purple !important;
       margin-left: 0;
       margin-right: 0;
       font-size: 18px;
@@ -168,11 +226,20 @@
         background: @color-medium-grey;
       }
     }
-
     .limited-width {
+      max-width: 400px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      @media (max-width: @screen-xs) {
+        max-width: 312px;
+      }
       padding-bottom: 54px;
       &.wide {
         max-width: 422px;
+        @media (max-width: @screen-xs) {
+          max-width: 312px;
+        }
         .click {
           cursor: pointer;
         }
@@ -189,7 +256,7 @@
         .step-title {
           margin: 70px 10px 10px;
           @media (max-width: @screen-xs) {
-            margin: 0px 10px 10px;
+            margin: 0 10px 10px;
           }
         }
         p {
@@ -241,14 +308,14 @@
     position: absolute;
     right: 0;
     bottom: 0px;
-      @media only screen
-      and (min-device-width: 768px)
-      and (max-device-width: 1024px)
-      and (orientation: portrait) {
-        width: 100%;
-        left: 0;
-        right: 0;
-      }
+    @media only screen
+    and (min-device-width: 768px)
+    and (max-device-width: 1024px)
+    and (orientation: portrait) {
+      width: 100%;
+      left: 0;
+      right: 0;
+    }
 
     @media (max-width: @screen-xs) {
       //bottom: 16px;
@@ -275,7 +342,7 @@
     font-size: 18px;
     letter-spacing: -0.5px;
     text-align: center;
-    margin-top: 20px;
+    .responsive-property(margin-top, 120px, null, 120px);
 
     .click {
       color: @color-main-purple;
@@ -283,8 +350,8 @@
       cursor: pointer;
     }
     @media (max-width: @screen-xs) {
-      margin-top: 12px;
-      position: absolute;
+      //margin-top: 12px;
+      //position: absolute;
       bottom: 0px;
       left: 0;
       right: 0;
@@ -319,15 +386,19 @@
         height: 100%;
         .input-wrapper, select {
           margin-top: 24px;
+          @media (max-width: @screen-xs) {
+            margin-top: 0;
+          }
         }
 
         .phone-field input {
           padding-left: 36px;
-          margin-top: 0;
+          margin-top: 32px;
+          position: relative;
 
           ~ i {
             position: absolute;
-            top: 14px;
+            top: 46px;
             left: 16px;
           }
         }
@@ -343,7 +414,7 @@
           }
         }
         .continue-btn {
-          margin-top: 24px;
+          margin-top: 32px;
           &.submit-code {
             margin-top: 12px;
           }
@@ -420,6 +491,10 @@
   .step-phone-confirm {
     height: 100%;
     .step-wrapp-one {
+      .phone-change{
+        font-size: 16px;
+        color: #b0b0ff;
+      }
       height: 100%;
       .step-wrapper {
         height: 100%;
@@ -431,12 +506,12 @@
             display: none;
           }
         }
-          .limited-width {
+        .limited-width {
           padding-bottom: 54px;
           &.wide {
             height: 400px;
             @media (max-width: @screen-xs) {
-              height: 500px;
+              width: 312px;
             }
             .step-title {
               margin: 0px 10px 10px;
@@ -515,7 +590,7 @@
   //  step login
   .step-login {
     height: 100%;
-    @media (max-width: @screen-xs){
+    @media (max-width: @screen-xs) {
       height: 90%;
     }
 
@@ -523,7 +598,7 @@
       height: 100%;
     }
     .step-wrapper {
-    height: 100%;
+      height: 100%;
       .image {
         @media only screen
         and (min-device-width: 768px)
@@ -534,6 +609,9 @@
       }
       .limited-width {
         max-width: 400px;
+        @media (max-width: @screen-xs) {
+         max-width: 312px;
+        }
         width: 100%;
         &.wide {
           max-width: 422px;
@@ -552,10 +630,14 @@
         margin-bottom: 22px;
       }
       .input-wrapper {
-        margin-top: 24px;
+        margin-top:0;
       }
       .recaptcha-wrapper {
         margin-top: 32px;
+        @media (max-width: @screen-xs) {
+          width: 232px;
+          max-width: 232px;
+        }
       }
       .continue-btn {
         margin-top: 40px;
@@ -595,6 +677,268 @@
     }
   }
   //end step login
+
+  //stepstart screen
+  .step-terms-firstscreen {
+    .side-wrapper {
+      @media (max-width: @screen-xs) {
+        align-items: flex-start;
+        display: flex;
+      }
+    }
+    .step-wrapp-one {
+      height: 100%;
+    }
+    height: 100%;
+    .step-wrapper {
+      height: 100%;
+      .image {
+        @media only screen
+        and (min-device-width: 768px)
+        and (max-device-width: 1024px)
+        and (orientation: portrait) {
+          display: none;
+        }
+      }
+      .sign-with-email {
+        background: @color-white;
+        font-size: 16px;
+        letter-spacing: -0.5px;
+        text-align: center;
+        text-transform: none;
+        color: @color-main-purple;
+        border: 1px solid @color-main-purple;
+        border-radius: 4px;
+        width: 100%;
+        height: @registrationFieldHeight;
+        //margin-top: 40px;
+        margin: 0 auto;
+        &:hover {
+          background: @color-main-purple;
+          color: @color-white;
+        }
+        @media (max-width: @screen-xs) {
+          width: 312px;
+          max-width: 312px;
+          min-width: 312px;
+
+        }
+      }
+      .google-signin {
+        background: @google-btn-bg;
+        font-size: 18px;
+        letter-spacing: -0.5px;
+        text-align: center;
+        color: #ffffff;
+        width: 100%;
+        min-width: 400px;
+        height: @registrationFieldHeight;
+        margin-top: 40px;
+        &:hover {
+          background: @color-white;
+          color: @google-btn-bg;
+          border: 1px solid @google-btn-bg;
+        }
+        &:disabled {
+          background: #bbbbbb;
+          &:hover {
+            background: #bbbbbb;
+          }
+        }
+        .transition (all .2s ease-in-out);
+        @media (max-width: @screen-xs) {
+          margin: 0 auto;
+          width: 312px;
+          max-width: 312px;
+          min-width: 312px;
+
+        }
+      }
+
+      .sbf-google-icon {
+        color: @google-btn-bg;
+        background: white;
+        border-radius: 100%;
+        padding-top: 2px;
+        padding-left: 1px;
+        padding-right: 1px;
+        border: 3px solid white;
+        font-size: 17px;
+        margin-left: 8px;
+      }
+
+      .seperator-text {
+        display: flex;
+        align-items: center;
+        margin: 22px 0 18px 0;
+        padding: 15px 0;
+        font-size: 16px;
+        letter-spacing: -0.3px;
+        color: #888b8e;
+        text-transform: capitalize;
+
+        @media (max-width: @screen-xs) {
+          margin: 28px 0 30px;
+          padding: 0;
+        }
+
+        &:before, &:after {
+          content: '';
+          width: 100%;
+          //background: #888b8e;
+          height: 1px;
+          display: block;
+        }
+
+        span {
+          flex-shrink: 0;
+          padding: 0 12px;
+        }
+      }
+      .input-wrapper.email-field {
+        input {
+          padding-left: 54px;
+          margin-top: 0;
+        }
+        i {
+          position: absolute;
+          left: 16px;
+          top: 17px;
+          //line-height: normal;
+          font-size: 18px;
+        }
+      }
+
+      .continue-btn {
+        margin-top: 16px;
+        @media (max-width: @screen-xs) {
+          margin-top: 0;
+          width: 312px;
+          max-width: 312px;
+        }
+      }
+
+      .email {
+        margin-top: 6px;
+      }
+      .email-check {
+        margin: 22px auto 64px auto;
+      }
+      .resend-title {
+        font-size: 14px;
+        letter-spacing: -0.4px;
+        color: #888b8e;
+      }
+
+      .recaptcha-wrapper {
+        margin: 32px 0 32px 0;
+        @media (max-width: @screen-xs) {
+          width: 232px;
+          max-width: 232px;
+        }
+      }
+      .recaptcha-wrapper > div:first-child {
+        height: 100px;
+        width: 232px!important;
+      }
+
+      .checkbox-terms {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 30px;
+
+        &, a {
+          color: #90949c;
+        }
+        a {
+          text-decoration: underline;
+        }
+        @media (max-width: @screen-xs) {
+          margin: 0;
+          padding: 15px 0 4px 25px;
+          font-size: 11px;
+          letter-spacing: -0.3px;
+          text-align: center;
+          color: #90949c;
+        }
+        input {
+          width: 16px;
+          height: 16px;
+        }
+        label {
+          font-size: 11px;
+          margin-bottom: 1px;
+          letter-spacing: -0.3px;
+          color: #90949c;
+          margin-left: 6px;
+        }
+      }
+      .signin-strip {
+        font-size: 16px;
+        letter-spacing: -0.4px;
+        text-align: center;
+        color: #888b8e;
+        margin: 47px 0 16px;
+        @media (max-width: @screen-xs) {
+          font-size: 18px;
+          margin: 54px 0 16px;
+
+        }
+      }
+
+      .side-wrapper.image {
+        background: #eee;
+        .text {
+          height: 135px;
+        }
+        img {
+          margin: 25px 0;
+        }
+
+      }
+      .side-wrapper.data {
+        border-radius: 0;
+      }
+      .step-title {
+        @media (max-width: @screen-xs) {
+          margin-top: 16px;
+        }
+      }
+      .limited-width {
+        padding-bottom: 54px;
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        &.wide {
+          height: 400px;
+          @media (max-width: @screen-xs) {
+            height: 500px;
+          }
+          .step-title {
+            margin: 70px 10px 10px;
+            @media (max-width: @screen-xs) {
+              margin: 0px 10px 10px;
+            }
+          }
+          p {
+            max-width: 400px;
+          }
+          img {
+            display: none;
+            width: 251px;
+            height: 154px;
+            @media (max-width: @screen-xs) {
+              display: flex;
+              margin: 75px auto;
+            }
+          }
+        }
+      }
+    }
+  }
+  //end start screen email
+
   //step email
   .step-email {
     .step-wrapp-one {
@@ -603,6 +947,9 @@
     height: 100%;
     .step-wrapper {
       height: 100%;
+      @media (max-width: @screen-xs) {
+        height: auto;
+      }
       .image {
         @media only screen
         and (min-device-width: 768px)
@@ -623,9 +970,9 @@
         &:hover {
           background: lighten(@google-btn-bg, 10%);
         }
-        &:disabled{
+        &:disabled {
           background: #bbbbbb;
-          &:hover{
+          &:hover {
             background: #bbbbbb;
           }
         }
@@ -690,9 +1037,11 @@
       }
 
       .continue-btn {
-        margin-top: 16px;
+        //margin-top: 16px;
         @media (max-width: @screen-xs) {
           margin-top: 0;
+          width: 312px;
+          max-width: 312px;
         }
       }
 
@@ -709,7 +1058,11 @@
       }
 
       .recaptcha-wrapper {
-        margin: 24px 0 10px 0;
+        margin: 32px 0 32px 0;
+        @media (max-width: @screen-xs) {
+          width: 232px;
+          max-width: 232px;
+        }
       }
       .recaptcha-wrapper > div:first-child {
         height: 100px;
@@ -826,7 +1179,6 @@
         }
       }
       .step-wrapper, .v-dialog .limited-width.custom {
-
         .blue-points {
           color: @color-main-purple;
           font-size: 32px;
@@ -840,6 +1192,8 @@
           margin-top: 13px;
           @media (max-width: @screen-xs) {
             margin-top: 0px;
+            width: 312px;
+            max-width: 312px;
           }
         }
         .done {
@@ -858,7 +1212,7 @@
             margin-bottom: 1px;
           }
           .continue-btn {
-            margin-top: 100px;
+            margin-top: 32px
           }
         }
 
@@ -906,17 +1260,20 @@
           }
         }
         height: 100%;
-        .step-title{
-              margin: 70px 30px 16px 12px;
+        @media (max-width: @screen-xs) {
+          height: auto;
+        }
+        .step-title {
+          margin: 70px 30px 16px 12px;
         }
 
-        .email-hold{
-          margin-bottom: 16px;
-          .email-text{
+        .email-hold {
+          margin: 16px 0 16px 0;
+          .email-text {
             color: @color-black;
             font-weight: 600;
           }
-          .email-change{
+          .email-change {
             color: @color-main-purple;
             font-size: 18px;
             font-weight: 600;
@@ -924,7 +1281,6 @@
             margin-left: 6px;
           }
         }
-
       }
     }
   }
@@ -936,17 +1292,19 @@
 
 .registration-dialog {
   text-align: center;
-  @media (max-width: @screen-xs) {
-    margin: 16px;
-  }
+  color: @color-white;
+  &.v-dialog--fullscreen{
 
+  }
   .v-card {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 392px;
     @media (max-width: @screen-xs) {
-      min-height: 363px;
+      min-height: 100%;
+      background: @color-main-purple;
+      color: @color-white;
     }
 
     .close-btn {
@@ -957,15 +1315,27 @@
       i {
         font-size: 16px;
         color: @color-main-purple;
+        @media (max-width: @screen-xs) {
+          color: @color-white;
+        }
       }
     }
   }
   h1 {
     font-size: 26px;
     font-weight: bold;
-    letter-spacing: -0.5px;
     text-align: center;
     color: @color-main-purple;
+    @media (max-width: @screen-xs) {
+      color: @color-white;
+      font-size: 32px;
+      font-weight: 200;
+      text-align: left;
+      line-height: 1.1;
+    }
+    b{
+      font-weight: 600;
+    }
   }
   p {
     font-size: 18px;
@@ -975,6 +1345,13 @@
     margin-top: 14px;
     margin-bottom: 18px;
     line-height: 1.5;
+    @media (max-width: @screen-xs) {
+          color: @color-white;
+          font-size: 24px;
+          text-align: left;
+          font-weight: 100;
+          color: #aaaaff;
+    }
 
     b {
       font-weight: bold;
@@ -1005,12 +1382,21 @@
       }
     }
   }
+  .continue-registr{
+    width: 100%;
+    height: 48px;
+    color: @color-main-purple;
+    text-transform: none;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 32px;
+
+  }
   .continue-btn {
     background: @color-main-purple;
     font-size: 18px;
     font-weight: bold;
     line-height: 1.39;
-    letter-spacing: -0.5px;
     color: #ffffff;
     width: 100%;
     height: @registrationFieldHeight;
@@ -1019,7 +1405,8 @@
       background: lighten(@color-main-purple, 10%);
     }
     @media (max-width: @screen-xs) {
-      width: 86%;
+      width: 312px;
+      max-width: 312px;
     }
     margin-top: 28px;
   }

@@ -26,9 +26,6 @@
   p {
     padding: 16px 16px 16px 16px;
     margin: 16px 16px 10px 16px;
-
-    //margin: 16px 44px 16px 16px;
-
     @media (max-width: @screen-xs) {
       margin: 16px 16px 6px 8px;
     }
@@ -48,9 +45,16 @@
     display: inline-block;
     @media(max-width: @screen-xs ){
       padding-left: 16px;
+      padding-right: 6px!important;
     }
     span {
       line-height: 40px;
+      @media(max-width: @screen-xs ){
+        line-height: 2;
+        display: flex;
+        height: 100%;
+        text-align: left;
+      }
       display: block;
       letter-spacing: -0.4px;
     }

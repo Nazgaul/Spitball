@@ -2,11 +2,9 @@ import stepTemplate from './helpers/stepTemplate.vue'
 import codesJson from './helpers/CountryCallingCodes';
 import {mapMutations, mapActions, mapGetters} from 'vuex'
 import VueRecaptcha from 'vue-recaptcha';
-
 ﻿import registrationService from '../../services/registrationService'
 import analyticsService from '../../services/analytics.service';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
-
 const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;
@@ -21,8 +19,9 @@ export default {
             siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
             gaCategory: '',
             marketingData: {
-
             },
+            agreeTerms: false,
+            agreeError: false,
             loader: null,
             loading: false,
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
@@ -41,10 +40,11 @@ export default {
             isNewUser: false,
             showDialog: false,
             toasterTimeout: 5000,
-            stepNumber: 1,
+            stepNumber: 0,
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             stepsEnum: {
+                "termandstart": 0,
                 "startstep": 1,
                 "emailconfirmed": 2,
                 "enterphone": 3,
@@ -66,7 +66,6 @@ export default {
                 }, this.toasterTimeout)
             }
         },
-
     },
     computed: {
         ...mapGetters({
@@ -76,6 +75,12 @@ export default {
             campaignName: 'getCampaignName',
             campaignData: 'getCampaignData'
         }),
+        confirmCheckbox(){
+          return !this.agreeTerms && this.agreeError
+        },
+        isMobile(){
+            return this.$vuetify.breakpoint.smAndDown
+        }
     },
     methods: {
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
@@ -96,6 +101,15 @@ export default {
         showRegistration() {
             this.changeStepNumber('startStep');
         },
+        goToEmailLogin(){
+            if(!this.agreeTerms){
+                return this.agreeError = true
+            }
+            this.changeStepNumber('startStep');
+        },
+        changePhone(){
+          this.changeStepNumber('enterphone');
+        },
         submit() {
             let self = this;
             self.loading = true;
@@ -113,6 +127,9 @@ export default {
         },
 
         googleLogIn() {
+            if(!this.agreeTerms){
+              return  this.agreeError = true;
+            }
             var self = this;
             self.updateLoading(true);
             let authInstance = gapi.auth2.getAuthInstance();
@@ -295,4 +312,5 @@ export default {
         }
 
     },
+
 }
