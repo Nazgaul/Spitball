@@ -5,14 +5,14 @@
                 <v-icon>sbf-close</v-icon>
             </button>
             <div class="ml-1 wrap-text">
-                <h2 class="text-md-left"> Please <br/><b>sign up</b> or <b>login</b><br/> to continue.</h2>
+                <h2 class="text-md-left"><span v-language:inner>loginAnswer_Pleas</span><br/><b v-language:inner>loginAnswer_sign_up</b><span v-language:inner>loginAnswer_or</span><b v-language:inner>loginAnswer_login</b><br/><span v-language:inner>loginAnswer_to_continue</span></h2>
                 <div class="wrapper-body-text">
-                    <p class="dialog-body-text">You are a couple of mouse clicks away from FREE access to making serious money.</p>
+                    <p class="dialog-body-text" v-language:inner>loginAnswer_policy</p>
                 </div>
             </div>
             <div class="btn-container">
-                <router-link  class="login-btns body-1" :to="{ path: '/register', query:{returnUrl : $route.path}}">Sign Up</router-link>
-                <router-link  class="login-btns body-1" :to="{ path: '/signin'}">Login</router-link>
+                <router-link  class="login-btns body-1" :to="{ path: '/register', query:{returnUrl : $route.path}}" v-language:inner>loginAnswer_Sign_Up</router-link>
+                <router-link  class="login-btns body-1" :to="{ path: '/signin'}" v-language:inner>loginAnswer_login</router-link>
             </div>
         </div>
     </v-card>

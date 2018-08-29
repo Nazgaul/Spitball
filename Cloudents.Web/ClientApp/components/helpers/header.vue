@@ -19,7 +19,7 @@
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
-                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}} SBL</span>
+                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}} <span v-language:inner>header_sbl</span></span>
                                         <span>$ {{accountUser.balance | dollarVal}}</span>
                                     </router-link>
                                     <div class="header-rocket" v-if="loggedIn">
@@ -32,12 +32,8 @@
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
 
-                                    <router-link v-if="!loggedIn" class="header-login body-1"
-                                                 :to="{ path: '/register', query:{returnUrl : $route.path}  }">Sign Up
-                                    </router-link>
-                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}">
-                                        Login
-                                    </router-link>
+                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
+                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}" v-language:inner>header_login</router-link>
 
                                     <v-menu bottom left offset-y class="gamburger"
                                             v-if="!loggedIn && $vuetify.breakpoint.xsOnly">

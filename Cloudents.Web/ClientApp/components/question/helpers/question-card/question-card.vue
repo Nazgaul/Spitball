@@ -10,7 +10,7 @@
                     <button class="accept-btn right" @click="markAsCorrect"
                             v-if="showApproveButton && !flaggedAsCorrect && !hasAnswer">
                         <v-icon>sbf-check-circle</v-icon>
-                        <span>Accept</span>
+                        <span v-language:inner>questionCard_Accept</span>
                     </button>
 
                     <span class="choosen-answer right" v-if="flaggedAsCorrect">
@@ -19,8 +19,8 @@
             </user-block>
             <div v-if="cardData.price">
                 <div class="q-price pr-3">
-                    <span v-if="!cardData.hasCorrectAnswer">Earn ${{cardData.price | dollarVal}}</span>
-                    <span v-else class="sold-badge">Sold</span>
+                    <span v-if="!cardData.hasCorrectAnswer"><span v-language:inner>questionCard_Earn</span> ${{cardData.price | dollarVal}}</span>
+                    <span v-else class="sold-badge" v-language:inner>questionCard_Sold</span>
 
                 </div>
                 <!-- <p class="q-category">{{cardData.subject}}</p> -->
@@ -59,11 +59,11 @@
                 </div>
                 <!--show only if in suggestion popup-->
                 <div class="answer" v-if="suggestion">
-                <button class="answer-btn">Answer</button>
+                <button class="answer-btn" v-language:inner>questionCard_Answer</button>
                 </div>
             </div>
         </div>
-        <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}" v-if="detailedView && canDelete" @click="deleteQuestion()">Delete</button>
+        <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}" v-if="detailedView && canDelete" @click="deleteQuestion()" v-language:inner>questionCard_Delete</button>
         
         <v-dialog v-if="gallery&&gallery.length" v-model="showDialog"  max-width="720px"
                   transition="scale-transition" content-class="zoom-image">
@@ -82,13 +82,13 @@
                         <div class="triangle"></div>
                         <div class="text-container">
                             <div class="text">
-                                <span class="user-date">Answer ·</span>
+                                <span class="user-date" v-language:inner>questionCard_Answer_dot</span>
                                 <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
                                     v-if="typeAnswer"
                                     class="q-answer">
                                 <button class="accept-btn right" @click="markAsCorrect" v-if="showApproveButton && !flaggedAsCorrect && !hasAnswer">
                                     <v-icon>sbf-check-circle</v-icon>
-                                    <span>Accept</span>
+                                    <span v-language:inner>questionCard_Accept</span>
                                 </button>
 
                                 <span class="choosen-answer right" v-if="flaggedAsCorrect">
@@ -109,7 +109,7 @@
                     </div>
                 </div>
             </div>
-            <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}" v-if="detailedView && canDelete" @click="deleteQuestion()">Delete</button>
+            <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}" v-if="detailedView && canDelete" @click="deleteQuestion()" v-language:inner>questionCard_Delete</button>
         <!-- TODO strange behaviour check why is being added tab index-1 to DOM-->
         <v-dialog v-model="showDialog"  max-width="720px"
                   transition="scale-transition" content-class="zoom-image">

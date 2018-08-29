@@ -19,7 +19,7 @@
                                 <!--</div>-->
                                 <v-layout class="flip" v-if="!showBoth" row align-center>
                                     <flip-icon></flip-icon>
-                                    <span>Click to flip</span>
+                                    <span v-language:inner>flashcardcontent_click_to_flip</span>
                                 </v-layout>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                                 <!--</div>-->
                                 <div class="flip" v-if="!showBoth">
                                     <flip-icon></flip-icon>
-                                    Click to flip
+                                   <span v-language:inner>flashcardcontent_click_to_flip</span>  
                                 </div>
                             </div>
                         </div>

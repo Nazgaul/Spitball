@@ -8,7 +8,7 @@
                         <div class="student_icon">
                             <img :src="require(`./img/student_ask.png`)"/>
                         </div>
-                        <span class="text-blue">Get Your Question Answered</span>
+                        <span class="text-blue" v-language:inner>newQuestion_Get_Your_Question_Answered</span>
                         <button class="back-button" @click="$router.go(-1)">
                             <v-icon right>sbf-close</v-icon>
                         </button>
@@ -27,7 +27,7 @@
 
                 <v-flex xs6 :class="{'has-error':!subject && errorMessageSubject}" class="inputBorder">
                     <select v-model="subject">
-                        <option value="" disabled hidden>Pick a subject</option>
+                        <option value="" disabled hidden v-language:inner>newQuestion_Pick_a_subject</option>
                         <option v-for="item in subjectList" :value="item">{{item.subject}}</option>
                     </select>
                 </v-flex>
@@ -36,14 +36,14 @@
                 </v-flex>
 
                   <v-flex xs12 v-if="currentSum"
-                        :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']">You have
-                    {{currentSum | fixedPoints}} SBL
+                        :class="[currentSum>=0 ? 'text-blue' : 'text-red', 'my-points','subheading']"> <span v-language:inner>newQuestion_You_have</span> 
+                    {{currentSum | fixedPoints}} <span v-language:inner>newQuestion_SBL</span> 
                 </v-flex>
-                <v-flex xs12 v-if="price > 100" :class="[price < 100 ? 'text-blue' : 'text-red']">
-                    The max. number of SBL is 100 per question
+                <v-flex xs12 v-if="(price > 100)" :class="[price < 100 ? 'text-blue' : 'text-red']" v-language:inner>
+                  newQuestion_max_SBL 
                 </v-flex>
-                <v-flex xs12 v-else-if="price < 1 && price" :class="[price > 1 ? 'text-blue' : 'text-red']">
-                    The min. number of SBL is 1 per question
+                <v-flex xs12 v-else-if="price < 1 && price" :class="[price > 1 ? 'text-blue' : 'text-red']" v-language:inner>
+                    newQuestion_min_SBL
                 </v-flex>
                 <!-- </v-flex> -->
 
@@ -62,7 +62,7 @@
                                  v-if="index>=3" :key="index">
                                 <input :id="`${pricey}pts`" class="automatic-amount" type="radio" name="price"
                                        :value="pricey" v-model="selectedPrice">
-                                <label :for="`${pricey}pts`">{{pricey}} SBL</label>
+                                <label :for="`${pricey}pts`">{{pricey}} <span v-language:inner>newQuestion_SBL</span></label>
                             </div>
                             <div class="point-btn other inputBorder">
                                 <input type="number" placeholder="Other amount"
@@ -83,14 +83,13 @@
                 </v-flex>
 
                 <v-flex xs12 class="last-text-block">
-                    <p class="text-xs-center"><span class="text-blue" style="color:#8888d5;">Tip:</span>&nbsp;A fair
-                        price will make the sale</p>
+                    <p class="text-xs-center"><span class="text-blue" style="color:#8888d5;" v-language:inner>newQuestion_Tip</span>&nbsp; <span v-language:inner>newQuestion_fair_prise</span>
+                        </p>
                 </v-flex>
                 <v-flex class="submit-btn-wrap" xs12>
-                    <div v-if="currentSum < 0" class="error-message">You do not have sufficient SBL</div>
+                    <div v-if="currentSum < 0" class="error-message" v-language:inner>newQuestion_sufficient_SBL</div>
                     <v-btn block color="primary" @click="submitQuestion()" :disabled="submitted"
-                           class="ask_btn">Ask
-                    </v-btn>
+                           class="ask_btn" v-language:inner>newQuestion_Ask</v-btn>
                 </v-flex>
 
             </v-layout>
