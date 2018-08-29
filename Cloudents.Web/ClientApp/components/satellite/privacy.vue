@@ -10,7 +10,7 @@
         <p v-language:inner>privacy_cookies</p>
         <h2 v-language:inner>privacy_Use_of_Personal_Information</h2>
         <p v-language:inner>privacy_personal_information</p>
-        <p><span v-language:inner>privacy_analytics:</span><a target="_blank" href="http://www.google.com/analytics/learn/privacy.html" v-language:inner>privacy_here</a>.</p>
+        <p><span v-language:inner>privacy_analytics</span><a target="_blank" href="http://www.google.com/analytics/learn/privacy.html" v-language:inner>privacy_here</a>.</p>
         <h2 v-language:inner>privacy_Sharing_Disclosur</h2>
         <p v-language:inner>privacy_profile_page</p>
         <p v-language:inner>privacy_service_providers</p>

@@ -3,7 +3,7 @@
 
         <div class="flex data-section">
             <div class="header ">
-                <span class="header-title" v-language:inner>wallet_My_Wallet:t</span>
+                <span class="header-title" v-language:inner>wallet_My_Wallet</span>
                 <button class="back-button wallet" @click=" $router.go(-1)">
                     <v-icon right>sbf-close</v-icon>
                 </button>
@@ -11,9 +11,9 @@
             <!--class="pl-3" style="background: #3532d5"-->
             <v-tabs v-if="!cashOut" >
                 <!--<v-tabs-bar fixed>-->
-                <v-tab @click="changeActiveTab(1)" :href="'#tab-1'" :key="1" v-language:inner>wallet_Balances</v-tab>
-                <v-tab @click="changeActiveTab(2)" :href="'#tab-2'" :key="2" v-language:inner>wallet_Transaction</v-tab>
-                <v-tab @click="changeActiveTab(3)" :href="'#tab-3'" :key="3" v-language:inner>wallet_Cash_Out</v-tab>
+                <v-tab @click="changeActiveTab(1)" :href="'#tab-1'" :key="1"><span v-language:inner>wallet_Balances</span>  </v-tab>
+                <v-tab @click="changeActiveTab(2)" :href="'#tab-2'" :key="2"><span v-language:inner>wallet_Transaction</span> </v-tab>
+                <v-tab @click="changeActiveTab(3)" :href="'#tab-3'" :key="3"><span v-language:inner>wallet_Cash_Out</span> </v-tab>
 
                 <!--</v-tabs-bar>-->
                 <!--</div>-->
@@ -74,9 +74,8 @@
                 <v-tab-item :key="'3'" :id="'tab-3'" class="tab-padding">
                     <div class="cash-out-wrapper">
                         <div class="text-wrap">
-                            <div class="main-text" v-language:inner>wallet_more_SBL_more_valuable.</div>
-                            <div class="points-text" v-language:inner>wallet_You_have <span>{{ earnedPoints | currencyLocalyFilter}}</span>
-                                <span>wallet_redeemable_SBL</span>
+                            <div class="main-text" v-language:inner>wallet_more_SBL_more_valuable</div>
+                            <div class="points-text"><span v-language:inner>wallet_You_have</span>&nbsp;<span>{{ earnedPoints | currencyLocalyFilter}}</span>&nbsp;<span v-language:inner>wallet_redeemable_SBL</span>
                             </div>
                         </div>
                         <cash-out-card class="cash-out-option" v-for="(cashOutOption,index) in cashOutOptions"

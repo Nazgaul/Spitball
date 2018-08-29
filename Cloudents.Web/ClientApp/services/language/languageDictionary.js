@@ -109,7 +109,7 @@ export const dictionary = {
     flashcardheader_pinned:"pinned",
 
     profile_Answers:"Answers",
-    profile_Question:"Questions",
+    profile_Questions:"Questions",
 
     itemAction_policy:"This item might be subject to certain laws and school policies that restrict third-party use of materials prepared by educators. It is your sole responsibility to be aware of and to abide by any such laws or policies that may apply to you. You may access materials solely for your information and your non-commercial, personal use and as intended through the normal functionality of the site and service.",
 
@@ -176,7 +176,7 @@ export const dictionary = {
     privacy_cookies:"Cookies: We use \"cookies\" to gather information and improve our Services. A cookie is a small data file that we transfer to your Device. We may use \"persistent cookies\" to save your registration ID and login password for future logins to the Service. We may use \"session ID cookies\" to enable certain features of the Service, to better understand how you interact with the Service and to monitor aggregate usage and web traffic routing on the Service. You can change how your computer manages cookies through your browser, by changing its options, to stop accepting cookies or to prompt you before accepting a cookie from the websites you visit.",
     privacy_Use_of_Personal_Information:"Use of Personal Information",
     privacy_personal_information:"Personal Information: In the course of using the Spitball Service, we may gather personal information that can be used to contact or identify you. Personal Information is or may be used: (i) to provide and improve our Service, (ii) to administer your use of the Service, (iii) to better understand your needs and interests, (iv) to personalize and improve your experience, and (v) to provide or offer software updates and product announcements. If you no longer wish to receive communications from us, please follow the \"unsubscribe\" instructions provided in the Spitball email messages.",
-    privacy_analytics:"Analytics: We gather some information (using third party services) using logging and cookies, which can sometimes be correlated with Personal Information. We use this information for the above purposes and to monitor and analyze use of the Service, for the Service's technical administration, to increase our Service's functionality and user-friendliness, and to verify users have the authorization needed for the Service to process their requests. As of the date this policy went into effect, we use Google Analytics. To learn more about the privacy policy of Google Analytics, click ",
+    privacy_analytics:"Analytics: We gather some information (using third party services) using logging and cookies, which can sometimes be correlated with Personal Information. We use this information for the above purposes and to monitor and analyze use of the Service, for the Service's technical administration, to increase our Service's functionality and user-friendliness, and to verify users have the authorization needed for the Service to process their requests. As of the date this policy went into effect, we use Google Analytics. To learn more about the privacy policy of Google Analytics, click: ",
     privacy_here:"here",
     privacy_Sharing_Disclosur:"Sharing and Disclosur",
     privacy_profile_page:"Your profile page will display your Personal Information and elsewhere on the Service according to the preferences you set in your account. Any information you choose to provide should reflect how much you want others to know about you. Please consider carefully what information you disclose in your profile page and your desired level of anonymity. Through your Spitball account you can review and revise your profile information at any time. Through certain features of the Service, you may also have the ability to make some of your information public. Public information may be broadly and quickly disseminated. Please consider what information you want to make public.",
@@ -232,7 +232,7 @@ export const dictionary = {
     wallet_Cash_Out:"Cash Out",
     wallet_SBL:"SBL",
     wallet_currency:"$",
-    wallet_more_SBL_more_valuable:"The more SBL you have, the more valuable they are",
+    wallet_more_SBL_more_valuable:"The more SBL you have, the more valuable they are.",
     wallet_redeemable_SBL:"redeemable SBL",
     wallet_You_have:"You have",
     wallet_Cash_Out:"Cash Out",

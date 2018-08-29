@@ -1,7 +1,7 @@
 ﻿<template v-once>
     <a class="d-block tutor-cell" :target="$vuetify.breakpoint.xsOnly?'_self':'_blank'" :href="item.url">
         <v-container class="pa-0" @click="$ga.event('Search_Results', 'Tutors',`#${index+1}_${item.source}`)">
-            <v-flex class="q-price" v-if="item.fee"><span class="price"> <span v-language:inner>resultTutor_currency</span> {{item.fee}}<span v-language:inner>resultTutor_hour</span></span></v-flex>
+            <v-flex class="q-price" style="display: flex;" v-if="item.fee"><span class="price"><span v-language:inner>resultTutor_currency</span><span>{{item.fee}}</span><span v-language:inner>resultTutor_hour</span></span></v-flex>
 
             <v-layout row class="result-cell-content">
                 <avatar class="mr-3" :fullname="item.name" :image="item.image" :radius="0" :size="88"></avatar>
