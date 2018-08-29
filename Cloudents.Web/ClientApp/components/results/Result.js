@@ -275,6 +275,16 @@ export default {
         //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
         $_showSelectedFilter({value, key}) {
             return value;
-        }
+        },
+        watchinNowStyle(item){
+            let sameUser = false;
+            if(!!item.user){
+                sameUser = this.accountUser.id === item.user.id;
+            }
+        return {
+            'color': !!item.color ? 'white' : '',
+            'bottom' : sameUser ? '10px' : ''
+            }
+        },
     },
 };
