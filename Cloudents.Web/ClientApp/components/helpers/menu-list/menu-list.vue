@@ -2,23 +2,40 @@
     <div>
         <v-list class="menu-list" v-if="!isAuthUser" content-class="s-menu-item">
             <user-block :user="user" :showExtended="true" :classType="'university'" v-if="isMobile" class="unsign">
-                <div slot="icon" class="mb-3">
-                    <v-avatar tag="v-avatar" class="Mask" size="32"><not-logged-in></not-logged-in></v-avatar>
+                <!--<div slot="icon" class="mb-3">-->
+                    <!--&lt;!&ndash;<v-avatar tag="v-avatar" class="Mask" size="32"><not-logged-in></not-logged-in></v-avatar>&ndash;&gt;-->
+                    <!--</div>-->
+                <template slot="text" class="mb-3">
+                    <div class="menu-list-head-block">
+                               <div class="head-text-wrap">
+                                    <h4 class="text--title">Please</h4>
+                                   <span class="mb-4 text">sign up</span>
+                                        <span class="or">or</span>
+                                        <span class="mb-4 text">login</span>
+                               </div>
+                        <div class="btn-container">
+                            <router-link  class="login-btns body-1" :to="{ path: '/register'}">Sign Up</router-link>
+                            <router-link  class="login-btns body-1" :to="{ path: '/signin'}">Login</router-link>
+                        </div>
                     </div>
-                <template slot="text" class="mb-3"><span class="mb-4 blue--text">
-                    <router-link class="blue--text":to="{ path: '/register' }">Sign up</router-link>  or
-                    <router-link class="blue--text" :to="{ path: '/signin' }" >Log in</router-link>
-                </span></template>
+                </template>
             </user-block>
             <template v-for="(item) in notRegMenu">
                 <template v-if="item.name">
-                    <router-link tag="v-list-tile" :to="{name:item.name}">
+                    <router-link tag="v-list-tile" :to="{name : item.name}">
+                        <v-list-tile-action>
+                            <v-icon>{{item.icon}}</v-icon>
+                        </v-list-tile-action>
                         <v-list-tile-content>
                             <v-list-tile-title class="subheading">{{item.title}}</v-list-tile-title>
                         </v-list-tile-content>
                     </router-link>
                 </template>
-                <v-list-tile v-else @click="()=>item.click?item.click():''">
+                <!--if theres is click handler as in feedback/ check settings/const.js -->
+                <v-list-tile v-else @click="() => item.click ? item.click() : ''">
+                    <v-list-tile-action>
+                        <v-icon>{{item.icon}}</v-icon>
+                    </v-list-tile-action>
                     <v-list-tile-content>
                         <v-list-tile-title class="subheading">{{item.title}}</v-list-tile-title>
                     </v-list-tile-content>
