@@ -283,7 +283,7 @@ export default {
             }
         return {
             'color': !!item.color ? 'white' : '',
-            'bottom' : sameUser ? '10px' : ''
+            'bottom' : sameUser ? '15px' : ''
             }
         },
     },
