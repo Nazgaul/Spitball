@@ -55,7 +55,7 @@
                             </div>
                         </template>
                     </div>
-                    <span class="user-counter" v-if="!detailedView ? cardData.answersNum>3 : ''">+{{cardData.answersNum-3}}</span>
+                    <span class="user-counter" :style="cssRuleFontColor" v-if="!detailedView ? cardData.answersNum>3 : ''">+{{cardData.answersNum-3}}</span>
                 </div>
                 <!--show only if in suggestion popup-->
                 <div class="answer" v-if="suggestion">

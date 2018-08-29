@@ -57,7 +57,8 @@ function QuestionItem(objInit){
     this.template = "ask";
     this.filesNum = this.files;
     this.answersNum = this.answers;
-    this.watchingNow = 0;
+    // if the question is younger then 1 minute then watching now will be 0
+    this.watchingNow = (new Date().getTime() - new Date(this.dateTime).getTime()) > 60000 ? ((Math.random() * 5) | 0) : 0; //Todo get value from server
 }
 
 

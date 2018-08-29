@@ -145,8 +145,8 @@
 
 .cellActionBtnMixin(){
   position: absolute;
-  .responsive-property(bottom, 8px, null, 8px);
-  .responsive-property(right, 8px, null, 8px);
+  .responsive-property(bottom, 16px, null, 8px);
+  .responsive-property(right, 16px, null, 8px);
   padding: 3px 20px;
   color: white;
   border-radius: 4px;
@@ -155,11 +155,17 @@
 
 .cellActionViewerMixin(){
   position: absolute;
-  .responsive-property(bottom, 8px, null, 8px);
-  .responsive-property(right, 8px, null, 8px);
-  padding: 0px 100px 3px 0px;
+  .transition(all .2s ease-in-out);
+  .responsive-property(bottom, 50px, null, 8px);
+  .responsive-property(right, 16px, null, 8px);
+  //padding: 0px 100px 3px 0px;
   color: #707070;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  color: #8888d5;
 }
 
 .cellActionBtnMixinAnswer(){
@@ -287,3 +293,21 @@
 @screen-lg: 1904px;
 @logoWidth: 192px;
 @cellWidth: 500px;
+
+
+@-webkit-keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
