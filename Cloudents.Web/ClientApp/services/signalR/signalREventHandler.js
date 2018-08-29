@@ -12,6 +12,9 @@ export const signlaREvents = {
                 store.dispatch("removeQuestionItemAction", questionToRemove);
             })
         },
+        update: function(question){
+            store.dispatch("updateQuestionItem", question)
+        },
         addviewr: function(question){
             store.dispatch("addQuestionViewer", question);
         },
