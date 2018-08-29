@@ -40,18 +40,18 @@ export default {
             isNewUser: false,
             showDialog: false,
             toasterTimeout: 5000,
-            stepNumber: 0,
+            stepNumber: 1,
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             stepsEnum: {
-                "termandstart": 0,
-                "startstep": 1,
-                "emailconfirmed": 2,
-                "enterphone": 3,
-                "verifyphone": 4,
-                "congrats": 5,
-                "loginstep": 6,
-                "expiredstep": 7
+                "termandstart": 1,
+                "startstep": 2,
+                "emailconfirmed": 3,
+                "enterphone": 4,
+                "verifyphone": 5,
+                "congrats": 6,
+                "loginstep": 7,
+                "expiredstep": 8
             }
         }
     },
@@ -79,7 +79,7 @@ export default {
           return !this.agreeTerms && this.agreeError
         },
         isMobile(){
-            return this.$vuetify.breakpoint.smAndDown
+             return this.$vuetify.breakpoint.xsOnly
         }
     },
     methods: {
@@ -99,7 +99,7 @@ export default {
             this.changeStepNumber('loginStep');
         },
         showRegistration() {
-            this.changeStepNumber('startStep');
+            this.changeStepNumber('termandstart');
         },
         goToEmailLogin(){
             if(!this.agreeTerms){

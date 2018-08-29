@@ -14,7 +14,7 @@
                                         <span class="mb-4 text">login</span>
                                </div>
                         <div class="btn-container">
-                            <router-link  class="login-btns body-1" :to="{ path: '/register'}">Sign Up</router-link>
+                            <router-link  class="login-btns body-1" :to="{ name: 'registration'}">Sign Up</router-link>
                             <router-link  class="login-btns body-1" :to="{ path: '/signin'}">Login</router-link>
                         </div>
                     </div>

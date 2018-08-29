@@ -1,10 +1,10 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
     <div class="registration">
         <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
         </v-snackbar>
         <!--!!!step terms and first screen-->
-        <div class="step-terms-firstscreen" v-if="stepNumber === 0">
+        <div class="step-terms-firstscreen" v-if="stepNumber === 1">
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
@@ -27,14 +27,14 @@
                         Please agree to Terms And Services in order to proceed</span>
                 </div>
                 <div slot="step-data" class="limited-width form-wrap">
-                    <div class="checkbox-terms">
+                    <div class="checkbox-terms" v-if="!isMobile">
                         <input type="checkbox" v-model="agreeTerms" id="agreeTermDesk"/>
                         <label for="agreeTermDesk"></label>
                         <span >I agree to Spitball's <router-link
                                 to="terms">Terms of Services</router-link> and <router-link
                                 to="privacy">Privacy Policy</router-link></span>
                     </div>
-                    <div class="has-error" v-if="confirmCheckbox"
+                    <div class="has-error" v-if="confirmCheckbox && !isMobile"
                          style="background: white; display: block; color:red; text-align: center;">
                         Please agree to Terms And Services in order to proceed</div>
                     <button class="google-signin" @click="googleLogIn">
@@ -67,7 +67,7 @@
         <!--!!!end terms and first screen-->
 
         <!--step email start-->
-        <div class="step-email" v-if="stepNumber === 1">
+        <div class="step-email" v-if="stepNumber === 2">
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
@@ -99,7 +99,6 @@
                         </div>
                     </form>
                 </div>
-
                 <div slot="step-image">
                     <div class="text">
                         <h1 class="step-title">Get started</h1>
@@ -112,12 +111,12 @@
         <!--step email end-->
 
         <!--step login-->
-        <div class="step-login" v-else-if="stepNumber === 6 ">
+        <div class="step-login" v-else-if="stepNumber === 7 ">
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
-                        <h2 class="text-block-title">Welcome back</h2>
-                        <p class="text-block-sub-title">please login</p>
+                        <!--<h2 class="text-block-title">Welcome back</h2>-->
+                        <p class="text-block-sub-title"><b>Welcome back</b> <br/>please login</p>
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width">
@@ -151,7 +150,7 @@
         <!--step login end-->
 
         <!--step verify email-->
-        <div class="step-verifyEmail" v-else-if="stepNumber === 2 ">
+        <div class="step-verifyEmail" v-else-if="stepNumber === 3 ">
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
@@ -161,11 +160,13 @@
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width wide">
-                    <!--<h1 class="step-title">Check your email to activate your account</h1>-->
-                    <p class="inline">An activation email has been sent to</p>
+                    <h1 v-if="!isMobile" class="step-title">Check your email to activate <br/> your account</h1>
+                    <p  class="inline">An activation email has been sent to</p>
                     <div class="email-hold">
-                        <p class="email-text inline">{{userEmail}}</p>
-                        <span class="email-change" @click="showRegistration()">Change</span>
+                        <p class="email-text inline">{{userEmail}}beny@gmail.com
+                            <span class="email-change" @click="showRegistration()">Change</span>
+                        </p>
+
                     </div>
                     <p>You will not be able to log into Spitball.co until you activate your account.</p>
                     <!--<img :src="require(`./img/checkEmail.png`)"/>-->
@@ -181,7 +182,7 @@
 
 
         <!--step phone number-->
-        <div class="step-phone" v-if="stepNumber === 3 ">
+        <div class="step-phone" v-if="stepNumber === 4 ">
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
@@ -220,12 +221,12 @@
         <!--step phone number end-->
 
         <!--step verify phone number-->
-        <div class="step-phone-confirm" v-if="stepNumber === 4 ">
+        <div class="step-phone-confirm" v-if="stepNumber === 5 ">
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
                         <!--<h1 class="text-block-title">Make money</h1>-->
-                        <p class="text-block-sub-title"><b>Enter the<br/> confirmation code</b><br/>We sent the code to you <br/>by SMS to</p>
+                        <p class="text-block-sub-title"><b>Enter the<br/> confirmation code</b><br/>We sent the code to you <br/>by SMS</p>
                         <p class="text-block-sub-title" v-if="phone.phoneNum">(+{{phone.countryCode}})
                             {{phone.phoneNum }} <span class="phone-change" @click="changePhone()">Change</span>
                         </p>
@@ -233,7 +234,7 @@
                 </div>
                 <div slot="step-data" class="limited-width wide">
                     <h1 v-if="!isMobile" class="step-title">Enter the confirmation code</h1>
-                    <p v-if="phone.phoneNum" class="sub-title">We sent the code to you by SMS to
+                    <p v-if="phone.phoneNum" class="sub-title">We sent the code to you by SMS
                         (+{{phone.countryCode}})
                         {{phone.phoneNum}} </p>
                     <p v-if="!isMobile" class="confirm-title">We sent a confirmation code<br/> to your mobile phone.</p>
@@ -250,7 +251,6 @@
                     <!--<button class="continue-btn submit-code" @click="smsCodeVerify()" :disabled="!confirmationCode">-->
                     <!--Continue-->
                     <!--</button>-->
-
                     <div class="bottom-text">
                         <p class="inline">Didn't get an sms?
                             <span class="email-text inline click" @click="resendSms()"> Click here to resend.</span>
@@ -263,12 +263,11 @@
         <!--step verify phone number end-->
 
         <!--step congrats -->
-        <div class="step-account" v-if="stepNumber === 5 ">
+        <div class="step-account" v-if="stepNumber === 6 ">
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
-                        <h2 class="text-block-title">CONGRATS!</h2>
-                        <p class="text-block-sub-title">You are<br/> rewarded with<br/> <b>100 SBL</b></p>
+                        <p class="text-block-sub-title"><b>CONGRATS!</b><br/>You are<br/> rewarded with<br/> <b>100 SBL</b></p>
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width done">
@@ -290,7 +289,7 @@
         <!--step congrats end-->
 
         <!--step expired link-->
-        <div class="step-expired" v-if="stepNumber === 7 ">
+        <div class="step-expired" v-if="stepNumber === 8 ">
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
@@ -305,21 +304,17 @@
                     <img :src="require(`./img/checkEmail.png`)"/>
                     <button class="continue-btn" @click="showRegistration()">Register</button>
 
-                    <!--<div class="bottom-text">-->
-                    <!--<p class="inline">Didn’t get an email?</p>-->
-                    <!--<p class="email-text inline click"  @click="resendEmail()">&nbsp;Click here to resend.</p>-->
-                    <!--</div>-->
                 </div>
                 <img slot="step-image" :src="require(`./img/checkEmail.png`)"/>
             </step-template>
         </div>
         <!--step expired link end-->
 
-        <div class="progress" v-if="stepNumber !== 6 && stepNumber !== 7 && stepNumber !== 0">
+        <div class="progress" v-if="stepNumber !== 7 && stepNumber !== 8 ">
             <div v-for="page  in  progressSteps" :class="{highlighted: page===stepNumber}"></div>
         </div>
 
-        <button class="back-button" @click="showDialog = true" v-if="stepNumber !== 5">
+        <button class="back-button" @click="showDialog = true" v-if="stepNumber !== 6">
             <v-icon right>sbf-close</v-icon>
         </button>
         <!--exit dialog-->
@@ -329,7 +324,8 @@
                     <v-icon>sbf-close</v-icon>
                 </button>
                 <v-card-text class="limited-width">
-                    <h1>Are you<br/> sure <br/>you want<br/> to <b>exit?</b></h1>
+                    <h1 v-if="isMobile">Are you<br/> sure<br/> you want <br/>to <b>exit?</b></h1>
+                    <h1 v-else>Are you sure you want to exit?</h1>
                     <p>Exiting from this process will delete all your<br/> progress and information</p>
 
                     <v-btn v-if="isMobile" class="continue-registr"
