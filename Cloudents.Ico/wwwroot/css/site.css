@@ -2626,7 +2626,8 @@ select:focus {
     .site-header .navbar-collapse {
         padding: 0;
         background-color: transparent;
-        color: #eff6ff;
+        /* color: #eff6ff; */
+        color: transparent;
     }
 
     .site-header .logo-light {
