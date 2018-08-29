@@ -163,7 +163,7 @@
                     <h1 v-if="!isMobile" class="step-title">Check your email to activate <br/> your account</h1>
                     <p  class="inline">An activation email has been sent to</p>
                     <div class="email-hold">
-                        <p class="email-text inline">{{userEmail}}beny@gmail.com
+                        <p class="email-text inline">{{userEmail}}
                             <span class="email-change" @click="showRegistration()">Change</span>
                         </p>
 
