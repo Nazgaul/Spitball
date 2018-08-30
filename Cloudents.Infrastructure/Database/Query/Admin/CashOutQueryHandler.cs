@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 	                    on T.[Action] = 'AnswerCorrect'
 	                    and T.AnswerId = A.id
                     group by U.id, T1.Price, T1.Created
-                    order by T1.Created"
+                    order by T1.Created desc"
                 );
 
             //_session.Query<Transaction>()
