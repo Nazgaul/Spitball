@@ -27,9 +27,11 @@ namespace Cloudents.Infrastructure.Database.Maps
                 //    .Not.KeyNullable()
                 //    .Not.KeyUpdate()
                 .Cascade.AllDeleteOrphan();
+
+            //DO NOT PUT CASCASE DELETE ORAPHAN SINCE WE HANDLE THIS ON CODE
             HasMany(x => x.Transactions)
+
                 .LazyLoad()
-                .Cascade.AllDeleteOrphan()
                 .Inverse();
         }
     }
