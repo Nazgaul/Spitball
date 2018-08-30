@@ -8,7 +8,8 @@ export default {
     },
     computed: {
         ...mapGetters({
-            loginDialogState: 'loginDialogState'
+            loginDialogState: 'loginDialogState',
+            profileData: 'getProfileData'
         }),
     },
     methods: {

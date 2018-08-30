@@ -98,7 +98,6 @@ export default {
         //get data from vuex getters
         ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
-        
 
         //not interesting
         filterCondition() {
@@ -159,9 +158,8 @@ export default {
             return this.loading || this.isLoad
         }
     },
-
     methods: {
-        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFilters', 'updateLoginDialogState']),
+        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFilters', 'updateLoginDialogState', 'updateUserProfileData']),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
 
         loadNewQuestions(){
@@ -174,6 +172,7 @@ export default {
         goToAskQuestion(){
             if(this.accountUser == null){
                 this.updateLoginDialogState(true);
+                this.updateUserProfileData('profileHWH')
             }else{
                 this.$router.push({name: 'newQuestion'});
             }
