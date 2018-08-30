@@ -13,6 +13,7 @@ namespace Cloudents.Core.DTOs
         public long Version { get; set; }
     }
 
+
     [DataContract]
     [BinaryIncludeSerialize(typeof(CourseSearchWriteDto), 1)]
 
