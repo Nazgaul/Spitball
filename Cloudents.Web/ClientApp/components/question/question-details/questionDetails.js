@@ -34,7 +34,7 @@ export default {
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState"]),
+        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState", 'updateUserProfileData']),
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
@@ -139,6 +139,7 @@ export default {
                 this.showForm = true;
             }
             else {
+                this.updateUserProfileData('profileMakeMoney');
                 this.dialogType = ''
                 this.updateLoginDialogState(true);
             }

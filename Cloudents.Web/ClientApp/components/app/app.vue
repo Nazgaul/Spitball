@@ -6,14 +6,26 @@
                 <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
             </div>
             <router-view ref="mainPage"></router-view>
+            <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
+              <span style="text-align:left;">This website uses cookies to ensure you get the best experience</span> &nbsp;  
+              <span class="cookie-approve"><button @click="removeCookiesPopup()" style="outline:none;">Got it</button></span> 
+            </div>
         </v-content>
     </v-app>
 </template>
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
     export default {
+        data(){
+            return {
+                acceptedCookies: false
+            }
+        },
         computed: {
             ...mapGetters(["getIsLoading", "accountUser","showRegistrationBanner"]),
+            cookiesShow(){
+                return this.acceptedCookies
+            }
         },
         updated: function () {
             this.$nextTick(function () {
@@ -28,6 +40,15 @@
                 // Code that will run only after the
                 // entire question-details has been rendered
             })
+        },
+        methods: {
+            removeCookiesPopup: function(){
+                global.localStorage.setItem("acceptedCookies", true);
+                this.acceptedCookies = true;
+            },
+        },
+        created(){
+           this.acceptedCookies = (global.localStorage.getItem("acceptedCookies") === 'true');
         }
     }
 </script>
