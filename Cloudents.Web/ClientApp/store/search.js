@@ -100,7 +100,6 @@ const mutations = {
                 if(currentQuestion.id === questionToUpdate.id){
                     //replace the question from the list
                     state.itemsPerVertical.ask.data[questionIndex].answers = questionToUpdate.answers;
-                    state.itemsPerVertical.ask.data[questionIndex].watchingNow = questionToUpdate.watchingNow;
                     return;
                 }
             }
@@ -232,7 +231,7 @@ const actions = {
                         context.dispatch('updateFilters', filtersData);
                         return data;
                     },(err) => {
-                        return err;
+                        return Promise.reject(err);
                     })
                 });
             }
