@@ -42,6 +42,8 @@
   align-items: center;
   padding: 10px;
 
+  animation: slide-up-animation .8s ease-in-out;
+
   .cookie-approve{
     border: 1px solid white;
     padding: 5px;
@@ -55,5 +57,22 @@
 
 .s-cookie-hide{
   display:none;
+}
+
+@-webkit-keyframes slide-up-animation {
+  0%   { bottom: -60px; }
+  100% { bottom: 0px; }
+}
+@-moz-keyframes slide-up-animation {
+  0%   { bottom: -60px; }
+  100% { bottom: 0px; }
+}
+@-o-keyframes slide-up-animation {
+  0%   { bottom: -60px; }
+  100% { bottom: 0px; }
+}
+@keyframes slide-up-animation {
+  0%   { bottom: -60px; }
+  100% { bottom: 0; }
 }
 
