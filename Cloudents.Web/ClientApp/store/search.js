@@ -95,11 +95,12 @@ const mutations = {
     },
     [SEARCH.UPDATE_QUESTION](state, questionToUpdate){
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
-            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; i++ ){
+            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; questionIndex++ ){
                 let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
                 if(currentQuestion.id === questionToUpdate.id){
                     //replace the question from the list
-                    state.itemsPerVertical.ask.data[i] = questionToUpdate;
+                    state.itemsPerVertical.ask.data[questionIndex].answers = questionToUpdate.answers;
+                    state.itemsPerVertical.ask.data[questionIndex].watchingNow = questionToUpdate.watchingNow;
                     return;
                 }
             }
