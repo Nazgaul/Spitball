@@ -176,7 +176,7 @@ const actions = {
             //get location if needed
             let VerticalName = context.getters.getCurrentVertical;
             let verticalItems = context.state.itemsPerVertical[VerticalName];
-            let skip = VerticalName === 'ask' ? skipLoad : false;
+            let skip = determineSkip(VerticalName, verticalItems);
             let haveQueItems = context.state.queItemsPerVertical[VerticalName].length;
                 if((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skip){
                     if(haveQueItems){
@@ -193,6 +193,18 @@ const actions = {
                    return getData();
                 }
             
+
+            function determineSkip(verticalName, verticalItems){
+                if(verticalName === 'ask'){
+                    if(!!verticalItems && !!verticalItems.data && verticalItems.data.length > 0){
+                        return skipLoad
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+            }
 
             function getData(){
                 return new Promise((resolve) => {
