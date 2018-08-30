@@ -231,7 +231,7 @@ const actions = {
                         context.dispatch('updateFilters', filtersData);
                         return data;
                     },(err) => {
-                        return err;
+                        return Promise.reject(err);
                     })
                 });
             }
