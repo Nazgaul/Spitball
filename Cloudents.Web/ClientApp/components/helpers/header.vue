@@ -8,9 +8,9 @@
                     <v-flex class="line top">
                         <v-layout row>
                             <v-toolbar-title>
-                                <router-link class="logo-link" to="/ask">
-                                    <app-logo class="logo"></app-logo>
-                                </router-link>
+                                 <router-link class="logo-link" to="/">
+                                    <app-logo class="logo" @click.native="resetItems()"></app-logo>
+                                </router-link> 
                             </v-toolbar-title>
                             <v-toolbar-items>
                                 <search-input v-if="$vuetify.breakpoint.smAndUp" :user-text="userText"
@@ -154,7 +154,7 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateLoginDialogState']),
+            ...mapActions(['updateToasterParams', 'updateLoginDialogState', 'resetData']),
             //TODO: what is that
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
@@ -166,6 +166,9 @@
                     })
                 }
             },
+            resetItems(){
+                this.resetData();
+            }
         },
         created() {
             this.$root.$on("personalize",
