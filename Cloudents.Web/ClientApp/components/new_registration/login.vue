@@ -8,8 +8,10 @@
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
-                        <h1 class="text-block-title">Make money</h1>
-                        <p class="text-block-sub-title">while helping<br/> others with<br/> their homework.
+                        <!--<h1 class="text-block-title">Make money</h1>-->
+                        <!--<p class="text-block-sub-title">while helping<br/> others with<br/> their homework.-->
+                        <!--</p>-->
+                        <p class="text-block-sub-title">{{ meta.heading }}
                         </p>
                     </div>
                     <!--<p class="text-block-sub-title">-->
@@ -30,13 +32,14 @@
                     <div class="checkbox-terms" v-if="!isMobile">
                         <input type="checkbox" v-model="agreeTerms" id="agreeTermDesk"/>
                         <label for="agreeTermDesk"></label>
-                        <span >I agree to Spitball's <router-link
+                        <span>I agree to Spitball's <router-link
                                 to="terms">Terms of Services</router-link> and <router-link
                                 to="privacy">Privacy Policy</router-link></span>
                     </div>
                     <div class="has-error" v-if="confirmCheckbox && !isMobile"
                          style="background: white; display: block; color:red; text-align: center;">
-                        Please agree to Terms And Services in order to proceed</div>
+                        Please agree to Terms And Services in order to proceed
+                    </div>
                     <button class="google-signin" @click="googleLogIn">
                         <span>Sign Up with Google</span>
                         <span>
@@ -57,7 +60,7 @@
                 <div slot="step-image">
                     <div class="text">
                         <h1 class="step-title">Get started</h1>
-                        <p class="sub-title">{{campaignData.stepOne.text}}</p>
+                        <p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.heading }}</p>
                     </div>
                     <img :src="require(`./img/registerEmail.png`)"/>
                 </div>
@@ -72,13 +75,14 @@
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
                         <!--<h1 class="text-block-title">Make money</h1>-->
-                        <p class="text-block-sub-title">We need to know<br/>
-                            how to <b>contact you.</b>
-                        </p>
+                        <!--<p class="text-block-sub-title">We need to know<br/>-->
+                        <!--how to <b>contact you.</b>-->
+                        <!--</p>-->
+                        <p class="text-block-sub-title">{{meta.heading}}</p>
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width form-wrap">
-                        <form @submit.prevent="emailSend" class="form-one">
+                    <form @submit.prevent="emailSend" class="form-one">
                         <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.phone"
                                   placeholder="Enter your email address" v-model="userEmail" name="email" type="email"
                                   :autofocus="true"></sb-input>
@@ -88,8 +92,7 @@
                                        @verify="onVerify"
                                        @expired="onExpired()">
                         </vue-recaptcha>
-                        <v-btn class="continue-btn"
-                               value="Login"
+                        <v-btn class="continue-btn" value="Login"
                                :loading="loading"
                                :disabled="!userEmail || !recaptcha "
                                type="submit"
@@ -110,58 +113,21 @@
         </div>
         <!--step email end-->
 
-        <!--step login-->
-        <div class="step-login" v-else-if="stepNumber === 7 ">
-            <step-template>
-                <div slot="step-text" class="text-block-slot" v-if="isMobile">
-                    <div class="text-wrap-top">
-                        <!--<h2 class="text-block-title">Welcome back</h2>-->
-                        <p class="text-block-sub-title"><b>Welcome back</b> <br/>please login</p>
-                    </div>
-                </div>
-                <div slot="step-data" class="limited-width">
-                    <h2 v-if="!isMobile" class="step-title">Login</h2>
-                    <form @submit.prevent="submit">
-                        <sb-input :errorMessage="errorMessage.email" :required="true" class="email-field" type="email"
-                                  name="email" id="input-url" v-model="userEmail"
-                                  placeholder="Enter your email address"></sb-input>
-                        <vue-recaptcha class="recaptcha-wrapper"
-                                       ref="recaptcha"
-                                       :sitekey="siteKey"
-                                       @verify="onVerify"
-                                       @expired="onExpired">
-
-                        </vue-recaptcha>
-                        <v-btn class="continue-btn loginBtn"
-                               value="Login"
-                               :loading="loading"
-                               :disabled="!userEmail || !recaptcha "
-                               type="submit"
-                        >Login
-                        </v-btn>
-                    </form>
-                    <div class="signin-strip">Need an account?
-                        <a @click="showRegistration">Sign up</a>
-                    </div>
-                </div>
-                <img slot="step-image" :src="require(`./img/signin.png`)"/>
-            </step-template>
-        </div>
-        <!--step login end-->
-
         <!--step verify email-->
         <div class="step-verifyEmail" v-else-if="stepNumber === 3 ">
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
                         <!--<h1 class="text-block-title">Make money</h1>-->
-                        <p class="text-block-sub-title">Check your <br/> email to<br/> <b>activate your<br/> account</b>
+                        <!--<p class="text-block-sub-title">Check your <br/> email to<br/> <b>activate your<br/> account</b>-->
+                        <!--</p>-->
+                        <p class="text-block-sub-title">{{meta.heading}}
                         </p>
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width wide">
                     <h1 v-if="!isMobile" class="step-title">Check your email to activate <br/> your account</h1>
-                    <p  class="inline">An activation email has been sent to</p>
+                    <p class="inline">An activation email has been sent to</p>
                     <div class="email-hold">
                         <p class="email-text inline">{{userEmail}}
                             <span class="email-change" @click="showRegistration()">Change</span>
@@ -171,9 +137,10 @@
                     <p>You will not be able to log into Spitball.co until you activate your account.</p>
                     <!--<img :src="require(`./img/checkEmail.png`)"/>-->
                     <div class="bottom-text">
-                        <p class="inline">Didn’t get an email?  <span class="email-text inline click"  @click="resendEmail()">Click here to resend.</span>
+                        <p class="inline">Didn’t get an email? <span class="email-text inline click"
+                                                                     @click="resendEmail()">Click here to resend.</span>
                         </p>
-                   </div>
+                    </div>
                 </div>
                 <img slot="step-image" :src="require(`./img/checkEmail.png`)"/>
             </step-template>
@@ -187,7 +154,9 @@
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
                         <!--<h1 class="text-block-title">Make money</h1>-->
-                        <p class="text-block-sub-title"><b>Enter your phone<br/> number</b> <br/>We need to send you <br/>a confirmation code</p>
+                        <!--<p class="text-block-sub-title"><b>Enter your phone<br/> number</b> <br/>We need to send you-->
+                            <!--<br/>a confirmation code</p>-->
+                        <p class="text-block-sub-title">{{meta.heading}}</p>
                         <!--<p class="text-block-sub-title">We need to send you a confirmation code-->
                         <!--</p>-->
                     </div>
@@ -226,7 +195,9 @@
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
                         <!--<h1 class="text-block-title">Make money</h1>-->
-                        <p class="text-block-sub-title"><b>Enter the<br/> confirmation code</b><br/>We sent the code to you <br/>by SMS</p>
+                        <!--<p class="text-block-sub-title"><b>Enter the<br/> confirmation code</b><br/>We sent the code to-->
+                            <!--you <br/>by SMS</p>-->
+                        <p class="text-block-sub-title">{{meta.heading}}</p>
                         <p class="text-block-sub-title" v-if="phone.phoneNum">(+{{phone.countryCode}})
                             {{phone.phoneNum }} <span class="phone-change" @click="changePhone()">Change</span>
                         </p>
@@ -267,15 +238,21 @@
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
-                        <p class="text-block-sub-title"><b>CONGRATS!</b><br/>You are<br/> rewarded with<br/> <b>100 SBL</b></p>
+                        <!--<p class="text-block-sub-title"><b>CONGRATS!</b><br/>You are<br/> rewarded with<br/> <b>100-->
+                            <!--SBL</b></p>-->
+                        <p class="text-block-sub-title">{{meta.heading}}</p>
+                        <p class="text-block-sub-title">{{meta.subheading}}</p>
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width done">
                     <h1 v-if="!isMobile" class="congrats-heading">CONGRATS!</h1>
                     <h2 v-if="!isMobile" class="congrats-heading">You are rewarded with</h2>
-                    <h2 v-if="!isMobile" class="congrats-heading"><span class="blue-points">{{initialPointsNum}} SBL</span></h2>
+                    <h2 v-if="!isMobile" class="congrats-heading"><span
+                            class="blue-points">{{initialPointsNum}} SBL</span></h2>
                     <img v-if="!isMobile" class="money-done-img" :src="require(`./img/money-done.png`)"/>
-                    <p class="congrats">You can spend them to get help with your <br/> Homework questions.</p>
+                    <!--<p class="congrats">You can spend them to get help with your <br/> Homework questions.</p>-->
+                    <p class="congrats">{{meta.text}}</p>
+
                     <v-btn class="continue-btn submit-code"
                            value="congrats"
                            :loading="loading"
@@ -288,19 +265,60 @@
         </div>
         <!--step congrats end-->
 
+
+        <!--step login-->
+        <div class="step-login" v-else-if="stepNumber === 7 ">
+            <step-template>
+                <div slot="step-text" class="text-block-slot" v-if="isMobile">
+                    <div class="text-wrap-top">
+                        <!--<h2 class="text-block-title">Welcome back</h2>-->
+                        <p class="text-block-sub-title"><b>Welcome back</b> <br/>please login</p>
+                    </div>
+                </div>
+                <div slot="step-data" class="limited-width">
+                    <h2 v-if="!isMobile" class="step-title">Login</h2>
+                    <form @submit.prevent="submit">
+                        <sb-input :errorMessage="errorMessage.email" :required="true" class="email-field" type="email"
+                                  name="email" id="input-url" v-model="userEmail"
+                                  placeholder="Enter your email address"></sb-input>
+                        <vue-recaptcha class="recaptcha-wrapper"
+                                       ref="recaptcha"
+                                       :sitekey="siteKey"
+                                       @verify="onVerify"
+                                       @expired="onExpired">
+
+                        </vue-recaptcha>
+                        <v-btn class="continue-btn loginBtn"
+                               value="Login"
+                               :loading="loading"
+                               :disabled="!userEmail || !recaptcha "
+                               type="submit"
+                        >Login
+                        </v-btn>
+                    </form>
+                    <div class="signin-strip">Need an account?
+                        <a @click="showRegistration">Sign up</a>
+                    </div>
+                </div>
+                <img slot="step-image" :src="require(`./img/signin.png`)"/>
+            </step-template>
+        </div>
+        <!--step login end-->
         <!--step expired link-->
         <div class="step-expired" v-if="stepNumber === 8 ">
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
                         <h2 class="text-block-title">Your<br/> confirmation link has expired</h2>
-                        <p class="text-block-sub-title">You will not be able<br/> to log in to Spitball.co<br/> until you activate your account.</p>
+                        <p class="text-block-sub-title">You will not be able<br/> to log in to Spitball.co<br/> until
+                            you activate your account.</p>
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width wide">
                     <h1 v-if="!isMobile" class="step-title">You didn't complete the registration process </h1>
                     <p v-if="!isMobile" class="inline">Your confirmation link has expired</p>
-                    <p v-if="!isMobile">  You will not be able to log into Spitball.co until you activate your account.</p>
+                    <p v-if="!isMobile"> You will not be able to log into Spitball.co until you activate your
+                        account.</p>
                     <img :src="require(`./img/checkEmail.png`)"/>
                     <button class="continue-btn" @click="showRegistration()">Register</button>
 
@@ -318,7 +336,7 @@
             <v-icon right>sbf-close</v-icon>
         </button>
         <!--exit dialog-->
-        <v-dialog v-model="showDialog"  max-width="600px" :fullscreen="isMobile" content-class="registration-dialog">
+        <v-dialog v-model="showDialog" max-width="600px" :fullscreen="isMobile" content-class="registration-dialog">
             <v-card>
                 <button class="close-btn" @click="showDialog = false">
                     <v-icon>sbf-close</v-icon>
