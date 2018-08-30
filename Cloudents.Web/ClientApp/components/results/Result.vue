@@ -48,8 +48,8 @@
                                             <question-card :cardData="item" :key="index"></question-card>
                                         </router-link>
                                         <div>
-                                            <span class="question-viewer" v-if="name==='ask' && item.watchingNow === 1 && item.watchingNow !== 0" :style="watchinNowStyle(item)" >{{item.watchingNow}} user is answering</span>
-                                            <span class="question-viewer" v-if="name==='ask' && item.watchingNow !== 1 && item.watchingNow !== 0" :style="watchinNowStyle(item)" >{{item.watchingNow}} users are answering</span>
+                                            <span class="question-viewer" v-if="!item.hasCorrectAnswer && name==='ask' && item.watchingNow === 1 && item.watchingNow !== 0" :style="watchinNowStyle(item)" >{{item.watchingNow}} user is answering</span>
+                                            <span class="question-viewer" v-if="!item.hasCorrectAnswer && name==='ask' && item.watchingNow !== 1 && item.watchingNow !== 0" :style="watchinNowStyle(item)" >{{item.watchingNow}} users are answering</span>
                                             <div class="show-btn" v-if="accountUser && item &&  item.user && accountUser.id !== item.user.id || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask' && !item.hasCorrectAnswer?'Answer':'Show Me'}}</div>
                                             <div class="show-btn" v-if="!accountUser && item && item.user || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
                                         </div>
