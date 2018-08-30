@@ -196,6 +196,10 @@ const actions = {
 
             function determineSkip(verticalName, verticalItems){
                 if(verticalName === 'ask'){
+                    /* 
+                        if comming from question page we need to make sure before we auto skip the loading 
+                        that we have some vertical items in the system if not then we dont want to skip the load
+                    */
                     if(!!verticalItems && !!verticalItems.data && verticalItems.data.length > 0){
                         return skipLoad
                     }else{
