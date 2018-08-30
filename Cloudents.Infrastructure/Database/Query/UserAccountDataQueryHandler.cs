@@ -1,13 +1,15 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
 using NHibernate.Linq;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -21,6 +23,7 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = readonlySession.Session;
         }
 
+        //[Cache(TimeConst.Minute * 15, "UserAccount", true)]
         public async Task<UserAccountDto> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
             return await _session.Query<User>()

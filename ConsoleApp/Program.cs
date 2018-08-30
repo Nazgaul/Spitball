@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Cloudents.Core;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
@@ -51,32 +52,14 @@ namespace ConsoleApp
             _container = builder.Build();
 
 
-            var t = new QuestionsQuery()
-            {
-                Filter = QuestionFilter.All
-            };
+          
 
 
 
             var b = _container.Resolve<IQueryBus>();
-            //await b.QueryAsync(t, default);
+            var x = await b.QueryAsync(new SyncAzureQuery<QuestionAzureSyncDto>(56123, 0), default);
 
 
-            t = new QuestionsQuery()
-            {
-                Filter = QuestionFilter.Answered
-            };
-            await b.QueryAsync(t, default);
-            t = new QuestionsQuery()
-            {
-                Filter = QuestionFilter.Sold
-            };
-            await b.QueryAsync(t, default);
-            t = new QuestionsQuery()
-            {
-                Filter = QuestionFilter.Unanswered
-            };
-            await b.QueryAsync(t, default);
             // QuestionRepository c = new QuestionRepository(b);
             // Console.WriteLine(c.GetOldQuestionsAsync(default));
 

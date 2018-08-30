@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Chat;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Cloudents.Functions.Di;
 using Microsoft.Azure.WebJobs;

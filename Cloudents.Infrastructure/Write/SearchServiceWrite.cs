@@ -73,7 +73,7 @@ namespace Cloudents.Infrastructure.Write
         protected abstract Index GetIndexStructure(string indexName);
 
 
-        public FluentSearchField<T> GetFieldBuilder => FluentSearchField<T>.Make;
+        protected FluentSearchFieldBuilder<T> GetFieldBuilder => FluentSearchFieldBuilder<T>.Make;
         
 
         public void Dispose()

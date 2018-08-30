@@ -1,6 +1,19 @@
-﻿namespace Cloudents.Core.Request
+﻿using System.Collections.Generic;
+using Cloudents.Core.Interfaces;
+
+namespace Cloudents.Core.Query
 {
+
+    public class SyncAzureQuery<T> : SyncAzureQuery,
+        IQuery<(IEnumerable<T> update, IEnumerable<long> delete, long version)>
+    {
+        public SyncAzureQuery(long version, int page) : base(version, page)
+        {
+        }
+    }
+
     public class SyncAzureQuery //: System.IEquatable<SyncAzureQuery>
+        
     {
         public SyncAzureQuery(long version, int page)
         {

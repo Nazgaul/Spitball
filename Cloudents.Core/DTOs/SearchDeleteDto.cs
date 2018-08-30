@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using Cloudents.Core.Attributes;
+using Cloudents.Core.Entities.Search;
 
 namespace Cloudents.Core.DTOs
 {
@@ -20,5 +21,20 @@ namespace Cloudents.Core.DTOs
     public class SearchWriteIsDeleted : SearchWriteBaseDto
     {
         public bool IsDeleted { get; set; }
+    }
+
+
+    public class AzureSyncBaseDto
+    {
+        public long Id { get; set; }
+
+        public string SYS_CHANGE_OPERATION { get; set; }
+
+        public long SYS_CHANGE_VERSION { get; set; }
+    }
+
+    public class QuestionAzureSyncDto : AzureSyncBaseDto
+    {
+        public Question Question { get; set; }
     }
 }
