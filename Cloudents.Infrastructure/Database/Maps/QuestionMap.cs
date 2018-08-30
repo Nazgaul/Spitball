@@ -22,11 +22,13 @@ namespace Cloudents.Infrastructure.Database.Maps
             References(x => x.CorrectAnswer).ForeignKey("Question_Answer").Nullable();
             HasMany(x => x.Answers)
                 .Inverse()
+                .ExtraLazyLoad()
                 //TODO: this is generate exception when creating new answer. need to figure it out
                 //    .Not.KeyNullable()
                 //    .Not.KeyUpdate()
                 .Cascade.AllDeleteOrphan();
             HasMany(x => x.Transactions)
+                .LazyLoad()
                 .Cascade.AllDeleteOrphan()
                 .Inverse();
         }
