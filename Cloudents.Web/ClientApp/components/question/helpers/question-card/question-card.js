@@ -102,6 +102,9 @@ export default {
         },
         cardTime(){
             return this.cardData.dateTime || this.cardData.create
+        },
+        cardAnswers(){
+            return this.cardData.answers
         }
     },
     methods: {
