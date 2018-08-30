@@ -278,8 +278,9 @@ export default {
         },
         watchinNowStyle(item){
             let sameUser = false;
+            let userId = this.accountUser ? this.accountUser.id : -1;
             if(!!item.user){
-                sameUser = this.accountUser.id === item.user.id;
+                sameUser = userId === item.user.id;
             }
         return {
             'color': !!item.color ? 'white' : '',
