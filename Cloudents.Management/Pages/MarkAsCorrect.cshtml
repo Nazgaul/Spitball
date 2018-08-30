@@ -22,8 +22,10 @@
     td:last-child {
         width: 85px
     }
-
     td:nth-child(4n) {
+        width: 50px;
+    }
+    td:nth-child(5n) {
         width: 50px;
     }
     td:first-child {
@@ -39,7 +41,8 @@
     <tr>
         <td>Question Id</td>
         <td>Question Text</td>
-        <td>Answer Text</td>
+    <td>Answer Text</td>
+    <td>Fictive</td>
         <td>Link</td>
         <td></td>
 
@@ -49,6 +52,7 @@
             <td>@q.QuestionId</td>
             <td>@q.QuestionText</td>
             <td>@q.AnswerText</td>
+            <td>@q.IsFictive</td>
             <td><a href="@q.Url" target="_blank">Link</a> </td>
             <td>
                 <form method="POST">
