@@ -82,6 +82,7 @@ export default {
         isMobile(){
              return this.$vuetify.breakpoint.xsOnly
         },
+        //profile data relevant for each stepNumber
         meta(){
             return   this.profileData.register[this.stepNumber];
         }
