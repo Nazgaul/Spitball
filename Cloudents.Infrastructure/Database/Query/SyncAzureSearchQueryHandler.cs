@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Database.Query
 {
     public abstract class SyncAzureSearchQueryHandler<T> //: 
         //IQueryHandler<SyncAzureQuery<T>, (IEnumerable<T> update, IEnumerable<long> delete, long version)>
-        where T : AzureSyncBaseDto
+        //where T : AzureSyncBaseDto<T>
     {
         protected abstract string VersionSql { get; }
 
@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure.Database.Query
             _dapperRepository = dapperRepository;
         }
 
-        public Task<(IEnumerable<T> update, IEnumerable<long> delete, long version)> GetAsync(SyncAzureQuery query, CancellationToken token)
+        public Task<(IEnumerable<AzureSyncBaseDto<T>> update, IEnumerable<long> delete, long version)> GetAsync(SyncAzureQuery query, CancellationToken token)
         {
             return _dapperRepository.WithConnectionAsync(async c =>
             {
@@ -47,7 +47,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 //    ON e.id = c.id
 
 
-                var result = (await c.QueryAsync<T>(sql, new { version = query.Version, PageNumber = query.Page, PageSize = 50 })).ToList();
+                var result = (await c.QueryAsync<AzureSyncBaseDto<T>>(sql, new { version = query.Version, PageNumber = query.Page, PageSize = 50 })).ToList();
 
                 var l = result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D");
 

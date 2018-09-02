@@ -12,6 +12,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,8 +45,9 @@ namespace Cloudents.Functions
             CancellationToken token)
         {
             //var (update, delete, version) = await bus.QueryAsync<(IEnumerable<QuestionAzureSyncDto> update, IEnumerable<long> delete, long version)>(query, token);
-            await SyncFunc.SyncAsync2(blob, searchServiceWrite, s => s.Question
-            , q => bus.QueryAsync(q, token), log, token);
+            await SyncFunc.SyncAsync2(blob, searchServiceWrite, s => s.Data
+            , q => bus.QueryAsync<(IEnumerable<AzureSyncBaseDto<Question>> update, IEnumerable<long> delete, long version)>(q, token),
+                log, token);
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
         }
 

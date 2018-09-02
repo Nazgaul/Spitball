@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Mail;
 using System.Reflection;
@@ -57,7 +58,7 @@ namespace ConsoleApp
 
 
             var b = _container.Resolve<IQueryBus>();
-            var x = await b.QueryAsync(new SyncAzureQuery(56123, 0), default);
+            var x = await b.QueryAsync<(IEnumerable<AzureSyncBaseDto<Question>> update, IEnumerable<long> delete, long version)>(new SyncAzureQuery(56123, 0), default);
 
 
             // QuestionRepository c = new QuestionRepository(b);
