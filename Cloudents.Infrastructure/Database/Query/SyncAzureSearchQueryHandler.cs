@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
-    public abstract class SyncAzureSearchQueryHandler<T> : IQueryHandler<SyncAzureQuery<T>, (IEnumerable<T> update, IEnumerable<long> delete, long version)>
+    public abstract class SyncAzureSearchQueryHandler<T> //: 
+        //IQueryHandler<SyncAzureQuery<T>, (IEnumerable<T> update, IEnumerable<long> delete, long version)>
         where T : AzureSyncBaseDto
     {
         protected abstract string VersionSql { get; }
@@ -26,7 +27,7 @@ namespace Cloudents.Infrastructure.Database.Query
             _dapperRepository = dapperRepository;
         }
 
-        public Task<(IEnumerable<T> update, IEnumerable<long> delete, long version)> GetAsync(SyncAzureQuery<T> query, CancellationToken token)
+        public Task<(IEnumerable<T> update, IEnumerable<long> delete, long version)> GetAsync(SyncAzureQuery query, CancellationToken token)
         {
             return _dapperRepository.WithConnectionAsync(async c =>
             {

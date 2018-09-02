@@ -57,7 +57,7 @@ namespace ConsoleApp
 
 
             var b = _container.Resolve<IQueryBus>();
-            var x = await b.QueryAsync(new SyncAzureQuery<QuestionAzureSyncDto>(56123, 0), default);
+            var x = await b.QueryAsync(new SyncAzureQuery(56123, 0), default);
 
 
             // QuestionRepository c = new QuestionRepository(b);

@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Query
 {
 
-    public class SyncAzureQuery<T> : SyncAzureQuery,
-        IQuery<(IEnumerable<T> update, IEnumerable<long> delete, long version)>
-    {
-        public SyncAzureQuery(long version, int page) : base(version, page)
-        {
-        }
-    }
+    //public sealed class SyncAzureQuery<T> : SyncAzureQuery,
+    //    IQuery<(IEnumerable<T> update, IEnumerable<long> delete, long version)> where T: AzureSyncBaseDto
+    //{
+    //    public SyncAzureQuery(long version, int page) : base(version, page)
+    //    {
+    //    }
+    //}
 
     public class SyncAzureQuery //: System.IEquatable<SyncAzureQuery>
-        
+        : IQuery<(IEnumerable<QuestionAzureSyncDto> update, IEnumerable<long> delete, long version)>
     {
         public SyncAzureQuery(long version, int page)
         {
