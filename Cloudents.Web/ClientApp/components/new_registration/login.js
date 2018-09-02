@@ -41,7 +41,7 @@ export default {
             isNewUser: false,
             showDialog: false,
             toasterTimeout: 5000,
-            stepNumber: 1,
+            stepNumber: 6,
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             stepsEnum: {
