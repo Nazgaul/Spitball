@@ -1,26 +1,23 @@
 ﻿import ResultItem from './ResultItem.vue';
 import questionCard from './../question/helpers/question-card/question-card.vue';
-const ResultTutor = () => import('./ResultTutor.vue');
-const ResultBook = () => import('./ResultBook.vue');
-const ResultJob = () => import('./ResultJob.vue');
-import {page} from "../../services/navigation/vertical-navigation/nav";
+import { page, verticalsName } from "../../services/navigation/vertical-navigation/nav";
 import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
-import {verticalsName} from "../../services/navigation/vertical-navigation/nav";
-import {typesPersonalize} from "../settings/consts.js";
+import { typesPersonalize } from "../settings/consts.js";
 import signupBanner from './../helpers/signup-banner/signup-banner.vue'
 import QuestionCard from "../question/helpers/question-card/question-card";
-import {mapActions, mapGetters, mapMutations} from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
-
-const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'
 
-import {skeletonData} from './consts'
-import account from "../../store/account";
+const ResultTutor = () => import('./ResultTutor.vue');
+const ResultBook = () => import('./ResultBook.vue');
+const ResultJob = () => import('./ResultJob.vue');
+
+const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 
 //The vue functionality for result page
 export default {

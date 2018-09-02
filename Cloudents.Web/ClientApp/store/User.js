@@ -1,7 +1,9 @@
 ﻿import profileService from "../services/profile/profileService"
-﻿import settingsService from './../services/settingsService'
-import { SEARCH, USER } from './mutation-types'
+import settingsService from './../services/settingsService'
+import { USER } from './mutation-types'
 import * as consts from "./constants";
+
+﻿
 // export const MAX_HISTORY_LENGTH=5;
 const state = {
     user: {
