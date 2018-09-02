@@ -126,6 +126,11 @@ const mutations = {
                 }
             });
         }
+    },
+    [SEARCH.RESET_DATA](state){
+        for(let prop in state.itemsPerVertical){
+            state.itemsPerVertical[prop].data = [];
+        }
     }
 };
 
@@ -266,6 +271,9 @@ const actions = {
     removeQuestionViewer({ commit }, notificationQuestionObject){
         let questionObj = notificationQuestionObject;
         commit(SEARCH.REMOVE_QUESTION_VIEWER, questionObj);
+    },
+    resetData({commit}){
+        commit(SEARCH.RESET_DATA)
     }
 };
 

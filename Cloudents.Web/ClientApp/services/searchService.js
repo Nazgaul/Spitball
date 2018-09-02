@@ -41,6 +41,10 @@ const autoComplete = (data) => {
 } 
 
 function QuestionItem(objInit){
+    let oneMinute = 60000;
+    let oneHour = oneMinute * 60;
+    let threshhold = oneHour * 4;
+
     this.id = objInit.id;
     this.subject = objInit.subject;
     this.price = objInit.price;
@@ -58,7 +62,10 @@ function QuestionItem(objInit){
     this.filesNum = this.files;
     this.answersNum = this.answers;
     // if the question is younger then 1 minute then watching now will be 0
-    this.watchingNow = (new Date().getTime() - new Date(this.dateTime).getTime()) > 60000 ? ((Math.random() * 5) | 0) : 0; //Todo get value from server
+    //if question is older then threshold, watching now also gonna be 0 other wise random between 0 to 1
+    let questionOlderTheOneMinute = (new Date().getTime() - new Date(this.dateTime).getTime()) > oneMinute;
+    let questionYoungerThenThreshHold = (new Date().getTime() - new Date(this.dateTime).getTime()) < threshhold;
+    this.watchingNow = questionOlderTheOneMinute ? (questionYoungerThenThreshHold ? ((Math.random() * 2) | 0) : 0) : 0; //Todo get value from server
 }
 
 
