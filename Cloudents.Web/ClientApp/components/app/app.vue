@@ -43,12 +43,12 @@
         },
         methods: {
             removeCookiesPopup: function(){
-                global.localStorage.setItem("acceptedCookies", true);
+                global.localStorage.setItem("sb-acceptedCookies", true);
                 this.acceptedCookies = true;
             },
         },
         created(){
-           this.acceptedCookies = (global.localStorage.getItem("acceptedCookies") === 'true');
+           this.acceptedCookies = (global.localStorage.getItem("sb-acceptedCookies") === 'true');
         }
     }
 </script>

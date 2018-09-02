@@ -64,7 +64,7 @@ const mutations = {
                     state.queItemsPerVertical.ask.unshift(questionToAdd);
                 }
             }else{
-                state.queItemsPerVertical.ask.unshift(questionToAdd);
+                state.queItemsPerVertical.ask.unshift(questionObj.question);
             }
         }
     },
