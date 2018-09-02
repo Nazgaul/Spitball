@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using Cloudents.Core.Extension;
@@ -27,6 +28,7 @@ namespace Cloudents.Infrastructure.Database.Query
             return _tableDictionary.GetOrAdd(typeof(T), (f) =>
             {
                 var t = _sessionFactoryImplementor.GetClassMetadata(f) as AbstractEntityPersister;
+                Debug.Assert(t != null, nameof(t) + " != null");
                 return t.TableName;
             });
             
@@ -36,6 +38,7 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             var table = BuildTable<T>();
             var t = _sessionFactoryImplementor.GetClassMetadata(typeof(T)) as AbstractEntityPersister;
+            Debug.Assert(t != null, nameof(t) + " != null");
             var primaryKey = t.IdentifierColumnNames.First();
 
             return $" FROM {table} AS {aliasTable}  CROSS APPLY CHANGETABLE (VERSION {table}, ({primaryKey}), ({aliasTable}.{primaryKey})) AS {crossTableAlias} ";
@@ -45,6 +48,7 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             var table = BuildTable<T>();
             var t = _sessionFactoryImplementor.GetClassMetadata(typeof(T)) as AbstractEntityPersister;
+            Debug.Assert(t != null, nameof(t) + " != null");
             var primaryKey = t.IdentifierColumnNames.First();
             return $" FROM CHANGETABLE (CHANGES {table}, {version}) AS {crossTableAlias}  LEFT OUTER JOIN {table} AS {aliasTable} ON {aliasTable}.{primaryKey} = {crossTableAlias}.{primaryKey} ";
         }
@@ -59,6 +63,7 @@ namespace Cloudents.Infrastructure.Database.Query
             return _propertyDictionary.GetOrAdd(keyValue, f =>
             {
                 var t = _sessionFactoryImplementor.GetClassMetadata(f.Key) as AbstractEntityPersister;
+                Debug.Assert(t != null, nameof(t) + " != null");
                 return t.GetPropertyColumnNames(f.Value).First();
             });
         }

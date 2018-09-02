@@ -1,5 +1,4 @@
 ﻿@using System.Collections
-@using System.Collections.Generic
 @using System.Globalization
 @using System.Linq
 @using System.Reflection
@@ -7,10 +6,6 @@
 @using Newtonsoft.Json
 
 @{
-    var q = from t in Assembly.GetExecutingAssembly().GetTypes()
-            where t.IsClass && t.Namespace == "Cloudents.Web.Resources.Js"
-            select t;
-
     var assembly = Assembly.GetAssembly(typeof(Cloudents.Web.Resources.Js.QuestionResource));
 
     var resources = assembly.GetManifestResourceNames();

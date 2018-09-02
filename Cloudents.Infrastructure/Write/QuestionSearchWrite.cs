@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Infrastructure.Search;
-using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Write

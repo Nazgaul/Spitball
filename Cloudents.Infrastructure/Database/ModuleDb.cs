@@ -2,13 +2,10 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
-using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Database.Maps;
 using Cloudents.Infrastructure.Database.Query;
 using Cloudents.Infrastructure.Database.Repositories;
-using Cloudents.Infrastructure.Interceptor;
 using JetBrains.Annotations;
 using NHibernate;
 using Module = Autofac.Module;
