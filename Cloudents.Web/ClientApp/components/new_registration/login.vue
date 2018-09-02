@@ -8,15 +8,10 @@
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
-                        <!--<h1 class="text-block-title">Make money</h1>-->
-                        <!--<p class="text-block-sub-title">while helping<br/> others with<br/> their homework.-->
-                        <!--</p>-->
                         <p class="text-block-sub-title" v-html="$options.filters.bolder(meta.heading, meta.boldText)">
                             {{ isCampaignOn ? campaignData.stepOne.text : meta.heading }}
                         </p>
                     </div>
-                    <!--<p class="text-block-sub-title">-->
-                    <!--{{campaignData.stepOne.text}}</p>-->
                     <div class="checkbox-terms">
                         <input type="checkbox" v-model="agreeTerms" id="agreeTerm"/>
                         <label for="agreeTerm"></label>
@@ -75,11 +70,8 @@
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
-                        <!--<h1 class="text-block-title">Make money</h1>-->
-                        <!--<p class="text-block-sub-title">We need to know<br/>-->
-                        <!--how to <b>contact you.</b>-->
-                        <!--</p>-->
-                        <p class="text-block-sub-title">{{meta.heading}}</p>
+                        <p class="text-block-sub-title" v-html="$options.filters.bolder(meta.heading, meta.boldText)">
+                            {{meta.heading}}</p>
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width form-wrap">
@@ -106,7 +98,7 @@
                 <div slot="step-image">
                     <div class="text">
                         <h1 class="step-title">Get started</h1>
-                        <p class="sub-title">{{campaignData.stepOne.text}}</p>
+                        <p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>
                     </div>
                     <img :src="require(`./img/registerEmail.png`)"/>
                 </div>
@@ -119,10 +111,8 @@
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
-                        <!--<h1 class="text-block-title">Make money</h1>-->
-                        <!--<p class="text-block-sub-title">Check your <br/> email to<br/> <b>activate your<br/> account</b>-->
-                        <!--</p>-->
-                        <p class="text-block-sub-title">{{meta.heading}}
+                        <p class="text-block-sub-title" v-html="$options.filters.bolder(meta.heading, meta.boldText)">
+                            {{meta.heading}}
                         </p>
                     </div>
                 </div>
@@ -133,10 +123,8 @@
                         <p class="email-text inline">{{userEmail}}
                             <span class="email-change" @click="showRegistration()">Change</span>
                         </p>
-
                     </div>
                     <p>You will not be able to log into Spitball.co until you activate your account.</p>
-                    <!--<img :src="require(`./img/checkEmail.png`)"/>-->
                     <div class="bottom-text">
                         <p class="inline">Didn’t get an email? <span class="email-text inline click"
                                                                      @click="resendEmail()">Click here to resend.</span>
@@ -154,17 +142,15 @@
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
-                        <!--<h1 class="text-block-title">Make money</h1>-->
-                        <!--<p class="text-block-sub-title"><b>Enter your phone<br/> number</b> <br/>We need to send you-->
-                        <!--<br/>a confirmation code</p>-->
-                        <p class="text-block-sub-title">{{meta.heading}}</p>
-                        <!--<p class="text-block-sub-title">We need to send you a confirmation code-->
-                        <!--</p>-->
+                        <p class="text-block-sub-title" v-html="$options.filters.bolder(meta.heading, meta.boldText)">
+                            {{meta.heading}}</p>
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width">
                     <h1 v-if="!isMobile" class="step-title">Enter your phone number</h1>
-                    <p v-if="!isMobile" class="sub-title">{{campaignData.stepTwo.text}}</p>
+                    <p v-if="!isMobile" class="sub-title">
+                        {{ isCampaignOn ? campaignData.stepTwo.text : meta.text }}
+                    </p>
                     <select v-model="phone.countryCode" class="mb-1">
                         <option value="" disabled hidden>Select your country code</option>
                         <option v-for="item in countryCodesList" :value="item.callingCode">{{item.name}}
@@ -181,9 +167,6 @@
                            @click="sendCode()"
                     >Continue
                     </v-btn>
-                    <!--<button class="continue-btn" @click="sendCode()"-->
-                    <!--:disabled="!(phone.phoneNum&&phone.countryCode)">Continue-->
-                    <!--</button>-->
                 </div>
                 <img slot="step-image" :src="require(`./img/enter-phone.png`)"/>
             </step-template>
@@ -195,10 +178,8 @@
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
-                        <!--<h1 class="text-block-title">Make money</h1>-->
-                        <!--<p class="text-block-sub-title"><b>Enter the<br/> confirmation code</b><br/>We sent the code to-->
-                        <!--you <br/>by SMS</p>-->
-                        <p class="text-block-sub-title">{{meta.heading}}</p>
+                        <p class="text-block-sub-title" v-html="$options.filters.bolder(meta.heading, meta.boldText)">
+                            {{meta.heading}}</p>
                         <p class="text-block-sub-title" v-if="phone.phoneNum">(+{{phone.countryCode}})
                             {{phone.phoneNum }} <span class="phone-change" @click="changePhone()">Change</span>
                         </p>
@@ -220,9 +201,6 @@
                            @click="smsCodeVerify()"
                     >Continue
                     </v-btn>
-                    <!--<button class="continue-btn submit-code" @click="smsCodeVerify()" :disabled="!confirmationCode">-->
-                    <!--Continue-->
-                    <!--</button>-->
                     <div class="bottom-text">
                         <p class="inline">Didn't get an sms?
                             <span class="email-text inline click" @click="resendSms()"> Click here to resend.</span>
@@ -239,20 +217,16 @@
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
-                        <!--<p class="text-block-sub-title"><b>CONGRATS!</b><br/>You are<br/> rewarded with<br/> <b>100-->
-                        <!--SBL</b></p>-->
                         <p class="text-block-sub-title">{{meta.heading}}</p>
-                        <p class="text-block-sub-title">{{meta.subheading}}</p>
+                        <p class="text-block-sub-title"
+                           v-html="$options.filters.bolder(meta.subheading, meta.boldText)">{{meta.subheading}}</p>
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width done">
-                    <h1 v-if="!isMobile" class="congrats-heading">CONGRATS!</h1>
                     <h2 v-if="!isMobile" class="congrats-heading"
                         v-html="$options.filters.bolder(meta.heading, meta.boldText)">{{meta.heading}}</h2>
-                    <!--<h2 v-if="!isMobile" class="congrats-heading"><span-->
-                    <!--class="blue-points">{{initialPointsNum}} SBL</span></h2>-->
+                    <h2 v-if="!isMobile" class="congrats-heading">{{meta.subheading}}</h2>
                     <img v-if="!isMobile" class="money-done-img" :src="require(`./img/money-done.png`)"/>
-                    <!--<p class="congrats">You can spend them to get help with your <br/> Homework questions.</p>-->
                     <p class="congrats" v-html="$options.filters.bolder(meta.text, meta.boldText)">{{meta.text}}</p>
 
                     <v-btn class="continue-btn submit-code"
@@ -260,7 +234,6 @@
                            :loading="loading"
                            @click="finishRegistration">Let's Start
                     </v-btn>
-                    <!--<button class="continue-btn" @click="finishRegistration">Let's Start</button>-->
                 </div>
                 <img slot="step-image" :src="require(`./img/done.png`)"/>
             </step-template>
@@ -273,7 +246,6 @@
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
-                        <!--<h2 class="text-block-title">Welcome back</h2>-->
                         <p class="text-block-sub-title"><b>Welcome back</b> <br/>please login</p>
                     </div>
                 </div>

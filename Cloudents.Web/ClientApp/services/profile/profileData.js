@@ -2,7 +2,7 @@ const profileData = {
     profileGeneral: {
         register: {
             1: {
-                heading: 'Ask Questions & receive instant help \n'+ 'or\n' + 'Answer Questions & make money',
+                heading: 'Ask Questions & receive instant help '+ '\n'+ 'or ' + 'Answer Questions & make money',
                 subheading: '',
                 text: 'Start with your email. We need to know how to contact you',
                 boldText: ['instant help', 'make money']
@@ -10,7 +10,7 @@ const profileData = {
             2: {
                 heading: 'We need to know how to contact you',
                 subheading: '',
-                text: '',
+                text: 'We need to know how to contact you',
                 boldText: ['contact you.']
             },
             3: {
@@ -20,13 +20,13 @@ const profileData = {
                 boldText: ['activate your account']
             },
             4: {
-                heading: 'Enter your phone number We need to send you a confirmation code',
+                heading: 'Enter your phone number\n'+ 'We need to send you a confirmation code',
                 subheading: '',
-                text: '',
+                text: 'We need to send you a confirmation code',
                 boldText: ['Enter your phone number']
             },
             5: {
-                heading: 'Enter the confirmation code We sent the code to you by SMS',
+                heading: 'Enter the confirmation code\n'+ 'We sent the code to you by SMS',
                 subheading: '',
                 text: '',
                 boldText: ['Enter the confirmation code']
@@ -35,7 +35,7 @@ const profileData = {
                 heading: 'CONGRATS!',
                 subheading: 'You’re ready to start Spitballing!',
                 text: 'We’ve awarded you 100 SBL\n' +
-                'You can use these to get help with your own homework questions, or answer other students’ questions to earn SBL that can be redeemed for real money!',
+                'You can use these to get help with your own homework questions, or answer other student’s questions to earn SBL that can be redeemed for real money!',
                 boldText: ['100 SBL']
             },
             7: {
@@ -70,10 +70,10 @@ const profileData = {
                 boldText: ['Make money']
             },
             2: {
-                heading: 'We need to know how to contact you.',
+                heading: 'We need to know how to contact you',
                 subheading: '',
-                text: '',
-                boldText: ['contact you.']
+                text: 'We need to know how to contact you',
+                boldText: ['contact you']
             },
             3: {
                 heading: 'Check your email to activate your account',
@@ -84,11 +84,11 @@ const profileData = {
             4: {
                 heading: 'Enter your phone number\n'+  'We need to send you a confirmation code',
                 subheading: '',
-                text: '',
+                text: 'We need to send you a confirmation code',
                 boldText: ['Enter your phone number']
             },
             5: {
-                heading: 'Enter the confirmation code We sent the code to you by SMS',
+                heading: 'Enter the confirmation code\n' + 'We sent the code to you by SMS',
                 subheading: '',
                 text: '',
                 boldText: ['Enter the confirmation code']
@@ -98,7 +98,7 @@ const profileData = {
                 subheading: 'You’re ready to start making money!\n',
                 text: 'We’ve also awarded you 100 SBL\n' +
                 '(you can use these to get help with your own homework questions)\n',
-                boldText: ['100 SBL']
+                boldText: ['100 SBL', 'making money!']
             },
             7: {
                 heading: '',
@@ -131,7 +131,7 @@ const profileData = {
             2: {
                 heading: 'We need to know how to contact you',
                 subheading: '',
-                text: '',
+                text: 'We need to know how to contact you',
                 boldText: ['contact you']
             },
             3: {
@@ -144,7 +144,7 @@ const profileData = {
                 heading: 'Enter your phone number.\n' +
                 'We need to send you a confirmation code',
                 subheading: '',
-                text: '',
+                text: 'We need to send you a confirmation code',
                 boldText: ['Enter your phone number']
             },
             5: {
