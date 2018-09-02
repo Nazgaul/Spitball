@@ -122,7 +122,7 @@ module.exports = (env) => {
                     cssProcessor: require("cssnano"),
                     cssProcessorOptions: { discardComments: { removeAll: true } },
                     canPrint: true
-                })
+                }),
                 //new PurifyCSSPlugin({
                 //    // Give paths to parse for rules. These should be absolute!
                 //    paths: glob.sync(path.join(__dirname, 'clientapp/**/*.vue')),
