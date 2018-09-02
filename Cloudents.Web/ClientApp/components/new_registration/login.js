@@ -1,10 +1,12 @@
 import stepTemplate from './helpers/stepTemplate.vue'
 import codesJson from './helpers/CountryCallingCodes';
-import {mapMutations, mapActions, mapGetters} from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import VueRecaptcha from 'vue-recaptcha';
-﻿import registrationService from '../../services/registrationService'
+import registrationService from '../../services/registrationService'
 import analyticsService from '../../services/analytics.service';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
+
+﻿
 const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;
@@ -82,6 +84,7 @@ export default {
         isMobile(){
              return this.$vuetify.breakpoint.xsOnly
         },
+        //profile data relevant for each stepNumber
         meta(){
             return   this.profileData.register[this.stepNumber];
         }
@@ -324,4 +327,15 @@ export default {
 
         }
     },
+    //value = String; query = ['String', 'String','String'] || []
+    filters: {
+        bolder: function (value, query) {
+            if(query.length) {
+                query.map((item) => {
+                    value = value.replace(item, '<span class="bolder">' + item + '</span>')
+                });
+            }
+            return value
+        }
+    }
 }

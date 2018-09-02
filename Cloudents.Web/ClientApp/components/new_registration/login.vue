@@ -11,7 +11,8 @@
                         <!--<h1 class="text-block-title">Make money</h1>-->
                         <!--<p class="text-block-sub-title">while helping<br/> others with<br/> their homework.-->
                         <!--</p>-->
-                        <p class="text-block-sub-title">{{ meta.heading }}
+                        <p class="text-block-sub-title" v-html="$options.filters.bolder(meta.heading, meta.boldText)">
+                            {{ isCampaignOn ? campaignData.stepOne.text : meta.heading }}
                         </p>
                     </div>
                     <!--<p class="text-block-sub-title">-->
@@ -60,7 +61,7 @@
                 <div slot="step-image">
                     <div class="text">
                         <h1 class="step-title">Get started</h1>
-                        <p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.heading }}</p>
+                        <p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>
                     </div>
                     <img :src="require(`./img/registerEmail.png`)"/>
                 </div>
@@ -155,7 +156,7 @@
                     <div class="text-wrap-top">
                         <!--<h1 class="text-block-title">Make money</h1>-->
                         <!--<p class="text-block-sub-title"><b>Enter your phone<br/> number</b> <br/>We need to send you-->
-                            <!--<br/>a confirmation code</p>-->
+                        <!--<br/>a confirmation code</p>-->
                         <p class="text-block-sub-title">{{meta.heading}}</p>
                         <!--<p class="text-block-sub-title">We need to send you a confirmation code-->
                         <!--</p>-->
@@ -196,7 +197,7 @@
                     <div class="text-wrap-top">
                         <!--<h1 class="text-block-title">Make money</h1>-->
                         <!--<p class="text-block-sub-title"><b>Enter the<br/> confirmation code</b><br/>We sent the code to-->
-                            <!--you <br/>by SMS</p>-->
+                        <!--you <br/>by SMS</p>-->
                         <p class="text-block-sub-title">{{meta.heading}}</p>
                         <p class="text-block-sub-title" v-if="phone.phoneNum">(+{{phone.countryCode}})
                             {{phone.phoneNum }} <span class="phone-change" @click="changePhone()">Change</span>
@@ -239,19 +240,20 @@
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
                         <!--<p class="text-block-sub-title"><b>CONGRATS!</b><br/>You are<br/> rewarded with<br/> <b>100-->
-                            <!--SBL</b></p>-->
+                        <!--SBL</b></p>-->
                         <p class="text-block-sub-title">{{meta.heading}}</p>
                         <p class="text-block-sub-title">{{meta.subheading}}</p>
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width done">
                     <h1 v-if="!isMobile" class="congrats-heading">CONGRATS!</h1>
-                    <h2 v-if="!isMobile" class="congrats-heading">You are rewarded with</h2>
-                    <h2 v-if="!isMobile" class="congrats-heading"><span
-                            class="blue-points">{{initialPointsNum}} SBL</span></h2>
+                    <h2 v-if="!isMobile" class="congrats-heading"
+                        v-html="$options.filters.bolder(meta.heading, meta.boldText)">{{meta.heading}}</h2>
+                    <!--<h2 v-if="!isMobile" class="congrats-heading"><span-->
+                    <!--class="blue-points">{{initialPointsNum}} SBL</span></h2>-->
                     <img v-if="!isMobile" class="money-done-img" :src="require(`./img/money-done.png`)"/>
                     <!--<p class="congrats">You can spend them to get help with your <br/> Homework questions.</p>-->
-                    <p class="congrats">{{meta.text}}</p>
+                    <p class="congrats" v-html="$options.filters.bolder(meta.text, meta.boldText)">{{meta.text}}</p>
 
                     <v-btn class="continue-btn submit-code"
                            value="congrats"
