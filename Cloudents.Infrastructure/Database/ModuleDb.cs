@@ -73,8 +73,7 @@ namespace Cloudents.Infrastructure.Database
             builder.Register(c =>
                 {
                     var session = c.ResolveKeyed<ISession>(Core.Enum.Database.MailGun);
-                    var @event = c.Resolve<IEventPublisher>();
-                    return new UnitOfWork(session, @event);
+                    return new UnitOfWork(session);
                 })
                 .Keyed<IUnitOfWork>(Core.Enum.Database.MailGun).InstancePerLifetimeScope();
 

@@ -64,7 +64,7 @@ const mutations = {
                     state.queItemsPerVertical.ask.unshift(questionToAdd);
                 }
             }else{
-                state.queItemsPerVertical.ask.unshift(questionToAdd);
+                state.queItemsPerVertical.ask.unshift(questionObj.question);
             }
         }
     },
@@ -95,11 +95,11 @@ const mutations = {
     },
     [SEARCH.UPDATE_QUESTION](state, questionToUpdate){
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
-            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; i++ ){
+            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; questionIndex++ ){
                 let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
                 if(currentQuestion.id === questionToUpdate.id){
                     //replace the question from the list
-                    state.itemsPerVertical.ask.data[i] = questionToUpdate;
+                    state.itemsPerVertical.ask.data[questionIndex].answers = questionToUpdate.answers;
                     return;
                 }
             }
@@ -125,6 +125,11 @@ const mutations = {
                     
                 }
             });
+        }
+    },
+    [SEARCH.RESET_DATA](state){
+        for(let prop in state.itemsPerVertical){
+            state.itemsPerVertical[prop].data = [];
         }
     }
 };
@@ -196,6 +201,10 @@ const actions = {
 
             function determineSkip(verticalName, verticalItems){
                 if(verticalName === 'ask'){
+                    /* 
+                        if comming from question page we need to make sure before we auto skip the loading 
+                        that we have some vertical items in the system if not then we dont want to skip the load
+                    */
                     if(!!verticalItems && !!verticalItems.data && verticalItems.data.length > 0){
                         return skipLoad
                     }else{
@@ -227,7 +236,7 @@ const actions = {
                         context.dispatch('updateFilters', filtersData);
                         return data;
                     },(err) => {
-                        return err;
+                        return Promise.reject(err);
                     })
                 });
             }
@@ -262,6 +271,9 @@ const actions = {
     removeQuestionViewer({ commit }, notificationQuestionObject){
         let questionObj = notificationQuestionObject;
         commit(SEARCH.REMOVE_QUESTION_VIEWER, questionObj);
+    },
+    resetData({commit}){
+        commit(SEARCH.RESET_DATA)
     }
 };
 

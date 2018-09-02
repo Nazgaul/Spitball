@@ -1,26 +1,23 @@
 ﻿import ResultItem from './ResultItem.vue';
 import questionCard from './../question/helpers/question-card/question-card.vue';
-const ResultTutor = () => import('./ResultTutor.vue');
-const ResultBook = () => import('./ResultBook.vue');
-const ResultJob = () => import('./ResultJob.vue');
-import {page} from "../../services/navigation/vertical-navigation/nav";
+import { page, verticalsName } from "../../services/navigation/vertical-navigation/nav";
 import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
-import {verticalsName} from "../../services/navigation/vertical-navigation/nav";
-import {typesPersonalize} from "../settings/consts.js";
+import { typesPersonalize } from "../settings/consts.js";
 import signupBanner from './../helpers/signup-banner/signup-banner.vue'
 import QuestionCard from "../question/helpers/question-card/question-card";
-import {mapActions, mapGetters, mapMutations} from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
-
-const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'
 
-import {skeletonData} from './consts'
-import account from "../../store/account";
+const ResultTutor = () => import('./ResultTutor.vue');
+const ResultBook = () => import('./ResultBook.vue');
+const ResultJob = () => import('./ResultJob.vue');
+
+const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 
 //The vue functionality for result page
 export default {
@@ -66,7 +63,6 @@ export default {
     },
 
     created() {
-        console.log('result ccreated')
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         this.UPDATE_LOADING(true);
@@ -98,7 +94,6 @@ export default {
         //get data from vuex getters
         ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
-        
 
         //not interesting
         filterCondition() {
@@ -159,9 +154,8 @@ export default {
             return this.loading || this.isLoad
         }
     },
-
     methods: {
-        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFilters', 'updateLoginDialogState']),
+        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFilters', 'updateLoginDialogState', 'updateUserProfileData']),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
 
         loadNewQuestions(){
@@ -174,6 +168,7 @@ export default {
         goToAskQuestion(){
             if(this.accountUser == null){
                 this.updateLoginDialogState(true);
+                this.updateUserProfileData('profileHWH')
             }else{
                 this.$router.push({name: 'newQuestion'});
             }

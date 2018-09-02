@@ -19,7 +19,7 @@
             </user-block>
             <div v-if="cardData.price">
                 <div class="q-price pr-3">
-                    <span v-if="!cardData.hasCorrectAnswer">Earn ${{cardData.price | dollarVal}}</span>
+                    <span v-if="isSold">Earn ${{cardData.price | dollarVal}}</span>
                     <span v-else class="sold-badge">Sold</span>
 
                 </div>
@@ -55,7 +55,7 @@
                             </div>
                         </template>
                     </div>
-                    <span class="user-counter" :style="cssRuleFontColor" v-if="!detailedView ? cardData.answersNum>3 : ''">+{{cardData.answersNum-3}}</span>
+                    <span class="user-counter" :style="cssRuleFontColor" v-show="!detailedView ? cardAnswers > 3 : ''">+{{cardAnswers-3}}</span>
                 </div>
                 <!--show only if in suggestion popup-->
                 <div class="answer" v-if="suggestion">

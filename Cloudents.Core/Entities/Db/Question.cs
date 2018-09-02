@@ -119,6 +119,13 @@ namespace Cloudents.Core.Entities.Db
             //return new[] {t1, t2, tAnswer};
         }
 
+        public virtual Answer AddAnswer(string text, int attachments, User user)
+        {
+            var answer = new Answer(this, text, attachments, user);
+            Answers.Add(answer);
+            return answer;
+        }
+
 
         public virtual IList<IEvent> Events { get; protected set; }
     }

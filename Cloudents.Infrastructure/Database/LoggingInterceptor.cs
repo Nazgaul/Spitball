@@ -1,6 +1,10 @@
-﻿using System.Diagnostics;
-using NHibernate;
+﻿using NHibernate;
+using NHibernate.Engine;
+using NHibernate.Event.Default;
+using NHibernate.Persister.Entity;
 using NHibernate.SqlCommand;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Cloudents.Infrastructure.Database
 {
@@ -11,5 +15,7 @@ namespace Cloudents.Infrastructure.Database
             Debug.WriteLine(sql, "nhibernate");
             return base.OnPrepareStatement(sql);
         }
+
+
     }
 }

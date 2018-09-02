@@ -97,8 +97,14 @@ export default {
         flaggedAsCorrect(){ 
             return this.isCorrectAnswer
         },
+        isSold(){
+           return  !this.cardData.hasCorrectAnswer && !this.cardData.correctAnswerId
+        },
         cardTime(){
             return this.cardData.dateTime || this.cardData.create
+        },
+        cardAnswers(){
+            return this.cardData.answers
         }
     },
     methods: {
@@ -159,6 +165,9 @@ export default {
             timeago().render(document.querySelectorAll(className));
         }
     },
+    // created(){
+    //   console.log(this.cardData)
+    // },
     mounted() {
         this.renderQuestionTime('.timeago')
         // use render method to render nodes in real time

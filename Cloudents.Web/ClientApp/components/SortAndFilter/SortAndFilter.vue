@@ -18,8 +18,7 @@
         <div v-if="filterList && filterList.length">
             <h3>Filter</h3>
             <div class="filter-switch">
-                <!--removed :value binding cause of error Vuetify 1.1.1-->
-                <v-expansion-panel expand :value="0">
+                <v-expansion-panel expand v-model="panelList">
                     <v-expansion-panel-content v-for="(singleFilter, index) in filterList" :key="index">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
                         <template slot="header">

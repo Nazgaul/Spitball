@@ -1,19 +1,25 @@
 import { mapActions, mapMutations, mapGetters } from 'vuex'
+
 export default {
     name: "sort-and-filter",
+    data() {
+        return {
+            panelList: []
+        }
+    },
     props: {
         // sortOptions: { type: Array, default: () => [] },
         sortVal: {},
-        filterOptions: { type: Array, default: () => [] },
-        filterVal: { type: Array, default: () => [] },
-       
+        filterOptions: {type: Array, default: () => []},
+        filterVal: {type: Array, default: () => []},
+
     },
-    computed:{
+    computed: {
         ...mapGetters(['getSort']),
-        filterList(){
+        filterList() {
             return this.filterOptions;
         },
-        sortOptions(){
+        sortOptions() {
             return this.getSort;
         }
     },
@@ -22,13 +28,14 @@ export default {
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         updateSort(val) {
             this.UPDATE_SEARCH_LOADING(true);
-            this.$router.push({ query: { ...this.$route.query, sort: val } });
+            this.$router.push({query: {...this.$route.query, sort: val}});
         },
-        isChecked(singleFilter, filterItem){
-            return this.filterVal.find((item)=>{
-               return item.key===singleFilter.id && item.value === ( filterItem.id ? filterItem.id.toString() : filterItem.toString())});
+        isChecked(singleFilter, filterItem) {
+            return this.filterVal.find((item) => {
+                return item.key === singleFilter.id && item.value === (filterItem.id ? filterItem.id.toString() : filterItem.toString())
+            });
         },
-        updateFilter({ id, val, event }) {
+        updateFilter({id, val, event}) {
             this.UPDATE_SEARCH_LOADING(true);
             let query = {};
             let isChecked = event.target.checked;
@@ -39,13 +46,24 @@ export default {
             if (!isChecked) {
                 query[id] = query[id].filter(item => item !== val);
             }
-            if (val === 'inPerson' && isChecked) { query.sort = "price" }
-            if (id === 'course') { this.setFilteredCourses(query.course) }
-            this.$router.push({ query });
+            if (val === 'inPerson' && isChecked) {
+                query.sort = "price"
+            }
+            if (id === 'course') {
+                this.setFilteredCourses(query.course)
+            }
+            this.$router.push({query});
         }
     },
-    created(){
-        // this.sortOptions = this.getSort;
-        console.log('options filter::',this.filterOptions,   'val filter::',  this.filterVal)
+    beforeMount(){
+        this.filterList.forEach((item) => {
+            this.panelList.push(true)
+        });
+    },
+    created() {
+        this.filterList.forEach((item) => {
+            this.panelList.push(true)
+        });
     }
+
 }

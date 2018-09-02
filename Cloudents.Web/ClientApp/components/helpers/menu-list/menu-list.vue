@@ -80,8 +80,9 @@
                     <v-list-tile-title class="subheading">Feedback</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
+
             <v-list-tile @click="logout">
-                <v-list-tile-action class="tile-logout">
+                <v-list-tile-action >
                     <v-icon>sbf-logout</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
@@ -91,21 +92,33 @@
             <v-divider class="my-3"></v-divider>
 
             <router-link tag="v-list-tile" :to="{name:'about'}">
+                <v-list-tile-action >
+                    <v-icon>sbf-about</v-icon>
+                </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading">About Spitball</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'faq'}">
+                <v-list-tile-action >
+                    <v-icon>sbf-help</v-icon>
+                </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading">Help</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'terms'}">
+                <v-list-tile-action >
+                    <v-icon>sbf-terms</v-icon>
+                </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading">Terms of Service</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'privacy'}">
+               <v-list-tile-action >
+                    <v-icon>sbf-privacy</v-icon>
+                </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading">Privacy Policy</v-list-tile-title>
                 </v-list-tile-content>

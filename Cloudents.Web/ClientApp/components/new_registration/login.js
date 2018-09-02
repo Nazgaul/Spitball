@@ -1,10 +1,12 @@
 import stepTemplate from './helpers/stepTemplate.vue'
 import codesJson from './helpers/CountryCallingCodes';
-import {mapMutations, mapActions, mapGetters} from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import VueRecaptcha from 'vue-recaptcha';
-﻿import registrationService from '../../services/registrationService'
+import registrationService from '../../services/registrationService'
 import analyticsService from '../../services/analytics.service';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
+
+﻿
 const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;
@@ -18,8 +20,7 @@ export default {
         return {
             siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
             gaCategory: '',
-            marketingData: {
-            },
+            marketingData: {},
             agreeTerms: false,
             agreeError: false,
             loader: null,
@@ -73,13 +74,19 @@ export default {
             getToasterText: 'getToasterText',
             lastActiveRoute: 'lastActiveRoute',
             campaignName: 'getCampaignName',
-            campaignData: 'getCampaignData'
+            campaignData: 'getCampaignData',
+            profileData: 'getProfileData',
+            isCampaignOn: 'isCampaignOn'
         }),
         confirmCheckbox(){
           return !this.agreeTerms && this.agreeError
         },
         isMobile(){
              return this.$vuetify.breakpoint.xsOnly
+        },
+        //profile data relevant for each stepNumber
+        meta(){
+            return   this.profileData.register[this.stepNumber];
         }
     },
     methods: {
@@ -261,7 +268,6 @@ export default {
                         let url = self.lastActiveRoute || defaultSubmitRoute;
                         window.isAuth = true;
                         self.$router.push({path: `${url.path }`});
-
                     }
                 }, function (error) {
                     self.loading = false;
@@ -275,7 +281,16 @@ export default {
             window.isAuth = true;
             this.loading = false;
             this.$router.push({path: `${url.path }`});
-        }
+        },
+        //get unique texts per user profile if no active marketing campaign
+        // getProfileMeta(campaign){
+        //         if(campaign && campaign === 'noCampaign'){
+        //             this.profileMeta = this.profileData.register;
+        //         }else{
+        //             this.profileMeta = this.campaignData;
+        //         }
+        //         console.log('META!', this.profileMeta);
+        // }
     },
     mounted() {
         this.$nextTick(function () {
@@ -287,6 +302,7 @@ export default {
         })
     },
     created() {
+        // this.getProfileMeta(this.campaignName);
         // if(!this.campaignName || this.campaignName === '' ){
         //     this.updateCampaign('noCampaign');
         // }
@@ -310,7 +326,16 @@ export default {
             analyticsService.sb_unitedEvent('Registration', 'Email Verified');
 
         }
-
     },
-
+    //value = String; query = ['String', 'String','String'] || []
+    filters: {
+        bolder: function (value, query) {
+            if(query.length) {
+                query.map((item) => {
+                    value = value.replace(item, '<span class="bolder">' + item + '</span>')
+                });
+            }
+            return value
+        }
+    }
 }
