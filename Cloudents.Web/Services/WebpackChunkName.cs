@@ -19,6 +19,7 @@ namespace Cloudents.Web.Services
 
         public WebPackBundle GetTag(string chunk)
         {
+
             if (_tags.TryGetValue(chunk, out var webPack))
             {
                 return webPack;
@@ -42,6 +43,14 @@ namespace Cloudents.Web.Services
                             if (file.EndsWith("js", StringComparison.OrdinalIgnoreCase))
                             {
                                 webPackBundle.Js = file;
+                                continue;
+                            }
+
+                            if (file.EndsWith("rtl.css", StringComparison.OrdinalIgnoreCase))
+                            {
+                                webPackBundle.RtlCss = file;
+                                continue;
+
                             }
                             if (file.EndsWith("css", StringComparison.OrdinalIgnoreCase))
                             {
@@ -59,6 +68,8 @@ namespace Cloudents.Web.Services
     public class WebPackBundle
     {
         public string Css { get; set; }
+
+        public string RtlCss { get; set; }
         public string Js { get; set; }
     }
 }

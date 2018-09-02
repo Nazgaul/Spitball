@@ -11,6 +11,8 @@ var t = require("./webpack.global.js");
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const { UnusedFilesWebpackPlugin } = require("unused-files-webpack-plugin");
+const WebpackRTLPlugin = require("webpack-rtl-plugin");
+
 
 
 module.exports = (env) => {
@@ -76,21 +78,21 @@ module.exports = (env) => {
                     options: {
                         preserveWhitespace: isDevBuild ? true : false,
                         loaders: {
-                            css: isDevBuild
-                                ? "vue-style-loader!css-loader"
-                                : ExtractTextPlugin.extract({
+                            css:// isDevBuild
+                               // ? "vue-style-loader!css-loader"
+                                /*:*/ ExtractTextPlugin.extract({
                                     use: "css-loader?minimize",
                                     fallback: "vue-style-loader"
                                 }),
-                            less: isDevBuild
-                                ? "vue-style-loader!css-loader!less-loader"
-                                : ExtractTextPlugin.extract({
+                            less: //isDevBuild
+                                //? "vue-style-loader!css-loader!less-loader"
+                                /*:*/ ExtractTextPlugin.extract({
                                     use: "css-loader?minimize!less-loader",
                                     fallback: "vue-style-loader"
                                 }),
-                            scss: isDevBuild
-                                ? "vue-style-loader!css-loader!sass-loader"
-                                : ExtractTextPlugin.extract({
+                            scss: //isDevBuild
+                                //? "vue-style-loader!css-loader!sass-loader"
+                                /*:*/ ExtractTextPlugin.extract({
                                     use: "css-loader?minimize!sass-loader",
                                     fallback: "vue-style-loader"
                                 })
@@ -113,10 +115,17 @@ module.exports = (env) => {
             })
         ].concat(isDevBuild
             ? [
+                new ExtractTextPlugin({ filename: "site.[contenthash].css", allChunks: true }),
+                new WebpackRTLPlugin({
+                    filename: '[name].[contenthash].rtl.css'
+                })
             ]
             : [
                 // Plugins that apply in production builds only
                 new ExtractTextPlugin({ filename: "site.[contenthash].css", allChunks: true }),
+                new WebpackRTLPlugin({
+                    filename: '[name].[contenthash].rtl.css'
+                }),
                 new OptimizeCssAssetsPlugin({
                     assetNameRegExp: /\.optimize\.css$/g,
                     cssProcessor: require("cssnano"),
