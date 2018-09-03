@@ -27,7 +27,7 @@ namespace Cloudents.Web.EventHandler
                 {
                     Id = question.User.Id,
                     Name = question.User.Name,
-                    Image = null
+                    Image = question.User.Image
                 },
                 Answers = question.Answers.Count,
                 Id = question.Id,
