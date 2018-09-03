@@ -48,13 +48,13 @@
                         </div>
                         <router-link class="ask-question" :to="{name: emptyStateData.btnUrl}">{{emptyStateData.btnText}}</router-link>
                     </div>
-                    <div v-if="activeTab === 1">
+                    <div v-show="activeTab === 1">
                         <router-link class="question-card-wrapper" :to="{name:'question',params:{id:questionData.id}}"
                                      v-for="(questionData,index) in questions" :key="index">
                             <question-card :cardData="questionData"></question-card>
                         </router-link>
                     </div>
-                    <div v-else-if="activeTab === 2">
+                    <div v-show="activeTab === 2">
                         <router-link :to="{name:'question',params:{id:answerData.id}}" v-for="(answerData,index) in myAnswers"
                                      :key="index" class="mb-3">
                             <question-card :cardData="answerData" class="mb-3"></question-card>
