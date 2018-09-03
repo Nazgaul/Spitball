@@ -23,5 +23,22 @@ export const signlaREvents = {
         removeviewer: function(question){
             store.dispatch("removeQuestionViewer", question);
         },
+    },
+    notification: {
+        add: function(arrEventObj){
+            arrEventObj.forEach((notificationToAdd)=>{
+                store.dispatch("addNotificationItemAction", notificationToAdd);
+            })
+        },
+        delete: function(arrEventObj){
+            arrEventObj.forEach((notificationToRemove)=>{
+                store.dispatch("removeNotification", notificationToRemove);
+            })
+        },
+        update: function(arrEventObj){
+            arrEventObj.forEach((notificationToUpdate)=>{
+                store.dispatch("updateNotification", notificationToUpdate)
+            })
+        },
     }
-}
+};

@@ -148,7 +148,7 @@ const transferMap = {
     job: (res) => transferJob(res),
     tutor: (res) => transferResultTutor(res),
     book: (res) => transferBook(res)
-}
+};
 
 
 export default {

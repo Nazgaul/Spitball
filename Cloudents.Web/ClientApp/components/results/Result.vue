@@ -121,8 +121,8 @@
 
         <template slot="rightSide">
             <slot name="rightSide">
-                <faq-block v-if="accountUser" :isAsk="name==='ask'" :name="currentSuggest" :text="userText"></faq-block>
-                <notificationCenter v-else></notificationCenter>
+                <faq-block v-if="!accountUser" :isAsk="name==='ask'" :name="currentSuggest" :text="userText"></faq-block>
+                <notificationCenter v-else :isAsk="name==='ask'"></notificationCenter>
             </slot>
 
         </template>
