@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Autofac;
+using Cloudents.Core;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
+using Cloudents.Infrastructure.Database.Query;
+using System;
 using System.Configuration;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
-using Autofac;
-using Cloudents.Core;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Event;
-using Cloudents.Core.Query;
-using Cloudents.Core.Storage;
-using Cloudents.Infrastructure.Write;
-using Microsoft.Azure.Search.Models;
+using Question = Cloudents.Core.Entities.Db.Question;
 
 namespace ConsoleApp
 {
@@ -53,13 +47,20 @@ namespace ConsoleApp
             _container = builder.Build();
 
 
-          
 
 
 
-            var b = _container.Resolve<IQueryBus>();
-            var x = await b.QueryAsync<(IEnumerable<AzureSyncBaseDto<Question>> update, IEnumerable<long> delete, long version)>(new SyncAzureQuery(0, 0), default);
 
+            var b = _container.Resolve<FluentQueryBuilder>();
+            b.AddInitTable<Question>("a");
+            b.AddCustomTable(
+                    $"CROSS APPLY CHANGETABLE (VERSION {b.Table<Question>()}, (Id), ({b.Column<Question>("a", x => x.Id)})) AS c2")
+                .AddSelect<Question>("a", q => q.Id)
+                .AddSelect<Question>("a", q => q.Text, "b")
+                .AddSelect("(select count(*) from sb.Answer where QuestionId = a.id) AnswerCount");
+
+            string t = b;
+            Console.WriteLine(t);
 
             // QuestionRepository c = new QuestionRepository(b);
             // Console.WriteLine(c.GetOldQuestionsAsync(default));
@@ -127,7 +128,7 @@ namespace ConsoleApp
             foreach (var question in GoogleSheets.GetData(spreadsheetId, range))
             {
                 var commandBus = _container.Resolve<ICommandBus>();
-               // await commandBus.DispatchAsync(question, default);
+                // await commandBus.DispatchAsync(question, default);
             }
         }
 

@@ -43,6 +43,8 @@ namespace Cloudents.Infrastructure.Database
 
             //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
             builder.RegisterType<QueryBuilder>().AsSelf();
+            builder.RegisterType<FluentQueryBuilder>().AsSelf();
+
             builder.RegisterGenericDecorator(
                 typeof(CacheQueryHandlerDecorator<,>),
                 typeof(IQueryHandler<,>),

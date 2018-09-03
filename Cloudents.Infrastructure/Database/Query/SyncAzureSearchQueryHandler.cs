@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
 using NHibernate;
 
 namespace Cloudents.Infrastructure.Database.Query
@@ -38,7 +39,6 @@ namespace Cloudents.Infrastructure.Database.Query
             {
                 sql = FirstQuery;
             }
-
             var sqlQuery = _session.CreateSQLQuery(sql);
             sqlQuery.SetResultTransformer(new DeepTransformer<AzureSyncBaseDto<T>>('@'));
 
