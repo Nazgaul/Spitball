@@ -2,7 +2,7 @@
     <a class="d-block job-cell" :target="($vuetify.breakpoint.xsOnly)?'_self':'_blank'" :href="item.url">
        <span @click="$ga.event('Search_Results', 'job',`#${index+1}_${item.source}`)"> <div class="cell-title-wrap mb-1"><span class="cell-title">{{item.title}}</span></div>
         <div class="desc">
-            <div class="desc-title-wrap"><span class="desc-title">Job description:</span></div>
+            <div class="desc-title-wrap"><span class="desc-title" v-language:inner>resultJob_Job_description</span></div>
             <p><span>{{item.responsibilities}}</span></p>
         </div>
         <v-layout row wrap class="properties">

@@ -12,8 +12,8 @@
                <v-layout row justify-center>
                    <v-flex xs1>
             <v-btn @click="$_submit"
-                   :disabled="!name">
-                submit
+                   :disabled="!name" v-language:inner>
+                courseAdd_submit
             </v-btn></v-flex></v-layout>
            </v-container>
         </form>
