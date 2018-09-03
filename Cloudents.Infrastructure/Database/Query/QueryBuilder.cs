@@ -31,6 +31,24 @@ namespace Cloudents.Infrastructure.Database.Query
             });
             
         }
+
+        public string BuildInitVersionTable<T>(string aliasTable, string crossTableAlias)
+        {
+            var table = BuildTable<T>();
+            var t = _sessionFactoryImplementor.GetClassMetadata(typeof(T)) as AbstractEntityPersister;
+            var primaryKey = t.IdentifierColumnNames.First();
+
+            return $" FROM {table} AS {aliasTable}  CROSS APPLY CHANGETABLE (VERSION {table}, ({primaryKey}), ({aliasTable}.{primaryKey})) AS {crossTableAlias} ";
+        }
+
+        public string BuildDiffVersionTable<T>(string aliasTable, string crossTableAlias, long version)
+        {
+            var table = BuildTable<T>();
+            var t = _sessionFactoryImplementor.GetClassMetadata(typeof(T)) as AbstractEntityPersister;
+            var primaryKey = t.IdentifierColumnNames.First();
+            return $" FROM CHANGETABLE (CHANGES {table}, {version}) AS {crossTableAlias}  LEFT OUTER JOIN {table} AS {aliasTable} ON {aliasTable}.{primaryKey} = {crossTableAlias}.{primaryKey} ";
+        }
+
         public string BuildProperty<T>(Expression<Func<T, object>> expression)
         {
             

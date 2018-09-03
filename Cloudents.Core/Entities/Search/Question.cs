@@ -22,7 +22,8 @@ namespace Cloudents.Core.Entities.Search
 
         public QuestionColor Color { get; set; }
 
-        public string Subject { get; set; } // facetable
+        public int Subject { get; set; } // facetable
+        public string SubjectText { get; set; } // facetable
 
     }
 }

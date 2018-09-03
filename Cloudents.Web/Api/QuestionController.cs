@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
@@ -17,6 +12,11 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -46,11 +46,11 @@ namespace Cloudents.Web.Api
                 var command = _mapper.Map<CreateQuestionCommand>(model);
                 await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
 
-                return CreatedAtAction(nameof(GetQuestionAsync), new {id = command.Id});
+                return CreatedAtAction(nameof(GetQuestionAsync), new { id = command.Id });
             }
             catch (InvalidOperationException)
             {
-                ModelState.AddModelError(string.Empty,"You need to wait before asking a new question");
+                ModelState.AddModelError(string.Empty, "You need to wait before asking a new question");
                 return BadRequest(ModelState);
             }
         }
@@ -122,7 +122,7 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<QuestionDto>
             {
                 Result = p,
-                Filters = new []
+                Filters = new[]
                 {
                     new Models.Filters(nameof(GetQuestionsRequest.Filter),"Type", EnumExtension.GetPublicEnumNames(typeof(QuestionFilter))),
                     new Models.Filters(nameof(GetQuestionsRequest.Source),"Subject", result.Facet)

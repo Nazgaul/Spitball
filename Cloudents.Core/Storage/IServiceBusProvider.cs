@@ -15,6 +15,8 @@ namespace Cloudents.Core.Storage
         Task InsertMessageAsync(BlockChainQnaSubmit message, CancellationToken token);
         Task InsertMessageAsync(UrlRedirectQueueMessage message, CancellationToken token);
         Task InsertMessageAsync(SmsMessage2 message, CancellationToken token);
+
+        Task InsertMessageAsync(ServiceBusMessageBase message, CancellationToken token);
     }
 
 

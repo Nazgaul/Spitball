@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Request;
+﻿using Cloudents.Core.Query;
+using Cloudents.Core.Request;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
