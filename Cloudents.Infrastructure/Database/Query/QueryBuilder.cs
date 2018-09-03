@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using Cloudents.Core.Extension;
+using NHibernate;
+using NHibernate.Persister.Entity;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
-using Cloudents.Core.Extension;
-using NHibernate;
-using NHibernate.Persister.Entity;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -18,41 +17,59 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             _sessionFactoryImplementor = unitOfWorkFactory.GetFactory();
         }
-        private readonly ConcurrentDictionary<Type, string> _tableDictionary = new ConcurrentDictionary<Type, string>();
-        private readonly ConcurrentDictionary<KeyValuePair<Type, string>, string> _propertyDictionary = new ConcurrentDictionary<KeyValuePair<Type, string>, string>();
-       
+        //private readonly ConcurrentDictionary<Type, string> _tableDictionary = new ConcurrentDictionary<Type, string>();
+        //private readonly ConcurrentDictionary<KeyValuePair<Type, string>, string> _propertyDictionary = new ConcurrentDictionary<KeyValuePair<Type, string>, string>();
+
+        private char _alias = 'a';
+        private readonly Dictionary<Type, char> _aliasTable = new Dictionary<Type, char>();
 
         public string BuildTable<T>()
         {
 
-            return _tableDictionary.GetOrAdd(typeof(T), (f) =>
+            return $"{BuildTableWithoutAlias<T>()} As {GetAlias<T>()}";
+        }
+
+        private string BuildTableWithoutAlias<T>()
+        {
+            var t = _sessionFactoryImplementor.GetClassMetadata(typeof(T)) as AbstractEntityPersister;
+            Debug.Assert(t != null, nameof(t) + " != null");
+            return $"{t.TableName}";
+        }
+
+        private char GetAlias<T>()
+        {
+            if (_aliasTable.TryGetValue(typeof(T), out var p))
             {
-                var t = _sessionFactoryImplementor.GetClassMetadata(f) as AbstractEntityPersister;
-                Debug.Assert(t != null, nameof(t) + " != null");
-                return t.TableName;
-            });
+                return p;
+            }
+
+            _aliasTable[typeof(T)] = _alias++;
+
+            return _aliasTable[typeof(T)];
         }
 
-        public string BuildTable<T>(string alias)
-        {
-            var retVal = BuildTable<T>();
-            return $"{retVal} As {alias}";
-            //var retVal =  _tableDictionary.GetOrAdd(typeof(T), (f) =>
-            //{
-            //    var t = _sessionFactoryImplementor.GetClassMetadata(f) as AbstractEntityPersister;
-            //    Debug.Assert(t != null, nameof(t) + " != null");
-            //    //return $"{t.TableName} As {alias}";
-            //});
-        }
+        //public string BuildTable<T>()
+        //{
 
-        public string BuildInitVersionTable<T>(string aliasTable, string crossTableAlias)
+        //    var retVal = BuildTable<T>();
+        //    return $"{retVal} As {alias}";
+        //    //var retVal =  _tableDictionary.GetOrAdd(typeof(T), (f) =>
+        //    //{
+        //    //    var t = _sessionFactoryImplementor.GetClassMetadata(f) as AbstractEntityPersister;
+        //    //    Debug.Assert(t != null, nameof(t) + " != null");
+        //    //    //return $"{t.TableName} As {alias}";
+        //    //});
+        //}
+
+        public string BuildInitVersionTable<T>(string crossTableAlias)
         {
+            var aliasTable = GetAlias<T>();
             var table = BuildTable<T>();
             var t = _sessionFactoryImplementor.GetClassMetadata(typeof(T)) as AbstractEntityPersister;
             Debug.Assert(t != null, nameof(t) + " != null");
             var primaryKey = t.IdentifierColumnNames.First();
 
-            return $" FROM {table} AS {aliasTable}  CROSS APPLY CHANGETABLE (VERSION {table}, ({primaryKey}), ({aliasTable}.{primaryKey})) AS {crossTableAlias} ";
+            return $" FROM {table} CROSS APPLY CHANGETABLE (VERSION {BuildTableWithoutAlias<T>()}, ({primaryKey}), ({aliasTable}.{primaryKey})) AS {crossTableAlias} ";
         }
 
         public string BuildDiffVersionTable<T>(string aliasTable, string crossTableAlias, long version)
@@ -68,42 +85,126 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             var memberName = expression.GetName();
             var keyValue = new KeyValuePair<Type, string>(typeof(T), memberName);
-            return _propertyDictionary.GetOrAdd(keyValue, f =>
+            //return _propertyDictionary.GetOrAdd(keyValue, f =>
+            //{
+            var t = _sessionFactoryImplementor.GetClassMetadata(keyValue.Key) as AbstractEntityPersister;
+            Debug.Assert(t != null, nameof(t) + " != null");
+            return t.GetPropertyColumnNames(keyValue.Value).First();
+            //});
+        }
+
+        
+
+        public string BuildProperty<T, TU>(Expression<Func<T, object>> expression, Expression<Func<TU, object>> alias)
+        {
+            var b = BuildProperty(expression);
+            return $"{GetAlias<T>()}.{b} as {alias.GetName()}";
+        }
+
+
+        public string BuildJoin<T1, T2>(Expression<Func<T1, object>> expression,
+            Expression<Func<T2, object>> expression2)
+        {
+            return $@"
+            join {BuildTable<T1>()}
+            on {GetAlias<T1>()}.{BuildProperty(expression)}={GetAlias<T2>()}.{BuildProperty(expression2)}";
+        }
+    }
+
+
+    public class QueryBuilder2
+    {
+        private readonly ISessionFactory _sessionFactoryImplementor;
+
+        public QueryBuilder2(UnitOfWorkFactorySpitball unitOfWorkFactory)
+        {
+            _sessionFactoryImplementor = unitOfWorkFactory.GetFactory();
+        }
+
+        private Type _firstTable;
+
+        private List<string> _selectList = new List<string>();
+
+        public QueryBuilder2 AddTable<T>()
+        {
+            if (_firstTable != null)
             {
-                var t = _sessionFactoryImplementor.GetClassMetadata(f.Key) as AbstractEntityPersister;
-                Debug.Assert(t != null, nameof(t) + " != null");
-                return t.GetPropertyColumnNames(f.Value).First();
-            });
+                throw new InvalidOperationException();
+            }
+            _firstTable = typeof(T);
+            return this;
         }
 
-        public string BuildProperty<T>(Expression<Func<T, object>> expression,string alias)
+        public QueryBuilder2 AddSelect<T, TU>(Expression<Func<T, object>> expression,
+            Expression<Func<TU, object>> alias)
+        {
+            _selectList.Add(BuildProperty(expression, alias));
+            return this;
+        }
+
+        //public QueryBuilder2 AddSelect<T, TU>(Expression<Func<T, object>> expression,
+        //    Expression<Func<TU, object>> alias)
+        //{
+        //    _selectList.Add(BuildProperty(expression, alias));
+        //    return this;
+        //}
+
+        private char _alias = 'a';
+        private readonly Dictionary<Type, char> _aliasTable = new Dictionary<Type, char>();
+
+        public string BuildTable(Type T)
+        {
+
+            return $"{BuildTableWithoutAlias(T)} As {GetAlias(T)}";
+        }
+
+        
+
+        private string BuildTableWithoutAlias(Type T)
+        {
+            var t = _sessionFactoryImplementor.GetClassMetadata(T) as AbstractEntityPersister;
+            Debug.Assert(t != null, nameof(t) + " != null");
+            return $"{t.TableName}";
+        }
+
+        private char GetAlias(Type T)
+        {
+            if (_aliasTable.TryGetValue(T, out var p))
+            {
+                return p;
+            }
+
+            _aliasTable[T] = _alias++;
+
+            return _aliasTable[T];
+        }
+
+
+        private string BuildProperty<T, TU>(Expression<Func<T, object>> expression, Expression<Func<TU, object>> alias)
         {
             var b = BuildProperty(expression);
-            return $"{b} as {alias}";
+            return $"{GetAlias(typeof(T))}.{b} as {alias.GetName()}";
         }
 
-        public string BuildProperty<T,TU>(Expression<Func<T, object>> expression, Expression<Func<TU, object>> alias)
+        public string BuildProperty<T>(Expression<Func<T, object>> expression)
         {
-            var b = BuildProperty(expression);
-            return $"{b} as {alias.GetName()}";
+            var memberName = expression.GetName();
+            var keyValue = new KeyValuePair<Type, string>(typeof(T), memberName);
+            //return _propertyDictionary.GetOrAdd(keyValue, f =>
+            //{
+            var t = _sessionFactoryImplementor.GetClassMetadata(keyValue.Key) as AbstractEntityPersister;
+            Debug.Assert(t != null, nameof(t) + " != null");
+            return t.GetPropertyColumnNames(keyValue.Value).First();
+            //});
         }
 
-        public string BuildProperty<T>(string tableAlias, Expression<Func<T, object>> expression)
-        {
-            var b = BuildProperty(expression);
-            return $"{tableAlias}.{b}";
-        }
+        
 
-        public string BuildProperty<T>(string tableAlias, Expression<Func<T, object>> expression, string alias)
-        {
-            var b = BuildProperty(expression,alias);
-            return $"{tableAlias}.{b} as {alias}";
-        }
 
-        public string BuildProperty<T,TU>(string tableAlias, Expression<Func<T, object>> expression, Expression<Func<TU, object>> alias)
+        public static implicit operator string(QueryBuilder2 tb)
         {
-            var b = BuildProperty(expression, alias);
-            return $"{tableAlias}.{b}";
+            return $@"select * from 
+                {tb.BuildTable(tb._firstTable)}";
         }
     }
 }

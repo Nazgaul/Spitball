@@ -42,7 +42,7 @@ namespace Cloudents.Infrastructure.Database
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
             //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
-            builder.RegisterType<QueryBuilder>().AsSelf().SingleInstance();
+            builder.RegisterType<QueryBuilder>().AsSelf();
             builder.RegisterGenericDecorator(
                 typeof(CacheQueryHandlerDecorator<,>),
                 typeof(IQueryHandler<,>),

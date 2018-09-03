@@ -18,8 +18,8 @@ namespace Cloudents.Infrastructure.Database.Query
         private const string UserAlias = "u";
         private const string QuestionSubjectAlias = "qs";
 
-        public QuestionSyncAzureSearchQueryHandler(QueryBuilder queryBuilder, DapperRepository dapperRepository) :
-            base(queryBuilder, dapperRepository)
+        public QuestionSyncAzureSearchQueryHandler(QueryBuilder queryBuilder, DapperRepository dapperRepository, ReadonlyStatelessSession session) :
+            base(queryBuilder, dapperRepository, session)
         {
         }
 
@@ -27,25 +27,51 @@ namespace Cloudents.Infrastructure.Database.Query
 
         protected override string VersionSql => $"select * {QueryBuilder.BuildDiffVersionTable<Question>("q", "c", 56123)}";
 
-        protected override string FirstQuery => $@"
-select 
-{QueryBuilder.BuildProperty<User, QuestionSearch>(UserAlias, t => t.Id, x => x.UserId)},
-{QueryBuilder.BuildProperty<User, QuestionSearch>(UserAlias, t => t.Name, x => x.UserName)},
-{QueryBuilder.BuildProperty<User, QuestionSearch>(UserAlias, t => t.Image, x => x.UserImage)},
-{QueryBuilder.BuildProperty<Question, QuestionSearch>(QuestionAlias, t => t.Id, x => x.Id)},
-(select count(*) from sb.Answer where QuestionId = q.id) AnswerCount,
-{QueryBuilder.BuildProperty<Question, QuestionSearch>(QuestionAlias, t => t.Updated, x => x.DateTime)},
-{QueryBuilder.BuildProperty<Question, QuestionSearch>(QuestionAlias, t => t.Attachments, x => x.FilesCount)},
-CASE when q.CorrectAnswer_id IS null Then 0 else 1 
-      END HasCorrectAnswer,
-{QueryBuilder.BuildProperty<Question, QuestionSearch>(QuestionAlias, t => t.Price, x => x.Price)},
-{QueryBuilder.BuildProperty<Question, QuestionSearch>(QuestionAlias, t => t.Text, x => x.Text)},
-{QueryBuilder.BuildProperty<Question, QuestionSearch>(QuestionAlias, t => t.Color, x => x.Color)},
-{QueryBuilder.BuildProperty<QuestionSubject, QuestionSearch>(QuestionSubjectAlias, t => t.Text, x => x.SubjectText)},
-{QueryBuilder.BuildProperty<Question, QuestionSearch>(QuestionAlias, t => t.Subject, x => x.Subject)},
-c.Id as TTT, c.SYS_CHANGE_VERSION
-{QueryBuilder.BuildInitVersionTable<Question>(QuestionAlias, "c")} 
-join {QueryBuilder.BuildTable<User>(UserAlias)} on {QueryBuilder.BuildProperty<Question>(QuestionAlias, t => t.User)}={QueryBuilder.BuildProperty<User>(UserAlias, u => u.Id)}
-join {QueryBuilder.BuildTable<QuestionSubject>(QuestionSubjectAlias)} on {QueryBuilder.BuildProperty<Question>(QuestionAlias, t => t.Subject)}={QueryBuilder.BuildProperty<QuestionSubject>(QuestionSubjectAlias, u => u.Id)}";
+//        protected override string FirstQuery => $@"
+//select 
+//{QueryBuilder.BuildProperty<User, QuestionSearch>(t => t.Id, x => x.UserId)},
+//{QueryBuilder.BuildProperty<User, QuestionSearch>(t => t.Name, x => x.UserName)},
+//{QueryBuilder.BuildProperty<User, QuestionSearch>(t => t.Image, x => x.UserImage)},
+//{QueryBuilder.BuildProperty<Question, QuestionSearch>(t => t.Id, x => x.Id)},
+//(select count(*) from sb.Answer where QuestionId = a.id) AnswerCount,
+//{QueryBuilder.BuildProperty<Question, QuestionSearch>(t => t.Updated, x => x.DateTime)},
+//{QueryBuilder.BuildProperty<Question, QuestionSearch>(t => t.Attachments, x => x.FilesCount)},
+//CASE when a.CorrectAnswer_id IS null Then 0 else 1 
+//      END HasCorrectAnswer,
+//{QueryBuilder.BuildProperty<Question, QuestionSearch>(t => t.Price, x => x.Price)},
+//{QueryBuilder.BuildProperty<Question, QuestionSearch>(t => t.Text, x => x.Text)},
+//{QueryBuilder.BuildProperty<Question, QuestionSearch>(t => t.Color, x => x.Color)},
+//{QueryBuilder.BuildProperty<QuestionSubject, QuestionSearch>(t => t.Text, x => x.SubjectText)},
+//{QueryBuilder.BuildProperty<Question, QuestionSearch>(t => t.Subject, x => x.Subject)},
+//c2.*
+//{QueryBuilder.BuildInitVersionTable<Question>("c2")} 
+//{QueryBuilder.BuildJoin<User,Question >(u => u.Id, q => q.User)}
+//{QueryBuilder.BuildJoin<QuestionSubject,Question >(u => u.Id, q => q.Subject)}";
+
+
+        protected override string FirstQuery => $@"select 
+b.Id as Data@UserId,
+b.Name as Data@UserName,
+b.Image as Data@UserImage,
+a.Id as Data@Id,
+(select count(*) from sb.Answer where QuestionId = a.id) Data@AnswerCount,
+a.Updated as Data@DateTime,
+a.Attachments as Data@FilesCount,
+CASE when a.CorrectAnswer_id IS null Then 0 else 1 
+      END Data@HasCorrectAnswer,
+a.Price as Data@Price,
+a.Text as Data@Text,
+a.Color as Data@Color,
+c.Subject as Data@SubjectText,
+a.Subject_id as Data@Subject,
+c2.Id,c2.SYS_CHANGE_VERSION
+
+ FROM sb.[Question] As a CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (a.Id)) AS c2  
+
+            join sb.[User] As b
+            on b.Id=a.UserId
+
+            join sb.[QuestionSubject] As c
+            on c.Id=a.Subject_id";
     }
 }
