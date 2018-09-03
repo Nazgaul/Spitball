@@ -59,8 +59,7 @@
                     <v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser">Chat</v-tab>
 
                 <v-tab-item :key="'1'" :id="'tab-1'" class="tab-padding">
-
-                        <v-flex xs12>
+                        <v-flex xs12 class="question-data">
                             <question-thread v-if="questionData" :questionData="questionData"
                                              :hasCorrectAnswer="getCorrectAnswer">
                                 <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer">
