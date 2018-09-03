@@ -73,7 +73,7 @@ export const dictionary = {
     login_select_your_country_code:"Select your country code",
     login_enter_the_confirm_code:"Enter the confirmation code",
     login_sent_code_by_sms:"We sent the code to you by SMS",
-    login_sent_confirmation_code_mobile:"We sent a confirmation code to your mobile phone.",
+    login_sent_confirmation_code:"We sent a confirmation code to your mobile phone.",
     login_didnt_get_an_email:"Didn't get an Email?",
     login_click_here_to_resend:"Click here to resend.",
     login_congrats:"CONGRATS!",

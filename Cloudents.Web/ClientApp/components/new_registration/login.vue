@@ -185,7 +185,7 @@
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width wide">
-                    <h1 v-if="!isMobile" class="step-title" v-language:inner>login_sent_confirmation_code_mobile</h1>
+                    <h1 v-if="!isMobile" class="step-title" v-language:inner>login_sent_confirmation_code</h1>
                     <p v-if="phone.phoneNum" class="sub-title">
                         <span v-language:inner>login_sent_code_by_sms</span>
                         (+{{phone.countryCode}})

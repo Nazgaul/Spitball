@@ -6,9 +6,7 @@
         <div class="pt-3 question-wrap" v-if="!$vuetify.breakpoint.smAndDown"
              :class="{'my-question': questionData.cardOwner}">
             <v-flex xs12 class="breadcrumbs">
-                <router-link class="ask-question" to="/ask" v-language:inner>
-                    questionDetails_Ask_question
-                </router-link>
+                <router-link class="ask-question" to="/ask" v-language:inner>questionDetails_Ask_question</router-link>
                 <span class="question-category"> <span v-language:inner>questionDetails_question</span>{{questionData.subject}}</span>
             </v-flex>
             <v-layout row>
@@ -28,7 +26,7 @@
                                 <v-btn block color="primary"
                                        @click="submitAnswer()"
                                        :disabled="submitted"
-                                       class="add_answer" v-language:inner>questionDetails_Add_answer
+                                       class="add_answer"><span v-language:inner>questionDetails_Add_answer</span> 
                                 </v-btn>
                             </div>
 
@@ -43,7 +41,7 @@
                 </v-flex>
 
                 <v-flex v-if ="accountUser" class="chat-wrapper">
-                    <div class="chat-title pa-2" v-language:inner>Discussion Board</div>
+                    <div class="chat-title pa-2" v-language:inner>questionDetails_Discussion_Board</div>
                     <div ref="chat-area" class="chat-container"></div>
 
                 </v-flex>
@@ -72,7 +70,7 @@
                                                             @removeFile="removeFile"></extended-text-area>
                                         <v-btn color="primary" @click="submitAnswer()"
                                                :disabled="submitted"
-                                               class="add_answer" v-language:inner>questionDetails_Add_your_answer
+                                               class="add_answer"><span  v-language:inner>questionDetails_Add_your_answer</span> 
                                         </v-btn>
                                     </div>
                                     <div v-else class="show-form-trigger" @click="showAnswerField()">
