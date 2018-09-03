@@ -26,7 +26,6 @@
                 <!-- <p class="q-category">{{cardData.subject}}</p> -->
             </div>
         </div>
-
         <p class="q-text" :style="cssRuleFontColor" :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text | ellipsis(150, detailedView)}}</p>
 
         <!-- v-if="cardData.files.length" -->

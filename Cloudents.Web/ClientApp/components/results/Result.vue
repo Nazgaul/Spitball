@@ -1,9 +1,7 @@
 ﻿﻿
 <template>
-    <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
+    <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
         <signup-banner  slot="signupBanner"  v-if="!accountUser && showRegistrationBanner"></signup-banner>
-
-        <!--<signup-banner  slot="signupBanner"  v-if="!accountUser"></signup-banner>-->
         <div slot="main">
             <div class="d-flex mobile-filter" >
                     <a v-if="$route.path.slice(1)==='ask' " :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] " @click.prevent="goToAskQuestion()">Ask Your Question</a>
@@ -38,12 +36,13 @@
                                 <button @click="showFilterNotApplied=false">OK</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                                <router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob  hidden-sm-and-down"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
+                                <!--TODO looks like no need anymore cause we fixed FAQ appear/dissapear breakpoint-->
+                                <!--<router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob  hidden-md-and-down"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>-->
                                 <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading" class="personalize-wrapper pa-3 mb-3 elevation-1">
                                     <v-text-field class="elevation-0" type="search" solo flat placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                                 </v-flex>
                                 <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                        <component v-if="item.template!=='ask'" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" ></component>
+                                        <component v-if="item.template !== 'ask' " :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" ></component>
                                         <router-link v-else :to="{path:'/question/'+item.id}" class="mb-5">
                                             <question-card :cardData="item" :key="index"></question-card>
                                         </router-link>
