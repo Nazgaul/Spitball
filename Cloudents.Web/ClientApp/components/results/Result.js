@@ -12,6 +12,7 @@ import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'
+import notificationCenter from '../notificationCenter/notificationCenter.vue'
 
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
@@ -46,7 +47,8 @@ export default {
         signupBanner,
         QuestionCard,
         sbDialog,
-        loginToAnswer
+        loginToAnswer,
+        notificationCenter
     },
 
     //use basic sort and filter functionality( same for book details and result page)
