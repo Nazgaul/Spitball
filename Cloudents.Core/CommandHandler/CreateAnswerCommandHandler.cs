@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Command;
+﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -56,7 +56,8 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new InvalidOperationException("user cannot give more the one answer");
             }
-            var answer = new Answer(question, message.Text, message.Files?.Count() ?? 0, user);
+            var answer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
+            //var answer = new Answer(question, message.Text, message.Files?.Count() ?? 0, user);
             await _answerRepository.AddAsync(answer, token).ConfigureAwait(false);
 
             var id = answer.Id;
@@ -66,10 +67,10 @@ namespace Cloudents.Core.CommandHandler
                 user.FraudScore++;
                 if (answer.Created.Subtract(question.Created).Minutes < 2)
                     user.FraudScore++;
-                await _userRepository.UpdateAsync(user, default);
+                await _userRepository.UpdateAsync(user, token);
             }
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
-           // var t = _eventPublisher.PublishAsync(new AnswerCreatedEvent(question.Id, id), token);
+            // var t = _eventPublisher.PublishAsync(new AnswerCreatedEvent(question.Id, id), token);
 
 
             //var t = _serviceBusProvider.InsertMessageAsync(
