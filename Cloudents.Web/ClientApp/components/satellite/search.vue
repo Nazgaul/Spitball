@@ -8,7 +8,7 @@
                         <!--<component :is="props.type" :class="props.classIcon" slot="stripImage" slot-scope="props"></component>-->
                         <button class="search-button" slot="searchBtn" slot-scope="props" @click="props.search">
                             <v-icon class="hidden-md-and-up">sbf-search</v-icon>
-                            <span class="hidden-sm-and-down">Search</span>
+                            <span class="hidden-sm-and-down" v-language:inner>search_Search</span>
                         </button>
                     </search-input>
                 </v-flex>
