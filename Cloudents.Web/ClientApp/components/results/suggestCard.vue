@@ -2,8 +2,8 @@
     <button type="button" class="suggest" @click="$ga.event('Suggest_Window',$route.path.slice(1),name)">
         <v-container>
             <v-layout class="wrapper hidden-md-and-down" row justify-space-between >
-                    <div class="logo">Spitball</div>
-                    <div class="action">Show me</div>
+                    <div class="logo" v-language:inner>suggestCard_Spitball</div>
+                    <div class="action" v-language:inner>suggestCard_Show_me</div>
             </v-layout>
             
             <v-layout class="icon hidden-lg-and-up">

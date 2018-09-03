@@ -5,12 +5,12 @@
                 <v-icon>sbf-close</v-icon>
             </button>
             <div class="ml-1 wrap-text">
-                <h2 class="text-md-left">Great Job!</h2>
+                <h2 class="text-md-left" v-language:inner>questionSuggestPopUp_Great_Job</h2>
                 <p>
-                    Let’s wait for <span class="user-name">{{user.name}}</span> to see if accepts your answer.
+                    <span v-language:inner>questionSuggestPopUp_Lets_wait_for</span><span class="user-name">{{user.name}}</span> <span v-language:inner>questionSuggestPopUp_accepts_your_answer</span>
                 </p>
                 <p>
-                    In the meantime, below is another question that you should be able to help with.
+                   <span v-language:inner>questionSuggestPopUp_below_question_should_help</span> 
                 </p>
             </div>
             <v-carousel :interval="interval" v-if="cardList"
