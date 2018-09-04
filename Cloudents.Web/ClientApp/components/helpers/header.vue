@@ -7,9 +7,9 @@
                     <v-flex class="line top">
                         <v-layout row>
                             <v-toolbar-title>
-                                 <router-link class="logo-link" to="/">
-                                    <app-logo class="logo" @click.native="resetItems()"></app-logo>
-                                </router-link> 
+                                 <a @click="resetItems()" class="logo-link">
+                                    <app-logo class="logo"></app-logo>
+                                </a> 
                             </v-toolbar-title>
                             <v-toolbar-items>
                                 <search-input v-if="$vuetify.breakpoint.smAndUp" :user-text="userText"
@@ -164,7 +164,17 @@
                 }
             },
             resetItems(){
-                this.resetData();
+                if(this.$route.path === '/ask'){
+                    if(this.$route.fullPath === '/ask'){
+                        global.location.reload();
+                    }else{
+                        this.resetData();
+                        this.$router.push('/');
+                    }
+                }else{
+                    this.resetData();
+                    this.$router.push('/');
+                }
             }
         },
         created() {
