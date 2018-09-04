@@ -1,6 +1,7 @@
 @import "../../mixin.less";
 /* Let's get this party started */
 .notification-center-wrap {
+
   ::-webkit-scrollbar {
     width: 3px;
   }
@@ -22,57 +23,76 @@
     background: lighten(@color-main-purple, 30%);
   }
 
-  .notification-center {
-    height: 100%;
-    max-height: 400px;
-    overflow-y: scroll;
-    .notifications-list {
-      .notification-center-header {
-        color: @color-black;
-        font-size: 16px;
-        font-weight: 600;
-        letter-spacing: -0.2px;
-      }
-      .singleNotification {
-        .v-list__tile{
-          padding: 0 8px;
+  .notification-container {
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+    .notification-center-header {
+      color: @color-black;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      background-color: @color-light-grey;
+    }
+    .notification-center {
+      height: 100%;
+      max-height: 400px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      .notifications-list {
+        padding-top: 0;
+        // start animation transition
+        .list-item {
+          display: block;
         }
+        .list-enter-active, .list-leave-active {
+          transition: all 0.8s;
+        }
+        .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+        // end animation transition
 
-        .notification-title {
-          color: @color-black;
-          font-weight: 600;
-          &.visited{
-            font-weight: normal;
+        .singleNotification {
+          .v-list__tile {
+            padding: 0 8px;
           }
-        }
-        .notification-subtitle {
-          color: @color-blue;
-          font-weight: 600;
-          font-size: 16px;
-          &.visited{
-            font-weight: normal;
+
+          .notification-title {
+            color: @color-black;
+            font-weight: 600;
+            &.visited {
+              font-weight: normal;
+            }
           }
-        }
-        .timeago {
-          font-size: 12px;
-          color: @Feed-Date;
-        }
-        .notification-action-type {
-          .notification-action-type-icon {
-            height: 32px;
-            width: 32px;
-            font-size: 30px;
-          }
-        }
-        .notification-archive{
-          visibility: hidden;
-          .notification-archive-icon{
+          .notification-subtitle {
+            color: @color-blue;
+            font-weight: 600;
             font-size: 16px;
+            &.visited {
+              font-weight: normal;
+            }
           }
-        }
-        &:hover {
-          .notification-archive{
-            visibility: visible;
+          .timeago {
+            font-size: 12px;
+            color: @Feed-Date;
+          }
+          .notification-action-type {
+            .notification-action-type-icon {
+              height: 32px;
+              width: 32px;
+              font-size: 30px;
+            }
+          }
+          .notification-archive {
+            visibility: hidden;
+            .notification-archive-icon {
+              font-size: 16px;
+            }
+          }
+          &:hover {
+            .notification-archive {
+              visibility: visible;
+            }
           }
         }
       }
