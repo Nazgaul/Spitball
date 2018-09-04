@@ -30,8 +30,10 @@ export default {
             this.updateNotification(id)
         },
         archiveNotification(item){
+
             let id = item.id;
-            this.archiveNotification(id)
+            console.log("item", item, 'id::', id)
+            this.archiveNotification(item.id)
         }
     },
     created() {

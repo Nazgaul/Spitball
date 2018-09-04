@@ -16,7 +16,6 @@
                     <v-list-tile-avatar class="notification-action-type">
                         <v-icon class="notification-action-type-icon" :color="item.active ? 'teal' : 'grey'">{{item.icon}}</v-icon>
                     </v-list-tile-avatar>
-
                     <v-list-tile-content>
                         <v-list-tile-title :class="[item.isVisited ? 'visited': '', 'notification-title']">{{ item.title }}</v-list-tile-title>
                         <v-list-tile-sub-title  :class="[item.isVisited ? 'visited': '', 'notification-subtitle']">{{ item.headline }}</v-list-tile-sub-title>
@@ -24,8 +23,10 @@
                             <span class="timeago" :datetime="item.timeago || item.create"></span>
                            </v-list-tile-sub-title>
                     </v-list-tile-content>
-                    <v-list-tile-action class="notification-archive" @click="archiveNotification(item)">
-                        <v-icon class="notification-archive-icon" :color="item.isVisited ? 'teal' : 'grey'">sbf-archive</v-icon>
+                    <v-list-tile-action class="notification-archive"  @click="archiveNotification(item)">
+                        <v-icon class="notification-archive-icon"
+
+                                :color="item.isVisited ? 'teal' : 'grey'">sbf-archive</v-icon>
                     </v-list-tile-action>
 
                 </v-list-tile>
