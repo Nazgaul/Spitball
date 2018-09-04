@@ -2,7 +2,6 @@
     <div>
         <!--TODO check if worsk well-->
         <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header">
-
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">
                     <v-flex class="line top">
@@ -63,8 +62,6 @@
                 <div class="text-wrap" v-html="getToasterText"></div>
             </v-snackbar>
             <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
-
-
         </v-toolbar>
 
         <v-navigation-drawer temporary v-model="drawer" light right fixed app v-if=$vuetify.breakpoint.xsOnly
@@ -180,10 +177,7 @@
                         }
                     })
                 });
-            // this.$root.$on("showLoginPopUp",
-            //     (type) => {
-            //         this.updateLoginDialogState(true);
-            //     });
+
             this.$root.$on('closePopUp', (name) => {
                 if (name === 'suggestions') {
                     this.showDialogSuggestQuestion = false
