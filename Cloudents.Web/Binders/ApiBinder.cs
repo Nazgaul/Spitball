@@ -24,16 +24,16 @@ namespace Cloudents.Web.Binders
                 return new BinderTypeModelBinder(typeof(LocationEntityBinder));
             }
 
-            //if (Nullable.GetUnderlyingType(context.Metadata.ModelType)?.IsEnum == true)
-            if (context.Metadata.IsEnum)
+            //Note we cannot check for regular enum in here because we are checking for nullable enum
+            if (Nullable.GetUnderlyingType(context.Metadata.ModelType)?.IsEnum == true)
             {
                 return new BinderTypeModelBinder(typeof(NullableEnumEntityBinder));
             }
 
             //if (context.Metadata.ModelType == typeof(string))
             //{
-                //this cause problem
-                //return new BinderTypeModelBinder(typeof(HtmlEncodeModelBinder));
+            //this cause problem
+            //return new BinderTypeModelBinder(typeof(HtmlEncodeModelBinder));
             //}
             return null;
         }
