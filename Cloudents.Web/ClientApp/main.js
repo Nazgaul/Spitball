@@ -15,6 +15,11 @@ import VueRouter from "vue-router";
 
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
+
+import zxcvbn from "zxcvbn";
+//add password checker to the global obj
+global.zxcvbn = zxcvbn;
+
 // import VueParticles from 'alopu-vue-particles';
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
@@ -117,26 +122,13 @@ const router = new VueRouter({
     routes: route.routes,
     scrollBehavior(to, from, savedPosition) {
         return new Promise((resolve, reject) => {
-           // setTimeout(() => {
                 if(savedPosition){
                     resolve({ x: savedPosition.x, y: savedPosition.y });
                 }else{
                     resolve({ x: 0, y: 0 });
                 }
-            //}, 500);
           });
-          
-        //gaby: deprecated not actually saving the last scroll position.
-        // if (savedPosition) {
-        //     return savedPosition;
-        // } else {
-        //     return {
-        //         x: 0,
-        //         y: 0
-        //     }
-        // }
     }
-
 });
 
 Vue.use(VueAnalytics, {
