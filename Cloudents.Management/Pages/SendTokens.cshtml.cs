@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.DTOs.Admin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Query.Admin;
 
 namespace Cloudents.Management.Pages
 {
@@ -18,13 +14,11 @@ namespace Cloudents.Management.Pages
     {
     
         private readonly Lazy<ICommandBus> _commandBus;
-        private readonly IQueryBus _queryBus;
 
 
-        public SendTokensModel(Lazy<ICommandBus> commandBus, IQueryBus queryBus)
+        public SendTokensModel(Lazy<ICommandBus> commandBus)
         {
             _commandBus = commandBus;
-            _queryBus = queryBus;
         }
 
 
@@ -48,7 +42,7 @@ namespace Cloudents.Management.Pages
 
         public async Task<IActionResult> OnPostAsync(CancellationToken token)
         {
-            var command = new CreateSendTokensCommand
+            var command = new GiveTokensCommand
             {
                UserId = Model.UserId,
                Price = Model.SBL,

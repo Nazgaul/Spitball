@@ -13,14 +13,4 @@ namespace Cloudents.Core.Attributes
 
         public string Description { get; }
     }
-
-
-    [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Field)]
-    public sealed class PublicValueAttribute : Attribute
-    {
-        public PublicValueAttribute()
-        {
-        }
-
-    }
 }

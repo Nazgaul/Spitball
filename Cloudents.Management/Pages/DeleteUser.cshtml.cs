@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
@@ -14,12 +12,10 @@ namespace Cloudents.Management.Pages
     {
 
         private readonly Lazy<ICommandBus> _commandBus;
-        private readonly IQueryBus _queryBus;
 
-        public DeleteUserModel(Lazy<ICommandBus> commandBus, IQueryBus queryBus)
+        public DeleteUserModel(Lazy<ICommandBus> commandBus)
         {
             _commandBus = commandBus;
-            _queryBus = queryBus;
         }
 
         [BindProperty] public DeleteUser Model { get; set; }

@@ -8,34 +8,49 @@
                 <template slot="text" class="mb-3">
                     <div class="menu-list-head-block">
                                <div class="head-text-wrap">
-                                    <h4 class="text--title" v-language:inner>menuList_Please</h4>
-                                   <span class="mb-4 text" v-language:inner>menuList_sign_up</span>
-                                        <span class="or" v-language:inner>menuList_or</span>
-                                        <span class="mb-4 text" v-language:inner>menuList_login</span>
+                                    <h4 class="text--title">Please</h4>
+                                   <span class="mb-4 text">sign up</span>
+                                        <span class="or">or</span>
+                                        <span class="mb-4 text">login</span>
                                </div>
                         <div class="btn-container">
-                            <router-link  class="login-btns body-1" :to="{ name: 'registration'}" v-language:inner>menuList_Sign_up</router-link>
-                            <router-link  class="login-btns body-1" :to="{ path: '/signin'}" v-language:inner>menuList_Login</router-link>
+                            <router-link  class="login-btns body-1" :to="{ name: 'registration'}">Sign Up</router-link>
+                            <router-link  class="login-btns body-1" :to="{ path: '/signin'}">Login</router-link>
                         </div>
                     </div>
+<<<<<<< HEAD
                 </template>
+=======
+                <template slot="text" class="mb-3"><span class="mb-4 blue--text">
+                    <router-link class="blue--text" :to="{ path: '/register' }" v-language:inner>menuList_sign_up</router-link> <span v-language:inner>menuList_or</span> 
+                    <router-link class="blue--text" :to="{ path: '/signin' }" v-language:inner>menuList_log_in</router-link>
+                </span></template>
+>>>>>>> ronLanguage
             </user-block>
-            <template v-for="(item) in notRegMenu">
+            <template v-for="(item, index) in notRegMenu">
                 <template v-if="item.name">
+<<<<<<< HEAD
                     <router-link tag="v-list-tile" :to="{name : item.name}">
                         <v-list-tile-action>
                             <v-icon>{{item.icon}}</v-icon>
                         </v-list-tile-action>
+=======
+                    <router-link tag="v-list-tile" :to="{name:item.name}" :key="index">
+>>>>>>> ronLanguage
                         <v-list-tile-content>
                             <v-list-tile-title class="subheading">{{item.title}}</v-list-tile-title>
                         </v-list-tile-content>
                     </router-link>
                 </template>
+<<<<<<< HEAD
                 <!--if theres is click handler as in feedback/ check settings/const.js -->
                 <v-list-tile v-else @click="() => item.click ? item.click() : ''">
                     <v-list-tile-action>
                         <v-icon>{{item.icon}}</v-icon>
                     </v-list-tile-action>
+=======
+                <v-list-tile v-else @click="()=>item.click?item.click():''" :key="index">
+>>>>>>> ronLanguage
                     <v-list-tile-content>
                         <v-list-tile-title class="subheading">{{item.title}}</v-list-tile-title>
                     </v-list-tile-content>

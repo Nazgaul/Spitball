@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Search
         public SearchService(IConfigurationKeys configuration)
         {
             var key = configuration.Search;
-            _isDevelop = key.isDevelop;
+            _isDevelop = key.IsDevelop;
             _client = new SearchServiceClient(key.Name, new SearchCredentials(key.Key));
             indexClients = new ConcurrentDictionary<string, ISearchIndexClient>();
         }

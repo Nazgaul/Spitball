@@ -27,7 +27,7 @@ namespace Cloudents.Core.Extension
                 const string format = "Expression '{0}' not supported.";
                 string message = string.Format(format, field);
 
-                throw new ArgumentException(message, "field");
+                throw new ArgumentException(message, nameof(field));
             }
 
             return expr.Member.Name;

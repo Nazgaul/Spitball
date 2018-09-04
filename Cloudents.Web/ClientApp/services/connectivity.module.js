@@ -113,7 +113,7 @@ export const connectivityModule = {
             return connection;
         },
         reconnect: function(connection){
-            connection.start();
+            //connection.start();
         },
         on: function(connection, message, callback){
             if(!callback){

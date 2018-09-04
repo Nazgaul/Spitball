@@ -1,30 +1,31 @@
-﻿using Cloudents.Core.Attributes;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
     [AdminCommandHandler]
-    class CreateSendTokensCommandHandler : ICommandHandler<CreateSendTokensCommand>
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
+    public class GiveTokensCommandHandler : ICommandHandler<GiveTokensCommand>
     {
        
         private readonly IUserRepository _userRepository;
 
-        public CreateSendTokensCommandHandler(IUserRepository userRepository)
+        public GiveTokensCommandHandler(IUserRepository userRepository)
         {
             
             _userRepository = userRepository;
         }
 
 
-        public async Task ExecuteAsync(CreateSendTokensCommand message, CancellationToken token)
+        public async Task ExecuteAsync(GiveTokensCommand message, CancellationToken token)
         {
-            TransactionType tType = (TransactionType)message.TypeId;
+            TransactionType tType = message.TypeId;
              
             var user = await _userRepository.LoadAsync(message.UserId, token);
             var p = Transaction.SendTokens(message.Price, tType);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
         private readonly IStatelessSession _session;
@@ -34,14 +36,12 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             User userAlias = null;
 
 
-            var t = await _session.QueryOver<Question>(()=> questionAlias)
+            var t = await _session.QueryOver(()=> questionAlias)
                 .JoinAlias(x => x.Answers, () => answerAlias)
                 .JoinAlias(x => x.User, () => userAlias)
                 .Where(w => w.CorrectAnswer == null)
-                //.And(() => userAlias.Fictive)
                 .And(Restrictions.Or(
                     Restrictions.Where(() => userAlias.Fictive),
-                    //Restrictions.Where(() => answerAlias.Created < DateTime.Now.AddDays(-5))
                     Restrictions.Where(() => questionAlias.Created < DateTime.UtcNow.AddDays(-5))
                     ))
                 .SelectList(

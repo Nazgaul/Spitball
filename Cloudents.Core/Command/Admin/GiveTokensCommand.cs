@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 
 namespace Cloudents.Core.Command.Admin
 {
-    public class CreateSendTokensCommand : ICommand
+    public class GiveTokensCommand : ICommand
     {
       
         public long UserId { get; set; }

@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Autofac;
-using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Database.Maps;
 using FluentNHibernate.Cfg;
 using NHibernate;
-using NHibernate.Caches.CoreDistributedCache;
-using NHibernate.Caches.CoreDistributedCache.Redis;
 using NHibernate.Cfg;
 using NHibernate.Event;
 

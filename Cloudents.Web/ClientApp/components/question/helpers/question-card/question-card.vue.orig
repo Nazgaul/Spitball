@@ -19,12 +19,19 @@
             </user-block>
             <div v-if="cardData.price">
                 <div class="q-price pr-3">
-                    <span v-show="isSold" style="display:flex;"><span v-language:inner>questionCard_Earn</span>&nbsp; ${{cardData.price | dollarVal}}</span>
-                    <span v-show="!isSold" class="sold-badge"><span v-language:inner>questionCard_Sold</span></span>
+<<<<<<< HEAD
+                    <span v-if="isSold">Earn ${{cardData.price | dollarVal}}</span>
+                    <span v-else class="sold-badge">Sold</span>
+=======
+                    <span style="display:flex;" v-if="!cardData.hasCorrectAnswer"><span v-language:inner>questionCard_Earn</span> &nbsp; <span>${{cardData.price | dollarVal}}</span></span>
+                    <span v-else class="sold-badge" v-language:inner>questionCard_Sold</span>
+>>>>>>> ronLanguage
+
                 </div>
                 <!-- <p class="q-category">{{cardData.subject}}</p> -->
             </div>
         </div>
+
         <p class="q-text" :style="cssRuleFontColor" :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text | ellipsis(150, detailedView)}}</p>
 
         <!-- v-if="cardData.files.length" -->
@@ -80,7 +87,7 @@
                         <div class="triangle"></div>
                         <div class="text-container">
                             <div class="text">
-                                <span class="user-date">Answer ·</span>
+                                <span class="user-date" v-language:inner>questionCard_Answer_dot</span>
                                 <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
                                     v-if="typeAnswer"
                                     class="q-answer">

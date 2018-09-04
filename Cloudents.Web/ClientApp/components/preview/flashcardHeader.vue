@@ -32,7 +32,7 @@
                 <v-progress-linear :height="props.height" color="info" class="progress-line" :value="((props.isEnded?props.currentIndex:props.currentIndex+1)/(props.isEnded?props.currentIndex:props.cardsSize))*100"></v-progress-linear>
             </div>
             <v-layout v-if="props.showProgress" class="progress-text" row justify-space-between>
-                <div class="hidden-xs-only">progress</div>
+                <div class="hidden-xs-only" v-language:inner>flashcardheader_progress</div>
                 <div class="text-xs-right">
                     <span>{{(props.currentIndex+1)}}/{{props.cardsSize}}</span>
                 </div>
@@ -44,7 +44,7 @@
             <div class="num">{{props.pinnedCount}}</div>
             <div class="icon">
                 <pin-icon></pin-icon>
-                <div>pinned</div>
+                <div v-language:inner>flashcardheader_pinned</div>
             </div>
         </div>
     </v-layout>

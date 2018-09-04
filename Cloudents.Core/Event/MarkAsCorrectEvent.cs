@@ -1,5 +1,4 @@
-﻿using System;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Event

@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
@@ -9,6 +9,7 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
 {
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
     public class EmailMarkAnswerAsCorrect : IEventHandler<MarkAsCorrectEvent>
     {
         public const string ProtectPurpose = "MarkAnswerAsCorrect";

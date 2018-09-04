@@ -37,18 +37,18 @@
         </div>
         <footer>
             <div class="partners">
-                <div class="text">Our Partners</div>
+                <div class="text" v-language:inner>pageTemple_our_partners</div>
                 <div class="logos">
                     <img v-for="image in pageData.partnersImages" :class="image.name" :src="image.source"/>
                 </div>
             </div>
             <div class="subfooter">
-                <span class="copyright">Copyright <span class="c-icon">©</span> Cloudents 2018</span>
+                <span class="copyright"><span v-language:inner>pageTemplate_copy_righy</span>  <span class="c-icon">©</span> <span v-language:inner>pageTemplate_cloudents_2018</span> </span>
                 <div class="links">
-                    <router-link to="/work">How Spitball Works</router-link>
-                    <router-link to="/privacy">Privacy Policy</router-link>
-                    <router-link to="/terms">Terms of Service</router-link>
-                    <router-link to="/faq">FAQ</router-link>
+                    <router-link to="/work" v-language:inner>ageTemplate_How_spitball_works</router-link>
+                    <router-link to="/privacy" v-language:inner>pageTemplate_privacy_policy</router-link>
+                    <router-link to="/terms" v-language:inner>Terms of Service</router-link>
+                    <router-link to="/faq" v-language:inner>FAQ</router-link>
                 </div>
             </div>
         </footer>

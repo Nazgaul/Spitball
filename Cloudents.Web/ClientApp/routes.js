@@ -1,4 +1,3 @@
-//const HomePage = () => import("./components/home/home.vue");
 import * as RouteTypes from "./routeTypes";
 
 const resultContent = () => import("./components/results/Result.vue");

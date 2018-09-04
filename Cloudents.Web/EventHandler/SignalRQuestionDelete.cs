@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Event;
@@ -29,7 +26,7 @@ namespace Cloudents.Web.EventHandler
                 {
                     Id = eventMessage.Question.User.Id,
                     Name = eventMessage.Question.User.Name,
-                    Image = null
+                    Image = eventMessage.Question.User.Image
                 },
                 Answers = 0,
                 Id = eventMessage.Question.Id,

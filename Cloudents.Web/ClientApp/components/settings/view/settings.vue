@@ -7,7 +7,7 @@
                         <div class="header-row">      
                             <div class="icon-block" >
                                 <v-icon right>sbf-settings</v-icon>
-                                <span class="text-blue">Settings</span>
+                                <span class="text-blue" v-language:inner>settings_Settings</span>
                             </div>                  
                             
                             <button class="back-button" @click="$emit('input',false)">
@@ -21,8 +21,8 @@
                         <div class="upload-avatar">
                             <img class="avatar" src="../../helpers/img/user.png"/>
                             <div class="text">
-                                <span class="text-blue">Tap the photo to change it</span>
-                                <p>Images must be in PNG or JPG format and under 5mb</p>
+                                <span class="text-blue" v-language:inner>settings_tap_to_canget</span>
+                                <p v-language:inner>settings_images_png_jpg</p>
                             </div>
                         </div>
                     </v-flex>
@@ -38,7 +38,7 @@
                 </div>
 
                 <v-flex xs12 >
-                    <v-btn block color="primary" @click="submitQuestion()" :disabled="!validForm" class="save" >Save</v-btn>  
+                    <v-btn block color="primary" @click="submitQuestion()" :disabled="!validForm" class="save" v-language:inner>ettings_Save</v-btn>  
                 </v-flex>
 
             </v-layout>            
