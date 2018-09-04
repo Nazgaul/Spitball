@@ -2,15 +2,14 @@
     <div>
         <!--TODO check if worsk well-->
         <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header">
-
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">
                     <v-flex class="line top">
                         <v-layout row>
                             <v-toolbar-title>
-                                 <router-link class="logo-link" to="/">
-                                    <app-logo class="logo" @click.native="resetItems()"></app-logo>
-                                </router-link> 
+                                 <a @click="resetItems()" class="logo-link">
+                                    <app-logo class="logo"></app-logo>
+                                </a> 
                             </v-toolbar-title>
                             <v-toolbar-items>
                                 <search-input v-if="$vuetify.breakpoint.smAndUp" :user-text="userText"
@@ -59,8 +58,6 @@
                 <div class="text-wrap" v-html="getToasterText"></div>
             </v-snackbar>
             <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
-
-
         </v-toolbar>
 
         <v-navigation-drawer temporary v-model="drawer" light right fixed app v-if=$vuetify.breakpoint.xsOnly
@@ -163,7 +160,17 @@
                 }
             },
             resetItems(){
-                this.resetData();
+                if(this.$route.path === '/ask'){
+                    if(this.$route.fullPath === '/ask'){
+                        global.location.reload();
+                    }else{
+                        this.resetData();
+                        this.$router.push('/');
+                    }
+                }else{
+                    this.resetData();
+                    this.$router.push('/');
+                }
             }
         },
         created() {
@@ -176,10 +183,7 @@
                         }
                     })
                 });
-            // this.$root.$on("showLoginPopUp",
-            //     (type) => {
-            //         this.updateLoginDialogState(true);
-            //     });
+
             this.$root.$on('closePopUp', (name) => {
                 if (name === 'suggestions') {
                     this.showDialogSuggestQuestion = false

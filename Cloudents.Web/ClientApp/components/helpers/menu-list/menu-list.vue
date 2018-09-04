@@ -74,7 +74,7 @@
             </router-link>
             <v-list-tile @click="startIntercom" >
                 <v-list-tile-action>
-                    <v-icon>sbf-feedback</v-icon>
+                    <v-icon>sbf-feedbackNew</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading" v-language:inner>menuList_feedback</v-list-tile-title>

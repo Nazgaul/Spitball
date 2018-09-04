@@ -12,6 +12,6 @@ namespace Cloudents.Core.Query
         public string[] Source { get; set; }
         public int Page { get; set; }
 
-        public QuestionFilter Filter { get; set; }
+        public QuestionFilter? Filter { get; set; }
     }
 }
