@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -20,5 +21,19 @@ namespace Cloudents.Core.DTOs
         public QuestionColor? Color { get; set; }
 
         public bool HasCorrectAnswer { get; set; }
+    }
+
+
+    public class QuestionDtoEqualityComparer : IEqualityComparer<QuestionDto>
+    {
+        public bool Equals(QuestionDto x, QuestionDto y)
+        {
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(QuestionDto obj)
+        {
+            return obj.Id.GetHashCode();
+        }
     }
 }

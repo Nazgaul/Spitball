@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
@@ -19,6 +21,8 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             _session = session.Session;
         }
+
+        [Cache(TimeConst.Hour, "QuestionSubject", false)]
 
         public async Task<IEnumerable<QuestionSubjectDto>> GetAsync(QuestionSubjectQuery query, CancellationToken token)
         {
