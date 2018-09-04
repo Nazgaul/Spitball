@@ -75,7 +75,9 @@ export default {
                 query.q = this.$route.query.q;
             }
 
-            this.UPDATE_SEARCH_LOADING(true);
+            if(JSON.stringify(query) !== JSON.stringify(this.$route.query)){
+                this.UPDATE_SEARCH_LOADING(true);
+            }
             this.$router.push({query});
             this.$emit('input', false);
         },
