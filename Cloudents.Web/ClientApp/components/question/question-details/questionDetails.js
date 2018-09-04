@@ -7,6 +7,8 @@ import disableForm from "../../mixins/submitDisableMixin.js"
 import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue'
+import { sendEventList } from '../../../services/signalR/signalREventSender'
+
 export default {
     mixins: [disableForm],
     components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer},
@@ -32,7 +34,7 @@ export default {
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState"]),
+        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState", 'updateUserProfileData']),
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
@@ -54,7 +56,7 @@ export default {
                         self.answerFiles = [];
                         self.updateLoading(false);
                         self.cardList = resp.data;
-                        self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
+                        self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                         self.showDialogSuggestQuestion = true; // question suggest popup dialog
                     }, () => {
                         self.submitForm(false);
@@ -69,13 +71,20 @@ export default {
         removeFile(index) {
             this.answerFiles.splice(index, 1);
         },
-        getData() {
+        getData(skipViewerUpdate) {
+            let updateViewer = skipViewerUpdate ? false : true;
             //enable submit btn
             this.$data.submitted = false;
             // var self = this;
             questionService.getQuestion(this.id)
                 .then( (response) => {
                     this.questionData = response;
+
+                    if(updateViewer){
+                        console.log("entering question");
+                        sendEventList.question.addViewr(this.questionData);
+                    }
+
                     if (this.accountUser) {
                         this.questionData.cardOwner = this.accountUser.id === response.user.id;
                     } else {
@@ -130,6 +139,7 @@ export default {
                 this.showForm = true;
             }
             else {
+                this.updateUserProfileData('profileMakeMoney');
                 this.dialogType = ''
                 this.updateLoginDialogState(true);
             }
@@ -158,8 +168,16 @@ export default {
             this.showForm = (val && !this.questionData.answers.length);
             return val;
         },
+        removeViewer(){
+            console.log("leaving question");
+            sendEventList.question.removeViewer(this.questionData);
+        },
     },
     created() {
+        global.addEventListener('beforeunload', () => {
+            this.removeViewer();
+        })
+
         this.getData();
         // to do may be to consider change to State Store VueX
         this.$root.$on('deleteAnswer', (id) => {
@@ -172,5 +190,10 @@ export default {
                this.updateLoginDialogState(false);
            }
         })
+    },
+    destroyed(){
+        if(this.removeViewer){
+            this.removeViewer();
+        }
     }
 }

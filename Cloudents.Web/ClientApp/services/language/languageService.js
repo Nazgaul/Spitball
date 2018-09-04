@@ -1,8 +1,6 @@
-const dictionary = {
-    key: "value from dictionary",
-    s: "value from dictionary",
-    
-}
+import {dictionary} from "./languageDictionary"
+
+
 
 export const LanguageService = {
     getValueByKey: (key) => {

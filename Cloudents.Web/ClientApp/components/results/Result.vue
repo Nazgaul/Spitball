@@ -1,27 +1,30 @@
 ﻿﻿
 <template>
-    <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp" :name="name">
+    <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
         <signup-banner  slot="signupBanner"  v-if="!accountUser && showRegistrationBanner"></signup-banner>
-
-        <!--<signup-banner  slot="signupBanner"  v-if="!accountUser"></signup-banner>-->
         <div slot="main">
-         <div class="d-flex mobile-filter" >
-                <a v-if="$route.path.slice(1)==='ask' " :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] " @click.prevent="goToAskQuestion()">Ask Your Question</a>
-                <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right hidden-sm-and-up" v-if="filterCondition">
-                    <v-icon>sbf-filter</v-icon>
-                    <div :class="'counter fixedLocation color-'+$route.path.slice(1)" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
-                </v-btn>
+            <div class="d-flex mobile-filter" >
+                    <a v-if="$route.path.slice(1)==='ask' " :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] " @click.prevent="goToAskQuestion()">Ask Your Question</a>
+                    <v-btn icon :color="`color-${name}`" flat slot="mobileFilter" @click="showFilters=true" class="text-xs-right hidden-sm-and-up" v-if="filterCondition">
+                        <v-icon>sbf-filter</v-icon>
+                        <div :class="'counter fixedLocation color-'+$route.path.slice(1)" v-if="this.filterSelection.length">{{this.filterSelection.length}}</div>
+                    </v-btn>
             </div>
             <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
-                <template v-for="item in filterSelection">
-                    <v-chip label class="filter-chip elevation-1">
+                <template v-for="(item, index) in filterSelection">
+                    <v-chip label class="filter-chip elevation-1" :key="index">
                         {{$_showSelectedFilter(item) | capitalize}}
                         <v-icon right @click="$_removeFilter(item)">sbf-close</v-icon>
                     </v-chip>
                 </template>
             </div>
+            <v-snackbar v-if="$route.path.slice(1)==='ask'" class="question-toaster" @click="loadNewQuestions()" :top="true" :timeout="5000" :value="showQuestionToaster">
+                <div class="text-wrap">
+                    <v-icon class="refresh-style">sbf-refresh</v-icon> &nbsp; <span>New questions</span> 
+                </div>
+            </v-snackbar>
             <div class="results-section" :class="{'loading-skeleton': showSkelaton}">
-                <scroll-list v-if="items.length" @scroll="updateOnScroll" :url="pageData.nextPage" :vertical="pageData.vertical">
+                <scroll-list v-if="items.length" :url="pageData.nextPage" :vertical="pageData.vertical">
                 <!-- <scroll-list v-if="items.length" @scroll="value => {items=items.concat(value) }" :url="pageData.nextPage" :vertical="pageData.vertical"> -->
                     <v-container class="pa-0 ma-0 results-wrapper">
                         <v-layout column>
@@ -33,19 +36,23 @@
                                 <button @click="showFilterNotApplied=false">OK</button>
                             </v-flex>
                             <slot name="resultData" :items="items">
-                               
-                                <router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob  hidden-sm-and-down"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>
+                                <!--TODO looks like no need anymore cause we fixed FAQ appear/dissapear breakpoint-->
+                                <!--<router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob  hidden-md-and-down"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>-->
                                 <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading" class="personalize-wrapper pa-3 mb-3 elevation-1">
                                     <v-text-field class="elevation-0" type="search" solo flat placeholder="Where do you go to school?" @click="$_openPersonalize"></v-text-field>
                                 </v-flex>
-                                <v-flex class="result-cell  mb-3" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                        <component v-if="item.template!=='ask'" :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" ></component>
+                                <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
+                                        <component v-if="item.template !== 'ask' " :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" ></component>
                                         <router-link v-else :to="{path:'/question/'+item.id}" class="mb-5">
-                                            <question-card :cardData="item"></question-card>
+                                            <question-card :cardData="item" :key="index"></question-card>
                                         </router-link>
-                                    <div class="show-btn" v-if="accountUser && item &&  item.user && accountUser.id !== item.user.id || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask' && !item.hasCorrectAnswer?'Answer':'Show Me'}}</div>
-                                    <div class="show-btn" v-if="!accountUser && item && item.user || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
-
+                                        <div>
+                                            <span class="question-viewer" v-if="!item.hasCorrectAnswer && name==='ask' && item.watchingNow === 1 && item.watchingNow !== 0" :style="watchinNowStyle(item)" >{{item.watchingNow}} user is answering</span>
+                                            <span class="question-viewer" v-if="!item.hasCorrectAnswer && name==='ask' && item.watchingNow !== 1 && item.watchingNow !== 0" :style="watchinNowStyle(item)" >{{item.watchingNow}} users are answering</span>
+                                            <div class="show-btn" v-if="accountUser && item &&  item.user && accountUser.id !== item.user.id || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask' && !item.hasCorrectAnswer?'Answer':'Show Me'}}</div>
+                                            <div class="show-btn" v-if="!accountUser && item && item.user || name!=='ask'" :class="'color-'+$route.path.slice(1)">{{name==='ask'?'Answer':'Show Me'}}</div>
+                                        </div>
+                                            
                                 </v-flex>
                                 <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                     <suggest-card :name="currentSuggest"></suggest-card>
@@ -93,23 +100,23 @@
                        :filterOptions="filterObject"
                        :filterVal="filterSelection">
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage" />
-                <template slot="courseEmptyState" v-if="!myCourses.length">
-                    <div class="course-empty-state">
-                        <div class="text">Add your school and courses for better results</div>
-                        <button class="mobile-button" v-if="$vuetify.breakpoint.xsOnly" @click="$_openPersonalize">
-                            <v-icon class="hidden-sm-and-up">sbf-search</v-icon>
-                            <span class="hidden-sm-and-up" v-if="!university">Where do you go to school?</span>
-                            <span class="hidden-sm-and-up" v-else>What class are you taking</span>
-                        </button>
-                        <v-btn v-else @click="$_openPersonalize">Personalize</v-btn>
-                    </div>
-                </template>
-                <template slot="courseExtraState" v-else>
-                    <button class="add-course" @click="$_openPersonalize" type="button">
-                        <plus-btn></plus-btn><span>Add Course</span>
-                    </button>
-                </template>
-                <button v-if="$vuetify.breakpoint.xsOnly" slot="courseMobileExtraState" class="edit-list" @click.stop.prevent="$_openPersonalize()" type="button">Edit List</button>
+                <!--<template slot="courseEmptyState" v-if="!myCourses.length">-->
+                    <!--<div class="course-empty-state">-->
+                        <!--<div class="text">Add your school and courses for better results</div>-->
+                        <!--<button class="mobile-button" v-if="$vuetify.breakpoint.xsOnly" @click="$_openPersonalize">-->
+                            <!--<v-icon class="hidden-sm-and-up">sbf-search</v-icon>-->
+                            <!--<span class="hidden-sm-and-up" v-if="!university">Where do you go to school?</span>-->
+                            <!--<span class="hidden-sm-and-up" v-else>What class are you taking</span>-->
+                        <!--</button>-->
+                        <!--<v-btn v-else @click="$_openPersonalize">Personalize</v-btn>-->
+                    <!--</div>-->
+                <!--</template>-->
+                <!--<template slot="courseExtraState" v-else>-->
+                    <!--<button class="add-course" @click="$_openPersonalize" type="button">-->
+                        <!--<plus-btn></plus-btn><span>Add Course</span>-->
+                    <!--</button>-->
+                <!--</template>-->
+                <!--<button v-if="$vuetify.breakpoint.xsOnly" slot="courseMobileExtraState" class="edit-list" @click.stop.prevent="$_openPersonalize()" type="button">Edit List</button>-->
             </component>
         </template>
 

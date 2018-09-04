@@ -17,24 +17,24 @@ namespace ConsoleApp
         }
 
 
-        public async Task UpdateBalanceAsync()
-        {
-            using (var child = _container.BeginLifetimeScope())
-            {
-                using (var unitOfWork = child.Resolve<IUnitOfWork>())
-                {
-                    var repository = child.Resolve<IUserRepository>();
-                    var users = await repository.GetAllUsersAsync(default).ConfigureAwait(false);
+        //public async Task UpdateBalanceAsync()
+        //{
+        //    using (var child = _container.BeginLifetimeScope())
+        //    {
+        //        using (var unitOfWork = child.Resolve<IUnitOfWork>())
+        //        {
+        //            var repository = child.Resolve<IUserRepository>();
+        //            var users = await repository.GetAllUsersAsync(default).ConfigureAwait(false);
 
-                    foreach (var user1 in users)
-                    {
-                        //user1.UserCreateTransaction();
-                        //await t.UpdateAsync(user1, default).ConfigureAwait(false);
-                    }
-                    await unitOfWork.CommitAsync(default).ConfigureAwait(false);
-                }
-            }
-        }
+        //            foreach (var user1 in users)
+        //            {
+        //                //user1.UserCreateTransaction();
+        //                //await t.UpdateAsync(user1, default).ConfigureAwait(false);
+        //            }
+        //            await unitOfWork.CommitAsync(default).ConfigureAwait(false);
+        //        }
+        //    }
+        //}
 
         public async Task AddToUserMoney(decimal money, long userId)
         {
@@ -44,7 +44,7 @@ namespace ConsoleApp
                 {
                     var t = child.Resolve<IUserRepository>();
                     var user = await t.LoadAsync(userId, default);
-                    var p = Transaction.TestEarned(money);
+                    var p = Transaction.SendTokens(money, TransactionType.Awarded);
                     user.AddTransaction(p);
                     await t.UpdateAsync(user, default).ConfigureAwait(false);
                     await unitOfWork.CommitAsync(default);
@@ -52,47 +52,47 @@ namespace ConsoleApp
             }
         }
 
-        public async Task CreateTransactionOnExistingDataAsync()
-        {
-            using (var child = _container.BeginLifetimeScope())
-            {
-                using (var t = child.Resolve<IUnitOfWork>())
-                {
-                    await CreateUserAuditAsync(child).ConfigureAwait(false);
-                    await t.CommitAsync(default).ConfigureAwait(false);
-                }
-            }
+        //public async Task CreateTransactionOnExistingDataAsync()
+        //{
+        //    using (var child = _container.BeginLifetimeScope())
+        //    {
+        //        using (var t = child.Resolve<IUnitOfWork>())
+        //        {
+        //            await CreateUserAuditAsync(child).ConfigureAwait(false);
+        //            await t.CommitAsync(default).ConfigureAwait(false);
+        //        }
+        //    }
 
-            using (var child = _container.BeginLifetimeScope())
-            {
-                using (var t = child.Resolve<IUnitOfWork>())
-                {
-                    await CreateQuestionAuditAsync(child).ConfigureAwait(false);
-                    await t.CommitAsync(default).ConfigureAwait(false);
-                }
-            }
+        //    using (var child = _container.BeginLifetimeScope())
+        //    {
+        //        using (var t = child.Resolve<IUnitOfWork>())
+        //        {
+        //            await CreateQuestionAuditAsync(child).ConfigureAwait(false);
+        //            await t.CommitAsync(default).ConfigureAwait(false);
+        //        }
+        //    }
 
-            using (var child = _container.BeginLifetimeScope())
-            {
-                using (var t = child.Resolve<IUnitOfWork>())
-                {
-                    await MarkAnswerAuditAsync(child).ConfigureAwait(false);
-                    await t.CommitAsync(default).ConfigureAwait(false);
-                }
-            }
-        }
+        //    using (var child = _container.BeginLifetimeScope())
+        //    {
+        //        using (var t = child.Resolve<IUnitOfWork>())
+        //        {
+        //            await MarkAnswerAuditAsync(child).ConfigureAwait(false);
+        //            await t.CommitAsync(default).ConfigureAwait(false);
+        //        }
+        //    }
+        //}
 
-        private static async Task CreateUserAuditAsync(ILifetimeScope container)
-        {
-            var t = container.Resolve<IUserRepository>();
-            var users = await t.GetAllUsersAsync(default).ConfigureAwait(false);
+        //private static async Task CreateUserAuditAsync(ILifetimeScope container)
+        //{
+        //    var t = container.Resolve<IUserRepository>();
+        //    var users = await t.GetAllUsersAsync(default).ConfigureAwait(false);
 
-            foreach (var user1 in users)
-            {
-                user1.UserCreateTransaction();
-                await t.UpdateAsync(user1, default).ConfigureAwait(false);
-            }
-        }
+        //    foreach (var user1 in users)
+        //    {
+        //        user1.UserCreateTransaction();
+        //        await t.UpdateAsync(user1, default).ConfigureAwait(false);
+        //    }
+        //}
 
         private static async Task CreateQuestionAuditAsync(ILifetimeScope container)
         {

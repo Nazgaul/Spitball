@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -48,11 +50,18 @@ namespace Cloudents.Web.Api
             {
                 nextPageLink = Url.NextPageLink("Job", model);
             }
-            //TODO: should return typeof(WebResponseWithFacet<JobDto>), 200)
             return new WebResponseWithFacet<JobDto>()
             {
                 Result = result.Result,
-                Facet = result.Facet,
+                Filters = new []
+                {
+                    new Models.Filters(nameof(JobRequest.Facet),"Subject", result.Facet)
+                },
+                //Filters = new Dictionary<string, IEnumerable<string>>
+                //{
+                //    ["Subject"] = result.Facet
+                //},
+                Sort = Enum.GetNames(typeof(JobRequestSort)),
                 NextPageLink = nextPageLink
             };
         }

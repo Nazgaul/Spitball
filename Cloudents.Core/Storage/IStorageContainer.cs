@@ -28,4 +28,16 @@ namespace Cloudents.Core.Storage
         public static readonly StorageContainer QuestionsAndAnswers = new StorageContainer("spitball-files");
         public static readonly StorageContainer Documents = new StorageContainer("zboxFiles");
     }
+
+    public sealed class QueueName
+    {
+        public const string QuestionsQueueName = "questions";
+        public string Name { get; }
+
+        private  QueueName(string name)
+        {
+            Name = name;
+        }
+        public static readonly QueueName QuestionQueue = new QueueName(QuestionsQueueName);
+    }
 }

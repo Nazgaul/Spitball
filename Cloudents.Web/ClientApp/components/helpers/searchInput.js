@@ -1,6 +1,6 @@
 ﻿import debounce from "lodash/debounce";
 import historyIcon from "./svg/history-icon.svg";
-import {mapGetters, mapActions} from 'vuex'
+import {mapGetters, mapActions, mapMutations} from 'vuex'
 import * as consts from './consts';
 import { constants } from "../../utilities/constants";
 
@@ -57,6 +57,7 @@ export default {
     },
     methods: {
         ...mapActions(['getAutocmplete']),
+        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         selectos({item, index}) {
             this.msg = item.text;
             this.$ga.event('Search_suggestions', `Suggest_${this.getCurrentVertical ? this.getCurrentVertical.toUpperCase() : 'HOME'}_${item.type}`, `#${index + 1}_${item}`);
@@ -65,6 +66,11 @@ export default {
         },
         search() {
             if (!constants.regExXSSCheck.test(this.msg)){
+                //check if query is the same(searching same term), and return if so
+                if(this.msg === this.$route.query.q){
+                   return
+                }
+                this.UPDATE_SEARCH_LOADING(true);
                 this.$router.push({path: this.submitRoute, query: {q: this.msg}});
             }
             this.closeSuggestions();

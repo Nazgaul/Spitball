@@ -16,9 +16,11 @@ export default {
             fullPreview:false,
             errorTextArea :{},
             colorsSet: colorsSet,
-            activeColor: 0,
+            activeColor: {
+                id: 0
+            },
             counter: 0,
-            uploadLimit: 4
+            uploadLimit: 4,
             }
     },
     watch:{

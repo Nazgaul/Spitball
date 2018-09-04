@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Data.Query
 
         public void Dispose()
         {
-            _transaction?.Rollback();
+            _transaction?.Commit();
             _transaction?.Dispose();
             Session?.Dispose();
         }

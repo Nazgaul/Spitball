@@ -22,7 +22,7 @@ namespace Cloudents.Core
             }
             else
             {
-                return _keys.Db;
+                return _keys.Db.Db;
             }
         }
     }

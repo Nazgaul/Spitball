@@ -36,7 +36,7 @@ namespace Cloudents.Web.Api
         public async Task<UniversityResponse> GetAsync([FromQuery] UniversityRequest model, CancellationToken token)
         {
             var result = await _universityProvider.SearchAsync(model.Term,
-                model.Location.ToGeoPoint(), token).ConfigureAwait(false);
+                model.Location?.ToGeoPoint(), token).ConfigureAwait(false);
             return new UniversityResponse(result);
         }
     }

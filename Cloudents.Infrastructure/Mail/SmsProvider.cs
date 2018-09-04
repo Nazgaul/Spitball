@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Newtonsoft.Json;
+
 //using Twilio;
 //using Twilio.Rest.Lookups.V1;
 
@@ -26,8 +25,8 @@ namespace Cloudents.Infrastructure.Mail
             "Tismi BV"
         };
 
-        const string accountSid = "AC1796f09281da07ec03149db53b55db8d";
-        const string authToken = "c4cdf14c4f6ca25c345c3600a72e8b49";
+        private const string AccountSid = "AC1796f09281da07ec03149db53b55db8d";
+        private const string AuthToken = "c4cdf14c4f6ca25c345c3600a72e8b49";
 
         public SmsProvider(IRestClient restClient)
         {
@@ -42,7 +41,7 @@ namespace Cloudents.Infrastructure.Mail
 
             var uri = new Uri($"https://lookups.twilio.com/v1/PhoneNumbers/{phoneNumber}?Type=carrier");
 
-            var byteArray = Encoding.ASCII.GetBytes($"{accountSid}:{authToken}");
+            var byteArray = Encoding.ASCII.GetBytes($"{AccountSid}:{AuthToken}");
             var authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
             var headers = new List<KeyValuePair<string, string>>();
 
@@ -54,23 +53,23 @@ namespace Cloudents.Infrastructure.Mail
             {
                 return null;
             }
-            var carrier = result.carrier;
+            var carrier = result.Carrier;
 
 
 
-            if (!string.Equals(carrier.type, "mobile", StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(carrier.Type, "mobile", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
 
 
 
-            if (_badProviders.Contains(carrier.name, StringComparer.OrdinalIgnoreCase))
+            if (_badProviders.Contains(carrier.Name, StringComparer.OrdinalIgnoreCase))
             {
                 return null;
             }
 
-            return result.phone_number;
+            return result.PhoneNumber;
            
 
 
@@ -82,22 +81,27 @@ namespace Cloudents.Infrastructure.Mail
 
         public class PhoneValidator
         {
-            public object caller_name { get; set; }
-            public string country_code { get; set; }
-            public string phone_number { get; set; }
-            public string national_format { get; set; }
-            public Carrier carrier { get; set; }
-            public object add_ons { get; set; }
-            public string url { get; set; }
+            //public object caller_name { get; set; }
+            //public string country_code { get; set; }
+            [JsonProperty("phone_number")]
+            public string PhoneNumber { get; set; }
+            //public string national_format { get; set; }
+            [JsonProperty("carrier")]
+            public Carrier Carrier { get; set; }
+            //public object add_ons { get; set; }
+            //public string url { get; set; }
         }
 
         public class Carrier
         {
-            public string mobile_country_code { get; set; }
-            public string mobile_network_code { get; set; }
-            public string name { get; set; }
-            public string type { get; set; }
-            public object error_code { get; set; }
+            //public string mobile_country_code { get; set; }
+            //public string mobile_network_code { get; set; }
+
+            [JsonProperty("name")]
+            public string Name { get; set; }
+            [JsonProperty("type")]
+            public string Type { get; set; }
+            //public object error_code { get; set; }
         }
 
 

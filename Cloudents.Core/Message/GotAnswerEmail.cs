@@ -7,7 +7,7 @@ namespace Cloudents.Core.Message
     public class GotAnswerEmail : BaseEmail
     {
         public GotAnswerEmail(string questionText, string to, string answerText, string link) 
-            : base(to, "Answer", "Someone has answered your question", "SendGrid", "Email", "GotAnswer")
+            : base(to, "Answer", "Someone has answered your question", "SendGrid", "Email", "You got an answer")
         {
             QuestionText = questionText.Truncate(40, true);
             AnswerText = answerText.Truncate(40, true);

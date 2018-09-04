@@ -1,14 +1,72 @@
 @import "../../../mixin.less";
 .menu-list{
-    //.theme--light .v-list .v-list__tile--link:hover
-    .unsign .Mask {
-        width: 64px!important;
-        height: 64px!important;
-        background-color: #9b9b9b;
+    //define local vars
+    @margin: 26px;
+
+    .unsign {
+            background-color: @color-main-purple;
+        .Mask {
+            width: 64px !important;
+            height: 64px !important;
+            background-color: #9b9b9b;
+        }
     }
-    .blue--text{
-        font-size: 14px;
-        color: @color-main-purple!important;
+    .menu-list-head-block {
+        width: 100%;
+        height: auto;
+        color: @color-white;
+        .head-text-wrap {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 24px;
+            .or{
+                font-weight: 100;
+            }
+            .text--title {
+                font-weight: 100;
+            }
+                .text {
+                    color: @color-white;
+                    font-weight: 600;
+                }
+        }
+        .btn-container{
+            display: flex;
+            margin-bottom: @margin;
+            justify-content: center;
+            .login-btns {
+                height: 32px;
+                width: 96px;
+                border-radius: 26.5px;
+                border: solid 1px @color-white;
+                font-size: 16px!important;
+                outline: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: @color-main-purple;
+                letter-spacing: -0.5px;
+                padding: 0 20px;
+                min-width: 96px;
+                &:first-child {
+                    background: @color-main-purple;
+                    color: @color-white;
+                    margin-right: 14px;
+                    .transition (all .2s ease-in-out);
+                    &:hover {
+                        background-color: lighten(@color-main-purple, 10%);
+                    }
+                }
+                &:last-child{
+                    background-color: @color-white;
+                    .transition (all .2s ease-in-out);
+                    &:hover {
+                        background-color: darken(@color-white, 10%);
+                    }
+                }
+
+            }
+        }
     }
     width: 280px;
     padding: 14px 0 18px;
@@ -16,27 +74,22 @@
     @media (max-width: @screen-xs) {
         padding-top: 0;
     }
-
-    //div:hover{
-    //    background: rgba(0,0,0,0.12);
-    //}
-
     .v-list__tile{
         height: 48px;
-        .v-list__tile--link{
+        padding: 0 6px;
 
-        }
         &:hover{
             background: rgba(0,0,0,0.12)!important;
         }
         .v-list__tile__title{
-
-            font-size: 20px;
+            font-weight: 600;
             height: 27px;
             letter-spacing: -0.5px;
         }
         .v-list__tile__action{
-            min-width: 42px;
+            min-width: 50px;
+            justify-content: center;
+            margin-right: 6px;
             &.tile-logout{
                 min-width: 39px;
                 width: 30px;
@@ -52,13 +105,17 @@
             }
         }
         .sbf.v-icon{
-            font-size: 16px; color: @color-grey;
-            &.sbf-logout{padding-left: 31px;}
+            font-size: 18px;
+            color: #8888d5;
+            &.sbf-logout{
+                padding-right: 6px;
+            }
+            &.sbf-feedbackNew{
+                font-size: 16px;
+            }
         }
     }
-
     .user-block.university{
-        background-color: @color-light-grey;
         height: 172px;
         justify-content: baseline;
         margin-bottom: 15px;

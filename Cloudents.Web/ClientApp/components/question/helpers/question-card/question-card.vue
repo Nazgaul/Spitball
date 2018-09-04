@@ -1,10 +1,10 @@
 <template>
-    <v-flex v-if="cardData && !isDeleted " class="question-card" :style="cssRule.backgroundColor" :class="{'highlight':flaggedAsCorrect}">
+    <v-flex v-if="cardData && !isDeleted " class="question-card" :style="cssRuleBackgroundColor" :class="{'highlight':flaggedAsCorrect}">
         <div v-if="!typeAnswer" class="box-stroke">
             <!-- question Card -->
-            <div class="top-block" >
-            <user-block :style="cssRule.fontColor" :cardData="cardData" :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
-                <template> · <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
+            <div class="top-block">
+            <user-block :style="cssRuleFontColor" :cardData="cardData" :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
+                <template> · <span class="timeago" :datetime="cardTime"></span><span
                         v-if="typeAnswer"
                         class="q-answer">
                     <button class="accept-btn right" @click="markAsCorrect"
@@ -19,15 +19,14 @@
             </user-block>
             <div v-if="cardData.price">
                 <div class="q-price pr-3">
-                    <span v-if="!cardData.hasCorrectAnswer">Earn ${{cardData.price | dollarVal}}</span>
+                    <span v-if="isSold">Earn ${{cardData.price | dollarVal}}</span>
                     <span v-else class="sold-badge">Sold</span>
 
                 </div>
                 <!-- <p class="q-category">{{cardData.subject}}</p> -->
             </div>
         </div>
-
-        <p class="q-text" :style="cssRule.fontColor"  :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text | ellipsis(150, detailedView)}}</p>
+        <p class="q-text" :style="cssRuleFontColor" :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text | ellipsis(150, detailedView)}}</p>
 
         <!-- v-if="cardData.files.length" -->
         <div class="gallery" v-if="gallery&&gallery.length">
@@ -44,18 +43,18 @@
                 <div class="new-block">
                     <div class="files" v-if="cardData.filesNum">
                         <template>
-                            <v-icon :style="cssRule.fontColor">sbf-attach</v-icon>
-                            <span :style="cssRule.fontColor">{{cardData.filesNum}}</span>
+                            <v-icon :style="cssRuleFontColor">sbf-attach</v-icon>
+                            <span :style="cssRuleFontColor">{{cardData.filesNum}}</span>
                         </template>
                     </div>
-                    <div class="users">
+                    <div class="users" v-if="!detailedView">
                         <template v-for="(i, index) in limitedCardAnswers">
                             <div class="avatar" :key="index">
                                 <v-icon>sbf-comment-icon</v-icon>
                             </div>
                         </template>
                     </div>
-                    <span class="user-counter" v-if="cardData.answersNum>3">+{{cardData.answersNum-3}}</span>
+                    <span class="user-counter" :style="cssRuleFontColor" v-show="!detailedView ? cardAnswers > 3 : ''">+{{cardAnswers-3}}</span>
                 </div>
                 <!--show only if in suggestion popup-->
                 <div class="answer" v-if="suggestion">

@@ -46,7 +46,7 @@ export default {
         return {
             isDeleted: false,
             showActionToaster: false,
-            flaggedAsCorrect: false,
+            //flaggedAsCorrect: false,
             toasterText: '',
             timeoutID: null,
             action: null,
@@ -54,12 +54,8 @@ export default {
             src: '',
             selectedImage: '',
             showDialog: false,
-            limitedCardAnswers: [],
+            //limitedCardAnswers: [],
             colorsSet: colorsSet,
-            cssRule: {
-                backgroundColor: '#ffffff',
-                fontColor: '#ffffff'
-            }
         }
     },
     computed: {
@@ -81,6 +77,35 @@ export default {
             }
             return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
         },
+        cssRuleFontColor(){
+            return this.getQuestionColor("textColor") 
+        },
+        cssRuleBackgroundColor(){
+            return this.getQuestionColor("cssRule")                
+        },
+        limitedCardAnswers(){
+            if (typeof  this.cardData.answers === "number") {
+                if (this.cardData.answers > 3) {
+                   return  3;
+                } else {
+                    return this.cardData.answers;
+                }
+            } else if (!!this.cardData && !!this.cardData.answers) {
+                return this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
+            }
+        },
+        flaggedAsCorrect(){ 
+            return this.isCorrectAnswer
+        },
+        isSold(){
+           return  !this.cardData.hasCorrectAnswer && !this.cardData.correctAnswerId
+        },
+        cardTime(){
+            return this.cardData.dateTime || this.cardData.create
+        },
+        cardAnswers(){
+            return this.cardData.answers
+        }
     },
     methods: {
         ...mapActions({
@@ -89,6 +114,15 @@ export default {
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams'
         }),
+        getQuestionColor(type){
+            
+                if (!!this.cardData && this.cardData.color && this.colorsSet[`${this.cardData.color}`]) {
+                    return this.colorsSet[`${this.cardData.color}`][type]
+                } else {
+                    let colDefault = 'default';
+                    return  this.colorsSet[`${colDefault}`][type]
+                }
+        },
         showBigImage(src) {
             this.showDialog = true;
             this.selectedImage = src;
@@ -127,34 +161,20 @@ export default {
                     }
                 );
         },
-        calculateAnswerToLimit() {
-            // limit card answer could be a number or array depends on route(view)
-            if (typeof  this.cardData.answers === "number") {
-                if (this.cardData.answers > 3) {
-                    this.limitedCardAnswers = 3;
-                } else {
-                    this.limitedCardAnswers = this.cardData.answers;
-                }
-            } else if (!!this.cardData && !!this.cardData.answers) {
-                this.limitedCardAnswers = this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
-            }
+        renderQuestionTime(className){
+            timeago().render(document.querySelectorAll(className));
         }
     },
+    // created(){
+    //   console.log(this.cardData)
+    // },
     mounted() {
-        timeago().render(document.querySelectorAll('.timeago'));
-// use render method to render nodes in real time
+        this.renderQuestionTime('.timeago')
+        // use render method to render nodes in real time
     },
-    created() {
-        //set color for card
-        if (this.cardData.color && this.colorsSet[`${this.cardData.color}`]) {
-            this.cssRule.backgroundColor = this.colorsSet[`${this.cardData.color}`].cssRule;
-            this.cssRule.fontColor = this.colorsSet[`${this.cardData.color}`].textColor;
-        } else {
-            let colDefault = 'default';
-            this.cssRule.backgroundColor = this.colorsSet[`${colDefault}`].cssRule;
-            this.cssRule.fontColor = this.colorsSet[`${colDefault}`].textColor;
-        }
-        this.flaggedAsCorrect = this.isCorrectAnswer;
-        this.calculateAnswerToLimit();
-    }
+    updated(){
+        // when signalR adds a question we want the time to be rerendered to show correct time
+        // thats why we have same function on mounted and updated
+        this.renderQuestionTime('.timeago')
+    },
 }

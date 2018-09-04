@@ -10,10 +10,12 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.WindowsAzure.Storage;
 
 namespace Cloudents.Management
 {
@@ -37,6 +39,10 @@ namespace Cloudents.Management
             .AddAzureAd(options => Configuration.Bind("AzureAd", options))
             .AddCookie();
 
+            services.AddDataProtection(o =>
+            {
+                o.ApplicationDiscriminator = "spitball";
+            }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
             services.AddMvc(config =>
                 {
                     var policy = new AuthorizationPolicyBuilder()
@@ -52,25 +58,24 @@ namespace Cloudents.Management
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Core"),
-                Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"), 
+                Assembly.Load("Cloudents.Infrastructure"), 
                 Assembly.GetExecutingAssembly()
             };
 
             var containerBuilder = new ContainerBuilder();
 
-            var keys = new ConfigurationKeys("https://www.spitball.co")
+            var keys = new ConfigurationKeys(Configuration["Site"])
             {
-                Db = Configuration.GetConnectionString("DefaultConnection"),
+                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
                 ServiceBus = Configuration["ServiceBus"],
-                Storage =  Configuration["Storage"]
+                Storage =  Configuration["Storage"],
+                Redis = Configuration["Redis"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterSystemModules(
                 Core.Enum.System.Admin, assembliesOfProgram);
-
-            // ModuleCore.RegisterCommands(containerBuilder, Assembly.GetExecutingAssembly());
 
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();

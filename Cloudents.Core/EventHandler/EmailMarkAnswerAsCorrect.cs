@@ -9,29 +9,25 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
 {
-
-    public class EmailMarkAnswerAsCorrect : IConsumer<MarkAsCorrectEvent>
+    public class EmailMarkAnswerAsCorrect : IEventHandler<MarkAsCorrectEvent>
     {
         public const string ProtectPurpose = "MarkAnswerAsCorrect";
         private readonly IServiceBusProvider _serviceBusProvider;
         private readonly IDataProtect _dataProtect;
-        private readonly IRepository<Answer> _answerRepository;
         private readonly IUrlBuilder _urlBuilder;
 
 
-        public EmailMarkAnswerAsCorrect(IServiceBusProvider serviceBusProvider, IDataProtect dataProtect,
-             IRepository<Answer> answerRepository, IUrlBuilder urlBuilder)
+        public EmailMarkAnswerAsCorrect(IServiceBusProvider serviceBusProvider, IDataProtect dataProtect,IUrlBuilder urlBuilder)
         {
             _serviceBusProvider = serviceBusProvider;
             _dataProtect = dataProtect;
-            _answerRepository = answerRepository;
             _urlBuilder = urlBuilder;
         }
 
 
         public async Task HandleAsync(MarkAsCorrectEvent eventMessage, CancellationToken token)
         {
-            var answer = await _answerRepository.LoadAsync(eventMessage.AnswerId, token);
+            var answer = eventMessage.Answer;
 
             var code = _dataProtect.Protect(ProtectPurpose, answer.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(2));

@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.ModelBinding;
-using Cloudents.Web.Binders;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Models
 {
