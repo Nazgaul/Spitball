@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using AutoMapper;
+using Cloudents.Core.DTOs;
 using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Database
@@ -121,6 +123,70 @@ namespace Cloudents.Infrastructure.Database
         public IList TransformList(IList collection)
         {
             return Transformers.AliasToBean<TEntity>().TransformList(collection);
+        }
+    }
+
+    public class AzureSyncBaseDtoTransformer<T,TU> : IResultTransformer where T : AzureSyncBaseDto<TU>,new() where TU : new()
+    {
+        // private readonly IMapper _mapper;
+
+        //public AutomapperTransformer(IMapper mapper)
+        //{
+        //    _mapper = mapper;
+        //}
+        //private readonly Dictionary<string, object> _mapping;
+
+        public AzureSyncBaseDtoTransformer()
+        {
+            //_mapping = mapping;
+        }
+
+        public object TransformTuple(object[] tuple, string[] aliases)
+        {
+            var dic = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+            for (var i = 0; i < aliases.Length; i++)
+            {
+                dic[aliases[i]] = tuple[i];
+                //dic.Add(aliases[i].ToLower(), tuple[i]);
+            }
+
+            var x = new T {Data = new TU()};
+            foreach (var propertyInfo in typeof(T).GetProperties())
+            {
+                if (dic.TryGetValue(propertyInfo.Name, out var t))
+                {
+                    propertyInfo.SetValue(x, t);
+                }
+            }
+
+            foreach (var propertyInfo in typeof(TU).GetProperties())
+            {
+                if (dic.TryGetValue(propertyInfo.Name, out var value))
+                {
+                    if (value != null)
+                    {
+                        if (propertyInfo.PropertyType.IsEnum && value is string str)
+                        {
+                            var e = Enum.Parse(propertyInfo.PropertyType, str, true);
+                            propertyInfo.SetValue(x.Data, e);
+                        }
+                        else
+                        {
+                            var y = Convert.ChangeType(value, propertyInfo.PropertyType);
+                            propertyInfo.SetValue(x.Data, y);
+                        }
+                    }
+                }
+            }
+
+            //x = (T)Transformers.AliasToBean<T>().TransformTuple(tuple, aliases);
+            //x.Data = (TU)Transformers.AliasToBean<TU>().TransformTuple(tuple, aliases);
+            return x;
+        }
+
+        public IList TransformList(IList collection)
+        {
+            return collection;
         }
     }
 }

@@ -25,7 +25,7 @@
                         <!--</li>-->
                         <li>
                             <label for="file-input" class="attach-file" v-show="previewList.length < uploadLimit">
-                                <v-icon :style="activeColor.textColor">sbf-attach</v-icon>
+                                <v-icon style="cursor: pointer;" :style="activeColor.textColor">sbf-attach</v-icon>
                             </label>
                             <input id="file-input" type="file" multiple accept="image/*" />
                         </li>

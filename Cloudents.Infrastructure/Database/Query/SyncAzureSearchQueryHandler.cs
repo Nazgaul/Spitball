@@ -1,38 +1,32 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Data;
-using Dapper;
+using NHibernate;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
-using NHibernate;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
     public abstract class SyncAzureSearchQueryHandler<T> //: 
-        //IQueryHandler<SyncAzureQuery<T>, (IEnumerable<T> update, IEnumerable<long> delete, long version)>
-        //where T : AzureSyncBaseDto<T>
+                                                         //IQueryHandler<SyncAzureQuery<T>, (IEnumerable<T> update, IEnumerable<long> delete, long version)>
+                                                         where T : new()
     {
         protected abstract string VersionSql { get; }
 
         protected abstract string FirstQuery { get; }
 
-        protected readonly QueryBuilder QueryBuilder;
-        private readonly DapperRepository _dapperRepository;
 
         private readonly IStatelessSession _session;
 
-        protected SyncAzureSearchQueryHandler(QueryBuilder queryBuilder, DapperRepository dapperRepository, ReadonlyStatelessSession session)
+        protected SyncAzureSearchQueryHandler(ReadonlyStatelessSession session)
         {
-            QueryBuilder = queryBuilder;
-            _dapperRepository = dapperRepository;
             _session = session.Session;
         }
 
 
-        public async Task<(IEnumerable<AzureSyncBaseDto<T>> update, IEnumerable<long> delete, long version)> GetAsync(SyncAzureQuery query, CancellationToken token)
+        public async Task<(IEnumerable<T> update, IEnumerable<long> delete, long version)> GetAsync(SyncAzureQuery query, CancellationToken token)
         {
             var sql = VersionSql;
             if (query.Version == 0)
@@ -40,16 +34,18 @@ namespace Cloudents.Infrastructure.Database.Query
                 sql = FirstQuery;
             }
             var sqlQuery = _session.CreateSQLQuery(sql);
-            sqlQuery.SetResultTransformer(new DeepTransformer<AzureSyncBaseDto<T>>('@'));
+            sqlQuery.SetResultTransformer(new AzureSyncBaseDtoTransformer<AzureSyncBaseDto<T>, T>());
 
 
             var result = await sqlQuery.ListAsync<AzureSyncBaseDto<T>>();
+
+
             //sqlQuery.
             var lookupTable = result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D");
 
             var max = result.Max(m => m.SYS_CHANGE_VERSION);
 
-            return (lookupTable[false], lookupTable[true].Select(s => s.Id), max);
+            return (lookupTable[false].Select(s => s.Data), lookupTable[true].Select(s => s.Id), max);
             //return _dapperRepository.WithConnectionAsync(async c =>
             //{
             //    var sql = VersionSql;

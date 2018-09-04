@@ -79,12 +79,12 @@ export let settingMenu = [
 
 
 export let notRegMenu = [
-    {
-        id: typesPersonalize.whoWeAre,
-        title: "Who we are",
-        name:"faq",
-        icon:"sbf-profile"
-    },
+    // {
+    //     id: typesPersonalize.whoWeAre,
+    //     title: "Who we are",
+    //     name:"faq",
+    //     icon:"sbf-profile"
+    // },
     {
         id: typesPersonalize.aboutSpitball,
         title: "About Spitball",
@@ -104,17 +104,18 @@ export let notRegMenu = [
         icon:"sbf-terms"
     },
     {
+        id: typesPersonalize.privacyPolicy,
+        title: "Privacy Policy",
+        name:"privacy",
+        icon:"sbf-privacy"
+    },
+    {
         id:typesPersonalize.feedback,
         title:'Feedback',
         icon:"sbf-feedbackNew",
         click:()=>Intercom('showNewMessage'),
 
     },
-    {
-        id: typesPersonalize.privacyPolicy,
-        title: "Privacy Policy",
-        name:"privacy",
-        icon:"sbf-privacy"
-    },
+
    
 ];

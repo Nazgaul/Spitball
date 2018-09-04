@@ -66,6 +66,10 @@ export default {
         },
         search() {
             if (!constants.regExXSSCheck.test(this.msg)){
+                //check if query is the same(searching same term), and return if so
+                if(this.msg === this.$route.query.q){
+                   return
+                }
                 this.UPDATE_SEARCH_LOADING(true);
                 this.$router.push({path: this.submitRoute, query: {q: this.msg}});
             }

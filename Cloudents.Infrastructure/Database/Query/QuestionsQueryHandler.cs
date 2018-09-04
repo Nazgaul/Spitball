@@ -71,8 +71,6 @@ namespace Cloudents.Infrastructure.Database.Query
 
             switch (query.Filter)
             {
-                case QuestionFilter.All:
-                    break;
                 case QuestionFilter.Unanswered:
                     queryOverObj.WithSubquery.WhereNotExists(QueryOver.Of<Answer>()
                         .Where(tx => tx.Question.Id == questionAlias.Id).Select(x=>x.Id));
@@ -84,8 +82,6 @@ namespace Cloudents.Infrastructure.Database.Query
                 case QuestionFilter.Sold:
                     queryOverObj.Where(w => w.CorrectAnswer != null);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
 
             queryOverObj.OrderBy(o => o.Updated).Desc
