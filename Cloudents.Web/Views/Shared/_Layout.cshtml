@@ -26,9 +26,7 @@
 
 <html dir="@(System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")">
 <head>
-
     <title>@ViewBag.title</title>
-
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <base href="~/" />
@@ -72,7 +70,7 @@
     <meta name="title" content="@ViewBag.title" />
     <meta name="description" content="@ViewBag.metaDescription" />
 
-    <meta name="apple-itunes-app" content="app-id=990911114">
+    @*<meta name="apple-itunes-app" content="app-id=990911114">*@
     <link rel="image_src" href="@ViewBag.imageSrc" />
 
     <meta property="fb:app_id" content="450314258355338" />
@@ -196,7 +194,7 @@
             window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
             window.talkJsId = '@Configuration["TalkJs"]';
     </script>
-    <partial name="_Resource" />
+   
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>
