@@ -5,10 +5,14 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Database.Query;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Query;
 using Question = Cloudents.Core.Entities.Db.Question;
 
 namespace ConsoleApp
@@ -52,15 +56,20 @@ namespace ConsoleApp
 
 
             var b = _container.Resolve<FluentQueryBuilder>();
-            b.AddInitTable<Question>("a");
+            b.AddInitTable<Question>();
             b.AddCustomTable(
-                    $"CROSS APPLY CHANGETABLE (VERSION {b.Table<Question>()}, (Id), ({b.Column<Question>("a", x => x.Id)})) AS c2")
-                .AddSelect<Question>("a", q => q.Id)
-                .AddSelect<Question>("a", q => q.Text, "b")
-                .AddSelect("(select count(*) from sb.Answer where QuestionId = a.id) AnswerCount");
+                    $"CROSS APPLY CHANGETABLE (VERSION {b.Table<Question>()}, (Id), ({b.Column<Question>( x => x.Id)})) AS c2")
+                .AddJoin<Question,User>(q=>q.User,u=>u.Id)
+                .AddSelect<User,Cloudents.Core.Entities.Search.Question>( q => q.Id,t2=>t2.UserId)
+                .AddSelect<Question>( q => q.Text, "b")
+                .AddSelect($"(select count(*) from {b.Table<Answer>()} where {b.Column<Answer>(x=>x.Question)} = {b.ColumnAlias<Question>(x=>x.Id)}) AnswerCount");
 
             string t = b;
             Console.WriteLine(t);
+
+            var b2 = _container.Resolve<IQueryBus>();
+            var x2 = await b2.QueryAsync<(IEnumerable<Cloudents.Core.Entities.Search.Question> update, IEnumerable<long> delete, long version)>(new SyncAzureQuery(0, 0), default);
+
 
             // QuestionRepository c = new QuestionRepository(b);
             // Console.WriteLine(c.GetOldQuestionsAsync(default));

@@ -15,7 +15,8 @@ namespace Cloudents.Core.Query
     //}
 
     public class SyncAzureQuery //: System.IEquatable<SyncAzureQuery>
-        : IQuery<(IEnumerable<AzureSyncBaseDto<Question>> update, IEnumerable<long> delete, long version)>, IQuery<(IEnumerable<AzureSyncBaseDto<Entities.Db.Question>> update, IEnumerable<long> delete, long version)>
+        : IQuery<(IEnumerable<Question> update, IEnumerable<long> delete, long version)>
+            //IQuery<(IEnumerable<AzureSyncBaseDto<Entities.Db.Question>> update, IEnumerable<long> delete, long version)>
     {
         public SyncAzureQuery(long version, int page)
         {

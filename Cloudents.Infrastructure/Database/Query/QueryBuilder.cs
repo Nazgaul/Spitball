@@ -94,7 +94,7 @@ namespace Cloudents.Infrastructure.Database.Query
             //});
         }
 
-        
+
 
         public string BuildProperty<T, TU>(Expression<Func<T, object>> expression, Expression<Func<TU, object>> alias)
         {
@@ -159,7 +159,7 @@ namespace Cloudents.Infrastructure.Database.Query
     //        return $"{BuildTableWithoutAlias(T)} As {GetAlias(T)}";
     //    }
 
-        
+
 
     //    private string BuildTableWithoutAlias(Type T)
     //    {
@@ -199,7 +199,7 @@ namespace Cloudents.Infrastructure.Database.Query
     //        //});
     //    }
 
-        
+
 
 
     //    public static implicit operator string(QueryBuilder2 tb)
@@ -266,8 +266,8 @@ namespace Cloudents.Infrastructure.Database.Query
             var keyValue = new KeyValuePair<Type, string>(typeof(T), memberName);
             var t = _sessionFactoryImplementor.GetClassMetadata(keyValue.Key) as AbstractEntityPersister;
             Debug.Assert(t != null, nameof(t) + " != null");
-            var columnName =  t.GetPropertyColumnNames(keyValue.Value).First();
-            return $"{TableAlias}.{columnName}";
+            var columnName = t.GetPropertyColumnNames(keyValue.Value).First();
+            return $"{_alias}.{columnName}";
         }
 
 
@@ -291,7 +291,23 @@ namespace Cloudents.Infrastructure.Database.Query
 
 
 
+    //public class FluentQueryBuilder<TDto> : FluentQueryBuilder
+    //{
+    //    public FluentQueryBuilder(UnitOfWorkFactorySpitball unitOfWorkFactory) : base(unitOfWorkFactory)
+    //    {
+    //    }
 
+
+    //    public FluentQueryBuilder AddSelect2<TIn>(Expression<Func<TIn, object>> expressionIn, Expression<Func<TDto, object>> expressionOut)
+    //    {
+    //        var tableAlias = GetAlias<TIn>();
+
+    //        var column = Column(tableAlias, expressionIn);
+    //        var asStatement = expressionOut.GetName();
+    //        _selectList.Add($"{column} as {asStatement}");
+    //        return this;
+    //    }
+    //}
 
 
     public class FluentQueryBuilder
@@ -300,7 +316,9 @@ namespace Cloudents.Infrastructure.Database.Query
 
         private StringBuilder _fromStringBuilder = new StringBuilder();
 
-        private List<string> _selectList = new List<string>();
+        protected List<string> _selectList = new List<string>();
+        private List<char> _abcSeq = Enumerable.Range(97, 26).Select(s => (char)s).ToList();
+        private Dictionary<Type, string> _aliasTypes = new Dictionary<Type, string>();
         private string _column;
 
         public FluentQueryBuilder(UnitOfWorkFactorySpitball unitOfWorkFactory)
@@ -308,7 +326,11 @@ namespace Cloudents.Infrastructure.Database.Query
             _sessionFactoryImplementor = unitOfWorkFactory.GetFactory();
         }
 
-        public FluentQueryBuilder AddInitTable<T>(string alias = null)
+        #region Table
+
+
+
+        public FluentQueryBuilder AddInitTable<T>()
         {
             if (_fromStringBuilder.Length > 0)
             {
@@ -318,12 +340,11 @@ namespace Cloudents.Infrastructure.Database.Query
             var tableName = Table<T>();
 
             _fromStringBuilder.Append($"From {tableName}");
-            if (!string.IsNullOrWhiteSpace(alias))
-            {
-                _fromStringBuilder.Append($" {alias} ");
-            }
+            _fromStringBuilder.Append($" {GetAlias<T>()} ");
             return this;
         }
+
+
 
         public FluentQueryBuilder AddCustomTable(string table)
         {
@@ -331,16 +352,58 @@ namespace Cloudents.Infrastructure.Database.Query
             return this;
         }
 
-        public FluentQueryBuilder AddSelect<T>(string tableAlias, Expression<Func<T, object>> expression)
+        public FluentQueryBuilder AddJoin<TExists, TNew>(Expression<Func<TExists, object>> expressionExists,
+            Expression<Func<TNew, object>> expressionNew)
         {
+            var tableAlias = GetAlias<TNew>();
+
+            var sql =
+                $"join {Table<TNew>()} {tableAlias} On {ColumnAlias(expressionNew)} = {ColumnAlias(expressionExists)}";
+            _fromStringBuilder.AppendLine(sql);
+            return this;
+            //join { _user.TableAlias}
+            //on { _user.Column(x => x.Id)}={ _question.Column(x => x.User)}
+        }
+
+        #endregion
+
+        protected string GetAlias<T>()
+        {
+            if (_aliasTypes.TryGetValue(typeof(T), out var retVal))
+            {
+                return retVal;
+            }
+            var aliasSeq = _abcSeq[0].ToString();
+            _abcSeq.RemoveAt(0);
+            var rand = new Random();
+            retVal = $"{aliasSeq}{rand.Next(1000, 9999)}";
+            _aliasTypes.Add(typeof(T), retVal);
+            return retVal;
+        }
+
+        public FluentQueryBuilder AddSelect<T>(Expression<Func<T, object>> expression)
+        {
+            var tableAlias = GetAlias<T>();
             _selectList.Add(Column(tableAlias, expression));
             return this;
         }
 
-        public FluentQueryBuilder AddSelect<T>(string tableAlias, Expression<Func<T, object>> expression, string columnAlias)
+        public  FluentQueryBuilder AddSelect<TIn, TOut>(Expression<Func<TIn, object>> expressionIn, Expression<Func<TOut, object>> expressionOut)
         {
+            var tableAlias = GetAlias<TIn>();
+
+            var column = Column(tableAlias, expressionIn);
+            var asStatement = expressionOut.GetName();
+            _selectList.Add($"{column} as {asStatement}");
+            return this;
+        }
+
+        public FluentQueryBuilder AddSelect<T>(Expression<Func<T, object>> expression, string columnAlias)
+        {
+            var tableAlias = GetAlias<T>();
+
             _column = Column(tableAlias, expression);
-            _selectList.Add($"{_column} {columnAlias}");
+            _selectList.Add($"{_column} as {columnAlias}");
             return this;
         }
 
@@ -358,7 +421,7 @@ namespace Cloudents.Infrastructure.Database.Query
             return t.TableName;
         }
 
-        public string Column<T> (Expression<Func<T, object>> expression)
+        public string Column<T>(Expression<Func<T, object>> expression)
         {
             var memberName = expression.GetName();
             var keyValue = new KeyValuePair<Type, string>(typeof(T), memberName);
@@ -366,27 +429,26 @@ namespace Cloudents.Infrastructure.Database.Query
             Debug.Assert(t != null, nameof(t) + " != null");
             return t.GetPropertyColumnNames(keyValue.Value).First();
         }
-        public string Column<T>(string alias, Expression<Func<T, object>> expression)
+
+        public string ColumnAlias<T>(Expression<Func<T, object>> expression)
+        {
+            var tableAlias = GetAlias<T>();
+            return Column<T>(tableAlias, expression);
+        }
+
+        public string Column<T>(string tableAlias, Expression<Func<T, object>> expression)
         {
             var memberName = expression.GetName();
             var keyValue = new KeyValuePair<Type, string>(typeof(T), memberName);
             var t = _sessionFactoryImplementor.GetClassMetadata(keyValue.Key) as AbstractEntityPersister;
             Debug.Assert(t != null, nameof(t) + " != null");
-            var columnName =  t.GetPropertyColumnNames(keyValue.Value).First();
-            return $"{alias}.{columnName}";
-        }
-        /*public string BuildJoin<T1, T2>(Expression<Func<T1, object>> expression,
-            Expression<Func<T2, object>> expression2)
-        {
-            return $@"
-            join {BuildTable<T1>()}
-            on {GetAlias<T1>()}.{BuildProperty(expression)}={GetAlias<T2>()}.{BuildProperty(expression2)}";
-        }*/
-        //public FluentQueryBuilder AddJoin<T1, T2>(Expression<Func<T1, object>> expression,
-        //    Expression<Func<T2, object>> expression2)
-        //{
+            var columnName = t.GetPropertyColumnNames(keyValue.Value).First();
 
-        //}
+            //var tableAlias = GetAlias<T>();
+
+            return $"{tableAlias}.{columnName}";
+        }
+ 
 
         public static implicit operator string(FluentQueryBuilder tb)
         {
