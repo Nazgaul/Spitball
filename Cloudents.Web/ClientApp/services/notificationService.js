@@ -1,15 +1,26 @@
 
 function Notification(notificationObj){
     this.type = notificationObj.type;
-    this.message = notificationObj.message;
+    this.headline = notificationObj.headline;
+    this.title = notificationObj.title;
     this.icon = `sbf-${this.type}`;
     this.action = `${notificationObj.action}`;
-    this.time = notificationObj.timeStamp
+    this.timeago = notificationObj.timeago
+    this.actionIcon = `sbf-${this.action}`;
+    this.isVisited = false;
+    this.id = generateId();
+}
+
+
+
+function generateId(){
+    return 'xxxx-xxx-xxxxx-xxx-xx-xxxxx'.replace(/[x]/g, function(){
+        return (Math.random() * 9) | 0;
+    })
 }
 
 export default {
        createNotificationObj:(notificationObj)=>{
         return new Notification(notificationObj);
-    }
-
+    },
 }
