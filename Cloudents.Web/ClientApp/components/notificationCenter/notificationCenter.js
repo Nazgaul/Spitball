@@ -29,11 +29,10 @@ export default {
             item.isVisited = true;
             this.updateNotification(id)
         },
-        archiveNotification(item){
-
+        sendToArchive(item){
+            event.stopPropagation();
             let id = item.id;
-            console.log("item", item, 'id::', id)
-            this.archiveNotification(item.id)
+            this.archiveNotification(id)
         }
     },
     created() {
