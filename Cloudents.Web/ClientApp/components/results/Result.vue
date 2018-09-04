@@ -122,7 +122,8 @@
 
         <template slot="rightSide">
             <slot name="rightSide">
-                <faq-block :isAsk="name==='ask'" :name="currentSuggest" :text="userText"></faq-block>
+                <faq-block v-if="!accountUser" :isAsk="name==='ask'" :name="currentSuggest" :text="userText"></faq-block>
+                <notificationCenter v-else :isAsk="name==='ask'"></notificationCenter>
             </slot>
 
         </template>
