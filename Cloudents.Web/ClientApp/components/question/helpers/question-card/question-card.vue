@@ -19,8 +19,8 @@
             </user-block>
             <div v-if="cardData.price">
                 <div class="q-price pr-3">
-                    <span v-if="isSold">Earn ${{cardData.price | dollarVal}}</span>
-                    <span v-else class="sold-badge">Sold</span>
+                    <span v-if="isSold" style="display:flex;min-width: 90px;">Earn ${{cardData.price | dollarVal}}</span>
+                    <span v-else class="sold-badge"><span style="margin: 0 auto;">Sold</span> </span>
 
                 </div>
                 <!-- <p class="q-category">{{cardData.subject}}</p> -->
