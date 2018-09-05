@@ -9,7 +9,7 @@
                 <v-list three-line class="notifications-list">
                     <transition-group name="list">
                     <div v-for="(item, index) in notificationItems"  class="list-item" :key="item.id" >
-                        <v-list-tile :ripple="false"
+                        <v-list-tile
                                 class="singleNotification"
                                 :key="item.title"
                                 @click="doNotificationAction(item)"

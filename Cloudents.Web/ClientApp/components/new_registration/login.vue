@@ -190,7 +190,7 @@
                         <span v-language:inner>login_sent_code_by_sms</span>
                         (+{{phone.countryCode}})
                         {{phone.phoneNum}} </p>
-                    <p v-if="!isMobile" class="confirm-title">login_sent_confirmation_code</p>
+                    <p v-if="!isMobile" class="confirm-title" v-language:inner>login_sent_confirmation_code</p>
                     <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code"
                               v-model="confirmationCode" placeholder="Enter confirmation code" type="number"
                               :autofocus="true" @keyup.enter.native="smsCodeVerify()"></sb-input>
