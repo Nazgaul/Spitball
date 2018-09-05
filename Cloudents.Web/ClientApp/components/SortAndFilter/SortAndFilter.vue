@@ -30,7 +30,7 @@
                                 <div>{{singleFilter.title}}</div>
                             </slot>
                         </template>
-                        <div :class="['sort-filter',$route.path==='/ask'?'no-maxHeight':'']">
+                        <div :class="['sort-filter']">
                             <div v-for="filterItem in singleFilter.data"
                                  :key="(filterItem.id ? filterItem.id : filterItem)" class="filter">
                                 <input type="checkbox" :id="(filterItem.id ? filterItem.id : filterItem)"
