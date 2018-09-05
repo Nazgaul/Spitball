@@ -7,31 +7,33 @@
         <a target="_blank" :href="$route.path+'/download'" v-if="showActions" class="ml-4">
             <download-icon></download-icon>
         </a>
-        <a href="#" @click.prevent="$_back" class="ml-4"> 
+        <a href="#" @click.prevent="$_back" class="ml-4">
             <close-icon></close-icon>
         </a>
     </div>
 </template>
 <script>
+    import { LanguageService } from "../../services/language/languageService";
     import closeIcon from './svg/close-icon.svg'
     import downloadIcon from './svg/download-icon.svg'
     import infoIcon from './svg/info-icon.svg'
     import printIcon from './svg/print-icon.svg'
     import moreIcon from './svg/more-icon.svg'
+
     export default {
         components: {
-            closeIcon, downloadIcon, infoIcon, printIcon, moreIcon 
+            closeIcon, downloadIcon, infoIcon, printIcon, moreIcon
         },
         data() {
             let moreActions = [
                 {
-                    title: "Download"
+                    title: LanguageService.getValueByKey("preview_itemActions_download"),
                 },
                 {
-                    title: "Print"
+                    title: LanguageService.getValueByKey("preview_itemActions_title"),
                 }
-            ]
-            return { moreActions}
+            ];
+            return {moreActions}
         },
         methods: {
             $_back() {
@@ -39,7 +41,9 @@
             }
         },
         computed: {
-            showActions() { return this.$route.name==='item'}
+            showActions() {
+                return this.$route.name === 'item'
+            }
         }
     }
 </script>

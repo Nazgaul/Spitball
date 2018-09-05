@@ -3,6 +3,7 @@ import userBlock from '../helpers/user-block/user-block.vue';
 import {dollarCalculate} from "../../store/constants";
 import accountService from '../../services/accountService';
 import {mapGetters} from 'vuex'
+import { LanguageService } from "../../services/language/languageService";
 
 export default {
     components: {questionCard, userBlock},
@@ -13,22 +14,21 @@ export default {
         return {
             activeTab: 1,
             profileData: null,
-            //TODO: what is that
-            emptyState: {
-                questions: {
-                    text: 'You have a homework problem?',
-                    btnText: 'Put it on sale…'
-                },
-                answers: {
-                    text: 'You have a homework problem?',
-                    btnText: 'Put it on sale…'
-                }
-            }
+            //TODO: what is that !!!!!!
+            // emptyState: {
+            //     questions: {
+            //         text: LanguageService.getValueByKey("profile_emptyState_questions_text"),
+            //         btnText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
+            //     },
+            //     answers: {
+            //         text: LanguageService.getValueByKey("profile_emptyState_answers_text"),
+            //         btnText: LanguageService.getValueByKey("profile_emptyState_answers_btnText")
+            //     }
+            // }
             
         }
     },
     methods: {
-
         changeActiveTab(tabId) {
             this.activeTab = tabId;
             this.$router.meta = {previous : tabId}
@@ -71,14 +71,14 @@ export default {
         },
         emptyStateData() {
             var questions = {
-                text: 'Have a question on your homework?',
-                boldText: 'Post it for SBL…',
-                btnText: 'Ask Your Question',
+                text: LanguageService.getValueByKey("profile_emptyState_questions_text"),
+                boldText: LanguageService.getValueByKey("profile_emptyState_questions_boldText"),
+                btnText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
                 btnUrl: 'newQuestion'
             };
             var answers = {
-                text: 'Help other students<br/> <b>and make money</b><br/> by answering questions.',
-                btnText: 'Answer',
+                text: LanguageService.getValueByKey("profile_emptyState_answers_text"),
+                btnText: LanguageService.getValueByKey("profile_emptyState_answers_btnText"),
                 btnUrl: 'home'
             };
             return this.activeTab === 1 ? questions : answers;

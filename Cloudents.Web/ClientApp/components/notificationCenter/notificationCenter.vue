@@ -2,8 +2,8 @@
     <div class="notification-center-wrap">
         <ask-question-btn></ask-question-btn>
         <div class="notification-container">
-            <v-subheader class="notification-center-header" :key="'header'">
-                Notifications
+            <v-subheader class="notification-center-header" :key="'header'" v-language:inner>
+                notificationCenter_title
             </v-subheader>
             <div class="notification-center">
                 <v-list three-line class="notifications-list">
