@@ -442,4 +442,18 @@ export const dictionary = {
     navigation_nav_name_book: "Textbooks",
     navigation_nav_name_job: "Jobs",
 
+
+    //profile data
+    profileData_generalProfile_register_stepOne_heading: "Ask Questions & receive instant help \\n or \\n Answer Questions & make money",
+    profileData_generalProfile_register_stepOne_text: "Start with your email. We need to know how to contact you",
+    profileData_generalProfile_register_stepOne_boldTextOne: "instant help",
+    profileData_generalProfile_register_stepOne_boldTextTwo: "make money",
+
+    profileData_generalProfile_register_stepTwo_heading: "We need to know how to contact you",
+    profileData_generalProfile_register_stepTwo_text: "We need to know how to contact you",
+    profileData_generalProfile_register_stepTwo_boldTextOne: "contact you.",
+
+
+
+
 };

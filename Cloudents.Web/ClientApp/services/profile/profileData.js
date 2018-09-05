@@ -1,17 +1,22 @@
+import { LanguageService } from "../language/languageService";
+
 const profileData = {
     profileGeneral: {
         register: {
             1: {
-                heading: 'Ask Questions & receive instant help '+ '\n'+ 'or ' + 'Answer Questions & make money',
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepOne_heading"),
                 subheading: '',
-                text: 'Start with your email. We need to know how to contact you',
-                boldText: ['instant help', 'make money']
+                text: LanguageService.getValueByKey("profileData_generalProfile_register_stepOne_text"),
+                boldText: [
+                    LanguageService.getValueByKey("profileData_generalProfile_register_stepOne_boldTextOne"),
+                    LanguageService.getValueByKey("profileData_generalProfile_register_stepOne_boldTextTwo")
+                ]
             },
             2: {
-                heading: 'We need to know how to contact you',
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepTwo_heading"),
                 subheading: '',
-                text: 'We need to know how to contact you',
-                boldText: ['contact you.']
+                text: LanguageService.getValueByKey("profileData_generalProfile_register_stepTwo_heading"),
+                boldText: [ LanguageService.getValueByKey("profileData_generalProfile_register_stepTwo_boldTextOne"),]
             },
             3: {
                 heading: 'Check your email to activate your account',
@@ -20,13 +25,13 @@ const profileData = {
                 boldText: ['activate your account']
             },
             4: {
-                heading: 'Enter your phone number\n'+ 'We need to send you a confirmation code',
+                heading: 'Enter your phone number\n We need to send you a confirmation code',
                 subheading: '',
                 text: 'We need to send you a confirmation code',
                 boldText: ['Enter your phone number']
             },
             5: {
-                heading: 'Enter the confirmation code\n'+ 'We sent the code to you by SMS',
+                heading: 'Enter the confirmation code\n We sent the code to you by SMS',
                 subheading: '',
                 text: '',
                 boldText: ['Enter the confirmation code']
@@ -34,8 +39,7 @@ const profileData = {
             6: {
                 heading: 'CONGRATS!',
                 subheading: 'You’re ready to start Spitballing!',
-                text: 'We’ve awarded you 100 SBL\n' +
-                'You can use these to get help with your own homework questions, or answer other student’s questions to earn SBL that can be redeemed for real money!',
+                text: 'We’ve awarded you 100 SBL\n You can use these to get help with your own homework questions, or answer other student’s questions to earn SBL that can be redeemed for real money!',
                 boldText: ['100 SBL']
             },
             7: {
@@ -46,7 +50,7 @@ const profileData = {
             }
         },
         modal: {
-            heading : 'Please sign up or\n' + 'login to continue.',
+            heading : 'Please sign up or\n login to continue.',
             text: 'You are only a couple of mouse clicks away from unlocking instant homework help and the ability to make serious money!',
             buttons:{
                 signUp:{
@@ -61,10 +65,7 @@ const profileData = {
     profileMakeMoney: {
         register: {
             1: {
-                heading: 'Make money\n' +
-                'while helping\n' +
-                'others with \n' +
-                'their homework.',
+                heading: 'Make money\n while helping\n others with \n their homework.',
                 subheading: '',
                 text: 'Start with your email. We need to know how to contact you',
                 boldText: ['Make money']
@@ -82,7 +83,7 @@ const profileData = {
                 boldText: ['activate your account']
             },
             4: {
-                heading: 'Enter your phone number\n'+  'We need to send you a confirmation code',
+                heading: 'Enter your phone number\n We need to send you a confirmation code',
                 subheading: '',
                 text: 'We need to send you a confirmation code',
                 boldText: ['Enter your phone number']
@@ -96,8 +97,7 @@ const profileData = {
             6: {
                 heading: 'CONGRATS!',
                 subheading: 'You’re ready to start making money!\n',
-                text: 'We’ve also awarded you 100 SBL\n' +
-                '(you can use these to get help with your own homework questions)\n',
+                text: 'We’ve also awarded you 100 SBL\n (you can use these to get help with your own homework questions)\n',
                 boldText: ['100 SBL', 'making money!']
             },
             7: {
@@ -141,14 +141,13 @@ const profileData = {
                 boldText: ['activate your account']
             },
             4: {
-                heading: 'Enter your phone number.\n' +
-                'We need to send you a confirmation code',
+                heading: 'Enter your phone number.\n We need to send you a confirmation code',
                 subheading: '',
                 text: 'We need to send you a confirmation code',
                 boldText: ['Enter your phone number']
             },
             5: {
-                heading: 'Enter the confirmation code\n' + 'We sent the code to you by SMS',
+                heading: 'Enter the confirmation code\n We sent the code to you by SMS',
                 subheading: '',
                 text: '',
                 boldText: ['Enter the confirmation code']
@@ -156,7 +155,7 @@ const profileData = {
             },
             6: {
                 heading: 'CONGRATS!',
-                subheading: 'You are\n' + 'rewarded with \n' + '100 SBL',
+                subheading: 'You are\n rewarded with \n 100 SBL',
                 text: 'You can spend them to get help with your Homework questions.',
                 boldText: ['100 SBL']
             },
