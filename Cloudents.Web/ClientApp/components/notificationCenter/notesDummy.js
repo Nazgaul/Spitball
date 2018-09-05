@@ -4,21 +4,21 @@ const notificationItems = [
         headline: 'Brunch this weekend?',
         title: 'Your question was answered',
         timeago: "2018-09-04T00:58:34.2096593Z",
-        type: 'help'
+        type: 'aprrove'
     },
     {
         action: 'hand-coin',
         headline: 'Summer BBQ',
         title: 'Your question was answered',
         timeago: "2018-09-04T00:58:34.2096593Z",
-        type: 'ask-q'
+        type: 'answer'
     },
     {
         action: 'wallet',
         headline: 'Oui oui',
         title: 'You are rewarded with ',
         timeago: "2018-09-04T00:58:34.2096593Z",
-        type: 'check-circle'
+        type: 'earn'
     },
     {
         action: 'refresh',
