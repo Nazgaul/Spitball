@@ -285,24 +285,6 @@ export const dictionary = {
     result_general_keywords:"Try more general keywords.",
     result_fewer_keywords:"Try fewer keywords.",
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
+    buildinsuggest_home_flashcards:"Flashcards for financial accounting",
 }
 

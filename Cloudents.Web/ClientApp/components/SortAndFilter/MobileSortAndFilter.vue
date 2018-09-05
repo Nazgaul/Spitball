@@ -19,7 +19,7 @@
             <div class="filter-wrap px-3" v-if="filterOptions && filterOptions.length">
                 <h3 class="" >Filter By</h3>
                 <div class="filter-sections">
-                    <div class="filter-section" v-for="(singleFilter, index) in filterOptions" :key="singleFilter.id" :value="true">
+                    <div class="filter-section" v-for="(singleFilter) in filterOptions" :key="singleFilter.id" :value="true">
                         <v-layout class="filter-header" slot="header">
                             <v-layout row align-center>
                                 <div class="icon-wrapper">
@@ -29,18 +29,9 @@
                                     <div>{{singleFilter.title}}</div>
                                 </slot>
                             </v-layout>
-                            <!--<slot :name="`${k.modelId}MobileExtraState`"></slot>-->
                         </v-layout>
                         <div class="filter-list">
-                            <!--<div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter pl-3">-->
                             <v-btn-toggle  v-model="filtersSelected" multiple>
-                                <!--<v-btn v-for="filterOption in singleFilter.data"-->
-                                       <!--:key="(filterOption.id ? filterOption.id : filterOption)"-->
-                                       <!--:active="filterOption.name"-->
-                                       <!--:id="(filterOption.id ? filterOption.id : filterOption)"-->
-                                       <!--:value="(filterOption.id ? filterOption.id : filterOption)">-->
-                                    <!--{{filterOption.name ? filterOption.name:filterOption | capitalize}}-->
-                                <!--</v-btn>-->
                                 <v-btn v-for="filterOption in singleFilter.data"
                                        :key="(filterOption.id ? filterOption.id : filterOption)"
                                        :active="filterOption"
@@ -48,26 +39,9 @@
                                        :value="`${singleFilter.id}_${filterOption}`">
                                     {{filterOption ? filterOption:filterOption | capitalize}}
                                 </v-btn>
-
-                                <!--<span class="checkmark"></span>-->
-                                <!--<label :title="s.name?s.name:s" :for="(s.id?s.id:s)" class="py-2">-->
-                                <!--{{s.name?s.name:s | capitalize}}-->
-                                <!--</label>-->
-                                <!--</div>-->
                             </v-btn-toggle>
                             <slot :name="`${singleFilter.modelId}EmptyState`" v-if="singleFilter.data && singleFilter.data.length===0"></slot>
                         </div>
-                        <!--<div class="filter-list">-->
-                        <!--<div v-for="s in k.data" :key="(s.id?s.id:s)" class="filter pl-3">-->
-                        <!--<input type="checkbox" :id="(s.id?s.id:s)" v-model="filters[k.modelId]" :value="(s.id?s.id:s)" />-->
-
-                        <!--<span class="checkmark"></span>-->
-                        <!--<label :title="s.name?s.name:s" :for="(s.id?s.id:s)" class="py-2" >-->
-                        <!--{{s.name?s.name:s | capitalize}}-->
-                        <!--</label>-->
-                        <!--</div>-->
-                        <!--<slot :name="`${k.modelId}EmptyState`" v-if="k.data&&k.data.length===0"></slot>-->
-                        <!--</div>-->
                     </div>
                 </div>
             </div>
