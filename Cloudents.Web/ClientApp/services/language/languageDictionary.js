@@ -168,7 +168,7 @@ export const dictionary = {
     questionDetails_Chat: "Chat",
     questionDetails_Add_your_answer: "Add your answer",
     questionDetails_error_minChar: "min. 15 characters",
-    
+
     questionTheard_Answers: "Answers",
 
     questionSuggestPopUp_Great_Job: "Great Job!",
@@ -300,18 +300,18 @@ export const dictionary = {
 
     buildinsuggest_home_flashcards: "Flashcards for financial accounting",
 
-    satellite_routes_about:"How Spitball Works",
-    satellite_routes_faq:"FAQ",
-    satellite_routes_blog:"Blog",
-    satellite_routes_partners:"Partners",
-    satellite_routes_reps:"Reps",
-    satellite_routes_privacy:"Privacy",
-    satellite_routes_terms:"Terms",
-    satellite_routes_contact:"Contact",
+    satellite_routes_about: "How Spitball Works",
+    satellite_routes_faq: "FAQ",
+    satellite_routes_blog: "Blog",
+    satellite_routes_partners: "Partners",
+    satellite_routes_reps: "Reps",
+    satellite_routes_privacy: "Privacy",
+    satellite_routes_terms: "Terms",
+    satellite_routes_contact: "Contact",
 
     seacrh_searchText_find: "Find study documents, textbooks, tutors, jobs, deals and more...",
     seacrh_searchText_find_short: "Study documents, textbooks, tutors...",
-    
+
     buildinsuggest_home_classNotes: "Class notes for my Calculus class",
     buildinsuggest_home_warEnd: "When did World War 2 end?",
     buildinsuggest_home_difference: "Difference between Meiosis and Mitosis",
@@ -325,13 +325,13 @@ export const dictionary = {
     buildinsuggest_flashcard_calculus: "calculus 2 review set",
     buildinsuggest_flashcard_physics_study: "physics study set",
     buildinsuggest_flashcard_spanish: "intermediate spanish vocab",
-    
-    sortAndFilter_sort:"Sort",
-    sortAndFilter_filter:"Filter",
+
+    sortAndFilter_sort: "Sort",
+    sortAndFilter_filter: "Filter",
 
     result_peronalize_placeholder: "Where do you go to school?",
 
-    mobileSortAndFilter_filter:"Filter",
+    mobileSortAndFilter_filter: "Filter",
 
     buildinsuggest_tutor_biology: "biology help",
     buildinsuggest_tutorphysics_esl: "esl tutors",
@@ -373,7 +373,6 @@ export const dictionary = {
     question_newQuestion_error_pickSubject: "Pick a subject",
     question_newQuestion_toasterPostedText: "Question posted, the best brains are working on it right now",
 
-    
 
     marketingData_login_noCampaign_stepOne: "Start with your email. We need to know how to contact you.",
     marketingData_login_noCampaign_stepTwo: "We need to send you a confirmation code",
@@ -442,3 +441,5 @@ export const dictionary = {
     navigation_nav_name_tutor: "Tutors",
     navigation_nav_name_book: "Textbooks",
     navigation_nav_name_job: "Jobs",
+
+};
