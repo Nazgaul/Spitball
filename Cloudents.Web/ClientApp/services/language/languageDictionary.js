@@ -264,7 +264,10 @@ export const dictionary = {
 
     resultJob_Job_description:"Job description:",
 
+    app_cookie_toaster_text: "This website uses cookies to ensure you get the best experience",
+    app_cookie_toaster_action: "Got it",
 
+    book_header_textbook: "Textbooks",
 
 
 

@@ -1,6 +1,8 @@
 export const HOME_MAX_SUGGEST_NUM=8;
 export const VERTICAL_MAX_SUGGEST_NUM=3;
+
 export const buildInSuggest={
+
     home:[
         "Flashcards for financial accounting",
         "Class notes for my Calculus class",
