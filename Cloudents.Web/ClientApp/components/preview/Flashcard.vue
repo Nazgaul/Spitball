@@ -1,8 +1,10 @@
 ﻿<template>
     <div class="flashcard-page">
         <div class="flashcard-wrapper">
-            <flashcard-header :name="item.name" :showProgress="showCards||isEnded" :isEnded="isEnded" v-model="slideFront"
-                              :showCards="showCards" :currentIndex="currentIndex" :cardsSize="showList.length" :pinnedCount="currentPinn.size" :height="$vuetify.breakpoint.smAndUp ? 10 : 20">
+            <flashcard-header :name="item.name" :showProgress="showCards||isEnded" :isEnded="isEnded"
+                              v-model="slideFront"
+                              :showCards="showCards" :currentIndex="currentIndex" :cardsSize="showList.length"
+                              :pinnedCount="currentPinn.size" :height="$vuetify.breakpoint.smAndUp ? 10 : 20">
                 <div v-if="showCards" slot="actions" class="card-sides">
                     <button @click="slideFront=1" class="front" :class="{'active':slideFront==1}">
                         <v-layout column>
@@ -48,20 +50,24 @@
             <div class="cards-info" v-if="!showCards">
                 <div class="content card-template">
                     <h1 v-text="item.name"></h1>
-                    <p class="subtitle" v-if="item.cards">{{item.cards.length}}<span v-language:inner>flashcard_Cards</span></p>
+                    <p class="subtitle" v-if="item.cards">{{item.cards.length}}<span
+                            v-language:inner>flashcard_Cards</span></p>
                     <div class="action-buttons">
                         <button class="action-btn elevation-1" @click="$_startFlashcards">{{beginText}}</button>
-                        <button class="action-btn pinned-cards elevation-1" v-if="currentPinn.size" @click="$_startPinnsFlashcards"><span v-language:inner>lashcard_Study</span>{{currentPinn.size}}<span v-language:inner>flashcard_pin</span></button>
+                        <button class="action-btn pinned-cards elevation-1" v-if="currentPinn.size"
+                                @click="$_startPinnsFlashcards"><span v-language:inner>lashcard_Study</span>{{currentPinn.size}}<span
+                                v-language:inner>flashcard_pin</span></button>
                     </div>
                     <div class="shuffle">
                         <shuffle-icon></shuffle-icon>
                         <div v-language:inner>flashcard_shuffle_cards</div>
-                        <v-switch v-model="shuffle"  color="color-green" hide-details></v-switch>
+                        <v-switch v-model="shuffle" color="color-green" hide-details></v-switch>
                     </div>
                 </div>
             </div>
             <div v-else>
-                <flashcard-content v-if="currentCard" v-bind="$attrs" :showFrontSide="slideFront" :card="showList[currentIndex]" :side.sync="slideFront">
+                <flashcard-content v-if="currentCard" v-bind="$attrs" :showFrontSide="slideFront"
+                                   :card="showList[currentIndex]" :side.sync="slideFront">
                 </flashcard-content>
                 <nav class="buttons">
                     <button class="prev" @click="currentIndex--" :disabled="currentIndex==0">
@@ -84,12 +90,14 @@
                         </v-list-tile>
                         <v-list-tile>
                             <v-list-tile-title>
-                                <span class="key">&rarr;</span><span class="key-info" v-language:inner>flashcard_next</span>
+                                <span class="key">&rarr;</span><span class="key-info"
+                                                                     v-language:inner>flashcard_next</span>
                             </v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile>
                             <v-list-tile-title>
-                                <span class="key">&uarr;</span><span class="key-info" v-language:inner>flashcard_flipup</span>
+                                <span class="key">&uarr;</span><span class="key-info"
+                                                                     v-language:inner>flashcard_flipup</span>
                             </v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile>
@@ -99,27 +107,32 @@
                         </v-list-tile>
                         <v-list-tile>
                             <v-list-tile-title>
-                                <span class="key" v-language:inner>flashcard_P</span><span class="key-info" v-language:inner>flashcard_Pin</span>
+                                <span class="key" v-language:inner>flashcard_P</span><span class="key-info"
+                                                                                           v-language:inner>flashcard_Pin</span>
                             </v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile>
                             <v-list-tile-title>
-                                <span class="key" v-language:inner>flashcard_S</span><span class="key-info" v-language:inner>flashcard_shuffle</span>
+                                <span class="key" v-language:inner>flashcard_S</span><span class="key-info"
+                                                                                           v-language:inner>flashcard_shuffle</span>
                             </v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile>
                             <v-list-tile-title>
-                                <span class="key" v-language:inner>falshcard_F</span><span class="key-info" v-language:inner>flashcard_Front</span>
+                                <span class="key" v-language:inner>falshcard_F</span><span class="key-info"
+                                                                                           v-language:inner>flashcard_Front</span>
                             </v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile>
                             <v-list-tile-title>
-                                <span class="key" v-language:inner>flashcard_K</span><span class="key-info" v-language:inner>flashcard_Back</span>
+                                <span class="key" v-language:inner>flashcard_K</span><span class="key-info"
+                                                                                           v-language:inner>flashcard_Back</span>
                             </v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile>
                             <v-list-tile-title>
-                                <span class="key" v-language:inner>flashcard_B</span><span class="key-info" v-language:inner>flashcard_both</span>
+                                <span class="key" v-language:inner>flashcard_B</span><span class="key-info"
+                                                                                           v-language:inner>flashcard_both</span>
                             </v-list-tile-title>
                         </v-list-tile>
                     </v-list>

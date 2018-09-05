@@ -1,6 +1,6 @@
 import * as routes from "../../../routeTypes";
 import { bannerData } from './campaign';
-
+import { LanguageService } from "../../language/languageService";
 
 function getPromoQueryFromRoute(path, query){
     if(!!query && query.hasOwnProperty("promo")){
@@ -21,7 +21,7 @@ const nav = {
         data:{
             filter:[],
             id: routes.questionRoute,
-            name: "Homework Help",
+            name: LanguageService.getValueByKey("navigation_nav_name_ask"),
             icon: "sbf-ask-q", //TODO do we need this.....
             show: true
         }
@@ -30,14 +30,10 @@ const nav = {
         banner: getPromoQueryFromRoute,
         data:{
             id: routes.notesRoute,
-            name: "Study Documents",
+            name: LanguageService.getValueByKey("navigation_nav_name_note"),
             needLocation:false,
-            //TODO Beny refactor filter
-            // filter: [{ id: "course", name: "My Courses" }, { id: "source", name: "sources" }],
             filter: [ { id: "source", name: "sources" }],
-            sort: [
-                // { id: "relevance", name: "relevance" },  { id: "date", name: "date" }
-            ],
+            sort: [],
             icon: "sbf-note",
             show: false
         }
@@ -46,17 +42,10 @@ const nav = {
         banner: getPromoQueryFromRoute,
         data:{
             id: routes.flashcardRoute,
-            name: "Flashcards",
+            name: LanguageService.getValueByKey("navigation_nav_name_flashcards"),
             needLocation: false,
-            filter: [
-                //TODO Beny refactor filter
-                // { id: "course", name: "My Courses" },
-                // { id: "source", name: "sources" }
-            ],
-            sort: [
-                // { id: "relevance", name: "relevance" },
-                // { id: "date", name: "date" }
-            ],
+            filter: [],
+            sort: [],
             icon: "sbf-flashcards"
         }
     },
@@ -64,17 +53,10 @@ const nav = {
         banner: getPromoQueryFromRoute,
         data:{
             id: routes.tutorRoute,
-            name: "Tutors",
+            name: LanguageService.getValueByKey("navigation_nav_name_tutor"),
             needLocation: true,
-            filter: [
-                // { id: "online", name: "Online Lessons" },
-                // { id: "inPerson", name: "In Person" }
-            ],
-            sort: [
-                // { id: "relevance", name: "relevance" },
-                // { id: "price", name: "price" }
-                // { id: "distance", name: "distance" }
-            ],
+            filter: [],
+            sort: [],
             icon: "sbf-tutor"
         }
     },
@@ -82,7 +64,7 @@ const nav = {
         banner: getPromoQueryFromRoute,
         data:{
             id: routes.bookRoute,
-            name: "Textbooks",
+            name: LanguageService.getValueByKey("navigation_nav_name_book"),
             icon: "sbf-textbooks"
         },
 
@@ -92,16 +74,10 @@ const nav = {
         banner: getPromoQueryFromRoute,
         data:{
             id: routes.jobRoute,
-            name: "Jobs",
+            name: LanguageService.getValueByKey("navigation_nav_name_job"),
             needLocation: true,
-            filter: [
-                // { id: "jobType", name: "job type" }
-                ],
-            sort: [
-                // { id: "relevance", name: "relevance" },
-                // { id: "distance", name: "distance" },
-                // { id: "date", name: "date" }
-            ],
+            filter: [],
+            sort: [],
             icon: "sbf-job"
         }
     }
@@ -110,8 +86,10 @@ const nav = {
 export let details = {
     bookDetails: {
         filter: [
-            "new","rental","eBook"
-        ],
+            LanguageService.getValueByKey("navigation_nav_bookDetails_filter_new"),
+            LanguageService.getValueByKey("navigation_nav_bookDetails_filter_rental"),
+            LanguageService.getValueByKey("navigation_nav_bookDetails_filter_used"),
+          ],
         sort: [
             "price",
         ]

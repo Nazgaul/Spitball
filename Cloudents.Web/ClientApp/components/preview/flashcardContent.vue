@@ -11,12 +11,10 @@
                             </button>
                             <div class="data-wrapper" role="button" @click="$_flip(slide)">
                                 <div class="img-container" v-if="slide.front.image">
-                                    <img :src="slide.front.image" v-once alt="font image" />
+                                    <img :src="slide.front.image" v-once alt="font image"/>
                                 </div>
-                                <fit-text  v-if="slide.front.text" :input-text="slide.front.text" :preview-options="previewOptions"></fit-text>
-                                <!--<div class="text-container" v-if="slide.front.text">-->
-                                    <!--<p class="scrollbar" dir="auto" v-text="slide.front.text" fit-text></p>-->
-                                <!--</div>-->
+                                <fit-text v-if="slide.front.text" :input-text="slide.front.text"
+                                          :preview-options="previewOptions"></fit-text>
                                 <v-layout class="flip" v-if="!showBoth" row align-center>
                                     <flip-icon></flip-icon>
                                     <span v-language:inner>flashcardcontent_click_to_flip</span>
@@ -29,16 +27,13 @@
                             </button>
                             <div class="data-wrapper" @click="$_flip(slide)">
                                 <div class="img-container" v-if="slide.cover.image">
-                                    <img :src="slide.cover.image" alt="font image" />
+                                    <img :src="slide.cover.image" alt="font image"/>
                                 </div>
-                                <fit-text  v-if="slide.cover.text" :input-text="slide.cover.text" :preview-options="previewOptions"></fit-text>
-
-                                <!--<div class="text-container" v-if="slide.cover.text">-->
-                                    <!--<p class="scrollbar" dir="auto" v-text="slide.cover.text" fit-text></p>-->
-                                <!--</div>-->
+                                <fit-text v-if="slide.cover.text" :input-text="slide.cover.text"
+                                          :preview-options="previewOptions"></fit-text>
                                 <div class="flip" v-if="!showBoth">
                                     <flip-icon></flip-icon>
-                                   <span v-language:inner>flashcardcontent_click_to_flip</span>  
+                                    <span v-language:inner>flashcardcontent_click_to_flip</span>
                                 </div>
                             </div>
                         </div>
@@ -51,6 +46,7 @@
 <script>
     import FitText from './../helpers/fitText.vue';
     import { mapActions, mapGetters } from 'vuex'
+
     export default {
         methods: {
             ...mapActions(['updatePinnedCards']),
@@ -58,13 +54,14 @@
                 let indexToCheck = this.card.index;
                 let currentPinned = new Set(this.pinnedCards[this.$attrs.id]);
                 this.isPined ? currentPinned.delete(indexToCheck) : currentPinned.add(indexToCheck);
-                let updatedPinned = { [this.$attrs.id]: [...currentPinned] };
+                let updatedPinned = {[this.$attrs.id]: [...currentPinned]};
                 this.updatePinnedCards(updatedPinned);
             },
             $_flip() {
-                if (!this.showBoth){ this.showFront = !this.showFront;
-                    this.previewOptions.safeWidth= this.$el.clientWidth;
-                    this.$emit('update:side',this.showFront)
+                if (!this.showBoth) {
+                    this.showFront = !this.showFront;
+                    this.previewOptions.safeWidth = this.$el.clientWidth;
+                    this.$emit('update:side', this.showFront)
                 }
             }
         },
@@ -84,17 +81,17 @@
                 return this.showFrontSide === -1;
             }
         },
-        watch:{
-            showFrontSide(val){
+        watch: {
+            showFrontSide(val) {
                 // if(val===-1) {
                 //     this.previewOptions.safeWidth = this.previewOptions.safeWidth / 2;
                 // }else{safeWidth:elm.clientWidth}
-                this.previewOptions.safeWidth=(val===-1)?this.previewOptions.safeWidth / 2:this.$el.clientWidth;
+                this.previewOptions.safeWidth = (val === -1) ? this.previewOptions.safeWidth / 2 : this.$el.clientWidth;
             }
         },
-        mounted(){
-            let elm=this.$el;
-            this.previewOptions={...this.previewOptions,safeWidth:elm.clientWidth,previewHeight:elm.clientHeight};
+        mounted() {
+            let elm = this.$el;
+            this.previewOptions = {...this.previewOptions, safeWidth: elm.clientWidth, previewHeight: elm.clientHeight};
             // this.$nextTick(()=>{
             //     this.previewOptionsCover=this.previewOptions;
             // })
@@ -109,12 +106,13 @@
             }
         },
         props: {
-            card: { type: Object },
-            showFrontSide: { default: true }
+            card: {type: Object},
+            showFrontSide: {default: true}
         },
         components: {
             FitText,
             pinIcon: () => import("./svg/pin-icon.svg"),
-            flipIcon: () => import("./svg/flip-icon.svg")        }
+            flipIcon: () => import("./svg/flip-icon.svg")
+        }
     }
 </script>

@@ -13,12 +13,7 @@
                 this.safeWidth=val},
             "previewOptions.previewHeight":function(val){
                 this.previewHeight=val}
-            // previewOptions(val){
-            //     this.safeWidth=val.safeWidth;
-            //     this.previewHeight=val.previewHeight;
-            //     debugger;
-            // }
-        },
+               },
         data: function() {
             return {
                 originalFontSize: this.previewOptions.originalFontSize,
@@ -31,7 +26,6 @@
                 },
                 text: {
                     fontSize: '18px',
-                    // position: 'absolute',
                     overflow: 'hidden',
                     top: 0,
                     left: 0
