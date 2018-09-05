@@ -167,8 +167,6 @@ export const dictionary = {
     questionDetails_Question: "Question",
     questionDetails_Chat: "Chat",
     questionDetails_Add_your_answer: "Add your answer",
-    questionDetails_Know_the_answer: "Know the answer?",
-
     questionTheard_Answers: "Answers",
 
     questionSuggestPopUp_Great_Job: "Great Job!",
@@ -253,7 +251,6 @@ export const dictionary = {
     wallet_more_SBL_more_valuable: "The more SBL you have, the more valuable they are.",
     wallet_redeemable_SBL: "redeemable SBL",
     wallet_You_have: "You have",
-    wallet_Cash_Out: "Cash Out",
 
     suggestCard_Spitball: "Spitball",
     suggestCard_Show_me: "Show me",
@@ -375,7 +372,6 @@ export const dictionary = {
     marketingData_login_askQuestion_stepOne: "Sign up with your email to get your HW questions answered now.",
     marketingData_login_askQuestion_stepTwo: "You're 1 step away from getting free SBLs and getting answers from top students!",
 
-
     //default campaign
     navigation_campaign_default_ask_banner_title: "Make money while helping others with their homework.",
     navigation_campaign_default_ask_banner_textMain: "Answer HW questions and cash out to Amazon Coupons. There’s no catch!",
@@ -443,8 +439,4 @@ export const dictionary = {
     navigation_nav_name_book: "Textbooks",
     navigation_nav_name_job: "Jobs",
 
-
-
-
-
-}
+};
