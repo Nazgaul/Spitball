@@ -264,6 +264,9 @@ export const dictionary = {
 
     resultJob_Job_description:"Job description:",
 
+    app_cookie_toaster_text: "This website uses cookies to ensure you get the best experience",
+    app_cookie_toaster_action: "Got it",
+    
     extendedTextArea_type_your_question:"Type your question...",
     extendedTextArea_type_your_answer:"Type your answer...",
 
@@ -294,6 +297,7 @@ export const dictionary = {
     result_suggestions_flashcard:"We found some flashcards that may help you study!",
 
 
+    book_header_textbook: "Textbooks",
     
     buildinsuggest_home_flashcards:"Flashcards for financial accounting",
 }

@@ -9,4 +9,4 @@ export const LanguageService = {
         }
         return dictionary[key];
     }
-}
+};
