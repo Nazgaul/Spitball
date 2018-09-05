@@ -40,7 +40,7 @@ export default {
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
                 this.errorTextArea = {
-                    errorText: LanguageService.getValueByKey("question_questionDetails_error_minChar"),
+                    errorText: LanguageService.getValueByKey("questionDetails_error_minChar"),
                     errorClass: true
                 };
                 return
