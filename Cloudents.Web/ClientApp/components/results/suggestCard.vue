@@ -21,13 +21,7 @@
 </template>
 <script>
     import logo from "./svg/sb-logo.svg";
-    const suggestList={
-        job:"Need some cash? Find the best jobs & internships for students at your school.",
-        tutor:"Still need help? Connect with a tutor and make sure you ace your class.",
-    note:"Searching for study documents for your classes? Look no further.",
-    book:"Buying or selling a textbook? We'll make sure you get the best price!",
-    ask:"Have a question you need answered? Try us.",
-        flashcard:"We found some flashcards that may help you study!"};
+    import { suggestList } from './consts';
     export default {
         components: { logo },
         data(){

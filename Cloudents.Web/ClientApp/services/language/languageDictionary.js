@@ -285,6 +285,16 @@ export const dictionary = {
     result_general_keywords:"Try more general keywords.",
     result_fewer_keywords:"Try fewer keywords.",
 
+
+    result_suggestions_job:"Need some cash? Find the best jobs & internships for students at your school.",
+    result_suggestions_tutor:"Still need help? Connect with a tutor and make sure you ace your class.",
+    result_suggestions_note:"Searching for study documents for your classes? Look no further.",
+    result_suggestions_book:"Buying or selling a textbook? We'll make sure you get the best price!",
+    result_suggestions_ask:"Have a question you need answered? Try us.",
+    result_suggestions_flashcard:"We found some flashcards that may help you study!",
+
+
+    
     buildinsuggest_home_flashcards:"Flashcards for financial accounting",
 }
 

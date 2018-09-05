@@ -1,3 +1,6 @@
+import {LanguageService} from '../../services/language/languageService'
+
+
 const dummyItemObj = {
     id: "3E84FED64DF8FB7B478F5E52DBB470EB",
     snippet: "______________________________________________________________________________________________ ______________________________________________________________________________________________ ____________________________________________________________________________________  __________________________________________________________ ____________________________________________________________________________________",
@@ -57,18 +60,19 @@ export const skeletonData = {
     job: multipleDummyJobObj,
 };
 
-export const faqList = [
-    { text: 'What is Spitball.co?', href:''},
-    { text: 'How does Spitball work?', href:''},
-    { text: 'How does Spitball differ from other student websites?', href:''},
-    { text: 'Where do the tokens come from?', href:''},
-    { text: 'Where does the value of a token come from?', href:''},
-    { text: 'What is Vote up and why do we need it?', href:''}
-];
+// export const faqList = [
+//     { text: 'What is Spitball.co?', href:''},
+//     { text: 'How does Spitball work?', href:''},
+//     { text: 'How does Spitball differ from other student websites?', href:''},
+//     { text: 'Where do the tokens come from?', href:''},
+//     { text: 'Where does the value of a token come from?', href:''},
+//     { text: 'What is Vote up and why do we need it?', href:''}
+// ];
 export const suggestList={
-    job:"Need some cash? Find the best jobs & internships for students at your school.",
-    tutor:"Still need help? Connect with a tutor and make sure you ace your class.",
-    note:"Searching for study documents for your classes? Look no further.",
-    book:"Buying or selling a textbook? We'll make sure you get the best price!",
-    ask:"Have a question you need answered? Try us.",
-    flashcard:"We found some flashcards that may help you study!"};
+    job: LanguageService.getValueByKey("result_suggestions_job"),
+    tutor:LanguageService.getValueByKey("result_suggestions_tutor"),
+    note:LanguageService.getValueByKey("result_suggestions_note"),
+    book:LanguageService.getValueByKey("result_suggestions_book"),
+    ask:LanguageService.getValueByKey("result_suggestions_ask"),
+    flashcard:LanguageService.getValueByKey("result_suggestions_flashcard")
+};
