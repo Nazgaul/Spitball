@@ -9,7 +9,7 @@
                          :class="{ active: activeColor.id !== 0 }"
                          @input="updateValue($event.target.value)"
                         :value="value" autofocus="isFocused"
-                        :placeholder="`Type your ${actionType}...`"></textarea>
+                        :placeholder="`extendedTextArea_type_your_${actionType}`" v-language:placeholder></textarea>
                     <div class="action-holder">
                     <ul class="actions_text files-actions">
                         <!--TODO use svg component and not font-->
