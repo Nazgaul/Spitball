@@ -8,8 +8,9 @@ import signupBanner from './../helpers/signup-banner/signup-banner.vue'
 import QuestionCard from "../question/helpers/question-card/question-card";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
-import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
-import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
+import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue';
+import sortAndFilterMixin from '../mixins/sortAndFilterMixin';
+import {LanguageService} from '../../services/language/languageService'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'
 import notificationCenter from '../notificationCenter/notificationCenter.vue'
@@ -31,7 +32,10 @@ export default {
             showPersonalizeField: true,
             showFilterNotApplied: false,
             isLoad: false,
-            showDialog: false
+            showDialog: false,
+            placeholder:{
+                whereSchool: LanguageService.getValueByKey("result_where_school")
+            }
         };
     },
 

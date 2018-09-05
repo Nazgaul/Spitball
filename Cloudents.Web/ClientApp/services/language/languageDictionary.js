@@ -167,6 +167,8 @@ export const dictionary = {
     questionDetails_Question: "Question",
     questionDetails_Chat: "Chat",
     questionDetails_Add_your_answer: "Add your answer",
+    questionDetails_error_minChar: "min. 15 characters",
+    
     questionTheard_Answers: "Answers",
 
     questionSuggestPopUp_Great_Job: "Great Job!",
@@ -297,6 +299,19 @@ export const dictionary = {
     book_header_textbook: "Textbooks",
 
     buildinsuggest_home_flashcards: "Flashcards for financial accounting",
+
+    satellite_routes_about:"How Spitball Works",
+    satellite_routes_faq:"FAQ",
+    satellite_routes_blog:"Blog",
+    satellite_routes_partners:"Partners",
+    satellite_routes_reps:"Reps",
+    satellite_routes_privacy:"Privacy",
+    satellite_routes_terms:"Terms",
+    satellite_routes_contact:"Contact",
+
+    seacrh_searchText_find: "Find study documents, textbooks, tutors, jobs, deals and more...",
+    seacrh_searchText_find_short: "Study documents, textbooks, tutors...",
+    
     buildinsuggest_home_classNotes: "Class notes for my Calculus class",
     buildinsuggest_home_warEnd: "When did World War 2 end?",
     buildinsuggest_home_difference: "Difference between Meiosis and Mitosis",
@@ -304,32 +319,31 @@ export const dictionary = {
     buildinsuggest_home_tutor_marketing_job: "Job in marketing in NYC",
     buildinsuggest_home_accounting_tool: "The textbook - Accounting: Tools for Decision Making",
     buildinsuggest_home_burger_near: "Where can I get a burger near campus?",
-
-
     buildinsuggest_note_microeconomics: "microeconomics study guides",
     buildinsuggest_note_pastExams: "past exams for bio 101",
     buildinsuggest_note_electrical: "electrical engineering notes",
-
     buildinsuggest_flashcard_calculus: "calculus 2 review set",
     buildinsuggest_flashcard_physics_study: "physics study set",
     buildinsuggest_flashcard_spanish: "intermediate spanish vocab",
+    
+    sortAndFilter_sort:"Sort",
+    sortAndFilter_filter:"Filter",
 
+    result_peronalize_placeholder: "Where do you go to school?",
+
+    mobileSortAndFilter_filter:"Filter",
 
     buildinsuggest_tutor_biology: "biology help",
     buildinsuggest_tutorphysics_esl: "esl tutors",
     buildinsuggest_tutor_accounting: "accounting homework help",
-
     buildinsuggest_book_biology: "Biology: The Core 2nd Edition",
     buildinsuggest_book_gregory: "Gregory Mankiw textbook",
-
     buildinsuggest_ask_plate: "plate tectonics explained",
     buildinsuggest_ask_logarithms: "how to solve logarithms",
     buildinsuggest_ask_triassic: "facts about the triassic period",
-
     buildinsuggest_job_ambassador: "brand ambassador jobs",
     buildinsuggest_job_internship: "student internship",
     buildinsuggest_job_design: "ux/ui design",
-
 
     header_placeholder_job: "Your field of expertise...",
     header_placeholder_tutor: "Find a tutor...",
@@ -338,22 +352,16 @@ export const dictionary = {
     header_placeholder_ask: "Search questions",
     header_placeholder_flashcard: "Look for flashcards...",
 
-
-    result_peronalize_placeholder: "Where do you go to school?",
-
     notificationCenter_title: "Notifications",
 
     preview_flashcard_beginText_start_over: "Start Over",
     preview_flashcard_beginText_start: "Start",
-
     preview_itemActions_download: "Download",
     preview_itemActions_title: "Print",
 
     profile_emptyState_questions_text: "Have a question on your homework?",
     profile_emptyState_questions_btnText: "Ask Your Question",
     profile_emptyState_questions_boldText: "Ask Your Question",
-
-
     profile_emptyState_answers_text: "Help other students and make money by answering questions.",
     profile_emptyState_answers_btnText: "Answer",
 
@@ -365,7 +373,7 @@ export const dictionary = {
     question_newQuestion_error_pickSubject: "Pick a subject",
     question_newQuestion_toasterPostedText: "Question posted, the best brains are working on it right now",
 
-    question_questionDetails_error_minChar: "min. 15 characters",
+    
 
     marketingData_login_noCampaign_stepOne: "Start with your email. We need to know how to contact you.",
     marketingData_login_noCampaign_stepTwo: "We need to send you a confirmation code",
@@ -376,7 +384,6 @@ export const dictionary = {
     navigation_campaign_default_ask_banner_title: "Make money while helping others with their homework.",
     navigation_campaign_default_ask_banner_textMain: "Answer HW questions and cash out to Amazon Coupons. There’s no catch!",
     navigation_campaign_default_ask_banner_boldText: "cash out to Amazon Coupons",
-
 
     navigation_campaign_default_note_banner_title: "Notes, study guides, exams and more from the best sites.",
     navigation_campaign_default_note_banner_textMain: "Filtered by your school, classes and preferences. Saving you time!",
@@ -398,8 +405,6 @@ export const dictionary = {
     navigation_campaign_job_default_banner_textMain: "Filtered by your experience and location preference.",
     navigation_campaign_job_default_banner_boldText: "experience and location preference.",
 
-
-
     //askaquestion campaign
     navigation_campaign_askaquestion_ask_banner_title: "Ask your HW question now and get fast answers from top students.",
     navigation_campaign_askaquestion_ask_banner_textMain: "Sign up now!",
@@ -409,7 +414,6 @@ export const dictionary = {
     navigation_campaign_askaquestion_note_banner_title: "Notes, study guides, exams and more from the best sites.",
     navigation_campaign_askaquestion_note_banner_textMain: "Filtered by your school, classes and preferences. Saving you time!",
     navigation_campaign_askaquestion_note_banner_boldText: "your school, classes and preferences",
-
 
     navigation_campaign_askaquestion_flashcard_banner_title: "Study from millions of flashcard sets to improve your grades.",
     navigation_campaign_askaquestion_flashcard_banner_textMain: "Filtered by your school, classes and preferences. Saving you time!",
@@ -438,5 +442,3 @@ export const dictionary = {
     navigation_nav_name_tutor: "Tutors",
     navigation_nav_name_book: "Textbooks",
     navigation_nav_name_job: "Jobs",
-
-};
