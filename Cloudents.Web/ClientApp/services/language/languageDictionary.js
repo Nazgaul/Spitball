@@ -266,6 +266,30 @@ export const dictionary = {
 
     app_cookie_toaster_text: "This website uses cookies to ensure you get the best experience",
     app_cookie_toaster_action: "Got it",
+    
+    extendedTextArea_type_your_question:"Type your question...",
+    extendedTextArea_type_your_answer:"Type your answer...",
+
+    result_ask_question:"Ask Your Question",
+    result_new_questions: "New questions",
+    result_filter_not_applied: "Filter was not applied, because it will give you no results.",
+    result_ok: "Ok",
+    result_where_school: "Where do you go to school?",
+    result_user_answering: "user is answering",
+    result_users_answering: "users are answering",
+    result_answer:"Answer",
+    result_showme:"Show Me",
+    result_answer_not_found:"We didn’t find an answer to your question",
+    result_your_search:"Your search",
+    result_record_not_match:"did not match any records.",
+    result_suggestions:"Suggestions:",
+    result_spelling:"Check your spelling.",
+    result_different_keywords:"Try different keywords.",
+    result_general_keywords:"Try more general keywords.",
+    result_fewer_keywords:"Try fewer keywords.",
+
+
+
 
     book_header_textbook: "Textbooks",
 
