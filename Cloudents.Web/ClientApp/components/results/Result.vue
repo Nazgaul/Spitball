@@ -39,7 +39,7 @@
                                 <!--TODO looks like no need anymore cause we fixed FAQ appear/dissapear breakpoint-->
                                 <!--<router-link v-if="$route.path.slice(1)==='ask' " class="ask-question-mob  hidden-md-and-down"  :to="{path:'/newquestion/'}">Ask Your Question</router-link>-->
                                 <v-flex order-xs1 v-if="isAcademic&&showPersonalizeField&&!university && !loading" class="personalize-wrapper pa-3 mb-3 elevation-1">
-                                    <v-text-field class="elevation-0" type="search" solo flat placeholder="result_where_school" @click="$_openPersonalize" v-language:placeholder></v-text-field>
+                                    <v-text-field class="elevation-0" type="search" solo flat :placeholder="placeholder.whereSchool" @click="$_openPersonalize" v-language:placeholder></v-text-field>
                                 </v-flex>
                                 <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index" :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                         <component v-if="item.template !== 'ask' " :is="'result-'+item.template" :item="item" :key="index" :index="index" class="cell" ></component>

@@ -300,5 +300,25 @@ export const dictionary = {
     book_header_textbook: "Textbooks",
     
     buildinsuggest_home_flashcards:"Flashcards for financial accounting",
+
+    satellite_routes_about:"How Spitball Works",
+    satellite_routes_faq:"FAQ",
+    satellite_routes_blog:"Blog",
+    satellite_routes_partners:"Partners",
+    satellite_routes_reps:"Reps",
+    satellite_routes_privacy:"Privacy",
+    satellite_routes_terms:"Terms",
+    satellite_routes_contact:"Contact",
+
+    seacrh_searchText_find: "Find study documents, textbooks, tutors, jobs, deals and more...",
+    seacrh_searchText_find_short: "Study documents, textbooks, tutors …",
+
+    sortAndFilter_sort:"Sort",
+    sortAndFilter_filter:"Filter",
+
+
+    mobileSortAndFilter_filter:"Filter",
+
+
 }
 
