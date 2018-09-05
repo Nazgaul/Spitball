@@ -1,4 +1,5 @@
 import {dictionary} from "./languageDictionary"
+import { termHtml } from "./page/term"
 
 export const LanguageService = {
     getValueByKey: (key) => {
@@ -6,5 +7,9 @@ export const LanguageService = {
             return `###${key}`;
         }
         return dictionary[key];
+    },
+
+    getTermPage: ()=>{
+        return termHtml;
     }
 };
