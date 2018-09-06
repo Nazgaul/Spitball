@@ -45,8 +45,11 @@ namespace Cloudents.Functions
             CancellationToken token)
         {
             //var (update, delete, version) = await bus.QueryAsync<(IEnumerable<QuestionAzureSyncDto> update, IEnumerable<long> delete, long version)>(query, token);
-            await SyncFunc.SyncAsync2(blob, searchServiceWrite, s => s
-            , q => bus.QueryAsync<(IEnumerable<Question> update, IEnumerable<long> delete, long version)>(q, token),
+            await SyncFunc.SyncAsync2(blob, searchServiceWrite, s =>
+                {
+                    s.Prefix = s.Text;
+                    return s;
+                }, q => bus.QueryAsync(q, token),
                 log, token);
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
         }

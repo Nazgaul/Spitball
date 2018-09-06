@@ -1,29 +1,54 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Reflection;
-using Cloudents.Core.Extension;
+﻿using Cloudents.Core.Extension;
 using Microsoft.Azure.Search.Models;
 using Microsoft.Spatial;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Cloudents.Infrastructure.Write
 {
+    public class FluentSearchIndexBuilder<T>
+    {
+        private readonly List<Field> _fields = new List<Field>();
+        private string _name;
+
+        public FluentSearchFieldBuilder<T> Fields()
+        {
+            var t = new FluentSearchFieldBuilder<T>();
+            _fields.Add(t);
+            return t;
+        }
+
+        public FluentSearchIndexBuilder<T> Field(FluentSearchFieldBuilder<T> f)
+        {
+            _fields.Add(f);
+            return this;
+        }
+
+        public FluentSearchIndexBuilder<T> Name(string name)
+        {
+            _name = name;
+            return this;
+        }
+
+        public static implicit operator Index(FluentSearchIndexBuilder<T> tb)
+        {
+            return new Index(tb._name,tb._fields);
+        }
+
+    }
     public class FluentSearchFieldBuilder<T>
     {
-        private readonly Field _field = new Field();
+        private Field _field/* = new Field()*/;
 
-        public static FluentSearchFieldBuilder<T> Make => new FluentSearchFieldBuilder<T>();
-
-        //public Field Build()
-        //{
-        //    return _field;
-        //}
+        //public static FluentSearchFieldBuilder<T> Make => new FluentSearchFieldBuilder<T>();
 
 
         public FluentSearchFieldBuilder<T> Map(Expression<Func<T, object>> memberExpression, DataType type)
         {
-            string name = memberExpression.GetName();
-            _field.Name = name;
-            _field.Type = type;
+            var name = memberExpression.GetName();
+            _field = new Field {Name = name, Type = type};
             return this;
 
             //var z = memberExpression;
@@ -33,13 +58,14 @@ namespace Cloudents.Infrastructure.Write
 
         public FluentSearchFieldBuilder<T> Map(Expression<Func<T, object>> memberExpression)
         {
-            var expression = (MemberExpression)memberExpression.Body;
-            string name = memberExpression.GetName();
-            var propertyInfo = (PropertyInfo)expression.Member;
-            _field.Name = name;
-            _field.Type = GetDataType(propertyInfo.PropertyType, name);
+            var memberInfo = memberExpression.GetMemberInfo();
+
+            var propertyInfo = (PropertyInfo)memberInfo;
+            _field = new Field {Name = memberInfo.Name, Type = GetDataType(propertyInfo.PropertyType)};
             return this;
         }
+
+
 
         public FluentSearchFieldBuilder<T> IsSearchable()
         {
@@ -87,7 +113,7 @@ namespace Cloudents.Infrastructure.Write
             return tb._field;
         }
 
-        private static DataType GetDataType(Type propertyType, string propertyName)
+        private static DataType GetDataType(Type propertyType)
         {
             if (propertyType == typeof(string))
             {
@@ -117,7 +143,12 @@ namespace Cloudents.Infrastructure.Write
             {
                 return DataType.GeographyPoint;
             }
-            throw new ArgumentException(string.Format("Property {0} has unsupported type {1}", propertyName, propertyType), "propertyType");
+
+            if (propertyType.IsEnum)
+            {
+                return DataType.Int32;
+            }
+            throw new ArgumentException($"Property has unsupported type {propertyType}", "propertyType");
         }
 
 

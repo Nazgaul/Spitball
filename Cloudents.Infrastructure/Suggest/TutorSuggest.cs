@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Suggest
         {
             _generator = generator;
             _vertical = vertical;
-            _client = client.GetClient(AutoCompleteSearchWrite.IndexName);
+            _client = client.GetOldClient(AutoCompleteSearchWrite.IndexName);
         }
 
         public async Task<IEnumerable<string>> SuggestAsync(string query, CancellationToken token)
