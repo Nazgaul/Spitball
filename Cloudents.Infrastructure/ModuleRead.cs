@@ -23,6 +23,7 @@ namespace Cloudents.Infrastructure
 {
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Web)]
+    [ModuleRegistration(Core.Enum.System.Admin)]
     [UsedImplicitly]
     public sealed class ModuleRead : Module
     {
@@ -51,7 +52,8 @@ namespace Cloudents.Infrastructure
             #region Tutor
 
             builder.RegisterAssemblyTypes(currentAssembly)
-                .Where(w => typeof(ITutorProvider).IsAssignableFrom(w)).AsImplementedInterfaces();
+                .Where(w => typeof(ITutorProvider).IsAssignableFrom(w)).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors().InterceptedBy(typeof(LogInterceptor));
             builder.RegisterType<TutorSearch>().As<ITutorSearch>()
                 .EnableInterfaceInterceptors().InterceptedBy(typeof(BuildLocalUrlInterceptor));
 

@@ -103,7 +103,8 @@ WebFont.load({
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
-        VScroll
+        VScroll,
+
     },
     components: vuetifyComponents
 });

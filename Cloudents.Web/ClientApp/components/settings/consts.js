@@ -1,9 +1,8 @@
 ﻿
 export const typesPersonalize = {
     university: "univeristy",
-    course: "course"
-
-    ,whoWeAre: "whoWeAre",
+    course: "course",
+    whoWeAre: "whoWeAre",
     whatWeUpTo: "whatWeUpTo",
     myWallet: "myWallet",
     trustSafety: "trustSafety",
@@ -13,7 +12,7 @@ export const typesPersonalize = {
     feedback:"feedback",
     privacyPolicy: "privacyPolicy"
 
-}
+};
 export let searchObjects = {
     course: {
         id: typesPersonalize.course,
@@ -72,42 +71,51 @@ export let settingMenu = [
         name: "Feedback",
         click: function () {
             Intercom('showNewMessage', '');
-        }
+        },
+
     }
 ];
 
 
 
 export let notRegMenu = [
-    {
-        id: typesPersonalize.whoWeAre,
-        title: "Who we are",
-        name:"faq"
-    },
+    // {
+    //     id: typesPersonalize.whoWeAre,
+    //     title: "Who we are",
+    //     name:"faq",
+    //     icon:"sbf-profile"
+    // },
     {
         id: typesPersonalize.aboutSpitball,
         title: "About Spitball",
-        name:"about"
+        name:"about",
+        icon:"sbf-about"
     },
     {
         id: typesPersonalize.help,
         title: "Help",
-        name:"faq"
+        name:"faq",
+        icon:"sbf-help"
     },
     {
         id: typesPersonalize.termsService,
         title: "Terms of Service",
-        name:"terms"
-    },
-    {
-        id:typesPersonalize.feedback,
-        title:'Feedback',
-        click:()=>Intercom('showNewMessage')
+        name:"terms",
+        icon:"sbf-terms"
     },
     {
         id: typesPersonalize.privacyPolicy,
         title: "Privacy Policy",
-        name:"privacy"
+        name:"privacy",
+        icon:"sbf-privacy"
     },
+    {
+        id:typesPersonalize.feedback,
+        title:'Feedback',
+        icon:"sbf-feedbackNew",
+        click:()=>Intercom('showNewMessage'),
+
+    },
+
    
 ];

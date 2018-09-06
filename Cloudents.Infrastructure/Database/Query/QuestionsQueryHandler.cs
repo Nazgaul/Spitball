@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
@@ -14,11 +10,15 @@ using Cloudents.Core.Query;
 using Cloudents.Infrastructure.Database.Repositories;
 using NHibernate;
 using NHibernate.Criterion;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class QuestionsQueryHandler : IQueryHandler<QuestionsQuery, ResultWithFacetDto<QuestionDto>>
+    public class QuestionsQueryHandler : IQueryHandler<QuestionsQuery, IEnumerable<QuestionDto>>
     {
         private readonly ISession _session;
 
@@ -27,8 +27,8 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.Session;
         }
 
-        [Cache(TimeConst.Minute * 15, RemoveQuestionCacheEventHandler.CacheRegion, true)]
-        public async Task<ResultWithFacetDto<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
+        [Cache(TimeConst.Minute * 15, RemoveQuestionCacheEventHandler.CacheRegion, false)]
+        public async Task<IEnumerable<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
         {
             QuestionDto dto = null;
             QuestionSubject commentAlias = null;
@@ -69,43 +69,34 @@ namespace Cloudents.Infrastructure.Database.Query
                     query.Term));
             }
 
+
             switch (query.Filter)
             {
-                case QuestionFilter.All:
-                    break;
                 case QuestionFilter.Unanswered:
                     queryOverObj.WithSubquery.WhereNotExists(QueryOver.Of<Answer>()
-                        .Where(tx => tx.Question.Id == questionAlias.Id).Select(x=>x.Id));
+                        .Where(tx => tx.Question.Id == questionAlias.Id).Select(x => x.Id));
                     break;
                 case QuestionFilter.Answered:
                     queryOverObj.WithSubquery.WhereExists(QueryOver.Of<Answer>()
-                        .Where(tx => tx.Question.Id == questionAlias.Id).Select(x => x.Id));
+                            .Where(tx => tx.Question.Id == questionAlias.Id).Select(x => x.Id))
+                        .And(t => t.CorrectAnswer == null);
                     break;
                 case QuestionFilter.Sold:
                     queryOverObj.Where(w => w.CorrectAnswer != null);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
 
             queryOverObj.OrderBy(o => o.Updated).Desc
                 .Skip(query.Page * 50)
                 .Take(50);
 
-            var futureQueryOver = queryOverObj.Future<QuestionDto>();
+            //var futureQueryOver = queryOverObj.Future<QuestionDto>();
 
-            var facetsFuture = QuestionSubjectRepository.GetSubjects(_session.QueryOver<QuestionSubject>()).Select(s => s.Text)
-                .Cacheable().CacheMode(CacheMode.Normal)
-                .Future<string>();
+            //var facetsFuture = QuestionSubjectRepository.GetSubjects(_session.QueryOver<QuestionSubject>()).Select(s => s.Text)
+            //    .Cacheable().CacheMode(CacheMode.Normal)
+            //    .Future<string>();
 
-            var retVal = await futureQueryOver.GetEnumerableAsync(token).ConfigureAwait(false);
-            var facet = facetsFuture.GetEnumerable();
-
-            return new ResultWithFacetDto<QuestionDto>
-            {
-                Result = retVal,
-                Facet = facet
-            };
+            return await queryOverObj.ListAsync<QuestionDto>(token);
         }
     }
 }

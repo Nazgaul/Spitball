@@ -1,20 +1,24 @@
 <template>
     <div class="sort-filter-wrap">
-        <template v-if="sortOptions.length">
+        <template v-if="sortOptions &&  sortOptions.length">
             <h3>Sort</h3>
             <div class="sort-switch">
-                <template v-for="(o, index) in sortOptions">
-                    <input type="radio" :id="`option${index}`" @click="updateSort(o.id)" :key="`option${index}`"
-                           name="switch" :value="o.id" :checked="sortVal?sortVal===o.id:index===0">
-                    <label :for="`option${index}`" :key="index">{{o.name}}</label>
+                <template v-for="(singleSort, index) in sortOptions">
+                    <input type="radio" :id="`option${index}`"
+                           @click="updateSort(singleSort)"
+                           :key="`option${index}`"
+                           name="switch"
+                           :value="singleSort"
+                           :checked="sortVal ? sortVal === singleSort : index===0">
+                    <label :for="`option${index}`"
+                           :key="index">{{singleSort}}</label>
                 </template>
             </div>
         </template>
-        <div v-if="filterOptions && filterOptions.length">
+        <div v-if="filterList && filterList.length">
             <h3>Filter</h3>
             <div class="filter-switch">
-                <!--removed :value binding cause of error Vuetify 1.1.1-->
-                <v-expansion-panel expand :value="0">
+                <v-expansion-panel expand v-model="panelList">
                     <v-expansion-panel-content v-for="(singleFilter, index) in filterList" :key="index">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
                         <template slot="header">
@@ -26,7 +30,7 @@
                                 <div>{{singleFilter.title}}</div>
                             </slot>
                         </template>
-                        <div :class="['sort-filter',$route.path==='/ask'?'no-maxHeight':'']">
+                        <div :class="['sort-filter']">
                             <div v-for="filterItem in singleFilter.data"
                                  :key="(filterItem.id ? filterItem.id : filterItem)" class="filter">
                                 <input type="checkbox" :id="(filterItem.id ? filterItem.id : filterItem)"
@@ -34,7 +38,7 @@
                                        @change="updateFilter({
                                        id : singleFilter.id,
                                        val: filterItem,
-                                       type : $event} )"/>
+                                       event : $event} )"/>
 
                                 <label class="checkmark" :for="(filterItem.id ? filterItem.id : filterItem)"></label>
                                 <label class="title-label" :title="filterItem.name ? filterItem.name : filterItem" :for="(filterItem.id ? filterItem.id : filterItem)">

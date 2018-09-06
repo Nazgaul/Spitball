@@ -34,7 +34,7 @@ export default {
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState"]),
+        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState", 'updateUserProfileData']),
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
@@ -56,7 +56,7 @@ export default {
                         self.answerFiles = [];
                         self.updateLoading(false);
                         self.cardList = resp.data;
-                        self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
+                        self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                         self.showDialogSuggestQuestion = true; // question suggest popup dialog
                     }, () => {
                         self.submitForm(false);
@@ -71,7 +71,8 @@ export default {
         removeFile(index) {
             this.answerFiles.splice(index, 1);
         },
-        getData() {
+        getData(skipViewerUpdate) {
+            let updateViewer = skipViewerUpdate ? false : true;
             //enable submit btn
             this.$data.submitted = false;
             // var self = this;
@@ -79,8 +80,10 @@ export default {
                 .then( (response) => {
                     this.questionData = response;
 
-                    console.log("entering question");
-                    sendEventList.question.addViewr(this.questionData);
+                    if(updateViewer){
+                        console.log("entering question");
+                        sendEventList.question.addViewr(this.questionData);
+                    }
 
                     if (this.accountUser) {
                         this.questionData.cardOwner = this.accountUser.id === response.user.id;
@@ -136,6 +139,7 @@ export default {
                 this.showForm = true;
             }
             else {
+                this.updateUserProfileData('profileMakeMoney');
                 this.dialogType = ''
                 this.updateLoginDialogState(true);
             }
@@ -188,6 +192,8 @@ export default {
         })
     },
     destroyed(){
-        this.removeViewer();
+        if(this.removeViewer){
+            this.removeViewer();
+        }
     }
 }

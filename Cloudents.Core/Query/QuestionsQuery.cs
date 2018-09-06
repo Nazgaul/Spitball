@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -6,12 +7,20 @@ using Cloudents.Core.Interfaces;
 namespace Cloudents.Core.Query
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Automapper initialize")]
-    public class QuestionsQuery : IQuery<ResultWithFacetDto<QuestionDto>>
+    public class QuestionsQuery : IQuery<IEnumerable<QuestionDto>>
     {
-        public string Term { get; set; }
-        public string[] Source { get; set; }
-        public int Page { get; set; }
+        public QuestionsQuery(string term, string[] source, int page, QuestionFilter? filter)
+        {
+            Term = term;
+            Source = source;
+            Page = page;
+            Filter = filter;
+        }
 
-        public QuestionFilter Filter { get; set; }
+        public string Term { get;  }
+        public string[] Source { get;  }
+        public int Page { get;  }
+
+        public QuestionFilter? Filter { get;  }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Cloudents.Core.Enum
+﻿using Cloudents.Core.Attributes;
+
+namespace Cloudents.Core.Enum
 {
     public enum QuestionColor
     {
@@ -18,8 +20,11 @@
     public enum QuestionFilter
     {
         All,
+        [PublicValue]
         Unanswered,
+        [PublicValue]
         Answered,
+        [PublicValue]
         Sold
     }
 }

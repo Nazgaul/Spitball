@@ -1,12 +1,12 @@
 import stepTemplate from './helpers/stepTemplate.vue'
 import codesJson from './helpers/CountryCallingCodes';
-import {mapMutations, mapActions, mapGetters} from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import VueRecaptcha from 'vue-recaptcha';
-
-﻿import registrationService from '../../services/registrationService'
+import registrationService from '../../services/registrationService'
 import analyticsService from '../../services/analytics.service';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
 
+﻿
 const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;
@@ -20,9 +20,9 @@ export default {
         return {
             siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
             gaCategory: '',
-            marketingData: {
-
-            },
+            marketingData: {},
+            agreeTerms: false,
+            agreeError: false,
             loader: null,
             loading: false,
             countryCodesList: codesJson.sort((a, b) => a.name.localeCompare(b.name)),
@@ -45,13 +45,14 @@ export default {
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             stepsEnum: {
-                "startstep": 1,
-                "emailconfirmed": 2,
-                "enterphone": 3,
-                "verifyphone": 4,
-                "congrats": 5,
-                "loginstep": 6,
-                "expiredstep": 7
+                "termandstart": 1,
+                "startstep": 2,
+                "emailconfirmed": 3,
+                "enterphone": 4,
+                "verifyphone": 5,
+                "congrats": 6,
+                "loginstep": 7,
+                "expiredstep": 8
             }
         }
     },
@@ -66,7 +67,6 @@ export default {
                 }, this.toasterTimeout)
             }
         },
-
     },
     computed: {
         ...mapGetters({
@@ -74,8 +74,20 @@ export default {
             getToasterText: 'getToasterText',
             lastActiveRoute: 'lastActiveRoute',
             campaignName: 'getCampaignName',
-            campaignData: 'getCampaignData'
+            campaignData: 'getCampaignData',
+            profileData: 'getProfileData',
+            isCampaignOn: 'isCampaignOn'
         }),
+        confirmCheckbox(){
+          return !this.agreeTerms && this.agreeError
+        },
+        isMobile(){
+             return this.$vuetify.breakpoint.xsOnly
+        },
+        //profile data relevant for each stepNumber
+        meta(){
+            return   this.profileData.register[this.stepNumber];
+        }
     },
     methods: {
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
@@ -94,7 +106,16 @@ export default {
             this.changeStepNumber('loginStep');
         },
         showRegistration() {
+            this.changeStepNumber('termandstart');
+        },
+        goToEmailLogin(){
+            if(!this.agreeTerms){
+                return this.agreeError = true
+            }
             this.changeStepNumber('startStep');
+        },
+        changePhone(){
+          this.changeStepNumber('enterphone');
         },
         submit() {
             let self = this;
@@ -113,6 +134,9 @@ export default {
         },
 
         googleLogIn() {
+            if(!this.agreeTerms){
+              return  this.agreeError = true;
+            }
             var self = this;
             self.updateLoading(true);
             let authInstance = gapi.auth2.getAuthInstance();
@@ -244,7 +268,6 @@ export default {
                         let url = self.lastActiveRoute || defaultSubmitRoute;
                         window.isAuth = true;
                         self.$router.push({path: `${url.path }`});
-
                     }
                 }, function (error) {
                     self.loading = false;
@@ -258,7 +281,16 @@ export default {
             window.isAuth = true;
             this.loading = false;
             this.$router.push({path: `${url.path }`});
-        }
+        },
+        //get unique texts per user profile if no active marketing campaign
+        // getProfileMeta(campaign){
+        //         if(campaign && campaign === 'noCampaign'){
+        //             this.profileMeta = this.profileData.register;
+        //         }else{
+        //             this.profileMeta = this.campaignData;
+        //         }
+        //         console.log('META!', this.profileMeta);
+        // }
     },
     mounted() {
         this.$nextTick(function () {
@@ -270,6 +302,7 @@ export default {
         })
     },
     created() {
+        // this.getProfileMeta(this.campaignName);
         // if(!this.campaignName || this.campaignName === '' ){
         //     this.updateCampaign('noCampaign');
         // }
@@ -293,6 +326,16 @@ export default {
             analyticsService.sb_unitedEvent('Registration', 'Email Verified');
 
         }
-
     },
+    //value = String; query = ['String', 'String','String'] || []
+    filters: {
+        bolder: function (value, query) {
+            if(query.length) {
+                query.map((item) => {
+                    value = value.replace(item, '<span class="bolder">' + item + '</span>')
+                });
+            }
+            return value
+        }
+    }
 }

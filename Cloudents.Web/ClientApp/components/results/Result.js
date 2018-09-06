@@ -1,26 +1,23 @@
 ﻿import ResultItem from './ResultItem.vue';
 import questionCard from './../question/helpers/question-card/question-card.vue';
-const ResultTutor = () => import('./ResultTutor.vue');
-const ResultBook = () => import('./ResultBook.vue');
-const ResultJob = () => import('./ResultJob.vue');
-import {page} from "../../services/navigation/vertical-navigation/nav";
+import { page, verticalsName } from "../../services/navigation/vertical-navigation/nav";
 import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
-import {verticalsName} from "../../services/navigation/vertical-navigation/nav";
-import {typesPersonalize} from "../settings/consts.js";
+import { typesPersonalize } from "../settings/consts.js";
 import signupBanner from './../helpers/signup-banner/signup-banner.vue'
 import QuestionCard from "../question/helpers/question-card/question-card";
-import {mapActions, mapGetters, mapMutations} from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
 import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
-
-const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'
 
-import {skeletonData} from './consts'
-import account from "../../store/account";
+const ResultTutor = () => import('./ResultTutor.vue');
+const ResultBook = () => import('./ResultBook.vue');
+const ResultJob = () => import('./ResultJob.vue');
+
+const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 
 //The vue functionality for result page
 export default {
@@ -54,59 +51,32 @@ export default {
 
     //use basic sort and filter functionality( same for book details and result page)
     mixins: [sortAndFilterMixin],
-
-    //when go back to home clear the saved term and classes
+    //when trying to go back to '/'
     beforeRouteLeave(to, from, next) {
-        this.leavePage(to, from, next);
+        if (to.name && to.name === 'home') {
+            //clear filters boxes
+            this.cleanData();
+        }
+        next();
     },
-
-    //When route has been updated(query,filter,vertical)
+    //When route has been updated(query,filter,vertical) 1-%%%
     beforeRouteUpdate(to, from, next) {
         this.updatePageData(to, from, next)
+
     },
 
-    created() {
-        console.log('result ccreated')
-        //If query have courses save those courses
-        if (this.query.course) this.setFilteredCourses(this.query.course);
-        this.UPDATE_LOADING(true);
-        //fetch data with the params
-        this.fetchingData({
-            name: this.name,
-            params: {...this.query, ...this.params, term: this.userText},
-            skipLoad: this.$options._parentElm.childElementCount > 1
-        }).then((data) => {
-                this.updateData.call(this, {...data, vertical: this.name})
-            }).catch(reason => {
-            console.error(reason);
-            //when error from fetching data remove the loader
-            this.UPDATE_LOADING(false);
-        });
-    },
-
-    watch: {
-        //update the course list of filters if have in page while the course list changes
-        myCourses(val) {
-            if (this.filterObject) {
-                const courseIndex = this.filterObject.findIndex(item => item.modelId === "course");
-                if (courseIndex > -1)
-                    this.filterObject[courseIndex].data = val;
-            }
-        }
-    },
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner']),
+        ...mapGetters(['isFirst', 'myCourses', 'getFilters', 'getVerticalData', 'accountUser', 'showRegistrationBanner', 'getShowQuestionToaster']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'getSearchItems'}),
-        
 
         //not interesting
         filterCondition() {
             return this.filterSelection.length || (this.filterObject && this.page)
         },
-
-        
-
+        showQuestionToaster(){
+            return this.getShowQuestionToaster;
+        },
         content: {
             get() {
                 return this.pageData;
@@ -128,17 +98,17 @@ export default {
                                 return filters;
                             })
                                 .then(filters => {
-                                let myFilters = filters();
-                                let ExtraContent = "";
-                                if (myFilters && Object.keys(myFilters).length) {
-                                    ExtraContent = "#";
-                                    Object.entries(myFilters).forEach(([key, currentVal]) => {
-                                        ExtraContent += `${key}:[${currentVal}]`;
-                                    });
-                                    ExtraContent += "#";
-                                }
-                                this.$ga.event("Empty_State", this.name, ExtraContent + this.userText);
-                            });
+                                    let myFilters = filters();
+                                    let ExtraContent = "";
+                                    if (myFilters && Object.keys(myFilters).length) {
+                                        ExtraContent = "#";
+                                        Object.entries(myFilters).forEach(([key, currentVal]) => {
+                                            ExtraContent += `${key}:[${currentVal}]`;
+                                        });
+                                        ExtraContent += "#";
+                                    }
+                                    this.$ga.event("Empty_State", this.name, ExtraContent + this.userText);
+                                });
                         }
                         this.UPDATE_LOADING(false);
                         this.UPDATE_SEARCH_LOADING(false);
@@ -160,27 +130,42 @@ export default {
         }
     },
 
+    watch: {
+        //update the course list of filters if have in page while the course list changes
+        myCourses(val) {
+            if (this.filterObject) {
+                const courseIndex = this.filterObject.findIndex(item => item.modelId === "course");
+                if (courseIndex > -1)
+                    this.filterObject[courseIndex].data = val;
+            }
+        }
+    },
     methods: {
-        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFilters', 'updateLoginDialogState']),
-        ...mapMutations(["UPDATE_SEARCH_LOADING"]),
+        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFilters', 'updateLoginDialogState', 'updateUserProfileData']),
+        ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
 
-        subFilterVertical(val) {
-            return val.includes('note') || val === 'flashcard' || val === 'job' || val.includes('ask');
+        loadNewQuestions(){
+            this.INJECT_QUESTION();
+            console.log("new question loading");
         },
+
         goToAskQuestion(){
-            if(this.accountUser == null){
+             if(this.accountUser == null){
                 this.updateLoginDialogState(true);
+                //user profile update
+                this.updateUserProfileData('profileHWH')
             }else{
                 this.$router.push({name: 'newQuestion'});
             }
         },
+        //   2-%%%
         updatePageData(to, from, next) {
             (to.path === from.path && to.q === from.q) ? this.isLoad = true : this.UPDATE_LOADING(true);
             this.updateContentOfPage(to, from, next);
         },
+        //    3-%%%   fetching data and calling updateData func
         updateContentOfPage(to, from, next) {
             const toName = to.path.slice(1);
-            //const updateFilter = (to.path === from.path && to.query.q === from.query.q);
             let params=  {...to.query, ...to.params, term: to.query.q};
             this.fetchingData({name: toName, params}, true)
                 .then((data) => {
@@ -204,39 +189,14 @@ export default {
                 }
             });
         },
-        leavePage(to, from, next) {
-            if (to.name && to.name === 'home') {
-                //clear boxes
-                this.cleanData();
-            }
-            next();
-        },
+
         //Function for update the filter object(when term or vertical change)
-        $_updateFilterObject(vertical) {
-            let currentPage = page[vertical];
-            //validate current page have filters
-            if (!currentPage || !currentPage.filter) {
-                this.filterObject = null
-            }
-            else if (!this.subFilterVertical(vertical)) {
-                this.filterObject = [{title: 'Status', modelId: "filter", data: currentPage.filter}];
-            }
-            else {
-                //create filter object as the above structure but from list while the data is computed according to the filter id
-                this.filterObject =this.getFilters;
-                // let filterNames = Object.keys(this.getFilters);
-                // for(let i = 0; i < filterNames.length; i++){
-                //         let item = {title: `${filterNames[i]}`, modelId: `${filterNames[i]}`};
-                //         item.data = this.getFilters ? this.getFilters[filterNames[i]] : [];
-                //             this.filterObject.push(item);
-                // }
-                // console.log(this.filterObject)
-               
-            }
+        $_updateFilterObject() {
+            this.filterObject =this.getFilters;
         },
+
+        //   4-%%%
         updateData(data, isFilterUpdate = false) {
-            // const filters = data.filters;
-            //filters ? this.updateFilters(filters) : this.updateFilters(null);
             this.pageData = {};
             this.content = data;
             this.filter = this.filterSelection;
@@ -245,12 +205,12 @@ export default {
             if (this.isAcademic) {
                 this.showPersonalizeField = true
             }
-            //if the vertical or search term has been changed update the optional filters according
+            //if the vertical or search term has been changed update the filters according
             if (!isFilterUpdate) {
-                this.$_updateFilterObject(data.vertical);
+                this.$_updateFilterObject();
             }
         },
-        //functionality when remove filter from the selected filters
+        //removes filter from selected filter
         $_removeFilter({value, key}) {
             this.UPDATE_SEARCH_LOADING(true);
             let updatedList = this.query[key];
@@ -263,15 +223,43 @@ export default {
             //emit event to open Login Dialog
             if (!this.accountUser) {
                 this.updateLoginDialogState(true);
-
             }else {
                 this.$root.$emit("personalize", typesPersonalize.course);
             }
         },
         //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
         $_showSelectedFilter({value, key}) {
-            if (this.page && !this.subFilterVertical(this.name)) return this.page.filter.find(i => i.id === value).name;
-            return key === 'course' && this.myCourses.find(x => x.id === Number(value)) ? this.myCourses.find(x => x.id === Number(value)).name : value;
-        }
+            return value;
+        },
+        watchinNowStyle(item){
+            let sameUser = false;
+            let userId = this.accountUser ? this.accountUser.id : -1;
+            if(!!item.user){
+                sameUser = userId === item.user.id;
+            }
+        return {
+            'color': !!item.color ? 'white' : '',
+            'bottom' : sameUser ? '15px' : ''
+            }
+        },
     },
+
+    created() {
+        //If query have courses save those courses
+        if (this.query.course) this.setFilteredCourses(this.query.course);
+        this.UPDATE_LOADING(true);
+        //fetch data with the params
+        this.fetchingData({
+            name: this.name,
+            params: {...this.query, ...this.params, term: this.userText},
+            skipLoad: this.$options._parentElm.childElementCount > 1
+        }).then((data) => {
+            this.updateData.call(this, {...data, vertical: this.name})
+        }).catch(reason => {
+            console.error(reason);
+            //when error from fetching data remove the loader
+            this.UPDATE_LOADING(false);
+        });
+    },
+
 };

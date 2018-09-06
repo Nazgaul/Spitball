@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
@@ -16,6 +12,11 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -45,11 +46,11 @@ namespace Cloudents.Web.Api
                 var command = _mapper.Map<CreateQuestionCommand>(model);
                 await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
 
-                return CreatedAtAction(nameof(GetQuestionAsync), new {id = command.Id});
+                return CreatedAtAction(nameof(GetQuestionAsync), new { id = command.Id });
             }
             catch (InvalidOperationException)
             {
-                ModelState.AddModelError(string.Empty,"You need to wait before asking a new question");
+                ModelState.AddModelError(string.Empty, "You need to wait before asking a new question");
                 return BadRequest(ModelState);
             }
         }
@@ -109,22 +110,45 @@ namespace Cloudents.Web.Api
             [FromServices] IQueryBus queryBus,
             CancellationToken token)
         {
-            var query = _mapper.Map<QuestionsQuery>(model);
-            var result = await queryBus.QueryAsync(query, token).ConfigureAwait(false);
-            var p = result.Result?.ToList();
+            //var query = _mapper.Map<QuestionsQuery>(model);
+
+            var resultTask = new List<Task<IEnumerable<QuestionDto>>>();
+            var filters = (model.Filter ?? new QuestionFilter?[] { QuestionFilter.All }).Distinct().ToArray();
+            if (filters.Count() == Enum.GetValues(filters.First().GetType()).Length)
+            {
+                filters = new QuestionFilter?[] {QuestionFilter.All};
+            }
+
+            foreach (var filter in filters)
+            {
+                var query = new QuestionsQuery(model.Term, model.Source, model.Page.GetValueOrDefault(), filter);
+                Task<IEnumerable<QuestionDto>> t = queryBus.QueryAsync(query, token);
+                resultTask.Add(t);
+            }
+
+            var querySubject = new QuestionSubjectQuery();
+            var subjects = await queryBus.QueryAsync(querySubject, token).ConfigureAwait(false);
+
+            var results = await Task.WhenAll(resultTask);
+
+            var result = results.SelectMany(s => s)
+                .Distinct(new QuestionDtoEqualityComparer()).OrderByDescending(o=>o.DateTime).ToList();
+
+            // var result = await queryBus.QueryAsync(query, token).ConfigureAwait(false);
+            //var p = result.ToList();
             string nextPageLink = null;
-            if (p?.Any() == true)
+            if (result.Any() == true)
             {
                 nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }
 
             return new WebResponseWithFacet<QuestionDto>
             {
-                Result = p,
-                Filters = new []
+                Result = result,
+                Filters = new[]
                 {
-                    new Models.Filters(nameof(GetQuestionsRequest.Source),"Subject", result.Facet),
-                    new Models.Filters(nameof(GetQuestionsRequest.Filter),"Type", Enum.GetNames(typeof(QuestionFilter)))
+                    new Models.Filters(nameof(GetQuestionsRequest.Filter),"Type", EnumExtension.GetPublicEnumNames(typeof(QuestionFilter))),
+                    new Models.Filters(nameof(GetQuestionsRequest.Source),"Subject", subjects.Select(s=>s.Subject))
                 },
                 NextPageLink = nextPageLink
             };

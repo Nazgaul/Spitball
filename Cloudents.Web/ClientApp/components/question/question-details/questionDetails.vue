@@ -13,10 +13,11 @@
             </v-flex>
             <v-layout row>
                 <v-flex class="question-data">
+                    
                     <question-thread v-if="questionData" :questionData="questionData"
                                      :showDialogSuggestQuestion="showDialogSuggestQuestion"
                                      :hasCorrectAnswer="getCorrectAnswer">
-
+                        
                         <div v-if="enableAnswer" slot="answer-form" class="mb-3">
                             <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
                                 <extended-text-area uploadUrl="/api/upload/ask"
@@ -34,6 +35,9 @@
                             <div v-else class="show-form-trigger" @click="showAnswerField()"  key="two">
                                 <div><b>Know the answer?</b> Add it here!</div>
                             </div>
+                        </div>
+                        <div slot="currently-watching">
+                            <!-- <div class="viewers-container">{{questionData}} watching now</div> -->
                         </div>
                     </question-thread>
                 </v-flex>
@@ -55,8 +59,7 @@
                     <v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser">Chat</v-tab>
 
                 <v-tab-item :key="'1'" :id="'tab-1'" class="tab-padding">
-
-                        <v-flex xs12>
+                        <v-flex xs12 class="question-data">
                             <question-thread v-if="questionData" :questionData="questionData"
                                              :hasCorrectAnswer="getCorrectAnswer">
                                 <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer">

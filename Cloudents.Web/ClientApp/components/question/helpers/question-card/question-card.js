@@ -46,7 +46,7 @@ export default {
         return {
             isDeleted: false,
             showActionToaster: false,
-            //flaggedAsCorrect: false,
+            localMarkedAsCorrect: false,
             toasterText: '',
             timeoutID: null,
             action: null,
@@ -95,10 +95,16 @@ export default {
             }
         },
         flaggedAsCorrect(){ 
-            return this.isCorrectAnswer
+            return this.isCorrectAnswer || this.localMarkedAsCorrect
+        },
+        isSold(){
+           return  !this.cardData.hasCorrectAnswer && !this.cardData.correctAnswerId
         },
         cardTime(){
             return this.cardData.dateTime || this.cardData.create
+        },
+        cardAnswers(){
+            return this.cardData.answers
         }
     },
     methods: {
@@ -122,12 +128,7 @@ export default {
             this.selectedImage = src;
         },
         markAsCorrect() {
-            var toasterText = this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted';
-            this.updateToasterParams({
-                toasterText: toasterText,
-                showToaster: true,
-            });
-            this.flaggedAsCorrect = true;
+            this.localMarkedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
             this.updateToasterParams({toasterText: '', showToaster: false});//test123
         },
@@ -159,6 +160,9 @@ export default {
             timeago().render(document.querySelectorAll(className));
         }
     },
+    // created(){
+    //   console.log(this.cardData)
+    // },
     mounted() {
         this.renderQuestionTime('.timeago')
         // use render method to render nodes in real time

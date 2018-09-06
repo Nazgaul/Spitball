@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Database.Maps;
@@ -10,12 +11,15 @@ using NHibernate;
 using NHibernate.Caches.CoreDistributedCache;
 using NHibernate.Caches.CoreDistributedCache.Redis;
 using NHibernate.Cfg;
+using NHibernate.Event;
 
 namespace Cloudents.Infrastructure.Database
 {
     public class UnitOfWorkFactorySpitball
     {
+        private readonly ILifetimeScope _lifetimeScope;
         private readonly ISessionFactory _factory;
+        
 
         private static IEnumerable<Type> GetAllTypesImplementingOpenGenericType(Type openGenericType, Assembly assembly)
         {
@@ -30,8 +34,9 @@ namespace Cloudents.Infrastructure.Database
                 select x;
         }
 
-        public UnitOfWorkFactorySpitball(IConfigurationKeys connectionString)
+        public UnitOfWorkFactorySpitball(IConfigurationKeys connectionString, ILifetimeScope lifetimeScope)
         {
+            _lifetimeScope = lifetimeScope;
             var configuration = Fluently.Configure()
                 .Database(
                     FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.Db.Db)
@@ -82,12 +87,16 @@ namespace Cloudents.Infrastructure.Database
             return _factory.OpenStatelessSession();
         }
 
-        private static void BuildSchema(Configuration config)
+        private void BuildSchema(Configuration config)
         {
 #if DEBUG
             config.SetInterceptor(new LoggingInterceptor());
 #endif
-            config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);
+            var eventPublisherListener = new PublishEventsListener(_lifetimeScope.Resolve<IEventPublisher>());
+            config.SetListener(ListenerType.PostDelete, eventPublisherListener);
+            config.SetListener(ListenerType.PostInsert, eventPublisherListener);
+            config.SetListener(ListenerType.PostUpdate, eventPublisherListener);
+            //config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);
             //config.Properties.Add("cache.default_expiration",$"{TimeConst.Day}");
             //config.Properties.Add("cache.use_sliding_expiration",bool.TrueString.ToLowerInvariant());
             config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Validate);

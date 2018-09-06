@@ -12,6 +12,6 @@ namespace Cloudents.Web.Models
         [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Automapper is injecting this field")]
         public string[] Source { get; set; }
 
-        public QuestionFilter Filter { get; set; }
+        public QuestionFilter?[] Filter { get; set; }
     }
 }

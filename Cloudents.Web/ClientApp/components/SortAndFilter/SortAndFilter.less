@@ -166,6 +166,7 @@
 
                 input {
                     display: none;
+
                     &:checked ~ .checkmark {
                         background: @color-blue;
                         opacity: 1;
@@ -174,9 +175,9 @@
                             display: block;
                         }
                     }
+
                     &:checked ~ .title-label {
                         color: @color-blue;
-
                     }
                 }
 
@@ -230,13 +231,8 @@
                     border-top: 0;
                     border-left: 0;
                     border-right: 0;
-                    max-height: 250px;
+                    max-height: 300px;
                     overflow-y: auto;
-                    @media (min-height: 580px) {
-                        &.no-maxHeight {
-                            max-height: inherit;
-                        }
-                    }
                 }
             }
         }

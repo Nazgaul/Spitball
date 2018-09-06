@@ -1,6 +1,9 @@
-﻿﻿import settingsService from './../services/settingsService'
-import { SEARCH, USER } from './mutation-types'
+﻿import profileService from "../services/profile/profileService"
+import settingsService from './../services/settingsService'
+import { USER } from './mutation-types'
 import * as consts from "./constants";
+
+﻿
 // export const MAX_HISTORY_LENGTH=5;
 const state = {
     user: {
@@ -10,7 +13,7 @@ const state = {
         location: null,
         pinnedCards: {},
         showRegistrationBanner: true,
-
+        profileData: profileService.getProfileData('profileGeneral')
     },
     filters: "",
     sort: "",
@@ -69,6 +72,9 @@ const mutations = {
     [USER.HIDE_REGISTRATION_BANNER](state) {
         state.user.showRegistrationBanner = false;
     },
+    [USER.UPDATE_PROFILE_DATA](state, data) {
+        state.user.profileData = data;
+    },
 };
 const getters = {
     historyTermSet: state => state.historyTermSet,
@@ -89,8 +95,8 @@ const getters = {
         state => state.user.pinnedCards,
     showRegistrationBanner:
         state => state.user.showRegistrationBanner,
-    getRegistrationStep:
-        state => state.user.registrationStep,
+    // getRegistrationStep:
+    //     state => state.user.registrationStep,
     getUniversity: state => {
         let obj = state.user.universityId || {};
         return obj.id;
@@ -110,7 +116,11 @@ const getters = {
     },
     getSort(state){
         return state.sort
+    },
+    getProfileData(state){
+        return state.user.profileData
     }
+
 };
 const actions = {
     updateHistorySet({ commit }, term) {
@@ -167,8 +177,11 @@ const actions = {
     hideRegistrationBanner(context) {
         context.commit(USER.HIDE_REGISTRATION_BANNER);
     },
+    updateUserProfileData(context, name){
+        let currentProfile = profileService.getProfileData(name);
+        context.commit(USER.UPDATE_PROFILE_DATA, currentProfile );
 
-
+    }
 };
 export default {
     state,

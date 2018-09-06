@@ -2,7 +2,7 @@
     <v-flex v-if="cardData && !isDeleted " class="question-card" :style="cssRuleBackgroundColor" :class="{'highlight':flaggedAsCorrect}">
         <div v-if="!typeAnswer" class="box-stroke">
             <!-- question Card -->
-            <div class="top-block" >
+            <div class="top-block">
             <user-block :style="cssRuleFontColor" :cardData="cardData" :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
                 <template> · <span class="timeago" :datetime="cardTime"></span><span
                         v-if="typeAnswer"
@@ -19,14 +19,13 @@
             </user-block>
             <div v-if="cardData.price">
                 <div class="q-price pr-3">
-                    <span v-if="!cardData.hasCorrectAnswer">Earn ${{cardData.price | dollarVal}}</span>
-                    <span v-else class="sold-badge">Sold</span>
+                    <span v-if="isSold" style="display:flex;min-width: 90px;">Earn ${{cardData.price | dollarVal}}</span>
+                    <span v-else class="sold-badge"><span style="margin: 0 auto;">Sold</span> </span>
 
                 </div>
                 <!-- <p class="q-category">{{cardData.subject}}</p> -->
             </div>
         </div>
-
         <p class="q-text" :style="cssRuleFontColor" :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text | ellipsis(150, detailedView)}}</p>
 
         <!-- v-if="cardData.files.length" -->
@@ -48,14 +47,14 @@
                             <span :style="cssRuleFontColor">{{cardData.filesNum}}</span>
                         </template>
                     </div>
-                    <div class="users">
+                    <div class="users" v-if="!detailedView">
                         <template v-for="(i, index) in limitedCardAnswers">
                             <div class="avatar" :key="index">
                                 <v-icon>sbf-comment-icon</v-icon>
                             </div>
                         </template>
                     </div>
-                    <span class="user-counter" v-if="cardData.answersNum>3">+{{cardData.answersNum-3}}</span>
+                    <span class="user-counter" :style="cssRuleFontColor" v-show="!detailedView ? cardAnswers > 3 : ''">+{{cardAnswers-3}}</span>
                 </div>
                 <!--show only if in suggestion popup-->
                 <div class="answer" v-if="suggestion">

@@ -20,23 +20,21 @@ export default {
         params: { type: Object }
     },
     computed: {
-        ...mapGetters({'loading':'getIsLoading', 'getFilters': 'getFilters'}),
+        ...mapGetters({'loading':'getIsLoading', 'getFilters': 'getFilters', 'getSort': 'getSort'}),
         page() { return page[this.name] },
-        sort() { return this.query.sort },
+        sort() {
+            return this.query.sort
+        },
         filterSelection() {
             let filterOptions = [];
             let filtersList = [];
-            // if(!!this.getFilters){
-            //     filtersList = this.getFilters;
-            // }
             let filters = this.getFilters;
             if(!!filters){
                 filtersList = filters.map((item)=>{
                     return item.id
                 })
             }
-
-            // let filtersList = ['jobType', 'subject', 'course', 'filter'];
+            // iterate filter and add/remove filter value
             Object.entries(this.query).forEach(([key, val]) => {
                 if (val && val.length && filtersList.includes(key)) {
                     [].concat(val).forEach((value) =>{
@@ -44,15 +42,10 @@ export default {
                     }) ;
                 }
             });
-            console.log('options',filterOptions)
             return filterOptions;
         }
     },
     methods: {
         ...mapMutations(['UPDATE_LOADING'])
     },
-    created(){
-        console.log('mixin created')
-    }
-
-};
+  };

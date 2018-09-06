@@ -112,6 +112,9 @@ export const connectivityModule = {
             .build();
             return connection;
         },
+        reconnect: function(connection){
+            //connection.start();
+        },
         on: function(connection, message, callback){
             if(!callback){
                 console.error(`A callback function must be provided to handle the registered event`);
@@ -119,7 +122,9 @@ export const connectivityModule = {
             connection.on(message, callback);
         },
         invoke: function(connection, message, data){
-            return connection.invoke(message, data);
+            return connection.invoke(message, data).then(()=>{},(err)=>{
+                return Promise.reject(err);
+            });
         }
     }
 
