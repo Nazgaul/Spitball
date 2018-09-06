@@ -12,6 +12,7 @@ namespace Cloudents.Infrastructure
     [ModuleRegistration(Core.Enum.System.Web)]
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
     [ModuleRegistration(Core.Enum.System.Admin)]
+    [ModuleRegistration(Core.Enum.System.Function)]
     public class ModuleCache : Module
     {
         //private readonly string _redisConnectionString;
