@@ -16,11 +16,9 @@ export default {
             type: Boolean,
             default: true
         },
-
     },
     computed: {
         ...mapGetters({notificationItems: 'getNotifications'}),
-
     },
     methods: {
         ...mapActions(['addNotificationItemAction', 'updateNotification', 'archiveNotification']),

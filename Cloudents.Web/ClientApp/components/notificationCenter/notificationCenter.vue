@@ -1,6 +1,6 @@
 <template>
     <div class="notification-center-wrap">
-        <ask-question-btn></ask-question-btn>
+        <ask-question-btn v-show="isAsk"></ask-question-btn>
         <div class="notification-container">
             <v-subheader class="notification-center-header" :key="'header'">
                <span v-language:inner>notificationCenter_title</span> 
@@ -8,7 +8,7 @@
             <div class="notification-center">
                 <v-list three-line class="notifications-list">
                     <transition-group name="list">
-                    <div v-for="(item, index) in notificationItems"  class="list-item" :key="item.id" >
+                    <div v-for="(item) in notificationItems" class="list-item" :key="item.id" >
                         <v-list-tile
                                 class="singleNotification"
                                 :key="item.title"
