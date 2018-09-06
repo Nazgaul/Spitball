@@ -13,7 +13,7 @@
                     <div class="form-title" v-language:inner>searchitem_dont_see_class</div>
                         <v-text-field light v-model="newCourseName" placeholder="Type it in here:"></v-text-field>
                     <div class="actions">
-                        <v-btn class="save" :disabled="!newCourseName" @click="$_submitAddCourse" v-language:inner>searchitem_save</v-btn>
+                        <v-btn class="save" :disabled="!newCourseName" @click="$_submitAddCourse" v-language:inner>searchitem_save_l</v-btn>
                         <v-btn class="clear" :disabled="!newCourseName" @click="$_clearAddCourse" v-language:inner>searchitem_clear</v-btn>
                     </div>
                 </form>

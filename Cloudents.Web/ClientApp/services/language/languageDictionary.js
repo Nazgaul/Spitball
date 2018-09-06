@@ -7,10 +7,10 @@ export const dictionary = {
 
     menuList_Please: "Please",
     menuList_Sign_up: "Sign up",
-    menuList_sign_up: "sign up",
+    menuList_sign_up_l: "sign up",
     menuList_or: "or",
     menuList_Login: "Login",
-    menuList_login: "Login",
+    menuList_login_l: "login",
     menuList_my_wallet: "My Wallet",
     menuList_messages: "Messages",
     menuList_my_profile: "My Profile",
@@ -34,14 +34,6 @@ export const dictionary = {
     resultPersonalize_personalize_results: "Personalize Results",
 
     uniSearchinput_universities_near_you: "Universities near you:",
-
-    pageTemple_our_partners: "Our Partners",
-    pageTemplate_copy_righy: "Copyright",
-    pageTemplate_cloudents_2018: " Cloudents 2018",
-    pageTemplate_How_spitball_works: "How Spitball Works",
-    pageTemplate_privacy_policy: "Privacy Policy",
-    pageTemplat_terms_of_service: "Terms of Service",
-    pageTemplat_faq: "FAQ",
 
     login_sign_up_with_google: "Sign Up with Google",
     login_or: "or",
@@ -75,7 +67,6 @@ export const dictionary = {
     login_sent_code_by_sms: "We sent the code to you by SMS",
     login_sent_confirmation_code: "We sent a confirmation code to your mobile phone.",
     login_didnt_get_an_email: "Didn't get an Email?",
-    login_click_here_to_resend: "Click here to resend.",
     login_congrats: "CONGRATS!",
     login_you_are_reward_with: "You are rewarded with",
     login_sbl: "SBL",
@@ -102,9 +93,8 @@ export const dictionary = {
     flashcard_Front: "Front",
     flashcard_Back: "Back",
     flashcard_Both: "Both",
-    flashcard_front: "front",
-    flashcard_back: "back",
-    flashcard_both: "both",
+    flashcard_front_l: "front",
+    flashcard_both_l: "both",
     flashcard_shuffle_cards: "Shuffle cards",
     flashcard_previous: "Previous",
     flashcard_next: "Next",
@@ -119,7 +109,7 @@ export const dictionary = {
     falshcard_F: "F",
     flashcard_Cards: "Cards",
     flashcard_Study: "Study",
-    flashcard_pin: "pin",
+    flashcard_pin_l: "pin",
 
     flashcardcontent_click_to_flip: "Click to flip",
 
@@ -131,14 +121,9 @@ export const dictionary = {
     profile_Questions: "Questions",
 
     itemAction_policy: "This item might be subject to certain laws and school policies that restrict third-party use of materials prepared by educators. It is your sole responsibility to be aware of and to abide by any such laws or policies that may apply to you. You may access materials solely for your information and your non-commercial, personal use and as intended through the normal functionality of the site and service.",
-    loginAnswer_Pleas: "Please",
-    loginAnswer_sign_up: "sign up",
-    loginAnswer_or: "or",
+    
     loginAnswer_login: "login",
-    loginAnswer_to_continue: "to continue.",
-    loginAnswer_policy: "You are a couple of mouse clicks away from FREE access to making serious money.",
     loginAnswer_Sign_Up: "Sign Up",
-    loginAnswer_Login: "Login",
 
     questionCard_Accept: "Accept",
     questionCard_Earn: "Earn",
@@ -159,14 +144,13 @@ export const dictionary = {
     newQuestion_Ask: "Ask",
 
     questionDetails_Ask_question: "Ask a question",
-    questionDetails_question: "/  Questions  /",
+    questionDetails_question_dash: "/  Questions  /",
     questionDetails_Add_answer: "Add your answer",
     questionDetails_Know_the_answer: "Know the answer?",
     questionDetails_Add_it_here: "Add it here!",
     questionDetails_Discussion_Board: "Discussion Board",
     questionDetails_Question: "Question",
     questionDetails_Chat: "Chat",
-    questionDetails_Add_your_answer: "Add your answer",
     questionDetails_error_minChar: "min. 15 characters",
 
     questionTheard_Answers: "Answers",
@@ -176,16 +160,13 @@ export const dictionary = {
     questionSuggestPopUp_accepts_your_answer: "to see if accepts your answer.",
     questionSuggestPopUp_below_question_should_help: "In the meantime, below is another question that you should be able to help with.",
 
-    contant_support: "support@spitball.co",
     contant_address: "79 Madison Ave, New York, New York, 10016",
 
     partner_join_the_community: "Does your company make students’ lives easier? Are you interested in joining the community or accepting SBL on your website? Reach out to us at",
-    partner_email: "partner@spitball.co",
-
+    
     privacy_Privacy_Policy: "Privacy Policy",
     privacy_last_modified: "Last Modified 1/1/2018",
     privacy_policy_provides: "This Privacy Policy provides our company policies and procedures for gathering, using, and disclosing your information. Users can access the Spitball service through our website, located at",
-    privacy_address: "www.spitball.co",
     privacy_agree_information: ", applications on Devices, and through third-parties. A \"Device\" is defined as any computer used to access the Spitball Service, including without limitation a desktop, laptop, mobile phone, tablet, web enabled TV, or other consumer electronic device. This Privacy Policy governs your access of the Spitball Service, regardless of how you access it, and by using our Services you agree to the gathering, transfer, processing, storage, disclosure and other uses described in this Privacy Policy. All of the various forms of data, content, and information described below are referred to as \"information.\"",
     privacy_security_and_privacy: "At Spitball we take security and privacy very seriously. Your personal information is actively protected by us. Communications with our web and mobile services are encrypted using industry standard AES encryption, we use European data centres and your passwords are stored using non-reversible encryption.",
     privacy_storing_gathering: "Gathering and Storing Information",
@@ -207,7 +188,6 @@ export const dictionary = {
     privacy_security: "Security",
     privacy_security_information: "The security of your information is important to us. When you enter sensitive information (such as your login and password) we encrypt the transmission of that information using secure socket layer technology (SSL).",
     privacy_standars_protect_information: "We follow generally accepted standards to protect the information submitted to us, both during transmission and once we receive it. No method of electronic transmission or storage is 100% secure, however. Therefore, we cannot guarantee its absolute security. If you have any questions about security on our website, you can contact us at ",
-    privacy_email: "support@spitball.co",
     privacy_community: "Spitball Community",
     privacy_service_offers: "Our Service offers publicly accessible community services such as Q&As and comments. You should be aware that any information you provide in these areas may be read, gathered, and used by others who access them. Your posts may remain even after you cancel your account.",
     privacy_Policy_Children: "Our Policy towards Children",
@@ -221,20 +201,19 @@ export const dictionary = {
     privacy_changesin_policy: "This Privacy Policy may change from time to time. If we make a change to this privacy policy that we believe materially changes your rights, we will provide you with notice (for example, by email). And we may provide notice of changes in other circumstances as well. By continuing to use the Service after those changes become effective, you agree to be bound by the revised Privacy Policy.",
 
     reps_help_to_community: "Want to help grow the Spitball community at your school or university? Reach out to us at",
-    reps_email: "work@spitball.co",
 
     search_Search: "Search",
 
     settings_Settings: "Settings",
-    settings_tap_to_cange: "Tap the photo to change i",
+    settings_tap_to_cange: "Tap the photo to change it",
     settings_images_png_jpg: "Images must be in PNG or JPG format and under 5mb",
     settings_Save: "Save",
 
-    courseAdd_submit: "ettings_Save",
+    courseAdd_submit: "submit",
 
     searcitem_DONE: "DONE",
     searchitem_dont_see_class: "Still don't see your class?",
-    searchitem_save: "save",
+    searchitem_save_l: "save",
     searchitem_clear: "clear",
     searchitem_Type_it_in_here: "Type it in here",
     searchitem_Cancel: "Cancel",
@@ -286,8 +265,6 @@ export const dictionary = {
     result_different_keywords: "Try different keywords.",
     result_general_keywords: "Try more general keywords.",
     result_fewer_keywords: "Try fewer keywords.",
-
-
     result_suggestions_job: "Need some cash? Find the best jobs & internships for students at your school.",
     result_suggestions_tutor: "Still need help? Connect with a tutor and make sure you ace your class.",
     result_suggestions_note: "Searching for study documents for your classes? Look no further.",
@@ -295,10 +272,9 @@ export const dictionary = {
     result_suggestions_ask: "Have a question you need answered? Try us.",
     result_suggestions_flashcard: "We found some flashcards that may help you study!",
 
-
     book_header_textbook: "Textbooks",
 
-    buildinsuggest_home_flashcards: "Flashcards for financial accounting",
+    
 
     satellite_routes_about: "How Spitball Works",
     satellite_routes_faq: "FAQ",
@@ -311,7 +287,8 @@ export const dictionary = {
 
     seacrh_searchText_find: "Find study documents, textbooks, tutors, jobs, deals and more...",
     seacrh_searchText_find_short: "Study documents, textbooks, tutors...",
-
+    
+    buildinsuggest_home_flashcards: "Flashcards for financial accounting",
     buildinsuggest_note_microeconomics: "microeconomics study guides",
     buildinsuggest_note_pastExams: "past exams for bio 101",
     buildinsuggest_note_electrical: "electrical engineering notes",
@@ -319,6 +296,7 @@ export const dictionary = {
     buildinsuggest_flashcard_physics_study: "physics study set",
     buildinsuggest_flashcard_spanish: "intermediate spanish vocab",
 
+    //done
     sortAndFilter_sort: "Sort",
     sortAndFilter_filter: "Filter",
 
@@ -326,6 +304,8 @@ export const dictionary = {
 
     mobileSortAndFilter_filter: "Filter",
 
+
+    //Done
     buildinsuggest_tutor_biology: "biology help",
     buildinsuggest_tutorphysics_esl: "esl tutors",
     buildinsuggest_tutor_accounting: "accounting homework help",
@@ -337,7 +317,7 @@ export const dictionary = {
     buildinsuggest_job_ambassador: "brand ambassador jobs",
     buildinsuggest_job_internship: "student internship",
     buildinsuggest_job_design: "ux/ui design",
-
+//done
     header_placeholder_job: "Your field of expertise...",
     header_placeholder_tutor: "Find a tutor...",
     header_placeholder_note: "Find study documents in...",
@@ -346,18 +326,18 @@ export const dictionary = {
     header_placeholder_flashcard: "Look for flashcards...",
 
     notificationCenter_title: "Notifications",
-
+//done
     preview_flashcard_beginText_start_over: "Start Over",
     preview_flashcard_beginText_start: "Start",
     preview_itemActions_download: "Download",
     preview_itemActions_title: "Print",
-
+//done
     profile_emptyState_questions_text: "Have a question on your homework?",
     profile_emptyState_questions_btnText: "Ask Your Question",
     profile_emptyState_questions_boldText: "Ask Your Question",
     profile_emptyState_answers_text: "Help other students and make money by answering questions.",
     profile_emptyState_answers_btnText: "Answer",
-
+//done
     helpers_questionCard_toasterDeleted_answer: "The answer has been deleted",
     helpers_questionCard_toasterDeleted_question: "The question has been deleted",
 
@@ -366,20 +346,20 @@ export const dictionary = {
     question_newQuestion_error_pickSubject: "Pick a subject",
     question_newQuestion_toasterPostedText: "Question posted, the best brains are working on it right now",
 
-
+//done
     marketingData_login_noCampaign_stepOne: "Start with your email. We need to know how to contact you.",
     marketingData_login_noCampaign_stepTwo: "We need to send you a confirmation code",
     marketingData_login_askQuestion_stepOne: "Sign up with your email to get your HW questions answered now.",
     marketingData_login_askQuestion_stepTwo: "You're 1 step away from getting free SBLs and getting answers from top students!",
 
-    //default campaign
+    //default campaign DONE
     navigation_campaign_default_ask_banner_title: "Make money while helping others with their homework.",
     navigation_campaign_default_ask_banner_textMain: "Answer HW questions and cash out to Amazon Coupons. There’s no catch!",
     navigation_campaign_default_ask_banner_boldText: "cash out to Amazon Coupons",
 
     navigation_campaign_default_note_banner_title: "Notes, study guides, exams and more from the best sites.",
     navigation_campaign_default_note_banner_textMain: "Filtered by your school, classes and preferences. Saving you time!",
-    navigation_campdefault_aign_default_note_banner_boldText: "your school, classes and preferences",
+    navigation_campaign_default_note_banner_boldText: "your school, classes and preferences",
 
     navigation_campaign_default_flashcard_banner_title: "Study from millions of flashcard sets to improve your grades.",
     navigation_campaign_default_flashcard_banner_textMain: "Filtered by your school, classes and preferences. Saving you time!",
@@ -397,7 +377,7 @@ export const dictionary = {
     navigation_campaign_job_default_banner_textMain: "Filtered by your experience and location preference.",
     navigation_campaign_job_default_banner_boldText: "experience and location preference.",
 
-    //askaquestion campaign
+    //askaquestion campaign DONE
     navigation_campaign_askaquestion_ask_banner_title: "Ask your HW question now and get fast answers from top students.",
     navigation_campaign_askaquestion_ask_banner_textMain: "Sign up now!",
     navigation_campaign_askaquestion_ask_banner_boldText: "Sign up now!",
@@ -424,6 +404,8 @@ export const dictionary = {
     navigation_campaign_job_askaquestion_banner_boldText: "experience and location preference.",
 
 
+
+    // DONE
     navigation_nav_bookDetails_filter_new: "new",
     navigation_nav_bookDetails_filter_rental: "rental",
     navigation_nav_bookDetails_filter_used: "used",
@@ -436,9 +418,9 @@ export const dictionary = {
     navigation_nav_name_job: "Jobs",
 
 
-    //profile data general
+    //profile data general DONE
     //step one
-    profileData_generalProfile_register_stepOne_heading: "Ask Questions & receive instant help \\n or \\n Answer Questions & make money",
+    profileData_generalProfile_register_stepOne_heading: "Ask Questions & receive instant help \n or \n Answer Questions & make money",
     profileData_generalProfile_register_stepOne_text: "Start with your email. We need to know how to contact you",
     profileData_generalProfile_register_stepOne_boldTextOne: "instant help",
     profileData_generalProfile_register_stepOne_boldTextTwo: "make money",
@@ -464,7 +446,7 @@ export const dictionary = {
     profileData_generalProfile_modal_heading: "Please sign up or\n login to continue.",
     profileData_generalProfile_modal_text: "You are only a couple of mouse clicks away from unlocking instant homework help and the ability to make serious money!",
 
-    //profile data make money
+    //profile data make money DONE
     //step one
     profileData_makeMoneyProfile_register_stepOne_heading: "Make money\n while helping\n others with \n their homework.",
     profileData_makeMoneyProfile_register_stepOne_text: "Start with your email. We need to know how to contact you",
@@ -486,7 +468,7 @@ export const dictionary = {
     //step six
     profileData_makeMoneyProfile_register_stepSix_heading: "CONGRATS!",
     profileData_makeMoneyProfile_register_stepSix_sub_heading: "You’re ready to start making money!\n",
-    profileData_makeMoneyProfile_register_stepSix_text: "YWe’ve also awarded you 100 SBL\n (you can use these to get help with your own homework questions)\n",
+    profileData_makeMoneyProfile_register_stepSix_text: "We’ve also awarded you 100 SBL\n (you can use these to get help with your own homework questions)\n",
     profileData_makeMoneyProfile_register_stepSix_boldTextOne: "100 SBL",
     profileData_makeMoneyProfile_register_stepSix_boldTextTwo: "making money!",
 
@@ -494,7 +476,7 @@ export const dictionary = {
     profileData_makeMoneyProfile_modal_text: "You are a couple of mouse clicks away from FREE access to making serious money.",
 
 
-    //profile data  HHP
+    //profile data  HHP DONE
     profileData_HHP_register_stepOne_heading: "Get instant Homework Help, for FREE",
     profileData_HHP_register_stepOne_text: "Start with your email. We need to know how to contact you",
     profileData_HHP_register_stepOne_boldTextOne: "for FREE",
@@ -520,14 +502,6 @@ export const dictionary = {
 
     profileData_HHP_modal_heading: "Please sign up or\n login to continue.",
     profileData_HHP_modal_text: "You are only a couple of mouse clicks away from instant Homework Help and FREE SBL.",
-
-    //notifications empty state
-    helpers_empty_state_notifications: "There is no new notifications",
-
-
-
-
-
 
 
 

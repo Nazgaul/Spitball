@@ -21,7 +21,7 @@
                     <button flat @click="slideFront=-1" class="both" :class="{'active':slideFront==-1}">
                         <v-layout column>
                             <div xs12 class="flashcard-icon"></div>
-                            <div class="side-name" xs12 v-language:inner>flashcard_both</div>
+                            <div class="side-name" xs12 v-language:inner>flashcard_both_l</div>
                         </v-layout>
                     </button>
                 </div>
@@ -33,7 +33,7 @@
                     <v-list class="sides">
                         <v-list-tile @click="slideFront=1">
                             <v-list-tile-title v-language:inner>
-                                flashcard_front
+                                flashcard_front_l
                             </v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile @click="slideFront=0">
@@ -56,7 +56,7 @@
                         <button class="action-btn elevation-1" @click="$_startFlashcards">{{beginText}}</button>
                         <button class="action-btn pinned-cards elevation-1" v-if="currentPinn.size"
                                 @click="$_startPinnsFlashcards"><span v-language:inner>lashcard_Study</span>{{currentPinn.size}}<span
-                                v-language:inner>flashcard_pin</span></button>
+                                v-language:inner>flashcard_pin_l</span></button>
                     </div>
                     <div class="shuffle">
                         <shuffle-icon></shuffle-icon>
@@ -132,7 +132,7 @@
                         <v-list-tile>
                             <v-list-tile-title>
                                 <span class="key" v-language:inner>flashcard_B</span><span class="key-info"
-                                                                                           v-language:inner>flashcard_both</span>
+                                                                                           v-language:inner>flashcard_both_l</span>
                             </v-list-tile-title>
                         </v-list-tile>
                     </v-list>

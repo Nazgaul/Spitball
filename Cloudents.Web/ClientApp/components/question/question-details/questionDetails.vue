@@ -6,7 +6,7 @@
              :class="{'my-question': questionData.cardOwner}">
             <v-flex xs12 class="breadcrumbs">
                 <router-link  to="/ask" v-language:inner>questionDetails_Ask_question</router-link>
-                <span class="question-category"> <span v-language:inner>questionDetails_question</span>{{questionData.subject}}</span>
+                <span class="question-category"> <span v-language:inner>questionDetails_question_dash</span>{{questionData.subject}}</span>
             </v-flex>
             <v-layout row>
                 <v-flex class="question-data">
@@ -68,7 +68,7 @@
                                                             @removeFile="removeFile"></extended-text-area>
                                         <v-btn color="primary" @click="submitAnswer()"
                                                :disabled="submitted"
-                                               class="add_answer"><span  v-language:inner>questionDetails_Add_your_answer</span> 
+                                               class="add_answer"><span  v-language:inner>questionDetails_Add_answer</span> 
                                         </v-btn>
                                     </div>
                                     <div v-else class="show-form-trigger" @click="showAnswerField()">

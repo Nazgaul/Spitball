@@ -18,7 +18,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters({notificationItems: 'getNotifications', notificationEmptyState: 'notificationEmptyState'}),
+        ...mapGetters({notificationItems: 'getNotifications'}),
 
     },
     methods: {

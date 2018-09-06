@@ -2,7 +2,7 @@
     <div class="term">
         <h2 v-language:inner>privacy_Privacy_Policy</h2>
         <p class="modified-date"  v-language:inner>privacy_last_modified</p>
-        <p> <span v-language:inner>privacy_policy_provides</span>  <a target="_blank" href="https://www.spitball.co" v-language:inner>privacy_address</a><span v-language:inner>privacy_agree_information</span></p>
+        <p> <span v-language:inner>privacy_policy_provides</span>  <a target="_blank" href="https://www.spitball.co">www.spitball.co</a><span v-language:inner>privacy_agree_information</span></p>
         <p v-language:inner>privacy_security_and_privacy</p>
         <h2 v-language:inner>privacy_storing_gathering</h2>
         <p v-language:inner>privacy_store_dure_running</p>
@@ -21,15 +21,15 @@
         <p v-language:inner>privacy_retain_information</p>
         <h2 v-language:inner>privacy_security</h2>
         <p v-language:inner>privacy_security_information</p>
-        <p> <span v-language:inner>privacy_standars_protect_information</span><a href="mailto:support@spitball.co" v-language>privacy_email</a></p>
+        <p> <span v-language:inner>privacy_standars_protect_information</span><a href="mailto:support@spitball.co">support@spitball.co</a></p>
         <h2 v-language:inner>privacy_community</h2>
         <p v-language:inner>privacy_service_offers</p>
         <h2 v-language:inner>privacy_Policy_Children</h2>
-        <p><span v-language:inner>privacy_higer_education</span><a href="mailto:support@spitball.co" v-language>privacy_email</a><span v-language:inne>privacy_child_under_13</span></p>
+        <p><span v-language:inner>privacy_higer_education</span><a href="mailto:support@spitball.co">support@spitball.co</a><span v-language:inne>privacy_child_under_13</span></p>
         <h2 v-language:inner>privacy_other_sites</h2>
         <p v-language:inner>privacy_links_not_owned</p>
         <h2 v-language:inner>privacy_contact_us</h2>
-        <p><span v-language:inner>privacy_policy_questions</span><a href="mailto:support@spitball.co" v-language:inner>privacy_email</a>.</p>
+        <p><span v-language:inner>privacy_policy_questions</span><a href="mailto:support@spitball.co">support@spitball.co</a>.</p>
         <h2 v-language:inner>privacy_Changes_Privacy_Policy</h2>
         <p v-language:inner>privacy_changesin_policy</p>
     </div>
