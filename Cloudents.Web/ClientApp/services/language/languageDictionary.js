@@ -469,7 +469,7 @@ export const dictionary = {
     profileData_generalProfile_register_stepSix_boldTextOne: "100 SBL",
 
     profileData_generalProfile_modal_heading: "Please sign up or\n login to continue.",
-    profileData_generalProfile_modal_text: "You are only a couple of mouse clicks away from unlocking instant homework help and the ability to make serious money!"
+    profileData_generalProfile_modal_text: "You are only a couple of mouse clicks away from unlocking instant homework help and the ability to make serious money!",
 
     //profile data make money
     //step one
@@ -498,7 +498,7 @@ export const dictionary = {
     profileData_makeMoneyProfile_register_stepSix_boldTextTwo: "making money!",
 
     profileData_makeMoneyProfile_modal_heading: "Please sign up or\n login to continue.",
-    profileData_makeMoneyProfile_modal_text: "You are a couple of mouse clicks away from FREE access to making serious money."
+    profileData_makeMoneyProfile_modal_text: "You are a couple of mouse clicks away from FREE access to making serious money.",
 
 
     //profile data  HHP
@@ -526,14 +526,10 @@ export const dictionary = {
     profileData_HHP_register_stepSix_boldTextOne: "100 SBL",
 
     profileData_HHP_modal_heading: "Please sign up or\n login to continue.",
-    profileData_HHP_modal_text: "You are only a couple of mouse clicks away from instant Homework Help and FREE SBL."
+    profileData_HHP_modal_text: "You are only a couple of mouse clicks away from instant Homework Help and FREE SBL.",
 
-
-
-
-
-
-
+    //notifications empty state
+    helpers_empty_state_notifications: "There is no new notifications",
 
 
 
