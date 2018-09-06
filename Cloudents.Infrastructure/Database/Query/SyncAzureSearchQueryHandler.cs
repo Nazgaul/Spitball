@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
-    public abstract class SyncAzureSearchQueryHandler<T> //: 
-                                                         //IQueryHandler<SyncAzureQuery<T>, (IEnumerable<T> update, IEnumerable<long> delete, long version)>
-                                                         where T : new()
+    public abstract class SyncAzureSearchQueryHandler<T> where T : new()
     {
-        protected abstract string VersionSql { get; }
+        protected abstract FluentQueryBuilder VersionSql { get; }
 
-        protected abstract string FirstQuery { get; }
+        protected abstract FluentQueryBuilder FirstQuery { get; }
 
 
         private readonly IStatelessSession _session;
@@ -28,12 +26,12 @@ namespace Cloudents.Infrastructure.Database.Query
 
         public async Task<(IEnumerable<T> update, IEnumerable<long> delete, long version)> GetAsync(SyncAzureQuery query, CancellationToken token)
         {
-            var sql = VersionSql;
-            if (query.Version == 0)
-            {
-                sql = FirstQuery;
-            }
+            var sql = query.Version == 0 ? FirstQuery : VersionSql;
+            
             var sqlQuery = _session.CreateSQLQuery(sql);
+            sqlQuery.SetInt32("PageSize", 50);
+            sqlQuery.SetInt32("PageNumber", query.Page);
+            sqlQuery.SetInt64("Version", query.Version);
             sqlQuery.SetResultTransformer(new AzureSyncBaseDtoTransformer<AzureSyncBaseDto<T>, T>());
 
 
