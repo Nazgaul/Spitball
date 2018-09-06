@@ -79,29 +79,7 @@
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Resources\Js\FaqBlock.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>FaqBlock.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Seo.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Seo.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\Js\FaqBlock.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>FaqBlock.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Seo.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Seo.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+ 
 
   <ItemGroup>
     <None Update="webpack.global.js">
