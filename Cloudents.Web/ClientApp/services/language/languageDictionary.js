@@ -443,15 +443,102 @@ export const dictionary = {
     navigation_nav_name_job: "Jobs",
 
 
-    //profile data
+    //profile data general
+    //step one
     profileData_generalProfile_register_stepOne_heading: "Ask Questions & receive instant help \\n or \\n Answer Questions & make money",
     profileData_generalProfile_register_stepOne_text: "Start with your email. We need to know how to contact you",
     profileData_generalProfile_register_stepOne_boldTextOne: "instant help",
     profileData_generalProfile_register_stepOne_boldTextTwo: "make money",
-
+    //step two
     profileData_generalProfile_register_stepTwo_heading: "We need to know how to contact you",
     profileData_generalProfile_register_stepTwo_text: "We need to know how to contact you",
     profileData_generalProfile_register_stepTwo_boldTextOne: "contact you.",
+    //step three
+    profileData_generalProfile_register_stepThree_heading: "Check your email to activate your account",
+    profileData_generalProfile_register_stepThree_boldTextOne: "activate your account",
+    //step four
+    profileData_generalProfile_register_stepFour_heading: "Enter your phone number\n We need to send you a confirmation code",
+    profileData_generalProfile_register_stepFour_text: "We need to send you a confirmation code",
+    profileData_generalProfile_register_stepFour_boldTextOne: "Enter your phone number",
+    //step five
+    profileData_generalProfile_register_stepFive_heading: "Enter the confirmation code\n We sent the code to you by SMS",
+    profileData_generalProfile_register_stepFive_boldTextOne: "Enter the confirmation code",
+    //step six
+    profileData_generalProfile_register_stepSix_heading: "CONGRATS!",
+    profileData_generalProfile_register_stepSix_text: "We’ve awarded you 100 SBL\n You can use these to get help with your own homework questions, or answer other student’s questions to earn SBL that can be redeemed for real money!",
+    profileData_generalProfile_register_stepSix_boldTextOne: "100 SBL",
+
+    profileData_generalProfile_modal_heading: "Please sign up or\n login to continue.",
+    profileData_generalProfile_modal_text: "You are only a couple of mouse clicks away from unlocking instant homework help and the ability to make serious money!"
+
+    //profile data make money
+    //step one
+    profileData_makeMoneyProfile_register_stepOne_heading: "Make money\n while helping\n others with \n their homework.",
+    profileData_makeMoneyProfile_register_stepOne_text: "Start with your email. We need to know how to contact you",
+    profileData_makeMoneyProfile_register_stepOne_boldTextOne: "Make money",
+    //step two
+    profileData_makeMoneyProfile_register_stepTwo_heading: "We need to know how to contact you",
+    profileData_makeMoneyProfile_register_stepTwo_text: "We need to know how to contact you",
+    profileData_makeMoneyProfile_register_stepTwo_boldTextOne: "contact you.",
+    //step three
+    profileData_makeMoneyProfile_register_stepThree_heading: "Check your email to activate your account",
+    profileData_makeMoneyProfile_register_stepThree_boldTextOne: "activate your account",
+    //step four
+    profileData_makeMoneyProfile_register_stepFour_heading: "Enter your phone number\n We need to send you a confirmation code",
+    profileData_makeMoneyProfile_register_stepFour_text: "We need to send you a confirmation code",
+    profileData_makeMoneyProfile_register_stepFour_boldTextOne: "Enter your phone number",
+    //step five
+    profileData_makeMoneyProfile_register_stepFive_heading: "Enter the confirmation code\n We sent the code to you by SMS",
+    profileData_makeMoneyProfile_register_stepFive_boldTextOne: "Enter the confirmation code",
+    //step six
+    profileData_makeMoneyProfile_register_stepSix_heading: "CONGRATS!",
+    profileData_makeMoneyProfile_register_stepSix_sub_heading: "You’re ready to start making money!\n",
+    profileData_makeMoneyProfile_register_stepSix_text: "YWe’ve also awarded you 100 SBL\n (you can use these to get help with your own homework questions)\n",
+    profileData_makeMoneyProfile_register_stepSix_boldTextOne: "100 SBL",
+    profileData_makeMoneyProfile_register_stepSix_boldTextTwo: "making money!",
+
+    profileData_makeMoneyProfile_modal_heading: "Please sign up or\n login to continue.",
+    profileData_makeMoneyProfile_modal_text: "You are a couple of mouse clicks away from FREE access to making serious money."
+
+
+    //profile data  HHP
+    profileData_HHP_register_stepOne_heading: "Get instant Homework Help, for FREE",
+    profileData_HHP_register_stepOne_text: "Start with your email. We need to know how to contact you",
+    profileData_HHP_register_stepOne_boldTextOne: "for FREE",
+    //step two
+    profileData_HHP_register_stepTwo_heading: "We need to know how to contact you",
+    profileData_HHP_register_stepTwo_text: "We need to know how to contact you",
+    profileData_HHP_register_stepTwo_boldTextOne: "contact you.",
+    //step three
+    profileData_HHP_register_stepThree_heading: "Check your email to activate your account",
+    profileData_HHP_register_stepThree_boldTextOne: "activate your account",
+    //step four
+    profileData_HHP_register_stepFour_heading: "Enter your phone number\n We need to send you a confirmation code",
+    profileData_HHP_register_stepFour_text: "We need to send you a confirmation code",
+    profileData_HHP_register_stepFour_boldTextOne: "Enter your phone number",
+    //step five
+    profileData_HHP_register_stepFive_heading: "Enter the confirmation code\n We sent the code to you by SMS",
+    profileData_HHP_register_stepFive_boldTextOne: "Enter the confirmation code",
+    //step six
+    profileData_HHP_register_stepSix_heading: "CONGRATS!",
+    profileData_HHP_register_stepSix_sub_heading: "You are\n rewarded with \n 100 SBL",
+    profileData_HHP_register_stepSix_text: "You can spend them to get help with your Homework questions.",
+    profileData_HHP_register_stepSix_boldTextOne: "100 SBL",
+
+    profileData_HHP_modal_heading: "Please sign up or\n login to continue.",
+    profileData_HHP_modal_text: "You are only a couple of mouse clicks away from instant Homework Help and FREE SBL."
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
