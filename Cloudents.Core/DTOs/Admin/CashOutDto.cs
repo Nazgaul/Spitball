@@ -10,11 +10,7 @@ namespace Cloudents.Core.DTOs.Admin
         public DateTime CashOutTime { get; set; }
         public int? FraudScore { get; set; }
         public decimal userQueryRatio { get; set; }
-        //TODO:
-        //return user email as well
-        //add score from db 60
-        //add the 3rd sql statement 0
-        //isSuspect will be getter only that will compute from both properties
+
 
         public bool IsSuspect { get
             {
