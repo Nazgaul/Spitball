@@ -15,6 +15,9 @@ using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Write;
 using Microsoft.Azure.Search.Models;
+using Cloudents.Core.Query.Admin;
+using Cloudents.Core.DTOs.Admin;
+using System.Collections.Generic;
 
 namespace ConsoleApp
 {
@@ -57,7 +60,9 @@ namespace ConsoleApp
 
 
             var b = _container.Resolve<IQueryBus>();
-            var x = await b.QueryAsync(new SyncAzureQuery(56123, 0), default);
+            var query = new AdminEmptyQuery();
+            CashOuts = await b.QueryAsync<IEnumerable<CashOutDto>>(query, default);
+            
 
 
             // QuestionRepository c = new QuestionRepository(b);

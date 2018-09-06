@@ -20,7 +20,7 @@ namespace Cloudents.Core.DTOs.Admin
                 return FraudScore > 10 || userQueryRatio < 0.2M;
             }
         }
-        public int FraudScore { get; set; }
+        public int? FraudScore { get; set; }
         public decimal userQueryRatio { get; set; }
     }
 }

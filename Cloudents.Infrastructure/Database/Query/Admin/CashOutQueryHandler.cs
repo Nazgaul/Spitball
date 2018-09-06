@@ -18,6 +18,21 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
     {
         private readonly ISession _session;
 
+        class fristQuery
+        {
+            public long userId { get; set; }
+            public decimal userQueryRatio { get; set; }
+        }
+
+        public class secoundQuery
+        {
+            public long userId { get; set; }
+            public string email { get; set; }
+            public decimal price { get; set; }
+            public DateTime created { get; set; }
+            public int? fraudScore { get; set; }
+        }
+
         public CashOutQueryHandler(ReadonlySession session)
         {
             _session = session.Session;
@@ -27,58 +42,76 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
         {
             //TODO: remove the unessary stuff.
             //Use nhibernate future - note you need to use ISession
+            TimeSpan twoWeeks = new TimeSpan(14, 0, 0, 0);
+          
+            var sqlQuery = _session.CreateSQLQuery($@"select A.UserId as UserId
+                                                        ,cast(count(distinct Q.UserId) as decimal) / count(distinct Q.id) as userQueryRatio 
+                                                    from sb.[Transaction] T1 
+                                                    inner join sb.Answer A 
+                                                        on A.UserId = T1.[User_id] and T1.[Action] = 'CashOut' 
+                                                    inner join sb.Question Q 
+                                                        on Q.CorrectAnswer_id = A.id 
+                                                    where T1.Created > DATEADD(WEEK, -2, getdate()) 
+                                                    group by A.UserId, T1.Created 
+                                                    order by T1.Created desc"
+                                                    )
+            .SetResultTransformer(Transformers.AliasToBean<fristQuery>())
+            .Future<fristQuery>();
 
-            var sqlQuery = _session.CreateSQLQuery(@"
-                    select A.UserId as UserId
-                            ,cast(count(distinct Q.UserId) as decimal) / count(distinct Q.id) as userQueryRatio
-                    from sb.[Transaction] T1
-                    inner join sb.Answer A
-                            on A.UserId = T1.[User_id] and T1.[Action] = 'CashOut'
-                    inner join sb.Question Q
-                            on Q.CorrectAnswer_id = A.id
-                    where T1.Created > DATEADD(WEEK, -2, getdate())
-                    group by A.UserId, T1.Created
-                    order by T1.Created desc"
-            ).Future<dynamic>();
-
-            TimeSpan twoWeeks = new TimeSpan(70, 0, 0, 0);
+           
 
             var futureDto = _session.Query<Transaction>()
                 .Fetch(f => f.User)
                 .Where(w => w.Action == ActionType.CashOut)
                 .Where(w => w.Created > DateTime.Now - twoWeeks)
-                .Select(s => new
+                .Select(s => new secoundQuery
                 {
-                    UserId = s.User.Id,
-                    s.User.Email,
-                    s.Price,
-                    s.Created,
-                    s.User.FraudScore                   
+                    userId = s.User.Id,
+                    email = s.User.Email,
+                    price = s.Price,
+                    created = s.Created,
+                    fraudScore = s.User.FraudScore
                 })
-               .OrderByDescending(o => o.Created)
-               .ToFuture<dynamic>();
+
+               .OrderByDescending(o => o.created)
+
+               .ToFuture();
 
 
 
             var z = await futureDto.GetEnumerableAsync();
             var t = sqlQuery.GetEnumerable();
+            var tempRes = new List<CashOutDto>();
 
+            for (int i = 0; i < t.Count(); i++)
+            {
+                try
+                {
+                    var index = z.ElementAt(i);
+                    var tindex = t.ElementAt(i);
+                
+                tempRes.Add(new CashOutDto
+                {
 
-            IEnumerable<CashOutDto> tempRes = z.Join(t, 
-                                            u => u.UserId, 
-                                            w => w[0], 
-                                            (u,w) => new CashOutDto
-                                            {
-                                                UserId = u.UserId,
-                                                UserEmail = u.Email,
-                                                CashOutPrice = u.Price,
-                                                CashOutTime = u.Created,
-                                                FraudScore = Convert.ToInt32(u.FraudScore),
-                                                userQueryRatio = w[1]
+                    UserId = index.userId,
+                    UserEmail = index.email,
+                    CashOutPrice = index.price,
+                    CashOutTime = index.created,
+                    FraudScore = index.fraudScore,
+                    userQueryRatio = tindex.userQueryRatio
 
-                                            });
-            
-           return tempRes;
+                });
+                }
+                catch
+                {
+                    throw;
+                }
+
+            }
+
+      
+
+            return tempRes;
 
         }
     }
