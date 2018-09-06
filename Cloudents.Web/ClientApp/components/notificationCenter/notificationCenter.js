@@ -1,14 +1,14 @@
 import { mapGetters, mapActions } from 'vuex';
 import userBlock from '../helpers/user-block/user-block'
 import askQuestionBtn from "../results/helpers/askQuestionBtn/askQuestionBtn.vue";
-import notificationItems from "./notesDummy";
+import notesDummy from "./notesDummy";
 
 export default {
     name: "notificationCenter",
     components: {userBlock, askQuestionBtn},
     data() {
         return {
-        notesDummy: notificationItems
+        notesDummy: notesDummy
         }
     },
     props: {
@@ -18,7 +18,8 @@ export default {
         },
     },
     computed: {
-        ...mapGetters({notificationItems: 'getNotifications'}),
+        ...mapGetters({notificationItems: 'getNotifications', notificationEmptyState: 'notificationEmptyState'}),
+
     },
     methods: {
         ...mapActions(['addNotificationItemAction', 'updateNotification', 'archiveNotification']),

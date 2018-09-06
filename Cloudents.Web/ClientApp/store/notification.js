@@ -1,8 +1,16 @@
 import NotificationService from '../services/notificationService';
 import { NOTIFICATION } from "./mutation-types";
 
+const emptyState = {
+    action: 'refresh',
+    headline: 'Sure there will be soon',
+    title: 'There is no new messages for now',
+    timeago: "2018-09-04T00:58:34.2096593Z",
+    type: 'answer'
+};
 const state = {
     notifications: [],
+    emptyNotificationState: NotificationService.createNotificationObj(emptyState),
 };
 const mutations = {
     [NOTIFICATION.UPDATE_NOTIFICATION](state, notificationCreated) {
@@ -27,6 +35,7 @@ const mutations = {
 
 const getters = {
     getNotifications: (state) => state.notifications,
+    notificationEmptyState:(state) => state.emptyNotificationState
 };
 const actions = {
     addNotificationItemAction({commit, getters}, notification) {
