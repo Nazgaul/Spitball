@@ -1,6 +1,6 @@
 ﻿import debounce from "lodash/debounce";
 import historyIcon from "./svg/history-icon.svg";
-import {mapGetters, mapActions, mapMutations} from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import * as consts from './consts';
 import { constants } from "../../utilities/constants";
 
@@ -11,7 +11,7 @@ export default {
         hideOnScroll: {type: Boolean, default: false},
         placeholder: {type: String},
         userText: {String},
-        submitRoute: {String,default:'/ask'},
+        submitRoute: {String, default: '/ask'},
         suggestionVertical: {String},
     },
     data: () => ({autoSuggestList: [], isFirst: true, showSuggestions: false, focusedIndex: -1, originalMsg: ''}),
@@ -20,7 +20,7 @@ export default {
         ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
         suggestList() {
             let currentHistory = this.getCurrentVertical;
-            let buildInSuggestList = currentHistory ? consts.buildInSuggest[currentHistory] : consts.buildInSuggest.home;
+            let buildInSuggestList = currentHistory ? consts.buildInSuggest[currentHistory] : consts.buildInSuggest.ask;
             let historyList = [...(this.submitRoute && currentHistory ? this.$store.getters.getVerticalHistory(currentHistory) : this.allHistorySet)];
             let historySuggestSet = [...new Set([...historyList, ...buildInSuggestList])];
             let autoListMap = this.autoSuggestList ? this.autoSuggestList.map((i) => ({
@@ -29,7 +29,7 @@ export default {
             })) : [];
             let mapDataSet = historySuggestSet.slice(0, this.maxResults).map(i => ({
                 text: i, type: (historyList.includes(i) ? consts.SUGGEST_TYPE.history :
-                        consts.SUGGEST_TYPE.buildIn)
+                    consts.SUGGEST_TYPE.buildIn)
             }));
             return [...autoListMap, ...mapDataSet];
         },
@@ -65,7 +65,11 @@ export default {
             this.closeSuggestions();
         },
         search() {
-            if (!constants.regExXSSCheck.test(this.msg)){
+            if (!constants.regExXSSCheck.test(this.msg)) {
+                //check if query is the same(searching same term), and return if so
+                if (this.msg === this.$route.query.q) {
+                    return
+                }
                 this.UPDATE_SEARCH_LOADING(true);
                 this.$router.push({path: this.submitRoute, query: {q: this.msg}});
             }
@@ -90,7 +94,10 @@ export default {
                 this.originalMsg = this.msg;
                 this.$emit('input', val);
                 if (val && !this.isFirst) {
-                    this.getAutocmplete({term: val, vertical:this.suggestionVertical ? this.suggestionVertical : this.getCurrentVertical}).then(({data}) => {
+                    this.getAutocmplete({
+                        term: val,
+                        vertical: this.suggestionVertical ? this.suggestionVertical : this.getCurrentVertical
+                    }).then(({data}) => {
                         this.autoSuggestList = data
                     })
                 } else {
@@ -118,9 +125,9 @@ export default {
         },
         highlightSearch: function (item) {
             if (!item.type === consts.SUGGEST_TYPE.autoComplete || !this.msg) {
-                if (!constants.regExXSSCheck.test(item.text)){
+                if (!constants.regExXSSCheck.test(item.text)) {
                     return item.text
-                }else{
+                } else {
                     return "";
                 }
             }
@@ -164,8 +171,8 @@ export default {
         }
 
 
-        function closeSuggestions(TogglerElm, shouldHide, closeFn){
-            if(TogglerElm[0] && TogglerElm[0].style.display !== "none"){
+        function closeSuggestions(TogglerElm, shouldHide, closeFn) {
+            if (TogglerElm[0] && TogglerElm[0].style.display !== "none") {
                 if (shouldHide) {
                     closeFn();
                 }
@@ -176,17 +183,17 @@ export default {
         //or by pressing escape button
         let bodyElm = document.getElementsByTagName("body");
         let menuTogglerElm = document.getElementsByClassName("menu-toggler");
-        bodyElm[0].addEventListener("click", ()=>{
+        bodyElm[0].addEventListener("click", () => {
             closeSuggestions(menuTogglerElm, this.showSuggestions, this.closeSuggestions);
         });
-        bodyElm[0].addEventListener("keydown", (event)=>{
-            if(event.keyCode === 27){
+        bodyElm[0].addEventListener("keydown", (event) => {
+            if (event.keyCode === 27) {
                 //escape button pressed
                 closeSuggestions(menuTogglerElm, this.showSuggestions, this.closeSuggestions);
             }
         });
-        
-        
+
+
     }
 
 }

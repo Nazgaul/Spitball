@@ -1,8 +1,6 @@
 <template>
     <v-flex class="right-sidebar">
-        <v-flex xs12 v-if="isAsk">
-            <a class="ask-question" @click="goToAskQuestion()" v-language:inner>faqBlock_ask</a>
-        </v-flex>
+        <askQuestionBtn v-if="isAsk"></askQuestionBtn>
         <v-flex xs12 class="card-block">
             <div class="header" v-language:inner>faqBlock_faq</div>
             <div class="content">
@@ -32,13 +30,11 @@
 <script>
     import {suggestList} from "./../../consts"
     import help from "../../../../services/satelliteService";
-    import sbDialog from '../../../wrappers/sb-dialog/sb-dialog'
-    import loginToAnswer from '../../../question/helpers/loginToAnswer/login-answer'
     import {mapGetters, mapActions } from 'vuex';
+    import askQuestionBtn from '../askQuestionBtn/askQuestionBtn.vue'
     export default {
         components:{
-            sbDialog,
-            loginToAnswer
+            askQuestionBtn
 
         },
         data() {

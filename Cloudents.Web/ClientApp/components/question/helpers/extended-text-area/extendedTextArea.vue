@@ -1,66 +1,52 @@
 <template>
-        <v-flex xs12 class="question_area"  :class="{'has-error': error && error.errorClass &&  value.length < 15}">
-            <div class="textarea">
-                <!-- :class="{'with-preview':previewList.length}" v-if="!fullPreview" -->
-                <div class="text-block" :style="activeColor.cssRule" >
-                    <span class="error-message" v-if="error.errorClass &&  value.length < 15"  :error ="errorTextArea" >{{error.errorText}}</span>
+    <v-flex xs12 class="question_area" :class="{'has-error': error && error.errorClass &&  value.length < 15}">
+        <div class="textarea">
+            <div class="text-block" :style="activeColor.cssRule">
+                <span class="error-message" v-if="error.errorClass &&  value.length < 15" :error="errorTextArea">{{error.errorText}}</span>
 
-                    <textarea rows="9" class="" :style="activeColor.textColor" required
-                         :class="{ active: activeColor.id !== 0 }"
-                         @input="updateValue($event.target.value)"
-                        :value="value" autofocus="isFocused"
-                        :placeholder="`Type your ${actionType}...`"></textarea>
-                    <div class="action-holder">
+                <textarea rows="9" class="" :style="activeColor.textColor" required
+                          :class="{ active: activeColor.id !== 0 }"
+                          @input="updateValue($event.target.value)"
+                          :value="value" autofocus="isFocused"
+                          :placeholder="`extendedTextArea_type_your_${actionType}`" v-language:placeholder></textarea>
+                <div class="action-holder">
                     <ul class="actions_text files-actions">
-                        <!--TODO use svg component and not font-->
-                        <!--<li>-->
-                            <!--<button class="insert-equation">-->
-                                <!--<v-icon>sbf-pi-symbol</v-icon>-->
-                            <!--</button>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<button class="insert-symbol">-->
-                                <!--<v-icon>sbf-omega-symbol</v-icon>-->
-                            <!--</button>-->
-                        <!--</li>-->
                         <li>
                             <label for="file-input" class="attach-file" v-show="previewList.length < uploadLimit">
-                                <v-icon :style="activeColor.textColor">sbf-attach</v-icon>
+                                <v-icon style="cursor: pointer;" :style="activeColor.textColor">sbf-attach</v-icon>
                             </label>
-                            <input id="file-input" type="file" multiple accept="image/*" />
+                            <input id="file-input" type="file" multiple accept="image/*"/>
                         </li>
                     </ul>
-                     <v-divider v-if="actionType ==='question'" vertical></v-divider>
-                    <ul class="actions_text colors-actions"  v-if="actionType ==='question'">
+                    <v-divider v-if="actionType ==='question'" vertical></v-divider>
+                    <ul class="actions_text colors-actions" v-if="actionType ==='question'">
                         <li v-for="color in colorsSet" :key="color.id">
-                            <button :style="color.cssRule" :class="{ active: color.id === activeColor.id ||  color.id === 0 }" @click="updateColor(color)"></button>
+                            <button :style="color.cssRule"
+                                    :class="{ active: color.id === activeColor.id ||  color.id === 0 }"
+                                    @click="updateColor(color)"></button>
                         </li>
-                    </ul >
-                    </div>
-                </div>            
-                
-                <!-- <span class="close-btn" v-if="fullPreview" @click="togglePreview">
-                    <v-icon right>sbf-close</v-icon>
-                </span> -->
+                    </ul>
+                </div>
             </div>
-            <transition name="slide-fade">
-            <div class="files pt-3 pb-2" v-if="previewList.length" >
+        </div>
+        <transition name="slide-fade">
+            <div class="files pt-3 pb-2" v-if="previewList.length">
                 <ul class="preview-list" v-if="previewList.length">
                     <li v-if="previewList.length" v-for="(image,index) in previewList" :key="index">
                         <button class="hover-trash" @click="deletePreview(index)">
                             <v-icon>sbf-close</v-icon>
                         </button>
-                        <img :src="image" />
+                        <img :src="image"/>
                     </li>
-                    <li class="add-file" v-show="previewList.length < uploadLimit" >
+                    <li class="add-file" v-show="previewList.length < uploadLimit">
                         <label for="file-input">
-                                <v-icon>sbf-close</v-icon>
+                            <v-icon>sbf-close</v-icon>
                         </label>
                     </li>
                 </ul>
             </div>
-            </transition>
-        </v-flex>
+        </transition>
+    </v-flex>
 </template>
 <script src="./extendedTextArea.js"></script>
 <style src="./extendedTextArea.less" lang="less"></style>

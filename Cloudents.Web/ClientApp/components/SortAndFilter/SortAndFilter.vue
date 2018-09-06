@@ -1,7 +1,7 @@
 <template>
     <div class="sort-filter-wrap">
         <template v-if="sortOptions &&  sortOptions.length">
-            <h3>Sort</h3>
+            <h3 v-language:inner>sortAndFilter_sort</h3>
             <div class="sort-switch">
                 <template v-for="(singleSort, index) in sortOptions">
                     <input type="radio" :id="`option${index}`"
@@ -16,7 +16,7 @@
             </div>
         </template>
         <div v-if="filterList && filterList.length">
-            <h3>Filter</h3>
+            <h3 v-language:inner>sortAndFilter_filter</h3>
             <div class="filter-switch">
                 <v-expansion-panel expand v-model="panelList">
                     <v-expansion-panel-content v-for="(singleFilter, index) in filterList" :key="index">
@@ -30,7 +30,7 @@
                                 <div>{{singleFilter.title}}</div>
                             </slot>
                         </template>
-                        <div :class="['sort-filter',$route.path==='/ask'?'no-maxHeight':'']">
+                        <div :class="['sort-filter']">
                             <div v-for="filterItem in singleFilter.data"
                                  :key="(filterItem.id ? filterItem.id : filterItem)" class="filter">
                                 <input type="checkbox" :id="(filterItem.id ? filterItem.id : filterItem)"

@@ -8,7 +8,6 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
-using Cloudents.Core.Request;
 using Cloudents.Functions.Di;
 using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;

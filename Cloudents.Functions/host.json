@@ -1,11 +1,7 @@
 {
   "functions": [
-    "QuestionPopulate",
-    "UrlProcessServiceBus",
-    "QuestionUpdateTimeFunction",
-    "FunctionEmail",
-    "FunctionSms",
-    "FunctionTalkJs"
+   
+    "QuestionSearchSync"
   ],
   "queues": {
     "batchSize": 32,

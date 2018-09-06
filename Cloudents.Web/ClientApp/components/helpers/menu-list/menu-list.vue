@@ -8,14 +8,14 @@
                 <template slot="text" class="mb-3">
                     <div class="menu-list-head-block">
                                <div class="head-text-wrap">
-                                    <h4 class="text--title">Please</h4>
-                                   <span class="mb-4 text">sign up</span>
-                                        <span class="or">or</span>
-                                        <span class="mb-4 text">login</span>
+                                    <h4 class="text--title" v-language:inner>menuList_Please</h4>
+                                   <span class="mb-4 text" v-language:inner>menuList_sign_up_l</span>
+                                        <span class="or" v-language:inner>menuList_or</span>
+                                        <span class="mb-4 text" v-language:inner>menuList_login_l</span>
                                </div>
                         <div class="btn-container">
-                            <router-link  class="login-btns body-1" :to="{ name: 'registration'}">Sign Up</router-link>
-                            <router-link  class="login-btns body-1" :to="{ path: '/signin'}">Login</router-link>
+                            <router-link  class="login-btns body-1" :to="{ name: 'registration'}" v-language:inner>menuList_Sign_up</router-link>
+                            <router-link  class="login-btns body-1" :to="{ path: '/signin'}" v-language:inner>menuList_Login</router-link>
                         </div>
                     </div>
                 </template>
@@ -50,7 +50,7 @@
                     <v-icon>sbf-wallet</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title class="subheading">My Wallet</v-list-tile-title>
+                    <v-list-tile-title class="subheading" v-language:inner>menuList_my_wallet</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'conversations'}">
@@ -58,7 +58,7 @@
                     <v-icon>sbf-comment</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title class="subheading">Messages</v-list-tile-title>
+                    <v-list-tile-title class="subheading" v-language:inner>menuList_messages</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-avatar>
                     <span class="red-counter subheading" v-if="unreadMessages">{{unreadMessages}}</span>
@@ -69,15 +69,15 @@
                     <v-icon>sbf-user</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title class="subheading">My Profile</v-list-tile-title>
+                    <v-list-tile-title class="subheading" v-language:inner>menuList_my_profile</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
             <v-list-tile @click="startIntercom" >
                 <v-list-tile-action>
-                    <v-icon>sbf-feedback</v-icon>
+                    <v-icon>sbf-feedbackNew</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title class="subheading">Feedback</v-list-tile-title>
+                    <v-list-tile-title class="subheading" v-language:inner>menuList_feedback</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
 
@@ -86,7 +86,7 @@
                     <v-icon>sbf-logout</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title class="subheading">Logout</v-list-tile-title>
+                    <v-list-tile-title class="subheading" v-language:inner>menulist_logout</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-divider class="my-3"></v-divider>
@@ -96,7 +96,7 @@
                     <v-icon>sbf-about</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title class="subheading">About Spitball</v-list-tile-title>
+                    <v-list-tile-title class="subheading" v-language:inner>menuList_about_spitball</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'faq'}">
@@ -104,7 +104,7 @@
                     <v-icon>sbf-help</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title class="subheading">Help</v-list-tile-title>
+                    <v-list-tile-title class="subheading" v-language:inner>menuList_help</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'terms'}">
@@ -112,7 +112,7 @@
                     <v-icon>sbf-terms</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title class="subheading">Terms of Service</v-list-tile-title>
+                    <v-list-tile-title class="subheading" v-language:inner>menuList_terms_of_service</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'privacy'}">
@@ -120,7 +120,7 @@
                     <v-icon>sbf-privacy</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title class="subheading">Privacy Policy</v-list-tile-title>
+                    <v-list-tile-title class="subheading" v-language:inner>menuList_privacy_policy</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
         </v-list>

@@ -56,14 +56,18 @@ export default {
         }
     },
     beforeMount(){
-        this.filterList.forEach((item) => {
-            this.panelList.push(true)
-        });
+        if(this.filterList) {
+            this.filterList.forEach((item) => {
+                this.panelList.push(true)
+            });
+        }
     },
     created() {
-        this.filterList.forEach((item) => {
-            this.panelList.push(true)
-        });
+        if (this.filterList) {
+            this.filterList.forEach((item) => {
+                this.panelList.push(true)
+            });
+        }
     }
 
 }

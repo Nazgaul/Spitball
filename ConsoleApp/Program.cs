@@ -1,20 +1,19 @@
-﻿using System;
+﻿using Autofac;
+using Cloudents.Core;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
+using Cloudents.Infrastructure.Database.Query;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
-using Autofac;
-using Cloudents.Core;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Event;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query;
-using Cloudents.Core.Storage;
-using Cloudents.Infrastructure.Write;
-using Microsoft.Azure.Search.Models;
+using Question = Cloudents.Core.Entities.Db.Question;
 using Cloudents.Core.Query.Admin;
 using Cloudents.Core.DTOs.Admin;
 using System.Collections.Generic;
@@ -55,14 +54,22 @@ namespace ConsoleApp
             _container = builder.Build();
 
 
-          
 
 
 
-            var b = _container.Resolve<IQueryBus>();
-            var query = new AdminEmptyQuery();
-            CashOuts = await b.QueryAsync<IEnumerable<CashOutDto>>(query, default);
-            
+
+            //var b = _container.Resolve<FluentQueryBuilder>();
+            var x = await b.QueryAsync(new SyncAzureQuery(56123, 0), default);
+            //    .AddJoin<Question,User>(q=>q.User,u=>u.Id)
+            //    .AddSelect<User,Cloudents.Core.Entities.Search.Question>( q => q.Id,t2=>t2.UserId)
+            //    .AddSelect<Question>( q => q.Text, "b")
+            //    .AddSelect($"(select count(*) from {b.Table<Answer>()} where {b.Column<Answer>(x=>x.Question)} = {b.ColumnAlias<Question>(x=>x.Id)}) AnswerCount");
+
+            //string t = b;
+            //Console.WriteLine(t);
+
+            var b2 = _container.Resolve<IQueryBus>();
+            var x2 = await b2.QueryAsync(new SyncAzureQuery(56123 ,0), default);
 
 
             // QuestionRepository c = new QuestionRepository(b);
@@ -131,7 +138,7 @@ namespace ConsoleApp
             foreach (var question in GoogleSheets.GetData(spreadsheetId, range))
             {
                 var commandBus = _container.Resolve<ICommandBus>();
-               // await commandBus.DispatchAsync(question, default);
+                // await commandBus.DispatchAsync(question, default);
             }
         }
 

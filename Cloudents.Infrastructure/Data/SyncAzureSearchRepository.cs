@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
-using Cloudents.Core.Request;
 using Dapper;
 
 namespace Cloudents.Infrastructure.Data

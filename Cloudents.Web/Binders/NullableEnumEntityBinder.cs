@@ -37,6 +37,7 @@ namespace Cloudents.Web.Binders
         }
     }
 
+
     public class EmailEntityBinder : IModelBinder
     {
         private readonly IMailProvider _mailProvider;

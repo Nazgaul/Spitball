@@ -9,7 +9,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
 using NHibernate;
 using NHibernate.Linq;
-using NHibernate.Transform;
 using System;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin

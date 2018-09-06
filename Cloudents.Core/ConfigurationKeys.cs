@@ -32,13 +32,13 @@ namespace Cloudents.Core
         {
             Name = name;
             Key = key;
-            this.isDevelop = isDevelop;
+            IsDevelop = isDevelop;
         }
 
         public string Name { get; }
         public string Key { get; }
 
-        public bool isDevelop { get; }
+        public bool IsDevelop { get; }
     }
 
     public class DbConnectionString

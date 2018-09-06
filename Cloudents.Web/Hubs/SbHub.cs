@@ -1,6 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Web.Models;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Cloudents.Web.Hubs

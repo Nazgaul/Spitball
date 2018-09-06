@@ -65,12 +65,14 @@ namespace Cloudents.Ico
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
+                Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Core"),
                 Assembly.GetExecutingAssembly()
             };
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                ServiceBus = Configuration["ServiceBus"]
+                ServiceBus = Configuration["ServiceBus"],
+                Storage = Configuration["Storage"]
             };
 
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
@@ -96,9 +98,6 @@ namespace Cloudents.Ico
                 csp.AllowFrames.From("https://www.youtube.com/").OnlyOverHttps();
                 csp.AllowConnections.OnlyOverHttps().ToSelf();
                 csp.ByDefaultAllow.FromNowhere();
-                
-                //csp.SetReportOnly();
-                //csp.ReportViolationsTo("/csp-report");
             });
             if (env.IsDevelopment())
             {

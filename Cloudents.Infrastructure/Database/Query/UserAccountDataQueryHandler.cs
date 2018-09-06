@@ -1,6 +1,4 @@
-﻿using Cloudents.Core;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;

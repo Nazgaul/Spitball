@@ -1,36 +1,99 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
-using Cloudents.Infrastructure.Data;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using QuestionSearch = Cloudents.Core.Entities.Search.Question;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
-    public class QuestionSyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<QuestionAzureSyncDto>,
-        IQueryHandler<SyncAzureQuery, (IEnumerable<QuestionAzureSyncDto> update, IEnumerable<long> delete, long version)>
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
+    public class QuestionSyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<QuestionSearch>,
+        IQueryHandler<SyncAzureQuery, (IEnumerable<QuestionSearch> update, IEnumerable<long> delete, long version)>
     {
 
-        public QuestionSyncAzureSearchQueryHandler(QueryBuilder queryBuilder, DapperRepository dapperRepository) : base(queryBuilder, dapperRepository)
+        private readonly FluentQueryBuilder _queryBuilder;
+
+
+
+        public QuestionSyncAzureSearchQueryHandler(
+            ReadonlyStatelessSession session, FluentQueryBuilder queryBuilder) :
+            base(session)
         {
+            _queryBuilder = queryBuilder;
         }
 
-        //public async Task<string> GetAsync(EmptyQuery query, CancellationToken token)
-        //{
-        //    var sql = $"select * {_queryBuilder.BuildInitVersionTable<Question>("q", "c")}";
-        //    var sql2 = $"select * {_queryBuilder.BuildDiffVersionTable<Question>("q", "c",56123)}";
-        //    var result = await _dapperRepository.WithConnectionAsync(f => { return f.QueryAsync(sql2); },token);
-        //    return "xxx";
-        //}
 
-        protected override string VersionSql => $"select * {QueryBuilder.BuildDiffVersionTable<Question>("q", "c", 56123)}";
 
-        protected override string FirstQuery => $"select * {QueryBuilder.BuildInitVersionTable<Question>("q", "c")}";
-        public Task<(IEnumerable<QuestionAzureSyncDto> update, IEnumerable<long> delete, long version)> GetAsync(SyncAzureQuery query, CancellationToken token)
+        protected override FluentQueryBuilder VersionSql
         {
-            return base.GetAsync(query, token);
+            get
+            {
+                var qb = _queryBuilder;
+                qb.InitTable<Question>();
+                qb.CustomTable(
+                    $"right outer join CHANGETABLE (CHANGES {qb.Table<Question>()}, {qb.Param("Version")}) AS c ON {qb.ColumnAlias<Question>(q => q.Id)} = c.id");
+                SimilarQuery(qb);
+                return qb;
+            }
+        }
+
+        private void SimilarQuery(FluentQueryBuilder qb)
+        {
+
+            qb.Join<Question, User>(q => q.User, u => u.Id)
+             .Join<Question, QuestionSubject>(q => q.Subject, qs => qs.Id);
+            qb.Select<User>(x => x.Id, nameof(QuestionSearch.UserId))
+                .Select<User>(x => x.Name, nameof(QuestionSearch.UserName))
+                .Select<User>(x => x.Image, nameof(QuestionSearch.UserImage))
+                .Select<Question>(x => x.Id, nameof(QuestionSearch.Id))
+                .Select(
+                    $"(select count(*) from {qb.Table<Answer>()} where {qb.Column<Answer>(x => x.Question)} = {qb.ColumnAlias<Question>(x => x.Id)}) {nameof(QuestionSearch.AnswerCount)}")
+                .Select<Question>(x => x.Updated, nameof(QuestionSearch.DateTime))
+                .Select<Question>(x => x.Attachments, nameof(QuestionSearch.FilesCount))
+                .Select(
+                    $"CASE when {qb.ColumnAlias<Question>(x => x.CorrectAnswer)} IS null Then 0 else 1  END {nameof(QuestionSearch.HasCorrectAnswer)}")
+                .Select<Question>(x => x.Price, nameof(QuestionSearch.Price))
+                .Select<Question>(x => x.Text, nameof(QuestionSearch.Text))
+                .Select<Question>(x => x.Color, nameof(QuestionSearch.Color))
+                .Select<QuestionSubject>(x => x.Text, nameof(QuestionSearch.SubjectText))
+                .Select<QuestionSubject>(x => x.Id, nameof(QuestionSearch.Subject))
+                .Select("c.*")
+                .AddOrder<Question>(q => q.Id)
+                .Paging("PageSize", "PageNumber");
+        }
+
+        protected override FluentQueryBuilder FirstQuery
+        {
+            get
+            {
+                var qb = _queryBuilder;
+                qb.InitTable<Question>();
+                qb.CustomTable(
+                        $"CROSS APPLY CHANGETABLE (VERSION {qb.Table<Question>()}, (Id), ({qb.Column<Question>(x => x.Id)})) AS c2")
+                    .Join<Question, User>(q => q.User, u => u.Id)
+                    .Join<Question, QuestionSubject>(q => q.Subject, qs => qs.Id)
+
+                    .Select<User>(x => x.Id, nameof(QuestionSearch.UserId))
+                    .Select<User>(x => x.Name, nameof(QuestionSearch.UserName))
+                    .Select<User>(x => x.Image, nameof(QuestionSearch.UserImage))
+                    .Select<Question>(x => x.Id, nameof(QuestionSearch.Id))
+                    .Select(
+                        $"(select count(*) from {qb.Table<Answer>()} where {qb.Column<Answer>(x => x.Question)} = {qb.ColumnAlias<Question>(x => x.Id)}) {nameof(QuestionSearch.AnswerCount)}")
+
+                    .Select<Question>(x => x.Updated, nameof(QuestionSearch.DateTime))
+                    .Select<Question>(x => x.Attachments, nameof(QuestionSearch.FilesCount))
+                    .Select(
+                        $"CASE when {qb.ColumnAlias<Question>(x => x.CorrectAnswer)} IS null Then 0 else 1  END {nameof(QuestionSearch.HasCorrectAnswer)}")
+                    .Select<Question>(x => x.Price, nameof(QuestionSearch.Price))
+                    .Select<Question>(x => x.Text, nameof(QuestionSearch.Text))
+                    .Select<Question>(x => x.Color, nameof(QuestionSearch.Color))
+                    .Select<QuestionSubject>(x => x.Text, nameof(QuestionSearch.SubjectText))
+                    .Select<QuestionSubject>(x => x.Id, nameof(QuestionSearch.Subject))
+                    .Select("c.*");
+
+                return qb;
+            }
         }
     }
 }

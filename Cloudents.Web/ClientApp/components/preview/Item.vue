@@ -11,7 +11,15 @@
     import { mapActions } from 'vuex'
     export default {
         data() {
-            var actions = [{ id: 'info', click: function () { } }, { id: 'download' }, { id: 'print' }, { id: 'more' }, { id: 'close' }]
+            var actions = [
+                { id: 'info',
+                click: function () {}
+                },
+                { id: 'download' },
+                { id: 'print' },
+                { id: 'more' },
+                { id: 'close' }
+                ];
             return {
                 item: {},
                 actions

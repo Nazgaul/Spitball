@@ -100,6 +100,10 @@ const mutations = {
                 if(currentQuestion.id === questionToUpdate.id){
                     //replace the question from the list
                     state.itemsPerVertical.ask.data[questionIndex].answers = questionToUpdate.answers;
+                    state.itemsPerVertical.ask.data[questionIndex].hasCorrectAnswer = questionToUpdate.hasCorrectAnswer;
+                    state.itemsPerVertical.ask.data[questionIndex].files = questionToUpdate.files;
+                    state.itemsPerVertical.ask.data[questionIndex].answersNum = questionToUpdate.answers;
+                    state.itemsPerVertical.ask.data[questionIndex].filesNum = questionToUpdate.files;
                     return;
                 }
             }
