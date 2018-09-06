@@ -80,15 +80,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Js\QuestionResource.Designer.cs">
+    <Compile Update="Resources\Js\FaqBlock.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>QuestionResource.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Js\SignUpResource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SignUpResource.resx</DependentUpon>
+      <DependentUpon>FaqBlock.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Seo.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -98,13 +93,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Js\QuestionResource.resx">
+    <EmbeddedResource Update="Resources\Js\FaqBlock.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>QuestionResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Js\SignUpResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SignUpResource.Designer.cs</LastGenOutput>
+      <LastGenOutput>FaqBlock.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Seo.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
