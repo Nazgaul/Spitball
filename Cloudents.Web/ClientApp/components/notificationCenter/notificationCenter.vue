@@ -1,20 +1,19 @@
 <template>
     <div class="notification-center-wrap">
-        <ask-question-btn></ask-question-btn>
+        <ask-question-btn v-show="isAsk"></ask-question-btn>
         <div class="notification-container">
             <v-subheader class="notification-center-header" :key="'header'">
-                Notifications
+               <span v-language:inner>notificationCenter_title</span> 
             </v-subheader>
             <div class="notification-center">
                 <v-list three-line class="notifications-list">
-                    <transition-group name="list">
-                    <div v-for="(item, index) in notificationItems"  class="list-item" :key="item.id" >
-                        <v-list-tile :ripple="false"
+                    <transition-group name="list" v-if="notificationItems.length">
+                    <div v-for="(item) in notificationItems" class="list-item" :key="item.id">
+                        <v-list-tile
                                 class="singleNotification"
                                 :key="item.title"
                                 @click="doNotificationAction(item)"
-                                avatar
-                                >
+                                avatar>
                             <v-list-tile-avatar class="notification-action-type">
                                 <v-icon class="notification-action-type-icon" :color="item.active ? 'teal' : 'grey'">
                                     {{item.icon}}
@@ -41,6 +40,25 @@
                         </v-list-tile>
                     </div>
                     </transition-group>
+                    <v-list-tile class="empty-notification-state" v-else>
+                        <v-list-tile-avatar class="notification-action-type">
+                            <v-icon class="notification-action-type-icon">
+                                {{notificationEmptyState.icon}}
+                            </v-icon>
+                        </v-list-tile-avatar>
+                        <v-list-tile-content>
+                            <v-list-tile-title class="notification-title">{{
+                                notificationEmptyState.title }}
+                            </v-list-tile-title>
+                            <v-list-tile-sub-title
+                                    class="notification-subtitle">{{
+                                notificationEmptyState.headline }}
+                            </v-list-tile-sub-title>
+                            <v-list-tile-sub-title class="timeago">
+                                <span class="timeago" :datetime="notificationEmptyState.timeago || notificationEmptyState.create"></span>
+                            </v-list-tile-sub-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
                 </v-list>
             </div>
         </div>

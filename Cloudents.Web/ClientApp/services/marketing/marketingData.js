@@ -1,37 +1,24 @@
+import { LanguageService } from "../language/languageService";
+
 const marketingData = {
     login: {
         noCampaign: {
             stepOne: {
-                text: 'Start with your email. We need to know how to contact you.'
+                text: LanguageService.getValueByKey("marketingData_login_noCampaign_stepOne"),
+
             },
             stepTwo: {
-                text: 'We need to send you a confirmation code'
+                text: LanguageService.getValueByKey("marketingData_login_noCampaign_stepTwo"),
             }
         },
         askaquestion: {
             stepOne: {
-                text: 'Sign up with your email to get your HW questions answered now.'
+                text: LanguageService.getValueByKey("marketingData_login_askQuestion_stepOne"),
             },
             stepTwo: {
-                text: 'You\'re 1 step away from getting free SBLs and getting answers from top students!'
+                text: LanguageService.getValueByKey("marketingData_login_askQuestion_stepTwo"),
             }
         },
-        campaignY: {
-            stepOne: {
-                text: 'Sign up with your email to get your HW questions answered now.'
-            },
-            stepTwo: {
-                text: 'You\'re 1 step away from getting free SBLs and getting answers from top students!'
-            }
-        },
-        campaignZ: {
-            stepOne: {
-                text: 'Sign up with your email to get your HW questions answered now.'
-            },
-            stepTwo: {
-                text: 'You\'re 1 step away from getting free SBLs and getting answers from top students!'
-            }
-        }
-    }
+   }
 };
 export default marketingData

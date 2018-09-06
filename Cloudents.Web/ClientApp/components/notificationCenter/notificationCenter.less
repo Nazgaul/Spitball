@@ -25,9 +25,12 @@
 
   .notification-container {
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+    min-height: 400px;
     .notification-center-header {
       color: @color-black;
       font-size: 16px;
+      height: @btnHeight;
       font-weight: 600;
       letter-spacing: -0.2px;
       background-color: @color-light-grey;
@@ -81,6 +84,9 @@
               height: 32px;
               width: 32px;
               font-size: 30px;
+              &.sbf-aprrove-notification{
+                color: #7ED321;
+              }
             }
           }
           .notification-archive {

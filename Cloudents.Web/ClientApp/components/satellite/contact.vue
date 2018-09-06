@@ -17,7 +17,7 @@
 </div>
 </template>
 <script>
-    import {bottomIcons} from "../home/consts";
+    import {bottomIcons} from "../helpers/socialMediaIcons/socialMedia";
     import generalPage from "./generalImage.vue";
 
     var components = {generalPage};

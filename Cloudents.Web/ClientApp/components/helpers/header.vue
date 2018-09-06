@@ -82,6 +82,7 @@
     const PersonalizeDialog = () => import('./ResultPersonalize.vue');
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
+    import {LanguageService } from "../../services/language/languageService";
 
     export default {
         components: {
@@ -94,12 +95,12 @@
             loginToAnswer
         },
         placeholders: {
-            job: "Your field of expertise...",
-            tutor: "Find a tutor...",
-            note: "Find study documents in...",
-            book: "Textbook title or ISBN...",
-            ask: "Search questions",
-            flashcard: "Look for flashcards...",
+            job: LanguageService.getValueByKey("header_placeholder_job"),
+            tutor: LanguageService.getValueByKey("header_placeholder_tutor"),
+            note: LanguageService.getValueByKey("header_placeholder_note"),
+            book: LanguageService.getValueByKey("header_placeholder_book"),
+            ask: LanguageService.getValueByKey("header_placeholder_ask"),
+            flashcard: LanguageService.getValueByKey("header_placeholder_flashcard"),
         },
         data() {
             return {
@@ -109,7 +110,6 @@
                 drawer: null,
                 toasterTimeout: 5000,
                 showDialogLogin: false
-                // isAuthUser:true
             }
         },
         props: {

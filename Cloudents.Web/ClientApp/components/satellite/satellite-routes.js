@@ -1,13 +1,15 @@
-﻿export const staticRoutes = [
+﻿import {LanguageService} from '../../services/language/languageService'
+
+export const staticRoutes = [
     {
         name: "about",
-        display: "How Spitball Works",
+        display: LanguageService.getValueByKey("satellite_routes_about"),
         import: () => import("./work.vue")
 
     },
     {
         name: "faq",
-        display: "FAQ",
+        display: LanguageService.getValueByKey("satellite_routes_faq"),
         import: () => import("./faq.vue"),
         params: (route) => ({ id: route.query.id })
 
@@ -21,38 +23,38 @@
     //},
     {
         name: "blog",
-        display: "Blog",
+        display: LanguageService.getValueByKey("satellite_routes_blog"),
         // import: ()=>import("./blog.vue"),
         // params:(route)=>({university:route.query.uni,path:route.query.path})
 
     },
     {
         name: "partners",
-        display: "Partners",
+        display: LanguageService.getValueByKey("satellite_routes_partners"),
         import: () => import("./partner.vue")
 
     },
     {
         name: "reps",
-        display: "Reps",
+        display: LanguageService.getValueByKey("satellite_routes_reps"),
         import: () => import("./reps.vue")
 
     },
     {
         name: "privacy",
-        display: "Privacy",
+        display: LanguageService.getValueByKey("satellite_routes_privacy"),
         import: () => import("./privacy.vue")
 
     },
     {
         name: "terms",
-        display: "Terms",
+        display: LanguageService.getValueByKey("satellite_routes_terms"),
         import: () => import("./terms.vue")
 
     },
     {
         name: "contact",
-        display: "Contact",
+        display: LanguageService.getValueByKey("satellite_routes_contact"),
         import: () => import("./contact.vue")
 
     }

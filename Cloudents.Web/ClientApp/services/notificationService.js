@@ -3,10 +3,9 @@ function Notification(notificationObj){
     this.type = notificationObj.type;
     this.headline = notificationObj.headline;
     this.title = notificationObj.title;
-    this.icon = `sbf-${this.type}`;
+    this.icon = `sbf-${this.type}-notification`;
     this.action = `${notificationObj.action}`;
     this.timeago = notificationObj.timeago
-    this.actionIcon = `sbf-${this.action}`;
     this.isVisited = false;
     this.id = generateId();
 }

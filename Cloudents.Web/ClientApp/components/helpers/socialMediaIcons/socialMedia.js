@@ -1,4 +1,5 @@
 
+//social media icons export
 let bottomIcons = [
     {
         link: "https://www.facebook.com/spitballstudy/",
@@ -48,5 +49,5 @@ let bottomIcons = [
 ];
 
 export {
-     bottomIcons
+    bottomIcons
 }
