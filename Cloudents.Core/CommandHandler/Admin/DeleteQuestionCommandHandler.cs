@@ -1,13 +1,16 @@
-﻿using System.Threading;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
     [AdminCommandHandler]
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
         private readonly IRepository<Question> _questionRepository;
@@ -24,19 +27,12 @@ namespace Cloudents.Core.CommandHandler.Admin
         {
             var question = await _questionRepository.LoadAsync(message.QuestionId, token);
             var userId = question.User.Id;
+
+            question.Events.Add(new QuestionDeletedEvent(question));
+
             await _questionRepository.DeleteAsync(question, token);
-            //await _questionRepository.FlushAsync(token); //TODO: this is not right
-            //await _unitOfWork.CommitAsync(token);
             var user = await _userRepository.LoadAsync(userId, token);
-            user.Balance += question.Price;// await _userRepository.UserBalanceAsync(userId, token);
+            user.Balance += question.Price;
         }
     }
-
-    //public class UpdateUserBalanceCommandHandler : ICommandHandler<UpdateUserBalanceCommand>
-    //{
-    //    public Task ExecuteAsync(UpdateUserBalanceCommand message, CancellationToken token)
-    //    {
-    //        throw new System.NotImplementedException();
-    //    }
-    //}
 }

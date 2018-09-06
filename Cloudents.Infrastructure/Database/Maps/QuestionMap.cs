@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Database.Maps
 
             //DO NOT PUT CASCASE DELETE ORAPHAN SINCE WE HANDLE THIS ON CODE
             HasMany(x => x.Transactions)
-
+                .Cascade.Delete()
                 .LazyLoad()
                 .Inverse();
         }
