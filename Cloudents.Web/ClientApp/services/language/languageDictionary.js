@@ -7,10 +7,10 @@ export const dictionary = {
 
     menuList_Please: "Please",
     menuList_Sign_up: "Sign up",
-    menuList_sign_up: "sign up",
+    menuList_sign_up_l: "sign up",
     menuList_or: "or",
     menuList_Login: "Login",
-    menuList_login: "Login",
+    menuList_login_l: "login",
     menuList_my_wallet: "My Wallet",
     menuList_messages: "Messages",
     menuList_my_profile: "My Profile",
@@ -34,14 +34,6 @@ export const dictionary = {
     resultPersonalize_personalize_results: "Personalize Results",
 
     uniSearchinput_universities_near_you: "Universities near you:",
-
-    pageTemple_our_partners: "Our Partners",
-    pageTemplate_copy_righy: "Copyright",
-    pageTemplate_cloudents_2018: " Cloudents 2018",
-    pageTemplate_How_spitball_works: "How Spitball Works",
-    pageTemplate_privacy_policy: "Privacy Policy",
-    pageTemplat_terms_of_service: "Terms of Service",
-    pageTemplat_faq: "FAQ",
 
     login_sign_up_with_google: "Sign Up with Google",
     login_or: "or",
@@ -75,7 +67,6 @@ export const dictionary = {
     login_sent_code_by_sms: "We sent the code to you by SMS",
     login_sent_confirmation_code: "We sent a confirmation code to your mobile phone.",
     login_didnt_get_an_email: "Didn't get an Email?",
-    login_click_here_to_resend: "Click here to resend.",
     login_congrats: "CONGRATS!",
     login_you_are_reward_with: "You are rewarded with",
     login_sbl: "SBL",
@@ -102,9 +93,8 @@ export const dictionary = {
     flashcard_Front: "Front",
     flashcard_Back: "Back",
     flashcard_Both: "Both",
-    flashcard_front: "front",
-    flashcard_back: "back",
-    flashcard_both: "both",
+    flashcard_front_l: "front",
+    flashcard_both_l: "both",
     flashcard_shuffle_cards: "Shuffle cards",
     flashcard_previous: "Previous",
     flashcard_next: "Next",
@@ -119,7 +109,7 @@ export const dictionary = {
     falshcard_F: "F",
     flashcard_Cards: "Cards",
     flashcard_Study: "Study",
-    flashcard_pin: "pin",
+    flashcard_pin_l: "pin",
 
     flashcardcontent_click_to_flip: "Click to flip",
 
@@ -131,14 +121,9 @@ export const dictionary = {
     profile_Questions: "Questions",
 
     itemAction_policy: "This item might be subject to certain laws and school policies that restrict third-party use of materials prepared by educators. It is your sole responsibility to be aware of and to abide by any such laws or policies that may apply to you. You may access materials solely for your information and your non-commercial, personal use and as intended through the normal functionality of the site and service.",
-    loginAnswer_Pleas: "Please",
-    loginAnswer_sign_up: "sign up",
-    loginAnswer_or: "or",
+    
     loginAnswer_login: "login",
-    loginAnswer_to_continue: "to continue.",
-    loginAnswer_policy: "You are a couple of mouse clicks away from FREE access to making serious money.",
     loginAnswer_Sign_Up: "Sign Up",
-    loginAnswer_Login: "Login",
 
     questionCard_Accept: "Accept",
     questionCard_Earn: "Earn",
@@ -159,14 +144,13 @@ export const dictionary = {
     newQuestion_Ask: "Ask",
 
     questionDetails_Ask_question: "Ask a question",
-    questionDetails_question: "/  Questions  /",
+    questionDetails_question_dash: "/  Questions  /",
     questionDetails_Add_answer: "Add your answer",
     questionDetails_Know_the_answer: "Know the answer?",
     questionDetails_Add_it_here: "Add it here!",
     questionDetails_Discussion_Board: "Discussion Board",
     questionDetails_Question: "Question",
     questionDetails_Chat: "Chat",
-    questionDetails_Add_your_answer: "Add your answer",
     questionDetails_error_minChar: "min. 15 characters",
 
     questionTheard_Answers: "Answers",
@@ -176,16 +160,13 @@ export const dictionary = {
     questionSuggestPopUp_accepts_your_answer: "to see if accepts your answer.",
     questionSuggestPopUp_below_question_should_help: "In the meantime, below is another question that you should be able to help with.",
 
-    contant_support: "support@spitball.co",
     contant_address: "79 Madison Ave, New York, New York, 10016",
 
     partner_join_the_community: "Does your company make students’ lives easier? Are you interested in joining the community or accepting SBL on your website? Reach out to us at",
-    partner_email: "partner@spitball.co",
-
+    
     privacy_Privacy_Policy: "Privacy Policy",
     privacy_last_modified: "Last Modified 1/1/2018",
     privacy_policy_provides: "This Privacy Policy provides our company policies and procedures for gathering, using, and disclosing your information. Users can access the Spitball service through our website, located at",
-    privacy_address: "www.spitball.co",
     privacy_agree_information: ", applications on Devices, and through third-parties. A \"Device\" is defined as any computer used to access the Spitball Service, including without limitation a desktop, laptop, mobile phone, tablet, web enabled TV, or other consumer electronic device. This Privacy Policy governs your access of the Spitball Service, regardless of how you access it, and by using our Services you agree to the gathering, transfer, processing, storage, disclosure and other uses described in this Privacy Policy. All of the various forms of data, content, and information described below are referred to as \"information.\"",
     privacy_security_and_privacy: "At Spitball we take security and privacy very seriously. Your personal information is actively protected by us. Communications with our web and mobile services are encrypted using industry standard AES encryption, we use European data centres and your passwords are stored using non-reversible encryption.",
     privacy_storing_gathering: "Gathering and Storing Information",
@@ -207,7 +188,6 @@ export const dictionary = {
     privacy_security: "Security",
     privacy_security_information: "The security of your information is important to us. When you enter sensitive information (such as your login and password) we encrypt the transmission of that information using secure socket layer technology (SSL).",
     privacy_standars_protect_information: "We follow generally accepted standards to protect the information submitted to us, both during transmission and once we receive it. No method of electronic transmission or storage is 100% secure, however. Therefore, we cannot guarantee its absolute security. If you have any questions about security on our website, you can contact us at ",
-    privacy_email: "support@spitball.co",
     privacy_community: "Spitball Community",
     privacy_service_offers: "Our Service offers publicly accessible community services such as Q&As and comments. You should be aware that any information you provide in these areas may be read, gathered, and used by others who access them. Your posts may remain even after you cancel your account.",
     privacy_Policy_Children: "Our Policy towards Children",
@@ -221,20 +201,19 @@ export const dictionary = {
     privacy_changesin_policy: "This Privacy Policy may change from time to time. If we make a change to this privacy policy that we believe materially changes your rights, we will provide you with notice (for example, by email). And we may provide notice of changes in other circumstances as well. By continuing to use the Service after those changes become effective, you agree to be bound by the revised Privacy Policy.",
 
     reps_help_to_community: "Want to help grow the Spitball community at your school or university? Reach out to us at",
-    reps_email: "work@spitball.co",
 
     search_Search: "Search",
 
     settings_Settings: "Settings",
-    settings_tap_to_cange: "Tap the photo to change i",
+    settings_tap_to_cange: "Tap the photo to change it",
     settings_images_png_jpg: "Images must be in PNG or JPG format and under 5mb",
     settings_Save: "Save",
 
-    courseAdd_submit: "ettings_Save",
+    courseAdd_submit: "submit",
 
     searcitem_DONE: "DONE",
     searchitem_dont_see_class: "Still don't see your class?",
-    searchitem_save: "save",
+    searchitem_save_l: "save",
     searchitem_clear: "clear",
     searchitem_Type_it_in_here: "Type it in here",
     searchitem_Cancel: "Cancel",
@@ -286,8 +265,6 @@ export const dictionary = {
     result_different_keywords: "Try different keywords.",
     result_general_keywords: "Try more general keywords.",
     result_fewer_keywords: "Try fewer keywords.",
-
-
     result_suggestions_job: "Need some cash? Find the best jobs & internships for students at your school.",
     result_suggestions_tutor: "Still need help? Connect with a tutor and make sure you ace your class.",
     result_suggestions_note: "Searching for study documents for your classes? Look no further.",
@@ -295,10 +272,9 @@ export const dictionary = {
     result_suggestions_ask: "Have a question you need answered? Try us.",
     result_suggestions_flashcard: "We found some flashcards that may help you study!",
 
-
     book_header_textbook: "Textbooks",
 
-    buildinsuggest_home_flashcards: "Flashcards for financial accounting",
+    
 
     satellite_routes_about: "How Spitball Works",
     satellite_routes_faq: "FAQ",
@@ -311,7 +287,8 @@ export const dictionary = {
 
     seacrh_searchText_find: "Find study documents, textbooks, tutors, jobs, deals and more...",
     seacrh_searchText_find_short: "Study documents, textbooks, tutors...",
-
+    
+    buildinsuggest_home_flashcards: "Flashcards for financial accounting",
     buildinsuggest_note_microeconomics: "microeconomics study guides",
     buildinsuggest_note_pastExams: "past exams for bio 101",
     buildinsuggest_note_electrical: "electrical engineering notes",

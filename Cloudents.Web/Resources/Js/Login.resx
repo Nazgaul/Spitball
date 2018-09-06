@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="agree" xml:space="preserve">
+    <value>I agree to Spitball's</value>
+  </data>
+  <data name="already_have_account" xml:space="preserve">
+    <value>Do you already have an account?</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="an_activation_email_has_been_sent_to" xml:space="preserve">
+    <value>An activation email has been sent to</value>
+  </data>
+  <data name="are_you_sure_you_want_to_exit" xml:space="preserve">
+    <value>Are you sure you want to exit?</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="check_your_email" xml:space="preserve">
+    <value>Check your email to activate</value>
+  </data>
+  <data name="confirmation_link_expired" xml:space="preserve">
+    <value>Your confirmation link has expired</value>
+  </data>
+  <data name="congrats" xml:space="preserve">
+    <value>CONGRATS!</value>
+  </data>
+  <data name="continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="continue_registration" xml:space="preserve">
+    <value>Continue with registration</value>
+  </data>
+  <data name="didnt_get_an_email" xml:space="preserve">
+    <value>Didn't get an Email?</value>
+  </data>
+  <data name="enter_the_confirm_code" xml:space="preserve">
+    <value>Enter the confirmation code</value>
+  </data>
+  <data name="enter_your_phone_number" xml:space="preserve">
+    <value>Enter your phone number</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="exiting_information1" xml:space="preserve">
+    <value>Exiting from this process will delete all your</value>
+  </data>
+  <data name="exiting_information2" xml:space="preserve">
+    <value>progress and information</value>
+  </data>
+  <data name="get_started" xml:space="preserve">
+    <value>Get started</value>
+  </data>
+  <data name="homework_questions" xml:space="preserve">
+    <value>Homework questions.</value>
+  </data>
+  <data name="lets_start" xml:space="preserve">
+    <value>Let's Start</value>
+  </data>
+  <data name="login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="login_click_here_to_send" xml:space="preserve">
+    <value>Click here to resend.</value>
+  </data>
+  <data name="login_didnt_get_sms" xml:space="preserve">
+    <value>Didn’t get an sms?</value>
+  </data>
+  <data name="login_until_activate_account3" xml:space="preserve">
+    <value>until you activate your account</value>
+  </data>
+  <data name="need_an_account" xml:space="preserve">
+    <value>Need an account?</value>
+  </data>
+  <data name="not_complete_registration" xml:space="preserve">
+    <value>You didn't complete the registration process</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="please_agree" xml:space="preserve">
+    <value>Please agree to Terms And Services in order to proceed</value>
+  </data>
+  <data name="please_login" xml:space="preserve">
+    <value>please login</value>
+  </data>
+  <data name="privacy_policy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="sbl" xml:space="preserve">
+    <value>SBL</value>
+  </data>
+  <data name="select_your_country_code" xml:space="preserve">
+    <value>Select your country code</value>
+  </data>
+  <data name="sent_code_by_sms" xml:space="preserve">
+    <value>We sent the code to you by SMS</value>
+  </data>
+  <data name="sent_confirmation_code" xml:space="preserve">
+    <value>We sent a confirmation code to your mobile phone.</value>
+  </data>
+  <data name="signin_your_email" xml:space="preserve">
+    <value>Sign in with Email</value>
+  </data>
+  <data name="sign_in" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="sign_up" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="sign_up_with_google" xml:space="preserve">
+    <value>Sign Up with Google</value>
+  </data>
+  <data name="sure_exit1" xml:space="preserve">
+    <value>Are you</value>
+  </data>
+  <data name="sure_exit2" xml:space="preserve">
+    <value>sure you</value>
+  </data>
+  <data name="sure_exit3" xml:space="preserve">
+    <value>you want</value>
+  </data>
+  <data name="sure_exit4" xml:space="preserve">
+    <value>to</value>
+  </data>
+  <data name="sure_exit5" xml:space="preserve">
+    <value>exit?</value>
+  </data>
+  <data name="terms_of_services" xml:space="preserve">
+    <value>Terms of Services</value>
+  </data>
+  <data name="until_activate_account" xml:space="preserve">
+    <value>You will not be able to log in to Spitball.co until you activate your account</value>
+  </data>
+  <data name="until_activate_account1" xml:space="preserve">
+    <value>You will not be able</value>
+  </data>
+  <data name="until_activate_account2" xml:space="preserve">
+    <value>to log in to Spitball.co</value>
+  </data>
+  <data name="welcome_back" xml:space="preserve">
+    <value>Welcome back</value>
+  </data>
+  <data name="Your" xml:space="preserve">
+    <value>Your</value>
+  </data>
+  <data name="your_account" xml:space="preserve">
+    <value>your account</value>
+  </data>
+  <data name="you_are_reward_with" xml:space="preserve">
+    <value>You are rewarded with</value>
+  </data>
+  <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
+    <value>You can spend them to get help with your</value>
+  </data>
+</root>

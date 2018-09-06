@@ -9,9 +9,9 @@
                     <div class="menu-list-head-block">
                                <div class="head-text-wrap">
                                     <h4 class="text--title" v-language:inner>menuList_Please</h4>
-                                   <span class="mb-4 text" v-language:inner>menuList_sign_up</span>
+                                   <span class="mb-4 text" v-language:inner>menuList_sign_up_l</span>
                                         <span class="or" v-language:inner>menuList_or</span>
-                                        <span class="mb-4 text" v-language:inner>menuList_login</span>
+                                        <span class="mb-4 text" v-language:inner>menuList_login_l</span>
                                </div>
                         <div class="btn-container">
                             <router-link  class="login-btns body-1" :to="{ name: 'registration'}" v-language:inner>menuList_Sign_up</router-link>

@@ -1,7 +1,7 @@
 <template v-once>
 <div class="contact">
     <general-page header="contact-header.png" icon="contact-icon.png">
-            <a href="mailto:support@spitball.co" class="d-block" v-language:inner>contant_support</a>
+            <a href="mailto:support@spitball.co" class="d-block">support@spitball.co</a>
             <span class="d-block" v-language:inner>contant_address</span>
             <v-layout row class="mt-3 mb-3">
                 <v-flex v-for="(bIcon,index) in bottomIcons" :key="index" align-start justify-start class="social-btns mr-4">
