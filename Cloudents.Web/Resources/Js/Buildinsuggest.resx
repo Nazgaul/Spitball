@@ -141,6 +141,9 @@
   <data name="flashcard_spanish" xml:space="preserve">
     <value>intermediate spanish vocab</value>
   </data>
+  <data name="home_flashcards" xml:space="preserve">
+    <value>Flashcards for financial accounting</value>
+  </data>
   <data name="job_ambassador" xml:space="preserve">
     <value>brand ambassador jobs</value>
   </data>
