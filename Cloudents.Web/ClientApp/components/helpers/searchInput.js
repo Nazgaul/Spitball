@@ -20,7 +20,7 @@ export default {
         ...mapGetters(['allHistorySet', 'getCurrentVertical', 'getVerticalHistory']),
         suggestList() {
             let currentHistory = this.getCurrentVertical;
-            let buildInSuggestList = currentHistory ? consts.buildInSuggest[currentHistory] : consts.buildInSuggest.home;
+            let buildInSuggestList = currentHistory ? consts.buildInSuggest[currentHistory] : consts.buildInSuggest.ask;
             let historyList = [...(this.submitRoute && currentHistory ? this.$store.getters.getVerticalHistory(currentHistory) : this.allHistorySet)];
             let historySuggestSet = [...new Set([...historyList, ...buildInSuggestList])];
             let autoListMap = this.autoSuggestList ? this.autoSuggestList.map((i) => ({

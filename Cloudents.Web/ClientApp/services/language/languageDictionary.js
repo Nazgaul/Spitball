@@ -312,13 +312,6 @@ export const dictionary = {
     seacrh_searchText_find: "Find study documents, textbooks, tutors, jobs, deals and more...",
     seacrh_searchText_find_short: "Study documents, textbooks, tutors...",
 
-    buildinsuggest_home_classNotes: "Class notes for my Calculus class",
-    buildinsuggest_home_warEnd: "When did World War 2 end?",
-    buildinsuggest_home_difference: "Difference between Meiosis and Mitosis",
-    buildinsuggest_home_tutor_algebra: "Tutor for Linear Algebra",
-    buildinsuggest_home_tutor_marketing_job: "Job in marketing in NYC",
-    buildinsuggest_home_accounting_tool: "The textbook - Accounting: Tools for Decision Making",
-    buildinsuggest_home_burger_near: "Where can I get a burger near campus?",
     buildinsuggest_note_microeconomics: "microeconomics study guides",
     buildinsuggest_note_pastExams: "past exams for bio 101",
     buildinsuggest_note_electrical: "electrical engineering notes",

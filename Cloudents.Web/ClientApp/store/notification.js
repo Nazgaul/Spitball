@@ -22,7 +22,6 @@ const mutations = {
             }).indexOf(id);
             // remove object
         state.notifications.splice(removeIndex, 1);
-
     }
 };
 

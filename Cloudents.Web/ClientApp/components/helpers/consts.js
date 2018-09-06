@@ -6,16 +6,6 @@ export const VERTICAL_MAX_SUGGEST_NUM = 3;
 
 export const buildInSuggest = {
 
-    home: [
-        LanguageService.getValueByKey("buildinsuggest_home_flashcards"),
-        LanguageService.getValueByKey("buildinsuggest_home_classNotes"),
-        LanguageService.getValueByKey("buildinsuggest_home_warEnd"),
-        LanguageService.getValueByKey("buildinsuggest_home_difference"),
-        LanguageService.getValueByKey("buildinsuggest_home_tutor_algebra"),
-        LanguageService.getValueByKey("buildinsuggest_home_tutor_marketing_job"),
-        LanguageService.getValueByKey("buildinsuggest_home_accounting_tool"),
-        LanguageService.getValueByKey("buildinsuggest_home_burger_near"),
-    ],
     note: [
         LanguageService.getValueByKey("buildinsuggest_note_microeconomics"),
         LanguageService.getValueByKey("buildinsuggest_note_pastExams"),
@@ -52,4 +42,6 @@ export const buildInSuggest = {
 
     ]
 };
+
+
 export const SUGGEST_TYPE = {history: "History", buildIn: "BuildIn", autoComplete: "AutoComplete"};
