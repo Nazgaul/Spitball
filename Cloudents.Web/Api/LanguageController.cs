@@ -19,7 +19,7 @@ namespace Cloudents.Web.Api
         [HttpGet]
         public Dictionary<string,string> Get()
         {
-            var assembly = Assembly.GetAssembly(typeof(Cloudents.Web.Resources.Js.FaqBlock));
+            var assembly = Assembly.GetExecutingAssembly();
 
             var resources = assembly.GetManifestResourceNames();
 

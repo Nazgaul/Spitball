@@ -1,3 +1,4 @@
+//Deprecated
 export const dictionary = {
     faqBlock_ask: "Ask Your Question",
     faqBlock_faq: "Spitball FAQ",
