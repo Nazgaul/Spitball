@@ -117,23 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Answers" xml:space="preserve">
-    <value>Answers</value>
-  <data name="emptyState_answers_btnText" xml:space="preserve">
-    <value>Answer</value>
+  <data name="newQuestion_error_minChars" xml:space="preserve">
+    <value>min. 15 characters</value>
   </data>
-  <data name="Questions" xml:space="preserve">
-    <value>Questions</value>
-  <data name="emptyState_answers_text" xml:space="preserve">
-    <value>Help other students and make money by answering questions.</value>
+  <data name="newQuestion_error_minSum" xml:space="preserve">
+    <value>Please select amount you want to pay</value>
   </data>
-  <data name="emptyState_questions_boldText" xml:space="preserve">
-    <value>Ask Your Question</value>
+  <data name="newQuestion_error_pickSubject" xml:space="preserve">
+    <value>Pick a subject</value>
   </data>
-  <data name="emptyState_questions_btnText" xml:space="preserve">
-    <value>Ask Your Question</value>
-  </data>
-  <data name="emptyState_questions_text" xml:space="preserve">
-    <value>Have a question on your homework?</value>
+  <data name="newQuestion_toasterPostedText" xml:space="preserve">
+    <value>Question posted, the best brains are working on it right now</value>
   </data>
 </root>

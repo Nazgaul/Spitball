@@ -117,23 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Answers" xml:space="preserve">
-    <value>Answers</value>
-  <data name="emptyState_answers_btnText" xml:space="preserve">
-    <value>Answer</value>
+  <data name="flashcard_beginText_start" xml:space="preserve">
+    <value>Start</value>
   </data>
-  <data name="Questions" xml:space="preserve">
-    <value>Questions</value>
-  <data name="emptyState_answers_text" xml:space="preserve">
-    <value>Help other students and make money by answering questions.</value>
+  <data name="flashcard_beginText_start_over" xml:space="preserve">
+    <value>Start Over</value>
   </data>
-  <data name="emptyState_questions_boldText" xml:space="preserve">
-    <value>Ask Your Question</value>
+  <data name="itemActions_download" xml:space="preserve">
+    <value>Download</value>
   </data>
-  <data name="emptyState_questions_btnText" xml:space="preserve">
-    <value>Ask Your Question</value>
-  </data>
-  <data name="emptyState_questions_text" xml:space="preserve">
-    <value>Have a question on your homework?</value>
+  <data name="itemActions_title" xml:space="preserve">
+    <value>Print</value>
   </data>
 </root>

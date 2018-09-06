@@ -117,23 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Answers" xml:space="preserve">
-    <value>Answers</value>
-  <data name="emptyState_answers_btnText" xml:space="preserve">
-    <value>Answer</value>
+  <data name="filter" xml:space="preserve">
+    <value>Filter</value>
   </data>
-  <data name="Questions" xml:space="preserve">
-    <value>Questions</value>
-  <data name="emptyState_answers_text" xml:space="preserve">
-    <value>Help other students and make money by answering questions.</value>
-  </data>
-  <data name="emptyState_questions_boldText" xml:space="preserve">
-    <value>Ask Your Question</value>
-  </data>
-  <data name="emptyState_questions_btnText" xml:space="preserve">
-    <value>Ask Your Question</value>
-  </data>
-  <data name="emptyState_questions_text" xml:space="preserve">
-    <value>Have a question on your homework?</value>
+  <data name="sort" xml:space="preserve">
+    <value>Sort</value>
   </data>
 </root>

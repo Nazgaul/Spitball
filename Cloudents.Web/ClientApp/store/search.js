@@ -233,7 +233,6 @@ const actions = {
                             verticalName: name,
                             verticalData: data
                         }
-                        console.log('2222222 got here!!!')
                         context.dispatch('setDataByVerticalType', verticalObj);
                         let sortData = !!data.sort ? data.sort : null;
                         context.dispatch('updateSort', sortData);   
