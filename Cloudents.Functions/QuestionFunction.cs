@@ -16,7 +16,7 @@ namespace Cloudents.Functions
     public static class QuestionFunction
     {
         [FunctionName("QuestionUpdateTimeFunction")]
-        public static async Task Run([TimerTrigger("0 0 1 * * *")]TimerInfo myTimer,
+        public static async Task Run([TimerTrigger("0 0 0 1 * *")]TimerInfo myTimer,
             [Inject] ICommandBus commandBus,
             TraceWriter log,
             CancellationToken token)
