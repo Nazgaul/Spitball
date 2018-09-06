@@ -10,6 +10,7 @@ using Cloudents.Core.Query.Admin;
 using NHibernate;
 using NHibernate.Linq;
 using System;
+using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
@@ -17,7 +18,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
     {
         private readonly ISession _session;
 
-        class fristQuery
+        class firstQuery
         {
             public long userId { get; set; }
             public decimal userQueryRatio { get; set; }
@@ -39,11 +40,10 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
         public async Task<IEnumerable<CashOutDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-            //TODO: remove the unessary stuff.
-            //Use nhibernate future - note you need to use ISession
+            
             TimeSpan twoWeeks = new TimeSpan(14, 0, 0, 0);
           
-            var sqlQuery = _session.CreateSQLQuery($@"select A.UserId as UserId
+            var sqlQuery = _session.CreateSQLQuery(@"select A.UserId as UserId
                                                         ,cast(count(distinct Q.UserId) as decimal) / count(distinct Q.id) as userQueryRatio 
                                                     from sb.[Transaction] T1 
                                                     inner join sb.Answer A 
@@ -54,8 +54,8 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                                                     group by A.UserId, T1.Created 
                                                     order by T1.Created desc"
                                                     )
-            .SetResultTransformer(Transformers.AliasToBean<fristQuery>())
-            .Future<fristQuery>();
+            .SetResultTransformer(Transformers.AliasToBean<firstQuery>())
+            .Future<firstQuery>();
 
            
 
@@ -107,11 +107,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 }
 
             }
-
-      
-
             return tempRes;
-
         }
     }
 }

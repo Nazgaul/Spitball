@@ -16,7 +16,7 @@ using Cloudents.Core.Query;
 using Question = Cloudents.Core.Entities.Db.Question;
 using Cloudents.Core.Query.Admin;
 using Cloudents.Core.DTOs.Admin;
-using System.Collections.Generic;
+
 
 namespace ConsoleApp
 {
@@ -59,7 +59,7 @@ namespace ConsoleApp
 
 
             //var b = _container.Resolve<FluentQueryBuilder>();
-            var x = await b.QueryAsync(new SyncAzureQuery(56123, 0), default);
+            //var x = await b.QueryAsync(new SyncAzureQuery(56123, 0), default);
             //    .AddJoin<Question,User>(q=>q.User,u=>u.Id)
             //    .AddSelect<User,Cloudents.Core.Entities.Search.Question>( q => q.Id,t2=>t2.UserId)
             //    .AddSelect<Question>( q => q.Text, "b")
