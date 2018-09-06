@@ -59,7 +59,6 @@
                 }
                 this.UPDATE_SEARCH_LOADING(true);
                 this.$router.push({path: '/' + result, query: {}});
-
                 // this.$router.push({path: '/' + result, query: {...query, q: text, course}});
             }
         }
