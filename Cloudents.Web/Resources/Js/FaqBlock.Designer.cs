@@ -22,14 +22,14 @@ namespace Cloudents.Web.Resources.Js {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class QuestionResource {
+    public class FaqBlock {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal QuestionResource() {
+        internal FaqBlock() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Cloudents.Web.Resources.Js {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Cloudents.Web.Resources.Js.QuestionResource", typeof(QuestionResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Cloudents.Web.Resources.Js.FaqBlock", typeof(FaqBlock).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,47 @@ namespace Cloudents.Web.Resources.Js {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Question.
+        ///   Looks up a localized string similar to Ask Your Question.
         /// </summary>
-        public static string Quesion {
+        public static string ask {
             get {
-                return ResourceManager.GetString("Quesion", resourceCulture);
+                return ResourceManager.GetString("ask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spitball FAQ.
+        /// </summary>
+        public static string faq {
+            get {
+                return ResourceManager.GetString("faq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More.
+        /// </summary>
+        public static string more {
+            get {
+                return ResourceManager.GetString("more", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show me.
+        /// </summary>
+        public static string show_me {
+            get {
+                return ResourceManager.GetString("show_me", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spitball.
+        /// </summary>
+        public static string spitball {
+            get {
+                return ResourceManager.GetString("spitball", resourceCulture);
             }
         }
     }
