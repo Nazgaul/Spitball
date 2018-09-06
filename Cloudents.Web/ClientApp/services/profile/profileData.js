@@ -19,28 +19,29 @@ const profileData = {
                 boldText: [ LanguageService.getValueByKey("profileData_generalProfile_register_stepTwo_boldTextOne"),]
             },
             3: {
-                heading: 'Check your email to activate your account',
+
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepThree_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['activate your account']
+                boldText: [LanguageService.getValueByKey("profileData_generalProfile_register_stepThree_boldTextOne")]
             },
             4: {
-                heading: 'Enter your phone number\n We need to send you a confirmation code',
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepFour_heading"),
                 subheading: '',
-                text: 'We need to send you a confirmation code',
-                boldText: ['Enter your phone number']
+                text: LanguageService.getValueByKey("profileData_generalProfile_register_stepFour_text"),
+                boldText: [LanguageService.getValueByKey("profileData_generalProfile_register_stepFour_boldTextOne")]
             },
             5: {
-                heading: 'Enter the confirmation code\n We sent the code to you by SMS',
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepFive_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['Enter the confirmation code']
+                boldText: [LanguageService.getValueByKey("profileData_generalProfile_register_stepFive_boldTextOne")]
             },
             6: {
-                heading: 'CONGRATS!',
-                subheading: 'You’re ready to start Spitballing!',
-                text: 'We’ve awarded you 100 SBL\n You can use these to get help with your own homework questions, or answer other student’s questions to earn SBL that can be redeemed for real money!',
-                boldText: ['100 SBL']
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepSix_heading"),
+                subheading:  LanguageService.getValueByKey("profileData_generalProfile_register_stepSix_text"),
+                text: '',
+                boldText: [LanguageService.getValueByKey("profileData_generalProfile_register_stepSix_boldTextOne")]
             },
             7: {
                 heading: '',
@@ -50,55 +51,50 @@ const profileData = {
             }
         },
         modal: {
-            heading : 'Please sign up or\n login to continue.',
-            text: 'You are only a couple of mouse clicks away from unlocking instant homework help and the ability to make serious money!',
-            buttons:{
-                signUp:{
-                    text: 'Sign Up'
-                },
-                login:{
-                    text: 'Login'
-                },
-            }
+            heading : LanguageService.getValueByKey("profileData_generalProfile_modal_heading"),
+            text:  LanguageService.getValueByKey("profileData_generalProfile_modal_text"),
         }
     },
     profileMakeMoney: {
         register: {
             1: {
-                heading: 'Make money\n while helping\n others with \n their homework.',
+                heading:  LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepOne_heading"),
                 subheading: '',
-                text: 'Start with your email. We need to know how to contact you',
-                boldText: ['Make money']
+                text:  LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepOne_text"),
+                boldText: [ LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepOne_boldTextOne")]
             },
             2: {
-                heading: 'We need to know how to contact you',
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTwo_heading"),
                 subheading: '',
-                text: 'We need to know how to contact you',
-                boldText: ['contact you']
+                text: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTwo_text"),
+                boldText: [LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTwo_boldTextOne")]
             },
             3: {
-                heading: 'Check your email to activate your account',
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepThree_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['activate your account']
+                boldText: [LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepThree_boldTextOne")]
             },
             4: {
-                heading: 'Enter your phone number\n We need to send you a confirmation code',
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepFour_heading"),
                 subheading: '',
-                text: 'We need to send you a confirmation code',
-                boldText: ['Enter your phone number']
+                text: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepFour_text"),
+                boldText: [LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepFour_boldTextOne")]
             },
             5: {
-                heading: 'Enter the confirmation code\n' + 'We sent the code to you by SMS',
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepFive_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['Enter the confirmation code']
+                boldText: [LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepFive_boldTextOne")]
             },
             6: {
-                heading: 'CONGRATS!',
-                subheading: 'You’re ready to start making money!\n',
-                text: 'We’ve also awarded you 100 SBL\n (you can use these to get help with your own homework questions)\n',
-                boldText: ['100 SBL', 'making money!']
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSix_heading"),
+                subheading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSix_sub_heading"),
+                text: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSix_text"),
+                boldText: [
+                    LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSix_boldTextOne"),
+                    LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSix_boldTextTwo")
+                ]
             },
             7: {
                 heading: '',
@@ -108,56 +104,48 @@ const profileData = {
             }
         },
         modal: {
-            heading : 'Please sign up or login to continue.',
-            text: 'You are a couple of mouse clicks away from FREE access to making serious money.',
-            buttons:{
-                signUp:{
-                    text: 'Sign Up'
-                },
-                login:{
-                    text: 'Login'
-                },
-            }
+            heading :  LanguageService.getValueByKey("profileData_makeMoneyProfile_modal_heading"),
+            text:  LanguageService.getValueByKey("profileData_makeMoneyProfile_modal_text"),
         }
     },
     profileHWH: {
         register: {
             1: {
-                heading: 'Get instant Homework Help, for FREE',
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepOne_heading"),
                 subheading: '',
-                text: 'Start with your email. We need to know how to contact you',
-                boldText: ['for FREE']
+                text: LanguageService.getValueByKey("profileData_HHP_register_stepOne_text"),
+                boldText: [LanguageService.getValueByKey("profileData_HHP_register_stepOne_boldTextOne")]
             },
             2: {
-                heading: 'We need to know how to contact you',
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepTwo_heading"),
                 subheading: '',
-                text: 'We need to know how to contact you',
-                boldText: ['contact you']
+                text: LanguageService.getValueByKey("profileData_HHP_register_stepTwo_text"),
+                boldText: [LanguageService.getValueByKey("profileData_HHP_register_stepTwo_boldTextOne")]
             },
             3: {
-                heading: 'Check your email to activate your account',
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepThree_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['activate your account']
+                boldText: [LanguageService.getValueByKey("profileData_HHP_register_stepThree_boldTextOne")]
             },
             4: {
-                heading: 'Enter your phone number.\n We need to send you a confirmation code',
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepFour_heading"),
                 subheading: '',
-                text: 'We need to send you a confirmation code',
-                boldText: ['Enter your phone number']
+                text: LanguageService.getValueByKey("profileData_HHP_register_stepFour_text"),
+                boldText: [LanguageService.getValueByKey("profileData_HHP_register_stepFour_boldTextOne")]
             },
             5: {
-                heading: 'Enter the confirmation code\n We sent the code to you by SMS',
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepFive_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['Enter the confirmation code']
+                boldText: [LanguageService.getValueByKey("profileData_HHP_register_stepFive_boldTextOne")]
 
             },
             6: {
-                heading: 'CONGRATS!',
-                subheading: 'You are\n rewarded with \n 100 SBL',
-                text: 'You can spend them to get help with your Homework questions.',
-                boldText: ['100 SBL']
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepSix_heading"),
+                subheading: LanguageService.getValueByKey("profileData_HHP_register_stepSix_sub_heading"),
+                text: LanguageService.getValueByKey("profileData_HHP_register_stepSix_text"),
+                boldText: [LanguageService.getValueByKey("profileData_HHP_register_stepSix_boldTextOne")]
             },
             7: {
                 heading: '',
@@ -167,18 +155,9 @@ const profileData = {
             },
         },
         modal: {
-            heading : 'Please sign up or login to continue.',
-            text: 'You are only a couple of mouse clicks away from instant Homework Help and FREE SBL.',
-            buttons:{
-                signUp:{
-                    text: 'Sign Up'
-                },
-                login:{
-                    text: 'Login'
-                },
-            }
+            heading : LanguageService.getValueByKey("profileData_HHP_modal_heading"),
+            text: LanguageService.getValueByKey("profileData_HHP_modal_text"),
         }
-
     }
 };
 export default profileData
