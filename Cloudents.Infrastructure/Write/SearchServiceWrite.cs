@@ -1,28 +1,44 @@
-﻿using System;
+﻿using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Search;
+using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Search;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Write
 {
     public abstract class SearchServiceWrite<T> : IDisposable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
         protected readonly SearchServiceClient Client;
-        protected readonly ISearchIndexClient IndexClient;
+        protected ISearchIndexClient IndexClient;
         private readonly string _indexName;
 
-        protected SearchServiceWrite(SearchService client, string indexName)
+        protected SearchServiceWrite(SearchService client, string indexName) 
+            :this(client,indexName,client.GetOldClient(indexName))
+
         {
             //client.GetClient(indexName);
+           
+        }
+
+        //protected SearchServiceWrite(SearchService client, string indexName,Func<SearchService,string, ISearchIndexClient> CreateClient)
+        //{
+        //    //client.GetClient(indexName);
+        //    Client = client.Client;
+        //    IndexClient = CreateClient(client, indexName);
+        //    _indexName = indexName;
+        //}
+
+        protected SearchServiceWrite(SearchService client, string indexName, ISearchIndexClient indexClient)
+        {
             Client = client.Client;
-            IndexClient = client.GetClient(indexName);
+            IndexClient = indexClient;
             _indexName = indexName;
         }
+
 
         public Task UpdateDataAsync(IEnumerable<T> items, CancellationToken token)
         {
@@ -66,15 +82,15 @@ namespace Cloudents.Infrastructure.Write
 
         public virtual Task CreateOrUpdateAsync(CancellationToken token)
         {
-            
-            return Client.Indexes.CreateOrUpdateAsync(GetIndexStructure(_indexName), cancellationToken: token);
+            var index = GetIndexStructure(_indexName);
+            return Client.Indexes.CreateOrUpdateAsync(index, cancellationToken: token);
         }
 
         protected abstract Index GetIndexStructure(string indexName);
 
 
-        protected FluentSearchFieldBuilder<T> GetFieldBuilder => FluentSearchFieldBuilder<T>.Make;
-        
+        // protected FluentSearchFieldBuilder<T> GetFieldBuilder => FluentSearchFieldBuilder<T>;
+
 
         public void Dispose()
         {

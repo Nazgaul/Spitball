@@ -8,19 +8,12 @@ using Cloudents.Infrastructure.Cache;
 namespace Cloudents.Infrastructure
 {
     [ModuleRegistration(Core.Enum.System.Console)]
-    //[ModuleRegistration(Core.Enum.System.Api)]
+    [ModuleRegistration(Core.Enum.System.Function)]
     [ModuleRegistration(Core.Enum.System.Web)]
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
     [ModuleRegistration(Core.Enum.System.Admin)]
     public class ModuleCache : Module
     {
-        //private readonly string _redisConnectionString;
-
-        //public ModuleCache(string redisConnectionString)
-        //{
-        //    _redisConnectionString = redisConnectionString;
-        //}
-
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);

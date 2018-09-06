@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure.Search.Job
         public AzureJobSearch(ISearchService client, IMapper mapper)
         {
             _mapper = mapper;
-            _client = client.GetClient(JobSearchWrite.IndexName);
+            _client = client.GetOldClient(JobSearchWrite.IndexName);
         }
 
         [Cache(TimeConst.Hour, "job-azure", false)]

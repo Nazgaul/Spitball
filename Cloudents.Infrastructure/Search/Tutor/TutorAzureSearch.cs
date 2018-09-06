@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
         public TutorAzureSearch(ISearchService client, IMapper mapper)
         {
             _mapper = mapper;
-            _client = client.GetClient(TutorSearchWrite.IndexName);
+            _client = client.GetOldClient(TutorSearchWrite.IndexName);
         }
 
         [Log]

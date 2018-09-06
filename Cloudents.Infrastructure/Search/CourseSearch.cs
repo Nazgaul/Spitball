@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure.Search
 
         public CourseSearch(ISearchService client, IMapper mapper)
         {
-            _client = client.GetClient(CourseSearchWrite.IndexName);
+            _client = client.GetOldClient(CourseSearchWrite.IndexName);
             _mapper = mapper;
         }
 

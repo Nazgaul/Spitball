@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Cloudents.Core.Extension
 {
     public static class ExpressionExtensions
     {
         public static string GetName<TSource, TField>(this Expression<Func<TSource, TField>> field)
+        {
+            return GetMemberInfo(field).Name;
+        }
+
+        public static MemberInfo GetMemberInfo<TSource, TField>(this Expression<Func<TSource, TField>> field)
         {
             if (Equals(field, null))
             {
@@ -30,7 +36,7 @@ namespace Cloudents.Core.Extension
                 throw new ArgumentException(message, nameof(field));
             }
 
-            return expr.Member.Name;
+            return expr.Member;
         }
     }
 }
