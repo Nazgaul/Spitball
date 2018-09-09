@@ -17,6 +17,7 @@ export default {
             errorTextArea :{},
             colorsSet: colorsSet,
             activeColor: {
+                name: 'default',
                 id: 0
             },
             counter: 0,

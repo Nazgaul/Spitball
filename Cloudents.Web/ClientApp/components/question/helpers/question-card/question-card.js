@@ -20,7 +20,13 @@ export default {
             required: false,
             default: false
         },
-        cardData: {},
+        // cardData: {
+        //
+        //
+        // },
+        cardData: {
+            type: Object
+        },
         fromCarousel: {
             type: Boolean,
             required: false
@@ -56,6 +62,7 @@ export default {
             showDialog: false,
             //limitedCardAnswers: [],
             colorsSet: colorsSet,
+
         }
     },
     computed: {
@@ -76,12 +83,6 @@ export default {
                 return false;
             }
             return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
-        },
-        cssRuleFontColor() {
-            return this.getQuestionColor("textColor")
-        },
-        cssRuleBackgroundColor() {
-            return this.getQuestionColor("cssRule")
         },
         limitedCardAnswers() {
             if (typeof  this.cardData.answers === "number") {
@@ -114,13 +115,9 @@ export default {
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams'
         }),
-        getQuestionColor(type) {
-
-            if (!!this.cardData && this.cardData.color && this.colorsSet[`${this.cardData.color}`]) {
-                return this.colorsSet[`${this.cardData.color}`][type]
-            } else {
-                let colDefault = 'default';
-                return this.colorsSet[`${colDefault}`][type]
+        getQuestionColor() {
+            if (!!this.cardData && !this.cardData.color) {
+                return this.cardData.color = 'default';
             }
         },
         showBigImage(src) {
@@ -159,9 +156,9 @@ export default {
             timeago().render(document.querySelectorAll(className));
         }
     },
-    // created(){
-    //   console.log(this.cardData)
-    // },
+    created(){
+        this.getQuestionColor()
+    },
     mounted() {
         this.renderQuestionTime('.timeago')
         // use render method to render nodes in real time
