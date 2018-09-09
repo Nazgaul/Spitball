@@ -227,30 +227,6 @@
   }
 }
 
-// generate classes for question card  based on user selced color, background and font color
-// question card user selected style
-@colors: #ffffff, #6bc248, #a757db, #e5455d, #edaf2e, #7472ff, #3bbda4, #53a0fd, #a09c9c, #abb55e, #d251ae;
-@names: default, green, purple, red, yellow, blue, turquoise, lightBlue, grey, olive, pink;
-@fontColors: #000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff;
-@length: length(@colors);
-.user-question-style(@names; @colors; @fontColors; @index) when (iscolor(extract(@colors, @index))) and (@index > 0) {
-  .user-question-style(@names; @colors; @fontColors; (@index - 1)); // decrement.
-
-  @name: extract(@names, @index);
-  @color: extract(@colors, @index);
-  @fontColor: extract(@fontColors, @index);
-
-  .sbf-card-@{name} {
-    background-color: @color;
-  }
-
-  .sbf-font-@{name} {
-    color: @fontColor!important;
-  }
-}
-.user-question-style(@names, @colors, @fontColors, @length );
-//end function
-
 
 /*#region item skeleton*/
 @skeletonWidth: @cellWidth;

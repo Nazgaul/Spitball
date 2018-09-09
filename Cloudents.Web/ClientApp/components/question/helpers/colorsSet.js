@@ -1,62 +1,60 @@
-
-
 const colorsSet = {
-    default:{
+    default: {
         id: 0,
         name: "default",
-        active:true,
+        active: true,
     },
-    green:{
+    green: {
         id: 1,
         name: "green",
-        active:false,
+        active: false,
     },
-    purple:{
+    purple: {
         id: 2,
         name: "purple",
-        active:false,
+        active: false,
     },
-    red:{
+    red: {
         id: 3,
         name: "red",
-        active:false,
+        active: false,
     },
-    yellow:{
+    yellow: {
         id: 4,
         name: "yellow",
-        active:false,
+        active: false,
     },
-    blue:{
+    blue: {
         id: 5,
         name: "blue",
-        active:false,
+        active: false,
     },
-    turquoise:{
+    turquoise: {
         id: 6,
         name: "turquoise",
-        active:false,
+        active: false,
     },
-    lightBlue:{
+    lightBlue: {
         id: 7,
         name: "lightBlue",
-        active:false,
+        active: false,
     },
-    grey:{
+    grey: {
         id: 8,
         name: "grey",
-        active:false,
+        active: false,
     },
 
-    olive:{
+    olive: {
         id: 9,
         name: "olive",
-        active:false,
+        active: false,
     },
 
-    pink:{
+    pink: {
         id: 10,
         name: "pink",
-        active:false,
+        active: false,
     },
 };
-export  default  colorsSet;
+export default colorsSet;

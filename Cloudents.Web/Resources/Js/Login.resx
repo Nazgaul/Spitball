@@ -223,7 +223,7 @@
     <value>We sent a confirmation code to your mobile phone.</value>
   </data>
   <data name="signin_your_email" xml:space="preserve">
-    <value>Sign in with Email</value>
+    <value>Sign up with Email</value>
   </data>
   <data name="sign_in" xml:space="preserve">
     <value>Sign in</value>

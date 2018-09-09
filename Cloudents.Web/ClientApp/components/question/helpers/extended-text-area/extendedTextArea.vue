@@ -20,7 +20,7 @@
                     <v-divider v-if="actionType ==='question'" vertical></v-divider>
                     <ul class="actions_text colors-actions" v-if="actionType ==='question'">
                         <li v-for="color in colorsSet" :key="color.id">
-                            <button :class="[`sbf-card-${color.name}` ,{ active: color.id === activeColor.id ||  color.id === 0 }]"
+                            <button :class="[`sbf-card-${color.name}`, { active: color.id === activeColor.id ||  color.id === 0 }]"
                                     @click="updateColor(color)"></button>
                         </li>
                     </ul>

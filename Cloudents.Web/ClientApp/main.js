@@ -21,7 +21,6 @@ import zxcvbn from "zxcvbn";
 //add password checker to the global obj
 global.zxcvbn = zxcvbn;
 
-// import VueParticles from 'alopu-vue-particles';
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
@@ -186,7 +185,6 @@ Vue.filter('ellipsis',
 Vue.filter('fixedPoints', function (value) {
     if (!value) return 0;
     if (value.toString().indexOf('.') === -1) return value;
-    // debugger
     return parseFloat(value).toFixed(2);
 });
 

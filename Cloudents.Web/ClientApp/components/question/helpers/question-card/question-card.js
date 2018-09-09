@@ -1,7 +1,6 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import disableForm from "../../../mixins/submitDisableMixin"
 import { mapGetters, mapActions } from 'vuex'
-import colorsSet from '../colorsSet';
 import timeago from 'timeago.js';
 import { LanguageService } from "../../../../services/language/languageService";
 
@@ -20,13 +19,7 @@ export default {
             required: false,
             default: false
         },
-        // cardData: {
-        //
-        //
-        // },
-        cardData: {
-            type: Object
-        },
+        cardData: {},
         fromCarousel: {
             type: Boolean,
             required: false
@@ -60,9 +53,6 @@ export default {
             src: '',
             selectedImage: '',
             showDialog: false,
-            //limitedCardAnswers: [],
-            colorsSet: colorsSet,
-
         }
     },
     computed: {
