@@ -13,10 +13,16 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query;
-using Question = Cloudents.Core.Entities.Db.Question;
+<<<<<<< HEAD
+using Cloudents.Core.Storage;
+using Cloudents.Infrastructure.Write;
+using Microsoft.Azure.Search.Models;
 using Cloudents.Core.Query.Admin;
 using Cloudents.Core.DTOs.Admin;
-
+using System.Collections.Generic;
+=======
+using Question = Cloudents.Core.Entities.Db.Question;
+>>>>>>> 9d91d25fde2867f43d419a94faf0a6d09c33cfb3
 
 namespace ConsoleApp
 {
@@ -57,9 +63,17 @@ namespace ConsoleApp
 
 
 
+<<<<<<< HEAD
+            var b = _container.Resolve<IQueryBus>();
+            var query = new AdminEmptyQuery();
+            CashOuts = await b.QueryAsync<IEnumerable<CashOutDto>>(query, default);
+            
+=======
 
             //var b = _container.Resolve<FluentQueryBuilder>();
-            //var x = await b.QueryAsync(new SyncAzureQuery(56123, 0), default);
+            //b.AddInitTable<Question>();
+            //b.AddCustomTable(
+            //        $"CROSS APPLY CHANGETABLE (VERSION {b.Table<Question>()}, (Id), ({b.Column<Question>( x => x.Id)})) AS c2")
             //    .AddJoin<Question,User>(q=>q.User,u=>u.Id)
             //    .AddSelect<User,Cloudents.Core.Entities.Search.Question>( q => q.Id,t2=>t2.UserId)
             //    .AddSelect<Question>( q => q.Text, "b")
@@ -70,6 +84,7 @@ namespace ConsoleApp
 
             var b2 = _container.Resolve<IQueryBus>();
             var x2 = await b2.QueryAsync(new SyncAzureQuery(56123 ,0), default);
+>>>>>>> 9d91d25fde2867f43d419a94faf0a6d09c33cfb3
 
 
             // QuestionRepository c = new QuestionRepository(b);

@@ -2,6 +2,7 @@
 import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
+import { LanguageService } from "./services/language/languageService"
 import { Language } from "./services/language/langDirective"
 
 import initSignalRService from './services/signalR/signalrEventService'
@@ -152,7 +153,7 @@ Vue.use(VueAnalytics, {
     }
 });
 
-
+LanguageService.getDictionary();
 Vue.directive('language', Language);
 
 
