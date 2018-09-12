@@ -115,14 +115,14 @@ export default {
                 this.$el.querySelector('.search-menu').scrollTop = 0;
             }
         },
-        onScroll(e) {
-            if (this.hideOnScroll && this.showSuggestions) {
-                let rect = this.$root.$el.querySelector('.search-menu').getBoundingClientRect();
-                if (rect.top < -rect.height) {
-                    this.closeSuggestions();
-                }
-            }
-        },
+        // onScroll(e) {
+        //     if (this.hideOnScroll && this.showSuggestions) {
+        //         let rect = this.$root.$el.querySelector('.search-menu').getBoundingClientRect();
+        //         if (rect.top < -rect.height) {
+        //             this.closeSuggestions();
+        //         }
+        //     }
+        // },
         highlightSearch: function (item) {
             if (!item.type === consts.SUGGEST_TYPE.autoComplete || !this.msg) {
                 if (!constants.regExXSSCheck.test(item.text)) {
