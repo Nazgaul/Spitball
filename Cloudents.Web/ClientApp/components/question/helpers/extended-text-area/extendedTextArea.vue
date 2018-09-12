@@ -1,11 +1,10 @@
 <template>
     <v-flex xs12 class="question_area" :class="{'has-error': error && error.errorClass &&  value.length < 15}">
         <div class="textarea">
-            <div class="text-block" :style="activeColor.cssRule">
+            <div class="text-block" :class="`sbf-card-${activeColor.name}`">
                 <span class="error-message" v-if="error.errorClass &&  value.length < 15" :error="errorTextArea">{{error.errorText}}</span>
-
-                <textarea rows="9" class="" :style="activeColor.textColor" required
-                          :class="{ active: activeColor.id !== 0 }"
+                <textarea rows="9"  required
+                          :class="[`sbf-font-${activeColor.name}`, { active: activeColor.id !== 0 }]"
                           @input="updateValue($event.target.value)"
                           :value="value" autofocus="isFocused"
                           :placeholder="`extendedTextArea_type_your_${actionType}`" v-language:placeholder></textarea>
@@ -13,7 +12,7 @@
                     <ul class="actions_text files-actions">
                         <li>
                             <label for="file-input" class="attach-file" v-show="previewList.length < uploadLimit">
-                                <v-icon style="cursor: pointer;" :style="activeColor.textColor">sbf-attach</v-icon>
+                                <v-icon style="cursor: pointer;" :class="`sbf-font-${activeColor.name}`">sbf-attach</v-icon>
                             </label>
                             <input id="file-input" type="file" multiple accept="image/*"/>
                         </li>
@@ -21,8 +20,7 @@
                     <v-divider v-if="actionType ==='question'" vertical></v-divider>
                     <ul class="actions_text colors-actions" v-if="actionType ==='question'">
                         <li v-for="color in colorsSet" :key="color.id">
-                            <button :style="color.cssRule"
-                                    :class="{ active: color.id === activeColor.id ||  color.id === 0 }"
+                            <button :class="[`sbf-card-${color.name}`, { active: color.id === activeColor.id ||  color.id === 0 }]"
                                     @click="updateColor(color)"></button>
                         </li>
                     </ul>
