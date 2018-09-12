@@ -37,8 +37,8 @@ const navDefault = {
     tutor: {
         banner: {
             "lineColor": "#52aa16",
-            "title" : LanguageService.getValueByKey("navigation_campaign_default_tutor_banner_title"),
-            "textMain" :LanguageService.getValueByKey("navigation_campaign_default_tutor_banner_textMain"),
+            "title" : LanguageService.getValueByKey("navigation_campaign_tutor_default_banner_title"),
+            "textMain" :LanguageService.getValueByKey("navigation_campaign_tutor_default_banner_textMain"),
             "boldText" : LanguageService.getValueByKey("navigation_campaign_default_tutor_banner_boldText"),
             url: '',
             showOverlay: true
@@ -48,9 +48,9 @@ const navDefault = {
     book: {
         banner:{
             "lineColor": "#a650e0",
-            "title" : LanguageService.getValueByKey("navigation_campaign_default_book_banner_title"),
-            "textMain" :LanguageService.getValueByKey("navigation_campaign_default_book_banner_textMain"),
-            "boldText" : LanguageService.getValueByKey("navigation_campaign_default_book_banner_boldText"),
+            "title" : LanguageService.getValueByKey("navigation_campaign_book_default_banner_title"),
+            "textMain" :LanguageService.getValueByKey("navigation_campaign_book_default_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_book_default_banner_boldText"),
             url: '',
             showOverlay: true
         },
@@ -59,9 +59,9 @@ const navDefault = {
     job: {
         banner:{
             "lineColor": "#f49c20",
-            "title" : LanguageService.getValueByKey("navigation_campaign_default_job_banner_title"),
-            "textMain" :LanguageService.getValueByKey("navigation_campaign_default_job_banner_textMain"),
-            "boldText" : LanguageService.getValueByKey("navigation_campaign_default_job_banner_boldText"),
+            "title" : LanguageService.getValueByKey("navigation_campaign_job_default_banner_title"),
+            "textMain" :LanguageService.getValueByKey("navigation_campaign_job_default_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_job_default_banner_boldText"),
             url: '',
             showOverlay: true
         },
