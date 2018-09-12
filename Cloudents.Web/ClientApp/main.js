@@ -152,7 +152,7 @@ Vue.use(VueAnalytics, {
     }
 });
 
-LanguageService.getDictionary();
+//LanguageService.getDictionary();
 Vue.directive('language', Language);
 
 

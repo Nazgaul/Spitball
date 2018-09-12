@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -10,17 +11,18 @@ namespace Cloudents.Web.Services
     public class WebPackChunkName
     {
         private readonly IFileProvider _provider;
+        private readonly IHostingEnvironment _environment;
         private readonly ConcurrentDictionary<string, WebPackBundle> _tags = new ConcurrentDictionary<string, WebPackBundle>();
 
-        public WebPackChunkName(IFileProvider provider)
+        public WebPackChunkName(IFileProvider provider, IHostingEnvironment environment)
         {
             _provider = provider;
+            _environment = environment;
         }
 
         public WebPackBundle GetTag(string chunk)
         {
-
-            if (_tags.TryGetValue(chunk, out var webPack))
+            if (_environment.IsDevelopment() && _tags.TryGetValue(chunk, out var webPack))
             {
                 return webPack;
             }
