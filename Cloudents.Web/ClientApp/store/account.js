@@ -2,6 +2,7 @@ import Talk from "talkjs";
 import accountService from "../services/accountService"
 import {debug} from "util";
 import {dollarCalculate} from "./constants";
+import analyticsService from '../services/analytics.service'
 
 let userLogin = false;
 import {router} from "../main";
@@ -102,7 +103,7 @@ const actions = {
                 commit("changeLoginStatus", true);
                 commit("updateUser", data);
                 dispatch("connectToChat");
-                
+                analyticsService.sb_setUserId(data.id);
             }).catch(_ => {
                 setIntercomSettings();
                 isRequire ? commit("updateFromPath", to) : '';
