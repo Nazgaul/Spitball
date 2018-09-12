@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Select<Question>(x => x.Price, nameof(QuestionSearch.Price))
                 .Select<Question>(x => x.Text, nameof(QuestionSearch.Text))
                 .Select<Question>(x => x.Color, nameof(QuestionSearch.Color))
-                .Select<QuestionSubject>(x => x.Text, nameof(QuestionSearch.SubjectText))
+                //.Select<QuestionSubject>(x => x.Text, nameof(QuestionSearch.SubjectText))
                 .Select<QuestionSubject>(x => x.Id, nameof(QuestionSearch.Subject))
                 .Select("c.*")
                 .AddOrder<Question>(q => q.Id)
@@ -88,7 +88,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     .Select<Question>(x => x.Price, nameof(QuestionSearch.Price))
                     .Select<Question>(x => x.Text, nameof(QuestionSearch.Text))
                     .Select<Question>(x => x.Color, nameof(QuestionSearch.Color))
-                    .Select<QuestionSubject>(x => x.Text, nameof(QuestionSearch.SubjectText))
+                    //.Select<QuestionSubject>(x => x.Text, nameof(QuestionSearch.SubjectText))
                     .Select<QuestionSubject>(x => x.Id, nameof(QuestionSearch.Subject))
                     .Select("c.*");
 
