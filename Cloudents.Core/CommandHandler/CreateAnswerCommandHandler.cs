@@ -44,7 +44,7 @@ namespace Cloudents.Core.CommandHandler
 
             if (question.CorrectAnswer != null)
             {
-                throw new InvalidOperationException("already answer with question");
+                throw new InvalidOperationException("already answer with correct question");
 
             }
             if (user.Fictive)

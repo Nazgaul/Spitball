@@ -28,7 +28,7 @@ namespace Cloudents.Core.Entities.Search
 
         public int Subject { get; set; } // facetable
 
-        public string SubjectText { get; set; } // facetable
+       // public string SubjectText { get; set; } // facetable
 
     }
 }
