@@ -86,7 +86,7 @@
                     <v-icon>sbf-logout</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title class="subheading" v-language:inner>menulist_logout</v-list-tile-title>
+                    <v-list-tile-title class="subheading" v-language:inner>menuList_logout</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-divider class="my-3"></v-divider>
