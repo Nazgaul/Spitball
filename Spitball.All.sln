@@ -36,6 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		W-15-scripts.sql = W-15-scripts.sql
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Ico", "Cloudents.Ico\Cloudents.Ico.csproj", "{1E559210-81BD-429D-9D5F-2700F865D361}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Management", "Cloudents.Management\Cloudents.Management.csproj", "{EDD969E4-BFBC-491A-9468-18BCDF3BF618}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Infrastructure.Data.Test", "Cloudents.Infrastructure.Data.Test\Cloudents.Infrastructure.Data.Test.csproj", "{0F4CDB18-8825-4D7B-A42C-B87C67813C48}"
@@ -44,7 +46,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Web.Extensions", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Functions", "Cloudents.Functions\Cloudents.Functions.csproj", "{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.MailGunFunctions", "Cloudents.MailgunFunctions\Cloudents.MailGunFunctions.csproj", "{54984F81-D609-4D15-91FC-93DC8BFD5187}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.MailGunFunctions", "Cloudents.MailgunFunctions\Cloudents.MailGunFunctions.csproj", "{ED2214B7-4259-432D-9130-9CA75385F644}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +90,10 @@ Global
 		{A9838733-C134-4B25-924D-B15DFB0C077F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9838733-C134-4B25-924D-B15DFB0C077F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9838733-C134-4B25-924D-B15DFB0C077F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E559210-81BD-429D-9D5F-2700F865D361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E559210-81BD-429D-9D5F-2700F865D361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E559210-81BD-429D-9D5F-2700F865D361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E559210-81BD-429D-9D5F-2700F865D361}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EDD969E4-BFBC-491A-9468-18BCDF3BF618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EDD969E4-BFBC-491A-9468-18BCDF3BF618}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDD969E4-BFBC-491A-9468-18BCDF3BF618}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -104,10 +110,10 @@ Global
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54984F81-D609-4D15-91FC-93DC8BFD5187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54984F81-D609-4D15-91FC-93DC8BFD5187}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54984F81-D609-4D15-91FC-93DC8BFD5187}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54984F81-D609-4D15-91FC-93DC8BFD5187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED2214B7-4259-432D-9130-9CA75385F644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED2214B7-4259-432D-9130-9CA75385F644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED2214B7-4259-432D-9130-9CA75385F644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED2214B7-4259-432D-9130-9CA75385F644}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,14 +128,15 @@ Global
 		{73E55742-40AF-4C17-A725-8FD79D07142E} = {974199DB-E3D7-4CAC-BBEA-6A0801E51009}
 		{D6F086D9-F99F-4AB0-B396-1880F753C6CB} = {974199DB-E3D7-4CAC-BBEA-6A0801E51009}
 		{A9838733-C134-4B25-924D-B15DFB0C077F} = {2EB273BF-0342-4FDC-942E-70261335187C}
+		{1E559210-81BD-429D-9D5F-2700F865D361} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 		{EDD969E4-BFBC-491A-9468-18BCDF3BF618} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 		{0F4CDB18-8825-4D7B-A42C-B87C67813C48} = {974199DB-E3D7-4CAC-BBEA-6A0801E51009}
 		{5E402ABD-00DC-4640-ACF5-2C6F948920F6} = {2EB273BF-0342-4FDC-942E-70261335187C}
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
-		{54984F81-D609-4D15-91FC-93DC8BFD5187} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
+		{ED2214B7-4259-432D-9130-9CA75385F644} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ExcelExportMode = SingleSheet
+		RESX_ExcelExportMode = MultipleSheets
 		RESX_SortFileContentOnSave = True
 		RESX_AutoCreateNewLanguageFiles = True
 		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
