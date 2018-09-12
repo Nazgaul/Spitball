@@ -8,9 +8,15 @@ namespace Cloudents.Core.DTOs.Admin
         public decimal CashOutPrice { get; set; }
         public string UserEmail { get; set; }
         public DateTime CashOutTime { get; set; }
+        public int? FraudScore { get; set; }
+        public decimal userQueryRatio { get; set; }
 
-        public bool IsSuspect => FraudScore > 10 || UserQueryRatio < 0.2M;
-        public int FraudScore { get; set; }
-        public decimal UserQueryRatio { get; set; }
+
+        public bool IsSuspect { get
+            {
+                return FraudScore > 10 || userQueryRatio < 0.2M;
+            }
+        }
+
     }
 }

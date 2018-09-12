@@ -10,7 +10,6 @@ using Cloudents.Core.Query.Admin;
 using NHibernate;
 using NHibernate.Linq;
 using System;
-using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
@@ -18,7 +17,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
     {
         private readonly ISession _session;
 
-        class firstQuery
+        class fristQuery
         {
             public long userId { get; set; }
             public decimal userQueryRatio { get; set; }
@@ -40,10 +39,11 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
         public async Task<IEnumerable<CashOutDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-            
+            //TODO: remove the unessary stuff.
+            //Use nhibernate future - note you need to use ISession
             TimeSpan twoWeeks = new TimeSpan(14, 0, 0, 0);
           
-            var sqlQuery = _session.CreateSQLQuery(@"select A.UserId as UserId
+            var sqlQuery = _session.CreateSQLQuery($@"select A.UserId as UserId
                                                         ,cast(count(distinct Q.UserId) as decimal) / count(distinct Q.id) as userQueryRatio 
                                                     from sb.[Transaction] T1 
                                                     inner join sb.Answer A 
@@ -54,8 +54,8 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                                                     group by A.UserId, T1.Created 
                                                     order by T1.Created desc"
                                                     )
-            .SetResultTransformer(Transformers.AliasToBean<firstQuery>())
-            .Future<firstQuery>();
+            .SetResultTransformer(Transformers.AliasToBean<fristQuery>())
+            .Future<fristQuery>();
 
            
 
@@ -107,7 +107,29 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 }
 
             }
+
+      
+
+<<<<<<< HEAD
             return tempRes;
+=======
+            IEnumerable<CashOutDto> tempRes = z.Join(t, 
+                                            u => u.UserId, 
+                                            w => w[0], 
+                                            (u,w) => new CashOutDto
+                                            {
+                                                UserId = u.UserId,
+                                                UserEmail = u.Email,
+                                                CashOutPrice = u.Price,
+                                                CashOutTime = u.Created,
+                                                FraudScore = Convert.ToInt32(u.FraudScore),
+                                                UserQueryRatio = w[1]
+
+                                            });
+            
+           return tempRes;
+>>>>>>> 9d91d25fde2867f43d419a94faf0a6d09c33cfb3
+
         }
     }
 }

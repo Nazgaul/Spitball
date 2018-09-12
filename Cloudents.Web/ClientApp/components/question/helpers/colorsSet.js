@@ -1,128 +1,60 @@
-
-
 const colorsSet = {
-    default:{
+    default: {
         id: 0,
         name: "default",
-        active:true,
-        cssRule:{
-            "background-color":"#ffffff"
-        },
-        textColor:{
-            'color': '#000000'
-        }
+        active: true,
     },
-    green:{
+    green: {
         id: 1,
         name: "green",
-        active:false,
-        cssRule:{
-            "background-color":"#6bc248"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
+        active: false,
     },
-    purple:{
+    purple: {
         id: 2,
         name: "purple",
-        active:false,
-        cssRule:{
-            "background-color":"#a757db"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
+        active: false,
     },
-    red:{
+    red: {
         id: 3,
         name: "red",
-        active:false,
-        cssRule:{
-            "background-color": "#e5455d"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
+        active: false,
     },
-    yellow:{
+    yellow: {
         id: 4,
         name: "yellow",
-        active:false,
-        cssRule:{
-            "background-color": "#edaf2e"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
+        active: false,
     },
-    blue:{
+    blue: {
         id: 5,
         name: "blue",
-        active:false,
-        cssRule:{
-            "background-color": "#7472ff"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
+        active: false,
     },
-    turquoise:{
+    turquoise: {
         id: 6,
         name: "turquoise",
-        active:false,
-        cssRule:{
-            "background-color":"#3bbda4"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
+        active: false,
     },
-    lightBlue:{
+    lightBlue: {
         id: 7,
         name: "lightBlue",
-        active:false,
-        cssRule:{
-            "background-color":"#53a0fd"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
+        active: false,
     },
-    grey:{
+    grey: {
         id: 8,
         name: "grey",
-        active:false,
-        cssRule:{
-            "background-color":"#a09c9c"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
+        active: false,
     },
 
-    olive:{
+    olive: {
         id: 9,
         name: "olive",
-        active:false,
-        cssRule:{
-            "background-color":"#abb55e"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
+        active: false,
     },
 
-    pink:{
+    pink: {
         id: 10,
         name: "pink",
-        active:false,
-        cssRule:{
-            "background-color":"#d251ae"
-        },
-        textColor:{
-            'color': '#ffffff'
-        }
+        active: false,
     },
 };
-export  default  colorsSet;
+export default colorsSet;
