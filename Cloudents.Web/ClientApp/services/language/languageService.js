@@ -2,7 +2,7 @@ import { termHtml } from "./page/term"
 import { connectivityModule } from "../connectivity.module";
 
 //global dictionary obj
-global.dictionary = {}
+global.dictionary = {};
 
 export const LanguageService = {
     getDictionary: () => {
@@ -19,5 +19,21 @@ export const LanguageService = {
 
     getTermPage: ()=>{
         return termHtml;
+    }       
+};
+
+//debug purposes
+global.dictionaryFindKey = function(dict, value){
+    for(let key in dict){
+        if(dict[key] === value){
+            console.log(key)
+        }
+    }
+};
+global.dictionaryContainsKey = function(dict, value){
+    for(let key in dict){
+        if(dict[key].indexOf(value) > -1){
+            console.log(key)
+        }
     }
 };
