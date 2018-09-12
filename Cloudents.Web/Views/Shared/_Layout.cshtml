@@ -1,4 +1,5 @@
 ﻿@using System.Reflection
+@using Cloudents.Web
 @using Cloudents.Web.Extensions
 @using Cloudents.Web.Services
 @using Cloudents.Web.Views
@@ -156,6 +157,7 @@
                 asp-fallback-test="window.vendor">
         </script>
     </environment>
+    @await Component.InvokeAsync("Resource")
 
 
     <script async>
@@ -194,7 +196,7 @@
             window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
             window.talkJsId = '@Configuration["TalkJs"]';
     </script>
-   
+
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>

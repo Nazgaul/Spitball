@@ -10,11 +10,11 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
-using Cloudents.Functions.Di;
+using Cloudents.MailGunFunctions.Di;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
-namespace Cloudents.Functions
+namespace Cloudents.MailgunFunctions
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Azure function")]
     public static class MailGunFunction
