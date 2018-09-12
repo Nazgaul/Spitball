@@ -2,8 +2,8 @@ const analyticsService = {
 
     sb_unitedEvent: (category, action, label = '') => {
         if (category && action) {
-            window.ga( 'send', 'event', `${category}`, `${action}`, `${label}`);
-            window.dataLayer.push({
+            global.ga( 'send', 'event', `${category}`, `${action}`, `${label}`);
+            global.dataLayer.push({
                 'event': 'Spitball',
                 'category': `${category}`,
                 'action': `${action}`,
@@ -16,7 +16,11 @@ const analyticsService = {
 
     sb_fireTimingAnalytic: (timingCategory, timingVar, timingValue, timingLabel) => {
         // ga('send', 'timing', 'JS Dependencies', 'load', 3549);
-        window.ga('send', 'timing', timingCategory, timingVar, timingValue, timingLabel);
+        global.ga('send', 'timing', timingCategory, timingVar, timingValue, timingLabel);
+    },
+
+    sb_setUserId: (userId) => {
+        global.ga('set', 'userId', userId);
     }
 
 
