@@ -6,13 +6,12 @@ import registrationService from '../../services/registrationService'
 import analyticsService from '../../services/analytics.service';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
 
-﻿
 const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;
 
 export default {
-    components: {stepTemplate, SbInput, VueRecaptcha},
+    components: {stepTemplate, SbInput, VueRecaptcha },
     props: {
         default: false,
     },
@@ -34,12 +33,18 @@ export default {
                 phoneNum: '',
                 countryCode: ''
             },
+            password:'',
+            confirmPassword: '',
+            isPass: false,
             errorMessage: {
                 phone: '',
-                code: ''
+                code: '',
+                password: '',
+                confirmPassword: ''
             },
             isNewUser: false,
             showDialog: false,
+            passDialog: false,
             toasterTimeout: 5000,
             stepNumber: 1,
             userEmail: this.$store.getters.getEmail || '',
@@ -52,7 +57,9 @@ export default {
                 "verifyphone": 5,
                 "congrats": 6,
                 "loginstep": 7,
-                "expiredstep": 8
+                "expiredstep": 8,
+                "createpassword" : 9,
+                "emailpassword": 10
             }
         }
     },
@@ -96,15 +103,16 @@ export default {
         //do not change step, only from here
         changeStepNumber(param) {
             let step = param.toLowerCase();
-            console.log(step)
-            if (this.stepsEnum.hasOwnProperty(step)) {
+             if (this.stepsEnum.hasOwnProperty(step)) {
                 this.stepNumber = this.stepsEnum[step];
             }
             console.log(this.stepNumber)
         },
         goToLogin() {
-            this.changeStepNumber('loginStep');
+          this.passDialog = false;
+          this.changeStepNumber('loginStep');
         },
+
         showRegistration() {
             this.changeStepNumber('termandstart');
         },
@@ -112,7 +120,13 @@ export default {
             if(!this.agreeTerms){
                 return this.agreeError = true
             }
-            this.changeStepNumber('startStep');
+            this.passDialog = true;
+
+        },
+        goToResetPassword(){
+            this.passDialog = false;
+            this.changeStepNumber('emailpassword');
+
         },
         changePhone(){
           this.changeStepNumber('enterphone');
@@ -120,7 +134,7 @@ export default {
         submit() {
             let self = this;
             self.loading = true;
-            registrationService.signIn(this.userEmail, this.recaptcha)
+            registrationService.signIn(this.userEmail, this.recaptcha, this.password)
                 .then((response) => {
                     self.loading = false;
                     analyticsService.sb_unitedEvent('Login', 'Start');
@@ -234,6 +248,22 @@ export default {
                     self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
                 });
         },
+        //reset email add method in emailRegistration service
+        emailResetPassword(){
+            let self = this;
+            self.loading = true;
+            registrationService.emailRegistration(this.userEmail)
+                .then(function (resp) {
+                    let step = resp.data.step;
+                    self.changeStepNumber(step);
+                    self.loading = false;
+                }, function (error) {
+                    self.recaptcha = "";
+                    self.$refs.recaptcha.reset();
+                    self.loading = false;
+                    self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                });
+        },
         resendEmail() {
             var self = this;
             self.updateLoading(true);
@@ -282,15 +312,20 @@ export default {
             this.loading = false;
             this.$router.push({path: `${url.path }`});
         },
-        //get unique texts per user profile if no active marketing campaign
-        // getProfileMeta(campaign){
-        //         if(campaign && campaign === 'noCampaign'){
-        //             this.profileMeta = this.profileData.register;
-        //         }else{
-        //             this.profileMeta = this.campaignData;
-        //         }
-        //         console.log('META!', this.profileMeta);
-        // }
+        validatePassword(){
+            if(this.password !== this.confirmPassword){
+                this.errorMessage.confirmPassword = 'Password do not match';
+                return
+            }else if(this.password || this.confirmPassword){
+                this.errorMessage.confirmPassword = 'Password should be longer than 6 symbols';
+            }
+            else {
+                this.updatePassword()
+            }
+        },
+        updatePassword(){
+            console.log('1::', this.password, '2:::', this.confirmPassword)
+        }
     },
     mounted() {
         this.$nextTick(function () {
@@ -302,10 +337,7 @@ export default {
         })
     },
     created() {
-        // this.getProfileMeta(this.campaignName);
-        // if(!this.campaignName || this.campaignName === '' ){
-        //     this.updateCampaign('noCampaign');
-        // }
+
         //check if returnUrl exists
         if (!!this.$route.query.returnUrl) {
             this.toUrl = {path: `${this.$route.query.returnUrl}`, query: {q: ''}};
@@ -329,13 +361,15 @@ export default {
     },
     //value = String; query = ['String', 'String','String'] || []
     filters: {
-        bolder: function (value, query) {
-            if(query.length) {
-                query.map((item) => {
-                    value = value.replace(item, '<span class="bolder">' + item + '</span>')
-                });
-            }
-            return value
+        bolder: function (str, find) {
+            var re = new RegExp(find, 'g');
+            return str.replace(re, '<b>'+find+'</b>');
+            // if(query.length) {
+            //     query.map((item) => {
+            //         value = value.replace(item, '<span class="bolder">' + item + '</span>')
+            //     });
+            // }
+            // return value
         }
     }
 }

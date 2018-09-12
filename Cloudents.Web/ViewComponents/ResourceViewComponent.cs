@@ -1,23 +1,18 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
-using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
-namespace Cloudents.Web.Api
+namespace Cloudents.Web.ViewComponents
 {
-    [Produces("application/json")]
-    [Route("api/[controller]")]
-    [ApiController]
-
-    public class LanguageController : ControllerBase
+    public class ResourceViewComponent : ViewComponent
     {
-        // GET
-        [HttpGet]
-        public Dictionary<string,string> Get()
+        public Task<IViewComponentResult> InvokeAsync()
         {
             var assembly = Assembly.GetExecutingAssembly();
 
@@ -38,11 +33,14 @@ namespace Cloudents.Web.Api
                 var name = resourceStr.Replace("Cloudents.Web.Resources.Js.", string.Empty);
                 foreach (var val in p)
                 {
-                    dic.Add($"{Char.ToLowerInvariant(name[0]) + name.Substring(1)}_{val.Key}", val.Value);
+                    dic.Add($"{char.ToLowerInvariant(name[0]) + name.Substring(1)}_{val.Key}", val.Value);
 
                 }
             }
-            return dic;
+            var jsonString = JsonConvert.SerializeObject(dic);
+            return Task.FromResult<IViewComponentResult>(View("Default", jsonString));
         }
     }
+
 }
+

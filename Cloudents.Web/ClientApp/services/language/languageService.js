@@ -2,7 +2,7 @@ import { termHtml } from "./page/term"
 import { connectivityModule } from "../connectivity.module";
 
 //global dictionary obj
-global.dictionary = {};
+global.dictionary = {}
 
 export const LanguageService = {
     getDictionary: () => {

@@ -57,30 +57,31 @@ namespace Cloudents.Infrastructure.Database
         }
     }
 
-    [ModuleRegistration(Core.Enum.System.Console)]
-    [ModuleRegistration(Core.Enum.System.Function)]
+    //[ModuleRegistration(Core.Enum.System.Console)]
+    [ModuleRegistration(Core.Enum.System.MailGun)]
     [UsedImplicitly]
     public class ModuleMailGun : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UnitOfWorkFactoryMailGun>().SingleInstance();
-            builder.Register(c => c.Resolve<UnitOfWorkFactoryMailGun>().OpenSession()).Keyed<ISession>(Core.Enum.Database.MailGun).InstancePerLifetimeScope();
+            builder.Register(c => c.Resolve<UnitOfWorkFactoryMailGun>().OpenSession()).InstancePerLifetimeScope();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
 
-            builder.Register(c =>
-                {
-                    var session = c.ResolveKeyed<ISession>(Core.Enum.Database.MailGun);
-                    return new UnitOfWork(session);
-                })
-                .Keyed<IUnitOfWork>(Core.Enum.Database.MailGun).InstancePerLifetimeScope();
+            //builder.Register(c =>
+            //    {
+            //        var session = c.ResolveKeyed<ISession>(Core.Enum.Database.MailGun);
+            //        return new UnitOfWork(session);
+            //    })
+            //    .As<IUnitOfWork>().InstancePerLifetimeScope();
 
-            builder.Register(c =>
-            {
-                var session = c.ResolveKeyed<ISession>(Core.Enum.Database.MailGun);
-                return new MailGunStudentRepository(session);
-            }).AsImplementedInterfaces();
+            builder.RegisterType<MailGunStudentRepository>().AsImplementedInterfaces();
+            //builder.Register(c =>
+            //{
+            //    var session = c.ResolveKeyed<ISession>(Core.Enum.Database.MailGun);
+            //    return new MailGunStudentRepository(session);
+            //}).AsImplementedInterfaces();
         }
     }
 }
