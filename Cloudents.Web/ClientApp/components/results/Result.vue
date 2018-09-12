@@ -1,8 +1,7 @@
 ﻿﻿
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
-        <signup-banner  slot="signupBanner"  v-if="true"></signup-banner>
-        <!-- <signup-banner  slot="signupBanner"  v-if="!accountUser && showRegistrationBanner"></signup-banner> -->
+        <signup-banner  slot="signupBanner"  v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main">
             <div class="d-flex mobile-filter" >
                     <a v-if="$route.path.slice(1)==='ask' " :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] " @click.prevent="goToAskQuestion()" v-language:inner>result_ask_question</a>

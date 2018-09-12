@@ -180,13 +180,13 @@
   <data name="login" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="login_click_here_to_send" xml:space="preserve">
+  <data name="click_here_to_send" xml:space="preserve">
     <value>Click here to resend.</value>
   </data>
-  <data name="login_didnt_get_sms" xml:space="preserve">
+  <data name="didnt_get_sms" xml:space="preserve">
     <value>Didn’t get an sms?</value>
   </data>
-  <data name="login_until_activate_account3" xml:space="preserve">
+  <data name="until_activate_account3" xml:space="preserve">
     <value>until you activate your account</value>
   </data>
   <data name="need_an_account" xml:space="preserve">
