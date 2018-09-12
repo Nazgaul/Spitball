@@ -14,6 +14,7 @@ namespace Cloudents.Core
 {
     [ModuleRegistration(Enum.System.Console, Order = 1)]
     [ModuleRegistration(Enum.System.Function)]
+    [ModuleRegistration(Enum.System.MailGun)]
     [ModuleRegistration(Enum.System.Web)]
     [ModuleRegistration(Enum.System.Admin, Order = 1)]
     [UsedImplicitly]

@@ -8,12 +8,6 @@ using Cloudents.Core.Entities.Db;
 
 namespace Cloudents.Infrastructure.Data
 {
-    //public interface IDapperRepository
-    //{
-    //    Task<T> WithConnectionAsync<T>(Func<IDbConnection, Task<T>> getData, CancellationToken token);
-    //    T WithConnection<T>(Func<IDbConnection, T> getData);
-    //}
-
     public class DapperRepository //: IDapperRepository
     {
         private readonly string _connectionString;

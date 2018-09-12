@@ -44,6 +44,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Web.Extensions", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Functions", "Cloudents.Functions\Cloudents.Functions.csproj", "{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudents.MailGunFunctions", "Cloudents.MailgunFunctions\Cloudents.MailGunFunctions.csproj", "{54984F81-D609-4D15-91FC-93DC8BFD5187}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,10 @@ Global
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54984F81-D609-4D15-91FC-93DC8BFD5187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54984F81-D609-4D15-91FC-93DC8BFD5187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54984F81-D609-4D15-91FC-93DC8BFD5187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54984F81-D609-4D15-91FC-93DC8BFD5187}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +126,7 @@ Global
 		{0F4CDB18-8825-4D7B-A42C-B87C67813C48} = {974199DB-E3D7-4CAC-BBEA-6A0801E51009}
 		{5E402ABD-00DC-4640-ACF5-2C6F948920F6} = {2EB273BF-0342-4FDC-942E-70261335187C}
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
+		{54984F81-D609-4D15-91FC-93DC8BFD5187} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		RESX_ExcelExportMode = SingleSheet
