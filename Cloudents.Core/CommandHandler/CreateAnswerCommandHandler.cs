@@ -62,7 +62,7 @@ namespace Cloudents.Core.CommandHandler
 
             var id = answer.Id;
             
-            var condition = Math.Max(System.DateTime.UtcNow.Subtract(question.Created).Seconds, 1);
+            var condition = Math.Max(DateTime.UtcNow.Subtract(question.Created).Seconds, 1);
         
             int FraudTime = TimeConst.Minute * 5;
             if (condition < FraudTime)

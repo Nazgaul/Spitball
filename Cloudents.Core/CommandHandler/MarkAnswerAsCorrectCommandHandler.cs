@@ -39,16 +39,16 @@ namespace Cloudents.Core.CommandHandler
             }
             question.MarkAnswerAsCorrect(answer);
 
-            var condition = Math.Max(System.DateTime.UtcNow.Subtract(answer.Created).Seconds,1);
+            var condition = Math.Max(DateTime.UtcNow.Subtract(answer.Created).Seconds,1);
            
             int FraudTime = TimeConst.Minute * 8;
             if (condition < FraudTime)
             {
                 float factor = FraudTime / condition;
-                var user = await _userRepository.LoadAsync(question.User.Id, token).ConfigureAwait(false);
-                user.FraudScore += (int)factor*5;
+                
+                question.User.FraudScore += (int)factor*5;
                
-                await _userRepository.UpdateAsync(user, default);
+                await _userRepository.UpdateAsync(question.User, token);
             }
 
             var t1 = _questionRepository.UpdateAsync(question, token);
