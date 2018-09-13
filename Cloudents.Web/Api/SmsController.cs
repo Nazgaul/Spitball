@@ -11,6 +11,7 @@ using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PhoneNumbers;
 
 namespace Cloudents.Web.Api
 {
@@ -43,7 +44,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         public async Task<IActionResult> SmsUserAsync(
-            [FromBody]PhoneNumberRequest model,
+            [FromBody]PhoneNumberRequest model,[FromRoute]LocationQuery location,
             CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
@@ -64,7 +65,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, "Invalid phone number");
                 return BadRequest(ModelState);
             }
-
+            CheckForFraud(location, user, phoneNumber);
             var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
 
             if (retVal.Succeeded)
@@ -88,6 +89,20 @@ namespace Cloudents.Web.Api
             }
 
             return BadRequest(ModelState);
+        }
+
+        private static void CheckForFraud(LocationQuery location, User user, string phoneNumber)
+        {
+            PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
+
+            PhoneNumber numberProto = phoneUtil.Parse(phoneNumber, "");
+
+            int countryCode = numberProto.CountryCode;
+            var t = phoneUtil.GetRegionCodeForCountryCode(countryCode);
+            if (t.Equals(location.Address.CountryCode, StringComparison.OrdinalIgnoreCase))
+            {
+                user.FraudScore += 50;
+            }
         }
 
         [HttpPost("verify")]

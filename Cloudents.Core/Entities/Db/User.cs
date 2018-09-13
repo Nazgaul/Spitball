@@ -19,6 +19,7 @@ namespace Cloudents.Core.Entities.Db
             UserCreateTransaction();
             Created = DateTime.UtcNow;
             Fictive = false;
+
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
@@ -88,5 +89,7 @@ namespace Cloudents.Core.Entities.Db
         }
 
         public virtual bool Fictive { get; set; }
+        public virtual string CountryCodePhone { get; set; }
+       
     }
 }

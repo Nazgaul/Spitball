@@ -10,11 +10,12 @@ namespace Cloudents.Core.DTOs.Admin
         public DateTime CashOutTime { get; set; }
         public int? FraudScore { get; set; }
         public decimal userQueryRatio { get; set; }
+        //public static decimal AvgFraudScore { get; set; }
 
 
         public bool IsSuspect { get
             {
-                return FraudScore > 10 || userQueryRatio < 0.2M;
+                return FraudScore > 20 || userQueryRatio < 0.2M;
             }
         }
 
