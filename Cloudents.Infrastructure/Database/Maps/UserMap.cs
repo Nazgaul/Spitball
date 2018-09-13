@@ -22,6 +22,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.Image).Nullable();
             Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
+            //Map(e => e.CountryCodePhone);
+            //Map(e => e.CountryNameIp);
 
             Map(e => e.Created).Insert().Not.Update();
             Map(e => e.Fictive).ReadOnly();

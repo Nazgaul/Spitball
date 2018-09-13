@@ -10,6 +10,7 @@ using Cloudents.Core.Query;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using NHibernate.Exceptions;
+using PhoneNumbers;
 
 namespace Cloudents.Web.Identity
 {
@@ -162,6 +163,12 @@ namespace Cloudents.Web.Identity
 
         public Task SetPhoneNumberAsync(User user, string phoneNumber, CancellationToken cancellationToken)
         {
+            
+            //PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
+                         
+            //PhoneNumber numberProto = phoneUtil.Parse(phoneNumber, "");
+            //int countryCode = numberProto.CountryCode;
+            //user.CountryCodePhone = countryCode.ToString();
             user.PhoneNumber = phoneNumber;
             return Task.CompletedTask;
         }

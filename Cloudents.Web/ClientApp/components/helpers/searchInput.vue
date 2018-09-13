@@ -1,6 +1,7 @@
 <template>
     <div class="search-input">
-        <div class="search-b-wrapper" v-scroll="onScroll">
+        <div class="search-b-wrapper">
+        <!--<div class="search-b-wrapper" v-scroll="onScroll">-->
             <v-text-field class="search-b" type="search" solo
                           @keyup.enter="search()" autocomplete="off" @keyup.down="arrowNavigation(1)"
                           @keyup.up="arrowNavigation(-1)"

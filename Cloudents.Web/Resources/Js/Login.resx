@@ -276,4 +276,13 @@
   <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
     <value>You can spend them to get help with your</value>
   </data>
+  <data name="enter_new_password" xml:space="preserve">
+    <value>Enter new password</value>
+  </data>
+  <data name="happens_to_best" xml:space="preserve">
+    <value>Don’t be ashamed. It happens to the best.</value>
+  </data>
+  <data name="reset_your_password" xml:space="preserve">
+    <value>Reset your password</value>
+  </data>
 </root>

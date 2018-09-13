@@ -1,4 +1,4 @@
-﻿alter table sb.[user]
+﻿/*alter table sb.[user]
 add Created datetime2(7);
 alter table sb.[user]
 add Fictive bit;
@@ -24,7 +24,7 @@ add color nvarchar(255)
 
 ALTER TABLE sb.[User]
 ADD FraudScore INT;
---Done untill here
+--Done untill here*/
 
 ALTER TABLE sb.[User]
 ADD PasswordHash nvarchar(4000);

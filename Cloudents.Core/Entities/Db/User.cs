@@ -19,6 +19,7 @@ namespace Cloudents.Core.Entities.Db
             UserCreateTransaction();
             Created = DateTime.UtcNow;
             Fictive = false;
+
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]

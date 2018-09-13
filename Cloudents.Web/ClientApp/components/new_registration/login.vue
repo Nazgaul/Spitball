@@ -3,6 +3,7 @@
         <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
         </v-snackbar>
+        <component :is="`step_${stepNumber}`"></component>
         <!--!!!step terms and first screen-->
         <div class="step-terms-firstscreen" v-if="stepNumber === 1">
             <step-template>
@@ -25,6 +26,10 @@
                         <span v-language:inner>login_please_agree</span></span>
                 </div>
                 <div slot="step-data" class="limited-width form-wrap">
+                    <div class="text">
+                    <h1 class="step-title" v-language:inner>login_get_started</h1>
+                    <!--<p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
+                    </div>
                     <div class="checkbox-terms" v-if="!isMobile">
                         <input type="checkbox" v-model="agreeTerms" id="agreeTermDesk"/>
                         <label for="agreeTermDesk"></label>
@@ -48,17 +53,17 @@
                            :loading="loading"
                            @click="goToEmailLogin()"
                            >
-                           <span v-language:inner>login_signin_your_email</span> 
+                           <span v-language:inner>login_signin_your_email</span>
                     </v-btn>
-                    <div class="signin-strip"><span v-language:inner>login_already_have_account</span> 
+                    <div class="signin-strip"><span v-language:inner>login_already_have_account</span>
                         <p class="click" @click="goToLogin()" v-language:inner>login_sign_in</p>
                     </div>
                 </div>
                 <div slot="step-image">
-                    <div class="text">
-                        <h1 class="step-title" v-language:inner>login_get_started</h1>
-                        <p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>
-                    </div>
+                    <!--<div class="text">-->
+                        <!--<h1 class="step-title" v-language:inner>login_get_started</h1>-->
+                        <!--<p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
+                    <!--</div>-->
                     <img :src="require(`./img/registerEmail.png`)"/>
                 </div>
             </step-template>
@@ -76,6 +81,10 @@
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width form-wrap">
+                    <div class="text">
+                    <h1 class="step-title" v-language:inner>login_get_started</h1>
+                    <p class="sub-title mb-3">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>
+                    </div>
                     <form @submit.prevent="emailSend" class="form-one">
                         <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.phone"
                                   placeholder="Enter your email address" v-model="userEmail" name="email" type="email"
@@ -96,10 +105,10 @@
                     </form>
                 </div>
                 <div slot="step-image">
-                    <div class="text">
-                        <h1 class="step-title" v-language:inner>login_get_started</h1>
-                        <p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>
-                    </div>
+                    <!--<div class="text">-->
+                        <!--<h1 class="step-title" v-language:inner>login_get_started</h1>-->
+                        <!--<p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
+                    <!--</div>-->
                     <img :src="require(`./img/registerEmail.png`)"/>
                 </div>
             </step-template>
@@ -135,7 +144,6 @@
             </step-template>
         </div>
         <!--step verify email end-->
-
 
         <!--step phone number-->
         <div class="step-phone" v-if="stepNumber === 4 ">
@@ -249,11 +257,19 @@
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width">
-                    <h2 v-if="!isMobile" class="step-title" v-language:inner>login_login</h2>
+                    <h1 v-if="!isMobile" class="step-title" v-language:inner>login_welcome_back
+                        <!--<br/>-->
+                    <!--<span v-language:inner> login_please_login</span>-->
+                    </h1>
+                    <!--<h1 v-if="!isMobile" class="step-title" v-language:inner>login_please_login</h1>-->
+                    <!--<p v-if="!isMobile" class="inline" v-language:inner>login_please_login</p>-->
                     <form @submit.prevent="submit">
                         <sb-input :errorMessage="errorMessage.email" :required="true" class="email-field" type="email"
                                   name="email" id="input-url" v-model="userEmail"
-                                  placeholder="Enter your email address"></sb-input>
+                                  placeholder="Enter your mobile or email "></sb-input>
+                        <sb-input :errorMessage="errorMessage.password" :required="true" class="email-field mt-3" type="password"
+                                  name="email" id="input-url" v-model="password"
+                                  placeholder="Enter password"></sb-input>
                         <vue-recaptcha class="recaptcha-wrapper"
                                        ref="recaptcha"
                                        :sitekey="siteKey"
@@ -264,7 +280,7 @@
                         <v-btn class="continue-btn loginBtn"
                                value="Login"
                                :loading="loading"
-                               :disabled="!userEmail || !recaptcha "
+                               :disabled="!userEmail || !recaptcha || !password "
                                type="submit"
                                > <span v-language:inner>login_login</span> 
                         </v-btn>
@@ -277,6 +293,7 @@
             </step-template>
         </div>
         <!--step login end-->
+
         <!--step expired link-->
         <div class="step-expired" v-if="stepNumber === 8 ">
             <step-template>
@@ -292,12 +309,86 @@
                     <p v-if="!isMobile"><span v-language:inner>login_until_activate_account1</span><span v-language:inner>login_until_activate_account2</span><span v-language:inner>login_until_activate_account3</span> </p>
                     <img :src="require(`./img/checkEmail.png`)"/>
                     <button class="continue-btn" @click="showRegistration()" v-language:inner>login_register</button>
-
                 </div>
                 <img slot="step-image" :src="require(`./img/checkEmail.png`)"/>
             </step-template>
         </div>
         <!--step expired link end-->
+
+
+        <!--step create password-->
+        <div class="step-phone" v-if="stepNumber === 9">
+            <step-template>
+                <div slot="step-text" class="text-block-slot" v-if="isMobile">
+                    <div class="text-wrap-top">
+                        <p class="text-block-sub-title" v-language:inner>login_enter_new_password
+                        </p>
+                    </div>
+                </div>
+                <div slot="step-data" class="limited-width">
+                    <h1 v-if="!isMobile" class="step-title"  v-language:inner>login_enter_new_password</h1>
+                    <sb-input class="phone-field" :errorMessage="errorMessage.password"
+                              v-model="password" placeholder="Enter new password" name="password" type="password"
+                              :autofocus="true" @keyup.enter.native="" minlength="4"></sb-input>
+                    <sb-input class="phone-field"   :errorMessage="errorMessage.confirmPassword"
+                              v-model="confirmPassword" placeholder="Confirm password" name="confirmPassword" type="password"
+                              :autofocus="true" @keyup.enter.native=""></sb-input>
+                    <v-btn class="continue-btn"
+                           value="Password"
+                           :loading="loading"
+                           :disabled="!(password && confirmPassword)"
+                           @click="validatePassword()"
+                    ><span v-language:inner>login_continue</span></v-btn>
+
+                </div>
+                <img slot="step-image" :src="require(`./img/signin.png`)"/>
+            </step-template>
+        </div>
+        <!--step create password-->
+
+        <!--step email password reset start-->
+        <div class="step-email" v-if="stepNumber === 10">
+            <step-template>
+                <div slot="step-text" class="text-block-slot" v-if="isMobile">
+                    <div class="text-wrap-top">
+                        <p class="text-block-sub-title" v-language:inner>login_reset_your_password
+                           </p>
+                    </div>
+                </div>
+                <div slot="step-data" class="limited-width form-wrap">
+                    <h1 v-if="!isMobile" class="step-title" v-language:inner>login_reset_your_password</h1>
+                    <p v-if="!isMobile" class="sub-title  mb-3"
+                        v-language:inner>login_happens_to_best
+                    </p>
+                    <form @submit.prevent="emailResetPassword" class="form-one">
+                        <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email"
+                                  placeholder="Enter your email address" v-model="userEmail" name="email" type="email"
+                                  :autofocus="true"></sb-input>
+                        <div class="recaptcha-wrapper">
+
+                        </div>
+                        <v-btn class="continue-btn" value="Login"
+                               :loading="loading"
+                               :disabled="!userEmail"
+                               type="submit"
+                        >
+                            <span>Reset my password</span></v-btn>
+                    </form>
+                    <div class="signin-strip">
+                        <p class="click" @click="goToLogin">I remember now!</p>
+                    </div>
+                </div>
+                <div slot="step-image">
+                    <!--<div class="text">-->
+                        <!--<h1 class="step-title" ></h1>-->
+                        <!--<p class="sub-title"></p>-->
+                    <!--</div>-->
+                    <img :src="require(`./img/signin.png`)"/>
+                </div>
+            </step-template>
+        </div>
+        <!--step email password reset-->
+
 
         <div class="progress" v-if="stepNumber !== 7 && stepNumber !== 8 ">
             <div v-for="page in progressSteps" :class="{highlighted: page===stepNumber}"></div>
@@ -326,6 +417,33 @@
             </v-card>
         </v-dialog>
 
+         <!--password dialog-->
+        <v-dialog v-model="passDialog" max-width="600px" :fullscreen="isMobile" content-class="registration-dialog">
+            <v-card>
+                <button class="close-btn" @click="passDialog = false">
+                    <v-icon>sbf-close</v-icon>
+                </button>
+                <v-card-text class="limited-width">
+                    <h1 v-if="isMobile">
+                        <span v-language:inner>login_sure_exit1</span><br/>
+                        <span v-language:inner>login_sure_exit2</span><br/>
+                        <span v-language:inner>login_sure_exit3</span><br/>
+                        <span v-language:inner>login_sure_exit4</span>&nbsp;<b>
+                        <span v-language:inner>login_sure_exit5</span></b>
+                    </h1>
+                    <h1 v-else v-language:inner>login_are_you_sure_you_want_to_exit</h1>
+                    <p><span v-language:inner>login_exiting_information1</span><br/>
+                        <span v-language:inner>login_exiting_information2</span>
+                    </p>
+
+                    <v-btn  class="continue-registr"
+                           @click="goToResetPassword()">
+                        <span >Create password</span>
+                    </v-btn>
+                    <button class="continue-btn" @click="goToLogin()" >I have password</button>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 <script src="./login.js"></script>
