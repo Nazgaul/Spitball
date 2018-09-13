@@ -1,27 +1,28 @@
-﻿alter table sb.[user]
-add Created datetime2(7);
-alter table sb.[user]
-add Fictive bit;
-alter table sb.QuestionSubject
-add OrderColumn int;
-update sb.QuestionSubject
-set OrderColumn = 1
-where id = 16;
-alter table sb.[question]
-add Updated datetime2(7);
-update sb.Question
-set Updated = Created
-WHERE updated IS NULL
-update sb.[user]
-set Fictive = 1
-where email like '%demi.com'
-
-alter table sb.question
-add color nvarchar(255);
-alter table sb.answer
-add color nvarchar(255)
-
-
+﻿ALTER TABLE sb.[User]
+ADD PasswordHash nvarchar(4000);
 ALTER TABLE sb.[User]
-ADD FraudScore INT;
---Done untill here
+ADD LockoutEnd datetimeoffset(7);
+ALTER TABLE sb.[User]
+ADD AccessFailedCount int;
+ALTER TABLE sb.[User]
+ADD LockoutEnabled bit;
+
+CREATE TABLE [sb].[UserLogin](
+	[LoginProvider] [nvarchar](255) NOT NULL,
+	[ProviderKey] [nvarchar](255) NOT NULL,
+	[ProviderDisplayName] [nvarchar](255) NULL,
+	[UserId] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[LoginProvider] ASC,
+	[ProviderKey] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [sb].[UserLogin]  WITH CHECK ADD  CONSTRAINT [UserLogin_User] FOREIGN KEY([UserId])
+REFERENCES [sb].[User] ([Id])
+GO
+
+ALTER TABLE [sb].[UserLogin] CHECK CONSTRAINT [UserLogin_User]
+GO

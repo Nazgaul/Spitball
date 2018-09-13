@@ -10,6 +10,7 @@ namespace Cloudents.Web.Controllers
         // GET
         [Route("register",Name = RegisterRouteName)]
         [Route("signin")]
+        [Route("resetPassword",Name= "ResetPassword")]
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)

@@ -73,7 +73,6 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 })
 
                .OrderByDescending(o => o.created)
-
                .ToFuture();
 
 

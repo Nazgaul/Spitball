@@ -132,18 +132,20 @@ namespace Cloudents.Web
 
                 options.User.RequireUniqueEmail = true;
 
-                options.Password.RequiredLength = 1;
+                options.Password.RequiredLength = 8;
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredUniqueChars = 0;
+                options.Lockout.MaxFailedAccessAttempts = 3;
+
             }).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
 
             services.AddAuthorization();
             services.ConfigureApplicationCookie(o =>
             {
-                o.Cookie.Name = "sb2";
+                o.Cookie.Name = "sb3";
                 o.Events.OnRedirectToLogin = context =>
                 {
                     context.Response.StatusCode = 401;

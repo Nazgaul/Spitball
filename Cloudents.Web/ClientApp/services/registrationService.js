@@ -2,11 +2,9 @@ import { connectivityModule } from "./connectivity.module"
 
 export default {
     googleRegistration: (data) => { 
-        //Ram change
-        return connectivityModule.http.post("/SignUser/google", {token: data})
+        return connectivityModule.http.post("/register/google", {token: data})
     }, 
     emailRegistration: (email, recaptcha) => {
-        //Ram change
         return connectivityModule.http.post("signuser", {email, captcha: recaptcha})
     }, 
     emailResend: () => {
@@ -18,7 +16,6 @@ export default {
     smsCodeVerification: (data) => {
         return connectivityModule.http.post("/sms/verify", {number: data})},
     signIn: (email, captcha) => {
-        //Ram change
         return connectivityModule.http.post("signuser", {email, captcha})
     }, 
     resendCode: () => {

@@ -14,4 +14,16 @@ namespace Cloudents.Core.Query
 
         public Expression<Func<User, bool>> QueryExpression { get; }
     }
+
+    public class UserLoginQuery : IQuery<User>
+    {
+        public UserLoginQuery(string loginProvider, string providerKey)
+        {
+            LoginProvider = loginProvider;
+            ProviderKey = providerKey;
+        }
+
+        public string LoginProvider { get; }
+        public string ProviderKey { get; }
+    }
 }

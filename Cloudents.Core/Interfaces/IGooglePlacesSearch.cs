@@ -16,6 +16,6 @@ namespace Cloudents.Core.Interfaces
     public interface IGoogleAuth
     {
         [ItemCanBeNull]
-        Task<AuthDto> LogInAsync(string token, CancellationToken cancellationToken);
+        Task<ExternalAuthDto> LogInAsync(string token, CancellationToken cancellationToken);
     }
 }
