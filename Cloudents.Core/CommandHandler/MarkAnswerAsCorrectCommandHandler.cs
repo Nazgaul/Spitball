@@ -39,12 +39,12 @@ namespace Cloudents.Core.CommandHandler
             }
             question.MarkAnswerAsCorrect(answer);
 
-            var condition = Math.Max(System.DateTime.Now.Subtract(answer.Created).Minutes,1);
+            var condition = Math.Max(System.DateTime.UtcNow.Subtract(answer.Created).Seconds,1);
            
-            int FraudTime = 8; // 8 minutes min time before confirmation threshold
+            int FraudTime = TimeConst.Minute * 8;
             if (condition < FraudTime)
             {
-                decimal factor = FraudTime / condition;
+                float factor = FraudTime / condition;
                 var user = await _userRepository.LoadAsync(question.User.Id, token).ConfigureAwait(false);
                 user.FraudScore += (int)factor*5;
                

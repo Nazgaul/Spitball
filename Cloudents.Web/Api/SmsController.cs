@@ -65,17 +65,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(string.Empty, "Invalid phone number");
                 return BadRequest(ModelState);
             }
-            PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
-            
-            PhoneNumber numberProto = phoneUtil.Parse(phoneNumber, "");
-           
-            int countryCode = numberProto.CountryCode;
-            var t = phoneUtil.GetRegionCodeForCountryCode(countryCode);
-
-            if (t != location.Address.CountryCode)
-            {
-                user.FraudScore += 50;
-            }
+            CheckForFraud(location, user, phoneNumber);
             var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
 
             if (retVal.Succeeded)
@@ -99,6 +89,20 @@ namespace Cloudents.Web.Api
             }
 
             return BadRequest(ModelState);
+        }
+
+        private static void CheckForFraud(LocationQuery location, User user, string phoneNumber)
+        {
+            PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
+
+            PhoneNumber numberProto = phoneUtil.Parse(phoneNumber, "");
+
+            int countryCode = numberProto.CountryCode;
+            var t = phoneUtil.GetRegionCodeForCountryCode(countryCode);
+            if (t.Equals(location.Address.CountryCode, StringComparison.OrdinalIgnoreCase))
+            {
+                user.FraudScore += 50;
+            }
         }
 
         [HttpPost("verify")]

@@ -62,12 +62,12 @@ namespace Cloudents.Core.CommandHandler
 
             var id = answer.Id;
             
-            var condition = Math.Max(System.DateTime.Now.Subtract(answer.Created).Minutes, 1);
+            var condition = Math.Max(System.DateTime.UtcNow.Subtract(question.Created).Seconds, 1);
         
-            int FraudTime = 5; // 5 minutes min time before confirmation threshold 
+            int FraudTime = TimeConst.Minute * 5;
             if (condition < FraudTime)
             {
-                decimal factor = FraudTime / condition;
+                float factor = FraudTime / condition;
                 user.FraudScore += (int)factor*5;
                 await _userRepository.UpdateAsync(user, token);
             }
