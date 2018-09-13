@@ -66,7 +66,7 @@ namespace Cloudents.Core.Entities.Db
         }
 
 
-        public virtual void UserCreateTransaction()
+        protected virtual void UserCreateTransaction()
         {
             var t = Transaction.UserCreate();
             //new Transaction(ActionType.SignUp, TransactionType.Awarded, InitialBalance);
@@ -88,5 +88,14 @@ namespace Cloudents.Core.Entities.Db
         }
 
         public virtual bool Fictive { get; set; }
+
+        public virtual string PasswordHash { get; set; }
+        public virtual DateTimeOffset? LockoutEnd { get; set; }
+
+        public virtual int AccessFailedCount { get; set; }
+
+        public virtual bool LockoutEnabled { get; set; }
+
+
     }
 }

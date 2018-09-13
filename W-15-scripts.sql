@@ -25,3 +25,12 @@ add color nvarchar(255)
 ALTER TABLE sb.[User]
 ADD FraudScore INT;
 --Done untill here
+
+ALTER TABLE sb.[User]
+ADD PasswordHash nvarchar(4000);
+ALTER TABLE sb.[User]
+ADD LockoutEnd datetimeoffset(7);
+ALTER TABLE sb.[User]
+ADD AccessFailedCount int;
+ALTER TABLE sb.[User]
+ADD LockoutEnabled bit;

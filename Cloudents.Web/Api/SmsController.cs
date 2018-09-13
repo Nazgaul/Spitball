@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
@@ -11,11 +7,15 @@ using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]"),ApiController]
+    [Route("api/[controller]"), ApiController]
 
     public class SmsController : ControllerBase
     {
@@ -42,7 +42,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
-        public async Task<IActionResult> SmsUserAsync(
+        public async Task<IActionResult> SetUserPhoneNumber(
             [FromBody]PhoneNumberRequest model,
             CancellationToken token)
         {
@@ -65,7 +65,9 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
+            
             var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
+
 
             if (retVal.Succeeded)
             {
@@ -73,6 +75,7 @@ namespace Cloudents.Web.Api
                 {
                     Email = user.Email
                 }, token);
+                //var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber);
                 var t3 = _client.SendSmsAsync(user, token);
                 await Task.WhenAll(t1, t3).ConfigureAwait(false);
                 return Ok();
@@ -100,6 +103,7 @@ namespace Cloudents.Web.Api
                 ex.Data.Add("model", model.ToString());
                 throw ex;
             }
+
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number).ConfigureAwait(false);
 
             if (v.Succeeded)
@@ -109,6 +113,13 @@ namespace Cloudents.Web.Api
             }
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
+            //var v = await _signInManager.TwoFactorSignInAsync(TokenOptions.DefaultPhoneProvider, model.Number, false, true);
+            //if (v.Succeeded)
+            //{
+            //    return Ok();
+            //}
+            //ModelState.AddModelError("Some error");
+            //return BadRequest(ModelState);
         }
 
         [HttpPost("resend")]

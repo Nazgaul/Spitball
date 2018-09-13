@@ -57,6 +57,8 @@ namespace Cloudents.Web.Controllers
                 return RedirectToRoute(RegisterController.RegisterRouteName, new { step = "expiredStep" });
             }
             TempData.Remove(SignUserController.Email);
+            
+          
             await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
 
             return RedirectToRoute(RegisterController.RegisterRouteName,

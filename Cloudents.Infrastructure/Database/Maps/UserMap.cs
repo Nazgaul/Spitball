@@ -27,6 +27,11 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.Fictive).ReadOnly();
             Map(e => e.FraudScore);
 
+            Map(e => e.PasswordHash).Nullable();
+            Map(e => e.LockoutEnd).Nullable();
+            Map(e => e.AccessFailedCount);
+            Map(e => e.LockoutEnabled);
+
             References(x => x.University).ForeignKey("User_University").Nullable();
             Map(x => x.Balance).CustomSqlType("smallmoney");
 

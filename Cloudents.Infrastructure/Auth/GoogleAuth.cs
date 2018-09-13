@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Auth
         }
 
 
-        public async Task<AuthDto> LogInAsync(string token, CancellationToken cancellationToken)
+        public async Task<ExternalAuthDto> LogInAsync(string token, CancellationToken cancellationToken)
         {
            var result = await _client.GetAsync<GoogleToken>(new Uri("https://www.googleapis.com/oauth2/v3/tokeninfo"), new NameValueCollection()
             {
@@ -50,7 +50,7 @@ namespace Cloudents.Infrastructure.Auth
                 return null;
             }
 
-            return _mapper.Map<AuthDto>(result);
+            return _mapper.Map<ExternalAuthDto>(result);
         }
     }
 
@@ -59,7 +59,7 @@ namespace Cloudents.Infrastructure.Auth
     {
         //public string Azp { get; set; }
         public string Aud { get; set; }
-       // public string Sub { get; set; }
+        public string Sub { get; set; }
         public string Email { get; set; }
         [JsonProperty("email_verified")]
         public string EmailVerified { get; set; }
