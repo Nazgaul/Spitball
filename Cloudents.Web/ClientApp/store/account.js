@@ -108,7 +108,6 @@ const actions = {
         }
         if (global.isAuth) {
             return accountService.getAccount().then(({data}) => {
-                debugger;
                 setIntercomeData(data)
                 commit("changeLoginStatus", true);
                 commit("updateUser", data);

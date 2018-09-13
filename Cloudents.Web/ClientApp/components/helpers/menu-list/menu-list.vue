@@ -90,7 +90,14 @@
                 </v-list-tile-content>
             </v-list-tile>
             <v-divider class="my-3"></v-divider>
-
+            <v-list-tile @click="openReferralDialog" >
+                <v-list-tile-action>
+                    <v-icon>sbf-user</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title class="subheading" v-language:inner>menuList_referral_spitball</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
             <router-link tag="v-list-tile" :to="{name:'about'}">
                 <v-list-tile-action >
                     <v-icon>sbf-about</v-icon>
@@ -127,6 +134,9 @@
         <!--<v-dialog v-if="showSettingsFirst" v-model="showSettings" content-class="settings-dialog" max-width="610">-->
             <!--<user-settings v-model="showSettings"></user-settings>-->
         <!--</v-dialog>-->
+        <sb-dialog :showDialog="showReferral" :popUpType="'referralPop'" :content-class="'login-popup'">
+            <referral-dialog :popUpType="'referralPop'"></referral-dialog>
+        </sb-dialog>
     </div>
 
 </template>
@@ -138,10 +148,11 @@
     import notLoggedIn from "../img/not-logged-in.svg";
     import {notRegMenu} from '../../settings/consts';
     import userBlock from "../user-block/user-block.vue"
-
+    import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
+    import referralDialog from '../../question/helpers/referralDialog/referral-dialog.vue'
 
     export default {
-        components: {userBlock, notLoggedIn},
+        components: {userBlock, notLoggedIn, sbDialog, referralDialog},
         props: {
             counter: {
                 required: false,
@@ -159,13 +170,17 @@
             ...mapActions(['logout']),
             startIntercom(){
                 Intercom('showNewMessage')
+            },
+            openReferralDialog(){
+                this.showReferral = true;
             }
         },
         data() {
             return {
                 notRegMenu,
                 showSettingsFirst:false,
-                showSettings: false
+                showSettings: false,
+                showReferral:false
             }
         },
         computed: {
@@ -176,11 +191,14 @@
             user(){
                 return {...this.accountUser, universityName: this.getUniversityName}
             },
-
-
         },
         created(){
-    }
+            this.$root.$on('closePopUp', (name) => {
+                if(name === "referralPop"){
+                    this.showReferral = false;
+                }
+            })
+        }
     }
 </script>
 
