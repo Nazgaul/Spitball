@@ -54,12 +54,26 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
-            Cache.ReadWrite().Region("nHibernate-User");
+            HasMany(x => x.UserLogins)
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
+
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
                ON sb.[User](PhoneNumberHash)
                WHERE PhoneNumberHash IS NOT NULL;
              */
+        }
+    }
+
+    [UsedImplicitly]
+    internal class UserLoginsMap : SpitballClassMap<UserLogin>
+    {
+        public UserLoginsMap()
+        {
+            CompositeId().KeyProperty(x => x.LoginProvider).KeyProperty(x => x.ProviderKey);
+            Map(x => x.ProviderDisplayName).Nullable();
+            References(x => x.User).Column("UserId").ForeignKey("UserLogin_User");
         }
     }
 }

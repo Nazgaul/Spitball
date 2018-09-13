@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading;
@@ -22,7 +23,8 @@ namespace Cloudents.Web.Identity
         IUserSecurityStampStore<User>, // need to create token for sms
         IUserPhoneNumberStore<User>,
         IUserAuthenticatorKeyStore<User>,
-        IUserLockoutStore<User>
+        IUserLockoutStore<User>,
+        IUserLoginStore<User>
     {
         private readonly ICommandBus _bus;
         private readonly IQueryBus _queryBus;
@@ -266,6 +268,29 @@ namespace Cloudents.Web.Identity
         {
             user.LockoutEnabled = enabled;
             return Task.CompletedTask;
+        }
+
+        public Task AddLoginAsync(User user, UserLoginInfo login, CancellationToken cancellationToken)
+        {
+            user.AddLogin(login.LoginProvider, login.ProviderKey, login.ProviderDisplayName);
+            return Task.CompletedTask;
+
+        }
+
+        public Task RemoveLoginAsync(User user, string loginProvider, string providerKey, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<UserLoginInfo>> GetLoginsAsync(User user, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User> FindByLoginAsync(string loginProvider, string providerKey, CancellationToken cancellationToken)
+        {
+           
+            return _queryBus.QueryAsync(new UserLoginQuery(loginProvider, providerKey), cancellationToken);
         }
     }
 }

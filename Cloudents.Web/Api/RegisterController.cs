@@ -74,19 +74,45 @@ namespace Cloudents.Web.Api
             [FromServices] IGoogleAuth service,
             CancellationToken cancellationToken)
         {
+            
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
             if (result == null)
             {
                 ModelState.AddModelError(string.Empty, "No result from google");
                 return BadRequest(ModelState);
             }
-            var user = await _userManager.FindByEmailAsync(result.Email).ConfigureAwait(false);
-            if (user != null)
+            
+           // var user = await _userManager.FindByEmailAsync(result.Email).ConfigureAwait(false);
+            //if (user == null)
+           // {
+                //ModelState.AddModelError("user already exists");
+                //return BadRequest(ModelState);
+            //}
+            var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, false);
+            if (result2.Succeeded)
             {
-                ModelState.AddModelError("user already exists");
-                return BadRequest(ModelState);
+                // Update any authentication tokens if login succeeded
+                return Ok();
+            }
+            //if (result2.RequiresTwoFactor)
+            //{
+            //    return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl });
+            //}
+            if (result2.IsLockedOut)
+            {
+                return BadRequest();
+                
             }
 
+            var user = CreateUser(result.Email, result.Name);
+            var result3 = await _userManager.CreateAsync(user);
+
+            if (result3.Succeeded)
+            {
+                await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
+                //await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
+            }
+            //var result2 = await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
             return Ok();
         }
 
