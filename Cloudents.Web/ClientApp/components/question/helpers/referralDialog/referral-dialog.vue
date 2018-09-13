@@ -5,7 +5,7 @@
                 <v-icon>sbf-close</v-icon>
             </button>
             <div class="ml-1 wrap-text input-container">
-                <h2 class="text-md-left">Invite a friend and Earnd for each referral 10 SBL tokens.</h2>
+                <h2 class="text-md-left"> <b>Invite a friend</b> and <b>Earn</b> for each referral <b>10 SBL tokens.</b></h2>
                 <div class="wrapper-body-text link-container">
                     <sb-input id="sb_referralLink" class="referral-input" :disabled="true" v-model="userReferralLink" name="referralLink" type="text"></sb-input>
                     &nbsp;
@@ -142,56 +142,5 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-    .referral-container{
-        text-align: center;
-        vertical-align: middle;
-        align-content: center;
-        align-items: center;
-        display: flex;
-        flex-direction: inherit;
-        .input-container{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            vertical-align: middle;
-            margin: 0 auto;
-            .link-container{
-                margin-top:30px;
-            }
-        }
-        .text-style{
-            color: #3532d5;
-            font-weight: 600;
-        }
-        .share-icon-container{
-            width: 35%;
-            display: flex;
-            justify-content: space-evenly;
-            span{
-                cursor: pointer;
-            }
-        }
-    }
-    .btn{
-        border-radius: 4px;
-        background-color: #3532d5;
-        color: #fff;
-        font-size: 20px;
-        font-weight: bold;
-        line-height: 40px;
-        letter-spacing: -0.5px;
-        width: 100%;
-        display: block;
-        text-align: center;
-        margin-bottom: 17px;
-        -webkit-transition: all 0.2s ease-in-out;
-    }
-    .referral-input{
-        min-width: 300px;
-        color:gray;
-        background: #e5e5e5;
-    }
 
-    
-</style>
+<style src="./referral-dialog.less" lang="less"></style>

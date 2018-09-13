@@ -1,0 +1,57 @@
+@import "../../../../mixin.less";
+
+    .referral-container{
+        text-align: center;
+        vertical-align: middle;
+        align-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: inherit;
+        .input-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 auto;
+            .link-container{
+                margin-top:30px;
+                display: flex;
+            }
+        }
+        .text-style{
+            color: #3532d5;
+            font-weight: 600;
+        }
+        .share-icon-container{
+            width: 35%;
+            display: flex;
+            justify-content: space-evenly;
+            span{
+                cursor: pointer;
+            }
+
+            @media(max-width: @screen-xs){
+                width: 75%;
+            }
+        }
+    }
+    .btn{
+        border-radius: 4px;
+        background-color: #3532d5;
+        color: #fff;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 48px;
+        letter-spacing: -0.5px;
+        width: 70px;
+        display: block;
+        text-align: center;
+        margin-bottom: 17px;
+        -webkit-transition: all 0.2s ease-in-out;
+    }
+    .referral-input{
+        min-width: 265px;
+        color: gray;
+        background: #e5e5e5;
+        height: 100%;
+    }
