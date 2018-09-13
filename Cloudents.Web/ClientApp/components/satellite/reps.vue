@@ -4,7 +4,7 @@
       
       <div class="reps text-xs-center text-sm-left">
         <span v-language:inner>reps_help_to_community</span> &nbsp;
-        <a href="mailto:work@spitball.co" v-language:inner>work@spitball.co</a>
+        <a href="mailto:work@spitball.co">work@spitball.co</a>
       </div>
   </general-page>
 </div>

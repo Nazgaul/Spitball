@@ -1,4 +1,5 @@
 import { termHtml } from "./page/term"
+import { privacyHtml } from "./page/privacy"
 import { connectivityModule } from "../connectivity.module";
 
 //global dictionary obj
@@ -14,7 +15,10 @@ export const LanguageService = {
 
     getTermPage: ()=>{
         return termHtml;
-    }       
+    },
+    getPrivacyPage: ()=>{
+        return privacyHtml;
+    }     
 };
 
 //debug purposes
