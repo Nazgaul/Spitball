@@ -55,24 +55,125 @@
                 </div>
             </div>
             <div slot="step-image">
-                <!--<div class="text">-->
-                <!--<h1 class="step-title" v-language:inner>login_get_started</h1>-->
-                <!--<p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
-                <!--</div>-->
-                <img :src="require(`./img/registerEmail.png`)"/>
+                <img :src="require(`../img/registerEmail.png`)"/>
             </div>
         </step-template>
+        <v-dialog v-model="passDialog" max-width="600px" :fullscreen="isMobile" content-class="registration-dialog">
+            <v-card>
+                <button class="close-btn" @click="passDialog = false">
+                    <v-icon>sbf-close</v-icon>
+                </button>
+                <v-card-text class="limited-width">
+                    <h1 v-if="isMobile">
+                        <span v-language:inner>login_sure_exit1</span><br/>
+                        <span v-language:inner>login_sure_exit2</span><br/>
+                        <span v-language:inner>login_sure_exit3</span><br/>
+                        <span v-language:inner>login_sure_exit4</span>&nbsp;<b>
+                        <span v-language:inner>login_sure_exit5</span></b>
+                    </h1>
+                    <h1 v-else v-language:inner>login_are_you_sure_you_want_to_exit</h1>
+                    <p><span v-language:inner>login_exiting_information1</span><br/>
+                        <span v-language:inner>login_exiting_information2</span>
+                    </p>
+
+                    <v-btn  class="continue-registr"
+                            @click="goToResetPassword()">
+                        <span >Create password</span>
+                    </v-btn>
+                    <button class="continue-btn" @click="goToLogin()" >I have password</button>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
     </div>
 
     <!--!!!end terms and first screen-->
 </template>
 
 <script>
-    export default {
+    import stepTemplate from '../helpers/stepTemplate.vue'
+    import analyticsService from '../../../services/analytics.service';
+    import SbInput from "../../question/helpers/sbInput/sbInput.vue";
+    import { mapActions,  mapMutations } from 'vuex'
+    import registrationService from "../../../services/registrationService";
+    var auth2;
 
+    export default {
+        components: {stepTemplate, SbInput },
+
+        name: 'step_1',
+        data() {
+            return {
+                siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
+                agreeTerms: false,
+                agreeError: false,
+                loading: false,
+                passDialog: false,
+
+            }
+        },
+        props:{
+            isMobile: {
+                type: Boolean,
+                default: false
+            },
+            meta: {}
+        },
+        computed: {
+            confirmCheckbox(){
+                return !this.agreeTerms && this.agreeError
+            },
+        },
+        methods: {
+            ...mapMutations({updateLoading: "UPDATE_LOADING"}),
+            ...mapActions({updateToasterParams: 'updateToasterParams', updateCampaign: 'updateCampaign'}),
+            googleLogIn() {
+                if(!this.agreeTerms){
+                    return  this.agreeError = true;
+                }
+                var self = this;
+                self.updateLoading(true);
+                let authInstance = gapi.auth2.getAuthInstance();
+                authInstance.signIn().then(function (googleUser) {
+                    let idToken = googleUser.getAuthResponse().id_token;
+                    registrationService.googleRegistration(idToken)
+                        .then(function (resp) {
+                            self.updateLoading(false);
+                            let newUser = resp.data.isNew;
+                            if (newUser) {
+                                analyticsService.sb_unitedEvent('Registration', 'Start Google');
+                            } else {
+                                analyticsService.sb_unitedEvent('Login', 'Start Google');
+                            }
+                            let step = resp.data.step;
+                            // self.changeStepNumber(step);
+                            self.$parent.$emit('changeStep', step);
+
+                        }, function (error) {
+                            self.updateLoading(false);
+                            self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                            console.error(error);
+                        });
+                }, function (error) {
+                    self.updateLoading(false);
+                });
+            },
+            goToEmailLogin(){
+                if(!this.agreeTerms){
+                    return this.agreeError = true
+                }
+                this.passDialog = true;
+
+            },
+            goToLogin() {
+                this.passDialog = false;
+                this.$parent.$emit('changeStep', 'loginStep');
+
+            },
+        }
     }
 </script>
 
-<style >
+<style>
 
 </style>
