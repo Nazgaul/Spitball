@@ -61,12 +61,14 @@ namespace Cloudents.Core.CommandHandler
             await _answerRepository.AddAsync(answer, token).ConfigureAwait(false);
 
             var id = answer.Id;
-
-            if (answer.Created.Subtract(question.Created).Minutes < 5)
+            
+            var condition = Math.Max(System.DateTime.Now.Subtract(answer.Created).Minutes, 1);
+        
+            int FraudTime = 5; // 5 minutes min time before confirmation threshold 
+            if (condition < FraudTime)
             {
-                user.FraudScore += 5;
-                if (answer.Created.Subtract(question.Created).Minutes < 2)
-                    user.FraudScore += 10;
+                decimal factor = FraudTime / condition;
+                user.FraudScore += (int)factor*5;
                 await _userRepository.UpdateAsync(user, token);
             }
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
