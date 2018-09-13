@@ -220,7 +220,7 @@ router.beforeEach((to, from, next) => {
             }
         }
     }
-    if (window.innerWidth < 600) {
+    if (global.innerWidth < 600) {
         intercomSettings.hide_default_launcher = true;
     }
     else {
