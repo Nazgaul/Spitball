@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Cloudents.Core;
 
 namespace Cloudents.Web.Controllers
 {
