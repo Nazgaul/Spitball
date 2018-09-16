@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
+using System.Collections.Generic;
 
 namespace Cloudents.Web.Models
 {
@@ -20,19 +20,6 @@ namespace Cloudents.Web.Models
         public long Id { get; set; }
     }
 
-
-    public class ReturnSignUserResponse
-    {
-        public ReturnSignUserResponse(NextStep step, bool isNew)
-        {
-            Step = step;
-            IsNew = isNew;
-        }
-
-        public NextStep Step { get; set; }
-        public bool IsNew { get; set; }
-
-    }
 
     public class CallingCallResponse
     {

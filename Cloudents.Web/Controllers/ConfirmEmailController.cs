@@ -1,13 +1,13 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Api;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Controllers
 {
@@ -34,6 +34,11 @@ namespace Cloudents.Web.Controllers
             {
                 return RedirectToAction(nameof(Index), "Home");
             }
+
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction(nameof(Index), "Home");
+            }
             model.Code = System.Net.WebUtility.UrlDecode(model.Code);
             var user = await _userManager.FindByIdAsync(model.Id.ToString()).ConfigureAwait(false);
             if (user == null)
@@ -41,14 +46,13 @@ namespace Cloudents.Web.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{model.Id}'.");
             }
 
+            if (user.PhoneNumberConfirmed)
+            {
+                return RedirectToRoute(RegisterController.Signin);
+            }
             if (user.EmailConfirmed)
             {
-                return RedirectToRoute(RegisterController.RegisterRouteName,
-               new
-               {
-                   step = NextStep.EnterPhone,
-                   returnUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl : null
-               });
+                return await GoToStep(user, NextStep.EnterPhone, false, model.ReturnUrl);
             }
             var result = await _userManager.ConfirmEmailAsync(user, model.Code).ConfigureAwait(false);
             if (!result.Succeeded)
@@ -57,17 +61,16 @@ namespace Cloudents.Web.Controllers
                 return RedirectToRoute(RegisterController.RegisterRouteName, new { step = "expiredStep" });
             }
             TempData.Remove(SignUserController.Email);
-            
-          
-            await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
 
+
+            return await GoToStep(user, NextStep.EnterPhone, true, model.ReturnUrl);
+        }
+
+        private async Task<RedirectToRouteResult> GoToStep(User user, NextStep step, bool isNew, string returnUrl)
+        {
+            await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
             return RedirectToRoute(RegisterController.RegisterRouteName,
-                new
-                {
-                    step = NextStep.EnterPhone,
-                    newUser = true,
-                    returnUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl : null
-                });
+                new ReturnSignUserResponse(step, isNew, Url.IsLocalUrl(returnUrl) ? returnUrl : null));
         }
     }
 }
