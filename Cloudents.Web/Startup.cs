@@ -270,7 +270,7 @@ namespace Cloudents.Web
             });
 
             app.UseWebMarkupMin();
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.IsStaging())
             {
                 app.UseSwagger();
                 // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
