@@ -73,7 +73,7 @@ namespace Cloudents.Web
             services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
             services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
 
-            services.AddLocalization(/*x => x.ResourcesPath = "Resources"*/);
+            services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddDataProtection(o =>
             {
                 o.ApplicationDiscriminator = "spitball";

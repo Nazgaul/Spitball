@@ -46,6 +46,7 @@ namespace Cloudents.Web.Controllers
                 //var base62 = new Base62(referral);
                 TempData[Referral] = referral;
             }
+
             if (env.IsDevelopment())
             {
                 return View();
