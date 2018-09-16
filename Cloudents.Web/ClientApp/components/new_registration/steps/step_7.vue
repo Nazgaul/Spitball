@@ -8,10 +8,7 @@
                 </div>
             </div>
             <div slot="step-data" class="limited-width">
-                <h1 v-if="!isMobile" class="step-title" v-language:inner>login_welcome_back
-                    <!--<br/>-->
-                    <!--<span v-language:inner> login_please_login</span>-->
-                </h1>
+                <h1 v-if="!isMobile" class="step-title" v-language:inner>login_welcome_back</h1>
                 <!--<h1 v-if="!isMobile" class="step-title" v-language:inner>login_please_login</h1>-->
                 <!--<p v-if="!isMobile" class="inline" v-language:inner>login_please_login</p>-->
                 <form @submit.prevent="submit">
