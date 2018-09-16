@@ -144,7 +144,6 @@ export default {
             this.changeStepNumber('emailpassword');
 
         },
-
         $_back() {
             let url = this.fromPath || {path: '/ask', query: {q: ''}};
             this.$router.push({path: `${url.path }`});
@@ -183,6 +182,7 @@ export default {
                 this.camefromCreate = true
             }
         });
+
         let path = this.$route.path.toLowerCase();
         //check if returnUrl exists
         if (!!this.$route.query.returnUrl) {
@@ -197,8 +197,6 @@ export default {
             this.passResetCode = this.$route.query['code'] ? this.$route.query['code'] : '';
             this.ID = this.$route.query['Id'] ?  this.$route.query['Id'] : '';
             this.changeStepNumber('createpassword');
-            console.log('reset password reached1111', this.$route.query )
-
         }
         registrationService.getLocalCode().then(({data}) => {
             this.phone.countryCode = data.code;

@@ -48,7 +48,6 @@
                 type: Boolean,
                 default: false
             },
-
             meta: {},
             lastActiveRoute: '',
             userEmail: "",
