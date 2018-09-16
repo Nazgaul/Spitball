@@ -49,16 +49,19 @@ namespace Cloudents.Web.Api
 
             if (result.IsLockedOut)
             {
+                //TODO: Localize
                 ModelState.AddModelError(string.Empty, "user is locked out");
                 return BadRequest(ModelState);
             }
 
             if (result.IsNotAllowed)
             {
+                //TODO: Localize
                 ModelState.AddModelError(string.Empty, "user is not allowed");
                 return BadRequest(ModelState);
 
             }
+            //TODO: Localize
             ModelState.AddModelError("email of password are incorrect");
             return BadRequest(ModelState);
 

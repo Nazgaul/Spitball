@@ -65,6 +65,7 @@ namespace Cloudents.Web.Api
             var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
             if (user == null)
             {
+                //TODO: Localize
                 ModelState.AddModelError(string.Empty, "no user");
                 return BadRequest(ModelState);
             }
@@ -90,6 +91,7 @@ namespace Cloudents.Web.Api
 
                 return Ok();
             }
+            //TODO: Localize
             ModelState.AddIdentityModelError(result);
             return BadRequest(ModelState);
         }

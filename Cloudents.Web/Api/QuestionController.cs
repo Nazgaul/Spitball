@@ -50,6 +50,7 @@ namespace Cloudents.Web.Api
             }
             catch (InvalidOperationException)
             {
+                //TODO: Localize
                 ModelState.AddModelError(string.Empty, "You need to wait before asking a new question");
                 return BadRequest(ModelState);
             }

@@ -68,7 +68,7 @@ namespace Cloudents.Web.Api
                     await Task.WhenAll(t1, t2);
                     return new ReturnSignUserResponse(NextStep.VerifyPhone, false);
                 }
-
+                //TODO: Localize
                 ModelState.AddModelError("user already exists");
                 return BadRequest(ModelState);
             }
@@ -94,6 +94,7 @@ namespace Cloudents.Web.Api
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
             if (result == null)
             {
+                //TODO: Localize
                 ModelState.AddModelError(string.Empty, "No result from google");
                 return BadRequest(ModelState);
             }
@@ -112,6 +113,7 @@ namespace Cloudents.Web.Api
             }
             if (result2.IsLockedOut)
             {
+                //TODO: Localize
                 ModelState.AddModelError("User is locked out");
                 return BadRequest(ModelState);
                 
@@ -127,6 +129,7 @@ namespace Cloudents.Web.Api
                 await _signInManager.SignInTwoFactorAsync(user, true).ConfigureAwait(false);
                 return new ReturnSignUserResponse(NextStep.EnterPhone, false);
             }
+            //TODO: Localize
             ModelState.AddModelError("User email is already registered");
             return BadRequest();
         }
@@ -173,6 +176,7 @@ namespace Cloudents.Web.Api
             var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
             if (user == null)
             {
+                //TODO: Localize
                 ModelState.AddModelError(string.Empty, "no user");
                 return BadRequest(ModelState);
             }

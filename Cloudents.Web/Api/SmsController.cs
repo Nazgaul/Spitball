@@ -68,6 +68,7 @@ namespace Cloudents.Web.Api
             var phoneNumber = await _client.ValidateNumberAsync(model.ToString(), token).ConfigureAwait(false);
             if (string.IsNullOrEmpty(phoneNumber))
             {
+                //TODO: Localize
                 ModelState.AddModelError(string.Empty, "Invalid phone number");
                 return BadRequest(ModelState);
             }
@@ -92,6 +93,7 @@ namespace Cloudents.Web.Api
 
             if (retVal.Errors.Any(a => a.Code == "Duplicate"))
             {
+                //TODO: Localize
                 ModelState.AddModelError(string.Empty, "This phone number is linked to another email address");
             }
             else
@@ -146,6 +148,7 @@ namespace Cloudents.Web.Api
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {
+                //TODO: Localize
                 ModelState.AddModelError(string.Empty, "We cannot resend email");
                 return BadRequest(ModelState);
             }

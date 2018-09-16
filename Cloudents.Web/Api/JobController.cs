@@ -49,7 +49,7 @@ namespace Cloudents.Web.Api
             {
                 nextPageLink = Url.NextPageLink("Job", model);
             }
-            return new WebResponseWithFacet<JobDto>()
+            return new WebResponseWithFacet<JobDto>
             {
                 Result = result.Result,
                 Filters = new []
