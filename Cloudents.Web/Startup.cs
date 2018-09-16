@@ -86,6 +86,11 @@ namespace Cloudents.Web
             //});
 
             services.AddWebMarkupMin().AddHtmlMinification();
+            services.AddRouting(o =>
+            {
+                o.LowercaseUrls = true;
+                o.AppendTrailingSlash = true;
+            });
             services.AddMvc()
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix, o =>
                 {
@@ -105,8 +110,12 @@ namespace Cloudents.Web
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-            }).AddMvcOptions(o =>
+            })
+                
+                .AddMvcOptions(o =>
                 {
+                    //TODO: check in source code
+                   // o.SuppressBindingUndefinedValueToEnumType
                     o.Filters.Add(new GlobalExceptionFilter());
                     o.Filters.Add(new ResponseCacheAttribute
                     {
@@ -119,6 +128,7 @@ namespace Cloudents.Web
             {
                 SwaggerInitial(services);
             }
+            
             services.AddSignalR().AddRedis(Configuration["Redis"]).AddJsonProtocol(o =>
                 {
                     o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
