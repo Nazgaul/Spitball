@@ -69,9 +69,7 @@
                 loading: false,
                 userEmail: "",
                 recaptcha: '',
-
             }
-
         },
         props: {
             isMobile: {
@@ -84,6 +82,7 @@
             },
             meta: {
             },
+            toUrl: '',
             lastActiveRoute: '',
         },
         methods: {
@@ -103,9 +102,9 @@
 
                         // self.$parent.$emit('updateEmail', self.userEmail);
                         global.isAuth = true;
-                        let url = this.toUrl || defaultSubmitRoute;
+                        let url = self.toUrl || defaultSubmitRoute;
                         //will be always ask cause he came from email
-                        this.$router.push({path: `${url.path }`});
+                        self.$router.push({path: `${url.path }`});
                     }, function (reason) {
                         self.$refs.recaptcha.reset();
                         self.loading = false;
