@@ -22,7 +22,7 @@ namespace Cloudents.Web.Api
     public class SignUserController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly SbSignInManager _signInManager;
+        //private readonly SbSignInManager _signInManager;
         private readonly ISmsSender _smsClient;
         private readonly IBlockChainErc20Service _blockChainErc20Service;
         private readonly IServiceBusProvider _queueProvider;
@@ -30,12 +30,12 @@ namespace Cloudents.Web.Api
 
 
 
-        public SignUserController(UserManager<User> userManager, SbSignInManager signInManager, ISmsSender smsClient,
+        public SignUserController(UserManager<User> userManager, /*SbSignInManager signInManager,*/ ISmsSender smsClient,
             IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider
             )
         {
             _userManager = userManager;
-            _signInManager = signInManager;
+            //_signInManager = signInManager;
             _smsClient = smsClient;
             _blockChainErc20Service = blockChainErc20Service;
             _queueProvider = queueProvider;
@@ -43,63 +43,63 @@ namespace Cloudents.Web.Api
 
 
 
-        [HttpPost, ValidateRecaptcha, ValidateEmail]
-        public async Task<ActionResult<ReturnSignUserResponse>> SignUser([FromBody]SignUserRequest model,
-           [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                ModelState.AddModelError(string.Empty, "user is already logged in");
-                return BadRequest(ModelState);
-            }
+        //[HttpPost, ValidateRecaptcha, ValidateEmail]
+        //public async Task<ActionResult<ReturnSignUserResponse>> SignUser([FromBody]SignUserRequest model,
+        //   [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        ModelState.AddModelError(string.Empty, "user is already logged in");
+        //        return BadRequest(ModelState);
+        //    }
 
-            var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
-            if (user == null)
-            {
-                user = CreateUser(model.Email, model.Name);
-                user.EmailConfirmed = model.EmailConfirmed;
+        //    var user = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
+        //    if (user == null)
+        //    {
+        //        user = CreateUser(model.Email, model.Name);
+        //        user.EmailConfirmed = model.EmailConfirmed;
 
-                var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
-                if (p.Succeeded)
-                {
-                    if (!user.EmailConfirmed)
-                    {
-                        await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
-                        return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
+        //        var p = await _userManager.CreateAsync(user).ConfigureAwait(false);
+        //        if (p.Succeeded)
+        //        {
+        //            if (!user.EmailConfirmed)
+        //            {
+        //                await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
+        //                return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
 
-                    }
-                    await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
-                    return new ReturnSignUserResponse(NextStep.EnterPhone, true);
+        //            }
+        //            await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+        //            return new ReturnSignUserResponse(NextStep.EnterPhone, true);
 
-                }
-                ModelState.AddIdentityModelError(p);
-                return BadRequest(ModelState);
-            }
-            if (!user.EmailConfirmed)
-            {
-                await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
-                return new ReturnSignUserResponse(NextStep.EmailConfirmed, false);
-            }
+        //        }
+        //        ModelState.AddIdentityModelError(p);
+        //        return BadRequest(ModelState);
+        //    }
+        //    if (!user.EmailConfirmed)
+        //    {
+        //        await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
+        //        return new ReturnSignUserResponse(NextStep.EmailConfirmed, false);
+        //    }
 
-            if (!user.PhoneNumberConfirmed)
-            {
-                await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
-                return new ReturnSignUserResponse(NextStep.EnterPhone, false);
-            }
-            var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
-            var taskSms = _smsClient.SendSmsAsync(user, token);
+        //    if (!user.PhoneNumberConfirmed)
+        //    {
+        //        await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+        //        return new ReturnSignUserResponse(NextStep.EnterPhone, false);
+        //    }
+        //    var taskSignIn = _signInManager.SignInTwoFactorAsync(user, false);
+        //    var taskSms = _smsClient.SendSmsAsync(user, token);
 
 
-            TempData["SMS"] = user.Email;
-            await Task.WhenAll(taskSms, taskSignIn).ConfigureAwait(false);
+        //    TempData["SMS"] = user.Email;
+        //    await Task.WhenAll(taskSms, taskSignIn).ConfigureAwait(false);
 
-            if (taskSignIn.Result.RequiresTwoFactor)
-            {
-                return new ReturnSignUserResponse(NextStep.VerifyPhone, false);
-            }
-            ModelState.AddModelError(string.Empty, taskSignIn.Result.ToString());
-            return BadRequest(ModelState);
-        }
+        //    if (taskSignIn.Result.RequiresTwoFactor)
+        //    {
+        //        return new ReturnSignUserResponse(NextStep.VerifyPhone, false);
+        //    }
+        //    ModelState.AddModelError(string.Empty, taskSignIn.Result.ToString());
+        //    return BadRequest(ModelState);
+        //}
 
 
         private async Task GenerateEmailAsync(User user,[CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
@@ -117,21 +117,21 @@ namespace Cloudents.Web.Api
             await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
         }
 
-        [HttpPost("google")]
-        public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync([FromBody] GoogleTokenRequest model,
-            ReturnUrlRequest returnUrl,
-            [FromServices] IGoogleAuth service,
-            CancellationToken cancellationToken)
-        {
-            var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
-            if (result == null)
-            {
-                ModelState.AddModelError(string.Empty, "No result from google");
-                return BadRequest(ModelState);
-            }
+        //[HttpPost("google")]
+        //public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync([FromBody] GoogleTokenRequest model,
+        //    ReturnUrlRequest returnUrl,
+        //    [FromServices] IGoogleAuth service,
+        //    CancellationToken cancellationToken)
+        //{
+        //    var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
+        //    if (result == null)
+        //    {
+        //        ModelState.AddModelError(string.Empty, "No result from google");
+        //        return BadRequest(ModelState);
+        //    }
 
-            return await SignUser(new SignUserRequest(result.Email, true, result.Name), returnUrl, cancellationToken).ConfigureAwait(false);
-        }
+        //    return await SignUser(new SignUserRequest(result.Email, true, result.Name), returnUrl, cancellationToken).ConfigureAwait(false);
+        //}
 
         private User CreateUser(string email, string name)
         {

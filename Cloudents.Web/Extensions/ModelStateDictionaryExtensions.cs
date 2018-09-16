@@ -12,5 +12,13 @@ namespace Cloudents.Web.Extensions
                 model.AddModelError(string.Empty, error.Description);
             }
         }
+
+
+        public static void AddModelError(this ModelStateDictionary model, string error)
+        {
+
+            model.AddModelError(string.Empty, error);
+
+        }
     }
 }

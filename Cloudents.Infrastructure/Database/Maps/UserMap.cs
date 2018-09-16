@@ -22,10 +22,17 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.Image).Nullable();
             Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
+            //Map(e => e.CountryCodePhone);
+            //Map(e => e.CountryNameIp);
 
             Map(e => e.Created).Insert().Not.Update();
             Map(e => e.Fictive).ReadOnly();
             Map(e => e.FraudScore);
+
+            Map(e => e.PasswordHash).Nullable();
+            Map(e => e.LockoutEnd).Nullable();
+            Map(e => e.AccessFailedCount);
+            Map(e => e.LockoutEnabled);
 
             References(x => x.University).ForeignKey("User_University").Nullable();
             Map(x => x.Balance).CustomSqlType("smallmoney");
@@ -47,12 +54,26 @@ namespace Cloudents.Infrastructure.Database.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
-            Cache.ReadWrite().Region("nHibernate-User");
+            HasMany(x => x.UserLogins)
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
+
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull
                ON sb.[User](PhoneNumberHash)
                WHERE PhoneNumberHash IS NOT NULL;
              */
+        }
+    }
+
+    [UsedImplicitly]
+    internal class UserLoginsMap : SpitballClassMap<UserLogin>
+    {
+        public UserLoginsMap()
+        {
+            CompositeId().KeyProperty(x => x.LoginProvider).KeyProperty(x => x.ProviderKey);
+            Map(x => x.ProviderDisplayName).Nullable();
+            References(x => x.User).Column("UserId").ForeignKey("UserLogin_User");
         }
     }
 }

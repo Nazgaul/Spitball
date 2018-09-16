@@ -162,4 +162,7 @@
   <data name="terms_of_service" xml:space="preserve">
     <value>Terms of Service</value>
   </data>
+  <data name="referral_spitball" xml:space="preserve">
+    <value>Referral</value>
+  </data>
 </root>

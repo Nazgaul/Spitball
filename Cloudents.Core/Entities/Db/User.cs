@@ -19,12 +19,14 @@ namespace Cloudents.Core.Entities.Db
             UserCreateTransaction();
             Created = DateTime.UtcNow;
             Fictive = false;
+
         }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected User()
         {
             Transactions = new List<Transaction>();
+            UserLogins = new List<UserLogin>();
         }
 
         public virtual long Id { get; set; }
@@ -66,7 +68,7 @@ namespace Cloudents.Core.Entities.Db
         }
 
 
-        public virtual void UserCreateTransaction()
+        protected virtual void UserCreateTransaction()
         {
             var t = Transaction.UserCreate();
             //new Transaction(ActionType.SignUp, TransactionType.Awarded, InitialBalance);
@@ -79,6 +81,12 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Transaction> Transactions { get; set; }
         protected internal virtual IList<Question> Questions { get; set; }
         protected internal virtual IList<Answer> Answers { get; set; }
+        protected internal virtual IList<UserLogin> UserLogins { get; set; }
+
+        public virtual void AddLogin(string loginProvider, string providerKey, string providerDisplayName)
+        {
+            UserLogins.Add(new UserLogin(loginProvider, providerKey, providerDisplayName, this));
+        }
 
         public virtual DateTime Created { get; set; }
 
@@ -88,5 +96,50 @@ namespace Cloudents.Core.Entities.Db
         }
 
         public virtual bool Fictive { get; set; }
+
+        public virtual string PasswordHash { get; set; }
+        public virtual DateTimeOffset? LockoutEnd { get; set; }
+
+        public virtual int AccessFailedCount { get; set; }
+
+        public virtual bool LockoutEnabled { get; set; }
+
+    }
+
+    public class UserLogin
+    {
+        public UserLogin(string loginProvider, string providerKey, string providerDisplayName, User user)
+        {
+            LoginProvider = loginProvider;
+            ProviderKey = providerKey;
+            ProviderDisplayName = providerDisplayName;
+            User = user;
+        }
+        protected UserLogin()
+        {
+
+        }
+
+
+        public virtual string LoginProvider { get; set; }
+        public virtual string ProviderKey { get; set; }
+        public virtual string ProviderDisplayName { get; set; }
+        public virtual User User { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var login = obj as UserLogin;
+            return login != null &&
+                   LoginProvider == login.LoginProvider &&
+                   ProviderKey == login.ProviderKey;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1582216818;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LoginProvider);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ProviderKey);
+            return hashCode;
+        }
     }
 }

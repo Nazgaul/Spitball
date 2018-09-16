@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Identity
 {
@@ -43,8 +43,35 @@ namespace Cloudents.Web.Identity
             return signInResult;
         }
 
+        //public async Task TempSignIn(User user)
+        //{
+        //   this.GetTwoFactorAuthenticationUserAsync()
+        //    var userId = await UserManager.GetUserIdAsync(user);
+        //    await Context.SignInAsync(IdentityConstants.TwoFactorUserIdScheme, StoreTwoFactorInfo(userId, loginProvider));
+        //}
+
+        //protected override Task<SignInResult> SignInOrTwoFactorAsync(User user, bool isPersistent, string loginProvider = null, bool bypassTwoFactor = true)
+        //{
+        //    return base.SignInOrTwoFactorAsync(user, isPersistent, loginProvider, bypassTwoFactor);
+        //}
+
         public SbSignInManager(UserManager<User> userManager, IHttpContextAccessor contextAccessor, IUserClaimsPrincipalFactory<User> claimsFactory, IOptions<IdentityOptions> optionsAccessor, ILogger<SignInManager<User>> logger, IAuthenticationSchemeProvider schemes) : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)
         {
         }
+
+
+        /*public virtual async Task<SignInResult> PasswordSignInAsync(TUser user, string password,
+            bool isPersistent, bool lockoutOnFailure)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            var attempt = await CheckPasswordSignInAsync(user, password, lockoutOnFailure);
+            return attempt.Succeeded
+                ? await SignInOrTwoFactorAsync(user, isPersistent)
+                : attempt;
+        }*/
     }
 }
