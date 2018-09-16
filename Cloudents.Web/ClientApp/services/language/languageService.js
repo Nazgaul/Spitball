@@ -7,7 +7,10 @@ import { connectivityModule } from "../connectivity.module";
 
 export const LanguageService = {
     getValueByKey: (key) => {
+        if(!key) return key;
+        
         if(!global.dictionary[key]){
+            console.error("dictionary couldnot find key: " + key);
             return `###${key}`;
         }
         return global.dictionary[key];

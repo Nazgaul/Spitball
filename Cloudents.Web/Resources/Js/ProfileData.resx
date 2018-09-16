@@ -309,4 +309,7 @@
   <data name="makeMoneyProfile_register_stepTwo_text" xml:space="preserve">
     <value>We need to know how to contact you</value>
   </data>
+  <data name="makeMoneyProfile_register_stepOne_heading" xml:space="preserve">
+    <value>Make money\n while helping\n others with \n their homework.</value>
+  </data>
 </root>
