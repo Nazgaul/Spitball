@@ -22,9 +22,9 @@ const errorHandler = function(err){
     analyticsService.sb_fireTimingAnalytic(this.requestMethod, this.path, endTime - this.startTime, "ERROR")
     
     if(err.response.status === 401){
-        window.location = '/signin';
+        global.location = '/signin';
     }else if(err.response.status === 404){
-        window.location = '/error/notfound';
+        global.location = '/error/notfound';
     }else{
         return Promise.reject(err);
     }
