@@ -9,15 +9,10 @@ namespace Cloudents.Core.DTOs.Admin
         public string UserEmail { get; set; }
         public DateTime CashOutTime { get; set; }
         public int? FraudScore { get; set; }
-        public decimal userQueryRatio { get; set; }
+        public decimal UserQueryRatio { get; set; }
         //public static decimal AvgFraudScore { get; set; }
 
 
-        public bool IsSuspect { get
-            {
-                return FraudScore > 20 || userQueryRatio < 0.2M;
-            }
-        }
-
+        public bool IsSuspect => FraudScore > 20 || UserQueryRatio < 0.2M;
     }
 }

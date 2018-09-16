@@ -13,14 +13,15 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]"),ApiController]
-    public class ForgotPasswordController : ControllerBase
+    public class ForgotPasswordController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IServiceBusProvider _queueProvider;
+        private const string EmailTempDictionaryKey = "EmailForgotPassword";
 
-
-        public ForgotPasswordController(UserManager<User> userManager, SignInManager<User> signInManager, IServiceBusProvider queueProvider)
+        public ForgotPasswordController(UserManager<User> userManager, SignInManager<User> signInManager, 
+            IServiceBusProvider queueProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -37,18 +38,45 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
 
+            await GenerateEmailAsync(user, token);
+            return Ok();
+        }
+
+        private async Task GenerateEmailAsync(User user, CancellationToken token)
+        {
+            TempData[EmailTempDictionaryKey] = user.Email;
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
             code = UrlEncoder.Default.Encode(code);
-            var link = Url.Link("ResetPassword", new { user.Id, code });
-            var message = new ResetPasswordEmail(user.Email, link);
+            var link = Url.Link("ResetPassword", new {user.Id, code});
+            var message = new ResetPasswordEmail(user.Email, HtmlEncoder.Default.Encode(link));
             await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
+        }
+
+        [HttpPost("resend")]
+        public async Task<IActionResult> ResendEmailAsync(
+            CancellationToken token)
+        {
+
+            var email = TempData[EmailTempDictionaryKey];
+            if (email == null)
+            {
+                return BadRequest();
+            }
+            var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "no user");
+                return BadRequest(ModelState);
+            }
+
+            await GenerateEmailAsync(user,token ).ConfigureAwait(false);
             return Ok();
         }
 
         [HttpPost("reset")]
         public async Task<IActionResult> ResetPassword(ResetPasswordRequest model, CancellationToken token)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _userManager.FindByIdAsync(model.Id);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
@@ -58,7 +86,7 @@ namespace Cloudents.Web.Api
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
-                var result2 = await _signInManager.PasswordSignInAsync(user, model.Password, false, true);
+               /* var result2 =*/ await _signInManager.PasswordSignInAsync(user, model.Password, false, true);
 
                 return Ok();
             }

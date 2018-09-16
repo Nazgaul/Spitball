@@ -53,7 +53,7 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-
+            var b = new Base62(18875);
 
 
 

@@ -7,7 +7,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Database.Query;
 using Cloudents.Infrastructure.Database.Repositories;
 using JetBrains.Annotations;
-using NHibernate;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure.Database

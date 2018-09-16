@@ -1,6 +1,5 @@
 ﻿using System.Runtime.Serialization;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.Entities.Search;
 
 namespace Cloudents.Core.DTOs
 {

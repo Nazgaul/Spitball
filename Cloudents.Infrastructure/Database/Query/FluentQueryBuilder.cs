@@ -148,7 +148,7 @@ namespace Cloudents.Infrastructure.Database.Query
         public string ColumnAlias<T>(Expression<Func<T, object>> expression)
         {
             var tableAlias = GetAlias<T>();
-            return Column<T>(tableAlias, expression);
+            return Column(tableAlias, expression);
         }
 
         public string Column<T>(string tableAlias, Expression<Func<T, object>> expression)

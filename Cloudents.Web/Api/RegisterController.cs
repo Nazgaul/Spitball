@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Filters;
+using Cloudents.Web.Identity;
+using Cloudents.Web.Services;
 using JetBrains.Annotations;
 
 namespace Cloudents.Web.Api
@@ -19,18 +21,22 @@ namespace Cloudents.Web.Api
     public class RegisterController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly SbSignInManager _signInManager;
+
         private readonly IBlockChainErc20Service _blockChainErc20Service;
         private readonly IServiceBusProvider _queueProvider;
+        private readonly ISmsSender _client;
+
         internal const string Email = "email2";
 
 
-        public RegisterController(UserManager<User> userManager, SignInManager<User> signInManager, IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider)
+        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager, IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider, ISmsSender client)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _blockChainErc20Service = blockChainErc20Service;
             _queueProvider = queueProvider;
+            _client = client;
         }
 
         [HttpPost, ValidateRecaptcha, ValidateEmail]
@@ -47,11 +53,21 @@ namespace Cloudents.Web.Api
                     await GenerateEmailAsync(user, returnUrl, token).ConfigureAwait(false);
                     return new ReturnSignUserResponse(NextStep.EmailConfirmed, false);
                 }
-                //if (!user.PhoneNumberConfirmed)
-                //{
-                //    await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
-                //    return new ReturnSignUserResponse(NextStep.EnterPhone, false);
-                //}
+
+                if (string.IsNullOrEmpty(user.PhoneNumber))
+                {
+                    await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+                    return new ReturnSignUserResponse(NextStep.EnterPhone, false);
+
+                }
+                if (!user.PhoneNumberConfirmed)
+                {
+                    var t1 =  _signInManager.SignInTwoFactorAsync(user, false);
+                    var t2 =  _client.SendSmsAsync(user, token);
+
+                    await Task.WhenAll(t1, t2);
+                    return new ReturnSignUserResponse(NextStep.VerifyPhone, false);
+                }
 
                 ModelState.AddModelError("user already exists");
                 return BadRequest(ModelState);
@@ -94,26 +110,25 @@ namespace Cloudents.Web.Api
                 // Update any authentication tokens if login succeeded
                 return Ok();
             }
-            //if (result2.RequiresTwoFactor)
-            //{
-            //    return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl });
-            //}
             if (result2.IsLockedOut)
             {
-                return BadRequest();
+                ModelState.AddModelError("User is locked out");
+                return BadRequest(ModelState);
                 
             }
-
             var user = CreateUser(result.Email, result.Name);
+            user.EmailConfirmed = true;
+
             var result3 = await _userManager.CreateAsync(user);
 
             if (result3.Succeeded)
             {
                 await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                //await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
+                await _signInManager.SignInTwoFactorAsync(user, true).ConfigureAwait(false);
+                return new ReturnSignUserResponse(NextStep.EnterPhone, false);
             }
-            //var result2 = await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-            return Ok();
+            ModelState.AddModelError("User email is already registered");
+            return BadRequest();
         }
 
 

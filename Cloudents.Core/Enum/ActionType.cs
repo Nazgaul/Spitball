@@ -7,6 +7,7 @@
         Question,
         DeleteQuestion,
         AnswerCorrect,
-        CashOut
+        CashOut,
+        ReferringUser
     }
 }

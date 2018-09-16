@@ -7,7 +7,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.EventHandler;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
-using Cloudents.Infrastructure.Database.Repositories;
 using NHibernate;
 using NHibernate.Criterion;
 using System.Diagnostics.CodeAnalysis;
