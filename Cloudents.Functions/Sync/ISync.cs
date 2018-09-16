@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Search;
+﻿using System.Threading.Tasks;
 using Cloudents.Core.Query;
 
 namespace Cloudents.Functions.Sync

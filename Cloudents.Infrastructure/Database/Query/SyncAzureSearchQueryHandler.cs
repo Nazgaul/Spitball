@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Query;
-using Cloudents.Infrastructure.Data;
 using NHibernate;
 using System.Collections.Generic;
 using System.Linq;

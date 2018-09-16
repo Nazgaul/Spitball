@@ -11,7 +11,6 @@ using Cloudents.Core.Query;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using NHibernate.Exceptions;
-using PhoneNumbers;
 
 namespace Cloudents.Web.Identity
 {

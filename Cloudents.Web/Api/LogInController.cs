@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
-using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
@@ -15,13 +14,11 @@ namespace Cloudents.Web.Api
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly ISmsSender _smsClient;
 
-        public LogInController(UserManager<User> userManager, SignInManager<User> signInManager, ISmsSender smsClient)
+        public LogInController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _smsClient = smsClient;
         }
 
         // GET

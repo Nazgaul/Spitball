@@ -137,7 +137,7 @@ namespace Cloudents.Web.Api
             // var result = await queryBus.QueryAsync(query, token).ConfigureAwait(false);
             //var p = result.ToList();
             string nextPageLink = null;
-            if (result.Any() == true)
+            if (result.Any())
             {
                 nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }

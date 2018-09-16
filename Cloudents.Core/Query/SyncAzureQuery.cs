@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
 

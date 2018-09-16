@@ -105,9 +105,6 @@ namespace Cloudents.Web.Api
             //var countryCode = numberProto.CountryCode;
             var t = phoneUtil.GetRegionCodeForCountryCode(phoneNumber.CountryCode);
             return t.Equals(location.Address.CountryCode, StringComparison.OrdinalIgnoreCase);
-            {
-               // user.FraudScore += 50;
-            }
         }
 
         [HttpPost("verify")]

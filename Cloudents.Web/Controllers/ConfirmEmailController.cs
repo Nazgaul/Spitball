@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
-using Cloudents.Web.Api;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
@@ -60,7 +59,7 @@ namespace Cloudents.Web.Controllers
                 _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
                 return RedirectToRoute(RegisterController.RegisterRouteName, new { step = "expiredStep" });
             }
-            TempData.Remove(SignUserController.Email);
+            TempData.Remove(Api.RegisterController.Email);
 
 
             return await GoToStep(user, NextStep.EnterPhone, true, model.ReturnUrl);

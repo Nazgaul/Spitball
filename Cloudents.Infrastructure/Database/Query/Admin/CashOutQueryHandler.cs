@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs.Admin;
+﻿using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
 using NHibernate;
 using NHibernate.Linq;
-using System;
 using NHibernate.Transform;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
@@ -18,19 +18,19 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
     {
         private readonly ISession _session;
 
-        class firstQuery
+        private class FirstQuery
         {
-            public long userId { get; set; }
-            public decimal userQueryRatio { get; set; }
+            public long UserId { get; set; }
+            public decimal UserQueryRatio { get; set; }
         }
 
-        public class secoundQuery
+        private class SecondQuery
         {
-            public long userId { get; set; }
-            public string email { get; set; }
-            public decimal price { get; set; }
-            public DateTime created { get; set; }
-            public int? fraudScore { get; set; }
+            public long UserId { get; set; }
+            public string Email { get; set; }
+            public decimal Price { get; set; }
+            public DateTime Created { get; set; }
+            public int? FraudScore { get; set; }
         }
 
         public CashOutQueryHandler(ReadonlySession session)
@@ -40,9 +40,9 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
 
         public async Task<IEnumerable<CashOutDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
-            
+
             TimeSpan twoWeeks = new TimeSpan(14, 0, 0, 0);
-          
+
             var sqlQuery = _session.CreateSQLQuery(@"select A.UserId as UserId
                                                         ,cast(count(distinct Q.UserId) as decimal) / count(distinct Q.id) as userQueryRatio 
                                                     from sb.[Transaction] T1 
@@ -54,56 +54,49 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                                                     group by A.UserId, T1.Created 
                                                     order by T1.Created desc"
                                                     )
-            .SetResultTransformer(Transformers.AliasToBean<firstQuery>())
-            .Future<firstQuery>();
+            .SetResultTransformer(Transformers.AliasToBean<FirstQuery>())
+            .Future<FirstQuery>();
 
-           
+
 
             var futureDto = _session.Query<Transaction>()
                 .Fetch(f => f.User)
                 .Where(w => w.Action == ActionType.CashOut)
                 .Where(w => w.Created > DateTime.Now - twoWeeks)
-                .Select(s => new secoundQuery
+                .Select(s => new SecondQuery
                 {
-                    userId = s.User.Id,
-                    email = s.User.Email,
-                    price = s.Price,
-                    created = s.Created,
-                    fraudScore = s.User.FraudScore
+                    UserId = s.User.Id,
+                    Email = s.User.Email,
+                    Price = s.Price,
+                    Created = s.Created,
+                    FraudScore = s.User.FraudScore
                 })
 
-               .OrderByDescending(o => o.created)
+               .OrderByDescending(o => o.Created)
                .ToFuture();
 
 
 
-            var z = await futureDto.GetEnumerableAsync();
-            var t = sqlQuery.GetEnumerable();
+            var z = (await futureDto.GetEnumerableAsync(token)).ToArray();
+            var t = sqlQuery.GetEnumerable().ToArray();
             var tempRes = new List<CashOutDto>();
 
-            for (int i = 0; i < t.Count(); i++)
+            for (var i = 0; i < t.Length; i++)
             {
-                try
-                {
-                    var index = z.ElementAt(i);
-                    var tindex = t.ElementAt(i);
-                
+                var index = z.ElementAt(i);
+                var tIndex = t.ElementAt(i);
+
                 tempRes.Add(new CashOutDto
                 {
 
-                    UserId = index.userId,
-                    UserEmail = index.email,
-                    CashOutPrice = index.price,
-                    CashOutTime = index.created,
-                    FraudScore = index.fraudScore,
-                    userQueryRatio = tindex.userQueryRatio
+                    UserId = index.UserId,
+                    UserEmail = index.Email,
+                    CashOutPrice = index.Price,
+                    CashOutTime = index.Created,
+                    FraudScore = index.FraudScore,
+                    UserQueryRatio = tIndex.UserQueryRatio
 
                 });
-                }
-                catch
-                {
-                    throw;
-                }
 
             }
             return tempRes;

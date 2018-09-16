@@ -27,7 +27,7 @@ namespace Cloudents.Web.Api
         private readonly IServiceBusProvider _queueProvider;
         private readonly ISmsSender _client;
 
-        private const string Email = "email2";
+        internal const string Email = "email2";
 
 
         public RegisterController(UserManager<User> userManager, SbSignInManager signInManager, IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider, ISmsSender client)
