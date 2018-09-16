@@ -87,9 +87,11 @@
                     registrationService.forgotPasswordReset(this.userEmail)
                         .then((response) => {
                             self.loading = false;
+                            console.log('suceess!!!reset')
                             analyticsService.sb_unitedEvent('Forgot Password', 'Reset email send');
                             self.$parent.$emit('changeStep', 'emailconfirmedPass');
                         }, function (reason) {
+                            console.log('error!!!reset')
                             self.loading = false;
                             self.errorMessage.confirmPassword = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
                         });

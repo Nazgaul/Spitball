@@ -90,6 +90,11 @@
             }
 
         },
+        created(){
+            // this.passResetCode = this.$route.query['code'] ? this.$route.query['code'] : '';
+            // this.ID = this.$route.query['Id'] ?  this.$route.query['Id'] : '';
+            console.log('reached create::::',  this.passResetCode,   this.ID)
+        }
     }
 </script>
 
