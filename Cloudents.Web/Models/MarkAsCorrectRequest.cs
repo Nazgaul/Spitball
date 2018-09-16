@@ -3,10 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
-    //TODO:Localize
     public class MarkAsCorrectRequest
     {
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public Guid AnswerId { get;  set; }
 
     }
