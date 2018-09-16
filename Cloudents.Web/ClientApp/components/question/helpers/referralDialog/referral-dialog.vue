@@ -66,12 +66,15 @@
 </template>
 
 <script>
-import SbInput from "../sbInput/sbInput.vue";
+import SbInput from "../sbInput/sbInput.vue"
+import {mapGetters} from "vuex"
+import Base62 from "base62"
 export default {
     components:{SbInput},
     data(){
         return {
-            userReferralLink: "http://www.spitball.co/referral=XxvbzJhys45s",
+            userReferralLink: global.location.origin + "/?referral=" + Base62.encode(this.accountUser().id),
+            //userReferralLink:"http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser().id),
             socialMedias: {
                 whatsApp: "whatsApp",
                 facebook: "facebook",
@@ -88,6 +91,7 @@ export default {
         }
     },
     methods: {
+        ...mapGetters(['accountUser']),
         requestDialogClose() {
             this.$root.$emit('closePopUp', this.popUpType);
         },
@@ -110,6 +114,7 @@ export default {
         shareOnSocialMedia(socialMedia){
             let message = {
                 url: this.userReferralLink,
+                encodedUrl: encodeURIComponent(this.userReferralLink),
                 title: `Ask and answer with Spitball`,
                 text: `I ask and answer with Spitball! Get free 100SBL if you use this link. ${this.userReferralLink}`,
                 twitterText: `I ask and answer with Spitball! Get free 100SBL if you use this link.`,
@@ -122,11 +127,11 @@ export default {
                 break;
                 case this.socialMedias.facebook:
                 //https://www.facebook.com/sharer.php?u={{url  here}}
-                    global.open(`https://www.facebook.com/sharer.php?u=${message.url}`,"_blank")
+                    global.open(`https://www.facebook.com/sharer.php?u=${message.encodedUrl}`,"_blank")
                 break;
                 case this.socialMedias.linkedin:
                 //https://www.linkedin.com/shareArticle?mini=true&url={{url here}}&title={{title here}}&summary={{text here}}
-                global.open(`https://www.linkedin.com/shareArticle?mini=true&url=${message.url}&title=${message.title}&summary=${message.text}`,"_blank")
+                global.open(`https://www.linkedin.com/shareArticle?mini=true&url=${message.encodedUrl}&title=${message.title}&summary=${message.text}`,"_blank")
                 break;
                 case this.socialMedias.twitter:
                 //https://twitter.com/intent/tweet?url={{url here}}&text={{text here}}&hashtags={{hashtag name}}
