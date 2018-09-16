@@ -10,7 +10,7 @@
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width wide">
-                    <h1 v-if="!isMobile" class="step-title"><span> {{meta.heading}}</span></h1>
+                    <h1 v-if="!isMobile" class="step-title"><span>{{meta.heading}}</span></h1>
                     <p class="inline">{{meta.text}}</p>
                     <!--<div class="email-hold">-->
                         <!--<p class="email-text inline">{{userEmail}}-->

@@ -17,10 +17,6 @@ import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
 
-import zxcvbn from "zxcvbn";
-//add password checker to the global obj
-global.zxcvbn = zxcvbn;
-
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
