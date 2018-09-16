@@ -48,7 +48,15 @@ const profileData = {
                 subheading: '',
                 text: '',
                 boldText: ['']
-            }
+            },
+            8: {
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepEight_heading"),
+                subheading: '',
+                text: LanguageService.getValueByKey("profileData_generalProfile_register_stepEight_text"),
+                boldText: [
+                    LanguageService.getValueByKey("profileData_generalProfile_register_stepEight_boldText"),
+                ]
+            },
         },
         modal: {
             heading : LanguageService.getValueByKey("profileData_generalProfile_modal_heading"),
@@ -101,7 +109,15 @@ const profileData = {
                 subheading: '',
                 text: '',
                 boldText: ['']
-            }
+            },
+            8: {
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepEight_heading"),
+                subheading: '',
+                text: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepEight_text"),
+                boldText: [
+                    LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepEight_boldText"),
+                ]
+            },
         },
         modal: {
             heading :  LanguageService.getValueByKey("profileData_makeMoneyProfile_modal_heading"),
@@ -152,6 +168,14 @@ const profileData = {
                 subheading: '',
                 text: '',
                 boldText: ['']
+            },
+            8: {
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepEight_heading"),
+                subheading: '',
+                text: LanguageService.getValueByKey("profileData_HHP_register_stepEight_text"),
+                boldText: [
+                    LanguageService.getValueByKey("profileData_HHP_register_stepEight_boldText"),
+                ]
             },
         },
         modal: {

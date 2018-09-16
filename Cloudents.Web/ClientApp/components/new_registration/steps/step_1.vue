@@ -21,7 +21,7 @@
                         <span v-language:inner>login_please_agree</span></span>
             </div>
             <div slot="step-data" class="limited-width form-wrap">
-                <div class="text">
+                <div class="text" v-if="!isMobile">
                     <h1 class="step-title" v-language:inner>login_get_started</h1>
                     <!--<p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
                 </div>
@@ -51,28 +51,136 @@
                     <span v-language:inner>login_signin_your_email</span>
                 </v-btn>
                 <div class="signin-strip"><span v-language:inner>login_already_have_account</span>
-                    <p class="click" @click="goToLogin()" v-language:inner>login_sign_in</p>
+                    <p class="click" @click="showDialogPass()" v-language:inner>login_sign_in</p>
                 </div>
             </div>
             <div slot="step-image">
-                <!--<div class="text">-->
-                <!--<h1 class="step-title" v-language:inner>login_get_started</h1>-->
-                <!--<p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
-                <!--</div>-->
-                <img :src="require(`./img/registerEmail.png`)"/>
+                <img :src="require(`../img/registerEmail.png`)"/>
             </div>
         </step-template>
+        <v-dialog v-model="passDialog" max-width="600px" :fullscreen="isMobile" content-class="registration-dialog">
+            <v-card>
+                <button class="close-btn" @click="passDialog = false">
+                    <v-icon>sbf-close</v-icon>
+                </button>
+                <v-card-text class="limited-width">
+                    <h1 v-if="isMobile">
+
+                        <span v-language:inner >login_passsword_dialog_title</span>
+                        <!--<span v-language:inner>login_sure_exit1</span><br/>-->
+                        <!--<span v-language:inner>login_sure_exit2</span><br/>-->
+                        <!--<span v-language:inner>login_sure_exit3</span><br/>-->
+                        <!--<span v-language:inner>login_sure_exit4</span>&nbsp;<b>-->
+                        <!--<span v-language:inner>login_sure_exit5</span></b>-->
+                    </h1>
+                    <p v-language:inner>login_passsword_dialog_text_1</p>
+                    <p v-language:inner>login_passsword_dialog_text_2</p>
+                    <v-btn  class="continue-registr"
+                            @click="goToCreatePassword()">
+                        <span v-language:inner>login_password_dialog_action_create_password</span>
+                    </v-btn>
+                    <button class="continue-btn" @click="goToLogin()" v-language:inner>login_password_dialog_action_have_password</button>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
     </div>
 
     <!--!!!end terms and first screen-->
 </template>
 
 <script>
-    export default {
+    import stepTemplate from '../helpers/stepTemplate.vue'
+    import analyticsService from '../../../services/analytics.service';
+    import SbInput from "../../question/helpers/sbInput/sbInput.vue";
+    import { mapActions,  mapMutations } from 'vuex'
+    import registrationService from "../../../services/registrationService";
+    var auth2;
 
+    export default {
+        components: {stepTemplate, SbInput },
+
+        name: 'step_1',
+        data() {
+            return {
+                siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
+                agreeTerms: false,
+                agreeError: false,
+                loading: false,
+                passDialog: false,
+                isCampaignOn: false
+
+            }
+        },
+        props:{
+            isMobile: {
+                type: Boolean,
+                default: false
+            },
+            meta: {}
+        },
+        computed: {
+            confirmCheckbox(){
+                return !this.agreeTerms && this.agreeError
+            },
+        },
+        methods: {
+            ...mapMutations({updateLoading: "UPDATE_LOADING"}),
+            ...mapActions({updateToasterParams: 'updateToasterParams', updateCampaign: 'updateCampaign'}),
+            googleLogIn() {
+                if(!this.agreeTerms){
+                    return  this.agreeError = true;
+                }
+                var self = this;
+                self.updateLoading(true);
+                let authInstance = gapi.auth2.getAuthInstance();
+                authInstance.signIn().then(function (googleUser) {
+                    let idToken = googleUser.getAuthResponse().id_token;
+                    registrationService.googleRegistration(idToken)
+                        .then(function (resp) {
+                            self.updateLoading(false);
+                            let newUser = resp.data.isNew;
+                            if (newUser) {
+                                analyticsService.sb_unitedEvent('Registration', 'Start Google');
+                            } else {
+                                analyticsService.sb_unitedEvent('Login', 'Start Google');
+                            }
+                            let step = resp.data.step;
+                            // self.changeStepNumber(step);
+                            self.$parent.$emit('changeStep', step);
+
+                        }, function (error) {
+                            self.updateLoading(false);
+                            self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                            console.error(error);
+                        });
+                }, function (error) {
+                    self.updateLoading(false);
+                });
+            },
+            goToEmailLogin(){
+                if(!this.agreeTerms){
+                    return this.agreeError = true
+                }
+                this.$parent.$emit('changeStep', 'startstep');
+            },
+            goToLogin() {
+                this.passDialog = false;
+                this.$parent.$emit('changeStep', 'loginStep');
+
+            },
+            showDialogPass(){
+                this.passDialog = true;
+            },
+            goToCreatePassword() {
+                this.passDialog = false;
+                this.$parent.$emit('fromCreate', 'create');
+                this.$parent.$emit('changeStep', 'emailpassword');
+            },
+        }
     }
 </script>
 
-<style >
+<style>
 
 </style>
