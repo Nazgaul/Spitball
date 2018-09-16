@@ -69,7 +69,12 @@ namespace Cloudents.Web.Controllers
         {
             await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
             return RedirectToRoute(RegisterController.RegisterRouteName,
-                new ReturnSignUserResponse(step, isNew, Url.IsLocalUrl(returnUrl) ? returnUrl : null));
+                new
+                {
+                    step,
+                    isNew,
+                    returnUrl = Url.IsLocalUrl(returnUrl) ? returnUrl : null
+                });
         }
     }
 }

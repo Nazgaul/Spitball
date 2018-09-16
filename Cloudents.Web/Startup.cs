@@ -86,11 +86,6 @@ namespace Cloudents.Web
             //});
 
             services.AddWebMarkupMin().AddHtmlMinification();
-            services.AddRouting(o =>
-            {
-                o.LowercaseUrls = true;
-                o.AppendTrailingSlash = true;
-            });
             services.AddMvc()
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix, o =>
                 {
@@ -242,7 +237,7 @@ namespace Cloudents.Web
             {
                 app.UseStatusCodePagesWithReExecute("/Error");
                 app.UseExceptionHandler("/Error");
-                app.UseHsts(new HstsOptions()
+                app.UseHsts(new HstsOptions
                 {
                     Duration = TimeSpan.FromDays(365),
                     IncludeSubDomains = true,
