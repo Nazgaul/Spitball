@@ -14,6 +14,7 @@
                    :passResetCode="passResetCode"
                    :ID="ID"
                    :camefromCreate="camefromCreate"
+                   :campaignData="campaignData"
         ></component>
         <div class="progress" v-if="isShowProgress">
             <div v-for="page in progressSteps" :class="{highlighted: page===stepNumber}"></div>

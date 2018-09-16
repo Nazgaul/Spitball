@@ -82,6 +82,9 @@
                 default: false
             },
             meta: {},
+            campaignData:{
+
+            }
 
         },
 

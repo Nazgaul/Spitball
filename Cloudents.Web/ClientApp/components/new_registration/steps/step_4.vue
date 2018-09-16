@@ -73,7 +73,8 @@
                 phoneNum: '',
                 countryCode: ''
             },
-            userEmail: ""
+            userEmail: "",
+            campaignData: {}
         },
         computed: {
 
