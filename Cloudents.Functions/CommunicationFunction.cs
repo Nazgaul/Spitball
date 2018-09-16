@@ -28,6 +28,7 @@ namespace Cloudents.Functions
             if (brokeredMessage.DeliveryCount > 1)
             {
                 log.Warning("invoking message from queue");
+                await brokeredMessage.DeadLetterAsync();
                 return;
             }
 

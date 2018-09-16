@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Encodings.Web;
+﻿using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -9,26 +8,24 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]"),ApiController]
-    public class ForgotPasswordController : ControllerBase
+    public class ForgotPasswordController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IServiceBusProvider _queueProvider;
-        private readonly ITempDataDictionary _tempData;
         private const string EmailTempDictionaryKey = "EmailForgotPassword";
 
-        public ForgotPasswordController(UserManager<User> userManager, SignInManager<User> signInManager, IServiceBusProvider queueProvider, ITempDataDictionary tempData)
+        public ForgotPasswordController(UserManager<User> userManager, SignInManager<User> signInManager, 
+            IServiceBusProvider queueProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _queueProvider = queueProvider;
-            _tempData = tempData;
         }
 
         // GET
@@ -47,7 +44,7 @@ namespace Cloudents.Web.Api
 
         private async Task GenerateEmailAsync(User user, CancellationToken token)
         {
-            _tempData[EmailTempDictionaryKey] = user.Email;
+            TempData[EmailTempDictionaryKey] = user.Email;
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
             code = UrlEncoder.Default.Encode(code);
             var link = Url.Link("ResetPassword", new {user.Id, code});
@@ -60,7 +57,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
 
-            var email = _tempData[EmailTempDictionaryKey];
+            var email = TempData[EmailTempDictionaryKey];
             if (email == null)
             {
                 return BadRequest();

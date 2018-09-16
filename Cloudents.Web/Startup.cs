@@ -27,6 +27,7 @@ using Microsoft.AspNetCore.Mvc;
 using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
@@ -84,6 +85,7 @@ namespace Cloudents.Web
 
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
+                .AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddCookieTempDataProvider(o =>
                 {
                     o.Cookie.Name = "td";
@@ -96,7 +98,6 @@ namespace Cloudents.Web
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             }).AddMvcOptions(o =>
                 {
-
                     o.Filters.Add(new GlobalExceptionFilter());
                     o.Filters.Add(new ResponseCacheAttribute
                     {
@@ -104,7 +105,6 @@ namespace Cloudents.Web
                         Location = ResponseCacheLocation.None
                     });
                     o.ModelBinderProviders.Insert(0, new ApiBinder());
-                    //o.ModelBinderProviders.Insert(0,new ProtectedIdModelBinderProvider());
                 }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             if (HostingEnvironment.IsDevelopment())
             {
@@ -170,13 +170,11 @@ namespace Cloudents.Web
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
-                //Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.GetExecutingAssembly()
             };
             services.AddAutoMapper(c => c.DisableConstructorMapping(), assembliesOfProgram);
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
-            //containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
@@ -195,7 +193,6 @@ namespace Cloudents.Web
                 Core.Enum.System.Web, assembliesOfProgram);
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
-            //containerBuilder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

@@ -13,15 +13,13 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
-        //private readonly IEventPublisher _eventPublisher;
         private readonly IRepository<User> _userRepository;
 
         public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
-            IRepository<Answer> answerRepository/*, IEventPublisher eventPublisher*/, IRepository<User> userRepository)
+            IRepository<Answer> answerRepository, IRepository<User> userRepository)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
-            // _eventPublisher = eventPublisher;
             _userRepository = userRepository;
         }
 

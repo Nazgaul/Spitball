@@ -23,23 +23,21 @@ namespace Cloudents.Web.Api
     [Produces("application/json")]
     [Route("api/[controller]"), ApiController]
 
-    public class SmsController : ControllerBase
+    public class SmsController : Controller
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IServiceBusProvider _serviceBus;
         private readonly ISmsSender _client;
-        private readonly ITempDataDictionary _tempData;
         private readonly ICommandBus _commandBus;
 
         public SmsController(SignInManager<User> signInManager, UserManager<User> userManager, IServiceBusProvider serviceBus,
-            ISmsSender client, ITempDataDictionary tempData, ICommandBus commandBus)
+            ISmsSender client,  ICommandBus commandBus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _serviceBus = serviceBus;
             _client = client;
-            _tempData = tempData;
             _commandBus = commandBus;
         }
 
@@ -52,7 +50,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         public async Task<IActionResult> SetUserPhoneNumber(
-            [FromBody]PhoneNumberRequest model, LocationQuery location,
+            [FromBody]PhoneNumberRequest model/*, LocationQuery location*/,
             CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
@@ -74,10 +72,10 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            if (ValidatePhoneNumberLocationWithIp(location, model))
-            {
-                user.FraudScore += 50;
-            }
+            //if (ValidatePhoneNumberLocationWithIp(location, model))
+            //{
+            //    user.FraudScore += 50;
+            //}
             var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
 
             if (retVal.Succeeded)
@@ -127,12 +125,12 @@ namespace Cloudents.Web.Api
             if (v.Succeeded)
             {
                 //This is the last step of the registration.
-                if (_tempData[HomeController.Referral] != null)
+                if (TempData[HomeController.Referral] != null)
                 {
-                    var base62 = new Base62(_tempData[HomeController.Referral].ToString());
+                    var base62 = new Base62(TempData[HomeController.Referral].ToString());
                     var command = new DistributeTokensCommand(base62.Value, 10, ActionType.ReferringUser);
                     await _commandBus.DispatchAsync(command, token);
-                    _tempData.Remove(HomeController.Referral);
+                    TempData.Remove(HomeController.Referral);
                 }
                 
                 await _signInManager.SignInAsync(user, false).ConfigureAwait(false);

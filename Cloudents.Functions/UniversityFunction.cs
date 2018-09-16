@@ -19,7 +19,7 @@ namespace Cloudents.Functions
 {
     public static class UniversityFunction
     {
-        [FunctionName("UniversityTimer")]
+        //[FunctionName("UniversityTimer")]
         [UsedImplicitly]
         public static async Task RunAsync([TimerTrigger("0 */30 * * * *")]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/university-version.txt",FileAccess.ReadWrite)]
