@@ -86,7 +86,7 @@ namespace Cloudents.Web.Api
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
-               /* var result2 =*/ await _signInManager.PasswordSignInAsync(user, model.Password, false, true);
+                await _signInManager.SignInAsync(user, false);
 
                 return Ok();
             }

@@ -17,7 +17,7 @@ const navDefault = {
             "lineColor": "#943bfd",
             "title" : LanguageService.getValueByKey("navigation_campaign_default_note_banner_title"),
             "textMain" :LanguageService.getValueByKey("navigation_campaign_default_note_banner_textMain"),
-            "boldText" : LanguageService.getValueByKey("navigation_campaign_default_note_banner_boldText"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_default_note_banner__boldText"),
              url: '',
             showOverlay: true
         },
@@ -39,7 +39,7 @@ const navDefault = {
             "lineColor": "#52aa16",
             "title" : LanguageService.getValueByKey("navigation_campaign_tutor_default_banner_title"),
             "textMain" :LanguageService.getValueByKey("navigation_campaign_tutor_default_banner_textMain"),
-            "boldText" : LanguageService.getValueByKey("navigation_campaign_default_tutor_banner_boldText"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_tutor_default_banner_boldText"),
             url: '',
             showOverlay: true
         },
@@ -106,9 +106,9 @@ const askaquestion= {
     tutor: {
         banner: {
             "lineColor": "#52aa16",
-            "title" :    LanguageService.getValueByKey("navigation_campaign_askaquestion_tutor_banner_title"),
-            "textMain" : LanguageService.getValueByKey("navigation_campaign_askaquestion_tutor_banner_textMain"),
-            "boldText" : LanguageService.getValueByKey("navigation_campaign_askaquestion_tutor_banner_boldText"),
+            "title" :    LanguageService.getValueByKey("navigation_campaign_tutor_askaquestion_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_tutor_askaquestion_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_tutor_askaquestion_banner_boldText"),
             url: '/register',
             showOverlay: true,
             campaignClass: 'tutor-askaquestion‎',
@@ -117,9 +117,9 @@ const askaquestion= {
     book: {
         banner:{
             "lineColor": "#a650e0",
-            "title" :    LanguageService.getValueByKey("navigation_campaign_askaquestion_book_banner_title"),
-            "textMain" : LanguageService.getValueByKey("navigation_campaign_askaquestion_book_banner_textMain"),
-            "boldText" : LanguageService.getValueByKey("navigation_campaign_askaquestion_book_banner_boldText"),
+            "title" :    LanguageService.getValueByKey("navigation_campaign_book_askaquestion_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_book_askaquestion_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_book_askaquestion_banner_boldText"),
             url: '/register',
             showOverlay: true,
             campaignClass: 'book-askaquestion‎',
@@ -128,9 +128,9 @@ const askaquestion= {
     job: {
         banner:{
             "lineColor": "#f49c20",
-            "title" :    LanguageService.getValueByKey("navigation_campaign_askaquestion_job_banner_title"),
-            "textMain" : LanguageService.getValueByKey("navigation_campaign_askaquestion_job_banner_textMain"),
-            "boldText" : LanguageService.getValueByKey("navigation_campaign_askaquestion_job_banner_boldText"),
+            "title" :    LanguageService.getValueByKey("navigation_campaign_job_askaquestion_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_job_askaquestion_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_job_askaquestion_banner_boldText"),
             url: '/register',
             showOverlay: true,
             campaignClass: 'job-askaquestion‎',

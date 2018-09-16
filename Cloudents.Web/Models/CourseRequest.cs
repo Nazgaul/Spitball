@@ -6,6 +6,7 @@ namespace Cloudents.Web.Models
     /// Course request object
     /// </summary>
 
+    //TODO:Localize
     public class CourseRequest
     {
         /// <summary>

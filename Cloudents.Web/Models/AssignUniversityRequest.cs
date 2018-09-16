@@ -2,6 +2,7 @@
 
 namespace Cloudents.Web.Models
 {
+    //TODO:Localize
     public class AssignUniversityRequest
     {
         [Required]

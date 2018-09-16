@@ -4,6 +4,7 @@ using Cloudents.Web.Filters;
 
 namespace Cloudents.Web.Models
 {
+    //TODO:Localize
     public class CreateAnswerRequest
     {
         [Required]

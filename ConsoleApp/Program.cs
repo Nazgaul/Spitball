@@ -7,6 +7,8 @@ using Cloudents.Infrastructure.Database.Query;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
+using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -67,7 +69,7 @@ namespace ConsoleApp
 
             //string t = b;
             //Console.WriteLine(t);
-
+            var t = CultureInfo.GetCultures(CultureTypes.AllCultures).Where(c => c.Name == "IL");
             var b2 = _container.Resolve<IQueryBus>();
             var x2 = await b2.QueryAsync(new SyncAzureQuery(56123 ,0), default);
 

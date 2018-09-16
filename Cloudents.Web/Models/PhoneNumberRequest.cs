@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Cloudents.Web.Models
 {
+    //TODO:Localize
     public class PhoneNumberRequest : IValidatableObject
     {
         private static readonly Regex PhoneNumberRegex = new Regex(@"^\+?[1-9]\d{1,14}$", RegexOptions.Compiled);
