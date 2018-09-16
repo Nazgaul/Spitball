@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Cloudents.Web.Resources;
+using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Controllers
 {
@@ -17,6 +19,7 @@ namespace Cloudents.Web.Controllers
     {
         internal const string Referral = "referral";
         private readonly List<IPAddress> _officeIps = new List<IPAddress>();
+
 
         public HomeController(IConfiguration configuration)
         {
@@ -43,7 +46,6 @@ namespace Cloudents.Web.Controllers
                 //var base62 = new Base62(referral);
                 TempData[Referral] = referral;
             }
-
             if (env.IsDevelopment())
             {
                 return View();

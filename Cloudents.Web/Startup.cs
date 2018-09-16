@@ -15,6 +15,7 @@ using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
+using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
 using JetBrains.Annotations;
 using Microsoft.ApplicationInsights.AspNetCore;
@@ -42,6 +43,7 @@ namespace Cloudents.Web
     public partial class Startup
     {
         public const string IntegrationTestEnvironmentName = "Integration-Test";
+        internal const int PasswordRequiredLength = 8;
 
         public static readonly CultureInfo[] SupportedCultures = new[]
         {
@@ -71,7 +73,7 @@ namespace Cloudents.Web
             services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
             services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
 
-            services.AddLocalization(x => x.ResourcesPath = "Resources");
+            services.AddLocalization(/*x => x.ResourcesPath = "Resources"*/);
             services.AddDataProtection(o =>
             {
                 o.ApplicationDiscriminator = "spitball";
@@ -85,7 +87,14 @@ namespace Cloudents.Web
 
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
-                .AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix, o =>
+                {
+                    o.DataAnnotationLocalizerProvider = (type, factory) =>
+                    {
+                        var assemblyName = new AssemblyName(typeof(DataAnnotationSharedResource).GetTypeInfo().Assembly.FullName);
+                        return factory.Create("DataAnnotationSharedResource", assemblyName.Name);
+                    };
+                })
                 .AddCookieTempDataProvider(o =>
                 {
                     o.Cookie.Name = "td";
@@ -132,7 +141,7 @@ namespace Cloudents.Web
 
                 options.User.RequireUniqueEmail = true;
 
-                options.Password.RequiredLength = 8;
+                options.Password.RequiredLength = PasswordRequiredLength;
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;

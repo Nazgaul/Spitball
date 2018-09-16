@@ -6,7 +6,6 @@ namespace Cloudents.Web.Models
     public class UrlRequest
     {
         [Required]
-        // [RegularExpression(@"^\S*$", ErrorMessage = "No white space allowed")] //We got on books white space
         public string Host { get; set; }
         [Required]
         public Uri Url { get; set; }

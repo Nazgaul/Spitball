@@ -29,7 +29,6 @@ namespace Cloudents.Web.ViewComponents
                     .ToDictionary(x => x.Key.ToString(),
                         x => x.Value.ToString());
 
-
                 var name = resourceStr.Replace("Cloudents.Web.Resources.Js.", string.Empty);
                 foreach (var val in p)
                 {
