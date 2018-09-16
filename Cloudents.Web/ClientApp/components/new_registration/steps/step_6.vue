@@ -1,0 +1,73 @@
+<template>
+    <div class="step-account">
+        <step-template>
+            <div slot="step-text" class="text-block-slot" v-if="isMobile">
+                <div class="text-wrap-top">
+                    <p class="text-block-sub-title">{{meta.heading}}</p>
+                    <p class="text-block-sub-title"
+                      v-html="$options.filters.bolder(meta.subheading, meta.boldText)">{{meta.subheading}}</p>
+                </div>
+            </div>
+            <div slot="step-data" class="limited-width done">
+                <h2 v-if="!isMobile" class="congrats-heading"
+                    v-html="$options.filters.bolder(meta.heading, meta.boldText)">{{meta.heading}}</h2>
+                <h2 v-if="!isMobile" class="congrats-heading">{{meta.subheading}}</h2>
+                <img v-if="!isMobile" class="money-done-img" :src="require(`../img/money-done.png`)"/>
+                <p class="congrats" v-html="$options.filters.bolder(meta.text, meta.boldText)">{{meta.text}}</p>
+
+                <v-btn class="continue-btn submit-code"
+                       value="congrats"
+                       :loading="loading"
+                       @click="finishRegistration" v-language:inner>login_lets_start
+                </v-btn>
+            </div>
+            <img slot="step-image" :src="require(`../img/done.png`)"/>
+        </step-template>
+    </div>
+
+</template>
+
+<script>
+    import stepTemplate from '../helpers/stepTemplate.vue'
+    import analyticsService from '../../../services/analytics.service';
+    import SbInput from "../../question/helpers/sbInput/sbInput.vue";
+    const defaultSubmitRoute = {path: '/ask'};
+    export default {
+
+        name: "step_6",
+        components: {stepTemplate, SbInput},
+
+        data() {
+            return {
+
+                confirmationCode: '',
+                loading: false,
+            }
+        },
+        props: {
+            isMobile: {
+                type: Boolean,
+                default: false
+            },
+
+            meta: {},
+            lastActiveRoute: '',
+            userEmail: "",
+            toUrl: ''
+        },
+        methods: {
+            finishRegistration() {
+                this.loading = true;
+                analyticsService.sb_unitedEvent('Registration', 'Congrats');
+                let url = this.toUrl || defaultSubmitRoute;
+                window.isAuth = true;
+                this.loading = false;
+                this.$router.push({path: `${url.path }`});
+            },
+        },
+    }
+</script>
+
+<style scoped>
+
+</style>

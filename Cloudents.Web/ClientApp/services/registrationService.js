@@ -1,12 +1,12 @@
 import { connectivityModule } from "./connectivity.module"
 
 export default {
-    googleRegistration: (data) => { 
+    googleRegistration: (data) => {
         return connectivityModule.http.post("/register/google", {token: data})
-    }, 
-    emailRegistration: (email, recaptcha) => {
-        return connectivityModule.http.post("signuser", {email, captcha: recaptcha})
-    }, 
+    },
+    emailRegistration: (email, recaptcha, password, confirmPassword) => {
+        return connectivityModule.http.post("Register", {email, captcha: recaptcha, password, confirmPassword })
+    },
     emailResend: () => {
         return connectivityModule.http.post("/SignUser/resend")
     },
@@ -14,17 +14,28 @@ export default {
         return connectivityModule.http.post("/sms", {number: `+${data}`})
     },
     smsCodeVerification: (data) => {
-        return connectivityModule.http.post("/sms/verify", {number: data})},
-    signIn: (email, captcha) => {
-        return connectivityModule.http.post("signuser", {email, captcha})
-    }, 
+        return connectivityModule.http.post("/sms/verify", {number: data})
+    },
+    signIn: (email, captcha, password) => {
+        return connectivityModule.http.post("login", {email, captcha, password})
+    },
     resendCode: () => {
         return connectivityModule.http.post("/sms/resend")
     },
     getAccountNum: () => {
         return connectivityModule.http.post("/Register/password")
     },
-    getLocalCode:()=> {
+    getLocalCode: () => {
         return connectivityModule.http.get("/sms/code")
-    }
+    },
+    forgotPasswordReset: (email) => {
+        return connectivityModule.http.post("ForgotPassword", {email})
+    },
+    EmailforgotPasswordResend: () => {
+        return connectivityModule.http.post("ForgotPassword/resend")
+    },
+    updatePassword: (id, code, password) => {
+        return connectivityModule.http.post("ForgotPassword/reset", {id, code, password})
+    },
+
 }

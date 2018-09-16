@@ -169,7 +169,7 @@ let routes2 = [
     },
 
     {
-        path: "/register", alias: ['/signin'],
+        path: "/register", alias: ['/signin', '/resetpassword'],
         components: {
             default: login,
         },

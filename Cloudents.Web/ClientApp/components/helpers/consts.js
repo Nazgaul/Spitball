@@ -19,7 +19,7 @@ export const buildInSuggest = {
     ],
     tutor: [
         LanguageService.getValueByKey("buildinsuggest_tutor_biology"),
-        LanguageService.getValueByKey("buildinsuggest_tutor_esl"),
+        LanguageService.getValueByKey("buildinsuggest_tutorphysics_esl"),
         LanguageService.getValueByKey("buildinsuggest_tutor_accounting"),
 
     ],
