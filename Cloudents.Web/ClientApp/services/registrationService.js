@@ -34,8 +34,8 @@ export default {
     EmailforgotPasswordResend: () => {
         return connectivityModule.http.post("ForgotPassword/resend")
     },
-    updatePassword: (id, code, password) => {
-        return connectivityModule.http.post("ForgotPassword/reset", {id, code, password})
+    updatePassword: (password, confirmPassword, id, code) => {
+        return connectivityModule.http.post("ForgotPassword/reset", {id, code, password, confirmPassword})
     },
 
 }

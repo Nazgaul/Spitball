@@ -48,6 +48,8 @@
 </template>
 
 <script>
+    const defaultSubmitRoute = {path: '/ask'};
+
     import stepTemplate from '../helpers/stepTemplate.vue'
     import VueRecaptcha from 'vue-recaptcha';
     import analyticsService from '../../../services/analytics.service';
@@ -101,9 +103,12 @@
                     .then((response) => {
                         self.loading = false;
                         analyticsService.sb_unitedEvent('Login', 'Start');
-                        let step = response.data.step;
-                        self.$parent.$emit('updateEmail', self.userEmail);
-                        self.$parent.$emit('changeStep', step);
+
+                        // self.$parent.$emit('updateEmail', self.userEmail);
+                        global.isAuth = true;
+                        let url = this.toUrl || defaultSubmitRoute;
+                        //will be always ask cause he came from email
+                        this.$router.push({path: `${url.path }`});
                     }, function (reason) {
                         self.$refs.recaptcha.reset();
                         self.loading = false;

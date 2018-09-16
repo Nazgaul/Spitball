@@ -37,6 +37,7 @@
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
     import { mapActions, mapMutations } from 'vuex'
     import registrationService from "../../../services/registrationService";
+    const defaultSubmitRoute = {path: '/ask'};
 
     export default {
         name: "step_9",
@@ -55,6 +56,10 @@
             }
         },
         props: {
+            toUrl: {
+                type: String,
+                default: 'ask'
+            },
             isMobile: {
                 type: Boolean,
                 default: false
@@ -72,18 +77,21 @@
         },
         methods: {
             changePassword() {
-                if (this.password && this.ID && this.passResetCode) {
-                    let self = this;
-                    self.loading = true;
-                    registrationService.updatePassword(this.password, this.ID, this.passResetCode)
+                if (this.password && this.ID && this.passResetCode && this.confirmPassword) {
+                    // let self = this;
+                    this.loading = true;
+                    registrationService.updatePassword(this.password, this.confirmPassword, this.ID, this.passResetCode)
                         .then((response) => {
                             analyticsService.sb_unitedEvent('Forgot Password', 'Updated password');
-                            window.isAuth = true;
-                            self.loading = false;
+                            global.isAuth = true;
+                            this.loading = false;
+                            let url = this.toUrl || defaultSubmitRoute;
+                            //will be always ask cause he came from email
                             this.$router.push({path: `${url.path }`});
-                        }, function (reason) {
-                            self.loading = false;
-                            self.errorMessage.confirmPassword = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
+                        },(reason)=> {
+                            this.loading = false;
+                            this.errorMessage.confirmPassword = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
+                            this.errorMessage.password = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
                         });
 
                 }
@@ -91,9 +99,6 @@
 
         },
         created(){
-            // this.passResetCode = this.$route.query['code'] ? this.$route.query['code'] : '';
-            // this.ID = this.$route.query['Id'] ?  this.$route.query['Id'] : '';
-            console.log('reached create::::',  this.passResetCode,   this.ID)
         }
     }
 </script>

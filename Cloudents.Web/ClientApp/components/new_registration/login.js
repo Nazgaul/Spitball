@@ -195,7 +195,7 @@ export default {
         } else if (this.$route.fullPath === '/signin') {
             this.changeStepNumber('termandstart')
         } else if (path === '/resetpassword') {
-            this.passResetCode = this.$route.query['code'] ? this.$route.query['code'] : '';
+            this.passResetCode = this.$route.query['amp;code'] ? this.$route.query['amp;code'] : '';
             this.ID = this.$route.query['Id'] ?  this.$route.query['Id'] : '';
             this.changeStepNumber('createpassword');
             console.log('reset password reached1111', this.$route.query )
