@@ -8,13 +8,19 @@
                 </div>
             </div>
             <div slot="step-data" class="limited-width form-wrap">
-                <div class="text">
+                <div class="text" v-if="!isMobile">
                     <h1 class="step-title" v-language:inner>login_get_started</h1>
                     <p class="sub-title mb-3">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>
                 </div>
                 <form @submit.prevent="emailSend" class="form-one">
-                    <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.phone"
+                    <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email"
                               placeholder="Enter your email address" v-model="userEmail" name="email" type="email"
+                              :autofocus="true"></sb-input>
+                    <sb-input  class="mt-3" :errorMessage="errorMessage.phone"
+                              placeholder="Choose password" v-model="password" name="pass" type="password"
+                              :autofocus="true"></sb-input>
+                    <sb-input  class="mt-3" :errorMessage="errorMessage.phone"
+                              placeholder="Confirm password" v-model="confirmPassword" name="confirm" type="password"
                               :autofocus="true"></sb-input>
                     <vue-recaptcha class="recaptcha-wrapper"
                                    :sitekey="siteKey"
@@ -24,7 +30,7 @@
                     </vue-recaptcha>
                     <v-btn class="continue-btn" value="Login"
                            :loading="loading"
-                           :disabled="!userEmail || !recaptcha "
+                           :disabled="!userEmail || !recaptcha  || !password || !confirmPassword"
                            type="submit"
                     ><span v-language:inner>login_continue</span></v-btn>
                     <div class="checkbox-terms">
@@ -61,10 +67,10 @@
                 },
                 recaptcha: '',
                 loading: false,
-                userEmail: ''
+                userEmail: '',
+                password: '',
+                confirmPassword: ''
             }
-
-
         },
         props: {
             isMobile: {
@@ -84,7 +90,7 @@
             emailSend() {
                 let self = this;
                 self.loading = true;
-                registrationService.emailRegistration(this.userEmail, this.recaptcha)
+                registrationService.emailRegistration(this.userEmail, this.recaptcha, this.password, this.confirmPassword)
                     .then(function (resp) {
                         let step = resp.data.step;
                         // self.changeStepNumber(step);

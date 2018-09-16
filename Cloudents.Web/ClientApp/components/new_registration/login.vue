@@ -11,6 +11,9 @@
                    :phone="phone"
                    :lastActiveRoute="lastActiveRoute"
                    :toUrl="toUrl"
+                   :passResetCode="passResetCode"
+                   :ID="ID"
+                   :camefromCreate="camefromCreate"
         ></component>
         <!--!!!step terms and first screen-->
         <!--<div class="step-terms-firstscreen" v-if="stepNumber === 1">-->
@@ -304,26 +307,25 @@
         <!--step login end-->
 
         <!--step expired link-->
-        <div class="step-expired" v-if="stepNumber === 8 ">
-            <step-template>
-                <div slot="step-text" class="text-block-slot" v-if="isMobile">
-                    <div class="text-wrap-top">
-                        <h2 class="text-block-title"><span v-language:inner>login_Your</span><br/> <span v-language:inner>login_confirmation_link_expired</span></h2>
-                            <p class="text-block-sub-title"><span v-language:inner>login_until_activate_account1</span><br/><span v-language:inner>login_until_activate_account2</span><br/><span v-language:inner>login_until_activate_account3</span></p>
-                    </div>
-                </div>
-                <div slot="step-data" class="limited-width wide">
-                    <h1 v-if="!isMobile" class="step-title" v-language:inner>login_not_complete_registration </h1>
-                    <p v-if="!isMobile" class="inline" v-language:inner>login_confirmation_link_expired</p>
-                    <p v-if="!isMobile"><span v-language:inner>login_until_activate_account1</span><span v-language:inner>login_until_activate_account2</span><span v-language:inner>login_until_activate_account3</span> </p>
-                    <img :src="require(`./img/checkEmail.png`)"/>
-                    <button class="continue-btn" @click="showRegistration()" v-language:inner>login_register</button>
-                </div>
-                <img slot="step-image" :src="require(`./img/checkEmail.png`)"/>
-            </step-template>
-        </div>
+        <!--<div class="step-expired" v-if="stepNumber === 8 ">-->
+            <!--<step-template>-->
+                <!--<div slot="step-text" class="text-block-slot" v-if="isMobile">-->
+                    <!--<div class="text-wrap-top">-->
+                        <!--<h2 class="text-block-title"><span v-language:inner>login_Your</span><br/> <span v-language:inner>login_confirmation_link_expired</span></h2>-->
+                            <!--<p class="text-block-sub-title"><span v-language:inner>login_until_activate_account1</span><br/><span v-language:inner>login_until_activate_account2</span><br/><span v-language:inner>login_until_activate_account3</span></p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div slot="step-data" class="limited-width wide">-->
+                    <!--<h1 v-if="!isMobile" class="step-title" v-language:inner>login_not_complete_registration </h1>-->
+                    <!--<p v-if="!isMobile" class="inline" v-language:inner>login_confirmation_link_expired</p>-->
+                    <!--<p v-if="!isMobile"><span v-language:inner>login_until_activate_account1</span><span v-language:inner>login_until_activate_account2</span><span v-language:inner>login_until_activate_account3</span> </p>-->
+                    <!--<img :src="require(`./img/checkEmail.png`)"/>-->
+                    <!--<button class="continue-btn" @click="showRegistration()" v-language:inner>login_register</button>-->
+                <!--</div>-->
+                <!--<img slot="step-image" :src="require(`./img/checkEmail.png`)"/>-->
+            <!--</step-template>-->
+        <!--</div>-->
         <!--step expired link end-->
-
 
         <!--step create password-->
         <!--<div class="step-phone" v-if="stepNumber === 9">-->
@@ -356,50 +358,50 @@
         <!--step create password-->
 
         <!--step email password reset start-->
-        <div class="step-email" v-if="stepNumber === 10">
-            <step-template>
-                <div slot="step-text" class="text-block-slot" v-if="isMobile">
-                    <div class="text-wrap-top">
-                        <p class="text-block-sub-title" v-language:inner>login_reset_your_password
-                           </p>
-                    </div>
-                </div>
-                <div slot="step-data" class="limited-width form-wrap">
-                    <h1 v-if="!isMobile" class="step-title" v-language:inner>login_reset_your_password</h1>
-                    <p v-if="!isMobile" class="sub-title  mb-3"
-                        v-language:inner>login_happens_to_best
-                    </p>
-                    <form @submit.prevent="emailResetPassword" class="form-one">
-                        <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email"
-                                  placeholder="Enter your email address" v-model="userEmail" name="email" type="email"
-                                  :autofocus="true"></sb-input>
-                        <div class="recaptcha-wrapper">
-
-                        </div>
-                        <v-btn class="continue-btn" value="Login"
-                               :loading="loading"
-                               :disabled="!userEmail"
-                               type="submit"
-                        >
-                            <span>Reset my password</span></v-btn>
-                    </form>
-                    <div class="signin-strip">
-                        <p class="click" @click="goToLogin">I remember now!</p>
-                    </div>
-                </div>
-                <div slot="step-image">
-                    <!--<div class="text">-->
-                        <!--<h1 class="step-title" ></h1>-->
-                        <!--<p class="sub-title"></p>-->
+        <!--<div class="step-email" v-if="stepNumber === 10">-->
+            <!--<step-template>-->
+                <!--<div slot="step-text" class="text-block-slot" v-if="isMobile">-->
+                    <!--<div class="text-wrap-top">-->
+                        <!--<p class="text-block-sub-title" v-language:inner>login_reset_your_password-->
+                           <!--</p>-->
                     <!--</div>-->
-                    <img :src="require(`./img/signin.png`)"/>
-                </div>
-            </step-template>
-        </div>
+                <!--</div>-->
+                <!--<div slot="step-data" class="limited-width form-wrap">-->
+                    <!--<h1 v-if="!isMobile" class="step-title" v-language:inner>login_reset_your_password</h1>-->
+                    <!--<p v-if="!isMobile" class="sub-title  mb-3"-->
+                        <!--v-language:inner>login_happens_to_best-->
+                    <!--</p>-->
+                    <!--<form @submit.prevent="emailResetPassword" class="form-one">-->
+                        <!--<sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email"-->
+                                  <!--placeholder="Enter your email address" v-model="userEmail" name="email" type="email"-->
+                                  <!--:autofocus="true"></sb-input>-->
+                        <!--<div class="recaptcha-wrapper">-->
+
+                        <!--</div>-->
+                        <!--<v-btn class="continue-btn" value="Login"-->
+                               <!--:loading="loading"-->
+                               <!--:disabled="!userEmail"-->
+                               <!--type="submit"-->
+                        <!--&gt;-->
+                            <!--<span>Reset my password</span></v-btn>-->
+                    <!--</form>-->
+                    <!--<div class="signin-strip">-->
+                        <!--<p class="click" @click="goToLogin">I remember now!</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div slot="step-image">-->
+                    <!--&lt;!&ndash;<div class="text">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<h1 class="step-title" ></h1>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<p class="sub-title"></p>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<img :src="require(`./img/signin.png`)"/>-->
+                <!--</div>-->
+            <!--</step-template>-->
+        <!--</div>-->
         <!--step email password reset-->
 
 
-        <div class="progress" v-if="stepNumber !== 7 && stepNumber !== 8 ">
+        <div class="progress" v-if="isShowProgress">
             <div v-for="page in progressSteps" :class="{highlighted: page===stepNumber}"></div>
         </div>
 

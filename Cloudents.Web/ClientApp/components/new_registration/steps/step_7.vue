@@ -20,7 +20,7 @@
                               placeholder="Enter your mobile or email "></sb-input>
                     <sb-input :errorMessage="errorMessage.password" :required="true" class="email-field mt-3"
                               :type="'password'"
-                              name="password"  v-model="password"
+                              name="user password"  v-model="password"
                               placeholder="Enter password"></sb-input>
                     <vue-recaptcha class="recaptcha-wrapper"
                                    ref="recaptcha"
@@ -37,8 +37,8 @@
                     > <span v-language:inner>login_login</span>
                     </v-btn>
                 </form>
-                <div class="signin-strip"><span v-language:inner>login_need_an_account</span>
-                    <a @click="showRegistration" v-language:inner>login_sign_up</a>
+                <div class="signin-strip">
+                    <a @click="forgotPassword()" v-language:inner>login_forgot_password_link</a>
                 </div>
             </div>
             <img slot="step-image" :src="require(`../img/signin.png`)"/>
@@ -110,8 +110,8 @@
                         self.errorMessage.email = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
                     });
             },
-            showRegistration() {
-                self.$parent.$emit('changeStep', 'termandstart');
+            forgotPassword() {
+                this.$parent.$emit('changeStep', 'emailpassword');
 
             },
         },

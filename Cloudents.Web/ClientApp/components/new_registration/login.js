@@ -12,15 +12,30 @@ import step_4 from "./steps/step_4.vue";
 import step_5 from "./steps/step_5.vue";
 import step_6 from "./steps/step_6.vue";
 import step_7 from "./steps/step_7.vue";
-// TODO import step_8 from "./steps/step_8.vue";
+import step_8 from "./steps/step_8.vue";
 import step_9 from "./steps/step_9.vue";
+import step_10 from "./steps/step_10.vue";
 
 const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;
 
 export default {
-    components: {stepTemplate, SbInput, VueRecaptcha, step_1, step_2, step_3, step_4, step_5, step_6, step_7, step_9},
+    components: {
+        stepTemplate,
+        SbInput,
+        VueRecaptcha,
+        step_1,
+        step_2,
+        step_3,
+        step_4,
+        step_5,
+        step_6,
+        step_7,
+        step_8,
+        step_9,
+        step_10
+    },
     props: {
         default: false,
     },
@@ -44,6 +59,8 @@ export default {
             },
             password: '',
             confirmPassword: '',
+            passResetCode: '',
+            ID: '',
             isPass: false,
             errorMessage: {
                 phone: '',
@@ -52,10 +69,11 @@ export default {
                 confirmPassword: ''
             },
             isNewUser: false,
+            camefromCreate: false,
             showDialog: false,
             passDialog: false,
             toasterTimeout: 5000,
-            stepNumber: 9,
+            stepNumber: 1,
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             stepsEnum: {
@@ -66,7 +84,7 @@ export default {
                 "verifyphone": 5,
                 "congrats": 6,
                 "loginstep": 7,
-                "expiredstep": 8,
+                "emailconfirmedPass": 8,
                 "createpassword": 9,
                 "emailpassword": 10
             }
@@ -94,6 +112,10 @@ export default {
             profileData: 'getProfileData',
             isCampaignOn: 'isCampaignOn'
         }),
+        isShowProgress(){
+            let filteredSteps = this.stepNumber !== 7 && this.stepNumber !== 8  && this.stepNumber !==9 && this.stepNumber !== 10;
+            return filteredSteps
+        },
         // confirmCheckbox() {
         //     return !this.agreeTerms && this.agreeError
         // },
@@ -258,21 +280,21 @@ export default {
         //         });
         // },
         //reset email add method in emailRegistration service
-        emailResetPassword() {
-            let self = this;
-            self.loading = true;
-            registrationService.emailRegistration(this.userEmail)
-                .then(function (resp) {
-                    let step = resp.data.step;
-                    self.changeStepNumber(step);
-                    self.loading = false;
-                }, function (error) {
-                    self.recaptcha = "";
-                    self.$refs.recaptcha.reset();
-                    self.loading = false;
-                    self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
-                });
-        },
+        // emailResetPassword() {
+        //     let self = this;
+        //     self.loading = true;
+        //     registrationService.emailRegistration(this.userEmail)
+        //         .then(function (resp) {
+        //             let step = resp.data.step;
+        //             self.changeStepNumber(step);
+        //             self.loading = false;
+        //         }, function (error) {
+        //             self.recaptcha = "";
+        //             self.$refs.recaptcha.reset();
+        //             self.loading = false;
+        //             self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+        //         });
+        // },
         // resendEmail() {
         //     var self = this;
         //     self.updateLoading(true);
@@ -321,20 +343,7 @@ export default {
         //     this.loading = false;
         //     this.$router.push({path: `${url.path }`});
         // },
-        validatePassword() {
-            if (this.password !== this.confirmPassword) {
-                this.errorMessage.confirmPassword = 'Password do not match';
-                return
-            } else if (this.password || this.confirmPassword) {
-                this.errorMessage.confirmPassword = 'Password should be longer than 6 symbols';
-            }
-            else {
-                this.updatePassword()
-            }
-        },
-        updatePassword() {
-            console.log('1::', this.password, '2:::', this.confirmPassword)
-        }
+
     },
     mounted() {
         this.$nextTick(function () {
@@ -349,7 +358,7 @@ export default {
 
         //event liseners for all steps
         this.$on('changeStep', (stepName) => {
-           this.changeStepNumber(stepName);
+            this.changeStepNumber(stepName);
         });
         this.$on('updateEmail', (email) => {
             this.userEmail = email;
@@ -357,6 +366,12 @@ export default {
         this.$on('updatePhone', (phone) => {
             this.phone = phone;
         });
+        this.$on('fromCreate', (create)=>{
+            if(create === 'create'){
+                this.camefromCreate = true
+            }
+        });
+
         //check if returnUrl exists
         if (!!this.$route.query.returnUrl) {
             this.toUrl = {path: `${this.$route.query.returnUrl}`, query: {q: ''}};
@@ -365,7 +380,11 @@ export default {
             let step = this.$route.query.step;
             this.changeStepNumber(step);
         } else if (this.$route.fullPath === '/signin') {
-            this.changeStepNumber('loginStep')
+            this.changeStepNumber('termandstart')
+        } else if (this.$route.fullPath === '/resetpassword') {
+            this.passResetCode = this.$route.query['code'];
+            this.ID = this.$route.query['Id'];
+            this.changeStepNumber('createpassword');
         }
         registrationService.getLocalCode().then(({data}) => {
             this.phone.countryCode = data.code;
@@ -380,7 +399,7 @@ export default {
     //value = String; query = ['String', 'String','String'] || []
     filters: {
         bolder: function (value, query) {
-            if(query.length) {
+            if (query.length) {
                 query.map((item) => {
                     value = value.replace(item, '<span class="bolder">' + item + '</span>')
                 });

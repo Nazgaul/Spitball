@@ -309,4 +309,34 @@
   <data name="makeMoneyProfile_register_stepTwo_text" xml:space="preserve">
     <value>We need to know how to contact you</value>
   </data>
+  <data name="generalProfile_register_stepEight_boldText" xml:space="preserve">
+    <value>email</value>
+  </data>
+  <data name="generalProfile_register_stepEight_heading" xml:space="preserve">
+    <value>Check your email</value>
+  </data>
+  <data name="generalProfile_register_stepEight_text" xml:space="preserve">
+    <value>We've emailed you a new password
+reset instructions.</value>
+  </data>
+  <data name="HHP_register_stepEight_boldText" xml:space="preserve">
+    <value>email</value>
+  </data>
+  <data name="HHP_register_stepEight_heading" xml:space="preserve">
+    <value>Check your email</value>
+  </data>
+  <data name="HHP_register_stepEight_text" xml:space="preserve">
+    <value>We've emailed you a new password
+reset instructions.</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepEight_boldText" xml:space="preserve">
+    <value>email</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepEight_heading" xml:space="preserve">
+    <value>Check your email</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepEight_text" xml:space="preserve">
+    <value>We've emailed you a new password
+reset instructions.</value>
+  </data>
 </root>

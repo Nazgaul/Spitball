@@ -285,4 +285,43 @@
   <data name="reset_your_password" xml:space="preserve">
     <value>Reset your password</value>
   </data>
+  <data name="create_password_button" xml:space="preserve">
+    <value>Create password</value>
+  </data>
+  <data name="create_password_text" xml:space="preserve">
+    <value>Create your password</value>
+  </data>
+  <data name="forgot_password_link" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="passsword_dialog_text_1" xml:space="preserve">
+    <value>Our Privacy Settings has changed.</value>
+  </data>
+  <data name="passsword_dialog_text_2" xml:space="preserve">
+    <value>Please login to your Spitball account using a password</value>
+  </data>
+  <data name="passsword_dialog_title" xml:space="preserve">
+    <value>You Asked We Answer</value>
+  </data>
+  <data name="passsword_dialog_title_boldText" xml:space="preserve">
+    <value>Asked Answer</value>
+  </data>
+  <data name="password_dialog_action_create_password" xml:space="preserve">
+    <value>Create a password</value>
+  </data>
+  <data name="password_dialog_action_have_password" xml:space="preserve">
+    <value>I have a password</value>
+  </data>
+  <data name="password_email_confirmed_resend_action" xml:space="preserve">
+    <value>Click here to resend</value>
+  </data>
+  <data name="password_email_confirmed_resend_text" xml:space="preserve">
+    <value>Didn't receive the email? Check your spam folder or </value>
+  </data>
+  <data name="reset_password_button" xml:space="preserve">
+    <value>Reset password</value>
+  </data>
+  <data name="reset_password_text" xml:space="preserve">
+    <value>Reset your password</value>
+  </data>
 </root>

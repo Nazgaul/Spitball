@@ -21,7 +21,7 @@
                         <span v-language:inner>login_please_agree</span></span>
             </div>
             <div slot="step-data" class="limited-width form-wrap">
-                <div class="text">
+                <div class="text" v-if="!isMobile">
                     <h1 class="step-title" v-language:inner>login_get_started</h1>
                     <!--<p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
                 </div>
@@ -51,7 +51,7 @@
                     <span v-language:inner>login_signin_your_email</span>
                 </v-btn>
                 <div class="signin-strip"><span v-language:inner>login_already_have_account</span>
-                    <p class="click" @click="goToLogin()" v-language:inner>login_sign_in</p>
+                    <p class="click" @click="showDialogPass()" v-language:inner>login_sign_in</p>
                 </div>
             </div>
             <div slot="step-image">
@@ -65,22 +65,21 @@
                 </button>
                 <v-card-text class="limited-width">
                     <h1 v-if="isMobile">
-                        <span v-language:inner>login_sure_exit1</span><br/>
-                        <span v-language:inner>login_sure_exit2</span><br/>
-                        <span v-language:inner>login_sure_exit3</span><br/>
-                        <span v-language:inner>login_sure_exit4</span>&nbsp;<b>
-                        <span v-language:inner>login_sure_exit5</span></b>
-                    </h1>
-                    <h1 v-else v-language:inner>login_are_you_sure_you_want_to_exit</h1>
-                    <p><span v-language:inner>login_exiting_information1</span><br/>
-                        <span v-language:inner>login_exiting_information2</span>
-                    </p>
 
+                        <span v-language:inner >login_passsword_dialog_title</span>
+                        <!--<span v-language:inner>login_sure_exit1</span><br/>-->
+                        <!--<span v-language:inner>login_sure_exit2</span><br/>-->
+                        <!--<span v-language:inner>login_sure_exit3</span><br/>-->
+                        <!--<span v-language:inner>login_sure_exit4</span>&nbsp;<b>-->
+                        <!--<span v-language:inner>login_sure_exit5</span></b>-->
+                    </h1>
+                    <p v-language:inner>login_passsword_dialog_text_1</p>
+                    <p v-language:inner>login_passsword_dialog_text_2</p>
                     <v-btn  class="continue-registr"
-                            @click="goToResetPassword()">
-                        <span >Create password</span>
+                            @click="goToCreatePassword()">
+                        <span v-language:inner>login_password_dialog_action_create_password</span>
                     </v-btn>
-                    <button class="continue-btn" @click="goToLogin()" >I have password</button>
+                    <button class="continue-btn" @click="goToLogin()" v-language:inner>login_password_dialog_action_have_password</button>
                 </v-card-text>
             </v-card>
         </v-dialog>
@@ -109,6 +108,7 @@
                 agreeError: false,
                 loading: false,
                 passDialog: false,
+                isCampaignOn: false
 
             }
         },
@@ -162,13 +162,20 @@
                 if(!this.agreeTerms){
                     return this.agreeError = true
                 }
-                this.passDialog = true;
-
+                this.$parent.$emit('changeStep', 'startstep');
             },
             goToLogin() {
                 this.passDialog = false;
                 this.$parent.$emit('changeStep', 'loginStep');
 
+            },
+            showDialogPass(){
+                this.passDialog = true;
+            },
+            goToCreatePassword() {
+                this.passDialog = false;
+                this.$parent.$emit('fromCreate', 'create');
+                this.$parent.$emit('changeStep', 'emailpassword');
             },
         }
     }
