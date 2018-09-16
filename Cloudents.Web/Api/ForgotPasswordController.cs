@@ -1,4 +1,5 @@
-﻿using System.Text.Encodings.Web;
+﻿using System;
+using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -8,6 +9,7 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Cloudents.Web.Api
 {
@@ -18,13 +20,15 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IServiceBusProvider _queueProvider;
+        private readonly ITempDataDictionary _tempData;
+        private const string EmailTempDictionaryKey = "EmailForgotPassword";
 
-
-        public ForgotPasswordController(UserManager<User> userManager, SignInManager<User> signInManager, IServiceBusProvider queueProvider)
+        public ForgotPasswordController(UserManager<User> userManager, SignInManager<User> signInManager, IServiceBusProvider queueProvider, ITempDataDictionary tempData)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _queueProvider = queueProvider;
+            _tempData = tempData;
         }
 
         // GET
@@ -37,11 +41,38 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
 
+            await GenerateEmailAsync(user, token);
+            return Ok();
+        }
+
+        private async Task GenerateEmailAsync(User user, CancellationToken token)
+        {
+            _tempData[EmailTempDictionaryKey] = user.Email;
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
             code = UrlEncoder.Default.Encode(code);
-            var link = Url.Link("ResetPassword", new { user.Id, code });
+            var link = Url.Link("ResetPassword", new {user.Id, code});
             var message = new ResetPasswordEmail(user.Email, HtmlEncoder.Default.Encode(link));
             await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
+        }
+
+        [HttpPost("resend")]
+        public async Task<IActionResult> ResendEmailAsync(
+            CancellationToken token)
+        {
+
+            var email = _tempData[EmailTempDictionaryKey];
+            if (email == null)
+            {
+                return BadRequest();
+            }
+            var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "no user");
+                return BadRequest(ModelState);
+            }
+
+            await GenerateEmailAsync(user,token ).ConfigureAwait(false);
             return Ok();
         }
 
