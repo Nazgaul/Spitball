@@ -9,13 +9,11 @@ namespace Cloudents.Web.Models
     public class PhoneNumberRequest : IValidatableObject
     {
         private static readonly Regex PhoneNumberRegex = new Regex(@"^\+?[1-9]\d{1,14}$", RegexOptions.Compiled);
-        [Required]
-        //[RegularExpression(@"^\+?[1-9]\d{1,14}$",ErrorMessage = "Phone number is invalid")]
+        [Required(ErrorMessage = "Required")]
         public string PhoneNumber { get; set; }
 
 
-        [Required]
-        //[RegularExpression(@"^\+?[1-9]\d{1,14}$", ErrorMessage = "Phone number is invalid")]
+        [Required(ErrorMessage = "Required")]
         public int CountryCode { get; set; }
 
 

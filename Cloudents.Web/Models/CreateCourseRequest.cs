@@ -8,14 +8,14 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// The course name
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Required")]
         [StringLength(120)]
         public string CourseName { get; set; }
 
         /// <summary>
         /// User university
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Required")]
         [Range(1,long.MaxValue)]
         public long University { get; set; }
     }

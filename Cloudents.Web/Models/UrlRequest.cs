@@ -5,9 +5,9 @@ namespace Cloudents.Web.Models
 {
     public class UrlRequest
     {
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public string Host { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public Uri Url { get; set; }
 
         public int Location { get; set; }

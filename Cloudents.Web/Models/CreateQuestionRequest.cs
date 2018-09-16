@@ -8,14 +8,14 @@ namespace Cloudents.Web.Models
     //TODO:Localize
     public class CreateQuestionRequest
     {
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public int SubjectId { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Required")]
         [MinLength(15)]
         public string Text { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Required")]
         [Range(1, 100)]
         public decimal Price { get; set; }
 

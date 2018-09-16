@@ -18,7 +18,7 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// university of the user
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public long? UniversityId { get; set; }
     }
 }
