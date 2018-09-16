@@ -39,7 +39,6 @@
 
         data() {
             return {
-
                 confirmationCode: '',
                 loading: false,
             }
@@ -49,7 +48,6 @@
                 type: Boolean,
                 default: false
             },
-
             meta: {},
             lastActiveRoute: '',
             userEmail: "",
