@@ -2,11 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Command;
 using Cloudents.Core.Command.Admin;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Management.Pages
 {
@@ -29,9 +30,8 @@ namespace Cloudents.Management.Pages
             [Required]
             public long UserId { get; set; }
             [Required]
-            public decimal SBL { get; set; }
-            [Required]
-            public TransactionType TypeId { get; set; }
+            [Display(Name = "SBL")]
+            public decimal Tokens { get; set; }
         }
 
 
@@ -42,13 +42,7 @@ namespace Cloudents.Management.Pages
 
         public async Task<IActionResult> OnPostAsync(CancellationToken token)
         {
-            var command = new GiveTokensCommand
-            {
-               UserId = Model.UserId,
-               Price = Model.SBL,
-               TypeId = Model.TypeId
-            };
-
+            var command = new DistributeTokensCommand(Model.UserId, Model.Tokens, ActionType.None);
             await _commandBus.Value.DispatchAsync(command, token);
             return RedirectToPage("SendTokens");
 

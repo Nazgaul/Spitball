@@ -31,7 +31,7 @@ namespace Cloudents.Core.EventHandler
             var answer = eventMessage.Answer;
 
             var code = _dataProtect.Protect(ProtectPurpose, answer.User.Id.ToString(),
-                DateTimeOffset.UtcNow.AddDays(2));
+                DateTimeOffset.UtcNow.AddDays(5));
             var link = _urlBuilder.BuildWalletEndPoint(new { code });
             await _serviceBusProvider.InsertMessageAsync(
                 new AnswerCorrectEmail(answer.User.Email, answer.Question.Text, answer.Text, link, answer.Question.Price), token).ConfigureAwait(false);

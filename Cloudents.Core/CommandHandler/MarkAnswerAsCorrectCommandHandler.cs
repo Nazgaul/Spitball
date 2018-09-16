@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Command;
+﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -39,21 +39,19 @@ namespace Cloudents.Core.CommandHandler
             }
             question.MarkAnswerAsCorrect(answer);
 
-            var condition = Math.Max(DateTime.UtcNow.Subtract(answer.Created).Seconds,1);
-           
-            int FraudTime = TimeConst.Minute * 8;
-            if (condition < FraudTime)
+            float condition = Math.Max(DateTime.UtcNow.Subtract(answer.Created).Seconds, 1);
+
+            const int fraudTime = TimeConst.Minute * 8;
+            if (condition < fraudTime)
             {
-                float factor = FraudTime / condition;
-                
-                question.User.FraudScore += (int)factor*5;
-               
+                var factor = fraudTime / condition;
+
+                question.User.FraudScore += (int)factor * 5;
+
                 await _userRepository.UpdateAsync(question.User, token);
             }
 
             var t1 = _questionRepository.UpdateAsync(question, token);
-           // var t2 = _eventPublisher.PublishAsync(new MarkAsCorrectEvent(answer.Id), token);
-            //var t2 = _serviceBusProvider.InsertMessageAsync(new AnswerCorrectEmail(answer.User.Email, answer.Question.Text, answer.Text, _urlBuilder.WalletEndPoint, answer.Question.Price), token);
             await Task.WhenAll(t1/*, t2*/).ConfigureAwait(true);
         }
     }

@@ -1,4 +1,6 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Command;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
@@ -12,6 +14,9 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Web.Controllers;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Cloudents.Web.Api
 {
@@ -24,15 +29,18 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly IServiceBusProvider _serviceBus;
         private readonly ISmsSender _client;
+        private readonly ITempDataDictionary _tempData;
+        private readonly ICommandBus _commandBus;
 
         public SmsController(SignInManager<User> signInManager, UserManager<User> userManager, IServiceBusProvider serviceBus,
-            ISmsSender client)
+            ISmsSender client, ITempDataDictionary tempData, ICommandBus commandBus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _serviceBus = serviceBus;
             _client = client;
-
+            _tempData = tempData;
+            _commandBus = commandBus;
         }
 
         [HttpGet("code")]
@@ -99,16 +107,12 @@ namespace Cloudents.Web.Api
         private static bool ValidatePhoneNumberLocationWithIp(LocationQuery location, PhoneNumberRequest phoneNumber)
         {
             var phoneUtil = PhoneNumberUtil.GetInstance();
-
-            //var numberProto = phoneUtil.Parse(phoneNumber, "");
-
-            //var countryCode = numberProto.CountryCode;
             var t = phoneUtil.GetRegionCodeForCountryCode(phoneNumber.CountryCode);
             return t.Equals(location.Address.CountryCode, StringComparison.OrdinalIgnoreCase);
         }
 
         [HttpPost("verify")]
-        public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
+        public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model, CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
@@ -122,18 +126,20 @@ namespace Cloudents.Web.Api
 
             if (v.Succeeded)
             {
+                //This is the last step of the registration.
+                if (_tempData[HomeController.Referral] != null)
+                {
+                    var base62 = new Base62(_tempData[HomeController.Referral].ToString());
+                    var command = new DistributeTokensCommand(base62.Value, 10, ActionType.ReferringUser);
+                    await _commandBus.DispatchAsync(command, token);
+                    _tempData.Remove(HomeController.Referral);
+                }
+                
                 await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
                 return Ok();
             }
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
-            //var v = await _signInManager.TwoFactorSignInAsync(TokenOptions.DefaultPhoneProvider, model.Number, false, true);
-            //if (v.Succeeded)
-            //{
-            //    return Ok();
-            //}
-            //ModelState.AddModelError("Some error");
-            //return BadRequest(ModelState);
         }
 
         [HttpPost("resend")]
