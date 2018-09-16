@@ -48,7 +48,7 @@ namespace Cloudents.Web.Api
         [HttpPost("reset")]
         public async Task<IActionResult> ResetPassword(ResetPasswordRequest model, CancellationToken token)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _userManager.FindByIdAsync(model.Id);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
