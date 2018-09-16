@@ -50,6 +50,7 @@ namespace Cloudents.Web.Api
             var user = await taskUser.ConfigureAwait(false);
             if (user == null)
             {
+                //TODO: Localize
                 ModelState.AddModelError(string.Empty,"user not exists");
                 await _signInManager.SignOutAsync().ConfigureAwait(false);
                 return BadRequest(ModelState);

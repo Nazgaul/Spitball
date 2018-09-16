@@ -36,6 +36,7 @@ namespace Cloudents.Web.Models
             {
                 yield return ValidationResult.Success;
             }
+            //TODO: Localize
             yield return new ValidationResult(
                 "Phone number is invalid",
                 new[] { "" });

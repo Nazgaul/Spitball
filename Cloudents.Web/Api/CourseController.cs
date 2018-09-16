@@ -61,7 +61,7 @@ namespace Cloudents.Web.Api
         {
             var command = new CreateCourseCommand(model.CourseName, model.University);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-            return new CoursesCreateResponse()
+            return new CoursesCreateResponse
             {
                 Id = command.Id
             };
