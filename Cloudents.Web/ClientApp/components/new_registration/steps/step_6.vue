@@ -39,7 +39,6 @@
 
         data() {
             return {
-
                 confirmationCode: '',
                 loading: false,
             }

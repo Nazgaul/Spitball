@@ -168,7 +168,6 @@ export default {
         })
     },
     created() {
-
         //event liseners for all steps
         this.$on('changeStep', (stepName) => {
             this.changeStepNumber(stepName);
