@@ -6,6 +6,7 @@ using Cloudents.Core.Storage;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Queue;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -39,10 +40,10 @@ namespace Cloudents.Infrastructure.Storage
             return blobClient;
         }
 
-        //public CloudQueueClient GetQueueClient()
-        //{
-        //    return CloudStorage.CreateCloudQueueClient();
-        //}
+        public CloudQueueClient GetQueueClient()
+        {
+            return CloudStorage.CreateCloudQueueClient();
+        }
 
         public StorageCredentials GetCredentials()
         {
@@ -51,14 +52,14 @@ namespace Cloudents.Infrastructure.Storage
 
         public void Start()
         {
-            //var client = GetQueueClient();
+            var client = GetQueueClient();
 
             var tasks = new List<Task>();
-            //foreach (var queueName in GetQueues())
-            //{
-            //    var queue = client.GetQueueReference(queueName.Key);
-            //    tasks.Add(queue.CreateIfNotExistsAsync());
-            //}
+            foreach (var queueName in GetQueues())
+            {
+                var queue = client.GetQueueReference(queueName.Name);
+                tasks.Add(queue.CreateIfNotExistsAsync());
+            }
 
             var storageClient = GetCloudBlobClient();
             foreach (var container in GetContainers())
@@ -74,17 +75,17 @@ namespace Cloudents.Infrastructure.Storage
             //If we want to create new storage
         }
 
-        //private static IEnumerable<QueueName> GetQueues()
-        //{
-        //    foreach (var field in typeof(QueueName).GetFields(BindingFlags.Public | BindingFlags.Static))
-        //    {
-        //        if (field.IsLiteral)
-        //        {
-        //            continue;
-        //        }
-        //        yield return (QueueName)field.GetValue(null);
-        //    }
-        //}
+        private static IEnumerable<QueueName> GetQueues()
+        {
+            foreach (var field in typeof(QueueName).GetFields(BindingFlags.Public | BindingFlags.Static))
+            {
+                if (field.IsLiteral)
+                {
+                    continue;
+                }
+                yield return (QueueName)field.GetValue(null);
+            }
+        }
 
 
         public static IEnumerable<StorageContainer> GetContainers()

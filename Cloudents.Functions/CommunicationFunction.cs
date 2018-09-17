@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Message;
@@ -29,31 +28,60 @@ namespace Cloudents.Functions
             if (brokeredMessage.DeliveryCount > 1)
             {
                 log.Warning("invoking message from queue");
+                await brokeredMessage.DeadLetterAsync();
                 return;
             }
-            var topicMessage = brokeredMessage.GetBodyInheritance<BaseEmail>();
 
-            if (topicMessage == null)
+            try
             {
-                log.Error("error with parsing message");
-                return;
-            }
-            await ProcessEmail(emailProvider, binder, log, topicMessage, token);
+                var topicMessage = brokeredMessage.GetBodyInheritance<BaseEmail>();
 
-            log.Info("finish sending email");
+                if (topicMessage == null)
+                {
+                    log.Error("error with parsing message");
+                    return;
+                }
+
+                await ProcessEmail(emailProvider, binder, log, topicMessage, token);
+
+                log.Info("finish sending email");
+            }
+            catch (System.Runtime.Serialization.SerializationException ex)
+            {
+                if (brokeredMessage.Properties.TryGetValue(ServiceBusProvider.MessageType, out var messageType))
+                {
+                    log.Error($"Can't serialize {messageType}", ex);
+                }
+            }
         }
 
-
+        //[FunctionName("FunctionEmailTest")]
+        //public static async Task EmailFunctionTimerAsync(
+        //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
+        //    IAsyncCollector<Mail> emailProvider,
+        //    IBinder binder,
+        //    TraceWriter log,
+        //    CancellationToken token)
+        //{
+        //    var topicMessage = new AnswerCorrectEmail("hadar@cloudents.com", "text", "xxx",
+        //     "https://www.spitball.co", 456.23424M);
+        //    await ProcessEmail(emailProvider, binder, log, topicMessage, token);
+        //}
 
         private static async Task ProcessEmail(IAsyncCollector<Mail> emailProvider, IBinder binder, TraceWriter log,
             BaseEmail topicMessage, CancellationToken token)
         {
-            var message = new Mail();
+            var message = new Mail
+            {
+                TrackingSettings = new TrackingSettings { Ganalytics = new Ganalytics { Enable = true } }
+            };
 
             void TextEmail()
             {
                 message.AddContent(new Content("text/plain", topicMessage.ToString()));
                 message.Subject = topicMessage.Subject;
+
                 log.Warning("error with template name" + topicMessage.Template);
             }
 
@@ -73,7 +101,11 @@ namespace Cloudents.Functions
                     }
 
                     message.Subject = subject;
-                    message.AddCategory(message.Subject);
+                    message.AddCategory(topicMessage.Campaign);
+
+                    message.TrackingSettings.Ganalytics.UtmCampaign = topicMessage.Campaign;
+                    message.TrackingSettings.Ganalytics.UtmSource = topicMessage.Source;
+                    message.TrackingSettings.Ganalytics.UtmMedium = topicMessage.Medium;
                     if (htmlTemplate != null)
                     {
                         var content = htmlTemplate.Inject(topicMessage);
@@ -103,7 +135,7 @@ namespace Cloudents.Functions
 
 
 
-
+        //From = "Spitball"
         [FunctionName("FunctionSms")]
         public static async Task SmsServiceBusAsync(
             [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Sms), AccessRights.Listen)]BrokeredMessage message,

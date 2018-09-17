@@ -11,6 +11,8 @@ var t = require("./webpack.global.js");
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const { UnusedFilesWebpackPlugin } = require("unused-files-webpack-plugin");
+const WebpackRTLPlugin = require("webpack-rtl-plugin");
+
 
 
 module.exports = (env) => {
@@ -113,16 +115,23 @@ module.exports = (env) => {
             })
         ].concat(isDevBuild
             ? [
+                new ExtractTextPlugin({ filename: "site.[contenthash].css", allChunks: true }),
+                new WebpackRTLPlugin({
+                    filename: '[name].[contenthash].rtl.css'
+                })
             ]
             : [
                 // Plugins that apply in production builds only
                 new ExtractTextPlugin({ filename: "site.[contenthash].css", allChunks: true }),
+                new WebpackRTLPlugin({
+                    filename: '[name].[contenthash].rtl.css'
+                }),
                 new OptimizeCssAssetsPlugin({
                     assetNameRegExp: /\.optimize\.css$/g,
                     cssProcessor: require("cssnano"),
                     cssProcessorOptions: { discardComments: { removeAll: true } },
                     canPrint: true
-                })
+                }),
                 //new PurifyCSSPlugin({
                 //    // Give paths to parse for rules. These should be absolute!
                 //    paths: glob.sync(path.join(__dirname, 'clientapp/**/*.vue')),

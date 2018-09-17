@@ -20,7 +20,7 @@ namespace Cloudents.Core.CommandHandler
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
             IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository,
-            IBlobProvider<QuestionAnswerContainer> blobProvider)
+            IBlobProvider<QuestionAnswerContainer> blobProvider = null)
         {
             _questionRepository = questionRepository;
             _questionSubjectRepository = questionSubjectRepository;
@@ -35,20 +35,26 @@ namespace Cloudents.Core.CommandHandler
 
             var oldQuestion = await _questionRepository.GetUserLastQuestionAsync(user.Id, token);
 
-            if (oldQuestion?.Created.AddMinutes(2) > DateTime.UtcNow)
+            if (oldQuestion?.Created.AddSeconds(20) > DateTime.UtcNow)
             {
                 throw new InvalidOperationException("You need to wait before asking more questions");
             }
-            
 
-            var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId,token).ConfigureAwait(true);
-            var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user);
+
+            var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId, token).ConfigureAwait(true);
+            var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user, message.Color);
             await _questionRepository.AddAsync(question, token).ConfigureAwait(true);
             var id = question.Id;
 
-            //TODO: not right
-            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ?? Enumerable.Empty<Task>();
-            await Task.WhenAll(l).ConfigureAwait(true);
+            if (_blobProvider != null)
+            {
+                var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{id}", token)) ??
+                        Enumerable.Empty<Task>();
+                await Task.WhenAll(l).ConfigureAwait(true);
+            }
+            
+
+            message.Id = id;
         }
     }
 }

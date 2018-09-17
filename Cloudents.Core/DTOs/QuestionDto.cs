@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
     public class QuestionDto
     {
+
         public long Id { get; set; }
         public string Subject { get; set; }
         public decimal Price { get; set; }
@@ -14,5 +17,23 @@ namespace Cloudents.Core.DTOs
         public UserDto User { get; set; }
 
         public DateTime DateTime { get; set; }
+
+        public QuestionColor? Color { get; set; }
+
+        public bool HasCorrectAnswer { get; set; }
+    }
+
+
+    public class QuestionDtoEqualityComparer : IEqualityComparer<QuestionDto>
+    {
+        public bool Equals(QuestionDto x, QuestionDto y)
+        {
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(QuestionDto obj)
+        {
+            return obj.Id.GetHashCode();
+        }
     }
 }

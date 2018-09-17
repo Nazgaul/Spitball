@@ -1,6 +1,9 @@
-﻿﻿import settingsService from './../services/settingsService'
-import { SEARCH, USER } from './mutation-types'
+﻿import profileService from "../services/profile/profileService"
+import settingsService from './../services/settingsService'
+import { USER } from './mutation-types'
 import * as consts from "./constants";
+
+﻿
 // export const MAX_HISTORY_LENGTH=5;
 const state = {
     user: {
@@ -10,9 +13,10 @@ const state = {
         location: null,
         pinnedCards: {},
         showRegistrationBanner: true,
-        registrationStep: consts.REGISTRATION_STEPS[0]
+        profileData: profileService.getProfileData('profileGeneral')
     },
-    facet: "",
+    filters: "",
+    sort: "",
     historyTermSet: [],
     historySet: {
         job: [],
@@ -27,8 +31,11 @@ const mutations = {
     [USER.UPDATE_USER](state, payload) {
         state.user = { ...state.user, ...payload };
     },
-    [USER.UPDATE_FACET](state, payload) {
-        state.facet = payload;
+    [USER.UPDATE_FILTERS](state, payload) {
+        state.filters = payload;
+    },
+    [USER.UPDATE_SORT](state, payload) {
+        state.sort = payload;
     },
     [USER.UPDATE_SEARCH_SET_VERTICAL](state, { term, vertical }) {
         if (!term || !term.trim()) return;
@@ -65,17 +72,9 @@ const mutations = {
     [USER.HIDE_REGISTRATION_BANNER](state) {
         state.user.showRegistrationBanner = false;
     },
-    [USER.INCREMENT_REGISTRATION_STEP](state) {
-        var currStepIndex = consts.REGISTRATION_STEPS.indexOf(state.user.registrationStep);
-        if(currStepIndex === consts.REGISTRATION_STEPS.length-1){
-            state.user.registrationStep = consts.REGISTRATION_STEPS[0];
-        }
-        else {
-            state.user.registrationStep = consts.REGISTRATION_STEPS[currStepIndex+1];
-        }
-    }
-
-
+    [USER.UPDATE_PROFILE_DATA](state, data) {
+        state.user.profileData = data;
+    },
 };
 const getters = {
     historyTermSet: state => state.historyTermSet,
@@ -96,8 +95,8 @@ const getters = {
         state => state.user.pinnedCards,
     showRegistrationBanner:
         state => state.user.showRegistrationBanner,
-    getRegistrationStep:
-        state => state.user.registrationStep,
+    // getRegistrationStep:
+    //     state => state.user.registrationStep,
     getUniversity: state => {
         let obj = state.user.universityId || {};
         return obj.id;
@@ -112,7 +111,16 @@ const getters = {
     },
     myCourses: state => state.user.myCourses,
     myCoursesId: state => (state.user.myCourses.length ? state.user.myCourses.map(i => i.id) : []),
-    getFacet: state => state.facet
+    getFilters (state) {
+      return  state.filters
+    },
+    getSort(state){
+        return state.sort
+    },
+    getProfileData(state){
+        return state.user.profileData
+    }
+
 };
 const actions = {
     updateHistorySet({ commit }, term) {
@@ -160,17 +168,20 @@ const actions = {
     updatePinnedCards(context, data) {
         context.commit(USER.UPDATE_USER, { pinnedCards: { ...context.getters.pinnedCards, ...data } });
     },
-    updateFacet({ commit }, data) {
-        commit(USER.UPDATE_FACET, data)
+    updateFilters({ commit }, data) {
+        commit(USER.UPDATE_FILTERS, data)
+    },
+    updateSort({ commit }, data) {
+        commit(USER.UPDATE_SORT, data)
     },
     hideRegistrationBanner(context) {
-        console.log('clicked close btn')
         context.commit(USER.HIDE_REGISTRATION_BANNER);
     },
-    incrementRegistrationStep(context) {
-        context.commit(USER.INCREMENT_REGISTRATION_STEP);
-    }
+    updateUserProfileData(context, name){
+        let currentProfile = profileService.getProfileData(name);
+        context.commit(USER.UPDATE_PROFILE_DATA, currentProfile );
 
+    }
 };
 export default {
     state,

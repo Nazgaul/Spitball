@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -25,12 +24,14 @@ namespace Cloudents.Core.Interfaces
 
     public interface IUserRepository : IRepository<User>
     {
-        Task<IList<User>> GetAllUsersAsync(CancellationToken token);
+        //Task<IList<User>> GetAllUsersAsync(CancellationToken token);
+
+        //Task<User> GetUserByEmail(string email, CancellationToken token);
 
         Task<decimal> UserEarnedBalanceAsync(long userId, CancellationToken token);
 
         Task<User> GetRandomFictiveUserAsync(CancellationToken token);
-
+        
         //Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
     }
 

@@ -85,7 +85,7 @@ namespace Cloudents.Infrastructure.Interceptor
             return sb.ToString();
         }
 
-        private static string GetInvocationSignature(IInvocation invocation)
+        internal static string GetCacheKey(Type targetType,string methodName,object[] arguments)
         {
 #if DEBUG
             const string prefix = "Debug";
@@ -94,8 +94,13 @@ namespace Cloudents.Infrastructure.Interceptor
 #endif
             return
                 $"{prefix}-{Assembly.GetExecutingAssembly().GetName().Version.ToString(4)}-" +
-                $"{invocation.TargetType.FullName}-{invocation.Method.Name}" +
-                $"-{BuildArgument(invocation.Arguments)}";
+                $"{targetType.FullName}-{methodName}" +
+                $"-{BuildArgument(arguments)}";
+        }
+
+        private static string GetInvocationSignature(IInvocation invocation)
+        {
+            return GetCacheKey(invocation.TargetType, invocation.Method.Name, invocation.Arguments);
         }
 
         [UsedImplicitly]

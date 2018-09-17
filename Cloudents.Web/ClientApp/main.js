@@ -2,18 +2,22 @@
 import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
+import { LanguageService } from "./services/language/languageService"
+import { Language } from "./services/language/langDirective"
+import initSignalRService from './services/signalR/signalrEventService'
+import VueClipboard from 'vue-clipboard2'
+
 
 const scroll = () =>
     import("./components/helpers/infinateScroll.vue");
 import VScroll from "vuetify/es5/directives/scroll";
-
 const GeneralPage = () =>
     import("./components/helpers/generalPage.vue");
 import VueRouter from "vue-router";
 
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-// import VueParticles from 'alopu-vue-particles';
+
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
@@ -32,6 +36,7 @@ const vuetifyComponents = {
     VTextField,
     VSelect,
     VBtn,
+    VBtnToggle,
     VTooltip,
     VMenu,
     VSwitch,
@@ -42,6 +47,7 @@ const vuetifyComponents = {
     VAvatar,
     VPagination,
     VDataTable,
+
 
 
 
@@ -64,6 +70,7 @@ import {
     VDivider,
     VDialog,
     VBtn,
+    VBtnToggle,
     VTooltip,
     VMenu,
     VSwitch,
@@ -73,7 +80,8 @@ import {
     VNavigationDrawer,
     VAvatar,
     VPagination,
-    VDataTable
+    VDataTable,
+
 
 } from "vuetify";
 import * as route from "./routes";
@@ -97,7 +105,8 @@ WebFont.load({
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
-        VScroll
+        VScroll,
+
     },
     components: vuetifyComponents
 });
@@ -110,23 +119,16 @@ const router = new VueRouter({
     routes: route.routes,
     scrollBehavior(to, from, savedPosition) {
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
-              resolve({ x: 0, y: 0 });
-            }, 500);
+                if(savedPosition){
+                    resolve({ x: savedPosition.x, y: savedPosition.y });
+                }else{
+                    resolve({ x: 0, y: 0 });
+                }
           });
-          
-        //gaby: deprecated not actually saving the last scroll position.
-        // if (savedPosition) {
-        //     return savedPosition;
-        // } else {
-        //     return {
-        //         x: 0,
-        //         y: 0
-        //     }
-        // }
     }
-
 });
+
+Vue.use(VueClipboard)
 
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',
@@ -139,7 +141,6 @@ Vue.use(VueAnalytics, {
             return to.path != "/result";
         },
         pageviewTemplate(route) {
-            // let title=route.name.charAt(0).toUpperCase() + route.name.slice(1);
             return {
                 page: route.path,
                 title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
@@ -149,6 +150,10 @@ Vue.use(VueAnalytics, {
         exception: true
     }
 });
+
+Vue.directive('language', Language);
+
+
 //#region yifat
 Vue.filter('capitalize',
     function (value) {
@@ -163,18 +168,30 @@ Vue.filter('capitalize',
         //return value.charAt(0).toUpperCase() + value.slice(1);
     });
 //#endregion
+
 Vue.filter('ellipsis',
-    function (value, characters) {
+    function (value, characters, datailedView) {
         value = value || '';
-        if (value.length <= characters)
+        if (value.length <= characters || datailedView){
             return value;
-        return value.substr(0, characters) + '...';
+        }else{
+            return value.substr(0, characters) + '...';
+
+        }
     });
+Vue.filter('bolder',
+  function (value, query) {
+    if(query.length) {
+        query.map((item) => {
+            value = value.replace(item, '<span class="bolder">' + item + '</span>')
+        });
+    }
+    return value
+});
 
 Vue.filter('fixedPoints', function (value) {
     if (!value) return 0;
     if (value.toString().indexOf('.') === -1) return value;
-    // debugger
     return parseFloat(value).toFixed(2);
 });
 
@@ -211,12 +228,13 @@ router.beforeEach((to, from, next) => {
             }
         }
     }
-    if (window.innerWidth < 600) {
+    if (global.innerWidth < 600) {
         intercomSettings.hide_default_launcher = true;
     }
     else {
         intercomSettings.hide_default_launcher = false;
     }
+    store.dispatch('changeLastActiveRoute', from);
     checkUserStatus(to, next);
     
 });
@@ -245,6 +263,8 @@ function checkUserStatus(to, next) {
         next("/signin");
     });
 }
+
+initSignalRService();
 
 //app.$mount("#app");
 //This is for cdn fallback do not touch

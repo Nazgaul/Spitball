@@ -3,42 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Cloudents.Core;
-using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Data.Maps;
 using FluentNHibernate.Cfg;
 using NHibernate;
+using NHibernate.Caches.CoreDistributedCache;
+using NHibernate.Caches.CoreDistributedCache.Redis;
 using NHibernate.Cfg;
 
 namespace Cloudents.Infrastructure.Data
 {
-    public class UnitOfWorkFactorySpitball : IUnitOfWorkFactory
+    public class UnitOfWorkFactorySpitball
     {
         private readonly ISessionFactory _factory;
 
         private static IEnumerable<Type> GetAllTypesImplementingOpenGenericType(Type openGenericType, Assembly assembly)
         {
             return from x in assembly.GetTypes()
-                   from z in x.GetInterfaces()
-                   let y = x.BaseType
-                   where
-                       (y?.IsGenericType == true
-                                 && openGenericType.IsAssignableFrom(y.GetGenericTypeDefinition()))
-                       || (z.IsGenericType
-                       && openGenericType.IsAssignableFrom(z.GetGenericTypeDefinition()))
-                   select x;
+                from z in x.GetInterfaces()
+                let y = x.BaseType
+                where
+                    (y?.IsGenericType == true
+                     && openGenericType.IsAssignableFrom(y.GetGenericTypeDefinition()))
+                    || (z.IsGenericType
+                        && openGenericType.IsAssignableFrom(z.GetGenericTypeDefinition()))
+                select x;
         }
 
-        public UnitOfWorkFactorySpitball(DbConnectionStringProvider connectionString)
+        public UnitOfWorkFactorySpitball(IConfigurationKeys connectionString)
         {
             var configuration = Fluently.Configure()
                 .Database(
-                    FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.GetConnectionString(Database.System))
+                    FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.Db.Db)
                         .DefaultSchema("sb").Dialect<SbDialect>()
 
 #if DEBUG
                         .ShowSql()
 #endif
-               ).ExposeConfiguration(BuildSchema);
+                ).ExposeConfiguration(BuildSchema);
 
             configuration.Mappings(m =>
             {
@@ -49,10 +51,16 @@ namespace Cloudents.Infrastructure.Data
                     m.FluentMappings.Add(type);
                 }
             });
+            configuration.Cache(c =>
+            {
+                CoreDistributedCacheProvider.CacheFactory = new RedisFactory(connectionString.Db.Redis, "master");
+                c.UseSecondLevelCache().RegionPrefix("nhibernate")
+                    .UseQueryCache().ProviderClass<CoreDistributedCacheProvider>();
+            });
 
             _factory = configuration.BuildSessionFactory();
 
-           // _factory.Statistics.IsStatisticsEnabled = true;
+            // _factory.Statistics.IsStatisticsEnabled = true;
         }
 
         public ISession OpenSession()
@@ -72,7 +80,11 @@ namespace Cloudents.Infrastructure.Data
 #if DEBUG
             config.SetInterceptor(new LoggingInterceptor());
 #endif
+            config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);
+            //config.Properties.Add("cache.default_expiration",$"{TimeConst.Day}");
+            //config.Properties.Add("cache.use_sliding_expiration",bool.TrueString.ToLowerInvariant());
             config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Validate);
         }
     }
 }
+  

@@ -1,4 +1,5 @@
 ﻿@using System.Reflection
+@using Cloudents.Web
 @using Cloudents.Web.Extensions
 @using Cloudents.Web.Services
 @using Cloudents.Web.Views
@@ -17,25 +18,38 @@
     ViewBag.fbImage = ViewBag.fbImage ?? "/images/3rdParty/fbShare.png";
     ViewBag.imageSrc = ViewBag.imageSrc ?? "/images/3rdParty/fbShare.png";
     var version = typeof(Program).Assembly
-        .GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
+        .GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
     var p = Provider.GetTag("vendor");
     var main = Provider.GetTag("main");
     var cdnEndPoint = Constants.GetCdnEndpoint(Environment);
 }
 <!DOCTYPE html>
 
-<html>
+<html dir="@(System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")">
 <head>
-
     <title>@ViewBag.title</title>
-
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <base href="~/" />
     @*<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">*@
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/dist/@p.Css" />
+        @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft)
+        {
+            <link rel="stylesheet" href="~/dist/@p.RtlCss" />
+        }
+        else
+        {
+            <link rel="stylesheet" href="~/dist/@p.Css" />
+        }
+        @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft)
+        {
+            <link rel="stylesheet" href="~/dist/@main.RtlCss" />
+        }
+        else
+        {
+            <link rel="stylesheet" href="~/dist/@main.Css" />
+        }
     </environment>
 
     <environment exclude="Development">
@@ -57,7 +71,7 @@
     <meta name="title" content="@ViewBag.title" />
     <meta name="description" content="@ViewBag.metaDescription" />
 
-    <meta name="apple-itunes-app" content="app-id=990911114">
+    @*<meta name="apple-itunes-app" content="app-id=990911114">*@
     <link rel="image_src" href="@ViewBag.imageSrc" />
 
     <meta property="fb:app_id" content="450314258355338" />
@@ -161,7 +175,7 @@
             //Intercom('boot', { app_id: 'njmpgayv' })
         })()
     </script>
-    <!-- Begin Inspectlet Embed Code -->
+    @*Begin Inspectlet Embed Code *@
     <script type="text/javascript" id="inspectletjs">
         (function () {
             window.__insp = window.__insp || [];
@@ -174,14 +188,14 @@
             setTimeout(ldinsp, 0);
         })();
     </script>
-    <!-- End Inspectlet Embed Code -->
-    @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>*@
+    @* End Inspectlet Embed Code *@
     <script>
-    window.version = '@version';
-    window.publicPath = '@cdnEndPoint' + '/dist/';
-    window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
-    window.talkJsId = '@Configuration["TalkJs"]';
+            window.version = '@version';
+            window.publicPath = '@cdnEndPoint' + '/dist/';
+            window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
+            window.talkJsId = '@Configuration["TalkJs"]';
     </script>
+
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>

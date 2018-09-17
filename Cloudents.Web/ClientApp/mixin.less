@@ -5,6 +5,7 @@
 @color-medium-grey: #bbbbbb;
 @color-light-grey: #f0f0f0;
 @color-light-grey-2: #fbfbfb;
+@color-divider-grey: #cccccc;
 @color-green: #52ab15;
 @color-orange: #f5a623;
 @color-purple: #8c3fbf;
@@ -13,6 +14,7 @@
 @color-red: #FF5252;
 @color-transparent: transparent;
 @color-black: #000000;
+@color-red-heavy: #d0021b;
 /*
 @color-pink-gradient: fade(#f14d4d, 15%);
 @color-purple-gradient: fade(@color-purple, 15%);
@@ -100,23 +102,49 @@
     }
   }
 }
+// generate classes for question card  based on user selced color, background and font color
+@colors: #ffffff, #6bc248, #a757db, #e5455d, #edaf2e, #7472ff, #3bbda4, #53a0fd, #a09c9c, #abb55e, #d251ae;
+@names: default, green, purple, red, yellow, blue, turquoise, lightBlue, grey, olive, pink;
+@fontColors: #000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff;
+@length: length(@colors);
+.user-question-style(@names; @colors; @fontColors; @index) when (iscolor(extract(@colors, @index))) and (@index > 0) {
+  .user-question-style(@names; @colors; @fontColors; (@index - 1)); // decrement.
 
-.placeholder-color(@color) {
+  @name: extract(@names, @index);
+  @color: extract(@colors, @index);
+  @fontColor: extract(@fontColors, @index);
+
+  .sbf-card-@{name} {
+    background-color: @color;
+  }
+
+  .sbf-font-@{name} {
+    color: @fontColor!important;
+  }
+}
+.user-question-style(@names, @colors, @fontColors, @length );
+//end function
+
+.placeholder-color(@color, @opacity:1 ) {
 
   &::-webkit-input-placeholder {
     color: @color !important;
+    opacity: @opacity!important;
   }
 
   &::-moz-placeholder {
     color: @color !important;
+    opacity: @opacity!important;
   }
 
   &:-ms-input-placeholder {
     color: @color !important;
+    opacity: @opacity!important;
   }
 
   &:-moz-placeholder {
     color: @color !important;
+    opacity: @opacity!important;
   }
 }
 
@@ -139,12 +167,27 @@
 
 .cellActionBtnMixin(){
   position: absolute;
-  .responsive-property(bottom, 8px, null, 8px);
-  .responsive-property(right, 8px, null, 8px);
+  .responsive-property(bottom, 16px, null, 8px);
+  .responsive-property(right, 16px, null, 8px);
   padding: 3px 20px;
   color: white;
   border-radius: 4px;
   font-size: 14px;
+}
+
+.cellActionViewerMixin(){
+  position: absolute;
+  .transition(all .2s ease-in-out);
+  .responsive-property(bottom, 50px, null, 8px);
+  .responsive-property(right, 16px, null, 8px);
+  //padding: 0px 100px 3px 0px;
+  color: #707070;
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  color: #8888d5;
 }
 
 .cellActionBtnMixinAnswer(){
@@ -166,7 +209,13 @@
   position: -webkit-sticky; // safari
   position: sticky;
 }
-
+//transition mixin
+.transition (@transition) {
+  -webkit-transition: @transition;
+  -moz-transition:    @transition;
+  -ms-transition:     @transition;
+  -o-transition:      @transition;
+}
 
 .flashcard-icon(@width, @frontColor, @backColor, @borderColor, @frontHover, @backHover, @frontText,@height: 0.88*@width) {
   //@height: 0.88*@width;
@@ -250,6 +299,7 @@
 }
 
 // Size constants
+@btnHeight : 40px;
 @navBarHeightMdAndUp: 104px;
 @mainNavHeightXsOnly: 120px;
 @mainNavHeightSmAndUp: 60px;
@@ -266,3 +316,21 @@
 @screen-lg: 1904px;
 @logoWidth: 192px;
 @cellWidth: 500px;
+
+
+@-webkit-keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}

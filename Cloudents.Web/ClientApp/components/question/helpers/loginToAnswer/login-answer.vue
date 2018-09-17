@@ -5,23 +5,17 @@
                 <v-icon>sbf-close</v-icon>
             </button>
             <div class="ml-1 wrap-text">
-                <h2 class="text-md-left"> Please <br/><b>sign up</b> or <b>login</b><br/> to continue.</h2>
+                <h2 class="text-md-left"> {{profileData.modal.heading}}</h2>
                 <div class="wrapper-body-text">
-                    <p class="dialog-body-text">You are a couple of mouse clicks away from FREE access to making serious money.</p>
+                    <p class="dialog-body-text"> {{profileData.modal.text}}</p>
                 </div>
-
-
             </div>
             <div class="btn-container">
-                <a class="login-btns body-1" @click="register()">Sign Up</a>
-                <!-- <a class="login-btns body-1" href="/signin">Login</a> -->
-                <a class="login-btns body-1" @click="signin()">Login</a>
+                <router-link  class="login-btns body-1" :to="{ path: '/register', query:{returnUrl : $route.path}}" v-language:inner>loginAnswer_Sign_Up</router-link>
+                <router-link  class="login-btns body-1" :to="{ path: '/signin'}" v-language:inner>loginAnswer_login</router-link>
             </div>
-
         </div>
     </v-card>
-
-
 </template>
 
 <script src="./login-answer.js"></script>

@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Cloudents.Core.Command;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
+using JetBrains.Annotations;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -18,24 +17,26 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<Answer> _answerRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
-        private readonly IServiceBusProvider _serviceBusProvider;
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
             IRepository<Answer> answerRepository, IRepository<User> userRepository,
-            IBlobProvider<QuestionAnswerContainer> blobProvider, IServiceBusProvider serviceBusProvider)
+            IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _userRepository = userRepository;
             _blobProvider = blobProvider;
-            _serviceBusProvider = serviceBusProvider;
         }
 
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token).ConfigureAwait(false);
-            var question = await _questionRepository.LoadAsync(message.QuestionId, token).ConfigureAwait(false);
+            var question = await _questionRepository.GetAsync(message.QuestionId, token).ConfigureAwait(false);
+            if (question == null)
+            {
+                throw new ArgumentException("question doesn't exits");
+            }
             if (user.Id == question.User.Id)
             {
                 throw new InvalidOperationException("user cannot answer himself");
@@ -43,7 +44,7 @@ namespace Cloudents.Core.CommandHandler
 
             if (question.CorrectAnswer != null)
             {
-                throw new InvalidOperationException("already answer with question");
+                throw new InvalidOperationException("already answer with correct question");
 
             }
             if (user.Fictive)
@@ -55,18 +56,24 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new InvalidOperationException("user cannot give more the one answer");
             }
-            var answer = new Answer(question, message.Text, message.Files?.Count() ?? 0, user);
+            var answer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user);
+            //var answer = new Answer(question, message.Text, message.Files?.Count() ?? 0, user);
             await _answerRepository.AddAsync(answer, token).ConfigureAwait(false);
 
             var id = answer.Id;
 
+            float condition = Math.Max(DateTime.UtcNow.Subtract(question.Created).Seconds, 1);
+
+            const int fraudTime = TimeConst.Minute * 5;
+            if (condition < fraudTime)
+            {
+                var factor = fraudTime / condition;
+                user.FraudScore += (int)factor * 5;
+                await _userRepository.UpdateAsync(user, token);
+            }
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 
-
-            var t = _serviceBusProvider.InsertMessageAsync(
-                    new GotAnswerEmail(question.Text, question.User.Email, message.Text, message.QuestionLink), token);
-
-            await Task.WhenAll(l.Union(new[] { t })).ConfigureAwait(true);
+            await Task.WhenAll(l/*.Union(new[] { t })*/).ConfigureAwait(true);
         }
     }
 }

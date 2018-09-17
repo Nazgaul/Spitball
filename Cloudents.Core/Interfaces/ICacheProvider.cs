@@ -4,6 +4,8 @@
     {
         object Get(string key, string region);
 
+        T Get<T>(string key, string region);
+
         /// <summary>
         /// Add element to cache
         /// </summary>
@@ -15,5 +17,7 @@
         void Set(string key, string region, object value, int expire, bool slideExpiration);
 
         bool Exists(string key, string region);
+
+        void DeleteRegion(string region);
     }
 }

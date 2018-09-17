@@ -2,9 +2,8 @@ import Talk from "talkjs";
 import accountService from "../services/accountService"
 import {debug} from "util";
 import {dollarCalculate} from "./constants";
+import analyticsService from '../services/analytics.service'
 
-let userLogin = false;
-import {router} from "../main";
 
 function setIntercomSettings(data){
     let app_id = "njmpgayv";
@@ -15,18 +14,25 @@ function setIntercomSettings(data){
         user_id = "Sb_" + data.id;
         user_name = data.name;
     }
-    window.intercomSettings = {
+    global.intercomSettings = {
         app_id,
         hide_default_launcher,
         user_id,
         name: user_name
     }
 
-    window.Intercom('boot', {intercomSettings});
+    global.Intercom('boot', {intercomSettings});
 }
 
 function removeIntercomeData(){
-    window.Intercom('shutdown');
+    global.Intercom('shutdown');
+}
+
+function setIntercomeData(data){
+    //do not set intercome setting for mobile because no intercome should be on mobile case 10850
+    if(global.innerWidth > 600){
+        setIntercomSettings(data)
+    }
 }
 
 
@@ -36,7 +42,8 @@ const state = {
     talkSession: null,
     talkMe: null,
     unreadMessages: 0,
-    fromPath: null
+    fromPath: null,
+    lastActiveRoute: null
 }
 const mutations = {
     changeLoginStatus(state, val) {
@@ -61,6 +68,9 @@ const mutations = {
     },
     updateFromPath(state, val) {
         state.fromPath = val;
+    },
+    setLastActiveRoute(state, val){
+        state.lastActiveRoute = val;
     }
 };
 
@@ -71,14 +81,22 @@ const getters = {
     isUser: state => state.user !== null,
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
-    accountUser: state => state.user
+    accountUser: state => state.user,
+    lastActiveRoute: state => state.lastActiveRoute
 };
+
+
+
+
 const actions = {
     logout({state, commit}) {
         removeIntercomeData();
-        setIntercomSettings();
-        window.location.replace("/logout");
+        setIntercomeData();
+        global.location.replace("/logout");
 
+    },
+    changeLastActiveRoute({commit}, route){
+        commit("setLastActiveRoute", route)
     },
     userStatus({dispatch, commit, getters}, {isRequire, to}) {
         const $this = this;
@@ -88,22 +106,22 @@ const actions = {
         if (getters.isUser) {
             return Promise.resolve();
         }
-        if (window.isAuth) {
+        if (global.isAuth) {
             return accountService.getAccount().then(({data}) => {
-                setIntercomSettings(data);
+                setIntercomeData(data)
                 commit("changeLoginStatus", true);
                 commit("updateUser", data);
                 dispatch("connectToChat");
-                
+                analyticsService.sb_setUserId(data.id);
             }).catch(_ => {
-                setIntercomSettings();
+                setIntercomeData()
                 isRequire ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
                 
             });
         }else{
             removeIntercomeData();
-            setIntercomSettings();
+            setIntercomeData();
         }
     },
     saveCurrentPathOnPageChange({commit}, {currentRoute}){
@@ -129,7 +147,7 @@ const actions = {
 
                 commit("updateChatUser", me);
                 const talkSession = new Talk.Session({
-                    appId: window.talkJsId,
+                    appId: global.talkJsId,
                     me: me,
                     signature: state.user.token
                 });

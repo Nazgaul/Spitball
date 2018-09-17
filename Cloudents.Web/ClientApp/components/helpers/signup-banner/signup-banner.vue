@@ -1,9 +1,9 @@
 <template>
-    <v-flex xs12 :class="'banner-wrap color-'+$route.path.slice(1)">
+    <v-flex xs12 :class="'banner-wrap campaign-'+ bannerData.campaignClass +' color-'+$route.path.slice(1)" @click.prevent="goToUrl()">
         <button class="back-button" @click="hideRegistrationBanner()">
             <v-icon>sbf-close</v-icon>
         </button>
-        <div class="overlay-bubble">
+        <div class="overlay-bubble" v-if="bannerData.showOverlay">
             <div class="overlay-bubble-1"></div>
             <div class="overlay-bubble-2"></div>
             <div class="overlay-bubble-3"></div>
@@ -27,8 +27,8 @@
         </v-flex>
 
         <div class="round-free">
-            <p class="round-free-text">Spitball is a completely<br/>
-               <span>FREE</span><br/> service.</p>
+            <p class="round-free-text"><span v-language:inner>signupBanner_spitball_is_a_completely</span> <br/>
+               <span v-language:inner>signupBanner_free</span><br/> <span v-language:inner>signupBanner_service</span> </p>
         </div>
     </v-flex>
 </template>

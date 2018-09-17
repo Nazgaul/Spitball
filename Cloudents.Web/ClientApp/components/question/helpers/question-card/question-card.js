@@ -1,8 +1,8 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import disableForm from "../../../mixins/submitDisableMixin"
-import {mapGetters, mapActions} from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import timeago from 'timeago.js';
-
+import { LanguageService } from "../../../../services/language/languageService";
 
 export default {
     mixins: [disableForm],
@@ -45,7 +45,7 @@ export default {
         return {
             isDeleted: false,
             showActionToaster: false,
-            flaggedAsCorrect: false,
+            localMarkedAsCorrect: false,
             toasterText: '',
             timeoutID: null,
             action: null,
@@ -53,7 +53,6 @@ export default {
             src: '',
             selectedImage: '',
             showDialog: false,
-            limitedCardAnswers: []
         }
     },
     computed: {
@@ -75,6 +74,29 @@ export default {
             }
             return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
         },
+        limitedCardAnswers() {
+            if (typeof  this.cardData.answers === "number") {
+                if (this.cardData.answers > 3) {
+                    return 3;
+                } else {
+                    return this.cardData.answers;
+                }
+            } else if (!!this.cardData && !!this.cardData.answers) {
+                return this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
+            }
+        },
+        flaggedAsCorrect() {
+            return this.isCorrectAnswer || this.localMarkedAsCorrect
+        },
+        isSold() {
+            return !this.cardData.hasCorrectAnswer && !this.cardData.correctAnswerId
+        },
+        cardTime() {
+            return this.cardData.dateTime || this.cardData.create
+        },
+        cardAnswers() {
+            return this.cardData.answers
+        }
     },
     methods: {
         ...mapActions({
@@ -83,58 +105,57 @@ export default {
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams'
         }),
+        getQuestionColor() {
+            if (!!this.cardData && !this.cardData.color) {
+                return this.cardData.color = 'default';
+            }
+        },
         showBigImage(src) {
             this.showDialog = true;
             this.selectedImage = src;
         },
         markAsCorrect() {
-            var toasterText = this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted';
-            this.updateToasterParams({
-                toasterText: toasterText,
-                showToaster: true,
-            });
-            this.flaggedAsCorrect = true;
+            this.localMarkedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
-            this.updateToasterParams({toasterText: '', showToaster: false});//test123
-
         },
         deleteQuestion() {
-            this.updateToasterParams({
-                toasterText: this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted',
-                showToaster: true,
-            });
             this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
-                .then(() => {
-                    if (!this.typeAnswer) {
-                        this.updateBalance(this.cardData.price);
-                        //To DO change to router link use and not text URL
-                        this.$router.push('/ask')
-                    } else {
-                        //emit to root to update array of answers
-                        this.$root.$emit('deleteAnswer', this.cardData.id);
-                        this.isDeleted = true
+                .then((success) => {
+                        this.updateToasterParams({
+                            toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
+                            showToaster: true,
+                        });
+                        if (!this.typeAnswer) {
+                            this.updateBalance(this.cardData.price);
+                            this.$ga.event("Delete_question", "Homework help");
+                            //ToDO change to router link use and not text URL
+                            this.$router.push('/ask')
+                        } else {
+                            //emit to root to update array of answers
+                            this.$ga.event("Delete_answer", "Homework help");
+                            this.$root.$emit('deleteAnswer', this.cardData.id);
+                            this.isDeleted = true
+                        }
+                    },
+                    (error) => {
+                        console.error(error)
                     }
-                });
+                );
         },
-        calculateAnswerToLimit() {
-            // limit card answer could be a number or array depends on route(view)
-            if (typeof  this.cardData.answers === "number") {
-                if (this.cardData.answers > 3) {
-                    this.limitedCardAnswers = 3;
-                } else {
-                    this.limitedCardAnswers = this.cardData.answers;
-                }
-            } else if (!!this.cardData && !!this.cardData.answers) {
-                this.limitedCardAnswers = this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
-            }
+        renderQuestionTime(className) {
+            timeago().render(document.querySelectorAll(className));
         }
     },
-    mounted() {
-        timeago().render(document.querySelectorAll('.timeago'));
-// use render method to render nodes in real time
+    created(){
+        this.getQuestionColor()
     },
-    created() {
-        this.flaggedAsCorrect = this.isCorrectAnswer;
-        this.calculateAnswerToLimit();
-    }
+    mounted() {
+        this.renderQuestionTime('.timeago')
+        // use render method to render nodes in real time
+    },
+    updated() {
+        // when signalR adds a question we want the time to be rerendered to show correct time
+        // thats why we have same function on mounted and updated
+        this.renderQuestionTime('.timeago')
+    },
 }

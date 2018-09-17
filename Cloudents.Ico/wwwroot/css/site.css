@@ -145,7 +145,8 @@ html, body {
     }
     div.blocks{
         width: 412px;
-        height: 108px;
+        height: auto;
+        min-height: 108px;
     }
     #mobile-whitepaper-wrap{
         display: none;
@@ -2625,7 +2626,8 @@ select:focus {
     .site-header .navbar-collapse {
         padding: 0;
         background-color: transparent;
-        color: #eff6ff;
+        /* color: #eff6ff; */
+        color: transparent;
     }
 
     .site-header .logo-light {

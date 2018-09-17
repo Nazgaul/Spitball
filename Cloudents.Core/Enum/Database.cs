@@ -13,6 +13,7 @@
         Console,
         WorkerRole,
         IcoSite,
-        Admin
+        Admin,
+        MailGun
     }
 }

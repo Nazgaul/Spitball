@@ -1,10 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,8 +15,8 @@ namespace Cloudents.Web.Api
     /// <summary>
     /// The controller of job api
     /// </summary>
-    [Route("api/[controller]", Name = "Job")]
-    public class JobController : Controller
+    [Route("api/[controller]", Name = "Job"), ApiController]
+    public class JobController : ControllerBase
     {
         private readonly IJobSearch _jobSearch;
 
@@ -36,10 +37,8 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        [ValidateModel]
-        // [ProducesResponseType(typeof(WebResponseWithFacet<JobDto>), 200)]
 
-        public async Task<IActionResult> GetAsync([FromQuery]JobRequest model, CancellationToken token)
+        public async Task<WebResponseWithFacet<JobDto>> GetAsync([FromQuery]JobRequest model, CancellationToken token)
         {
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Sort.GetValueOrDefault(JobRequestSort.Relevance),
@@ -50,15 +49,20 @@ namespace Cloudents.Web.Api
             {
                 nextPageLink = Url.NextPageLink("Job", model);
             }
-            //TODO: should return typeof(WebResponseWithFacet<JobDto>), 200)
-            return Ok(
-                new
+            return new WebResponseWithFacet<JobDto>
+            {
+                Result = result.Result,
+                Filters = new []
                 {
-                    //Result = p,
-                    //Facet = result.Facet,
-                    result,
-                    nextPageLink
-                });
+                    new Models.Filters(nameof(JobRequest.Facet),"Subject", result.Facet)
+                },
+                //Filters = new Dictionary<string, IEnumerable<string>>
+                //{
+                //    ["Subject"] = result.Facet
+                //},
+                Sort = Enum.GetNames(typeof(JobRequestSort)),
+                NextPageLink = nextPageLink
+            };
         }
     }
 }

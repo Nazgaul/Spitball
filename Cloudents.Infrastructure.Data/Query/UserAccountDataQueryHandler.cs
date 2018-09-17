@@ -14,9 +14,9 @@ namespace Cloudents.Infrastructure.Data.Query
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UserAccountDataQueryHandler : IQueryHandler<UserDataByIdQuery, UserAccountDto>
     {
-        private readonly ISession _session;
+        private readonly IStatelessSession _session;
 
-        public UserAccountDataQueryHandler(ReadonlySession readonlySession)
+        public UserAccountDataQueryHandler(ReadonlyStatelessSession readonlySession)
         {
             _session = readonlySession.Session;
         }
@@ -30,6 +30,10 @@ namespace Cloudents.Infrastructure.Data.Query
                     Balance = s.Balance, // s.LastTransaction.Balance,
                     Name = s.Name,
                     Image = s.Image
+                }).WithOptions(o =>
+                {
+                    o.SetCacheable(true)
+                        .SetReadOnly(true);
                 }).SingleOrDefaultAsync(cancellationToken: token).ConfigureAwait(false);
 
             return p;

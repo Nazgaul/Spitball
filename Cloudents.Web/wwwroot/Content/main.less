@@ -35,13 +35,20 @@ button {
 }
 
 
-@vertical-marketplace: #d0021b;
-@vertical-ask: #0455a8;
-@vertical-note: #320161;
-@vertical-flashcard: #f14d4d;
-@vertical-tutor: #52ab15;
-@vertical-book: #8c3fbf;
-@vertical-job: #f49c20;
+//@vertical-marketplace: #d0021b;
+//@vertical-ask: #3532d5;
+//@vertical-note: #320161;
+//@vertical-flashcard: #f14d4d;
+//@vertical-tutor: #52ab15;
+//@vertical-book: #8c3fbf;
+//@vertical-job: #f49c20;
+@vertical-marketplace: #3532d5;
+@vertical-ask: #3532d5;
+@vertical-note: #3532d5;
+@vertical-flashcard: #3532d5;
+@vertical-tutor: #3532d5;
+@vertical-book: #3532d5;
+@vertical-job: #3532d5;
 //@vertical-food: #2cbfa5;
 //@vertical-upload: #94b7cb;
 //@vertical-post: #414141;
@@ -88,15 +95,20 @@ button {
 
 
 @color-light-gray: #ddd;
-
-@color-marketplace: #d0021b;
-@color-ask: #0455a8;
-@color-note: #320161;
-@color-flashcard: #f14d4d;
-@color-tutor: #52ab15;
-@color-book: #8c3fbf;
-@color-job: #f49c20;
+@color-marketplace: #3532d5;
+@color-ask: #3532d5;
+@color-note: #3532d5;
+@color-flashcard: #3532d5;
+@color-tutor: #3532d5;
+@color-book: #3532d5;
+@color-job: #3532d5;
+//@color-tutor: #52ab15;
+//@color-marketplace: #d0021b;
+//@color-job: #f49c20;
 @color-food: #0ead91;
+//@color-book: #8c3fbf;
+//@color-note: #320161;
+//@color-flashcard: #f14d4d;
 @color-blue: #3293f6;
 @color-dark-blue:#302eb5;
 @color-green: #7ed321;
@@ -106,7 +118,7 @@ button {
 
 .loop2(@index2) when (@index2 <= length(@list-colors)) {
     .loop2((@index2 + 1));
-    @p: extract(@list-colors,@index2);
+    @p: extract(@list-colors, @index2);
 
     .color-@{p} {
         @color: "color-@{p}";
@@ -126,6 +138,9 @@ button {
 }
 
 .loop2(1);
+
+
+
 
 a,
 a:active,

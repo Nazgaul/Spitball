@@ -14,7 +14,6 @@ div.question-suggest {
       }
     }
     p {
-      //margin-bottom: 12px;
       &:last-child {
         margin-bottom: 32px;
       }
@@ -43,7 +42,6 @@ div.question-suggest {
       height: auto;
       min-height: 274px;
       @media (max-width: @screen-xs) {
-        //min-height: 460px;
       }
       box-shadow: none;
       .v-carousel__controls {
@@ -56,16 +54,22 @@ div.question-suggest {
         background-color: transparent;
       }
       .v-carousel__prev, .v-carousel__next {
+        .v-btn__content{
+          v-icon{
+            font-size: 24px;
+          }
+        }
         @media (max-width: @screen-xs) {
           display: none;
         }
+
         top: 90%;
         z-index: 3;
 
       }
       .v-icon {
         color: @color-main-purple;
-        font-size: 24px !important;
+        font-size: 10px ;
       }
       .question-card {
         margin: auto;
@@ -80,12 +84,7 @@ div.question-suggest {
         @media (max-width: @screen-xs) {
           max-height: 280px;
         }
-        p {
-          @media (max-width: @screen-xs) {
-            //margin: 0;
-          }
-        }
-      }
+       }
     }
     h2 {
       font-size: 48px;

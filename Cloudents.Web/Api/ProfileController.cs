@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
@@ -9,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
-    public class ProfileController : Controller
+    [Route("api/[controller]"), ApiController]
+    public class ProfileController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
 
@@ -21,8 +20,10 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet("{id}")]
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> GetAsync(long id, CancellationToken token)
+        [ProducesResponseType(404)]
+        [ProducesResponseType(200)]
+        
+        public async Task<ActionResult<ProfileDto>> GetAsync(long id, CancellationToken token)
         {
             var query = new UserDataByIdQuery(id);
             var retVal = await _queryBus.QueryAsync<ProfileDto>(query, token).ConfigureAwait(false);
@@ -30,7 +31,7 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            return Ok(retVal);
+            return retVal;
         }
     }
 }

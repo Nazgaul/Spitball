@@ -8,7 +8,8 @@ const plusBtn = () => import("../settings/svg/plus-button.svg");
 export default {
     data() {
         return {
-            filter: ''
+            filter: '',
+            filtersDefault:{}
         };
     },
     components: { SortAndFilter, plusBtn, MobileSortAndFilter },
@@ -19,15 +20,26 @@ export default {
         params: { type: Object }
     },
     computed: {
-        ...mapGetters({'loading':'getIsLoading'}),
+        ...mapGetters({'loading':'getIsLoading', 'getFilters': 'getFilters', 'getSort': 'getSort'}),
         page() { return page[this.name] },
-        sort() { return this.query.sort },
+        sort() {
+            return this.query.sort
+        },
         filterSelection() {
             let filterOptions = [];
-            let filtersList = ['jobType', 'source', 'course', 'filter'];
+            let filtersList = [];
+            let filters = this.getFilters;
+            if(!!filters){
+                filtersList = filters.map((item)=>{
+                    return item.id
+                })
+            }
+            // iterate filter and add/remove filter value
             Object.entries(this.query).forEach(([key, val]) => {
                 if (val && val.length && filtersList.includes(key)) {
-                    [].concat(val).forEach(value => filterOptions = filterOptions.concat({ key, value }));
+                    [].concat(val).forEach((value) =>{
+                        return  filterOptions = filterOptions.concat({ key, value })
+                    }) ;
                 }
             });
             return filterOptions;
@@ -35,5 +47,5 @@ export default {
     },
     methods: {
         ...mapMutations(['UPDATE_LOADING'])
-    }
-};
+    },
+  };

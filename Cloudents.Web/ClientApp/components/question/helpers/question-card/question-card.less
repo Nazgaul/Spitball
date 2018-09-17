@@ -2,14 +2,12 @@
 
 .question-card {
   border-radius: 4px;
-  background-color: @color-white;
   min-height: 100px;
   height: 100%;
   width: 100%;
   max-width: @cellWidth;
   position: relative;
-
-  .box-stroke{
+   .box-stroke{
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
     border-radius: 4px;
   }
@@ -26,9 +24,6 @@
   p {
     padding: 16px 16px 16px 16px;
     margin: 16px 16px 10px 16px;
-
-    //margin: 16px 44px 16px 16px;
-
     @media (max-width: @screen-xs) {
       margin: 16px 16px 6px 8px;
     }
@@ -36,24 +31,38 @@
 
   .q-price {
     height: 41px;
-    //width: 105px;
     overflow: hidden;
     border-radius: 0 4px 0 36px;
     background-color: @color-light-grey;
-    //border: solid 0.5px #dddddd;
     border-top: 0;
     border-left: 0;
     font-size: 18px;
-
     color: @color-main-purple;
     text-align: center;
     padding-left: 26px;
     display: inline-block;
-
+    @media(max-width: @screen-xs ){
+      padding-left: 16px;
+      padding-right: 6px!important;
+    }
     span {
       line-height: 40px;
+      @media(max-width: @screen-xs ){
+        line-height: 2;
+        display: flex;
+        height: 100%;
+        text-align: left;
+      }
       display: block;
       letter-spacing: -0.4px;
+    }
+    .sold-badge{
+      min-width: 84px;
+      color: @color-red-heavy;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      text-transform: uppercase;
     }
   }
 
@@ -174,7 +183,7 @@
       box-shadow: none;
       button {
         width: 40px;
-        height: 40px;
+        height: @btnHeight;
         &:before {
           opacity: 0.2;
           background-color: #000000;
@@ -241,14 +250,14 @@
         &::before {
           transform: scale(1, -1);
           font-size: 12px;
-          color: @color-grey;
+          // color: @color-grey;
         }
       }
       span {
         color: @color-grey;
         margin-left: 4px;
         font-size: 16px;
-        letter-spacing: -0.3px;
+        // letter-spacing: -0.3px;
       }
 
     }
@@ -357,7 +366,7 @@
     }
 
     .fixed-margin{
-      margin: 0px 18px 0px -13px;
+      margin: 0px 18px 18px -13px;
       background-color: @Question-Answer-Bg;
     }
     .column-direction{

@@ -1,68 +1,91 @@
 import DialogToolbar from '../dialog-toolbar/DialogToolbar.vue'
-import {mapActions} from 'vuex'
+import {mapActions, mapGetters, mapMutations} from 'vuex'
 
 export default {
     model: {
         prop: "value",
         event: "input"
     },
+    components: {DialogToolbar},
     data() {
         return {
-            filters: {
-                source: [],
-                course: [],
-                jobType: [],
-                filter: []
-            },
-            sort: this.sortVal ? this.sortVal : (this.sortOptions && this.sortOptions.length) ? this.sortOptions[0].id : ""
+            filters: {},
+            sort: '',
+            filtersSelected: []
         }
     },
-    components: {DialogToolbar},
     props: {
         value: {type: Boolean},
-        sortOptions: {type: Array, default: () => []},
+        // sortOptions: {type: Array, default: () => []},
         filterOptions: {type: Array, default: () => []},
         filterVal: {type: Array, default: () => []},
         sortVal: {}
     },
+    computed:{
+        ...mapGetters(['getFilters', 'getSort']),
+        filterList(){
+            return this.filterOptions
+        }
+    },
+    watch: {
+        filterVal(val) {
+            this.initFilters(val);
+            this.sort = this.sortVal ? this.sortVal : (this.sortOptions && this.sortOptions.length) ? this.sortOptions[0] : "";
+        }
+    },
     methods: {
-        ...mapActions(['setFilteredCourses']),
+        ...mapActions(['setFilteredCourses', 'updateSort']),
+        ...mapMutations(['UPDATE_SEARCH_LOADING']),
 
-        initFilters(val = []) {
-            this.filters = {source: [], course: [], jobType: [], filter: []};
-            [].concat(val).forEach(({key, value}) => {
-                this.filters[key] = this.filters[key].concat(value);
-            });
+        initFilters(filters = []) {
+            //init sort
+            this.sortOptions = this.getSort;
+            if(!!this.sortOptions){
+                if(this.$route.query.sort){
+                    this.sort = this.$route.query.sort
+                }else{
+                    this.sort = this.sortOptions[0];
+                }
+            }else{
+                this.sort = "";
+            }
+
+            //init filters
+            this.filters = this.getFilters;
+            this.filtersSelected = [];
+            filters.forEach((filter)=>{
+                this.filtersSelected.push(`${filter.key}_${filter.value}`);
+            })
         },
         applyFilters() {
-            //if filters have courses and courses has been changed save the changes
-            let courseBefore = this.filterVal.filter(i => i.key === 'course').map(i => i.value);
-            let courseNow = this.filters.course;
-            let mergedCourseSet = new Set([...courseNow, ...courseBefore]);
-            let isNotEqual = courseNow.length < mergedCourseSet.size;
-            console.log(isNotEqual);
-            if ((this.filterOptions.find(i => i.modelId === 'course')) &&
-                (courseBefore.length !== courseNow.length || isNotEqual)) {
-                this.setFilteredCourses(this.filters.course);
-            }
-            if (this.filters.filter.includes('inPerson')) {
-                this.sort = "price"
-            }
             let query = {};
-            Object.keys(this.filters).forEach(key => {
-                let value = this.filters[key];
-                if (value.length) query[key] = value;
+            this.filtersSelected.forEach((filter)=>{
+                let currentFilter = filter.split('_');
+                //currentFilter = [source, biology];
+                if(!query[currentFilter[0]]){
+                    query[currentFilter[0]] = [];
+                }
+                query[currentFilter[0]].push(currentFilter[1])
             });
-            if (this.sort) query.sort = this.sort;
-            if (this.$route.query.q) query.q = this.$route.query.q;
+
+            if (this.sort){
+                query.sort = this.sort;
+            }
+            if (this.$route.query.q){
+                query.q = this.$route.query.q;
+            }
+
+            if(JSON.stringify(query) !== JSON.stringify(this.$route.query)){
+                this.UPDATE_SEARCH_LOADING(true);
+            }
             this.$router.push({query});
             this.$emit('input', false);
         },
 
         resetFilters() {
-            if (this.filterOptions.find(i => i.modelId === 'course')) {
-                this.setFilteredCourses([]);
-            }
+            // if (this.filtersSelected.find(i => i.id === 'course')) {
+            //     this.setFilteredCourses([]);
+            // }
             this.initFilters();
             if (this.sortOptions.length) {
                 this.sort = this.sortOptions[0].id;
@@ -78,14 +101,11 @@ export default {
             this.$emit('input', false)
         }
     },
-    watch: {
-        filterVal(val) {
-            this.initFilters(val);
-            this.sort = this.sortVal ? this.sortVal : (this.sortOptions && this.sortOptions.length) ? this.sortOptions[0].id : "";
-        }
-    },
+
 
     created() {
         this.initFilters(this.filterVal);
-    }
+        console.log('options', this.sortOptions)
+
+    },
 }

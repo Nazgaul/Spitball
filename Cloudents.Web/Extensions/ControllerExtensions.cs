@@ -15,7 +15,7 @@ namespace Cloudents.Web.Extensions
                 Path = path + "/",
                 Query = controller.HttpContext.Request.QueryString.Value
             };
-            return controller.RedirectPermanent(uriBuilder.ToString());
+            return controller.Redirect(uriBuilder.ToString());
         }
     }
 }

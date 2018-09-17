@@ -1,12 +1,15 @@
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
-import {mapGetters, mapMutations, mapActions} from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue'
+import { sendEventList } from '../../../services/signalR/signalREventSender'
+import { LanguageService } from "../../../services/language/languageService";
+
 export default {
     mixins: [disableForm],
     components: {questionThread, questionCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer},
@@ -32,12 +35,12 @@ export default {
         next()
     },
     methods: {
-        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams"]),
+        ...mapActions(["resetQuestion", "removeDeletedAnswer", "updateToasterParams", "updateLoginDialogState", 'updateUserProfileData']),
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         submitAnswer() {
-            if (!this.textAreaValue || this.textAreaValue.length < 15) {
+            if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
                 this.errorTextArea = {
-                    errorText: 'min. 15 characters',
+                    errorText: LanguageService.getValueByKey("questionDetails_error_minChar"),
                     errorClass: true
                 };
                 return
@@ -49,31 +52,14 @@ export default {
                 self.textAreaValue = self.textAreaValue.trim();
                 questionService.answerQuestion(self.id, self.textAreaValue, self.answerFiles)
                     .then(function (resp) {
-                        //TODO: do this on client side (render data inserted by user without calling server) - see commented out below - all that's left is asking ram to return the answerId in response
-                        // var creationTime = new Date();
-                        // self.questionData.answers.push({
-                        //     create: creationTime.toISOString(),
-                        //     files: self.answerFiles.map(fileName => "https://spitballdev.blob.core.windows.net/spitball-files/question/"+self.id+"/answer/"+response.data.answerId+"/"+fileName), //this will work only if answerid returns from server
-                        //     id: response.data.answerId,
-                        //     text: self.textAreaValue,
-                        //     user: self.accountUser
-                        // });
                         self.$ga.event("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
                         self.cardList = resp.data;
-                        self.getData();//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
-                        // self.updateToasterParams({
-                        //     toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
-                        //     showToaster: true,
-                        // });
+                        self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                         self.showDialogSuggestQuestion = true; // question suggest popup dialog
                     }, () => {
-                        // self.updateToasterParams({
-                        //     toasterText: 'Lets see what ' + self.questionData.user.name + ' thinks about your answer',
-                        //     showToaster: true,
-                        // });
                         self.submitForm(false);
                         self.updateLoading(true);
                     })
@@ -86,13 +72,18 @@ export default {
         removeFile(index) {
             this.answerFiles.splice(index, 1);
         },
-        getData() {
+        getData(skipViewerUpdate) {
+            let updateViewer = skipViewerUpdate ? false : true;
             //enable submit btn
             this.$data.submitted = false;
-            // var self = this;
             questionService.getQuestion(this.id)
-                .then( (response) => {
+                .then((response) => {
                     this.questionData = response;
+
+                    if (updateViewer) {
+                        sendEventList.question.addViewr(this.questionData);
+                    }
+
                     if (this.accountUser) {
                         this.questionData.cardOwner = this.accountUser.id === response.user.id;
                     } else {
@@ -112,30 +103,21 @@ export default {
             if (this.talkSession && this.questionData) {
                 const otherUser = this.questionData.user;
                 var other1 = new Talk.User(otherUser.id);
-
-                //_${this.accountUser.id}_${otherUser.id}
                 var conversation = this.talkSession.getOrCreateConversation(
                     `question_${this.id}`
                 );
                 //conversation
-                conversation.setParticipant(this.chatAccount, { notify: false });
+                conversation.setParticipant(this.chatAccount, {notify: false});
                 conversation.setParticipant(other1);
                 conversation.setAttributes({
                     photoUrl: `${location.origin}/images/conversation.png`,
                     subject: `<${location.href}|${this.questionData.text}>`
                 })
-                //conversation.setAttributes({
-                //    subject: "Discussion Board"
-                //});
-                //this.talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css");
-                var chatbox = this.talkSession.createChatbox(conversation, {
+                    var chatbox = this.talkSession.createChatbox(conversation, {
                     showChatHeader: false
-                    //chatTitleMode: 'subject',
-                    //chatSubtitleMode: null
-                });
+                    });
                 chatbox.on("sendMessage", (t) => {
                     conversation.setParticipant(this.chatAccount, {notify: true})
-                    // console.log(t)
                 });
                 this.$nextTick(() => {
                     chatbox.mount(this.$refs["chat-area"]);
@@ -147,8 +129,9 @@ export default {
                 this.showForm = true;
             }
             else {
+                this.updateUserProfileData('profileMakeMoney');
                 this.dialogType = ''
-                this.showDialogLogin = true;
+                this.updateLoginDialogState(true);
             }
         },
 
@@ -161,10 +144,10 @@ export default {
         },
         //watch route(url query) update, and het question data from server
         '$route': 'getData'
-
     },
     computed: {
-        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer"]),
+        ...mapGetters(["talkSession", "accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState"]),
+
         userNotAnswered() {
             this.isDeletedAnswer ? this.submitForm(false) : "";
             return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
@@ -175,19 +158,32 @@ export default {
             this.showForm = (val && !this.questionData.answers.length);
             return val;
         },
+        removeViewer() {
+            console.log("leaving question");
+            sendEventList.question.removeViewer(this.questionData);
+        },
     },
     created() {
+        global.addEventListener('beforeunload', () => {
+            this.removeViewer();
+        })
+
         this.getData();
         // to do may be to consider change to State Store VueX
         this.$root.$on('deleteAnswer', (id) => {
             this.questionData.answers = this.questionData.answers.filter(item => item.id !== id)
         });
-        this.$root.$on('closePopUp', (name)=> {
-           if(name === 'suggestions'){
-               this.showDialogSuggestQuestion =false
-           }else{
-               this.showDialogLogin = false
-           }
+        this.$root.$on('closePopUp', (name) => {
+            if (name === 'suggestions') {
+                this.showDialogSuggestQuestion = false;
+            } else {
+                this.updateLoginDialogState(false);
+            }
         })
+    },
+    destroyed() {
+        if (this.removeViewer) {
+            this.removeViewer();
+        }
     }
 }

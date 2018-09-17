@@ -14,4 +14,9 @@
     {
         public StorageContainer Container =>StorageContainer.QuestionsAndAnswers;
     }
+
+    public class IcoContainer : IStorageContainer
+    {
+        public StorageContainer Container => StorageContainer.IcoFiles;
+    }
 }

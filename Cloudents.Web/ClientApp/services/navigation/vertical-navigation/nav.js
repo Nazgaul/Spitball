@@ -1,128 +1,98 @@
 import * as routes from "../../../routeTypes";
+import { bannerData } from './campaign';
+import { LanguageService } from "../../language/languageService";
+
+function getPromoQueryFromRoute(path, query){
+    if(!!query && query.hasOwnProperty("promo")){
+        if(!!bannerData[query.promo]){
+            return bannerData[query.promo][path].banner;
+        }else{
+            return bannerData["navDefault"][path].banner;
+        }
+    }else{
+        return bannerData["navDefault"][path].banner;
+    }
+}
+
 
 const nav = {
     ask: {
-        banner:{
-            "lineColor": "#00c0fa",
-            "title" : "Make money while helping others with their homework.",
-            "textMain" : "Answer HW questions and cash out to Amazon Coupons. There’s no catch!",
-            "boldText" : "cash out to Amazon Coupons"
-        },
+        banner: getPromoQueryFromRoute,
         data:{
-            filter:[{ id: "source", name: "subject" }],
+            filter:[],
             id: routes.questionRoute,
-            name: "Homework Help",
-            icon: "sbf-ask-q" //TODO do we need this.....
+            name: LanguageService.getValueByKey("navigation_nav_name_ask"),
+            icon: "sbf-ask-q", //TODO do we need this.....
+            show: true
         }
     },
     note: {
-        banner:{
-            "lineColor": "#943bfd",
-            "title" : "Notes, study guides, exams and more from the best sites.",
-            "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
-            "boldText" : "your school, classes and preferences"
-        },
+        banner: getPromoQueryFromRoute,
         data:{
             id: routes.notesRoute,
-            name: "Study Documents",
+            name: LanguageService.getValueByKey("navigation_nav_name_note"),
             needLocation:false,
-            filter: [{ id: "course", name: "My Courses" }, { id: "source", name: "sources" }],
-            sort: [
-                { id: "relevance", name: "relevance" },
-                { id: "date", name: "date" }
-            ],
-            icon: "sbf-note"
+            filter: [ { id: "source", name: "sources" }],
+            sort: [],
+            icon: "sbf-note",
+            show: false
         }
-
      },
     flashcard: {
-        banner:{
-            "lineColor": "#f14d4d",
-            "title" : "Study from millions of flashcard sets to improve your grades.",
-            "textMain" : "Filtered by your school, classes and preferences. Saving you time!" ,
-            "boldText" : "your school, classes and preferences"
-        },
+        banner: getPromoQueryFromRoute,
         data:{
             id: routes.flashcardRoute,
-            name: "Flashcards",
+            name: LanguageService.getValueByKey("navigation_nav_name_flashcards"),
             needLocation: false,
-            filter: [
-                { id: "course", name: "My Courses" },
-                { id: "source", name: "sources" }
-            ],
-            sort: [
-                { id: "relevance", name: "relevance" },
-                { id: "date", name: "date" }
-            ],
+            filter: [],
+            sort: [],
             icon: "sbf-flashcards"
         }
     },
     tutor: {
-        banner: {
-            "lineColor": "#52aa16",
-            "title": "Find an expert to help you ace your classes in-person or online.",
-            "textMain": "No matter the subject, a tutor is here to help you succeed.",
-            "boldText" : "here to help you succeed."
-        },
+        banner: getPromoQueryFromRoute,
         data:{
             id: routes.tutorRoute,
-            name: "Tutors",
+            name: LanguageService.getValueByKey("navigation_nav_name_tutor"),
             needLocation: true,
-            filter: [
-                { id: "online", name: "Online Lessons" },
-                { id: "inPerson", name: "In Person" }
-            ],
-            sort: [
-                { id: "relevance", name: "relevance" },
-                { id: "price", name: "price" }
-                // { id: "distance", name: "distance" }
-            ],
+            filter: [],
+            sort: [],
             icon: "sbf-tutor"
         }
     },
     book: {
-        banner:{
-            "lineColor": "#a650e0",
-            "title" : "Compare the best prices to buy, rent or sell your textbooks.",
-            "textMain" : "Preview quotes from hundreds of sites simultaneously.",
-            "boldText" : "hundreds of sites simultaneously."
-        },
+        banner: getPromoQueryFromRoute,
         data:{
             id: routes.bookRoute,
-            name: "Textbooks",
+            name: LanguageService.getValueByKey("navigation_nav_name_book"),
             icon: "sbf-textbooks"
         },
 
 
     },
     job: {
-        banner:{
-            "lineColor": "#f49c20",
-            "title" : "Find jobs and internships catered specifically to students. ",
-            "textMain" : "Filtered by your experience and location preference.",
-            "boldText" : "experience and location preference."
-        },
+        banner: getPromoQueryFromRoute,
         data:{
             id: routes.jobRoute,
-            name: "Jobs",
+            name: LanguageService.getValueByKey("navigation_nav_name_job"),
             needLocation: true,
-            filter: [{ id: "jobType", name: "job type" }],
-            sort: [
-                { id: "relevance", name: "relevance" },
-                // { id: "distance", name: "distance" },
-                { id: "date", name: "date" }
-            ],
+            filter: [],
+            sort: [],
             icon: "sbf-job"
         }
     }
 };
+
 export let details = {
     bookDetails: {
-        filter: [{id: "new", name: "new"}, {id: "rental", name: "rental"}, {id: "eBook", name: "eBook"}, {
-            id: "used",
-            name: "used"
-        }],
-        sort: [{id: "price", name: "price"}]
+        filter: [
+            LanguageService.getValueByKey("navigation_nav_bookDetails_filter_new"),
+            LanguageService.getValueByKey("navigation_nav_bookDetails_filter_rental"),
+            LanguageService.getValueByKey("navigation_nav_bookDetails_filter_used"),
+          ],
+        sort: [
+            "price",
+        ]
     }
 };
 export let verticalsList = [];

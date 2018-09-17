@@ -1,0 +1,24 @@
+﻿using System;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+
+
+namespace Cloudents.Core.Command
+{
+    public class DistributeTokensCommand : ICommand
+    {
+        public DistributeTokensCommand(long userId, decimal price, ActionType actionType )
+        {
+            UserId = userId;
+            Price = price;
+            ActionType = actionType;
+        }
+
+        public long UserId { get; }
+        public decimal Price { get; }
+
+       
+
+        public ActionType ActionType { get; }
+    }
+}

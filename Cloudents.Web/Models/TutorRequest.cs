@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
+using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
 {
@@ -30,6 +31,7 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// The user location
         /// </summary>
+        [CanBeNull]
         public GeographicCoordinate Location { get; set; }
 
         /// <inheritdoc />

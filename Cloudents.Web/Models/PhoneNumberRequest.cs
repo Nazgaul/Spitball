@@ -1,16 +1,51 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Cloudents.Web.Models
 {
-    public class PhoneNumberRequest
+    //TODO:Localize
+    public class PhoneNumberRequest : IValidatableObject
     {
-        [Required]
-        [RegularExpression(@"^\+?[1-9]\d{1,14}$",ErrorMessage = "Phone number is invalid")]
-        public string Number { get; set; }
+        private static readonly Regex PhoneNumberRegex = new Regex(@"^\+?[1-9]\d{1,14}$", RegexOptions.Compiled);
+        [Required(ErrorMessage = "Required")]
+        public string PhoneNumber { get; set; }
+
+
+        [Required(ErrorMessage = "Required")]
+        public int CountryCode { get; set; }
+
 
         public override string ToString()
         {
-            return $"{nameof(Number)}: {Number}";
+            var sb = new StringBuilder($"+{CountryCode}");
+            if (PhoneNumber.StartsWith("0"))
+            {
+                PhoneNumber = PhoneNumber.Remove(0, 1);
+            }
+
+            sb.Append(PhoneNumber);
+            return sb.ToString();
+            //    return $"{nameof(PhoneNumber)}: {PhoneNumber}, {nameof(CountryCode)}: {CountryCode}";
         }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (PhoneNumberRegex.IsMatch(ToString()))
+            {
+                yield return ValidationResult.Success;
+            }
+            //TODO: Localize
+            yield return new ValidationResult(
+                "Phone number is invalid",
+                new[] { "" });
+        }
+
+        //public override string ToString()
+        //{
+            
+        //    //return $"{nameof(Number)}: {Number}";
+        //}
     }
 }

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>net47</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
-    <ProjectReference Include="..\Cloudents.Infrastructure.Data\Cloudents.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

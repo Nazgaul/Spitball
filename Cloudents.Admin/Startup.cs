@@ -70,7 +70,7 @@ namespace Cloudents.Admin
 
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = Configuration.GetConnectionString("DefaultConnection"),
+                //Db = Configuration.GetConnectionString("DefaultConnection"),
                 ServiceBus = Configuration["ServiceBus"],
                 Storage = Configuration["Storage"]
             };
