@@ -1,17 +1,16 @@
 //import './css/site.css';
 //import 'bootstrap';
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-Vue.use(VueRouter);
+import Vue from 'vue'
+//import App from './app'
+import App from './app'
+import router from './router';
+import store from './store';
 
-const routes = [
-    { path: '/', component: require('./components/home/home.vue.html').default },
-    { path: '/counter', component: require('./components/counter/counter.vue.html').default },
-    { path: '/fetchdata', component: require('./components/fetchdata/fetchdata.vue.html').default }
-];
+
+Vue.config.productionTip = false
 
 new Vue({
-    el: '#app-root',
-    router: new VueRouter({ mode: 'history', routes: routes }),
-    render: h => h(require('./components/app/app.vue.html').default)
-});
+    router,
+    store,
+    render: h => h(App)
+}).$mount('#app-root')

@@ -20,7 +20,11 @@ module.exports = (env) => {
                 { test: /\.vue\.html$/, include: /ClientApp/, loader: 'vue-loader', 
                 options: { 
                     loaders: 
-                    { js: 'ts-loader' }
+                    {   
+                        js: 'ts-loader' ,
+                        scss: ['vue-style-loader','css-loader','sass-loader'],
+                        sass: ['vue-style-loader','css-loader','sass-loader']
+                    }
                  } 
                 },
                 { test: /\.ts$/, include: /ClientApp/, use: [
@@ -30,7 +34,9 @@ module.exports = (env) => {
                     appendTsSuffixTo: [/\.vue\.html$/]
                     }
                     }
-                    ] },
+                    ] 
+                },
+                { test: /\.scss$/, use: [ 'style-loader', 'css-loader','sass-loader' ]},
                 { test: /\.css$/, use: isDevBuild ? [ 'style-loader', 'css-loader' ] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
             ]
