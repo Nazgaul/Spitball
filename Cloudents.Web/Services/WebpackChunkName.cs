@@ -22,7 +22,7 @@ namespace Cloudents.Web.Services
 
         public WebPackBundle GetTag(string chunk)
         {
-            if (_environment.IsDevelopment() && _tags.TryGetValue(chunk, out var webPack))
+            if (!_environment.IsDevelopment() && _tags.TryGetValue(chunk, out var webPack))
             {
                 return webPack;
             }
