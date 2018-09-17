@@ -9,7 +9,7 @@
                 <div class="wrapper-body-text link-container">
                     <sb-input id="sb_referralLink" class="referral-input" :disabled="true" v-model="userReferralLink" name="referralLink" type="text"></sb-input>
                     &nbsp;
-                    <button @click="copyStringToClipboard()" class="btn">Copy</button>
+                    <button class="referral-btn" :class="{'copied': isCopied}" @click="doCopy">Copy</button>
                 </div>
             </div>
             <div style="margin-bottom: 20px;">
@@ -69,6 +69,7 @@
 import SbInput from "../sbInput/sbInput.vue"
 import {mapGetters} from "vuex"
 import Base62 from "base62"
+
 export default {
     components:{SbInput},
     data(){
@@ -81,35 +82,38 @@ export default {
                 linkedin: "linkedin",
                 twitter: "twitter",
                 gmail: "gmail",
-            }
+            },
+            isCopied:false
         }
     },
     props:{
         popUpType:{
             type:String,
             required: true
+        },
+        showDialog: {
+            type: Boolean,
+            default: false
         }
+    },
+    watch: {
+        showDialog(){
+            if(!this.showDialog){
+                this.isCopied = false;
+            }
+        },
     },
     methods: {
         ...mapGetters(['accountUser']),
         requestDialogClose() {
+            this.isCopied = false;
             this.$root.$emit('closePopUp', this.popUpType);
         },
-       copyStringToClipboard () {
-            // Create new element
-            var el = document.createElement('textarea');
-            // Set value (string to be copied)
-            el.value = this.userReferralLink;
-            // Set non-editable to avoid focus and move outside of view
-            el.setAttribute('readonly', '');
-            el.style = {position: 'absolute', left: '-9999px'};
-            document.body.appendChild(el);
-            // Select text inside element
-            el.select();
-            // Copy text to clipboard
-            document.execCommand('copy');
-            // Remove temporary element
-            document.body.removeChild(el);
+        doCopy(){
+            let self = this;
+            this.$copyText(this.userReferralLink).then((e)=> {
+                self.isCopied = true;
+            },(e) =>{})
         },
         shareOnSocialMedia(socialMedia){
             let message = {
@@ -144,6 +148,9 @@ export default {
             }
         }            
     },
+    beforeDestroy(){
+        this.isCopied = false;
+    }
 }
 </script>
 
