@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Controllers;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Services;
@@ -161,7 +162,8 @@ namespace Cloudents.Web.Api
             {
                 url = null;
             }
-            var link = Url.Link("ConfirmEmail", new { user.Id, code, returnUrl = url });
+
+            var link = Url.Link("ConfirmEmail", new { user.Id, code, returnUrl = url, referral = TempData[HomeController.Referral] });
             TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link));
             await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);

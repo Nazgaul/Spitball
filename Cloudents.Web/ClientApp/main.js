@@ -4,8 +4,9 @@ import App from "./components/app/app.vue";
 import store from "./store";
 import { LanguageService } from "./services/language/languageService"
 import { Language } from "./services/language/langDirective"
-
 import initSignalRService from './services/signalR/signalrEventService'
+import VueClipboard from 'vue-clipboard2'
+
 
 const scroll = () =>
     import("./components/helpers/infinateScroll.vue");
@@ -126,6 +127,8 @@ const router = new VueRouter({
           });
     }
 });
+
+Vue.use(VueClipboard)
 
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',
