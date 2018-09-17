@@ -4,12 +4,12 @@
         <step-template>
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
-                    <p class="text-block-sub-title" v-language:inner>login_enter_new_password
+                    <p class="text-block-sub-title" v-html="meta.heading">
                     </p>
                 </div>
             </div>
             <div slot="step-data" class="limited-width">
-                <h1 v-if="!isMobile" class="step-title" v-language:inner>login_enter_new_password</h1>
+                <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
                 <sb-input class="phone-field" :errorMessage="errorMessage.password"
                           v-model="password" placeholder="Enter new password" name="password" type="password"
                           :autofocus="true" @keyup.enter.native="" minlength="4"></sb-input>
@@ -73,7 +73,8 @@
                 type: String,
                 default: '',
                 required: false
-            }
+            },
+            meta:{}
         },
         methods: {
             changePassword() {

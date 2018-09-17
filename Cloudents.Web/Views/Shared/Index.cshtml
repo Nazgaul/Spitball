@@ -6,10 +6,6 @@
 @{
     ViewBag.Title = "Spitball 2.0";
     var main = Provider.GetTag("main");
-    //var main = new WebPackBundle
-    //{
-    //    Js = "main.js"
-    //};
 }
 
 
@@ -17,7 +13,9 @@
 <div id="app">Loading....</div>
 <div class="cdn-only2"></div>
 
+
 @section scripts {
+    @await Component.InvokeAsync("Resource")
     <environment include="Development">
         <script src="~/dist/@main.Js"></script>
     </environment>

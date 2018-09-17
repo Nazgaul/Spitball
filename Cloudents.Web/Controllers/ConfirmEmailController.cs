@@ -60,7 +60,7 @@ namespace Cloudents.Web.Controllers
                 return RedirectToRoute(RegisterController.RegisterRouteName, new { step = "expiredStep" });
             }
             TempData.Remove(Api.RegisterController.Email);
-
+            TempData[HomeController.Referral] = model.Referral;
 
             return await GoToStep(user, NextStep.EnterPhone, true, model.ReturnUrl);
         }

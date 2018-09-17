@@ -3,13 +3,12 @@
         <step-template>
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
-                    <p class="text-block-sub-title" v-html="$options.filters.bolder(meta.heading, meta.boldText)">
-                        {{meta.heading}}
+                    <p class="text-block-sub-title" v-html="meta.heading">
                     </p>
                 </div>
             </div>
             <div slot="step-data" class="limited-width wide">
-                <h1 v-if="!isMobile" class="step-title"><span v-language:inner>login_check_your_email</span> <br/> <span v-language:inner>login_your_account</span></h1>
+                <h1 v-if="!isMobile" class="step-title"><span v-html="meta.heading"></span> <br/></h1>
                 <p class="inline" v-language:inner>login_an_activation_email_has_been_sent_to</p>
                 <div class="email-hold">
                     <p class="email-text inline">{{userEmail}}
@@ -18,8 +17,8 @@
                 </div>
                 <p v-language:inner>login_until_activate_account</p>
                 <div class="bottom-text">
-                    <p class="inline"> <span v-language:inner>login_didnt_get_an_email</span> <span class="email-text inline click"
-                                                                                                    @click="resendEmail()" v-language:inner>login_click_here_to_send</span>
+                    <p class="inline"> <span v-language:inner>login_didnt_get_an_email</span>
+                        <span class="email-text inline click"  @click="resendEmail()" v-language:inner>login_click_here_to_send</span>
                     </p>
                 </div>
             </div>

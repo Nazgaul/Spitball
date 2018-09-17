@@ -3,14 +3,14 @@
         <step-template>
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
-                    <p class="text-block-sub-title" v-language:inner>
-                        {{ camefromCreate ? 'login_create_password_text' : 'login_reset_password_text' }}
+                    <p class="text-block-sub-title" v-html="camefromCreate ? meta.createtxt : meta.resettxt">
+                        <!--{{ camefromCreate ? 'login_create_password_text' : 'login_reset_password_text' }}-->
                     </p>
                 </div>
             </div>
             <div slot="step-data" class="limited-width form-wrap">
-                <h1 v-if="!isMobile" class="step-title" v-language:inner>{{ camefromCreate ? 'login_create_password_text' : 'login_reset_password_text' }}</h1>
-                <p v-if="!isMobile" class="sub-title  mb-3" v-language:inner>login_happens_to_best</p>
+                <h1 v-if="!isMobile" class="step-title"  v-html="camefromCreate ? meta.createtxt : meta.resettxt"></h1>
+                <p  class="sub-title  mb-3" v-language:inner>login_happens_to_best</p>
                 <form @submit.prevent="emailResetPassword" class="form-one">
                     <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email"
                               placeholder="Enter your email address" v-model="userEmail" name="email" type="email"
@@ -22,7 +22,7 @@
                            :disabled="!userEmail"
                            type="submit"
                     >
-                        <span v-language:inner>{{ camefromCreate ? 'login_create_password_button' : 'login_reset_password_button' }}</span></v-btn>
+                        <span>{{ camefromCreate ? meta.createbtn : meta.resetbtn }}</span></v-btn>
                 </form>
                 <div class="signin-strip">
                     <p class="click" @click="goToLogin">I remember now!</p>
@@ -75,7 +75,8 @@
                 type: String,
                 default: '',
                 required: false
-            }
+            },
+            meta:{}
         },
         methods: {
             emailResetPassword() {

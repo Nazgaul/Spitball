@@ -10,5 +10,7 @@ namespace Cloudents.Web.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Required")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
+
+        public string Referral { get; set; }
     }
 }

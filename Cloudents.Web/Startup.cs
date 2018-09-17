@@ -45,8 +45,7 @@ namespace Cloudents.Web
         public const string IntegrationTestEnvironmentName = "Integration-Test";
         internal const int PasswordRequiredLength = 8;
 
-        public static readonly CultureInfo[] SupportedCultures = new[]
-        {
+        public static readonly CultureInfo[] SupportedCultures = {
 
             new CultureInfo("en"),
             new CultureInfo("he"),
@@ -235,9 +234,8 @@ namespace Cloudents.Web
             }
             else
             {
-                app.UseDeveloperExceptionPage();
-                //app.UseStatusCodePagesWithReExecute("/Error");
-                //app.UseExceptionHandler("/Error");
+                app.UseStatusCodePagesWithReExecute("/Error");
+                app.UseExceptionHandler("/Error");
                 app.UseHsts(new HstsOptions
                 {
                     Duration = TimeSpan.FromDays(365),
