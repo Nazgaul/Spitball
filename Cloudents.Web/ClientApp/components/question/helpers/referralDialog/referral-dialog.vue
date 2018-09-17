@@ -5,15 +5,15 @@
                 <v-icon>sbf-close</v-icon>
             </button>
             <div class="ml-1 wrap-text input-container">
-                <h2 class="text-md-left"> <b>Invite a friend</b> and <b>Earn</b> for each referral <b>10 SBL tokens.</b></h2>
+                <h2 class="text-md-left" v-html="text.dialog.title"></h2>
                 <div class="wrapper-body-text link-container">
                     <sb-input id="sb_referralLink" class="referral-input" :disabled="true" v-model="userReferralLink" name="referralLink" type="text"></sb-input>
                     &nbsp;
-                    <button class="referral-btn" :class="{'copied': isCopied}" @click="doCopy">Copy</button>
+                    <button class="referral-btn" :class="{'copied': isCopied}" @click="doCopy" v-language:inner>referralDialog_copy</button>
                 </div>
             </div>
             <div style="margin-bottom: 20px;">
-                <span class="text-style">or share with</span>
+                <span class="text-style" v-language:inner>referralDialog_share_with</span>
             </div>
             <div class="share-icon-container">
                 <span @click="shareOnSocialMedia(socialMedias.whatsApp)">
@@ -69,6 +69,7 @@
 import SbInput from "../sbInput/sbInput.vue"
 import {mapGetters} from "vuex"
 import Base62 from "base62"
+import {LanguageService} from '../../../../services/language/languageService'
 
 export default {
     components:{SbInput},
@@ -83,7 +84,12 @@ export default {
                 twitter: "twitter",
                 gmail: "gmail",
             },
-            isCopied:false
+            isCopied:false,
+            text:{
+                dialog:{
+                    title: LanguageService.getValueByKey("referralDialog_dialog_title_invite")
+                }
+            }
         }
     },
     props:{
@@ -119,15 +125,15 @@ export default {
             let message = {
                 url: this.userReferralLink,
                 encodedUrl: encodeURIComponent(this.userReferralLink),
-                title: `Ask and answer with Spitball`,
-                text: `I ask and answer with Spitball! Get free 100SBL if you use this link. ${this.userReferralLink}`,
-                twitterText: `I ask and answer with Spitball! Get free 100SBL if you use this link.`,
+                title: LanguageService.getValueByKey("referralDialog_join_me"),
+                text: LanguageService.getValueByKey("referralDialog_get_your_homework") + " " + encodeURIComponent(this.userReferralLink),
+                twitterText: LanguageService.getValueByKey("referralDialog_join_me") + " " + LanguageService.getValueByKey("referralDialog_get_your_homework_twitter"),
+                whatsAppText: LanguageService.getValueByKey("referralDialog_join_me") + " " + LanguageService.getValueByKey("referralDialog_get_your_homework") + " " + encodeURIComponent(this.userReferralLink),
             };
-
             switch(socialMedia){
                 case this.socialMedias.whatsApp:
                 //https://api.whatsapp.com/send?text={{url  here}}
-                    global.open(`https://api.whatsapp.com/send?text=${message.text}`,"_blank")
+                    global.open(`https://api.whatsapp.com/send?text=${message.whatsAppText}`,"_blank")
                 break;
                 case this.socialMedias.facebook:
                 //https://www.facebook.com/sharer.php?u={{url  here}}
@@ -139,7 +145,7 @@ export default {
                 break;
                 case this.socialMedias.twitter:
                 //https://twitter.com/intent/tweet?url={{url here}}&text={{text here}}&hashtags={{hashtag name}}
-                    global.open(`https://twitter.com/intent/tweet?url=${message.url}&text=${message.twitterText}`,"_blank")
+                    global.open(`https://twitter.com/intent/tweet?url=${message.encodedUrl}&text=${message.twitterText}`,"_blank")
                 break;
                 case this.socialMedias.gmail:
                 //https://mail.google.com/mail/?view=cm&su={{title here}}&body={{url here}}
