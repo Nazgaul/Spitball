@@ -235,8 +235,9 @@ namespace Cloudents.Web
             }
             else
             {
-                app.UseStatusCodePagesWithReExecute("/Error");
-                app.UseExceptionHandler("/Error");
+                app.UseDeveloperExceptionPage();
+                //app.UseStatusCodePagesWithReExecute("/Error");
+                //app.UseExceptionHandler("/Error");
                 app.UseHsts(new HstsOptions
                 {
                     Duration = TimeSpan.FromDays(365),
@@ -281,7 +282,7 @@ namespace Cloudents.Web
             });
 
             app.UseWebMarkupMin();
-            if (env.IsDevelopment() || env.IsStaging())
+            if (env.IsDevelopment() /*|| env.IsStaging()*/)
             {
                 app.UseSwagger();
                 // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
