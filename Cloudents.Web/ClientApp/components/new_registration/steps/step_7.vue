@@ -15,7 +15,7 @@
                 <form @submit.prevent="submit">
                     <sb-input :errorMessage="errorMessage.email" :required="true" class="email-field" type="email"
                               name="email" id="input-url" v-model="userEmail"
-                              placeholder="Enter your mobile or email "></sb-input>
+                              placeholder="Enter your email "></sb-input>
                     <sb-input :errorMessage="errorMessage.password" :required="true" class="email-field mt-3"
                               :type="'password'"
                               name="user password"  v-model="password"
@@ -112,6 +112,8 @@
                     });
             },
             forgotPassword() {
+                this.$parent.$emit('fromCreate', 'forgot');
+
                 this.$parent.$emit('changeStep', 'emailpassword');
 
             },

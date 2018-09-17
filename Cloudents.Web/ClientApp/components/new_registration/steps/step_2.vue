@@ -3,24 +3,24 @@
         <step-template>
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
-                    <p class="text-block-sub-title" v-html="isCampaignOn ? campaignData.stepOne.text : meta.text">
+                    <p class="text-block-sub-title" v-html="isCampaignOn ? campaignData.stepOne.text : meta.heading">
                         </p>
                 </div>
             </div>
             <div slot="step-data" class="limited-width form-wrap">
                 <div class="text" v-if="!isMobile">
                     <!--<h1 class="step-title" v-language:inner>login_get_started</h1>-->
-                    <h1 class="step-title" v-html="isCampaignOn ? campaignData.stepOne.text : meta.text" ></h1>
+                    <h1 class="step-title" v-html="isCampaignOn ? campaignData.stepOne.text : meta.heading" ></h1>
                     <!--<p class="sub-title mb-3">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
                 </div>
                 <form @submit.prevent="emailSend" class="form-one">
                     <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email"
                               placeholder="Enter your email address" v-model="userEmail" name="email" type="email"
                               :autofocus="true"></sb-input>
-                    <sb-input  class="mt-3" :errorMessage="errorMessage.phone"
+                    <sb-input  class="mt-3" :errorMessage="errorMessage.password"
                               placeholder="Choose password" v-model="password" name="pass" type="password"
                               :autofocus="true"></sb-input>
-                    <sb-input  class="mt-3" :errorMessage="errorMessage.phone"
+                    <sb-input  class="mt-3" :errorMessage="errorMessage.confirmPassword"
                               placeholder="Confirm password" v-model="confirmPassword" name="confirm" type="password"
                               :autofocus="true"></sb-input>
                     <vue-recaptcha class="recaptcha-wrapper"
@@ -106,7 +106,10 @@
                         self.recaptcha = "";
                         self.$refs.recaptcha.reset();
                         self.loading = false;
-                        self.errorMessage.email = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                        self.errorMessage.confirmPassword = error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '';
+                        self.errorMessage.password = error.response.data["Password"] ? error.response.data["Password"][0] : '';
+                        self.errorMessage.email= error.response.data ? error.response.data[""][0] : '';
+
                     });
             },
             // captcha events methods

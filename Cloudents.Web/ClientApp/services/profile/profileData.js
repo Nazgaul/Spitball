@@ -12,7 +12,7 @@ const profileData = {
             2: {
                 heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepTwo_heading"),
                 subheading: '',
-                text: LanguageService.getValueByKey("profileData_generalProfile_register_stepTwo_heading"),
+                text: '',
             },
             3: {
                 heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepThree_heading"),
@@ -77,7 +77,7 @@ const profileData = {
             2: {
                 heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTwo_heading"),
                 subheading: '',
-                text: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTwo_text"),
+                text: '',
             },
             3: {
                 heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepThree_heading"),
@@ -143,7 +143,7 @@ const profileData = {
             2: {
                 heading: LanguageService.getValueByKey("profileData_HHP_register_stepTwo_heading"),
                 subheading: '',
-                text: LanguageService.getValueByKey("profileData_HHP_register_stepTwo_text"),
+                text: '',
             },
             3: {
                 heading: LanguageService.getValueByKey("profileData_HHP_register_stepThree_heading"),

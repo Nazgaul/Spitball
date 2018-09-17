@@ -39,6 +39,16 @@ export default {
     props: {
         default: false,
     },
+    // beforeRouteLeave(to, from, next) {
+    //     if (to.name && to.name === 'result' && this.stepNumber !== 1) {
+    //         // this.stepNumber = this.stepsEnum[this.$route.meta.previousStep];
+    //         this.$router.go(-1)
+    //         // console.log('step NNN', this.stepsEnum[this.$route.meta.previousStep])
+    //     } else {
+    //         next()
+    //     }
+    //
+    // },
     data() {
         return {
             siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
@@ -75,6 +85,7 @@ export default {
             passDialog: false,
             toasterTimeout: 5000,
             stepNumber: 1,
+            lastStep:[],
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             stepsEnum: {
@@ -113,8 +124,8 @@ export default {
             profileData: 'getProfileData',
             isCampaignOn: 'isCampaignOn'
         }),
-        isShowProgress(){
-            let filteredSteps = this.stepNumber !== 7 && this.stepNumber !== 8  && this.stepNumber !==9 && this.stepNumber !== 10;
+        isShowProgress() {
+            let filteredSteps = this.stepNumber !== 7 && this.stepNumber !== 8 && this.stepNumber !== 9 && this.stepNumber !== 10;
             return filteredSteps
         },
         // confirmCheckbox() {
@@ -133,19 +144,29 @@ export default {
         ...mapActions({updateToasterParams: 'updateToasterParams', updateCampaign: 'updateCampaign'}),
 
         //do not change step, only from here
-        changeStepNumber(param) {
+        changeStepNumber(param, skipPushState) {
             let step = param.toLowerCase();
             if (this.stepsEnum.hasOwnProperty(step)) {
+                this.lastStep.push(this.stepNumber);
+                //must insert a step to the history otherwise it will return to the previous route
+                let fakeObj = {};
+                if(!skipPushState){
+                    history.pushState(fakeObj, null);
+                }
                 this.stepNumber = this.stepsEnum[step];
             }
             console.log(this.stepNumber)
+        },
+        goBackStep(stepNumber){
+            let lastStep = this.lastStep.pop();
+            this.stepNumber = parseInt(lastStep);
         },
         goToResetPassword() {
             this.passDialog = false;
             this.changeStepNumber('emailpassword');
         },
         $_back() {
-            let url =  this.toUrl  || defaultSubmitRoute;
+            let url = this.toUrl || defaultSubmitRoute;
             this.$router.push({path: `${url.path }`});
         },
         showDialogFunc() {
@@ -165,6 +186,10 @@ export default {
         })
     },
     created() {
+        //history update event, fires when back btn clicked
+        global.onpopstate = (event)=> {
+                this.goBackStep()
+        };
         //event liseners for all steps
         this.$on('changeStep', (stepName) => {
             this.changeStepNumber(stepName);
@@ -175,9 +200,11 @@ export default {
         this.$on('updatePhone', (phone) => {
             this.phone = phone;
         });
-        this.$on('fromCreate', (create)=>{
-            if(create === 'create'){
+        this.$on('fromCreate', (create) => {
+            if (create === 'create') {
                 this.camefromCreate = true
+            }else if(create === 'forgot'){
+                this.camefromCreate = false
             }
         });
 
@@ -190,12 +217,12 @@ export default {
             let step = this.$route.query.step;
             this.changeStepNumber(step);
         } else if (this.$route.path === '/signin') {
-            this.changeStepNumber('termandstart');
+            this.changeStepNumber('termandstart', true);
             this.isSignIn = true;
         } else if (path === '/resetpassword') {
             this.passResetCode = this.$route.query['code'] ? this.$route.query['code'] : '';
-            this.ID = this.$route.query['Id'] ?  this.$route.query['Id'] : '';
-            this.changeStepNumber('createpassword');
+            this.ID = this.$route.query['Id'] ? this.$route.query['Id'] : '';
+            this.changeStepNumber('createpassword', true);
         }
         registrationService.getLocalCode().then(({data}) => {
             this.phone.countryCode = data.code;

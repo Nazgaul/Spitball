@@ -174,6 +174,9 @@ let routes2 = [
             default: login,
         },
         name: "registration",
+        // meta: {
+        //     requiresAuth: false
+        // },
     },
 
 

@@ -223,7 +223,7 @@
     <value>We sent a confirmation code to your mobile phone.</value>
   </data>
   <data name="signin_your_email" xml:space="preserve">
-    <value>Sign in with Email</value>
+    <value>Sign In with Email</value>
   </data>
   <data name="sign_in" xml:space="preserve">
     <value>Sign in</value>
@@ -322,7 +322,7 @@
     <value>Need an account?</value>
   </data>
   <data name="signup_your_email" xml:space="preserve">
-    <value>Sign up with Email</value>
+    <value>Sign Up with Email</value>
   </data>
   <data name="sign_in_with_google" xml:space="preserve">
     <value>Sign In with Google</value>
@@ -332,5 +332,11 @@
   </data>
   <data name="create_password_text" xml:space="preserve">
     <value>Create your password</value>
+  </data>
+  <data name="already_have_password" xml:space="preserve">
+    <value>I already have a password!</value>
+  </data>
+  <data name="remember_now" xml:space="preserve">
+    <value>I remember now!</value>
   </data>
 </root>
