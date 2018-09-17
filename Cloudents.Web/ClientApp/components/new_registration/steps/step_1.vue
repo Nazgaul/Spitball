@@ -14,7 +14,6 @@
                     <span><span v-language:inner>login_agree</span><br/><router-link
                             to="terms" v-language:inner>login_terms_of_services</router-link> <span v-language:inner>login_and</span>  <router-link
                             to="privacy" v-language:inner>login_privacy_policy</router-link></span>
-
                 </div>
                 <span class="has-error" v-if="confirmCheckbox"
                       style="background: white; display: block; color:red; text-align: center;">
@@ -22,7 +21,7 @@
             </div>
             <div slot="step-data" class="limited-width form-wrap">
                 <div class="text" v-if="!isMobile">
-                    <h1 class="step-title" v-language:inner>login_get_started</h1>
+                    <h1 class="step-title"  v-html="$options.filters.bolder(meta.heading, meta.boldText)" > {{ isCampaignOn ? campaignData.stepOne.text : meta.heading }}</h1>
                     <!--<p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
                 </div>
                 <div class="checkbox-terms" v-if="!isMobile">
@@ -36,22 +35,40 @@
                      style="background: white; display: block; color:red; text-align: center;">
                     <span v-language:inner>login_please_agree</span>
                 </div>
-                <button class="google-signin" @click="googleLogIn">
+                <button v-if="isSignIn" class="google-signin" @click="googleLogIn">
+                    <span v-language:inner>login_sign_in_with_google</span>
+                    <span>
+                            <v-icon>sbf-google-icon</v-icon>
+                        </span>
+                </button>
+                <button v-else class="google-signin" @click="googleLogIn">
                     <span v-language:inner>login_sign_up_with_google</span>
                     <span>
                             <v-icon>sbf-google-icon</v-icon>
                         </span>
                 </button>
                 <div class="seperator-text"><span v-language:inner>login_or</span></div>
-                <v-btn class="sign-with-email"
+                <v-btn v-if="isSignIn" class="sign-with-email"
                        value="Login"
                        :loading="loading"
-                       @click="goToEmailLogin()"
-                >
+                       @click="showDialogPass()">
                     <span v-language:inner>login_signin_your_email</span>
                 </v-btn>
-                <div class="signin-strip"><span v-language:inner>login_already_have_account</span>
-                    <p class="click" @click="showDialogPass()" v-language:inner>login_sign_in</p>
+                <v-btn v-else class="sign-with-email"
+                       value="Login"
+                       :loading="loading"
+                       @click="goToEmailLogin()">
+                    <span v-language:inner>login_signup_your_email</span>
+                </v-btn>
+                <div class="signin-strip">
+                    <div v-if="isSignIn">
+                    <span v-language:inner>login_need_account_text</span>
+                    <a class="click" @click="goToEmailLogin()" v-language:inner>login_need_account_link</a>
+                    </div>
+                    <div v-else>
+                        <span v-language:inner>login_already_have_account</span>
+                        <a class="click" @click="showDialogPass()" v-language:inner>login_sign_in</a>
+                    </div>
                 </div>
             </div>
             <div slot="step-image">
@@ -117,7 +134,11 @@
                 type: Boolean,
                 default: false
             },
-            meta: {}
+            meta: {},
+            isSignIn: {
+                type: Boolean,
+                default: false
+            }
         },
         computed: {
             confirmCheckbox(){

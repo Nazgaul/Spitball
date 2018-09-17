@@ -15,6 +15,7 @@
                    :ID="ID"
                    :camefromCreate="camefromCreate"
                    :campaignData="campaignData"
+                   :isSignIn="isSignIn"
         ></component>
         <div class="progress" v-if="isShowProgress">
             <div v-for="page in progressSteps" :class="{highlighted: page===stepNumber}"></div>

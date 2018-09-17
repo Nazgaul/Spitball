@@ -86,7 +86,7 @@
             sendCode() {
                 let self = this;
                 self.loading = true;
-                registrationService.smsRegistration(this.phone.countryCode + '' + this.phone.phoneNum)
+                registrationService.smsRegistration(this.phone.countryCode, this.phone.phoneNum)
                     .then(function (resp) {
                         self.errorMessage.code = '';
                         self.updateToasterParams({

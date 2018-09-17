@@ -5,13 +5,16 @@ export default {
         return connectivityModule.http.post("/register/google", {token: data})
     },
     emailRegistration: (email, recaptcha, password, confirmPassword) => {
-        return connectivityModule.http.post("Register", {email, captcha: recaptcha, password, confirmPassword })
+        return connectivityModule.http.post("Register", {email, captcha: recaptcha, password, confirmPassword})
     },
     emailResend: () => {
-        return connectivityModule.http.post("/SignUser/resend")
+        return connectivityModule.http.post("Register/resend")
     },
-    smsRegistration: (data) => {
-        return connectivityModule.http.post("/sms", {number: `+${data}`})
+    smsRegistration: (code, phoneNumber) => {
+        return connectivityModule.http.post("/sms", {
+            "countryCode": code,
+            "phoneNumber": phoneNumber
+        })
     },
     smsCodeVerification: (data) => {
         return connectivityModule.http.post("/sms/verify", {number: data})
