@@ -145,7 +145,7 @@ export default {
 
         },
         $_back() {
-            let url = this.fromPath || {path: '/ask', query: {q: ''}};
+            let url =  this.toUrl  || defaultSubmitRoute;
             this.$router.push({path: `${url.path }`});
         },
         showDialogFunc() {
