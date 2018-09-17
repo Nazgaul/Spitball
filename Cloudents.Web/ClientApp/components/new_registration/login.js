@@ -62,6 +62,7 @@ export default {
             passResetCode: '',
             ID: '',
             isPass: false,
+            isSignIn: false,
             errorMessage: {
                 phone: '',
                 code: '',
@@ -142,7 +143,6 @@ export default {
         goToResetPassword() {
             this.passDialog = false;
             this.changeStepNumber('emailpassword');
-
         },
         $_back() {
             let url =  this.toUrl  || defaultSubmitRoute;
@@ -154,8 +154,6 @@ export default {
         hideDialog() {
             this.showDialog = false
         },
-
-
     },
     mounted() {
         this.$nextTick(function () {
@@ -191,8 +189,9 @@ export default {
         if (this.$route.query && this.$route.query.step) {
             let step = this.$route.query.step;
             this.changeStepNumber(step);
-        } else if (this.$route.fullPath === '/signin') {
-            this.changeStepNumber('termandstart')
+        } else if (this.$route.path === '/signin') {
+            this.changeStepNumber('termandstart');
+            this.isSignIn = true;
         } else if (path === '/resetpassword') {
             this.passResetCode = this.$route.query['code'] ? this.$route.query['code'] : '';
             this.ID = this.$route.query['Id'] ?  this.$route.query['Id'] : '';
