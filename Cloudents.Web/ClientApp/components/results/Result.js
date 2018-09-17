@@ -258,7 +258,7 @@ export default {
         this.fetchingData({
             name: this.name,
             params: {...this.query, ...this.params, term: this.userText},
-            skipLoad: this.$options._parentElm.childElementCount > 1
+            skipLoad: this.$route.path.indexOf("question") > -1
         }).then((data) => {
             this.updateData.call(this, {...data, vertical: this.name})
         }).catch(reason => {
