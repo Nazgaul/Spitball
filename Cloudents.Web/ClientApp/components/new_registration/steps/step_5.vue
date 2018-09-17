@@ -4,20 +4,19 @@
         <step-template>
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
-                    <p class="text-block-sub-title" v-html="$options.filters.bolder(meta.heading, meta.boldText)">
-                        {{meta.heading}}</p>
+                    <p class="text-block-sub-title" v-html="meta.heading"></p>
                     <p class="text-block-sub-title" v-if="phone.phoneNum">(+{{phone.countryCode}})
                         {{phone.phoneNum }} <span class="phone-change" @click="changePhone()" v-language:inner>login_Change</span>
                     </p>
                 </div>
             </div>
             <div slot="step-data" class="limited-width wide">
-                <h1 v-if="!isMobile" class="step-title" v-language:inner>login_sent_confirmation_code</h1>
+                <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
                 <p v-if="phone.phoneNum" class="sub-title">
                     <span v-language:inner>login_sent_code_by_sms</span>
                     (+{{phone.countryCode}})
                     {{phone.phoneNum}} </p>
-                <p v-if="!isMobile" class="confirm-title" v-language:inner>login_sent_confirmation_code</p>
+                <!--<p v-if="!isMobile" class="confirm-title" v-language:inner>login_sent_confirmation_code</p>-->
                 <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code"
                           v-model="confirmationCode" placeholder="Enter confirmation code" type="number"
                           :autofocus="true" @keyup.enter.native="smsCodeVerify()"></sb-input>

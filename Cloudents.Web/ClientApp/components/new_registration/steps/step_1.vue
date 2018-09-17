@@ -4,8 +4,8 @@
         <step-template>
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
-                    <p class="text-block-sub-title" v-html="$options.filters.bolder(meta.heading, meta.boldText)">
-                        {{ isCampaignOn ? campaignData.stepOne.text : meta.heading }}
+                    <p class="text-block-sub-title" v-html="isCampaignOn ? campaignData.stepOne.text : meta.heading">
+
                     </p>
                 </div>
                 <div class="checkbox-terms">
@@ -21,7 +21,8 @@
             </div>
             <div slot="step-data" class="limited-width form-wrap">
                 <div class="text" v-if="!isMobile">
-                    <h1 class="step-title"  v-html="$options.filters.bolder(meta.heading, meta.boldText)" > {{ isCampaignOn ? campaignData.stepOne.text : meta.heading }}</h1>
+                    <h1 class="step-title"  v-html="isCampaignOn ? campaignData.stepOne.text : meta.heading" >
+                    </h1>
                     <!--<p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
                 </div>
                 <div class="checkbox-terms" v-if="!isMobile">

@@ -4,11 +4,12 @@
         <step-template>
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
-                    <p class="text-block-sub-title"><b v-language:inner>login_welcome_back</b> <br/> <span v-language:inner>login_please_login</span> </p>
+                    <p class="text-block-sub-title" v-html="meta.heading"></p>
                 </div>
             </div>
             <div slot="step-data" class="limited-width">
-                <h1 v-if="!isMobile" class="step-title" v-language:inner>login_welcome_back</h1>
+                <!--<h1 v-if="!isMobile" class="step-title" v-language:inner>login_welcome_back</h1>-->
+                <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
                 <!--<h1 v-if="!isMobile" class="step-title" v-language:inner>login_please_login</h1>-->
                 <!--<p v-if="!isMobile" class="inline" v-language:inner>login_please_login</p>-->
                 <form @submit.prevent="submit">
@@ -80,8 +81,7 @@
                 type: Boolean,
                 default: false
             },
-            meta: {
-            },
+            meta: {},
             toUrl: '',
             lastActiveRoute: '',
         },

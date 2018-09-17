@@ -3,15 +3,14 @@
         <step-template>
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
-                    <p class="text-block-sub-title" v-html="$options.filters.bolder(meta.heading, meta.boldText)">
-                        {{meta.heading}}</p>
+                    <p class="text-block-sub-title" v-html="meta.heading"></p>
                 </div>
             </div>
             <div slot="step-data" class="limited-width">
-                <h1 v-if="!isMobile" class="step-title" v-language:inner>login_enter_your_phone_number</h1>
-                <p v-if="!isMobile" class="sub-title">
-                    {{ isCampaignOn ? campaignData.stepTwo.text : meta.text }}
-                </p>
+                <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
+                <!--<p v-if="!isMobile" class="sub-title">-->
+                    <!--{{ isCampaignOn ? campaignData.stepTwo.text : meta.text }}-->
+                <!--</p>-->
                 <select v-model="phone.countryCode" class="mb-1">
                     <option value="" disabled hidden v-language:inner>login_select_your_country_code</option>
                     <option v-for="item in countryCodesList" :value="item.callingCode">{{item.name}}

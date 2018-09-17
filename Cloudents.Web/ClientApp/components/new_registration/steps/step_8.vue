@@ -4,13 +4,13 @@
             <step-template>
                 <div slot="step-text" class="text-block-slot" v-if="isMobile">
                     <div class="text-wrap-top">
-                        <p class="text-block-sub-title" v-html="$options.filters.bolder(meta.heading, meta.boldText)">
+                        <p class="text-block-sub-title" v-html="meta.heading">
                             {{meta.heading}}
                         </p>
                     </div>
                 </div>
                 <div slot="step-data" class="limited-width wide">
-                    <h1 v-if="!isMobile" class="step-title"><span>{{meta.heading}}</span></h1>
+                    <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
                     <p class="inline">{{meta.text}}</p>
                     <!--<div class="email-hold">-->
                         <!--<p class="email-text inline">{{userEmail}}-->

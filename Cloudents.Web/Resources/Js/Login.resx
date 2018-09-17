@@ -262,7 +262,7 @@
     <value>to log in to Spitball.co</value>
   </data>
   <data name="welcome_back" xml:space="preserve">
-    <value>Welcome back</value>
+    <value>&lt;b&gt;Welcome back&lt;/b&gt;&lt;br/&gt; please login</value>
   </data>
   <data name="Your" xml:space="preserve">
     <value>Your</value>
@@ -276,20 +276,11 @@
   <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
     <value>You can spend them to get help with your</value>
   </data>
-  <data name="enter_new_password" xml:space="preserve">
-    <value>Enter new password</value>
-  </data>
   <data name="happens_to_best" xml:space="preserve">
     <value>Don’t be ashamed. It happens to the best.</value>
   </data>
   <data name="reset_your_password" xml:space="preserve">
     <value>Reset your password</value>
-  </data>
-  <data name="create_password_button" xml:space="preserve">
-    <value>Create password</value>
-  </data>
-  <data name="create_password_text" xml:space="preserve">
-    <value>Create your password</value>
   </data>
   <data name="forgot_password_link" xml:space="preserve">
     <value>Forgot password?</value>
@@ -335,5 +326,11 @@
   </data>
   <data name="sign_in_with_google" xml:space="preserve">
     <value>Sign In with Google</value>
+  </data>
+  <data name="create_password_button" xml:space="preserve">
+    <value>Create password</value>
+  </data>
+  <data name="create_password_text" xml:space="preserve">
+    <value>Create your password</value>
   </data>
 </root>

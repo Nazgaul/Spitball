@@ -3,14 +3,15 @@
         <step-template>
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
-                    <p class="text-block-sub-title" v-html="$options.filters.bolder(meta.heading, meta.boldText)">
-                        {{meta.heading}}</p>
+                    <p class="text-block-sub-title" v-html="isCampaignOn ? campaignData.stepOne.text : meta.text">
+                        </p>
                 </div>
             </div>
             <div slot="step-data" class="limited-width form-wrap">
                 <div class="text" v-if="!isMobile">
-                    <h1 class="step-title" v-language:inner>login_get_started</h1>
-                    <p class="sub-title mb-3">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>
+                    <!--<h1 class="step-title" v-language:inner>login_get_started</h1>-->
+                    <h1 class="step-title" v-html="isCampaignOn ? campaignData.stepOne.text : meta.text" ></h1>
+                    <!--<p class="sub-title mb-3">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
                 </div>
                 <form @submit.prevent="emailSend" class="form-one">
                     <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email"
