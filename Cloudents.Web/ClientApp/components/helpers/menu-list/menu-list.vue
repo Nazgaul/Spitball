@@ -135,7 +135,7 @@
             <!--<user-settings v-model="showSettings"></user-settings>-->
         <!--</v-dialog>-->
         <sb-dialog :showDialog="showReferral" :popUpType="'referralPop'" :content-class="'login-popup'">
-            <referral-dialog :popUpType="'referralPop'"></referral-dialog>
+            <referral-dialog :showDialog="showReferral" :popUpType="'referralPop'"></referral-dialog>
         </sb-dialog>
     </div>
 
