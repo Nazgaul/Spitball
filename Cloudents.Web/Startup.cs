@@ -86,7 +86,7 @@ namespace Cloudents.Web
 
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
-                .AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix, o =>
+                .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
                 {
                     o.DataAnnotationLocalizerProvider = (type, factory) =>
                     {

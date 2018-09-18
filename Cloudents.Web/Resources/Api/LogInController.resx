@@ -117,22 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cloudents" xml:space="preserve">
-    <value>Spitball</value>
+  <data name="BadLogin" xml:space="preserve">
+    <value>Wrong email or password</value>
   </data>
-  <data name="FlashcardMetaDescription" xml:space="preserve">
-    <value>Practice and improve your knowledge in {0} and test yourself with the {1} flashcards your classmates have built. Start getting better grades with Spitball!</value>
+  <data name="LockOut" xml:space="preserve">
+    <value>User is locked out</value>
   </data>
-  <data name="FlashcardTitle" xml:space="preserve">
-    <value>Flashcard</value>
-  </data>
-  <data name="ItemMetaDescription" xml:space="preserve">
-    <value>Get class notes for free with Spitball</value>
-  </data>
-  <data name="QuizMetaDescription" xml:space="preserve">
-    <value>See how well you are doing in {0} and test yourself with the {1} quiz your classmates have built. Start getting better grades with Spitball!</value>
-  </data>
-  <data name="QuizTitle" xml:space="preserve">
-    <value>Quiz</value>
+  <data name="NotAllowed" xml:space="preserve">
+    <value>User is not allowed</value>
   </data>
 </root>
