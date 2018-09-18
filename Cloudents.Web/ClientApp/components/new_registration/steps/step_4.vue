@@ -17,7 +17,7 @@
                         ({{item.callingCode}})
                     </option>
                 </select>
-                <sb-input class="phone-field" icon="sbf-phone" :errorMessage="errorMessage.phone"
+                <sb-input class="phone-field" icon="sbf-phone" :errorMessage="errorMessage.phone" :bottomError="true"
                           v-model="phone.phoneNum" placeholder="login_placeholder_enter_phone" name="email" type="tel"
                           :autofocus="true" @keyup.enter.native="sendCode()" v-language:placeholder></sb-input>
                 <v-btn class="continue-btn"
@@ -53,7 +53,8 @@
                     password: '',
                     confirmPassword: ''
                 },
-                loading: false
+                loading: false,
+                bottomError: false
             }
 
         },

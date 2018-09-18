@@ -4,7 +4,7 @@
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
                     <p class="text-block-sub-title" v-html="isCampaignOn ? campaignData.stepOne.text : meta.heading">
-                        </p>
+                    </p>
                 </div>
             </div>
             <div slot="step-data" class="limited-width form-wrap">
@@ -14,13 +14,13 @@
                     <!--<p class="sub-title mb-3">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
                 </div>
                 <form @submit.prevent="emailSend" class="form-one">
-                    <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email"
+                    <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email" :bottomError="true"
                               placeholder="login_placeholder_email" v-model="userEmail" name="email" type="email"
                               :autofocus="true" v-language:placeholder></sb-input>
-                    <sb-input  class="mt-3" :errorMessage="errorMessage.password"
+                    <sb-input  class="mt-3" :errorMessage="errorMessage.password" :bottomError="true"
                               placeholder="login_placeholder_choose_password" v-model="password" name="pass" type="password"
                               :autofocus="true"  v-language:placeholder></sb-input>
-                    <sb-input  class="mt-3" :errorMessage="errorMessage.confirmPassword"
+                    <sb-input  class="mt-3" :errorMessage="errorMessage.confirmPassword" :bottomError="true"
                               placeholder="login_placeholder_confirm_password" v-model="confirmPassword" name="confirm" type="password"
                               :autofocus="true" v-language:placeholder></sb-input>
                     <vue-recaptcha class="recaptcha-wrapper"
@@ -71,7 +71,7 @@
                 userEmail: '',
                 password: '',
                 confirmPassword: '',
-
+                bottomError: false
             }
         },
 

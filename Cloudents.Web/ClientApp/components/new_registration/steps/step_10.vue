@@ -12,7 +12,7 @@
                 <h1 v-if="!isMobile" class="step-title"  v-html="camefromCreate ? meta.createtxt : meta.resettxt"></h1>
                 <p v-if="!camefromCreate" class="sub-title  mb-3" v-language:inner>login_happens_to_best</p>
                 <form @submit.prevent="emailResetPassword" class="form-one">
-                    <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email"
+                    <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email" :bottomError="true"
                               placeholder="login_placeholder_email" v-model="userEmail" name="email" type="email"
                               :autofocus="true" v-language:placeholder></sb-input>
                     <div class="recaptcha-wrapper">
@@ -54,6 +54,7 @@
                 },
                 userEmail: '',
                 loading: false,
+                bottomError: false
             }
         },
         props: {

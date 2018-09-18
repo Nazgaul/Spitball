@@ -10,10 +10,10 @@
             </div>
             <div slot="step-data" class="limited-width">
                 <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
-                <sb-input class="phone-field" :errorMessage="errorMessage.password"
+                <sb-input class="phone-field" :errorMessage="errorMessage.password"  :bottomError="true"
                           v-model="password" placeholder="login_placeholder_enter_new_password" name="password" type="password"
                           :autofocus="true" @keyup.enter.native="" minlength="4" v-language:placeholder></sb-input>
-                <sb-input class="phone-field" :errorMessage="errorMessage.confirmPassword"
+                <sb-input class="phone-field" :errorMessage="errorMessage.confirmPassword" :bottomError="true"
                           v-model="confirmPassword" placeholder="login_placeholder_confirm_password" name="confirmPassword"
                           type="password"
                           :autofocus="true" @keyup.enter.native="" v-language:placeholder></sb-input>
@@ -52,7 +52,8 @@
                     password: '',
                     confirmPassword: ''
                 },
-                loading: false
+                loading: false,
+                bottomError: false
             }
         },
         props: {
