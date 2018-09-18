@@ -45,7 +45,6 @@
     export default {
         name: "step_10",
         components: {stepTemplate, SbInput},
-
         data() {
             return {
                 errorMessage: {
@@ -55,7 +54,6 @@
                 },
                 userEmail: '',
                 loading: false,
-
             }
         },
         props: {
@@ -93,9 +91,8 @@
                         }, function (reason) {
                             console.log('error!!!reset')
                             self.loading = false;
-                            self.errorMessage.confirmPassword = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
+                            self.errorMessage.email = error.response.data["Email"] ? error.response.data["Email"][0] : '';
                         });
-
                 }
             },
             goToLogin() {

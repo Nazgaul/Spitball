@@ -70,9 +70,11 @@
                 loading: false,
                 userEmail: '',
                 password: '',
-                confirmPassword: ''
+                confirmPassword: '',
+
             }
         },
+
         props: {
             isMobile: {
                 type: Boolean,
@@ -86,7 +88,6 @@
             campaignData:{
 
             }
-
         },
 
         methods: {
@@ -97,7 +98,6 @@
                 registrationService.emailRegistration(this.userEmail, this.recaptcha, this.password, this.confirmPassword)
                     .then(function (resp) {
                         let step = resp.data.step;
-                        // self.changeStepNumber(step);
                         self.$parent.$emit('updateEmail', self.userEmail);
                         self.$parent.$emit('changeStep', step);
                         analyticsService.sb_unitedEvent('Registration', 'Start');
@@ -108,7 +108,7 @@
                         self.loading = false;
                         self.errorMessage.confirmPassword = error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '';
                         self.errorMessage.password = error.response.data["Password"] ? error.response.data["Password"][0] : '';
-                        self.errorMessage.email= error.response.data["user"] ? error.response.data[""][0] : '';
+                        self.errorMessage.email= error.response.data["Email"] ? error.response.data["Email"][0] : '';
 
                     });
             },

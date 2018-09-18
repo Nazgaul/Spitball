@@ -91,8 +91,8 @@
                             this.$router.push({path: `${url.path }`});
                         },(reason)=> {
                             this.loading = false;
-                            this.errorMessage.confirmPassword = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
-                            this.errorMessage.password = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
+                            self.errorMessage.confirmPassword = error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '';
+                            self.errorMessage.password = error.response.data["Password"] ? error.response.data["Password"][0] : '';
                         });
 
                 }

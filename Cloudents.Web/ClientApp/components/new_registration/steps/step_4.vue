@@ -98,7 +98,7 @@
                         self.$parent.$emit('changeStep', 'verifyPhone');
                     }, function (error) {
                         self.loading = false;
-                        self.errorMessage.phone = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                        self.errorMessage.phone = error.response.data["Phone"] ?  error.response.data["Phone"][0] : '';
                     })
             },
         },
