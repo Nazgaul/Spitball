@@ -11,12 +11,12 @@
             <div slot="step-data" class="limited-width">
                 <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
                 <sb-input class="phone-field" :errorMessage="errorMessage.password"
-                          v-model="password" placeholder="Enter new password" name="password" type="password"
-                          :autofocus="true" @keyup.enter.native="" minlength="4"></sb-input>
+                          v-model="password" placeholder="login_placeholder_enter_new_password" name="password" type="password"
+                          :autofocus="true" @keyup.enter.native="" minlength="4" v-language:placeholder></sb-input>
                 <sb-input class="phone-field" :errorMessage="errorMessage.confirmPassword"
-                          v-model="confirmPassword" placeholder="Confirm password" name="confirmPassword"
+                          v-model="confirmPassword" placeholder="login_placeholder_confirm_password" name="confirmPassword"
                           type="password"
-                          :autofocus="true" @keyup.enter.native=""></sb-input>
+                          :autofocus="true" @keyup.enter.native="" v-language:placeholder></sb-input>
                 <v-btn class="continue-btn"
                        value="Password"
                        :loading="loading"

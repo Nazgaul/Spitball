@@ -15,14 +15,14 @@
                 </div>
                 <form @submit.prevent="emailSend" class="form-one">
                     <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email"
-                              placeholder="Enter your email address" v-model="userEmail" name="email" type="email"
-                              :autofocus="true"></sb-input>
+                              placeholder="login_placeholder_email" v-model="userEmail" name="email" type="email"
+                              :autofocus="true" v-language:placeholder></sb-input>
                     <sb-input  class="mt-3" :errorMessage="errorMessage.password"
-                              placeholder="Choose password" v-model="password" name="pass" type="password"
-                              :autofocus="true"></sb-input>
+                              placeholder="login_placeholder_choose_password" v-model="password" name="pass" type="password"
+                              :autofocus="true"  v-language:placeholder></sb-input>
                     <sb-input  class="mt-3" :errorMessage="errorMessage.confirmPassword"
-                              placeholder="Confirm password" v-model="confirmPassword" name="confirm" type="password"
-                              :autofocus="true"></sb-input>
+                              placeholder="login_placeholder_confirm_password" v-model="confirmPassword" name="confirm" type="password"
+                              :autofocus="true" v-language:placeholder></sb-input>
                     <vue-recaptcha class="recaptcha-wrapper"
                                    :sitekey="siteKey"
                                    ref="recaptcha"
