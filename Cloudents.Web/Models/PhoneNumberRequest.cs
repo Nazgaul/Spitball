@@ -32,20 +32,14 @@ namespace Cloudents.Web.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (PhoneNumberRegex.IsMatch(ToString()))
+            if (!PhoneNumberRegex.IsMatch(ToString()))
             {
-                yield return ValidationResult.Success;
-            }
-            //TODO: Localize
-            yield return new ValidationResult(
-                "Phone number is invalid",
-                new[] { "" });
-        }
+                //TODO: Localize
 
-        //public override string ToString()
-        //{
-            
-        //    //return $"{nameof(Number)}: {Number}";
-        //}
+                yield return new ValidationResult(
+                    "Phone number is invalid",
+                    new[] { nameof(PhoneNumber) });
+            }
+        }
     }
 }
