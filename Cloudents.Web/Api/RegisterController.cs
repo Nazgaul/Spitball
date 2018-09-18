@@ -98,17 +98,9 @@ namespace Cloudents.Web.Api
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
             if (result == null)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "No result from google");
+                ModelState.AddModelError(string.Empty,_localizer["GoogleNoResponse"]);
                 return BadRequest(ModelState);
             }
-
-            // var user = await _userManager.FindByEmailAsync(result.Email).ConfigureAwait(false);
-            //if (user == null)
-            // {
-            //ModelState.AddModelError("user already exists");
-            //return BadRequest(ModelState);
-            //}
             var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, false);
             if (result2.Succeeded)
             {
@@ -133,9 +125,8 @@ namespace Cloudents.Web.Api
                 await _signInManager.SignInTwoFactorAsync(user, true).ConfigureAwait(false);
                 return new ReturnSignUserResponse(NextStep.EnterPhone, false);
             }
-            //TODO: Localize
-            ModelState.AddModelError("User email is already registered");
-            return BadRequest();
+            ModelState.AddModelError(_localizer["GoogleUserRegisteredWithEmail"]);
+            return BadRequest(ModelState);
         }
 
 
