@@ -108,7 +108,7 @@
                         self.loading = false;
                         self.errorMessage.confirmPassword = error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '';
                         self.errorMessage.password = error.response.data["Password"] ? error.response.data["Password"][0] : '';
-                        self.errorMessage.email= error.response.data ? error.response.data[""][0] : '';
+                        self.errorMessage.email= error.response.data["user"] ? error.response.data[""][0] : '';
 
                     });
             },

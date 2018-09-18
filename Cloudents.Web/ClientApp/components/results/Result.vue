@@ -90,7 +90,7 @@
             </div> 
         </div>
         <template slot="sideBar" v-if="filterCondition">
-            <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
+            <component :is="($vuetify.breakpoint.xsOnly ? 'mobile-':'')+'sort-and-filter'"
                        :sortOptions="page.sort"
                        :sortVal="sort"
                        v-model="showFilters"

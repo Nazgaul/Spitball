@@ -121,7 +121,7 @@
     <value>I agree to Spitball's</value>
   </data>
   <data name="already_have_account" xml:space="preserve">
-    <value>Do you already have an account?</value>
+    <value>Do you already have an account?  </value>
   </data>
   <data name="and" xml:space="preserve">
     <value>and</value>
