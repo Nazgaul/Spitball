@@ -16,7 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Web.Controllers;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -30,15 +30,17 @@ namespace Cloudents.Web.Api
         private readonly IServiceBusProvider _serviceBus;
         private readonly ISmsSender _client;
         private readonly ICommandBus _commandBus;
+        private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
 
         public SmsController(SignInManager<User> signInManager, UserManager<User> userManager, IServiceBusProvider serviceBus,
-            ISmsSender client,  ICommandBus commandBus)
+            ISmsSender client,  ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _serviceBus = serviceBus;
             _client = client;
             _commandBus = commandBus;
+            _localizer = localizer;
         }
 
         [HttpGet("code")]
@@ -68,8 +70,7 @@ namespace Cloudents.Web.Api
             var phoneNumber = await _client.ValidateNumberAsync(model.ToString(), token).ConfigureAwait(false);
             if (string.IsNullOrEmpty(phoneNumber))
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "Invalid phone number");
+                ModelState.AddModelError(nameof(model.PhoneNumber), _localizer["InvalidPhoneNumber"]);
                 return BadRequest(ModelState);
             }
 
@@ -149,7 +150,7 @@ namespace Cloudents.Web.Api
             if (user == null)
             {
                 //TODO: Localize
-                ModelState.AddModelError(string.Empty, "We cannot resend email");
+                ModelState.AddModelError(string.Empty, "We cannot resend sms");
                 return BadRequest(ModelState);
             }
 
