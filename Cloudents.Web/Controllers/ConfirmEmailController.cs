@@ -59,7 +59,7 @@ namespace Cloudents.Web.Controllers
                 _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
                 return RedirectToRoute(RegisterController.RegisterRouteName, new { step = "expiredStep" });
             }
-            TempData.Remove(Api.RegisterController.Email);
+          
             TempData[HomeController.Referral] = model.Referral;
 
             return await GoToStep(user, NextStep.EnterPhone, true, model.ReturnUrl);

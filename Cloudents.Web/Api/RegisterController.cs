@@ -177,7 +177,13 @@ namespace Cloudents.Web.Api
             ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
-            var email = TempData.Peek(Email) ?? throw new ArgumentNullException("TempData", "email is empty");
+            var email = TempData.Peek(Email); //?? throw new ArgumentNullException("TempData", "email is empty");
+            if (email == null)
+            {
+                //TODO: Localize
+                ModelState.AddModelError(string.Empty, "Cannot resend email");
+                return BadRequest(ModelState);
+            }
             var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
             if (user == null)
             {

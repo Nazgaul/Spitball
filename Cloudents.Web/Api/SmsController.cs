@@ -128,19 +128,24 @@ namespace Cloudents.Web.Api
             if (v.Succeeded)
             {
                 //This is the last step of the registration.
-                if (TempData[HomeController.Referral] != null)
-                {
-                    var base62 = new Base62(TempData[HomeController.Referral].ToString());
-                    var command = new DistributeTokensCommand(base62.Value, 10, ActionType.ReferringUser);
-                    await _commandBus.DispatchAsync(command, token);
-                    TempData.Remove(HomeController.Referral);
-                }
-                
-                await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
-                return Ok();
+                return await FinishRegistrationAsync(token, user);
             }
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
+        }
+
+        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, User user)
+        {
+            if (TempData[HomeController.Referral] != null)
+            {
+                var base62 = new Base62(TempData[HomeController.Referral].ToString());
+                var command = new DistributeTokensCommand(base62.Value, 10, ActionType.ReferringUser);
+                await _commandBus.DispatchAsync(command, token);
+                TempData.Remove(HomeController.Referral);
+            }
+            TempData.Clear();
+            await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
+            return Ok();
         }
 
         [HttpPost("resend")]
