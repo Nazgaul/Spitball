@@ -26,7 +26,6 @@
                 </form>
                 <div class="signin-strip">
                     <p class="click" @click="goToLogin" v-language:inner>{{camefromCreate ? 'login_already_have_password': 'login_remember_now'}}</p>
-
                 </div>
             </div>
             <div slot="step-image">

@@ -98,7 +98,6 @@
                             this.$parent.$emit('changeStep', 'congrats');
                             analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
                             self.loading = false;
-
                         } else {
                             self.loading = false;
                             analyticsService.sb_unitedEvent('Login', 'Phone Verified');
