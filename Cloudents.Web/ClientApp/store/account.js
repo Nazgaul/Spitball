@@ -3,6 +3,7 @@ import accountService from "../services/accountService"
 import {debug} from "util";
 import {dollarCalculate} from "./constants";
 import analyticsService from '../services/analytics.service'
+import profileService from "../services/profile/profileService"
 
 
 function setIntercomSettings(data){
@@ -46,7 +47,8 @@ const state = {
     talkMe: null,
     unreadMessages: 0,
     fromPath: null,
-    lastActiveRoute: null
+    lastActiveRoute: null,
+    profileData: profileService.getProfileData('profileGeneral')
 }
 const mutations = {
     changeLoginStatus(state, val) {
@@ -74,7 +76,10 @@ const mutations = {
     },
     setLastActiveRoute(state, val){
         state.lastActiveRoute = val;
-    }
+    },
+    UPDATE_PROFILE_DATA(state, data) {
+        state.profileData = data;
+    },
 };
 
 const getters = {
@@ -85,13 +90,16 @@ const getters = {
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
     accountUser: state => state.user,
-    lastActiveRoute: state => state.lastActiveRoute
+    lastActiveRoute: state => state.lastActiveRoute,
+    getProfileData: state => state.profileData
 };
 
-
-
-
 const actions = {
+    updateUserProfileData(context, name){
+        let currentProfile = profileService.getProfileData(name);
+        context.commit("UPDATE_PROFILE_DATA", currentProfile );
+
+    },
     logout({state, commit}) {
         removeIntercomeData();
         setIntercomeData();
