@@ -8,18 +8,11 @@
                     <v-icon right>sbf-close</v-icon>
                 </button>
             </div>
-            <!--class="pl-3" style="background: #3532d5"-->
             <v-tabs v-if="!cashOut" >
-                <!--<v-tabs-bar fixed>-->
                 <v-tab @click="changeActiveTab(1)" :href="'#tab-1'" :key="1"><span v-language:inner>wallet_Balances</span>  </v-tab>
                 <v-tab @click="changeActiveTab(2)" :href="'#tab-2'" :key="2"><span v-language:inner>wallet_Transaction</span> </v-tab>
                 <v-tab @click="changeActiveTab(3)" :href="'#tab-3'" :key="3"><span v-language:inner>wallet_Cash_Out</span> </v-tab>
-
-                <!--</v-tabs-bar>-->
-                <!--</div>-->
-
                 <v-tab-item :key="'1'" :id="'tab-1'">
-                    <!--<v-tabs-content :key="'1'" :id="'tab-1'">-->
                     <v-flex xs12>
                         <v-data-table
                                 :headers="headers.balances"
@@ -38,7 +31,6 @@
                         </v-data-table>
                     </v-flex>
                 </v-tab-item>
-                <!--</v-tabs-content>-->
 
                 <v-tab-item :key="'2'" :id="'tab-2'" class="tab-padding">
                     <v-flex xs12>

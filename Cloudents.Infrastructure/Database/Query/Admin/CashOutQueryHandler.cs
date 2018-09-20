@@ -59,8 +59,6 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             .SetResultTransformer(Transformers.AliasToBean<FirstQuery>())
             .Future<FirstQuery>();
 
-
-
             var futureDto = _session.Query<Transaction>()
                 .Fetch(f => f.User)
                 .Where(w => w.Action == ActionType.CashOut)

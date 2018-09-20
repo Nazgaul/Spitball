@@ -8,22 +8,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace Cloudents.Management.Pages
 {
-    public class DeleteUserModel : PageModel
+    public class SuspendUserModel : PageModel
     {
-
         private readonly Lazy<ICommandBus> _commandBus;
 
-        public DeleteUserModel(Lazy<ICommandBus> commandBus)
+        public SuspendUserModel(Lazy<ICommandBus> commandBus)
         {
             _commandBus = commandBus;
         }
 
-        [BindProperty] public DeleteUser Model { get; set; }
+        [BindProperty] public SuspendUser Model { get; set; }
 
-        public class DeleteUser
+        public class SuspendUser
         {
             [Required]
-            public string Email { get; set; }
+            public long Id { get; set; }
         }
 
         public void OnGet()
@@ -33,11 +32,7 @@ namespace Cloudents.Management.Pages
 
         public async Task<IActionResult> OnPostAsync(CancellationToken token)
         {
-            var command = new DeleteUserCommand
-            {
-                Email = Model.Email
-            };
-
+            var command = new SuspendUserCommand(Model.Id);
             await _commandBus.Value.DispatchAsync(command, token);
             return RedirectToPage("DeleteUser");
         }

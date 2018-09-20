@@ -10,6 +10,6 @@ namespace Cloudents.Core.Event
             Question = question;
         }
 
-        public Question Question { get; private set; }
+        public Question Question { get; }
     }
 }

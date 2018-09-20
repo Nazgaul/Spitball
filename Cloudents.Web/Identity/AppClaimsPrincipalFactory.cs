@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Globalization;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
@@ -9,7 +11,7 @@ using Microsoft.Extensions.Options;
 namespace Cloudents.Web.Identity
 {
     [UsedImplicitly]
-    public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<User,ApplicationRole>
+    public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<User, ApplicationRole>
     {
         private readonly IBlockChainErc20Service _blockChain;
 
@@ -26,7 +28,7 @@ namespace Cloudents.Web.Identity
             if (user.EmailConfirmed && user.PhoneNumberConfirmed)
             {
                 //p.AddClaim(new Claim(ClaimsType.AuthStep, SignInStepEnum.All.ToString("D")));
-                p.AddClaim(new Claim(ClaimsType.PublicKey, _blockChain.GetAddress(user.PrivateKey)));
+                p.AddClaim(new Claim(CustomCookieAuthenticationEvents.ValidateTimeClaim, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)));
             }
             return p;
         }

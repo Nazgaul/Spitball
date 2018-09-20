@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
@@ -9,6 +10,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
     public class UserLoginQueryHandler : IQueryHandler<UserLoginQuery, User>
     {
         private readonly IStatelessSession _session;

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
@@ -26,13 +27,17 @@ namespace Cloudents.Core.CommandHandler.Admin
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
         {
             var question = await _questionRepository.LoadAsync(message.QuestionId, token);
-            var userId = question.User.Id;
+            
 
             question.Events.Add(new QuestionDeletedEvent(question));
 
+            var userId = question.User.Id;
+
+            var users = question.Answers.Select(s => s.User.Id).Union(new[] {userId});
+            question.Events.Add(new QuestionDeletedAdminEvent(users));
             await _questionRepository.DeleteAsync(question, token);
-            var user = await _userRepository.LoadAsync(userId, token);
-            user.Balance += question.Price;
+            //var user = await _userRepository.LoadAsync(userId, token);
+            //user.Balance += question.Price;
         }
     }
 }

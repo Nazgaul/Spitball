@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
@@ -7,6 +8,7 @@ using NHibernate;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
     public class GetRandomFictiveUserIdQueryHandler : IQueryHandler<AdminEmptyQuery, long>
     {
         private readonly IStatelessSession _session;

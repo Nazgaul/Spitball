@@ -32,7 +32,7 @@ namespace Cloudents.Core.Interfaces
 
         Task<User> GetRandomFictiveUserAsync(CancellationToken token);
         
-        //Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
+        Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
     }
 
     public interface IQuestionRepository : IRepository<Question>
