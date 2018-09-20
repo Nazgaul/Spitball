@@ -32,11 +32,10 @@ namespace Cloudents.Web.Api
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                ModelState.AddModelError(_localizer["BadLogin"]);
+                ModelState.AddModelError(nameof(model.Password), _localizer["BadLogin"]);
                 return BadRequest(ModelState);
 
             }
-            //var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, true);
             var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
             if (result == SignInResult.Success)
             {
@@ -47,17 +46,17 @@ namespace Cloudents.Web.Api
             
             if (result.IsLockedOut)
             {
-                ModelState.AddModelError(string.Empty, _localizer["LockOut"]);
+                ModelState.AddModelError(nameof(model.Password), _localizer["LockOut"]);
                 return BadRequest(ModelState);
             }
 
             if (result.IsNotAllowed)
             {
-                ModelState.AddModelError(string.Empty, _localizer["NotAllowed"]);
+                ModelState.AddModelError(nameof(model.Password), _localizer["NotAllowed"]);
                 return BadRequest(ModelState);
 
             }
-            ModelState.AddModelError(_localizer["BadLogin"]);
+            ModelState.AddModelError(nameof(model.Password),_localizer["BadLogin"]);
             return BadRequest(ModelState);
 
            
