@@ -30,11 +30,6 @@ namespace Cloudents.Infrastructure.Framework
             return InsertMessageAsync(message, topicSubscription);
         }
 
-        public Task InsertMessageAsync(TalkJsUser message, CancellationToken token)
-        {
-            var topicSubscription = TopicSubscription.TalkJs;
-            return InsertMessageAsync(message, topicSubscription);
-        }
 
         public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
         {
