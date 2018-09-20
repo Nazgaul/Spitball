@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Core.Command.Admin;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Query;
@@ -55,8 +56,7 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-            var b = new Base62(18875);
-
+            
 
 
 
@@ -69,9 +69,10 @@ namespace ConsoleApp
 
             //string t = b;
             //Console.WriteLine(t);
-            var t = CultureInfo.GetCultures(CultureTypes.AllCultures).Where(c => c.Name == "IL");
-            var b2 = _container.Resolve<IQueryBus>();
-            var x2 = await b2.QueryAsync(new SyncAzureQuery(56123 ,0), default);
+            var b2 = _container.Resolve<ICommandBus>();
+            var command = new SuspendUserCommand(1013);
+            await b2.DispatchAsync(command, default);
+
 
 
             // QuestionRepository c = new QuestionRepository(b);
