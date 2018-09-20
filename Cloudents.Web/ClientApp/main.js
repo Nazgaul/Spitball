@@ -5,11 +5,10 @@ import store from "./store";
 import { Language } from "./services/language/langDirective"
 import initSignalRService from './services/signalR/signalrEventService'
 import VueClipboard from 'vue-clipboard2'
+import Scroll from "vuetify/es5/directives/scroll";
 
+const scrollComponent = () => import("./components/helpers/infinateScroll.vue");
 
-const scroll = () =>
-    import("./components/helpers/infinateScroll.vue");
-import VScroll from "vuetify/es5/directives/scroll";
 
 const GeneralPage = () =>
     import("./components/helpers/generalPage.vue");
@@ -46,10 +45,6 @@ const vuetifyComponents = {
     VAvatar,
     VPagination,
     VDataTable,
-
-
-
-
 };
 import {
     Vuetify,
@@ -103,12 +98,12 @@ WebFont.load({
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
-        VScroll,
+        Scroll,
 
     },
     components: vuetifyComponents
 });
-Vue.component("scroll-list", scroll);
+Vue.component("scroll-list", scrollComponent);
 //Vue.component("adsense", vueAdsense);
 Vue.component("general-page", GeneralPage);
 
