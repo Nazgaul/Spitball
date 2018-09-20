@@ -3,7 +3,6 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
@@ -27,17 +26,15 @@ namespace Cloudents.Web.Api
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
-        private readonly IServiceBusProvider _serviceBus;
         private readonly ISmsSender _client;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
 
-        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager, IServiceBusProvider serviceBus,
+        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
             ISmsSender client,  ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _serviceBus = serviceBus;
             _client = client;
             _commandBus = commandBus;
             _localizer = localizer;
@@ -82,13 +79,7 @@ namespace Cloudents.Web.Api
 
             if (retVal.Succeeded)
             {
-                var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id, user.Name)
-                {
-                    Email = user.Email
-                }, token);
-                //var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber);
-                var t3 = _client.SendSmsAsync(user, token);
-                await Task.WhenAll(t1, t3).ConfigureAwait(false);
+                await _client.SendSmsAsync(user, token);
                 return Ok();
             }
 

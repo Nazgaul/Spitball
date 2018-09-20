@@ -35,15 +35,10 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.LockoutEnabled);
 
             References(x => x.University).ForeignKey("User_University").Nullable();
-            Map(x => x.Balance).CustomSqlType("smallmoney");
+            Map(x => x.Balance).CustomSqlType("money");
 
             HasMany(x => x.Transactions)
                 .Inverse()
-
-                //.Inverse()
-                //TODO: this is generate exception when creating new answer. need to figure it out
-                //    .Not.KeyNullable()
-                //    .Not.KeyUpdate()
                 .Cascade.AllDeleteOrphan();
 
             HasMany(x => x.Answers)
