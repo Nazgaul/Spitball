@@ -40,8 +40,7 @@
                             v-language:inner>newQuestion_You_have</span>
                         {{currentSum | fixedPoints}} <span v-language:inner>newQuestion_SBL</span>
                     </v-flex>
-                    <v-flex xs12 v-if="(price > 100)" :class="[price < 100 ? 'text-blue' : 'text-red']"
-                            v-language:inner>
+                    <v-flex xs12 v-if="(price > 100)" :class="[price < 100 ? 'text-blue' : 'text-red']" v-language:inner>
                         newQuestion_max_SBL
                     </v-flex>
                     <v-flex xs12 v-else-if="price < 1 && price" :class="[price > 1 ? 'text-blue' : 'text-red']"
