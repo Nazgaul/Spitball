@@ -1,20 +1,21 @@
 ﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Message;
+using Cloudents.Core.Storage;
+using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Filters;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
+using Cloudents.Web.Services;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
-using Cloudents.Web.Controllers;
-using Cloudents.Web.Filters;
-using Cloudents.Web.Identity;
-using Cloudents.Web.Services;
-using JetBrains.Annotations;
+using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -27,17 +28,19 @@ namespace Cloudents.Web.Api
         private readonly IBlockChainErc20Service _blockChainErc20Service;
         private readonly IServiceBusProvider _queueProvider;
         private readonly ISmsSender _client;
+        private readonly IStringLocalizer<RegisterController> _localizer;
 
         internal const string Email = "email2";
 
 
-        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager, IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider, ISmsSender client)
+        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager, IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _blockChainErc20Service = blockChainErc20Service;
             _queueProvider = queueProvider;
             _client = client;
+            _localizer = localizer;
         }
 
         [HttpPost, ValidateRecaptcha, ValidateEmail]
@@ -63,14 +66,14 @@ namespace Cloudents.Web.Api
                 }
                 if (!user.PhoneNumberConfirmed)
                 {
-                    var t1 =  _signInManager.SignInTwoFactorAsync(user, false);
-                    var t2 =  _client.SendSmsAsync(user, token);
+                    var t1 = _signInManager.SignInTwoFactorAsync(user, false);
+                    var t2 = _client.SendSmsAsync(user, token);
 
                     await Task.WhenAll(t1, t2);
                     return new ReturnSignUserResponse(NextStep.VerifyPhone, false);
                 }
                 //TODO: Localize
-                ModelState.AddModelError("user already exists");
+                ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
             user = CreateUser(model.Email, null);
@@ -91,21 +94,13 @@ namespace Cloudents.Web.Api
             [FromServices] IGoogleAuth service,
             CancellationToken cancellationToken)
         {
-            
+
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
             if (result == null)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "No result from google");
+                ModelState.AddModelError(string.Empty,_localizer["GoogleNoResponse"]);
                 return BadRequest(ModelState);
             }
-            
-           // var user = await _userManager.FindByEmailAsync(result.Email).ConfigureAwait(false);
-            //if (user == null)
-           // {
-                //ModelState.AddModelError("user already exists");
-                //return BadRequest(ModelState);
-            //}
             var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, false);
             if (result2.Succeeded)
             {
@@ -117,7 +112,7 @@ namespace Cloudents.Web.Api
                 //TODO: Localize
                 ModelState.AddModelError("User is locked out");
                 return BadRequest(ModelState);
-                
+
             }
             var user = CreateUser(result.Email, result.Name);
             user.EmailConfirmed = true;
@@ -130,9 +125,8 @@ namespace Cloudents.Web.Api
                 await _signInManager.SignInTwoFactorAsync(user, true).ConfigureAwait(false);
                 return new ReturnSignUserResponse(NextStep.EnterPhone, false);
             }
-            //TODO: Localize
-            ModelState.AddModelError("User email is already registered");
-            return BadRequest();
+            ModelState.AddModelError(_localizer["GoogleUserRegisteredWithEmail"]);
+            return BadRequest(ModelState);
         }
 
 
@@ -174,7 +168,13 @@ namespace Cloudents.Web.Api
             ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
-            var email = TempData.Peek(Email) ?? throw new ArgumentNullException("TempData", "email is empty");
+            var email = TempData.Peek(Email); //?? throw new ArgumentNullException("TempData", "email is empty");
+            if (email == null)
+            {
+                //TODO: Localize
+                ModelState.AddModelError(string.Empty, "Cannot resend email");
+                return BadRequest(ModelState);
+            }
             var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
             if (user == null)
             {

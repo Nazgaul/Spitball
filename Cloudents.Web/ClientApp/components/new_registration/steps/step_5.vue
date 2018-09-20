@@ -17,9 +17,9 @@
                     (+{{phone.countryCode}})
                     {{phone.phoneNum}} </p>
                 <!--<p v-if="!isMobile" class="confirm-title" v-language:inner>login_sent_confirmation_code</p>-->
-                <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code"
-                          v-model="confirmationCode" placeholder="Enter confirmation code" type="number"
-                          :autofocus="true" @keyup.enter.native="smsCodeVerify()"></sb-input>
+                <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code" :bottomError="true"
+                          v-model="confirmationCode" placeholder="login_placeholder_enter_confirmation_code" type="number"
+                          :autofocus="true" @keyup.enter.native="smsCodeVerify()" v-language:placeholder></sb-input>
                 <v-btn class="continue-btn submit-code"
                        value="Login"
                        :loading="loading"
@@ -61,6 +61,7 @@
                 },
                 confirmationCode: '',
                 loading: false,
+                bottomError: false
             }
         },
         props: {
@@ -97,7 +98,6 @@
                             this.$parent.$emit('changeStep', 'congrats');
                             analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
                             self.loading = false;
-
                         } else {
                             self.loading = false;
                             analyticsService.sb_unitedEvent('Login', 'Phone Verified');

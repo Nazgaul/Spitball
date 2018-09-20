@@ -2,9 +2,9 @@
     <div class="book-header">
         <dialog-toolbar :app="true" height="48" v-if="$vuetify.breakpoint.xsOnly" :toolbarTitle="toolbarTitleText" v-language:toolbarTitle>
             <v-tabs class="mx-2" value="buy" grow slot="extension">
-                    <v-tab v-for="tab in sortOptions" :key="tab.id" :href="tab.id" :id="tab.id" @click="$_changeTab(tab.id)"
+                    <v-tab v-for="tab in sortOptions" :key="tab.id" :id="tab" @click="$_changeTab(tab)"
                                  class="mr-2 vertical spitball-text-book">
-                        {{tab.name}}
+                        {{tab}}
                     </v-tab>
                     <v-tabs-slider color="color-book"></v-tabs-slider>
             </v-tabs>

@@ -14,12 +14,12 @@
                 <!--<p v-if="!isMobile" class="inline" v-language:inner>login_please_login</p>-->
                 <form @submit.prevent="submit">
                     <sb-input :errorMessage="errorMessage.email" :required="true" class="email-field" type="email"
-                              name="email" id="input-url" v-model="userEmail"
-                              placeholder="Enter your email "></sb-input>
+                              name="email" id="input-url" v-model="userEmail" :bottomError="true"
+                              placeholder="login_placeholder_email" v-language:placeholder></sb-input>
                     <sb-input :errorMessage="errorMessage.password" :required="true" class="email-field mt-3"
-                              :type="'password'"
+                              :type="'password'" :bottomError="true"
                               name="user password"  v-model="password"
-                              placeholder="Enter password"></sb-input>
+                              placeholder="login_placeholder_enter_password" v-language:placeholder></sb-input>
                     <vue-recaptcha class="recaptcha-wrapper"
                                    ref="recaptcha"
                                    :sitekey="siteKey"
@@ -70,6 +70,7 @@
                 loading: false,
                 userEmail: "",
                 recaptcha: '',
+                bottomError: false
             }
         },
         props: {

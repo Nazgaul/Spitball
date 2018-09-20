@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Models
 {
-    //TODO:Localize
     public class PhoneNumberRequest : IValidatableObject
     {
         private static readonly Regex PhoneNumberRegex = new Regex(@"^\+?[1-9]\d{1,14}$", RegexOptions.Compiled);
@@ -32,20 +32,19 @@ namespace Cloudents.Web.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (PhoneNumberRegex.IsMatch(ToString()))
+            if (!PhoneNumberRegex.IsMatch(ToString()))
             {
-                yield return ValidationResult.Success;
-            }
-            //TODO: Localize
-            yield return new ValidationResult(
-                "Phone number is invalid",
-                new[] { "" });
-        }
+                var stringLocalizer = validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as IStringLocalizer<DataAnnotationSharedResource>;
+                var errorMessage = "Invalid phone number";
+                if (stringLocalizer != null)
+                {
+                    errorMessage = stringLocalizer["InvalidPhoneNumber"];
+                }
 
-        //public override string ToString()
-        //{
-            
-        //    //return $"{nameof(Number)}: {Number}";
-        //}
+                yield return new ValidationResult(
+                    errorMessage,
+                    new[] { nameof(PhoneNumber) });
+            }
+        }
     }
 }

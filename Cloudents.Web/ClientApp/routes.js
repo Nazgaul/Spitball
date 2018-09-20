@@ -174,9 +174,14 @@ let routes2 = [
             default: login,
         },
         name: "registration",
-        // meta: {
-        //     requiresAuth: false
-        // },
+        beforeEnter: (to, from, next) => {
+            //prevent entering if loged in
+            if(global.isAuth){
+                next(false)
+            }else{
+                next()
+            }
+        }
     },
 
 

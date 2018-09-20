@@ -4,7 +4,8 @@ export default {
     name: "sort-and-filter",
     data() {
         return {
-            panelList: []
+            //keep this as model for expand panel, to keep it always open
+            panelList: [true, true]
         }
     },
     props: {
@@ -55,19 +56,4 @@ export default {
             this.$router.push({query});
         }
     },
-    beforeMount(){
-        if(this.filterList) {
-            this.filterList.forEach((item) => {
-                this.panelList.push(true)
-            });
-        }
-    },
-    created() {
-        if (this.filterList) {
-            this.filterList.forEach((item) => {
-                this.panelList.push(true)
-            });
-        }
-    }
-
 }

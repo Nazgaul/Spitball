@@ -4,7 +4,7 @@
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
                     <p class="text-block-sub-title" v-html="isCampaignOn ? campaignData.stepOne.text : meta.heading">
-                        </p>
+                    </p>
                 </div>
             </div>
             <div slot="step-data" class="limited-width form-wrap">
@@ -14,15 +14,15 @@
                     <!--<p class="sub-title mb-3">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
                 </div>
                 <form @submit.prevent="emailSend" class="form-one">
-                    <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email"
-                              placeholder="Enter your email address" v-model="userEmail" name="email" type="email"
-                              :autofocus="true"></sb-input>
-                    <sb-input  class="mt-3" :errorMessage="errorMessage.password"
-                              placeholder="Choose password" v-model="password" name="pass" type="password"
-                              :autofocus="true"></sb-input>
-                    <sb-input  class="mt-3" :errorMessage="errorMessage.confirmPassword"
-                              placeholder="Confirm password" v-model="confirmPassword" name="confirm" type="password"
-                              :autofocus="true"></sb-input>
+                    <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email" :bottomError="true"
+                              placeholder="login_placeholder_email" v-model="userEmail" name="email" type="email"
+                              :autofocus="true" v-language:placeholder></sb-input>
+                    <sb-input  class="mt-3" :errorMessage="errorMessage.password" :bottomError="true"
+                              placeholder="login_placeholder_choose_password" v-model="password" name="pass" type="password"
+                              :autofocus="true"  v-language:placeholder></sb-input>
+                    <sb-input  class="mt-3" :errorMessage="errorMessage.confirmPassword" :bottomError="true"
+                              placeholder="login_placeholder_confirm_password" v-model="confirmPassword" name="confirm" type="password"
+                              :autofocus="true" v-language:placeholder></sb-input>
                     <vue-recaptcha class="recaptcha-wrapper"
                                    :sitekey="siteKey"
                                    ref="recaptcha"
@@ -70,9 +70,11 @@
                 loading: false,
                 userEmail: '',
                 password: '',
-                confirmPassword: ''
+                confirmPassword: '',
+                bottomError: false
             }
         },
+
         props: {
             isMobile: {
                 type: Boolean,
@@ -86,7 +88,6 @@
             campaignData:{
 
             }
-
         },
 
         methods: {
@@ -97,7 +98,6 @@
                 registrationService.emailRegistration(this.userEmail, this.recaptcha, this.password, this.confirmPassword)
                     .then(function (resp) {
                         let step = resp.data.step;
-                        // self.changeStepNumber(step);
                         self.$parent.$emit('updateEmail', self.userEmail);
                         self.$parent.$emit('changeStep', step);
                         analyticsService.sb_unitedEvent('Registration', 'Start');
@@ -108,7 +108,7 @@
                         self.loading = false;
                         self.errorMessage.confirmPassword = error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '';
                         self.errorMessage.password = error.response.data["Password"] ? error.response.data["Password"][0] : '';
-                        self.errorMessage.email= error.response.data ? error.response.data[""][0] : '';
+                        self.errorMessage.email= error.response.data["Email"] ? error.response.data["Email"][0] : '';
 
                     });
             },

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Localization;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Cloudents.Web.Api
@@ -14,11 +15,14 @@ namespace Cloudents.Web.Api
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IStringLocalizer<LogInController> _localizer;
 
-        public LogInController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public LogInController(UserManager<User> userManager, SignInManager<User> signInManager, 
+            IStringLocalizer<LogInController> localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _localizer = localizer;
         }
 
         // GET
@@ -28,7 +32,7 @@ namespace Cloudents.Web.Api
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                ModelState.AddModelError("email of password are incorrect");
+                ModelState.AddModelError(_localizer["BadLogin"]);
                 return BadRequest(ModelState);
 
             }
@@ -40,29 +44,19 @@ namespace Cloudents.Web.Api
                 return Ok();
             }
 
-            //if (result == SignInResult.TwoFactorRequired)
-            //{
-            //    var code = await _userManager.GenerateTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider);
-            //    await _smsClient.SendSmsAsync(user.PhoneNumber, code, token);
-            //    return Ok(new ReturnSignUserResponse(NextStep.VerifyPhone, false));
-            //}
-
             if (result.IsLockedOut)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "user is locked out");
+                ModelState.AddModelError(string.Empty, _localizer["LockOut"]);
                 return BadRequest(ModelState);
             }
 
             if (result.IsNotAllowed)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "user is not allowed");
+                ModelState.AddModelError(string.Empty, _localizer["NotAllowed"]);
                 return BadRequest(ModelState);
 
             }
-            //TODO: Localize
-            ModelState.AddModelError("email of password are incorrect");
+            ModelState.AddModelError(_localizer["BadLogin"]);
             return BadRequest(ModelState);
 
            

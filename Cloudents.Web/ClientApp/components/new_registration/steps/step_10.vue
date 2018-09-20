@@ -12,9 +12,9 @@
                 <h1 v-if="!isMobile" class="step-title"  v-html="camefromCreate ? meta.createtxt : meta.resettxt"></h1>
                 <p v-if="!camefromCreate" class="sub-title  mb-3" v-language:inner>login_happens_to_best</p>
                 <form @submit.prevent="emailResetPassword" class="form-one">
-                    <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email"
-                              placeholder="Enter your email address" v-model="userEmail" name="email" type="email"
-                              :autofocus="true"></sb-input>
+                    <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email" :bottomError="true"
+                              placeholder="login_placeholder_email" v-model="userEmail" name="email" type="email"
+                              :autofocus="true" v-language:placeholder></sb-input>
                     <div class="recaptcha-wrapper">
                     </div>
                     <v-btn class="continue-btn" value="Login"
@@ -26,7 +26,6 @@
                 </form>
                 <div class="signin-strip">
                     <p class="click" @click="goToLogin" v-language:inner>{{camefromCreate ? 'login_already_have_password': 'login_remember_now'}}</p>
-
                 </div>
             </div>
             <div slot="step-image">
@@ -45,7 +44,6 @@
     export default {
         name: "step_10",
         components: {stepTemplate, SbInput},
-
         data() {
             return {
                 errorMessage: {
@@ -55,7 +53,7 @@
                 },
                 userEmail: '',
                 loading: false,
-
+                bottomError: false
             }
         },
         props: {
@@ -93,9 +91,8 @@
                         }, function (reason) {
                             console.log('error!!!reset')
                             self.loading = false;
-                            self.errorMessage.confirmPassword = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
+                            self.errorMessage.email = error.response.data["Email"] ? error.response.data["Email"][0] : '';
                         });
-
                 }
             },
             goToLogin() {
