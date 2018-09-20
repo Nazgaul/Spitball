@@ -10,15 +10,18 @@ function setIntercomSettings(data){
     let hide_default_launcher = intercomSettings.hide_default_launcher;
     let user_id = null;
     let user_name = null;
+    let user_email = null;
     if(!!data){
         user_id = "Sb_" + data.id;
         user_name = data.name;
+        user_email = data.email;
     }
     global.intercomSettings = {
         app_id,
         hide_default_launcher,
         user_id,
-        name: user_name
+        name: user_name,
+        email: user_email
     }
 
     global.Intercom('boot', {intercomSettings});
