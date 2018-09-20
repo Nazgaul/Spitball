@@ -69,7 +69,6 @@ export default {
                 this.textAreaValue = this.textAreaValue.trim();
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default' )
                     .then(function () {
-                            // debugger;
                             self.$ga.event("Submit_question", "Homwork help");
                             let val = self.selectedPrice || self.price;
                             self.updateUserBalance(-val);

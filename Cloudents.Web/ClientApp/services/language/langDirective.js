@@ -34,7 +34,8 @@ export const Language = {
             let key = null;
             //inner arg will replace the inner HTML
             if(attr === INNER_HTML){
-                key = LanguageService.getValueByKey(el.innerHTML);
+                let fixedKey = el.innerHTML.trim();
+                key = LanguageService.getValueByKey(fixedKey);
                 el.innerHTML = key
             }else{
                 //other will set the 
