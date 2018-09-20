@@ -171,8 +171,7 @@
 
                         }, function (error) {
                             self.updateLoading(false);
-                            self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
-                            console.error(error);
+                            self.errorMessage.gmail = error.response.data["Google"] ? error.response.data["Google"][0] : '';
                         });
                 }, function (error) {
                     self.updateLoading(false);

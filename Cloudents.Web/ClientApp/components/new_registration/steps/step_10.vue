@@ -87,7 +87,7 @@
                             self.loading = false;
                             analyticsService.sb_unitedEvent('Forgot Password', 'Reset email send');
                             self.$parent.$emit('changeStep', 'emailconfirmedPass');
-                        }, (reason)=> {
+                        }, (error)=> {
                             self.loading = false;
                             self.errorMessage.email = error.response.data["Email"] ? error.response.data["Email"][0] : '';
                         });

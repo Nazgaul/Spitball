@@ -71,10 +71,10 @@
                 userEmail: '',
                 password: '',
                 confirmPassword: '',
-                bottomError: false
+                bottomError: false,
+                submitted: false
             }
         },
-
         props: {
             isMobile: {
                 type: Boolean,
@@ -90,11 +90,21 @@
             }
         },
 
+        // computed:{
+        //   isValidPassword(){
+        //       if(this.password !== this.confirmPassword && this.sumbitted) {
+        //           return this.errorMessage.confirmPassword = 'password not match'
+        //       }
+        //   }
+        //
+        // },
+
         methods: {
             ...mapMutations({updateLoading: "UPDATE_LOADING"}),
             emailSend() {
                 let self = this;
                 self.loading = true;
+                self.sumbitted = true
                 registrationService.emailRegistration(this.userEmail, this.recaptcha, this.password, this.confirmPassword)
                     .then(function (resp) {
                         let step = resp.data.step;

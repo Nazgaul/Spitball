@@ -12,11 +12,7 @@
                 <div slot="step-data" class="limited-width wide">
                     <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
                     <p class="inline">{{meta.text}}</p>
-                    <!--<div class="email-hold">-->
-                        <!--<p class="email-text inline">{{userEmail}}-->
-                            <!--<span class="email-change" @click="showRegistration()" v-language:inner>login_Change</span>-->
-                        <!--</p>-->
-                    <!--</div>-->
+
                     <div class="bottom-text">
                         <p class="inline"> <span v-language:inner>login_password_email_confirmed_resend_text</span>
                             <span class="email-text inline click"
