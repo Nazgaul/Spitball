@@ -1,10 +1,12 @@
-﻿using System.Threading;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.EventHandler
 {
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
     public class RemoveQuestionCacheEventHandler : IEventHandler<MarkAsCorrectEvent>, 
         IEventHandler<QuestionCreatedEvent>, IEventHandler<QuestionDeletedEvent>, IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>
     {

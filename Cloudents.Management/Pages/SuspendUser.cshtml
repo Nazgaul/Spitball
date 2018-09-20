@@ -1,0 +1,16 @@
+﻿@page
+@model Cloudents.Management.Pages.SuspendUserModel
+@{
+    ViewData["Title"] = "Suspend User";
+}
+
+<h2>Suspend User</h2>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="Model.Id"></label>
+        <input asp-for="Model.Id" />
+    </div>
+    <input type="submit" />
+</form>

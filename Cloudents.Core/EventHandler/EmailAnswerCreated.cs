@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Event;
@@ -8,6 +9,7 @@ using Cloudents.Core.Storage;
 
 namespace Cloudents.Core.EventHandler
 {
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
     public class EmailAnswerCreated : IEventHandler<AnswerCreatedEvent>
     {
         public const string CreateAnswer = "CreateAnswer";

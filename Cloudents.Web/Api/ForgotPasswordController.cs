@@ -1,40 +1,44 @@
-﻿using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Encodings.Web;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]"),ApiController]
+    [Route("api/[controller]"), ApiController]
     public class ForgotPasswordController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IServiceBusProvider _queueProvider;
         private const string EmailTempDictionaryKey = "EmailForgotPassword";
+        private readonly IStringLocalizer<ForgotPasswordController> _localizer;
 
-        public ForgotPasswordController(UserManager<User> userManager, SignInManager<User> signInManager, 
-            IServiceBusProvider queueProvider)
+        public ForgotPasswordController(UserManager<User> userManager, SignInManager<User> signInManager,
+            IServiceBusProvider queueProvider, IStringLocalizer<ForgotPasswordController> localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _queueProvider = queueProvider;
+            _localizer = localizer;
         }
 
         // GET
         [HttpPost]
-        public async Task<IActionResult> Post(ForgotPasswordRequest model,[FromHeader] CancellationToken token)
+        public async Task<IActionResult> Post(ForgotPasswordRequest model, [FromHeader] CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
             {
+                ModelState.AddModelError("ForgotPassword", _localizer["UserDoesntExists"]);
                 return BadRequest();
             }
 
@@ -47,7 +51,7 @@ namespace Cloudents.Web.Api
             TempData[EmailTempDictionaryKey] = user.Email;
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
             code = UrlEncoder.Default.Encode(code);
-            var link = Url.Link("ResetPassword", new {user.Id, code});
+            var link = Url.Link("ResetPassword", new { user.Id, code });
             var message = new ResetPasswordEmail(user.Email, link);
             await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
         }
@@ -65,12 +69,11 @@ namespace Cloudents.Web.Api
             var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
             if (user == null)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "no user");
+                ModelState.AddModelError(string.Empty, _localizer["UserDoesntExists"]);
                 return BadRequest(ModelState);
             }
 
-            await GenerateEmailAsync(user,token ).ConfigureAwait(false);
+            await GenerateEmailAsync(user, token).ConfigureAwait(false);
             return Ok();
         }
 

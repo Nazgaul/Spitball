@@ -36,6 +36,14 @@ namespace Cloudents.Infrastructure.Database.Repositories
                    .SingleOrDefaultAsync<User>(token);
         }
 
+        public Task<decimal> UserBalanceAsync(long userId, CancellationToken token)
+        {
+            return
+                Session.QueryOver<Transaction>()
+                    .Where(w => w.User.Id == userId)
+                    .Select(Projections.Sum<Transaction>(x => x.Price)).SingleOrDefaultAsync<decimal>(token);
+        }
+
         internal IQueryOver<Transaction, Transaction> UserBalanceByType(long userId, TransactionType type)
         {
             return
