@@ -52,8 +52,8 @@
         <div v-else>
             <v-tabs grow>
                     <v-tabs-slider color="blue"></v-tabs-slider>
-                    <v-tab :href="'#tab-1'" :key="'1'" v-language:inner>questionDetails_Question</v-tab>
-                    <v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser" v-language:inner>questionDetails_Chat</v-tab>
+                    <v-tab :href="'#tab-1'" :key="'1'"><span v-language:inner>questionDetails_Question</span></v-tab>
+                    <v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser"><span v-language:inner>questionDetails_Chat</span></v-tab>
 
                 <v-tab-item :key="'1'" :id="'tab-1'" class="tab-padding">
                         <v-flex xs12 class="question-data">
