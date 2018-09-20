@@ -16,6 +16,7 @@
                    :camefromCreate="camefromCreate"
                    :campaignData="campaignData"
                    :isSignIn="isSignIn"
+                   :isNewUser="isNewUser"
         ></component>
         <div class="progress" v-if="isShowProgress">
             <div v-for="page in progressSteps" :class="{highlighted: page===stepNumber}"></div>
@@ -39,7 +40,6 @@
                     <v-btn v-if="isMobile" class="continue-registr"
                            @click="showDialog = false"><span v-language:inner>login_continue_registration</span>
                     </v-btn>
-
                     <button class="continue-btn" @click="$_back" v-language:inner>login_Exit</button>
                 </v-card-text>
             </v-card>
