@@ -107,11 +107,12 @@ export default {
                     `question_${this.id}`
                 );
                 //conversation
+                let subject = this.questionData.text.replace(/\r?\n|\r/g, '');
                 conversation.setParticipant(this.chatAccount, {notify: false});
                 conversation.setParticipant(other1);
                 conversation.setAttributes({
                     photoUrl: `${location.origin}/images/conversation.png`,
-                    subject: `<${location.href}|${this.questionData.text}>`
+                    subject: `<${location.href}|${subject}>`
                 })
                     var chatbox = this.talkSession.createChatbox(conversation, {
                     showChatHeader: false
