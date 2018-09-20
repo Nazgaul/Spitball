@@ -80,7 +80,11 @@
                 countryCode: ''
             },
             lastActiveRoute: '',
-            userEmail: ""
+            userEmail: "",
+            isNewUser:{
+                type: Boolean,
+                default: false
+            }
         },
         methods: {
             ...mapMutations({updateLoading: "UPDATE_LOADING"}),

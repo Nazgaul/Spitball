@@ -103,7 +103,6 @@
         </v-dialog>
 
     </div>
-
     <!--!!!end terms and first screen-->
 </template>
 
@@ -168,7 +167,6 @@
                                 analyticsService.sb_unitedEvent('Login', 'Start Google');
                             }
                             let step = resp.data.step;
-                            // self.changeStepNumber(step);
                             self.$parent.$emit('changeStep', step);
 
                         }, function (error) {
