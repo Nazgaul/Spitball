@@ -12,13 +12,13 @@
             </div>
             <div slot="step-data" class="limited-width wide">
                 <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
-                <p v-if="phone.phoneNum" class="sub-title">
-                    <span v-language:inner>login_sent_code_by_sms</span>
+                <p v-if="phone.phoneNum && !isMobile" class="sub-title">
                     (+{{phone.countryCode}})
-                    {{phone.phoneNum}} </p>
-                <!--<p v-if="!isMobile" class="confirm-title" v-language:inner>login_sent_confirmation_code</p>-->
+                    {{phone.phoneNum}} <span class="phone-change" @click="changePhone()"
+                                             v-language:inner>login_Change</span></p>
                 <sb-input class="code-field" icon="sbf-key" :errorMessage="errorMessage.code" :bottomError="true"
-                          v-model="confirmationCode" placeholder="login_placeholder_enter_confirmation_code" type="number"
+                          v-model="confirmationCode" placeholder="login_placeholder_enter_confirmation_code"
+                          type="number"
                           :autofocus="true" @keyup.enter.native="smsCodeVerify()" v-language:placeholder></sb-input>
                 <v-btn class="continue-btn submit-code"
                        value="Login"
@@ -44,6 +44,7 @@
     import registrationService from '../../../services/registrationService'
     import analyticsService from '../../../services/analytics.service';
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
+
     const defaultSubmitRoute = {path: '/ask'};
 
     export default {
@@ -73,15 +74,14 @@
                 type: Boolean,
                 default: false
             },
-            meta: {
-            },
+            meta: {},
             phone: {
                 phoneNum: '',
                 countryCode: ''
             },
             lastActiveRoute: '',
             userEmail: "",
-            isNewUser:{
+            isNewUser: {
                 type: Boolean,
                 default: false
             }
@@ -115,19 +115,18 @@
                     });
             },
             resendSms() {
-                let self = this;
-                self.updateLoading(true);
+                this.updateLoading(true);
                 analyticsService.sb_unitedEvent('Registration', 'Resend SMS');
                 registrationService.resendCode()
                     .then((success) => {
-                            self.updateLoading(false);
-                            self.updateToasterParams({
+                            this.updateLoading(false);
+                            this.updateToasterParams({
                                 toasterText: 'A verification code was sent to your phone',
                                 showToaster: true,
                             });
                         },
                         error => {
-                            self.errorMessage = error.text;
+                            this.errorMessage = error.text;
                             console.error(error, 'sign in resend error')
                         })
             },

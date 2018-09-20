@@ -2,7 +2,6 @@
 import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
-import { LanguageService } from "./services/language/languageService"
 import { Language } from "./services/language/langDirective"
 import initSignalRService from './services/signalR/signalrEventService'
 import VueClipboard from 'vue-clipboard2'
@@ -10,10 +9,10 @@ import Scroll from "vuetify/es5/directives/scroll";
 
 const scrollComponent = () => import("./components/helpers/infinateScroll.vue");
 
+
 const GeneralPage = () =>
     import("./components/helpers/generalPage.vue");
 import VueRouter from "vue-router";
-
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
 
@@ -96,7 +95,6 @@ WebFont.load({
 //    attempt: 1
 //});
 //Vue.use(vueSmoothScroll);
-
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {

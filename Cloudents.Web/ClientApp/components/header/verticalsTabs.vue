@@ -57,7 +57,10 @@
                 if ((result == 'flashcard' && this.$route.path.includes('note') || result == 'note' && this.$route.path.includes('flashcard')) && this.$route.query.course) {
                     course = this.$route.query.course;
                 }
-                this.UPDATE_SEARCH_LOADING(true);
+                //if same tab do not do UPDATE_SEARCH_LOADING
+                if(this.$route.path !== `/${result}`){
+                    this.UPDATE_SEARCH_LOADING(true);
+                }
                 this.$router.push({path: '/' + result, query: {}});
                 // this.$router.push({path: '/' + result, query: {...query, q: text, course}});
             }
