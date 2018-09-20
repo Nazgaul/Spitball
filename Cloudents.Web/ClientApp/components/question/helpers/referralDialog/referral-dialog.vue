@@ -75,8 +75,8 @@ export default {
     components:{SbInput},
     data(){
         return {
-            userReferralLink: global.location.origin + "/?referral=" + Base62.encode(this.accountUser().id),
-            //userReferralLink:"http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser().id),
+            userReferralLink: global.location.origin + "/?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral",
+            //userReferralLink:"http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral",
             socialMedias: {
                 whatsApp: "whatsApp",
                 facebook: "facebook",

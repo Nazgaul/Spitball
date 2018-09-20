@@ -17,9 +17,9 @@
                         ({{item.callingCode}})
                     </option>
                 </select>
-                <sb-input class="phone-field" icon="sbf-phone" :errorMessage="errorMessage.phone"
-                          v-model="phone.phoneNum" placeholder="Enter phone number" name="email" type="tel"
-                          :autofocus="true" @keyup.enter.native="sendCode()"></sb-input>
+                <sb-input class="phone-field" icon="sbf-phone" :errorMessage="errorMessage.phone" :bottomError="true"
+                          v-model="phone.phoneNum" placeholder="login_placeholder_enter_phone" name="email" type="tel"
+                          :autofocus="true" @keyup.enter.native="sendCode()" v-language:placeholder></sb-input>
                 <v-btn class="continue-btn"
                        value="Login"
                        :loading="loading"
@@ -53,7 +53,8 @@
                     password: '',
                     confirmPassword: ''
                 },
-                loading: false
+                loading: false,
+                bottomError: false
             }
 
         },
@@ -98,7 +99,7 @@
                         self.$parent.$emit('changeStep', 'verifyPhone');
                     }, function (error) {
                         self.loading = false;
-                        self.errorMessage.phone = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
+                        self.errorMessage.phone = error.response.data["Phone"] ?  error.response.data["Phone"][0] : '';
                     })
             },
         },

@@ -39,16 +39,6 @@ export default {
     props: {
         default: false,
     },
-    // beforeRouteLeave(to, from, next) {
-    //     if (to.name && to.name === 'result' && this.stepNumber !== 1) {
-    //         // this.stepNumber = this.stepsEnum[this.$route.meta.previousStep];
-    //         this.$router.go(-1)
-    //         // console.log('step NNN', this.stepsEnum[this.$route.meta.previousStep])
-    //     } else {
-    //         next()
-    //     }
-    //
-    // },
     data() {
         return {
             siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
@@ -128,10 +118,7 @@ export default {
             let filteredSteps = this.stepNumber !== 7 && this.stepNumber !== 8 && this.stepNumber !== 9 && this.stepNumber !== 10;
             return filteredSteps
         },
-        // confirmCheckbox() {
-        //     return !this.agreeTerms && this.agreeError
-        // },
-        isMobile() {
+         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
         //profile data relevant for each stepNumber
@@ -235,14 +222,14 @@ export default {
         }
     },
     //value = String; query = ['String', 'String','String'] || []
-    filters: {
-        bolder: function (value, query) {
-            if (query.length) {
-                query.map((item) => {
-                    value = value.replace(item, '<span class="bolder">' + item + '</span>')
-                });
-            }
-            return value
-        }
-    }
+    // filters: {
+    //     bolder: function (value, query) {
+    //         if (query.length) {
+    //             query.map((item) => {
+    //                 value = value.replace(item, '<span class="bolder">' + item + '</span>')
+    //             });
+    //         }
+    //         return value
+    //     }
+    // }
 }

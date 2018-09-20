@@ -67,13 +67,12 @@
                          <v-flex>
                                 <p class="empty-state" v-language:inner>result_answer_not_found</p>
                             </v-flex>
-
                         </v-layout>
                     </div>
                 </div>
                 <div v-else>
                     <div class="result-cell elevation-1 mb-3 empty-state" xs-12>
-                        <v-layout row class="pa-3">sdf
+                        <v-layout row class="pa-3">
                             <v-flex>
                                 <h6 class="mb-3"><span v-language:inner>result_your_search</span> - <span class="user-search-text">{{userText}}</span> - <span v-language:inner>result_record_not_match</span></h6>
                                 <div class="sug mb-2">result_suggestions</div>
@@ -90,7 +89,7 @@
             </div> 
         </div>
         <template slot="sideBar" v-if="filterCondition">
-            <component :is="($vuetify.breakpoint.xsOnly?'mobile-':'')+'sort-and-filter'"
+            <component :is="($vuetify.breakpoint.xsOnly ? 'mobile-':'')+'sort-and-filter'"
                        :sortOptions="page.sort"
                        :sortVal="sort"
                        v-model="showFilters"

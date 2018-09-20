@@ -39,11 +39,6 @@ namespace Cloudents.Infrastructure.Database.Maps
 
             HasMany(x => x.Transactions)
                 .Inverse()
-
-                //.Inverse()
-                //TODO: this is generate exception when creating new answer. need to figure it out
-                //    .Not.KeyNullable()
-                //    .Not.KeyUpdate()
                 .Cascade.AllDeleteOrphan();
 
             HasMany(x => x.Answers)

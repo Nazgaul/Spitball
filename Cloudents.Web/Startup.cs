@@ -1,8 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Reflection;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using Cloudents.Core;
@@ -17,16 +13,16 @@ using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
 using Cloudents.Web.Services;
 using JetBrains.Annotations;
+using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.ApplicationInsights.AspNetCore;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.SnapshotCollector;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Joonasw.AspNetCore.SecurityHeaders;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -34,6 +30,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
+using System;
+using System.Globalization;
+using System.Reflection;
+using System.Threading.Tasks;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -104,11 +104,11 @@ namespace Cloudents.Web
                 options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             })
-                
+
                 .AddMvcOptions(o =>
                 {
                     //TODO: check in source code
-                   // o.SuppressBindingUndefinedValueToEnumType
+                    // o.SuppressBindingUndefinedValueToEnumType
                     o.Filters.Add(new GlobalExceptionFilter());
                     o.Filters.Add(new ResponseCacheAttribute
                     {
@@ -121,7 +121,7 @@ namespace Cloudents.Web
             {
                 SwaggerInitial(services);
             }
-            
+
             services.AddSignalR().AddRedis(Configuration["Redis"]).AddJsonProtocol(o =>
                 {
                     o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
@@ -152,30 +152,41 @@ namespace Cloudents.Web
                 options.Password.RequiredUniqueChars = 0;
                 options.Lockout.MaxFailedAccessAttempts = 3;
 
-            }).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
 
-            services.AddAuthorization();
+            }).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
+            //services.Configure<SecurityStampValidatorOptions>(o =>
+            //{
+            //    o.ValidationInterval = TimeSpan.FromMinutes(2);
+            //});
+            
             services.ConfigureApplicationCookie(o =>
             {
+                o.EventsType = typeof(CustomCookieAuthenticationEvents);
                 o.Cookie.Name = "sb3";
-                o.Events.OnRedirectToLogin = context =>
-                {
-                    context.Response.StatusCode = 401;
-                    return Task.CompletedTask;
-                };
-                o.Events.OnRedirectToAccessDenied = context =>
-                {
-                    context.Response.StatusCode = 401;
-                    return Task.CompletedTask;
-                };
+                o.SlidingExpiration = true;
+                //o.Events.OnValidatePrincipal = context =>
+                //{
+                //    context.
+                //    return Task.CompletedTask;
+                //};
+                //o.Events.OnRedirectToLogin = context =>
+                //{
+                //    context.Response.StatusCode = 401;
+                //    return Task.CompletedTask;
+                //};
+                //o.Events.OnRedirectToAccessDenied = context =>
+                //{
+                //    context.Response.StatusCode = 401;
+                //    return Task.CompletedTask;
+                //};
             });
-            services.AddAuthentication();
+
 
             services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
-
+            services.AddScoped<CustomCookieAuthenticationEvents>();
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -255,11 +266,7 @@ namespace Cloudents.Web
             app.UseResponseCaching();
 
             app.UseStatusCodePages();
-            //app.UseForwardedHeaders(new ForwardedHeadersOptions
-            //{
-            //    ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor
-            //    | Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto
-            //});
+            
 
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
@@ -285,7 +292,9 @@ namespace Cloudents.Web
                 // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
             }
+
             app.UseAuthentication();
+            
             app.UseSignalR(routes =>
             {
                 routes.MapHub<SbHub>("/SbHub");

@@ -29,11 +29,12 @@ namespace Cloudents.Web.Api
         private readonly IServiceBusProvider _queueProvider;
         private readonly ISmsSender _client;
         private readonly IStringLocalizer<RegisterController> _localizer;
+        private readonly IStringLocalizer<LogInController> _loginLocalizer;
 
         internal const string Email = "email2";
 
 
-        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager, IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer)
+        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager, IBlockChainErc20Service blockChainErc20Service, IServiceBusProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -41,6 +42,7 @@ namespace Cloudents.Web.Api
             _queueProvider = queueProvider;
             _client = client;
             _localizer = localizer;
+            _loginLocalizer = loginLocalizer;
         }
 
         [HttpPost, ValidateRecaptcha, ValidateEmail]
@@ -98,7 +100,7 @@ namespace Cloudents.Web.Api
             var result = await service.LogInAsync(model.Token, cancellationToken).ConfigureAwait(false);
             if (result == null)
             {
-                ModelState.AddModelError(string.Empty,_localizer["GoogleNoResponse"]);
+                ModelState.AddModelError("Google", _localizer["GoogleNoResponse"]);
                 return BadRequest(ModelState);
             }
             var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, false);
@@ -109,8 +111,7 @@ namespace Cloudents.Web.Api
             }
             if (result2.IsLockedOut)
             {
-                //TODO: Localize
-                ModelState.AddModelError("User is locked out");
+                ModelState.AddModelError("Google", _loginLocalizer["LockOut"]);
                 return BadRequest(ModelState);
 
             }
@@ -125,7 +126,7 @@ namespace Cloudents.Web.Api
                 await _signInManager.SignInTwoFactorAsync(user, true).ConfigureAwait(false);
                 return new ReturnSignUserResponse(NextStep.EnterPhone, false);
             }
-            ModelState.AddModelError(_localizer["GoogleUserRegisteredWithEmail"]);
+            ModelState.AddModelError("Google",_localizer["GoogleUserRegisteredWithEmail"]);
             return BadRequest(ModelState);
         }
 

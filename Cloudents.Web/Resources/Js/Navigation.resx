@@ -252,4 +252,8 @@
   <data name="nav_name_tutor" xml:space="preserve">
     <value>Tutors</value>
   </data>
+  <data name="campaign_referral_ask_banner_title" xml:space="preserve">
+    <value>Get help with your HW from top students 
+and start earning money by helping others</value>
+  </data>
 </root>

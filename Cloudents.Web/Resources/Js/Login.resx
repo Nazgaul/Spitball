@@ -121,7 +121,7 @@
     <value>I agree to Spitball's</value>
   </data>
   <data name="already_have_account" xml:space="preserve">
-    <value>Do you already have an account?</value>
+    <value>Do you already have an account?  </value>
   </data>
   <data name="and" xml:space="preserve">
     <value>and</value>
@@ -338,5 +338,26 @@
   </data>
   <data name="remember_now" xml:space="preserve">
     <value>I remember now!</value>
+  </data>
+  <data name="placeholder_choose_password" xml:space="preserve">
+    <value>Choose password</value>
+  </data>
+  <data name="placeholder_confirm_password" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="placeholder_email" xml:space="preserve">
+    <value>Enter your email</value>
+  </data>
+  <data name="placeholder_enter_confirmation_code" xml:space="preserve">
+    <value>Enter confirmation code</value>
+  </data>
+  <data name="placeholder_enter_new_password" xml:space="preserve">
+    <value>Enter new password</value>
+  </data>
+  <data name="placeholder_enter_password" xml:space="preserve">
+    <value>Enter password</value>
+  </data>
+  <data name="placeholder_enter_phone" xml:space="preserve">
+    <value>Enter phone number</value>
   </data>
 </root>

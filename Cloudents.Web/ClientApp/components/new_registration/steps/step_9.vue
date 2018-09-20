@@ -10,13 +10,13 @@
             </div>
             <div slot="step-data" class="limited-width">
                 <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
-                <sb-input class="phone-field" :errorMessage="errorMessage.password"
-                          v-model="password" placeholder="Enter new password" name="password" type="password"
-                          :autofocus="true" @keyup.enter.native="" minlength="4"></sb-input>
-                <sb-input class="phone-field" :errorMessage="errorMessage.confirmPassword"
-                          v-model="confirmPassword" placeholder="Confirm password" name="confirmPassword"
+                <sb-input class="phone-field" :errorMessage="errorMessage.password"  :bottomError="true"
+                          v-model="password" placeholder="login_placeholder_enter_new_password" name="password" type="password"
+                          :autofocus="true" @keyup.enter.native="" minlength="4" v-language:placeholder></sb-input>
+                <sb-input class="phone-field" :errorMessage="errorMessage.confirmPassword" :bottomError="true"
+                          v-model="confirmPassword" placeholder="login_placeholder_confirm_password" name="confirmPassword"
                           type="password"
-                          :autofocus="true" @keyup.enter.native=""></sb-input>
+                          :autofocus="true" @keyup.enter.native="" v-language:placeholder></sb-input>
                 <v-btn class="continue-btn"
                        value="Password"
                        :loading="loading"
@@ -52,7 +52,8 @@
                     password: '',
                     confirmPassword: ''
                 },
-                loading: false
+                loading: false,
+                bottomError: false
             }
         },
         props: {
@@ -91,8 +92,8 @@
                             this.$router.push({path: `${url.path }`});
                         },(reason)=> {
                             this.loading = false;
-                            this.errorMessage.confirmPassword = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
-                            this.errorMessage.password = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
+                            self.errorMessage.confirmPassword = error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '';
+                            self.errorMessage.password = error.response.data["Password"] ? error.response.data["Password"][0] : '';
                         });
 
                 }

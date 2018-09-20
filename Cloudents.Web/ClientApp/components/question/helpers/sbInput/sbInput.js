@@ -34,7 +34,12 @@ export default {
         disabled:{
             type:Boolean,
             default:false
+        },
+        bottomError:{
+            type: Boolean,
+            default: false
         }
+
     },
     data: function () {
         return {

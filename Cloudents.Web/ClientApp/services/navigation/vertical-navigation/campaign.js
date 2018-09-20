@@ -138,8 +138,78 @@ const askaquestion= {
     },
 
 };
+
+const referral={
+    ask: {
+        banner:{
+            "lineColor": "#00c0fa",
+            "title" : LanguageService.getValueByKey("navigation_campaign_referral_ask_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_askaquestion_ask_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_askaquestion_ask_banner_boldText"),
+            url: '/register',
+            showOverlay: false,
+            campaignClass: 'ask-askaquestion‎',
+        },
+    },
+    note: {
+        banner:{
+            "lineColor": "#943bfd",
+            "title" :    LanguageService.getValueByKey("navigation_campaign_askaquestion_note_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_askaquestion_note_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_askaquestion_note_banner_boldText"),
+            url: '/register',
+            showOverlay: true,
+            campaignClass: 'note-askaquestion‎',
+
+        }
+     },
+    flashcard: {
+        banner:{
+            "lineColor": "#f14d4d",
+            "title" :    LanguageService.getValueByKey("navigation_campaign_askaquestion_flashcard_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_askaquestion_flashcard_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_askaquestion_flashcard_banner_boldText"),
+            url: '/register',
+            showOverlay: true,
+            campaignClass: 'flashcard-askaquestion‎',
+        }
+    },
+    tutor: {
+        banner: {
+            "lineColor": "#52aa16",
+            "title" :    LanguageService.getValueByKey("navigation_campaign_tutor_askaquestion_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_tutor_askaquestion_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_tutor_askaquestion_banner_boldText"),
+            url: '/register',
+            showOverlay: true,
+            campaignClass: 'tutor-askaquestion‎',
+        }
+    },
+    book: {
+        banner:{
+            "lineColor": "#a650e0",
+            "title" :    LanguageService.getValueByKey("navigation_campaign_book_askaquestion_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_book_askaquestion_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_book_askaquestion_banner_boldText"),
+            url: '/register',
+            showOverlay: true,
+            campaignClass: 'book-askaquestion‎',
+        }
+    },
+    job: {
+        banner:{
+            "lineColor": "#f49c20",
+            "title" :    LanguageService.getValueByKey("navigation_campaign_job_askaquestion_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_job_askaquestion_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_job_askaquestion_banner_boldText"),
+            url: '/register',
+            showOverlay: true,
+            campaignClass: 'job-askaquestion‎',
+        }
+    },
+}
 export const bannerData = {
     navDefault,
     askaquestion,
-
+    referral
 };

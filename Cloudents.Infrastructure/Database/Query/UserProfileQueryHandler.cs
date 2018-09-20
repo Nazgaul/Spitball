@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -10,6 +11,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
     public class UserProfileQueryHandler : IQueryHandler<UserDataByIdQuery, ProfileDto>
     {
         private readonly ISession _session;
