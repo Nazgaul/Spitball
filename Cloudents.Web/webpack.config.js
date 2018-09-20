@@ -96,6 +96,20 @@ module.exports = (env) => {
                                     use: "css-loader?minimize!sass-loader",
                                     fallback: "vue-style-loader"
                                 })
+
+                            //RTL support
+                            //css: ExtractTextPlugin.extract({
+                            //        use: "css-loader?minimize",
+                            //        fallback: "vue-style-loader"
+                            //    }),
+                            //less: ExtractTextPlugin.extract({
+                            //        use: "css-loader?minimize!less-loader",
+                            //        fallback: "vue-style-loader"
+                            //    }),
+                            //scss: ExtractTextPlugin.extract({
+                            //        use: "css-loader?minimize!sass-loader",
+                            //        fallback: "vue-style-loader"
+                            //    })
                         }
                     }
                 },

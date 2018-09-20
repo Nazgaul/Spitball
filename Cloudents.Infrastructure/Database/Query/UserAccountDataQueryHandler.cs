@@ -25,17 +25,18 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<UserAccountDto> GetAsync(UserDataByIdQuery query, CancellationToken token)
         {
             return await _session.Query<User>()
-                .Where(w => w.Id == query.Id).Select(s => new UserAccountDto()
+                .Where(w => w.Id == query.Id).Select(s => new UserAccountDto
                 {
                     Id = s.Id,
                     Balance = s.Balance, // s.LastTransaction.Balance,
                     Name = s.Name,
-                    Image = s.Image
+                    Image = s.Image,
+                    Email = s.Email
                 }).WithOptions(o =>
                 {
                     o.SetCacheable(true)
                         .SetReadOnly(true);
-                }).SingleOrDefaultAsync(cancellationToken: token).ConfigureAwait(false);
+                }).SingleOrDefaultAsync(token).ConfigureAwait(false);
         }
     }
 }

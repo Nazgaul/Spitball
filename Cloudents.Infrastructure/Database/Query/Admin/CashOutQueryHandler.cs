@@ -8,12 +8,14 @@ using NHibernate.Linq;
 using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class CashOutQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<CashOutDto>>
     {
         private readonly ISession _session;
