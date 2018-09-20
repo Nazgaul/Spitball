@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.LockoutEnabled);
 
             References(x => x.University).ForeignKey("User_University").Nullable();
-            Map(x => x.Balance).CustomSqlType("money");
+            Map(x => x.Balance).CustomSqlType("smallmoney");
 
             HasMany(x => x.Transactions)
                 .Inverse()
