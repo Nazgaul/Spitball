@@ -37,6 +37,8 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new InvalidOperationException("cannot delete question with answers");
             }
+
+            //question.Transactions = null;
             foreach (var transaction in question.Transactions)
             {
                 transaction.Question = null;
