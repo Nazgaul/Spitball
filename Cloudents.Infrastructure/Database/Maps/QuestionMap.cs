@@ -28,19 +28,11 @@ namespace Cloudents.Infrastructure.Database.Maps
                 //    .Not.KeyUpdate()
                 .Cascade.AllDeleteOrphan();
 
-            //DO NOT PUT CASCASE DELETE ORAPHAN SINCE WE HANDLE THIS ON CODE
+            //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
             HasMany(x => x.Transactions)
-                .Cascade.Delete()
+                //.Cascade.()
                 .LazyLoad()
                 .Inverse();
         }
     }
-
-    //public class QuestionChangeTableMapping : SpitballClassMap<Question>
-    //{
-    //    public QuestionChangeTableMapping()
-    //    {
-            
-    //    }
-    //}
 }
