@@ -26,7 +26,7 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.Session;
         }
 
-        [Cache(TimeConst.Minute * 5, RemoveQuestionCacheEventHandler.CacheRegion, false)]
+      //  [Cache(TimeConst.Minute * 5, RemoveQuestionCacheEventHandler.CacheRegion, false)]
         public async Task<IEnumerable<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
         {
             QuestionDto dto = null;
