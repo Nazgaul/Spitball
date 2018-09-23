@@ -113,7 +113,10 @@
             }
         },
         props: {
-            currentSelection: {type: String, default: 'note'},
+            currentSelection: {
+            type: String,
+            default: 'ask'
+            },
             userText: {type: String},
             submitRoute: {type: String, default: '/ask'},
             toolbarHeight: {},
@@ -174,6 +177,7 @@
             }
         },
         created() {
+            console.log('route::', this.submitRoute)
             this.$root.$on("personalize",
                 (type) => {
                     this.clickOnce = true;
