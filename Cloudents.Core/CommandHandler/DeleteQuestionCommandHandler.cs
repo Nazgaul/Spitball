@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 
@@ -12,10 +13,12 @@ namespace Cloudents.Core.CommandHandler
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
         private readonly IRepository<Question> _repository;
+        private readonly IRepository<Transaction> _transactionRepository;
 
-        public DeleteQuestionCommandHandler(IRepository<Question> repository)
+        public DeleteQuestionCommandHandler(IRepository<Question> repository, IRepository<Transaction> transactionRepository)
         {
             _repository = repository;
+            _transactionRepository = transactionRepository;
         }
 
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
@@ -34,9 +37,15 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new InvalidOperationException("cannot delete question with answers");
             }
-
+            foreach (var transaction in question.Transactions)
+            {
+                transaction.Question = null;
+                await _transactionRepository.UpdateAsync(transaction, token);
+            }
             question.QuestionDeleteTransaction();
+            question.Events.Add(new QuestionDeletedEvent(question));
             await _repository.DeleteAsync(question, token).ConfigureAwait(false);
+
         }
     }
 }

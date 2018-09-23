@@ -78,14 +78,8 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual void QuestionDeleteTransaction()
         {
-            foreach (var transaction in Transactions)
-            {
-                transaction.Question = null;
-            }
             var t = Transaction.QuestionDelete(this);// new Transaction(ActionType.DeleteQuestion, TransactionType.Stake, Price);
             User.AddTransaction(t);
-
-            Events.Add(new QuestionDeletedEvent(this));
         }
 
         public virtual void MarkAnswerAsCorrect(Answer correctAnswer)

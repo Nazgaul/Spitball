@@ -36,8 +36,6 @@ namespace Cloudents.Core.CommandHandler.Admin
             var users = question.Answers.Select(s => s.User.Id).Union(new[] {userId});
             question.Events.Add(new QuestionDeletedAdminEvent(users));
             await _questionRepository.DeleteAsync(question, token);
-            //var user = await _userRepository.LoadAsync(userId, token);
-            //user.Balance += question.Price;
         }
     }
 }
