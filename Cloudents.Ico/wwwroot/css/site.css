@@ -1493,7 +1493,8 @@ hr, .hr {
         max-width: 225px;
     }
     #mobile-whitepaper-wrap{
-        display: block;
+        display: flex;
+        flex-direction: column;
         z-index: 99999;
         position:fixed; 
         bottom: 24px;
@@ -1512,8 +1513,10 @@ hr, .hr {
         z-index: 9999;
         width: 250px;
         color: #3532d5;
-    
+        margin-bottom: 1em;
+        line-height: 33px;
     }
+
     #mobile-whitepaper::after{
         transform: rotate(180deg);
     }
@@ -1522,8 +1525,16 @@ hr, .hr {
         left: auto!important;
         bottom: 100%!important;
         top: auto!important;
-
-
+    }
+    #mobile-onepager{
+        height: 36px;
+        border-radius: 8px;
+        margin-left: 8px;
+        z-index: 9999;
+        width: 200px;
+        background-color: #3253f6;
+        color: #ffffff;
+        text-align: center;
     }
     div.blocks{
          width: 100%;
@@ -2946,21 +2957,28 @@ div.blocks > p:before{
     align-items: center; /* vertical */
     
 }
-#telegram-nav{
+#telegram-nav, #onepager-nav{
   height: 33px;
   border-radius: 8px;
   margin-left: 8px;
   background-color: #3253f6;
 }
-#telegram-nav > a {
+#telegram-nav > a, #onepager-nav > a {
     height: 33px;
     letter-spacing: -0.3px;
     color: #ffffff;
     padding: 0;
+    font-size: 16px;
     display: flex; /* allows align-items to work below */
     justify-content: center; /* Horizontally centers single-line elements */
     text-align:center; /* Horizontally centers text within line-wrapped elements */
     align-items: center; /* vertical */
+}
+#onepager-nav{
+    height: 33px;
+  border-radius: 8px;
+  margin-left: 8px;
+  background-color: #3253f6;
 }
 
 /* Custom ICO Styles END */
@@ -3619,16 +3637,7 @@ a.tabs-links{
 }
 
 @media only screen and (max-width: 767px) {
-    /* #whitepaper-nav{
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        bottom: 30px;
-        left: 0;
-        right: 0;
-    
-    } */
-    .navbar .navbar-nav li a.nav-link {
+     .navbar .navbar-nav li a.nav-link {
         padding: 0 20px;
     }
 
