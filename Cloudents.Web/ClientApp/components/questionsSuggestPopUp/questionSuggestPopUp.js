@@ -16,7 +16,7 @@ export default {
     data() {
         return {
             showDialog: false,
-            interval: 7000,
+            interval: 700000,
             typeAnswer: false
         }
     },
