@@ -34,7 +34,7 @@
     <base href="~/" />
     @*<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">*@
 
-    @*<environment include="Development">
+    <environment include="Development">
             @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft)
             {
                 <link rel="stylesheet" href="~/dist/@p.RtlCss" />
@@ -51,7 +51,7 @@
             {
                 <link rel="stylesheet" href="~/dist/@main.Css" />
             }
-        </environment>*@
+        </environment>
 
     <environment exclude="Development">
         <link rel="stylesheet" href="@cdnEndPoint/dist/@p.Css"
