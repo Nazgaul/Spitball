@@ -78,7 +78,9 @@ body {
     -moz-osx-font-smoothing: grayscale;
     position: relative;
 }
-
+body:lang(ja) {
+    font-family: 'MS Mincho', "MS gothic" !important;
+}
 body {
     color: #fff;
     background: #10122d;
