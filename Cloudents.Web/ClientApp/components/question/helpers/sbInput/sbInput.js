@@ -38,6 +38,9 @@ export default {
         bottomError:{
             type: Boolean,
             default: false
+        },
+        changeFunc:{
+            default: undefined
         }
 
     },
