@@ -134,7 +134,8 @@
         <!--<v-dialog v-if="showSettingsFirst" v-model="showSettings" content-class="settings-dialog" max-width="610">-->
             <!--<user-settings v-model="showSettings"></user-settings>-->
         <!--</v-dialog>-->
-        <sb-dialog :showDialog="showReferral" :popUpType="'referralPop'" :content-class="'login-popup'">
+        
+        <sb-dialog v-if="isLoggedIn" :showDialog="showReferral" :popUpType="'referralPop'" :content-class="'login-popup'">
             <referral-dialog :showDialog="showReferral" :popUpType="'referralPop'"></referral-dialog>
         </sb-dialog>
     </div>
@@ -190,6 +191,9 @@
             },
             user(){
                 return {...this.accountUser, universityName: this.getUniversityName}
+            },
+            isLoggedIn(){
+                return !!this.accountUser
             },
         },
         created(){
