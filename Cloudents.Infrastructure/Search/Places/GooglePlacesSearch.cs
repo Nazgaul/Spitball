@@ -26,19 +26,19 @@ namespace Cloudents.Infrastructure.Search.Places
             _mapper = mapper;
         }
 
-        [Cache(TimeConst.Month, "address", true)]
-        public async Task<(Address address, GeoPoint point)> GeoCodingByAddressAsync(string address, CancellationToken token)
-        {
-            var nvc = new NameValueCollection
-            {
-                ["address"] = address,
-                ["key"] = Key,
-            };
+        //[Cache(TimeConst.Month, "address", true)]
+        //public async Task<(Address address, GeoPoint point)> GeoCodingByAddressAsync(string address, CancellationToken token)
+        //{
+        //    var nvc = new NameValueCollection
+        //    {
+        //        ["address"] = address,
+        //        ["key"] = Key,
+        //    };
 
-            var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
-            var result = SerializeResult(str);
-            return _mapper.Map<GoogleGeoCodeDto, (Address address, GeoPoint point)>(result);
-        }
+        //    var str = await _restClient.GetAsync(new Uri("https://maps.googleapis.com/maps/api/geocode/json"), nvc, token).ConfigureAwait(false);
+        //    var result = SerializeResult(str);
+        //    return _mapper.Map<GoogleGeoCodeDto, (Address address, GeoPoint point)>(result);
+        //}
 
         private static GoogleGeoCodeDto SerializeResult(string str)
         {

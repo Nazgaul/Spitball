@@ -38,8 +38,12 @@ export default {
         bottomError:{
             type: Boolean,
             default: false
+        },
+        hint:{
+            default: '',
+            required: false,
+            type: ''
         }
-
     },
     data: function () {
         return {

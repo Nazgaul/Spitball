@@ -83,7 +83,7 @@
                 default: false
             },
             meta: {},
-            toUrl: '',
+            toUrl: {},
             lastActiveRoute: '',
         },
         methods: {
@@ -100,16 +100,16 @@
                     .then((response) => {
                         self.loading = false;
                         analyticsService.sb_unitedEvent('Login', 'Start');
-
                         // self.$parent.$emit('updateEmail', self.userEmail);
                         global.isAuth = true;
                         let url = self.toUrl || defaultSubmitRoute;
                         //will be always ask cause he came from email
                         self.$router.push({path: `${url.path }`});
-                    }, function (reason) {
+                    }, function (error) {
                         self.$refs.recaptcha.reset();
                         self.loading = false;
-                        self.errorMessage.email = reason.response.data ? Object.values(reason.response.data)[0][0] : reason.message;
+                        self.errorMessage.email = error.response.data["Password"] ? error.response.data["Password"][0] : '';
+
                     });
             },
             forgotPassword() {

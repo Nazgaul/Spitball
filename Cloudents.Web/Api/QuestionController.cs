@@ -115,7 +115,7 @@ namespace Cloudents.Web.Api
 
             var resultTask = new List<Task<IEnumerable<QuestionDto>>>();
             var filters = (model.Filter ?? new QuestionFilter?[] { QuestionFilter.All }).Distinct().ToArray();
-            if (filters.Count() == Enum.GetValues(filters.First().GetType()).Length)
+            if (filters.Length == Enum.GetValues(filters.First().GetType()).Length)
             {
                 filters = new QuestionFilter?[] {QuestionFilter.All};
             }

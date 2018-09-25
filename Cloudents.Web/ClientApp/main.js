@@ -4,9 +4,11 @@ import App from "./components/app/app.vue";
 import store from "./store";
 import { Language } from "./services/language/langDirective"
 import initSignalRService from './services/signalR/signalrEventService'
-import VueClipboard from 'vue-clipboard2'
-import Scroll from "vuetify/es5/directives/scroll";
 
+// clip board copy text
+import VueClipboard from 'vue-clipboard2'
+
+import Scroll from "vuetify/es5/directives/scroll";
 const scrollComponent = () => import("./components/helpers/infinateScroll.vue");
 
 

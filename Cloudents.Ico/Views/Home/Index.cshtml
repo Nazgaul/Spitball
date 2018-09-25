@@ -26,6 +26,10 @@
                         <li><a href="#">Download</a></li>
                         <li><a href="#">One Pager</a></li>
                     </ul> -->*@
+                     <li class="nav-item dropdown-toggle" id="onepager-nav">
+                        <a href="https://zboxstorage.blob.core.windows.net/zboxhelp/ico/One-Pager.pdf" 
+                           target="_blank" class="nav-link menu-link"> <em class="fas fa-arrow-down" style="margin-right: 14px;"></em>Onepager</a>
+                    </li>
                     <li class="nav-item dropdown-toggle" id="whitepaper-nav">
                         <a asp-action="DownloadWhitePaper" target="_blank" class="nav-link menu-link"> <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]</a>
                     </li>
@@ -464,6 +468,8 @@
  class="btn btn-sm btn-outline menu-link" > 
     <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]
 </a>
+ <a href="https://zboxstorage.blob.core.windows.net/zboxhelp/ico/One-Pager.pdf" id="mobile-onepager"
+                           target="_blank" class="nav-link menu-link"> <em class="fas fa-arrow-down" style="margin-right: 8px;"></em>Onepager</a>
    @*<!-- 
        add attributes to above link in order for dropdown to work
       ////>>>>>  dropdown-toggle type="button" data-toggle="dropdown"

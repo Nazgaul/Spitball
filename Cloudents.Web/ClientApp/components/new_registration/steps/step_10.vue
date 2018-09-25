@@ -4,7 +4,6 @@
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
                     <p class="text-block-sub-title" v-html="camefromCreate ? meta.createtxt : meta.resettxt">
-                        <!--{{ camefromCreate ? 'login_create_password_text' : 'login_reset_password_text' }}-->
                     </p>
                 </div>
             </div>
@@ -12,7 +11,7 @@
                 <h1 v-if="!isMobile" class="step-title"  v-html="camefromCreate ? meta.createtxt : meta.resettxt"></h1>
                 <p v-if="!camefromCreate" class="sub-title  mb-3" v-language:inner>login_happens_to_best</p>
                 <form @submit.prevent="emailResetPassword" class="form-one">
-                    <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email" :bottomError="true"
+                    <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.forgotPass" :bottomError="true"
                               placeholder="login_placeholder_email" v-model="userEmail" name="email" type="email"
                               :autofocus="true" v-language:placeholder></sb-input>
                     <div class="recaptcha-wrapper">
@@ -49,7 +48,8 @@
                 errorMessage: {
                     code: '',
                     password: '',
-                    confirmPassword: ''
+                    confirmPassword: '',
+                    forgotPass: ''
                 },
                 userEmail: '',
                 loading: false,
@@ -87,9 +87,9 @@
                             self.loading = false;
                             analyticsService.sb_unitedEvent('Forgot Password', 'Reset email send');
                             self.$parent.$emit('changeStep', 'emailconfirmedPass');
-                        }, (reason)=> {
+                        }, (error)=> {
                             self.loading = false;
-                            self.errorMessage.email = error.response.data["Email"] ? error.response.data["Email"][0] : '';
+                            self.errorMessage.forgotPass = error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : '';
                         });
                 }
             },

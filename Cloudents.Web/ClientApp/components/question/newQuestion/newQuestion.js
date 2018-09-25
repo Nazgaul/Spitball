@@ -39,7 +39,7 @@ export default {
         submitQuestion() {
             let readyToSend = true;
             //error handling stuff ( redo with newer version to validate with in build validators
-            if (!this.selectedPrice && this.price < 1) {
+            if (!this.selectedPrice && this.price < 1 && this.selectedPrice || this.price > 100) {
                 readyToSend = false
             }
             //if
@@ -109,10 +109,11 @@ export default {
         currentSum() {
             let val = this.selectedPrice || this.price || 0;
             this.selectedPrice ? this.price = null : "";
-            return this.accountUser.balance - val
+            return this.accountUser.balance - val;
+
         },
         validForm() {
-            return this.subject && this.textAreaValue.length && (this.selectedPrice || this.price >= 10);
+          return  this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <=100);
         },
     },
     created() {

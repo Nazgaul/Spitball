@@ -39,7 +39,7 @@ namespace Cloudents.Web.Api
             if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
             {
                 ModelState.AddModelError("ForgotPassword", _localizer["UserDoesntExists"]);
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             await GenerateEmailAsync(user, token);

@@ -15,6 +15,7 @@ import step_7 from "./steps/step_7.vue";
 import step_8 from "./steps/step_8.vue";
 import step_9 from "./steps/step_9.vue";
 import step_10 from "./steps/step_10.vue";
+import {LanguageService} from "../../services/language/languageService";
 
 const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
@@ -41,6 +42,29 @@ export default {
     },
     data() {
         return {
+
+            passScoreObj:{
+                0: {
+                    name: LanguageService.getValueByKey("login_password_indication_weak"),
+                    className: "bad"
+                },
+                1: {
+                    name: LanguageService.getValueByKey("login_password_indication_weak"),
+                    className: "bad"
+                },
+                2: {
+                    name: LanguageService.getValueByKey("login_password_indication_strong"),
+                    className: "good"
+                },
+                3: {
+                    name: LanguageService.getValueByKey("login_password_indication_strong"),
+                    className: "good"
+                },
+                4: {
+                    name: LanguageService.getValueByKey("login_password_indication_strongest"),
+                    className: "best"
+                }
+            },
             siteKey: '6LcuVFYUAAAAAOPLI1jZDkFQAdhtU368n2dlM0e1',
             gaCategory: '',
             marketingData: {},

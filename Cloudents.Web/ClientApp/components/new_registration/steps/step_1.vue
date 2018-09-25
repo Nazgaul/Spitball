@@ -12,7 +12,7 @@
                     <input type="checkbox" v-model="agreeTerms" id="agreeTerm"/>
                     <label for="agreeTerm"></label>
                     <span><span v-language:inner>login_agree</span><br/><router-link
-                            to="terms" v-language:inner>login_terms_of_services</router-link> <span v-language:inner>login_and</span>  <router-link
+                            to="terms" v-language:inner> login_terms_of_services</router-link>&nbsp; <span v-language:inner>login_and</span>&nbsp;  <router-link
                             to="privacy" v-language:inner>login_privacy_policy</router-link></span>
                 </div>
                 <span class="has-error" v-if="confirmCheckbox"
@@ -28,8 +28,8 @@
                 <div class="checkbox-terms" v-if="!isMobile">
                     <input type="checkbox" v-model="agreeTerms" id="agreeTermDesk"/>
                     <label for="agreeTermDesk"></label>
-                    <span><span v-language:inner>login_agree</span> <router-link
-                            to="terms" v-language:inner>login_terms_of_services</router-link> <span v-language:inner>login_and</span> <router-link
+                    <span><span v-language:inner>login_agree</span>&nbsp; <router-link
+                            to="terms" v-language:inner>login_terms_of_services</router-link>&nbsp;<span v-language:inner>login_and</span> &nbsp; <router-link
                             to="privacy" v-language:inner>login_privacy_policy</router-link></span>
                 </div>
                 <div class="has-error" v-if="confirmCheckbox && !isMobile"
@@ -48,6 +48,9 @@
                             <v-icon>sbf-google-icon</v-icon>
                         </span>
                 </button>
+                <span class="has-error" v-if="errorMessage.gmail"
+                      style="background: white; display: block; color:red; text-align: center;">
+                        {{errorMessage.gmail}}</span>
                 <div class="seperator-text"><span v-language:inner>login_or</span></div>
                 <v-btn v-if="isSignIn" class="sign-with-email"
                        value="Login"
@@ -125,8 +128,10 @@
                 agreeError: false,
                 loading: false,
                 passDialog: false,
-                isCampaignOn: false
-
+                isCampaignOn: false,
+                errorMessage: {
+                    gmail: '',
+                },
             }
         },
         props:{
@@ -152,14 +157,14 @@
                 if(!this.agreeTerms){
                     return  this.agreeError = true;
                 }
-                var self = this;
-                self.updateLoading(true);
+                // var self = this;
+                this.updateLoading(true);
                 let authInstance = gapi.auth2.getAuthInstance();
-                authInstance.signIn().then(function (googleUser) {
+                authInstance.signIn().then((googleUser) => {
                     let idToken = googleUser.getAuthResponse().id_token;
                     registrationService.googleRegistration(idToken)
-                        .then(function (resp) {
-                            self.updateLoading(false);
+                        .then((resp)=> {
+                            this.updateLoading(false);
                             let newUser = resp.data.isNew;
                             if (newUser) {
                                 analyticsService.sb_unitedEvent('Registration', 'Start Google');
@@ -167,15 +172,14 @@
                                 analyticsService.sb_unitedEvent('Login', 'Start Google');
                             }
                             let step = resp.data.step;
-                            self.$parent.$emit('changeStep', step);
+                            this.$parent.$emit('changeStep', step);
 
-                        }, function (error) {
-                            self.updateLoading(false);
-                            self.errorMessage = error.response.data ? Object.values(error.response.data)[0][0] : error.message;
-                            console.error(error);
+                        },  (error)=> {
+                            this.updateLoading(false);
+                            this.errorMessage.gmail = error.response.data["Google"] ? error.response.data["Google"][0] : '';
                         });
-                }, function (error) {
-                    self.updateLoading(false);
+                },  (error)=> {
+                    this.updateLoading(false);
                 });
             },
             goToEmailLogin(){

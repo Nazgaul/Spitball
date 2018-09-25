@@ -29,15 +29,17 @@ namespace Cloudents.Web.Api
         private readonly ISmsSender _client;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
+        private readonly ILogger _logger;
 
         public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
-            ISmsSender client,  ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer)
+            ISmsSender client,  ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer, ILogger logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _client = client;
             _commandBus = commandBus;
             _localizer = localizer;
+            _logger = logger;
         }
 
         [HttpGet("code")]
@@ -67,6 +69,7 @@ namespace Cloudents.Web.Api
             var phoneNumber = await _client.ValidateNumberAsync(model.ToString(), token).ConfigureAwait(false);
             if (string.IsNullOrEmpty(phoneNumber))
             {
+                _logger.Warning("Did not passed validation of lookup");
                 ModelState.AddModelError(nameof(model.PhoneNumber), _localizer["InvalidPhoneNumber"]);
                 return BadRequest(ModelState);
             }
@@ -86,10 +89,12 @@ namespace Cloudents.Web.Api
             if (retVal.Errors.Any(a => a.Code == "Duplicate"))
             {
                 //TODO: Localize
+                _logger.Warning("phone number is duplicate");
                 ModelState.AddModelError(string.Empty, "This phone number is linked to another email address");
             }
             else
             {
+                _logger.Warning("Some other error" + retVal.Errors.FirstOrDefault()?.Description);
                 ModelState.AddIdentityModelError(retVal);
             }
 

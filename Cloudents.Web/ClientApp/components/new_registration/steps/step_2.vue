@@ -9,16 +9,17 @@
             </div>
             <div slot="step-data" class="limited-width form-wrap">
                 <div class="text" v-if="!isMobile">
-                    <!--<h1 class="step-title" v-language:inner>login_get_started</h1>-->
                     <h1 class="step-title" v-html="isCampaignOn ? campaignData.stepOne.text : meta.heading" ></h1>
-                    <!--<p class="sub-title mb-3">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
                 </div>
                 <form @submit.prevent="emailSend" class="form-one">
                     <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email" :bottomError="true"
                               placeholder="login_placeholder_email" v-model="userEmail" name="email" type="email"
                               :autofocus="true" v-language:placeholder></sb-input>
-                    <sb-input  class="mt-3" :errorMessage="errorMessage.password" :bottomError="true"
-                              placeholder="login_placeholder_choose_password" v-model="password" name="pass" type="password"
+
+                    <sb-input  :class="['mt-3', hintClass]"  :errorMessage="errorMessage.password" :bottomError="true"
+                              placeholder="login_placeholder_choose_password" v-model="password" name="pass"
+                               :hint="passZxcvbn"
+                               type="password"
                               :autofocus="true"  v-language:placeholder></sb-input>
                     <sb-input  class="mt-3" :errorMessage="errorMessage.confirmPassword" :bottomError="true"
                               placeholder="login_placeholder_confirm_password" v-model="confirmPassword" name="confirm" type="password"
@@ -47,6 +48,7 @@
 </template>
 
 <script>
+    import zxcvbn from 'zxcvbn';
     import stepTemplate from '../helpers/stepTemplate.vue'
     import VueRecaptcha from 'vue-recaptcha';
     import analyticsService from '../../../services/analytics.service';
@@ -66,16 +68,21 @@
                     phone: "",
                     email: ""
                 },
+                score: {
+                    default: 0,
+                    required: false
+                },
                 recaptcha: '',
                 loading: false,
                 userEmail: '',
                 password: '',
                 confirmPassword: '',
-                bottomError: false
+                bottomError: false,
+                submitted: false
             }
         },
-
         props: {
+            passScoreObj:{},
             isMobile: {
                 type: Boolean,
                 default: false
@@ -86,7 +93,19 @@
             },
             meta: {},
             campaignData:{
-
+            }
+        },
+        computed:{
+            passZxcvbn(){
+                if(this.password.length !== 0){
+                    this.score = zxcvbn(this.password).score;
+                    return this.passScoreObj[this.score].name
+                }
+            },
+            hintClass(){
+                if(this.passZxcvbn){
+                    return this.passScoreObj[this.score].className;
+                }
             }
         },
 
@@ -95,6 +114,7 @@
             emailSend() {
                 let self = this;
                 self.loading = true;
+                self.sumbitted = true;
                 registrationService.emailRegistration(this.userEmail, this.recaptcha, this.password, this.confirmPassword)
                     .then(function (resp) {
                         let step = resp.data.step;
@@ -112,6 +132,7 @@
 
                     });
             },
+
             // captcha events methods
             onVerify(response) {
                 this.recaptcha = response;
