@@ -12,5 +12,19 @@
         <label asp-for="Model.Id"></label>
         <input asp-for="Model.Id" />
     </div>
+    
+    <div>
+        <label asp-for="Model.DeleteUserQuestions"></label>
+        <input asp-for="Model.DeleteUserQuestions" />
+    </div>
     <input type="submit" />
 </form>
+
+
+<div>
+    @if (!string.IsNullOrEmpty(Model.Email))
+    {
+        <div>User Was suspended</div>
+        <div>User email: @Model.Email</div>
+    }
+</div>
