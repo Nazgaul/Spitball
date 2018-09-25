@@ -42,7 +42,6 @@ export default {
     },
     data() {
         return {
-
             passScoreObj:{
                 0: {
                     name: LanguageService.getValueByKey("login_password_indication_weak"),
@@ -169,8 +168,11 @@ export default {
             console.log(this.stepNumber)
         },
         goBackStep(stepNumber){
-            let lastStep = this.lastStep.pop();
-            this.stepNumber = parseInt(lastStep);
+            let lastStepPoint = this.lastStep.pop();
+            if(!lastStepPoint){
+                lastStepPoint = 1;
+            }
+            this.stepNumber = parseInt(lastStepPoint);
         },
         goToResetPassword() {
             this.passDialog = false;
@@ -197,6 +199,7 @@ export default {
         })
     },
     created() {
+        console.log(this.stepNumber)
         //history update event, fires when back btn clicked
         global.onpopstate = (event)=> {
                 this.goBackStep()

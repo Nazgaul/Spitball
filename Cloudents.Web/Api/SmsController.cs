@@ -51,7 +51,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         public async Task<IActionResult> SetUserPhoneNumber(
-            [FromBody]PhoneNumberRequest model/*, LocationQuery location*/,
+            [FromBody]PhoneNumberRequest model, [FromQuery]LocationQuery location,
             CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
@@ -74,10 +74,10 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            //if (ValidatePhoneNumberLocationWithIp(location, model))
-            //{
-            //    user.FraudScore += 50;
-            //}
+            if (ValidatePhoneNumberLocationWithIp(location, model))
+            {
+                user.FraudScore += 50;
+            }
             var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
 
             if (retVal.Succeeded)

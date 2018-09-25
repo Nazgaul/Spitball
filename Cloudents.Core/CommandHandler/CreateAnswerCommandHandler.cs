@@ -64,7 +64,7 @@ namespace Cloudents.Core.CommandHandler
 
             float condition = Math.Max(DateTime.UtcNow.Subtract(question.Created).Seconds, 1);
 
-            const int fraudTime = TimeConst.Minute * 5;
+            const int fraudTime = TimeConst.Minute;
             if (condition < fraudTime)
             {
                 var factor = fraudTime / condition;
