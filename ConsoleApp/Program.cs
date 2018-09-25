@@ -1,24 +1,15 @@
 ﻿using Autofac;
 using Cloudents.Core;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using Cloudents.Infrastructure.Database.Query;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
-using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Query;
-using Question = Cloudents.Core.Entities.Db.Question;
-using Cloudents.Core.Query.Admin;
-using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Models;
 
 
 namespace ConsoleApp
@@ -56,7 +47,7 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-            
+
 
 
 
@@ -69,9 +60,10 @@ namespace ConsoleApp
 
             //string t = b;
             //Console.WriteLine(t);
-            var b2 = _container.Resolve<ICommandBus>();
-            var command = new SuspendUserCommand(1013);
-            await b2.DispatchAsync(command, default);
+            var b2 = _container.Resolve<ITutorSearch>();
+            var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
+                new GeoPoint(-74.006f, 40.7128f)
+                , 0, false, default);
 
 
 

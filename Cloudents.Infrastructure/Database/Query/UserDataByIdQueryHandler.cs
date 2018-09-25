@@ -8,7 +8,7 @@ using NHibernate;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
-    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UserDataByIdQueryHandler : IQueryHandler<UserDataByIdQuery, User>
     {
         private readonly IStatelessSession _session;
