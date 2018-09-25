@@ -44,6 +44,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Functions", "Clou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Admin2", "Cloudents.Admin2\Cloudents.Admin2.csproj", "{70D5B492-28D9-4612-87A0-A77C046D9DA9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudents.Management", "Cloudents.Management\Cloudents.Management.csproj", "{BDC36CCF-335A-4DC2-BAE2-F70FF1E97AA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,10 @@ Global
 		{70D5B492-28D9-4612-87A0-A77C046D9DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70D5B492-28D9-4612-87A0-A77C046D9DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70D5B492-28D9-4612-87A0-A77C046D9DA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDC36CCF-335A-4DC2-BAE2-F70FF1E97AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDC36CCF-335A-4DC2-BAE2-F70FF1E97AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDC36CCF-335A-4DC2-BAE2-F70FF1E97AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDC36CCF-335A-4DC2-BAE2-F70FF1E97AA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +126,7 @@ Global
 		{5E402ABD-00DC-4640-ACF5-2C6F948920F6} = {2EB273BF-0342-4FDC-942E-70261335187C}
 		{1227E2B0-686B-4CF8-8E47-5A7C3B5C3CC6} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 		{70D5B492-28D9-4612-87A0-A77C046D9DA9} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
+		{BDC36CCF-335A-4DC2-BAE2-F70FF1E97AA8} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		RESX_PrefixTranslations = True

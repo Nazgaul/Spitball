@@ -18,6 +18,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Cloudents.Admin2
 {
@@ -132,24 +134,6 @@ namespace Cloudents.Admin2
                 c.IncludeXmlComments(xmlPath);
                 c.DescribeAllEnumsAsStrings();
                 c.DescribeAllParametersInCamelCase();
-                //c.ResolveConflictingActions(f =>
-                //{
-                //    var descriptions = f.ToList();
-                //    var parameters = descriptions
-                //        .SelectMany(desc => desc.ParameterDescriptions)
-                //        .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x },
-                //            ApiParameterDescriptionEqualityComparer.Instance)
-                //        .ToList();
-                //    var description = descriptions[0];
-                //    description.ParameterDescriptions.Clear();
-                //    parameters.ForEach(x =>
-                //    {
-                //        if (x.Parameter.RouteInfo != null)
-                //            x.Parameter.RouteInfo.IsOptional = x.IsOptional;
-                //        description.ParameterDescriptions.Add(x.Parameter);
-                //    });
-                //    return description;
-                //});
             });
         }
     }
