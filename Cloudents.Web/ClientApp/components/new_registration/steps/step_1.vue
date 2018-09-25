@@ -66,11 +66,11 @@
                 </v-btn>
                 <div class="signin-strip">
                     <div v-if="isSignIn">
-                    <span v-language:inner>login_need_account_text</span>
+                    <span v-language:inner>login_need_account_text</span>&nbsp;
                     <a class="click" @click="goToEmailLogin()" v-language:inner>login_need_account_link</a>
                     </div>
                     <div v-else>
-                        <span v-language:inner>login_already_have_account</span>
+                        <span v-language:inner>login_already_have_account</span>&nbsp;
                         <a class="click" @click="showDialogPass()" v-language:inner>login_sign_in</a>
                     </div>
                 </div>
