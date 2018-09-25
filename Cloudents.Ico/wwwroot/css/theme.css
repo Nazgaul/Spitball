@@ -32,9 +32,9 @@ h1.color-alt-primary, h2.color-alt-primary, h3.color-alt-primary, h4.color-alt-p
     color: #2b56f5;
 }
 
-h1 span, h2 span, h3 span, h4 span, h5 span, h6 span, p span {
+/*h1 span, h2 span, h3 span, h4 span, h5 span, h6 span, p span {
     color: #46bdf4;
-}
+}*/
 
 a {
     color: #46bdf4;

@@ -11,29 +11,36 @@
                 <img class="logo logo-dark" alt="logo" src="~/images/logo-beta-blue.svg">
             </a>
             <div class="language-switcher animated header-language-switcher" data-animate="fadeInDown" data-delay=".75">
-                <partial name="_LanguageSwitcher"/>
+                <partial name="_LanguageSwitcher" />
             </div>
             <a href="https://t.me/Spitball" target="_blank" class="navbar-toggler">
                 <em class="fa fa-paper-plane" style="margin-right: 3px;"></em>
             </a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarToggle">
                 <ul class="navbar-nav animated remove-animation" data-animate="fadeInDown" data-delay=".9">
-         @*<!-- !!!!    DO NOT DELETE  -->
-                    <!-- <li class="nav-item dropdown-toggle" id="whitepaper-nav" dropdown-toggle type="button" data-toggle="dropdown">
-                        <a href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="nav-link menu-link"> <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]</a>
-                    </li>
-                     <ul class="dropdown-menu whitepaper">
-                        <li><a href="#">Download</a></li>
-                        <li><a href="#">One Pager</a></li>
-                    </ul> -->*@
-                     <li class="nav-item dropdown-toggle" id="onepager-nav">
-                        <a href="https://zboxstorage.blob.core.windows.net/zboxhelp/ico/One-Pager.pdf" 
-                           target="_blank" class="nav-link menu-link"> <em class="fas fa-arrow-down" style="margin-right: 14px;"></em>Onepager</a>
+                    @*<!-- !!!!    DO NOT DELETE  -->
+                        <!-- <li class="nav-item dropdown-toggle" id="whitepaper-nav" dropdown-toggle type="button" data-toggle="dropdown">
+                            <a href="https://zboxstorage.blob.core.windows.net/zboxhelp/white%20paper%201.1.pdf" target="_blank" class="nav-link menu-link"> <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]</a>
+                        </li>
+                         <ul class="dropdown-menu whitepaper">
+                            <li><a href="#">Download</a></li>
+                            <li><a href="#">One Pager</a></li>
+                        </ul> -->*@
+                    <li class="nav-item dropdown-toggle" id="onepager-nav">
+                        <a href="https://zboxstorage.blob.core.windows.net/zboxhelp/ico/One-Pager.pdf"
+                           target="_blank" class="nav-link menu-link">
+                            <em class="fas fa-arrow-down" style="margin-right: 14px;"></em>
+                            <span lang="en">Onepager</span>
+                        </a>
                     </li>
                     <li class="nav-item dropdown-toggle" id="whitepaper-nav">
                         <a asp-action="DownloadWhitePaper" target="_blank" class="nav-link menu-link"> <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]</a>
                     </li>
-                    <li class="nav-item" id="telegram-nav"><a href="https://t.me/Spitball" target="_blank" class=" nav-link menu-link"><em class="fa fa-paper-plane" style="margin-right: 14px;"></em>@Localizer["Join Telegram"] </a></li>
+                    <li class="nav-item" id="telegram-nav">
+                        <a href="https://t.me/Spitball" target="_blank" class=" nav-link menu-link">
+                            <em class="fa fa-paper-plane" style="margin-right: 14px;"></em>@Localizer["Join Telegram"]
+                        </a>
+                    </li>
                 </ul>
 
             </div>
@@ -281,7 +288,7 @@
                 <p class="animated" data-animate="fadeInUp" data-delay=".1">@Localizer["Any questions? Reach out to us and we’ll get back to you shortly."]</p>
                 <ul class="contact-info-alt">
                     <li class="animated" data-animate="fadeInUp" data-delay=".2"><em class="fa fa-phone"></em><span>+972 52 883 0686</span></li>
-                    <li class="animated" data-animate="fadeInUp" data-delay=".3"><em class="fa fa-envelope"></em><span> <a href="mailto:token@spitball.co?Subject=Spitball%20Info">token@spitball.co</a></span></li>
+                    <li class="animated" data-animate="fadeInUp" data-delay=".3"><em class="fa fa-envelope"></em><span> <a href="mailto:token@spitball.co?Subject=Spitball%20Info" lang="en">token@spitball.co</a></span></li>
                     <li class="animated" data-animate="fadeInUp" data-delay=".4"><em class="fa fa-paper-plane"></em><span><a href="https://t.me/Spitball" target="_blank">@Localizer["Join us on Telegram"]</a></span></li>
                 </ul>
             </div>
@@ -433,8 +440,8 @@
                     <li><a href="#apps" class="menu-link">@Localizer["Use Cases"]</a></li>
                     <li><a href="#team" class="menu-link">@Localizer["Team"]</a></li>
                     <li><a href="#contact" class="menu-link">@Localizer["Contact Us"]</a></li>
-                    <li><a  asp-action="DownloadWhitePaper" target="_blank" class="menu-link">@Localizer["Whitepaper"]</a></li>
-                    
+                    <li><a asp-action="DownloadWhitePaper" target="_blank" class="menu-link">@Localizer["Whitepaper"]</a></li>
+
                     <li><a href="https://www.spitball.co/" target="_blank" class="menu-link">@Localizer["Spitball 1.0"]</a></li>
                 </ul>
             </div>
@@ -462,20 +469,20 @@
     </div>
 </div>
 
-<div  id ="mobile-whitepaper-wrap" style="">
-   
-<a id="mobile-whitepaper" asp-action="DownloadWhitePaper" target="_blank" 
- class="btn btn-sm btn-outline menu-link" > 
-    <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]
-</a>
- <a href="https://zboxstorage.blob.core.windows.net/zboxhelp/ico/One-Pager.pdf" id="mobile-onepager"
-                           target="_blank" class="nav-link menu-link"> <em class="fas fa-arrow-down" style="margin-right: 8px;"></em>Onepager</a>
-   @*<!-- 
-       add attributes to above link in order for dropdown to work
-      ////>>>>>  dropdown-toggle type="button" data-toggle="dropdown"
-       <ul class="dropdown-menu mob-whitepaper">
-                        <li><a href="#">Download</a></li>
-                        <li><a href="#">One Pager</a></li>
-                    </ul> -->*@
+<div id="mobile-whitepaper-wrap" style="">
+
+    <a id="mobile-whitepaper" asp-action="DownloadWhitePaper" target="_blank"
+       class="btn btn-sm btn-outline menu-link">
+        <em class="fa fa-file" style="margin-right: 8px;"></em> @Localizer["Download Whitepaper"]
+    </a>
+    <a href="https://zboxstorage.blob.core.windows.net/zboxhelp/ico/One-Pager.pdf" id="mobile-onepager"
+       target="_blank" class="nav-link menu-link"><em class="fas fa-arrow-down" style="margin-right: 8px;"></em>Onepager</a>
+    @*<!--
+         add attributes to above link in order for dropdown to work
+        ////>>>>>  dropdown-toggle type="button" data-toggle="dropdown"
+         <ul class="dropdown-menu mob-whitepaper">
+                          <li><a href="#">Download</a></li>
+                          <li><a href="#">One Pager</a></li>
+                      </ul> -->*@
 </div>
 

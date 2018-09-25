@@ -75,6 +75,9 @@ body {
     body:lang(ja) {
         font-family: 'MS Mincho', "MS gothic" !important;
     }
+*:lang(en) {
+    font-family: 'OpenSans Light', sans-serif !important;
+}
 
     body {
         color: #fff;
@@ -245,9 +248,9 @@ p {
         line-height: 1.68;
     }
 
-    h1 span, h2 span, h3 span, h4 span, h5 span, h6 span, p span {
+    /*h1 span, h2 span, h3 span, h4 span, h5 span, h6 span, p span {
         color: #46bdf4;
-    }
+    }*/
 
 ul, ol {
     padding: 0;
