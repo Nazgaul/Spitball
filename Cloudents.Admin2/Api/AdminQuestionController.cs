@@ -20,19 +20,25 @@ namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController/*, Authorize*/]
-    public class QuestionController : ControllerBase
+    public class AdminQuestionController : ControllerBase
     {
         private readonly Lazy<ICommandBus> _commandBus;
         private readonly IQueryBus _queryBus;
         private readonly IQueueProvider _queueProvider;
 
-        public QuestionController(Lazy<ICommandBus> commandBus, IQueryBus queryBus, IQueueProvider queueProvider)
+        public AdminQuestionController(Lazy<ICommandBus> commandBus, IQueryBus queryBus, IQueueProvider queueProvider)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
             _queueProvider = queueProvider;
         }
 
+        /// <summary>
+        /// Get the ability to create a question
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model, CancellationToken token)
         {
@@ -42,6 +48,12 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
+        /// <summary>
+        /// Get a list of question subject for ui
+        /// </summary>
+        /// <param name="queryBus"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpGet("subject")]
         [ResponseCache(Duration = TimeConst.Day)]
         public async Task<IEnumerable<QuestionSubjectDto>> GetSubjectsAsync([FromServices] IQueryBus queryBus, CancellationToken token)
@@ -51,6 +63,12 @@ namespace Cloudents.Admin2.Api
             return result;
         }
 
+        /// <summary>
+        /// Delete question from the system
+        /// </summary>
+        /// <param name="ids">a list of ids to delete</param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpDelete]
         public async Task<ActionResult> DeleteQuestionAsync(IEnumerable<long> ids, CancellationToken token)
         {
