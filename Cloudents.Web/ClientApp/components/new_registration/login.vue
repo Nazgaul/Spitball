@@ -4,6 +4,7 @@
             <div class="text-wrap" v-html="getToasterText"></div>
         </v-snackbar>
         <component :is="`step_${stepNumber}`"
+                   :passScoreObj="passScoreObj"
                    :isMobile="isMobile"
                    :meta="meta"
                    :isCampaignOn="isCampaignOn"

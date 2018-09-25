@@ -1,6 +1,6 @@
 <template>
     <!--step create password-->
-    <div class="step-phone">
+    <div class="step-password">
         <step-template>
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
@@ -10,11 +10,14 @@
             </div>
             <div slot="step-data" class="limited-width">
                 <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
-                <sb-input class="phone-field" :errorMessage="errorMessage.password"  :bottomError="true"
-                          v-model="password" placeholder="login_placeholder_enter_new_password" name="password" type="password"
+                <sb-input :class="['phone-field', 'pass-field', hintClass]"  :errorMessage="errorMessage.password" :bottomError="true"
+                          :hint="passZxcvbn"
+                          v-model="password" placeholder="login_placeholder_enter_new_password" name="password"
+                          type="password"
                           :autofocus="true" @keyup.enter.native="" minlength="4" v-language:placeholder></sb-input>
-                <sb-input class="phone-field" :errorMessage="errorMessage.confirmPassword" :bottomError="true"
-                          v-model="confirmPassword" placeholder="login_placeholder_confirm_password" name="confirmPassword"
+                <sb-input class="phone-field " :errorMessage="errorMessage.confirmPassword" :bottomError="true"
+                          v-model="confirmPassword" placeholder="login_placeholder_confirm_password"
+                          name="confirmPassword"
                           type="password"
                           :autofocus="true" @keyup.enter.native="" v-language:placeholder></sb-input>
                 <v-btn class="continue-btn"
@@ -32,11 +35,13 @@
 </template>
 
 <script>
+    import zxcvbn from 'zxcvbn';
     import stepTemplate from '../helpers/stepTemplate.vue'
     import analyticsService from '../../../services/analytics.service';
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
     import { mapActions, mapMutations } from 'vuex'
     import registrationService from "../../../services/registrationService";
+
     const defaultSubmitRoute = {path: '/ask'};
 
     export default {
@@ -53,14 +58,15 @@
                     confirmPassword: ''
                 },
                 loading: false,
-                bottomError: false
+                bottomError: false,
+                score: {
+                    default: 0,
+                    required: false
+                },
             }
         },
         props: {
-            toUrl: {
-                type: String,
-                default: 'ask'
-            },
+            toUrl: {},
             isMobile: {
                 type: Boolean,
                 default: false
@@ -75,7 +81,21 @@
                 default: '',
                 required: false
             },
-            meta:{}
+            meta: {},
+            passScoreObj: {},
+        },
+        computed: {
+            passZxcvbn() {
+                if (this.password.length !== 0) {
+                    this.score = zxcvbn(this.password).score;
+                    return this.passScoreObj[this.score].name
+                }
+            },
+            hintClass() {
+                if (this.passZxcvbn) {
+                    return this.passScoreObj[this.score].className;
+                }
+            }
         },
         methods: {
             changePassword() {
@@ -90,7 +110,7 @@
                             let url = this.toUrl || defaultSubmitRoute;
                             //will be always ask cause he came from email
                             this.$router.push({path: `${url.path }`});
-                        },(reason)=> {
+                        }, (reason) => {
                             this.loading = false;
                             self.errorMessage.confirmPassword = error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '';
                             self.errorMessage.password = error.response.data["Password"] ? error.response.data["Password"][0] : '';
@@ -100,8 +120,7 @@
             }
 
         },
-        created(){
-        }
+
     }
 </script>
 

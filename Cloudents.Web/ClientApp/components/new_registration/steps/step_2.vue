@@ -15,9 +15,11 @@
                     <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.email" :bottomError="true"
                               placeholder="login_placeholder_email" v-model="userEmail" name="email" type="email"
                               :autofocus="true" v-language:placeholder></sb-input>
-                    <p>{{passZxcvbn}}</p>
-                    <sb-input  class="mt-3" :errorMessage="errorMessage.password" :bottomError="true"
-                              placeholder="login_placeholder_choose_password" v-model="password" name="pass" type="password"
+
+                    <sb-input  :class="['mt-3', hintClass]"  :errorMessage="errorMessage.password" :bottomError="true"
+                              placeholder="login_placeholder_choose_password" v-model="password" name="pass"
+                               :hint="passZxcvbn"
+                               type="password"
                               :autofocus="true"  v-language:placeholder></sb-input>
                     <sb-input  class="mt-3" :errorMessage="errorMessage.confirmPassword" :bottomError="true"
                               placeholder="login_placeholder_confirm_password" v-model="confirmPassword" name="confirm" type="password"
@@ -66,6 +68,10 @@
                     phone: "",
                     email: ""
                 },
+                score: {
+                    default: 0,
+                    required: false
+                },
                 recaptcha: '',
                 loading: false,
                 userEmail: '',
@@ -76,6 +82,7 @@
             }
         },
         props: {
+            passScoreObj:{},
             isMobile: {
                 type: Boolean,
                 default: false
@@ -86,13 +93,20 @@
             },
             meta: {},
             campaignData:{
-
             }
         },
         computed:{
             passZxcvbn(){
-               return zxcvbn(this.password);
+                if(this.password.length !== 0){
+                    this.score = zxcvbn(this.password).score;
+                    return this.passScoreObj[this.score].name
+                }
             },
+            hintClass(){
+                if(this.passZxcvbn){
+                    return this.passScoreObj[this.score].className;
+                }
+            }
         },
 
         methods: {
@@ -100,7 +114,7 @@
             emailSend() {
                 let self = this;
                 self.loading = true;
-                self.sumbitted = true
+                self.sumbitted = true;
                 registrationService.emailRegistration(this.userEmail, this.recaptcha, this.password, this.confirmPassword)
                     .then(function (resp) {
                         let step = resp.data.step;
@@ -128,7 +142,6 @@
             },
         },
         created() {
-            console.log(zxcvbn)
         }
     }
 </script>

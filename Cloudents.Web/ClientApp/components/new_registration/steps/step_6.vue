@@ -51,7 +51,7 @@
             meta: {},
             lastActiveRoute: '',
             userEmail: "",
-            toUrl: ''
+            toUrl: {}
         },
         methods: {
             finishRegistration() {

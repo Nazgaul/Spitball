@@ -4,7 +4,6 @@
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
                     <p class="text-block-sub-title" v-html="camefromCreate ? meta.createtxt : meta.resettxt">
-                        <!--{{ camefromCreate ? 'login_create_password_text' : 'login_reset_password_text' }}-->
                     </p>
                 </div>
             </div>

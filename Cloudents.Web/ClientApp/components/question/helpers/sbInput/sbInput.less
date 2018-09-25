@@ -1,6 +1,21 @@
 @import "../../../../mixin.less";
 
 .input-wrapper {
+  &.bad {
+    .input-hint {
+      color: @Pass-Weak-Color;
+    }
+  }
+  &.good {
+    .input-hint {
+      color: @Pass-Strong-Color;
+    }
+  }
+  &.best {
+    .input-hint {
+      color: @Pass-Strongest-Color;
+    }
+  }
   position: relative;
 
   .error-message {
@@ -9,12 +24,17 @@
     font-size: 14px;
     letter-spacing: -0.3px;
     color: #d0021b;
-    &.relative{
+    &.relative {
       position: relative;
       bottom: 0;
     }
   }
-
+  .input-hint {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    font-size: 14px;
+  }
   .input-field {
     height: @registrationFieldHeight;
     width: 100%;
@@ -31,7 +51,7 @@
       border-color: #d0021b;
     }
   }
-  .icon{
+  .icon {
     color: @color-grey;
   }
 }

@@ -39,10 +39,11 @@ export default {
             type: Boolean,
             default: false
         },
-        changeFunc:{
-            default: undefined
+        hint:{
+            default: '',
+            required: false,
+            type: ''
         }
-
     },
     data: function () {
         return {

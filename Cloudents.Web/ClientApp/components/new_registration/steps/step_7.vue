@@ -83,7 +83,7 @@
                 default: false
             },
             meta: {},
-            toUrl: '',
+            toUrl: {},
             lastActiveRoute: '',
         },
         methods: {

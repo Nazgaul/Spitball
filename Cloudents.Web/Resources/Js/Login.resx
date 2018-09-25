@@ -360,4 +360,13 @@
   <data name="placeholder_enter_phone" xml:space="preserve">
     <value>Enter phone number</value>
   </data>
+  <data name="password_indication_strong" xml:space="preserve">
+    <value>Strong</value>
+  </data>
+  <data name="password_indication_strongest" xml:space="preserve">
+    <value>Strongest</value>
+  </data>
+  <data name="password_indication_weak" xml:space="preserve">
+    <value>Weak</value>
+  </data>
 </root>
