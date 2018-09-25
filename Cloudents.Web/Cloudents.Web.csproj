@@ -5,9 +5,9 @@
     <DebugType>full</DebugType>
     <ApplicationInsightsResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/14372284-8ae0-4016-b2c1-4610fcbd2cb8/resourcegroups/zbox/providers/microsoft.insights/components/cloudents.spitball</ApplicationInsightsAnnotationResourceId>
-    <AssemblyVersion>8.9.23.1</AssemblyVersion>
-    <FileVersion>8.9.23.1</FileVersion>
-    <Version>8.9.23.1</Version>
+    <AssemblyVersion>8.9.25.0</AssemblyVersion>
+    <FileVersion>8.9.25.0</FileVersion>
+    <Version>8.9.25</Version>
     <UserSecretsId>edbe3a22-9985-49e7-8ceb-7cd343f48247</UserSecretsId>
   </PropertyGroup>
 
