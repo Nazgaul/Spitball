@@ -17,18 +17,22 @@ namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController/*,Authorize*/]
-    public class MarkQuestionController : ControllerBase
+    public class AdminMarkQuestionController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
 
-        public MarkQuestionController(ICommandBus commandBus, IQueryBus queryBus)
+        public AdminMarkQuestionController(ICommandBus commandBus, IQueryBus queryBus)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
         }
 
-        // GET: api/MarkQuestion
+        /// <summary>
+        /// Get a list of question without correct answer
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> Get(CancellationToken token)
         {
@@ -36,10 +40,12 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync<IEnumerable<QuestionWithoutCorrectAnswerDto>>(query, token);
         }
 
-        // GET: api/MarkQuestion/5
-       
-
-        // POST: api/MarkQuestion
+        /// <summary>
+        /// Set a question as correct
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task Post([FromBody] MarkQuestionAsCorrectRequest model, CancellationToken token)
         {
