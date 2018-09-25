@@ -90,7 +90,7 @@ namespace Cloudents.Web.Api
             {
                 //TODO: Localize
                 _logger.Warning("phone number is duplicate");
-                ModelState.AddModelError(string.Empty, "This phone number is linked to another email address");
+                ModelState.AddModelError(nameof(model.PhoneNumber), "This phone number is linked to another email address");
             }
             else
             {
