@@ -50,7 +50,7 @@ namespace Cloudents.Core.Entities.Db
         public virtual string AuthenticatorKey { get; set; }
 
         public virtual string PrivateKey { get; set; }
-        public virtual int? FraudScore { get; set; }
+        public virtual int FraudScore { get; set; }
 
         public virtual void AddTransaction(Transaction t)
         {
