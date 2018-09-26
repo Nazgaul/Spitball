@@ -14,10 +14,15 @@ import {LanguageService} from '../../services/language/languageService'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'
 import notificationCenter from '../notificationCenter/notificationCenter.vue'
-
+import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
+
+
+//for ab test import ask a question btn
+import askQuestionBtn from './helpers/askQuestionBtn/askQuestionBtn.vue'
+
 
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 
@@ -40,6 +45,10 @@ export default {
     },
 
     components: {
+        //for ab test
+        askQuestionBtn,
+        userAvatar,
+        //end for ab test
         emptyState,
         ResultItem,
         SuggestCard,
