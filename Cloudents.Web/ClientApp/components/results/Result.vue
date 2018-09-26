@@ -57,25 +57,27 @@
                                     </router-link>
                                     <div>
                                         <span class="question-viewer"
-                                              v-if="!item.hasCorrectAnswer && name==='ask' && item.watchingNow === 1 && item.watchingNow !== 0"
+                                              v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow === 1 && item.watchingNow !== 0"
                                               :style="watchinNowStyle(item)">{{item.watchingNow}} <span
                                                 v-language:inner>result_user_answering</span></span>
                                         <span class="question-viewer"
-                                              v-if="!item.hasCorrectAnswer && name==='ask' && item.watchingNow !== 1 && item.watchingNow !== 0"
+                                              v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow !== 1 && item.watchingNow !== 0"
                                               :style="watchinNowStyle(item)">{{item.watchingNow}} <span
                                                 v-language:inner>result_users_answering</span></span>
-                                        <div class="show-btn"
-                                             v-show="accountUser && item &&  item.user && accountUser.id !== item.user.id"
-                                             :class="'color-'+$route.path.slice(1)" v-language:inner>
-                                            {{name==='ask' &&
-                                            !item.hasCorrectAnswer ? 'result_answer':'result_showme'}}
-                                        </div>
+                                            
+                                            <!-- ask only -->
+                                            <div class="show-btn"
+                                                v-show="accountUser && $route.path.slice(1) ==='ask' && !!item.user && accountUser.id !== item.user.id"
+                                                :class="'color-'+$route.path.slice(1)" v-language:inner>result_answer</div> 
+                                                                                           
+                                            <div class="show-btn" v-show="!accountUser && item && item.user && name ==='ask'"
+                                                :class="'color-'+$route.path.slice(1)" v-language:inner>
+                                                {{'result_answer'}}
+                                            </div>
 
-                                        <div class="show-btn" v-show="!accountUser && item"
-                                             :class="'color-'+$route.path.slice(1)" v-language:inner>
-                                            {{name ==='ask' ? 'result_answer' : 'result_showme'}}
+                                            <!-- not ask -->
+                                            <div class="show-btn" v-show="name !=='ask'" :class="'color-'+$route.path.slice(1)" v-language:inner>result_showme</div>
                                         </div>
-                                    </div>
                                 </v-flex>
                                 <router-link tag="v-flex"
                                              class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 "
