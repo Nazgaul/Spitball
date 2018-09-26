@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>login</value>
+  <data name="images_png_jpg" xml:space="preserve">
+    <value>זה חייב להיות מהפורמטים PNG או JPG ועדיין לשקול פחות מ5 MB</value>
   </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
+  <data name="Save" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>הגדרות</value>
+  </data>
+  <data name="tap_to_cange" xml:space="preserve">
+    <value>לחץ על התמונה כדי לשנות</value>
   </data>
 </root>

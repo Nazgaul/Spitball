@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>login</value>
+  <data name="accepts_your_answer" xml:space="preserve">
+    <value>כדי לבדוק האם תשובתך התקבלה</value>
   </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
+  <data name="below_question_should_help" xml:space="preserve">
+    <value>בינתיים יש כאן עוד שאלות שמחכות לתשובות</value>
+  </data>
+  <data name="Great_Job" xml:space="preserve">
+    <value>מעולה!!</value>
+  </data>
+  <data name="Lets_wait_for" xml:space="preserve">
+    <value>בוא/י נחכה ל</value>
   </data>
 </root>

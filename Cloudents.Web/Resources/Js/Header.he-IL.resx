@@ -118,9 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="login" xml:space="preserve">
-    <value>login</value>
+    <value>שאלתך נמחקה</value>
   </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
+  <data name="placeholder_ask" xml:space="preserve">
+    <value>חפש/י שאלות</value>
+  </data>
+  <data name="placeholder_book" xml:space="preserve">
+    <value>כותרת ספר או מס' סידורי</value>
+  </data>
+  <data name="placeholder_flashcard" xml:space="preserve">
+    <value>מצא/י כרטיסיות</value>
+  </data>
+  <data name="placeholder_job" xml:space="preserve">
+    <value>תחום התמחותך...</value>
+  </data>
+  <data name="placeholder_note" xml:space="preserve">
+    <value>מצא/י חומרי לימוד ב...</value>
+  </data>
+  <data name="placeholder_tutor" xml:space="preserve">
+    <value>מצא/י מורה פרטי</value>
+  </data>
+  <data name="sbl" xml:space="preserve">
+    <value>נקודות</value>
+  </data>
+  <data name="sign_up" xml:space="preserve">
+    <value>הירשם/י</value>
   </data>
 </root>

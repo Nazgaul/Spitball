@@ -117,10 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>login</value>
+  <data name="answer" xml:space="preserve">
+    <value>ענה/י</value>
   </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
+  <data name="answer_not_found" xml:space="preserve">
+    <value>עדיין לא נמצאה תשובה לשאלה שלך</value>
+  </data>
+  <data name="ask_question" xml:space="preserve">
+    <value>שאל/י</value>
+  </data>
+  <data name="different_keywords" xml:space="preserve">
+    <value>נסו מילות מפתח שונות</value>
+  </data>
+  <data name="fewer_keywords" xml:space="preserve">
+    <value>נסו פחות מילות מפתח</value>
+  </data>
+  <data name="filter_not_applied" xml:space="preserve">
+    <value>המסנן לא הופעל, מכיוון שלא נמצאו תוצאות</value>
+  </data>
+  <data name="general_keywords" xml:space="preserve">
+    <value>נסו עוד מילות מפתח</value>
+  </data>
+  <data name="new_questions" xml:space="preserve">
+    <value>שאלות חדשות</value>
+  </data>
+  <data name="ok" xml:space="preserve">
+    <value>אוקיי</value>
+  </data>
+  <data name="record_not_match" xml:space="preserve">
+    <value>לא נמצא</value>
+  </data>
+  <data name="showme" xml:space="preserve">
+    <value>הראה לי</value>
+  </data>
+  <data name="spelling" xml:space="preserve">
+    <value>בדקו את האיות</value>
+  </data>
+  <data name="suggestions" xml:space="preserve">
+    <value>המלצות</value>
+  </data>
+  <data name="suggestions_ask" xml:space="preserve">
+    <value>יש לך שאלה שאת/ה רוצה לקבל עליה תשובה? נסו אותנו</value>
+  </data>
+  <data name="suggestions_book" xml:space="preserve">
+    <value>מוכר או קונה ספר? אנחו נדאג שתקבל/י את המחיר הטוב ביותר</value>
+  </data>
+  <data name="suggestions_flashcard" xml:space="preserve">
+    <value>מצאנו כמה כרטיסיות שיעזרו לך ללמוד</value>
+  </data>
+  <data name="suggestions_job" xml:space="preserve">
+    <value>המשרות הכי שוות בשבילכם</value>
+  </data>
+  <data name="suggestions_note" xml:space="preserve">
+    <value>אין עוד מסמכי לימוד</value>
+  </data>
+  <data name="suggestions_tutor" xml:space="preserve">
+    <value>עדיין זקוקים לעזרה? יש לנו כאן מורים פרטיים</value>
+  </data>
+  <data name="users_answering" xml:space="preserve">
+    <value>אנשים עונים לך</value>
+  </data>
+  <data name="user_answering" xml:space="preserve">
+    <value>מישהו עונה לך</value>
+  </data>
+  <data name="where_school" xml:space="preserve">
+    <value>באיזה מוסד אקדמי את/ה לומד/ת</value>
+  </data>
+  <data name="your_search" xml:space="preserve">
+    <value>החיפושים שלך</value>
   </data>
 </root>

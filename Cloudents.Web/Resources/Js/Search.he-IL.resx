@@ -117,10 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>login</value>
+  <data name="Search" xml:space="preserve">
+    <value>חיפוש</value>
   </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
+  <data name="searchText_find" xml:space="preserve">
+    <value>בואו למצוא סיכומים, חומרי לימוד, מבחנים, מורים פרטיים ועוד...</value>
+  </data>
+  <data name="searchText_find_short" xml:space="preserve">
+    <value>סיכומים, חומרי לימוד, מבחנים, מורים פרטיים ועוד...</value>
   </data>
 </root>

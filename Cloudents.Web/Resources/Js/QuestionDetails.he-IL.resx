@@ -117,10 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>login</value>
+  <data name="Add_answer" xml:space="preserve">
+    <value>הוסף/י תשובה</value>
   </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
+  <data name="Add_it_here" xml:space="preserve">
+    <value>הוסף/י את זה לכאן</value>
+  </data>
+  <data name="Ask_question" xml:space="preserve">
+    <value>שאל/י שאלה</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>צ'אט</value>
+  </data>
+  <data name="Discussion_Board" xml:space="preserve">
+    <value>לובי</value>
+  </data>
+  <data name="error_minChar" xml:space="preserve">
+    <value>קדימה זה חייב חייב להיות לפחות 15 תווים :)</value>
+  </data>
+  <data name="Know_the_answer" xml:space="preserve">
+    <value>חושב/ת שאת/ה יודע/ת את התשובה?</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>שאל/י</value>
+  </data>
+  <data name="question_dash" xml:space="preserve">
+    <value>שאלות</value>
   </data>
 </root>

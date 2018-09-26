@@ -117,10 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>login</value>
+  <data name="Answers" xml:space="preserve">
+    <value>פתרונות</value>
   </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
+  <data name="emptyState_answers_btnText" xml:space="preserve">
+    <value>ענה/י</value>
+  </data>
+  <data name="emptyState_answers_text" xml:space="preserve">
+    <value>בואו לעזור לאחרים ולעשות כסף על הדרך</value>
+  </data>
+  <data name="emptyState_questions_boldText" xml:space="preserve">
+    <value>שאל/י</value>
+  </data>
+  <data name="emptyState_questions_btnText" xml:space="preserve">
+    <value>שאל/י</value>
+  </data>
+  <data name="emptyState_questions_text" xml:space="preserve">
+    <value>יש לך שאלה משיעורי הבית?</value>
+  </data>
+  <data name="Questions" xml:space="preserve">
+    <value>שאלות</value>
   </data>
 </root>

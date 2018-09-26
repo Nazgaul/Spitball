@@ -47,7 +47,7 @@ namespace Cloudents.Web
         public static readonly CultureInfo[] SupportedCultures = {
 
             new CultureInfo("en"),
-            new CultureInfo("he"),
+            new CultureInfo("he-IL"),
         };
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
