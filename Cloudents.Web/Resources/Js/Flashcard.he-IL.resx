@@ -117,10 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>login</value>
+  <data name="B" xml:space="preserve">
+    <value>גם וגם</value>
   </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
+  <data name="Back" xml:space="preserve">
+    <value>תחזור</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>גם וגם</value>
+  </data>
+  <data name="both_l" xml:space="preserve">
+    <value>גם וגם</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>כרטיסיות</value>
+  </data>
+  <data name="F" xml:space="preserve">
+    <value>מקדימה</value>
+  </data>
+  <data name="flashcard_pin_l" xml:space="preserve">
+    <value>הצמד</value>
+  </data>
+  <data name="flipdown" xml:space="preserve">
+    <value>הפוך כרטיס</value>
+  </data>
+  <data name="flipup" xml:space="preserve">
+    <value>הפוך כרטיס</value>
+  </data>
+  <data name="Front" xml:space="preserve">
+    <value>מקדימה</value>
+  </data>
+  <data name="front_l" xml:space="preserve">
+    <value>מקדימה</value>
+  </data>
+  <data name="K" xml:space="preserve">
+    <value>הקודם</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>הבא</value>
+  </data>
+  <data name="P" xml:space="preserve">
+    <value>הצמד</value>
+  </data>
+  <data name="Pin" xml:space="preserve">
+    <value>הצמד</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>הקודם</value>
+  </data>
+  <data name="S" xml:space="preserve">
+    <value>ערבב כרטיסיות</value>
+  </data>
+  <data name="shuffle" xml:space="preserve">
+    <value>לערבב</value>
+  </data>
+  <data name="shuffle_cards" xml:space="preserve">
+    <value>כרטיסיות</value>
+  </data>
+  <data name="Study" xml:space="preserve">
+    <value>לימוד</value>
   </data>
 </root>

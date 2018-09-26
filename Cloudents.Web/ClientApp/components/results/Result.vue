@@ -48,10 +48,16 @@
                                                   :placeholder="placeholder.whereSchool" @click="$_openPersonalize"
                                                   v-language:placeholder></v-text-field>
                                 </v-flex>
+
+                                <!--static cards AB test-->
+                                <abTestCard v-if="$route.path.slice(1)==='ask'" :userName="accountUser ? accountUser.name : 'John Doe123'"></abTestCard>
+                                <!--end static cards AB test-->
+
                                 <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component v-if="item.template !== 'ask' " :is="'result-'+item.template"
                                                :item="item" :key="index" :index="index" class="cell"></component>
+
                                     <router-link v-else :to="{path:'/question/'+item.id}" class="mb-5">
                                         <question-card :cardData="item" :key="index"></question-card>
                                     </router-link>
@@ -79,7 +85,8 @@
                                             <div class="show-btn" v-show="name !=='ask'" :class="'color-'+$route.path.slice(1)" v-language:inner>result_showme</div>
                                         </div>
                                 </v-flex>
-                                <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 "
+                                <router-link tag="v-flex"
+                                             class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 "
                                              :to="{path:'/'+currentSuggest,query:{term:this.userText}}">
                                              :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                     <suggest-card :name="currentSuggest"></suggest-card>
@@ -136,7 +143,8 @@
 
         </template>
         <slot name="suggestCell">
-            <router-link slot="suggestCell" tag="v-flex" class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 "
+            <router-link slot="suggestCell" tag="v-flex"
+                         class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 "
                          :to="{path:'/'+currentSuggest,query:{term:this.query.term}}">
                         
                 <suggest-card :name="currentSuggest"></suggest-card>

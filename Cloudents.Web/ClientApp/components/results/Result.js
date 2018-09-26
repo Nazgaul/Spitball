@@ -14,10 +14,12 @@ import {LanguageService} from '../../services/language/languageService'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'
 import notificationCenter from '../notificationCenter/notificationCenter.vue'
-
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
 const ResultJob = () => import('./ResultJob.vue');
+
+//ab testing
+import abTestCard from './helpers/abTestCards/abTestCard.vue'
 
 const ACADEMIC_VERTICALS = ['note', 'flashcard', 'book', 'tutor'];
 
@@ -40,6 +42,7 @@ export default {
     },
 
     components: {
+        abTestCard,
         emptyState,
         ResultItem,
         SuggestCard,

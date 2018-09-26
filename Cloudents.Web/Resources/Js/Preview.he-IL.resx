@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>login</value>
+  <data name="flashcard_beginText_start" xml:space="preserve">
+    <value>התחל</value>
   </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
+  <data name="flashcard_beginText_start_over" xml:space="preserve">
+    <value>התחל שוב</value>
+  </data>
+  <data name="itemActions_download" xml:space="preserve">
+    <value>הורדה</value>
+  </data>
+  <data name="itemActions_title" xml:space="preserve">
+    <value>הדפס</value>
   </data>
 </root>
