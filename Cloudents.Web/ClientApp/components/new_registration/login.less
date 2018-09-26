@@ -29,14 +29,22 @@
         flex-direction: row;
         align-items: center;
         padding: 18px 36px;
+        @media (max-width: @screen-xs) {
+          padding: 18px 28px;
+        }
         input[type=checkbox] {
-          height: 24px;
-          width: 24px;
-          margin-right: 16px;
+          height: 21px;
+          width: 21px;
+          margin-right: 8px;
+          @media (max-width: @screen-xs) {
+            height: 20px;
+            width: 20px;
+            margin-right: 8px;
+          }
         }
         span, a {
           color: @color-main-purple;
-          font-size: 15px;
+          font-size: 12px;
         }
         a {
           text-decoration: underline;
@@ -654,16 +662,22 @@
         padding: 8px 16px;
         @media (max-width: @screen-xs) {
           border-radius: 22px 22px 0 0;
-          padding: 18px 36px;
+          padding: 18px 28px;
         }
         input[type=checkbox] {
-          height: 24px;
-          width: 24px;
-          margin-right: 16px;
+          height: 21px;
+          width: 21px;
+          margin-right: 8px;
+          @media (max-width: @screen-xs) {
+            height: 20px;
+            width: 20px;
+            margin-right: 8px;
+          }
+
         }
         span, a {
           color: @color-main-purple;
-          font-size: 15px;
+          font-size: 12px;
           text-align: left;
         }
         a {
