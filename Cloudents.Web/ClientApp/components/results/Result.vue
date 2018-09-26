@@ -48,11 +48,16 @@
                                                   :placeholder="placeholder.whereSchool" @click="$_openPersonalize"
                                                   v-language:placeholder></v-text-field>
                                 </v-flex>
+
+                                <!--static cards AB test-->
+                                <abTestCard v-if="$route.path.slice(1)==='ask'" :userName="accountUser ? accountUser.name : 'John Doe123'"></abTestCard>
+                                <!--end static cards AB test-->
+
                                 <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                     <component v-if="item.template !== 'ask' " :is="'result-'+item.template"
                                                :item="item" :key="index" :index="index" class="cell"></component>
-                                               :item="item" :key="index" :index="index" class="cell"></component>
+
                                     <router-link v-else :to="{path:'/question/'+item.id}" class="mb-5">
                                         <question-card :cardData="item" :key="index"></question-card>
                                     </router-link>
