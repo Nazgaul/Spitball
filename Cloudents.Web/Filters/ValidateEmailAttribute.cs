@@ -34,7 +34,8 @@ namespace Cloudents.Web.Filters
                         var result = await _mailProvider.ValidateEmailAsync(t.ToString(), context.HttpContext.RequestAborted);
                         if (!result)
                         {
-                            context.ModelState.AddModelError(string.Empty, "invalid email");
+                            //TODO: Localize
+                            context.ModelState.AddModelError("Email", "invalid email");
                             context.Result = new BadRequestObjectResult(context.ModelState);
                         }
 
