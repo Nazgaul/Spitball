@@ -47,7 +47,7 @@ namespace Cloudents.Web
         public static readonly CultureInfo[] SupportedCultures = {
 
             new CultureInfo("en"),
-           // new CultureInfo("he"),
+            new CultureInfo("he"),
         };
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
@@ -164,21 +164,6 @@ namespace Cloudents.Web
                 o.EventsType = typeof(CustomCookieAuthenticationEvents);
                 o.Cookie.Name = "sb3";
                 o.SlidingExpiration = true;
-                //o.Events.OnValidatePrincipal = context =>
-                //{
-                //    context.
-                //    return Task.CompletedTask;
-                //};
-                //o.Events.OnRedirectToLogin = context =>
-                //{
-                //    context.Response.StatusCode = 401;
-                //    return Task.CompletedTask;
-                //};
-                //o.Events.OnRedirectToAccessDenied = context =>
-                //{
-                //    context.Response.StatusCode = 401;
-                //    return Task.CompletedTask;
-                //};
             });
 
 
@@ -275,6 +260,7 @@ namespace Cloudents.Web
                 SupportedCultures = SupportedCultures,
                 // UI strings that we have localized.
                 SupportedUICultures = SupportedCultures
+                
             });
             app.UseStaticFiles(new StaticFileOptions
             {
