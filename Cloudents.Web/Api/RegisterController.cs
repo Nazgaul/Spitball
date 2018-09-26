@@ -11,11 +11,11 @@ using Cloudents.Web.Services;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -103,11 +103,15 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError("Google", _localizer["GoogleNoResponse"]);
                 return BadRequest(ModelState);
             }
-            var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, false);
+
+            //var result2 = await _userManager.FindByLoginAsync("Google", result.Id);
+            var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, false, true);
             if (result2.Succeeded)
             {
+                //return new ReturnSignUserResponse(NextStep., false);
                 // Update any authentication tokens if login succeeded
-                return Ok();
+                return new ReturnSignUserResponse(false);
+                //return Ok();
             }
             if (result2.IsLockedOut)
             {
@@ -124,9 +128,9 @@ namespace Cloudents.Web.Api
             {
                 await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
                 await _signInManager.SignInTwoFactorAsync(user, true).ConfigureAwait(false);
-                return new ReturnSignUserResponse(NextStep.EnterPhone, false);
+                return new ReturnSignUserResponse(NextStep.EnterPhone, true);
             }
-            ModelState.AddModelError("Google",_localizer["GoogleUserRegisteredWithEmail"]);
+            ModelState.AddModelError("Google", _localizer["GoogleUserRegisteredWithEmail"]);
             return BadRequest(ModelState);
         }
 
