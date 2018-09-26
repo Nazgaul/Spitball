@@ -1,8 +1,7 @@
 <template>
-    <p>
-      For guide and recipes on how to configure / customize this project,<br>
-      check out the
-    </p>
+    <div>
+      <h1>Welcome to the ADMIN portal</h1>
+    </div>
 </template>
 
 <script>
