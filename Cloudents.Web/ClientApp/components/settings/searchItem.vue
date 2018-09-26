@@ -1,7 +1,7 @@
 ﻿
 <template>
     <page-layout v-if="currentType" :type="currentType" :title="title" :search="!currentAction" :showAdd="showAdd" :titleImage="(currentType==='course'&&!currentAction)?getUniversityImage:''" :isLoading="isLoading" :items="items" :selectedCourse="selectedCourse" :closeFunction="$_closeButton">
-            <button class="done-btn" slot="courseExtraClose" @click="$emit('input',false)">DONE</button>
+            <button class="done-btn" slot="courseExtraClose" @click="$emit('input',false)" v-language:inner>searchitem_DONE</button>
         <template slot="closeAction">
             <i v-if="isFirst&&currentType==='course'" class="sbf icon sbf-chevron-down"></i>
             <i v-else class="sbf icon sbf-close"></i>
@@ -10,11 +10,11 @@
         <template v-if="showCreateCourse" slot="courseExtraItem">
             <div class="add-course-form mt-3 py-3 px-3" v-if="!isMobile">
                 <form @submit.prevent="$_submitAddCourse">
-                    <div class="form-title">Still don't see your class?</div>
+                    <div class="form-title" v-language:inner>searchitem_dont_see_class</div>
                         <v-text-field light v-model="newCourseName" placeholder="Type it in here:"></v-text-field>
                     <div class="actions">
-                        <v-btn class="save" :disabled="!newCourseName" @click="$_submitAddCourse">save</v-btn>
-                        <v-btn class="clear" :disabled="!newCourseName" @click="$_clearAddCourse">clear</v-btn>
+                        <v-btn class="save" :disabled="!newCourseName" @click="$_submitAddCourse"><span v-language:inner>searchitem_save_l</span></v-btn>
+                        <v-btn class="clear" :disabled="!newCourseName" @click="$_clearAddCourse"><span v-language:inner>searchitem_clear</span></v-btn>
                     </div>
                 </form>
             </div>
@@ -25,11 +25,11 @@
         <template v-if="showCreateCourse&&isMobile" slot="courseMobileExtraItem">
             <div class="add-course-dialog pt-4 pb-2 my-2 px-3">
                 <form @submit.prevent="$_submitAddCourse">
-                    <div class="form-title">Type it in here:</div>
+                    <div class="form-title" v-language:inner>earchitem_Type_it_in_here:</div>
                     <v-text-field light hide-details v-model="newCourseName" autofocus></v-text-field>
                     <div class="actions text-xs-right">
-                        <v-btn class="clear" flat @click="$_clearAddCourse">Cancel</v-btn>
-                        <v-btn class="save" flat :disabled="!newCourseName" @click="$_submitAddCourse">Save</v-btn>
+                        <v-btn class="clear" flat @click="$_clearAddCourse"><span v-language:inner>searchitem_Cancel</span></v-btn>
+                        <v-btn class="save" flat :disabled="!newCourseName" @click="$_submitAddCourse"><span v-language:inner>searchitem_Save</span></v-btn>
                     </div>
                 </form>
             </div>
@@ -62,7 +62,7 @@
 
         <!--showCreateCourse add to condition to restore-->
         <template slot="courseEmptyState" v-if="!items.length && !myCourses.length && !showCreateCourse">
-            <div class="course-empty-state">You have not selected any courses</div>
+            <div class="course-empty-state"><span v-language:inner>searchitem_not_selected_courses</span></div>
         </template>
     </page-layout>
 </template>

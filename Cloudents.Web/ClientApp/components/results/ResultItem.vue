@@ -35,9 +35,9 @@
 </template>
 <script>
 
-    import FlashcardDefault from '../home/img/flashcard.svg'
-    import AskDefault from '../home/img/ask.svg'
-    import NoteDefault from '../home/img/document.svg'
+    import FlashcardDefault from '../helpers/img/flashcard.svg'
+    import AskDefault from '../helpers/img/ask.svg'
+    import NoteDefault from '../helpers/img/document.svg'
 
 
     export default {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Threading;
@@ -16,10 +17,13 @@ namespace Cloudents.Web.Identity
     [UsedImplicitly]
     public sealed class UserStore :
         IUserEmailStore<User>,
+        IUserPasswordStore<User>,
         IUserTwoFactorStore<User>,
         IUserSecurityStampStore<User>, // need to create token for sms
         IUserPhoneNumberStore<User>,
-        IUserAuthenticatorKeyStore<User>
+        IUserAuthenticatorKeyStore<User>,
+        IUserLockoutStore<User>,
+        IUserLoginStore<User>
     {
         private readonly ICommandBus _bus;
         private readonly IQueryBus _queryBus;
@@ -200,6 +204,88 @@ namespace Cloudents.Web.Identity
         public Task<string> GetAuthenticatorKeyAsync(User user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.AuthenticatorKey);
+        }
+
+        public Task SetPasswordHashAsync(User user, string passwordHash, CancellationToken cancellationToken)
+        {
+            user.PasswordHash = passwordHash;
+            return Task.CompletedTask;
+        }
+
+        public Task<string> GetPasswordHashAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.PasswordHash);
+
+        }
+
+        public Task<bool> HasPasswordAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.PasswordHash != null);
+        }
+
+        public Task<DateTimeOffset?> GetLockoutEndDateAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.LockoutEnd);
+        }
+
+        public Task SetLockoutEndDateAsync(User user, DateTimeOffset? lockoutEnd, CancellationToken cancellationToken)
+        {
+            user.LockoutEnd = lockoutEnd;
+            return Task.CompletedTask;
+        }
+
+        public Task<int> IncrementAccessFailedCountAsync(User user, CancellationToken cancellationToken)
+        {
+            int accessFailedCount = user.AccessFailedCount;
+            user.AccessFailedCount = accessFailedCount + 1;
+            return Task.FromResult(user.AccessFailedCount);
+        }
+
+        public Task ResetAccessFailedCountAsync(User user, CancellationToken cancellationToken)
+        {
+            user.AccessFailedCount = 0;
+            return Task.CompletedTask;
+        }
+
+        public Task<int> GetAccessFailedCountAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.AccessFailedCount);
+        }
+
+        public Task<bool> GetLockoutEnabledAsync(User user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.LockoutEnabled);
+        }
+
+        public Task SetLockoutEnabledAsync(User user, bool enabled, CancellationToken cancellationToken)
+        {
+            user.LockoutEnabled = enabled;
+            return Task.CompletedTask;
+        }
+
+        public async Task AddLoginAsync(User user, UserLoginInfo login, CancellationToken cancellationToken)
+        {
+            var command =
+                new AddUserLoginCommand(user, login.LoginProvider, login.ProviderKey, login.ProviderDisplayName);
+
+            await _bus.DispatchAsync(command, cancellationToken);
+
+        }
+
+        public Task RemoveLoginAsync(User user, string loginProvider, string providerKey, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<UserLoginInfo>> GetLoginsAsync(User user, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User> FindByLoginAsync(string loginProvider, string providerKey, CancellationToken cancellationToken)
+        {
+           
+            return _queryBus.QueryAsync(new UserLoginQuery(loginProvider, providerKey), cancellationToken);
         }
     }
 }

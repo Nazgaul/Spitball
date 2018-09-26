@@ -7,9 +7,13 @@ namespace Cloudents.Web.Controllers
     {
 
         internal const string RegisterRouteName = "Register";
+
+        internal const string Signin = "SignIn";
+
         // GET
         [Route("register",Name = RegisterRouteName)]
-        [Route("signin")]
+        [Route("signin", Name = Signin)]
+        [Route("resetPassword",Name= "ResetPassword")]
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)

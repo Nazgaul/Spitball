@@ -7,7 +7,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.EventHandler;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
-using Cloudents.Infrastructure.Database.Repositories;
 using NHibernate;
 using NHibernate.Criterion;
 using System.Diagnostics.CodeAnalysis;
@@ -27,7 +26,7 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.Session;
         }
 
-       // [Cache(TimeConst.Minute * 5, RemoveQuestionCacheEventHandler.CacheRegion, false)]
+      //  [Cache(TimeConst.Minute * 5, RemoveQuestionCacheEventHandler.CacheRegion, false)]
         public async Task<IEnumerable<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
         {
             QuestionDto dto = null;

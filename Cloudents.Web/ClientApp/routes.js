@@ -169,13 +169,20 @@ let routes2 = [
     },
 
     {
-        path: "/register", alias: ['/signin'],
+        path: "/register", alias: ['/signin', '/resetpassword'],
         components: {
             default: login,
         },
         name: "registration",
+        beforeEnter: (to, from, next) => {
+            //prevent entering if loged in
+            if(global.isAuth){
+                next(false)
+            }else{
+                next()
+            }
+        }
     },
-
 
     {
         path: "/conversations",

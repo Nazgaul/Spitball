@@ -100,6 +100,10 @@ const mutations = {
                 if(currentQuestion.id === questionToUpdate.id){
                     //replace the question from the list
                     state.itemsPerVertical.ask.data[questionIndex].answers = questionToUpdate.answers;
+                    state.itemsPerVertical.ask.data[questionIndex].hasCorrectAnswer = questionToUpdate.hasCorrectAnswer;
+                    state.itemsPerVertical.ask.data[questionIndex].files = questionToUpdate.files;
+                    state.itemsPerVertical.ask.data[questionIndex].answersNum = questionToUpdate.answers;
+                    state.itemsPerVertical.ask.data[questionIndex].filesNum = questionToUpdate.files;
                     return;
                 }
             }
@@ -183,6 +187,8 @@ const actions = {
             let verticalItems = context.state.itemsPerVertical[VerticalName];
             let skip = determineSkip(VerticalName, verticalItems);
             let haveQueItems = context.state.queItemsPerVertical[VerticalName].length;
+            //when entering a question and going back stay on the same position.
+            //can be removed only when question page willo be part of ask question page
                 if((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skip){
                     if(haveQueItems){
                         context.commit(SEARCH.INJECT_QUESTION)
@@ -229,7 +235,6 @@ const actions = {
                             verticalName: name,
                             verticalData: data
                         }
-                        console.log('2222222 got here!!!')
                         context.dispatch('setDataByVerticalType', verticalObj);
                         let sortData = !!data.sort ? data.sort : null;
                         context.dispatch('updateSort', sortData);   

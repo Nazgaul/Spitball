@@ -1,15 +1,12 @@
 <template>
 <transition name="fade">
     <div class="answer-question" v-if="questionData">
-
         <!-- Web version -->
         <div class="pt-3 question-wrap" v-if="!$vuetify.breakpoint.smAndDown"
              :class="{'my-question': questionData.cardOwner}">
             <v-flex xs12 class="breadcrumbs">
-                <router-link class="ask-question" to="/ask">
-                    Ask a question
-                </router-link>
-                <span class="question-category">/  Questions  / {{questionData.subject}}</span>
+                <router-link  to="/ask" v-language:inner>questionDetails_Ask_question</router-link>
+                <span class="question-category"> <span v-language:inner>questionDetails_question_dash</span>{{questionData.subject}}</span>
             </v-flex>
             <v-layout row>
                 <v-flex class="question-data">
@@ -28,12 +25,12 @@
                                 <v-btn block color="primary"
                                        @click="submitAnswer()"
                                        :disabled="submitted"
-                                       class="add_answer">Add your answer
+                                       class="add_answer"><span v-language:inner>questionDetails_Add_answer</span> 
                                 </v-btn>
                             </div>
 
                             <div v-else class="show-form-trigger" @click="showAnswerField()"  key="two">
-                                <div><b>Know the answer?</b> Add it here!</div>
+                                <div><b v-language:inner>questionDetails_Know_the_answer</b> <span v-language:inner>questionDetails_Add_it_here</span></div>
                             </div>
                         </div>
                         <div slot="currently-watching">
@@ -43,7 +40,7 @@
                 </v-flex>
 
                 <v-flex v-if ="accountUser" class="chat-wrapper">
-                    <div class="chat-title pa-2">Discussion Board</div>
+                    <div class="chat-title pa-2" v-language:inner>questionDetails_Discussion_Board</div>
                     <div ref="chat-area" class="chat-container"></div>
 
                 </v-flex>
@@ -55,8 +52,8 @@
         <div v-else>
             <v-tabs grow>
                     <v-tabs-slider color="blue"></v-tabs-slider>
-                    <v-tab :href="'#tab-1'" :key="'1'">Question</v-tab>
-                    <v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser">Chat</v-tab>
+                    <v-tab :href="'#tab-1'" :key="'1'"><span v-language:inner>questionDetails_Question</span></v-tab>
+                    <v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser"><span v-language:inner>questionDetails_Chat</span></v-tab>
 
                 <v-tab-item :key="'1'" :id="'tab-1'" class="tab-padding">
                         <v-flex xs12 class="question-data">
@@ -71,11 +68,11 @@
                                                             @removeFile="removeFile"></extended-text-area>
                                         <v-btn color="primary" @click="submitAnswer()"
                                                :disabled="submitted"
-                                               class="add_answer">Add your answer
+                                               class="add_answer"><span  v-language:inner>questionDetails_Add_answer</span> 
                                         </v-btn>
                                     </div>
                                     <div v-else class="show-form-trigger" @click="showAnswerField()">
-                                        <div><b>Know the answer?</b> Add it here!</div>
+                                        <div><b v-language:inner>questionDetails_Know_the_answer</b><span v-language:inner>questionDetails_Add_it_here</span></div>
                                     </div>
                                 </div>
                             </question-thread>

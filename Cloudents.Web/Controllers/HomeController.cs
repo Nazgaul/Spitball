@@ -1,21 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Cloudents.Core.Extension;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     public class HomeController : Controller
     {
+        internal const string Referral = "referral";
         private readonly List<IPAddress> _officeIps = new List<IPAddress>();
+
 
         public HomeController(IConfiguration configuration)
         {
@@ -31,12 +35,21 @@ namespace Cloudents.Web.Controllers
             }
         }
 
-        //[ResponseCache()]
-        // we can't use that for now.
-        // GET
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Index(LocationQuery location,[FromQuery] bool? isNew, [FromServices]IHostingEnvironment env)
+        public IActionResult Index(LocationQuery location,
+            [FromHeader(Name = "User-Agent")] string userAgent,
+            [FromQuery] bool? isNew,[FromQuery] string referral, [FromServices]IHostingEnvironment env)
         {
+            if (!string.IsNullOrEmpty(referral))
+            {
+                TempData[Referral] = referral;
+            }
+
+            if (userAgent.Contains("linkedin", StringComparison.OrdinalIgnoreCase))
+            {
+                ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
+            }
+
             if (env.IsDevelopment())
             {
                 return View();

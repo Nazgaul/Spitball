@@ -3,8 +3,8 @@
   <general-page header="reps-header.png" icon="reps.png">
       
       <div class="reps text-xs-center text-sm-left">
-          Want to help grow the Spitball community at your school or university? Reach out to us at
-          <a href="mailto:work@spitball.co">work@spitball.co</a>
+        <span v-language:inner>reps_help_to_community</span> &nbsp;
+        <a href="mailto:work@spitball.co">work@spitball.co</a>
       </div>
   </general-page>
 </div>

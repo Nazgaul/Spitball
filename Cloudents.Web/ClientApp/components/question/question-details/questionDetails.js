@@ -1,13 +1,14 @@
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from "../../../services/questionService";
-import {mapGetters, mapMutations, mapActions} from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import questionCard from "./../helpers/question-card/question-card.vue";
 import disableForm from "../../mixins/submitDisableMixin.js"
 import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue'
 import { sendEventList } from '../../../services/signalR/signalREventSender'
+import { LanguageService } from "../../../services/language/languageService";
 
 export default {
     mixins: [disableForm],
@@ -39,7 +40,7 @@ export default {
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
                 this.errorTextArea = {
-                    errorText: 'min. 15 characters',
+                    errorText: LanguageService.getValueByKey("questionDetails_error_minChar"),
                     errorClass: true
                 };
                 return
@@ -75,13 +76,11 @@ export default {
             let updateViewer = skipViewerUpdate ? false : true;
             //enable submit btn
             this.$data.submitted = false;
-            // var self = this;
             questionService.getQuestion(this.id)
-                .then( (response) => {
+                .then((response) => {
                     this.questionData = response;
 
-                    if(updateViewer){
-                        console.log("entering question");
+                    if (updateViewer) {
                         sendEventList.question.addViewr(this.questionData);
                     }
 
@@ -104,30 +103,22 @@ export default {
             if (this.talkSession && this.questionData) {
                 const otherUser = this.questionData.user;
                 var other1 = new Talk.User(otherUser.id);
-
-                //_${this.accountUser.id}_${otherUser.id}
                 var conversation = this.talkSession.getOrCreateConversation(
                     `question_${this.id}`
                 );
                 //conversation
-                conversation.setParticipant(this.chatAccount, { notify: false });
+                let subject = this.questionData.text.replace(/\r?\n|\r/g, '');
+                conversation.setParticipant(this.chatAccount, {notify: false});
                 conversation.setParticipant(other1);
                 conversation.setAttributes({
                     photoUrl: `${location.origin}/images/conversation.png`,
-                    subject: `<${location.href}|${this.questionData.text}>`
+                    subject: `<${location.href}|${subject}>`
                 })
-                //conversation.setAttributes({
-                //    subject: "Discussion Board"
-                //});
-                //this.talkSession.syncThemeForLocalDev("/Content/talkjs-theme.css");
-                var chatbox = this.talkSession.createChatbox(conversation, {
+                    var chatbox = this.talkSession.createChatbox(conversation, {
                     showChatHeader: false
-                    //chatTitleMode: 'subject',
-                    //chatSubtitleMode: null
-                });
+                    });
                 chatbox.on("sendMessage", (t) => {
                     conversation.setParticipant(this.chatAccount, {notify: true})
-                    // console.log(t)
                 });
                 this.$nextTick(() => {
                     chatbox.mount(this.$refs["chat-area"]);
@@ -168,7 +159,7 @@ export default {
             this.showForm = (val && !this.questionData.answers.length);
             return val;
         },
-        removeViewer(){
+        removeViewer() {
             console.log("leaving question");
             sendEventList.question.removeViewer(this.questionData);
         },
@@ -183,16 +174,16 @@ export default {
         this.$root.$on('deleteAnswer', (id) => {
             this.questionData.answers = this.questionData.answers.filter(item => item.id !== id)
         });
-        this.$root.$on('closePopUp', (name)=> {
-           if(name === 'suggestions'){
-               this.showDialogSuggestQuestion = false;
-           }else{
-               this.updateLoginDialogState(false);
-           }
+        this.$root.$on('closePopUp', (name) => {
+            if (name === 'suggestions') {
+                this.showDialogSuggestQuestion = false;
+            } else {
+                this.updateLoginDialogState(false);
+            }
         })
     },
-    destroyed(){
-        if(this.removeViewer){
+    destroyed() {
+        if (this.removeViewer) {
             this.removeViewer();
         }
     }

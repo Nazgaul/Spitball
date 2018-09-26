@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -50,7 +49,7 @@ namespace Cloudents.Web.Api
             {
                 nextPageLink = Url.NextPageLink("Job", model);
             }
-            return new WebResponseWithFacet<JobDto>()
+            return new WebResponseWithFacet<JobDto>
             {
                 Result = result.Result,
                 Filters = new []

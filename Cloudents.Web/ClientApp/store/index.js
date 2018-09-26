@@ -10,27 +10,30 @@ import LuisData from "./luisData";
 import Account from "./account";
 import Toaster from "./Toaster";
 import MarketingCampaign from './marketingCampaigns'
-import  loginDialog from  './loginDialog'
+import loginDialog from './loginDialog'
 //TODO: server side fix
 import createPersistedState from "vuex-persistedstate"
+import notification from "./notification";
 
 function canWriteStorage(storage) {
     try {
         storage.setItem('@@', 1);
         storage.removeItem('@@');
         return true;
-    } catch (e) { }
+    } catch (e) {
+    }
 
     return false;
 }
+
 const storageFallback = [{
     provider: localStorage,
     enable: true,
 },
-{
-    provider: sessionStorage,
-    enable: true,
-}]
+    {
+        provider: sessionStorage,
+        enable: true,
+    }]
 for (let v in storageFallback) {
     let item = storageFallback[v];
     item.enable = canWriteStorage(item.provider);
@@ -49,7 +52,18 @@ if (storage) {
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
-    modules: { Search, User, SpitballPreview,LuisData , Account,Question, Toaster, MarketingCampaign, loginDialog },
+    modules: {
+        Search,
+        User,
+        SpitballPreview,
+        LuisData,
+        Account,
+        Question,
+        Toaster,
+        MarketingCampaign,
+        loginDialog,
+        notification
+    },
     plugins: plugins
 });
 export default store;

@@ -8,7 +8,7 @@ namespace Cloudents.Web.Models
     [DataContract]
     public class GeographicCoordinate
     {
-        protected bool Equals(GeographicCoordinate other)
+        private bool Equals(GeographicCoordinate other)
         {
             return Latitude.Equals(other.Latitude) && Longitude.Equals(other.Longitude);
         }

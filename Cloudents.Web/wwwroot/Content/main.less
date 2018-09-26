@@ -118,7 +118,7 @@ button {
 
 .loop2(@index2) when (@index2 <= length(@list-colors)) {
     .loop2((@index2 + 1));
-    @p: extract(@list-colors,@index2);
+    @p: extract(@list-colors, @index2);
 
     .color-@{p} {
         @color: "color-@{p}";
@@ -138,6 +138,9 @@ button {
 }
 
 .loop2(1);
+
+
+
 
 a,
 a:active,

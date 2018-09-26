@@ -10,7 +10,6 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// the user input
         /// </summary>
-        //[StringLength(int.MaxValue, MinimumLength = 3)]
         public string Term { get; set; }
 
         /// <summary>

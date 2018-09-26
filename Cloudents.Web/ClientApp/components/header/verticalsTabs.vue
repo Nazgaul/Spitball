@@ -16,12 +16,15 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters, mapMutations} from 'vuex'
     import {verticalsNavbar as verticals}  from "../../services/navigation/vertical-navigation/nav";
 
     export default {
         name: "verticals-tabs",
-        computed: {...mapGetters(['getVerticalData'])},
+        computed: {
+            ...mapGetters(['getVerticalData']),
+
+        },
         props: {currentSelection: {}},
         data() {
             return {
@@ -35,6 +38,7 @@
             }
         },
         methods: {
+            ...mapMutations(['UPDATE_SEARCH_LOADING']),
             ...mapActions(["setCurrentVertical"]),
             $_updateType(result) {
                 this.currentVertical = result;
@@ -53,7 +57,12 @@
                 if ((result == 'flashcard' && this.$route.path.includes('note') || result == 'note' && this.$route.path.includes('flashcard')) && this.$route.query.course) {
                     course = this.$route.query.course;
                 }
-                this.$router.push({path: '/' + result, query: {...query, q: text, course}});
+                //if same tab do not do UPDATE_SEARCH_LOADING
+                if(this.$route.path !== `/${result}`){
+                    this.UPDATE_SEARCH_LOADING(true);
+                }
+                this.$router.push({path: '/' + result, query: {}});
+                // this.$router.push({path: '/' + result, query: {...query, q: text, course}});
             }
         }
     }

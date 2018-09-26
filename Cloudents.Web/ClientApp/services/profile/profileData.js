@@ -1,185 +1,203 @@
+import { LanguageService } from "../language/languageService";
+
 const profileData = {
     profileGeneral: {
         register: {
             1: {
-                heading: 'Ask Questions & receive instant help '+ '\n'+ 'or ' + 'Answer Questions & make money',
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepOne_heading"),
                 subheading: '',
-                text: 'Start with your email. We need to know how to contact you',
-                boldText: ['instant help', 'make money']
+                text: LanguageService.getValueByKey("profileData_generalProfile_register_stepOne_text"),
+
             },
             2: {
-                heading: 'We need to know how to contact you',
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepTwo_heading"),
                 subheading: '',
-                text: 'We need to know how to contact you',
-                boldText: ['contact you.']
+                text: '',
             },
             3: {
-                heading: 'Check your email to activate your account',
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepThree_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['activate your account']
             },
             4: {
-                heading: 'Enter your phone number\n'+ 'We need to send you a confirmation code',
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepFour_heading"),
                 subheading: '',
-                text: 'We need to send you a confirmation code',
-                boldText: ['Enter your phone number']
+                text: LanguageService.getValueByKey("profileData_generalProfile_register_stepFour_text"),
             },
             5: {
-                heading: 'Enter the confirmation code\n'+ 'We sent the code to you by SMS',
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepFive_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['Enter the confirmation code']
             },
             6: {
-                heading: 'CONGRATS!',
-                subheading: 'You’re ready to start Spitballing!',
-                text: 'We’ve awarded you 100 SBL\n' +
-                'You can use these to get help with your own homework questions, or answer other student’s questions to earn SBL that can be redeemed for real money!',
-                boldText: ['100 SBL']
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepSix_heading"),
+                subheading:  LanguageService.getValueByKey("profileData_generalProfile_register_stepSix_subheading"),
+                text: LanguageService.getValueByKey("profileData_generalProfile_register_stepSix_text"),
             },
             7: {
-                heading: '',
-                subheading: '',
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepSeven_heading"),
+                subheading:  '',
                 text: '',
-                boldText: ['']
-            }
+            },
+            8: {
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepEight_heading"),
+                subheading: '',
+                text: LanguageService.getValueByKey("profileData_generalProfile_register_stepEight_text"),
+
+            },
+            9: {
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepNine_heading"),
+                subheading: '',
+                text:'',
+
+            },
+            10: {
+                heading: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_heading"),
+                subheading: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_heading"),
+                text: '',
+                createbtn: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_createbtn"),
+                createtxt: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_createtxt"),
+                resetbtn: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_resetbtn"),
+                resettxt: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_resettxt")
+
+            },
         },
         modal: {
-            heading : 'Please sign up or\n' + 'login to continue.',
-            text: 'You are only a couple of mouse clicks away from unlocking instant homework help and the ability to make serious money!',
-            buttons:{
-                signUp:{
-                    text: 'Sign Up'
-                },
-                login:{
-                    text: 'Login'
-                },
-            }
+            heading : LanguageService.getValueByKey("profileData_generalProfile_modal_heading"),
+            text:  LanguageService.getValueByKey("profileData_generalProfile_modal_text"),
         }
     },
     profileMakeMoney: {
         register: {
             1: {
-                heading: 'Make money\n' +
-                'while helping\n' +
-                'others with \n' +
-                'their homework.',
+                heading:  LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepOne_heading"),
                 subheading: '',
-                text: 'Start with your email. We need to know how to contact you',
-                boldText: ['Make money']
+                text:  LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepOne_text"),
             },
             2: {
-                heading: 'We need to know how to contact you',
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTwo_heading"),
                 subheading: '',
-                text: 'We need to know how to contact you',
-                boldText: ['contact you']
+                text: '',
             },
             3: {
-                heading: 'Check your email to activate your account',
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepThree_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['activate your account']
             },
             4: {
-                heading: 'Enter your phone number\n'+  'We need to send you a confirmation code',
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepFour_heading"),
                 subheading: '',
-                text: 'We need to send you a confirmation code',
-                boldText: ['Enter your phone number']
+                text: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepFour_text"),
             },
             5: {
-                heading: 'Enter the confirmation code\n' + 'We sent the code to you by SMS',
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepFive_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['Enter the confirmation code']
             },
             6: {
-                heading: 'CONGRATS!',
-                subheading: 'You’re ready to start making money!\n',
-                text: 'We’ve also awarded you 100 SBL\n' +
-                '(you can use these to get help with your own homework questions)\n',
-                boldText: ['100 SBL', 'making money!']
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSix_heading"),
+                subheading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSix_sub_heading"),
+                text: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSix_text"),
+
             },
             7: {
-                heading: '',
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSeven_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['']
-            }
+            },
+            8: {
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepEight_heading"),
+                subheading: '',
+                text: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepEight_text"),
+
+            },
+            9: {
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepNine_heading"),
+                subheading: '',
+                text: '',
+
+            },
+            10: {
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTen_heading"),
+                subheading: '',
+                text: '',
+                createbtn: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTen_createbtn"),
+                createtxt: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTen_createtxt"),
+                resetbtn: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTen_resetbtn"),
+                resettxt: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTen_resettxt")
+
+            },
         },
         modal: {
-            heading : 'Please sign up or login to continue.',
-            text: 'You are a couple of mouse clicks away from FREE access to making serious money.',
-            buttons:{
-                signUp:{
-                    text: 'Sign Up'
-                },
-                login:{
-                    text: 'Login'
-                },
-            }
+            heading :  LanguageService.getValueByKey("profileData_makeMoneyProfile_modal_heading"),
+            text:  LanguageService.getValueByKey("profileData_makeMoneyProfile_modal_text"),
         }
     },
     profileHWH: {
         register: {
             1: {
-                heading: 'Get instant Homework Help, for FREE',
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepOne_heading"),
                 subheading: '',
-                text: 'Start with your email. We need to know how to contact you',
-                boldText: ['for FREE']
+                text: LanguageService.getValueByKey("profileData_HHP_register_stepOne_text"),
             },
             2: {
-                heading: 'We need to know how to contact you',
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepTwo_heading"),
                 subheading: '',
-                text: 'We need to know how to contact you',
-                boldText: ['contact you']
+                text: '',
             },
             3: {
-                heading: 'Check your email to activate your account',
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepThree_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['activate your account']
             },
             4: {
-                heading: 'Enter your phone number.\n' +
-                'We need to send you a confirmation code',
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepFour_heading"),
                 subheading: '',
-                text: 'We need to send you a confirmation code',
-                boldText: ['Enter your phone number']
+                text: LanguageService.getValueByKey("profileData_HHP_register_stepFour_text"),
             },
             5: {
-                heading: 'Enter the confirmation code\n' + 'We sent the code to you by SMS',
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepFive_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['Enter the confirmation code']
 
             },
             6: {
-                heading: 'CONGRATS!',
-                subheading: 'You are\n' + 'rewarded with \n' + '100 SBL',
-                text: 'You can spend them to get help with your Homework questions.',
-                boldText: ['100 SBL']
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepSix_heading"),
+                subheading: LanguageService.getValueByKey("profileData_HHP_register_stepSix_sub_heading"),
+                text: LanguageService.getValueByKey("profileData_HHP_register_stepSix_text"),
             },
             7: {
-                heading: '',
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepSeven_heading"),
                 subheading: '',
                 text: '',
-                boldText: ['']
+            },
+            8: {
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepEight_heading"),
+                subheading: '',
+                text: LanguageService.getValueByKey("profileData_HHP_register_stepEight_text"),
+
+            },
+            9: {
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepNine_heading"),
+                subheading: '',
+                text: '',
+
+            },
+            10: {
+                heading: LanguageService.getValueByKey("profileData_HHP_register_stepTen_heading"),
+                subheading: '',
+                text: '',
+                createbtn: LanguageService.getValueByKey("profileData_HHP_register_stepTen_createbtn"),
+                createtxt: LanguageService.getValueByKey("profileData_HHP_register_stepTen_createtxt"),
+                resetbtn: LanguageService.getValueByKey("profileData_HHP_register_stepTen_resetbtn"),
+                resettxt: LanguageService.getValueByKey("profileData_HHP_register_stepTen_resettxt")
+
             },
         },
         modal: {
-            heading : 'Please sign up or login to continue.',
-            text: 'You are only a couple of mouse clicks away from instant Homework Help and FREE SBL.',
-            buttons:{
-                signUp:{
-                    text: 'Sign Up'
-                },
-                login:{
-                    text: 'Login'
-                },
-            }
+            heading : LanguageService.getValueByKey("profileData_HHP_modal_heading"),
+            text: LanguageService.getValueByKey("profileData_HHP_modal_text"),
         }
-
     }
 };
 export default profileData

@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
     {
         private readonly IEnumerable<ITutorProvider> _tutorSearch;
         private readonly ITutorSuggestion _tutorSuggestion;
-        public const int PageSize = 15;
+        private const int PageSize = 15;
         private readonly IShuffle _shuffle;
 
         public TutorSearch(IEnumerable<ITutorProvider> tutorSearch, IShuffle shuffle, ITutorSuggestion tutorSuggestion)

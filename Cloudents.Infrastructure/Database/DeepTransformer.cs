@@ -10,6 +10,11 @@ namespace Cloudents.Infrastructure.Database
     public class DeepTransformer<TEntity> : IResultTransformer
     where TEntity : class
     {
+        private readonly char _complexChar;
+        public DeepTransformer(char complexChar = '.')
+        {
+            _complexChar = complexChar;
+        }
         // rows iterator
         public object TransformTuple(object[] tuple, string[] aliases)
         {
@@ -22,7 +27,7 @@ namespace Cloudents.Infrastructure.Database
             {
                 var aliase = list[i];
                 // Aliase with the '.' represents complex IPersistentEntity chain
-                if (aliase.Contains('.'))
+                if (aliase.Contains(_complexChar))
                 {
                     complexAliases.Add(aliase);
                     propertyAliases[i] = null;
@@ -59,7 +64,7 @@ namespace Cloudents.Infrastructure.Database
                 }
 
                 // split the Path into separated parts
-                var parts = aliase.Split('.');
+                var parts = aliase.Split(_complexChar);
                 var name = parts[0];
 
                 var propertyInfo = entity.GetType()
@@ -97,7 +102,17 @@ namespace Cloudents.Infrastructure.Database
                 }
                 else
                 {
-                    propertyInfo.SetValue(currentObject, value);
+                    if (propertyInfo.PropertyType.IsEnum && value is string str)
+                    {
+                        var e = Enum.Parse(propertyInfo.PropertyType, str, true);
+                        propertyInfo.SetValue(currentObject, e);
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(currentObject, Convert.ChangeType(value, propertyInfo.PropertyType));
+                    }
+
+                    //propertyInfo.SetValue(currentObject, value);
                 }
             }
         }

@@ -4,7 +4,7 @@ namespace Cloudents.Web.Models
 {
     public class GoogleTokenRequest
     {
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public string Token { get; set; }
 
     }

@@ -2,6 +2,7 @@ import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue
 import questionService from '../../../services/questionService';
 import disableForm from "../../mixins/submitDisableMixin"
 import {mapGetters, mapMutations, mapActions} from 'vuex'
+import { LanguageService } from "../../../services/language/languageService";
 
 export default {
     mixins: [disableForm],
@@ -38,7 +39,7 @@ export default {
         submitQuestion() {
             let readyToSend = true;
             //error handling stuff ( redo with newer version to validate with in build validators
-            if (!this.selectedPrice && this.price < 1) {
+            if (!this.selectedPrice && this.price < 1 && this.selectedPrice || this.price > 100) {
                 readyToSend = false
             }
             //if
@@ -46,17 +47,17 @@ export default {
                readyToSend = false
             }
             if (!this.selectedPrice) {
-                this.errorSelectPrice = "Please select amount you want to pay"
+                this.errorSelectPrice = LanguageService.getValueByKey("question_newQuestion_error_minSum")
             }
             if (this.textAreaValue.length < 15) {
                 this.errorTextArea = {
-                    errorText: 'min. 15 characters',
+                    errorText: LanguageService.getValueByKey("question_newQuestion_error_minChars"),
                     errorClass: true
                 };
                 readyToSend = false
             }
             if (!this.subject) {
-                this.errorMessageSubject = "Pick a subject";
+                this.errorMessageSubject = LanguageService.getValueByKey("question_newQuestion_error_pickSubject"),
                 readyToSend = false
             }
             if (!readyToSend) {
@@ -68,13 +69,12 @@ export default {
                 this.textAreaValue = this.textAreaValue.trim();
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default' )
                     .then(function () {
-                            // debugger;
                             self.$ga.event("Submit_question", "Homwork help");
                             let val = self.selectedPrice || self.price;
                             self.updateUserBalance(-val);
                             self.$router.push({path: '/ask', query: {q: ''}});
                             self.updateToasterParams({
-                                toasterText: 'Question posted, the best brains are working on it right now',
+                                toasterText: LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
                                 showToaster: true,
                             });
                         },
@@ -82,7 +82,7 @@ export default {
                             self.updateLoading(false);
                             console.error(error);
                             self.updateToasterParams({
-                                toasterText: `${error.response.data[""][0]}` || 'Something went wrong. Try again',
+                                toasterText: `${error.response.data[""][0]}` || '',
                                 showToaster: true,
                             });
                             self.submitForm(false);
@@ -91,7 +91,6 @@ export default {
         },
         addFile(filename) {
             this.files.push(...filename.split(','));
-            console.log('add new question', this.files)
 
         },
         removeFile(index) {
@@ -110,10 +109,11 @@ export default {
         currentSum() {
             let val = this.selectedPrice || this.price || 0;
             this.selectedPrice ? this.price = null : "";
-            return this.accountUser.balance - val
+            return this.accountUser.balance - val;
+
         },
         validForm() {
-            return this.subject && this.textAreaValue.length && (this.selectedPrice || this.price >= 10);
+          return  this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <=100);
         },
     },
     created() {

@@ -2,7 +2,6 @@
 
 .question-card {
   border-radius: 4px;
-  background-color: @color-white;
   min-height: 100px;
   height: 100%;
   width: 100%;
@@ -159,6 +158,8 @@
     color: @color-grey;
     white-space: pre-wrap;
     font-size: 16px;
+    //TODO encoding error prevent overlap
+    overflow-y: hidden;
   }
 
   .ellipsis{
@@ -184,7 +185,7 @@
       box-shadow: none;
       button {
         width: 40px;
-        height: 40px;
+        height: @btnHeight;
         &:before {
           opacity: 0.2;
           background-color: #000000;

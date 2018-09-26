@@ -9,6 +9,7 @@ namespace Cloudents.Infrastructure
 {
     [ModuleRegistration(Core.Enum.System.Function)]
     [ModuleRegistration(Core.Enum.System.Web)]
+    [ModuleRegistration(Core.Enum.System.MailGun)]
     [ModuleRegistration(Core.Enum.System.Console)]
     public class ModuleReadDb : Module
     {

@@ -6,7 +6,8 @@ namespace Cloudents.Core.Message
     [Serializable]
     public abstract class BaseEmail
     {
-        protected BaseEmail(string to, string template, string subject,string source = null, string medium = null, 
+        protected BaseEmail(string to, string template, string subject, string source = "SendGrid",
+            string medium = "Email",
             string campaign = null)
         {
             To = to;

@@ -6,6 +6,7 @@ namespace Cloudents.Web.Models
     /// Course request object
     /// </summary>
 
+    //TODO:Localize
     public class CourseRequest
     {
         /// <summary>
@@ -17,7 +18,7 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// university of the user
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public long? UniversityId { get; set; }
     }
 }

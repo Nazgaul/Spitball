@@ -1,36 +1,45 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
+using Cloudents.Core.Message;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PhoneNumbers;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Web.Controllers;
+using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
-    [Route("api/[controller]"),ApiController]
+    [Route("api/[controller]"), ApiController]
 
-    public class SmsController : ControllerBase
+    public class SmsController : Controller
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
-        private readonly IServiceBusProvider _serviceBus;
         private readonly ISmsSender _client;
+        private readonly ICommandBus _commandBus;
+        private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
+        private readonly ILogger _logger;
 
-        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager, IServiceBusProvider serviceBus,
-            ISmsSender client)
+        public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
+            ISmsSender client,  ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer, ILogger logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _serviceBus = serviceBus;
             _client = client;
-
+            _commandBus = commandBus;
+            _localizer = localizer;
+            _logger = logger;
         }
 
         [HttpGet("code")]
@@ -41,8 +50,8 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
-        public async Task<IActionResult> SmsUserAsync(
-            [FromBody]PhoneNumberRequest model,
+        public async Task<IActionResult> SetUserPhoneNumber(
+            [FromBody]PhoneNumberRequest model, [FromQuery]LocationQuery location,
             CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
@@ -57,40 +66,50 @@ namespace Cloudents.Web.Api
                 return Unauthorized();
             }
 
-            var phoneNumber = await _client.ValidateNumberAsync(model.Number, token).ConfigureAwait(false);
+            var phoneNumber = await _client.ValidateNumberAsync(model.ToString(), token).ConfigureAwait(false);
             if (string.IsNullOrEmpty(phoneNumber))
             {
-                ModelState.AddModelError(string.Empty, "Invalid phone number");
+                _logger.Warning("Did not passed validation of lookup");
+                ModelState.AddModelError(nameof(model.PhoneNumber), _localizer["InvalidPhoneNumber"]);
                 return BadRequest(ModelState);
             }
 
+            if (ValidatePhoneNumberLocationWithIp(location, model))
+            {
+                user.FraudScore += 50;
+            }
             var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
 
             if (retVal.Succeeded)
             {
-                var t1 = _serviceBus.InsertMessageAsync(new TalkJsUser(user.Id, user.Name)
-                {
-                    Email = user.Email
-                }, token);
-                var t3 = _client.SendSmsAsync(user, token);
-                await Task.WhenAll(t1, t3).ConfigureAwait(false);
+                await _client.SendSmsAsync(user, token);
                 return Ok();
             }
 
             if (retVal.Errors.Any(a => a.Code == "Duplicate"))
             {
-                ModelState.AddModelError(string.Empty, "This phone number is linked to another email address");
+                //TODO: Localize
+                _logger.Warning("phone number is duplicate");
+                ModelState.AddModelError(nameof(model.PhoneNumber), "This phone number is linked to another email address");
             }
             else
             {
+                _logger.Warning("Some other error" + retVal.Errors.FirstOrDefault()?.Description);
                 ModelState.AddIdentityModelError(retVal);
             }
 
             return BadRequest(ModelState);
         }
 
+        private static bool ValidatePhoneNumberLocationWithIp(LocationQuery location, PhoneNumberRequest phoneNumber)
+        {
+            var phoneUtil = PhoneNumberUtil.GetInstance();
+            var t = phoneUtil.GetRegionCodeForCountryCode(phoneNumber.CountryCode);
+            return t.Equals(location.Address.CountryCode, StringComparison.OrdinalIgnoreCase);
+        }
+
         [HttpPost("verify")]
-        public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model)
+        public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model, CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
@@ -99,15 +118,30 @@ namespace Cloudents.Web.Api
                 ex.Data.Add("model", model.ToString());
                 throw ex;
             }
+
             var v = await _userManager.ChangePhoneNumberAsync(user, user.PhoneNumber, model.Number).ConfigureAwait(false);
 
             if (v.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
-                return Ok();
+                //This is the last step of the registration.
+                return await FinishRegistrationAsync(token, user);
             }
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
+        }
+
+        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, User user)
+        {
+            if (TempData[HomeController.Referral] != null)
+            {
+                var base62 = new Base62(TempData[HomeController.Referral].ToString());
+                var command = new DistributeTokensCommand(base62.Value, 10, ActionType.ReferringUser);
+                await _commandBus.DispatchAsync(command, token);
+                TempData.Remove(HomeController.Referral);
+            }
+            TempData.Clear();
+            await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
+            return Ok();
         }
 
         [HttpPost("resend")]
@@ -116,7 +150,8 @@ namespace Cloudents.Web.Api
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "We cannot resend email");
+                //TODO: Localize
+                ModelState.AddModelError(string.Empty, "We cannot resend sms");
                 return BadRequest(ModelState);
             }
 

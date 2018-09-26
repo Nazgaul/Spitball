@@ -30,6 +30,19 @@ export default {
         required:{
             type: Boolean,
             default: false
+        },
+        disabled:{
+            type:Boolean,
+            default:false
+        },
+        bottomError:{
+            type: Boolean,
+            default: false
+        },
+        hint:{
+            default: '',
+            required: false,
+            type: ''
         }
     },
     data: function () {

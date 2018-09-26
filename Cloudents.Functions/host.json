@@ -1,15 +1,8 @@
 {
-  "functions": [
-    "QuestionPopulate",
-    "UrlProcessServiceBus",
-    "QuestionUpdateTimeFunction",
-    "FunctionEmail",
-    "FunctionSms",
-    "FunctionTalkJs"
-  ],
   "queues": {
     "batchSize": 32,
     "maxPollingInterval": 5000
   },
   "functionTimeout": "00:10:00"
+ 
 }

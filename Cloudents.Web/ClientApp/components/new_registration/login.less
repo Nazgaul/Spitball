@@ -1,10 +1,16 @@
 @import "../../mixin.less";
 
 .registration {
-  .bolder{
+  span {
+    &.error-message {
+      bottom: -16px;
+    }
+  }
+
+  .bolder {
     font-weight: 600;
   }
-  b{
+  b {
     font-weight: 600;
   }
   .text-block-top {
@@ -23,14 +29,22 @@
         flex-direction: row;
         align-items: center;
         padding: 18px 36px;
+        @media (max-width: @screen-xs) {
+          padding: 18px 28px;
+        }
         input[type=checkbox] {
-          height: 24px;
-          width: 24px;
-          margin-right: 16px;
+          height: 21px;
+          width: 21px;
+          margin-right: 8px;
+          @media (max-width: @screen-xs) {
+            height: 20px;
+            width: 20px;
+            margin-right: 8px;
+          }
         }
         span, a {
           color: @color-main-purple;
-          font-size: 15px;
+          font-size: 12px;
         }
         a {
           text-decoration: underline;
@@ -45,7 +59,7 @@
         }
         .text-block-sub-title {
           font-size: 28px;
-          white-space: pre-wrap;
+          //white-space: pre-wrap;
           font-weight: 100;
         }
       }
@@ -78,7 +92,7 @@
     width: 100%;
     height: @registrationFieldHeight;
     border-radius: 4px;
-    box-shadow: none!important;
+    box-shadow: none !important;
     &:hover {
       background: lighten(@color-main-purple, 10%);
     }
@@ -141,8 +155,8 @@
   }
   .step-title {
     text-align: center;
-    font-size: 26px;
-    font-weight: bold;
+    font-size: 27px;
+    font-weight: 300;
     color: @color-main-purple;
   }
 
@@ -194,7 +208,7 @@
           align-items: flex-start;
         }
         &.image {
-          background: #eee;
+          background: @color-main-purple;
           @media (max-width: @screen-xs) {
             display: none;
           }
@@ -214,7 +228,7 @@
           flex-direction: row;
           align-items: flex-end;
           justify-content: center;
-          .inline{
+          .inline {
             text-align: center;
           }
         }
@@ -222,13 +236,13 @@
       }
 
       .step-title {
-        font-size: 26px;
-        font-weight: bold;
+        font-size: 27px;
+        font-weight: 300;
         letter-spacing: -0.5px;
-        margin-bottom: 16px;
+        margin-bottom: 24px;
         line-height: 1.2;
         @media (max-width: @screen-xs) {
-         margin-bottom: 32px;
+          margin-bottom: 32px;
         }
       }
       p {
@@ -265,14 +279,15 @@
 
           .email-text {
             color: @color-black;
-            &.click{
+            &.click {
               color: @color-main-purple;
+              margin-left: 3px;
             }
           }
           @media (max-width: @screen-xs) {
             height: auto;
           }
-           p {
+          p {
             max-width: 400px;
           }
           img {
@@ -396,6 +411,11 @@
 
   .step-phone {
     height: 100%;
+    phone-field {
+      &.pass-field {
+        margin-top: 0;
+      }
+    }
     .phone-field input {
       padding-left: 36px;
       margin-top: 32px;
@@ -419,7 +439,35 @@
 
   }
   //end step phone
+  .step-password{
+    height: 100%;
+    phone-field {
+      &.pass-field {
+        margin-top: 0;
+      }
+    }
+    .pass-field {
+      //padding-left: 36px;
+      margin-bottom: 32px;
+      position: relative;
+      ~ i {
+        position: absolute;
+        top: 46px;
+        left: 16px;
+      }
+    }
+    .continue-btn {
+      margin-top: 32px;
+    }
+    .phone-num {
+      margin-top: 6px;
+    }
+    .confirm-title {
+      letter-spacing: -0.3px;
+      margin-top: 48px;
+    }
 
+  }
   //step-expired
   .step-expired {
     height: 100%;
@@ -446,6 +494,7 @@
     .phone-change {
       font-size: 16px;
       color: #b0b0ff;
+      cursor: pointer;
     }
     height: 100%;
     .step-wrapper {
@@ -612,17 +661,23 @@
         flex-direction: row;
         padding: 8px 16px;
         @media (max-width: @screen-xs) {
-          border-radius:  22px 22px 0 0;
-          padding: 18px 36px;
+          border-radius: 22px 22px 0 0;
+          padding: 18px 28px;
         }
         input[type=checkbox] {
-          height: 24px;
-          width: 24px;
-          margin-right: 16px;
+          height: 21px;
+          width: 21px;
+          margin-right: 8px;
+          @media (max-width: @screen-xs) {
+            height: 20px;
+            width: 20px;
+            margin-right: 8px;
+          }
+
         }
         span, a {
           color: @color-main-purple;
-          font-size: 15px;
+          font-size: 12px;
           text-align: left;
         }
         a {
@@ -650,7 +705,7 @@
         }
       }
       .side-wrapper.image {
-        background: #eee;
+        background: @color-main-purple;
         .text {
           height: 135px;
         }
@@ -746,7 +801,7 @@
       }
     }
     .recaptcha-wrapper > div:first-child {
-      height: 100px;
+      height: 120px;
     }
 
     .checkbox-terms {
@@ -757,7 +812,7 @@
 
       &, a {
         color: #90949c;
-          }
+      }
       a {
         text-decoration: underline;
       }
@@ -956,7 +1011,7 @@
     text-transform: none;
     font-size: 18px;
     font-weight: bold;
-    margin-top: 32px;
+    margin: 32px 0 0 0;
     @media (max-width: @screen-xs) {
       margin: 32px 0 0 0;
     }

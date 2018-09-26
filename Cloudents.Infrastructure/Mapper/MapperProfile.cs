@@ -23,14 +23,12 @@ namespace Cloudents.Infrastructure.Mapper
 
             CreateMap<Course, CourseDto>();
             CreateMap<University, UniversityDto>();
-            //CreateMap<Question, QuestionDto>()
-            //    .ForMember(m => m.Id, c => c.MapFrom(m => long.Parse(m.Id)))
-            //    .ForMember(m => m.Price, c => c.MapFrom(m => decimal.Parse(m.Price)));
 
-            CreateMap<GoogleToken, AuthDto>().ConvertUsing(o => new AuthDto
+            CreateMap<GoogleToken, ExternalAuthDto>().ConvertUsing(o => new ExternalAuthDto
             {
                 Name = o.Name,
-                Email = o.Email
+                Email = o.Email,
+                Id = o.Sub
             });
         }
     }

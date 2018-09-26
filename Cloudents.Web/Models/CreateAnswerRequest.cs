@@ -4,12 +4,13 @@ using Cloudents.Web.Filters;
 
 namespace Cloudents.Web.Models
 {
+    //TODO:Localize
     public class CreateAnswerRequest
     {
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public long QuestionId { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Required")]
         [MinLength(15)]
         public string Text { get; set; }
 

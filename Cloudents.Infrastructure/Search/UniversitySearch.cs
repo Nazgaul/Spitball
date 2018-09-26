@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure.Search
 
         public UniversitySearch(ISearchService client, IMapper mapper)
         {
-            _client = client.GetClient(UniversitySearchWrite.IndexName);
+            _client = client.GetOldClient(UniversitySearchWrite.IndexName);
             _mapper = mapper;
         }
 

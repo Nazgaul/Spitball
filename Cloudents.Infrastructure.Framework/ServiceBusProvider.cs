@@ -30,15 +30,16 @@ namespace Cloudents.Infrastructure.Framework
             return InsertMessageAsync(message, topicSubscription);
         }
 
-        public Task InsertMessageAsync(TalkJsUser message, CancellationToken token)
-        {
-            var topicSubscription = TopicSubscription.TalkJs;
-            return InsertMessageAsync(message, topicSubscription);
-        }
 
         public Task InsertMessageAsync(SmsMessage2 message, CancellationToken token)
         {
             var topicSubscription = TopicSubscription.Sms;
+            return InsertMessageAsync(message, topicSubscription);
+        }
+
+        public Task InsertMessageAsync(ServiceBusMessageBase message, CancellationToken token)
+        {
+            var topicSubscription = message.TopicSubscription;
             return InsertMessageAsync(message, topicSubscription);
         }
 
@@ -66,6 +67,20 @@ namespace Cloudents.Infrastructure.Framework
             var msMessage = new BrokeredMessage(obj)
             {
                 Label = subscription.Subscription
+            };
+            msMessage.Properties[MessageType] = obj.GetType().AssemblyQualifiedName;
+
+            return topic.SendAsync(msMessage);
+        }
+
+        //https://github.com/Azure/azure-webjobs-sdk/wiki/ServiceBus-Serialization-Scenarios#creating-a-brokeredmessage-with-a-memorystream
+        private Task InsertMessageAsync(ServiceBusMessageBase obj, TopicSubscription subscription)
+        {
+            var topic = TopicClient.CreateFromConnectionString(_connectionString, subscription.Topic);
+            var msMessage = new BrokeredMessage(obj)
+            {
+                Label = subscription.Subscription,
+                //ContentType = "application/json"
             };
             msMessage.Properties[MessageType] = obj.GetType().AssemblyQualifiedName;
 

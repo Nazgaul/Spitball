@@ -8,10 +8,12 @@ import signupBanner from './../helpers/signup-banner/signup-banner.vue'
 import QuestionCard from "../question/helpers/question-card/question-card";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
-import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
-import sortAndFilterMixin from '../mixins/sortAndFilterMixin'
+import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue';
+import sortAndFilterMixin from '../mixins/sortAndFilterMixin';
+import {LanguageService} from '../../services/language/languageService'
 
 import faqBlock from './helpers/faq-block/faq-block.vue'
+import notificationCenter from '../notificationCenter/notificationCenter.vue'
 
 const ResultTutor = () => import('./ResultTutor.vue');
 const ResultBook = () => import('./ResultBook.vue');
@@ -30,7 +32,10 @@ export default {
             showPersonalizeField: true,
             showFilterNotApplied: false,
             isLoad: false,
-            showDialog: false
+            showDialog: false,
+            placeholder:{
+                whereSchool: LanguageService.getValueByKey("result_where_school")
+            }
         };
     },
 
@@ -46,7 +51,8 @@ export default {
         signupBanner,
         QuestionCard,
         sbDialog,
-        loginToAnswer
+        loginToAnswer,
+        notificationCenter
     },
 
     //use basic sort and filter functionality( same for book details and result page)
@@ -238,7 +244,7 @@ export default {
                 sameUser = userId === item.user.id;
             }
         return {
-            'color': !!item.color ? 'white' : '',
+            'color': item.color !== 'default' ? 'white' : '',
             'bottom' : sameUser ? '15px' : ''
             }
         },
@@ -252,7 +258,7 @@ export default {
         this.fetchingData({
             name: this.name,
             params: {...this.query, ...this.params, term: this.userText},
-            skipLoad: this.$options._parentElm.childElementCount > 1
+            skipLoad: this.$route.path.indexOf("question") > -1
         }).then((data) => {
             this.updateData.call(this, {...data, vertical: this.name})
         }).catch(reason => {

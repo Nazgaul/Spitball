@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +11,11 @@ namespace Cloudents.Management.Pages
 {
     public class CashOutModel : PageModel
     {
-        private readonly Lazy<ICommandBus> _commandBus;
         private readonly IQueryBus _queryBus;
 
 
-        public CashOutModel(Lazy<ICommandBus> commandBus, IQueryBus queryBus)
+        public CashOutModel(IQueryBus queryBus)
         {
-            _commandBus = commandBus;
             _queryBus = queryBus;
         }
 

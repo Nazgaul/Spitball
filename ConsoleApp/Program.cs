@@ -1,19 +1,16 @@
-﻿using System;
+﻿using Autofac;
+using Cloudents.Core;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
+using System;
 using System.Configuration;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
-using Autofac;
-using Cloudents.Core;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Event;
-using Cloudents.Core.Query;
-using Cloudents.Core.Storage;
-using Cloudents.Infrastructure.Write;
-using Microsoft.Azure.Search.Models;
+using Cloudents.Core.Models;
+
 
 namespace ConsoleApp
 {
@@ -51,32 +48,25 @@ namespace ConsoleApp
             _container = builder.Build();
 
 
-            var t = new QuestionsQuery()
-            {
-                Filter = QuestionFilter.All
-            };
 
 
 
-            var b = _container.Resolve<IQueryBus>();
-            //await b.QueryAsync(t, default);
+            //var b = _container.Resolve<FluentQueryBuilder>();
+            //var x = await b.QueryAsync(new SyncAzureQuery(56123, 0), default);
+            //    .AddJoin<Question,User>(q=>q.User,u=>u.Id)
+            //    .AddSelect<User,Cloudents.Core.Entities.Search.Question>( q => q.Id,t2=>t2.UserId)
+            //    .AddSelect<Question>( q => q.Text, "b")
+            //    .AddSelect($"(select count(*) from {b.Table<Answer>()} where {b.Column<Answer>(x=>x.Question)} = {b.ColumnAlias<Question>(x=>x.Id)}) AnswerCount");
+
+            //string t = b;
+            //Console.WriteLine(t);
+            var b2 = _container.Resolve<ITutorSearch>();
+            var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
+                new GeoPoint(-74.006f, 40.7128f)
+                , 0, false, default);
 
 
-            t = new QuestionsQuery()
-            {
-                Filter = QuestionFilter.Answered
-            };
-            await b.QueryAsync(t, default);
-            t = new QuestionsQuery()
-            {
-                Filter = QuestionFilter.Sold
-            };
-            await b.QueryAsync(t, default);
-            t = new QuestionsQuery()
-            {
-                Filter = QuestionFilter.Unanswered
-            };
-            await b.QueryAsync(t, default);
+
             // QuestionRepository c = new QuestionRepository(b);
             // Console.WriteLine(c.GetOldQuestionsAsync(default));
 
@@ -143,7 +133,7 @@ namespace ConsoleApp
             foreach (var question in GoogleSheets.GetData(spreadsheetId, range))
             {
                 var commandBus = _container.Resolve<ICommandBus>();
-               // await commandBus.DispatchAsync(question, default);
+                // await commandBus.DispatchAsync(question, default);
             }
         }
 

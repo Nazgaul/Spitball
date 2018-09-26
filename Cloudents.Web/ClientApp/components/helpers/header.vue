@@ -18,7 +18,7 @@
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
-                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}} SBL</span>
+                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}} <span v-language:inner>header_sbl</span></span>
                                         <span>$ {{accountUser.balance | dollarVal}}</span>
                                     </router-link>
                                     <div class="header-rocket" v-if="loggedIn">
@@ -31,12 +31,8 @@
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
 
-                                    <router-link v-if="!loggedIn" class="header-login body-1"
-                                                 :to="{ path: '/register', query:{returnUrl : $route.path}  }">Sign Up
-                                    </router-link>
-                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}">
-                                        Login
-                                    </router-link>
+                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
+                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}" v-language:inner>header_login</router-link>
 
                                     <v-menu bottom left offset-y class="gamburger"
                                             v-if="!loggedIn && $vuetify.breakpoint.xsOnly">
@@ -86,6 +82,7 @@
     const PersonalizeDialog = () => import('./ResultPersonalize.vue');
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
+    import {LanguageService } from "../../services/language/languageService";
 
     export default {
         components: {
@@ -98,12 +95,12 @@
             loginToAnswer
         },
         placeholders: {
-            job: "Your field of expertise...",
-            tutor: "Find a tutor...",
-            note: "Find study documents in...",
-            book: "Textbook title or ISBN...",
-            ask: "Search questions",
-            flashcard: "Look for flashcards...",
+            job: LanguageService.getValueByKey("header_placeholder_job"),
+            tutor: LanguageService.getValueByKey("header_placeholder_tutor"),
+            note: LanguageService.getValueByKey("header_placeholder_note"),
+            book: LanguageService.getValueByKey("header_placeholder_book"),
+            ask: LanguageService.getValueByKey("header_placeholder_ask"),
+            flashcard: LanguageService.getValueByKey("header_placeholder_flashcard"),
         },
         data() {
             return {
@@ -113,11 +110,13 @@
                 drawer: null,
                 toasterTimeout: 5000,
                 showDialogLogin: false
-                // isAuthUser:true
             }
         },
         props: {
-            currentSelection: {type: String, default: 'note'},
+            currentSelection: {
+            type: String,
+            default: 'ask'
+            },
             userText: {type: String},
             submitRoute: {type: String, default: '/ask'},
             toolbarHeight: {},
@@ -178,6 +177,7 @@
             }
         },
         created() {
+            console.log('route::', this.submitRoute)
             this.$root.$on("personalize",
                 (type) => {
                     this.clickOnce = true;

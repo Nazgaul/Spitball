@@ -28,6 +28,7 @@ namespace Cloudents.Functions
             if (brokeredMessage.DeliveryCount > 1)
             {
                 log.Warning("invoking message from queue");
+                await brokeredMessage.DeadLetterAsync();
                 return;
             }
 
@@ -54,19 +55,19 @@ namespace Cloudents.Functions
             }
         }
 
-        [FunctionName("FunctionEmailTest")]
-        public static async Task EmailFunctionTimerAsync(
-            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
-            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
-            IAsyncCollector<Mail> emailProvider,
-            IBinder binder,
-            TraceWriter log,
-            CancellationToken token)
-        {
-            var topicMessage = new AnswerCorrectEmail("hadar@cloudents.com", "text", "xxx",
-             "https://www.spitball.co", 456.23424M);
-            await ProcessEmail(emailProvider, binder, log, topicMessage, token);
-        }
+        //[FunctionName("FunctionEmailTest")]
+        //public static async Task EmailFunctionTimerAsync(
+        //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply @spitball.co>")]
+        //    IAsyncCollector<Mail> emailProvider,
+        //    IBinder binder,
+        //    TraceWriter log,
+        //    CancellationToken token)
+        //{
+        //    var topicMessage = new AnswerCorrectEmail("hadar@cloudents.com", "text", "xxx",
+        //     "https://www.spitball.co", 456.23424M);
+        //    await ProcessEmail(emailProvider, binder, log, topicMessage, token);
+        //}
 
         private static async Task ProcessEmail(IAsyncCollector<Mail> emailProvider, IBinder binder, TraceWriter log,
             BaseEmail topicMessage, CancellationToken token)

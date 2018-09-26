@@ -1,9 +1,8 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
 import disableForm from "../../../mixins/submitDisableMixin"
-import {mapGetters, mapActions} from 'vuex'
-import colorsSet from '../colorsSet';
+import { mapGetters, mapActions } from 'vuex'
 import timeago from 'timeago.js';
-
+import { LanguageService } from "../../../../services/language/languageService";
 
 export default {
     mixins: [disableForm],
@@ -54,8 +53,6 @@ export default {
             src: '',
             selectedImage: '',
             showDialog: false,
-            //limitedCardAnswers: [],
-            colorsSet: colorsSet,
         }
     },
     computed: {
@@ -77,16 +74,10 @@ export default {
             }
             return this.typeAnswer ? !this.flaggedAsCorrect : !this.cardData.answers.length;
         },
-        cssRuleFontColor(){
-            return this.getQuestionColor("textColor") 
-        },
-        cssRuleBackgroundColor(){
-            return this.getQuestionColor("cssRule")                
-        },
-        limitedCardAnswers(){
+        limitedCardAnswers() {
             if (typeof  this.cardData.answers === "number") {
                 if (this.cardData.answers > 3) {
-                   return  3;
+                    return 3;
                 } else {
                     return this.cardData.answers;
                 }
@@ -94,16 +85,16 @@ export default {
                 return this.cardData.answers.length > 3 ? this.cardData.answers.slice(0, 3) : this.cardData.answers.slice();
             }
         },
-        flaggedAsCorrect(){ 
+        flaggedAsCorrect() {
             return this.isCorrectAnswer || this.localMarkedAsCorrect
         },
-        isSold(){
-           return  !this.cardData.hasCorrectAnswer && !this.cardData.correctAnswerId
+        isSold() {
+            return !this.cardData.hasCorrectAnswer && !this.cardData.correctAnswerId
         },
-        cardTime(){
+        cardTime() {
             return this.cardData.dateTime || this.cardData.create
         },
-        cardAnswers(){
+        cardAnswers() {
             return this.cardData.answers
         }
     },
@@ -114,14 +105,10 @@ export default {
             updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams'
         }),
-        getQuestionColor(type){
-            
-                if (!!this.cardData && this.cardData.color && this.colorsSet[`${this.cardData.color}`]) {
-                    return this.colorsSet[`${this.cardData.color}`][type]
-                } else {
-                    let colDefault = 'default';
-                    return  this.colorsSet[`${colDefault}`][type]
-                }
+        getQuestionColor() {
+            if (!!this.cardData && !this.cardData.color) {
+                return this.cardData.color = 'default';
+            }
         },
         showBigImage(src) {
             this.showDialog = true;
@@ -130,13 +117,12 @@ export default {
         markAsCorrect() {
             this.localMarkedAsCorrect = true;
             this.correctAnswer(this.cardData.id);
-            this.updateToasterParams({toasterText: '', showToaster: false});//test123
         },
         deleteQuestion() {
-           this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
+            this.delete({id: this.cardData.id, type: (this.typeAnswer ? 'Answer' : 'Question')})
                 .then((success) => {
                         this.updateToasterParams({
-                            toasterText: this.typeAnswer ? 'The answer has been deleted' : 'The question has been deleted',
+                            toasterText: this.typeAnswer ? LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_answer") : LanguageService.getValueByKey("helpers_questionCard_toasterDeleted_question"),
                             showToaster: true,
                         });
                         if (!this.typeAnswer) {
@@ -156,18 +142,18 @@ export default {
                     }
                 );
         },
-        renderQuestionTime(className){
+        renderQuestionTime(className) {
             timeago().render(document.querySelectorAll(className));
         }
     },
-    // created(){
-    //   console.log(this.cardData)
-    // },
+    created(){
+        this.getQuestionColor()
+    },
     mounted() {
         this.renderQuestionTime('.timeago')
         // use render method to render nodes in real time
     },
-    updated(){
+    updated() {
         // when signalR adds a question we want the time to be rerendered to show correct time
         // thats why we have same function on mounted and updated
         this.renderQuestionTime('.timeago')

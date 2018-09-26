@@ -63,6 +63,9 @@
 @Feed-Date: #888b8e;
 @Question-Answer-Bg: #f6f6f6;
 
+@Pass-Weak-Color:#ff6f00;
+@Pass-Strong-Color: #7ed321;
+@Pass-Strongest-Color: #7ed321;
 .inTheMiddle() {
   display: flex;
   justify-content: center;
@@ -102,6 +105,28 @@
     }
   }
 }
+// generate classes for question card  based on user selced color, background and font color
+@colors: #ffffff, #6bc248, #a757db, #e5455d, #edaf2e, #7472ff, #3bbda4, #53a0fd, #a09c9c, #abb55e, #d251ae;
+@names: default, green, purple, red, yellow, blue, turquoise, lightBlue, grey, olive, pink;
+@fontColors: #000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff;
+@length: length(@colors);
+.user-question-style(@names; @colors; @fontColors; @index) when (iscolor(extract(@colors, @index))) and (@index > 0) {
+  .user-question-style(@names; @colors; @fontColors; (@index - 1)); // decrement.
+
+  @name: extract(@names, @index);
+  @color: extract(@colors, @index);
+  @fontColor: extract(@fontColors, @index);
+
+  .sbf-card-@{name} {
+    background-color: @color;
+  }
+
+  .sbf-font-@{name} {
+    color: @fontColor!important;
+  }
+}
+.user-question-style(@names, @colors, @fontColors, @length );
+//end function
 
 .placeholder-color(@color, @opacity:1 ) {
 
@@ -277,6 +302,7 @@
 }
 
 // Size constants
+@btnHeight : 40px;
 @navBarHeightMdAndUp: 104px;
 @mainNavHeightXsOnly: 120px;
 @mainNavHeightSmAndUp: 60px;

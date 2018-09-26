@@ -50,6 +50,7 @@ namespace Cloudents.Web.Api
             }
             catch (InvalidOperationException)
             {
+                //TODO: Localize
                 ModelState.AddModelError(string.Empty, "You need to wait before asking a new question");
                 return BadRequest(ModelState);
             }
@@ -114,7 +115,7 @@ namespace Cloudents.Web.Api
 
             var resultTask = new List<Task<IEnumerable<QuestionDto>>>();
             var filters = (model.Filter ?? new QuestionFilter?[] { QuestionFilter.All }).Distinct().ToArray();
-            if (filters.Count() == Enum.GetValues(filters.First().GetType()).Length)
+            if (filters.Length == Enum.GetValues(filters.First().GetType()).Length)
             {
                 filters = new QuestionFilter?[] {QuestionFilter.All};
             }
@@ -137,7 +138,7 @@ namespace Cloudents.Web.Api
             // var result = await queryBus.QueryAsync(query, token).ConfigureAwait(false);
             //var p = result.ToList();
             string nextPageLink = null;
-            if (result.Any() == true)
+            if (result.Any())
             {
                 nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }

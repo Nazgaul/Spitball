@@ -2,11 +2,31 @@
 using System.Threading.Tasks;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Primitives;
 
 namespace Cloudents.Web.Binders
 {
-    public class ReturnUrlEntityBinder : IModelBinder
+    public class ReturnUrlEntityBinder : RefererHeaderModelBinder
     {
+        protected override void BindData(ModelBindingContext bindingContext, StringValues val)
+        {
+            bindingContext.Result = ModelBindingResult.Success(new ReturnUrlRequest { Url = val });
+        }
+
+        public ReturnUrlEntityBinder() : base("returnUrl")
+        {
+        }
+    }
+
+
+    public abstract class RefererHeaderModelBinder : IModelBinder 
+    {
+        private readonly string _key;
+
+        protected RefererHeaderModelBinder(string key)
+        {
+            _key = key;
+        }
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
             var url = bindingContext.HttpContext.Request.Headers["Referer"];
@@ -17,9 +37,9 @@ namespace Cloudents.Web.Binders
                 {
                     return Task.CompletedTask;
                 }
-                if (queryDictionary.TryGetValue("returnUrl",out var val))
+                if (queryDictionary.TryGetValue(_key, out var val))
                 {
-                    bindingContext.Result = ModelBindingResult.Success(new ReturnUrlRequest { Url = val });
+                    BindData(bindingContext, val);
                 }
                 return Task.CompletedTask;
 
@@ -28,5 +48,12 @@ namespace Cloudents.Web.Binders
             bindingContext.Result = ModelBindingResult.Failed();
             return Task.CompletedTask;
         }
+
+        protected abstract void BindData(ModelBindingContext bindingContext, StringValues val);
+
+        //private static void BindData(ModelBindingContext bindingContext, StringValues val)
+        //{
+        //    bindingContext.Result = ModelBindingResult.Success(new ReturnUrlRequest {Url = val});
+        //}
     }
 }

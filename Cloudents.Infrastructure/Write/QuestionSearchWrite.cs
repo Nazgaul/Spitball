@@ -1,157 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Extension;
+﻿using Cloudents.Core.Entities.Search;
 using Cloudents.Infrastructure.Search;
-using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
-using Microsoft.Spatial;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Infrastructure.Write
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class QuestionSearchWrite : SearchServiceWrite<Question>
     {
-        public QuestionSearchWrite(SearchService client, string indexName) : base(client, indexName)
+        private readonly FluentSearchFieldBuilder<Question> _fieldBuilder = new FluentSearchFieldBuilder<Question>();
+        public const string IndexName = "question";
+
+
+        public QuestionSearchWrite(SearchService client) : base(client, IndexName, client.GetClient(IndexName))
         {
         }
 
+
+
         protected override Index GetIndexStructure(string indexName)
         {
-            //var z = FluentSearchField<Question>.Make;
-            //var t = new FluentSearch();
-            //  t.Map<Question>(x => x.Id);
-            //   Microsoft.Azure.Management.Search.Fluent.
+            //_fieldBuilder.Name(indexName)
+            //    .Fields().Map(x => x.Id).IsKey();
+
             return new Index()
             {
                 Name = indexName,
                 Fields = new List<Field>
                 {
 
-                   GetFieldBuilder.Map(x=>x.Id).IsKey().Build(),
+                    _fieldBuilder.Map(x=>x.Id).IsKey(),
+                   _fieldBuilder.Map(x=>x.UserId).IsFilterable(),
+                   _fieldBuilder.Map(x=>x.UserName),
+                   _fieldBuilder.Map(x=>x.UserImage),
+                   _fieldBuilder.Map(x=>x.AnswerCount).IsFilterable().IsFacetable(),
+                   _fieldBuilder.Map(x=>x.FilesCount),
+                   _fieldBuilder.Map(x=>x.DateTime).IsSortable(),
+                   _fieldBuilder.Map(x=>x.HasCorrectAnswer).IsFilterable(),
+                   _fieldBuilder.Map(x=>x.Price),
+                   _fieldBuilder.Map(x=>x.Text).IsSearchable(),
+                   _fieldBuilder.Map(x=>x.Color),
+                   _fieldBuilder.Map(x=>x.Subject).IsFilterable().IsFacetable(),
+                    _fieldBuilder.Map(x=>x.Prefix).IsSearchable().WithIndexAnalyzer(AnalyzerName.Create("prefix")).WithSearchAnalyzer(AnalyzerName.StandardLucene),
+                   //_fieldBuilder.Map(x=>x.SubjectText).IsFilterable().IsSearchable(),
 
-                   GetFieldBuilder.Map(x=>x.UserId).Build(),
-                   GetFieldBuilder.Map(x=>x.UserName).Build(),
-                   GetFieldBuilder.Map(x=>x.UserImage).Build(),
+                },
+                Analyzers = new List<Analyzer>
+                {
+                    new CustomAnalyzer("prefix",TokenizerName.Standard,new List<TokenFilterName>
+                    {
+                        TokenFilterName.Lowercase,
+                        TokenFilterName.Stopwords,
+                        TokenFilterName.Create("my_edgeNGram")
+                    }),
+                },
+                TokenFilters = new List<TokenFilter>
+                {
+                    new EdgeNGramTokenFilterV2("my_edgeNGram",2,20)
+                },
+                ScoringProfiles = new List<ScoringProfile>
+                {
+                    new ScoringProfile("ScoringProfile")
+                    {
+                        TextWeights = new TextWeights(new Dictionary<string, double>
+                        {
+                            [nameof(Question.Text)] = 3,
+                            //[nameof(Question.Subject)] = 1,
+                            [nameof(Question.Prefix)] = 1,
 
-                   GetFieldBuilder.Map(x=>x.AnswerCount).IsFilterable().IsFacetable()
-                       .Build(),
-                   GetFieldBuilder.Map(x=>x.FilesCount).Build(),
-
-
-                   GetFieldBuilder.Map(x=>x.DateTime).IsSortable().Build(),
-                   GetFieldBuilder.Map(x=>x.HasCorrectAnswer).IsFilterable().Build(),
-                   GetFieldBuilder.Map(x=>x.Price).Build(),
-                   GetFieldBuilder.Map(x=>x.Text).IsSearchable().Build(),
-                   GetFieldBuilder.Map(x=>x.Color).Build(),
-                   GetFieldBuilder.Map(x=>x.Subject).IsFilterable().IsFacetable().Build(),
-
-                }
+                        })
+                    }
+                },
+                DefaultScoringProfile = "ScoringProfile"
             };
         }
-    }
-
-
-    public class FluentSearchField<T>
-    {
-        private Field _field = new Field();
-
-        public static FluentSearchField<T> Make => new FluentSearchField<T>();
-
-        public Field Build()
-        {
-            return _field;
-        }
-
-
-        public FluentSearchField<T> Map(Expression<Func<T, object>> memberExpression, DataType type)
-        {
-            string name = memberExpression.GetName();
-            _field.Name = name;
-            _field.Type = type;
-            return this;
-
-            //var z = memberExpression;
-            //  return new Field();
-        }
-
-
-        public FluentSearchField<T> Map(Expression<Func<T, object>> memberExpression)
-        {
-            var expression = (MemberExpression)memberExpression.Body;
-            string name = memberExpression.GetName();
-            var propertyInfo = (PropertyInfo)expression.Member;
-            _field.Name = name;
-            _field.Type = GetDataType(propertyInfo.PropertyType, name);
-            return this;
-        }
-
-        public FluentSearchField<T> IsSearchable()
-        {
-            _field.IsSearchable = true;
-            return this;
-        }
-        public FluentSearchField<T> IsSortable()
-        {
-            _field.IsSortable = true;
-            return this;
-        }
-
-        public FluentSearchField<T> IsFacetable()
-        {
-            _field.IsFacetable = true;
-            return this;
-        }
-
-        public FluentSearchField<T> IsFilterable()
-        {
-            _field.IsFilterable = true;
-            return this;
-        }
-
-        public FluentSearchField<T> IsKey()
-        {
-            _field.IsKey = true;
-            return this;
-        }
-
-
-
-        private static DataType GetDataType(Type propertyType, string propertyName)
-        {
-            if (propertyType == typeof(string))
-            {
-                return DataType.String;
-            }
-            if (propertyType == typeof(int))
-            {
-                return DataType.Int32;
-            }
-            if (propertyType == typeof(long))
-            {
-                return DataType.Int64;
-            }
-            if (propertyType == typeof(double))
-            {
-                return DataType.Double;
-            }
-            if (propertyType == typeof(bool))
-            {
-                return DataType.Boolean;
-            }
-            if (propertyType == typeof(DateTimeOffset) || propertyType == typeof(DateTime))
-            {
-                return DataType.DateTimeOffset;
-            }
-            if (propertyType == typeof(GeographyPoint))
-            {
-                return DataType.GeographyPoint;
-            }
-            throw new ArgumentException(string.Format("Property {0} has unsupported type {1}", propertyName, propertyType), "propertyType");
-        }
-
-
     }
 }

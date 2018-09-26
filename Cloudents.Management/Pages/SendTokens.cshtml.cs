@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command.Admin;
+using Cloudents.Core.Command;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.DTOs.Admin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Query.Admin;
 
 namespace Cloudents.Management.Pages
 {
@@ -18,13 +14,11 @@ namespace Cloudents.Management.Pages
     {
     
         private readonly Lazy<ICommandBus> _commandBus;
-        private readonly IQueryBus _queryBus;
 
 
-        public SendTokensModel(Lazy<ICommandBus> commandBus, IQueryBus queryBus)
+        public SendTokensModel(Lazy<ICommandBus> commandBus)
         {
             _commandBus = commandBus;
-            _queryBus = queryBus;
         }
 
 
@@ -35,9 +29,8 @@ namespace Cloudents.Management.Pages
             [Required]
             public long UserId { get; set; }
             [Required]
-            public decimal SBL { get; set; }
-            [Required]
-            public TransactionType TypeId { get; set; }
+            [Display(Name = "SBL")]
+            public decimal Tokens { get; set; }
         }
 
 
@@ -48,13 +41,7 @@ namespace Cloudents.Management.Pages
 
         public async Task<IActionResult> OnPostAsync(CancellationToken token)
         {
-            var command = new CreateSendTokensCommand
-            {
-               UserId = Model.UserId,
-               Price = Model.SBL,
-               TypeId = Model.TypeId
-            };
-
+            var command = new DistributeTokensCommand(Model.UserId, Model.Tokens, ActionType.None);
             await _commandBus.Value.DispatchAsync(command, token);
             return RedirectToPage("SendTokens");
 

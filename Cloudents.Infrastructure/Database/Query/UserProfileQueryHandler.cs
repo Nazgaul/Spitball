@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -10,6 +11,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UserProfileQueryHandler : IQueryHandler<UserDataByIdQuery, ProfileDto>
     {
         private readonly ISession _session;
@@ -57,11 +59,6 @@ namespace Cloudents.Infrastructure.Database.Query
 
             answerQuery.ThenFetch(f => f.Subject);
             answerQuery.ThenFetch(f => f.User);
-
-            //var futureAnswers = _session.Query<Answer>()
-            //    .Fetch(f => f.Question)
-
-            //    .ThenFetch(f => f.Subject)
 
             var futureAnswers = answerQuery.Where(w => w.User.Id == query.Id)
                 .OrderByDescending(o => o.Question.Id)

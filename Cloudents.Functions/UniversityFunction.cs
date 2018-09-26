@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
+using Cloudents.Core.Query;
 using Cloudents.Functions.Di;
 using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
@@ -19,7 +19,7 @@ namespace Cloudents.Functions
 {
     public static class UniversityFunction
     {
-        [FunctionName("UniversityTimer")]
+        //[FunctionName("UniversityTimer")]
         [UsedImplicitly]
         public static async Task RunAsync([TimerTrigger("0 */30 * * * *")]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/university-version.txt",FileAccess.ReadWrite)]

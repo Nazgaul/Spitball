@@ -31,12 +31,7 @@ namespace Cloudents.Infrastructure.Storage
         {
             var queue = _queueClient.GetQueueReference(queueName.Name);
             var json = JsonConvert.SerializeObject(obj);
-            //var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings()
-            //{
-            //    TypeNameHandling = TypeNameHandling.Auto
-            //});
             var cloudMessage = new CloudQueueMessage(json);
-
             return queue.AddMessageAsync(cloudMessage);
         }
     }
