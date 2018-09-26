@@ -117,10 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>login</value>
+  <data name="Balances" xml:space="preserve">
+    <value>יתרות</value>
   </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
+  <data name="Cash_Out" xml:space="preserve">
+    <value>משוך את הכסף</value>
+  </data>
+  <data name="currency" xml:space="preserve">
+    <value>$</value>
+  </data>
+  <data name="more_SBL_more_valuable" xml:space="preserve">
+    <value>ככל שיש לך יותר נקודות כך הם שווים יותר</value>
+  </data>
+  <data name="My_Wallet" xml:space="preserve">
+    <value>החשבון שלי</value>
+  </data>
+  <data name="redeemable_SBL" xml:space="preserve">
+    <value>להמר את הנקודות לכסף BUYME</value>
+  </data>
+  <data name="SBL" xml:space="preserve">
+    <value>נקודות</value>
+  </data>
+  <data name="Transaction" xml:space="preserve">
+    <value>עסקאות</value>
+  </data>
+  <data name="You_have" xml:space="preserve">
+    <value>יש לך</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +9,9 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -76,12 +79,16 @@ namespace Cloudents.Web.Api
             }
         }
 
-        //[HttpPost("university")]
-        //public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
-        //{
-        //    var command = _mapper.Map<AssignUniversityToUserCommand>(model);
-        //    await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
-        //    return Ok();
-        //}
+        [AllowAnonymous,HttpPost("language")]
+        public IActionResult ChangeLanguage(string culture)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            return Ok();
+        }
     }
 }

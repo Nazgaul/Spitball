@@ -117,10 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>login</value>
+  <data name="free" xml:space="preserve">
+    <value>חינם</value>
   </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
+  <data name="service" xml:space="preserve">
+    <value>שירות</value>
+  </data>
+  <data name="spitball_is_a_completely" xml:space="preserve">
+    <value>ספיטבול זה לגמרי</value>
   </data>
 </root>

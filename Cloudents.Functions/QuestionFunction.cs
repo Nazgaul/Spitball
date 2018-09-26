@@ -28,25 +28,27 @@ namespace Cloudents.Functions
         }
 
 
-        //[FunctionName("QuestionSearchSync")]
-        //public static async Task RunQuestionSearchAsync([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer,
-        //    [Blob("spitball/AzureSearch/question-version.txt", FileAccess.ReadWrite)]
+        [FunctionName("QuestionSearchSync")]
+        public static async Task RunQuestionSearchAsync([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer,
+            [OrchestrationClient] DurableOrchestrationClient starter,
+//            [Blob("spitball/AzureSearch/question-version.txt", FileAccess.ReadWrite)]
         //    CloudBlockBlob blob,
         //    [Inject]
         //    IQueryBus bus,
         //    [Inject] ISearchServiceWrite<Question> searchServiceWrite,
-        //    TraceWriter log,
-        //    CancellationToken token)
-        //{
-        //    //var (update, delete, version) = await bus.QueryAsync<(IEnumerable<QuestionAzureSyncDto> update, IEnumerable<long> delete, long version)>(query, token);
-        //    await SyncFunc.SyncAsync2(blob, searchServiceWrite, s =>
-        //        {
-        //            s.Prefix = s.Text;
-        //            return s;
-        //        }, q => bus.QueryAsync(q, token),
-        //        log, token);
-        //    log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
-        //}
+            TraceWriter log,
+            CancellationToken token)
+        {
+            await starter.StartNewAsync("SearchSync", null);
+            //    //var (update, delete, version) = await bus.QueryAsync<(IEnumerable<QuestionAzureSyncDto> update, IEnumerable<long> delete, long version)>(query, token);
+            //    await SyncFunc.SyncAsync2(blob, searchServiceWrite, s =>
+            //        {
+            //            s.Prefix = s.Text;
+            //            return s;
+            //        }, q => bus.QueryAsync(q, token),
+            //        log, token);
+            //    log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
+        }
 
         [FunctionName("QuestionPopulate")]
         public static async Task QuestionPopulateAsync([TimerTrigger("0 */15 * * * *", RunOnStartup = true)]TimerInfo myTimer,
