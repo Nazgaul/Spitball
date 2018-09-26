@@ -7,7 +7,6 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env) => {
-    devtool: "source-map";
     const isDevBuild = !(env && env.prod);
     const devMode = isDevBuild ? 'development':'production';
     return [{

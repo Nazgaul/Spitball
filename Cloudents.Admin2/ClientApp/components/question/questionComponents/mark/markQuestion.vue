@@ -22,7 +22,7 @@
         display:flex;
         margin:0 auto;
         flex-direction: column;
-        border: 1px solid black;
+        border: 1px solid #b6b6b6;
         margin-bottom: 10px;
         width: 70%;
         min-width:500px;
@@ -30,7 +30,7 @@
             display: flex;
             justify-content: center;
             padding:10px;
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid #b6b6b6;
             background-color: #c0eaac;
             span{
                 border-right: 1px solid #9dc889;
