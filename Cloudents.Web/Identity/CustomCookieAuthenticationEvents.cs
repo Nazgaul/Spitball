@@ -35,6 +35,12 @@ namespace Cloudents.Web.Identity
             if (lastCheck < DateTime.UtcNow.AddMinutes(-5))
             {
                 var user = await _userManager.GetUserAsync(context.Principal);
+                if (user == null)
+                {
+                    context.RejectPrincipal();
+                    await _signInManager.SignOutAsync();
+                    return;
+                }
                 if (user.LockoutEnd.HasValue && DateTime.UtcNow < user.LockoutEnd.Value)
                 {
                     context.RejectPrincipal();

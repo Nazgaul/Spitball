@@ -15,12 +15,10 @@ import step_7 from "./steps/step_7.vue";
 import step_8 from "./steps/step_8.vue";
 import step_9 from "./steps/step_9.vue";
 import step_10 from "./steps/step_10.vue";
-import {LanguageService} from "../../services/language/languageService";
-
+import { LanguageService } from "../../services/language/languageService";
 const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;
-
 export default {
     components: {
         stepTemplate,
@@ -42,7 +40,7 @@ export default {
     },
     data() {
         return {
-            passScoreObj:{
+            passScoreObj: {
                 0: {
                     name: LanguageService.getValueByKey("login_password_indication_weak"),
                     className: "bad"
@@ -98,7 +96,7 @@ export default {
             passDialog: false,
             toasterTimeout: 5000,
             stepNumber: 1,
-            lastStep:[],
+            lastStep: [],
             userEmail: this.$store.getters.getEmail || '',
             recaptcha: '',
             stepsEnum: {
@@ -141,7 +139,7 @@ export default {
             let filteredSteps = this.stepNumber !== 7 && this.stepNumber !== 8 && this.stepNumber !== 9 && this.stepNumber !== 10;
             return filteredSteps
         },
-         isMobile() {
+        isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
         //profile data relevant for each stepNumber
@@ -160,16 +158,16 @@ export default {
                 this.lastStep.push(this.stepNumber);
                 //must insert a step to the history otherwise it will return to the previous route
                 let fakeObj = {};
-                if(!skipPushState){
+                if (!skipPushState) {
                     history.pushState(fakeObj, null);
                 }
                 this.stepNumber = this.stepsEnum[step];
             }
             console.log(this.stepNumber)
         },
-        goBackStep(stepNumber){
+        goBackStep(stepNumber) {
             let lastStepPoint = this.lastStep.pop();
-            if(!lastStepPoint){
+            if (!lastStepPoint) {
                 lastStepPoint = 1;
             }
             this.stepNumber = parseInt(lastStepPoint);
@@ -189,6 +187,7 @@ export default {
             this.showDialog = false
         },
     },
+
     mounted() {
         this.$nextTick(function () {
             gapi.load('auth2', function () {
@@ -198,11 +197,11 @@ export default {
             })
         })
     },
+
     created() {
-        console.log(this.stepNumber)
         //history update event, fires when back btn clicked
-        global.onpopstate = (event)=> {
-                this.goBackStep()
+        global.onpopstate = (event) => {
+            this.goBackStep()
         };
         //event liseners for all steps
         this.$on('changeStep', (stepName) => {
@@ -217,7 +216,7 @@ export default {
         this.$on('fromCreate', (create) => {
             if (create === 'create') {
                 this.camefromCreate = true
-            }else if(create === 'forgot'){
+            } else if (create === 'forgot') {
                 this.camefromCreate = false
             }
         });
@@ -248,15 +247,4 @@ export default {
 
         }
     },
-    //value = String; query = ['String', 'String','String'] || []
-    // filters: {
-    //     bolder: function (value, query) {
-    //         if (query.length) {
-    //             query.map((item) => {
-    //                 value = value.replace(item, '<span class="bolder">' + item + '</span>')
-    //             });
-    //         }
-    //         return value
-    //     }
-    // }
 }

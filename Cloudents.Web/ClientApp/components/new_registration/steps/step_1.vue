@@ -11,8 +11,8 @@
                 <div class="checkbox-terms">
                     <input type="checkbox" v-model="agreeTerms" id="agreeTerm"/>
                     <label for="agreeTerm"></label>
-                    <span><span v-language:inner>login_agree</span><br/><router-link
-                            to="terms" v-language:inner> login_terms_of_services</router-link>&nbsp; <span v-language:inner>login_and</span>&nbsp;  <router-link
+                    <span><span v-language:inner>login_agree</span>&nbsp;<router-link
+                            to="terms" v-language:inner> login_terms_of_services</router-link>&nbsp;<span v-language:inner>login_and</span>&nbsp;<router-link
                             to="privacy" v-language:inner>login_privacy_policy</router-link></span>
                 </div>
                 <span class="has-error" v-if="confirmCheckbox"
@@ -28,8 +28,8 @@
                 <div class="checkbox-terms" v-if="!isMobile">
                     <input type="checkbox" v-model="agreeTerms" id="agreeTermDesk"/>
                     <label for="agreeTermDesk"></label>
-                    <span><span v-language:inner>login_agree</span>&nbsp; <router-link
-                            to="terms" v-language:inner>login_terms_of_services</router-link>&nbsp;<span v-language:inner>login_and</span> &nbsp; <router-link
+                    <span><span v-language:inner>login_agree</span>&nbsp;<router-link
+                            to="terms" v-language:inner>login_terms_of_services</router-link>&nbsp;<span v-language:inner>login_and</span>&nbsp;<router-link
                             to="privacy" v-language:inner>login_privacy_policy</router-link></span>
                 </div>
                 <div class="has-error" v-if="confirmCheckbox && !isMobile"
@@ -66,8 +66,8 @@
                 </v-btn>
                 <div class="signin-strip">
                     <div v-if="isSignIn">
-                    <span v-language:inner>login_need_account_text</span>&nbsp;
-                    <a class="click" @click="goToEmailLogin()" v-language:inner>login_need_account_link</a>
+                        <span v-language:inner>login_need_account_text</span>&nbsp;
+                        <a class="click" @click="goToEmailLogin()" v-language:inner>login_need_account_link</a>
                     </div>
                     <div v-else>
                         <span v-language:inner>login_already_have_account</span>&nbsp;
@@ -116,6 +116,7 @@
     import { mapActions,  mapMutations } from 'vuex'
     import registrationService from "../../../services/registrationService";
     var auth2;
+    const defaultSubmitRoute = {path: '/ask'};
 
     export default {
         components: {stepTemplate, SbInput },
@@ -143,7 +144,9 @@
             isSignIn: {
                 type: Boolean,
                 default: false
-            }
+            },
+            toUrl: {},
+
         },
         computed: {
             confirmCheckbox(){
@@ -157,29 +160,31 @@
                 if(!this.agreeTerms){
                     return  this.agreeError = true;
                 }
-                // var self = this;
+                var self = this;
                 this.updateLoading(true);
                 let authInstance = gapi.auth2.getAuthInstance();
                 authInstance.signIn().then((googleUser) => {
                     let idToken = googleUser.getAuthResponse().id_token;
                     registrationService.googleRegistration(idToken)
                         .then((resp)=> {
-                            this.updateLoading(false);
+                            self.updateLoading(false);
                             let newUser = resp.data.isNew;
                             if (newUser) {
                                 analyticsService.sb_unitedEvent('Registration', 'Start Google');
+                                self.$parent.$emit('changeStep', 'enterphone');
                             } else {
                                 analyticsService.sb_unitedEvent('Login', 'Start Google');
+                                //user existing
+                                global.isAuth = true;
+                                let url = self.toUrl || defaultSubmitRoute;
+                                self.$router.push({path: `${url.path }`});
                             }
-                            let step = resp.data.step;
-                            this.$parent.$emit('changeStep', step);
-
                         },  (error)=> {
-                            this.updateLoading(false);
-                            this.errorMessage.gmail = error.response.data["Google"] ? error.response.data["Google"][0] : '';
+                            self.updateLoading(false);
+                            self.errorMessage.gmail = error.response.data["Google"] ? error.response.data["Google"][0] : '';
                         });
                 },  (error)=> {
-                    this.updateLoading(false);
+                    self.updateLoading(false);
                 });
             },
             goToEmailLogin(){

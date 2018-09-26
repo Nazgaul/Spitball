@@ -8,7 +8,12 @@
             IsNew = isNew;
         }
 
-        public NextStep Step { get; set; }
+        public ReturnSignUserResponse(bool isNew)
+        {
+            IsNew = isNew;
+        }
+
+        public NextStep? Step { get; set; }
         public bool IsNew { get; set; }
 
         public string ReturnUrl { get; set; }

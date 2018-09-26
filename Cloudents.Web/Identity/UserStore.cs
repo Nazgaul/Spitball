@@ -164,12 +164,6 @@ namespace Cloudents.Web.Identity
 
         public Task SetPhoneNumberAsync(User user, string phoneNumber, CancellationToken cancellationToken)
         {
-            
-            //PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
-                         
-            //PhoneNumber numberProto = phoneUtil.Parse(phoneNumber, "");
-            //int countryCode = numberProto.CountryCode;
-            //user.CountryCodePhone = countryCode.ToString();
             user.PhoneNumber = phoneNumber;
             return Task.CompletedTask;
         }
@@ -269,10 +263,12 @@ namespace Cloudents.Web.Identity
             return Task.CompletedTask;
         }
 
-        public Task AddLoginAsync(User user, UserLoginInfo login, CancellationToken cancellationToken)
+        public async Task AddLoginAsync(User user, UserLoginInfo login, CancellationToken cancellationToken)
         {
-            user.AddLogin(login.LoginProvider, login.ProviderKey, login.ProviderDisplayName);
-            return Task.CompletedTask;
+            var command =
+                new AddUserLoginCommand(user, login.LoginProvider, login.ProviderKey, login.ProviderDisplayName);
+
+            await _bus.DispatchAsync(command, cancellationToken);
 
         }
 

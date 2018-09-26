@@ -28,8 +28,8 @@
                     <div class="form-title" v-language:inner>earchitem_Type_it_in_here:</div>
                     <v-text-field light hide-details v-model="newCourseName" autofocus></v-text-field>
                     <div class="actions text-xs-right">
-                        <v-btn class="clear" flat @click="$_clearAddCourse" v-language:inner>searchitem_Cancel</v-btn>
-                        <v-btn class="save" flat :disabled="!newCourseName" @click="$_submitAddCourse" v-language:inner>searchitem_Save</v-btn>
+                        <v-btn class="clear" flat @click="$_clearAddCourse"><span v-language:inner>searchitem_Cancel</span></v-btn>
+                        <v-btn class="save" flat :disabled="!newCourseName" @click="$_submitAddCourse"><span v-language:inner>searchitem_Save</span></v-btn>
                     </div>
                 </form>
             </div>
