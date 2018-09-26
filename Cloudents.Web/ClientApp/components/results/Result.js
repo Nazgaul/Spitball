@@ -126,7 +126,7 @@ export default {
             return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]
         },
         userText() {
-            return this.query.q
+            return this.query.term
         },
         isAcademic() {
             return ACADEMIC_VERTICALS.includes(this.name)
@@ -172,7 +172,7 @@ export default {
         //    3-%%%   fetching data and calling updateData func
         updateContentOfPage(to, from, next) {
             const toName = to.path.slice(1);
-            let params=  {...to.query, ...to.params, term: to.query.q};
+            let params=  {...to.query, ...to.params, term: to.query.term};
             this.fetchingData({name: toName, params}, true)
                 .then((data) => {
                     //update data for this page
@@ -181,7 +181,7 @@ export default {
                     next();
                 }).catch(reason => {
                 //when error from fetching data remove the loader
-                if (to.path === from.path && to.query.q === from.query.q) {
+                if (to.path === from.path && to.query.term === from.query.term) {
                     this.isLoad = false;
                     this.UPDATE_LOADING(false);
                     this.UPDATE_SEARCH_LOADING(false);

@@ -20,7 +20,7 @@
                 <p>{{suggestList[name]}}</p>
             </div>
             <div class="footer">
-                <router-link class="footer-btn" tag="button" :to="{path:'/'+name,query:{q:text}}" v-language:inner>faqBlock_show_me</router-link>
+                <router-link class="footer-btn" tag="button" :to="{path:'/'+name,query:{term:text}}" v-language:inner>faqBlock_show_me</router-link>
             </div>
         </v-flex>
     </v-flex>

@@ -54,7 +54,8 @@
                                         </div>
                                             
                                 </v-flex>
-                                <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 " :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
+                                <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 "
+                                             :to="{path:'/'+currentSuggest,query:{term:this.userText}}">
                                     <suggest-card :name="currentSuggest"></suggest-card>
                                 </router-link>
                             </slot>
@@ -107,7 +108,8 @@
 
         </template>
         <slot name="suggestCell">
-            <router-link slot="suggestCell" tag="v-flex" class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 " :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
+            <router-link slot="suggestCell" tag="v-flex" class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 "
+                         :to="{path:'/'+currentSuggest,query:{term:this.query.term}}">
                 <suggest-card :name="currentSuggest"></suggest-card>
             </router-link>
         </slot>
