@@ -13,29 +13,22 @@ module.exports = (env) => {
         mode: devMode,
         stats: { modules: false },
         context: __dirname,
-        resolve: { extensions: [ '.js', '.ts' ] },
-        entry: { 'main': './ClientApp/boot.ts' },
+        resolve: { extensions: [".js"] },
+        entry: { 'main': './ClientApp/boot.js' },
         module: {
             rules: [
-                { test: /\.vue\.html$/, include: /ClientApp/, loader: 'vue-loader', 
-                options: { 
-                    loaders: 
-                    {   
-                        js: 'ts-loader' ,
-                        scss: ['vue-style-loader','css-loader','sass-loader'],
-                        sass: ['vue-style-loader','css-loader','sass-loader']
-                    }
-                 } 
-                },
-                { test: /\.ts$/, include: /ClientApp/, use: [
-                    {
-                    loader: 'ts-loader',
+                {
+                    test: /\.vue$/, include: /ClientApp/, loader: 'vue-loader',
                     options: {
-                    appendTsSuffixTo: [/\.vue\.html$/]
+                        loaders:
+                            {
+                                js: 'babel-loader',
+                                scss: ['vue-style-loader', 'css-loader', 'sass-loader'],
+                                sass: ['vue-style-loader', 'css-loader', 'sass-loader']
+                            }
                     }
-                    }
-                    ] 
                 },
+                
                 { test: /\.scss$/, use: [ 'style-loader', 'css-loader','sass-loader' ]},
                 { test: /\.css$/, use: isDevBuild ? [ 'style-loader', 'css-loader' ] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
@@ -62,7 +55,7 @@ module.exports = (env) => {
             // Plugins that apply in development builds only
             new webpack.SourceMapDevToolPlugin({
                 filename: '[file].map', // Remove this line if you prefer inline source maps
-                moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
+                moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]'), // Point sourcemap entries to the original file locations on disk
             })
         ] : [
             new UglifyJsPlugin(),
