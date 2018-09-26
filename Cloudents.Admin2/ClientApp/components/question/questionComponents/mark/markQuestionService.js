@@ -9,6 +9,14 @@ function QuestionItem(objInit){
     this.isFictive = objInit.isFictive;
 }
 
+QuestionItem.prototype.toServer = function(){
+    let answerToAccept = {
+        questionId: this.questionId,
+        answerId: this.answerId
+    }
+    return answerToAccept;
+}
+
 function createQuestionItem(objInit){
     return new QuestionItem(objInit);
 }
@@ -16,6 +24,21 @@ function createQuestionItem(objInit){
 export const getAllQuesitons = function(){
     let path = 'AdminMarkQuestion'
     return connectivityModule.http.get(path).then((questions)=>{
+        let arrQuestions = [];
+        if(questions.length > 0){
+            questions.forEach(function(question){
+                arrQuestions.push(createQuestionItem(question));
+            })
+        }
+        return Promise.resolve(arrQuestions)
+    }, (err)=>{
+        return Promise.reject(null)
+    })
+}
+
+export const acceptAnswer = function(question){
+    let path = 'AdminMarkQuestion';
+    return connectivityModule.http.post(path, question).then((questions)=>{
         let arrQuestions = [];
         if(questions.length > 0){
             questions.forEach(function(question){
