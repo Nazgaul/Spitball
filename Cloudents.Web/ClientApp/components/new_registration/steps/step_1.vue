@@ -175,12 +175,10 @@
                             } else {
                                 analyticsService.sb_unitedEvent('Login', 'Start Google');
                                 //user existing
+                                global.isAuth = true;
                                 let url = self.toUrl || defaultSubmitRoute;
                                 self.$router.push({path: `${url.path }`});
                             }
-                            let step = resp.data.step;
-
-
                         },  (error)=> {
                             self.updateLoading(false);
                             self.errorMessage.gmail = error.response.data["Google"] ? error.response.data["Google"][0] : '';
