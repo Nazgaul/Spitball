@@ -9,7 +9,6 @@
                     <span class="static-ab-text">What do you need to ask?</span>
                 </div>
                 <div class="static-center">
-
                 </div>
                 <div class="static-bottom-block">
                     <button class="static-btn btn-subject">

@@ -6,22 +6,18 @@ export default {
     components:{
         askQuestionBtn,
         userAvatar
-
     },
     data() {
         return {
-
         }
     },
     props: {
         userName:{}
-
     },
     computed: {
         ...mapGetters({
             accountUser: 'accountUser',
             loginDialogState: 'loginDialogState'
-
         }),
     },
     methods:{
@@ -36,8 +32,6 @@ export default {
             }
         }
     },
-
     created() {
-
     }
 }
