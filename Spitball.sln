@@ -122,10 +122,10 @@ Global
 		{70D5B492-28D9-4612-87A0-A77C046D9DA9} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_PrefixTranslations = True
-		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
-		RESX_AutoCreateNewLanguageFiles = True
-		RESX_SortFileContentOnSave = True
 		RESX_ExcelExportMode = SingleSheet
+		RESX_SortFileContentOnSave = True
+		RESX_AutoCreateNewLanguageFiles = True
+		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
+		RESX_PrefixTranslations = True
 	EndGlobalSection
 EndGlobal
