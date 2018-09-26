@@ -1,4 +1,4 @@
-﻿﻿
+﻿
 <template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
         <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
@@ -79,8 +79,8 @@
                                             <div class="show-btn" v-show="name !=='ask'" :class="'color-'+$route.path.slice(1)" v-language:inner>result_showme</div>
                                         </div>
                                 </v-flex>
-                                <router-link tag="v-flex"
-                                             class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 "
+                                <router-link tag="v-flex" class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 "
+                                             :to="{path:'/'+currentSuggest,query:{term:this.userText}}">
                                              :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                     <suggest-card :name="currentSuggest"></suggest-card>
                                 </router-link>
@@ -136,9 +136,9 @@
 
         </template>
         <slot name="suggestCell">
-            <router-link slot="suggestCell" tag="v-flex"
-                         class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 "
-                         :to="{path:'/'+currentSuggest,query:{q:this.query.q}}">
+            <router-link slot="suggestCell" tag="v-flex" class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 "
+                         :to="{path:'/'+currentSuggest,query:{term:this.query.term}}">
+                        
                 <suggest-card :name="currentSuggest"></suggest-card>
             </router-link>
         </slot>

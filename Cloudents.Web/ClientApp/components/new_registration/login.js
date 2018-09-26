@@ -224,7 +224,7 @@ export default {
         let path = this.$route.path.toLowerCase();
         //check if returnUrl exists
         if (!!this.$route.query.returnUrl) {
-            this.toUrl = {path: `${this.$route.query.returnUrl}`, query: {q: ''}};
+            this.toUrl = {path: `${this.$route.query.returnUrl}`, query: {term: ''}};
         }
         if (this.$route.query && this.$route.query.step) {
             let step = this.$route.query.step;

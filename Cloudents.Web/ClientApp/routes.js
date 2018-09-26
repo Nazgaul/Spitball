@@ -47,7 +47,7 @@ function dynamicDetailsPropsFn(route) {
 
 function headerResultPageFn(route) {
     return {
-        userText: route.query.q,
+        userText: route.query.term,
         submitRoute: route.path,
         currentSelection: route.path.slice(1)
     }
