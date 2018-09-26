@@ -72,7 +72,7 @@ export default {
                             self.$ga.event("Submit_question", "Homwork help");
                             let val = self.selectedPrice || self.price;
                             self.updateUserBalance(-val);
-                            self.$router.push({path: '/ask', query: {q: ''}});
+                            self.$router.push({path: '/ask', query: {term: ''}});
                             self.updateToasterParams({
                                 toasterText: LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
                                 showToaster: true,
