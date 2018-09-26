@@ -83,10 +83,10 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Answer> Answers { get; set; }
         protected internal virtual IList<UserLogin> UserLogins { get; set; }
 
-        public virtual void AddLogin(string loginProvider, string providerKey, string providerDisplayName)
-        {
-            UserLogins.Add(new UserLogin(loginProvider, providerKey, providerDisplayName, this));
-        }
+        //public virtual void AddLogin(string loginProvider, string providerKey, string providerDisplayName)
+        //{
+        //    UserLogins.Add(new UserLogin(loginProvider, providerKey, providerDisplayName, this));
+        //}
 
         public virtual DateTime Created { get; set; }
 
