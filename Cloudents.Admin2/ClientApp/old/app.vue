@@ -1,29 +1,25 @@
 <template>
-  <div id="template-app">
-        <nav id="nav">
+    <div id="app">
+        <div id="nav">
             <router-link to="/home">Home</router-link> 
             <router-link to="/question">Question</router-link>
-            <router-link to="/user">User</router-link>
-        </nav>
+        </div>
         <div id="app-body">
             <router-view/>
         </div>
     </div>
 </template>
 
-<script>
-export default {
-}
-</script>
+<script lang="ts" src="./app.ts"></script>
 
 <style lang="scss">
-   html,body {
+    html,body {
         height: 100%;
         margin: 0px;
         padding: 0px; 
         background-color: #e0e0e0;
     }
-    #template-app {
+    #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -59,9 +55,12 @@ export default {
         background-color: #7c7979;
     } 
     }
+
     #app-body{
         flex-grow: 1;
         padding: 2px;
         overflow: auto;
     }
-</style>
+    </style>
+
+

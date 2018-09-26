@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Cloudents.Core.Entities.Search;
+﻿using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +14,7 @@ namespace Cloudents.Functions.Sync
         Task CreateIndex(CancellationToken token);
 
 
-        Task DoSync(SyncAzureQuery query, CancellationToken token);
+        Task<long> DoSync(SyncAzureQuery query, CancellationToken token);
         //Task<(IEnumerable<T> update, IEnumerable<long> delete, long version)>GetData<T>();
 
     }
@@ -41,12 +40,12 @@ namespace Cloudents.Functions.Sync
             return _questionServiceWrite.CreateOrUpdateAsync(token);
         }
 
-        public async Task DoSync(SyncAzureQuery query, CancellationToken token)
+        public async Task<long> DoSync(SyncAzureQuery query, CancellationToken token)
         {
             var (update, delete, version) =
-                await _bus.QueryAsync<(IEnumerable<Question> update, IEnumerable<long> delete, long version)>(query,
-                    token);
-            await _questionServiceWrite.UpdateDataAsync(update, delete.Select(s=>s.ToString()), token);
+                await _bus.QueryAsync(query, token);
+            await _questionServiceWrite.UpdateDataAsync(update, delete.Select(s => s.ToString()), token);
+            return version;
         }
     }
 }

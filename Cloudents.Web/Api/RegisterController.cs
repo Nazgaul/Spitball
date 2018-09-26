@@ -11,11 +11,11 @@ using Cloudents.Web.Services;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -103,11 +103,11 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError("Google", _localizer["GoogleNoResponse"]);
                 return BadRequest(ModelState);
             }
-            var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, false);
+
+            var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, false, true);
             if (result2.Succeeded)
             {
-                // Update any authentication tokens if login succeeded
-                return Ok();
+                return new ReturnSignUserResponse(false);
             }
             if (result2.IsLockedOut)
             {
@@ -115,18 +115,41 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
 
             }
-            var user = CreateUser(result.Email, result.Name);
-            user.EmailConfirmed = true;
 
-            var result3 = await _userManager.CreateAsync(user);
+            var user = await _userManager.FindByEmailAsync(result.Email);
 
-            if (result3.Succeeded)
+            if (user == null)
             {
-                await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                await _signInManager.SignInTwoFactorAsync(user, true).ConfigureAwait(false);
-                return new ReturnSignUserResponse(NextStep.EnterPhone, false);
+                user = CreateUser(result.Email, result.Name);
+                user.EmailConfirmed = true;
+
+                var result3 = await _userManager.CreateAsync(user);
+
+                if (result3.Succeeded)
+                {
+                    await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
+                    await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+                    return new ReturnSignUserResponse(NextStep.EnterPhone, true);
+                }
             }
-            ModelState.AddModelError("Google",_localizer["GoogleUserRegisteredWithEmail"]);
+            else
+            {
+                if (!user.EmailConfirmed)
+                {
+                    user.EmailConfirmed = true;
+                    await _userManager.UpdateAsync(user);
+                }
+                await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
+                if (user.PhoneNumberConfirmed)
+                {
+                    await _signInManager.SignInAsync(user, false);
+                    return new ReturnSignUserResponse(false);
+                }
+                await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
+                return new ReturnSignUserResponse(NextStep.EnterPhone, true);
+            }
+
+            ModelState.AddModelError("Google", _localizer["GoogleUserRegisteredWithEmail"]);
             return BadRequest(ModelState);
         }
 

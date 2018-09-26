@@ -253,7 +253,7 @@ export default {
                 sameUser = userId === item.user.id;
             }
         return {
-            'color': !!item.color ? 'white' : '',
+            'color': item.color !== 'default' ? 'white' : '',
             'bottom' : sameUser ? '15px' : ''
             }
         },

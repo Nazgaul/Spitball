@@ -13,12 +13,7 @@
     </div>
 </template>
 
-<script>
-export default {
-    
-}
-</script>
-
+<script lang="ts" src="./question.ts"></script>
 
 
 <style lang="scss" scoped>
