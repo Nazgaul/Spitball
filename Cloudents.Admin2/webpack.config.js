@@ -7,6 +7,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env) => {
+    devtool: "source-map";
     const isDevBuild = !(env && env.prod);
     const devMode = isDevBuild ? 'development':'production';
     return [{
@@ -28,7 +29,7 @@ module.exports = (env) => {
                             }
                     }
                 },
-                
+                { test: /\.js$/, use: 'babel-loader' },
                 { test: /\.scss$/, use: [ 'style-loader', 'css-loader','sass-loader' ]},
                 { test: /\.css$/, use: isDevBuild ? [ 'style-loader', 'css-loader' ] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
@@ -39,6 +40,7 @@ module.exports = (env) => {
             filename: '[name].js',
             publicPath: 'dist/'
         },
+        devtool: isDevBuild ? 'inline-source-map' : 'source-map',
         plugins: [
             new VueLoaderPlugin(),
             new CheckerPlugin(),
@@ -52,11 +54,12 @@ module.exports = (env) => {
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             })
         ].concat(isDevBuild ? [
+            
             // Plugins that apply in development builds only
-            new webpack.SourceMapDevToolPlugin({
-                filename: '[file].map', // Remove this line if you prefer inline source maps
-                moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]'), // Point sourcemap entries to the original file locations on disk
-            })
+            //new webpack.SourceMapDevToolPlugin({
+            //    filename: '[file].map', // Remove this line if you prefer inline source maps
+            //    moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]'), // Point sourcemap entries to the original file locations on disk
+            //})
         ] : [
             new UglifyJsPlugin(),
             // Plugins that apply in production builds only
