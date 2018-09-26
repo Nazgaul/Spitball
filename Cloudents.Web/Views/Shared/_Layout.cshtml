@@ -197,7 +197,7 @@
             window.talkJsId = '@Configuration["TalkJs"]';
     </script>
 
-    
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>
 </html>

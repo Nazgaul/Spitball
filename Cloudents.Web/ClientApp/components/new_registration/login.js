@@ -189,22 +189,13 @@ export default {
     },
 
     mounted() {
-        //google api loading
-        let googleApi = document.createElement('script');
-        googleApi.async = true;
-        googleApi.setAttribute('src', 'https://apis.google.com/js/client:platform.js?onload=start');
-        googleApi.id='googleApi';
-        googleApi.onload = googleApi.onreadystatechange = ()=>{
-            googleApi.onreadystatechange = googleApi.onload = null;
-            this.$nextTick( ()=> {
-                gapi.load('auth2', ()=> {
-                    auth2 = gapi.auth2.init({
-                        client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
-                    })
-                });
+        this.$nextTick(function () {
+            gapi.load('auth2', function () {
+                auth2 = gapi.auth2.init({
+                    client_id: '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com',
+                })
             })
-        };
-        document.head.appendChild(googleApi);
+        })
     },
 
     created() {
