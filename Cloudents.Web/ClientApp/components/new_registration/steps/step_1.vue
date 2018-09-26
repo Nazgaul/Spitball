@@ -11,8 +11,8 @@
                 <div class="checkbox-terms">
                     <input type="checkbox" v-model="agreeTerms" id="agreeTerm"/>
                     <label for="agreeTerm"></label>
-                    <span><span v-language:inner>login_agree</span><br/><router-link
-                            to="terms" v-language:inner> login_terms_of_services</router-link>&nbsp; <span v-language:inner>login_and</span>&nbsp;  <router-link
+                    <span><span v-language:inner>login_agree</span>&nbsp;<router-link
+                            to="terms" v-language:inner> login_terms_of_services</router-link>&nbsp;<span v-language:inner>login_and</span>&nbsp;<router-link
                             to="privacy" v-language:inner>login_privacy_policy</router-link></span>
                 </div>
                 <span class="has-error" v-if="confirmCheckbox"
@@ -28,8 +28,8 @@
                 <div class="checkbox-terms" v-if="!isMobile">
                     <input type="checkbox" v-model="agreeTerms" id="agreeTermDesk"/>
                     <label for="agreeTermDesk"></label>
-                    <span><span v-language:inner>login_agree</span>&nbsp; <router-link
-                            to="terms" v-language:inner>login_terms_of_services</router-link>&nbsp;<span v-language:inner>login_and</span> &nbsp; <router-link
+                    <span><span v-language:inner>login_agree</span>&nbsp;<router-link
+                            to="terms" v-language:inner>login_terms_of_services</router-link>&nbsp;<span v-language:inner>login_and</span>&nbsp;<router-link
                             to="privacy" v-language:inner>login_privacy_policy</router-link></span>
                 </div>
                 <div class="has-error" v-if="confirmCheckbox && !isMobile"
@@ -66,8 +66,8 @@
                 </v-btn>
                 <div class="signin-strip">
                     <div v-if="isSignIn">
-                    <span v-language:inner>login_need_account_text</span>&nbsp;
-                    <a class="click" @click="goToEmailLogin()" v-language:inner>login_need_account_link</a>
+                        <span v-language:inner>login_need_account_text</span>&nbsp;
+                        <a class="click" @click="goToEmailLogin()" v-language:inner>login_need_account_link</a>
                     </div>
                     <div v-else>
                         <span v-language:inner>login_already_have_account</span>&nbsp;
