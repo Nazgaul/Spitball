@@ -127,7 +127,8 @@ namespace Cloudents.Web.Api
             if (result3.Succeeded)
             {
                 await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                await _signInManager.SignInTwoFactorAsync(user, true).ConfigureAwait(false);
+                await _signInManager.SignInAsync(user, false);
+                //await _signInManager.SignInTwoFactorAsync(user, false).ConfigureAwait(false);
                 return new ReturnSignUserResponse(NextStep.EnterPhone, true);
             }
             ModelState.AddModelError("Google", _localizer["GoogleUserRegisteredWithEmail"]);
