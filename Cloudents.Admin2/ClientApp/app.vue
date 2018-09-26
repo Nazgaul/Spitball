@@ -39,6 +39,7 @@ export default {
         border-right: 2px solid #575f67;  
         width: 200px;
         max-width: 200px;
+        min-width: 200px;
         position:sticky;
         top:0;
     a {

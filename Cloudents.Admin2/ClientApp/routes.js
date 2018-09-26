@@ -37,6 +37,10 @@ export const routes = [
             path:'add',
             component: QAdd
           },
+          {
+            path: '*',
+            redirect: 'mark',
+          },
         ]
       },
       {

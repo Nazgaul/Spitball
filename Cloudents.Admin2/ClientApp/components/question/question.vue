@@ -9,7 +9,6 @@
         <div class="question-content">
             <router-view></router-view>
         </div>
-        
     </div>
 </template>
 
