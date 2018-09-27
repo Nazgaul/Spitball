@@ -11,6 +11,7 @@ import Account from "./account";
 import Toaster from "./Toaster";
 import MarketingCampaign from './marketingCampaigns'
 import loginDialog from './loginDialog'
+import newQuestionDialog from './newQuestionDialog'
 //TODO: server side fix
 import createPersistedState from "vuex-persistedstate"
 import notification from "./notification";
@@ -62,6 +63,7 @@ const store = new Vuex.Store({
         Toaster,
         MarketingCampaign,
         loginDialog,
+        newQuestionDialog,
         notification
     },
     plugins: plugins

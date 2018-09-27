@@ -67,6 +67,10 @@
         <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'" :content-class="'login-popup'">
             <login-to-answer></login-to-answer>
         </sb-dialog>
+        <sb-dialog :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'" :content-class="'newQuestionDialog'">
+            <new-question></new-question>
+        </sb-dialog>
+
     </div>
 </template>
 
@@ -83,9 +87,11 @@
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
     import {LanguageService } from "../../services/language/languageService";
+    import NewQuestion from "../question/newQuestion/newQuestion";
 
     export default {
         components: {
+            NewQuestion,
             PersonalizeDialog,
             AppLogo,
             SearchInput,
@@ -123,7 +129,7 @@
             layoutClass: {}
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText', 'loginDialogState']),
+            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText', 'loginDialogState', 'newQuestionDialogSate']),
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
@@ -150,7 +156,7 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateLoginDialogState', 'resetData']),
+            ...mapActions(['updateToasterParams', 'updateLoginDialogState', 'resetData', 'updateNewQuestionDialogState']),
             //TODO: what is that
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
@@ -177,7 +183,6 @@
             }
         },
         created() {
-            console.log('route::', this.submitRoute)
             this.$root.$on("personalize",
                 (type) => {
                     this.clickOnce = true;
