@@ -189,8 +189,7 @@
                 if (!this.agreeTerms && !this.isSignIn) {
                     return this.agreeError = true
                 }
-                router.push({ name: 'user', params: { userId: 123 }})
-                this.$parent.$emit('changeStep', 'termandstart');
+                this.$parent.$emit('changeStep', 'startstep');
             },
             goTosignUp(){
                 if (!this.agreeTerms && !this.isSignIn) {
@@ -200,7 +199,7 @@
             },
             goToLogin() {
                 this.passDialog = false;
-                this.$parent.$emit('changeStep', 'loginStep');
+                this.$parent.$emit('changeStep', 'startstep');
 
             },
             redirectToSignIn(){
