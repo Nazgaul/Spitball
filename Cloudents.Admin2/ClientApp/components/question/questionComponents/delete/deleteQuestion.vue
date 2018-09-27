@@ -8,7 +8,7 @@
         <h4 v-else-if="infoError">{{infoError}}</h4>
     </div>
     <div class="input-wrap">
-        <input class="id-input" type="text" v-model="questionsIdString" placeholder="IDS comma delimited">
+        <input class="id-input" type="text" v-model="questionsIdString" placeholder="example: 1245,6689,1123">
         <button @click="deleteByIds" class="btn-danger">Delete</button>
     </div>
 </div>
@@ -34,16 +34,19 @@ export default {
                     this.questionsIds = this.questionsIdString.split(',');
                     let numberArr= [];
                     this.questionsIds.forEach(id=>{
-                        return numberArr.push(parseInt(id));
+                        return numberArr.push(parseInt(id.trim()));
                     })
-                    deleteQuestion(numberArr).then(resp=>{
+                    deleteQuestion(numberArr)
+                    .then(resp=>{
+                     
+                        alert(`Questions were deleted: ${this.questionsIdString}`);
                             this.questionsIdString= '';
                             this.questionsIds = [];
-                            this.infoSuccess = 'Done, questions were deleted'    
+                           
 
                     },
                     (error)=>{
-                            this.infoError = 'Something went wrong, try again'    
+                             alert('Something went wrong');
                             console.log('component delete error', error)
                     }
                     )
