@@ -1,49 +1,54 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using Cloudents.Core;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
+using Cloudents.Web.Hubs;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
 using Cloudents.Web.Services;
-using Cloudents.Web.Swagger;
 using JetBrains.Annotations;
+using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.ApplicationInsights.AspNetCore;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.SnapshotCollector;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Joonasw.AspNetCore.SecurityHeaders;
-using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
-using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.Globalization;
+using System.Reflection;
+using System.Threading.Tasks;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
 namespace Cloudents.Web
 {
-    public class Startup
+    public partial class Startup
     {
         public const string IntegrationTestEnvironmentName = "Integration-Test";
+        internal const int PasswordRequiredLength = 8;
+
+        public static readonly CultureInfo[] SupportedCultures = {
+
+            new CultureInfo("en"),
+           // new CultureInfo("he"),
+        };
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
@@ -54,19 +59,19 @@ namespace Cloudents.Web
         private IConfiguration Configuration { get; }
         private IHostingEnvironment HostingEnvironment { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        // For more information on how to conapp\Cloudents.Web\Startup.csfigure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 
         [UsedImplicitly]
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Configure SnapshotCollector from application settings
             services.Configure<SnapshotCollectorConfiguration>(Configuration.GetSection(nameof(SnapshotCollectorConfiguration)));
-
             // Add SnapshotCollector telemetry processor.
             services.AddSingleton<ITelemetryProcessorFactory>(sp => new SnapshotCollectorTelemetryProcessorFactory(sp));
             services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
             services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
 
+            services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddDataProtection(o =>
             {
                 o.ApplicationDiscriminator = "spitball";
@@ -78,13 +83,16 @@ namespace Cloudents.Web
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
 
-            services.AddDataProtection(o =>
-            {
-                o.ApplicationDiscriminator = "spitball";
-            }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
-
             services.AddWebMarkupMin().AddHtmlMinification();
             services.AddMvc()
+                .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
+                {
+                    o.DataAnnotationLocalizerProvider = (type, factory) =>
+                    {
+                        var assemblyName = new AssemblyName(typeof(DataAnnotationSharedResource).GetTypeInfo().Assembly.FullName);
+                        return factory.Create("DataAnnotationSharedResource", assemblyName.Name);
+                    };
+                })
                 .AddCookieTempDataProvider(o =>
                 {
                     o.Cookie.Name = "td";
@@ -95,9 +103,12 @@ namespace Cloudents.Web
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-            }).AddMvcOptions(o =>
-                {
+            })
 
+                .AddMvcOptions(o =>
+                {
+                    //TODO: check in source code
+                    // o.SuppressBindingUndefinedValueToEnumType
                     o.Filters.Add(new GlobalExceptionFilter());
                     o.Filters.Add(new ResponseCacheAttribute
                     {
@@ -105,14 +116,19 @@ namespace Cloudents.Web
                         Location = ResponseCacheLocation.None
                     });
                     o.ModelBinderProviders.Insert(0, new ApiBinder());
-                    //o.ModelBinderProviders.Insert(0,new ProtectedIdModelBinderProvider());
                 }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             if (HostingEnvironment.IsDevelopment())
             {
                 SwaggerInitial(services);
             }
 
-            
+            services.AddSignalR().AddRedis(Configuration["Redis"]).AddJsonProtocol(o =>
+                {
+                    o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                    o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
+                });
+
             services.AddResponseCompression();
             services.AddResponseCaching();
 
@@ -128,57 +144,69 @@ namespace Cloudents.Web
 
                 options.User.RequireUniqueEmail = true;
 
-                options.Password.RequiredLength = 1;
+                options.Password.RequiredLength = PasswordRequiredLength;
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredUniqueChars = 0;
-            }).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
+                options.Lockout.MaxFailedAccessAttempts = 3;
 
-            services.AddAuthorization();
+
+            }).AddDefaultTokenProviders().AddSignInManager<SbSignInManager>();
+            //services.Configure<SecurityStampValidatorOptions>(o =>
+            //{
+            //    o.ValidationInterval = TimeSpan.FromMinutes(2);
+            //});
+            
             services.ConfigureApplicationCookie(o =>
             {
-                o.Cookie.Name = "sb2";
-                o.Events.OnRedirectToLogin = context =>
-                {
-                    context.Response.StatusCode = 401;
-                    return Task.CompletedTask;
-                };
-                o.Events.OnRedirectToAccessDenied = context =>
-                {
-                    context.Response.StatusCode = 401;
-                    return Task.CompletedTask;
-                };
+                o.EventsType = typeof(CustomCookieAuthenticationEvents);
+                o.Cookie.Name = "sb3";
+                o.SlidingExpiration = true;
+                //o.Events.OnValidatePrincipal = context =>
+                //{
+                //    context.
+                //    return Task.CompletedTask;
+                //};
+                //o.Events.OnRedirectToLogin = context =>
+                //{
+                //    context.Response.StatusCode = 401;
+                //    return Task.CompletedTask;
+                //};
+                //o.Events.OnRedirectToAccessDenied = context =>
+                //{
+                //    context.Response.StatusCode = 401;
+                //    return Task.CompletedTask;
+                //};
             });
-            services.AddAuthentication();
+
 
             services.AddScoped<IUserClaimsPrincipalFactory<User>, AppClaimsPrincipalFactory>();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
-
+            services.AddScoped<CustomCookieAuthenticationEvents>();
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
-                Assembly.Load("Cloudents.Infrastructure.Data"),
                 Assembly.GetExecutingAssembly()
             };
             services.AddAutoMapper(c => c.DisableConstructorMapping(), assembliesOfProgram);
             var containerBuilder = new ContainerBuilder();
             services.AddSingleton<WebPackChunkName>();
-            containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
             var keys = new ConfigurationKeys(Configuration["Site"])
             {
-                Db = Configuration.GetConnectionString("DefaultConnection"),
-                Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
-                       Configuration["AzureSearch:SearchServiceAdminApiKey"]),
+                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
                 Redis = Configuration["Redis"],
+                Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
+                       Configuration["AzureSearch:SearchServiceAdminApiKey"],
+                    !HostingEnvironment.IsProduction()
+                    ),
                 Storage = Configuration["Storage"],
-                //FunctionEndpoint = Configuration["AzureFunction:EndPoint"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"],
                 ServiceBus = Configuration["ServiceBus"]
             };
@@ -186,44 +214,11 @@ namespace Cloudents.Web
             containerBuilder.Register(_ => keys).As<IConfigurationKeys>();
             containerBuilder.RegisterSystemModules(
                 Core.Enum.System.Web, assembliesOfProgram);
-
+            containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
-            //containerBuilder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
-        }
-
-        private static void SwaggerInitial(IServiceCollection services)
-        {
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "Spitball Api", Version = "v1" });
-                var basePath = AppContext.BaseDirectory;
-                var xmlPath = Path.Combine(basePath, "Cloudents.Web.xml");
-                c.IncludeXmlComments(xmlPath);
-                c.DescribeAllEnumsAsStrings();
-                c.DescribeAllParametersInCamelCase();
-                c.OperationFilter<FormFileOperationFilter>();
-                c.ResolveConflictingActions(f =>
-                {
-                    var descriptions = f.ToList();
-                    var parameters = descriptions
-                        .SelectMany(desc => desc.ParameterDescriptions)
-                        .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x },
-                            ApiParameterDescriptionEqualityComparer.Instance)
-                        .ToList();
-                    var description = descriptions[0];
-                    description.ParameterDescriptions.Clear();
-                    parameters.ForEach(x =>
-                    {
-                        if (x.Parameter.RouteInfo != null)
-                            x.Parameter.RouteInfo.IsOptional = x.IsOptional;
-                        description.ParameterDescriptions.Add(x.Parameter);
-                    });
-                    return description;
-                });
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -233,17 +228,17 @@ namespace Cloudents.Web
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
             app.UseClickJacking();
 
-           // BuildCsp(app);
+            // BuildCsp(app);
 
             if (env.IsDevelopment())
             {
-                HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+                //HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true
                 });
                 var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-                
+
                 configuration.DisableTelemetry = true;
                 app.UseDeveloperExceptionPage();
             }
@@ -251,7 +246,7 @@ namespace Cloudents.Web
             {
                 app.UseStatusCodePagesWithReExecute("/Error");
                 app.UseExceptionHandler("/Error");
-                app.UseHsts(new HstsOptions()
+                app.UseHsts(new HstsOptions
                 {
                     Duration = TimeSpan.FromDays(365),
                     IncludeSubDomains = true,
@@ -271,10 +266,15 @@ namespace Cloudents.Web
             app.UseResponseCaching();
 
             app.UseStatusCodePages();
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor
-                | Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto
+                DefaultRequestCulture = new RequestCulture(SupportedCultures[0]),
+                // Formatting numbers, dates, etc.
+                SupportedCultures = SupportedCultures,
+                // UI strings that we have localized.
+                SupportedUICultures = SupportedCultures
             });
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -286,13 +286,19 @@ namespace Cloudents.Web
             });
 
             app.UseWebMarkupMin();
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() /*|| env.IsStaging()*/)
             {
                 app.UseSwagger();
                 // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
             }
+
             app.UseAuthentication();
+            
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<SbHub>("/SbHub");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -432,28 +438,5 @@ namespace Cloudents.Web
                 };
             });
         }
-
-        private class SnapshotCollectorTelemetryProcessorFactory : ITelemetryProcessorFactory
-        {
-            private readonly IServiceProvider _serviceProvider;
-
-            public SnapshotCollectorTelemetryProcessorFactory(IServiceProvider serviceProvider) =>
-                _serviceProvider = serviceProvider;
-
-            public ITelemetryProcessor Create(ITelemetryProcessor next)
-            {
-                var snapshotConfigurationOptions = _serviceProvider.GetService<IOptions<SnapshotCollectorConfiguration>>();
-                return new SnapshotCollectorTelemetryProcessor(next, configuration: snapshotConfigurationOptions.Value);
-            }
-        }
     }
-
-    //public class UserTelemetryInitializer : ITelemetryInitializer
-    //{
-    //    public void Initialize(ITelemetry telemetry)
-    //    {
-    //        telemetry.Context.
-            
-    //    }
-    //}
 }

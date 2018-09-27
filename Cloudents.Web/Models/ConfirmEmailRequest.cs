@@ -5,10 +5,12 @@ namespace Cloudents.Web.Models
     public class ConfirmEmailRequest
     {
 
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public long? Id { get; set; }
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Required")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
+
+        public string Referral { get; set; }
     }
 }

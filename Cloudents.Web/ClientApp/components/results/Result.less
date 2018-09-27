@@ -207,9 +207,12 @@
 
 .loading-skeleton {
   .result-cell {
-
     pointer-events: none;
 
+    .question-viewer{
+      display:none;
+    }
+    
     .result-cell-content {
       overflow: hidden;
     }
@@ -223,6 +226,7 @@
     }
   }
 }
+
 
 /*#region item skeleton*/
 @skeletonWidth: @cellWidth;
@@ -286,6 +290,38 @@
     }
   }
 }
+
+
+.question-toaster{
+  margin-top: 130px;
+  cursor: pointer;
+
+  .v-snack__wrapper{
+    box-shadow: none;
+    background-color: transparent;
+    margin: 0 auto;
+    width: unset;
+    
+    .v-snack__content{
+      width: unset;
+      border-radius: 50px;
+      height: 32px;
+      background-color: #5d5d5d;
+    }
+  }
+
+  .refresh-style{
+    color: #fff;
+    width: 12px;
+    height: 20px;
+  }
+
+
+  @media (max-width: @screen-xs) {
+    margin-top: 25px;
+  }
+}
+
 
 @keyframes shine {
   to {

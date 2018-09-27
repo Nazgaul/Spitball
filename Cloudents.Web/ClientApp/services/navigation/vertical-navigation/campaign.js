@@ -1,10 +1,12 @@
+import { LanguageService } from "../../language/languageService";
+
 const navDefault = {
     ask: {
         banner:{
             "lineColor": "#00c0fa",
-            "title" : "Make money while helping others with their homework.",
-            "textMain" : "Answer HW questions and cash out to Amazon Coupons. There’s no catch!",
-            "boldText" : "cash out to Amazon Coupons",
+            "title" : LanguageService.getValueByKey("navigation_campaign_default_ask_banner_title"),
+            "textMain" :LanguageService.getValueByKey("navigation_campaign_default_ask_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_default_ask_banner_boldText"),
             url: '',
             showOverlay: true
         },
@@ -13,10 +15,10 @@ const navDefault = {
     note: {
         banner:{
             "lineColor": "#943bfd",
-            "title" : "Notes, study guides, exams and more from the best sites.",
-            "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
-            "boldText" : "your school, classes and preferences",
-            url: '',
+            "title" : LanguageService.getValueByKey("navigation_campaign_default_note_banner_title"),
+            "textMain" :LanguageService.getValueByKey("navigation_campaign_default_note_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_default_note_banner__boldText"),
+             url: '',
             showOverlay: true
         },
 
@@ -24,9 +26,9 @@ const navDefault = {
     flashcard: {
         banner:{
             "lineColor": "#f14d4d",
-            "title" : "Study from millions of flashcard sets to improve your grades.",
-            "textMain" : "Filtered by your school, classes and preferences. Saving you time!" ,
-            "boldText" : "your school, classes and preferences",
+            "title" : LanguageService.getValueByKey("navigation_campaign_default_flashcard_banner_title"),
+            "textMain" :LanguageService.getValueByKey("navigation_campaign_default_flashcard_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_default_flashcard_banner_boldText"),
             url: '',
             showOverlay: true
         },
@@ -35,9 +37,9 @@ const navDefault = {
     tutor: {
         banner: {
             "lineColor": "#52aa16",
-            "title": "Find an expert to help you ace your classes in-person or online.",
-            "textMain": "No matter the subject, a tutor is here to help you succeed.",
-            "boldText" : "here to help you succeed.",
+            "title" : LanguageService.getValueByKey("navigation_campaign_tutor_default_banner_title"),
+            "textMain" :LanguageService.getValueByKey("navigation_campaign_tutor_default_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_tutor_default_banner_boldText"),
             url: '',
             showOverlay: true
         },
@@ -46,9 +48,9 @@ const navDefault = {
     book: {
         banner:{
             "lineColor": "#a650e0",
-            "title" : "Compare the best prices to buy, rent or sell your textbooks.",
-            "textMain" : "Preview quotes from hundreds of sites simultaneously.",
-            "boldText" : "hundreds of sites simultaneously.",
+            "title" : LanguageService.getValueByKey("navigation_campaign_book_default_banner_title"),
+            "textMain" :LanguageService.getValueByKey("navigation_campaign_book_default_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_book_default_banner_boldText"),
             url: '',
             showOverlay: true
         },
@@ -57,9 +59,9 @@ const navDefault = {
     job: {
         banner:{
             "lineColor": "#f49c20",
-            "title" : "Find jobs and internships catered specifically to students. ",
-            "textMain" : "Filtered by your experience and location preference.",
-            "boldText" : "experience and location preference.",
+            "title" : LanguageService.getValueByKey("navigation_campaign_job_default_banner_title"),
+            "textMain" :LanguageService.getValueByKey("navigation_campaign_job_default_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_job_default_banner_boldText"),
             url: '',
             showOverlay: true
         },
@@ -70,9 +72,9 @@ const askaquestion= {
     ask: {
         banner:{
             "lineColor": "#00c0fa",
-            "title" : "Ask your HW question now and get fast answers from top students.",
-            "textMain" : "Sign up now!",
-            "boldText" : "Sign up now!",
+            "title" : LanguageService.getValueByKey("navigation_campaign_askaquestion_ask_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_askaquestion_ask_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_askaquestion_ask_banner_boldText"),
             url: '/register',
             showOverlay: false,
             campaignClass: 'ask-askaquestion‎',
@@ -81,9 +83,9 @@ const askaquestion= {
     note: {
         banner:{
             "lineColor": "#943bfd",
-            "title" : "Notes, study guides, exams and more from the best sites.",
-            "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
-            "boldText" : "your school, classes and preferences",
+            "title" :    LanguageService.getValueByKey("navigation_campaign_askaquestion_note_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_askaquestion_note_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_askaquestion_note_banner_boldText"),
             url: '/register',
             showOverlay: true,
             campaignClass: 'note-askaquestion‎',
@@ -93,9 +95,9 @@ const askaquestion= {
     flashcard: {
         banner:{
             "lineColor": "#f14d4d",
-            "title" : "Study from millions of flashcard sets to improve your grades.",
-            "textMain" : "Filtered by your school, classes and preferences. Saving you time!" ,
-            "boldText" : "your school, classes and preferences",
+            "title" :    LanguageService.getValueByKey("navigation_campaign_askaquestion_flashcard_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_askaquestion_flashcard_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_askaquestion_flashcard_banner_boldText"),
             url: '/register',
             showOverlay: true,
             campaignClass: 'flashcard-askaquestion‎',
@@ -104,9 +106,9 @@ const askaquestion= {
     tutor: {
         banner: {
             "lineColor": "#52aa16",
-            "title": "Find an expert to help you ace your classes in-person or online.",
-            "textMain": "No matter the subject, a tutor is here to help you succeed.",
-            "boldText" : "here to help you succeed.",
+            "title" :    LanguageService.getValueByKey("navigation_campaign_tutor_askaquestion_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_tutor_askaquestion_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_tutor_askaquestion_banner_boldText"),
             url: '/register',
             showOverlay: true,
             campaignClass: 'tutor-askaquestion‎',
@@ -115,9 +117,9 @@ const askaquestion= {
     book: {
         banner:{
             "lineColor": "#a650e0",
-            "title" : "Compare the best prices to buy, rent or sell your textbooks.",
-            "textMain" : "Preview quotes from hundreds of sites simultaneously.",
-            "boldText" : "hundreds of sites simultaneously.",
+            "title" :    LanguageService.getValueByKey("navigation_campaign_book_askaquestion_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_book_askaquestion_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_book_askaquestion_banner_boldText"),
             url: '/register',
             showOverlay: true,
             campaignClass: 'book-askaquestion‎',
@@ -126,9 +128,9 @@ const askaquestion= {
     job: {
         banner:{
             "lineColor": "#f49c20",
-            "title" : "Find jobs and internships catered specifically to students. ",
-            "textMain" : "Filtered by your experience and location preference.",
-            "boldText" : "experience and location preference.",
+            "title" :    LanguageService.getValueByKey("navigation_campaign_job_askaquestion_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_job_askaquestion_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_job_askaquestion_banner_boldText"),
             url: '/register',
             showOverlay: true,
             campaignClass: 'job-askaquestion‎',
@@ -136,149 +138,78 @@ const askaquestion= {
     },
 
 };
-const campaignY = {
+
+const referral={
     ask: {
         banner:{
             "lineColor": "#00c0fa",
-            "title" : "Ask your HW question now and get fast answers from top students.",
-            "textMain" : "Sign up now!",
-            "boldText" : "Sign up now!",
-            url: '',
+            "title" : LanguageService.getValueByKey("navigation_campaign_referral_ask_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_askaquestion_ask_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_askaquestion_ask_banner_boldText"),
+            url: '/register',
             showOverlay: false,
-            campaignClass: 'ask-campaignY',
+            campaignClass: 'ask-askaquestion‎',
         },
     },
     note: {
         banner:{
             "lineColor": "#943bfd",
-            "title" : "Notes, study guides, exams and more from the best sites.",
-            "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
-            "boldText" : "your school, classes and preferences",
-            url: '',
+            "title" :    LanguageService.getValueByKey("navigation_campaign_askaquestion_note_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_askaquestion_note_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_askaquestion_note_banner_boldText"),
+            url: '/register',
             showOverlay: true,
-            campaignClass: 'note-campaignY',
+            campaignClass: 'note-askaquestion‎',
+
         }
-    },
+     },
     flashcard: {
         banner:{
             "lineColor": "#f14d4d",
-            "title" : "Study from millions of flashcard sets to improve your grades.",
-            "textMain" : "Filtered by your school, classes and preferences. Saving you time!" ,
-            "boldText" : "your school, classes and preferences",
-            url: '',
+            "title" :    LanguageService.getValueByKey("navigation_campaign_askaquestion_flashcard_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_askaquestion_flashcard_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_askaquestion_flashcard_banner_boldText"),
+            url: '/register',
             showOverlay: true,
-            campaignClass: 'flashcard-campaignY',
+            campaignClass: 'flashcard-askaquestion‎',
         }
     },
     tutor: {
         banner: {
             "lineColor": "#52aa16",
-            "title": "Find an expert to help you ace your classes in-person or online.",
-            "textMain": "No matter the subject, a tutor is here to help you succeed.",
-            "boldText" : "here to help you succeed.",
-            url: '',
+            "title" :    LanguageService.getValueByKey("navigation_campaign_tutor_askaquestion_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_tutor_askaquestion_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_tutor_askaquestion_banner_boldText"),
+            url: '/register',
             showOverlay: true,
-            campaignClass: 'tutor-campaignY',
+            campaignClass: 'tutor-askaquestion‎',
         }
     },
     book: {
         banner:{
             "lineColor": "#a650e0",
-            "title" : "Compare the best prices to buy, rent or sell your textbooks.",
-            "textMain" : "Preview quotes from hundreds of sites simultaneously.",
-            "boldText" : "hundreds of sites simultaneously.",
-            url: '',
+            "title" :    LanguageService.getValueByKey("navigation_campaign_book_askaquestion_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_book_askaquestion_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_book_askaquestion_banner_boldText"),
+            url: '/register',
             showOverlay: true,
-            campaignClass: 'book-campaignY',
+            campaignClass: 'book-askaquestion‎',
         }
     },
     job: {
         banner:{
             "lineColor": "#f49c20",
-            "title" : "Find jobs and internships catered specifically to students. ",
-            "textMain" : "Filtered by your experience and location preference.",
-            "boldText" : "experience and location preference.",
-            url: '',
+            "title" :    LanguageService.getValueByKey("navigation_campaign_job_askaquestion_banner_title"),
+            "textMain" : LanguageService.getValueByKey("navigation_campaign_job_askaquestion_banner_textMain"),
+            "boldText" : LanguageService.getValueByKey("navigation_campaign_job_askaquestion_banner_boldText"),
+            url: '/register',
             showOverlay: true,
-            campaignClass: 'job-campaignY',
+            campaignClass: 'job-askaquestion‎',
         }
     },
-
-};
-const campaignZ = {
-    ask: {
-        banner:{
-            "lineColor": "#00c0fa",
-            "title" : "Ask your question now and get fast answers from top students.",
-            "textMain" : "Sign up now!",
-            "boldText" : "",
-            url: '',
-            showOverlay: false,
-            campaignClass: 'ask-campaignZ',
-        },
-    },
-    note: {
-        banner:{
-            "lineColor": "#943bfd",
-            "title" : "Notes, study guides, exams and more from the best sites.",
-            "textMain" : "Filtered by your school, classes and preferences. Saving you time!",
-            "boldText" : "your school, classes and preferences",
-            url: '',
-            showOverlay: true,
-            campaignClass: 'note-campaignZ',
-
-        }
-    },
-    flashcard: {
-        banner:{
-            "lineColor": "#f14d4d",
-            "title" : "Study from millions of flashcard sets to improve your grades.",
-            "textMain" : "Filtered by your school, classes and preferences. Saving you time!" ,
-            "boldText" : "your school, classes and preferences",
-            url: '',
-            showOverlay: true,
-            campaignClass: 'flashcard-campaignZ',
-        }
-    },
-    tutor: {
-        banner: {
-            "lineColor": "#52aa16",
-            "title": "Find an expert to help you ace your classes in-person or online.",
-            "textMain": "No matter the subject, a tutor is here to help you succeed.",
-            "boldText" : "here to help you succeed.",
-            url: '',
-            showOverlay: true,
-            campaignClass: 'tutor-campaignZ',
-        }
-    },
-    book: {
-        banner:{
-            "lineColor": "#a650e0",
-            "title" : "Compare the best prices to buy, rent or sell your textbooks.",
-            "textMain" : "Preview quotes from hundreds of sites simultaneously.",
-            "boldText" : "hundreds of sites simultaneously.",
-            url: '',
-            showOverlay: true,
-            campaignClass: 'book-campaignZ',
-        }
-    },
-    job: {
-        banner:{
-            "lineColor": "#f49c20",
-            "title" : "Find jobs and internships catered specifically to students. ",
-            "textMain" : "Filtered by your experience and location preference.",
-            "boldText" : "experience and location preference.",
-            url: '',
-            showOverlay: true,
-            campaignClass: 'job-campaignZ',
-        }
-    },
-
-};
+}
 export const bannerData = {
     navDefault,
     askaquestion,
-    campaignY,
-    campaignZ
-
+    referral
 };

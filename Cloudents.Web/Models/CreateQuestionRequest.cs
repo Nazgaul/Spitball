@@ -1,24 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Cloudents.Core.Enum;
-using Cloudents.Web.Binders;
 using Cloudents.Web.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Newtonsoft.Json;
 
 namespace Cloudents.Web.Models
 {
+    //TODO:Localize
     public class CreateQuestionRequest
     {
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public int SubjectId { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Required")]
         [MinLength(15)]
         public string Text { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Required")]
         [Range(1, 100)]
         public decimal Price { get; set; }
 

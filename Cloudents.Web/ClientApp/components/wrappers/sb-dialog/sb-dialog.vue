@@ -1,5 +1,5 @@
 <template>
-    <v-dialog transition="fadeUp"  v-model="show" :fullscreen="$vuetify.breakpoint.xs" max-width="720px"  scrollable :content-class="contentClass">
+    <v-dialog transition="scale-transition" v-model="show" :fullscreen="$vuetify.breakpoint.xs" max-width="720px" scrollable :content-class="contentClass">
      <slot></slot>
     </v-dialog>
 </template>

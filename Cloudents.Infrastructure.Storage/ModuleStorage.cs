@@ -9,6 +9,7 @@ namespace Cloudents.Infrastructure.Storage
     [ModuleRegistration(Core.Enum.System.WorkerRole)]
     [ModuleRegistration(Core.Enum.System.Web)]
     [ModuleRegistration(Core.Enum.System.Admin)]
+    [ModuleRegistration(Core.Enum.System.IcoSite)]
     [UsedImplicitly]
     public class ModuleStorage : Module
     {
@@ -21,9 +22,18 @@ namespace Cloudents.Infrastructure.Storage
             }).SingleInstance().AsImplementedInterfaces();
 
             builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
-           // builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
+            builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
             builder.RegisterGeneric(typeof(BlobProviderContainer<>)).AsImplementedInterfaces();
 
+            
+        }
+    }
+
+    [ModuleRegistration(Core.Enum.System.WorkerRole)]
+    public class ModuleTempStorage : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
             builder.Register(c =>
             {
                 var key = c.Resolve<IConfigurationKeys>().LocalStorageData;

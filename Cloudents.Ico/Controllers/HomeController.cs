@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Message;
@@ -58,23 +59,18 @@ namespace Cloudents.Ico.Controllers
             return LocalRedirect("/");
         }
 
-        //public IActionResult About()
-        //{
-        //    ViewData["Message"] = "Your application description page.";
+        public async Task<RedirectResult> DownloadWhitePaper([FromServices] IBlobProvider<IcoContainer> blobProvider,CancellationToken token)
+        {
+            var currentCulture = CultureInfo.CurrentCulture;
 
-        //    return View();
-        //}
-
-        //public IActionResult Contact()
-        //{
-        //    ViewData["Message"] = "Your contact page.";
-
-        //    return View();
-        //}
-
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
+            var blobName = $"Spitball-WP.{currentCulture.Name}.pdf";
+            var exists = await blobProvider.ExistsAsync(blobName, token);
+            if (exists)
+            {
+                var url = blobProvider.GetBlobUrl(blobName).AbsoluteUri;
+                return Redirect(url);
+            }
+            return Redirect("https://zboxstorage.blob.core.windows.net/zboxhelp/ico/Spitball-WP.pdf");
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿@using Cloudents.Web.Extensions
+﻿@using System.Globalization
+@using Cloudents.Web.Extensions
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,6 @@
     <!-- End Google Tag Manager -->
 
     <environment include="Development">
-        @*<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">*@
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/css/theme.css" />
         <link rel="stylesheet" href="~/css/vendor.bundle.css" />
@@ -40,7 +40,7 @@
     </environment>
     @Html.Raw(ClickJackingTagHelper.FullScript)
 </head>
-<body class="theme-muscari io-mascari" data-spy="scroll" data-target="#mainnav" data-offset="80">
+<body lang="@CultureInfo.CurrentCulture.TwoLetterISOLanguageName" class="theme-muscari io-mascari" data-spy="scroll" data-target="#mainnav" data-offset="80">
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MZPW6S4"

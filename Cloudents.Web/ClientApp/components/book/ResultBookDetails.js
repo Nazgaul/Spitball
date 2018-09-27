@@ -4,7 +4,7 @@ import TabsSort from "./bookDetailsSort"
 import { details } from "../../services/navigation/vertical-navigation/nav";
 
 const all = "all";
-const filterOptions = [{title: "Book Type", modelId: "filter", data: details.bookDetails.filter}];
+const filterOptions = [{title: "Book Type", id: "filter", data: details.bookDetails.filter}];
 const FILTER_LIST = details.bookDetails.filter;
 export default {
     mixins: [sortAndFilterMixin, TabsSort],
@@ -33,7 +33,6 @@ export default {
         pageData(val) {
             if (this.sortVal === 'buy') {
                 this.filterOptions = filterOptions;
-                this.filterOptions[0].data = (!val || !val.data || val.data.length === 1) ? [] : FILTER_LIST.filter(i => val.data.map(t => t.condition).includes(i.id));
             } else {
                 this.filterOptions = []
             }

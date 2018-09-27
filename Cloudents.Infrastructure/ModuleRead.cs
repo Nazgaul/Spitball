@@ -5,6 +5,7 @@ using Autofac.Extras.DynamicProxy;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
+using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Auth;
 using Cloudents.Infrastructure.Data;
 using Cloudents.Infrastructure.Domain;
@@ -22,6 +23,7 @@ namespace Cloudents.Infrastructure
 {
     [ModuleRegistration(Core.Enum.System.Console)]
     [ModuleRegistration(Core.Enum.System.Web)]
+    [ModuleRegistration(Core.Enum.System.Admin)]
     [UsedImplicitly]
     public sealed class ModuleRead : Module
     {
@@ -43,12 +45,15 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<WebSearch>();
 
+            builder.RegisterType<DataProtection>().As<IDataProtect>();
+
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
 
             #region Tutor
 
             builder.RegisterAssemblyTypes(currentAssembly)
-                .Where(w => typeof(ITutorProvider).IsAssignableFrom(w)).AsImplementedInterfaces();
+                .Where(w => typeof(ITutorProvider).IsAssignableFrom(w)).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors().InterceptedBy(typeof(LogInterceptor));
             builder.RegisterType<TutorSearch>().As<ITutorSearch>()
                 .EnableInterfaceInterceptors().InterceptedBy(typeof(BuildLocalUrlInterceptor));
 
@@ -69,7 +74,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<BookSearch>().As<IBookSearch>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(BuildLocalUrlInterceptor), typeof(CacheResultInterceptor));
 
-            builder.RegisterType<UniversitySearch>().As<IUniversitySearch>();
+            builder.RegisterType<UniversitySearch>().As<IUniversitySearch>().EnableInterfaceInterceptors().InterceptedBy(typeof(LogInterceptor));
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();

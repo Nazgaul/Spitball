@@ -12,6 +12,8 @@ namespace Cloudents.Infrastructure.Data.Maps
             Map(e => e.Text).Column("Subject");
             Map(e => e.Order).Column("OrderColumn");
             ReadOnly();
+
+            Cache.ReadOnly().Region("nHibernate-Subject");
         }
     }
 }

@@ -3,11 +3,17 @@
                  :toolbarHeight="$vuetify.breakpoint.smAndUp ? 108 : 104">
         <v-flex class="line" slot="extraHeader">
             <v-layout row>
-            <v-tabs :scrollable="false" centered>
-                    <v-tab router v-for="tab in verticals" :key="tab.name" :to="'/'+tab.name" v-if="tab.display"
-                                 class="vertical">
-                        {{tab.display}}
-                    </v-tab>
+              <!--keep this way for blog new tab open-->
+                <v-tabs :scrollable="false" centered >
+                    <v-tab router :to="verticals[0].name" :ripple="false" class="vertical">{{verticals[0].display}}</v-tab>
+                    <v-tab router :to="verticals[1].name" :ripple="false" class="vertical">{{verticals[1].display}}</v-tab>
+                    <!--special handler for blog open in new browser window-->
+                    <v-tab :ripple="false" class="vertical" @click="openBlog()">{{verticals[2].display}}</v-tab>
+                    <v-tab router :to="verticals[3].name" :ripple="false" class="vertical">{{verticals[3].display}}</v-tab>
+                    <v-tab router :to="verticals[4].name" :ripple="false" class="vertical">{{verticals[4].display}}</v-tab>
+                    <v-tab router :to="verticals[5].name" :ripple="false" class="vertical">{{verticals[5].display}}</v-tab>
+                    <v-tab router :to="verticals[6].name" :ripple="false" class="vertical">{{verticals[6].display}}</v-tab>
+                    <v-tab router :to="verticals[7].name" :ripple="false" class="vertical">{{verticals[7].display}}</v-tab>
                     <v-tabs-slider color="color-dark-blue"></v-tabs-slider>
             </v-tabs>
             </v-layout>
@@ -26,7 +32,24 @@
         },
         data() {
             return {
-                verticals: staticRoutes
+                verticals: staticRoutes,
+            }
+        },
+        methods:{
+            openBlog(){
+                let currentRoute = this.$route.path;
+                let Rout1 = '/about';
+                let Rout2 = '/contact';
+                if(currentRoute !== Rout1){
+                    this.$router.push({path: Rout1});
+                }else{
+                    this.$router.push({path: Rout2});
+                }
+                setTimeout(()=>{
+                    this.$router.push({path: currentRoute});
+
+                }, 200);
+                window.open('https://medium.com/@spitballstudy', '_blank');
             }
         }
     }

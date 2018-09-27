@@ -1,20 +1,18 @@
 <template>
     <div class="search-input">
-        <div class="search-b-wrapper" v-scroll="onScroll">
+        <div class="search-b-wrapper">
+        <!--<div class="search-b-wrapper" v-scroll="onScroll">-->
             <v-text-field class="search-b" type="search" solo
-                          @keyup.enter="search" autocomplete="off" @keyup.down="arrowNavigation(1)"
+                          @keyup.enter="search()" autocomplete="off" @keyup.down="arrowNavigation(1)"
                           @keyup.up="arrowNavigation(-1)"
                           required name="q"
                           id="transcript"
                           v-model="msg" @input="changeMsg" :placeholder="placeholder"
                           prepend-icon="sbf-search"
                           :hide-on-scroll="isHome?hideOnScroll:false" @click="openSuggestions"></v-text-field>
-            <!--<input type="checkbox" id="toggler"/>-->
             <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div>
                 <v-list class="search-menu" v-show="showSuggestions">
-                    <!-- <v-subheader v-if="(!!msg && !msg.length) || (focusedIndex >= 0 && !originalMsg.length)">Some things you can ask me:</v-subheader> -->
                     <template v-for="(item, index) in suggestList">
-                        <!--{{item.type}}-->
                         <v-list-tile class="suggestion" @click="selectos({item:item,index})"
                                      :class="[`type-${item.type}`,{'list__tile--highlighted': index === focusedIndex}]"
                                      :key="index">

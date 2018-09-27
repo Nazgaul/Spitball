@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Event
 {
-    public class MarkAsCorrectEvent
+    public class MarkAsCorrectEvent : IEvent
     {
-        public MarkAsCorrectEvent(Guid answerId)
+        public MarkAsCorrectEvent(Answer answer)
         {
-            AnswerId = answerId;
+            Answer = answer;
         }
 
-        public Guid AnswerId { get; set; }
+        public Answer Answer { get; }
 
     }
 }

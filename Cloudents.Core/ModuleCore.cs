@@ -14,6 +14,7 @@ namespace Cloudents.Core
 {
     [ModuleRegistration(Enum.System.Console, Order = 1)]
     [ModuleRegistration(Enum.System.Function)]
+    [ModuleRegistration(Enum.System.MailGun)]
     [ModuleRegistration(Enum.System.Web)]
     [ModuleRegistration(Enum.System.Admin, Order = 1)]
     [UsedImplicitly]
@@ -60,10 +61,12 @@ namespace Cloudents.Core
             //    typeof(CommitUnitOfWorkCommandHandlerDecorator<,>),
             //    typeof(ICommandHandler<,>),
             //    fromKey: "handler");
-            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IConsumer<>));
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IEventHandler<>));
 
-            builder.RegisterType<EventSubscriptions>().As<ISubscriptionService>();
+                //builder.RegisterType<EventSubscriptions>().As<ISubscriptionService>();
             builder.RegisterType<EventPublisher>().As<IEventPublisher>();
+            builder.RegisterType<Logger>().As<ILogger>();
+
         }
     }
 }

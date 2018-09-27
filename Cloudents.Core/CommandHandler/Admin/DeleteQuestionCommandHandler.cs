@@ -1,42 +1,42 @@
-﻿using System.Threading;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
     [AdminCommandHandler]
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
         private readonly IRepository<Question> _questionRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<Transaction> _transactionRepository;
 
 
-        public DeleteQuestionCommandHandler(IRepository<Question> questionRepository, IUserRepository userRepository)
+        public DeleteQuestionCommandHandler(IRepository<Question> questionRepository, IRepository<Transaction> transactionRepository)
         {
             _questionRepository = questionRepository;
-            _userRepository = userRepository;
+            _transactionRepository = transactionRepository;
         }
 
         public async Task ExecuteAsync(DeleteQuestionCommand message, CancellationToken token)
         {
             var question = await _questionRepository.LoadAsync(message.QuestionId, token);
+            foreach (var transaction in question.Transactions)
+            {
+                await _transactionRepository.DeleteAsync(transaction, token);
+            }
+
+            question.Events.Add(new QuestionDeletedEvent(question));
             var userId = question.User.Id;
+            var users = question.Answers.Select(s => s.User.Id).Union(new[] {userId});
+            question.Events.Add(new QuestionDeletedAdminEvent(users));
             await _questionRepository.DeleteAsync(question, token);
-            //await _questionRepository.FlushAsync(token); //TODO: this is not right
-            //await _unitOfWork.CommitAsync(token);
-            var user = await _userRepository.LoadAsync(userId, token);
-            user.Balance += question.Price;// await _userRepository.UserBalanceAsync(userId, token);
         }
     }
-
-    //public class UpdateUserBalanceCommandHandler : ICommandHandler<UpdateUserBalanceCommand>
-    //{
-    //    public Task ExecuteAsync(UpdateUserBalanceCommand message, CancellationToken token)
-    //    {
-    //        throw new System.NotImplementedException();
-    //    }
-    //}
 }

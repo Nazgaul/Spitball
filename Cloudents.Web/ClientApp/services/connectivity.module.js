@@ -1,6 +1,6 @@
 import axios from "axios";
 import qs from "query-string";
-import signalR from '@aspnet/signalr';
+import * as signalR from '@aspnet/signalr';
 import analyticsService from './analytics.service'
 
 axios.defaults.paramsSerializer = params => qs.stringify(params, { indices: false });
@@ -22,11 +22,11 @@ const errorHandler = function(err){
     analyticsService.sb_fireTimingAnalytic(this.requestMethod, this.path, endTime - this.startTime, "ERROR")
     
     if(err.response.status === 401){
-        window.location = '/signin';
+        global.location = '/signin';
     }else if(err.response.status === 404){
-        window.location = '/error/notfound';
+        global.location = '/error/notfound';
     }else{
-        return err;
+        return Promise.reject(err);
     }
 }
 
@@ -47,7 +47,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{        
-                return axios.get(path, params).then(promiseReturn.bind(timeProps), errorHandler.bind(timeProps))                
+                return axios.get(path, params).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
             }
         },
         post: function(path, body, callback){
@@ -59,7 +59,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.post(path,body).then(promiseReturn.bind(timeProps), errorHandler.bind(timeProps))  
+                return axios.post(path,body).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
             }
         },
         put: function(path, body, callback){
@@ -71,7 +71,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.put(path, body).then(promiseReturn.bind(timeProps), errorHandler.bind(timeProps))  
+                return axios.put(path, body).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
             }
         },
         patch: function(path, body, callback){
@@ -83,7 +83,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.patch(path, body).then(promiseReturn.bind(timeProps), errorHandler.bind(timeProps))
+                return axios.patch(path, body).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
             }
         },
         delete: function(path, callback){
@@ -95,7 +95,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             }else{
-                return axios.delete(path).then(promiseReturn.bind(timeProps), errorHandler.bind(timeProps))
+                return axios.delete(path).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
             }
         }
     },
@@ -105,25 +105,26 @@ export const connectivityModule = {
     },
 
     //todo add error handler
-    signalR: {
+    sr: {
         createConnection: function(url){
             const connection = new signalR.HubConnectionBuilder()
             .withUrl(url)
             .build();
             return connection;
         },
-        on: function(connection){
-            return connection.on;
+        reconnect: function(connection){
+            //connection.start();
         },
-        invoke: function(connection, messageString, messageObj){
-            return connection.invoke(messageString, messageObj);
-        },
-        start: function(connections){
-            if(!!connections && connections.length > 0){
-                connections.forEach(connection => {
-                    connection.start();
-                })
+        on: function(connection, message, callback){
+            if(!callback){
+                console.error(`A callback function must be provided to handle the registered event`);
             }
+            connection.on(message, callback);
+        },
+        invoke: function(connection, message, data){
+            return connection.invoke(message, data).then(()=>{},(err)=>{
+                return Promise.reject(err);
+            });
         }
     }
 

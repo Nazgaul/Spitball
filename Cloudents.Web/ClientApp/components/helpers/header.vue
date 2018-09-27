@@ -2,15 +2,14 @@
     <div>
         <!--TODO check if worsk well-->
         <v-toolbar :app="!isMobile" :fixed="!isMobile" :height="height" class="header">
-
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">
                     <v-flex class="line top">
                         <v-layout row>
                             <v-toolbar-title>
-                                <router-link class="logo-link" to="/ask">
+                                 <a @click="resetItems()" class="logo-link">
                                     <app-logo class="logo"></app-logo>
-                                </router-link>
+                                </a> 
                             </v-toolbar-title>
                             <v-toolbar-items>
                                 <search-input v-if="$vuetify.breakpoint.smAndUp" :user-text="userText"
@@ -19,7 +18,7 @@
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
-                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}} SBL</span>
+                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}} <span v-language:inner>header_sbl</span></span>
                                         <span>$ {{accountUser.balance | dollarVal}}</span>
                                     </router-link>
                                     <div class="header-rocket" v-if="loggedIn">
@@ -32,12 +31,8 @@
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
 
-                                    <router-link v-if="!loggedIn" class="header-login body-1"
-                                                 :to="{ path: '/register', query:{returnUrl : $route.path}  }">Sign Up
-                                    </router-link>
-                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}">
-                                        Login
-                                    </router-link>
+                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
+                                    <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}" v-language:inner>header_login</router-link>
 
                                     <v-menu bottom left offset-y class="gamburger"
                                             v-if="!loggedIn && $vuetify.breakpoint.xsOnly">
@@ -63,8 +58,6 @@
                 <div class="text-wrap" v-html="getToasterText"></div>
             </v-snackbar>
             <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
-
-
         </v-toolbar>
 
         <v-navigation-drawer temporary v-model="drawer" light right fixed app v-if=$vuetify.breakpoint.xsOnly
@@ -89,6 +82,7 @@
     const PersonalizeDialog = () => import('./ResultPersonalize.vue');
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
+    import {LanguageService } from "../../services/language/languageService";
 
     export default {
         components: {
@@ -101,12 +95,12 @@
             loginToAnswer
         },
         placeholders: {
-            job: "Your field of expertise...",
-            tutor: "Find a tutor...",
-            note: "Find study documents in...",
-            book: "Textbook title or ISBN...",
-            ask: "Search questions",
-            flashcard: "Look for flashcards...",
+            job: LanguageService.getValueByKey("header_placeholder_job"),
+            tutor: LanguageService.getValueByKey("header_placeholder_tutor"),
+            note: LanguageService.getValueByKey("header_placeholder_note"),
+            book: LanguageService.getValueByKey("header_placeholder_book"),
+            ask: LanguageService.getValueByKey("header_placeholder_ask"),
+            flashcard: LanguageService.getValueByKey("header_placeholder_flashcard"),
         },
         data() {
             return {
@@ -116,11 +110,13 @@
                 drawer: null,
                 toasterTimeout: 5000,
                 showDialogLogin: false
-                // isAuthUser:true
             }
         },
         props: {
-            currentSelection: {type: String, default: 'note'},
+            currentSelection: {
+            type: String,
+            default: 'ask'
+            },
             userText: {type: String},
             submitRoute: {type: String, default: '/ask'},
             toolbarHeight: {},
@@ -154,7 +150,7 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateLoginDialogState']),
+            ...mapActions(['updateToasterParams', 'updateLoginDialogState', 'resetData']),
             //TODO: what is that
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
@@ -166,8 +162,22 @@
                     })
                 }
             },
+            resetItems(){
+                if(this.$route.path === '/ask'){
+                    if(this.$route.fullPath === '/ask'){
+                        global.location.reload();
+                    }else{
+                        this.resetData();
+                        this.$router.push('/');
+                    }
+                }else{
+                    this.resetData();
+                    this.$router.push('/');
+                }
+            }
         },
         created() {
+            console.log('route::', this.submitRoute)
             this.$root.$on("personalize",
                 (type) => {
                     this.clickOnce = true;
@@ -177,10 +187,7 @@
                         }
                     })
                 });
-            // this.$root.$on("showLoginPopUp",
-            //     (type) => {
-            //         this.updateLoginDialogState(true);
-            //     });
+
             this.$root.$on('closePopUp', (name) => {
                 if (name === 'suggestions') {
                     this.showDialogSuggestQuestion = false

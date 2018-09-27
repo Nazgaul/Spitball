@@ -14,6 +14,9 @@ const getters = {
     getCampaignName: (state) => state.campaignName,
     getCampaignData: (state) => {
         return state.campaignData
+    },
+    isCampaignOn: (state) => {
+        return state.campaignName !== "noCampaign"
     }
 };
 const actions = {

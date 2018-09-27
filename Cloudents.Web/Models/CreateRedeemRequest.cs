@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Cloudents.Web.Models
 {
+    //TODO:Localize
     public class CreateRedeemRequest
     {
         [RedeemValidator]

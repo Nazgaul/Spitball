@@ -4,11 +4,10 @@
             <div class="points">
                 <div class="num">{{cost | commasFilter}}</div>
                 <div class="data">
-                    <div class="text dolar-val">SBL</div>
-                    <!--<div class="dolar-val">{{pointsForDollar}} SBL = $1</div>-->
+                    <div class="text dolar-val" v-language:inner>cashoutcard_SBL</div>
                 </div>
             </div>
-            <button class="redeem-btn" @click="redeem(cost)">Redeem</button>
+            <button class="redeem-btn" @click="redeem(cost)" :disabled="!available" v-language:inner>cashoutcard_Redeem</button>
         </div>
         <img :src="require(`./../img/${imageSrc}`)"/>
     </div>

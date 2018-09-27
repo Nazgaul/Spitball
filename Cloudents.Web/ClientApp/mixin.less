@@ -5,6 +5,7 @@
 @color-medium-grey: #bbbbbb;
 @color-light-grey: #f0f0f0;
 @color-light-grey-2: #fbfbfb;
+@color-divider-grey: #cccccc;
 @color-green: #52ab15;
 @color-orange: #f5a623;
 @color-purple: #8c3fbf;
@@ -62,6 +63,9 @@
 @Feed-Date: #888b8e;
 @Question-Answer-Bg: #f6f6f6;
 
+@Pass-Weak-Color:#ff6f00;
+@Pass-Strong-Color: #7ed321;
+@Pass-Strongest-Color: #7ed321;
 .inTheMiddle() {
   display: flex;
   justify-content: center;
@@ -101,6 +105,28 @@
     }
   }
 }
+// generate classes for question card  based on user selced color, background and font color
+@colors: #ffffff, #6bc248, #a757db, #e5455d, #edaf2e, #7472ff, #3bbda4, #53a0fd, #a09c9c, #abb55e, #d251ae;
+@names: default, green, purple, red, yellow, blue, turquoise, lightBlue, grey, olive, pink;
+@fontColors: #000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff;
+@length: length(@colors);
+.user-question-style(@names; @colors; @fontColors; @index) when (iscolor(extract(@colors, @index))) and (@index > 0) {
+  .user-question-style(@names; @colors; @fontColors; (@index - 1)); // decrement.
+
+  @name: extract(@names, @index);
+  @color: extract(@colors, @index);
+  @fontColor: extract(@fontColors, @index);
+
+  .sbf-card-@{name} {
+    background-color: @color;
+  }
+
+  .sbf-font-@{name} {
+    color: @fontColor!important;
+  }
+}
+.user-question-style(@names, @colors, @fontColors, @length );
+//end function
 
 .placeholder-color(@color, @opacity:1 ) {
 
@@ -144,12 +170,27 @@
 
 .cellActionBtnMixin(){
   position: absolute;
-  .responsive-property(bottom, 8px, null, 8px);
-  .responsive-property(right, 8px, null, 8px);
+  .responsive-property(bottom, 16px, null, 8px);
+  .responsive-property(right, 16px, null, 8px);
   padding: 3px 20px;
   color: white;
   border-radius: 4px;
   font-size: 14px;
+}
+
+.cellActionViewerMixin(){
+  position: absolute;
+  .transition(all .2s ease-in-out);
+  .responsive-property(bottom, 50px, null, 8px);
+  .responsive-property(right, 16px, null, 8px);
+  //padding: 0px 100px 3px 0px;
+  color: #707070;
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  color: #8888d5;
 }
 
 .cellActionBtnMixinAnswer(){
@@ -261,6 +302,7 @@
 }
 
 // Size constants
+@btnHeight : 40px;
 @navBarHeightMdAndUp: 104px;
 @mainNavHeightXsOnly: 120px;
 @mainNavHeightSmAndUp: 60px;
@@ -277,3 +319,21 @@
 @screen-lg: 1904px;
 @logoWidth: 192px;
 @cellWidth: 500px;
+
+
+@-webkit-keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fade-in-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Models
 {
+    //TODO:Localize
     public class DeleteQuestionRequest
     {
         [FromRoute]

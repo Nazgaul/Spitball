@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Web.Extensions;
@@ -44,7 +46,12 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<SearchResult>
             {
                 Result = p,
-                Facet = result.Facet,
+                Sort = Enum.GetNames(typeof(SearchRequestSort)),
+                Filters = new []
+                {
+                    new Models.Filters(nameof(SearchRequest.Source),"Sources",result.Facet)
+                },
+                //Facet = result.Facet,
                 NextPageLink = nextPageLink
             };
         }
@@ -71,9 +78,25 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<SearchResult>
             {
                 Result = p,
-                Facet = result.Facet,
+                Sort = Enum.GetNames(typeof(SearchRequestSort)),
+                Filters = new[]
+                {
+                    new Models.Filters(nameof(SearchRequest.Source),"Sources",result.Facet)
+                },
+                //Facet = result.Facet,
                 NextPageLink = nextPageLink
             };
+
+            //return new WebResponseWithFacet<SearchResult>
+            //{
+            //    Result = p,
+            //    Sort = Enum.GetNames(typeof(SearchRequestSort)),
+            //    Filters = new Dictionary<string, IEnumerable<string>>
+            //    {
+            //        ["Sources"] = result.Facet
+            //    },
+            //    NextPageLink = nextPageLink
+            //};
         }
     }
 }

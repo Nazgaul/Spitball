@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using Cloudents.Core.Command;
 using Cloudents.Core.Command.Admin;
+using CreateQuestionCommand = Cloudents.Core.Command.Admin.CreateQuestionCommand;
 
 namespace ConsoleApp
 {
@@ -101,7 +103,8 @@ namespace ConsoleApp
                 //    Console.WriteLine("No data found.");
                 //}
                 //Console.Read();
-                return subjectList;
+               // return subjectList;
+                return null;
             }
         }
     }

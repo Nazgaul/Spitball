@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +12,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Controllers
 {
@@ -19,15 +22,20 @@ namespace Cloudents.Web.Controllers
         private readonly IReadRepositoryAsync<DocumentSeoDto, long> _repository;
         private readonly IReadRepositoryAsync<DocumentDto, long> _repositoryDocument;
         private readonly IBlobProvider<FilesContainerName> _blobProvider;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
+        private readonly IStringLocalizer<DocumentController> _localizer;
 
         public DocumentController(
             IReadRepositoryAsync<DocumentSeoDto, long> repository,
             IReadRepositoryAsync<DocumentDto, long> repositoryDocument,
-            IBlobProvider<FilesContainerName> blobProvider)
+            IBlobProvider<FilesContainerName> blobProvider, IStringLocalizer<SharedResource> sharedLocalizer,
+            IStringLocalizer<DocumentController> localizer)
         {
             _repository = repository;
             _repositoryDocument = repositoryDocument;
             _blobProvider = blobProvider;
+            _sharedLocalizer = sharedLocalizer;
+            _localizer = localizer;
         }
 
         [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
@@ -51,15 +59,17 @@ namespace Cloudents.Web.Controllers
             }
             ViewBag.imageSrc = ViewBag.fbImage = "https://az779114.vo.msecnd.net/preview/" + model.ImageUrl +
                                                  ".jpg?width=1200&height=630&mode=crop";
-            //if (string.IsNullOrEmpty(model.Country)) return View();
+            if (string.IsNullOrEmpty(model.Country)) return View();
 
+            
             //var culture = Languages.GetCultureBaseOnCountry(model.Country);
+            //_localizer.WithCulture()
             //SeoBaseUniversityResources.Culture = culture;
             //TODO: culture base globalization - localize doesn't work
             ViewBag.title =
-                $"{model.BoxName} - {model.Name} | Spitball";
+                $"{model.BoxName} - {model.Name} | {_sharedLocalizer["Spitball"]}";
 
-            ViewBag.metaDescription = "Get class notes for free with Spitball";
+            ViewBag.metaDescription = _localizer["meta"];
             if (!string.IsNullOrEmpty(model.Description))
             {
                 ViewBag.metaDescription += ":" + model.Description.Truncate(100);

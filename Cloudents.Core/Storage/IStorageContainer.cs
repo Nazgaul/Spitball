@@ -8,16 +8,17 @@ namespace Cloudents.Core.Storage
 
     public sealed class StorageContainer
     {
-        //private StorageContainer(string name, string relativePath)
-        //{
-        //    Name = name.ToLowerInvariant();
-        //    RelativePath = relativePath;
-        //}
 
         private StorageContainer(string name)
         {
             Name = name.ToLowerInvariant();
             RelativePath = string.Empty;
+        }
+
+        private StorageContainer(string name,string relativePath)
+        {
+            Name = name.ToLowerInvariant();
+            RelativePath = relativePath;
         }
 
         public string Name { get; }
@@ -27,5 +28,6 @@ namespace Cloudents.Core.Storage
         public static readonly StorageContainer SpitballContainer = new StorageContainer("spitball");
         public static readonly StorageContainer QuestionsAndAnswers = new StorageContainer("spitball-files");
         public static readonly StorageContainer Documents = new StorageContainer("zboxFiles");
+        public static readonly StorageContainer IcoFiles = new StorageContainer("zboxhelp","ico");
     }
 }

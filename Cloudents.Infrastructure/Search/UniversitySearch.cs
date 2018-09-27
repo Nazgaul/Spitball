@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
@@ -29,10 +30,11 @@ namespace Cloudents.Infrastructure.Search
 
         public UniversitySearch(ISearchService client, IMapper mapper)
         {
-            _client = client.GetClient(UniversitySearchWrite.IndexName);
+            _client = client.GetOldClient(UniversitySearchWrite.IndexName);
             _mapper = mapper;
         }
 
+        [Log]
         public async Task<UniversityDto> GetApproximateUniversitiesAsync(GeoPoint location,
             CancellationToken token)
         {

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
@@ -55,6 +56,11 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<TutorDto>
             {
                 Result = result,
+                Sort = Enum.GetNames(typeof(TutorRequestSort)),
+                Filters = new[]
+                {
+                    new Models.Filters(nameof(TutorRequest.Filter),"Status", Enum.GetNames(typeof(TutorRequestFilter)))
+                },
                 NextPageLink = nextPageLink
             };
         }

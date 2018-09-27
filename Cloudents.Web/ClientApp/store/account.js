@@ -2,31 +2,41 @@ import Talk from "talkjs";
 import accountService from "../services/accountService"
 import {debug} from "util";
 import {dollarCalculate} from "./constants";
+import analyticsService from '../services/analytics.service'
+import profileService from "../services/profile/profileService"
 
-let userLogin = false;
-import {router} from "../main";
 
 function setIntercomSettings(data){
     let app_id = "njmpgayv";
     let hide_default_launcher = intercomSettings.hide_default_launcher;
     let user_id = null;
     let user_name = null;
+    let user_email = null;
     if(!!data){
         user_id = "Sb_" + data.id;
         user_name = data.name;
+        user_email = data.email;
     }
-    window.intercomSettings = {
+    global.intercomSettings = {
         app_id,
         hide_default_launcher,
         user_id,
-        name: user_name
+        name: user_name,
+        email: user_email
     }
 
-    window.Intercom('boot', {intercomSettings});
+    global.Intercom('boot', {intercomSettings});
 }
 
 function removeIntercomeData(){
-    window.Intercom('shutdown');
+    global.Intercom('shutdown');
+}
+
+function setIntercomeData(data){
+    //do not set intercome setting for mobile because no intercome should be on mobile case 10850
+    if(global.innerWidth > 600){
+        setIntercomSettings(data)
+    }
 }
 
 
@@ -37,7 +47,8 @@ const state = {
     talkMe: null,
     unreadMessages: 0,
     fromPath: null,
-    lastActiveRoute: null
+    lastActiveRoute: null,
+    profileData: profileService.getProfileData('profileGeneral')
 }
 const mutations = {
     changeLoginStatus(state, val) {
@@ -65,7 +76,10 @@ const mutations = {
     },
     setLastActiveRoute(state, val){
         state.lastActiveRoute = val;
-    }
+    },
+    UPDATE_PROFILE_DATA(state, data) {
+        state.profileData = data;
+    },
 };
 
 const getters = {
@@ -76,13 +90,20 @@ const getters = {
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
     accountUser: state => state.user,
-    lastActiveRoute: state => state.lastActiveRoute
+    lastActiveRoute: state => state.lastActiveRoute,
+    getProfileData: state => state.profileData
 };
+
 const actions = {
+    updateUserProfileData(context, name){
+        let currentProfile = profileService.getProfileData(name);
+        context.commit("UPDATE_PROFILE_DATA", currentProfile );
+
+    },
     logout({state, commit}) {
         removeIntercomeData();
-        setIntercomSettings();
-        window.location.replace("/logout");
+        setIntercomeData();
+        global.location.replace("/logout");
 
     },
     changeLastActiveRoute({commit}, route){
@@ -96,22 +117,22 @@ const actions = {
         if (getters.isUser) {
             return Promise.resolve();
         }
-        if (window.isAuth) {
+        if (global.isAuth) {
             return accountService.getAccount().then(({data}) => {
-                setIntercomSettings(data);
+                setIntercomeData(data)
                 commit("changeLoginStatus", true);
                 commit("updateUser", data);
                 dispatch("connectToChat");
-                
+                analyticsService.sb_setUserId(data.id);
             }).catch(_ => {
-                setIntercomSettings();
+                setIntercomeData()
                 isRequire ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
                 
             });
         }else{
             removeIntercomeData();
-            setIntercomSettings();
+            setIntercomeData();
         }
     },
     saveCurrentPathOnPageChange({commit}, {currentRoute}){
@@ -131,13 +152,14 @@ const actions = {
                 const me = new Talk.User({
                     id: state.user.id,
                     name: state.user.name,
+                    email: state.user.email,
                     photoUrl: state.user.image,
                     configuration: "buyer"
                 });
 
                 commit("updateChatUser", me);
                 const talkSession = new Talk.Session({
-                    appId: window.talkJsId,
+                    appId: global.talkJsId,
                     me: me,
                     signature: state.user.token
                 });

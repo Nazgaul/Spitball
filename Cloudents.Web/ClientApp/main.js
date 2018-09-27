@@ -3,18 +3,21 @@ import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
 import { Language } from "./services/language/langDirective"
+import initSignalRService from './services/signalR/signalrEventService'
 
-const scroll = () =>
-    import("./components/helpers/infinateScroll.vue");
-import VScroll from "vuetify/es5/directives/scroll";
+// clip board copy text
+import VueClipboard from 'vue-clipboard2'
+
+import Scroll from "vuetify/es5/directives/scroll";
+const scrollComponent = () => import("./components/helpers/infinateScroll.vue");
+
 
 const GeneralPage = () =>
     import("./components/helpers/generalPage.vue");
 import VueRouter from "vue-router";
-
 import VueAnalytics from "vue-analytics";
 import WebFont from "webfontloader";
-// import VueParticles from 'alopu-vue-particles';
+
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
@@ -33,6 +36,7 @@ const vuetifyComponents = {
     VTextField,
     VSelect,
     VBtn,
+    VBtnToggle,
     VTooltip,
     VMenu,
     VSwitch,
@@ -43,10 +47,6 @@ const vuetifyComponents = {
     VAvatar,
     VPagination,
     VDataTable,
-
-
-
-
 };
 import {
     Vuetify,
@@ -66,6 +66,7 @@ import {
     VDivider,
     VDialog,
     VBtn,
+    VBtnToggle,
     VTooltip,
     VMenu,
     VSwitch,
@@ -75,7 +76,8 @@ import {
     VNavigationDrawer,
     VAvatar,
     VPagination,
-    VDataTable
+    VDataTable,
+
 
 } from "vuetify";
 import * as route from "./routes";
@@ -95,15 +97,15 @@ WebFont.load({
 //    attempt: 1
 //});
 //Vue.use(vueSmoothScroll);
-
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
-        VScroll
+        Scroll,
+
     },
     components: vuetifyComponents
 });
-Vue.component("scroll-list", scroll);
+Vue.component("scroll-list", scrollComponent);
 //Vue.component("adsense", vueAdsense);
 Vue.component("general-page", GeneralPage);
 
@@ -112,23 +114,16 @@ const router = new VueRouter({
     routes: route.routes,
     scrollBehavior(to, from, savedPosition) {
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
-              resolve({ x: 0, y: 0 });
-            }, 500);
+                if(savedPosition){
+                    resolve({ x: savedPosition.x, y: savedPosition.y });
+                }else{
+                    resolve({ x: 0, y: 0 });
+                }
           });
-          
-        //gaby: deprecated not actually saving the last scroll position.
-        // if (savedPosition) {
-        //     return savedPosition;
-        // } else {
-        //     return {
-        //         x: 0,
-        //         y: 0
-        //     }
-        // }
     }
-
 });
+
+Vue.use(VueClipboard)
 
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',
@@ -150,7 +145,6 @@ Vue.use(VueAnalytics, {
         exception: true
     }
 });
-
 
 Vue.directive('language', Language);
 
@@ -180,11 +174,19 @@ Vue.filter('ellipsis',
 
         }
     });
+Vue.filter('bolder',
+  function (value, query) {
+    if(query.length) {
+        query.map((item) => {
+            value = value.replace(item, '<span class="bolder">' + item + '</span>')
+        });
+    }
+    return value
+});
 
 Vue.filter('fixedPoints', function (value) {
     if (!value) return 0;
     if (value.toString().indexOf('.') === -1) return value;
-    // debugger
     return parseFloat(value).toFixed(2);
 });
 
@@ -221,7 +223,7 @@ router.beforeEach((to, from, next) => {
             }
         }
     }
-    if (window.innerWidth < 600) {
+    if (global.innerWidth < 600) {
         intercomSettings.hide_default_launcher = true;
     }
     else {
@@ -256,6 +258,8 @@ function checkUserStatus(to, next) {
         next("/signin");
     });
 }
+
+initSignalRService();
 
 //app.$mount("#app");
 //This is for cdn fallback do not touch

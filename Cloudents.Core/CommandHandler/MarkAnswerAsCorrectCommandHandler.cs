@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Cloudents.Core.Command;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Event;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
-using Cloudents.Core.Storage;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -16,14 +13,14 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
-        private readonly IEventPublisher _eventPublisher;
+        private readonly IRepository<User> _userRepository;
 
         public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
-            IRepository<Answer> answerRepository, IEventPublisher eventPublisher)
+            IRepository<Answer> answerRepository, IRepository<User> userRepository)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
-            _eventPublisher = eventPublisher;
+            _userRepository = userRepository;
         }
 
         public async Task ExecuteAsync(MarkAnswerAsCorrectCommand message, CancellationToken token)
@@ -40,10 +37,20 @@ namespace Cloudents.Core.CommandHandler
             }
             question.MarkAnswerAsCorrect(answer);
 
+            float condition = Math.Max(DateTime.UtcNow.Subtract(answer.Created).Seconds, 1);
+
+            const int fraudTime = TimeConst.Minute * 8;
+            if (condition < fraudTime)
+            {
+                var factor = fraudTime / condition;
+
+                question.User.FraudScore += (int)factor * 5;
+
+                await _userRepository.UpdateAsync(question.User, token);
+            }
+
             var t1 = _questionRepository.UpdateAsync(question, token);
-            var t2 = _eventPublisher.PublishAsync(new MarkAsCorrectEvent(answer.Id), token);
-            //var t2 = _serviceBusProvider.InsertMessageAsync(new AnswerCorrectEmail(answer.User.Email, answer.Question.Text, answer.Text, _urlBuilder.WalletEndPoint, answer.Question.Price), token);
-            await Task.WhenAll(t1, t2).ConfigureAwait(true);
+            await Task.WhenAll(t1/*, t2*/).ConfigureAwait(true);
         }
     }
 }

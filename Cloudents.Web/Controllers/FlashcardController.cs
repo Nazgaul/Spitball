@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cloudents.Web.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
+    //TODO: Localize
     public class FlashcardController : Controller
     {
         private readonly IReadRepositoryAsync<FlashcardSeoDto, long> _repository;

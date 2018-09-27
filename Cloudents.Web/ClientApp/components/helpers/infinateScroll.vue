@@ -1,9 +1,12 @@
 ﻿<template>
-    <div v-scroll="this.scrollList"><slot></slot></div>
+    <div v-scroll="this.scrollList">
+        <slot></slot>
+    </div>
 </template>
 <script>
 
     export default {
+
         data() {
             return {
                 nextPage: null,
@@ -12,9 +15,9 @@
             }
         },
 
-        props: { 
+        props: {
             url: String,
-            vertical:String
+            vertical: String
         },
 
         created() {
@@ -23,8 +26,8 @@
         watch: {
             '$route': '$_resetScrolling',
             url(val) {
-               
-                this.nextPage=val;
+
+                this.nextPage = val;
             }
         },
 
@@ -40,22 +43,21 @@
             },
             scrollList() {
                 if (this.keepLoad()) {
-                    //debugger;
                     this.isLoading = true;
-                    this.$store.dispatch('nextPage', { vertical: this.vertical, url: this.nextPage })
+                    this.$store.dispatch('nextPage', {vertical: this.vertical, url: this.nextPage})
                         .then((res) => {
                             if (res.data && res.data.length) {
-                                this.$emit('scroll', res.data);
-                                this.nextPage=res.nextPage;
+                                //this.$emit('scroll', res.data);
+                                this.nextPage = res.nextPage;
                                 this.isLoading = false;
                             } else {
                                 this.nextPage = null;
                                 this.isComplete = true;
                             }
                         }).catch(reason => {
-                            this.isComplete = true;
-                            this.nextPage = null;
-                        })
+                        this.isComplete = true;
+                        this.nextPage = null;
+                    })
                 }
             },
             $_resetScrolling() {

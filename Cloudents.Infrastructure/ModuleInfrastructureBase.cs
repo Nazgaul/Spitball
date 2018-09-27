@@ -3,7 +3,6 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
-using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Interceptor;
@@ -45,7 +44,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(ITypeConverter<,>));
 
-            builder.RegisterType<Logger>().As<ILogger>();
         }
     }
 }

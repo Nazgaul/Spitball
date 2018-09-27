@@ -14,44 +14,6 @@ using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Web.Filters
 {
-    //public class CaptchaValidator : ValidationAttribute
-    //{
-    //    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-    //    {
-    //        var configuration = (IConfiguration)validationContext.GetService(typeof(IConfiguration));
-    //        var httpClient = (IRestClient)validationContext.GetService(typeof(IRestClient));
-    //        var environment = (IHostingEnvironment)validationContext.GetService(typeof(IHostingEnvironment));
-
-    //        var secret = configuration["GoogleReCaptcha:Secret"];
-
-    //        var nvc = new NameValueCollection()
-    //        {
-    //            ["secret"] = secret,
-    //            ["response"] = value.ToString()
-    //        };
-
-    //        var result = httpClient.GetAsync<RecaptchaResponse>(
-    //            new Uri("https://www.google.com/recaptcha/api/siteverify"), nvc,
-    //            default).Result;
-
-    //        if (result == null)
-    //        {
-    //            return new ValidationResult("captcha error");
-    //        }
-
-    //        if (!result.Success)
-    //        {
-    //            return new ValidationResult("captcha error");
-    //        }
-    //        return ValidationResult.Success;
-    //    }
-
-    //    public class RecaptchaResponse
-    //    {
-    //        public bool Success { get; set; }
-    //    }
-    //}
-
     public sealed class ValidateRecaptchaAttribute : TypeFilterAttribute
     {
         public ValidateRecaptchaAttribute() : base(typeof(ValidateRecaptchaImpl))

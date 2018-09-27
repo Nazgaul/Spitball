@@ -3,23 +3,16 @@
 
         <div class="flex data-section">
             <div class="header ">
-                <span class="header-title">My Wallet</span>
+                <span class="header-title" v-language:inner>wallet_My_Wallet</span>
                 <button class="back-button wallet" @click=" $router.go(-1)">
                     <v-icon right>sbf-close</v-icon>
                 </button>
             </div>
-            <!--class="pl-3" style="background: #3532d5"-->
             <v-tabs v-if="!cashOut" >
-                <!--<v-tabs-bar fixed>-->
-                <v-tab @click="changeActiveTab(1)" :href="'#tab-1'" :key="1">Balances</v-tab>
-                <v-tab @click="changeActiveTab(2)" :href="'#tab-2'" :key="2">Transaction</v-tab>
-                <v-tab @click="changeActiveTab(3)" :href="'#tab-3'" :key="3">Cash Out</v-tab>
-
-                <!--</v-tabs-bar>-->
-                <!--</div>-->
-
+                <v-tab @click="changeActiveTab(1)" :href="'#tab-1'" :key="1"><span v-language:inner>wallet_Balances</span>  </v-tab>
+                <v-tab @click="changeActiveTab(2)" :href="'#tab-2'" :key="2"><span v-language:inner>wallet_Transaction</span> </v-tab>
+                <v-tab @click="changeActiveTab(3)" :href="'#tab-3'" :key="3"><span v-language:inner>wallet_Cash_Out</span> </v-tab>
                 <v-tab-item :key="'1'" :id="'tab-1'">
-                    <!--<v-tabs-content :key="'1'" :id="'tab-1'">-->
                     <v-flex xs12>
                         <v-data-table
                                 :headers="headers.balances"
@@ -32,13 +25,12 @@
                             </template>
                             <template slot="items" slot-scope="props">
                                 <td class="text-xs-left">{{ props.item.type }}</td>
-                                <td class="text-xs-right">{{ props.item.points | currencyLocalyFilter}} SBL</td>
-                                <td class="text-xs-right bold">$ {{ props.item.value }}</td>
+                                <td class="text-xs-right">{{ props.item.points | currencyLocalyFilter}} <span v-language:inner>wallet_SBL</span></td>
+                                <td class="text-xs-right bold"> <span v-language:inner>wallet_currency</span>{{ props.item.value }}</td>
                             </template>
                         </v-data-table>
                     </v-flex>
                 </v-tab-item>
-                <!--</v-tabs-content>-->
 
                 <v-tab-item :key="'2'" :id="'tab-2'" class="tab-padding">
                     <v-flex xs12>
@@ -57,9 +49,9 @@
                                 <td class="text-xs-left">{{ props.item.action }}</td>
                                 <td class="text-xs-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}
                                 </td>
-                                <td class="text-xs-right">{{ props.item.amount}} SBL</td>
+                                <td class="text-xs-right">{{ props.item.amount}}<span v-language:inner>wallet_SBL</span></td>
                                 <td class="text-xs-right bold" v-if="!$vuetify.breakpoint.xsOnly">{{
-                                    props.item.balance }} SBL
+                                    props.item.balance }}<span v-language:inner>wallet_SBL</span>
                                 </td>
                             </template>
                         </v-data-table>
@@ -74,9 +66,8 @@
                 <v-tab-item :key="'3'" :id="'tab-3'" class="tab-padding">
                     <div class="cash-out-wrapper">
                         <div class="text-wrap">
-                            <div class="main-text">The more SBL you have, the more valuable they are.</div>
-                            <div class="points-text">You have <span>{{ earnedPoints | currencyLocalyFilter}}</span>
-                                redeemable SBL
+                            <div class="main-text" v-language:inner>wallet_more_SBL_more_valuable</div>
+                            <div class="points-text"><span v-language:inner>wallet_You_have</span>&nbsp;<span>{{ earnedPoints | currencyLocalyFilter}}</span>&nbsp;<span v-language:inner>wallet_redeemable_SBL</span>
                             </div>
                         </div>
                         <cash-out-card class="cash-out-option" v-for="(cashOutOption,index) in cashOutOptions"
@@ -93,13 +84,13 @@
         </div>
         <div class="cash-out-wrap" v-if="active==='tab-1'">
             <div class="cash-out">
-                <span>Cash out</span>
+                <span v-language:inner>wallet_Cash_Out</span>
                 <div class="btn-wrap">
                     <div class="cash-out-val-wrap">
-                        <span class="cash-out-value">$ {{cash}}</span>
+                        <span class="cash-out-value"><span v-language:inner>wallet_currency</span>{{cash}}</span>
                     </div>
                     <div class="button-wrap">
-                        <button class="cash-out-btn" @click="gotToCashOutTab">Cash Out</button>
+                        <button class="cash-out-btn" @click="gotToCashOutTab" v-language:inner>wallet_Cash_Out</button>
                     </div>
                 </div>
             </div>

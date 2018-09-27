@@ -1,16 +1,16 @@
 <template>
-    <v-flex v-if="cardData && !isDeleted " class="question-card" :style="cssRule.backgroundColor" :class="{'highlight':flaggedAsCorrect}">
+    <v-flex v-if="cardData && !isDeleted " class="question-card" :class="[`sbf-card-${cardData.color}`, {'highlight':flaggedAsCorrect}]">
         <div v-if="!typeAnswer" class="box-stroke">
             <!-- question Card -->
-            <div class="top-block" >
-            <user-block :style="cssRule.fontColor" :cardData="cardData" :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
-                <template> · <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
+            <div class="top-block">
+            <user-block :class="`sbf-font-${cardData.color}`" :cardData="cardData" :user="cardData.user" v-if="cardData.user" :name="cardData.subject">
+                <template> · <span class="timeago" :datetime="cardTime"></span><span
                         v-if="typeAnswer"
                         class="q-answer">
                     <button class="accept-btn right" @click="markAsCorrect"
                             v-if="showApproveButton && !flaggedAsCorrect && !hasAnswer">
                         <v-icon>sbf-check-circle</v-icon>
-                        <span>Accept</span>
+                        <span v-language:inner>questionCard_Accept</span>
                     </button>
 
                     <span class="choosen-answer right" v-if="flaggedAsCorrect">
@@ -19,16 +19,13 @@
             </user-block>
             <div v-if="cardData.price">
                 <div class="q-price pr-3">
-                    <span v-if="!cardData.hasCorrectAnswer">Earn ${{cardData.price | dollarVal}}</span>
-                    <span v-else class="sold-badge">Sold</span>
-
+                    <span v-show="isSold" style="display:flex;min-width: 90px;"><span v-language:inner>questionCard_Earn</span>&nbsp; ${{cardData.price | dollarVal}}</span>
+                    <span v-show="!isSold" class="sold-badge"><span v-language:inner style="margin: 0 auto;">questionCard_Sold</span></span>
                 </div>
                 <!-- <p class="q-category">{{cardData.subject}}</p> -->
             </div>
         </div>
-
-        <p class="q-text" :style="cssRule.fontColor"  :class="{'answer': typeAnswer, 'ellipsis': fromCarousel}">{{cardData.text | ellipsis(150, detailedView)}}</p>
-
+        <p class="q-text"  :class="[`sbf-font-${cardData.color}`, { 'answer': typeAnswer, 'ellipsis': fromCarousel}]">{{cardData.text | ellipsis(150, detailedView)}}</p>
         <!-- v-if="cardData.files.length" -->
         <div class="gallery" v-if="gallery&&gallery.length">
             <v-carousel prev-icon="sbf-arrow-right left" next-icon="sbf-arrow-right right"
@@ -44,26 +41,26 @@
                 <div class="new-block">
                     <div class="files" v-if="cardData.filesNum">
                         <template>
-                            <v-icon :style="cssRule.fontColor">sbf-attach</v-icon>
-                            <span :style="cssRule.fontColor">{{cardData.filesNum}}</span>
+                            <v-icon :class="`sbf-font-${cardData.color}`">sbf-attach</v-icon>
+                            <span :class="`sbf-font-${cardData.color}`">{{cardData.filesNum}}</span>
                         </template>
                     </div>
-                    <div class="users">
+                    <div class="users" v-if="!detailedView">
                         <template v-for="(i, index) in limitedCardAnswers">
                             <div class="avatar" :key="index">
                                 <v-icon>sbf-comment-icon</v-icon>
                             </div>
                         </template>
                     </div>
-                    <span class="user-counter" v-if="cardData.answersNum>3">+{{cardData.answersNum-3}}</span>
+                    <span class="user-counter" :class="`sbf-font-${cardData.color}`" v-show="!detailedView ? cardAnswers > 3 : ''">+{{cardAnswers-3}}</span>
                 </div>
                 <!--show only if in suggestion popup-->
                 <div class="answer" v-if="suggestion">
-                <button class="answer-btn">Answer</button>
+                <button class="answer-btn" v-language:inner>questionCard_Answer</button>
                 </div>
             </div>
         </div>
-        <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}" v-if="detailedView && canDelete" @click="deleteQuestion()">Delete</button>
+        <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}" v-if="detailedView && canDelete" @click="deleteQuestion()" v-language:inner>questionCard_Delete</button>
         
         <v-dialog v-if="gallery&&gallery.length" v-model="showDialog"  max-width="720px"
                   transition="scale-transition" content-class="zoom-image">
@@ -88,7 +85,7 @@
                                     class="q-answer">
                                 <button class="accept-btn right" @click="markAsCorrect" v-if="showApproveButton && !flaggedAsCorrect && !hasAnswer">
                                     <v-icon>sbf-check-circle</v-icon>
-                                    <span>Accept</span>
+                                    <span v-language:inner>questionCard_Accept</span>
                                 </button>
 
                                 <span class="choosen-answer right" v-if="flaggedAsCorrect">
@@ -109,7 +106,7 @@
                     </div>
                 </div>
             </div>
-            <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}" v-if="detailedView && canDelete" @click="deleteQuestion()">Delete</button>
+            <button :class="{'delete-btn': !typeAnswer, 'delete-btn-answer': typeAnswer}" v-if="detailedView && canDelete" @click="deleteQuestion()" v-language:inner>questionCard_Delete</button>
         <!-- TODO strange behaviour check why is being added tab index-1 to DOM-->
         <v-dialog v-model="showDialog"  max-width="720px"
                   transition="scale-transition" content-class="zoom-image">

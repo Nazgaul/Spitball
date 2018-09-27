@@ -1,5 +1,4 @@
 import marketingData from './marketingData';
-
 export default {
     getCampaignData: (name) => {
         if (name &&  marketingData.login[`${name}`]) {

@@ -7,7 +7,7 @@ namespace Cloudents.Core.Message
     public class RegistrationEmail : BaseEmail
     {
         public RegistrationEmail(string to, string link) 
-            : base(to, "register","Welcome to Spitball", "SendGrid", "Email", "Registration")
+            : base(to, "register","Welcome to Spitball", "SendGrid", "Email", "Confirm Email")
         {
             Link = link;
         }

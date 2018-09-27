@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Azure.Search;
+using Cloudents.Infrastructure.Search;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Write
@@ -9,7 +9,7 @@ namespace Cloudents.Infrastructure.Write
         public const string IndexName = "auto-complete";
         public const string ScoringProfile = "auto-complete-default";
 
-        public AutoCompleteSearchWrite(SearchServiceClient client)
+        public AutoCompleteSearchWrite(SearchService client)
             : base(client, IndexName)
         {
         }

@@ -1,6 +1,7 @@
 ﻿@using System.Globalization
+@using System.Linq
 
-<a href="#" as data-toggle="dropdown">@CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToUpper()</a>
+<a href="#"  data-toggle="dropdown">@CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToUpper()</a>
 <div class="dropdown-menu">
     @foreach (var lang in Startup.SupportedCultures.Where(w => !Equals(w, CultureInfo.CurrentCulture)))
     {

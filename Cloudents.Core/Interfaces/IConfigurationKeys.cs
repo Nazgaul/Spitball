@@ -2,7 +2,7 @@
 {
     public interface IConfigurationKeys
     {
-        string Db { get; }
+        DbConnectionString Db { get; }
         string MailGunDb { get; }
         SearchServiceCredentials Search { get; }
         string Redis { get; }

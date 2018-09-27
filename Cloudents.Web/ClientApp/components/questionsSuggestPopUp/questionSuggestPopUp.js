@@ -16,7 +16,7 @@ export default {
     data() {
         return {
             showDialog: false,
-            interval: 7000,
+            interval: 700000,
             typeAnswer: false
         }
     },
@@ -31,7 +31,7 @@ export default {
         },
         answerMore(id) {
             this.$router.push({name: 'question', params: {id: `${id}`}});
-            console.log(this.$router)
+            console.log(this.$router);
             this.requestDialogClose();
         }
     },

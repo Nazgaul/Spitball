@@ -1,4 +1,5 @@
 ﻿@using System.Reflection
+@using Cloudents.Web
 @using Cloudents.Web.Extensions
 @using Cloudents.Web.Services
 @using Cloudents.Web.Views
@@ -13,7 +14,7 @@
 @{
     const string themeColor = "#4190b";
     ViewBag.title = ViewBag.title ?? "Simplify school | Spitball";
-    ViewBag.metaDescription = ViewBag.metaDescription ?? " Spitball - Curating all of the resources you need. For Free.";
+    ViewBag.metaDescription = ViewBag.metaDescription ?? " 500 thousand + students worldwide | First-of-its-kind, student-driven economy. Interact directly with other students to exchange content, knowledge, and services.";
     ViewBag.fbImage = ViewBag.fbImage ?? "/images/3rdParty/fbShare.png";
     ViewBag.imageSrc = ViewBag.imageSrc ?? "/images/3rdParty/fbShare.png";
     var version = typeof(Program).Assembly
@@ -24,19 +25,33 @@
 }
 <!DOCTYPE html>
 
+@*dir="@(System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")"*@
 <html>
 <head>
-
     <title>@ViewBag.title</title>
-
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <base href="~/" />
     @*<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">*@
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/dist/@p.Css" />
-    </environment>
+            @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft)
+            {
+                <link rel="stylesheet" href="~/dist/@p.RtlCss" />
+            }
+            else
+            {
+                <link rel="stylesheet" href="~/dist/@p.Css" />
+            }
+            @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft)
+            {
+                <link rel="stylesheet" href="~/dist/@main.RtlCss" />
+            }
+            else
+            {
+                <link rel="stylesheet" href="~/dist/@main.Css" />
+            }
+        </environment>
 
     <environment exclude="Development">
         <link rel="stylesheet" href="@cdnEndPoint/dist/@p.Css"
@@ -57,7 +72,7 @@
     <meta name="title" content="@ViewBag.title" />
     <meta name="description" content="@ViewBag.metaDescription" />
 
-    <meta name="apple-itunes-app" content="app-id=990911114">
+    @*<meta name="apple-itunes-app" content="app-id=990911114">*@
     <link rel="image_src" href="@ViewBag.imageSrc" />
 
     <meta property="fb:app_id" content="450314258355338" />
@@ -161,7 +176,7 @@
             //Intercom('boot', { app_id: 'njmpgayv' })
         })()
     </script>
-    <!-- Begin Inspectlet Embed Code -->
+    @*Begin Inspectlet Embed Code *@
     <script type="text/javascript" id="inspectletjs">
         (function () {
             window.__insp = window.__insp || [];
@@ -174,14 +189,14 @@
             setTimeout(ldinsp, 0);
         })();
     </script>
-    <!-- End Inspectlet Embed Code -->
-    @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>*@
+    @* End Inspectlet Embed Code *@
     <script>
-    window.version = '@version';
-    window.publicPath = '@cdnEndPoint' + '/dist/';
-    window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
-    window.talkJsId = '@Configuration["TalkJs"]';
+        window.version = '8.9.25.2';  //'@version';
+            window.publicPath = '@cdnEndPoint' + '/dist/';
+            window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
+            window.talkJsId = '@Configuration["TalkJs"]';
     </script>
+
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>

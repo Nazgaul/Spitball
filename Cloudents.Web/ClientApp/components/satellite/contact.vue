@@ -2,7 +2,7 @@
 <div class="contact">
     <general-page header="contact-header.png" icon="contact-icon.png">
             <a href="mailto:support@spitball.co" class="d-block">support@spitball.co</a>
-            <span class="d-block">79 Madison Ave, New York, New York, 10016</span>
+            <span class="d-block" v-language:inner>contant_address</span>
             <v-layout row class="mt-3 mb-3">
                 <v-flex v-for="(bIcon,index) in bottomIcons" :key="index" align-start justify-start class="social-btns mr-4">
                     <a :href="bIcon.link" target="_blank">
@@ -17,7 +17,7 @@
 </div>
 </template>
 <script>
-    import {bottomIcons} from "../home/consts";
+    import {bottomIcons} from "../helpers/socialMediaIcons/socialMedia";
     import generalPage from "./generalImage.vue";
 
     var components = {generalPage};

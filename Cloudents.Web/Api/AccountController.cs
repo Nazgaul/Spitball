@@ -22,16 +22,12 @@ namespace Cloudents.Web.Api
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        //private readonly ICommandBus _commandBus;
-        //private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, /*ICommandBus commandBus, IMapper mapper,*/
+        public AccountController(UserManager<User> userManager,
             SignInManager<User> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
-           // _commandBus = commandBus;
-           // _mapper = mapper;
             _signInManager = signInManager;
             _configuration = configuration;
         }
@@ -50,6 +46,7 @@ namespace Cloudents.Web.Api
             var user = await taskUser.ConfigureAwait(false);
             if (user == null)
             {
+                //TODO: Localize
                 ModelState.AddModelError(string.Empty,"user not exists");
                 await _signInManager.SignOutAsync().ConfigureAwait(false);
                 return BadRequest(ModelState);
@@ -60,7 +57,6 @@ namespace Cloudents.Web.Api
 
         private string GetToken()
         {
-            // ReSharper disable once StringLiteralTypo
             var message = _userManager.GetUserId(User);
 
             var asciiEncoding = new ASCIIEncoding();

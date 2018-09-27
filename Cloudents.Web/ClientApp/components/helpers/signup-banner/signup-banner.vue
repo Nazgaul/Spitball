@@ -27,8 +27,8 @@
         </v-flex>
 
         <div class="round-free">
-            <p class="round-free-text">Spitball is a completely<br/>
-               <span>FREE</span><br/> service.</p>
+            <p class="round-free-text"><span v-language:inner>signupBanner_spitball_is_a_completely</span> <br/>
+               <span v-language:inner>signupBanner_free</span><br/> <span v-language:inner>signupBanner_service</span> </p>
         </div>
     </v-flex>
 </template>
