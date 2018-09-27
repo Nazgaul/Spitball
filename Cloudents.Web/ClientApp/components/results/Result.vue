@@ -111,7 +111,7 @@
                                 <h6 class="mb-3"><span v-language:inner>result_your_search</span> - <span
                                         class="user-search-text">{{userText}}</span> - <span v-language:inner>result_record_not_match</span>
                                 </h6>
-                                <div class="sug mb-2">result_suggestions</div>
+                                <div class="sug mb-2" v-language:inner>result_suggestions</div>
                                 <ul>
                                     <li v-language:inner>result_spelling</li>
                                     <li v-language:inner>result_different_keywords</li>
