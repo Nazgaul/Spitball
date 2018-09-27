@@ -31,7 +31,7 @@ export default {
         },
         answerMore(id) {
             this.$router.push({name: 'question', params: {id: `${id}`}});
-            console.log(this.$router)
+            console.log(this.$route)
             this.requestDialogClose();
         }
     },

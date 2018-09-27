@@ -147,7 +147,7 @@ export default {
         }
     },
     created(){
-        this.getQuestionColor()
+        this.getQuestionColor();
     },
     mounted() {
         this.renderQuestionTime('.timeago')
