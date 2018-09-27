@@ -1,5 +1,5 @@
 <template>
-    <h1>Cashout</h1>
+    <h1>Cashout List</h1>
 </template>
 
 <script>
