@@ -66,7 +66,7 @@ export default {
             var self = this;
             if (this.submitForm()) {
                 this.updateLoading(true);
-                this.textAreaValue = this.textAreaValue.trim();
+                // this.textAreaValue = this.textAreaValue.trim();
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default' )
                     .then(function () {
                             self.$ga.event("Submit_question", "Homwork help");

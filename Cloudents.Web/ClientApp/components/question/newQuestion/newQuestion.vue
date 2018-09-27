@@ -15,9 +15,8 @@
                         </div>
                     </v-flex>
 
-
                     <extended-text-area uploadUrl="/api/upload/ask"
-                                        v-model="textAreaValue"
+                                        v-model.trim="textAreaValue"
                                         @addFile="addFile"
                                         :actionType="actionType"
                                         :error="errorTextArea"
