@@ -6,6 +6,9 @@ import QDelete from './components/question/questionComponents/delete/deleteQuest
 import QAdd from './components/question/questionComponents/add/addQuestion.vue'
 
 import User from './components/user/user.vue'
+import UToken from './components/user/token/tokenUser.vue'
+import UCashout from './components/user/cashout/cashoutUser.vue'
+import USuspend from './components/user/suspend/suspendUser.vue'
 export const routes = [
     {
        path: '/home',
@@ -46,7 +49,29 @@ export const routes = [
       {
         path: '/user',
         name: 'user',
-        component: User
+        component: User,
+        children: [
+          {
+            path: '',
+            redirect: 'token',
+          },
+          {
+            path: 'token',
+            component: UToken
+          },
+          {
+            path:'cashout',
+            component: UCashout
+          },
+          {
+            path:'suspend',
+            component: USuspend
+          },
+          {
+            path: '*',
+            redirect: 'token',
+          },
+        ]
      },
     {
          path: '/*',
