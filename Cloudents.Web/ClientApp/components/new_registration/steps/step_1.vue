@@ -199,8 +199,7 @@
             },
             goToLogin() {
                 this.passDialog = false;
-                this.$parent.$emit('changeStep', 'startstep');
-
+                this.$parent.$emit('changeStep', 'loginstep');
             },
             redirectToSignIn(){
                 global.location.replace(`${global.location.origin}/signin` )
