@@ -8,7 +8,7 @@
 
                     </p>
                 </div>
-                <div class="checkbox-terms">
+                <div class="checkbox-terms" v-if="!isSignIn">
                     <input type="checkbox" v-model="agreeTerms" id="agreeTerm"/>
                     <label for="agreeTerm"></label>
                     <span><span v-language:inner>login_agree</span>&nbsp;<router-link
@@ -25,7 +25,7 @@
                     </h1>
                     <!--<p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
                 </div>
-                <div class="checkbox-terms" v-if="!isMobile">
+                <div class="checkbox-terms" v-if="!isMobile && !isSignIn">
                     <input type="checkbox" v-model="agreeTerms" id="agreeTermDesk"/>
                     <label for="agreeTermDesk"></label>
                     <span><span v-language:inner>login_agree</span>&nbsp;<router-link
@@ -67,11 +67,11 @@
                 <div class="signin-strip">
                     <div v-if="isSignIn">
                         <span v-language:inner>login_need_account_text</span>&nbsp;
-                        <a class="click" @click="goToEmailLogin()" v-language:inner>login_need_account_link</a>
+                        <a class="click" @click="goTosignUp()" v-language:inner>login_need_account_link</a>
                     </div>
                     <div v-else>
                         <span v-language:inner>login_already_have_account</span>&nbsp;
-                        <a class="click" @click="showDialogPass()" v-language:inner>login_sign_in</a>
+                        <a class="click" @click="redirectToSignIn()" v-language:inner>login_sign_in</a>
                     </div>
                 </div>
             </div>
@@ -86,13 +86,7 @@
                 </button>
                 <v-card-text class="limited-width">
                     <h1 v-if="isMobile">
-
                         <span v-language:inner >login_passsword_dialog_title</span>
-                        <!--<span v-language:inner>login_sure_exit1</span><br/>-->
-                        <!--<span v-language:inner>login_sure_exit2</span><br/>-->
-                        <!--<span v-language:inner>login_sure_exit3</span><br/>-->
-                        <!--<span v-language:inner>login_sure_exit4</span>&nbsp;<b>-->
-                        <!--<span v-language:inner>login_sure_exit5</span></b>-->
                     </h1>
                     <p v-language:inner>login_passsword_dialog_text_1</p>
                     <p v-language:inner>login_passsword_dialog_text_2</p>
@@ -119,7 +113,7 @@
     const defaultSubmitRoute = {path: '/ask'};
 
     export default {
-        components: {stepTemplate, SbInput },
+        components: {stepTemplate, SbInput},
 
         name: 'step_1',
         data() {
@@ -133,9 +127,11 @@
                 errorMessage: {
                     gmail: '',
                 },
+                signInScreeen: false,
+                registerScreeen: false
             }
         },
-        props:{
+        props: {
             isMobile: {
                 type: Boolean,
                 default: false
@@ -149,7 +145,7 @@
 
         },
         computed: {
-            confirmCheckbox(){
+            confirmCheckbox() {
                 return !this.agreeTerms && this.agreeError
             },
         },
@@ -157,8 +153,10 @@
             ...mapMutations({updateLoading: "UPDATE_LOADING"}),
             ...mapActions({updateToasterParams: 'updateToasterParams', updateCampaign: 'updateCampaign'}),
             googleLogIn() {
-                if(!this.agreeTerms){
-                    return  this.agreeError = true;
+                if(!this.isSignIn){
+                    if (!this.agreeTerms) {
+                        return this.agreeError = true;
+                    }
                 }
                 var self = this;
                 this.updateLoading(true);
@@ -166,7 +164,7 @@
                 authInstance.signIn().then((googleUser) => {
                     let idToken = googleUser.getAuthResponse().id_token;
                     registrationService.googleRegistration(idToken)
-                        .then((resp)=> {
+                        .then((resp) => {
                             self.updateLoading(false);
                             let newUser = resp.data.isNew;
                             if (newUser) {
@@ -179,26 +177,37 @@
                                 let url = self.toUrl || defaultSubmitRoute;
                                 self.$router.push({path: `${url.path }`});
                             }
-                        },  (error)=> {
+                        }, (error) => {
                             self.updateLoading(false);
                             self.errorMessage.gmail = error.response.data["Google"] ? error.response.data["Google"][0] : '';
                         });
-                },  (error)=> {
+                }, (error) => {
                     self.updateLoading(false);
                 });
             },
-            goToEmailLogin(){
-                if(!this.agreeTerms){
+            goToEmailLogin() {
+                if (!this.agreeTerms && !this.isSignIn) {
                     return this.agreeError = true
                 }
-                this.$parent.$emit('changeStep', 'startstep');
+                router.push({ name: 'user', params: { userId: 123 }})
+                this.$parent.$emit('changeStep', 'termandstart');
+            },
+            goTosignUp(){
+                if (!this.agreeTerms && !this.isSignIn) {
+                    return this.agreeError = true
+                }
+               global.location.replace(`${global.location.origin}/register` )
             },
             goToLogin() {
                 this.passDialog = false;
                 this.$parent.$emit('changeStep', 'loginStep');
 
             },
-            showDialogPass(){
+            redirectToSignIn(){
+                global.location.replace(`${global.location.origin}/signin` )
+
+            },
+            showDialogPass() {
                 this.passDialog = true;
             },
             goToCreatePassword() {
@@ -206,8 +215,12 @@
                 this.$parent.$emit('fromCreate', 'create');
                 this.$parent.$emit('changeStep', 'emailpassword');
             },
+        },
+        created() {
+
         }
     }
+
 </script>
 
 <style>
