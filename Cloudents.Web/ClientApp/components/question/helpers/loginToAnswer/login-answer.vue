@@ -5,9 +5,9 @@
                 <v-icon>sbf-close</v-icon>
             </button>
             <div class="ml-1 wrap-text">
-                <h2 class="text-md-left"> {{profileData.modal.heading}}</h2>
+                <h2 class="text-md-left" v-html="profileData.modal.heading"></h2>
                 <div class="wrapper-body-text">
-                    <p class="dialog-body-text"> {{profileData.modal.text}}</p>
+                    <p class="dialog-body-text" v-html="profileData.modal.text"></p>
                 </div>
             </div>
             <div class="btn-container">

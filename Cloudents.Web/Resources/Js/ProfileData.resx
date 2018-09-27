@@ -118,8 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="generalProfile_modal_heading" xml:space="preserve">
-    <value>Please sign up or
-login to continue.</value>
+    <value>Please&lt;/br&gt; &lt;b&gt;sign up&lt;/b&gt; or
+&lt;b&gt;login&lt;/b&gt;&lt;br/&gt;  to continue.</value>
   </data>
   <data name="generalProfile_modal_text" xml:space="preserve">
     <value>You are only a couple of mouse clicks away from unlocking instant homework help and the ability to make serious money!</value>
@@ -212,11 +212,11 @@ You can use these to get help with your own homework questions, or answer other 
     <value>We need to know how to contact you</value>
   </data>
   <data name="HHP_modal_heading" xml:space="preserve">
-    <value>Please sign up or
-login to continue.</value>
+    <value>Please&lt;/br&gt; &lt;b&gt;sign up&lt;/b&gt; or
+&lt;b&gt;login&lt;/b&gt;&lt;br/&gt;  to continue.</value>
   </data>
   <data name="HHP_modal_text" xml:space="preserve">
-    <value>You are only a couple of mouse clicks away from instant Homework Help and FREE SBL.</value>
+    <value>You are only a couple of mouse clicks away from instant Homework Help and &lt;b&gt;FREE SBL.&lt;/b&gt;</value>
   </data>
   <data name="HHP_register_stepEight_boldText" xml:space="preserve">
     <value>email</value>
@@ -305,8 +305,8 @@ rewarded with
     <value>We need to know how to contact you</value>
   </data>
   <data name="makeMoneyProfile_modal_heading" xml:space="preserve">
-    <value>Please sign up or
-login to continue.</value>
+    <value>Please&lt;/br&gt; &lt;b&gt;sign up&lt;/b&gt; or
+&lt;b&gt;login&lt;/b&gt;&lt;br/&gt;  to continue.</value>
   </data>
   <data name="makeMoneyProfile_modal_text" xml:space="preserve">
     <value>You are a couple of mouse clicks away from FREE access to making serious money.</value>

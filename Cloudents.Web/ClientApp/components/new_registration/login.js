@@ -242,7 +242,7 @@ export default {
             this.phone.countryCode = data.code;
         });
         //check if new user param exists in email url
-        this.isNewUser = this.$route.query['newUser'] !== undefined;
+        this.isNewUser = this.$route.query['isNew'] !== undefined;
         if (this.isNewUser && this.stepNumber === 3) {
             analyticsService.sb_unitedEvent('Registration', 'Email Verified');
 

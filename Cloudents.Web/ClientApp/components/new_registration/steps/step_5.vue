@@ -99,7 +99,7 @@
                     .then(function () {
                         //got to congratulations route if new user
                         if (self.isNewUser) {
-                            this.$parent.$emit('changeStep', 'congrats');
+                            self.$parent.$emit('changeStep', 'congrats');
                             analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
                             self.loading = false;
                         } else {
