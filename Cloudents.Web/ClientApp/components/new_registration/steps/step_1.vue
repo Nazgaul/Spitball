@@ -146,7 +146,6 @@
                 default: false
             },
             toUrl: {},
-
         },
         computed: {
             confirmCheckbox(){
