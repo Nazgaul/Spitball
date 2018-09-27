@@ -3,7 +3,7 @@
         <nav class="user-nav">
             <span></span>
             <router-link to="/user/token">Send Tokens</router-link> 
-            <router-link to="/user/cashout">Cash Out List</router-link>
+            <router-link to="/user/cashout">Cashout List</router-link>
             <router-link to="/user/suspend">Suspend User</router-link>
         </nav> 
         <div class="user-content">

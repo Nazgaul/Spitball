@@ -230,8 +230,9 @@ export default {
             let step = this.$route.query.step;
             this.changeStepNumber(step);
         } else if (this.$route.path === '/signin') {
-            this.changeStepNumber('termandstart', true);
             this.isSignIn = true;
+            this.changeStepNumber('termandstart', true);
+
         } else if (path === '/resetpassword') {
             this.passResetCode = this.$route.query['code'] ? this.$route.query['code'] : '';
             this.ID = this.$route.query['Id'] ? this.$route.query['Id'] : '';
