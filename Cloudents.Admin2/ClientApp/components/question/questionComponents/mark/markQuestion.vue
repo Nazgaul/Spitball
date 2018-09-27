@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Questions</h1>
-            <div class="questionItem" v-for="(question,index) in questions" :key="index">
+            <div class="questionItem" v-for="(question, index) in questions" :key="index">
                 <div class="question-header">
                     <span style="flex-grow:5;" title="Question Text">{{question.questionText}}</span>
                     <span><button value="Open" @click="openQuestion(question.url)" title="Open Question" style="cursor:pointer;">Open</button></span>
