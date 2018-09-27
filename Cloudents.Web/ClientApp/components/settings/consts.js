@@ -112,6 +112,7 @@ export let notRegMenu = [
     {
         id:typesPersonalize.feedback,
         title:'Feedback',
+        name: 'feedback',
         icon:"sbf-feedbackNew",
         click:()=>Intercom('showNewMessage'),
 

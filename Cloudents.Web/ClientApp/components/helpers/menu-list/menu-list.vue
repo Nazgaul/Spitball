@@ -21,7 +21,7 @@
                 </template>
             </user-block>
             <template v-for="(item) in notRegMenu">
-                <template v-if="item.name">
+                <template v-if="item.name && item.name !== 'feedback'">
                     <router-link tag="v-list-tile" :to="{name : item.name}">
                         <v-list-tile-action>
                             <v-icon>{{item.icon}}</v-icon>
@@ -32,7 +32,7 @@
                     </router-link>
                 </template>
                 <!--if theres is click handler as in feedback/ check settings/const.js -->
-                <v-list-tile v-else @click="() => item.click ? item.click() : ''">
+                <v-list-tile v-else-if="item.name === 'feedback' && accountUser" @click="() => item.click ? item.click() : ''">
                     <v-list-tile-action>
                         <v-icon>{{item.icon}}</v-icon>
                     </v-list-tile-action>
@@ -72,7 +72,7 @@
                     <v-list-tile-title class="subheading" v-language:inner>menuList_my_profile</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
-            <v-list-tile @click="startIntercom" >
+            <v-list-tile @click="startIntercom">
                 <v-list-tile-action>
                     <v-icon>sbf-feedbackNew</v-icon>
                 </v-list-tile-action>

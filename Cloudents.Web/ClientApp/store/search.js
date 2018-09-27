@@ -83,7 +83,7 @@ const mutations = {
     },
     [SEARCH.REMOVE_QUESTION](state, questionToRemove){
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
-            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; i++ ){
+            for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; questionIndex++ ){
                 let currentQuestion = state.itemsPerVertical.ask.data[questionIndex];
                 if(currentQuestion.id === questionToRemove.id){
                     //remove the question from the list
