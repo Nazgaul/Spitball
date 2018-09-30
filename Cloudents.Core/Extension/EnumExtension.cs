@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Cloudents.Core.Attributes;
 
 namespace Cloudents.Core.Extension
 {
@@ -11,9 +11,9 @@ namespace Cloudents.Core.Extension
         public static string GetDescription(this System.Enum value)
         {
             if (value == null) throw new ArgumentNullException(nameof(value));
-            var fi = value.GetType().GetField(value.ToString());
+            var val = GetAttributeValue<ParseAttribute>(value);
 
-            switch (fi.GetCustomAttributes(typeof(ParseAttribute), false).FirstOrDefault())
+            switch (val)
             {
                 case null:
                     return value.ToString();
@@ -22,6 +22,13 @@ namespace Cloudents.Core.Extension
             }
 
             throw new InvalidCastException();
+        }
+
+        public static T GetAttributeValue<T>(this System.Enum value) where T : Attribute
+        {
+            if (value == null) throw new ArgumentNullException(nameof(value));
+            var fi = value.GetType().GetField(value.ToString());
+            return fi.GetCustomAttribute<T>();
         }
 
         public static IEnumerable<string> GetPublicEnumNames(Type value)
