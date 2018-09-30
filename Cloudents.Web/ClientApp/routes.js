@@ -123,15 +123,15 @@ let routes2 = [
         components: {default: showFlashcard, header: previewHeader},
         props: {default: (route) => ({id: route.params.id})}
     },
-    {
-        path: "/newquestion", components: {
-            default: newQuestion,
-            header: pageHeader,
-        }, name: "newQuestion",
-        meta: {
-            requiresAuth: true
-        }
-    },
+    // {
+    //     path: "/newquestion", components: {
+    //         default: newQuestion,
+    //         header: pageHeader,
+    //     }, name: "newQuestion",
+    //     meta: {
+    //         requiresAuth: true
+    //     }
+    // },
     {
         path: "/question/:id",
         components: {

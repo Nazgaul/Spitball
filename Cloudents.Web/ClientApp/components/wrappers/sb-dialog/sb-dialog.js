@@ -13,7 +13,8 @@ export default {
         contentClass: {
             type: String,
             required: false
-        }
+        },
+
     },
     data: function () {
         return {
@@ -22,7 +23,7 @@ export default {
     },
     computed: {
         ...mapGetters({
-            loginDialogState: 'loginDialogState'
+            loginDialogState: 'loginDialogState',
         }),
     },
     watch: {
@@ -38,13 +39,14 @@ export default {
         show(){
             if(!this.show){
                 this.updateLoginDialogState(false);
+                this.updateNewQuestionDialogState(false);
                 this.$root.$emit('closePopUp', this.popUpType);
             }
         }
     },
 
     methods: {
-        ...mapActions(["updateLoginDialogState"]),
+        ...mapActions(['updateLoginDialogState', 'updateNewQuestionDialogState']),
     },
 
 

@@ -20,7 +20,7 @@
                     //set user profile
                     this.updateUserProfileData('profileHWH')
                 }else{
-                    this.updateNewQuestionDialogState()
+                    this.updateNewQuestionDialogState(true)
                 }
             },
             // goToAskQuestion(){

@@ -79,7 +79,6 @@
     import SearchInput from '../helpers/searchInput.vue';
     import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import menuList from "./menu-list/menu-list.vue";
-
     import {mapActions, mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
@@ -87,7 +86,7 @@
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
     import {LanguageService } from "../../services/language/languageService";
-    import NewQuestion from "../question/newQuestion/newQuestion";
+    import NewQuestion from "../question/newQuestion/newQuestion.vue";
 
     export default {
         components: {
@@ -196,7 +195,9 @@
             this.$root.$on('closePopUp', (name) => {
                 if (name === 'suggestions') {
                     this.showDialogSuggestQuestion = false
-                } else {
+                } else if(name === 'newQuestionDialog'){
+                    this.updateNewQuestionDialogState(false)
+                }else{
                     this.updateLoginDialogState(false)
                 }
             });
