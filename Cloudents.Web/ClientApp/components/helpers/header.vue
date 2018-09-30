@@ -83,10 +83,7 @@
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
     const PersonalizeDialog = () => import('./ResultPersonalize.vue');
-    import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
-    import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
     import {LanguageService } from "../../services/language/languageService";
-    import NewQuestion from "../question/newQuestion/newQuestion.vue";
 
     export default {
         components: {
