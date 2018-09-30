@@ -45,9 +45,9 @@ namespace Cloudents.Core.Entities.Db
             };
         }
 
-        public static Transaction DistributeTokens(ActionType actionType, decimal money)
+        public static Transaction DistributeTokens(ActionType actionType, TransactionType transactionType, decimal money)
         {
-            return new Transaction(actionType, TransactionType.Awarded, money);
+            return new Transaction(actionType, transactionType, money);
 
         }
 
