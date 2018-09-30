@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Admin2.Models;
+﻿using Cloudents.Admin2.Models;
 using Cloudents.Core.Command;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.DTOs;
@@ -13,6 +9,9 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Core.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.Api
 {
@@ -37,7 +36,7 @@ namespace Cloudents.Admin2.Api
         [HttpPost("sendTokens")]
         public async Task<IActionResult> Post(SendTokenRequest model, CancellationToken token)
         {
-            var command = new DistributeTokensCommand(model.UserId, model.Tokens, ActionType.None);
+            var command = new DistributeTokensCommand(model.UserId, model.Tokens, ActionType.None, model.TransactionType);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -83,7 +82,7 @@ namespace Cloudents.Admin2.Api
             var command = new SuspendUserCommand(model.Id);
             await commandBus.DispatchAsync(command, token);
             var userData = await userDataTask;
-            return new SuspendUserResponse() {Email = userData.Email};
+            return new SuspendUserResponse() { Email = userData.Email };
         }
     }
 }
