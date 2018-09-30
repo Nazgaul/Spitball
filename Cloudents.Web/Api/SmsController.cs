@@ -1,21 +1,20 @@
-﻿using Cloudents.Core.Command;
+﻿using Cloudents.Core;
+using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message;
+using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using PhoneNumbers;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Web.Controllers;
-using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -32,7 +31,7 @@ namespace Cloudents.Web.Api
         private readonly ILogger _logger;
 
         public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
-            ISmsSender client,  ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer, ILogger logger)
+            ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer, ILogger logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -135,7 +134,7 @@ namespace Cloudents.Web.Api
             if (TempData[HomeController.Referral] != null)
             {
                 var base62 = new Base62(TempData[HomeController.Referral].ToString());
-                var command = new DistributeTokensCommand(base62.Value, 10, ActionType.ReferringUser);
+                var command = new DistributeTokensCommand(base62.Value, 10, ActionType.ReferringUser, TransactionType.Earned);
                 await _commandBus.DispatchAsync(command, token);
                 TempData.Remove(HomeController.Referral);
             }

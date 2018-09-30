@@ -1,4 +1,5 @@
 ﻿@page
+@using Cloudents.Core.Extension
 @model SendTokensModel
 @{
     ViewData["Title"] = "SendTokens";
@@ -21,13 +22,13 @@
 
         <input asp-for="Model.Tokens" />
     </div>
-    @*<div>
+    <div>
         <label asp-for="Model.TypeId"></label>
         @Html.DropDownList("Model.TypeId",
               new SelectList(EnumExtension.GetPublicEnumNames(typeof(Cloudents.Core.Enum.TransactionType))),
                                 "Transaction Type",
                                 new { @class = "Model.TypeId" })
-    </div>*@
+    </div>
     <input type="submit" />
 
 </form>
