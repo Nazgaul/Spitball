@@ -64,12 +64,12 @@
                              width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
-        <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'" :content-class="'login-popup'">
-            <login-to-answer></login-to-answer>
-        </sb-dialog>
-        <sb-dialog :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'" :content-class="'newQuestionDialog'">
-            <new-question></new-question>
-        </sb-dialog>
+        <!--<sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'" :content-class="'login-popup'">-->
+            <!--<login-to-answer></login-to-answer>-->
+        <!--</sb-dialog>-->
+        <!--<sb-dialog :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'" :content-class="'newQuestionDialog'">-->
+            <!--<new-question></new-question>-->
+        <!--</sb-dialog>-->
 
     </div>
 </template>
@@ -90,14 +90,11 @@
 
     export default {
         components: {
-            NewQuestion,
             PersonalizeDialog,
             AppLogo,
             SearchInput,
             UserAvatar,
             menuList,
-            sbDialog,
-            loginToAnswer
         },
         placeholders: {
             job: LanguageService.getValueByKey("header_placeholder_job"),
@@ -128,7 +125,8 @@
             layoutClass: {}
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText', 'loginDialogState', 'newQuestionDialogSate']),
+            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
+
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
@@ -155,7 +153,8 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateLoginDialogState', 'resetData', 'updateNewQuestionDialogState']),
+            ...mapActions(['updateToasterParams', 'resetData']),
+
             //TODO: what is that
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
@@ -191,16 +190,6 @@
                         }
                     })
                 });
-
-            this.$root.$on('closePopUp', (name) => {
-                if (name === 'suggestions') {
-                    this.showDialogSuggestQuestion = false
-                } else if(name === 'newQuestionDialog'){
-                    this.updateNewQuestionDialogState(false)
-                }else{
-                    this.updateLoginDialogState(false)
-                }
-            });
             let headerHeight = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.smAndUp ? 60 : 115)
             this.height = headerHeight;
         },

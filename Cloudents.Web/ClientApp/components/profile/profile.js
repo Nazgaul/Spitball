@@ -2,7 +2,7 @@ import questionCard from "../question/helpers/question-card/question-card.vue";
 import userBlock from '../helpers/user-block/user-block.vue';
 import {dollarCalculate} from "../../store/constants";
 import accountService from '../../services/accountService';
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import { LanguageService } from "../../services/language/languageService";
 
 export default {
@@ -14,21 +14,12 @@ export default {
         return {
             activeTab: 1,
             profileData: null,
-            //TODO: what is that !!!!!!
-            // emptyState: {
-            //     questions: {
-            //         text: LanguageService.getValueByKey("profile_emptyState_questions_text"),
-            //         btnText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
-            //     },
-            //     answers: {
-            //         text: LanguageService.getValueByKey("profile_emptyState_answers_text"),
-            //         btnText: LanguageService.getValueByKey("profile_emptyState_answers_btnText")
-            //     }
-            // }
-            
+
         }
     },
     methods: {
+        ...mapActions(['updateNewQuestionDialogState']),
+
         changeActiveTab(tabId) {
             this.activeTab = tabId;
             this.$router.meta = {previous : tabId}
@@ -74,7 +65,9 @@ export default {
                 text: LanguageService.getValueByKey("profile_emptyState_questions_text"),
                 boldText: LanguageService.getValueByKey("profile_emptyState_questions_boldText"),
                 btnText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
-                btnUrl: 'newQuestion'
+                btnUrl:  ()=> {
+                    this.updateNewQuestionDialogState(true)
+                }
             };
             var answers = {
                 text: LanguageService.getValueByKey("profile_emptyState_answers_text"),
