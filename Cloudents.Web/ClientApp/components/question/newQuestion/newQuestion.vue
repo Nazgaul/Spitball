@@ -9,7 +9,7 @@
                                 <img :src="require(`./img/student_ask.png`)"/>
                             </div>
                             <span class="text-blue" v-language:inner>newQuestion_Get_Your_Question_Answered</span>
-                            <button class="back-button" @click="$router.go(-1)">
+                            <button class="back-button" @click="requestNewQuestionDialogClose()">
                                 <v-icon right>sbf-close</v-icon>
                             </button>
                         </div>
@@ -20,7 +20,6 @@
                                         :actionType="actionType"
                                         :error="errorTextArea"
                                         @removeFile="removeFile">
-
                     </extended-text-area>
 
                     <v-flex xs6 :class="{'has-error':!subject && errorMessageSubject}" class="inputBorder">

@@ -150,7 +150,15 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['fetchingData', 'setFilteredCourses', 'cleanData', 'updateFilters', 'updateLoginDialogState', 'updateUserProfileData']),
+        ...mapActions([
+            'fetchingData',
+            'setFilteredCourses',
+            'cleanData',
+            'updateFilters',
+            'updateLoginDialogState',
+            'updateUserProfileData',
+            'updateNewQuestionDialogState'
+        ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
 
         loadNewQuestions(){
@@ -164,7 +172,8 @@ export default {
                 //user profile update
                 this.updateUserProfileData('profileHWH')
             }else{
-                this.$router.push({name: 'newQuestion'});
+                 this.updateNewQuestionDialogState(true);
+                 // this.$router.push({name: 'newQuestion'});
             }
         },
         //   2-%%%

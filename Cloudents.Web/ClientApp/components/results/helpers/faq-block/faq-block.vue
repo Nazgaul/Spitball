@@ -54,6 +54,8 @@
         },
         methods:{
             ...mapActions(["updateLoginDialogState", 'updateUserProfileData']),
+
+
             goToAskQuestion(){
                 if(this.accountUser == null){
                     this.updateLoginDialogState(true);
@@ -63,6 +65,7 @@
                     this.$router.push({name: 'newQuestion'});
                 }
             }
+
         },
 
         created() {

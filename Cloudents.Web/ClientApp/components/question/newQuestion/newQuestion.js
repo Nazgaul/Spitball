@@ -35,7 +35,11 @@ export default {
     },
     methods: {
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
-        ...mapActions(['updateUserBalance', 'updateToasterParams']),
+        ...mapActions(['updateUserBalance', 'updateToasterParams', 'updateNewQuestionDialogState']),
+        resetNewQuestionForm(){
+            Object.assign(this.$data, this.$options.data())
+        },
+
         submitQuestion() {
             let readyToSend = true;
             //error handling stuff ( redo with newer version to validate with in build validators
@@ -69,9 +73,11 @@ export default {
                 // this.textAreaValue = this.textAreaValue.trim();
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default' )
                     .then(function () {
-                            self.$ga.event("Submit_question", "Homwork help");
+                            self.$ga.event("Submit_question", "Homework help");
                             let val = self.selectedPrice || self.price;
                             self.updateUserBalance(-val);
+                            //close dialog after question submitted
+                            self.requestNewQuestionDialogClose(false);
                             self.$router.push({path: '/ask', query: {term: ''}});
                             self.updateToasterParams({
                                 toasterText: LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
@@ -102,10 +108,17 @@ export default {
             if (selected) {
                 selected.checked = false;
             }
-        }
+        },
+        //close dialog
+        requestNewQuestionDialogClose() {
+            this.updateNewQuestionDialogState(false)
+        },
+    },
+    beforeDestroy(){
+        this.updateNewQuestionDialogState(false)
     },
     computed: {
-        ...mapGetters(['accountUser']),
+        ...mapGetters(['accountUser', 'newQuestionDialogSate']),
         currentSum() {
             let val = this.selectedPrice || this.price || 0;
             this.selectedPrice ? this.price = null : "";
