@@ -26,24 +26,26 @@
         border: 2px solid #c7c7c7;
         margin-bottom: 10px;
         width: 70%;
-        min-width:500px;        
+        min-width:500px;   
+        border-radius: 29px;     
         .btn-mark{
             cursor: pointer;
-            background-color: #99de78;
+            background-color: #9d9d9d;
             border-radius: 25px;
             border: none;
             outline: none;
             cursor:pointer;
             height: 25px;
+            color: white;
+            font-weight: 600;
         }
         .question-header{
             display: flex;
             justify-content: center;
             padding:10px;
-            border-bottom: 1px solid #b6b6b6;
-            background-color: #c0eaac;
+            background-color: #c7c7c7;
+                border-radius: 50px;
             span{
-                border-right: 1px solid #9dc889;
                 flex-grow: 1;
                 vertical-align: middle;
                 text-align: center;
@@ -64,6 +66,7 @@
             }
             .answer-text{
                 word-break: break-all;
+                padding-left: 15px;
             }
         }
 }
