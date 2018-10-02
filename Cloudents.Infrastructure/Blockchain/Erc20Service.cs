@@ -15,7 +15,7 @@ namespace Cloudents.Infrastructure.Blockchain
     {
         protected override string Abi => "TokenAbi";
 
-        protected override string ContractAddress => "0xf80cb7d159afc4b0cd7c970fedca2afc91477123";
+        protected override string ContractAddress => "0x4848e858f625fa67b8ee765b4d0412587da3dd74";
 
         public Erc20Service (IConfigurationKeys configurationKeys) : base(configurationKeys)
         {
@@ -27,6 +27,7 @@ namespace Cloudents.Infrastructure.Blockchain
             var function = await GetFunctionAsync("balanceOf", token).ConfigureAwait(false);
             var result = await function.CallAsync<BigInteger>(senderAddress).ConfigureAwait(false);
             var normalAmount = result / new BigInteger(FromWei);
+            //return (decimal)result;
             return (decimal)normalAmount;
         }
 
@@ -34,7 +35,13 @@ namespace Cloudents.Infrastructure.Blockchain
         {
             var function = await GetFunctionAsync("transfer", token).ConfigureAwait(false);
             var amountTransformed = new BigInteger(amount * FromWei);
-            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(senderPk, 70000, token, toAddress, amountTransformed).ConfigureAwait(false);
+
+            var publicAddress =
+              Web3.GetAddressFromPrivateKey(senderPk);
+            
+            //var gas = await function.EstimateGasAsync(publicAddress, null, null, toAddress, amount);
+
+            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(senderPk, 4000000, token, toAddress, amountTransformed).ConfigureAwait(false);
             return receiptFirstAmountSend.BlockHash;
         }
 
@@ -45,8 +52,9 @@ namespace Cloudents.Infrastructure.Blockchain
 
         public async Task<string> CreateNewTokens(string toAddress, int amount, CancellationToken token)
         {
-            var function = await GetFunctionAsync("mintToken", token).ConfigureAwait(false);
+            var function = await GetFunctionAsync("mint", token).ConfigureAwait(false);
             var amountTransformed = new BigInteger(amount * FromWei);
+
             var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, MaxGas, token, toAddress, amountTransformed).ConfigureAwait(false);
             return receiptFirstAmountSend.BlockHash;
         }
@@ -64,5 +72,18 @@ namespace Cloudents.Infrastructure.Blockchain
             var address = Web3.GetAddressFromPrivateKey(privateKey.ToHex());
             return (privateKey.ToHex(), address);
         }
+
+        public async Task<string> Approve(string spender, int amount, CancellationToken token)
+        {
+            var function = await GetFunctionAsync("approve", token).ConfigureAwait(false);
+            var amountApproved = new BigInteger(amount * FromWei);
+            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, MaxGas, token, spender, amountApproved).ConfigureAwait(false);
+            return receiptFirstAmountSend.BlockHash;
+        }
+
+       /* public async Task<string> ApprovePreSigned(string sig, string spender, int amount, int fee, int nonce)
+        {
+
+        }*/
     }
 }

@@ -16,8 +16,9 @@ namespace Cloudents.Infrastructure.BlockChain
         private readonly IConfigurationKeys _configurationKeys;
 
         protected const double FromWei = 1e18;
-        protected const double MaxGas = 4.7e6;
-        protected const string SpitballPrivateKey = "10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
+        protected const double MaxGas = 4.1e6;
+        protected const string SpitballPrivateKey = "428ac528cbc75b2832f4a46592143f46d3cb887c5822bed23c8bf39d027615a8"; //"10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
+        //protected const string SpitballLocalDevPK = "bb174f4314e3b0abd6d2d35a93f5e8b85a2b22442c495ccb8e047cc1235c4a52";
 
         protected BlockChainProvider(IConfigurationKeys configurationKeys)
         {

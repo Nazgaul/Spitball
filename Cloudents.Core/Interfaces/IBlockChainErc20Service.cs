@@ -5,7 +5,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IBlockChainErc20Service
     {
-        //(string privateKey, string publicAddress) CreateAccount();
+       
         Task<decimal> GetBalanceAsync(string senderAddress, CancellationToken token);
         Task<string> TransferMoneyAsync(string senderPk, string toAddress, float amount, CancellationToken token);
         Task SetInitialBalanceAsync(string address, CancellationToken token);
@@ -15,5 +15,8 @@ namespace Cloudents.Core.Interfaces
         string GetAddress(string privateKey);
 
         (string privateKey, string publicAddress) CreateAccount();
+
+        Task<string> Approve(string spender, int amount, CancellationToken token);
+       // Task<string> ApprovePreSigned(string sig, string spender, int amount, int fee, int nonce);
     }
 }
