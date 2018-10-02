@@ -35,7 +35,6 @@
     export default {
         components:{
             askQuestionBtn
-
         },
         data() {
             return {
@@ -54,18 +53,6 @@
         },
         methods:{
             ...mapActions(["updateLoginDialogState", 'updateUserProfileData']),
-
-
-            goToAskQuestion(){
-                if(this.accountUser == null){
-                    this.updateLoginDialogState(true);
-                    //set user profile
-                    this.updateUserProfileData('profileHWH')
-                }else{
-                    this.$router.push({name: 'newQuestion'});
-                }
-            }
-
         },
 
         created() {

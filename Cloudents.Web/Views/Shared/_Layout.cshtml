@@ -12,11 +12,8 @@
 @inject IConfiguration Configuration
 
 @{
-    const string themeColor = "#4190b";
-    ViewBag.title = ViewBag.title ?? "Simplify school | Spitball";
-    ViewBag.metaDescription = ViewBag.metaDescription ?? " 500 thousand + students worldwide | First-of-its-kind, student-driven economy. Interact directly with other students to exchange content, knowledge, and services.";
-    ViewBag.fbImage = ViewBag.fbImage ?? "/images/3rdParty/fbShare.png";
-    ViewBag.imageSrc = ViewBag.imageSrc ?? "/images/3rdParty/fbShare.png";
+
+
     var version = typeof(Program).Assembly
         .GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
     var p = Provider.GetTag("vendor");
@@ -25,82 +22,33 @@
 }
 <!DOCTYPE html>
 
-@*dir="@(System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")"*@
-<html>
+
+<html dir="@(System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")" lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
 <head>
-    <title>@ViewBag.title</title>
+    <meta charset="utf-8">
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <base href="~/" />
-    @*<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">*@
-
     <environment include="Development">
-            @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft)
-            {
-                <link rel="stylesheet" href="~/dist/@p.RtlCss" />
-            }
-            else
-            {
-                <link rel="stylesheet" href="~/dist/@p.Css" />
-            }
-            @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft)
-            {
-                <link rel="stylesheet" href="~/dist/@main.RtlCss" />
-            }
-            else
-            {
-                <link rel="stylesheet" href="~/dist/@main.Css" />
-            }
-        </environment>
+        <link rel="stylesheet" href="~/dist/@p.GetCss()" />
+        <link rel="stylesheet" href="~/dist/@main.GetCss()" />
+    </environment>
 
     <environment exclude="Development">
-        <link rel="stylesheet" href="@cdnEndPoint/dist/@p.Css"
-              asp-fallback-href="~/dist/@p.Css"
+        <link rel="stylesheet" href="@cdnEndPoint/dist/@p.GetCss()"
+              asp-fallback-href="~/dist/@p.GetCss()"
               asp-fallback-test-class="cdn-only" asp-fallback-test-property="position"
               asp-fallback-test-value="absolute" />
 
-        <link rel="stylesheet" href="@cdnEndPoint/dist/@main.Css"
-              asp-fallback-href="~/dist/@main.Css"
+        <link rel="stylesheet" href="@cdnEndPoint/dist/@main.GetCss()"
+              asp-fallback-href="~/dist/@main.GetCss()"
               asp-fallback-test-class="cdn-only2" asp-fallback-test-property="position"
               asp-fallback-test-value="absolute" />
     </environment>
     @await RenderSectionAsync("styleSection", required: false).ConfigureAwait(false)
-    <meta charset="utf-8">
-    <meta name="theme-color" content="@themeColor">
-    <meta name="msapplication-navbutton-color" content="@themeColor">
-    <meta name="apple-mobile-web-app-status-bar-style" content="@themeColor">
-    <meta name="title" content="@ViewBag.title" />
-    <meta name="description" content="@ViewBag.metaDescription" />
-
-    @*<meta name="apple-itunes-app" content="app-id=990911114">*@
-    <link rel="image_src" href="@ViewBag.imageSrc" />
-
-    <meta property="fb:app_id" content="450314258355338" />
-    <meta property="og:site_name" content="Spitball" />
-    <meta property="og:image" name="og:image" content="@("https://" +Context.Request.Host + ViewBag.fbImage)" />
-    <meta property="og:description" name="og:description" content="@ViewBag.metaDescription" />
-    <meta property="og:title" name="og:title" content="@ViewBag.title" />
-    <meta property="og:url" content="@Context.Request.GetEncodedUrl()" />
-    <meta property="og:type" content="website" />
-    <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
-
-    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_115.png?v=2" />
-    <link rel="apple-touch-icon" sizes="57x57" href="@cdnEndPoint/images/favIcons/favicon_58.png?v=2" />
-    <link rel="apple-touch-icon" sizes="60x60" href="@cdnEndPoint/images/favicons/favicon_61.png?v=2" />
-    <link rel="apple-touch-icon" sizes="72x72" href="@cdnEndPoint/images/favicons/favicon_73.png?v=2" />
-    <link rel="apple-touch-icon" sizes="76x76" href="@cdnEndPoint/images/favicons/favicon_77.png?v=2" />
-    <link rel="apple-touch-icon" sizes="114x114" href="@cdnEndPoint/images/favicons/favicon_115.png?v=2" />
-    <link rel="apple-touch-icon" sizes="120x120" href="@cdnEndPoint/images/favicons/favicon_121.png?v=2" />
-    <link rel="apple-touch-icon" sizes="144x144" href="@cdnEndPoint/images/favicons/favicon_144.png?v=2" />
-    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_33.png" sizes="32x32?v=2" />
-    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_97.png" sizes="96x96?v=2" />
-    <link rel="icon" type="image/png" href="@cdnEndPoint/images/favicons/favicon_17.png" sizes="16x16?v=2" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="msapplication-TileImage" content="@cdnEndPoint/images/favicons/favicon_145.png?v=2" />
-    <link rel="SHORTCUT ICON" href="@cdnEndPoint/favicon.ico?v=2" />
+    <partial name="_HeaderTags" model="cdnEndPoint" />
     @Html.Raw(JavaScriptSnippet.FullScript)
     @Html.Raw(ClickJackingTagHelper.FullScript)
-
     <style>
         .async-hide {
             opacity: 0 !important

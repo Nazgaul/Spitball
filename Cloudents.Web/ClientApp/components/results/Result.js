@@ -173,7 +173,6 @@ export default {
                 this.updateUserProfileData('profileHWH')
             }else{
                  this.updateNewQuestionDialogState(true);
-                 // this.$router.push({name: 'newQuestion'});
             }
         },
         //   2-%%%
