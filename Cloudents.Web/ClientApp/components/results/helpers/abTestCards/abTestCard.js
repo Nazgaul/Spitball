@@ -21,14 +21,14 @@ export default {
         }),
     },
     methods:{
-        ...mapActions(["updateLoginDialogState", 'updateUserProfileData']),
+        ...mapActions(["updateLoginDialogState", 'updateUserProfileData', 'updateNewQuestionDialogState']),
         goToAskQuestion(){
             if(this.accountUser == null){
                 this.updateLoginDialogState(true);
                 //set user profile
                 this.updateUserProfileData('profileHWH')
             }else{
-                this.$router.push({name: 'newQuestion'});
+                this.updateNewQuestionDialogState(true);
             }
         }
     },

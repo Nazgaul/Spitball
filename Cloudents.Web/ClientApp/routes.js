@@ -12,7 +12,7 @@ const bookDetails = () => import("./components/book/ResultBookDetails.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 const previewHeader = () => import("./components/helpers/header.vue");
 const documentPreviewHeader = () => import("./components/preview/headerDocument.vue");
-const newQuestion = () => import("./components/question/newQuestion/newQuestion.vue");
+// const newQuestion = () => import("./components/question/newQuestion/newQuestion.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const viewProfile = () => import("./components/profile/profile.vue");
 const wallet = () => import("./components/wallet/wallet.vue");
@@ -23,9 +23,6 @@ const userSettings = () => import("./components/settings/view/settings.vue");
 import {staticRoutes} from "./components/satellite/satellite-routes";
 import * as consts from "./store/constants";
 const login = () => import("./components/new_registration/login.vue");
-
-// import store from "./store";
-
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
 
@@ -125,10 +122,22 @@ let routes2 = [
     },
     // TODO new question in v-dialog
     // {
-    //     path: "/newquestion", components: {
-    //         default: newQuestion,
-    //         header: pageHeader,
-    //     }, name: "newQuestion",
+    //     path: "/newquestion",
+    //     beforeEnter: (to, from, next) => {
+    //         //prevent entering if loged in
+    //         console.log('store routtes',storeQuestion)
+    //         if(storeQuestion.getters.newQuestionDialogSate === true){
+    //             next()
+    //         }else{
+    //             storeQuestion.actions.updateNewQuestionDialogState(true);
+    //             next()
+    //         }
+    //     },
+    //     // components: {
+    //     //     default: newQuestion,
+    //     //     header: pageHeader,
+    //     // },
+    //     name: "newQuestion",
     //     meta: {
     //         requiresAuth: true
     //     }

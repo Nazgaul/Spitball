@@ -64,13 +64,6 @@
                              width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
-        <!--<sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'" :content-class="'login-popup'">-->
-            <!--<login-to-answer></login-to-answer>-->
-        <!--</sb-dialog>-->
-        <!--<sb-dialog :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'" :content-class="'newQuestionDialog'">-->
-            <!--<new-question></new-question>-->
-        <!--</sb-dialog>-->
-
     </div>
 </template>
 
