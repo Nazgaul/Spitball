@@ -11,10 +11,10 @@ namespace Cloudents.Functions.Sync
     {
         SyncAzureQuery GetCurrentState();
 
-        Task CreateIndex(CancellationToken token);
+        Task CreateIndexAsync(CancellationToken token);
 
 
-        Task<long> DoSync(SyncAzureQuery query, CancellationToken token);
+        Task<long> DoSyncAsync(SyncAzureQuery query, CancellationToken token);
         //Task<(IEnumerable<T> update, IEnumerable<long> delete, long version)>GetData<T>();
 
     }
@@ -35,12 +35,12 @@ namespace Cloudents.Functions.Sync
             throw new System.NotImplementedException();
         }
 
-        public Task CreateIndex(CancellationToken token)
+        public Task CreateIndexAsync(CancellationToken token)
         {
             return _questionServiceWrite.CreateOrUpdateAsync(token);
         }
 
-        public async Task<long> DoSync(SyncAzureQuery query, CancellationToken token)
+        public async Task<long> DoSyncAsync(SyncAzureQuery query, CancellationToken token)
         {
             var (update, delete, version) =
                 await _bus.QueryAsync(query, token);

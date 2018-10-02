@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Functions.Sync;
 
 namespace Cloudents.Functions
 {
@@ -39,7 +40,8 @@ namespace Cloudents.Functions
             TraceWriter log,
             CancellationToken token)
         {
-            await starter.StartNewAsync("SearchSync", null);
+            var model = new SearchSyncInput(SyncType.Question);
+            await starter.StartNewAsync("SearchSync", model);
             //    //var (update, delete, version) = await bus.QueryAsync<(IEnumerable<QuestionAzureSyncDto> update, IEnumerable<long> delete, long version)>(query, token);
             //    await SyncFunc.SyncAsync2(blob, searchServiceWrite, s =>
             //        {

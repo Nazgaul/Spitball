@@ -129,7 +129,6 @@ namespace Cloudents.Web
                     o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                     o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
                 });
-
             services.AddResponseCompression();
             services.AddResponseCaching();
 
