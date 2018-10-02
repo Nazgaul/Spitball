@@ -37,11 +37,9 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-           // var code = _dataProtector.Protect(userId.ToString(), DateTimeOffset.UtcNow.AddDays(2));
-            var link = Url.Action("Index", "Question", new { id = model.QuestionId });
             try
             {
-                var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files, link);
+                var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files);
                 var t1 = _commandBus.DispatchAsync(command, token);
 
                 var query = new NextQuestionQuery(model.QuestionId, userId);

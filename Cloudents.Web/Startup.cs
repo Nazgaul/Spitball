@@ -102,6 +102,7 @@ namespace Cloudents.Web
             {
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
+                options.SerializerSettings.Converters.Add(new RequestCultureConverter());
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             })
 
@@ -253,14 +254,16 @@ namespace Cloudents.Web
             app.UseStatusCodePages();
             
 
-            app.UseRequestLocalization(new RequestLocalizationOptions
+            app.UseRequestLocalization(o =>
             {
-                DefaultRequestCulture = new RequestCulture(SupportedCultures[0]),
+
+                o.DefaultRequestCulture = new RequestCulture(SupportedCultures[0]);
                 // Formatting numbers, dates, etc.
-                SupportedCultures = SupportedCultures,
+                o.SupportedCultures = SupportedCultures;
                 // UI strings that we have localized.
-                SupportedUICultures = SupportedCultures
-                
+                o.SupportedUICultures = SupportedCultures;
+                o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
+
             });
             app.UseStaticFiles(new StaticFileOptions
             {
