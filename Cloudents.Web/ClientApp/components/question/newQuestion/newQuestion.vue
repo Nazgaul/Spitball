@@ -92,6 +92,7 @@
                         <div v-if="currentSum < 0" class="error-message" v-language:inner>newQuestion_sufficient_SBL
                         </div>
                         <v-btn block color="primary" @click="submitQuestion()" :disabled="submitted"
+                               :loading="loading"
                                class="ask_btn"><span v-language:inner>newQuestion_Ask</span></v-btn>
                     </v-flex>
 

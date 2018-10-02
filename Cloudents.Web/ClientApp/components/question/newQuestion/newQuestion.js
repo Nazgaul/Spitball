@@ -1,7 +1,7 @@
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionService from '../../../services/questionService';
 import disableForm from "../../mixins/submitDisableMixin"
-import {mapGetters, mapMutations, mapActions} from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { LanguageService } from "../../../services/language/languageService";
 
 export default {
@@ -21,8 +21,9 @@ export default {
             errorMessageSubject: '',
             errorSelectPrice: '',
             pricesList: [10, 20, 40, 80],
-            actionType:"question",
-            selectedColor: {}
+            actionType: "question",
+            selectedColor: {},
+            loading: false
         }
     },
     watch: {
@@ -31,14 +32,32 @@ export default {
             if (splitLength.length === 2 && splitLength[1].length >= 3) {
                 this.price = parseFloat(val).toFixed(2)
             }
-        }
+        },
+        // if question dialog state is false reset question form data to default
+        newQuestionDialogSate() {
+            if (!this.newQuestionDialogSate) {
+                this.textAreaValue = '';
+                this.errorTextArea = {};
+                this.subject = '';
+                this.price = null;
+                this.selectedPrice = null;
+                this.errorMessage = '';
+                this.errorMessageSubject = '';
+                this.errorSelectPrice = '';
+                this.pricesList = [10, 20, 40, 80];
+                this.loading = false;
+                this.$root.$emit("colorReset");
+            } else {
+                // get subject if questionDialog state is true(happens only if accountUser is true)
+                questionService.getSubjects().then((response) => {
+                    this.subjectList = response.data
+                });
+            }
+        },
     },
     methods: {
         ...mapMutations({updateLoading: "UPDATE_LOADING"}),
         ...mapActions(['updateUserBalance', 'updateToasterParams', 'updateNewQuestionDialogState']),
-        resetNewQuestionForm(){
-            Object.assign(this.$data, this.$options.data())
-        },
 
         submitQuestion() {
             let readyToSend = true;
@@ -48,7 +67,7 @@ export default {
             }
             //if
             if (this.currentSum < 0) {
-               readyToSend = false
+                readyToSend = false
             }
             if (!this.selectedPrice) {
                 this.errorSelectPrice = LanguageService.getValueByKey("question_newQuestion_error_minSum")
@@ -62,16 +81,17 @@ export default {
             }
             if (!this.subject) {
                 this.errorMessageSubject = LanguageService.getValueByKey("question_newQuestion_error_pickSubject"),
-                readyToSend = false
+                    readyToSend = false
             }
             if (!readyToSend) {
                 return
             }
             var self = this;
+            self.loading = true;
             if (this.submitForm()) {
                 this.updateLoading(true);
                 // this.textAreaValue = this.textAreaValue.trim();
-                questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default' )
+                questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default')
                     .then(function () {
                             self.$ga.event("Submit_question", "Homework help");
                             let val = self.selectedPrice || self.price;
@@ -79,10 +99,12 @@ export default {
                             //close dialog after question submitted
                             self.requestNewQuestionDialogClose(false);
                             self.$router.push({path: '/ask', query: {term: ''}});
+                            self.updateLoading(false);
                             self.updateToasterParams({
                                 toasterText: LanguageService.getValueByKey("question_newQuestion_toasterPostedText"),
                                 showToaster: true,
                             });
+                            self.submitForm(false);
                         },
                         function (error) {
                             self.updateLoading(false);
@@ -114,28 +136,25 @@ export default {
             this.updateNewQuestionDialogState(false)
         },
     },
-    beforeDestroy(){
+    beforeDestroy() {
         this.updateNewQuestionDialogState(false)
     },
     computed: {
         ...mapGetters(['accountUser', 'newQuestionDialogSate']),
         currentSum() {
-            let val = this.selectedPrice || this.price || 0;
-            this.selectedPrice ? this.price = null : "";
-            return this.accountUser.balance - val;
-
+            if (this.accountUser) {
+                let val = this.selectedPrice || this.price || 0;
+                this.selectedPrice ? this.price = null : "";
+                return this.accountUser.balance - val;
+            }
         },
         validForm() {
-          return  this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <=100);
+            return this.subject && this.textAreaValue.length > 15 && (this.selectedPrice || this.price >= 10 && this.selectedPrice || this.price <= 100);
         },
     },
     created() {
-        var self = this;
-        questionService.getSubjects().then(function (response) {
-            self.subjectList = response.data
-        })
-        this.$on('colorSelected', (activeColor)=>{
-             this.selectedColor.name = activeColor.name;
+        this.$on('colorSelected', (activeColor) => {
+            this.selectedColor.name = activeColor.name;
         });
 
     }

@@ -119,18 +119,18 @@
   </resheader>
   <data name="Answers" xml:space="preserve">
     <value>Answers</value>
-    </data>
+  </data>
   <data name="emptyState_answers_btnText" xml:space="preserve">
     <value>Answer</value>
   </data>
   <data name="Questions" xml:space="preserve">
     <value>Questions</value>
-    </data>
+  </data>
   <data name="emptyState_answers_text" xml:space="preserve">
     <value>Help other students and make money by answering questions.</value>
   </data>
   <data name="emptyState_questions_boldText" xml:space="preserve">
-    <value>Ask Your Question</value>
+    <value>Put it on sale…</value>
   </data>
   <data name="emptyState_questions_btnText" xml:space="preserve">
     <value>Ask Your Question</value>

@@ -123,6 +123,7 @@ let routes2 = [
         components: {default: showFlashcard, header: previewHeader},
         props: {default: (route) => ({id: route.params.id})}
     },
+    // TODO new question in v-dialog
     // {
     //     path: "/newquestion", components: {
     //         default: newQuestion,
