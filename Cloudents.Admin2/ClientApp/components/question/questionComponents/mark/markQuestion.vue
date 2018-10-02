@@ -44,7 +44,8 @@
             justify-content: center;
             padding:10px;
             background-color: #c7c7c7;
-                border-radius: 50px;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
             span{
                 flex-grow: 1;
                 vertical-align: middle;

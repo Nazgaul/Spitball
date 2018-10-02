@@ -24,14 +24,12 @@ export default {
     .user-nav{
         display:flex;
         justify-content: center;
-        line-height: 40px;
-        background-color: #b6b6b6;
         a{
             margin:2px;
             background-color: #9d9d9d;
             text-decoration: none;
             font-size: 15px;
-            border-radius: 4px;
+            border-radius: 25px;
             padding: 5px;
             font-weight: bold;
             color: #5d5d5d;

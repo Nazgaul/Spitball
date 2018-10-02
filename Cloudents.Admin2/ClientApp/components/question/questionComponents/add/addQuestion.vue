@@ -78,6 +78,7 @@ export default {
             height: 25px;
             color: #5d5d5d;
             outline: none;
+            border-radius: 25px;
         }
     .text-area-container{
         textarea{
