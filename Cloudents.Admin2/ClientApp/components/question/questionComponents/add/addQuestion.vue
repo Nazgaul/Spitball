@@ -18,17 +18,13 @@
         </div>
 
         <div class="add-container" v-if="showPriceSetter">
-            <button class="btn-add" @click="addQuestion">Add</button>
+            <button class="btn-add" @click="addQ">Add</button>
         </div>
-        
     </div>
-    
-
-
 </template>
 
 <script>
-import { getSubjectList } from './addQuestionService'
+import { getSubjectList, addQuestion } from './addQuestionService'
 
 export default {
     data(){
@@ -49,8 +45,17 @@ export default {
         setPrice:function(){
             this.showPriceSetter = true;
         },
-        addQuestion(){
-            console.log(this.subjectContent)
+        addQ: function(){
+            if(this.questionPrice < 1){
+                alert("Error: Price must be above 1");
+                return;
+            }
+            addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice).then(()=>{
+                alert("Success on Adding Question");
+            }, (err)=>{
+                console.log(err);
+                alert("Error: Failed to Add question");
+            })
         }
     },
     created(){

@@ -21,10 +21,25 @@ const getSubjectList = function(){
         }
         return Promise.resolve(subjectsToReturn)
     },(err)=>{
-        console.log(err)
+        return Promise.reject(err)
+    })
+}
+
+const addQuestion = function(subjectId, text, price){
+    let path = "AdminQuestion"
+    let questionData = {
+        subjectId,
+        text,
+        price
+    }
+    return connectivityModule.http.post(path, questionData).then(()=>{
+        return Promise.resolve()
+    },(err)=>{
+        return Promise.reject(err)
     })
 }
 
 export{
-    getSubjectList
+    getSubjectList,
+    addQuestion
 }
