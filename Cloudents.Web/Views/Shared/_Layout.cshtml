@@ -30,37 +30,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <base href="~/" />
     <environment include="Development">
-        @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft)
-        {
-            <link rel="stylesheet" href="~/dist/@p.RtlCss" />
-        }
-        else
-        {
-            <link rel="stylesheet" href="~/dist/@p.Css" />
-        }
-        @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft)
-        {
-            <link rel="stylesheet" href="~/dist/@main.RtlCss" />
-        }
-        else
-        {
-            <link rel="stylesheet" href="~/dist/@main.Css" />
-        }
+        <link rel="stylesheet" href="~/dist/@p.GetCss()" />
+        <link rel="stylesheet" href="~/dist/@main.GetCss()" />
     </environment>
 
     <environment exclude="Development">
-        <link rel="stylesheet" href="@cdnEndPoint/dist/@p.Css"
-              asp-fallback-href="~/dist/@p.Css"
+        <link rel="stylesheet" href="@cdnEndPoint/dist/@p.GetCss()"
+              asp-fallback-href="~/dist/@p.GetCss()"
               asp-fallback-test-class="cdn-only" asp-fallback-test-property="position"
               asp-fallback-test-value="absolute" />
 
-        <link rel="stylesheet" href="@cdnEndPoint/dist/@main.Css"
-              asp-fallback-href="~/dist/@main.Css"
+        <link rel="stylesheet" href="@cdnEndPoint/dist/@main.GetCss()"
+              asp-fallback-href="~/dist/@main.GetCss()"
               asp-fallback-test-class="cdn-only2" asp-fallback-test-property="position"
               asp-fallback-test-value="absolute" />
     </environment>
-    @*@await RenderSectionAsync("styleSection", required: false).ConfigureAwait(false)*@
-    <partial name="_HeaderTags"  model="cdnEndPoint" />
+    @await RenderSectionAsync("styleSection", required: false).ConfigureAwait(false)
+    <partial name="_HeaderTags" model="cdnEndPoint" />
     @Html.Raw(JavaScriptSnippet.FullScript)
     @Html.Raw(ClickJackingTagHelper.FullScript)
     <style>
