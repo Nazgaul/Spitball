@@ -4,12 +4,12 @@
             <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
                 <div class="question-header">
                     <span style="flex-grow:5;" title="Question Text">{{question.questionText}}</span>
-                    <span><button value="Open" @click="openQuestion(question.url)" title="Open Question" style="cursor:pointer;">Open</button></span>
+                    <span><button class="btn-mark" value="Open" @click="openQuestion(question.url)" title="Open Question">Open</button></span>
                     <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
                 </div>
                 <div class="question-body">
                     <span class="answer-text" title="Answer Text">{{question.answerText}}</span>
-                    <span style="justify-content: right;text-align: right; min-width: 65px;"><button style="cursor:pointer;" value="Open" @click="acceptQuestion(question)" title="Accept answer">Accept</button></span>
+                    <span style="justify-content: right;text-align: right; min-width: 65px;"><button class="btn-mark" value="Open" @click="acceptQuestion(question)" title="Accept answer">Accept</button></span>
                 </div>
             </div>
             <div v-show="questions.length === 0">Loading question list, please wait...</div>
@@ -23,10 +23,19 @@
         display:flex;
         margin:0 auto;
         flex-direction: column;
-        border: 1px solid #b6b6b6;
+        border: 2px solid #c7c7c7;
         margin-bottom: 10px;
         width: 70%;
-        min-width:500px;
+        min-width:500px;        
+        .btn-mark{
+            cursor: pointer;
+            background-color: #99de78;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            cursor:pointer;
+            height: 25px;
+        }
         .question-header{
             display: flex;
             justify-content: center;
