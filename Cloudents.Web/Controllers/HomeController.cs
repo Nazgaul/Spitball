@@ -45,7 +45,7 @@ namespace Cloudents.Web.Controllers
                 TempData[Referral] = referral;
             }
 
-            if (userAgent.Contains("linkedin", StringComparison.OrdinalIgnoreCase))
+            if (userAgent != null && userAgent.Contains("linkedin", StringComparison.OrdinalIgnoreCase))
             {
                 ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
             }

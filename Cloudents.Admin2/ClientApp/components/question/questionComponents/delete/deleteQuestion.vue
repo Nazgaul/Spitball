@@ -1,9 +1,9 @@
 <template>
 <div class="">
-<h1>Delete question</h1>
+<h1>Delete Question</h1>
 <div class="wrap">
     <div class="info">
-        <h3>Please add question id to delete, in order to delete multiple questions, please use comma separated values, as 10,20,30.</h3>
+        <h3>To Delete multiple questions, enter the question Id's seperated with a comma (See example).</h3>
         <h4 v-if="infoSuccess">{{infoSuccess}}</h4>
         <h4 v-else-if="infoError">{{infoError}}</h4>
     </div>
@@ -61,65 +61,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-   .id-input{
-  width:400px;
-  height: 30px;
-  border-radius: 5px;
-  background: #fff;
-  border: 1px solid #ccc;
-  outline:none;
-  padding: 3px;
+.id-input{
+      width: 400px;
+    height: 25px;
+    border-radius: 25px;
+    background: #fff;
+    border: none;
+    outline: none;
+    padding: 3px;
+    padding-left: 10px;
 }
-.id-input:focus{
-  border:1px solid #56b4ef;
-  box-shadow: 0px 0px 3px 1px #c8def0;
-}
+
 .btn-danger { 
-  padding: 3px;
-  height: 35px;
-  width: 75px;
-  color: #ffffff; 
-  background-color: red; 
-  border-color: #ffffff; 
+    cursor: pointer;
+    background-color: #ec5151;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    cursor:pointer;
+    height: 25px;
+        
 } 
- 
-.btn-danger:hover, 
-.btn-danger:focus, 
-.btn-danger:active, 
-.btn-danger.active, 
-.open .dropdown-toggle.btn-danger { 
-  color: #ffffff; 
-  background-color: #49247A; 
-  border-color: #130269; 
-} 
- 
-.btn-danger:active, 
-.btn-danger.active, 
-.open .dropdown-toggle.btn-danger { 
-  background-image: none; 
-} 
- 
-.btn-danger.disabled, 
-.btn-danger[disabled], 
-fieldset[disabled] .btn-danger, 
-.btn-danger.disabled:hover, 
-.btn-danger[disabled]:hover, 
-fieldset[disabled] .btn-danger:hover, 
-.btn-danger.disabled:focus, 
-.btn-danger[disabled]:focus, 
-fieldset[disabled] .btn-danger:focus, 
-.btn-danger.disabled:active, 
-.btn-danger[disabled]:active, 
-fieldset[disabled] .btn-danger:active, 
-.btn-danger.disabled.active, 
-.btn-danger[disabled].active, 
-fieldset[disabled] .btn-danger.active { 
-  background-color: #96444B; 
-  border-color: #130269; 
-} 
- 
-.btn-danger .badge { 
-  color: #96444B; 
-  background-color: #ffffff; 
-}
+
 </style>

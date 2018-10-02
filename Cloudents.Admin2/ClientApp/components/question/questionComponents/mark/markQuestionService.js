@@ -21,7 +21,7 @@ function createQuestionItem(objInit){
     return new QuestionItem(objInit);
 }
 
-export const getAllQuesitons = function(){
+const getAllQuesitons = function(){
     let path = 'AdminMarkQuestion'
     return connectivityModule.http.get(path).then((questions)=>{
         let arrQuestions = [];
@@ -36,7 +36,7 @@ export const getAllQuesitons = function(){
     })
 }
 
-export const acceptAnswer = function(question){
+const acceptAnswer = function(question){
     let path = 'AdminMarkQuestion';
     return connectivityModule.http.post(path, question).then((questions)=>{
         let arrQuestions = [];
@@ -49,4 +49,10 @@ export const acceptAnswer = function(question){
     }, (err)=>{
         return Promise.reject(null)
     })
+}
+
+
+export {
+    getAllQuesitons,
+    acceptAnswer
 }
