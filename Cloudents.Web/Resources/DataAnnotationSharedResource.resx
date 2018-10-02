@@ -120,6 +120,9 @@
   <data name="EmailAddress" xml:space="preserve">
     <value>The {0} field is not a valid e-mail address.</value>
   </data>
+  <data name="InvalidCulture" xml:space="preserve">
+    <value>This language is not supported</value>
+  </data>
   <data name="InvalidPhoneNumber" xml:space="preserve">
     <value>Phone number is invalid</value>
   </data>

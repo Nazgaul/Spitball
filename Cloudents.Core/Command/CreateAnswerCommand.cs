@@ -9,13 +9,12 @@ namespace Cloudents.Core.Command
     public class CreateAnswerCommand : ICommand
     {
         public CreateAnswerCommand(long questionId, string text, long userId, 
-            [CanBeNull] IEnumerable<string> files, string questionLink)
+            [CanBeNull] IEnumerable<string> files)
         {
             QuestionId = questionId;
             Text = text;
             UserId = userId;
             Files = files;
-            QuestionLink = questionLink;
         }
 
         public long QuestionId { get; private set; }
@@ -26,19 +25,6 @@ namespace Cloudents.Core.Command
         [CanBeNull]
         public IEnumerable<string> Files { get; private set; }
 
-        public string QuestionLink { get; private set; }
-
     }
-
-    //public class CreateAnswerCommandResult : ICommandResult
-    //{
-    //    public CreateAnswerCommandResult(long questionId, long questionUserId)
-    //    {
-    //        QuestionId = questionId;
-    //        QuestionUserId = questionUserId;
-    //    }
-
-    //    public long QuestionId { get; set; }
-    //    public long QuestionUserId { get; set; }
-    //}
+   
 }
