@@ -50,6 +50,10 @@ export default {
                 alert("Error: Price must be above 1");
                 return;
             }
+            if(this.subjectContent === ''){
+                alert("Error: No Content");
+                return;
+            }
             addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice).then(()=>{
                 alert("Success on Adding Question");
             }, (err)=>{
