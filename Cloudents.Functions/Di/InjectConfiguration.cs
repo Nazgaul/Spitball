@@ -4,6 +4,7 @@ using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Functions.Sync;
 using Cloudents.Infrastructure;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Azure.WebJobs.Host.Config;
@@ -55,6 +56,8 @@ namespace Cloudents.Functions.Di
 
             builder.RegisterType<RestClient>().As<IRestClient>()
                 .SingleInstance();
+
+            builder.RegisterType<QuestionDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Question);
         }
 
         public static string GetEnvironmentVariable(string name)
