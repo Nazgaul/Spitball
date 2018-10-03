@@ -1,11 +1,11 @@
-﻿using Cloudents.Core.Entities.Db;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using QuestionSearch = Cloudents.Core.Entities.Search.Question;
 
-namespace Cloudents.Infrastructure.Database.Query
+namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class QuestionSyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<QuestionSearch>,
