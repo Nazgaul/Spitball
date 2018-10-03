@@ -25,6 +25,7 @@
                                         <v-menu bottom left offset-y>
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
                                                          :user-name="accountUser.name"/>
+
                                             <menu-list :isAuthUser="loggedIn"
                                                        v-if=!$vuetify.breakpoint.xsOnly></menu-list>
                                         </v-menu>
@@ -35,13 +36,23 @@
                                     <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}" v-language:inner>header_login</router-link>
 
                                     <v-menu bottom left offset-y class="gamburger"
-                                            v-if="!loggedIn && $vuetify.breakpoint.xsOnly">
+                                            v-if="!loggedIn">
                                         <v-btn icon slot="activator" @click.native="drawer = !drawer">
                                             <v-icon>sbf-menu</v-icon>
                                         </v-btn>
                                         <menu-list :isAuthUser="loggedIn"
                                                    v-if="$vuetify.breakpoint.smAndUp"></menu-list>
                                     </v-menu>
+
+
+                                    <!--<v-menu bottom left offset-y class="gamburger"-->
+                                            <!--v-if="!loggedIn && $vuetify.breakpoint.xsOnly">-->
+                                        <!--<v-btn icon slot="activator" @click.native="drawer = !drawer">-->
+                                            <!--<v-icon>sbf-menu</v-icon>-->
+                                        <!--</v-btn>-->
+                                        <!--<menu-list :isAuthUser="loggedIn"-->
+                                                   <!--v-if="$vuetify.breakpoint.smAndUp"></menu-list>-->
+                                    <!--</v-menu>-->
 
                                 </div>
                             </v-toolbar-items>

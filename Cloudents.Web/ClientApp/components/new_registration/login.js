@@ -16,6 +16,7 @@ import step_8 from "./steps/step_8.vue";
 import step_9 from "./steps/step_9.vue";
 import step_10 from "./steps/step_10.vue";
 import { LanguageService } from "../../services/language/languageService";
+
 const defaultSubmitRoute = {path: '/ask'};
 const initialPointsNum = 100;
 var auth2;
@@ -124,6 +125,13 @@ export default {
                 }, this.toasterTimeout)
             }
         },
+        '$route': function (form, to) {
+            if (this.$route.path === '/signin') {
+                return this.isSignIn = true;
+            } else {
+                return this.isSignIn = false;
+            }
+        }
     },
     computed: {
         ...mapGetters({
@@ -135,6 +143,9 @@ export default {
             profileData: 'getProfileData',
             isCampaignOn: 'isCampaignOn'
         }),
+        isSignInComputed() {
+            return this.isSignIn
+        },
         isShowProgress() {
             let filteredSteps = this.stepNumber !== 7 && this.stepNumber !== 8 && this.stepNumber !== 9 && this.stepNumber !== 10;
             return filteredSteps

@@ -90,7 +90,6 @@ export default {
             self.loading = true;
             if (this.submitForm()) {
                 this.updateLoading(true);
-                // this.textAreaValue = this.textAreaValue.trim();
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default')
                     .then(function () {
                             self.$ga.event("Submit_question", "Homework help");
@@ -119,7 +118,6 @@ export default {
         },
         addFile(filename) {
             this.files.push(...filename.split(','));
-
         },
         removeFile(index) {
             this.files.splice(index, 1);
@@ -153,6 +151,7 @@ export default {
         },
     },
     created() {
+        console.log('created new question');
         this.$on('colorSelected', (activeColor) => {
             this.selectedColor.name = activeColor.name;
         });

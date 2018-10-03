@@ -16,7 +16,7 @@
                    :ID="ID"
                    :camefromCreate="camefromCreate"
                    :campaignData="campaignData"
-                   :isSignIn="isSignIn"
+                   :isSignIn="isSignInComputed"
                    :isNewUser="isNewUser"
         ></component>
         <div class="progress" v-if="isShowProgress">
