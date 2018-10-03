@@ -10,7 +10,8 @@ export const typesPersonalize = {
     help: "help",
     termsService: "termsService",
     feedback:"feedback",
-    privacyPolicy: "privacyPolicy"
+    privacyPolicy: "privacyPolicy",
+    hebrew: "hebrew"
 
 };
 export let searchObjects = {
@@ -80,9 +81,9 @@ export let settingMenu = [
 
 export let notRegMenu = [
     // {
-    //     id: typesPersonalize.whoWeAre,
-    //     title: "Who we are",
-    //     name:"faq",
+    //     id: typesPersonalize.hebrew,
+    //     title: "עברית",
+    //     name:"hebrew",
     //     icon:"sbf-profile"
     // },
     {

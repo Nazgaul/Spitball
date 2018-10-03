@@ -151,7 +151,7 @@
     import userBlock from "../user-block/user-block.vue"
     import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
     import referralDialog from '../../question/helpers/referralDialog/referral-dialog.vue'
-
+    import languagesLocales  from '../../../services/language/localeLanguage'
     export default {
         components: {userBlock, notLoggedIn, sbDialog, referralDialog},
         props: {
@@ -197,6 +197,7 @@
             },
         },
         created(){
+            console.log('locales::', document.documentElement.lang)
             this.$root.$on('closePopUp', (name) => {
                 if(name === "referralPop"){
                     this.showReferral = false;
