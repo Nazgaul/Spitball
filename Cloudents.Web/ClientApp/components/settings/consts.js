@@ -90,7 +90,8 @@ export let notRegMenu = [
         id: typesPersonalize.aboutSpitball,
         title: "About Spitball",
         name:"about",
-        icon:"sbf-about"
+        icon:"sbf-about",
+
     },
     {
         id: typesPersonalize.help,

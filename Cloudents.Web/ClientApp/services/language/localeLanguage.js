@@ -1,23 +1,26 @@
-const languagesLocales = {
-    "en":{
+const languagesLocales = [
+    {
+        id: "en",
         title: "English",
         name : "english",
-        id: "en",
+        locale: "en",
         icon: "sbf-lang-world",
 
     },
-    "he-IL":{
+    {
+        id: "he-IL",
         title: "עברית",
         name : "hebrew",
-        id: "he-IL",
+        locale: "he",
         icon: "sbf-lang-world",
 
     },
-    "ja":{
-        title: "Japanese",
-        name : "japanese",
-        id: "ja",
-        icon: "sbf-lang-world"
-    }
-};
+    // {
+    //     id: "ja",
+    //     title: "Japanese",
+    //     name : "japanese",
+    //     locale: "ja",
+    //     icon: "sbf-lang-world"
+    // }
+];
 export default languagesLocales;

@@ -24,7 +24,18 @@
                     </div>
                 </template>
             </user-block>
+            <!-- start language swith-->
+            <v-list-tile v-for="singleLang in languageChoisesAval" @click="changeLanguage(singleLang.id)">
+                <v-list-tile-action>
+                    <v-icon>{{singleLang.icon}}</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title class="subheading">{{singleLang.title}}</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <!-- end language swith-->
             <template v-for="(item) in notRegMenu">
+
                 <template v-if="item.name && item.name !== 'feedback'">
                     <router-link tag="v-list-tile" :to="{name : item.name}">
                         <v-list-tile-action>
@@ -46,6 +57,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
             </template>
+
         </v-list>
         <!--mobile side menu open template-->
         <v-list class="menu-list" v-else>
@@ -78,12 +90,12 @@
                 </v-list-tile-content>
             </router-link>
             <!-- start language swith-->
-            <v-list-tile @click="changeLanguage()">
+            <v-list-tile v-for="singleLang in languageChoisesAval" @click="changeLanguage(singleLang.id)">
                 <v-list-tile-action>
-                    <v-icon>{{currentLocale.icon}}</v-icon>
+                    <v-icon>{{singleLang.icon}}</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title class="subheading">{{currentLocale.title}}</v-list-tile-title>
+                    <v-list-tile-title class="subheading">{{singleLang.title}}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <!-- end language swith-->
@@ -170,6 +182,7 @@
     import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
     import referralDialog from '../../question/helpers/referralDialog/referral-dialog.vue'
     import languagesLocales from '../../../services/language/localeLanguage'
+    import { LanguageChange } from '../../../services/language/languageService'
 
     export default {
         components: {userBlock, notLoggedIn, sbDialog, referralDialog},
@@ -180,7 +193,7 @@
                 showSettings: false,
                 showReferral: false,
                 languagesLocales,
-                currentLocale: ""
+                languageChoisesAval: []
             }
         },
         props: {
@@ -210,8 +223,16 @@
             currentTemplate(val) {
                 return val ? 'router-link' : 'v-list-tile';
             },
-            changeLanguage(){
-
+            changeLanguage(id) {
+                LanguageChange.setUserLanguage(id)
+                    .then((resp) => {
+                            console.log('language responce success', resp)
+                            global.location.reload(true);
+                        },
+                        (error) => {
+                            console.log('language error error', error)
+                        }
+                    )
             },
 
             startIntercom() {
@@ -223,9 +244,11 @@
         },
 
         created() {
+            // filter out cuurent language, to show in menu avaliable
             let currentLocHTML = document.documentElement.lang;
-            this.currentLocale = languagesLocales[`${currentLocHTML}`];
-            console.log('current', this.currentLocale)
+            this.languageChoisesAval = languagesLocales.filter((lan) =>{
+                return lan.locale !== currentLocHTML
+            });
             this.$root.$on('closePopUp', (name) => {
                 if (name === "referralPop") {
                     this.showReferral = false;

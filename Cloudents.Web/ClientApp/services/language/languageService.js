@@ -5,7 +5,7 @@ import { connectivityModule } from "../connectivity.module";
 //global dictionary obj
 //global.dictionary = {}
 
-export const LanguageService = {
+const LanguageService = {
     getValueByKey: (key) => {
         if(!key) return key;
         
@@ -24,7 +24,7 @@ export const LanguageService = {
     }     
 };
 
-export const LanguageChange = {
+const LanguageChange = {
     setUserLanguage: (locale) => {
         return connectivityModule.http.post("/Account/language", {culture: locale})
     },
@@ -45,3 +45,8 @@ global.dictionaryContainsKey = function(dict, value){
         }
     }
 };
+
+export{
+    LanguageService,
+    LanguageChange
+}
