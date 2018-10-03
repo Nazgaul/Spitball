@@ -37,7 +37,7 @@
 
                                     <v-menu bottom left offset-y class="gamburger"
                                             v-if="!loggedIn">
-                                        <v-btn icon slot="activator" @click.native="drawer = !drawer">
+                                        <v-btn :ripple="false" icon slot="activator" @click.native="drawer = !drawer">
                                             <v-icon>sbf-menu</v-icon>
                                         </v-btn>
                                         <menu-list :isAuthUser="loggedIn"

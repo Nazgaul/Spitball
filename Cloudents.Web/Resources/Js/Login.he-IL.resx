@@ -223,7 +223,7 @@
     <value>שלחנו לך קוד אישור בSMS</value>
   </data>
   <data name="signin_your_email" xml:space="preserve">
-    <value>Sign up with Email</value>
+    <value/>
   </data>
   <data name="sign_in" xml:space="preserve">
     <value>התחבר/י</value>

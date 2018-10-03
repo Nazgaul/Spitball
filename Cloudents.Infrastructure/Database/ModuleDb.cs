@@ -27,6 +27,7 @@ namespace Cloudents.Infrastructure.Database
 
             builder.RegisterType<ReadonlySession>().InstancePerLifetimeScope();
             builder.RegisterType<ReadonlyStatelessSession>().InstancePerLifetimeScope();
+            //builder.RegisterType<DapperReadQuery>().As<IReadQuery>().InstancePerLifetimeScope();
 
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenStatelessSession())
                 .InstancePerLifetimeScope();

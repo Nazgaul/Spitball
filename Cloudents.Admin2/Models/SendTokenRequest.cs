@@ -23,7 +23,7 @@ namespace Cloudents.Admin2.Models
         public decimal Tokens { get; set; }
 
         /// <summary>
-        /// Which token - awarded to earned
+        /// Which token - awarded or earned
         /// </summary>
         [Required]
         public TransactionType TransactionType { get; set; }
