@@ -167,8 +167,7 @@ export default {
     created() {
         global.addEventListener('beforeunload', () => {
             this.removeViewer();
-        })
-
+        });
         this.getData();
         // to do may be to consider change to State Store VueX
         this.$root.$on('deleteAnswer', (id) => {

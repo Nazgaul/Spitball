@@ -25,7 +25,7 @@
                 </template>
             </user-block>
             <!-- start language swith-->
-            <v-list-tile v-for="singleLang in languageChoisesAval" @click="changeLanguage(singleLang.id)">
+            <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)">
                 <v-list-tile-action>
                     <v-icon>{{singleLang.icon}}</v-icon>
                 </v-list-tile-action>
@@ -90,7 +90,7 @@
                 </v-list-tile-content>
             </router-link>
             <!-- start language swith-->
-            <v-list-tile v-for="singleLang in languageChoisesAval" @click="changeLanguage(singleLang.id)">
+            <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)">
                 <v-list-tile-action>
                     <v-icon>{{singleLang.icon}}</v-icon>
                 </v-list-tile-action>
