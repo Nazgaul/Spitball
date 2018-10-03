@@ -30,7 +30,7 @@ namespace Cloudents.Functions
 
 
         [FunctionName("QuestionSearchSync")]
-        public static async Task RunQuestionSearchAsync([TimerTrigger("0 */5 * * * *")] TimerInfo myTimer,
+        public static async Task RunQuestionSearchAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)] TimerInfo myTimer,
             [OrchestrationClient] DurableOrchestrationClient starter,
 //            [Blob("spitball/AzureSearch/question-version.txt", FileAccess.ReadWrite)]
         //    CloudBlockBlob blob,

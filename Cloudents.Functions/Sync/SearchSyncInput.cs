@@ -1,4 +1,5 @@
 ﻿using System;
+using Cloudents.Core.Query;
 
 namespace Cloudents.Functions.Sync
 {
@@ -30,7 +31,11 @@ namespace Cloudents.Functions.Sync
             }
         }
 
+        public SyncAzureQuery SyncAzureQuery { get; set; }
+
     }
+
+    
 
     public enum SyncType
     {

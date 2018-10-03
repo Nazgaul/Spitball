@@ -84,34 +84,43 @@ namespace Cloudents.Functions
 
             if (query.Version == 0 && query.Page == 0)
             {
-                await syncObject.CreateIndexAsync(token).ConfigureAwait(false);
+                await context.CallActivityAsync("CreateSearchIndex", input);
             }
 
+            input.SyncAzureQuery = query;
+            long version;
             do
             {
                 
-            } while (b);
+                version = await context.CallActivityAsync<long>("DoSearchSync", input);
+                //version = await context.CallActivityAsync<long>("DoSearchSync", input);
+                input.SyncAzureQuery.Page++;
+            } while (version > 0);
+
+            await context.CallActivityAsync("SetSyncProgress", input);
 
         }
 
-        [FunctionName("DoSearchSync")]
-        public static async Task<SyncAzureQuery> DoSearchSync(
-            [ActivityTrigger] SyncAzureQuery syncAzureQuery,
+        [FunctionName("CreateSearchIndex")]
+        public static async Task CreateSearchIndex(
+            [ActivityTrigger] SearchSyncInput input,
             [Inject] ILifetimeScope lifetimeScope,
             CancellationToken token)
         {
 
             var syncObject = lifetimeScope.ResolveKeyed<IDbToSearchSync>(input.SyncType);
-            //var dynamicBlobAttribute =
-            //    new BlobAttribute($"spitball/AzureSearch/{blobName}-version.txt");
+            await syncObject.CreateIndexAsync(token);
+        }
 
-            //var blob = await binder.BindAsync<CloudBlockBlob>(dynamicBlobAttribute, token).ConfigureAwait(false);
-            //if (await blob.ExistsAsync(token).ConfigureAwait(false))
-            //{
-            //    var text = await blob.DownloadTextAsync(token).ConfigureAwait(false);
-            //    return SyncAzureQuery.ConvertFromString(text);
-            //}
-            //return SyncAzureQuery.Empty();
+        [FunctionName("DoSearchSync")]
+        public static async Task<long> DoSearchSync(
+            [ActivityTrigger] SearchSyncInput input,
+            [Inject] ILifetimeScope lifetimeScope,
+            CancellationToken token)
+        {
+
+            var syncObject = lifetimeScope.ResolveKeyed<IDbToSearchSync>(input.SyncType);
+            return await syncObject.DoSyncAsync(input.SyncAzureQuery, token);
         }
 
         [FunctionName("GetSyncProgress")]
@@ -128,6 +137,18 @@ namespace Cloudents.Functions
                 return SyncAzureQuery.ConvertFromString(text);
             }
             return SyncAzureQuery.Empty();
+        }
+
+
+        [FunctionName("SetSyncProgress")]
+        public static async Task SetSyncProgress(
+            [ActivityTrigger] SearchSyncInput searchSyncInput, IBinder binder, CancellationToken token)
+        {
+            var dynamicBlobAttribute =
+                new BlobAttribute($"spitball/AzureSearch/{searchSyncInput.BlobName}-version.txt");
+
+            var blob = await binder.BindAsync<CloudBlockBlob>(dynamicBlobAttribute, token).ConfigureAwait(false);
+            await blob.UploadTextAsync(searchSyncInput.SyncAzureQuery.ToString(), token).ConfigureAwait(false);
         }
 
         public static async Task SyncAsync2<T, TU>(
