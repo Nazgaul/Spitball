@@ -81,6 +81,12 @@ const mutations = {
             }
         }
     },
+    [SEARCH.RESETQUE](state){
+        //check if ask Tab was loaded at least once
+        for(let verticalName in state.queItemsPerVertical){
+            state.queItemsPerVertical[verticalName] = [];
+        }
+    },
     [SEARCH.REMOVE_QUESTION](state, questionToRemove){
         if(!!state.itemsPerVertical.ask && !!state.itemsPerVertical.ask.data && state.itemsPerVertical.ask.data.length > 0){
             for(let questionIndex = 0; questionIndex < state.itemsPerVertical.ask.data.length; questionIndex++ ){
@@ -201,6 +207,7 @@ const actions = {
     
                     return verticalItems
                 }else{
+                   context.commit(SEARCH.RESETQUE);
                    return getData();
                 }
             
