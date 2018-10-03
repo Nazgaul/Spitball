@@ -168,6 +168,7 @@
                             let newUser = resp.data.isNew;
                             if (newUser) {
                                 analyticsService.sb_unitedEvent('Registration', 'Start Google');
+                                self.$parent.$emit('updateIsNewUser', newUser);
                                 self.$parent.$emit('changeStep', 'enterphone');
                             } else {
                                 analyticsService.sb_unitedEvent('Login', 'Start Google');

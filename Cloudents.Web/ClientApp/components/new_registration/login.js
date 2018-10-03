@@ -224,6 +224,9 @@ export default {
         this.$on('updatePhone', (phone) => {
             this.phone = phone;
         });
+        this.$on('updateIsNewUser', (isNew) => {
+            this.isNewUser = isNew;
+        });
         this.$on('fromCreate', (create) => {
             if (create === 'create') {
                 this.camefromCreate = true
@@ -254,7 +257,7 @@ export default {
         });
         //check if new user param exists in email url
         this.isNewUser = this.$route.query['isNew'] !== undefined;
-        if (this.isNewUser && this.stepNumber === 3) {
+        if (this.isNewUser && this.stepNumber === 4) {
             analyticsService.sb_unitedEvent('Registration', 'Email Verified');
 
         }

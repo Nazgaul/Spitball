@@ -3,6 +3,7 @@
         <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
         </v-snackbar>
+
         <component :is="`step_${stepNumber}`"
                    :passScoreObj="passScoreObj"
                    :isMobile="isMobile"
