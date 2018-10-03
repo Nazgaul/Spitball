@@ -3,19 +3,23 @@
         <v-list class="menu-list" v-if="!isAuthUser" content-class="s-menu-item">
             <user-block :user="user" :showExtended="true" :classType="'university'" v-if="isMobile" class="unsign">
                 <!--<div slot="icon" class="mb-3">-->
-                    <!--&lt;!&ndash;<v-avatar tag="v-avatar" class="Mask" size="32"><not-logged-in></not-logged-in></v-avatar>&ndash;&gt;-->
-                    <!--</div>-->
+                <!--&lt;!&ndash;<v-avatar tag="v-avatar" class="Mask" size="32"><not-logged-in></not-logged-in></v-avatar>&ndash;&gt;-->
+                <!--</div>-->
                 <template slot="text" class="mb-3">
                     <div class="menu-list-head-block">
-                               <div class="head-text-wrap">
-                                    <h4 class="text--title" v-language:inner>menuList_Please</h4>
-                                   <span class="mb-4 text" v-language:inner>menuList_sign_up_l</span>&nbsp;
-                                        <span class="or" v-language:inner>menuList_or</span>&nbsp;
-                                        <span class="mb-4 text" v-language:inner>menuList_login_l</span>&nbsp;
-                               </div>
+                        <div class="head-text-wrap">
+                            <h4 class="text--title" v-language:inner>menuList_Please</h4>
+                            <span class="mb-4 text" v-language:inner>menuList_sign_up_l</span>&nbsp;
+                            <span class="or" v-language:inner>menuList_or</span>&nbsp;
+                            <span class="mb-4 text" v-language:inner>menuList_login_l</span>&nbsp;
+                        </div>
                         <div class="btn-container">
-                            <router-link  class="login-btns body-1" :to="{ name: 'registration'}" v-language:inner>menuList_Sign_up</router-link>
-                            <router-link  class="login-btns body-1" :to="{ path: '/signin'}" v-language:inner>menuList_Login</router-link>
+                            <router-link class="login-btns body-1" :to="{ name: 'registration'}" v-language:inner>
+                                menuList_Sign_up
+                            </router-link>
+                            <router-link class="login-btns body-1" :to="{ path: '/signin'}" v-language:inner>
+                                menuList_Login
+                            </router-link>
                         </div>
                     </div>
                 </template>
@@ -32,7 +36,8 @@
                     </router-link>
                 </template>
                 <!--if theres is click handler as in feedback/ check settings/const.js -->
-                <v-list-tile v-else-if="item.name === 'feedback' && accountUser" @click="() => item.click ? item.click() : ''">
+                <v-list-tile v-else-if="item.name === 'feedback' && accountUser"
+                             @click="() => item.click ? item.click() : ''">
                     <v-list-tile-action>
                         <v-icon>{{item.icon}}</v-icon>
                     </v-list-tile-action>
@@ -72,6 +77,17 @@
                     <v-list-tile-title class="subheading" v-language:inner>menuList_my_profile</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
+            <!-- start language swith-->
+            <v-list-tile @click="changeLanguage()">
+                <v-list-tile-action>
+                    <v-icon>{{currentLocale.icon}}</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title class="subheading">{{currentLocale.title}}</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <!-- end language swith-->
+
             <v-list-tile @click="startIntercom">
                 <v-list-tile-action>
                     <v-icon>sbf-feedbackNew</v-icon>
@@ -82,7 +98,7 @@
             </v-list-tile>
 
             <v-list-tile @click="logout">
-                <v-list-tile-action >
+                <v-list-tile-action>
                     <v-icon>sbf-logout</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
@@ -90,16 +106,17 @@
                 </v-list-tile-content>
             </v-list-tile>
             <v-divider class="my-3"></v-divider>
-            <v-list-tile @click="openReferralDialog" >
+            <v-list-tile @click="openReferralDialog">
                 <v-list-tile-action>
                     <v-icon>sbf-user</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title class="subheading" v-language:inner>menuList_referral_spitball</v-list-tile-title>
+                    <v-list-tile-title class="subheading" v-language:inner>menuList_referral_spitball
+                    </v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <router-link tag="v-list-tile" :to="{name:'about'}">
-                <v-list-tile-action >
+                <v-list-tile-action>
                     <v-icon>sbf-about</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
@@ -107,7 +124,7 @@
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'faq'}">
-                <v-list-tile-action >
+                <v-list-tile-action>
                     <v-icon>sbf-help</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
@@ -115,7 +132,7 @@
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'terms'}">
-                <v-list-tile-action >
+                <v-list-tile-action>
                     <v-icon>sbf-terms</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
@@ -123,7 +140,7 @@
                 </v-list-tile-content>
             </router-link>
             <router-link tag="v-list-tile" :to="{name:'privacy'}">
-               <v-list-tile-action >
+                <v-list-tile-action>
                     <v-icon>sbf-privacy</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
@@ -132,10 +149,11 @@
             </router-link>
         </v-list>
         <!--<v-dialog v-if="showSettingsFirst" v-model="showSettings" content-class="settings-dialog" max-width="610">-->
-            <!--<user-settings v-model="showSettings"></user-settings>-->
+        <!--<user-settings v-model="showSettings"></user-settings>-->
         <!--</v-dialog>-->
-        
-        <sb-dialog v-if="isLoggedIn" :showDialog="showReferral" :popUpType="'referralPop'" :content-class="'login-popup'">
+
+        <sb-dialog v-if="isLoggedIn" :showDialog="showReferral" :popUpType="'referralPop'"
+                   :content-class="'login-popup'">
             <referral-dialog :showDialog="showReferral" :popUpType="'referralPop'"></referral-dialog>
         </sb-dialog>
     </div>
@@ -147,13 +165,24 @@
 
     import { mapGetters, mapActions } from 'vuex';
     import notLoggedIn from "../img/not-logged-in.svg";
-    import {notRegMenu} from '../../settings/consts';
+    import { notRegMenu } from '../../settings/consts';
     import userBlock from "../user-block/user-block.vue"
     import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
     import referralDialog from '../../question/helpers/referralDialog/referral-dialog.vue'
-    import languagesLocales  from '../../../services/language/localeLanguage'
+    import languagesLocales from '../../../services/language/localeLanguage'
+
     export default {
         components: {userBlock, notLoggedIn, sbDialog, referralDialog},
+        data() {
+            return {
+                notRegMenu,
+                showSettingsFirst: false,
+                showSettings: false,
+                showReferral: false,
+                languagesLocales,
+                currentLocale: ""
+            }
+        },
         props: {
             counter: {
                 required: false,
@@ -164,42 +193,41 @@
                 default: false
             }
         },
-        methods: {
-            currentTemplate(val) {
-                return val ? 'router-link' : 'v-list-tile';
-            },
-            ...mapActions(['logout']),
-            startIntercom(){
-                Intercom('showNewMessage')
-            },
-            openReferralDialog(){
-                this.showReferral = true;
-            }
-        },
-        data() {
-            return {
-                notRegMenu,
-                showSettingsFirst:false,
-                showSettings: false,
-                showReferral:false
-            }
-        },
         computed: {
             ...mapGetters(['unreadMessages', 'accountUser', 'getUniversityName']),
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
-            user(){
+            user() {
                 return {...this.accountUser, universityName: this.getUniversityName}
             },
-            isLoggedIn(){
+            isLoggedIn() {
                 return !!this.accountUser
             },
         },
-        created(){
-            console.log('locales::', document.documentElement.lang)
+        methods: {
+            ...mapActions(['logout']),
+            currentTemplate(val) {
+                return val ? 'router-link' : 'v-list-tile';
+            },
+            changeLanguage(){
+
+            },
+
+            startIntercom() {
+                Intercom('showNewMessage')
+            },
+            openReferralDialog() {
+                this.showReferral = true;
+            }
+        },
+
+        created() {
+            let currentLocHTML = document.documentElement.lang;
+            this.currentLocale = languagesLocales[`${currentLocHTML}`];
+            console.log('current', this.currentLocale)
             this.$root.$on('closePopUp', (name) => {
-                if(name === "referralPop"){
+                if (name === "referralPop") {
                     this.showReferral = false;
                 }
             })

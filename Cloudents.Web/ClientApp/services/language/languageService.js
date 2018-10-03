@@ -24,6 +24,12 @@ export const LanguageService = {
     }     
 };
 
+export const LanguageChange = {
+    setUserLanguage: (locale) => {
+        return connectivityModule.http.post("/Account/language", {culture: locale})
+    },
+};
+
 //debug purposes
 global.dictionaryFindKey = function(dict, value){
     for(let key in dict){

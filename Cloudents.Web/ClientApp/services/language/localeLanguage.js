@@ -1,17 +1,19 @@
 const languagesLocales = {
-    english:{
+    "en":{
         title: "English",
-        name : "",
+        name : "english",
         id: "en",
-        icon: "sbf-lang-world"
+        icon: "sbf-lang-world",
+
     },
-    hebrew:{
+    "he-IL":{
         title: "עברית",
         name : "hebrew",
         id: "he-IL",
-        icon: "sbf-lang-world"
+        icon: "sbf-lang-world",
+
     },
-    japanese:{
+    "ja":{
         title: "Japanese",
         name : "japanese",
         id: "ja",
