@@ -70,27 +70,28 @@ namespace Cloudents.Infrastructure.Database.Query
                 var qb = _queryBuilder;
                 qb.InitTable<Question>();
                 qb.CustomTable(
-                        $"CROSS APPLY CHANGETABLE (VERSION {qb.Table<Question>()}, (Id), ({qb.Column<Question>(x => x.Id)})) AS c2")
-                    .Join<Question, User>(q => q.User, u => u.Id)
-                    .Join<Question, QuestionSubject>(q => q.Subject, qs => qs.Id)
+                    $"CROSS APPLY CHANGETABLE (VERSION {qb.Table<Question>()}, (Id), ({qb.Column<Question>(x => x.Id)})) AS c");
+                SimilarQuery(qb);
+                ////.Join<Question, User>(q => q.User, u => u.Id)
+                ////.Join<Question, QuestionSubject>(q => q.Subject, qs => qs.Id)
 
-                    .Select<User>(x => x.Id, nameof(QuestionSearch.UserId))
-                    .Select<User>(x => x.Name, nameof(QuestionSearch.UserName))
-                    .Select<User>(x => x.Image, nameof(QuestionSearch.UserImage))
-                    .Select<Question>(x => x.Id, nameof(QuestionSearch.Id))
-                    .Select(
-                        $"(select count(*) from {qb.Table<Answer>()} where {qb.Column<Answer>(x => x.Question)} = {qb.ColumnAlias<Question>(x => x.Id)}) {nameof(QuestionSearch.AnswerCount)}")
+                //.Select<User>(x => x.Id, nameof(QuestionSearch.UserId))
+                //.Select<User>(x => x.Name, nameof(QuestionSearch.UserName))
+                //.Select<User>(x => x.Image, nameof(QuestionSearch.UserImage))
+                //.Select<Question>(x => x.Id, nameof(QuestionSearch.Id))
+                //.Select(
+                //    $"(select count(*) from {qb.Table<Answer>()} where {qb.Column<Answer>(x => x.Question)} = {qb.ColumnAlias<Question>(x => x.Id)}) {nameof(QuestionSearch.AnswerCount)}")
 
-                    .Select<Question>(x => x.Updated, nameof(QuestionSearch.DateTime))
-                    .Select<Question>(x => x.Attachments, nameof(QuestionSearch.FilesCount))
-                    .Select(
-                        $"CASE when {qb.ColumnAlias<Question>(x => x.CorrectAnswer)} IS null Then 0 else 1  END {nameof(QuestionSearch.HasCorrectAnswer)}")
-                    .Select<Question>(x => x.Price, nameof(QuestionSearch.Price))
-                    .Select<Question>(x => x.Text, nameof(QuestionSearch.Text))
-                    .Select<Question>(x => x.Color, nameof(QuestionSearch.Color))
-                    //.Select<QuestionSubject>(x => x.Text, nameof(QuestionSearch.SubjectText))
-                    .Select<QuestionSubject>(x => x.Id, nameof(QuestionSearch.Subject))
-                    .Select("c.*");
+                //.Select<Question>(x => x.Updated, nameof(QuestionSearch.DateTime))
+                //.Select<Question>(x => x.Attachments, nameof(QuestionSearch.FilesCount))
+                //.Select(
+                //    $"CASE when {qb.ColumnAlias<Question>(x => x.CorrectAnswer)} IS null Then 0 else 1  END {nameof(QuestionSearch.HasCorrectAnswer)}")
+                //.Select<Question>(x => x.Price, nameof(QuestionSearch.Price))
+                //.Select<Question>(x => x.Text, nameof(QuestionSearch.Text))
+                //.Select<Question>(x => x.Color, nameof(QuestionSearch.Color))
+                ////.Select<QuestionSubject>(x => x.Text, nameof(QuestionSearch.SubjectText))
+                //.Select<QuestionSubject>(x => x.Id, nameof(QuestionSearch.Subject))
+                //.Select("c.*");
 
                 return qb;
             }

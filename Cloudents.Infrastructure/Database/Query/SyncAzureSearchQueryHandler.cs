@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Query;
 using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -26,16 +27,22 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<(IEnumerable<T> update, IEnumerable<long> delete, long version)> GetAsync(SyncAzureQuery query, CancellationToken token)
         {
             var sql = query.Version == 0 ? FirstQuery : VersionSql;
-            
+
             var sqlQuery = _session.CreateSQLQuery(sql);
             sqlQuery.SetInt32("PageSize", 50);
             sqlQuery.SetInt32("PageNumber", query.Page);
-            sqlQuery.SetInt64("Version", query.Version);
+            if (sqlQuery.NamedParameters.Any(a => string.Equals(a, "Version", StringComparison.OrdinalIgnoreCase)))
+            {
+                sqlQuery.SetInt64("Version", query.Version);
+            }
             sqlQuery.SetResultTransformer(new AzureSyncBaseDtoTransformer<AzureSyncBaseDto<T>, T>());
 
 
-            var result = await sqlQuery.ListAsync<AzureSyncBaseDto<T>>();
-
+            var result = await sqlQuery.ListAsync<AzureSyncBaseDto<T>>(token);
+            if (result.Count == 0)
+            {
+                return (Enumerable.Empty<T>(), Enumerable.Empty<long>(), 0);
+            }
 
             //sqlQuery.
             var lookupTable = result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D");

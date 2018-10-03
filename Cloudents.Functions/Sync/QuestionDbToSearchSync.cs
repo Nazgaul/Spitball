@@ -1,24 +1,12 @@
-﻿using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities.Search;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 
 namespace Cloudents.Functions.Sync
 {
-    public interface IDbToSearchSync
-    {
-        SyncAzureQuery GetCurrentState();
-
-        Task CreateIndexAsync(CancellationToken token);
-
-
-        Task<long> DoSyncAsync(SyncAzureQuery query, CancellationToken token);
-        //Task<(IEnumerable<T> update, IEnumerable<long> delete, long version)>GetData<T>();
-
-    }
-
     public class QuestionDbToSearchSync : IDbToSearchSync
     {
         private readonly ISearchServiceWrite<Question> _questionServiceWrite;
@@ -30,10 +18,7 @@ namespace Cloudents.Functions.Sync
             _bus = bus;
         }
 
-        public SyncAzureQuery GetCurrentState()
-        {
-            throw new System.NotImplementedException();
-        }
+      
 
         public Task CreateIndexAsync(CancellationToken token)
         {

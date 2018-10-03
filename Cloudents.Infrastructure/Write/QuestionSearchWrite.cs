@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Write
         public const string IndexName = "question";
 
 
-        public QuestionSearchWrite(SearchService client) : base(client, IndexName, client.GetClient(IndexName))
+        public QuestionSearchWrite(SearchService client) : base(client, client.GetClient(IndexName))
         {
         }
 

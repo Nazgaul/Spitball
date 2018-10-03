@@ -14,10 +14,10 @@ namespace Cloudents.Infrastructure.Write
     {
         protected readonly SearchServiceClient Client;
         protected ISearchIndexClient IndexClient;
-        private readonly string _indexName;
+       // private readonly string _indexName;
 
         protected SearchServiceWrite(SearchService client, string indexName) 
-            :this(client,indexName,client.GetOldClient(indexName))
+            :this(client,/*indexName,*/client.GetOldClient(indexName))
 
         {
             //client.GetClient(indexName);
@@ -32,11 +32,11 @@ namespace Cloudents.Infrastructure.Write
         //    _indexName = indexName;
         //}
 
-        protected SearchServiceWrite(SearchService client, string indexName, ISearchIndexClient indexClient)
+        protected SearchServiceWrite(SearchService client, /*string indexName,*/ ISearchIndexClient indexClient)
         {
             Client = client.Client;
             IndexClient = indexClient;
-            _indexName = indexName;
+          //  _indexName = indexName;
         }
 
 
@@ -82,7 +82,7 @@ namespace Cloudents.Infrastructure.Write
 
         public virtual Task CreateOrUpdateAsync(CancellationToken token)
         {
-            var index = GetIndexStructure(_indexName);
+            var index = GetIndexStructure(IndexClient.IndexName);
             return Client.Indexes.CreateOrUpdateAsync(index, cancellationToken: token);
         }
 
