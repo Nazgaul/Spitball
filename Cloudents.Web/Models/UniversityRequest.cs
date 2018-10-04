@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -10,6 +10,8 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// the user input
         /// </summary>
+        [Required]
+        [StringLength(100, MinimumLength = 3)]
         public string Term { get; set; }
 
         /*/// <summary>
