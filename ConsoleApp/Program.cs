@@ -90,6 +90,7 @@ namespace ConsoleApp
                 Console.WriteLine("---------------------------------");
                 Console.WriteLine($"allowance:{a1.Result}");
                 Console.WriteLine("---------------------------------");
+
             }
 
             /*Console.WriteLine(await t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default));
