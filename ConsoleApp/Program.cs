@@ -32,7 +32,7 @@ namespace ConsoleApp
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                BlockChainNetwork = "http://spito5-dns-reg1.northeurope.cloudapp.azure.com:8545",
+                BlockChainNetwork = "http://13.69.54.132:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
             };
 
@@ -47,7 +47,32 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
+            
+            var t = _container.Resolve<IBlockChainErc20Service>();
+            var spitballAddress = "0x0356a6cfcf3fd04ea88044a59458abb982aa9d96";
+            string metaMaskAddress = "0x27e739f9dF8135fD1946b0b5584BcE49E22000af";
+            string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
+            string metaMaskPK = "10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
+
+            Console.WriteLine(await t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default));
+
+            var y = await t.IncreaseApproval(spitballServerAddress, 100, default);
+            Console.WriteLine(await t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default));
+            /*Console.WriteLine($"Sender Balance: {await t.GetBalanceAsync(metaMaskAddress, default)}");
+            Console.WriteLine($"To Balance: {await t.GetBalanceAsync(spitballServerAddress, default)}");
+            Console.WriteLine($"Spender Balance: {await t.GetBalanceAsync(spitballAddress, default)}");
+            
+            Console.WriteLine("-------------------");
+
+            var y = await t.ApprovePreSigned(metaMaskPK, spitballServerAddress, 5, 5, default);
+
+            //var y = await t.TransferPreSigned(metaMaskPK, spitballServerAddress, 5, 5, default);
+
+            Console.WriteLine($"Sender Balance: {await t.GetBalanceAsync(metaMaskAddress, default)}");
+            Console.WriteLine($"To Balance: {await t.GetBalanceAsync(spitballServerAddress, default)}");
+            Console.WriteLine($"Spender Balance: {await t.GetBalanceAsync(spitballAddress, default)}");
+            */
 
 
 
@@ -60,10 +85,10 @@ namespace ConsoleApp
 
             //string t = b;
             //Console.WriteLine(t);
-            var b2 = _container.Resolve<ITutorSearch>();
-            var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
-                new GeoPoint(-74.006f, 40.7128f)
-                , 0, false, default);
+            /* var b2 = _container.Resolve<ITutorSearch>();
+             var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
+                 new GeoPoint(-74.006f, 40.7128f)
+                 , 0, false, default);*/
 
 
 
@@ -95,6 +120,11 @@ namespace ConsoleApp
             var t = _container.Resolve<IBlockChainErc20Service>();
             var pb = t.GetAddress("38d68c294410244dcd009346c756436a64530d7ddb0611e62fa79f9f721cebb0");
             return t.SetInitialBalanceAsync(pb, default);
+        }
+
+        public async static Task<string> MintTokens(string address, IBlockChainErc20Service t)
+        {
+            return await t.CreateNewTokens(address, 100, default);
         }
 
 
