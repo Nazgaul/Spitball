@@ -58,6 +58,7 @@ namespace Cloudents.Functions.Di
                 .SingleInstance();
 
             builder.RegisterType<QuestionDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Question);
+            builder.RegisterType<UniversityDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.University);
         }
 
         public static string GetEnvironmentVariable(string name)

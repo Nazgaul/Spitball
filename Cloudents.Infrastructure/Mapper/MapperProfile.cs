@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure.Mapper
             CreateMap<BingSuggest.SuggestionsObject, IEnumerable<string>>().ConvertUsing<BingSuggestConverter>();
 
             CreateMap<Course, CourseDto>();
-            CreateMap<University, UniversityDto>();
+            //CreateMap<University, UniversityDto>();
 
             CreateMap<GoogleToken, ExternalAuthDto>().ConvertUsing(o => new ExternalAuthDto
             {

@@ -34,6 +34,14 @@ namespace Cloudents.Infrastructure.Database
                 {
                     var e = Enum.Parse(propertyInfo.PropertyType, str, true);
                     propertyInfo.SetValue(x.Data, e);
+                    continue;
+                }
+
+                var nullableType = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
+                if (nullableType != null)
+                {
+                    var y = Convert.ChangeType(value, nullableType);
+                    propertyInfo.SetValue(x.Data, y);
                 }
                 else
                 {

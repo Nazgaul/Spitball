@@ -40,33 +40,35 @@ namespace Cloudents.Infrastructure.Write
         }
 
 
-        public Task UpdateDataAsync(IEnumerable<T> items, CancellationToken token)
+        public async Task<bool> UpdateDataAsync(IEnumerable<T> items, CancellationToken token)
         {
             if (items == null) throw new ArgumentNullException(nameof(items));
             var batch = IndexBatch.MergeOrUpload(items);
-            return IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            return result.Results.Count > 0;
         }
 
-        public Task DeleteDataAsync(IEnumerable<string> ids, CancellationToken token)
+        public async Task<bool> DeleteDataAsync(IEnumerable<string> ids, CancellationToken token)
         {
             if (ids == null) throw new ArgumentNullException(nameof(ids));
             var batch = IndexBatch.Delete(ids.Select(s => new T
             {
                 Id = s
             }));
-            return IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token); 
+            return result.Results.Count > 0;
         }
 
-        public Task UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> ids, CancellationToken token)
+        public async Task<bool> UpdateDataAsync(IEnumerable<T> items, IEnumerable<string> ids, CancellationToken token)
         {
             if (items == null && ids == null) throw new ArgumentNullException();
             if (ids == null)
             {
-                return UpdateDataAsync(items, token);
+                return await UpdateDataAsync(items, token);
             }
             if (items == null)
             {
-                return DeleteDataAsync(ids, token);
+                return await DeleteDataAsync(ids, token);
             }
 
             var actions = items.Select(IndexAction.MergeOrUpload).ToList();
@@ -75,9 +77,10 @@ namespace Cloudents.Infrastructure.Write
                 Id = s
             }));
             actions.AddRange(actionDelete);
-            if (actions.Count <= 0) return Task.CompletedTask;
+            if (actions.Count <= 0) return false;
             var batch = IndexBatch.New(actions);
-            return IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            var result = await IndexClient.Documents.IndexAsync(batch, cancellationToken: token);
+            return result.Results.Count > 0;
         }
 
         public virtual Task CreateOrUpdateAsync(CancellationToken token)

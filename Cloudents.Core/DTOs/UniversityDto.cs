@@ -3,7 +3,12 @@ namespace Cloudents.Core.DTOs
 {
     public class UniversityDto
     {
-        public string Image { get; set; }
+        public UniversityDto(long id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
         public long Id { get; set; }
         public string Name { get; set; }
     }

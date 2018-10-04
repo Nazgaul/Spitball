@@ -1,8 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -11,7 +13,7 @@ namespace Cloudents.Web.Api
     /// University api controller
     /// </summary>
     [Produces("application/json")]
-    [Route("api/[controller]"), ApiController]
+    [Route("api/[controller]"), ApiController, Authorize]
     public class UniversityController : ControllerBase
     {
         private readonly IUniversitySearch _universityProvider;
@@ -35,8 +37,9 @@ namespace Cloudents.Web.Api
         [HttpGet]
         public async Task<UniversityResponse> GetAsync([FromQuery] UniversityRequest model, CancellationToken token)
         {
+            var countryClaim = User.Claims.FirstOrDefault(f => f.Type == "country");
             var result = await _universityProvider.SearchAsync(model.Term,
-                model.Location?.ToGeoPoint(), token).ConfigureAwait(false);
+                countryClaim?.Value, token).ConfigureAwait(false);
             return new UniversityResponse(result);
         }
     }

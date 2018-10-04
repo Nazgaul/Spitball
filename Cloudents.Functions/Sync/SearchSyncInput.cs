@@ -18,8 +18,8 @@ namespace Cloudents.Functions.Sync
             {
                 switch (SyncType)
                 {
-                    //case SyncType.University:
-                    //    break;
+                    case SyncType.University:
+                        return "university";
                     //case SyncType.Course:
                     //    break;
                     case SyncType.Question:
