@@ -8,9 +8,8 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global")]
     public class University
     {
-        public University(long id ,string name, string country)
+        public University(string name, string country) : this()
         {
-            Id = id;
             Name = name;
             Country = country;
             Pending = true;

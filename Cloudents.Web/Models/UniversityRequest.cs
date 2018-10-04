@@ -11,13 +11,18 @@ namespace Cloudents.Web.Models
         /// the user input
         /// </summary>
         [Required]
-        [StringLength(100, MinimumLength = 3)]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "StringLength")]
         public string Term { get; set; }
 
-        /*/// <summary>
-        /// the user location
-        /// </summary>*/
-        //[CanBeNull]
-        //public GeographicCoordinate Location { get; set; }
     }
+
+    public class CreateUniversityRequest
+    {
+        [Required] public string Name { get; set; }
+    }
+
+    //public class AssignUniversityRequest
+    //{
+    //    [Required] public long Id { get; set; }
+    //}
 }

@@ -5,7 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Command;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -13,20 +17,28 @@ namespace Cloudents.Web.Api
     /// <summary>
     /// University api controller
     /// </summary>
-    [Produces("application/json")]
     [Route("api/[controller]"), ApiController, Authorize]
     public class UniversityController : ControllerBase
     {
         private readonly IUniversitySearch _universityProvider;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+
+        private readonly ICommandBus _commandBus;
+
+
 
         /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="universityProvider"></param>
-        public UniversityController(IUniversitySearch universityProvider)
+        public UniversityController(IUniversitySearch universityProvider, UserManager<User> userManager, ICommandBus commandBus, SignInManager<User> signInManager)
         {
             _universityProvider = universityProvider;
+            _userManager = userManager;
+            _commandBus = commandBus;
+            _signInManager = signInManager;
         }
 
         /// <summary>
@@ -43,5 +55,32 @@ namespace Cloudents.Web.Api
                 countryClaim?.Value, token).ConfigureAwait(false);
             return new UniversityResponse(result);
         }
+
+        /// <summary>
+        /// Create new university and assign the user to that university
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync([FromBody] CreateUniversityRequest model, CancellationToken token)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var command = new CreateUniversityCommand(model.Name, user.Id);
+            await _commandBus.DispatchAsync(command, token);
+            await _signInManager.RefreshSignInAsync(user);
+            return Ok();
+        }
+
+        [HttpPost("assign")]
+        public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var command = new AssignUniversityToUserCommand(user.Id, model.UniversityId);
+            await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            await _signInManager.RefreshSignInAsync(user);
+            return Ok();
+        }
+
     }
 }
