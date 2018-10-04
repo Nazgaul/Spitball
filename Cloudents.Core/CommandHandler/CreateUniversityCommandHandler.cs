@@ -8,12 +8,12 @@ namespace Cloudents.Core.CommandHandler
 {
     public class CreateUniversityCommandHandler : ICommandHandler<CreateUniversityCommand>
     {
-        private readonly IRepository<University> _universityRepository;
+        private readonly IUniversityRepository _universityRepository;
         private readonly IRepository<User> _userRepository;
-        private readonly ICommandHandler<Core.Command.AssignUniversityToUserCommand> _assignUserCommandHandler;
+        private readonly ICommandHandler<AssignUniversityToUserCommand> _assignUserCommandHandler;
 
 
-        public CreateUniversityCommandHandler(IRepository<University> universityRepository, IRepository<User> userRepository, ICommandHandler<AssignUniversityToUserCommand> assignUserCommandHandler)
+        public CreateUniversityCommandHandler(IUniversityRepository universityRepository, IRepository<User> userRepository, ICommandHandler<AssignUniversityToUserCommand> assignUserCommandHandler)
         {
             _universityRepository = universityRepository;
             _userRepository = userRepository;
@@ -22,9 +22,20 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(CreateUniversityCommand message, CancellationToken token)
         {
+
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            var university = new University(message.Name, user.Country);
-            await _universityRepository.AddAsync(university, token);
+
+            var universities = await _universityRepository.GetUniversityByNameAsync(message.Name, user.Country, token);
+            University university;
+            if (universities.Count > 0)
+            {
+                university = universities[0];
+            }
+            else
+            {
+                university = new University(message.Name, user.Country);
+                await _universityRepository.AddAsync(university, token);
+            }
 
             var assignCommand = new AssignUniversityToUserCommand(message.UserId, university.Id);
             await _assignUserCommandHandler.ExecuteAsync(assignCommand, token);
