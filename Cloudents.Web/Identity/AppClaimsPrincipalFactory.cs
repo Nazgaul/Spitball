@@ -13,6 +13,7 @@ namespace Cloudents.Web.Identity
     [UsedImplicitly]
     public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<User, ApplicationRole>
     {
+        internal const string Country = "country";
         private readonly IBlockChainErc20Service _blockChain;
 
         public AppClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<ApplicationRole> roleManager, IOptions<IdentityOptions> options, IBlockChainErc20Service blockChain) :
@@ -27,8 +28,7 @@ namespace Cloudents.Web.Identity
 
             if (user.EmailConfirmed && user.PhoneNumberConfirmed)
             {
-                //p.AddClaim(new Claim(ClaimsType.AuthStep, SignInStepEnum.All.ToString("D")));
-                p.AddClaim(new Claim(CustomCookieAuthenticationEvents.ValidateTimeClaim, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)));
+                p.AddClaim(new Claim(Country, user.Country));
             }
             return p;
         }

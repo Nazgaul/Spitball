@@ -8,15 +8,16 @@ namespace Cloudents.Infrastructure.Database.Maps
     {
         public UniversityMap()
         {
-            Id(x => x.Id).GeneratedBy.Assigned();
+            Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='{nameof(University)}'");
+                //.GeneratedBy.Assigned();
             Map(x => x.IsDeleted);
             Map(x => x.Name).Column("UniversityName");
             Map(x => x.Extra);
             Map(x => x.ExtraSearch);
-            Map(x => x.Latitude).Nullable();
-            Map(x => x.Longitude).Nullable();
-            Map(x => x.Image).Column("LargeImage").Nullable();
             Map(x => x.Country).Not.Nullable().Length(2);
+            Map(x => x.Pending);
+            Component(x => x.TimeStamp);
+
             Schema("Zbox");
         }
     }

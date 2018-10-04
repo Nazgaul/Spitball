@@ -8,10 +8,13 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global")]
     public class University
     {
-        public University(long id ,string name)
+        public University(long id ,string name, string country)
         {
             Id = id;
             Name = name;
+            Country = country;
+            Pending = true;
+            TimeStamp = new DomainTimeStamp();
         }
 
         [UsedImplicitly]
@@ -24,7 +27,6 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual bool IsDeleted { get; set; }
 
-        [DbColumn("UniversityName")] //TODO: Remove that
         public virtual string Name { get; set; }
 
         /// <summary>
@@ -36,11 +38,15 @@ namespace Cloudents.Core.Entities.Db
         /// </summary>
         public virtual string ExtraSearch { get; set; }
 
-        public virtual float? Latitude { get; set; }
-        public virtual float? Longitude { get; set; }
+       // public virtual float? Latitude { get; set; }
+       // public virtual float? Longitude { get; set; }
 
         public virtual  string Country { get; set; }
 
-        public virtual  string Image { get; set; }
+       // public virtual  string Image { get; set; }
+
+        public virtual bool Pending { get; set; }
+
+        public virtual DomainTimeStamp TimeStamp { get; set; }
     }
 }

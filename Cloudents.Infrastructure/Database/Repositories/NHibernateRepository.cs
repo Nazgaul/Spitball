@@ -37,17 +37,17 @@ namespace Cloudents.Infrastructure.Database.Repositories
             }
         }
 
-        public Task<T> LoadAsync(object id, CancellationToken token)
+        public virtual Task<T> LoadAsync(object id, CancellationToken token)
         {
             return Session.LoadAsync<T>(id, token);
         }
 
-        public Task<T> GetAsync(object id, CancellationToken token)
+        public virtual Task<T> GetAsync(object id, CancellationToken token)
         {
             return Session.GetAsync<T>(id, token);
         }
 
-        public T Load(object id)
+        public virtual T Load(object id)
         {
             return Session.Load<T>(id);
         }

@@ -73,7 +73,6 @@ namespace Cloudents.Core.Entities.Db
         protected virtual void UserCreateTransaction()
         {
             var t = Transaction.UserCreate();
-            //new Transaction(ActionType.SignUp, TransactionType.Awarded, InitialBalance);
             AddTransaction(t);
         }
 

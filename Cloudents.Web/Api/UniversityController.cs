@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -37,7 +38,7 @@ namespace Cloudents.Web.Api
         [HttpGet]
         public async Task<UniversityResponse> GetAsync([FromQuery] UniversityRequest model, CancellationToken token)
         {
-            var countryClaim = User.Claims.FirstOrDefault(f => f.Type == "country");
+            var countryClaim = User.Claims.FirstOrDefault(f => f.Type == AppClaimsPrincipalFactory.Country);
             var result = await _universityProvider.SearchAsync(model.Term,
                 countryClaim?.Value, token).ConfigureAwait(false);
             return new UniversityResponse(result);

@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Exceptions;
 using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudents.Web.Filters
@@ -35,6 +40,28 @@ namespace Cloudents.Web.Filters
             {
                 ["body"] = body
             });
+        }
+    }
+
+    public class UserLockedExceptionFilter : ExceptionFilterAttribute
+    {
+        private readonly SignInManager<User> _signInManager;
+
+        public UserLockedExceptionFilter(SignInManager<User> signInManager)
+        {
+            _signInManager = signInManager;
+        }
+
+        
+
+        public override async Task OnExceptionAsync(ExceptionContext context)
+        {
+            if (context.Exception.GetType() == typeof(UserLockoutException))
+            {
+                await _signInManager.SignOutAsync();
+                context.Result = new UnauthorizedResult();
+                context.ExceptionHandled = true;
+            }
         }
     }
 

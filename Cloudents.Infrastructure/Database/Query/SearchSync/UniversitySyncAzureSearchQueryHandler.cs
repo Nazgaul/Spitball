@@ -50,11 +50,12 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         {
             qb.Select<University>(s => s.Id, nameof(UniversitySearchDto.Id))
                 .Select<University>(s => s.Name, nameof(UniversitySearchDto.Name))
-                .Select<University>(s => s.Image, nameof(UniversitySearchDto.Image))
+                //.Select<University>(s => s.Image, nameof(UniversitySearchDto.Image))
                 .Select<University>(s => s.IsDeleted, nameof(UniversitySearchDto.IsDeleted))
                 .Select<University>(s => s.Extra, nameof(UniversitySearchDto.Extra))
-                .Select<University>(s => s.Longitude, nameof(UniversitySearchDto.Longitude))
-                .Select<University>(s => s.Latitude, nameof(UniversitySearchDto.Latitude))
+                //.Select<University>(s => s.Longitude, nameof(UniversitySearchDto.Longitude))
+                //.Select<University>(s => s.Latitude, nameof(UniversitySearchDto.Latitude))
+                .Select<University>(s => s.Pending, nameof(UniversitySearchDto.Pending))
                 .Select<University>(s => s.Country, nameof(UniversitySearchDto.Country))
                 .Select("c.*")
                 .AddOrder<University>(o => o.Id)
@@ -63,7 +64,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
 
         protected override ILookup<bool, AzureSyncBaseDto<UniversitySearchDto>> SeparateUpdateFromDelete(IEnumerable<AzureSyncBaseDto<UniversitySearchDto>> result)
         {
-            return result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D" || p.Data.IsDeleted);
+            return result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D" || p.Data.IsDeleted || p.Data.Pending);
         }
     }
 }
