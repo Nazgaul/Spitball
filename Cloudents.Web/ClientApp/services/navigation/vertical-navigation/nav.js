@@ -14,7 +14,6 @@ function getPromoQueryFromRoute(path, query){
     }
 }
 
-
 const nav = {
     ask: {
         banner: getPromoQueryFromRoute,
@@ -23,7 +22,7 @@ const nav = {
             id: routes.questionRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_ask"),
             icon: "sbf-ask-q", //TODO do we need this.....
-            show: true
+            visible: true
         }
     },
     note: {
@@ -35,7 +34,7 @@ const nav = {
             filter: [ { id: "source", name: "sources" }],
             sort: [],
             icon: "sbf-note",
-            show: false
+            visible: true
         }
      },
     flashcard: {
@@ -46,7 +45,8 @@ const nav = {
             needLocation: false,
             filter: [],
             sort: [],
-            icon: "sbf-flashcards"
+            icon: "sbf-flashcards",
+            visible: true
         }
     },
     tutor: {
@@ -57,7 +57,8 @@ const nav = {
             needLocation: true,
             filter: [],
             sort: [],
-            icon: "sbf-tutor"
+            icon: "sbf-tutor",
+            visible: true
         }
     },
     book: {
@@ -65,7 +66,8 @@ const nav = {
         data:{
             id: routes.bookRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_book"),
-            icon: "sbf-textbooks"
+            icon: "sbf-textbooks",
+            visible: true
         },
 
 
@@ -78,7 +80,8 @@ const nav = {
             needLocation: true,
             filter: [],
             sort: [],
-            icon: "sbf-job"
+            icon: "sbf-job",
+            visible: true
         }
     }
 };
@@ -95,7 +98,7 @@ export let details = {
         ]
     }
 };
-export let verticalsList = [];
+//export let verticalsList = [];
 export let names = [];
 export let page = [];
 export let verticalsNavbar = [];
@@ -104,14 +107,17 @@ for (let i in nav) {
     let item = nav[i].data;
     verticalsName.push(i);
     names.push({'id': item.id, 'name': item.name});
+if(!!item.visible){
     verticalsNavbar.push(
         {
             'id': item.id,
             'name': item.name,
-            'icon': item.icon
+            'icon': item.icon,
+            'visible': item.visible
             //image: item.image
         });
-    verticalsList.push(nav[i]);
+}
+   // verticalsList.push(nav[i]);
     page[i] = {
         // title: item.resultTitle,
         //emptyText: item.emptyState,

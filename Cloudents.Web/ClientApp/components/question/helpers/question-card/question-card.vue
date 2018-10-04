@@ -27,7 +27,7 @@
                 </div>
             </div>
             <p class="q-text"
-               :class="[`sbf-font-${cardData.color}`, { 'answer': typeAnswer, 'ellipsis': fromCarousel}]">
+               :class="[`sbf-font-${cardData.color}`, { 'answer': typeAnswer, 'ellipsis': fromCarousel || !detailedView}]">
                 {{cardData.text | ellipsis(150, detailedView)}}</p>
             <!-- v-if="cardData.files.length" -->
             <div class="gallery" v-if="gallery&&gallery.length">
