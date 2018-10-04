@@ -74,7 +74,7 @@ namespace Cloudents.Infrastructure.Blockchain
             return (privateKey.ToHex(), address);
         }
 
-        public async Task<string> Approve(string spender, int amount, CancellationToken token)
+        public async Task<string> ApproveAsync(string spender, int amount, CancellationToken token)
         {
             var function = await GetFunctionAsync("approve", token).ConfigureAwait(false);
             var amountApproved = new BigInteger(amount * FromWei);
@@ -82,7 +82,7 @@ namespace Cloudents.Infrastructure.Blockchain
             return receiptFirstAmountSend.BlockHash;
         }
 
-        public async Task<string> TransferPreSigned(string fromPK, string to, int amount, int fee, CancellationToken token)
+        public async Task<string> TransferPreSignedAsync(string fromPK, string to, int amount, int fee, CancellationToken token)
         {
             Account SpitballAccountt = new Account(SpitballPrivateKey);
             var web3 = new Web3(SpitballAccountt);
@@ -111,7 +111,7 @@ namespace Cloudents.Infrastructure.Blockchain
         }
 
 
-        public async Task<string> ApprovePreSigned(string fromPK, string sender, int amount, int fee, CancellationToken token)
+        public async Task<string> ApprovePreSignedAsync(string fromPK, string sender, int amount, int fee, CancellationToken token)
         {
             Account SpitballAccountt = new Account(SpitballPrivateKey);
             var web3 = new Web3(SpitballAccountt);
@@ -152,7 +152,7 @@ namespace Cloudents.Infrastructure.Blockchain
             return (decimal)normalAmount;
         }
 
-        public async Task<string> IncreaseApproval(string spender, int amount, CancellationToken token)
+        public async Task<string> IncreaseApprovalAsync(string spender, int amount, CancellationToken token)
         {
 
             var function = await GetFunctionAsync("increaseApproval", token).ConfigureAwait(false);
@@ -160,6 +160,36 @@ namespace Cloudents.Infrastructure.Blockchain
             var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, MaxGas, token, spender, amountIncreaseApproved).ConfigureAwait(false);
             return receiptFirstAmountSend.BlockHash;
 
+        }
+
+        public async Task<string> IncreaseApprovalPreSignedAsync(string fromPK, string sender, int amount, int fee, CancellationToken token)
+        {
+            Account SpitballAccountt = new Account(SpitballPrivateKey);
+            var web3 = new Web3(SpitballAccountt);
+
+            var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(GetAddress(SpitballPrivateKey));
+            var nonce = txCount.Value + 8;
+            var amountApproved = new BigInteger(amount * FromWei);
+            var feeApproved = new BigInteger(fee * FromWei);
+
+
+            string str = "a45f71ff"
+                       + ContractAddress.RemoveHexPrefix()
+                       + sender.RemoveHexPrefix()
+                       + amountApproved.ToString("X64")
+                       + feeApproved.ToString("X64")
+                       + nonce.ToString("X64");
+
+            var byteStr = HexByteConvertorExtensions.HexToByteArray(str);
+            var sha3 = new Nethereum.Util.Sha3Keccack();
+            var res = sha3.CalculateHash(byteStr);
+            var messageSigner = new MessageSigner();
+            var sig = messageSigner.Sign(res, fromPK).HexToByteArray();
+
+
+            var function = await GetFunctionAsync("increaseApprovalPreSigned", token).ConfigureAwait(false);
+            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, MaxGas, GasPrice, token, sig, sender, amountApproved, feeApproved, nonce).ConfigureAwait(false);
+            return receiptFirstAmountSend.BlockHash;
         }
     }
 }

@@ -10,7 +10,8 @@ using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Core.Models;
-
+using Nethereum.Web3.Accounts;
+using Nethereum.Web3;
 
 namespace ConsoleApp
 {
@@ -53,12 +54,44 @@ namespace ConsoleApp
             string metaMaskAddress = "0x27e739f9dF8135fD1946b0b5584BcE49E22000af";
             string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
+            string SpitballPrivateKey = "428ac528cbc75b2832f4a46592143f46d3cb887c5822bed23c8bf39d027615a8";
             string metaMaskPK = "10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
 
-            Console.WriteLine(await t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default));
+            
+
+            Account SpitballAccountt = new Account(SpitballPrivateKey);
+            var web3 = new Web3(SpitballAccountt);
+            //var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(t.GetAddress(SpitballPrivateKey));
+
+            for (int i = 0; i < 100; i++)
+            {
+                var txCount = web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(t.GetAddress(SpitballPrivateKey));
+
+                var TxHash = t.TransferPreSignedAsync(metaMaskPK, spitballServerAddress, 2, 1, default);
+                //var approve = t.IncreaseApprovalPreSignedAsync(SpitballPrivateKey, spitballServerAddress, 1, 1, default);
+
+                var b1 = t.GetBalanceAsync(metaMaskAddress, default);
+                var b2 = t.GetBalanceAsync(spitballServerAddress, default);
+                var b3 = t.GetBalanceAsync(spitballAddress, default);
+                
+                var a1 = t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default);
+
+                await Task.WhenAll(txCount, TxHash, b1, b2, b3/*, approve*/, a1).ConfigureAwait(false);
+
+                Console.WriteLine($"nonce: {txCount.Result.Value}");
+                Console.WriteLine($"metaMaskAddress Balance: {b1.Result}");
+                Console.WriteLine($"spitballServerAddress Balance: {b2.Result}");
+                Console.WriteLine($"spitballAddress Balance: {b3.Result}");
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine($"allowance:{a1.Result}");
+                Console.WriteLine("---------------------------------");
+            }
+
+            /*Console.WriteLine(await t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default));
 
             var y = await t.IncreaseApproval(spitballServerAddress, 100, default);
             Console.WriteLine(await t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default));
+            */
             /*Console.WriteLine($"Sender Balance: {await t.GetBalanceAsync(metaMaskAddress, default)}");
             Console.WriteLine($"To Balance: {await t.GetBalanceAsync(spitballServerAddress, default)}");
             Console.WriteLine($"Spender Balance: {await t.GetBalanceAsync(spitballAddress, default)}");
