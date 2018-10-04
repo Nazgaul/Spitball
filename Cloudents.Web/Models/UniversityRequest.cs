@@ -12,10 +12,10 @@ namespace Cloudents.Web.Models
         /// </summary>
         public string Term { get; set; }
 
-        /// <summary>
+        /*/// <summary>
         /// the user location
-        /// </summary>
-        [CanBeNull]
-        public GeographicCoordinate Location { get; set; }
+        /// </summary>*/
+        //[CanBeNull]
+        //public GeographicCoordinate Location { get; set; }
     }
 }

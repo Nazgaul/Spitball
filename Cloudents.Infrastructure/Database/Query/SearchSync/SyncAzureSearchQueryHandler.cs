@@ -45,66 +45,17 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
             }
 
             //sqlQuery.
-            var lookupTable = result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D");
+            var lookupTable = SeparateUpdateFromDelete(result);
 
             var max = result.Max(m => m.SYS_CHANGE_VERSION);
 
             return (lookupTable[false].Select(s => s.Data), lookupTable[true].Select(s => s.Id), max);
-            //return _dapperRepository.WithConnectionAsync(async c =>
-            //{
-            //    var sql = VersionSql;
-            //    if (query.Version == 0)
-            //    {
-            //        sql = FirstQuery;
-            //    }
-            //    //SELECT*
-            //    //    FROM sb.Question AS q
-            //    //    CROSS APPLY CHANGETABLE
-            //    //(VERSION sb.Question , (Id), (q.Id)) AS c;
+            
+        }
 
-            //    //SELECT e.*,  
-            //    //c.*
-            //    //    FROM CHANGETABLE(CHANGES sb.Question, 56123) AS c
-            //    //LEFT OUTER JOIN sb.Question AS e
-            //    //    ON e.id = c.id
-            //   // var result = (await c.QueryAsync<AzureSyncBaseDto<T>, T, AzureSyncBaseDto<T>>(sql,
-            //   //         (c2, l) =>
-            //   //         {
-            //   //             return c2;
-            //   //         }
-            //   //     )
-            //   //, splitOn: "TTT"
-            //   //     , new {version = query.Version, PageNumber = query.Page, PageSize = 50}).Item1.ToList();
-
-            //    var result = (await c.QueryAsync<AzureSyncBaseDto<T>>(sql, new { version = query.Version, PageNumber = query.Page, PageSize = 50 })).ToList();
-
-            //    var lookupTable = result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D");
-
-            //    var max = result.Max(m => m.SYS_CHANGE_VERSION);
-
-            //    return (lookupTable[false], lookupTable[true].Select(s => s.Id), max);
-
-            //    //using (var grid = await c.QueryMultipleAsync(WriteSql + ";" + DeleteSql, new { version = query.Version, PageNumber = query.Page, PageSize = 50 }).ConfigureAwait(false))
-            //    //{
-            //    //    var write = (await grid.ReadAsync<T>().ConfigureAwait(false)).ToLookup(p => p.IsDeleted);
-            //    //    var delete = await grid.ReadAsync<SearchWriteBaseDto>().ConfigureAwait(false);
-
-            //    //    var deleteList = delete.Union(write[true]
-            //    //        .Select(s => new SearchWriteBaseDto { Id = s.Id, Version = s.Version })).ToList();
-
-            //    //    var update = write[false].ToList();
-            //    //    long max = 0, maxDelete = 0;
-            //    //    if (update.Count > 0)
-            //    //    {
-            //    //        max = update.Max(m => m.Version);
-            //    //    }
-            //    //    if (deleteList.Count > 0)
-            //    //    {
-            //    //        maxDelete = deleteList.Max(m => m.Version);
-            //    //    }
-            //    //    return (update.AsEnumerable(), deleteList.AsEnumerable(), new[] { max, maxDelete }.Max());
-            //    //}
-            //}, token);
+        protected virtual ILookup<bool, AzureSyncBaseDto<T>> SeparateUpdateFromDelete(IEnumerable<AzureSyncBaseDto<T>> result)
+        {
+            return result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D");
         }
     }
 }

@@ -10,10 +10,13 @@ namespace Cloudents.Infrastructure.Database.Maps
         {
             Id(x => x.Id).GeneratedBy.Assigned();
             Map(x => x.IsDeleted);
-            //TODO : this appear twice - need to fix that
             Map(x => x.Name).Column("UniversityName");
             Map(x => x.Extra);
             Map(x => x.ExtraSearch);
+            Map(x => x.Latitude).Nullable();
+            Map(x => x.Longitude).Nullable();
+            Map(x => x.Image).Column("LargeImage").Nullable();
+            Map(x => x.Country).Not.Nullable().Length(2);
             Schema("Zbox");
         }
     }

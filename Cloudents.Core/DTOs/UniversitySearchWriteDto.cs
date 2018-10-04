@@ -3,15 +3,15 @@ using JetBrains.Annotations;
 
 namespace Cloudents.Core.DTOs
 {
-    [UsedImplicitly]
-    public class UniversitySearchWriteDto : SearchWriteIsDeleted
-    {
-        public string Name { get; [UsedImplicitly] set; }
-        public string Image { get; [UsedImplicitly] set; }
-        public double Longitude { get; [UsedImplicitly] set; }
-        public double Latitude { get; [UsedImplicitly] set; }
-        public string Extra { get; [UsedImplicitly] set; }
-    }
+    //[UsedImplicitly]
+    //public class UniversitySearchWriteDto : SearchWriteIsDeleted
+    //{
+    //    public string Name { get; [UsedImplicitly] set; }
+    //    public string Image { get; [UsedImplicitly] set; }
+    //    public double Longitude { get; [UsedImplicitly] set; }
+    //    public double Latitude { get; [UsedImplicitly] set; }
+    //    public string Extra { get; [UsedImplicitly] set; }
+    //}
 
     [DataContract]
     public class CourseSearchWriteDto : SearchWriteIsDeleted

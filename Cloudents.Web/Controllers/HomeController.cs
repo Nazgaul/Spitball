@@ -1,6 +1,8 @@
 ﻿using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Extension;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Core.Extension;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -38,7 +39,7 @@ namespace Cloudents.Web.Controllers
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index(LocationQuery location,
             [FromHeader(Name = "User-Agent")] string userAgent,
-            [FromQuery] bool? isNew,[FromQuery] string referral, [FromServices]IHostingEnvironment env)
+            [FromQuery] bool? isNew, [FromQuery, CanBeNull] string referral, [FromServices]IHostingEnvironment env)
         {
             if (!string.IsNullOrEmpty(referral))
             {

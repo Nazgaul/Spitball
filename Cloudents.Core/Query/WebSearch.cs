@@ -15,25 +15,23 @@ namespace Cloudents.Core.Query
     {
         private readonly ISearch _search;
         private readonly ISearchConvertRepository _searchConvertRepository;
-        private readonly IUniversitySearch _universitySearch;
         private readonly CustomApiKey _api;
 
-        public WebSearch(ISearch search, ISearchConvertRepository searchConvertRepository, CustomApiKey api, IUniversitySearch universitySearch)
+        public WebSearch(ISearch search, ISearchConvertRepository searchConvertRepository, CustomApiKey api)
         {
             _search = search;
             _searchConvertRepository = searchConvertRepository;
             _api = api;
-            _universitySearch = universitySearch;
         }
 
         public async Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model, HighlightTextFormat format, CancellationToken token)
         {
             var university = model.University;
-            if (!model.University.HasValue && model.Point != null)
-            {
-                var p = await _universitySearch.GetApproximateUniversitiesAsync(model.Point, token).ConfigureAwait(false);
-                university = p?.Id;
-            }
+            //if (!model.University.HasValue && model.Point != null)
+            //{
+            //    var p = await _universitySearch.GetApproximateUniversitiesAsync(model.Point, token).ConfigureAwait(false);
+            //    university = p?.Id;
+            //}
             var (universitySynonym, courses) = await _searchConvertRepository.ParseUniversityAndCoursesAsync(university, model.Courses, token).ConfigureAwait(false);
 
             var cseModel = new SearchModel(model.Query, BuildSources(model.Source), _api, courses, universitySynonym);

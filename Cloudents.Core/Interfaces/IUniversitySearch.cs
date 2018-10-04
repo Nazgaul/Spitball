@@ -11,14 +11,15 @@ namespace Cloudents.Core.Interfaces
     {
         [ItemCanBeNull]
         Task<IEnumerable<UniversityDto>> SearchAsync(string term,
-            [CanBeNull]
-            GeoPoint location,
+            //[CanBeNull]
+            //GeoPoint location,
+            string country,
             CancellationToken token);
 
-        [ItemCanBeNull]
-        Task<UniversityDto> GetApproximateUniversitiesAsync(
-            [NotNull]
-            GeoPoint location,
-            CancellationToken token);
+        //[ItemCanBeNull]
+        //Task<UniversityDto> GetApproximateUniversitiesAsync(
+        //    [NotNull]
+        //    GeoPoint location,
+        //    CancellationToken token);
     }
 }

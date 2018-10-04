@@ -17,64 +17,62 @@ namespace Cloudents.Functions
 {
     public static class SyncFunc
     {
-        public static async Task SyncAsync<T, TU>(
-            CloudBlockBlob blob,
-            IReadRepositoryAsync<(IEnumerable<T> update, IEnumerable<SearchWriteBaseDto> delete, long version),
-                SyncAzureQuery> repository,
-            ISearchServiceWrite<TU> searchServiceWrite,
-            Func<T, TU> createObj,
-            TraceWriter log,
-            CancellationToken token) where TU : class, ISearchObject, new()
-        {
-            var query = SyncAzureQuery.Empty();
-            if (await blob.ExistsAsync(token).ConfigureAwait(false))
-            {
-                var text = await blob.DownloadTextAsync(token).ConfigureAwait(false);
-                query = SyncAzureQuery.ConvertFromString(text);
-            }
-            log.Info($"process {query}");
+        //public static async Task SyncAsync<T, TU>(
+        //    CloudBlockBlob blob,
+        //    IReadRepositoryAsync<(IEnumerable<T> update, IEnumerable<SearchWriteBaseDto> delete, long version),
+        //        SyncAzureQuery> repository,
+        //    ISearchServiceWrite<TU> searchServiceWrite,
+        //    Func<T, TU> createObj,
+        //    TraceWriter log,
+        //    CancellationToken token) where TU : class, ISearchObject, new()
+        //{
+        //    var query = SyncAzureQuery.Empty();
+        //    if (await blob.ExistsAsync(token).ConfigureAwait(false))
+        //    {
+        //        var text = await blob.DownloadTextAsync(token).ConfigureAwait(false);
+        //        query = SyncAzureQuery.ConvertFromString(text);
+        //    }
+        //    log.Info($"process {query}");
 
-            //if (query.Version == 0 && query.Page == 0)
-            //{
-            //    await searchServiceWrite.CreateOrUpdateAsync(token).ConfigureAwait(false);
-            //}
+        //    //if (query.Version == 0 && query.Page == 0)
+        //    //{
+        //    //    await searchServiceWrite.CreateOrUpdateAsync(token).ConfigureAwait(false);
+        //    //}
 
-            var currentVersion = query.Version;
-            while (!token.IsCancellationRequested)
-            {
-                try
-                {
-                    var (update, delete, version) = await repository.GetAsync(query, token).ConfigureAwait(false);
+        //    var currentVersion = query.Version;
+        //    while (!token.IsCancellationRequested)
+        //    {
+        //        try
+        //        {
+        //            var (update, delete, version) = await repository.GetAsync(query, token).ConfigureAwait(false);
 
-                    var updateList = update.Select(createObj).ToList();
-                    var deleteCourses = delete.Select(s => s.Id.ToString()).ToList();
-                    await searchServiceWrite.UpdateDataAsync(updateList, deleteCourses, token).ConfigureAwait(false);
-                    query.Page++;
-                    currentVersion = Math.Max(currentVersion, version);
-                    await blob.UploadTextAsync(query.ToString(), token).ConfigureAwait(false);
-                    if (updateList.Count == 0 && deleteCourses.Count == 0)
-                    {
-                        break;
-                    }
-                }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-            }
+        //            var updateList = update.Select(createObj).ToList();
+        //            var deleteCourses = delete.Select(s => s.Id.ToString()).ToList();
+        //            await searchServiceWrite.UpdateDataAsync(updateList, deleteCourses, token).ConfigureAwait(false);
+        //            query.Page++;
+        //            currentVersion = Math.Max(currentVersion, version);
+        //            await blob.UploadTextAsync(query.ToString(), token).ConfigureAwait(false);
+        //            if (updateList.Count == 0 && deleteCourses.Count == 0)
+        //            {
+        //                break;
+        //            }
+        //        }
+        //        catch (OperationCanceledException)
+        //        {
+        //            break;
+        //        }
+        //    }
 
-            if (!token.IsCancellationRequested)
-            {
-                var newVersion = new SyncAzureQuery(currentVersion, 0);
-                await blob.UploadTextAsync(newVersion.ToString(), token).ConfigureAwait(false);
-            }
-        }
+        //    if (!token.IsCancellationRequested)
+        //    {
+        //        var newVersion = new SyncAzureQuery(currentVersion, 0);
+        //        await blob.UploadTextAsync(newVersion.ToString(), token).ConfigureAwait(false);
+        //    }
+        //}
 
         [FunctionName("SearchSync")]
         public static async Task SearchSync(
-            [OrchestrationTrigger] DurableOrchestrationContextBase context,
-            [Inject] ILifetimeScope lifetimeScope,
-            CancellationToken token)
+            [OrchestrationTrigger] DurableOrchestrationContextBase context)
         {
             var input = context.GetInput<SearchSyncInput>();
 
@@ -86,14 +84,21 @@ namespace Cloudents.Functions
             }
             input.SyncAzureQuery = query;
 
-            long nextVersion = 0, version;
+            bool needContinue;
+            long nextVersion = 0;
             do
             {
-                version = await context.CallActivityAsync<long>("DoSearchSync", input);
-                nextVersion = Math.Max(nextVersion, version);
-                input.SyncAzureQuery.Page++;
-            } while (version > 0);
 
+                var result =  await context.CallActivityAsync<SyncResponse>("DoSearchSync", input);
+                needContinue = result.NeedContinue;
+                nextVersion = Math.Max(nextVersion, result.Version);
+                input.SyncAzureQuery.Page++;
+            } while (needContinue);
+
+            if (nextVersion == input.SyncAzureQuery.Version)
+            {
+                nextVersion++;
+            }
             input.SyncAzureQuery = new SyncAzureQuery(nextVersion, 0);
             await context.CallActivityAsync("SetSyncProgress", input);
             
@@ -111,7 +116,7 @@ namespace Cloudents.Functions
         }
 
         [FunctionName("DoSearchSync")]
-        public static async Task<long> DoSearchSync(
+        public static async Task<SyncResponse> DoSearchSync(
             [ActivityTrigger] SearchSyncInput input,
             [Inject] ILifetimeScope lifetimeScope,
             CancellationToken token)
@@ -129,12 +134,9 @@ namespace Cloudents.Functions
                 new BlobAttribute($"spitball/AzureSearch/{blobName}-version.txt");
 
             var blob = await binder.BindAsync<CloudBlockBlob>(dynamicBlobAttribute, token).ConfigureAwait(false);
-            if (await blob.ExistsAsync(token).ConfigureAwait(false))
-            {
-                var text = await blob.DownloadTextAsync(token).ConfigureAwait(false);
-                return SyncAzureQuery.ConvertFromString(text);
-            }
-            return SyncAzureQuery.Empty();
+            if (!await blob.ExistsAsync(token).ConfigureAwait(false)) return SyncAzureQuery.Empty();
+            var text = await blob.DownloadTextAsync(token).ConfigureAwait(false);
+            return SyncAzureQuery.ConvertFromString(text);
         }
 
 

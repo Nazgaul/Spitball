@@ -5,11 +5,17 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
+using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Models;
+using Cloudents.Core.Query;
 
 
 namespace ConsoleApp
@@ -51,19 +57,42 @@ namespace ConsoleApp
 
 
 
-            //var b = _container.Resolve<FluentQueryBuilder>();
-            //var x = await b.QueryAsync(new SyncAzureQuery(56123, 0), default);
-            //    .AddJoin<Question,User>(q=>q.User,u=>u.Id)
-            //    .AddSelect<User,Cloudents.Core.Entities.Search.Question>( q => q.Id,t2=>t2.UserId)
-            //    .AddSelect<Question>( q => q.Text, "b")
-            //    .AddSelect($"(select count(*) from {b.Table<Answer>()} where {b.Column<Answer>(x=>x.Question)} = {b.ColumnAlias<Question>(x=>x.Id)}) AnswerCount");
+            //var u = _container.Resolve<ISearchServiceWrite<University>>();
+            //await u.CreateOrUpdateAsync(default);
 
-            //string t = b;
-            //Console.WriteLine(t);
-            var b2 = _container.Resolve<ITutorSearch>();
-            var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
-                new GeoPoint(-74.006f, 40.7128f)
-                , 0, false, default);
+
+            var stopWordsList = new[]{ "university",
+                "of",
+                "college",
+                "school",
+                "the",
+                "a",
+                "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
+            };
+            var sw = new Stopwatch();
+            sw.Start();
+            for (int i = 0; i < 100000; i++)
+            {
+            var cleanName = "University of Kent".RemoveWords(stopWordsList);
+
+            }
+            sw.Stop();
+            Console.WriteLine(sw.ElapsedMilliseconds);
+            sw.Restart();
+            for (int i = 0; i < 100000; i++)
+            {
+                var cleanName = TTTT("University of Kent", stopWordsList);
+
+            }
+            sw.Stop();
+            Console.WriteLine(sw.ElapsedMilliseconds);
+
+            //var b2 = _container.Resolve<IQueryBus>();
+            //var query = new SyncAzureQuery(1,0);
+            //var d = await b2.QueryAsync< (IEnumerable<UniversitySearchDto> update, IEnumerable<long> delete, long version)>(query, default);
+            ////var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
+            //    new GeoPoint(-74.006f, 40.7128f)
+            //    , 0, false, default);
 
 
 
@@ -89,7 +118,11 @@ namespace ConsoleApp
             Console.ReadLine();
         }
 
-
+        private static string TTTT(string input,IEnumerable<string> BAD_WORDS)
+        {
+            return string.Join(" ",
+                input.Split(' ').Select(w => BAD_WORDS.Contains(w) ? "" : w));
+        }
         public static Task SendMoneyAsync()
         {
             var t = _container.Resolve<IBlockChainErc20Service>();

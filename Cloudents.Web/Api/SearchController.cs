@@ -32,8 +32,7 @@ namespace Cloudents.Web.Api
            [FromServices] IWebDocumentSearch searchProvider, CancellationToken token)
         {
             model = model ?? new SearchRequest();
-            var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(),
-                 model.GeoPoint?.ToGeoPoint());
+            var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault());
             var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
 
             var p = result.Result?.ToList();
@@ -67,7 +66,7 @@ namespace Cloudents.Web.Api
         public async Task<WebResponseWithFacet<SearchResult>> SearchFlashcardAsync([FromQuery] SearchRequest model,
             [FromServices] IWebFlashcardSearch searchProvider, CancellationToken token)
         {
-            var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault(), model.GeoPoint?.ToGeoPoint());
+            var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault());
             var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
             string nextPageLink = null;
             var p = result.Result?.ToList();
