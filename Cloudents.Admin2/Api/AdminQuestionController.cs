@@ -70,7 +70,7 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<ActionResult> DeleteQuestionAsync(IEnumerable<long> ids, CancellationToken token)
+        public async Task<ActionResult> DeleteQuestionAsync([FromQuery(Name = "id")]IEnumerable<long> ids, CancellationToken token)
         {
             foreach (var id in ids)
             {

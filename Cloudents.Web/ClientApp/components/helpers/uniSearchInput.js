@@ -46,7 +46,7 @@ export default {
         selectos({item, index}) {
             this.updateUniversity(this.uniSuggestList[index]);
             this.closeSuggestions();
-            this.$router.push({path: '/note', query: {q: ''}});
+            this.$router.push({path: '/note', query: {term: ''}});
             // to remove keyboard on mobile
             this.$nextTick(() => {
                 this.$el.querySelector('input').blur();

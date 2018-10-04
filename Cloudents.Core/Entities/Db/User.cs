@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 namespace Cloudents.Core.Entities.Db
@@ -78,24 +80,19 @@ namespace Cloudents.Core.Entities.Db
         public virtual decimal Balance { get; set; }
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We need internal to do the mapping")]
-        protected internal virtual IList<Transaction> Transactions { get; set; }
-        protected internal virtual IList<Question> Questions { get; set; }
-        protected internal virtual IList<Answer> Answers { get; set; }
-        protected internal virtual IList<UserLogin> UserLogins { get; set; }
+        protected internal virtual IList<Transaction> Transactions { get; protected set; }
+        protected internal virtual IList<Question> Questions { get; protected set; }
+        protected internal virtual IList<Answer> Answers { get; protected set; }
+        protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
-        public virtual void AddLogin(string loginProvider, string providerKey, string providerDisplayName)
-        {
-            UserLogins.Add(new UserLogin(loginProvider, providerKey, providerDisplayName, this));
-        }
-
-        public virtual DateTime Created { get; set; }
+        public virtual DateTime Created { get; protected set; }
 
         public override string ToString()
         {
             return $"{nameof(Id)}: {Id}, {nameof(EmailConfirmed)}: {EmailConfirmed}, {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}";
         }
 
-        public virtual bool Fictive { get; set; }
+        public virtual bool Fictive { get; protected set; }
 
         public virtual string PasswordHash { get; set; }
         public virtual DateTimeOffset? LockoutEnd { get; set; }
@@ -104,42 +101,8 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual bool LockoutEnabled { get; set; }
 
-    }
+        [CanBeNull] public virtual CultureInfo Culture { get; set; }
+        public virtual string Country { get; set; }
 
-    public class UserLogin
-    {
-        public UserLogin(string loginProvider, string providerKey, string providerDisplayName, User user)
-        {
-            LoginProvider = loginProvider;
-            ProviderKey = providerKey;
-            ProviderDisplayName = providerDisplayName;
-            User = user;
-        }
-        protected UserLogin()
-        {
-
-        }
-
-
-        public virtual string LoginProvider { get; set; }
-        public virtual string ProviderKey { get; set; }
-        public virtual string ProviderDisplayName { get; set; }
-        public virtual User User { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            var login = obj as UserLogin;
-            return login != null &&
-                   LoginProvider == login.LoginProvider &&
-                   ProviderKey == login.ProviderKey;
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = 1582216818;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LoginProvider);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ProviderKey);
-            return hashCode;
-        }
     }
 }

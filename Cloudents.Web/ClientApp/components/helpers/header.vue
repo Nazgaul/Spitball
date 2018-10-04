@@ -25,6 +25,7 @@
                                         <v-menu bottom left offset-y>
                                             <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
                                                          :user-name="accountUser.name"/>
+
                                             <menu-list :isAuthUser="loggedIn"
                                                        v-if=!$vuetify.breakpoint.xsOnly></menu-list>
                                         </v-menu>
@@ -35,13 +36,23 @@
                                     <router-link v-if="!loggedIn" class="header-login body-1" :to="{ path: '/signin'}" v-language:inner>header_login</router-link>
 
                                     <v-menu bottom left offset-y class="gamburger"
-                                            v-if="!loggedIn && $vuetify.breakpoint.xsOnly">
-                                        <v-btn icon slot="activator" @click.native="drawer = !drawer">
+                                            v-if="!loggedIn">
+                                        <v-btn :ripple="false" icon slot="activator" @click.native="drawer = !drawer">
                                             <v-icon>sbf-menu</v-icon>
                                         </v-btn>
                                         <menu-list :isAuthUser="loggedIn"
                                                    v-if="$vuetify.breakpoint.smAndUp"></menu-list>
                                     </v-menu>
+
+
+                                    <!--<v-menu bottom left offset-y class="gamburger"-->
+                                            <!--v-if="!loggedIn && $vuetify.breakpoint.xsOnly">-->
+                                        <!--<v-btn icon slot="activator" @click.native="drawer = !drawer">-->
+                                            <!--<v-icon>sbf-menu</v-icon>-->
+                                        <!--</v-btn>-->
+                                        <!--<menu-list :isAuthUser="loggedIn"-->
+                                                   <!--v-if="$vuetify.breakpoint.smAndUp"></menu-list>-->
+                                    <!--</v-menu>-->
 
                                 </div>
                             </v-toolbar-items>
@@ -64,9 +75,6 @@
                              width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
-        <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'" :content-class="'login-popup'">
-            <login-to-answer></login-to-answer>
-        </sb-dialog>
     </div>
 </template>
 
@@ -75,13 +83,10 @@
     import SearchInput from '../helpers/searchInput.vue';
     import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import menuList from "./menu-list/menu-list.vue";
-
     import {mapActions, mapGetters} from 'vuex';
     import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
 
     const PersonalizeDialog = () => import('./ResultPersonalize.vue');
-    import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
-    import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
     import {LanguageService } from "../../services/language/languageService";
 
     export default {
@@ -91,8 +96,6 @@
             SearchInput,
             UserAvatar,
             menuList,
-            sbDialog,
-            loginToAnswer
         },
         placeholders: {
             job: LanguageService.getValueByKey("header_placeholder_job"),
@@ -123,7 +126,8 @@
             layoutClass: {}
         },
         computed: {
-            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText', 'loginDialogState']),
+            ...mapGetters(['getUniversityName', 'accountUser', 'unreadMessages', 'getShowToaster', 'getToasterText']),
+
             isMobile() {
                 return this.$vuetify.breakpoint.xsOnly;
             },
@@ -150,7 +154,8 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateLoginDialogState', 'resetData']),
+            ...mapActions(['updateToasterParams', 'resetData']),
+
             //TODO: what is that
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
@@ -177,7 +182,6 @@
             }
         },
         created() {
-            console.log('route::', this.submitRoute)
             this.$root.$on("personalize",
                 (type) => {
                     this.clickOnce = true;
@@ -187,14 +191,6 @@
                         }
                     })
                 });
-
-            this.$root.$on('closePopUp', (name) => {
-                if (name === 'suggestions') {
-                    this.showDialogSuggestQuestion = false
-                } else {
-                    this.updateLoginDialogState(false)
-                }
-            });
             let headerHeight = this.toolbarHeight ? this.toolbarHeight : (this.$vuetify.breakpoint.smAndUp ? 60 : 115)
             this.height = headerHeight;
         },

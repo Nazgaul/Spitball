@@ -9,25 +9,27 @@
         <div class="question-content">
             <router-view></router-view>
         </div>
-        
     </div>
 </template>
 
-<script lang="ts" src="./question.ts"></script>
+<script>
+export default {
+    
+}
+</script>
+
 
 
 <style lang="scss" scoped>
     .question-nav{
         display:flex;
         justify-content: center;
-        line-height: 40px;
-        background-color: #b6b6b6;
         a{
             margin:2px;
             background-color: #9d9d9d;
             text-decoration: none;
             font-size: 15px;
-            border-radius: 4px;
+            border-radius: 25px;
             padding: 5px;
             font-weight: bold;
             color: #5d5d5d;

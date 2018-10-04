@@ -32,6 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Cloudents2018.pfx = Cloudents2018.pfx
 		Cloudents2019.pfx = Cloudents2019.pfx
 		Pass.txt = Pass.txt
+		Queries.sql = Queries.sql
 		W-14-scripts.sql = W-14-scripts.sql
 		W-15-scripts.sql = W-15-scripts.sql
 	EndProjectSection
@@ -122,9 +123,8 @@ Global
 		{70D5B492-28D9-4612-87A0-A77C046D9DA9} = {11BD4A18-56D6-4D9B-8257-87AEBE3053F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ExcelExportMode = SingleSheet
-		RESX_SortFileContentOnSave = True
 		RESX_AutoCreateNewLanguageFiles = True
+		RESX_SortFileContentOnSave = True
 		SolutionGuid = {56AA6A08-3F4E-4388-9483-D32CB8C78F83}
 		RESX_PrefixTranslations = True
 	EndGlobalSection

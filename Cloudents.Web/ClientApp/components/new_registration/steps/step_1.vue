@@ -8,14 +8,14 @@
 
                     </p>
                 </div>
-                <div class="checkbox-terms">
+                <div class="checkbox-terms" v-if="!isSignIn">
                     <input type="checkbox" v-model="agreeTerms" id="agreeTerm"/>
                     <label for="agreeTerm"></label>
-                    <span><span v-language:inner>login_agree</span><br/><router-link
-                            to="terms" v-language:inner> login_terms_of_services</router-link>&nbsp; <span v-language:inner>login_and</span>&nbsp;  <router-link
+                    <span><span v-language:inner>login_agree</span>&nbsp;<router-link
+                            to="terms" v-language:inner> login_terms_of_services</router-link>&nbsp;<span v-language:inner>login_and</span>&nbsp;<router-link
                             to="privacy" v-language:inner>login_privacy_policy</router-link></span>
                 </div>
-                <span class="has-error" v-if="confirmCheckbox"
+                <span class="has-error" v-if="!isSignIn && confirmCheckbox"
                       style="background: white; display: block; color:red; text-align: center;">
                         <span v-language:inner>login_please_agree</span></span>
             </div>
@@ -25,24 +25,24 @@
                     </h1>
                     <!--<p class="sub-title">{{ isCampaignOn ? campaignData.stepOne.text : meta.text }}</p>-->
                 </div>
-                <div class="checkbox-terms" v-if="!isMobile">
+                <div class="checkbox-terms" v-if="!isMobile && !isSignIn">
                     <input type="checkbox" v-model="agreeTerms" id="agreeTermDesk"/>
                     <label for="agreeTermDesk"></label>
-                    <span><span v-language:inner>login_agree</span>&nbsp; <router-link
-                            to="terms" v-language:inner>login_terms_of_services</router-link>&nbsp;<span v-language:inner>login_and</span> &nbsp; <router-link
+                    <span><span v-language:inner>login_agree</span>&nbsp;<router-link
+                            to="terms" v-language:inner>login_terms_of_services</router-link>&nbsp;<span v-language:inner>login_and</span>&nbsp;<router-link
                             to="privacy" v-language:inner>login_privacy_policy</router-link></span>
                 </div>
-                <div class="has-error" v-if="confirmCheckbox && !isMobile"
+                <div class="has-error" v-if="confirmCheckbox && !isMobile && !isSignIn"
                      style="background: white; display: block; color:red; text-align: center;">
                     <span v-language:inner>login_please_agree</span>
                 </div>
-                <button v-if="isSignIn" class="google-signin" @click="googleLogIn">
+                <button v-show="isSignIn" class="google-signin" @click="googleLogIn">
                     <span v-language:inner>login_sign_in_with_google</span>
                     <span>
                             <v-icon>sbf-google-icon</v-icon>
                         </span>
                 </button>
-                <button v-else class="google-signin" @click="googleLogIn">
+                <button v-show="!isSignIn" class="google-signin" @click="googleLogIn">
                     <span v-language:inner>login_sign_up_with_google</span>
                     <span>
                             <v-icon>sbf-google-icon</v-icon>
@@ -52,26 +52,26 @@
                       style="background: white; display: block; color:red; text-align: center;">
                         {{errorMessage.gmail}}</span>
                 <div class="seperator-text"><span v-language:inner>login_or</span></div>
-                <v-btn v-if="isSignIn" class="sign-with-email"
+                <v-btn v-show="isSignIn" class="sign-with-email"
                        value="Login"
                        :loading="loading"
                        @click="showDialogPass()">
                     <span v-language:inner>login_signin_your_email</span>
                 </v-btn>
-                <v-btn v-else class="sign-with-email"
+                <v-btn v-show="!isSignIn" class="sign-with-email"
                        value="Login"
                        :loading="loading"
                        @click="goToEmailLogin()">
                     <span v-language:inner>login_signup_your_email</span>
                 </v-btn>
                 <div class="signin-strip">
-                    <div v-if="isSignIn">
-                    <span v-language:inner>login_need_account_text</span>&nbsp;
-                    <a class="click" @click="goToEmailLogin()" v-language:inner>login_need_account_link</a>
+                    <div v-show="isSignIn">
+                        <span v-language:inner>login_need_account_text</span>&nbsp;
+                        <a class="click" @click="goTosignUp()" v-language:inner>login_need_account_link</a>
                     </div>
-                    <div v-else>
+                    <div v-show="!isSignIn">
                         <span v-language:inner>login_already_have_account</span>&nbsp;
-                        <a class="click" @click="showDialogPass()" v-language:inner>login_sign_in</a>
+                        <a class="click" @click="redirectToSignIn()" v-language:inner>login_sign_in</a>
                     </div>
                 </div>
             </div>
@@ -86,13 +86,7 @@
                 </button>
                 <v-card-text class="limited-width">
                     <h1 v-if="isMobile">
-
                         <span v-language:inner >login_passsword_dialog_title</span>
-                        <!--<span v-language:inner>login_sure_exit1</span><br/>-->
-                        <!--<span v-language:inner>login_sure_exit2</span><br/>-->
-                        <!--<span v-language:inner>login_sure_exit3</span><br/>-->
-                        <!--<span v-language:inner>login_sure_exit4</span>&nbsp;<b>-->
-                        <!--<span v-language:inner>login_sure_exit5</span></b>-->
                     </h1>
                     <p v-language:inner>login_passsword_dialog_text_1</p>
                     <p v-language:inner>login_passsword_dialog_text_2</p>
@@ -116,9 +110,10 @@
     import { mapActions,  mapMutations } from 'vuex'
     import registrationService from "../../../services/registrationService";
     var auth2;
+    const defaultSubmitRoute = {path: '/ask'};
 
     export default {
-        components: {stepTemplate, SbInput },
+        components: {stepTemplate, SbInput},
 
         name: 'step_1',
         data() {
@@ -132,9 +127,11 @@
                 errorMessage: {
                     gmail: '',
                 },
+                signInScreeen: false,
+                registerScreeen: false
             }
         },
-        props:{
+        props: {
             isMobile: {
                 type: Boolean,
                 default: false
@@ -143,10 +140,11 @@
             isSignIn: {
                 type: Boolean,
                 default: false
-            }
+            },
+            toUrl: {},
         },
         computed: {
-            confirmCheckbox(){
+            confirmCheckbox() {
                 return !this.agreeTerms && this.agreeError
             },
         },
@@ -154,46 +152,62 @@
             ...mapMutations({updateLoading: "UPDATE_LOADING"}),
             ...mapActions({updateToasterParams: 'updateToasterParams', updateCampaign: 'updateCampaign'}),
             googleLogIn() {
-                if(!this.agreeTerms){
-                    return  this.agreeError = true;
+                if(!this.isSignIn){
+                    if (!this.agreeTerms) {
+                        return this.agreeError = true;
+                    }
                 }
-                // var self = this;
+                var self = this;
                 this.updateLoading(true);
                 let authInstance = gapi.auth2.getAuthInstance();
                 authInstance.signIn().then((googleUser) => {
                     let idToken = googleUser.getAuthResponse().id_token;
                     registrationService.googleRegistration(idToken)
-                        .then((resp)=> {
-                            this.updateLoading(false);
+                        .then((resp) => {
+                            self.updateLoading(false);
                             let newUser = resp.data.isNew;
                             if (newUser) {
                                 analyticsService.sb_unitedEvent('Registration', 'Start Google');
+                                self.$parent.$emit('updateIsNewUser', newUser);
+                                self.$parent.$emit('changeStep', 'enterphone');
                             } else {
                                 analyticsService.sb_unitedEvent('Login', 'Start Google');
+                                //user existing
+                                global.isAuth = true;
+                                let url = self.toUrl || defaultSubmitRoute;
+                                self.$router.push({path: `${url.path }`});
                             }
-                            let step = resp.data.step;
-                            this.$parent.$emit('changeStep', step);
-
-                        },  (error)=> {
-                            this.updateLoading(false);
-                            this.errorMessage.gmail = error.response.data["Google"] ? error.response.data["Google"][0] : '';
+                        }, (error) => {
+                            self.updateLoading(false);
+                            self.errorMessage.gmail = error.response.data["Google"] ? error.response.data["Google"][0] : '';
                         });
-                },  (error)=> {
-                    this.updateLoading(false);
+                }, (error) => {
+                    self.updateLoading(false);
                 });
             },
-            goToEmailLogin(){
-                if(!this.agreeTerms){
+            goToEmailLogin() {
+                if (!this.agreeTerms && !this.isSignIn) {
                     return this.agreeError = true
                 }
                 this.$parent.$emit('changeStep', 'startstep');
             },
-            goToLogin() {
-                this.passDialog = false;
-                this.$parent.$emit('changeStep', 'loginStep');
+            goTosignUp(){
+                if (!this.agreeTerms && !this.isSignIn) {
+                    return this.agreeError = true
+                }
+                this.$router.push({path: '/register'});
+              // global.location.replace(`${global.location.origin}/register` )
+            },
+            redirectToSignIn(){
+                this.$router.push({path: '/signin'});
+                //global.location.replace(`${global.location.origin}/signin` )
 
             },
-            showDialogPass(){
+            goToLogin() {
+                this.passDialog = false;
+                this.$parent.$emit('changeStep', 'loginstep');
+            },
+            showDialogPass() {
                 this.passDialog = true;
             },
             goToCreatePassword() {
@@ -201,8 +215,12 @@
                 this.$parent.$emit('fromCreate', 'create');
                 this.$parent.$emit('changeStep', 'emailpassword');
             },
+        },
+        created() {
+
         }
     }
+
 </script>
 
 <style>

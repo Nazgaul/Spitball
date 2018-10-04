@@ -2,12 +2,11 @@
 import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
-import { Language } from "./services/language/langDirective"
+import { Language } from "./services/language/langDirective";
 import initSignalRService from './services/signalR/signalrEventService'
 
 // clip board copy text
 import VueClipboard from 'vue-clipboard2'
-
 import Scroll from "vuetify/es5/directives/scroll";
 const scrollComponent = () => import("./components/helpers/infinateScroll.vue");
 
@@ -164,10 +163,12 @@ Vue.filter('capitalize',
     });
 //#endregion
 
+//check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
+global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 Vue.filter('ellipsis',
     function (value, characters, datailedView) {
         value = value || '';
-        if (value.length <= characters || datailedView){
+        if (value.length <= characters || datailedView || !global.isFirefox){
             return value;
         }else{
             return value.substr(0, characters) + '...';

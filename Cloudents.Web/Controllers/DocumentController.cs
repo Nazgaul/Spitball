@@ -23,12 +23,13 @@ namespace Cloudents.Web.Controllers
         private readonly IReadRepositoryAsync<DocumentDto, long> _repositoryDocument;
         private readonly IBlobProvider<FilesContainerName> _blobProvider;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
-        private readonly IStringLocalizer _localizer;
+        private readonly IStringLocalizer<DocumentController> _localizer;
 
         public DocumentController(
             IReadRepositoryAsync<DocumentSeoDto, long> repository,
             IReadRepositoryAsync<DocumentDto, long> repositoryDocument,
-            IBlobProvider<FilesContainerName> blobProvider, IStringLocalizer<SharedResource> sharedLocalizer, IStringLocalizer localizer)
+            IBlobProvider<FilesContainerName> blobProvider, IStringLocalizer<SharedResource> sharedLocalizer,
+            IStringLocalizer<DocumentController> localizer)
         {
             _repository = repository;
             _repositoryDocument = repositoryDocument;

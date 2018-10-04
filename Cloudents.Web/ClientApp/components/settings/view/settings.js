@@ -14,7 +14,7 @@ export default {
             var self = this;
             questionService.postQuestion(this.subject.id, this.textAreaValue, this.price, this.files)
                 .then(function () {
-                    self.$router.push({path: '/ask', query: {q: ''}});
+                    self.$router.push({path: '/ask', query: {term: ''}});
                 });
         },
         addFile(filename){

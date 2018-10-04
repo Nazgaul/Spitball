@@ -47,7 +47,7 @@ namespace Cloudents.Web
         public static readonly CultureInfo[] SupportedCultures = {
 
             new CultureInfo("en"),
-           // new CultureInfo("he"),
+            new CultureInfo("he-IL"),
         };
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
@@ -102,6 +102,7 @@ namespace Cloudents.Web
             {
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
+                options.SerializerSettings.Converters.Add(new RequestCultureConverter());
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             })
 
@@ -128,7 +129,6 @@ namespace Cloudents.Web
                     o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                     o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
                 });
-
             services.AddResponseCompression();
             services.AddResponseCaching();
 
@@ -164,21 +164,6 @@ namespace Cloudents.Web
                 o.EventsType = typeof(CustomCookieAuthenticationEvents);
                 o.Cookie.Name = "sb3";
                 o.SlidingExpiration = true;
-                //o.Events.OnValidatePrincipal = context =>
-                //{
-                //    context.
-                //    return Task.CompletedTask;
-                //};
-                //o.Events.OnRedirectToLogin = context =>
-                //{
-                //    context.Response.StatusCode = 401;
-                //    return Task.CompletedTask;
-                //};
-                //o.Events.OnRedirectToAccessDenied = context =>
-                //{
-                //    context.Response.StatusCode = 401;
-                //    return Task.CompletedTask;
-                //};
             });
 
 
@@ -268,13 +253,16 @@ namespace Cloudents.Web
             app.UseStatusCodePages();
             
 
-            app.UseRequestLocalization(new RequestLocalizationOptions
+            app.UseRequestLocalization(o =>
             {
-                DefaultRequestCulture = new RequestCulture(SupportedCultures[0]),
+
+                o.DefaultRequestCulture = new RequestCulture(SupportedCultures[0]);
                 // Formatting numbers, dates, etc.
-                SupportedCultures = SupportedCultures,
+                o.SupportedCultures = SupportedCultures;
                 // UI strings that we have localized.
-                SupportedUICultures = SupportedCultures
+                o.SupportedUICultures = SupportedCultures;
+                o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
+
             });
             app.UseStaticFiles(new StaticFileOptions
             {

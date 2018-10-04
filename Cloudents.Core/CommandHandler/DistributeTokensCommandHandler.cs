@@ -29,7 +29,7 @@ namespace Cloudents.Core.CommandHandler
                 //User not exists not crashing the system.
                 return;
             }
-            var transaction = Transaction.DistributeTokens(message.ActionType, message.Price);
+            var transaction = Transaction.DistributeTokens(message.ActionType,message.TransactionType, message.Price);
             user.AddTransaction(transaction);
             await _userRepository.UpdateAsync(user, token).ConfigureAwait(false);
         }

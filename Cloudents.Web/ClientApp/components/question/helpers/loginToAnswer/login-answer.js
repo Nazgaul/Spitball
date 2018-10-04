@@ -18,7 +18,18 @@ export default {
         requestDialogClose() {
             this.updateLoginDialogState(false)
         },
+        goToRegister(){
+            this.requestDialogClose();
+            this.$router.push({path: '/register', query:{returnUrl : this.$route.path}});
+
+        },
+        goToSignIn(){
+            this.requestDialogClose();
+            this.$router.push({path: '/signin', query: {term: ''}});
+
+        },
     },
+
     beforeDestroy(){
         this.updateLoginDialogState(false)
     }

@@ -71,8 +71,8 @@ export default {
             if (this.sort){
                 query.sort = this.sort;
             }
-            if (this.$route.query.q){
-                query.q = this.$route.query.q;
+            if (this.$route.query.term){
+                query.term = this.$route.query.term;
             }
 
             if(JSON.stringify(query) !== JSON.stringify(this.$route.query)){
@@ -90,7 +90,7 @@ export default {
             if (this.sortOptions.length) {
                 this.sort = this.sortOptions[0].id;
             }
-            this.$router.push({query: {q: this.$route.query.q}});
+            this.$router.push({query: {term: this.$route.query.term}});
             this.applyFilters();
             this.$emit('input', false);
         },

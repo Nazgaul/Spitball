@@ -3,7 +3,6 @@ import disableForm from "../../../mixins/submitDisableMixin"
 import { mapGetters, mapActions } from 'vuex'
 import timeago from 'timeago.js';
 import { LanguageService } from "../../../../services/language/languageService";
-
 export default {
     mixins: [disableForm],
     components: {userBlock},
@@ -53,6 +52,7 @@ export default {
             src: '',
             selectedImage: '',
             showDialog: false,
+            isFirefox: false
         }
     },
     computed: {
@@ -147,7 +147,7 @@ export default {
         }
     },
     created(){
-        this.getQuestionColor()
+        this.getQuestionColor();
     },
     mounted() {
         this.renderQuestionTime('.timeago')

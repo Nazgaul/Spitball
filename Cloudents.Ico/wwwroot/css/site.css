@@ -72,10 +72,17 @@ body {
     -moz-osx-font-smoothing: grayscale;
     position: relative;
 }
-    body:lang(ja) {
+   body:lang(ja) {
         font-family: 'MS Mincho', "MS gothic" !important;
     }
-*:lang(en) {
+   
+
+    /* fixes for korean  */
+    body:lang(ko)  .header-txt  h1{
+            font-size: 2.7rem
+    }
+
+    span:lang(en), a:lang(en) {
     font-family: 'OpenSans Light', sans-serif !important;
 }
 

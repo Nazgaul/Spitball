@@ -15,4 +15,5 @@ update sb.question set CorrectAnswer_id = null where userid =  @UserId
 delete from sb.[Transaction] where answerid in (select id from sb.answer where questionid in (select id from sb.question where userid =  @UserId))
 delete from sb.answer where questionid in (select id from sb.question where userid =  @UserId)
 delete from sb.question where userid =  @UserId
+delete from sb.[UserLogin] where UserId = @UserId
 delete from sb.[user] where id =  @UserId

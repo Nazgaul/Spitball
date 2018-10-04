@@ -8,9 +8,6 @@
             </div>
             <div slot="step-data" class="limited-width">
                 <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
-                <!--<p v-if="!isMobile" class="sub-title">-->
-                    <!--{{ isCampaignOn ? campaignData.stepTwo.text : meta.text }}-->
-                <!--</p>-->
                 <select v-model="phone.countryCode" class="mb-1">
                     <option value="" disabled hidden v-language:inner>login_select_your_country_code</option>
                     <option v-for="item in countryCodesList" :value="item.callingCode">{{item.name}}
@@ -99,7 +96,7 @@
                         self.$parent.$emit('changeStep', 'verifyPhone');
                     }, function (error) {
                         self.loading = false;
-                        self.errorMessage.phone = error.response.data["Phone"] ?  error.response.data["Phone"][0] : '';
+                        self.errorMessage.phone = error.response.data["PhoneNumber"] ?  error.response.data["PhoneNumber"][0] : '';
                     })
             },
         },

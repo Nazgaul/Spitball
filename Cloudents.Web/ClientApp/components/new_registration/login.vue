@@ -3,6 +3,7 @@
         <v-snackbar absolute top :timeout="toasterTimeout" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
         </v-snackbar>
+
         <component :is="`step_${stepNumber}`"
                    :passScoreObj="passScoreObj"
                    :isMobile="isMobile"
@@ -16,7 +17,7 @@
                    :ID="ID"
                    :camefromCreate="camefromCreate"
                    :campaignData="campaignData"
-                   :isSignIn="isSignIn"
+                   :isSignIn="isSignInComputed"
                    :isNewUser="isNewUser"
         ></component>
         <div class="progress" v-if="isShowProgress">
@@ -48,6 +49,7 @@
     </div>
 </template>
 <script src="./login.js"></script>
+
 
 <style lang="less" src="./login.less">
 
