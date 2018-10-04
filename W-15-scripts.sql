@@ -4,17 +4,13 @@ ALTER TABLE sb.[User]
 ADD Country nvarchar(2);
 ALTER TABLE zbox.University
 ADD Pending bit;
-
+insert into sb.HiLoGenerator values ('university',180000)
 
 
 
 
 --Hadar SQL 
-update sb.[User]
-  set sb.[User].Country = ISO
-  FROM [sb].[PhoneNumberIso] I
-	inner join sb.[User] U 
-	on REPLACE(U.PhoneNumberHash, '+' , '')like I.[CountryCode] + '%'
+
 
 
 create table sb.PhoneNumberIso (ISO nvarchar(2), CountryCode nvarchar(20))
@@ -261,3 +257,11 @@ insert into sb.PhoneNumberIso (ISO, CountryCode) VALUES  ('EH','212')
 insert into sb.PhoneNumberIso (ISO, CountryCode) VALUES  ('YE','967')
 insert into sb.PhoneNumberIso (ISO, CountryCode) VALUES  ('ZM','260')
 insert into sb.PhoneNumberIso (ISO, CountryCode) VALUES  ('ZW','263')
+
+
+update sb.[User]
+  set sb.[User].Country = ISO
+  FROM [sb].[PhoneNumberIso] I
+	inner join sb.[User] U 
+	on REPLACE(U.PhoneNumberHash, '+' , '')like I.[CountryCode] + '%';
+drop table sb.PhoneNumberIso
