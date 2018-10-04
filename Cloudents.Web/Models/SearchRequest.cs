@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
-using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
 {
@@ -24,6 +23,7 @@ namespace Cloudents.Web.Models
         [DefaultValue(0)]
         public HighlightTextFormat Format { get; set; }
 
+        /// <inheritdoc />
         /// <summary>
         /// Page for paging
         /// </summary>
@@ -47,15 +47,6 @@ namespace Cloudents.Web.Models
 
         [DisplayFormat(HtmlEncode = true)]
         public string[] Source { get; set; }
-
-        /// <summary>
-        /// User university id
-        /// </summary>
-        [Range(1, long.MaxValue)]
-        public long? University { get; set; }
-
-        //[BindNever]
-        //[CanBeNull]
-        //public GeographicCoordinate GeoPoint { get; set; }
+      
     }
 }

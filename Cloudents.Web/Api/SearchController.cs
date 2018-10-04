@@ -7,6 +7,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,7 +33,9 @@ namespace Cloudents.Web.Api
            [FromServices] IWebDocumentSearch searchProvider, CancellationToken token)
         {
             model = model ?? new SearchRequest();
-            var query = SearchQuery.Document(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault());
+
+
+            var query = SearchQuery.Document(model.Query, GetUniversityId(), model.Course, model.Source, model.Page.GetValueOrDefault());
             var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
 
             var p = result.Result?.ToList();
@@ -55,6 +58,27 @@ namespace Cloudents.Web.Api
             };
         }
 
+        private long? GetUniversityId()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return null;
+            }
+
+            var result = User.Claims.FirstOrDefault(f => f.Type == AppClaimsPrincipalFactory.University);
+            if (result == null)
+            {
+                return null;
+
+            }
+
+            if (long.TryParse(result.Value, out var t))
+            {
+                return t;
+            }
+            return null;
+        }
+
         /// <summary>
         /// Search flashcard vertical result
         /// </summary>
@@ -66,7 +90,7 @@ namespace Cloudents.Web.Api
         public async Task<WebResponseWithFacet<SearchResult>> SearchFlashcardAsync([FromQuery] SearchRequest model,
             [FromServices] IWebFlashcardSearch searchProvider, CancellationToken token)
         {
-            var query = SearchQuery.Flashcard(model.Query, model.University, model.Course, model.Source, model.Page.GetValueOrDefault());
+            var query = SearchQuery.Flashcard(model.Query, GetUniversityId(), model.Course, model.Source, model.Page.GetValueOrDefault());
             var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
             string nextPageLink = null;
             var p = result.Result?.ToList();
