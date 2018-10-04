@@ -15,8 +15,13 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Models;
+<<<<<<< HEAD
 using Nethereum.Web3.Accounts;
 using Nethereum.Web3;
+=======
+using Cloudents.Core.Query;
+
+>>>>>>> 7eb5b9ee0dbec6d222c220a71022b2c2d34670a1
 
 namespace ConsoleApp
 {

@@ -17,6 +17,7 @@ namespace Cloudents.Infrastructure.BlockChain
 
         protected const double FromWei = 1e18;
         protected const double MaxGas = 4.1e6;
+        protected const double GasPrice = 30e9;
         protected const string SpitballPrivateKey = "428ac528cbc75b2832f4a46592143f46d3cb887c5822bed23c8bf39d027615a8";
 
         protected BlockChainProvider(IConfigurationKeys configurationKeys)
