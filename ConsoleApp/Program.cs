@@ -47,23 +47,34 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
-            var address = "0x0356a6cfcf3fd04ea88044a59458abb982aa9d96";
+            
             var t = _container.Resolve<IBlockChainErc20Service>();
-            var balance = await t.GetBalanceAsync(address, default);
-
-            Console.WriteLine(balance);
-           // var h = await MintTokens(address, t);
-            //Console.WriteLine(await t.GetBalanceAsync(address, default));
-            
+            var spitballAddress = "0x0356a6cfcf3fd04ea88044a59458abb982aa9d96";
             string metaMaskAddress = "0x27e739f9dF8135fD1946b0b5584BcE49E22000af";
-            string spitballAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
+            string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
-            //var test = await t.TransferMoneyAsync("428ac528cbc75b2832f4a46592143f46d3cb887c5822bed23c8bf39d027615a8", metaMaskAddress, 80, default);
-            await t.SetInitialBalanceAsync(metaMaskAddress, default);
+            string metaMaskPK = "10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
+
+            Console.WriteLine(await t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default));
+
+            var y = await t.IncreaseApproval(spitballServerAddress, 100, default);
+            Console.WriteLine(await t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default));
+            /*Console.WriteLine($"Sender Balance: {await t.GetBalanceAsync(metaMaskAddress, default)}");
+            Console.WriteLine($"To Balance: {await t.GetBalanceAsync(spitballServerAddress, default)}");
+            Console.WriteLine($"Spender Balance: {await t.GetBalanceAsync(spitballAddress, default)}");
             
-            Console.WriteLine(await t.GetBalanceAsync(address, default));
-            balance = await t.GetBalanceAsync(metaMaskAddress, default);
-            Console.WriteLine(balance);
+            Console.WriteLine("-------------------");
+
+            var y = await t.ApprovePreSigned(metaMaskPK, spitballServerAddress, 5, 5, default);
+
+            //var y = await t.TransferPreSigned(metaMaskPK, spitballServerAddress, 5, 5, default);
+
+            Console.WriteLine($"Sender Balance: {await t.GetBalanceAsync(metaMaskAddress, default)}");
+            Console.WriteLine($"To Balance: {await t.GetBalanceAsync(spitballServerAddress, default)}");
+            Console.WriteLine($"Spender Balance: {await t.GetBalanceAsync(spitballAddress, default)}");
+            */
+
+
 
             //var b = _container.Resolve<FluentQueryBuilder>();
             //var x = await b.QueryAsync(new SyncAzureQuery(56123, 0), default);

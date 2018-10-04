@@ -17,6 +17,10 @@ namespace Cloudents.Core.Interfaces
         (string privateKey, string publicAddress) CreateAccount();
 
         Task<string> Approve(string spender, int amount, CancellationToken token);
-       // Task<string> ApprovePreSigned(string sig, string spender, int amount, int fee, int nonce);
+        Task<string> IncreaseApproval(string spender, int amount, CancellationToken token);
+
+        Task<string> TransferPreSigned(string fromPK, string to, int amount, int fee, CancellationToken token);
+        Task<string> ApprovePreSigned(string fromPK, string sender, int amount, int fee, CancellationToken token);
+        Task<decimal> GetAllowanceAsync(string ownerAddress, string spenderAddress, CancellationToken token);
     }
 }
