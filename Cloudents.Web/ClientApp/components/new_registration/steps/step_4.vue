@@ -10,7 +10,7 @@
                 <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
                 <select v-model="phone.countryCode" class="mb-1">
                     <option value="" disabled hidden v-language:inner>login_select_your_country_code</option>
-                    <option v-for="item in countryCodesList" :value="item.callingCode">{{item.name}}
+                    <option v-for="(item, index) in countryCodesList" :value="item.callingCode" :key="index">{{item.name}}
                         ({{item.callingCode}})
                     </option>
                 </select>
@@ -53,7 +53,6 @@
                 loading: false,
                 bottomError: false
             }
-
         },
         props: {
             isMobile: {
@@ -76,6 +75,11 @@
         computed: {
 
         },
+        created(){
+                registrationService.getLocalCode().then(({data}) => {
+                    this.$parent.$emit('updateCountryCodeList', data.code);
+        });
+            },
         methods: {
             ...mapMutations({updateLoading: "UPDATE_LOADING"}),
             ...mapActions({updateToasterParams: 'updateToasterParams'}),

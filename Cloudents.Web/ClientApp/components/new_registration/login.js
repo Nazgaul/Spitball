@@ -2,7 +2,7 @@ import stepTemplate from './helpers/stepTemplate.vue'
 import codesJson from './helpers/CountryCallingCodes';
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import VueRecaptcha from 'vue-recaptcha';
-import registrationService from '../../services/registrationService'
+
 import analyticsService from '../../services/analytics.service';
 import SbInput from "../question/helpers/sbInput/sbInput.vue";
 import step_1 from "./steps/step_1.vue";
@@ -234,7 +234,9 @@ export default {
                 this.camefromCreate = false
             }
         });
-
+        this.$on('updateCountryCodeList', (countryCodes)=>{
+            this.phone.countryCode = countryCodes;
+        })
         let path = this.$route.path.toLowerCase();
         //check if returnUrl exists
         if (!!this.$route.query.returnUrl) {
@@ -252,9 +254,6 @@ export default {
             this.ID = this.$route.query['Id'] ? this.$route.query['Id'] : '';
             this.changeStepNumber('createpassword', true);
         }
-        registrationService.getLocalCode().then(({data}) => {
-            this.phone.countryCode = data.code;
-        });
         //check if new user param exists in email url
         this.isNewUser = this.$route.query['isNew'] !== undefined;
         if (this.isNewUser && this.stepNumber === 4) {
