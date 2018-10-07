@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Write
     [UsedImplicitly]
     public class CourseSearchWrite : SearchServiceWrite<Core.Entities.Search.Course>
     {
-        public const string IndexName = "course";
+        public const string IndexName = "course2";
         public const string ScoringProfile = "course-default";
 
         public CourseSearchWrite(SearchService client) : base(client, IndexName)

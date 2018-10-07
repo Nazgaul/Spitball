@@ -34,7 +34,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual CourseType Discriminator { get; protected set; }
 
-        public virtual string CourseCode { get; set; }
+        public virtual string Code { get; set; }
 
         public virtual University University { get; protected set; }
 
