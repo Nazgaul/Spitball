@@ -3,6 +3,7 @@ import questionService from '../../../services/questionService';
 import disableForm from "../../mixins/submitDisableMixin"
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { LanguageService } from "../../../services/language/languageService";
+import analyticsService from '../../../services/analytics.service';
 
 export default {
     mixins: [disableForm],
@@ -92,7 +93,8 @@ export default {
                 this.updateLoading(true);
                 questionService.postQuestion(this.subject.id, this.textAreaValue, this.selectedPrice || this.price, this.files, this.selectedColor.name || 'default')
                     .then(function () {
-                            self.$ga.event("Submit_question", "Homework help");
+                            //self.$ga.event("Submit_question", "Homework help");
+                            analyticsService.sb_unitedEvent("Submit_question", "Homework help")
                             let val = self.selectedPrice || self.price;
                             self.updateUserBalance(-val);
                             //close dialog after question submitted
