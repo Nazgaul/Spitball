@@ -17,10 +17,9 @@ namespace Cloudents.Infrastructure.Write
        // private readonly string _indexName;
 
         protected SearchServiceWrite(SearchService client, string indexName) 
-            :this(client,/*indexName,*/client.GetOldClient(indexName))
+            :this(client, client.GetOldClient(indexName))
 
         {
-            //client.GetClient(indexName);
            
         }
 

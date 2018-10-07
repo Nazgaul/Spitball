@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Command
 {

@@ -29,9 +29,7 @@ namespace Cloudents.Core.CommandHandler
                 return;
             }
             course = new Course(message.Name, university);
-
             message.Id = (long)await _courseRepository.AddAsync(course, token).ConfigureAwait(true);
-            //return new CreateCourseCommandResult(message.Id);
         }
     }
 }

@@ -4,7 +4,6 @@
 @using Cloudents.Web.Services
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
-@using Microsoft.AspNetCore.Http.Extensions
 @using Microsoft.Extensions.Configuration
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 @inject IHostingEnvironment Environment
@@ -143,7 +142,7 @@
             window.publicPath = '@cdnEndPoint' + '/dist/';
             window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
     window.talkJsId = '@Configuration["TalkJs"]';
-    window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'
+    @*window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'*@
     </script>
 
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>

@@ -1,5 +1,4 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using CacheManager.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;

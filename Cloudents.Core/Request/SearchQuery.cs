@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Core.Models;
 
 namespace Cloudents.Core.Request
 {

@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using Cloudents.Core;
-using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
-using Cloudents.Core.EventHandler;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
