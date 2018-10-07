@@ -1,6 +1,6 @@
 <template>
-    <div>
-    <v-flex class="result-cell mb-3 static-card-need-to-ask" xs-12>
+    <div >
+    <v-flex :class="['result-cell', 'mb-3', 'static-card-need-to-ask', 'xs-12']" >
         <a class="mb-5 need-to-ask-router-link"  @click="goToAskQuestion">
             <div class="need-to-ask">
                 <div class="top-block static-top">
@@ -39,18 +39,22 @@
         </a>
     </v-flex>
 
-    <v-flex class="result-cell mb-3 static-card-what-is-hw-question" xs-12 >
+    <v-flex :class="['result-cell', 'mb-3', 'static-card-what-is-hw-question', isHiddenBlock  ? 'scrolledByHeader' : '']" xs-12 v-scroll="hideOnMobileScroll" >
         <a class="mb-5 what-is-hw-question-router-link" @click="goToAskQuestion">
             <div class="what-is-hw-question">
-                <div class="top-block static-top">
+                <!--<div class="top-block static-top">-->
+                    <!--<span class="static-user-name">{{userName}}</span>-->
+                <!--</div>-->
+                <div class="static-center"  v-if="!isHiddenBlock">
+                    <p class="static-ab-text">
+                        Stuck with your homework?
+                    </p>
+                </div>
+                <div class="static-bottom-block">
                     <user-avatar slot="activator"
                                  :userName="userName"/>
-                    <span class="static-user-name">{{userName}}</span>
-                </div>
-                <div class="static-center">
-                    <p class="static-ab-text">
-                        What is your HW question?
-                    </p>
+                    <span class="static-question-text">Ask a question…</span>
+                    <v-icon class="static-icon-right">sbf-edit-icon</v-icon>
                 </div>
             </div>
         </a>

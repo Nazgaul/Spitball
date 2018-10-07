@@ -43,8 +43,6 @@
                                         <menu-list :isAuthUser="loggedIn"
                                                    v-if="$vuetify.breakpoint.smAndUp"></menu-list>
                                     </v-menu>
-
-
                                     <!--<v-menu bottom left offset-y class="gamburger"-->
                                             <!--v-if="!loggedIn && $vuetify.breakpoint.xsOnly">-->
                                         <!--<v-btn icon slot="activator" @click.native="drawer = !drawer">-->
