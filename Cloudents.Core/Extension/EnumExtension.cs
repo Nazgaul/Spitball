@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Attributes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace Cloudents.Core.Extension
@@ -20,11 +19,9 @@ namespace Cloudents.Core.Extension
                 case ParseAttribute parse:
                     return parse.Description;
             }
-
-            throw new InvalidCastException();
         }
 
-        public static T GetAttributeValue<T>(this System.Enum value) where T : Attribute
+        private static T GetAttributeValue<T>(this System.Enum value) where T : Attribute
         {
             if (value == null) throw new ArgumentNullException(nameof(value));
             var fi = value.GetType().GetField(value.ToString());

@@ -43,8 +43,9 @@ namespace Cloudents.Infrastructure.Database.Repositories
             return user;
         }
 
-        private static void CheckUserLockout(User user)
+        private static void CheckUserLockout([NotNull] User user)
         {
+            if (user == null) throw new ArgumentNullException(nameof(user));
             if (user.LockoutEnd.HasValue && DateTime.UtcNow < user.LockoutEnd.Value)
             {
                 throw new UserLockoutException();

@@ -222,17 +222,11 @@
   <data name="sent_confirmation_code" xml:space="preserve">
     <value>שלחנו לך קוד אישור בSMS</value>
   </data>
-  <data name="signin_your_email" xml:space="preserve">
-    <value/>
-  </data>
   <data name="sign_in" xml:space="preserve">
     <value>התחבר/י</value>
   </data>
   <data name="sign_up" xml:space="preserve">
     <value>הירשם/י</value>
-  </data>
-  <data name="sign_up_with_google" xml:space="preserve">
-    <value>Sign Up with Google</value>
   </data>
   <data name="sure_exit1" xml:space="preserve">
     <value>האם את/ה</value>
@@ -275,5 +269,8 @@
   </data>
   <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
     <value>את/ה יכול להשתמש בהם כדי לקבל תשובות מיוחדות או מסמכים מיוחדים</value>
+  </data>
+  <data name="click_here_to_send" xml:space="preserve">
+    <value>Click here to resend.</value>
   </data>
 </root>

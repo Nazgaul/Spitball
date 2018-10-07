@@ -14,13 +14,7 @@ namespace Cloudents.Web.ViewComponents
 {
     public class ResourceViewComponent : ViewComponent
     {
-        private readonly IHostingEnvironment _environment;
         private  static readonly ConcurrentDictionary<CultureInfo,string> CacheDictionary = new ConcurrentDictionary<CultureInfo, string>();
-
-        public ResourceViewComponent(IHostingEnvironment environment)
-        {
-            _environment = environment;
-        }
 
         public Task<IViewComponentResult> InvokeAsync()
         {

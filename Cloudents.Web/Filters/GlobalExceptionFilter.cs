@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Exceptions;

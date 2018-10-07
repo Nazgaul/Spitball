@@ -26,7 +26,10 @@ namespace Cloudents.Web.Identity
             if (user.EmailConfirmed && user.PhoneNumberConfirmed)
             {
                 p.AddClaim(new Claim(Country, user.Country));
-                p.AddClaim(new Claim(University, user.University?.Id.ToString()));
+                if (user.University?.Id != null)
+                {
+                    p.AddClaim(new Claim(University, user.University.Id.ToString()));
+                }
             }
             return p;
         }

@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Identity;
 
@@ -32,6 +31,7 @@ namespace Cloudents.Web.Api
         /// Constructor
         /// </summary>
         /// <param name="universityProvider"></param>
+        /// <param name="userManager"></param>
         /// <param name="commandBus"></param>
         /// <param name="signInManager"></param>
         public UniversityController(IUniversitySearch universityProvider, UserManager<User> userManager, ICommandBus commandBus, SignInManager<User> signInManager)

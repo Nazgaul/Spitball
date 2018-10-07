@@ -9,7 +9,6 @@ using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Suggest;
 using Course = Cloudents.Core.Entities.Search.Course;
 using SearchResult = Cloudents.Core.DTOs.SearchResult;
-using University = Cloudents.Core.Entities.Search.University;
 
 namespace Cloudents.Infrastructure.Mapper
 {

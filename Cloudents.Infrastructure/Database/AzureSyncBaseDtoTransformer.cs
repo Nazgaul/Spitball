@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.SearchSync;
 using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Database

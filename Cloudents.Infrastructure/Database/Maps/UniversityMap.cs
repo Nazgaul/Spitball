@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Infrastructure.Database.Maps
 {
     [UsedImplicitly]
-    public class UniversityMap : SpitballClassMap<University>
+    public sealed class UniversityMap : SpitballClassMap<University>
     {
         public UniversityMap()
         {

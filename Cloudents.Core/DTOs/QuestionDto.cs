@@ -28,7 +28,7 @@ namespace Cloudents.Core.DTOs
     {
         public bool Equals(QuestionDto x, QuestionDto y)
         {
-            return x.Id == y.Id;
+            return y != null && (x != null && x.Id == y.Id);
         }
 
         public int GetHashCode(QuestionDto obj)

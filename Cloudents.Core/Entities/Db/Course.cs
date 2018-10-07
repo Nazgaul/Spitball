@@ -14,7 +14,7 @@ namespace Cloudents.Core.Entities.Db
 
         public Course(string name, University university)
         {
-            RowDetail = new RowDetail();
+            RowDetail = new DomainTimeStamp();
             Discriminator = CourseType.Academic;
             PrivacySetting = CoursePrivacySetting.AnyoneWithUrl;
             Name = name.Trim();
@@ -26,7 +26,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual string Name { get; protected set; }
 
-        public virtual RowDetail RowDetail  { get; protected set; }
+        public virtual DomainTimeStamp RowDetail  { get; protected set; }
 
         public virtual bool IsDeleted { get; protected set; }
 
@@ -34,7 +34,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual CourseType Discriminator { get; protected set; }
 
-        public virtual string CourseCode { get; set; }
+        public virtual string Code { get; set; }
 
         public virtual University University { get; protected set; }
 

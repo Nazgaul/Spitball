@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.SearchSync;
-using UniversitySearch = Cloudents.Core.Entities.Search.University;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Core.Entities.Db;
@@ -39,7 +37,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
                 var qb = _queryBuilder;
                 qb.InitTable<University>()
                     .CustomTable(
-                        $"CROSS APPLY CHANGETABLE (VERSION {qb.Table<University>()}, (Id), ({qb.Column<University>(x => x.Id)})) AS c"
+                        $"CROSS APPLY CHANGETABLE (VERSION {qb.Table<University>()}, (Id), ({qb.ColumnAlias<University>(x => x.Id)})) AS c"
                     );
                 SimilarQuery(qb);
                 return qb;
