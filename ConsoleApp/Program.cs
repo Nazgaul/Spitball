@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Models;
+using Cloudents.Core.Query;
 using Nethereum.Web3.Accounts;
 using Nethereum.Web3;
 
@@ -54,44 +55,44 @@ namespace ConsoleApp
             _container = builder.Build();
 
             
-            var t = _container.Resolve<IBlockChainErc20Service>();
-            var spitballAddress = "0x0356a6cfcf3fd04ea88044a59458abb982aa9d96";
-            string metaMaskAddress = "0x27e739f9dF8135fD1946b0b5584BcE49E22000af";
-            string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
+            //var t = _container.Resolve<IBlockChainErc20Service>();
+            //var spitballAddress = "0x0356a6cfcf3fd04ea88044a59458abb982aa9d96";
+            //string metaMaskAddress = "0x27e739f9dF8135fD1946b0b5584BcE49E22000af";
+            //string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
-            string SpitballPrivateKey = "428ac528cbc75b2832f4a46592143f46d3cb887c5822bed23c8bf39d027615a8";
-            string metaMaskPK = "10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
+            //string SpitballPrivateKey = "428ac528cbc75b2832f4a46592143f46d3cb887c5822bed23c8bf39d027615a8";
+            //string metaMaskPK = "10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
 
             
 
-            Account SpitballAccountt = new Account(SpitballPrivateKey);
-            var web3 = new Web3(SpitballAccountt);
-            //var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(t.GetAddress(SpitballPrivateKey));
+            //Account SpitballAccountt = new Account(SpitballPrivateKey);
+            //var web3 = new Web3(SpitballAccountt);
+            ////var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(t.GetAddress(SpitballPrivateKey));
 
-            for (int i = 0; i < 100; i++)
-            {
-                var txCount = web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(t.GetAddress(SpitballPrivateKey));
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    var txCount = web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(t.GetAddress(SpitballPrivateKey));
 
-                var TxHash = t.TransferPreSignedAsync(metaMaskPK, spitballServerAddress, 2, 1, default);
-                //var approve = t.IncreaseApprovalPreSignedAsync(SpitballPrivateKey, spitballServerAddress, 1, 1, default);
+            //    var TxHash = t.TransferPreSignedAsync(metaMaskPK, spitballServerAddress, 2, 1, default);
+            //    //var approve = t.IncreaseApprovalPreSignedAsync(SpitballPrivateKey, spitballServerAddress, 1, 1, default);
 
-                var b1 = t.GetBalanceAsync(metaMaskAddress, default);
-                var b2 = t.GetBalanceAsync(spitballServerAddress, default);
-                var b3 = t.GetBalanceAsync(spitballAddress, default);
+            //    var b1 = t.GetBalanceAsync(metaMaskAddress, default);
+            //    var b2 = t.GetBalanceAsync(spitballServerAddress, default);
+            //    var b3 = t.GetBalanceAsync(spitballAddress, default);
                 
-                var a1 = t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default);
+            //    var a1 = t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default);
 
-                await Task.WhenAll(txCount, TxHash, b1, b2, b3/*, approve*/, a1).ConfigureAwait(false);
+            //    await Task.WhenAll(txCount, TxHash, b1, b2, b3/*, approve*/, a1).ConfigureAwait(false);
 
-                Console.WriteLine($"nonce: {txCount.Result.Value}");
-                Console.WriteLine($"metaMaskAddress Balance: {b1.Result}");
-                Console.WriteLine($"spitballServerAddress Balance: {b2.Result}");
-                Console.WriteLine($"spitballAddress Balance: {b3.Result}");
-                Console.WriteLine("---------------------------------");
-                Console.WriteLine($"allowance:{a1.Result}");
-                Console.WriteLine("---------------------------------");
+            //    Console.WriteLine($"nonce: {txCount.Result.Value}");
+            //    Console.WriteLine($"metaMaskAddress Balance: {b1.Result}");
+            //    Console.WriteLine($"spitballServerAddress Balance: {b2.Result}");
+            //    Console.WriteLine($"spitballAddress Balance: {b3.Result}");
+            //    Console.WriteLine("---------------------------------");
+            //    Console.WriteLine($"allowance:{a1.Result}");
+            //    Console.WriteLine("---------------------------------");
 
-            }
+            //}
 
             /*Console.WriteLine(await t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default));
 
@@ -119,35 +120,11 @@ namespace ConsoleApp
             //await u.CreateOrUpdateAsync(default);
 
 
-            var stopWordsList = new[]{ "university",
-                "of",
-                "college",
-                "school",
-                "the",
-                "a",
-                "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
-            };
-            var sw = new Stopwatch();
-            sw.Start();
-            for (int i = 0; i < 100000; i++)
-            {
-            var cleanName = "University of Kent".RemoveWords(stopWordsList);
+            
 
-            }
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds);
-            sw.Restart();
-            for (int i = 0; i < 100000; i++)
-            {
-                var cleanName = TTTT("University of Kent", stopWordsList);
-
-            }
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds);
-
-            //var b2 = _container.Resolve<IQueryBus>();
-            //var query = new SyncAzureQuery(1,0);
-            //var d = await b2.QueryAsync< (IEnumerable<UniversitySearchDto> update, IEnumerable<long> delete, long version)>(query, default);
+            var b2 = _container.Resolve<IQueryBus>();
+            var query = new SyncAzureQuery(1,0);
+            var d = await b2.QueryAsync< (IEnumerable<CourseSearchDto> update, IEnumerable<long> delete, long version)>(query, default);
             ////var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
             //    new GeoPoint(-74.006f, 40.7128f)
             //    , 0, false, default);

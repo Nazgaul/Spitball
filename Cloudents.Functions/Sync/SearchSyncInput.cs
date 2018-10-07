@@ -20,8 +20,8 @@ namespace Cloudents.Functions.Sync
                 {
                     case SyncType.University:
                         return "university";
-                    //case SyncType.Course:
-                    //    break;
+                    case SyncType.Course:
+                        return "course";
                     case SyncType.Question:
                         return "question";
 

@@ -5,19 +5,10 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Query
 {
-
-    //public sealed class SyncAzureQuery<T> : SyncAzureQuery,
-    //    IQuery<(IEnumerable<T> update, IEnumerable<long> delete, long version)> where T: AzureSyncBaseDto
-    //{
-    //    public SyncAzureQuery(long version, int page) : base(version, page)
-    //    {
-    //    }
-    //}
-
     public class SyncAzureQuery //: System.IEquatable<SyncAzureQuery>
         : IQuery<(IEnumerable<Question> update, IEnumerable<long> delete, long version)>, 
-          IQuery<(IEnumerable<UniversitySearchDto> update, IEnumerable<long> delete, long version)>
-        //IQuery<(IEnumerable<AzureSyncBaseDto<Entities.Db.Question>> update, IEnumerable<long> delete, long version)>
+          IQuery<(IEnumerable<UniversitySearchDto> update, IEnumerable<long> delete, long version)>,
+          IQuery<(IEnumerable<CourseSearchDto> update, IEnumerable<long> delete, long version)>
     {
         public SyncAzureQuery(long version, int page)
         {
