@@ -1,6 +1,6 @@
 import userAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import askQuestionBtn from '../askQuestionBtn/askQuestionBtn.vue';
-import { mapGetters, mapActions } from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
     components: {
@@ -10,21 +10,25 @@ export default {
     data() {
         return {
             offsetTop: 0,
-            hideABTestBlock: true
+            hideABTestBlock: true,
+
         }
     },
     props: {
         userName: {}
     },
     computed: {
-        ...mapGetters({
-            accountUser: 'accountUser',
-            loginDialogState: 'loginDialogState'
-        }),
+        ...mapGetters(['accountUser', 'loginDialogState' ]),
+        isHiddenBlock(){
+            ///if (this.$vuetify.breakpoint.name === 'xs' || 'sm') {
+            return this.offsetTop >= 75 && (this.$vuetify.breakpoint.name === 'xs' && 'sm')
+            //  }
+        }
     },
     methods: {
         ...mapActions(["updateLoginDialogState", 'updateUserProfileData', 'updateNewQuestionDialogState']),
         goToAskQuestion() {
+           // console.log(this.accountUser);
             if (this.accountUser == null) {
                 this.updateLoginDialogState(true);
                 //set user profile
@@ -38,15 +42,9 @@ export default {
                 console.log(this.offsetTop)
         },
     },
-    computed:{
-        isHiddenBlock(){
-            ///if (this.$vuetify.breakpoint.name === 'xs' || 'sm') {
-                return this.offsetTop >= 75 && (this.$vuetify.breakpoint.name === 'xs' && 'sm')
-          //  }
-        },
 
-    },
 
     created() {
+        console.log(...mapGetters);
     }
 }
