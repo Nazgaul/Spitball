@@ -27,12 +27,13 @@ namespace Cloudents.Web.Api
         private readonly ICommandBus _commandBus;
 
 
-
         /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="universityProvider"></param>
+        /// <param name="commandBus"></param>
+        /// <param name="signInManager"></param>
         public UniversityController(IUniversitySearch universityProvider, UserManager<User> userManager, ICommandBus commandBus, SignInManager<User> signInManager)
         {
             _universityProvider = universityProvider;

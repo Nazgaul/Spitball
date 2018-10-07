@@ -8,7 +8,7 @@ namespace Cloudents.Infrastructure.Database.Maps
     {
         public UniversityMap()
         {
-            Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='{nameof(University)}'");
+            Id(x => x.Id).GeneratedBy.HiLo($"sb.{nameof(HiLoGenerator)}", nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='{nameof(University)}'");
                 //.GeneratedBy.Assigned();
             Map(x => x.IsDeleted);
             Map(x => x.Name).Column("UniversityName");
