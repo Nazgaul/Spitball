@@ -8,10 +8,12 @@ namespace Cloudents.Core.Entities.Db
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global")]
     public class University
     {
-        public University(long id ,string name)
+        public University(string name, string country) : this()
         {
-            Id = id;
             Name = name;
+            Country = country;
+            Pending = true;
+            TimeStamp = new DomainTimeStamp();
         }
 
         [UsedImplicitly]
@@ -24,10 +26,26 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual bool IsDeleted { get; set; }
 
-        [DbColumn("UniversityName")]
         public virtual string Name { get; set; }
 
+        /// <summary>
+        /// Used as extra synonym to add to university search
+        /// </summary>
         public virtual string Extra { get; set; }
+        /// <summary>
+        /// Used in bing search as synonym
+        /// </summary>
         public virtual string ExtraSearch { get; set; }
+
+       // public virtual float? Latitude { get; set; }
+       // public virtual float? Longitude { get; set; }
+
+        public virtual  string Country { get; set; }
+
+       // public virtual  string Image { get; set; }
+
+        public virtual bool Pending { get; set; }
+
+        public virtual DomainTimeStamp TimeStamp { get; set; }
     }
 }

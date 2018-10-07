@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.TwoFactorEnabled);
             Map(e => e.AuthenticatorKey);
             Map(e => e.Culture);
-            Map(e => e.Country);
+            Map(e => e.Country).Nullable().Length(2);
 
             Map(e => e.Created).Insert().Not.Update();
             Map(e => e.Fictive).ReadOnly();

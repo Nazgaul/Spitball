@@ -73,7 +73,23 @@
   align-items: center;
 }
 
-.giveMeEllipsis(@lines,@line-height) {
+//updated version TODO rework and remove previous
+.giveEllipsisUpdated(@fontSize, @lineHeigh, @lines){
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  max-height: 96px; /* Fallback for non-webkit */
+  font-size: @fontSize;
+  line-height: @lineHeigh;
+  -webkit-line-clamp: @lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  -o-text-overflow: ellipsis;	/* required for Opera */
+  -ms-text-overflow: ellipsis;	/* required for IE8, allegedly */
+}
+
+.giveMeEllipsis(@lines, @line-height) {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

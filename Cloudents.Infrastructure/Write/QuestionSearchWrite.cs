@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Write
     public class QuestionSearchWrite : SearchServiceWrite<Question>
     {
         private readonly FluentSearchFieldBuilder<Question> _fieldBuilder = new FluentSearchFieldBuilder<Question>();
-        public const string IndexName = "question";
+        private const string IndexName = "question";
 
 
         public QuestionSearchWrite(SearchService client) : base(client, client.GetClient(IndexName))

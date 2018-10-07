@@ -29,9 +29,11 @@ namespace Cloudents.Web.Api
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
         private readonly ILogger _logger;
+        
 
         public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
-            ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer, ILogger logger)
+            ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer,
+            ILogger logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -53,6 +55,10 @@ namespace Cloudents.Web.Api
             [FromBody]PhoneNumberRequest model, [FromQuery]LocationQuery location,
             CancellationToken token)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Unauthorized();
+            }
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {
@@ -73,7 +79,11 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            if (ValidatePhoneNumberLocationWithIp(location, model))
+           
+            var phoneUtil = PhoneNumberUtil.GetInstance();
+            var t = phoneUtil.GetRegionCodeForCountryCode(model.CountryCode);
+            user.Country = t;
+            if (!string.Equals(user.Country, location.Address.CountryCode, StringComparison.OrdinalIgnoreCase))
             {
                 user.FraudScore += 50;
             }
@@ -100,12 +110,6 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        private static bool ValidatePhoneNumberLocationWithIp(LocationQuery location, PhoneNumberRequest phoneNumber)
-        {
-            var phoneUtil = PhoneNumberUtil.GetInstance();
-            var t = phoneUtil.GetRegionCodeForCountryCode(phoneNumber.CountryCode);
-            return t.Equals(location.Address.CountryCode, StringComparison.OrdinalIgnoreCase);
-        }
 
         [HttpPost("verify")]
         public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model, CancellationToken token)

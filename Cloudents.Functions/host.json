@@ -4,6 +4,6 @@
     "maxPollingInterval": 5000
   },
   "functionTimeout": "00:10:00",
-  "functions": [ "QuestionSearchSync", "SearchSync", "DoSearchSync", "GetSyncProgress", "SetSyncProgress", "CreateSearchIndex" ]
+  "functions": [ "UniversitySearchSync", "SearchSync", "DoSearchSync", "GetSyncProgress", "SetSyncProgress", "CreateSearchIndex" ]
  
 }

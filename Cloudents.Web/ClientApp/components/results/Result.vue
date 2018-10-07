@@ -1,9 +1,8 @@
-﻿
-<template>
+﻿<template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
         <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main">
-            <div class="d-flex mobile-filter">
+              <div class="d-flex mobile-filter">
                 <a v-if="$route.path.slice(1)==='ask' "
                    :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "
                    @click.prevent="goToAskQuestion()" v-language:inner>result_ask_question</a>
@@ -50,7 +49,8 @@
                                 </v-flex>
 
                                 <!--static cards AB test-->
-                                <abTestCard v-if="$route.path.slice(1)==='ask'" :userName="accountUser ? accountUser.name : 'John Doe123'"></abTestCard>
+                                <abTestCard v-if="$route.path.slice(1)==='ask'"
+                                            :userName="accountUser ? accountUser.name : 'John Doe123'"></abTestCard>
                                 <!--end static cards AB test-->
 
                                 <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index"
@@ -70,25 +70,28 @@
                                               v-show="!item.hasCorrectAnswer && $route.path.slice(1)==='ask' && item.watchingNow !== 1 && item.watchingNow !== 0"
                                               :style="watchinNowStyle(item)">{{item.watchingNow}} <span
                                                 v-language:inner>result_users_answering</span></span>
-                                            
-                                            <!-- ask only -->
-                                            <div class="show-btn"
-                                                v-show="accountUser && $route.path.slice(1) ==='ask' && !!item.user && accountUser.id !== item.user.id"
-                                                :class="'color-'+$route.path.slice(1)" v-language:inner>result_answer</div> 
-                                                                                           
-                                            <div class="show-btn" v-show="!accountUser && item && item.user && name ==='ask'"
-                                                :class="'color-'+$route.path.slice(1)" v-language:inner>
-                                                {{'result_answer'}}
-                                            </div>
 
-                                            <!-- not ask -->
-                                            <div class="show-btn" v-show="name !=='ask'" :class="'color-'+$route.path.slice(1)" v-language:inner>result_showme</div>
+                                        <!-- ask only -->
+                                        <div class="show-btn"
+                                             v-show="accountUser && $route.path.slice(1) ==='ask' && !!item.user && accountUser.id !== item.user.id && !item.hasCorrectAnswer"
+                                             :class="'color-'+$route.path.slice(1)" v-language:inner>result_answer
                                         </div>
+
+                                        <div class="show-btn"
+                                             v-show="!accountUser && item && item.user && name ==='ask'"
+                                             :class="'color-'+$route.path.slice(1)" v-language:inner>
+                                            {{'result_answer'}}
+                                        </div>
+                                        <!-- not ask -->
+                                        <div class="show-btn" v-show="name !=='ask' || (name ==='ask' && item.hasCorrectAnswer) "
+                                             :class="'color-'+$route.path.slice(1)" v-language:inner>result_showme
+                                        </div>
+                                    </div>
                                 </v-flex>
                                 <router-link tag="v-flex"
                                              class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 "
                                              :to="{path:'/'+currentSuggest,query:{term:this.userText}}">
-                                             :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
+                                    :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
                                     <suggest-card :name="currentSuggest"></suggest-card>
                                 </router-link>
                             </slot>
@@ -146,7 +149,7 @@
             <router-link slot="suggestCell" tag="v-flex"
                          class="result-cell hidden-md-and-down elevation-1 mb-2 xs-12 order-xs3 "
                          :to="{path:'/'+currentSuggest,query:{term:this.query.term}}">
-                        
+
                 <suggest-card :name="currentSuggest"></suggest-card>
             </router-link>
         </slot>

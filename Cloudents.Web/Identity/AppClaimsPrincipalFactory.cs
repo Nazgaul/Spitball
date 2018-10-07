@@ -1,9 +1,6 @@
-﻿using System;
-using System.Globalization;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -13,12 +10,13 @@ namespace Cloudents.Web.Identity
     [UsedImplicitly]
     public class AppClaimsPrincipalFactory : UserClaimsPrincipalFactory<User, ApplicationRole>
     {
-        private readonly IBlockChainErc20Service _blockChain;
+        internal const string Country = "country";
+        internal const string University = "university";
 
-        public AppClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<ApplicationRole> roleManager, IOptions<IdentityOptions> options, IBlockChainErc20Service blockChain) :
+        public AppClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<ApplicationRole> roleManager, 
+            IOptions<IdentityOptions> options) :
             base(userManager, roleManager, options)
         {
-            _blockChain = blockChain;
         }
 
         protected override async Task<ClaimsIdentity> GenerateClaimsAsync(User user)
@@ -27,8 +25,8 @@ namespace Cloudents.Web.Identity
 
             if (user.EmailConfirmed && user.PhoneNumberConfirmed)
             {
-                //p.AddClaim(new Claim(ClaimsType.AuthStep, SignInStepEnum.All.ToString("D")));
-                p.AddClaim(new Claim(CustomCookieAuthenticationEvents.ValidateTimeClaim, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)));
+                p.AddClaim(new Claim(Country, user.Country));
+                p.AddClaim(new Claim(University, user.University?.Id.ToString()));
             }
             return p;
         }

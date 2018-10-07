@@ -24,14 +24,30 @@ namespace Cloudents.Infrastructure.Blockchain
             CancellationToken receiptRequestCancellationToken, params object[] functionInput)
         {
             var gas = new HexBigInteger((BigInteger)maxGas);
-            var publicAddress =
-                Web3.GetAddressFromPrivateKey(privateKey);
+            
+            var publicAddress = Web3.GetAddressFromPrivateKey(privateKey);
 
             using (var tokenSource = CancellationTokenSource.CreateLinkedTokenSource(receiptRequestCancellationToken))
             {
                     return await function.SendTransactionAndWaitForReceiptAsync(publicAddress, gas, null,
                         tokenSource, functionInput).ConfigureAwait(false);
             }
+
+        }
+
+        public static async Task<TransactionReceipt> SendTransactionAndWaitForReceiptAsync(this Function function, string privateKey, double maxGas,
+            double gasPrice, CancellationToken receiptRequestCancellationToken, params object[] functionInput)
+        {
+            var gas = new HexBigInteger((BigInteger)maxGas);
+            var gasPriceGwei = new HexBigInteger((BigInteger)gasPrice);
+            var publicAddress = Web3.GetAddressFromPrivateKey(privateKey);
+
+            using (var tokenSource = CancellationTokenSource.CreateLinkedTokenSource(receiptRequestCancellationToken))
+            {
+                return await function.SendTransactionAndWaitForReceiptAsync(publicAddress, gas, gasPriceGwei, null,
+                    tokenSource, functionInput).ConfigureAwait(false);
+            }
+
         }
     }
 }

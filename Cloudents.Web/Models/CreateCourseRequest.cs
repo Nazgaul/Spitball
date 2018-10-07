@@ -12,6 +12,7 @@ namespace Cloudents.Web.Models
         [StringLength(120)]
         public string CourseName { get; set; }
 
+        ///TODO: REMOVE THIS
         /// <summary>
         /// User university
         /// </summary>

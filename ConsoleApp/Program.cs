@@ -5,12 +5,18 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
+using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Models;
-
+using Nethereum.Web3.Accounts;
+using Nethereum.Web3;
 
 namespace ConsoleApp
 {
@@ -32,7 +38,7 @@ namespace ConsoleApp
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                BlockChainNetwork = "http://spito5-dns-reg1.northeurope.cloudapp.azure.com:8545",
+                BlockChainNetwork = "http://13.69.54.132:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
             };
 
@@ -47,23 +53,104 @@ namespace ConsoleApp
                 Assembly.Load("Cloudents.Core"));
             _container = builder.Build();
 
+            
+            var t = _container.Resolve<IBlockChainErc20Service>();
+            var spitballAddress = "0x0356a6cfcf3fd04ea88044a59458abb982aa9d96";
+            string metaMaskAddress = "0x27e739f9dF8135fD1946b0b5584BcE49E22000af";
+            string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
+
+            string SpitballPrivateKey = "428ac528cbc75b2832f4a46592143f46d3cb887c5822bed23c8bf39d027615a8";
+            string metaMaskPK = "10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
+
+            
+
+            Account SpitballAccountt = new Account(SpitballPrivateKey);
+            var web3 = new Web3(SpitballAccountt);
+            //var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(t.GetAddress(SpitballPrivateKey));
+
+            for (int i = 0; i < 100; i++)
+            {
+                var txCount = web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(t.GetAddress(SpitballPrivateKey));
+
+                var TxHash = t.TransferPreSignedAsync(metaMaskPK, spitballServerAddress, 2, 1, default);
+                //var approve = t.IncreaseApprovalPreSignedAsync(SpitballPrivateKey, spitballServerAddress, 1, 1, default);
+
+                var b1 = t.GetBalanceAsync(metaMaskAddress, default);
+                var b2 = t.GetBalanceAsync(spitballServerAddress, default);
+                var b3 = t.GetBalanceAsync(spitballAddress, default);
+                
+                var a1 = t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default);
+
+                await Task.WhenAll(txCount, TxHash, b1, b2, b3/*, approve*/, a1).ConfigureAwait(false);
+
+                Console.WriteLine($"nonce: {txCount.Result.Value}");
+                Console.WriteLine($"metaMaskAddress Balance: {b1.Result}");
+                Console.WriteLine($"spitballServerAddress Balance: {b2.Result}");
+                Console.WriteLine($"spitballAddress Balance: {b3.Result}");
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine($"allowance:{a1.Result}");
+                Console.WriteLine("---------------------------------");
+
+            }
+
+            /*Console.WriteLine(await t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default));
+
+            var y = await t.IncreaseApproval(spitballServerAddress, 100, default);
+            Console.WriteLine(await t.GetAllowanceAsync(spitballAddress, spitballServerAddress, default));
+            */
+            /*Console.WriteLine($"Sender Balance: {await t.GetBalanceAsync(metaMaskAddress, default)}");
+            Console.WriteLine($"To Balance: {await t.GetBalanceAsync(spitballServerAddress, default)}");
+            Console.WriteLine($"Spender Balance: {await t.GetBalanceAsync(spitballAddress, default)}");
+            
+            Console.WriteLine("-------------------");
+
+            var y = await t.ApprovePreSigned(metaMaskPK, spitballServerAddress, 5, 5, default);
+
+            //var y = await t.TransferPreSigned(metaMaskPK, spitballServerAddress, 5, 5, default);
+
+            Console.WriteLine($"Sender Balance: {await t.GetBalanceAsync(metaMaskAddress, default)}");
+            Console.WriteLine($"To Balance: {await t.GetBalanceAsync(spitballServerAddress, default)}");
+            Console.WriteLine($"Spender Balance: {await t.GetBalanceAsync(spitballAddress, default)}");
+            */
 
 
 
+            //var u = _container.Resolve<ISearchServiceWrite<University>>();
+            //await u.CreateOrUpdateAsync(default);
 
-            //var b = _container.Resolve<FluentQueryBuilder>();
-            //var x = await b.QueryAsync(new SyncAzureQuery(56123, 0), default);
-            //    .AddJoin<Question,User>(q=>q.User,u=>u.Id)
-            //    .AddSelect<User,Cloudents.Core.Entities.Search.Question>( q => q.Id,t2=>t2.UserId)
-            //    .AddSelect<Question>( q => q.Text, "b")
-            //    .AddSelect($"(select count(*) from {b.Table<Answer>()} where {b.Column<Answer>(x=>x.Question)} = {b.ColumnAlias<Question>(x=>x.Id)}) AnswerCount");
 
-            //string t = b;
-            //Console.WriteLine(t);
-            var b2 = _container.Resolve<ITutorSearch>();
-            var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
-                new GeoPoint(-74.006f, 40.7128f)
-                , 0, false, default);
+            var stopWordsList = new[]{ "university",
+                "of",
+                "college",
+                "school",
+                "the",
+                "a",
+                "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
+            };
+            var sw = new Stopwatch();
+            sw.Start();
+            for (int i = 0; i < 100000; i++)
+            {
+            var cleanName = "University of Kent".RemoveWords(stopWordsList);
+
+            }
+            sw.Stop();
+            Console.WriteLine(sw.ElapsedMilliseconds);
+            sw.Restart();
+            for (int i = 0; i < 100000; i++)
+            {
+                var cleanName = TTTT("University of Kent", stopWordsList);
+
+            }
+            sw.Stop();
+            Console.WriteLine(sw.ElapsedMilliseconds);
+
+            //var b2 = _container.Resolve<IQueryBus>();
+            //var query = new SyncAzureQuery(1,0);
+            //var d = await b2.QueryAsync< (IEnumerable<UniversitySearchDto> update, IEnumerable<long> delete, long version)>(query, default);
+            ////var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
+            //    new GeoPoint(-74.006f, 40.7128f)
+            //    , 0, false, default);
 
 
 
@@ -89,12 +176,21 @@ namespace ConsoleApp
             Console.ReadLine();
         }
 
-
+        private static string TTTT(string input,IEnumerable<string> BAD_WORDS)
+        {
+            return string.Join(" ",
+                input.Split(' ').Select(w => BAD_WORDS.Contains(w) ? "" : w));
+        }
         public static Task SendMoneyAsync()
         {
             var t = _container.Resolve<IBlockChainErc20Service>();
             var pb = t.GetAddress("38d68c294410244dcd009346c756436a64530d7ddb0611e62fa79f9f721cebb0");
             return t.SetInitialBalanceAsync(pb, default);
+        }
+
+        public async static Task<string> MintTokens(string address, IBlockChainErc20Service t)
+        {
+            return await t.CreateNewTokens(address, 100, default);
         }
 
 
