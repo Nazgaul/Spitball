@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Cloudents.Web.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Models
 {
@@ -12,12 +14,6 @@ namespace Cloudents.Web.Models
         [StringLength(120)]
         public string CourseName { get; set; }
 
-        ///TODO: REMOVE THIS
-        /// <summary>
-        /// User university
-        /// </summary>
-        [Required(ErrorMessage = "Required")]
-        [Range(1,long.MaxValue)]
-        public long University { get; set; }
+       
     }
 }

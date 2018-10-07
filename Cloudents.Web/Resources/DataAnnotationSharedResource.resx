@@ -126,6 +126,9 @@
   <data name="InvalidPhoneNumber" xml:space="preserve">
     <value>Phone number is invalid</value>
   </data>
+  <data name="NeedUniversity" xml:space="preserve">
+    <value>You need to choose university first</value>
+  </data>
   <data name="Required" xml:space="preserve">
     <value>The {0} field is required.</value>
   </data>

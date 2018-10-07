@@ -14,6 +14,8 @@ namespace Cloudents.Web.Models
         [StringLength(100, MinimumLength = 3, ErrorMessage = "StringLength")]
         public string Term { get; set; }
 
+
+
     }
 
     public class CreateUniversityRequest

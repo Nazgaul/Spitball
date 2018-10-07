@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Interfaces;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,14 +36,16 @@ namespace Cloudents.Web.Api
         /// Perform course search
         /// </summary>
         /// <param name="model">params</param>
+        /// <param name="universityId"></param>
         /// <param name="token"></param>
         /// <returns>list of courses filter by input</returns>
-        /// <exception cref="ArgumentException">university is empty</exception>
         [Route("search")]
         [HttpGet]
-        public async Task<CoursesResponse> GetAsync([FromQuery]  CourseRequest model, CancellationToken token)
+        public async Task<CoursesResponse> GetAsync([FromQuery]CourseRequest model,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] long universityId,
+            CancellationToken token)
         {
-            var result = await _courseProvider.SearchAsync(model.Term, model.UniversityId.GetValueOrDefault(), token).ConfigureAwait(false);
+            var result = await _courseProvider.SearchAsync(model.Term, universityId, token).ConfigureAwait(false);
             return new CoursesResponse
             {
                 Courses = result
@@ -53,13 +56,17 @@ namespace Cloudents.Web.Api
         /// Create academic course
         /// </summary>
         /// <param name="model"></param>
+        /// <param name="universityId"></param>
         /// <param name="token">Cancellation token</param>
         /// <returns>The id of the course created</returns>
         [Route("create")]
         [HttpPost]
-        public async Task<CoursesCreateResponse> CreateAcademicBoxAsync([FromBody]CreateCourseRequest model, CancellationToken token)
+        public async Task<CoursesCreateResponse> CreateAcademicBoxAsync([FromBody]CreateCourseRequest model,
+            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] long universityId,
+
+            CancellationToken token)
         {
-            var command = new CreateCourseCommand(model.CourseName, model.University);
+            var command = new CreateCourseCommand(model.CourseName, universityId);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
             return new CoursesCreateResponse
             {

@@ -21,7 +21,7 @@ namespace Cloudents.Core.Extension
             }
         }
 
-        private static T GetAttributeValue<T>(this System.Enum value) where T : Attribute
+        public static T GetAttributeValue<T>(this System.Enum value) where T : Attribute
         {
             if (value == null) throw new ArgumentNullException(nameof(value));
             var fi = value.GetType().GetField(value.ToString());

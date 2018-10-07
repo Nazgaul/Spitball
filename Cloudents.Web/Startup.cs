@@ -121,7 +121,7 @@ namespace Cloudents.Web
                 }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             if (HostingEnvironment.IsDevelopment())
             {
-                SwaggerInitial(services);
+                Swagger.Startup.SwaggerInitial(services);
             }
 
             services.AddSignalR().AddRedis(Configuration["Redis"]).AddJsonProtocol(o =>
