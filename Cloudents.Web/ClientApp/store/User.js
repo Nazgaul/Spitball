@@ -155,6 +155,10 @@ const actions = {
     },
     updateUniversity({ commit }, { id, name, image }) {
         commit(USER.UPDATE_USER, { universityId: { id, name, image } });
+        return settingsService.assaignUni(id)
+    },
+    createUniversity({ commit }, universityName){
+        return settingsService.createUni(universityName)
     },
     updatePinnedCards(context, data) {
         context.commit(USER.UPDATE_USER, { pinnedCards: { ...context.getters.pinnedCards, ...data } });
