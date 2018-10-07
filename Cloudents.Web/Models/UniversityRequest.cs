@@ -18,6 +18,8 @@ namespace Cloudents.Web.Models
 
     public class CreateUniversityRequest
     {
+        [StringLength(100, MinimumLength = 10, ErrorMessage = "StringLength")]
+
         [Required] public string Name { get; set; }
     }
 
