@@ -188,7 +188,7 @@
     <value>모든 학생 관련 상품 및 서비스(개인 교습자, 교재, 수업 자료, 중고 물품 등)를 위한 Spitball 마켓플레이스 출시</value>
   </data>
   <data name="Mission" xml:space="preserve">
-    <value>우리의 &lt;b&gt;미션&lt;/b&gt;은 학생들에게 숙제 도움을 받고 제공하고, 
+    <value>우리의 미션은 학생들에게 숙제 도움을 받고 제공하고, 
 강의 노트를 교환하고, 일거리를 찾고, 책을 사고 파는 등 
 학생들이 필요로 하는 마켓플레이스를 
 학생들에게 제공하는 것입니다.</value>
@@ -314,7 +314,7 @@ SBL을 통합하여 보상 받습니다.</value>
     <value>사용자들</value>
   </data>
   <data name="Vision" xml:space="preserve">
-    <value>우리의 &lt;b&gt;비전&lt;/b&gt;은 커뮤니티 기여자가  &lt;b&gt;효율적인 시장&lt;/b&gt;에서, &lt;b&gt;저렴한 가격&lt;/b&gt;으로 더 많이 &lt;b&gt;공정하게 이익을 보상&lt;/b&gt; 받을 수 있는 &lt;b&gt;투명하고, 안전하며&lt;/b&gt;, &lt;b&gt;직접적인&lt;/b&gt;(P2P)&lt;b&gt; 학생을 위한 경제&lt;/b&gt;를 건설하는 것입니다.</value>
+    <value>우리의 비전은 커뮤니티 기여자가 효율적인 시장에서, 저렴한 가격으로 더 많이 공정하게 이익을 보상 받을 수 있는투명하고, 안전하며, 직접적인(P2P) 학생을 위한 경제를 건설하는 것입니다.</value>
   </data>
   <data name="VisionFooter" xml:space="preserve">
     <value>비전</value>

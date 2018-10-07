@@ -47,7 +47,7 @@
     </environment>
     @await RenderSectionAsync("styleSection", required: false).ConfigureAwait(false)
     <partial name="_HeaderTags" model="cdnEndPoint" />
-    @Html.Raw(JavaScriptSnippet.FullScript)
+    @*@Html.Raw(JavaScriptSnippet.FullScript)*@
     @Html.Raw(ClickJackingTagHelper.FullScript)
     <style>
         .async-hide {
@@ -138,11 +138,12 @@
         })();
     </script>
     @* End Inspectlet Embed Code *@
-    <script>
+<script>
         window.version = '8.9.25.2';  //'@version';
             window.publicPath = '@cdnEndPoint' + '/dist/';
             window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
-            window.talkJsId = '@Configuration["TalkJs"]';
+    window.talkJsId = '@Configuration["TalkJs"]';
+    window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'
     </script>
 
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
