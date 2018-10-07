@@ -75,6 +75,7 @@ export default {
             currentType: "",
             currentAction: "",
             newCourseName: "",
+            newUniversityName: "",
             val: "",
             noResults:false,
             showAdd:false
@@ -87,7 +88,7 @@ export default {
     props: { type: { type: String, required: true }, keep: { type: Boolean }, isFirst: { type: Boolean },isShown:{type:Boolean} },
     methods: {
         ...mapMutations({ updateUser: "UPDATE_USER" }),
-        ...mapActions(["createCourse"]),
+        ...mapActions(["createCourse", "createUniversity"]),
         $_removeCourse(val) {
             if(this.val){this.items.push(this.myCourses.find(i => i.id === val));}
             this.updateUser({ myCourses: this.myCourses.filter(i => i.id !== val) });
@@ -124,7 +125,17 @@ export default {
             //    }, 500);
             //}
         },
-
+        $_submitAddUniversity(){
+            this.createUniversity(this.newUniversityName);
+            this.newUniversityName = "";
+            this.$el.querySelector('.results-container').scrollTop = 0;
+            this.val="";
+            // go to next Step
+            this.currentType = "course";
+        },
+        $_clearAddUniversity(){
+            this.newUniversityName = "";
+        },
         $_submitAddCourse() {
             this.createCourse({ name: this.newCourseName });
             this.newCourseName = "";
