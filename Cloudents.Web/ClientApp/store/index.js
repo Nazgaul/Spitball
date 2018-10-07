@@ -66,6 +66,6 @@ const store = new Vuex.Store({
         newQuestionDialog,
         notification
     },
-    plugins: plugins
+    //plugins: plugins
 });
 export default store;
