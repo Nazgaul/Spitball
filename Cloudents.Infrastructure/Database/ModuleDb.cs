@@ -33,8 +33,8 @@ namespace Cloudents.Infrastructure.Database
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
 
-            //builder.RegisterGeneric(typeof(NHibernateRepository<>))
-            //    .AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(NHibernateRepository<>))
+                .AsImplementedInterfaces().InstancePerLifetimeScope();
 
             
 
