@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -28,12 +29,14 @@ namespace Cloudents.Web.Api
         private readonly Lazy<ICommandBus> _commandBus;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
+        private readonly IStringLocalizer<QuestionController> _localizer;
 
-        public QuestionController(Lazy<ICommandBus> commandBus, IMapper mapper, UserManager<User> userManager)
+        public QuestionController(Lazy<ICommandBus> commandBus, IMapper mapper, UserManager<User> userManager, IStringLocalizer<QuestionController> localizer)
         {
             _commandBus = commandBus;
             _mapper = mapper;
             _userManager = userManager;
+            _localizer = localizer;
         }
 
         [HttpPost]
@@ -50,8 +53,7 @@ namespace Cloudents.Web.Api
             }
             catch (InvalidOperationException)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "You need to wait before asking a new question");
+                ModelState.AddModelError(string.Empty, _localizer["QuestionFlood"]);
                 return BadRequest(ModelState);
             }
         }
@@ -148,8 +150,8 @@ namespace Cloudents.Web.Api
                 Result = result,
                 Filters = new[]
                 {
-                    new Models.Filters(nameof(GetQuestionsRequest.Filter),"Type", EnumExtension.GetPublicEnumNames(typeof(QuestionFilter))),
-                    new Models.Filters(nameof(GetQuestionsRequest.Source),"Subject", subjects.Select(s=>s.Subject))
+                    new Models.Filters(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"], EnumExtension.GetPublicEnumNames(typeof(QuestionFilter))),
+                    new Models.Filters(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"], subjects.Select(s=>s.Subject))
                 },
                 NextPageLink = nextPageLink
             };

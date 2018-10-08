@@ -28,12 +28,13 @@ namespace Cloudents.Web.Api
         private readonly ISmsSender _client;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
+        private readonly IStringLocalizer<SmsController> _smsLocalizer;
         private readonly ILogger _logger;
         
 
         public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
             ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer,
-            ILogger logger)
+            ILogger logger, IStringLocalizer<SmsController> smsLocalizer)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -41,6 +42,7 @@ namespace Cloudents.Web.Api
             _commandBus = commandBus;
             _localizer = localizer;
             _logger = logger;
+            _smsLocalizer = smsLocalizer;
         }
 
         [HttpGet("code")]
@@ -97,9 +99,8 @@ namespace Cloudents.Web.Api
 
             if (retVal.Errors.Any(a => a.Code == "Duplicate"))
             {
-                //TODO: Localize
                 _logger.Warning("phone number is duplicate");
-                ModelState.AddModelError(nameof(model.PhoneNumber), "This phone number is linked to another email address");
+                ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["DuplicatePhoneNumber"]);
             }
             else
             {
@@ -153,8 +154,7 @@ namespace Cloudents.Web.Api
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "We cannot resend sms");
+                ModelState.AddModelError(string.Empty, _smsLocalizer["CannotResendSms"]);
                 return BadRequest(ModelState);
             }
 

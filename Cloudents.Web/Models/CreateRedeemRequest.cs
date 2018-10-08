@@ -4,10 +4,9 @@ using System.Linq;
 
 namespace Cloudents.Web.Models
 {
-    //TODO:Localize
     public class CreateRedeemRequest
     {
-        [RedeemValidator]
+        [RedeemValidator(ErrorMessage = "InvalidRedeemValue")]
         public decimal Amount { get; set; }
 
         public override string ToString()

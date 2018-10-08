@@ -22,7 +22,7 @@ namespace Cloudents.Core.Entities.Search
 
         public string Prefix { get; set; }
 
-        //public string[] Type { get; set; }
+        public string Country { get; set; }
 
         public QuestionColor Color { get; set; }
 

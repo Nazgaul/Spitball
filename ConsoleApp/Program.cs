@@ -199,7 +199,6 @@ namespace ConsoleApp
             string spreadsheetId = "1A2O_jASZuWlI_jIX8a1eiZb61C5RDF9KQ2i7CQzGU30";
             string range = "All!B:D";
 
-            //TODO: TALK TO RAM. THIS IS NOT THE WAY WE DO STUFF NOW.
 
             //var subjectList = new List<CreateQuestionCommand>();
             var subjectList = GoogleSheets.GetData(spreadsheetId, range);

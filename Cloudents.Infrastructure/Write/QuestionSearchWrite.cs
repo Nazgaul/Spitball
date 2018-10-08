@@ -42,7 +42,8 @@ namespace Cloudents.Infrastructure.Write
                    _fieldBuilder.Map(x=>x.Text).IsSearchable(),
                    _fieldBuilder.Map(x=>x.Color),
                    _fieldBuilder.Map(x=>x.Subject).IsFilterable().IsFacetable(),
-                    _fieldBuilder.Map(x=>x.Prefix).IsSearchable().WithIndexAnalyzer(AnalyzerName.Create("prefix")).WithSearchAnalyzer(AnalyzerName.StandardLucene),
+                   _fieldBuilder.Map(x=>x.Country).IsFilterable(),
+                   _fieldBuilder.Map(x=>x.Prefix).IsSearchable().WithIndexAnalyzer(AnalyzerName.Create("prefix")).WithSearchAnalyzer(AnalyzerName.StandardLucene),
                    //_fieldBuilder.Map(x=>x.SubjectText).IsFilterable().IsSearchable(),
 
                 },
@@ -66,10 +67,14 @@ namespace Cloudents.Infrastructure.Write
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
                             [nameof(Question.Text)] = 3,
-                            //[nameof(Question.Subject)] = 1,
                             [nameof(Question.Prefix)] = 1,
+                        }),
+                        FunctionAggregation = ScoringFunctionAggregation.Sum,
+                        Functions = new List<ScoringFunction>
+                        {
+                            new TagScoringFunction(nameof(Question.Country),5, new TagScoringParameters("Country"))
 
-                        })
+                        }
                     }
                 },
                 DefaultScoringProfile = "ScoringProfile"
