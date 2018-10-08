@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Microsoft.AspNetCore.Identity;
 
@@ -46,14 +48,16 @@ namespace Cloudents.Web.Api
         /// Get list of universities
         /// </summary>
         /// <param name="model">object of query string</param>
+        /// <param name="country">Not taken from the api</param>
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
         [HttpGet]
-        public async Task<UniversityResponse> GetAsync([FromQuery] UniversityRequest model, CancellationToken token)
+        public async Task<UniversityResponse> GetAsync([FromQuery] UniversityRequest model,
+            [Required(ErrorMessage = "NeedCountry"), ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
+            CancellationToken token)
         {
-            var countryClaim = User.Claims.FirstOrDefault(f => f.Type == AppClaimsPrincipalFactory.Country);
             var result = await _universityProvider.SearchAsync(model.Term,
-                countryClaim?.Value, token).ConfigureAwait(false);
+                country, token).ConfigureAwait(false);
             return new UniversityResponse(result);
         }
 
@@ -66,9 +70,11 @@ namespace Cloudents.Web.Api
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] CreateUniversityRequest model, CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User);
-            var command = new CreateUniversityCommand(model.Name, user.Id);
+            var userId = _userManager.GetLongUserId(User);
+            var command = new CreateUniversityCommand(model.Name, userId);
             await _commandBus.DispatchAsync(command, token);
+            var user = await _userManager.GetUserAsync(User);
+
             await _signInManager.RefreshSignInAsync(user);
             return Ok();
         }
@@ -76,9 +82,11 @@ namespace Cloudents.Web.Api
         [HttpPost("assign")]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User);
-            var command = new AssignUniversityToUserCommand(user.Id, model.UniversityId);
+            var userId = _userManager.GetLongUserId(User);
+            var command = new AssignUniversityToUserCommand(userId, model.UniversityId);
             await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
+            var user = await _userManager.GetUserAsync(User);
+
             await _signInManager.RefreshSignInAsync(user);
             return Ok();
         }

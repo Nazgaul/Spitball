@@ -6,16 +6,8 @@ ALTER TABLE zbox.University
 ADD Pending bit;
 insert into sb.HiLoGenerator values ('university',180000)
 
-
-
-
 --Hadar SQL 
-
-
-
 create table sb.PhoneNumberIso (ISO nvarchar(2), CountryCode nvarchar(20))
-
-
 
 insert into sb.PhoneNumberIso (ISO, CountryCode) VALUES  ('AF','93')
 insert into sb.PhoneNumberIso (ISO, CountryCode) VALUES  ('AL','355')
@@ -264,3 +256,41 @@ update sb.[User]
 	inner join sb.[User] U 
 	on REPLACE(U.PhoneNumberHash, '+' , '')like I.[CountryCode] + '%';
 drop table sb.PhoneNumberIso
+
+
+/****** Object:  Table [sb].[UserCourseRelationship]    Script Date: 08/10/2018 10:49:06 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [sb].[UserCourseRelationship](
+	[Id] [uniqueidentifier] NOT NULL,
+	[UserId] [bigint] NOT NULL,
+	[CourseId] [bigint] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[UserId] ASC,
+	[CourseId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [sb].[UserCourseRelationship]  WITH CHECK ADD  CONSTRAINT [UserCourseRelationship_Course] FOREIGN KEY([CourseId])
+REFERENCES [Zbox].[Box] ([BoxId])
+GO
+
+ALTER TABLE [sb].[UserCourseRelationship] CHECK CONSTRAINT [UserCourseRelationship_Course]
+GO
+
+ALTER TABLE [sb].[UserCourseRelationship]  WITH CHECK ADD  CONSTRAINT [UserCourseRelationship_User] FOREIGN KEY([UserId])
+REFERENCES [sb].[User] ([Id])
+GO
+
+ALTER TABLE [sb].[UserCourseRelationship] CHECK CONSTRAINT [UserCourseRelationship_User]
+GO

@@ -4,11 +4,12 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Binders
 {
-    public class ClaimModelBinder : IModelBinder
+    public class ClaimModelBinder :  IModelBinder
     {
         private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
 
@@ -19,19 +20,25 @@ namespace Cloudents.Web.Binders
 
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
-            var holderType = bindingContext.ModelMetadata.ContainerType;
-            if (holderType == null)
-            {
-                return FailedRequest(bindingContext);
-            }
+            //var holderType = bindingContext.ModelMetadata.ContainerType;
+            ////var t = bindingContext.ModelMetadata as DefaultModelMetadata
+            //if (holderType == null)
+            //{
+            //   // bindingContext.ModelState.
+            //    bindingContext.Result = ModelBindingResult.Failed();
+            //    return Task.CompletedTask;
+            //    //return FailedRequest(bindingContext);
+            //}
 
-            var propertyType = holderType.GetProperty(bindingContext.ModelMetadata.PropertyName);
-            var claimAttr = propertyType?.GetCustomAttribute<ClaimModelBinderAttribute>();
-            
-            var claim = claimAttr?.Claim;
+            //var propertyType = holderType.GetProperty(bindingContext.ModelMetadata.PropertyName);
+            //var claimAttr = propertyType?.GetCustomAttribute<ClaimModelBinderAttribute>();
+
+            var claim = bindingContext.ModelName;// claimAttr?.Claim;
             if (claim == null)
             {
-                return FailedRequest(bindingContext);
+                bindingContext.Result = ModelBindingResult.Failed();
+                return Task.CompletedTask;
+                //return FailedRequest(bindingContext);
 
             }
             else
@@ -40,7 +47,9 @@ namespace Cloudents.Web.Binders
                     string.Equals(f.Type, claim.ToString(), StringComparison.OrdinalIgnoreCase));
                 if (result == null)
                 {
-                    return FailedRequest(bindingContext);
+                    bindingContext.Result = ModelBindingResult.Failed();
+
+                    //return FailedRequest(bindingContext);
 
                 }
                 else
@@ -52,11 +61,11 @@ namespace Cloudents.Web.Binders
             return Task.CompletedTask;
         }
 
-        private Task FailedRequest(ModelBindingContext bindingContext)
+        private Task FailedRequest(ModelBindingContext bindingContext, string errorResource)
         {
             bindingContext.ModelState.TryAddModelError(
                 bindingContext.ModelName,
-                _localizer["NeedUniversity"]);
+                _localizer[errorResource/*"NeedUniversity"*/]);
             bindingContext.Result = ModelBindingResult.Failed();
             return Task.CompletedTask;
         }

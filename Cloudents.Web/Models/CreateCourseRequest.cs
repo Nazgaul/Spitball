@@ -16,4 +16,9 @@ namespace Cloudents.Web.Models
 
        
     }
+
+    public class AssignCourseRequest
+    {
+        public long CourseId { get; set; }
+    }
 }
