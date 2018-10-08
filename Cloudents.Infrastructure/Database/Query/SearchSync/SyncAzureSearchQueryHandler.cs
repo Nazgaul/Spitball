@@ -23,6 +23,9 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
             _session = session.Session;
         }
 
+        /// <summary>
+        /// The page size to query default is 100
+        /// </summary>
         protected virtual int PageSize => 100;
 
 

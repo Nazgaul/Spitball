@@ -10,8 +10,5 @@ namespace Cloudents.Core.Query
     }
 
 
-    public class EmptyQuery : IQuery<string>
-    {
-
-    }
+    
 }

@@ -7,20 +7,20 @@ using Cloudents.Core.Interfaces;
 namespace Cloudents.Core.Query
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Automapper initialize")]
-    public class QuestionsQuery : IQuery<IEnumerable<QuestionDto>>
+    public class QuestionsQuery //: IQuery<IEnumerable<QuestionDto>>
     {
-        public QuestionsQuery(string term, string[] source, int page, QuestionFilter? filter)
+        public QuestionsQuery(string term, string[] source, int page, IEnumerable<QuestionFilter> filters)
         {
             Term = term;
             Source = source;
             Page = page;
-            Filter = filter;
+            Filters = filters;
         }
 
         public string Term { get;  }
         public string[] Source { get;  }
         public int Page { get;  }
 
-        public QuestionFilter? Filter { get;  }
+        public IEnumerable<QuestionFilter> Filters { get;  }
     }
 }
