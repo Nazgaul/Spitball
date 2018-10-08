@@ -41,33 +41,24 @@ namespace Cloudents.Web.Binders
                 //return FailedRequest(bindingContext);
 
             }
+
+            var result = bindingContext.HttpContext.User.Claims.FirstOrDefault(f =>
+                string.Equals(f.Type, claim.ToString(), StringComparison.OrdinalIgnoreCase));
+            if (result == null)
+            {
+                bindingContext.Result = ModelBindingResult.Failed();
+
+                //return FailedRequest(bindingContext);
+
+            }
             else
             {
-                var result = bindingContext.HttpContext.User.Claims.FirstOrDefault(f =>
-                    string.Equals(f.Type, claim.ToString(), StringComparison.OrdinalIgnoreCase));
-                if (result == null)
-                {
-                    bindingContext.Result = ModelBindingResult.Failed();
-
-                    //return FailedRequest(bindingContext);
-
-                }
-                else
-                {
-                    bindingContext.Result = ModelBindingResult.Success(result.Value);
-                }
+                var val = Convert.ChangeType(result.Value, bindingContext.ModelMetadata.ModelType);
+                bindingContext.Result = ModelBindingResult.Success(val);
             }
 
             return Task.CompletedTask;
         }
 
-        private Task FailedRequest(ModelBindingContext bindingContext, string errorResource)
-        {
-            bindingContext.ModelState.TryAddModelError(
-                bindingContext.ModelName,
-                _localizer[errorResource/*"NeedUniversity"*/]);
-            bindingContext.Result = ModelBindingResult.Failed();
-            return Task.CompletedTask;
-        }
     }
 }
