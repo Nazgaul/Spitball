@@ -20,9 +20,9 @@ namespace Cloudents.Infrastructure
             {
                 var key = c.Resolve<IConfigurationKeys>().Redis;
                 settings
-                    //.WithMicrosoftMemoryCacheHandle("inProcessCache")
-                    //.WithExpiration(ExpirationMode.Absolute, TimeSpan.FromSeconds(10))
-                    //.And
+                //    //.WithMicrosoftMemoryCacheHandle("inProcessCache")
+                //    //.WithExpiration(ExpirationMode.Absolute, TimeSpan.FromSeconds(10))
+                //    //.And
                     .WithRedisConfiguration("redis", key)
                     .WithJsonSerializer()
                     .WithMaxRetries(1000)

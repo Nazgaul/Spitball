@@ -86,7 +86,7 @@ import { constants } from "./utilities/constants";
 //TODO: server side fix
 WebFont.load({
     google: {
-        families: ["Open+Sans:300,400,600,700"]
+        families: ["Open+Sans:300,400,600,700", "Fira+Sans:300,400,600,700"]
     }
 });
 

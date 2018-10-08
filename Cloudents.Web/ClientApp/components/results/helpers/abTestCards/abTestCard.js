@@ -10,6 +10,7 @@ export default {
     data() {
         return {
             offsetTop: 0,
+            offsetTop2: 0,
             hideABTestBlock: true,
 
         }
@@ -23,6 +24,10 @@ export default {
             ///if (this.$vuetify.breakpoint.name === 'xs' || 'sm') {
             return this.offsetTop >= 75 && (this.$vuetify.breakpoint.name === 'xs' && 'sm')
             //  }
+        },
+        isFloatingBtn(){
+            return this.offsetTop2 >= 150 && (this.$vuetify.breakpoint.name === 'xs' && 'sm')
+
         }
     },
     methods: {
@@ -39,7 +44,10 @@ export default {
         },
         hideOnMobileScroll(e) {
                 this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
-                console.log(this.offsetTop)
+        },
+        transformToBtn(){
+            this.offsetTop2 = window.pageYOffset || document.documentElement.scrollTop;
+
         },
     },
 

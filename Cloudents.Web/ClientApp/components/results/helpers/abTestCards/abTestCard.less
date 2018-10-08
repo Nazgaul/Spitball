@@ -1,5 +1,7 @@
 @import "../../../../mixin.less";
+
 .ab-test-card {
+  font-family: 'Fira Sans', sans-serif!important;
   @media (max-width: @screen-xs) {
     position: -webkit-sticky;
     position: sticky;
@@ -8,69 +10,148 @@
     width: 100%;
     left: 0;
     right: 0;
-    //hacks to make it wider than parent container on mobile
-    margin-left: -7px;
-    width: 105%;
-    &.scrolledByHeader{
+     &.scrolledByHeader {
       top: 0px;
     }
   }
   // START static A/B test question cards style start
   .static-card-need-to-ask {
     display: none;
+    right: 0;
+    top: 0px;
+    border: dashed 1px rgba(68, 82, 252, 0.43);
+    @media (max-width: @screen-xs) {
+      z-index: 9999;
+      width: 100%;
+      right: 0;
+      top: 16px;
+      &.scrolledByHeader {
+        top: 0px;
+      }
+    }
     .need-to-ask-router-link {
       .need-to-ask {
         .static-top {
+          background-color: @color-AB-test-background;
           display: flex;
           align-items: center;
-          //justify-content: space-between;
           padding-left: 16px;
           padding-top: 16px;
-          .static-ab-text {
-            padding-left: 12px;
+          .static-user-name {
             color: @color-grey-icon-static;
-            font-size: 16px;
+            font-size: 12px;
+            padding-left: 8px;
           }
         }
         .static-center {
-          height: 58px;
+          background-color: @color-AB-test-background;
+          padding-top: 16px;
+          padding-bottom: 16px;
+          height: 75px;
+          .static-ab-text {
+            color: @color-AB-test-text;
+            font-size: 26px;
+            font-weight: 600;
+            margin-left: 24px;
+            margin-bottom: 0;
+          }
         }
         .static-bottom-block {
           display: flex;
           flex-direction: row;
           justify-content: flex-start;
-          align-items: flex-end;
-          border-top: solid 1px #ddd;
-          margin: 8px 16px;
-          padding: 8px 0;
-          .static-btn {
-            height: 24px;
-            display: flex;
+          align-items: center;
+          margin: 8px 16px 8px 16px;
+          padding: 16px 0;
+          @media (max-width: @screen-xs) {
+            justify-content: center;
             align-items: center;
-            border-radius: 15.5px;
-            background-color: #f0f0f0;
-            font-size: 14px;
-            color: @color-black;
-            text-align: center;
-            margin-left: 16px;
-            &.btn-subject {
-              padding: 2px 16px 2px 16px;
-              margin-left: 0;
+            background-color: @color-AB-test-background;
+            width: 100%;
+            margin: 0;
+            padding-top: 0;
+          }
+          .ab-test-button {
+            .btn-text{
+              visibility: visible;
+              width: 100%;
             }
-            &.btn-price {
-              padding: 2px 16px 2px 16px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 12px;
+            max-width: 202px;
+            width: 202px;
+            height: 48px;
+            border-radius: 24px;
+            background-color: @color-AB-test-text;
+            box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.36);
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: -0.4px;
+            color: rgba(255, 255, 255, 0.81);
+            position: relative;
+            .edit-icon {
+              color: @color-white;
+              font-size: 20px;
             }
-            .v-icon {
-              font-size: 18px;
-              height: 18px;
-              width: 18px;
-              color: @color-grey-icon-static;
-              margin-right: 8px;
+            &:hover {
+              background: lighten(@color-AB-test-text, 5%);
+            }
+            &.rounded-floating-button {
+              transition: all 200ms linear;
+              box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.36);
+              position: fixed;
+              right: 25px;
+              top: 25px;
+              background-color: @color-AB-test-text;
+              height: 48px;
+              width: 48px;
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+              padding: 0 12px;
+              letter-spacing: -0.4px;
+              color: rgba(255, 255, 255, 0.81);
+              .v-icon {
+                color: @color-white;
+                height: 22px;
+                font-size: 20px;
+                transition: all 600ms linear;
+                opacity: 1;
+              }
+              .btn-text{
+                transition: all 100ms linear;
+                opacity: 0;
+                position: absolute;
+                font-size: 0px;
+                visibility: hidden;
+              }
+            }
+          }
+          .static-question-text {
+            color: @color-grey-icon-static;
+            margin-left: 6px;
+          }
+          .static-icon-right {
+            margin-left: auto;
+            font-size: 16px;
+            width: 16px;
+            height: 16px;
+            @media (max-width: @screen-xs) {
+              margin-right: 16px;
             }
           }
         }
         border-radius: 4px;
-        min-height: 100px;
+        border: dashed 1px rgba(68, 82, 252, 0.43);
+        @media (max-width: @screen-xs) {
+          border: none;
+          &:not(.floating-need-to-ask) {
+            border-radius: 0;
+          }
+          box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.12);
+        }
         height: 100%;
         width: 100%;
         max-width: 500px;
@@ -80,7 +161,24 @@
       }
     }
   }
-
+  .floatingcard {
+    position: fixed;
+    right: 0px;
+    width: 0px;
+    top: 25px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 0;
+    .floating-need-to-ask {
+      border-radius: 0%;
+      .static-center {
+        display: none;
+      }
+      height: 5px;
+      width: 5px;
+      background-color: transparent;
+    }
+  }
   .static-card-what-is-question {
     display: none;
     .what-is-question-router-link {
@@ -97,7 +195,6 @@
             font-weight: normal;
             font-size: 40px;
             line-height: 1;
-
           }
         }
         .static-bottom-block {
@@ -109,7 +206,6 @@
             width: 204px;
             max-width: 204px;
             height: 40px;
-
           }
         }
         border-radius: 4px;
@@ -120,22 +216,24 @@
         position: relative;
         background-color: #ffffff;
         box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-
       }
     }
   }
 
   .static-card-what-is-hw-question {
+    display: none;
     @media (max-width: @screen-xs) {
       z-index: 9999;
-      width: 100%;
+      width: 105%;
       left: 0;
       right: 0;
-      &.scrolledByHeader{
+      //hacks to make it wider than parent container on mobile
+      margin-left: -7px;
+      margin-right: -7px;
+      &.scrolledByHeader {
         top: 0px;
       }
     }
-    //display: none;
     .what-is-hw-question-router-link {
       .what-is-hw-question {
         .static-top {
@@ -183,18 +281,17 @@
             width: 16px;
             height: 16px;
             @media (max-width: @screen-xs) {
-             margin-right: 16px;
+              margin-right: 16px;
             }
           }
         }
         border-radius: 4px;
         border: dashed 1px rgba(68, 82, 252, 0.43);
         @media (max-width: @screen-xs) {
-          border:none;
+          border: none;
           border-radius: 0;
           box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.12);
         }
-       // min-height: 100px;
         height: 100%;
         width: 100%;
         max-width: 500px;
@@ -206,4 +303,5 @@
     }
   }
 }
+
 // END static A/B test question cards style end
