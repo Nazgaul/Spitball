@@ -1,11 +1,10 @@
 <template>
     <div>
+         <!-- !!!!!   card AAA   !!!!!-->
         <v-flex  :class="['result-cell', 'mb-3', 'static-card-need-to-ask', 'xs-12', isFloatingBtn ? 'floatingcard' : 'regularCard']"
                 v-scroll="transformToBtn()">
             <a class="mb-5 need-to-ask-router-link" @click="goToAskQuestion">
                 <div :class="['need-to-ask', $vuetify.breakpoint.smAndDown  ? 'mobile' :  'desktop', isFloatingBtn ? 'floating-need-to-ask' : '']">
-                    <!--<button class="ab-test-button hidden-sm-and-up floating-button" @click="goToAskQuestion" v-show="isFloatingBtn">-->
-                    <!--<v-icon class="edit-icon">sbf-edit-icon</v-icon></button>-->
                     <div class="static-center">
                         <p class="static-ab-text">
                             Stuck with your homework?
@@ -25,7 +24,7 @@
                 </div>
             </a>
         </v-flex>
-
+        <!-- !!!!!   card BBB   !!!!!-->
         <v-flex class="result-cell mb-3 static-card-what-is-question" xs-12>
             <a class="mb-5 what-is-question-router-link" @click="goToAskQuestion">
                 <div class="what-is-question">
@@ -40,14 +39,11 @@
                 </div>
             </a>
         </v-flex>
-
+        <!--!!!!!   card CCC  !!!!!-->
         <v-flex :class="['result-cell', 'mb-3', 'static-card-what-is-hw-question', isHiddenBlock  ? 'scrolledByHeader' : '']"
                 xs-12 v-scroll="hideOnMobileScroll">
             <a class="mb-5 what-is-hw-question-router-link" @click="goToAskQuestion">
                 <div class="what-is-hw-question">
-                    <!--<div class="top-block static-top">-->
-                    <!--<span class="static-user-name">{{userName}}</span>-->
-                    <!--</div>-->
                     <div class="static-center" v-if="!isHiddenBlock">
                         <p class="static-ab-text">
                             Stuck with your homework?
