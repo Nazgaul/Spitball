@@ -14,10 +14,13 @@
 
     public class UserAccountDto : UserDto
     {
+
         public string Token { get; set; }
         public decimal Balance { get; set; }
         public decimal Dollar => Balance / 40;
 
         public string Email { get; set; }
+
+        public long? UniversityId { get; set; }
     }
 }
