@@ -6,6 +6,7 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,13 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]"), ApiController]
     public class SearchController : ControllerBase
     {
+        private readonly IStringLocalizer<SearchController> _localizer;
+
+        public SearchController(IStringLocalizer<SearchController> localizer)
+        {
+            _localizer = localizer;
+        }
+
         /// <summary>
         /// Search document vertical result
         /// </summary>
@@ -52,7 +60,7 @@ namespace Cloudents.Web.Api
                 Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
                 Filters = new[]
                 {
-                    new Filters<string>(nameof(SearchRequest.Source),"Sources",result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
+                    new Filters<string>(nameof(SearchRequest.Source),_localizer["Sources"],result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
                 //Facet = result.Facet,
                 NextPageLink = nextPageLink
@@ -105,7 +113,7 @@ namespace Cloudents.Web.Api
                 Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
                 Filters = new[]
                 {
-                    new Filters<string>(nameof(SearchRequest.Source),"Sources",result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
+                    new Filters<string>(nameof(SearchRequest.Source),_localizer["Sources"],result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
                 //Facet = result.Facet,
                 NextPageLink = nextPageLink
