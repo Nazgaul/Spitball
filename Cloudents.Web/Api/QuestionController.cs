@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Web.Api
 {
@@ -148,8 +149,8 @@ namespace Cloudents.Web.Api
                 Result = result.Result,
                 Filters = new IFilters[]
                 {
-                    new Models.Filters<string>(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"], result.FacetState.Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.ToString("G")))),
-                    new Models.Filters<int>(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"], result.FacetSubject)
+                    new Filters<string>(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"], result.FacetState.Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization()))),
+                    new Filters<int>(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"], result.FacetSubject)
                 },
                 NextPageLink = nextPageLink
             };

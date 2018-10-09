@@ -55,7 +55,7 @@ namespace Cloudents.Web.Api
                 Result = result.Result,
                 Filters = new[]
                 {
-                    new Models.Filters<string>(nameof(JobRequest.Facet),"Subject", result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
+                    new Filters<string>(nameof(JobRequest.Facet),"Subject", result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
                 //Filters = new Dictionary<string, IEnumerable<string>>
                 //{
