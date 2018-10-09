@@ -75,7 +75,9 @@
             <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
         </v-toolbar>
 
-        <v-navigation-drawer temporary v-model="drawer" light right fixed app v-if=$vuetify.breakpoint.xsOnly
+        <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
+                             fixed app v-if=$vuetify.breakpoint.xsOnly
+                             :class="isRtl ? 'hebrew-drawer' : ''"
                              width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
@@ -138,6 +140,14 @@
             loggedIn() {
                 return this.accountUser !== null
             },
+            isRtl(){
+                let dir = this.getCurrentDirection();
+                if(dir === 'rtl'){
+                    return true
+                }else{
+                    return false
+                }
+            }
             //myMoney(){return this.accountUser.balance / 40}
 
         },
@@ -173,6 +183,10 @@
                         this.$refs.personalize.openDialog(id);
                     })
                 }
+            },
+            getCurrentDirection(){
+                return document.getElementsByTagName("html")[0].getAttribute("dir");
+
             },
             resetItems(){
                 if(this.$route.path === '/ask'){

@@ -96,11 +96,11 @@ WebFont.load({
 //    attempt: 1
 //});
 //Vue.use(vueSmoothScroll);
+
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
         Scroll,
-
     },
     components: vuetifyComponents
 });

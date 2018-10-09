@@ -42,7 +42,8 @@
                                        event : $event} )"/>
 
                                 <label class="checkmark" :for="(filterItem.id ? filterItem.id : filterItem)"></label>
-                                <label class="title-label" :title="filterItem.name ? filterItem.name : filterItem" :for="(filterItem.id ? filterItem.id : filterItem)">
+                                <label class="title-label" :title="filterItem.name ? filterItem.name : filterItem | capitalize"
+                                       :for="(filterItem.id ? filterItem.id : filterItem)">
                                     {{filterItem.name ? filterItem.name : filterItem | capitalize}}
                                 </label>
                             </div>
