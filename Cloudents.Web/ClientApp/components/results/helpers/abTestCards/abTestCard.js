@@ -1,37 +1,58 @@
 import userAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import askQuestionBtn from '../askQuestionBtn/askQuestionBtn.vue';
-import {mapGetters, mapActions } from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
-    components:{
+    components: {
         askQuestionBtn,
         userAvatar
     },
     data() {
         return {
+            offsetTop: 0,
+            offsetTop2: 0,
+            hideABTestBlock: true,
+
         }
     },
     props: {
-        userName:{}
+        userName: {}
     },
     computed: {
-        ...mapGetters({
-            accountUser: 'accountUser',
-            loginDialogState: 'loginDialogState'
-        }),
+        ...mapGetters(['accountUser', 'loginDialogState' ]),
+        isHiddenBlock(){
+            ///if (this.$vuetify.breakpoint.name === 'xs' || 'sm') {
+            return this.offsetTop >= 75 && (this.$vuetify.breakpoint.name === 'xs' && 'sm')
+            //  }
+        },
+        isFloatingBtn(){
+            return this.offsetTop2 >= 150 && (this.$vuetify.breakpoint.name === 'xs' && 'sm')
+
+        }
     },
-    methods:{
+    methods: {
         ...mapActions(["updateLoginDialogState", 'updateUserProfileData', 'updateNewQuestionDialogState']),
-        goToAskQuestion(){
-            if(this.accountUser == null){
+        goToAskQuestion() {
+           // console.log(this.accountUser);
+            if (this.accountUser == null) {
                 this.updateLoginDialogState(true);
                 //set user profile
                 this.updateUserProfileData('profileHWH')
-            }else{
+            } else {
                 this.updateNewQuestionDialogState(true);
             }
-        }
+        },
+        hideOnMobileScroll(e) {
+                this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
+        },
+        transformToBtn(){
+            this.offsetTop2 = window.pageYOffset || document.documentElement.scrollTop;
+
+        },
     },
+
+
     created() {
+        console.log(...mapGetters);
     }
 }
