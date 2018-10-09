@@ -9,19 +9,19 @@ namespace Cloudents.Web.Models
 
         public IEnumerable<IFilters> Filters { get; set; }
 
-        public IEnumerable<string> Sort { get; set; }
+        public IEnumerable<KeyValuePair<string, string>> Sort { get; set; }
 
         public string NextPageLink { get; set; }
     }
 
     public interface IFilters
     {
-         string Id { get;  }
-         string Title { get;  }
+        string Id { get; }
+        string Title { get; }
 
-         IEnumerable Data { get; }
+        IEnumerable Data { get; }
     }
-    
+
 
     public class Filters<T> : IFilters
     {

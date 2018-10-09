@@ -49,7 +49,7 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<SearchResult>
             {
                 Result = p,
-                Sort = Enum.GetNames(typeof(SearchRequestSort)),
+                Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
                 Filters = new[]
                 {
                     new Models.Filters<string>(nameof(SearchRequest.Source),"Sources",result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
@@ -102,7 +102,7 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<SearchResult>
             {
                 Result = p,
-                Sort = Enum.GetNames(typeof(SearchRequestSort)),
+                Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
                 Filters = new[]
                 {
                     new Models.Filters<string>(nameof(SearchRequest.Source),"Sources",result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))

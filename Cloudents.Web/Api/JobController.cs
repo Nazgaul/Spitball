@@ -61,7 +61,7 @@ namespace Cloudents.Web.Api
                 //{
                 //    ["Subject"] = result.Facet
                 //},
-                Sort = Enum.GetNames(typeof(JobRequestSort)),
+                Sort = Enum.GetNames(typeof(JobRequestSort)).Select(s=>new KeyValuePair<string, string>(s,s)),
                 NextPageLink = nextPageLink
             };
         }
