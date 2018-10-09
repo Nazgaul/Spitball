@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
-using Cloudents.Web.Models;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -9,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Cloudents.Core.Query;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Microsoft.Extensions.Configuration;

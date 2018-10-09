@@ -11,6 +11,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Id(x => x.Id).GeneratedBy.Native();
             Map(e => e.Text).Column("Subject");
             Map(e => e.Order).Column("OrderColumn");
+            Map(e => e.TextHebrew).Column("Subject_Hebrew");
             ReadOnly();
 
             Cache.ReadOnly().Region("nHibernate-Subject");

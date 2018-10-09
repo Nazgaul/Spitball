@@ -7,5 +7,7 @@
 
         public virtual int Order { get; set; }
 
+        public virtual string TextHebrew { get; set; }
+
     }
 }

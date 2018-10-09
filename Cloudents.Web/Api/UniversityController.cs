@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
