@@ -117,52 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="about_spitball" xml:space="preserve">
-    <value>מה זה ספיטבול</value>
+  <data name="ask_logarithms" xml:space="preserve">
+    <value>איך לפתור לוגריתמים!</value>
   </data>
-  <data name="feedback" xml:space="preserve">
-    <value>בואו לתת לנו פידבק</value>
+  <data name="ask_plate" xml:space="preserve">
+    <value>טקטוניקת הסביר!</value>
   </data>
-  <data name="help" xml:space="preserve">
-    <value>עזרה</value>
+  <data name="ask_triassic" xml:space="preserve">
+    <value>עובדות על אודות תקופת triassic!</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>התחבר/י</value>
+  <data name="book_biology" xml:space="preserve">
+    <value>ביולוגיה: הליבה מהדורה שניה!</value>
   </data>
-  <data name="login_l" xml:space="preserve">
-    <value>התחבר/י</value>
+  <data name="book_gregory" xml:space="preserve">
+    <value>גרגורי Mankiw לימוד!</value>
   </data>
-  <data name="logout" xml:space="preserve">
-    <value>התנתק/י</value>
+  <data name="flashcard_calculus" xml:space="preserve">
+    <value>חשבון אינפיניטסימלי 2 סקירה סט!</value>
   </data>
-  <data name="messages" xml:space="preserve">
-    <value>הודעות</value>
+  <data name="flashcard_physics_study" xml:space="preserve">
+    <value>פיזיקה ללמוד סט!</value>
   </data>
-  <data name="my_profile" xml:space="preserve">
-    <value>הפרופיל שלי</value>
+  <data name="flashcard_spanish" xml:space="preserve">
+    <value>ביניים האוצר ספרדי המילים שלך!</value>
   </data>
-  <data name="my_wallet" xml:space="preserve">
-    <value>החשבון שלי</value>
+  <data name="home_flashcards" xml:space="preserve">
+    <value>כרטיסיות עבור חשבונאות!</value>
   </data>
-  <data name="or" xml:space="preserve">
-    <value>או</value>
+  <data name="job_ambassador" xml:space="preserve">
+    <value>המותג השגריר משרות!</value>
   </data>
-  <data name="Please" xml:space="preserve">
-    <value>בבקשה</value>
+  <data name="job_design" xml:space="preserve">
+    <value>עיצוב ממשק משתמש!</value>
   </data>
-  <data name="privacy_policy" xml:space="preserve">
-    <value>מדיניות פרטיות</value>
+  <data name="job_internship" xml:space="preserve">
+    <value>התלמדות!</value>
   </data>
-  <data name="referral_spitball" xml:space="preserve">
-    <value>המלצה לחבר!</value>
+  <data name="note_electrical" xml:space="preserve">
+    <value>הנדסת חשמל</value>
   </data>
-  <data name="Sign_up" xml:space="preserve">
-    <value>התחבר/י</value>
+  <data name="note_microeconomics" xml:space="preserve">
+    <value>מיקרו-כלכלה לנדסברגר!</value>
   </data>
-  <data name="sign_up_l" xml:space="preserve">
-    <value>הירשם/י</value>
+  <data name="note_pastExams" xml:space="preserve">
+    <value>מעבר הבחינות ביו 101!</value>
   </data>
-  <data name="terms_of_service" xml:space="preserve">
-    <value>תנאי שירות</value>
+  <data name="tutorphysics_esl" xml:space="preserve">
+    <value>חונכות אנגלית כשפה שנייה!</value>
+  </data>
+  <data name="tutor_accounting" xml:space="preserve">
+    <value>חשבונאות עזרה שיעורי בית!</value>
+  </data>
+  <data name="tutor_biology" xml:space="preserve">
+    <value>עזרה ביולוגיה!</value>
   </data>
 </root>

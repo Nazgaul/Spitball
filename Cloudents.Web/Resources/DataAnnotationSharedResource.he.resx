@@ -117,52 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="about_spitball" xml:space="preserve">
-    <value>מה זה ספיטבול</value>
+  <data name="Compare" xml:space="preserve">
+    <value>'{0}' ו- '{1}' לא תואמות.!</value>
   </data>
-  <data name="feedback" xml:space="preserve">
-    <value>בואו לתת לנו פידבק</value>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>השדה ' {0} ' אינה כתובת דואר אלקטרוני חוקית.!</value>
   </data>
-  <data name="help" xml:space="preserve">
-    <value>עזרה</value>
+  <data name="InvalidCulture" xml:space="preserve">
+    <value>שפה זו אינה נתמכת!</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>התחבר/י</value>
+  <data name="InvalidPhoneNumber" xml:space="preserve">
+    <value>מספר הטלפון אינו חוקי.</value>
   </data>
-  <data name="login_l" xml:space="preserve">
-    <value>התחבר/י</value>
+  <data name="InvalidRedeemValue" xml:space="preserve">
+    <value>תוכל לפדות רק 1000,2000,3000,4000!</value>
   </data>
-  <data name="logout" xml:space="preserve">
-    <value>התנתק/י</value>
+  <data name="MaxLength" xml:space="preserve">
+    <value>השדה {0} חייב להיות סוג של מחרוזת או מערך באורך מקסימלי של '{1}'.!</value>
   </data>
-  <data name="messages" xml:space="preserve">
-    <value>הודעות</value>
+  <data name="MinLength" xml:space="preserve">
+    <value>השדה {0} חייב להיות מסוג מחרוזת או מערך באורך מינימלי של '{1}'.!</value>
   </data>
-  <data name="my_profile" xml:space="preserve">
-    <value>הפרופיל שלי</value>
+  <data name="NeedCountry" xml:space="preserve">
+    <value>אתה צריך להיות מדינה קודם!</value>
   </data>
-  <data name="my_wallet" xml:space="preserve">
-    <value>החשבון שלי</value>
+  <data name="NeedUniversity" xml:space="preserve">
+    <value>אתה צריך לבחור באוניברסיטה הראשונה!</value>
   </data>
-  <data name="or" xml:space="preserve">
-    <value>או</value>
+  <data name="Range" xml:space="preserve">
+    <value>השדה {0} חייב להיות בין {1} לבין {2}.</value>
   </data>
-  <data name="Please" xml:space="preserve">
-    <value>בבקשה</value>
+  <data name="Required" xml:space="preserve">
+    <value>יש למלא שדה זה.</value>
   </data>
-  <data name="privacy_policy" xml:space="preserve">
-    <value>מדיניות פרטיות</value>
+  <data name="StringLength" xml:space="preserve">
+    <value>השדה {0} חייב להיות מחרוזת עם אורך מינימלי של {1} ואורך מרבי של {2}. &amp;quot;</value>
   </data>
-  <data name="referral_spitball" xml:space="preserve">
-    <value>המלצה לחבר!</value>
-  </data>
-  <data name="Sign_up" xml:space="preserve">
-    <value>התחבר/י</value>
-  </data>
-  <data name="sign_up_l" xml:space="preserve">
-    <value>הירשם/י</value>
-  </data>
-  <data name="terms_of_service" xml:space="preserve">
-    <value>תנאי שירות</value>
+  <data name="StringLengthMax" xml:space="preserve">
+    <value>השדה {0} חייב להיות מחרוזת באורך מרבי של {1}.</value>
   </data>
 </root>

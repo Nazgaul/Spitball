@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="about_spitball" xml:space="preserve">
-    <value>מה זה ספיטבול</value>
+    <value>על רוק!</value>
   </data>
   <data name="feedback" xml:space="preserve">
-    <value>בואו לתת לנו פידבק</value>
+    <value>משוב</value>
   </data>
   <data name="help" xml:space="preserve">
-    <value>עזרה</value>
+    <value>Help!</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>התחבר/י</value>
+    <value>התחבר</value>
   </data>
   <data name="login_l" xml:space="preserve">
-    <value>התחבר/י</value>
+    <value>התחברות</value>
   </data>
   <data name="logout" xml:space="preserve">
-    <value>התנתק/י</value>
+    <value>התנתק</value>
   </data>
   <data name="messages" xml:space="preserve">
     <value>הודעות</value>
   </data>
   <data name="my_profile" xml:space="preserve">
-    <value>הפרופיל שלי</value>
+    <value>ראשי</value>
   </data>
   <data name="my_wallet" xml:space="preserve">
-    <value>החשבון שלי</value>
+    <value>הקרן שלי</value>
   </data>
   <data name="or" xml:space="preserve">
     <value>או</value>
@@ -157,12 +157,12 @@
     <value>המלצה לחבר!</value>
   </data>
   <data name="Sign_up" xml:space="preserve">
-    <value>התחבר/י</value>
+    <value>הירשמו!</value>
   </data>
   <data name="sign_up_l" xml:space="preserve">
-    <value>הירשם/י</value>
+    <value>הירשמו!</value>
   </data>
   <data name="terms_of_service" xml:space="preserve">
-    <value>תנאי שירות</value>
+    <value>תקנון וחוזה שרות</value>
   </data>
 </root>

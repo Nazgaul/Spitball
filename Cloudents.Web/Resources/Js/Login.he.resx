@@ -118,112 +118,112 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="agree" xml:space="preserve">
-    <value>מסכים</value>
+    <value>אני מסכים לספיטבול!</value>
   </data>
   <data name="already_have_account" xml:space="preserve">
-    <value>יש לך כבר חשבון?</value>
+    <value>יש לך חשבון?</value>
   </data>
   <data name="already_have_password" xml:space="preserve">
-    <value>. כבר יש לי סיסמה!!</value>
+    <value>יש לי כבר סיסמה!</value>
   </data>
   <data name="and" xml:space="preserve">
-    <value>ו</value>
+    <value>ו-</value>
   </data>
   <data name="an_activation_email_has_been_sent_to" xml:space="preserve">
-    <value>נשלח אישור לכתובת המייל</value>
+    <value>הודעת הפעלה נשלחה אל!</value>
   </data>
   <data name="are_you_sure_you_want_to_exit" xml:space="preserve">
-    <value>בטוח/ה שאת/ה רוצה לצאת?</value>
+    <value>האם אתה בטוח שברצונך לצאת מהיישום?</value>
   </data>
   <data name="Change" xml:space="preserve">
-    <value>לחץ/י לשינוי</value>
+    <value>החלף</value>
   </data>
   <data name="check_your_email" xml:space="preserve">
-    <value>אנא בדוק את המייל כדי להפעיל את החשבון</value>
+    <value>בדוק את הדוא&amp;quot;ל שלך כדי להפעיל!</value>
   </data>
   <data name="click_here_to_send" xml:space="preserve">
-    <value>Click here to resend.</value>
+    <value>לחץ כאן כדי לשלוח מחדש.!</value>
   </data>
   <data name="confirmation_link_expired" xml:space="preserve">
-    <value>התוקף של הקוד שנשלח אליך פג</value>
+    <value>קישור אישור שלך פג!</value>
   </data>
   <data name="congrats" xml:space="preserve">
-    <value>מזל טוב!</value>
+    <value>מזל טוב!!</value>
   </data>
   <data name="continue" xml:space="preserve">
     <value>המשך</value>
   </data>
   <data name="continue_registration" xml:space="preserve">
-    <value>בואו להירשם כדי להמשיך</value>
+    <value>המשך בהרשמה!</value>
   </data>
   <data name="create_password_button" xml:space="preserve">
-    <value>צור סיסמה</value>
+    <value>צור סיסמה!</value>
   </data>
   <data name="create_password_text" xml:space="preserve">
-    <value>צור את סיסמתך</value>
+    <value>צור את הסיסמה שלך!</value>
   </data>
   <data name="didnt_get_an_email" xml:space="preserve">
-    <value>עדיין לא קיבלת מייל?</value>
+    <value>לא קיבלת דוא&amp;quot;ל ?!</value>
   </data>
   <data name="didnt_get_sms" xml:space="preserve">
-    <value>עדיין לא קיבלת SMS?</value>
+    <value>לא קיבלת SMS ?!</value>
   </data>
   <data name="enter_the_confirm_code" xml:space="preserve">
-    <value>הקש/י את הקוד שנשלח אליך</value>
+    <value>הזן את קוד האישור!</value>
   </data>
   <data name="enter_your_phone_number" xml:space="preserve">
-    <value>הקש/י את מספר הטלפון שלך</value>
+    <value>הזן את מספר הטלפון שלך</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>יציאה</value>
   </data>
   <data name="exiting_information1" xml:space="preserve">
-    <value>יציאה מהתהליך תמחוק את כל מה שעבדנו עליו</value>
+    <value>יציאה מתהליך זה תמחק את כל שלך!</value>
   </data>
   <data name="exiting_information2" xml:space="preserve">
-    <value>בתהליך עדכון</value>
+    <value>התקדמות ומידע!</value>
   </data>
   <data name="forgot_password_link" xml:space="preserve">
-    <value>שכחת סיסמה</value>
+    <value>שכחתי סיסמא</value>
   </data>
   <data name="get_started" xml:space="preserve">
-    <value>קדימה בוא/י נתחיל!</value>
+    <value>בואו נתחיל!</value>
   </data>
   <data name="happens_to_best" xml:space="preserve">
     <value>אל תתבייש. זה קורה לטוב.</value>
   </data>
   <data name="homework_questions" xml:space="preserve">
-    <value>תרגילי בית</value>
+    <value>שאלות שיעורים.</value>
   </data>
   <data name="lets_start" xml:space="preserve">
-    <value>קדימה בוא/י נתחיל!</value>
+    <value>בואו נתחיל!</value>
   </data>
   <data name="login" xml:space="preserve">
-    <value>התחבר/י</value>
+    <value>התחבר</value>
   </data>
   <data name="login_click_here_to_send" xml:space="preserve">
-    <value>לחץ/י כאן כדי לשלוח שוב</value>
+    <value>לחץ כאן כדי לשלוח מחדש.!</value>
   </data>
   <data name="login_didnt_get_sms" xml:space="preserve">
-    <value>עדיין לא קיבלת SMS?</value>
+    <value>לא קיבלת SMS ?!</value>
   </data>
   <data name="login_until_activate_account3" xml:space="preserve">
-    <value>עד שתפעיל/י את חשבונך</value>
+    <value>עד להפעלת החשבון שלך!</value>
   </data>
   <data name="need_account_link" xml:space="preserve">
-    <value>הירשם/י</value>
+    <value>הירשמו!</value>
   </data>
   <data name="need_account_text" xml:space="preserve">
-    <value>תרצה/י לפתוח חשבון?</value>
+    <value>צריך חשבון?!</value>
   </data>
   <data name="need_an_account" xml:space="preserve">
-    <value>תרצה/י לפתוח חשבון?</value>
+    <value>צריך חשבון?!</value>
   </data>
   <data name="not_complete_registration" xml:space="preserve">
-    <value>עדיין לא השלמת את תהליך ההרשמה</value>
+    <value>לא השלמת תהליך ההרשמה!</value>
   </data>
   <data name="or" xml:space="preserve">
-    <value>אוצר מילים בספרדית</value>
+    <value>או</value>
   </data>
   <data name="passsword_dialog_text_1" xml:space="preserve">
     <value>הגדרות הפרטיות שלנו השתנה.!</value>
@@ -238,7 +238,7 @@
     <value>ביקשתי תשובה!</value>
   </data>
   <data name="password_dialog_action_create_password" xml:space="preserve">
-    <value>יצירת סיסמה</value>
+    <value>צור סיסמה</value>
   </data>
   <data name="password_dialog_action_have_password" xml:space="preserve">
     <value>יש לי סיסמא!</value>
@@ -250,10 +250,10 @@
     <value>לא מקבלים את המייל? בדוק את התיקיה דואר זבל או!</value>
   </data>
   <data name="password_indication_strong" xml:space="preserve">
-    <value>חזק</value>
+    <value>חזק - שיחקת אותה</value>
   </data>
   <data name="password_indication_strongest" xml:space="preserve">
-    <value>הכי חזק</value>
+    <value>החזק ביותר!</value>
   </data>
   <data name="password_indication_weak" xml:space="preserve">
     <value>חלש</value>
@@ -262,58 +262,58 @@
     <value>בחר סיסמה!</value>
   </data>
   <data name="placeholder_confirm_password" xml:space="preserve">
-    <value>אשר סיסמה</value>
+    <value>חזור על הסיסמה</value>
   </data>
   <data name="placeholder_email" xml:space="preserve">
-    <value>הזן את הדואר האלקטרוני שלך</value>
+    <value>הזן דואר אלקטרוני</value>
   </data>
   <data name="placeholder_enter_confirmation_code" xml:space="preserve">
     <value>הזן את קוד האישור!</value>
   </data>
   <data name="placeholder_enter_new_password" xml:space="preserve">
-    <value>הזן את הסיסמה החדשה:</value>
+    <value>להזין סיסמא</value>
   </data>
   <data name="placeholder_enter_password" xml:space="preserve">
-    <value>הזן סיסמה</value>
+    <value>להזין סיסמא</value>
   </data>
   <data name="placeholder_enter_phone" xml:space="preserve">
-    <value>הזן מספר טלפון</value>
+    <value>הקלידו מספר טלפון</value>
   </data>
   <data name="please_agree" xml:space="preserve">
-    <value>לחץ/י כאן להסכים לתנאי השירות כדי להסכים</value>
+    <value>בבקשה להסכים לתנאים ושירותים כדי להמשיך!</value>
   </data>
   <data name="please_login" xml:space="preserve">
-    <value>התחבר/י</value>
+    <value>בבקשה להתחבר</value>
   </data>
   <data name="privacy_policy" xml:space="preserve">
     <value>מדיניות פרטיות</value>
   </data>
   <data name="register" xml:space="preserve">
-    <value>הירשם/י</value>
+    <value>הירשם!</value>
   </data>
   <data name="remember_now" xml:space="preserve">
-    <value>. אה, רגע, אני זוכר עכשיו!</value>
+    <value>אני זוכר עכשיו!!</value>
   </data>
   <data name="reset_password_button" xml:space="preserve">
     <value>איפוס סיסמה</value>
   </data>
   <data name="reset_password_text" xml:space="preserve">
-    <value>איפוס הסיסמה שלך</value>
+    <value>אפס את סיסמה שלך</value>
   </data>
   <data name="reset_your_password" xml:space="preserve">
-    <value>איפוס הסיסמה שלך</value>
+    <value>אפס את סיסמה שלך</value>
   </data>
   <data name="sbl" xml:space="preserve">
-    <value>נקודות</value>
+    <value>SBL!</value>
   </data>
   <data name="select_your_country_code" xml:space="preserve">
-    <value>מהי הקידומת במדינה שלך</value>
+    <value>בחר את אזור מגוריך</value>
   </data>
   <data name="sent_code_by_sms" xml:space="preserve">
-    <value>שלחנו לך קוד בSMS</value>
+    <value>שלחנו את הקוד אליכם ב- SMS!</value>
   </data>
   <data name="sent_confirmation_code" xml:space="preserve">
-    <value>שלחנו לך קוד אישור בSMS</value>
+    <value>שלחנו את קוד האימות לטלפון הנייד שלך.!</value>
   </data>
   <data name="signin_your_email" xml:space="preserve">
     <value>היכנס באמצעות דוא ל!</value>
@@ -322,60 +322,60 @@
     <value>הרשם עם דוא ל!</value>
   </data>
   <data name="sign_in" xml:space="preserve">
-    <value>התחבר/י</value>
+    <value>התחבר</value>
   </data>
   <data name="sign_in_with_google" xml:space="preserve">
     <value>היכנס באמצעות גוגל</value>
   </data>
   <data name="sign_up" xml:space="preserve">
-    <value>הירשם/י</value>
+    <value>הירשמו!</value>
   </data>
   <data name="sign_up_with_google" xml:space="preserve">
     <value>הרשם עם גוגל</value>
   </data>
   <data name="sure_exit1" xml:space="preserve">
-    <value>האם את/ה</value>
+    <value>האם את/ה:</value>
   </data>
   <data name="sure_exit2" xml:space="preserve">
-    <value>בטוח/ה?</value>
+    <value>טלקר</value>
   </data>
   <data name="sure_exit3" xml:space="preserve">
-    <value>את/ה רוצה</value>
+    <value>אתה רוצה</value>
   </data>
   <data name="sure_exit4" xml:space="preserve">
-    <value>ל</value>
+    <value>לכבוד</value>
   </data>
   <data name="sure_exit5" xml:space="preserve">
-    <value>לצאת?</value>
+    <value>יציאה</value>
   </data>
   <data name="terms_of_services" xml:space="preserve">
-    <value>תנאי שירות</value>
+    <value>תנאי שירותי!</value>
   </data>
   <data name="until_activate_account" xml:space="preserve">
-    <value>אין אפשרות להתחבר עד שלא תפעיל את חשבון הספיטבול שלך</value>
+    <value>לא ניתן יהיה להיכנס כדי Spitball.co עד להפעלת החשבון שלך!</value>
   </data>
   <data name="until_activate_account1" xml:space="preserve">
-    <value>לא תוכל/י</value>
+    <value>אתה לא תהיה מסוגל!</value>
   </data>
   <data name="until_activate_account2" xml:space="preserve">
-    <value>כדי להתחבר לספיטבול</value>
+    <value>כדי להיכנס Spitball.co!</value>
   </data>
   <data name="until_activate_account3" xml:space="preserve">
-    <value>עד שתפעיל/י את חשבונך</value>
+    <value>עד להפעלת החשבון שלך!</value>
   </data>
   <data name="welcome_back" xml:space="preserve">
-    <value>ברוך השב:)</value>
+    <value>ברוכים השבים</value>
   </data>
   <data name="Your" xml:space="preserve">
     <value>שלך</value>
   </data>
   <data name="your_account" xml:space="preserve">
-    <value>החשבון שלך</value>
+    <value>חשבון שלך</value>
   </data>
   <data name="you_are_reward_with" xml:space="preserve">
-    <value>הרווחת</value>
+    <value>אתה מתוגמל!</value>
   </data>
   <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
-    <value>את/ה יכול להשתמש בהם כדי לקבל תשובות מיוחדות או מסמכים מיוחדים</value>
+    <value>אתה יכול לבלות אותם כדי לקבל סיוע שלך!</value>
   </data>
 </root>

@@ -117,52 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="about_spitball" xml:space="preserve">
-    <value>מה זה ספיטבול</value>
-  </data>
-  <data name="feedback" xml:space="preserve">
-    <value>בואו לתת לנו פידבק</value>
-  </data>
-  <data name="help" xml:space="preserve">
-    <value>עזרה</value>
-  </data>
-  <data name="Login" xml:space="preserve">
-    <value>התחבר/י</value>
-  </data>
-  <data name="login_l" xml:space="preserve">
-    <value>התחבר/י</value>
-  </data>
-  <data name="logout" xml:space="preserve">
-    <value>התנתק/י</value>
-  </data>
-  <data name="messages" xml:space="preserve">
-    <value>הודעות</value>
-  </data>
-  <data name="my_profile" xml:space="preserve">
-    <value>הפרופיל שלי</value>
-  </data>
-  <data name="my_wallet" xml:space="preserve">
-    <value>החשבון שלי</value>
-  </data>
-  <data name="or" xml:space="preserve">
-    <value>או</value>
-  </data>
-  <data name="Please" xml:space="preserve">
-    <value>בבקשה</value>
-  </data>
-  <data name="privacy_policy" xml:space="preserve">
-    <value>מדיניות פרטיות</value>
-  </data>
-  <data name="referral_spitball" xml:space="preserve">
-    <value>המלצה לחבר!</value>
-  </data>
-  <data name="Sign_up" xml:space="preserve">
-    <value>התחבר/י</value>
-  </data>
-  <data name="sign_up_l" xml:space="preserve">
-    <value>הירשם/י</value>
-  </data>
-  <data name="terms_of_service" xml:space="preserve">
-    <value>תנאי שירות</value>
+  <data name="submit" xml:space="preserve">
+    <value>שלח</value>
   </data>
 </root>

@@ -6,7 +6,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
+using Cloudents.Web.Extensions;
+using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Web.Controllers
 {
@@ -14,22 +18,22 @@ namespace Cloudents.Web.Controllers
     public class HomeController : Controller
     {
         internal const string Referral = "referral";
-        //private readonly List<IPAddress> _officeIps = new List<IPAddress>();
+        private readonly List<IPAddress> _officeIps = new List<IPAddress>();
 
 
-        //public HomeController(IConfiguration configuration)
-        //{
-        //    var ipsStr = configuration["Ips"];
+        public HomeController(IConfiguration configuration)
+        {
+            var ipsStr = configuration["Ips"];
 
-        //    if (ipsStr == null) return;
-        //    foreach (var ipStr in ipsStr.Split(','))
-        //    {
-        //        if (IPAddress.TryParse(ipStr, out var ip))
-        //        {
-        //            _officeIps.Add(ip);
-        //        }
-        //    }
-        //}
+            if (ipsStr == null) return;
+            foreach (var ipStr in ipsStr.Split(','))
+            {
+                if (IPAddress.TryParse(ipStr, out var ip))
+                {
+                    _officeIps.Add(ip);
+                }
+            }
+        }
 
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index(LocationQuery location,
@@ -45,30 +49,31 @@ namespace Cloudents.Web.Controllers
             {
                 ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
             }
+            ViewBag.country = location
 
-            //if (env.IsDevelopment())
-            //{
-            //    return View();
-            //}
+            if (env.IsDevelopment())
+            {
+                return View();
+            }
 
-            //if (env.IsStaging())
-            //{
-            //    return View();
-            //}
+            if (env.IsStaging())
+            {
+                return View();
+            }
 
-            //if (isNew.GetValueOrDefault(false))
-            //{
-            //    return View();
-            //}
-            //var requestIp = HttpContext.Connection.GetIpAddress();
-            //if (_officeIps.Contains(requestIp))
-            //{
-            //    return View();
-            //}
-            //if (string.Equals(location?.Address?.CountryCode, "il", StringComparison.InvariantCultureIgnoreCase))
-            //{
-            //    return this.RedirectToOldSite();
-            //}
+            if (isNew.GetValueOrDefault(false))
+            {
+                return View();
+            }
+            var requestIp = HttpContext.Connection.GetIpAddress();
+            if (_officeIps.Contains(requestIp))
+            {
+                return View();
+            }
+            if (string.Equals(location?.Address?.CountryCode, "il", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return this.RedirectToOldSite();
+            }
             return View();
         }
 

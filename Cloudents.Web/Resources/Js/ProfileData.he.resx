@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="generalProfile_modal_heading" xml:space="preserve">
-    <value>בבקשה התחבר/י או הרשם/י כדי להמשיך</value>
+    <value>בבקשה&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;הרשמה&amp;lt;/b&amp;gt; או &amp;lt;b&amp;gt;כניסה&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;כדי להמשיך.!</value>
   </data>
   <data name="generalProfile_modal_text" xml:space="preserve">
-    <value>זהו כמעט סיימנו את הרישום, רק עוד כמה קליקים ויש לכם תשובות ונקודות ששוות כסף!</value>
+    <value>. אתה רק מספר לחיצות על העכבר פותח עזרה מיידית את שיעורי הבית ואת היכולת לעשות כסף רציני!!</value>
   </data>
   <data name="generalProfile_register_stepEight_heading" xml:space="preserve">
     <value>בדוק את הדוא'ל שלך</value>
@@ -130,52 +130,52 @@
     <value>שלחנו אליך אימייל חדש לאיפוס סיסמה.!</value>
   </data>
   <data name="generalProfile_register_stepFive_boldTextOne" xml:space="preserve">
-    <value>הקש/י את קוד האישור</value>
+    <value>הזן את קוד האישור!</value>
   </data>
   <data name="generalProfile_register_stepFive_heading" xml:space="preserve">
-    <value>הקש/י את האישור ששלחנו אליך בSMS</value>
+    <value>הזן את קוד האישור שלחנו את הקוד אליך באמצעות SMS!</value>
   </data>
   <data name="generalProfile_register_stepFour_boldTextOne" xml:space="preserve">
-    <value>הקש/י את מספר הטלפון שלך</value>
+    <value>הזן את מספר הטלפון שלך</value>
   </data>
   <data name="generalProfile_register_stepFour_heading" xml:space="preserve">
-    <value>הקש/י את מספר הטלפון שלך אנחנו חייבים לשלוח לך קוד אישור כדי להתחיל</value>
+    <value>הזן את מספר הטלפון שלך אנחנו צריכים לשלוח לך קוד אישור!</value>
   </data>
   <data name="generalProfile_register_stepFour_text" xml:space="preserve">
-    <value>אנחנו חייבים לשלוח לך קוד אישור קודם</value>
+    <value>אנחנו צריכים לשלוח לך קוד אישור!</value>
   </data>
   <data name="generalProfile_register_stepNine_heading" xml:space="preserve">
     <value>להזין סיסמא</value>
   </data>
   <data name="generalProfile_register_stepOne_boldTextOne" xml:space="preserve">
-    <value>עזרה מיידית</value>
+    <value>מיידית</value>
   </data>
   <data name="generalProfile_register_stepOne_boldTextTwo" xml:space="preserve">
-    <value>בואו להרוויח כסף</value>
+    <value>money</value>
   </data>
   <data name="generalProfile_register_stepOne_heading" xml:space="preserve">
-    <value>שאלו שאלות כדי לקבל עזרה במיידי או ענו על שאלות כדי להרוויח כסף</value>
+    <value>לשאול שאלות &amp; לקבל עזרה מיידית או לענות על שאלות &amp; להרוויח כסף!</value>
   </data>
   <data name="generalProfile_register_stepOne_text" xml:space="preserve">
-    <value>נתחיל עם המייל, כדי שתהיה לנו אפשרות לתקשר איתך</value>
+    <value>התחל עם הדוא&amp;quot;ל שלך. אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
   </data>
   <data name="generalProfile_register_stepSeven_heading" xml:space="preserve">
     <value>&lt;b&gt;ברוך שובך&lt;/b&gt; &lt;br/&gt; אנא התחבר!</value>
   </data>
   <data name="generalProfile_register_stepSix_boldTextOne" xml:space="preserve">
-    <value>100 נקודות</value>
+    <value>100</value>
   </data>
   <data name="generalProfile_register_stepSix_heading" xml:space="preserve">
-    <value>מזל טוב!</value>
+    <value>מזל טוב!!</value>
   </data>
   <data name="generalProfile_register_stepSix_subheading" xml:space="preserve">
     <value>. אתה מוכן להתחיל דברים לאוויר!!</value>
   </data>
   <data name="generalProfile_register_stepSix_text" xml:space="preserve">
-    <value>הרווחת 100 נקודות ואתה יכול להשתמש בהם כדי לקבל עזרה עם שיעורי הבית שלך או בהכנה למבחנים או שתוכל/י לפדות אותם לכסף BUYME</value>
+    <value>אנחנו כבר הוענק לך 100 ובינונית ליצירת באפשרותך להשתמש אלה כדי לקבל עזרה בשאלות שיעורי הבית שלך, או לענות על השאלות של תלמידים אחרים כדי להרוויח ובינונית ליצירת זה יכולים להיגאל לכסף אמיתי!!</value>
   </data>
   <data name="generalProfile_register_stepTen_createbtn" xml:space="preserve">
-    <value>צור סיסמה</value>
+    <value>צור סיסמה!</value>
   </data>
   <data name="generalProfile_register_stepTen_createtxt" xml:space="preserve">
     <value>צור את &lt;b&gt;הסיסמה&lt;/b&gt; שלך!</value>
@@ -190,28 +190,28 @@
     <value>אפס את סיסמה שלך</value>
   </data>
   <data name="generalProfile_register_stepThree_boldTextOne" xml:space="preserve">
-    <value>הפעל את החשבון שלי</value>
+    <value>הפעל חשבון</value>
   </data>
   <data name="generalProfile_register_stepThree_heading" xml:space="preserve">
-    <value>שלחנו לכם מייל להפעלת החשבון</value>
+    <value>בדוק את הדוא&amp;quot;ל שלך כדי להפעיל את חשבונך!</value>
   </data>
   <data name="generalProfile_register_stepTwo_boldTextOne" xml:space="preserve">
-    <value>ליצור איתך קשר</value>
+    <value>ליצור איתך קשר.!</value>
   </data>
   <data name="generalProfile_register_stepTwo_heading" xml:space="preserve">
-    <value>השאירו פרטים כדי שתהיה לנו אפשרות ליצור אתכם קשר</value>
+    <value>אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
   </data>
   <data name="generalProfile_register_stepTwo_text" xml:space="preserve">
-    <value>השאירו פרטים כדי שתהיה לנו אפשרות ליצור אתכם קשר</value>
+    <value>אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
   </data>
   <data name="HHP_modal_heading" xml:space="preserve">
-    <value>הירשם/י או התחבר/י כדי להמשיך</value>
+    <value>בבקשה&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;הרשמה&amp;lt;/b&amp;gt; או &amp;lt;b&amp;gt;כניסה&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;כדי להמשיך.!</value>
   </data>
   <data name="HHP_modal_text" xml:space="preserve">
-    <value>זהו כמעט סיימנו את הרישום, רק עוד כמה קליקים ויש לכם תשובות ונקודות ששוות כסף!</value>
+    <value>. אתה רק מספר לחיצות עכבר בלבד מיידית לעזור שיעורי הבית, &amp;lt;b&amp;gt;ובינונית ליצירת בחינם.&amp;lt;/b&amp;gt;!</value>
   </data>
   <data name="HHP_register_stepEight_boldText" xml:space="preserve">
-    <value>דואר אלקטרוני</value>
+    <value>דוא"ל</value>
   </data>
   <data name="HHP_register_stepEight_heading" xml:space="preserve">
     <value>בדוק את הדוא'ל שלך</value>
@@ -220,52 +220,52 @@
     <value>שלחנו אליך אימייל חדש לאיפוס סיסמה.!</value>
   </data>
   <data name="HHP_register_stepFive_boldTextOne" xml:space="preserve">
-    <value>הקש/י את קוד האישור</value>
+    <value>הזן את קוד האישור!</value>
   </data>
   <data name="HHP_register_stepFive_heading" xml:space="preserve">
-    <value>הקש/י את הקוד שנשלח אליך בSMS</value>
+    <value>הזן את קוד האישור שלחנו את הקוד אליך באמצעות SMS!</value>
   </data>
   <data name="HHP_register_stepFour_boldTextOne" xml:space="preserve">
-    <value>הקש/י את מספר הטלפון שלך</value>
+    <value>הזן את מספר הטלפון שלך</value>
   </data>
   <data name="HHP_register_stepFour_heading" xml:space="preserve">
-    <value>הקש/י את מספר הטלפון שלך אנחנו חייבים לשלוח לך קוד אישור כדי להתחיל</value>
+    <value>הזן את מספר הטלפון שלך אנחנו צריכים לשלוח לך קוד אישור!</value>
   </data>
   <data name="HHP_register_stepFour_text" xml:space="preserve">
-    <value>אנחנו חייבים לשלוח לך קוד אישור קודם</value>
+    <value>אנחנו צריכים לשלוח לך קוד אישור!</value>
   </data>
   <data name="HHP_register_stepNine_heading" xml:space="preserve">
     <value>להזין סיסמא</value>
   </data>
   <data name="HHP_register_stepOne_boldTextOne" xml:space="preserve">
-    <value>חינם</value>
+    <value>ללא תשלום!</value>
   </data>
   <data name="HHP_register_stepOne_heading" xml:space="preserve">
-    <value>קבלו עזרה מיידית בשיעורי הבית, חינם!</value>
+    <value>לקבל מיידית את שיעורי הבית לעזור, בחינם!</value>
   </data>
   <data name="HHP_register_stepOne_text" xml:space="preserve">
-    <value>נתחיל עם המייל, כדי שתהיה לנו אפשרות לתקשר איתך</value>
+    <value>התחל עם הדוא&amp;quot;ל שלך. אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
   </data>
   <data name="HHP_register_stepSeven_heading" xml:space="preserve">
     <value>&lt;b&gt;ברוך שובך&lt;/b&gt; &lt;br/&gt; אנא התחבר!</value>
   </data>
   <data name="HHP_register_stepSix_boldTextOne" xml:space="preserve">
-    <value>100 נקודות</value>
+    <value>100</value>
   </data>
   <data name="HHP_register_stepSix_heading" xml:space="preserve">
-    <value>מזל טוב!</value>
+    <value>מזל טוב!!</value>
   </data>
   <data name="HHP_register_stepSix_sub_heading" xml:space="preserve">
-    <value>הרווחת 100 נקודות</value>
+    <value>אתה מתוגמל ובינונית ליצירת 100!</value>
   </data>
   <data name="HHP_register_stepSix_text" xml:space="preserve">
-    <value>את/ה יכול להשתמש בהם כדי לקבל תשובות מיוחדות או מסמכים מיוחדים</value>
+    <value>אתה יכול לבלות אותם כדי לקבל עזרה בשאלות שיעורי הבית שלך.!</value>
   </data>
   <data name="HHP_register_stepTen_createbtn" xml:space="preserve">
     <value>יצירת &amp;lt;b&amp;gt;סיסמה&amp;lt;/b&amp;gt;!</value>
   </data>
   <data name="HHP_register_stepTen_createtxt" xml:space="preserve">
-    <value>צור את סיסמתך</value>
+    <value>צור את הסיסמה שלך!</value>
   </data>
   <data name="HHP_register_stepTen_heading" xml:space="preserve">
     <value>אפס את סיסמה שלך</value>
@@ -277,25 +277,25 @@
     <value>אפס את סיסמה שלך</value>
   </data>
   <data name="HHP_register_stepThree_boldTextOne" xml:space="preserve">
-    <value>הפעל את החשבון שלי</value>
+    <value>הפעל חשבון</value>
   </data>
   <data name="HHP_register_stepThree_heading" xml:space="preserve">
-    <value>שלחנו לכם מייל להפעלת החשבון</value>
+    <value>בדוק את הדוא&amp;quot;ל שלך כדי להפעיל את חשבונך!</value>
   </data>
   <data name="HHP_register_stepTwo_boldTextOne" xml:space="preserve">
-    <value>ניצור אתכם קשר</value>
+    <value>ליצור איתך קשר.!</value>
   </data>
   <data name="HHP_register_stepTwo_heading" xml:space="preserve">
-    <value>השאירו פרטים כדי שתהיה לנו אפשרות ליצור אתכם קשר</value>
+    <value>אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
   </data>
   <data name="HHP_register_stepTwo_text" xml:space="preserve">
-    <value>השאירו פרטים כדי שתהיה לנו אפשרות ליצור אתכם קשר</value>
+    <value>אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
   </data>
   <data name="makeMoneyProfile_modal_heading" xml:space="preserve">
-    <value>בבקשה התחבר/י או הרשם/י כדי להמשיך</value>
+    <value>בבקשה&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;הרשמה&amp;lt;/b&amp;gt; או &amp;lt;b&amp;gt;כניסה&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;כדי להמשיך.!</value>
   </data>
   <data name="makeMoneyProfile_modal_text" xml:space="preserve">
-    <value>זהו כמעט סיימנו, רק עוד כמה קליקים ויש לכם תשובות ונקודות ששוות כסף!</value>
+    <value>אתה מספר לחיצות עכבר בלבד ללא גישה עושים כסף רציני..!</value>
   </data>
   <data name="makeMoneyProfile_register_stepEight_heading" xml:space="preserve">
     <value>בדוק את הדוא'ל שלך</value>
@@ -304,55 +304,55 @@
     <value>שלחנו אליך אימייל חדש לאיפוס סיסמה.!</value>
   </data>
   <data name="makeMoneyProfile_register_stepFive_boldTextOne" xml:space="preserve">
-    <value>הקש/י את קוד האישור</value>
+    <value>הזן את קוד האישור!</value>
   </data>
   <data name="makeMoneyProfile_register_stepFive_heading" xml:space="preserve">
-    <value>הקש/י את הקוד שנשלך אליך בSMS</value>
+    <value>הזן את קוד האישור שלחנו את הקוד אליך באמצעות SMS!</value>
   </data>
   <data name="makeMoneyProfile_register_stepFour_boldTextOne" xml:space="preserve">
-    <value>הקש/י את מספר הטלפון שלך</value>
+    <value>הזן את מספר הטלפון שלך</value>
   </data>
   <data name="makeMoneyProfile_register_stepFour_heading" xml:space="preserve">
-    <value>הקש/י את מספר הטלפון שלך אנחנו חייבים לשלוח לך קוד אישור כדי להתחיל</value>
+    <value>הזן את מספר הטלפון שלך אנחנו צריכים לשלוח לך קוד אישור!</value>
   </data>
   <data name="makeMoneyProfile_register_stepFour_text" xml:space="preserve">
-    <value>אנחנו חייבים לשלוח לך קוד אישור קודם</value>
+    <value>אנחנו צריכים לשלוח לך קוד אישור!</value>
   </data>
   <data name="makeMoneyProfile_register_stepNine_heading" xml:space="preserve">
     <value>להזין סיסמא</value>
   </data>
   <data name="makeMoneyProfile_register_stepOne_boldTextOne" xml:space="preserve">
-    <value>עשה/י כסף</value>
+    <value>money</value>
   </data>
   <data name="makeMoneyProfile_register_stepOne_heading" xml:space="preserve">
     <value>&lt;b&gt;לעשות כסף&lt;/b&gt; &lt;br/&gt; תוך סיוע לאחרים עם שיעורי הבית שלהם!</value>
   </data>
   <data name="makeMoneyProfile_register_stepOne_headinmakeMoneyProfile_register_stepOne_heading" xml:space="preserve">
-    <value>עשה/י כסף בזמן שאת/ה עוזר/ת לאחרים בתרגילי הבית שלהם</value>
+    <value>להרוויח כסף בזמן לעזור לאחרים עם שיעורי הבית שלהם!</value>
   </data>
   <data name="makeMoneyProfile_register_stepOne_text" xml:space="preserve">
-    <value>נתחיל עם המייל, כדי שתהיה לנו אפשרות לתקשר איתך</value>
+    <value>התחל עם הדוא&amp;quot;ל שלך. אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
   </data>
   <data name="makeMoneyProfile_register_stepSeven_heading" xml:space="preserve">
     <value>&lt;b&gt;ברוך שובך&lt;/b&gt; &lt;br/&gt; אנא התחבר!</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_boldTextOne" xml:space="preserve">
-    <value>100 נקודת</value>
+    <value>100</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_boldTextTwo" xml:space="preserve">
-    <value>לעשות כסף!</value>
+    <value>לעשות כסף!!</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_heading" xml:space="preserve">
-    <value>מזל טוב!</value>
+    <value>מזל טוב!!</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_sub_heading" xml:space="preserve">
-    <value>אנחנו מוכנים להתחיל לעשות כסף</value>
+    <value>אתה מוכן להתחיל להרוויח כסף!</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_text" xml:space="preserve">
-    <value>הרווחת 100 נקודות ואתה יכול להשתמש בהם כדי לקבל עזרה עם שיעורי הבית שלך או בהכנה למבחנים או שתוכל/י לפדות אותם לכסף BUYME</value>
+    <value>אנחנו גם הוענק לך 100 SBL (אתה יכול להשתמש אלה כדי לקבל עזרה עם שיעורי הבית שלך)!</value>
   </data>
   <data name="makeMoneyProfile_register_stepTen_createbtn" xml:space="preserve">
-    <value>צור סיסמה</value>
+    <value>צור סיסמה!</value>
   </data>
   <data name="makeMoneyProfile_register_stepTen_createtxt" xml:space="preserve">
     <value>צור את &lt;b&gt;הסיסמה&lt;/b&gt; שלך!</value>
@@ -367,18 +367,18 @@
     <value>אפס את סיסמה שלך</value>
   </data>
   <data name="makeMoneyProfile_register_stepThree_boldTextOne" xml:space="preserve">
-    <value>הפעל את החשבון שלי</value>
+    <value>הפעל חשבון</value>
   </data>
   <data name="makeMoneyProfile_register_stepThree_heading" xml:space="preserve">
-    <value>נשלח אישור לכתובת המייל</value>
+    <value>בדוק את הדוא&amp;quot;ל שלך כדי להפעיל את חשבונך!</value>
   </data>
   <data name="makeMoneyProfile_register_stepTwo_boldTextOne" xml:space="preserve">
-    <value>ליצור איתך קשר</value>
+    <value>ליצור איתך קשר.!</value>
   </data>
   <data name="makeMoneyProfile_register_stepTwo_heading" xml:space="preserve">
-    <value>השאירו פרטים כדי שתהיה לנו אפשרות ליצור אתכם קשר</value>
+    <value>אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
   </data>
   <data name="makeMoneyProfile_register_stepTwo_text" xml:space="preserve">
-    <value>השאירו פרטים כדי שתהיה לנו אפשרות ליצור אתכם קשר</value>
+    <value>אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
   </data>
 </root>

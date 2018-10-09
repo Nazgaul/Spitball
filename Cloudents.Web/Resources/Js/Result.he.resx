@@ -117,52 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="about_spitball" xml:space="preserve">
-    <value>מה זה ספיטבול</value>
+  <data name="answer" xml:space="preserve">
+    <value>תשובה</value>
   </data>
-  <data name="feedback" xml:space="preserve">
-    <value>בואו לתת לנו פידבק</value>
+  <data name="answer_not_found" xml:space="preserve">
+    <value>לא מצאנו תשובה לשאלה שלך!</value>
   </data>
-  <data name="help" xml:space="preserve">
-    <value>עזרה</value>
+  <data name="ask_question" xml:space="preserve">
+    <value>שאלתך</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>התחבר/י</value>
+  <data name="different_keywords" xml:space="preserve">
+    <value>נסה מילות מפתח שונות.!</value>
   </data>
-  <data name="login_l" xml:space="preserve">
-    <value>התחבר/י</value>
+  <data name="fewer_keywords" xml:space="preserve">
+    <value>נסה פחות מילות מפתח.!</value>
   </data>
-  <data name="logout" xml:space="preserve">
-    <value>התנתק/י</value>
+  <data name="filter_not_applied" xml:space="preserve">
+    <value>המסנן לא הוחל, כי זה ייתן לך תוצאות.!</value>
   </data>
-  <data name="messages" xml:space="preserve">
-    <value>הודעות</value>
+  <data name="general_keywords" xml:space="preserve">
+    <value>נסה מילות מפתח כלליות יותר.!</value>
   </data>
-  <data name="my_profile" xml:space="preserve">
-    <value>הפרופיל שלי</value>
+  <data name="new_questions" xml:space="preserve">
+    <value>שאלות</value>
   </data>
-  <data name="my_wallet" xml:space="preserve">
-    <value>החשבון שלי</value>
+  <data name="ok" xml:space="preserve">
+    <value>או. קיי.</value>
   </data>
-  <data name="or" xml:space="preserve">
-    <value>או</value>
+  <data name="record_not_match" xml:space="preserve">
+    <value>לא תאמה את כל הרשומות.!</value>
   </data>
-  <data name="Please" xml:space="preserve">
-    <value>בבקשה</value>
+  <data name="showme" xml:space="preserve">
+    <value>אלי</value>
   </data>
-  <data name="privacy_policy" xml:space="preserve">
-    <value>מדיניות פרטיות</value>
+  <data name="spelling" xml:space="preserve">
+    <value>חשוב לבדוק את האיות לטעויות כתיב.</value>
   </data>
-  <data name="referral_spitball" xml:space="preserve">
-    <value>המלצה לחבר!</value>
+  <data name="suggestions" xml:space="preserve">
+    <value>הצעות</value>
   </data>
-  <data name="Sign_up" xml:space="preserve">
-    <value>התחבר/י</value>
+  <data name="suggestions_ask" xml:space="preserve">
+    <value>יש לי שאלה אתה צריך לענות? נסה אותנו!</value>
   </data>
-  <data name="sign_up_l" xml:space="preserve">
-    <value>הירשם/י</value>
+  <data name="suggestions_book" xml:space="preserve">
+    <value>קנייה או מכירה של ספר לימוד? ואנחנו נגרום שתקבלו את המחיר הטוב ביותר!!</value>
   </data>
-  <data name="terms_of_service" xml:space="preserve">
-    <value>תנאי שירות</value>
+  <data name="suggestions_flashcard" xml:space="preserve">
+    <value>. מצאנו כמה כרטיסיות שעשויים לסייע לך ללמוד!!</value>
+  </data>
+  <data name="suggestions_job" xml:space="preserve">
+    <value>צריך קצת כסף? למצוא את העבודה הטובה ביותר &amp; התמחות לסטודנטים בבית ספר שלך.!</value>
+  </data>
+  <data name="suggestions_note" xml:space="preserve">
+    <value>חיפוש מסמכים לימוד לקורסים שלך? לא נראה רחוק.!</value>
+  </data>
+  <data name="suggestions_tutor" xml:space="preserve">
+    <value>עדיין זקוק לעזרה? קשר עם מורה פרטי וודא כי אתה אייס הכיתה שלך.!</value>
+  </data>
+  <data name="users_answering" xml:space="preserve">
+    <value>עונים על משתמשים!</value>
+  </data>
+  <data name="user_answering" xml:space="preserve">
+    <value>המשתמש הוא עונה!</value>
+  </data>
+  <data name="where_school" xml:space="preserve">
+    <value>? לאן אתה הולך לבית הספר</value>
+  </data>
+  <data name="your_search" xml:space="preserve">
+    <value>חיפוש!</value>
   </data>
 </root>

@@ -117,52 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="about_spitball" xml:space="preserve">
-    <value>מה זה ספיטבול</value>
+  <data name="B" xml:space="preserve">
+    <value>י</value>
   </data>
-  <data name="feedback" xml:space="preserve">
-    <value>בואו לתת לנו פידבק</value>
+  <data name="Back" xml:space="preserve">
+    <value>חזרה</value>
   </data>
-  <data name="help" xml:space="preserve">
-    <value>עזרה</value>
+  <data name="Both" xml:space="preserve">
+    <value>שניהם</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>התחבר/י</value>
+  <data name="both_l" xml:space="preserve">
+    <value>שניהם</value>
   </data>
-  <data name="login_l" xml:space="preserve">
-    <value>התחבר/י</value>
+  <data name="Cards" xml:space="preserve">
+    <value>כרטיסים</value>
   </data>
-  <data name="logout" xml:space="preserve">
-    <value>התנתק/י</value>
+  <data name="F" xml:space="preserve">
+    <value>F</value>
   </data>
-  <data name="messages" xml:space="preserve">
-    <value>הודעות</value>
+  <data name="flashcard_pin_l" xml:space="preserve">
+    <value>נעץ</value>
   </data>
-  <data name="my_profile" xml:space="preserve">
-    <value>הפרופיל שלי</value>
+  <data name="flipdown" xml:space="preserve">
+    <value>FlipDown!</value>
   </data>
-  <data name="my_wallet" xml:space="preserve">
-    <value>החשבון שלי</value>
+  <data name="flipup" xml:space="preserve">
+    <value>FlipUp!</value>
   </data>
-  <data name="or" xml:space="preserve">
-    <value>או</value>
+  <data name="Front" xml:space="preserve">
+    <value>קדמי</value>
   </data>
-  <data name="Please" xml:space="preserve">
-    <value>בבקשה</value>
+  <data name="front_l" xml:space="preserve">
+    <value>קדמי</value>
   </data>
-  <data name="privacy_policy" xml:space="preserve">
-    <value>מדיניות פרטיות</value>
+  <data name="K" xml:space="preserve">
+    <value>כ</value>
   </data>
-  <data name="referral_spitball" xml:space="preserve">
-    <value>המלצה לחבר!</value>
+  <data name="next" xml:space="preserve">
+    <value>הבא</value>
   </data>
-  <data name="Sign_up" xml:space="preserve">
-    <value>התחבר/י</value>
+  <data name="P" xml:space="preserve">
+    <value>■(ז)</value>
   </data>
-  <data name="sign_up_l" xml:space="preserve">
-    <value>הירשם/י</value>
+  <data name="Pin" xml:space="preserve">
+    <value>נעץ</value>
   </data>
-  <data name="terms_of_service" xml:space="preserve">
-    <value>תנאי שירות</value>
+  <data name="previous" xml:space="preserve">
+    <value>הקודם</value>
+  </data>
+  <data name="S" xml:space="preserve">
+    <value>כ</value>
+  </data>
+  <data name="shuffle" xml:space="preserve">
+    <value>ערבוב</value>
+  </data>
+  <data name="shuffle_cards" xml:space="preserve">
+    <value>ערבב את הקלפים!</value>
+  </data>
+  <data name="Study" xml:space="preserve">
+    <value>STUDY</value>
   </data>
 </root>
