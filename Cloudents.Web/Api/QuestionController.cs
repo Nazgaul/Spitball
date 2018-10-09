@@ -141,13 +141,15 @@ namespace Cloudents.Web.Api
                 nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }
 
+            
+
             return new WebResponseWithFacet<QuestionDto>
             {
                 Result = result.Result,
-                Filters = new[]
+                Filters = new IFilters[]
                 {
-                    new Models.Filters(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"], result.FacetState.Select(s=>s.ToString("G"))),
-                    new Models.Filters(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"], result.FacetSubject.Select(s=> _localizer[s].Value))
+                    new Models.Filters<string>(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"], result.FacetState.Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.ToString("G")))),
+                    new Models.Filters<int>(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"], result.FacetSubject)
                 },
                 NextPageLink = nextPageLink
             };
