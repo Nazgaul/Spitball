@@ -17,9 +17,15 @@
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
+                                    <!--TODO AB-Test-->
+                                    <div class="ab-test static-card-what-is-hw-question hidden-sm-and-down" v-show="loggedIn && $route.path.slice(1) === 'ask'">
+                                    <button class="ab-test-button" @click="openNewQuestionDialog()">
+                                        <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                                        Add a Question</button>
+                                    </div>
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
                                         <span class="bold">{{accountUser.balance | currencyLocalyFilter}} <span v-language:inner>header_sbl</span></span>
-                                        <span>$ {{accountUser.balance | dollarVal}}</span>
+                                        <span>{{accountUser.balance | dollarVal}} $</span>
                                     </router-link>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu bottom left offset-y>
@@ -43,8 +49,6 @@
                                         <menu-list :isAuthUser="loggedIn"
                                                    v-if="$vuetify.breakpoint.smAndUp"></menu-list>
                                     </v-menu>
-
-
                                     <!--<v-menu bottom left offset-y class="gamburger"-->
                                             <!--v-if="!loggedIn && $vuetify.breakpoint.xsOnly">-->
                                         <!--<v-btn icon slot="activator" @click.native="drawer = !drawer">-->
@@ -154,8 +158,11 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'resetData']),
+            ...mapActions(['updateToasterParams', 'resetData', 'updateNewQuestionDialogState']),
 
+            openNewQuestionDialog(){
+                this.updateNewQuestionDialogState(true)
+            },
             //TODO: what is that
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
