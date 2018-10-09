@@ -49,7 +49,8 @@ namespace Cloudents.Web.Controllers
             {
                 ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
             }
-            ViewBag.country = location
+
+            ViewBag.country = location?.Address?.CountryCode ?? "us";
 
             if (env.IsDevelopment())
             {

@@ -122,9 +122,10 @@ namespace ConsoleApp
 
             
 
-            var b2 = _container.Resolve<IQuestionSearch>();
-            var query = new QuestionsQuery(null, null, 0, null);
-            var d = await b2.SearchAsync(query, default);
+            var b2 = _container.Resolve<IUniversitySearch>();
+            //var query = new QuestionsQuery(null, null, 0, null);
+            var t = await b2.SearchAsync("open", "IL", default);
+            //var d = await b2.SearchAsync(query, default);
             ////var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
             //    new GeoPoint(-74.006f, 40.7128f)
             //    , 0, false, default);

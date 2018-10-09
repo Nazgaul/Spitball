@@ -147,7 +147,7 @@ namespace Cloudents.Web.Api
                 Filters = new[]
                 {
                     new Models.Filters(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"], result.FacetState.Select(s=>s.ToString("G"))),
-                    new Models.Filters(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"], result.FacetSubject)
+                    new Models.Filters(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"], result.FacetSubject.Select(s=> _localizer[s].Value))
                 },
                 NextPageLink = nextPageLink
             };
