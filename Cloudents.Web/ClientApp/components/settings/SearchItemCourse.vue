@@ -8,7 +8,7 @@
     </div>
     </template>
 <script>
-        import { mapGetters, mapMutations } from 'vuex'
+        import { mapGetters, mapMutations, mapActions } from 'vuex'
         export default {
             model: {
                 prop: 'value',
@@ -23,10 +23,12 @@
 
             methods: {
                 ...mapMutations({updateUser:'UPDATE_USER'}),
+                ...mapActions(['updateCourse']),
                 $_updateMyCourses(val) {
                     let courses = this.myCourses
                     this.checked ? courses=courses.filter(i => i.id !== val.id) : courses.push(val);
                     this.updateUser({ myCourses: courses });
+                    this.updateCourse(val.id);
                 }
             }
     }
