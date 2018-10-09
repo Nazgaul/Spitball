@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -56,10 +58,10 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<TutorDto>
             {
                 Result = result,
-                Sort = Enum.GetNames(typeof(TutorRequestSort)),
+                Sort = Enum.GetNames(typeof(TutorRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
                 Filters = new[]
                 {
-                    new Models.Filters(nameof(TutorRequest.Filter),"Status", Enum.GetNames(typeof(TutorRequestFilter)))
+                    new Models.Filters<string>(nameof(TutorRequest.Filter),"Status", Enum.GetNames(typeof(TutorRequestFilter)).Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
                 NextPageLink = nextPageLink
             };

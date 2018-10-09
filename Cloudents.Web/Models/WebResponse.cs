@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace Cloudents.Web.Models
 {
@@ -6,27 +7,37 @@ namespace Cloudents.Web.Models
     {
         public IEnumerable<T> Result { get; set; }
 
-        public IEnumerable< Filters> Filters { get; set; }
+        public IEnumerable<IFilters> Filters { get; set; }
 
-        public IEnumerable<string> Sort { get; set; }
+        public IEnumerable<KeyValuePair<string, string>> Sort { get; set; }
 
         public string NextPageLink { get; set; }
     }
-    
 
-    public class Filters
+    public interface IFilters
     {
-        public Filters(string id, string title, IEnumerable<string> data)
+        string Id { get; }
+        string Title { get; }
+
+        IEnumerable Data { get; }
+    }
+
+
+    public class Filters<T> : IFilters
+    {
+        public Filters(string id, string title, IEnumerable<KeyValuePair<T, string>> data)
         {
             Id = id;
             Title = title;
-            Data = data;
+            Data2 = data;
         }
 
         public string Id { get; set; }
         public string Title { get; set; }
+        public IEnumerable Data => Data2;
 
-        public IEnumerable<string> Data { get; set; }
+
+        private IEnumerable<KeyValuePair<T, string>> Data2 { get; set; }
     }
 
 

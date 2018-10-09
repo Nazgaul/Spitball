@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Request;
@@ -10,6 +6,11 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -48,10 +49,10 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<SearchResult>
             {
                 Result = p,
-                Sort = Enum.GetNames(typeof(SearchRequestSort)),
-                Filters = new []
+                Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
+                Filters = new[]
                 {
-                    new Models.Filters(nameof(SearchRequest.Source),"Sources",result.Facet)
+                    new Models.Filters<string>(nameof(SearchRequest.Source),"Sources",result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
                 //Facet = result.Facet,
                 NextPageLink = nextPageLink
@@ -101,10 +102,10 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<SearchResult>
             {
                 Result = p,
-                Sort = Enum.GetNames(typeof(SearchRequestSort)),
+                Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
                 Filters = new[]
                 {
-                    new Models.Filters(nameof(SearchRequest.Source),"Sources",result.Facet)
+                    new Models.Filters<string>(nameof(SearchRequest.Source),"Sources",result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
                 //Facet = result.Facet,
                 NextPageLink = nextPageLink

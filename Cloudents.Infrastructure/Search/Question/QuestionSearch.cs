@@ -1,11 +1,12 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Microsoft.Azure.Search.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Search.Question
 {
@@ -20,7 +21,9 @@ namespace Cloudents.Infrastructure.Search.Question
             _queryBus = queryBus;
         }
 
-        public async Task<QuestionWithFacetDto> SearchAsync(QuestionsQuery query, CancellationToken token)
+        public async Task<QuestionWithFacetDto> SearchAsync(QuestionsQuery query,
+
+            CancellationToken token)
         {
             var taskResult = _questionSearch.SearchAsync(query, token);
             var querySubject = new QuestionSubjectQuery();
@@ -56,8 +59,12 @@ namespace Cloudents.Infrastructure.Search.Question
             };
             if (result.Facets.TryGetValue(nameof(Core.Entities.Search.Question.Subject), out var p))
             {
-
-                retVal.FacetSubject = p.Select(s => subject[(int)s.AsValueFacetResult<long>().Value]);
+                retVal.FacetSubject = p.Select(s =>
+                {
+                    var index = (int)s.AsValueFacetResult<long>().Value;
+                    var subjectVal = subject[index];
+                    return new KeyValuePair<int, string>(index, subjectVal);
+                }).OrderBy(o => o.Value);
 
                 //retVal.Facet = p.Select(s => s.AsValueFacetResult<string>().Value);
             }

@@ -94,7 +94,14 @@ const getters = {
         return state.user
     },
     lastActiveRoute: state => state.lastActiveRoute,
-    getProfileData: state => state.profileData
+    getProfileData: state => state.profileData,
+    getUniversity: state => {
+        if(!!state.user && !!state.user.universityId){
+            return true;
+        }else{
+            return false;
+        }
+    },
 };
 
 const actions = {

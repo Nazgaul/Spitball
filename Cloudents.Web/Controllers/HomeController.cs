@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Extension;
-using Cloudents.Web.Models;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Microsoft.Extensions.Configuration;
 
@@ -36,7 +36,8 @@ namespace Cloudents.Web.Controllers
         }
 
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Index(LocationQuery location,
+        public IActionResult Index(
+            [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery] bool? isNew, [FromQuery, CanBeNull] string referral, [FromServices]IHostingEnvironment env)
         {
@@ -50,7 +51,7 @@ namespace Cloudents.Web.Controllers
                 ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
             }
 
-            ViewBag.country = location?.Address?.CountryCode ?? "us";
+            ViewBag.country = country ?? "us";
 
             if (env.IsDevelopment())
             {
@@ -66,12 +67,16 @@ namespace Cloudents.Web.Controllers
             {
                 return View();
             }
-            var requestIp = HttpContext.Connection.GetIpAddress();
+
+            var requestIp = HttpContext.Connection.GetIpAddress();//.MapToIPv4().;
+            
+
+
             if (_officeIps.Contains(requestIp))
             {
                 return View();
             }
-            if (string.Equals(location?.Address?.CountryCode, "il", StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(country, "il", StringComparison.InvariantCultureIgnoreCase))
             {
                 return this.RedirectToOldSite();
             }

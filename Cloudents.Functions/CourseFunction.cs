@@ -12,7 +12,7 @@ namespace Cloudents.Functions
     public static class CourseFunction
     {
         [FunctionName("CourseSearchSync")]
-        public static async Task RunAsync([TimerTrigger("0 */1 * * * *", RunOnStartup = true)] TimerInfo myTimer,
+        public static async Task RunAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)] TimerInfo myTimer,
             [OrchestrationClient] DurableOrchestrationClient starter,
             TraceWriter log,
             CancellationToken token)

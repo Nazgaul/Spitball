@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
 using JetBrains.Annotations;
+using System.Collections.Generic;
 
 namespace Cloudents.Core.DTOs
 {
@@ -21,6 +21,6 @@ namespace Cloudents.Core.DTOs
         [ItemCanBeNull]
         public IEnumerable<QuestionDto> Result { get; set; }
         public IEnumerable<QuestionFilter> FacetState { get; set; }
-        public IEnumerable<string> FacetSubject { get; set; }
-    }
+        public IEnumerable<KeyValuePair<int, string>> FacetSubject { get; set; }
+}
 }

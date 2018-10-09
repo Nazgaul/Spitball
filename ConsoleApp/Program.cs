@@ -8,9 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities.Search;
@@ -122,9 +125,16 @@ namespace ConsoleApp
 
             
 
-            var b2 = _container.Resolve<IUniversitySearch>();
+            var b2 = _container.Resolve<IQueryBus>();
+
+            var query = new QuestionSubjectQuery();
             //var query = new QuestionsQuery(null, null, 0, null);
-            var t = await b2.SearchAsync("open", "IL", default);
+            var t = await b2.QueryAsync(query, default);
+
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("he");
+            var query2 = new QuestionSubjectQuery();
+            t = await b2.QueryAsync(query2, default);
+
             //var d = await b2.SearchAsync(query, default);
             ////var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
             //    new GeoPoint(-74.006f, 40.7128f)

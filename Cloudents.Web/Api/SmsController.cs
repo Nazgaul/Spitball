@@ -15,6 +15,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Api
 {
@@ -46,7 +47,9 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("code")]
-        public async Task<CallingCallResponse> GetCountryCallingCodeAsync([FromServices] IIpToLocation service, CancellationToken token)
+        public async Task<CallingCallResponse> GetCountryCallingCodeAsync(
+            
+            [FromServices] IIpToLocation service, CancellationToken token)
         {
             var result = await service.GetAsync(HttpContext.Connection.GetIpAddress(), token).ConfigureAwait(false);
             return new CallingCallResponse(result?.CallingCode);
@@ -54,7 +57,8 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         public async Task<IActionResult> SetUserPhoneNumber(
-            [FromBody]PhoneNumberRequest model, [FromQuery]LocationQuery location,
+            [ModelBinder(typeof(CountryModelBinder))] string country,
+            [FromBody]PhoneNumberRequest model, 
             CancellationToken token)
         {
             if (User.Identity.IsAuthenticated)
@@ -85,7 +89,7 @@ namespace Cloudents.Web.Api
             var phoneUtil = PhoneNumberUtil.GetInstance();
             var t = phoneUtil.GetRegionCodeForCountryCode(model.CountryCode);
             user.Country = t;
-            if (!string.Equals(user.Country, location.Address.CountryCode, StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(user.Country, country, StringComparison.OrdinalIgnoreCase))
             {
                 user.FraudScore += 50;
             }

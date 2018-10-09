@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Cloudents.Web.Filters;
 
 namespace Cloudents.Web.Models
 {
