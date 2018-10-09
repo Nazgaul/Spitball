@@ -118,7 +118,8 @@
                 clickOnce: false,
                 drawer: null,
                 toasterTimeout: 5000,
-                showDialogLogin: false
+                showDialogLogin: false,
+                isRtl: global.isRtl
             }
         },
         props: {
@@ -140,14 +141,6 @@
             loggedIn() {
                 return this.accountUser !== null
             },
-            isRtl(){
-                let dir = this.getCurrentDirection();
-                if(dir === 'rtl'){
-                    return true
-                }else{
-                    return false
-                }
-            }
             //myMoney(){return this.accountUser.balance / 40}
 
         },
@@ -184,10 +177,7 @@
                     })
                 }
             },
-            getCurrentDirection(){
-                return document.getElementsByTagName("html")[0].getAttribute("dir");
 
-            },
             resetItems(){
                 if(this.$route.path === '/ask'){
                     if(this.$route.fullPath === '/ask'){
