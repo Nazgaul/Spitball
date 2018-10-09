@@ -96,11 +96,11 @@ WebFont.load({
 //    attempt: 1
 //});
 //Vue.use(vueSmoothScroll);
+
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
         Scroll,
-
     },
     components: vuetifyComponents
 });
@@ -259,6 +259,8 @@ function checkUserStatus(to, next) {
         next("/signin");
     });
 }
+
+global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 
 initSignalRService();
 

@@ -75,7 +75,9 @@
             <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
         </v-toolbar>
 
-        <v-navigation-drawer temporary v-model="drawer" light right fixed app v-if=$vuetify.breakpoint.xsOnly
+        <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
+                             fixed app v-if=$vuetify.breakpoint.xsOnly
+                             :class="isRtl ? 'hebrew-drawer' : ''"
                              width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
@@ -116,7 +118,8 @@
                 clickOnce: false,
                 drawer: null,
                 toasterTimeout: 5000,
-                showDialogLogin: false
+                showDialogLogin: false,
+                isRtl: global.isRtl
             }
         },
         props: {
@@ -174,6 +177,7 @@
                     })
                 }
             },
+
             resetItems(){
                 if(this.$route.path === '/ask'){
                     if(this.$route.fullPath === '/ask'){

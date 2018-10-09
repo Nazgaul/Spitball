@@ -3,7 +3,7 @@
     <v-flex class="line verticals static-card-what-is-hw-question">
         <v-layout row >
             <div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>
-            <v-tabs class="verticals-bar" v-model="currentVertical" :value="currentSelection"   :scrollable="false">
+            <v-tabs class="verticals-bar" v-model="currentVertical" :value="currentSelection"   :scrollable="true">
                     <v-tab v-for="tab in verticals" :ripple="false" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click.prevent="$_updateType(tab.id)"
                                  :class="['spitball-text-'+tab.id,tab.id===currentSelection?'v-tabs__item--active':'']"
@@ -15,28 +15,6 @@
         </v-layout>
     </v-flex>
 
-        <!-- BBB TODO AB TEST-->
-    <!--<v-flex class="line verticals static-card-need-to-ask">-->
-        <!--&lt;!&ndash;<div class="gap ml-5" v-if="$vuetify.breakpoint.mdAndUp"></div>&ndash;&gt;-->
-        <!--<v-layout row class="ab-test-container">-->
-            <!--<div class="gap ml-1" v-if="$vuetify.breakpoint.mdonly"></div>-->
-            <!--&lt;!&ndash;<div class="gap ml-1" v-if="$vuetify.breakpoint.lgAndUp"></div>&ndash;&gt;-->
-            <!--<v-tabs class="verticals-bar ab-test-bars" v-model="currentVertical" :value="currentSelection"   :scrollable="false" >-->
-                <!--<v-tab v-for="tab in verticals" :ripple="false" :key="tab.id" :href="tab.id" :id="tab.id"-->
-                       <!--@click.prevent="$_updateType(tab.id)"-->
-                       <!--:class="['spitball-text-'+tab.id,tab.id===currentSelection?'v-tabs__item&#45;&#45;active':'']"-->
-                       <!--class="mr-4 vertical">-->
-                    <!--{{tab.name}}-->
-                <!--</v-tab>-->
-                <!--<v-tabs-slider :color="`color-${currentVertical}`"></v-tabs-slider>-->
-            <!--</v-tabs>-->
-            <!--<v-btn  class="ab-test-btn-question hidden-sm-and-down" v-if="!isLogedIn" @click="goToAskQuestion()">-->
-                <!--<v-icon>sbf-edit-icon</v-icon>-->
-                <!--Add question</v-btn>-->
-        <!--</v-layout>-->
-
-
-    <!--</v-flex>-->
     </div>
 </template>
 
