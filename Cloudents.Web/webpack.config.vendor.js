@@ -7,6 +7,7 @@ var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 var t = require("./webpack.global.js");
 const merge = require('webpack-merge');
 const WebpackRTLPlugin = require("webpack-rtl-plugin");
+const bundleOutputDir = "./wwwroot/dist";
 
 const allModules = [
     "vue",
@@ -170,6 +171,12 @@ module.exports = (env) => {
                 new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
                 new Visualizer({
                     filename: "./statistics-vendor.html"
+                }),
+                new webpack.SourceMapDevToolPlugin({
+                    filename: "[file].map", // Remove this line if you prefer inline source maps
+                    moduleFilenameTemplate:
+                        path.relative(bundleOutputDir,
+                            "[resourcePath]") // Point sourcemap entries to the original file locations on disk
                 })
             ] : [
                     new webpack.optimize.UglifyJsPlugin()
