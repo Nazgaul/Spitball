@@ -29,16 +29,26 @@ const createCourse = (data) => {
     return connectivityModule.http.post("course/create", data)
 };
 
+const assaignCourse = (courseId) => {
+    let assignCourseData = {
+        courseId
+    }
+    return connectivityModule.http.post("Course/assign", assignCourseData)
+}
+
 
 export default {
-    getUniversity({term,location}) {
-        return getUni({term,location});
-    },
     getCourse(params) {
         return getCourse(params);
     },
+    assaignCou(courseId){
+        return assaignCourse(courseId)
+    },
     createCourse(model) {
         return createCourse(model);
+    },
+    getUniversity({term,location}) {
+        return getUni({term,location});
     },
     assaignUni(universityId){
        return assaignUniversity(universityId)

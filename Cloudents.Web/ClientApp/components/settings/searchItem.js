@@ -76,6 +76,13 @@ export default {
             currentAction: "",
             newCourseName: "",
             newUniversityName: "",
+            universityCreateRequest: false,
+            universityName:{
+                errors:{
+                    minimumsNameLength:false,
+                    failedRequest: false
+                },
+            },
             val: "",
             noResults:false,
             showAdd:false
@@ -125,13 +132,32 @@ export default {
             //    }, 500);
             //}
         },
+        resetUniversityErrors(){
+            this.universityName.errors.minimumsNameLength = false;
+            this.universityName.errors.failedRequest = false;
+        },
         $_submitAddUniversity(){
-            this.createUniversity(this.newUniversityName);
-            this.newUniversityName = "";
-            this.$el.querySelector('.results-container').scrollTop = 0;
-            this.val="";
-            // go to next Step
-            this.currentType = "course";
+            let universityName = this.newUniversityName.trim();
+            if(universityName.length >= 10){
+                this.universityCreateRequest = true;
+                
+                this.createUniversity(universityName).then(()=>{
+                    this.universityCreateRequest = false;
+                    this.newUniversityName = "";
+                    this.$el.querySelector('.results-container').scrollTop = 0;
+                    this.val="";
+                    // go to next Step
+                    this.currentType = "course";
+                }, (err)=>{
+                    this.universityCreateRequest = false;
+                    console.log(err)
+                    this.universityName.errors.failedRequest = true;
+                });
+                
+            }else{
+                this.universityName.errors.minimumsNameLength = true;
+            }
+            
         },
         $_clearAddUniversity(){
             this.newUniversityName = "";
