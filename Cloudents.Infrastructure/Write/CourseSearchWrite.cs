@@ -14,13 +14,12 @@ namespace Cloudents.Infrastructure.Write
         public const string IndexName = "course2";
         public const string ScoringProfile = "course-default";
 
-        public CourseSearchWrite(SearchService client) : base(client, IndexName)
+        public CourseSearchWrite(SearchService client) : base(client, client.GetClient(IndexName))
         {
         }
 
         public override async Task CreateOrUpdateAsync(CancellationToken token)
         {
-            await Client.Indexes.DeleteAsync(IndexName, cancellationToken: token).ConfigureAwait(false);
             await base.CreateOrUpdateAsync(token).ConfigureAwait(false);
         }
 
