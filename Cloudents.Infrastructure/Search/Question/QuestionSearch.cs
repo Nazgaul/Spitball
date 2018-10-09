@@ -20,9 +20,12 @@ namespace Cloudents.Infrastructure.Search.Question
             _queryBus = queryBus;
         }
 
-        public async Task<QuestionWithFacetDto> SearchAsync(QuestionsQuery query, CancellationToken token)
+        public async Task<QuestionWithFacetDto> SearchAsync(QuestionsQuery query,
+            
+            CancellationToken token)
         {
             var taskResult = _questionSearch.SearchAsync(query, token);
+            //TODO check
             var querySubject = new QuestionSubjectQuery();
             var taskSubjects = _queryBus.QueryAsync(querySubject, token);
 

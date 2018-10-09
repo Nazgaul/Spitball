@@ -11,10 +11,6 @@
 @inject IConfiguration Configuration
 
 @{
-
-
-    var version = typeof(Program).Assembly
-        .GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
     var p = Provider.GetTag("vendor");
     var main = Provider.GetTag("main");
     var cdnEndPoint = Constants.GetCdnEndpoint(Environment);
@@ -138,7 +134,7 @@
     </script>
     @* End Inspectlet Embed Code *@
 <script>
-        window.version = '8.9.25.2';  //'@version';
+    window.version = '@Assembly.GetExecutingAssembly().GetName().Version.ToString(4)';  
             window.publicPath = '@cdnEndPoint' + '/dist/';
             window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
     window.talkJsId = '@Configuration["TalkJs"]';
