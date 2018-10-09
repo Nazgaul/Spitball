@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -122,9 +123,11 @@ namespace ConsoleApp
 
             
 
-            var b2 = _container.Resolve<IUniversitySearch>();
+            var b2 = _container.Resolve<IQueryBus>();
+
+            var query = new CountryQuery(IPAddress.Parse("31.154.39.170"));
             //var query = new QuestionsQuery(null, null, 0, null);
-            var t = await b2.SearchAsync("open", "IL", default);
+            var t = await b2.QueryAsync(query, default);
             //var d = await b2.SearchAsync(query, default);
             ////var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
             //    new GeoPoint(-74.006f, 40.7128f)
