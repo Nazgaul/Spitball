@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="generalProfile_modal_heading" xml:space="preserve">
+    <value>בבקשה&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;הרשמה&amp;lt;/b&amp;gt; או &amp;lt;b&amp;gt;כניסה&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;כדי להמשיך.!</value>
+  </data>
+  <data name="generalProfile_modal_text" xml:space="preserve">
+    <value>. אתה רק מספר לחיצות על העכבר פותח עזרה מיידית את שיעורי הבית ואת היכולת לעשות כסף רציני!!</value>
+  </data>
+  <data name="generalProfile_register_stepEight_heading" xml:space="preserve">
+    <value>בדוק את הדוא'ל שלך</value>
+  </data>
+  <data name="generalProfile_register_stepEight_text" xml:space="preserve">
+    <value>שלחנו אליך אימייל חדש לאיפוס סיסמה.!</value>
+  </data>
+  <data name="generalProfile_register_stepFive_boldTextOne" xml:space="preserve">
+    <value>הזן את קוד האישור!</value>
+  </data>
+  <data name="generalProfile_register_stepFive_heading" xml:space="preserve">
+    <value>הזן את קוד האישור שלחנו את הקוד אליך באמצעות SMS!</value>
+  </data>
+  <data name="generalProfile_register_stepFour_boldTextOne" xml:space="preserve">
+    <value>הזן את מספר הטלפון שלך</value>
+  </data>
+  <data name="generalProfile_register_stepFour_heading" xml:space="preserve">
+    <value>הזן את מספר הטלפון שלך אנחנו צריכים לשלוח לך קוד אישור!</value>
+  </data>
+  <data name="generalProfile_register_stepFour_text" xml:space="preserve">
+    <value>אנחנו צריכים לשלוח לך קוד אישור!</value>
+  </data>
+  <data name="generalProfile_register_stepNine_heading" xml:space="preserve">
+    <value>להזין סיסמא</value>
+  </data>
+  <data name="generalProfile_register_stepOne_boldTextOne" xml:space="preserve">
+    <value>מיידית</value>
+  </data>
+  <data name="generalProfile_register_stepOne_boldTextTwo" xml:space="preserve">
+    <value>money</value>
+  </data>
+  <data name="generalProfile_register_stepOne_heading" xml:space="preserve">
+    <value>לשאול שאלות &amp; לקבל עזרה מיידית או לענות על שאלות &amp; להרוויח כסף!</value>
+  </data>
+  <data name="generalProfile_register_stepOne_text" xml:space="preserve">
+    <value>התחל עם הדוא&amp;quot;ל שלך. אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
+  </data>
+  <data name="generalProfile_register_stepSeven_heading" xml:space="preserve">
+    <value>&lt;b&gt;ברוך שובך&lt;/b&gt; &lt;br/&gt; אנא התחבר!</value>
+  </data>
+  <data name="generalProfile_register_stepSix_boldTextOne" xml:space="preserve">
+    <value>100</value>
+  </data>
+  <data name="generalProfile_register_stepSix_heading" xml:space="preserve">
+    <value>מזל טוב!!</value>
+  </data>
+  <data name="generalProfile_register_stepSix_subheading" xml:space="preserve">
+    <value>. אתה מוכן להתחיל דברים לאוויר!!</value>
+  </data>
+  <data name="generalProfile_register_stepSix_text" xml:space="preserve">
+    <value>אנחנו כבר הוענק לך 100 ובינונית ליצירת באפשרותך להשתמש אלה כדי לקבל עזרה בשאלות שיעורי הבית שלך, או לענות על השאלות של תלמידים אחרים כדי להרוויח ובינונית ליצירת זה יכולים להיגאל לכסף אמיתי!!</value>
+  </data>
+  <data name="generalProfile_register_stepTen_createbtn" xml:space="preserve">
+    <value>צור סיסמה!</value>
+  </data>
+  <data name="generalProfile_register_stepTen_createtxt" xml:space="preserve">
+    <value>צור את &lt;b&gt;הסיסמה&lt;/b&gt; שלך!</value>
+  </data>
+  <data name="generalProfile_register_stepTen_heading" xml:space="preserve">
+    <value>אפס את סיסמה שלך</value>
+  </data>
+  <data name="generalProfile_register_stepTen_resetbtn" xml:space="preserve">
+    <value>איפוס סיסמה</value>
+  </data>
+  <data name="generalProfile_register_stepTen_resettxt" xml:space="preserve">
+    <value>אפס את סיסמה שלך</value>
+  </data>
+  <data name="generalProfile_register_stepThree_boldTextOne" xml:space="preserve">
+    <value>הפעל חשבון</value>
+  </data>
+  <data name="generalProfile_register_stepThree_heading" xml:space="preserve">
+    <value>בדוק את הדוא&amp;quot;ל שלך כדי להפעיל את חשבונך!</value>
+  </data>
+  <data name="generalProfile_register_stepTwo_boldTextOne" xml:space="preserve">
+    <value>ליצור איתך קשר.!</value>
+  </data>
+  <data name="generalProfile_register_stepTwo_heading" xml:space="preserve">
+    <value>אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
+  </data>
+  <data name="generalProfile_register_stepTwo_text" xml:space="preserve">
+    <value>אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
+  </data>
+  <data name="HHP_modal_heading" xml:space="preserve">
+    <value>בבקשה&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;הרשמה&amp;lt;/b&amp;gt; או &amp;lt;b&amp;gt;כניסה&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;כדי להמשיך.!</value>
+  </data>
+  <data name="HHP_modal_text" xml:space="preserve">
+    <value>. אתה רק מספר לחיצות עכבר בלבד מיידית לעזור שיעורי הבית, &amp;lt;b&amp;gt;ובינונית ליצירת בחינם.&amp;lt;/b&amp;gt;!</value>
+  </data>
+  <data name="HHP_register_stepEight_boldText" xml:space="preserve">
+    <value>דוא"ל</value>
+  </data>
+  <data name="HHP_register_stepEight_heading" xml:space="preserve">
+    <value>בדוק את הדוא'ל שלך</value>
+  </data>
+  <data name="HHP_register_stepEight_text" xml:space="preserve">
+    <value>שלחנו אליך אימייל חדש לאיפוס סיסמה.!</value>
+  </data>
+  <data name="HHP_register_stepFive_boldTextOne" xml:space="preserve">
+    <value>הזן את קוד האישור!</value>
+  </data>
+  <data name="HHP_register_stepFive_heading" xml:space="preserve">
+    <value>הזן את קוד האישור שלחנו את הקוד אליך באמצעות SMS!</value>
+  </data>
+  <data name="HHP_register_stepFour_boldTextOne" xml:space="preserve">
+    <value>הזן את מספר הטלפון שלך</value>
+  </data>
+  <data name="HHP_register_stepFour_heading" xml:space="preserve">
+    <value>הזן את מספר הטלפון שלך אנחנו צריכים לשלוח לך קוד אישור!</value>
+  </data>
+  <data name="HHP_register_stepFour_text" xml:space="preserve">
+    <value>אנחנו צריכים לשלוח לך קוד אישור!</value>
+  </data>
+  <data name="HHP_register_stepNine_heading" xml:space="preserve">
+    <value>להזין סיסמא</value>
+  </data>
+  <data name="HHP_register_stepOne_boldTextOne" xml:space="preserve">
+    <value>ללא תשלום!</value>
+  </data>
+  <data name="HHP_register_stepOne_heading" xml:space="preserve">
+    <value>לקבל מיידית את שיעורי הבית לעזור, בחינם!</value>
+  </data>
+  <data name="HHP_register_stepOne_text" xml:space="preserve">
+    <value>התחל עם הדוא&amp;quot;ל שלך. אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
+  </data>
+  <data name="HHP_register_stepSeven_heading" xml:space="preserve">
+    <value>&lt;b&gt;ברוך שובך&lt;/b&gt; &lt;br/&gt; אנא התחבר!</value>
+  </data>
+  <data name="HHP_register_stepSix_boldTextOne" xml:space="preserve">
+    <value>100</value>
+  </data>
+  <data name="HHP_register_stepSix_heading" xml:space="preserve">
+    <value>מזל טוב!!</value>
+  </data>
+  <data name="HHP_register_stepSix_sub_heading" xml:space="preserve">
+    <value>אתה מתוגמל ובינונית ליצירת 100!</value>
+  </data>
+  <data name="HHP_register_stepSix_text" xml:space="preserve">
+    <value>אתה יכול לבלות אותם כדי לקבל עזרה בשאלות שיעורי הבית שלך.!</value>
+  </data>
+  <data name="HHP_register_stepTen_createbtn" xml:space="preserve">
+    <value>יצירת &amp;lt;b&amp;gt;סיסמה&amp;lt;/b&amp;gt;!</value>
+  </data>
+  <data name="HHP_register_stepTen_createtxt" xml:space="preserve">
+    <value>צור את הסיסמה שלך!</value>
+  </data>
+  <data name="HHP_register_stepTen_heading" xml:space="preserve">
+    <value>אפס את סיסמה שלך</value>
+  </data>
+  <data name="HHP_register_stepTen_resetbtn" xml:space="preserve">
+    <value>איפוס סיסמה</value>
+  </data>
+  <data name="HHP_register_stepTen_resettxt" xml:space="preserve">
+    <value>אפס את סיסמה שלך</value>
+  </data>
+  <data name="HHP_register_stepThree_boldTextOne" xml:space="preserve">
+    <value>הפעל חשבון</value>
+  </data>
+  <data name="HHP_register_stepThree_heading" xml:space="preserve">
+    <value>בדוק את הדוא&amp;quot;ל שלך כדי להפעיל את חשבונך!</value>
+  </data>
+  <data name="HHP_register_stepTwo_boldTextOne" xml:space="preserve">
+    <value>ליצור איתך קשר.!</value>
+  </data>
+  <data name="HHP_register_stepTwo_heading" xml:space="preserve">
+    <value>אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
+  </data>
+  <data name="HHP_register_stepTwo_text" xml:space="preserve">
+    <value>אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
+  </data>
+  <data name="makeMoneyProfile_modal_heading" xml:space="preserve">
+    <value>בבקשה&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;הרשמה&amp;lt;/b&amp;gt; או &amp;lt;b&amp;gt;כניסה&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;כדי להמשיך.!</value>
+  </data>
+  <data name="makeMoneyProfile_modal_text" xml:space="preserve">
+    <value>אתה מספר לחיצות עכבר בלבד ללא גישה עושים כסף רציני..!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepEight_heading" xml:space="preserve">
+    <value>בדוק את הדוא'ל שלך</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepEight_text" xml:space="preserve">
+    <value>שלחנו אליך אימייל חדש לאיפוס סיסמה.!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepFive_boldTextOne" xml:space="preserve">
+    <value>הזן את קוד האישור!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepFive_heading" xml:space="preserve">
+    <value>הזן את קוד האישור שלחנו את הקוד אליך באמצעות SMS!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepFour_boldTextOne" xml:space="preserve">
+    <value>הזן את מספר הטלפון שלך</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepFour_heading" xml:space="preserve">
+    <value>הזן את מספר הטלפון שלך אנחנו צריכים לשלוח לך קוד אישור!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepFour_text" xml:space="preserve">
+    <value>אנחנו צריכים לשלוח לך קוד אישור!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepNine_heading" xml:space="preserve">
+    <value>להזין סיסמא</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepOne_boldTextOne" xml:space="preserve">
+    <value>money</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepOne_heading" xml:space="preserve">
+    <value>&lt;b&gt;לעשות כסף&lt;/b&gt; &lt;br/&gt; תוך סיוע לאחרים עם שיעורי הבית שלהם!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepOne_headinmakeMoneyProfile_register_stepOne_heading" xml:space="preserve">
+    <value>להרוויח כסף בזמן לעזור לאחרים עם שיעורי הבית שלהם!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepOne_text" xml:space="preserve">
+    <value>התחל עם הדוא&amp;quot;ל שלך. אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepSeven_heading" xml:space="preserve">
+    <value>&lt;b&gt;ברוך שובך&lt;/b&gt; &lt;br/&gt; אנא התחבר!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepSix_boldTextOne" xml:space="preserve">
+    <value>100</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepSix_boldTextTwo" xml:space="preserve">
+    <value>לעשות כסף!!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepSix_heading" xml:space="preserve">
+    <value>מזל טוב!!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepSix_sub_heading" xml:space="preserve">
+    <value>אתה מוכן להתחיל להרוויח כסף!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepSix_text" xml:space="preserve">
+    <value>אנחנו גם הוענק לך 100 SBL (אתה יכול להשתמש אלה כדי לקבל עזרה עם שיעורי הבית שלך)!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepTen_createbtn" xml:space="preserve">
+    <value>צור סיסמה!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepTen_createtxt" xml:space="preserve">
+    <value>צור את &lt;b&gt;הסיסמה&lt;/b&gt; שלך!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepTen_heading" xml:space="preserve">
+    <value>אפס את סיסמה שלך</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepTen_resetbtn" xml:space="preserve">
+    <value>איפוס סיסמה</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepTen_resettxt" xml:space="preserve">
+    <value>אפס את סיסמה שלך</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepThree_boldTextOne" xml:space="preserve">
+    <value>הפעל חשבון</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepThree_heading" xml:space="preserve">
+    <value>בדוק את הדוא&amp;quot;ל שלך כדי להפעיל את חשבונך!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepTwo_boldTextOne" xml:space="preserve">
+    <value>ליצור איתך קשר.!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepTwo_heading" xml:space="preserve">
+    <value>אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepTwo_text" xml:space="preserve">
+    <value>אנחנו צריכים לדעת איך ליצור איתך קשר!</value>
+  </data>
+</root>

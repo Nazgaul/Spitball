@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
+/*
     public class QuestionsQueryHandler : IQueryHandler<QuestionsQuery, IEnumerable<QuestionDto>>
     {
         private readonly ISession _session;
@@ -95,4 +95,5 @@ namespace Cloudents.Infrastructure.Database.Query
             return await queryOverObj.ListAsync<QuestionDto>(token);
         }
     }
+*/
 }

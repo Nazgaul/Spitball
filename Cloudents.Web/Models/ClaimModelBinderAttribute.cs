@@ -1,6 +1,5 @@
 ﻿using Cloudents.Web.Binders;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Cloudents.Web.Models
 {

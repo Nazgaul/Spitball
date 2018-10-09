@@ -64,5 +64,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         {
             return result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D" || p.Data.IsDeleted || p.Data.Pending);
         }
+
+        protected override int PageSize => 500;
     }
 }

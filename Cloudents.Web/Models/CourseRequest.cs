@@ -1,6 +1,4 @@
-﻿using Cloudents.Web.Identity;
-using System.ComponentModel.DataAnnotations;
-using Cloudents.Web.Swagger;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Models

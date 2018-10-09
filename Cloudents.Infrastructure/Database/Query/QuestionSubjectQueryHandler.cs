@@ -29,7 +29,10 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<IEnumerable<QuestionSubjectDto>> GetAsync(QuestionSubjectQuery query, CancellationToken token)
         {
             QuestionSubjectDto dto = null;
-           return await QuestionSubjectRepository.GetSubjects(_session.QueryOver<QuestionSubject>()).SelectList(l =>
+            
+           return await _session.QueryOver<QuestionSubject>().OrderBy(o => o.Order).Asc
+               .ThenBy(o => o.Text).Asc
+               .SelectList(l =>
                    l.Select(s => s.Id).WithAlias(() => dto.Id)
                        .Select(s => s.Text).WithAlias(() => dto.Subject)
                ).TransformUsing(Transformers.AliasToBean<QuestionSubjectDto>())

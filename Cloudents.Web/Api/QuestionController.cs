@@ -3,8 +3,6 @@ using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
@@ -12,12 +10,12 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -30,13 +28,15 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<QuestionController> _localizer;
+        private readonly IQuestionSearch _questionSearch;
 
-        public QuestionController(Lazy<ICommandBus> commandBus, IMapper mapper, UserManager<User> userManager, IStringLocalizer<QuestionController> localizer)
+        public QuestionController(Lazy<ICommandBus> commandBus, IMapper mapper, UserManager<User> userManager, IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch)
         {
             _commandBus = commandBus;
             _mapper = mapper;
             _userManager = userManager;
             _localizer = localizer;
+            _questionSearch = questionSearch;
         }
 
         [HttpPost]
@@ -110,48 +110,44 @@ namespace Cloudents.Web.Api
 
         [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
         public async Task<ActionResult<WebResponseWithFacet<QuestionDto>>> GetQuestionsAsync([FromQuery]GetQuestionsRequest model,
-            [FromServices] IQueryBus queryBus,
             CancellationToken token)
         {
             //var query = _mapper.Map<QuestionsQuery>(model);
+            var query = new QuestionsQuery(model.Term, model.Source, model.Page.GetValueOrDefault(), model.Filter?.Where(w => w.HasValue).Select(s => s.Value));
+            var result = await _questionSearch.SearchAsync(query, token);
+            //var resultTask = new List<Task<IEnumerable<QuestionDto>>>();
+            //var filters = (model.Filter ?? new QuestionFilter?[] { QuestionFilter.All }).Distinct().ToArray();
+            //if (filters.Length == Enum.GetValues(filters.First().GetType()).Length)
+            //{
+            //    filters = new QuestionFilter?[] {QuestionFilter.All};
+            //}
 
-            var resultTask = new List<Task<IEnumerable<QuestionDto>>>();
-            var filters = (model.Filter ?? new QuestionFilter?[] { QuestionFilter.All }).Distinct().ToArray();
-            if (filters.Length == Enum.GetValues(filters.First().GetType()).Length)
-            {
-                filters = new QuestionFilter?[] {QuestionFilter.All};
-            }
+            //foreach (var filter in filters)
+            //{
+            //    var query = new QuestionsQuery(model.Term, model.Source, model.Page.GetValueOrDefault(), filter);
+            //    Task<IEnumerable<QuestionDto>> t = queryBus.QueryAsync(query, token);
+            //    resultTask.Add(t);
+            //}
 
-            foreach (var filter in filters)
-            {
-                var query = new QuestionsQuery(model.Term, model.Source, model.Page.GetValueOrDefault(), filter);
-                Task<IEnumerable<QuestionDto>> t = queryBus.QueryAsync(query, token);
-                resultTask.Add(t);
-            }
 
-            var querySubject = new QuestionSubjectQuery();
-            var subjects = await queryBus.QueryAsync(querySubject, token).ConfigureAwait(false);
-
-            var results = await Task.WhenAll(resultTask);
-
-            var result = results.SelectMany(s => s)
-                .Distinct(new QuestionDtoEqualityComparer()).OrderByDescending(o=>o.DateTime).ToList();
+            //var result = results.SelectMany(s => s)
+            //    .Distinct(new QuestionDtoEqualityComparer()).OrderByDescending(o=>o.DateTime).ToList();
 
             // var result = await queryBus.QueryAsync(query, token).ConfigureAwait(false);
             //var p = result.ToList();
             string nextPageLink = null;
-            if (result.Any())
+            if (result.Result.Any())
             {
                 nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }
 
             return new WebResponseWithFacet<QuestionDto>
             {
-                Result = result,
+                Result = result.Result,
                 Filters = new[]
                 {
-                    new Models.Filters(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"], EnumExtension.GetPublicEnumNames(typeof(QuestionFilter))),
-                    new Models.Filters(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"], subjects.Select(s=>s.Subject))
+                    new Models.Filters(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"], result.FacetState.Select(s=>s.ToString("G"))),
+                    new Models.Filters(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"], result.FacetSubject.Select(s=> _localizer[s].Value))
                 },
                 NextPageLink = nextPageLink
             };

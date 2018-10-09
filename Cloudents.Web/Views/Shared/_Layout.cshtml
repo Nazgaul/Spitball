@@ -142,6 +142,7 @@
             window.publicPath = '@cdnEndPoint' + '/dist/';
             window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
     window.talkJsId = '@Configuration["TalkJs"]';
+    window.country = '@ViewBag.country';
     @*window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'*@
     </script>
 

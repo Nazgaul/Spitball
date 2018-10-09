@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities.Db;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
-using QuestionSearch = Cloudents.Core.Entities.Search.Question;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.DTOs.SearchSync;
 
 namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class QuestionSyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<QuestionSearch>,
-        IQueryHandler<SyncAzureQuery, (IEnumerable<QuestionSearch> update, IEnumerable<long> delete, long version)>
+    public class QuestionSyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<QuestionSearchDto>,
+        IQueryHandler<SyncAzureQuery, (IEnumerable<QuestionSearchDto> update, IEnumerable<long> delete, long version)>
     {
         private readonly FluentQueryBuilder _queryBuilder;
 
@@ -37,21 +37,22 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         {
             qb.Join<Question, User>(q => q.User, u => u.Id)
              .Join<Question, QuestionSubject>(q => q.Subject, qs => qs.Id);
-            qb.Select<User>(x => x.Id, nameof(QuestionSearch.UserId))
-                .Select<User>(x => x.Name, nameof(QuestionSearch.UserName))
-                .Select<User>(x => x.Image, nameof(QuestionSearch.UserImage))
-                .Select<Question>(x => x.Id, nameof(QuestionSearch.Id))
+            qb.Select<User>(x => x.Id, nameof(QuestionSearchDto.UserId))
+                .Select<User>(x => x.Name, nameof(QuestionSearchDto.UserName))
+                .Select<User>(x => x.Image, nameof(QuestionSearchDto.UserImage))
+                .Select<Question>(x => x.Id, nameof(QuestionSearchDto.Id))
+                .Select<User>(x => x.Country, nameof(QuestionSearchDto.Country))
                 .Select(
-                    $"(select count(*) from {qb.Table<Answer>()} where {qb.Column<Answer>(x => x.Question)} = {qb.ColumnAlias<Question>(x => x.Id)}) {nameof(QuestionSearch.AnswerCount)}")
-                .Select<Question>(x => x.Updated, nameof(QuestionSearch.DateTime))
-                .Select<Question>(x => x.Attachments, nameof(QuestionSearch.FilesCount))
+                    $"(select count(*) from {qb.Table<Answer>()} where {qb.Column<Answer>(x => x.Question)} = {qb.ColumnAlias<Question>(x => x.Id)}) {nameof(QuestionSearchDto.AnswerCount)}")
+                .Select<Question>(x => x.Updated, nameof(QuestionSearchDto.DateTime))
+                .Select<Question>(x => x.Attachments, nameof(QuestionSearchDto.FilesCount))
                 .Select(
-                    $"CASE when {qb.ColumnAlias<Question>(x => x.CorrectAnswer)} IS null Then 0 else 1  END {nameof(QuestionSearch.HasCorrectAnswer)}")
-                .Select<Question>(x => x.Price, nameof(QuestionSearch.Price))
-                .Select<Question>(x => x.Text, nameof(QuestionSearch.Text))
-                .Select<Question>(x => x.Color, nameof(QuestionSearch.Color))
+                    $"CASE when {qb.ColumnAlias<Question>(x => x.CorrectAnswer)} IS null Then 0 else 1  END {nameof(QuestionSearchDto.HasCorrectAnswer)}")
+                .Select<Question>(x => x.Price, nameof(QuestionSearchDto.Price))
+                .Select<Question>(x => x.Text, nameof(QuestionSearchDto.Text))
+                .Select<Question>(x => x.Color, nameof(QuestionSearchDto.Color))
                 //.Select<QuestionSubject>(x => x.Text, nameof(QuestionSearch.SubjectText))
-                .Select<QuestionSubject>(x => x.Id, nameof(QuestionSearch.Subject))
+                .Select<QuestionSubject>(x => x.Id, nameof(QuestionSearchDto.Subject))
                 .Select("c.*")
                 .AddOrder<Question>(q => q.Id)
                 .Paging("PageSize", "PageNumber");
@@ -69,5 +70,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
                 return qb;
             }
         }
+
+        protected override int PageSize => 200;
     }
 }

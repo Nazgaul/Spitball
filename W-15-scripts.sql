@@ -294,3 +294,8 @@ GO
 
 ALTER TABLE [sb].[UserCourseRelationship] CHECK CONSTRAINT [UserCourseRelationship_User]
 GO
+
+
+alter table sb.[questionSubject]
+Add Subject_Hebrew nvarchar(255)
+--TODO need someone to popluate it
