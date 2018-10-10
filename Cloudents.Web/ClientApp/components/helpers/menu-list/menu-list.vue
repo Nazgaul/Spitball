@@ -91,7 +91,7 @@
             </router-link>
             <v-list-tile  @click="openPersonalizeUniversity()">
                 <v-list-tile-action>
-                    <v-icon>sbf-feedbackNew</v-icon>
+                    <v-icon>sbf-university</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading" v-language:inner>menuList_changeUniversity</v-list-tile-title>
@@ -99,7 +99,7 @@
             </v-list-tile>
             <v-list-tile  @click="openPersonalizeCourse()">
                 <v-list-tile-action>
-                    <v-icon>sbf-feedbackNew</v-icon>
+                    <v-icon>sbf-classes</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading" v-language:inner>menuList_changeCourse</v-list-tile-title>
