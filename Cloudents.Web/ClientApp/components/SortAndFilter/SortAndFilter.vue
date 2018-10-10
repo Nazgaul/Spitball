@@ -5,13 +5,13 @@
             <div class="sort-switch">
                 <template v-for="(singleSort, index) in sortOptions">
                     <input type="radio" :id="`option${index}`"
-                           @click="updateSort(singleSort)"
+                           @click="updateSort(singleSort.key)"
                            :key="`option${index}`"
                            name="switch"
                            :value="singleSort"
-                           :checked="sortVal ? sortVal === singleSort : index===0">
+                           :checked="isRadioChecked(singleSort, index)">
                     <label :for="`option${index}`"
-                           :key="index">{{singleSort}}</label>
+                           :key="index">{{singleSort.value}}</label>
                 </template>
             </div>
         </template>

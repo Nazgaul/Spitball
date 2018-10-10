@@ -10,16 +10,17 @@
                 <div class="sort-switch">
                 <template v-for="(singleSort, index) in sortOptions">
                 <input type="radio" :id="`option${index}`" v-model="sort" :key="`option${index}`"
-                name="switch" :value="singleSort">
-                <label :for="`option${index}`" :key="index">{{singleSort}}</label>
+                name="switch" :value="singleSort.key">
+                <label :for="`option${index}`" :key="index">{{singleSort.value}}</label>
                 </template>
                 </div>
                 </template>
             </div>
-            <div class="filter-wrap px-3" v-if="filterOptions && filterOptions.length">
+
+            <div class="filter-wrap px-3" v-if="filterList && filterList.length">
                 <h3 class="" >Filter By</h3>
                 <div class="filter-sections">
-                    <div class="filter-section" v-for="(singleFilter) in filterOptions" :key="singleFilter.id" :value="true">
+                    <div class="filter-section" v-for="(singleFilter) in filterList" :key="singleFilter.id" :value="true">
                         <v-layout class="filter-header" slot="header">
                             <v-layout row align-center>
                                 <div class="icon-wrapper">
@@ -33,11 +34,11 @@
                         <div class="filter-list">
                             <v-btn-toggle  v-model="filtersSelected" multiple>
                                 <v-btn v-for="filterOption in singleFilter.data"
-                                       :key="(filterOption.id ? filterOption.id : filterOption)"
-                                       :active="filterOption"
-                                       :id="filterOption"
-                                       :value="`${singleFilter.id}_${filterOption}`">
-                                    {{filterOption ? filterOption:filterOption | capitalize}}
+                                       :key="(filterOption.key ? filterOption.key : '')"
+                                       :active="filterOption.value"
+                                       :id="filterOption.key"
+                                       :value="`${filterOption.key}_${filterOption.value}_${singleFilter.id}`">
+                                    {{filterOption.value ? filterOption.value : '' | capitalize}}
                                 </v-btn>
                             </v-btn-toggle>
                             <slot :name="`${singleFilter.modelId}EmptyState`" v-if="singleFilter.data && singleFilter.data.length===0"></slot>
