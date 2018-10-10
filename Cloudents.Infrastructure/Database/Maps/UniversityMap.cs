@@ -16,7 +16,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.ExtraSearch);
             Map(x => x.Country).Not.Nullable().Length(2);
             Map(x => x.Pending);
-            Component(x => x.TimeStamp);
+            Component(x => x.RowDetail);
 
             Schema("Zbox");
         }
