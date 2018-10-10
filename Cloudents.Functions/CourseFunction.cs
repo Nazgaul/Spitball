@@ -18,20 +18,8 @@ namespace Cloudents.Functions
             CancellationToken token)
         {
             const string instanceId = "CourseSearchSync";
-            var existingInstance = await starter.GetStatusAsync(instanceId);
-            var startNewInstanceEnum = new[]
-            {
-                OrchestrationRuntimeStatus.Canceled,
-                OrchestrationRuntimeStatus.Completed,
-                OrchestrationRuntimeStatus.Failed,
-                OrchestrationRuntimeStatus.Terminated
-            };
-            if (existingInstance == null || startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
-            {
-                log.Info($"Started {instanceId}");
-                var model = new SearchSyncInput(SyncType.Course);
-                await starter.StartNewAsync("SearchSync", instanceId, model);
-            }
+            await SyncFunc.StartSearchSync(starter, log, instanceId);
+            
         }
 
         // [FunctionName("CourseTimer")]

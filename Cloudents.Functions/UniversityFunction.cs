@@ -16,20 +16,8 @@ namespace Cloudents.Functions
             CancellationToken token)
         {
             const string instanceId = "UniversitySearchSync";
-            var existingInstance = await starter.GetStatusAsync(instanceId);
-            var startNewInstanceEnum = new[]
-            {
-                OrchestrationRuntimeStatus.Canceled,
-                OrchestrationRuntimeStatus.Completed,
-                OrchestrationRuntimeStatus.Failed,
-                OrchestrationRuntimeStatus.Terminated
-            };
-            if (existingInstance == null || startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
-            {
-                log.Info("Started UniversitySearchSync");
-                var model = new SearchSyncInput(SyncType.University);
-                await starter.StartNewAsync("SearchSync", instanceId, model);
-            }
+            await SyncFunc.StartSearchSync(starter, log, instanceId);
+           
         }
     }
 }

@@ -31,26 +31,17 @@ namespace Cloudents.Functions
 
 
         [FunctionName("QuestionSearchSync")]
-        public static async Task RunQuestionSearchAsync([TimerTrigger("0 */10 * * * *", RunOnStartup = true)] TimerInfo myTimer,
+        public static async Task RunQuestionSearchAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)] TimerInfo myTimer,
             [OrchestrationClient] DurableOrchestrationClient starter,
             TraceWriter log,
             CancellationToken token)
         {
             const string instanceId = "QuestionSearchSync";
-            var existingInstance = await starter.GetStatusAsync(instanceId);
-            var startNewInstanceEnum = new[]
-            {
-                OrchestrationRuntimeStatus.Canceled,
-                OrchestrationRuntimeStatus.Completed,
-                OrchestrationRuntimeStatus.Failed,
-                OrchestrationRuntimeStatus.Terminated
-            };
-            if (existingInstance == null || startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
-            {
-                var model = new SearchSyncInput(SyncType.Question);
-                await starter.StartNewAsync("SearchSync", instanceId, model);
-            }
+
+            await SyncFunc.StartSearchSync(starter, log, instanceId);
         }
+
+       
 
         [FunctionName("QuestionPopulate")]
         public static async Task QuestionPopulateAsync([TimerTrigger("0 */15 * * * *", RunOnStartup = true)]TimerInfo myTimer,
