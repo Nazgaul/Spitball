@@ -7,6 +7,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -17,23 +18,22 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class DocumentController : Controller
     {
-        private readonly IReadRepositoryAsync<DocumentSeoDto, long> _repository;
         private readonly IReadRepositoryAsync<DocumentDto, long> _repositoryDocument;
         private readonly IBlobProvider<FilesContainerName> _blobProvider;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         private readonly IStringLocalizer<DocumentController> _localizer;
+        private readonly IQueryBus _queryBus;
 
         public DocumentController(
-            IReadRepositoryAsync<DocumentSeoDto, long> repository,
             IReadRepositoryAsync<DocumentDto, long> repositoryDocument,
             IBlobProvider<FilesContainerName> blobProvider, IStringLocalizer<SharedResource> sharedLocalizer,
-            IStringLocalizer<DocumentController> localizer)
+            IStringLocalizer<DocumentController> localizer, IQueryBus queryBus)
         {
-            _repository = repository;
             _repositoryDocument = repositoryDocument;
             _blobProvider = blobProvider;
             _sharedLocalizer = sharedLocalizer;
             _localizer = localizer;
+            _queryBus = queryBus;
         }
 
         [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
@@ -42,7 +42,8 @@ namespace Cloudents.Web.Controllers
             [FromQuery] bool? isNew,
             CancellationToken token)
         {
-            var model = await _repository.GetAsync(id, token).ConfigureAwait(false);
+            var query = new DocumentDataSeoById(id);
+            var model = await _queryBus.QueryAsync(query, token);
             if (model == null)
             {
                 return NotFound();
@@ -71,9 +72,8 @@ namespace Cloudents.Web.Controllers
             //var culture = Languages.GetCultureBaseOnCountry(model.Country);
             //_localizer.WithCulture()
             //SeoBaseUniversityResources.Culture = culture;
-            //TODO: culture base globalization - localize doesn't work
             ViewBag.title =
-                $"{model.BoxName} - {model.Name} | {_sharedLocalizer["Spitball"]}";
+                $"{model.CourseName} - {model.Name} | {_sharedLocalizer["Spitball"]}";
 
             ViewBag.metaDescription = _localizer["meta"];
             if (!string.IsNullOrEmpty(model.Description))
