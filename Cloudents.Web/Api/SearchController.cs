@@ -52,7 +52,7 @@ namespace Cloudents.Web.Api
                 Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
                 Filters = new[]
                 {
-                    new Models.Filters<string>(nameof(SearchRequest.Source),"Sources",result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
+                    new Filters<string>(nameof(SearchRequest.Source),"Sources",result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
                 //Facet = result.Facet,
                 NextPageLink = nextPageLink
@@ -105,7 +105,7 @@ namespace Cloudents.Web.Api
                 Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
                 Filters = new[]
                 {
-                    new Models.Filters<string>(nameof(SearchRequest.Source),"Sources",result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
+                    new Filters<string>(nameof(SearchRequest.Source),"Sources",result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
                 //Facet = result.Facet,
                 NextPageLink = nextPageLink

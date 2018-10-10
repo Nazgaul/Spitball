@@ -61,7 +61,7 @@ namespace Cloudents.Web.Api
                 Sort = Enum.GetNames(typeof(TutorRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
                 Filters = new[]
                 {
-                    new Models.Filters<string>(nameof(TutorRequest.Filter),"Status", Enum.GetNames(typeof(TutorRequestFilter)).Select(s=> new KeyValuePair<string, string>(s,s)))
+                    new Filters<string>(nameof(TutorRequest.Filter),"Status", Enum.GetNames(typeof(TutorRequestFilter)).Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
                 NextPageLink = nextPageLink
             };
