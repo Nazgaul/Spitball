@@ -141,13 +141,13 @@ export default {
 
     watch: {
         //update the course list of filters if have in page while the course list changes
-        myCourses(val) {
-            if (this.filterObject) {
-                const courseIndex = this.filterObject.findIndex(item => item.modelId === "course");
-                if (courseIndex > -1)
-                    this.filterObject[courseIndex].data = val;
-            }
-        }
+        // myCourses(val) {
+        //     if (this.filterObject) {
+        //         const courseIndex = this.filterObject.findIndex(item => item.modelId === "course");
+        //         if (courseIndex > -1)
+        //             this.filterObject[courseIndex].data = val;
+        //     }
+        // }
     },
     methods: {
         ...mapActions([

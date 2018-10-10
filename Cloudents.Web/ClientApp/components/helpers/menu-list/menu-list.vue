@@ -89,6 +89,22 @@
                     <v-list-tile-title class="subheading" v-language:inner>menuList_my_profile</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
+            <v-list-tile  @click="openPersonalizeUniversity()">
+                <v-list-tile-action>
+                    <v-icon>sbf-feedbackNew</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title class="subheading">Change University</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile  @click="openPersonalizeCourse()">
+                <v-list-tile-action>
+                    <v-icon>sbf-feedbackNew</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title class="subheading">Change Classes</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
             <!-- start language swith-->
             <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)">
                 <v-list-tile-action>
@@ -183,6 +199,7 @@
     import referralDialog from '../../question/helpers/referralDialog/referral-dialog.vue'
     import languagesLocales from '../../../services/language/localeLanguage'
     import { LanguageChange } from '../../../services/language/languageService'
+    import { typesPersonalize } from "../../settings/consts.js";
 
     export default {
         components: {userBlock, notLoggedIn, sbDialog, referralDialog},
@@ -219,7 +236,7 @@
             },
         },
         methods: {
-            ...mapActions(['logout']),
+            ...mapActions(['logout', 'updateLoginDialogState']),
             currentTemplate(val) {
                 return val ? 'router-link' : 'v-list-tile';
             },
@@ -240,6 +257,20 @@
             },
             openReferralDialog() {
                 this.showReferral = true;
+            },
+            openPersonalizeUniversity(){
+                if (!this.isLoggedIn) {
+                    this.updateLoginDialogState(true);
+                }else {
+                    this.$root.$emit("personalize",  typesPersonalize.university);
+                }
+            },
+            openPersonalizeCourse(){
+                if (!this.isLoggedIn) {
+                    this.updateLoginDialogState(true);
+                }else {
+                    this.$root.$emit("personalize", typesPersonalize.course,);
+                }
             }
         },
 
