@@ -44,6 +44,6 @@ namespace Cloudents.Core.DTOs
         /// <summary>
         /// an indicator is the search is stop word
         /// </summary>
-        public bool StopWord { get; set; }
+        public bool? StopWord { get; set; }
     }
 }
