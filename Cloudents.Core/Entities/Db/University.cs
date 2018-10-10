@@ -1,10 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Attributes;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities.Db
 {
-    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global")]
     public class University
     {

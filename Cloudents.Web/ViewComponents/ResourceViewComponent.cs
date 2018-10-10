@@ -8,7 +8,6 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Cloudents.Web.ViewComponents
 {

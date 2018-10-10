@@ -32,6 +32,7 @@ namespace Cloudents.Infrastructure.Storage
             var queue = _queueClient.GetQueueReference(queueName.Name);
             var json = JsonConvert.SerializeObject(obj);
             var cloudMessage = new CloudQueueMessage(json);
+            token.ThrowIfCancellationRequested();
             return queue.AddMessageAsync(cloudMessage);
         }
     }

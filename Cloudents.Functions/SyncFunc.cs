@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Cloudents.Core.Query;
 using Cloudents.Functions.Di;
 using Cloudents.Functions.Sync;
 using Microsoft.Azure.WebJobs;
@@ -9,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs.Host;
 using System.Linq;
+using Cloudents.Core.Query.Sync;
 
 namespace Cloudents.Functions
 {

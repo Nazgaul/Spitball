@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cloudents.Core.Entities.Db
+﻿namespace Cloudents.Core.Entities.Db
 {
     public class Ip
     {
