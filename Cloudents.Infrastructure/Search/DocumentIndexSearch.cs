@@ -6,6 +6,7 @@ using Microsoft.Azure.Search.Models;
 using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -91,10 +92,15 @@ namespace Cloudents.Infrastructure.Search
                 Image = s.Document.Image,
                 Title = s.Document.Name,
                 Snippet = s.Document.MetaContent,
-                Url = s.Document.Url,
+                Url = BuildUrlWithIsNew(s.Document.Url),
                 Source = "Spitball"
             });
             return retVal;
+        }
+
+        private static string BuildUrlWithIsNew(string x)
+        {
+            return x += "?isNew=true";
         }
     }
 }

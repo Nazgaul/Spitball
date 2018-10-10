@@ -53,7 +53,7 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<JobDto>
             {
                 Result = result.Result,
-                Filters = new[]
+                Filters = new IFilters[]
                 {
                     new Filters<string>(nameof(JobRequest.Facet),"Subject", result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },

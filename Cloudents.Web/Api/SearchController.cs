@@ -149,7 +149,7 @@ namespace Cloudents.Web.Api
             {
                 Result = p,
                 Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
-                Filters = new[]
+                Filters = new IFilters[]
                 {
                     new Filters<string>(nameof(SearchRequest.Source),_localizer["Sources"],result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },

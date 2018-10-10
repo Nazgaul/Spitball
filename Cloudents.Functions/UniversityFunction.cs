@@ -1,7 +1,5 @@
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Functions.Sync;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
