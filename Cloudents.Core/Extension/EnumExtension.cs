@@ -44,15 +44,17 @@ namespace Cloudents.Core.Extension
             return fi.GetCustomAttribute<T>();
         }
 
-        public static IEnumerable<string> GetPublicEnumNames(Type value)
+        public static IEnumerable<string> GetPublicEnumNames(this Type value)
         {
             var memberInfos = value.GetFields(BindingFlags.Public | BindingFlags.Static);
+            
 
             foreach (var memberInfo in memberInfos)
             {
                 if (memberInfo.GetCustomAttribute<PublicValueAttribute>() != null)
                 {
                     yield return memberInfo.Name;
+                    
                 }
             }
         }
