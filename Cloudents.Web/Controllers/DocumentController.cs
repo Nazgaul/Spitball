@@ -46,10 +46,10 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (string.Equals(model.Country, "il", StringComparison.InvariantCultureIgnoreCase))
-            {
-                return this.RedirectToOldSite();
-            }
+            //if (string.Equals(model.Country, "il", StringComparison.InvariantCultureIgnoreCase))
+            //{
+            //    return this.RedirectToOldSite();
+            //}
 
             if (!model.Discriminator.Equals("file", StringComparison.OrdinalIgnoreCase))
             {

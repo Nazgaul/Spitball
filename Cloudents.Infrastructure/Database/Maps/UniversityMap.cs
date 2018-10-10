@@ -19,6 +19,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             Component(x => x.RowDetail);
 
             Schema("Zbox");
+
+            
         }
     }
 }
