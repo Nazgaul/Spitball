@@ -6,6 +6,7 @@ const searchItemCourse = () => import("./searchItemCourse.vue");
 import { mapGetters, mapMutations, mapActions } from "vuex"
 import CourseAdd from "./courseAdd.vue";
 import PageLayout from "./layout.vue";
+import { LanguageService } from "../../services/language/languageService";
 
 export default {
     watch: {
@@ -49,7 +50,7 @@ export default {
         title() {
             if (this.currentAction) return "Add Class";
             if (this.currentType === "course") return this.getUniversityName;
-            return "Personalize Results";
+            return LanguageService.getValueByKey('resultPersonalize_personalize_results');
         },
         showCreateCourse: function () {
             return this.val.length > 2 && this.currentType === typesPersonalize.course && !this.isLoading;

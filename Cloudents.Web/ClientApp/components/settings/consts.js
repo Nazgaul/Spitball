@@ -32,7 +32,7 @@ export let searchObjects = {
     university: {
         id: typesPersonalize.university,
         searchApi: "getUniversities",
-        placeholder: 'Where do you go to school?',
+        placeholder: LanguageService.getValueByKey('result_where_school'),
         closeText: "X",
         click: function (keep = true) {
             if (!keep) {
