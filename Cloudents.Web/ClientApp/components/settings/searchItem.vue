@@ -58,8 +58,8 @@
                 <form @submit.prevent="$_submitAddUniversity">
                     <div class="form-title" v-language:inner>searchitem_dont_see_university</div>
                         <v-text-field light @input="resetUniversityErrors" v-model="newUniversityName" placeholder="Type it in here:"></v-text-field>
-                        <div class="university-length-error" v-show="universityName.errors.minimumsNameLength">University name must contain at least 10 characters</div>
-                        <div class="university-length-error" v-show="universityName.errors.failedRequest">Failed To create University</div>
+                        <div class="university-length-error" v-show="universityName.errors.minimumsNameLength" v-language:inner>searchitem_error_chars</div>
+                        <div class="university-length-error" v-show="universityName.errors.failedRequest" v-language:inner>searchitem_error_university_create</div>
                     <div class="actions">
                         <v-btn class="save" :disabled="!newUniversityName || universityCreateRequest" :loading="universityCreateRequest" @click="$_submitAddUniversity"><span v-language:inner>searchitem_save_l</span></v-btn>
                         <v-btn class="clear" :disabled="!newUniversityName || universityCreateRequest" @click="$_clearAddUniversity"><span v-language:inner>searchitem_clear</span></v-btn>
