@@ -14,6 +14,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             ReadOnly();
             Table("IP_RANGE");
             Schema("Zbox");
+
+            SchemaAction.None();
         }
     }
 }

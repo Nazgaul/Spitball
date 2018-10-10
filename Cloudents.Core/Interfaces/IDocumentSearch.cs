@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -9,6 +10,9 @@ namespace Cloudents.Core.Interfaces
     public interface IDocumentSearch
     {
         Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken);
+
+        Task<ResultWithFacetDto<SearchResult>> SearchDocumentsAsync(SearchQuery query,
+            CancellationToken cancelToken);
     }
 
     public interface IWebDocumentSearch

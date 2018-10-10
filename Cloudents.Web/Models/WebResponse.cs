@@ -7,7 +7,7 @@ namespace Cloudents.Web.Models
     {
         public IEnumerable<T> Result { get; set; }
 
-        public IEnumerable<IFilters> Filters { get; set; }
+        public IList<IFilters> Filters { get; set; }
 
         public IEnumerable<KeyValuePair<string, string>> Sort { get; set; }
 

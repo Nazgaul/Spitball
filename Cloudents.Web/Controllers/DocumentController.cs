@@ -38,7 +38,9 @@ namespace Cloudents.Web.Controllers
 
         [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
         [ActionName("Index")]
-        public async Task<IActionResult> IndexAsync(long id, CancellationToken token)
+        public async Task<IActionResult> IndexAsync(long id,
+            [FromQuery] bool? isNew,
+            CancellationToken token)
         {
             var model = await _repository.GetAsync(id, token).ConfigureAwait(false);
             if (model == null)
@@ -46,9 +48,15 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
+
+            
             if (string.Equals(model.Country, "il", StringComparison.InvariantCultureIgnoreCase))
             {
-                return this.RedirectToOldSite();
+                if (isNew.GetValueOrDefault(false))
+                {
+                    return this.RedirectToOldSite();
+                }
+                
             }
 
             if (!model.Discriminator.Equals("file", StringComparison.OrdinalIgnoreCase))

@@ -81,7 +81,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();
-            builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
             builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
         }

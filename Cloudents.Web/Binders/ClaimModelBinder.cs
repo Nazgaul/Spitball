@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Binders
 {
@@ -26,8 +25,17 @@ namespace Cloudents.Web.Binders
             }
             else
             {
-                var val = Convert.ChangeType(result.Value, bindingContext.ModelMetadata.ModelType);
-                bindingContext.Result = ModelBindingResult.Success(val);
+                var nullableType = Nullable.GetUnderlyingType(bindingContext.ModelMetadata.ModelType);
+                if (nullableType != null)
+                {
+                    var val = Convert.ChangeType(result.Value, nullableType);
+                    bindingContext.Result = ModelBindingResult.Success(val);
+                }
+                else
+                {
+                    var val = Convert.ChangeType(result.Value, bindingContext.ModelMetadata.ModelType);
+                    bindingContext.Result = ModelBindingResult.Success(val);
+                }
             }
 
             return Task.CompletedTask;

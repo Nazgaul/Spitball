@@ -1,0 +1,69 @@
+﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
+using NHibernate.Linq;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using JetBrains.Annotations;
+using NHibernate;
+
+namespace Cloudents.Infrastructure.Database.Query
+{
+    public class UniversityCoursesSynonymQueryHandler : IQueryHandler<UniversityCoursesSynonymQuery, UniversityCoursesSynonymDto>
+    {
+        private readonly ReadonlySession _readonlySession;
+
+        public UniversityCoursesSynonymQueryHandler(ReadonlySession readonlySession)
+        {
+            _readonlySession = readonlySession;
+        }
+
+        private class UniversityResult
+        {
+            public UniversityResult(string name, string extraSearch)
+            {
+                Name = name;
+                ExtraSearch = extraSearch;
+            }
+
+            public string Name { get; set; }
+            [CanBeNull] public string ExtraSearch { get; set; }
+        }
+
+        public async Task<UniversityCoursesSynonymDto> GetAsync(UniversityCoursesSynonymQuery query, CancellationToken token)
+        {
+            IFutureValue<UniversityResult> universityFuture = null;
+            IFutureEnumerable<string> coursesFuture = null;
+            if (query.UniversityId.HasValue)
+            {
+                universityFuture = _readonlySession.Session.Query<University>()
+                    .Where(w => w.Id == query.UniversityId).Select(s => new UniversityResult(s.Name,s.ExtraSearch))
+                    .ToFutureValue();
+            }
+
+            if (query.CoursesIds?.Any() == true)
+            {
+                coursesFuture = _readonlySession.Session.Query<Course>()
+                    .Where(w => query.CoursesIds.Contains(w.Id))
+                    .Select(s => s.Name).ToFuture();
+            }
+
+            var retVal = new UniversityCoursesSynonymDto();
+            if (universityFuture != null)
+            {
+                var university = await universityFuture.GetValueAsync(token);
+                var resultUniversity = university.ExtraSearch?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Union(new[] { university.Name });
+                retVal.University = resultUniversity;
+            }
+            if (coursesFuture != null)
+            {
+                retVal.Courses = await coursesFuture.GetEnumerableAsync(token);
+            }
+
+            return retVal;
+        }
+    }
+}

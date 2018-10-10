@@ -236,11 +236,13 @@ namespace Cloudents.Web
 
                 configuration.DisableTelemetry = true;
                 app.UseDeveloperExceptionPage();
+                
+
             }
             else
             {
-                app.UseStatusCodePagesWithReExecute("/Error");
-                app.UseExceptionHandler("/Error");
+                //app.UseStatusCodePagesWithReExecute("/Error/{0}");
+                //app.UseExceptionHandler("/Error");
                 app.UseHsts(new HstsOptions
                 {
                     Duration = TimeSpan.FromDays(365),
@@ -248,6 +250,7 @@ namespace Cloudents.Web
                     Preload = true
                 });
             }
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
             var reWriterOptions = new RewriteOptions()
                 .Add(new RemoveTrailingSlash());
             if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
@@ -260,7 +263,7 @@ namespace Cloudents.Web
             app.UseResponseCompression();
             app.UseResponseCaching();
 
-            app.UseStatusCodePages();
+            //app.UseStatusCodePages();
             
 
             app.UseRequestLocalization(o =>

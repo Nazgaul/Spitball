@@ -117,19 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="QuestionFilterAnswered" xml:space="preserve">
-    <value>Answered</value>
-  </data>
-  <data name="QuestionFilterSold" xml:space="preserve">
-    <value>Sold</value>
-  </data>
-  <data name="QuestionFilterUnanswered" xml:space="preserve">
-    <value>Unanswered</value>
-  </data>
-  <data name="SearchRequestSortDate" xml:space="preserve">
-    <value>Date</value>
-  </data>
-  <data name="SearchRequestSortRelevance" xml:space="preserve">
-    <value>Relevance</value>
+  <data name="Loading...." xml:space="preserve">
+    <value>Loading....</value>
   </data>
 </root>

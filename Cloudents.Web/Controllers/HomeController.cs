@@ -39,7 +39,8 @@ namespace Cloudents.Web.Controllers
         public IActionResult Index(
             [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromHeader(Name = "User-Agent")] string userAgent,
-            [FromQuery] bool? isNew, [FromQuery, CanBeNull] string referral, [FromServices]IHostingEnvironment env)
+            [FromQuery] bool? isNew, [FromQuery, CanBeNull] string referral, 
+            [FromServices]IHostingEnvironment env)
         {
             if (!string.IsNullOrEmpty(referral))
             {

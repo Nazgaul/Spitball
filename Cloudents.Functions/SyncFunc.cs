@@ -7,11 +7,32 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.WebJobs.Host;
+using System.Linq;
 
 namespace Cloudents.Functions
 {
     public static class SyncFunc
     {
+
+        internal static async Task StartSearchSync(DurableOrchestrationClient starter, TraceWriter log, string instanceId)
+        {
+            var existingInstance = await starter.GetStatusAsync(instanceId);
+            var startNewInstanceEnum = new[]
+            {
+                OrchestrationRuntimeStatus.Canceled,
+                OrchestrationRuntimeStatus.Completed,
+                OrchestrationRuntimeStatus.Failed,
+                OrchestrationRuntimeStatus.Terminated
+            };
+            if (existingInstance == null || startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
+            {
+                log.Info($"started {instanceId}");
+                var model = new SearchSyncInput(SyncType.Question);
+                await starter.StartNewAsync("SearchSync", instanceId, model);
+            }
+        }
+
         [FunctionName("SearchSync")]
         public static async Task SearchSync(
             [OrchestrationTrigger] DurableOrchestrationContextBase context)

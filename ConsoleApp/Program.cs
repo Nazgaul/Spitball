@@ -19,6 +19,7 @@ using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
+using Cloudents.Core.Request;
 using Nethereum.Web3.Accounts;
 using Nethereum.Web3;
 
@@ -125,15 +126,13 @@ namespace ConsoleApp
 
             
 
-            var b2 = _container.Resolve<IQueryBus>();
-
-            var query = new QuestionSubjectQuery();
+            var b2 = _container.Resolve<IDocumentSearch>();
+            var query = SearchQuery.Document(null, 920, null, null, 0);
+           // var query = new CoursesQuery(2343);
             //var query = new QuestionsQuery(null, null, 0, null);
-            var t = await b2.QueryAsync(query, default);
+            var t = await b2.SearchDocumentsAsync(query, default);
 
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("he");
-            var query2 = new QuestionSubjectQuery();
-            t = await b2.QueryAsync(query2, default);
+           
 
             //var d = await b2.SearchAsync(query, default);
             ////var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 

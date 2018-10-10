@@ -15,6 +15,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             ReadOnly();
 
             Cache.ReadOnly().Region("nHibernate-Subject");
+
+            SchemaAction.None();
         }
     }
 }

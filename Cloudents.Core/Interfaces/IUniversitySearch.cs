@@ -10,7 +10,7 @@ namespace Cloudents.Core.Interfaces
     public interface IUniversitySearch
     {
         [ItemCanBeNull]
-        Task<IEnumerable<UniversityDto>> SearchAsync(string term,
+        Task<UniversitySearchDto> SearchAsync(string term,
             //[CanBeNull]
             //GeoPoint location,
             string country,

@@ -17,6 +17,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(e => e.AggregateCount);
             Map(e => e.Ip);
             Schema("dbo");
+
+            SchemaAction.None();
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Search.Question
 
             var retVal = new QuestionWithFacetDto
             {
-                Result = result.Results.Select<SearchResult<Core.Entities.Search.Question>, QuestionDto>(s => new QuestionDto()
+                Result = result.Results.Select(s => new QuestionDto()
                 {
 
                     User = new UserDto
