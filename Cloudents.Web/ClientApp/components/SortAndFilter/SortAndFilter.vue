@@ -29,22 +29,24 @@
 
                             <slot name="headerTitle" :title="singleFilter.title">
                                 <div>{{singleFilter.title}}</div>
+
                             </slot>
                         </template>
                         <div :class="['sort-filter']">
                             <div v-for="filterItem in singleFilter.data"
-                                 :key="(filterItem.id ? filterItem.id : filterItem)" class="filter">
-                                <input type="checkbox" :id="(filterItem.id ? filterItem.id : filterItem)"
+                                 :key="(filterItem.key ? filterItem.key : filterItem.value)" class="filter">
+                                <input type="checkbox" :id="(filterItem.key ? filterItem.key : filterItem.value)"
                                        :checked="isChecked(singleFilter, filterItem)"
                                        @change="updateFilter({
                                        id : singleFilter.id,
-                                       val: filterItem,
+                                       val: filterItem.key,
+                                       name: filterItem.value,
                                        event : $event} )"/>
 
-                                <label class="checkmark" :for="(filterItem.id ? filterItem.id : filterItem)"></label>
-                                <label class="title-label" :title="filterItem.name ? filterItem.name : filterItem | capitalize"
-                                       :for="(filterItem.id ? filterItem.id : filterItem)">
-                                    {{filterItem.name ? filterItem.name : filterItem | capitalize}}
+                                <label class="checkmark" :for="(filterItem.key ? filterItem.key : filterItem.value)"></label>
+                                <label class="title-label" :title="filterItem.value ? filterItem.value : filterItem.key | capitalize"
+                                       :for="(filterItem.key ? filterItem.key : filterItem.value)">
+                                    {{filterItem.value ? filterItem.value : '' | capitalize}}
                                 </label>
                             </div>
                             <slot :name="`${singleFilter.id}EmptyState`"
