@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Request
 {
@@ -6,7 +7,7 @@ namespace Cloudents.Core.Request
     {
         public static SearchQuery Document(string query, long? university,
             IList<long> courses, IEnumerable<string> sources,
-            int page/*, GeoPoint point*/)
+            int page)
         {
             return new SearchQuery
             {
@@ -20,7 +21,7 @@ namespace Cloudents.Core.Request
         }
 
         public static SearchQuery Flashcard(string query, long? university,
-            IList<long> courses, IEnumerable<string> sources, int page/*, GeoPoint point*/)
+            IList<long> courses, IEnumerable<string> sources, int page)
         {
             return new SearchQuery
             {
@@ -44,7 +45,7 @@ namespace Cloudents.Core.Request
         public int Page { get; private set; }
 
         public long? University { get; private set; }
-        public IList<long> Courses { get; private set; }
+        [CanBeNull] public IList<long> Courses { get; private set; }
 
        // public GeoPoint Point { get; private set; }
     }

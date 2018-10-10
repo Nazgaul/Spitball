@@ -9,25 +9,25 @@ namespace Cloudents.Core.DTOs
     public class SearchResult : IShuffleable, IUrlRedirect
     {
         [DataMember]
-        public string Id { get; set; }
+        public string Id { get; set; }//id
 
         [DataMember]
-        public Uri Image { get; set; }
+        public Uri Image { get; set; }//image
 
         [DataMember]
-        public string Title { get; set; }
+        public string Title { get; set; }//name
 
         [DataMember]
-        public string Snippet { get; set; }
+        public string Snippet { get; set; }//metaContent
 
         [DataMember]
-        public string Url { get; set; }
+        public string Url { get; set; }//url
 
         [DataMember]
-        public string Source { get; set; }
+        public string Source { get; set; } //not relevant
 
-        public PrioritySource PrioritySource { get; set; }
+        public PrioritySource PrioritySource { get; set; }//not relevant
 
-        public int Order { get; set; }
+        public int Order { get; set; }//not relevant
     }
 }
