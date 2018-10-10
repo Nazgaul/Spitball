@@ -19,9 +19,10 @@
                 </v-btn>
             </div>
             <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
+
                 <template v-for="(item, index) in filterSelection">
                     <v-chip label class="filter-chip elevation-1" :key="index">
-                        {{$_showSelectedFilter(item) | capitalize}}
+                      {{item.name | capitalize }}
                         <v-icon right @click="$_removeFilter(item)">sbf-close</v-icon>
                     </v-chip>
                 </template>

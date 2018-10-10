@@ -209,7 +209,7 @@ export default {
 
         //Function for update the filter object(when term or vertical change)
         $_updateFilterObject() {
-            this.filterObject =this.getFilters;
+            this.filterObject = this.getFilters;
         },
 
         //   4-%%%
@@ -228,7 +228,7 @@ export default {
             }
         },
         //removes filter from selected filter
-        $_removeFilter({value, key}) {
+        $_removeFilter({filterId:value, filterType:key}) {
             this.UPDATE_SEARCH_LOADING(true);
             let updatedList = this.query[key];
             updatedList = [].concat(updatedList).filter(i => i.toString() !== value.toString());

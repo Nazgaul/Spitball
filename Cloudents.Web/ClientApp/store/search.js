@@ -241,11 +241,11 @@ const actions = {
                         let verticalObj = {
                             verticalName: name,
                             verticalData: data
-                        }
+                        };
                         context.dispatch('setDataByVerticalType', verticalObj);
                         let sortData = !!data.sort ? data.sort : null;
-                        context.dispatch('updateSort', sortData);   
-                        let filtersData = !!data.filters ? data.filters : null;
+                        context.dispatch('updateSort', sortData);
+                        let filtersData = !!data.filters ? searchService.createFilters(data.filters) : null;
                         context.dispatch('updateFilters', filtersData);
                         return data;
                     },(err) => {

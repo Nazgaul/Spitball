@@ -17,21 +17,21 @@ export default {
     props: {
         value: {type: Boolean},
         // sortOptions: {type: Array, default: () => []},
-        filterOptions: {type: Array, default: () => []},
+        filterOptions: {type: Object, default: () => []},
         filterVal: {type: Array, default: () => []},
         sortVal: {}
     },
     computed:{
         ...mapGetters(['getFilters', 'getSort']),
         filterList(){
-            return this.filterOptions
+            return this.filterOptions.filterChunkList
         }
     },
     watch: {
         filterVal(val) {
             this.initFilters(val);
             this.sort = this.sortVal ? this.sortVal : (this.sortOptions && this.sortOptions.length) ? this.sortOptions[0] : "";
-        }
+        },
     },
     methods: {
         ...mapActions(['setFilteredCourses', 'updateSort']),
@@ -44,17 +44,16 @@ export default {
                 if(this.$route.query.sort){
                     this.sort = this.$route.query.sort
                 }else{
-                    this.sort = this.sortOptions[0];
+                    this.sort = this.sortOptions[0].key;
                 }
             }else{
                 this.sort = "";
             }
 
             //init filters
-            this.filters = this.getFilters;
             this.filtersSelected = [];
             filters.forEach((filter)=>{
-                this.filtersSelected.push(`${filter.key}_${filter.value}`);
+                this.filtersSelected.push(`${filter.filterId}_${filter.name}_${filter.filterType}`);
             })
         },
         applyFilters() {
@@ -62,12 +61,11 @@ export default {
             this.filtersSelected.forEach((filter)=>{
                 let currentFilter = filter.split('_');
                 //currentFilter = [source, biology];
-                if(!query[currentFilter[0]]){
-                    query[currentFilter[0]] = [];
+                if(!query[currentFilter[2]]){
+                    query[currentFilter[2]] = [];
                 }
-                query[currentFilter[0]].push(currentFilter[1])
+                query[currentFilter[2]].push(currentFilter[0])
             });
-
             if (this.sort){
                 query.sort = this.sort;
             }
@@ -83,16 +81,15 @@ export default {
         },
 
         resetFilters() {
-            // if (this.filtersSelected.find(i => i.id === 'course')) {
-            //     this.setFilteredCourses([]);
-            // }
             this.initFilters();
-            if (this.sortOptions.length) {
-                this.sort = this.sortOptions[0].id;
-            }
-            this.$router.push({query: {term: this.$route.query.term}});
-            this.applyFilters();
-            this.$emit('input', false);
+            // if (this.sortOptions) { // TODO have no idea why we need this code
+            //     this.sort = this.sortOptions[0].key;
+            // }else{
+                this.$router.push({query: {term: this.$route.query.term}});
+                this.applyFilters();
+                this.$emit('input', false);
+            // }
+
         },
 
         $_backAction() {
@@ -104,8 +101,6 @@ export default {
 
 
     created() {
-        this.initFilters(this.filterVal);
-        console.log('options', this.sortOptions)
-
+        this.initFilters( this.filterVal);
     },
 }
