@@ -10,7 +10,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
@@ -50,13 +49,10 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                             .Select(p => p.Text).WithAlias(() => dtoAlias.QuestionText)
                             .Select(Projections.Property(() => answerAlias.Id).As($"{nameof(QuestionWithoutCorrectAnswerDto.Answer)}.{nameof(AnswerOfQuestionWithoutCorrectAnswer.Id)}"))
                             .Select(Projections.Property(() => answerAlias.Text).As($"{nameof(QuestionWithoutCorrectAnswerDto.Answer)}.{nameof(AnswerOfQuestionWithoutCorrectAnswer.Text)}"))
-                            //.Select(_ => answerAlias.Id).WithAlias(() => dtoAlias.AnswerId)
-                            //.Select(_ => answerAlias.Text).WithAlias(() => dtoAlias.AnswerText)
                             .Select(p => p.Id).WithAlias(() => dtoAlias.QuestionId)
                             .Select(_ => userAlias.Fictive).WithAlias(() => dtoAlias.IsFictive)
                 )
                .TransformUsing(new DeepTransformer<QuestionWithoutCorrectAnswerDto>())
-                //.TransformUsing(Transformers.AliasToBean<QuestionWithoutCorrectAnswerDto>())
                 .OrderBy(o => o.Id).Asc
                 .ThenBy(() => answerAlias.Id).Asc
                 .ListAsync<QuestionWithoutCorrectAnswerDto>(token).ConfigureAwait(false);
