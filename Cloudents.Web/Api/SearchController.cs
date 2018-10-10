@@ -12,6 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Query;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -24,10 +27,15 @@ namespace Cloudents.Web.Api
     public class SearchController : ControllerBase
     {
         private readonly IStringLocalizer<SearchController> _localizer;
+        private readonly SignInManager<User> _signInManager;
+        private readonly IQueryBus _queryBus;
 
-        public SearchController(IStringLocalizer<SearchController> localizer)
+
+        public SearchController(IStringLocalizer<SearchController> localizer, SignInManager<User> signInManager, IQueryBus queryBus)
         {
             _localizer = localizer;
+            _signInManager = signInManager;
+            _queryBus = queryBus;
         }
 
         /// <summary>
@@ -41,30 +49,70 @@ namespace Cloudents.Web.Api
         public async Task<WebResponseWithFacet<SearchResult>> SearchDocumentAsync([FromQuery] SearchRequest model,
            [FromServices] IWebDocumentSearch searchProvider, CancellationToken token)
         {
+            //TODO: we have too many db calls. one with search provider - two with get courses
             model = model ?? new SearchRequest();
 
+            var coursesTask = Task.FromResult<IEnumerable<CourseDto>>(null);
 
-            var query = SearchQuery.Document(model.Query, GetUniversityId(), model.Course, model.Source, model.Page.GetValueOrDefault());
-            var result = await searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ConfigureAwait(false);
-
-            var p = result.Result?.ToList();
-            string nextPageLink = null;
-            if (p?.Any() == true)
+            if (_signInManager.IsSignedIn(User))
             {
-                nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
+                var userId = _signInManager.UserManager.GetLongUserId(User);
+                var dbQuery = new CoursesQuery(userId);
+                coursesTask = _queryBus.QueryAsync(dbQuery, token);
             }
 
-            return new WebResponseWithFacet<SearchResult>
-            {
-                Result = p,
-                Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
-                Filters = new[]
+            var query = SearchQuery.Document(model.Query, GetUniversityId(), model.Course, model.Source, model.Page.GetValueOrDefault());
+            var resultTask = searchProvider.SearchWithUniversityAndCoursesAsync(query, model.Format, token).ContinueWith(
+                t =>
                 {
-                    new Filters<string>(nameof(SearchRequest.Source),_localizer["Sources"],result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
-                },
-                //Facet = result.Facet,
-                NextPageLink = nextPageLink
-            };
+                    var result = t.Result;
+                    var p = result.Result?.ToList();
+                    string nextPageLink = null;
+                    if (p?.Any() == true)
+                    {
+                        nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
+                    }
+                    return new WebResponseWithFacet<SearchResult>
+                    {
+                        Result = p,
+                        Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
+                        Filters = new List<IFilters>
+                        {
+                            new Filters<string>(nameof(SearchRequest.Source),_localizer["Sources"],result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
+                        },
+                        NextPageLink = nextPageLink
+                    };
+                }, token);
+
+
+            await Task.WhenAll(coursesTask, resultTask);
+            var retVal = resultTask.Result;
+            if (coursesTask.Result != null)
+            {
+                retVal.Filters.Add(new Filters<long>(nameof(SearchRequest.Course),
+                    _localizer["CoursesFilterTitle"],
+                    coursesTask.Result.Select(s => new KeyValuePair<long, string>(s.Id, s.Name))));
+            }
+
+            return retVal;
+
+            //var p = result.Result?.ToList();
+            //string nextPageLink = null;
+            //if (p?.Any() == true)
+            //{
+            //    nextPageLink = Url.NextPageLink("DocumentSearch", null, model);
+            //}
+
+            //return new WebResponseWithFacet<SearchResult>
+            //{
+            //    Result = p,
+            //    Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
+            //    Filters = new[]
+            //    {
+            //        new Filters<string>(nameof(SearchRequest.Source),_localizer["Sources"],result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
+            //    },
+            //    NextPageLink = nextPageLink
+            //};
         }
 
         private long? GetUniversityId()

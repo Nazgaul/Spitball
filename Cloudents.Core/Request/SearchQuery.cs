@@ -5,7 +5,7 @@ namespace Cloudents.Core.Request
     public sealed class SearchQuery
     {
         public static SearchQuery Document(string query, long? university,
-            IEnumerable<long> courses, IEnumerable<string> sources,
+            IList<long> courses, IEnumerable<string> sources,
             int page/*, GeoPoint point*/)
         {
             return new SearchQuery
@@ -20,7 +20,7 @@ namespace Cloudents.Core.Request
         }
 
         public static SearchQuery Flashcard(string query, long? university,
-            IEnumerable<long> courses, IEnumerable<string> sources, int page/*, GeoPoint point*/)
+            IList<long> courses, IEnumerable<string> sources, int page/*, GeoPoint point*/)
         {
             return new SearchQuery
             {
@@ -44,7 +44,7 @@ namespace Cloudents.Core.Request
         public int Page { get; private set; }
 
         public long? University { get; private set; }
-        public IEnumerable<long> Courses { get; private set; }
+        public IList<long> Courses { get; private set; }
 
        // public GeoPoint Point { get; private set; }
     }
