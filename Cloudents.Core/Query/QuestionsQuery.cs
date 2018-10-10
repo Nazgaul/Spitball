@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Query
 {

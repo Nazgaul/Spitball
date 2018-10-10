@@ -6,7 +6,6 @@ using Microsoft.Azure.Search.Models;
 using Microsoft.Rest.Azure;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -100,7 +99,7 @@ namespace Cloudents.Infrastructure.Search
 
         private static string BuildUrlWithIsNew(string x)
         {
-            return x += "?isNew=true";
+            return x + "?isNew=true";
         }
     }
 }

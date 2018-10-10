@@ -1,9 +1,9 @@
 ﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Query.Sync;
 
 namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {

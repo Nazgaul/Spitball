@@ -2,7 +2,7 @@
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Core.Query
+namespace Cloudents.Core.Query.Sync
 {
     public class SyncAzureQuery //: System.IEquatable<SyncAzureQuery>
         : IQuery<(IEnumerable<QuestionSearchDto> update, IEnumerable<long> delete, long version)>, 

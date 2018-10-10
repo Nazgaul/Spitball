@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.ComponentModel.DataAnnotations;
+//using System.Linq;
 
-namespace Cloudents.Web.Filters
-{
+//namespace Cloudents.Web.Filters
+//{
     //[AttributeUsage(AttributeTargets.Property)]
     //public sealed class ArrayMaxSizeAttribute : ValidationAttribute
     //{
@@ -33,4 +33,4 @@ namespace Cloudents.Web.Filters
     //    }
 
     //}
-}
+//}

@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Write
     public abstract class SearchServiceWrite<T> : IDisposable, ISearchServiceWrite<T> where T : class, ISearchObject, new()
     {
         protected readonly SearchServiceClient Client;
-        protected ISearchIndexClient IndexClient;
+        protected readonly ISearchIndexClient IndexClient;
        // private readonly string _indexName;
 
         protected SearchServiceWrite(SearchService client, string indexName) 
@@ -23,19 +23,10 @@ namespace Cloudents.Infrastructure.Write
            
         }
 
-        //protected SearchServiceWrite(SearchService client, string indexName,Func<SearchService,string, ISearchIndexClient> CreateClient)
-        //{
-        //    //client.GetClient(indexName);
-        //    Client = client.Client;
-        //    IndexClient = CreateClient(client, indexName);
-        //    _indexName = indexName;
-        //}
-
-        protected SearchServiceWrite(SearchService client, /*string indexName,*/ ISearchIndexClient indexClient)
+        protected SearchServiceWrite(SearchService client, ISearchIndexClient indexClient)
         {
             Client = client.Client;
             IndexClient = indexClient;
-          //  _indexName = indexName;
         }
 
 
@@ -89,9 +80,6 @@ namespace Cloudents.Infrastructure.Write
         }
 
         protected abstract Index GetIndexStructure(string indexName);
-
-
-        // protected FluentSearchFieldBuilder<T> GetFieldBuilder => FluentSearchFieldBuilder<T>;
 
 
         public void Dispose()
