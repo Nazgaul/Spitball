@@ -18,7 +18,8 @@
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
                                     <!--TODO AB-Test-->
-                                    <div class="ab-test static-card-what-is-hw-question hidden-sm-and-down" v-show="loggedIn && $route.path.slice(1) === 'ask'">
+                                    <!--<div class="ab-test static-card-what-is-hw-question hidden-sm-and-down" v-show="loggedIn && $route.path.slice(1) === 'ask'">-->
+                                    <div class="ab-test static-card-what-is-hw-question hidden-sm-and-down">
                                     <button class="ab-test-button" @click="openNewQuestionDialog()">
                                         <v-icon class="edit-icon">sbf-edit-icon</v-icon>
                                         Add a Question</button>
