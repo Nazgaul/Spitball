@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Web.Api
 {
@@ -111,7 +112,7 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<SearchResult>
             {
                 Result = p,
-                Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
+                Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization() )),
                 Filters = filters,
                 NextPageLink = nextPageLink
             };
@@ -148,7 +149,7 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<SearchResult>
             {
                 Result = p,
-                Sort = Enum.GetNames(typeof(SearchRequestSort)).Select(s => new KeyValuePair<string, string>(s, s)),
+                Sort = EnumExtension.GetValues<SearchRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
                 Filters = new IFilters[]
                 {
                     new Filters<string>(nameof(SearchRequest.Source),_localizer["Sources"],result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
