@@ -1,12 +1,12 @@
 <template>
     <v-dialog v-model="value" fullscreen content-class="filter-dialog" persistent>
-        <dialog-toolbar :app="false" height="48" toolbarTitle="Filter & Sort" :backAction="$_backAction">
-            <v-btn slot="rightElement" flat class="clear-btn" @click="resetFilters">Clear all</v-btn>
+        <dialog-toolbar :app="false" height="48" :toolbarTitle="toolBarTitle" :backAction="$_backAction">
+            <v-btn slot="rightElement" flat class="clear-btn" @click="resetFilters"><span v-language:inner>mobileSortAndFilter_clearAll</span></v-btn>
         </dialog-toolbar>
         <div class="content-container">
             <div class="sort-wrap" v-if="sortOptions && sortOptions.length">
               <template>
-                <h3>Sort by</h3>
+                <h3 v-language:inner>mobileSortAndFilter_sortBy</h3>
                 <div class="sort-switch">
                 <template v-for="(singleSort, index) in sortOptions">
                 <input type="radio" :id="`option${index}`" v-model="sort" :key="`option${index}`"
@@ -18,7 +18,7 @@
             </div>
 
             <div class="filter-wrap px-3" v-if="filterList && filterList.length">
-                <h3 class="" >Filter By</h3>
+                <h3 class="" v-language:inner>mobileSortAndFilter_filterBy</h3>
                 <div class="filter-sections">
                     <div class="filter-section" v-for="(singleFilter) in filterList" :key="singleFilter.id" :value="true">
                         <v-layout class="filter-header" slot="header">
@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <v-btn class="apply elevation-0" fixed  @click="applyFilters">Apply Filters</v-btn>
+        <v-btn class="apply elevation-0" fixed  @click="applyFilters"><span v-language:inner>mobileSortAndFilter_applyFilterBtn</span></v-btn>
 
     </v-dialog>
 </template>

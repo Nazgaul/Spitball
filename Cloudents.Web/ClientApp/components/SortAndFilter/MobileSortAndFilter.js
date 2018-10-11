@@ -1,6 +1,6 @@
 import DialogToolbar from '../dialog-toolbar/DialogToolbar.vue'
 import {mapActions, mapGetters, mapMutations} from 'vuex'
-
+import { LanguageService } from "../../services/language/languageService";
 export default {
     model: {
         prop: "value",
@@ -11,13 +11,14 @@ export default {
         return {
             filters: {},
             sort: '',
-            filtersSelected: []
+            filtersSelected: [],
+            toolBarTitle: LanguageService.getValueByKey("mobileSortAndFilter_toolbarTitle")
         }
     },
     props: {
         value: {type: Boolean},
         // sortOptions: {type: Array, default: () => []},
-        filterOptions: {type: Object, default: () => []},
+        filterOptions: {type: Object, default: () =>{}},
         filterVal: {type: Array, default: () => []},
         sortVal: {}
     },
@@ -102,5 +103,6 @@ export default {
 
     created() {
         this.initFilters( this.filterVal);
+        console.log('type ', this.filterOptions)
     },
 }
