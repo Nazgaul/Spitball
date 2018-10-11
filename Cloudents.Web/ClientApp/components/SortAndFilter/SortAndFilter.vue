@@ -21,8 +21,8 @@
                 <v-expansion-panel expand v-model="panelList">
                     <v-expansion-panel-content v-for="(singleFilter, index) in filterList" :key="index">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
+
                         <template slot="header">
-                            <!--<h3>{{panelList}}</h3>-->
                             <div class="icon-wrapper">
                                 <slot :name="`${singleFilter.title}TitlePrefix`"></slot>
                             </div>

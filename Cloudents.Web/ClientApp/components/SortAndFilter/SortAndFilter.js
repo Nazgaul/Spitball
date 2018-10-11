@@ -9,9 +9,9 @@ export default {
         }
     },
     props: {
-        // sortOptions: { type: Array, default: () => [] },
+       // sortOptions: { type: Array, default: () => [] },
         sortVal: {},
-        filterOptions: {type: Object, default: () => []},
+        filterOptions: {type: Object, default: () => {}},
         filterVal: {type: Array, default: () => []},
 
     },

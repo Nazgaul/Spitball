@@ -2,39 +2,29 @@
 import ResultBook from './bookCell.vue';
 import TabsSort from "./bookDetailsSort"
 import { details } from "../../services/navigation/vertical-navigation/nav";
-
-const all = "all";
-const filterOptions = [{title: "Book Type", id: "filter", data: details.bookDetails.filter}];
-const FILTER_LIST = details.bookDetails.filter;
+import SearchService from '../../services/searchService'
+const sortOptions = {title: "Sort", id: "sort", data: details.bookDetails.sort};
+const filters = SearchService.createFilters([{title: "Book Type", id: "filter", data: details.bookDetails.filter}]);
+//const FILTER_LIST = details.bookDetails.filter;
 export default {
     mixins: [sortAndFilterMixin, TabsSort],
-    created() {
-        this.filter = all;
-        this.UPDATE_LOADING(true);
-        this.$store.dispatch("bookDetails", {
-            pageName: "bookDetails",
-            isbn13: this.params.id,
-            type: "buy"
-        }).then((data) => {
-            this.pageData = data;
-            this.UPDATE_LOADING(false);
-        });
-    },
+
     data() {
         return {
             pageData: '',
-            sortVal: "buy",
+            sortVal: 'buy',
             showFilters: false,
-            filterOptions
+            filterOptions: filters,
+            sortOptions
         };
     },
     components: {ResultBook},
     watch: {
         pageData(val) {
             if (this.sortVal === 'buy') {
-                this.filterOptions = filterOptions;
+                this.filterOptions = filters;
             } else {
-                this.filterOptions = []
+                this.filterOptions = {}
             }
         }
     },
@@ -43,11 +33,17 @@ export default {
             return this.sortVal ? this.sortVal.charAt(0).toUpperCase() : ""
         },
         selectedFilter() {
-            return this.query.filter ? [].concat(this.query.filter).map(i => ({key: 'filter', value: i})) : []
+            if(this.query.filter){
+              let arrayFilter =  [].concat(this.query.filter);
+                arrayFilter = arrayFilter.map((item) => {
+                    return ({"key": 'filter', "value": item})
+                });
+                return arrayFilter
+            }
         },
         sort: () => 'price',
         filteredList: function () {
-            return !this.pageData.data ? [] : !this.selectedFilter.length ? this.pageData.data : this.pageData.data.filter(item => [].concat(this.query.filter).includes(item.condition));
+            return !this.pageData.data ? [] : !this.selectedFilter ? this.pageData.data : this.pageData.data.filter(item => [].concat(this.query.filter).includes(item.condition));
         }
     },
 
@@ -70,5 +66,17 @@ export default {
             this.sortVal = val;
             this.$_changeTab(val);
         }
-    }
+    },
+    created() {
+        // this.filter = all;
+        this.UPDATE_LOADING(true);
+        this.$store.dispatch("bookDetails", {
+            pageName: "bookDetails",
+            isbn13: this.params.id,
+            type: "buy"
+        }).then((data) => {
+            this.pageData = data;
+            this.UPDATE_LOADING(false);
+        });
+    },
 }
