@@ -143,7 +143,10 @@ export default {
                 );
         },
         renderQuestionTime(className) {
-            timeago().render(document.querySelectorAll(className));
+            let timeagoInstance = timeago();
+            let nodes = document.querySelectorAll(className);
+            let locale = (global.isRtl && (global.country.toLowerCase() === 'il')) ? 'he' : '';
+            timeagoInstance.render(nodes, locale);
         }
     },
     created(){

@@ -29,7 +29,6 @@
 
                             <slot name="headerTitle" :title="singleFilter.title">
                                 <div>{{singleFilter.title}}</div>
-
                             </slot>
                         </template>
                         <div :class="['sort-filter']">

@@ -86,7 +86,7 @@
                         <div class="text-container">
                             <div class="text">
                                 <span class="user-date">Answer ·</span>
-                                <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span><span
+                                <span class="timeago" :datetime="cardData.dateTime||cardData.create" ></span><span
                                     v-if="typeAnswer"
                                     class="q-answer">
                                 <button class="accept-btn right" @click="markAsCorrect"
