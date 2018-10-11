@@ -94,7 +94,7 @@
                 this.recaptcha = "";
             },
             submit() {
-                var self = this;
+                let self = this;
                 self.loading = true;
                 registrationService.signIn(this.userEmail, this.recaptcha, this.password)
                     .then((response) => {
