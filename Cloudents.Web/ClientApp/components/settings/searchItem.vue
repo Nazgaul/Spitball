@@ -54,7 +54,7 @@
         </v-flex>
         <component slot="actionContent" v-if="currentAction" :is="currentType+'-'+currentAction" @done="$_actionDone"></component>
 
-        <template v-if="noResults" class="university-create" slot="universityEmptyState">
+        <template v-if="noResults && !stopWord" class="university-create" slot="universityEmptyState">
             <div class="add-course-form mt-3 py-3 px-3">
                 <form @submit.prevent="$_submitAddUniversity">
                     <div class="form-title" v-language:inner>searchitem_dont_see_university</div>

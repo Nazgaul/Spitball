@@ -87,7 +87,7 @@ export default {
             val: "",
             noResults:false,
             showAdd:false,
-            stopWorld : ''
+            stopWord : false
         };
     },
 
@@ -128,7 +128,7 @@ export default {
             //    debounce(function (val) {
             this.$store.dispatch(this.currentItem.searchApi, { term: this.val }).then(({ data: body }) => {
                 this.items = body.courses || body.universities;
-                this.stopWorld = body.stopWorld || 'stopPlease'
+                this.stopWord = body.stopWord;
                 this.noResults= !this.items || !this.items.length;
                 this.isLoading = false;
             });
