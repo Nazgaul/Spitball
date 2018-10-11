@@ -44,7 +44,7 @@ export default {
             this.isSearch = true;
         },
         openDialog(type){
-            settingMenu.find(i => i.id === type).click.call(this, this.getUniversityName);
+            settingMenu.find(i => i.id === type).click.call(this, type);
             this.showDialog = true;
         }
     }

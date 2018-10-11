@@ -63,9 +63,9 @@ export let settingMenu = [
         id: typesPersonalize.course,
         name:  LanguageService.getValueByKey("settings_my_courses"),
         // name: "My courses",
-        click: function (universityExist) {
+        click: function (type) {
             this.showDialog = true;
-            this.type = universityExist ? "course" : "university";
+            this.type = type;
             this.keep = !universityExist ? true : "";
             this.isSearch = true;
         }
