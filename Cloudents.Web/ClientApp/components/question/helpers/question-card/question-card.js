@@ -163,7 +163,7 @@ export default {
             }
             timeago.register('he', hebrewLang);
             let timeAgoRef = timeago();
-            let locale = global.isRtl && global ? 'he' : '';
+            let locale = (global.isRtl && (global.country.toLowerCase() === 'il')) ? 'he' : '';
             timeAgoRef.render(document.querySelectorAll(className), locale);
         }
     },
