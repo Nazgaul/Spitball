@@ -25,6 +25,7 @@
     import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
     import loginToAnswer from '../question/helpers/loginToAnswer/login-answer.vue'
     import NewQuestion from "../question/newQuestion/newQuestion.vue";
+    import {GetDictionary} from '../../services/language/languageService'
     export default {
         components: {
             NewQuestion,
@@ -33,7 +34,7 @@
         },
         data(){
             return {
-                acceptedCookies: false
+                acceptedCookies: false,
             }
         },
         computed: {
@@ -74,6 +75,7 @@
                 }
             });
            this.acceptedCookies = (global.localStorage.getItem("sb-acceptedCookies") === 'true');
+
         }
     }
 </script>

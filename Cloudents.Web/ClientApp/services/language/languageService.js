@@ -4,16 +4,17 @@ import { connectivityModule } from "../connectivity.module";
 
 //global dictionary obj
 //global.dictionary = {}
+var locale = {};
 
 const LanguageService = {
     getValueByKey: (key) => {
         if(!key) return key;
-        
-        if(!global.dictionary[key]){
+
+        if(!locale[key]){
             console.error("dictionary couldnot find key: " + key);
             return `###${key}`;
         }
-        return global.dictionary[key];
+        return locale[key];
     },
 
     getTermPage: ()=>{
@@ -30,17 +31,29 @@ const LanguageChange = {
     },
 };
 
+const GetDictionary = () => {
+    return connectivityModule.http.get("/Locale").then((dictionary)=>{
+        locale = dictionary.data;
+        return Promise.resolve(true);
+    }, (err)=>{
+        return Promise.reject(err);
+    })
+}
+
+    
+
+
 //debug purposes
-global.dictionaryFindKey = function(dict, value){
-    for(let key in dict){
-        if(dict[key] === value){
+global.dictionaryFindKey = function(value){
+    for(let key in locale){
+        if(locale[key] === value){
             console.log(key)
         }
     }
 };
-global.dictionaryContainsKey = function(dict, value){
-    for(let key in dict){
-        if(dict[key].indexOf(value) > -1){
+global.dictionaryContainsKey = function(value){
+    for(let key in locale){
+        if(locale[key].indexOf(value) > -1){
             console.log(key)
         }
     }
@@ -48,5 +61,6 @@ global.dictionaryContainsKey = function(dict, value){
 
 export{
     LanguageService,
-    LanguageChange
+    LanguageChange,
+    GetDictionary
 }
