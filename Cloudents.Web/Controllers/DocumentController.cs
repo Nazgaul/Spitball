@@ -53,7 +53,7 @@ namespace Cloudents.Web.Controllers
             
             if (string.Equals(model.Country, "il", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (isNew.GetValueOrDefault(false))
+                if (!isNew.GetValueOrDefault(false))
                 {
                     return this.RedirectToOldSite();
                 }
