@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cloudents.Core.DTOs
 {
@@ -31,6 +32,7 @@ namespace Cloudents.Core.DTOs
         {
             return new UniversitySearchDto
             {
+                Universities = Enumerable.Empty<UniversityDto>(),
                 StopWord = true
             };
         }
