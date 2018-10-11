@@ -58,7 +58,7 @@ const nav = {
             filter: [],
             sort: [],
             icon: "sbf-tutor",
-            visible: global.country !== 'IL'
+            visible: global.country.toUpperCase() !== 'IL'
         }
     },
     book: {
@@ -67,7 +67,7 @@ const nav = {
             id: routes.bookRoute,
             name: LanguageService.getValueByKey("navigation_nav_name_book"),
             icon: "sbf-textbooks",
-            visible: global.country == 'IL'
+            visible: global.country.toUpperCase() !== 'IL'
         },
 
 
@@ -81,7 +81,7 @@ const nav = {
             filter: [],
             sort: [],
             icon: "sbf-job",
-            visible: global.country !== 'IL'
+            visible: global.country.toUpperCase() !== 'IL'
         }
     }
 };
