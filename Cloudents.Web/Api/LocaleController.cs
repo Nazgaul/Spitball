@@ -41,7 +41,7 @@ namespace Cloudents.Web.Api
                 var name = resourceStr.Replace("Cloudents.Web.Resources.Js.", string.Empty);
                 foreach (var val in p)
                 {
-                    dic.Add(name.ToCamelCase(), val.Value);
+                    dic.Add($"{name.ToCamelCase()}_{val.Key}", val.Value);
                 }
             }
 
