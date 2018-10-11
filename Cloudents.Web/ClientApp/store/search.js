@@ -200,7 +200,7 @@ const actions = {
                         context.commit(SEARCH.INJECT_QUESTION)
                     }                
                     
-                    let filtersData = !!verticalItems.filters ? verticalItems.filters : null;
+                    let filtersData = !!verticalItems.filters ? searchService.createFilters(verticalItems.filters) : null;
                     let sortData = !!verticalItems.sort  ? verticalItems.sort : null;
                     context.dispatch('updateSort', sortData);
                     context.dispatch('updateFilters', filtersData);
