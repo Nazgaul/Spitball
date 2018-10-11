@@ -86,7 +86,8 @@ export default {
             },
             val: "",
             noResults:false,
-            showAdd:false
+            showAdd:false,
+            stopWorld : ''
         };
     },
 
@@ -126,12 +127,14 @@ export default {
             this.isLoading = true;
             //    debounce(function (val) {
             this.$store.dispatch(this.currentItem.searchApi, { term: this.val }).then(({ data: body }) => {
-                this.items = body.courses||body.universities;
-                this.noResults= !this.items||!this.items.length;
+                this.items = body.courses || body.universities;
+                this.stopWorld = body.stopWorld || 'stopPlease'
+                this.noResults= !this.items || !this.items.length;
                 this.isLoading = false;
             });
             //    }, 500);
             //}
+
         },
         resetUniversityErrors(){
             this.universityName.errors.minimumsNameLength = false;

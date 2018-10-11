@@ -53,6 +53,7 @@
             <component :is="'search-item-'+currentType" :item="props.item"></component>
         </v-flex>
         <component slot="actionContent" v-if="currentAction" :is="currentType+'-'+currentAction" @done="$_actionDone"></component>
+
         <template v-if="noResults" class="university-create" slot="universityEmptyState">
             <div class="add-course-form mt-3 py-3 px-3">
                 <form @submit.prevent="$_submitAddUniversity">
@@ -67,6 +68,7 @@
                 </form>
             </div>
         </template>
+
         <!-- <template slot="universityEmptyState" v-if="noResults">
             <div class="uni-empty-state">
                 <div>Can't find your school?</div>
