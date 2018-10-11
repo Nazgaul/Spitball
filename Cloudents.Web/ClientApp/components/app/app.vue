@@ -63,7 +63,7 @@
                 this.acceptedCookies = true;
             },
         },
-        created(){
+        created() {
             this.$root.$on('closePopUp', (name) => {
                 if (name === 'suggestions') {
                     this.showDialogSuggestQuestion = false
