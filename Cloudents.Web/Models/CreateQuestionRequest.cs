@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Web.Models
@@ -18,7 +17,7 @@ namespace Cloudents.Web.Models
         public decimal Price { get; set; }
 
         [MaxLength(4, ErrorMessage = "MaxLength")]
-        public IEnumerable<string> Files { get; set; }
+        public string[] Files { get; set; }
 
         public QuestionColor? Color { get; set; }
 
