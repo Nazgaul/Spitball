@@ -1,7 +1,11 @@
 import { USER } from '../../store/mutation-types'
 import {mapMutations} from 'vuex'
+import { LanguageService } from "../../services/language/languageService";
 
-let sortOptions = ['buy', 'sell'];
+let sortOptions = [
+    {key: "buy", value: LanguageService.getValueByKey("book_sort_buy")},
+    {key: "sell", value: LanguageService.getValueByKey("book_sort_sell")}
+    ];
 export default {
     props: {id: {Number}},
     data: () => {

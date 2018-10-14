@@ -157,7 +157,6 @@ export default {
         },
     },
     created() {
-        console.log('created new question');
         this.$on('colorSelected', (activeColor) => {
             this.selectedColor.name = activeColor.name;
         });

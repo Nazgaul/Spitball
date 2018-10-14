@@ -89,12 +89,13 @@ const nav = {
 export let details = {
     bookDetails: {
         filter: [
-            LanguageService.getValueByKey("navigation_nav_bookDetails_filter_new"),
-            LanguageService.getValueByKey("navigation_nav_bookDetails_filter_rental"),
-            LanguageService.getValueByKey("navigation_nav_bookDetails_filter_used"),
-          ],
+            {key: 'new', value: LanguageService.getValueByKey("navigation_nav_bookDetails_filter_new")},
+            {key: 'rental', value: LanguageService.getValueByKey("navigation_nav_bookDetails_filter_rental")},
+            {key: 'used', value:LanguageService.getValueByKey("navigation_nav_bookDetails_filter_used")}
+    ],
         sort: [
-            "price",
+            {key: "buy", value: LanguageService.getValueByKey("book_sort_buy")},
+            {key: "sell",value: LanguageService.getValueByKey("book_sort_sell")}
         ]
     }
 };
