@@ -8,19 +8,19 @@ namespace Cloudents.Core.DTOs
         {
             Type = transaction.ToString("G");
             Points = points;
-            //Value = points/40;
+            Value = points/40;
         }
 
         public BalanceDto(string transaction, decimal points)
         {
             Type = transaction;
             Points = points;
-           // Value = points / 40;
+            Value = points / 40;
         }
 
         public string Type { get; }
         public decimal Points { get; }
 
-       // public decimal Value { get;  }
+        public decimal Value { get;  }
     }
 }

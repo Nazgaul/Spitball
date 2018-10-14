@@ -10,16 +10,17 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
 using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Database.Query.Admin
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler : IQueryHandler<AdminEmptyQuery, IEnumerable<QuestionWithoutCorrectAnswerDto>>
     {
-        private readonly IStatelessSession _session;
+        private readonly ISession _session;
         private readonly IUrlBuilder _urlBuilder;
 
-        public FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler(ReadonlyStatelessSession session, IUrlBuilder urlBuilder)
+        public FictiveUsersQuestionsWithoutCorrectAnswerQueryHandler(ReadonlySession session, IUrlBuilder urlBuilder)
         {
             _urlBuilder = urlBuilder;
             _session = session.Session;
@@ -30,36 +31,62 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
         public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> GetAsync(AdminEmptyQuery query, CancellationToken token)
         {
             QuestionWithoutCorrectAnswerDto dtoAlias = null;
+            AnswerOfQuestionWithoutCorrectAnswer dtoAnswerAlias = null;
             Question questionAlias = null;
             Answer answerAlias = null;
             User userAlias = null;
 
 
-            var t = await _session.QueryOver(()=> questionAlias)
+
+            var questionFuture =  _session.QueryOver(() => questionAlias)
                 .JoinAlias(x => x.Answers, () => answerAlias)
                 .JoinAlias(x => x.User, () => userAlias)
                 .Where(w => w.CorrectAnswer == null)
                 .And(Restrictions.Or(
                     Restrictions.Where(() => userAlias.Fictive),
                     Restrictions.Where(() => questionAlias.Created < DateTime.UtcNow.AddDays(-5))
-                    ))
+                ))
                 .SelectList(
                     l =>
-                        l.Select(p => p.Id).WithAlias(() => dtoAlias.QuestionId)
-                            .Select(p => p.Text).WithAlias(() => dtoAlias.QuestionText)
-                            .Select(Projections.Property(() => answerAlias.Id).As($"{nameof(QuestionWithoutCorrectAnswerDto.Answer)}.{nameof(AnswerOfQuestionWithoutCorrectAnswer.Id)}"))
-                            .Select(Projections.Property(() => answerAlias.Text).As($"{nameof(QuestionWithoutCorrectAnswerDto.Answer)}.{nameof(AnswerOfQuestionWithoutCorrectAnswer.Text)}"))
-                            .Select(p => p.Id).WithAlias(() => dtoAlias.QuestionId)
+                        l.Select(p => p.Id).WithAlias(() => dtoAlias.Id)
+                            .Select(p => p.Text).WithAlias(() => dtoAlias.Text)
+                            //.Select(Projections.Property(() => answerAlias.Id).As(
+                            //    $"{nameof(QuestionWithoutCorrectAnswerDto.Answer)}.{nameof(AnswerOfQuestionWithoutCorrectAnswer.Id)}"))
+                            //.Select(Projections.Property(() => answerAlias.Text).As(
+                            //    $"{nameof(QuestionWithoutCorrectAnswerDto.Answer)}.{nameof(AnswerOfQuestionWithoutCorrectAnswer.Text)}"))
+                            //.Select(p => p.Id).WithAlias(() => dtoAlias.QuestionId)
                             .Select(_ => userAlias.Fictive).WithAlias(() => dtoAlias.IsFictive)
                 )
-               .TransformUsing(new DeepTransformer<QuestionWithoutCorrectAnswerDto>())
+                //.TransformUsing(new DeepTransformer<QuestionWithoutCorrectAnswerDto>())
+                .TransformUsing(Transformers.AliasToBean<QuestionWithoutCorrectAnswerDto>())
                 .OrderBy(o => o.Id).Asc
-                .ThenBy(() => answerAlias.Id).Asc
-                .ListAsync<QuestionWithoutCorrectAnswerDto>(token).ConfigureAwait(false);
+                //.ThenBy(() => answerAlias.Id).Asc
+                .Future<QuestionWithoutCorrectAnswerDto>();
+               // .ListAsync<QuestionWithoutCorrectAnswerDto>(token).ConfigureAwait(false);
 
+            var answerFuture = _session.QueryOver<Answer>()
+                .JoinAlias(x => x.User, () => userAlias)
+                .JoinAlias(x => x.Question, () => questionAlias)
+                .Where(() => questionAlias.CorrectAnswer == null)
+                .And(Restrictions.Or(
+                    Restrictions.Where(() => userAlias.Fictive),
+                    Restrictions.Where(() => questionAlias.Created < DateTime.UtcNow.AddDays(-5))))
+                .SelectList(
+                            l =>
+                                l.Select(s=>s.Id).WithAlias(() => dtoAnswerAlias.Id)
+                                    .Select(s=>s.Text).WithAlias(()=> dtoAnswerAlias.Text)
+                            .Select(s => s.Question.Id).WithAlias(() => dtoAnswerAlias.QuestionId))
+                .TransformUsing(Transformers.AliasToBean<AnswerOfQuestionWithoutCorrectAnswer>())
+                .OrderBy(x=>x.Id).Asc
+                .Future<AnswerOfQuestionWithoutCorrectAnswer>();
+
+
+            var t = await questionFuture.GetEnumerableAsync(token);
+            var answers = answerFuture.GetEnumerable().ToLookup(l => l.QuestionId);
             return t.Select(s =>
             {
-                s.Url = _urlBuilder.BuildQuestionEndPoint(s.QuestionId);
+                s.Url = _urlBuilder.BuildQuestionEndPoint(s.Id);
+                s.Answers = answers[s.Id];
                 return s;
             });
         }
