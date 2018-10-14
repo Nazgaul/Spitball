@@ -166,9 +166,9 @@
     <value>Refer a friend</value>
   </data>
   <data name="changeCourse" xml:space="preserve">
-    <value>Classes</value>
+    <value>Change Course</value>
   </data>
   <data name="changeUniversity" xml:space="preserve">
-    <value>University</value>
+    <value>Change University</value>
   </data>
 </root>

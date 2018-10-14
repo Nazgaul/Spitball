@@ -121,25 +121,25 @@
     <value>התחבר</value>
   </data>
   <data name="placeholder_ask" xml:space="preserve">
-    <value>חיפוש שאלות</value>
+    <value>חפוש שאלות</value>
   </data>
   <data name="placeholder_book" xml:space="preserve">
-    <value>כותרת ספרי הלימוד או ISBN..!</value>
+    <value>כותרת ספרי הלימוד או ISBN..</value>
   </data>
   <data name="placeholder_flashcard" xml:space="preserve">
-    <value>חפשו בכרטיסי...!</value>
+    <value>חפשו בכרטיסיות לימוד...</value>
   </data>
   <data name="placeholder_job" xml:space="preserve">
-    <value>תחום ההתמחות שלך ...!</value>
+    <value>תחום ההתמחות שלך ...</value>
   </data>
   <data name="placeholder_note" xml:space="preserve">
-    <value>מצא מסמכים ללמוד ...!</value>
+    <value>מצא מסמכים ...</value>
   </data>
   <data name="placeholder_tutor" xml:space="preserve">
-    <value>מצא מורה ...!</value>
+    <value>מצא מורה פרטי...</value>
   </data>
   <data name="sbl" xml:space="preserve">
-    <value>SBL!</value>
+    <value>SBL</value>
   </data>
   <data name="sign_up" xml:space="preserve">
     <value>הרשם</value>

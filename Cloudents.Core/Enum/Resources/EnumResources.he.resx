@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="QuestionFilterAnswered" xml:space="preserve">
-    <value>יש תשובה</value>
+    <value>עם תשובות</value>
   </data>
   <data name="QuestionFilterSold" xml:space="preserve">
     <value>נמכר</value>
   </data>
   <data name="QuestionFilterUnanswered" xml:space="preserve">
-    <value>אין תשובה</value>
+    <value>ללא תשובות</value>
   </data>
   <data name="SearchRequestSortDate" xml:space="preserve">
     <value>תאריך</value>

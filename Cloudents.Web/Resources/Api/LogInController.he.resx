@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BadLogin" xml:space="preserve">
-    <value>כתובת אי-מייל שגויה או סיסמה</value>
+    <value>כתובת דוא"ל או סיסמה שגויים</value>
   </data>
   <data name="LockOut" xml:space="preserve">
-    <value>המשתמש נעול!</value>
+    <value>המשתמש נעול</value>
   </data>
   <data name="NotAllowed" xml:space="preserve">
-    <value>המשתמש אינו מורשה!</value>
+    <value>המשתמש אינו מורשה</value>
   </data>
 </root>
