@@ -18,6 +18,7 @@
         <div v-if="filterList && filterList.length">
             <h3 v-language:inner>sortAndFilter_filter</h3>
             <div class="filter-switch">
+
                 <v-expansion-panel expand v-model="panelList">
                     <v-expansion-panel-content v-for="(singleFilter, index) in filterList" :key="index">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>

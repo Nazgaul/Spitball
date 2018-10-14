@@ -259,7 +259,7 @@
     <value>Weak</value>
   </data>
   <data name="placeholder_choose_password" xml:space="preserve">
-    <value>Choose password</value>
+    <value>Choose password ( Use 8 characters or more )</value>
   </data>
   <data name="placeholder_confirm_password" xml:space="preserve">
     <value>Confirm password</value>
