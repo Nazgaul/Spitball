@@ -267,6 +267,8 @@ global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === 
 
 
 console.log("%cGaby please Stop to be תותח!:-))", "color: red; font-family: sans-serif; font-size: 4.5em; font-weight: bolder; text-shadow: #000 1px 1px;");
+console.log('%c       ', 'font-size: 100px; background: url(https://66.media.tumblr.com/tumblr_lrbu1l9BJk1qgzxcao1_250.gif) no-repeat;');
+
 initSignalRService();
 
 //app.$mount("#app");
