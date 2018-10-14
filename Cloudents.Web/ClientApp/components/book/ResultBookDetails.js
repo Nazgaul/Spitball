@@ -3,6 +3,7 @@ import ResultBook from './bookCell.vue';
 import TabsSort from "./bookDetailsSort"
 import { details } from "../../services/navigation/vertical-navigation/nav";
 import SearchService from '../../services/searchService'
+
 const sortOptions = {title: "Sort", id: "sort", data: details.bookDetails.sort};
 const filters = SearchService.createFilters([{title: "Book Type", id: "filter", data: details.bookDetails.filter}]);
 //const FILTER_LIST = details.bookDetails.filter;
@@ -32,18 +33,20 @@ export default {
         currentType() {
             return this.sortVal ? this.sortVal.charAt(0).toUpperCase() : ""
         },
-        selectedFilter() {
-            if(this.query.filter){
-              let arrayFilter =  [].concat(this.query.filter);
-                arrayFilter = arrayFilter.map((item) => {
-                    return ({"key": 'filter', "value": item})
-                });
-                return arrayFilter
-            }
-        },
         sort: () => 'price',
         filteredList: function () {
-            return !this.pageData.data ? [] : !this.selectedFilter ? this.pageData.data : this.pageData.data.filter(item => [].concat(this.query.filter).includes(item.condition));
+            let result = [];
+            if (this.pageData.data) {
+                if (this.filterSelection.length === 0) {
+                    return this.pageData.data;
+                } else {
+                   return this.pageData.data.filter((item) => {
+                            return [].concat(this.query.filter).includes(item.condition)
+                        }
+                    );
+                }
+            }
+            return result;
         }
     },
 

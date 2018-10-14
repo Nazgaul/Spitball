@@ -1,5 +1,6 @@
 import { mapGetters, mapMutations } from "vuex";
 import { page } from "../../services/navigation/vertical-navigation/nav";
+
 const MobileSortAndFilter = () => import('../SortAndFilter/MobileSortAndFilter.vue');
 const SortAndFilter = () => import('../SortAndFilter/SortAndFilter.vue');
 const plusBtn = () => import("../settings/svg/plus-button.svg");
@@ -38,15 +39,15 @@ export default {
              */
             let filterOptions = [];
             let filters = this.getFilters;
-            if(!!filters){
+            if (!!filters) {
                 // iterate filter and add/remove filter value
                 Object.entries(this.query).forEach(([key, vals]) => {
                     let filterIds = vals; //could be a string not only array (e.g: sort)
-                    if(typeof filterIds === 'object'){ // TODO sort could be alos an object
-                        if(filterIds.length === 0){
+                    if (typeof filterIds === 'object') { // TODO sort could be alos an object
+                        if (filterIds.length === 0) {
                             return filterOptions;
                         }
-                        filterIds.forEach((id)=>{
+                        filterIds.forEach((id) => {
                             let filterId = id;
                             let filterType = key;
                             let name = filters.filterChunkDictionary[filterType].dictionaryData[filterId];
@@ -55,9 +56,49 @@ export default {
                                 filterType,
                                 name
                             };
-                            console.log('item filter', filterItem)
                             filterOptions.push(filterItem);
                         })
+                    } else {
+                        let filterId = filterIds;
+                        let filterType = key;
+                        let name = filters.filterChunkDictionary[filterType].dictionaryData[filterId];
+                        let filterItem = {
+                            filterId,
+                            filterType,
+                            name
+                        };
+                        filterOptions.push(filterItem);
+                    }
+                });
+            } else if (this.$route.name === 'bookDetails') {
+            //we need to create the filters according to the query string
+                Object.entries(this.query).forEach(([key, vals]) => {
+                    let filterIds = vals; //could be a string not only array (e.g: sort)
+                    if (typeof filterIds === 'object') { // TODO sort could be alos an object
+                        if (filterIds.length === 0) {
+                            return filterOptions;
+                        }
+                        filterIds.forEach((id) => {
+                            let filterId = id;
+                            let filterType = key;
+                            let name = id;
+                            let filterItem = {
+                                filterId,
+                                filterType,
+                                name
+                            };
+                            filterOptions.push(filterItem);
+                        })
+                    } else {
+                        let filterId = filterIds;
+                        let filterType = key;
+                        let name = filterIds;
+                        let filterItem = {
+                            filterId,
+                            filterType,
+                            name
+                        };
+                        filterOptions.push(filterItem);
                     }
                 });
             }
