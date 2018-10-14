@@ -55,7 +55,7 @@ export let settingMenu = [
             this.showDialog = true;
             this.type = "";
             this.$nextTick(() => this.type = "university");
-            this.keep = true;
+            this.keep = true; //keep dialog open after university select
             this.isSearch = true;
         }
     },
@@ -66,7 +66,7 @@ export let settingMenu = [
         click: function (type) {
             this.showDialog = true;
             this.type = type;
-            this.keep = !universityExist ? true : "";
+            this.keep = true; //only relevant for university select
             this.isSearch = true;
         }
     },
