@@ -25,7 +25,8 @@ const LanguageChange = {
 const GetDictionary = (type) => {
     let dictionaryType = '';
     if(!!type){
-        dictionaryType = `?resource=${type}`
+        //version is for anti caching ability
+        dictionaryType = `?resource=${type}&v=${global.version}`
     }else{
         dictionaryType = '';
     }
@@ -39,9 +40,6 @@ const GetDictionary = (type) => {
         return Promise.reject(err);
     })
 }
-
-    
-
 
 //debug purposes
 global.dictionaryFindKey = function(value){
