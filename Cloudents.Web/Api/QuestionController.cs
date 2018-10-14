@@ -19,6 +19,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
+using Org.BouncyCastle.Bcpg;
 
 namespace Cloudents.Web.Api
 {
@@ -173,7 +174,13 @@ namespace Cloudents.Web.Api
             var results = await Task.WhenAll(resultTask);
 
             var result = results.SelectMany(s => s)
-                .Distinct(new QuestionDtoEqualityComparer()).OrderByDescending(o => o.DateTime).ToList();
+                .Distinct(new QuestionDtoEqualityComparer())
+                .Select(s=>
+                {
+                    s.Subject = subjects.FirstOrDefault(w=>w.Id ==s.SubjectId)?.Subject;
+                    return s;
+                })
+                .OrderByDescending(o => o.DateTime).ToList();
 
             string nextPageLink = null;
             if (result.Any())

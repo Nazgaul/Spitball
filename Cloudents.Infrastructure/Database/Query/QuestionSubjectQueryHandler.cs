@@ -18,7 +18,8 @@ using System.Threading.Tasks;
 namespace Cloudents.Infrastructure.Database.Query
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class QuestionSubjectQueryHandler : IQueryHandler<QuestionSubjectQuery, IEnumerable<QuestionSubjectDto>>
+    public class QuestionSubjectQueryHandler :
+        IQueryHandler<QuestionSubjectQuery, IEnumerable<QuestionSubjectDto>>
     {
         private readonly IStatelessSession _session;
 
