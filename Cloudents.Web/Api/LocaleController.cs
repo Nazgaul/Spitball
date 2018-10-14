@@ -35,8 +35,10 @@ namespace Cloudents.Web.Api
             if (location != null)
             {
                 regex = new Regex($@"Cloudents.Web.Resources.Js.{location}.([A-Za-z0-9\-]+).resources", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-
             }
+
+            var t = regex.Match(resources.First());
+
             foreach (var rawResourceLocation in resources.Where(w => regex.Match(w).Success)) // w.Contains("Cloudents.Web.Resources.Js")))
             {
                 var resourceStr = rawResourceLocation.Substring(0, rawResourceLocation.LastIndexOf('.'));
@@ -49,7 +51,8 @@ namespace Cloudents.Web.Api
                     .ToDictionary(x => x.Key.ToString(),
                         x => resource.GetString(x.Key.ToString()));
 
-                var name = resourceStr.Replace("Cloudents.Web.Resources.Js.", string.Empty);
+                var index = resourceStr.LastIndexOf('.') + 1;
+                var name = resourceStr.Remove(0, index);
                 foreach (var val in p)
                 {
                     dic.Add($"{name.ToCamelCase()}_{val.Key}", val.Value);
