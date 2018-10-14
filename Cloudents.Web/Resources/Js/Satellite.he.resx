@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="routes_about" xml:space="preserve">
-    <value>איך עובד רוק!</value>
+    <value>איך להשתמש בספיטבול</value>
   </data>
   <data name="routes_blog" xml:space="preserve">
     <value>בלוג</value>
@@ -136,7 +136,7 @@
     <value>פרטיות</value>
   </data>
   <data name="routes_reps" xml:space="preserve">
-    <value>נציגי!</value>
+    <value>נציגי</value>
   </data>
   <data name="routes_terms" xml:space="preserve">
     <value>תנאים</value>

@@ -121,25 +121,25 @@
     <value>שאל עכשיו</value>
   </data>
   <data name="fair_prise" xml:space="preserve">
-    <value>מחיר הוגן יעשה את המכירה!</value>
+    <value>מחיר הוגן יעשה את המכירה</value>
   </data>
   <data name="Get_Your_Question_Answered" xml:space="preserve">
-    <value>לקבל תשובה לשאלה שלך!</value>
+    <value>לקבל תשובה לשאלה שלך</value>
   </data>
   <data name="max_SBL" xml:space="preserve">
-    <value>מקס. מספר ובינונית ליצירת הוא 100 לכל שאלה!</value>
+    <value>מקס. מספר ובינונית ליצירת הוא 100 לכל שאלה</value>
   </data>
   <data name="min_SBL" xml:space="preserve">
-    <value>הגבלת מספר ובינונית ליצירת הוא 1 לכל שאלה!</value>
+    <value>הגבלת מספר ובינונית ליצירת הוא 1 לכל שאלה</value>
   </data>
   <data name="Pick_a_subject" xml:space="preserve">
     <value>בחרי נושא</value>
   </data>
   <data name="SBL" xml:space="preserve">
-    <value>SBL!</value>
+    <value>SBL</value>
   </data>
   <data name="sufficient_SBL" xml:space="preserve">
-    <value>אין לך מספיק ובינונית ליצירת!</value>
+    <value>אין לך מספיק ובינונית ליצירת</value>
   </data>
   <data name="Tip" xml:space="preserve">
     <value>טיפ</value>

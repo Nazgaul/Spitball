@@ -124,7 +124,7 @@
     <value>Do you already have an account?</value>
   </data>
   <data name="already_have_password" xml:space="preserve">
-    <value>I already have a password!</value>
+    <value>I already have a password</value>
   </data>
   <data name="and" xml:space="preserve">
     <value>and</value>
@@ -148,7 +148,7 @@
     <value>Your confirmation link has expired</value>
   </data>
   <data name="congrats" xml:space="preserve">
-    <value>CONGRATS!</value>
+    <value>CONGRATS</value>
   </data>
   <data name="continue" xml:space="preserve">
     <value>Continue</value>
@@ -292,7 +292,7 @@
     <value>Register</value>
   </data>
   <data name="remember_now" xml:space="preserve">
-    <value>I remember now!</value>
+    <value>I remember now</value>
   </data>
   <data name="reset_password_button" xml:space="preserve">
     <value>Reset password</value>

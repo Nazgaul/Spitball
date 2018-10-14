@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="B" xml:space="preserve">
-    <value>י</value>
+    <value>B</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>חזרה</value>
@@ -139,10 +139,10 @@
     <value>נעץ</value>
   </data>
   <data name="flipdown" xml:space="preserve">
-    <value>FlipDown!</value>
+    <value>FlipDown</value>
   </data>
   <data name="flipup" xml:space="preserve">
-    <value>FlipUp!</value>
+    <value>FlipUp</value>
   </data>
   <data name="Front" xml:space="preserve">
     <value>קדמי</value>
@@ -151,13 +151,13 @@
     <value>קדמי</value>
   </data>
   <data name="K" xml:space="preserve">
-    <value>כ</value>
+    <value>K</value>
   </data>
   <data name="next" xml:space="preserve">
     <value>הבא</value>
   </data>
   <data name="P" xml:space="preserve">
-    <value>■(ז)</value>
+    <value>P</value>
   </data>
   <data name="Pin" xml:space="preserve">
     <value>נעץ</value>
@@ -166,15 +166,15 @@
     <value>הקודם</value>
   </data>
   <data name="S" xml:space="preserve">
-    <value>כ</value>
+    <value>S</value>
   </data>
   <data name="shuffle" xml:space="preserve">
-    <value>ערבוב</value>
+    <value>ערבב</value>
   </data>
   <data name="shuffle_cards" xml:space="preserve">
-    <value>ערבב את הקלפים!</value>
+    <value>ערבב את הקלפים</value>
   </data>
   <data name="Study" xml:space="preserve">
-    <value>STUDY</value>
+    <value>למד</value>
   </data>
 </root>

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -19,6 +20,8 @@ namespace Cloudents.Web.Api
 
         private static readonly Regex DefaultRegex =
             new Regex(@"Cloudents.Web.Resources.Js.([A-Za-z0-9\-]+).resources", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+
+     
         //public Task<IViewComponentResult> InvokeAsync()
         //{
         //    var jsonString = CacheDictionary.GetOrAdd(CultureInfo.CurrentUICulture, _ => ParseJsResource());

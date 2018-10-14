@@ -121,22 +121,22 @@
     <value>תשובה</value>
   </data>
   <data name="answer_not_found" xml:space="preserve">
-    <value>לא מצאנו תשובה לשאלה שלך!</value>
+    <value>לא מצאנו תשובה לשאלה שלך</value>
   </data>
   <data name="ask_question" xml:space="preserve">
     <value>שאלתך</value>
   </data>
   <data name="different_keywords" xml:space="preserve">
-    <value>נסה מילות מפתח שונות.!</value>
+    <value>נסה מילות מפתח שונות.</value>
   </data>
   <data name="fewer_keywords" xml:space="preserve">
-    <value>נסה פחות מילות מפתח.!</value>
+    <value>נסה פחות מילות מפתח.</value>
   </data>
   <data name="filter_not_applied" xml:space="preserve">
-    <value>המסנן לא הוחל, כי זה ייתן לך תוצאות.!</value>
+    <value>המסנן לא הוחל, כי זה ייתן לך תוצאות.</value>
   </data>
   <data name="general_keywords" xml:space="preserve">
-    <value>נסה מילות מפתח כלליות יותר.!</value>
+    <value>נסה מילות מפתח כלליות יותר.</value>
   </data>
   <data name="new_questions" xml:space="preserve">
     <value>שאלות</value>
@@ -145,7 +145,7 @@
     <value>או. קיי.</value>
   </data>
   <data name="record_not_match" xml:space="preserve">
-    <value>לא תאמה את כל הרשומות.!</value>
+    <value>לא תאמה את כל הרשומות.</value>
   </data>
   <data name="showme" xml:space="preserve">
     <value>אלי</value>
@@ -157,33 +157,33 @@
     <value>הצעות</value>
   </data>
   <data name="suggestions_ask" xml:space="preserve">
-    <value>יש לי שאלה אתה צריך לענות? נסה אותנו!</value>
+    <value>יש לי שאלה אתה צריך לענות? נסה אותנו</value>
   </data>
   <data name="suggestions_book" xml:space="preserve">
-    <value>קנייה או מכירה של ספר לימוד? ואנחנו נגרום שתקבלו את המחיר הטוב ביותר!!</value>
+    <value>קנייה או מכירה של ספר לימוד? ואנחנו נגרום שתקבלו את המחיר הטוב ביותר</value>
   </data>
   <data name="suggestions_flashcard" xml:space="preserve">
-    <value>. מצאנו כמה כרטיסיות שעשויים לסייע לך ללמוד!!</value>
+    <value>. מצאנו כמה כרטיסיות שעשויים לסייע לך ללמוד</value>
   </data>
   <data name="suggestions_job" xml:space="preserve">
-    <value>צריך קצת כסף? למצוא את העבודה הטובה ביותר &amp; התמחות לסטודנטים בבית ספר שלך.!</value>
+    <value>צריך קצת כסף? למצוא את העבודה הטובה ביותר &amp; התמחות לסטודנטים בבית ספר שלך.</value>
   </data>
   <data name="suggestions_note" xml:space="preserve">
-    <value>חיפוש מסמכים לימוד לקורסים שלך? לא נראה רחוק.!</value>
+    <value>חיפוש מסמכים לימוד לקורסים שלך? לא נראה רחוק.</value>
   </data>
   <data name="suggestions_tutor" xml:space="preserve">
-    <value>עדיין זקוק לעזרה? קשר עם מורה פרטי וודא כי אתה אייס הכיתה שלך.!</value>
+    <value>עדיין זקוק לעזרה? קשר עם מורה פרטי וודא כי אתה אייס הכיתה שלך.</value>
   </data>
   <data name="users_answering" xml:space="preserve">
-    <value>עונים על משתמשים!</value>
+    <value>עונים על משתמשים</value>
   </data>
   <data name="user_answering" xml:space="preserve">
-    <value>המשתמש הוא עונה!</value>
+    <value>המשתמש הוא עונה</value>
   </data>
   <data name="where_school" xml:space="preserve">
     <value>? לאן אתה הולך לבית הספר</value>
   </data>
   <data name="your_search" xml:space="preserve">
-    <value>חיפוש!</value>
+    <value>חיפוש</value>
   </data>
 </root>

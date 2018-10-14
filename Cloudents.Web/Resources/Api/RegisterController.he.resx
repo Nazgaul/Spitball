@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EmailResend" xml:space="preserve">
-    <value>לא ניתן לשלוח שוב דוא&amp;quot;ל!</value>
+    <value>לא ניתן לשלוח שוב דוא"ל&amp;quot;</value>
   </data>
   <data name="GoogleNoResponse" xml:space="preserve">
-    <value>אין תוצאה מ- Google!</value>
+    <value>אין תוצאה מ- Google</value>
   </data>
   <data name="GoogleUserRegisteredWithEmail" xml:space="preserve">
     <value>כתובת דוא"ל כבר קיימת במערכת.</value>

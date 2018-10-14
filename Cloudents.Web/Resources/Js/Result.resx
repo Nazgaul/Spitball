@@ -160,10 +160,10 @@
     <value>Have a question you need answered? Try us.</value>
   </data>
   <data name="suggestions_book" xml:space="preserve">
-    <value>Buying or selling a textbook? We'll make sure you get the best price!</value>
+    <value>Buying or selling a textbook? We'll make sure you get the best price</value>
   </data>
   <data name="suggestions_flashcard" xml:space="preserve">
-    <value>We found some flashcards that may help you study!</value>
+    <value>We found some flashcards that may help you study</value>
   </data>
   <data name="suggestions_job" xml:space="preserve">
     <value>Need some cash? Find the best jobs &amp; internships for students at your school.</value>
