@@ -1,7 +1,7 @@
 let lastModified ='1/1/2018'; //Dont Touch
 
 export const termHtml = `<h2>Terms of Service</h2>
-<p>Last Modified ${lastModified}</p>
+<p>Last Modified 1/1/2018</p>
 <p>These terms of service govern your access to and use of Spitball websites and services (the "Services"), so please carefully read them before using the Services.</p>
 <p><b>By using the Services you agree to be bound by these Terms.</b> If you are using the Services on behalf of an organization, you are agreeing to these Terms for that organization and promising that you have the authority to bind that organization to these terms. In that case, "you" and "your" will refer to that organization.</p>
 <p>You may use the Services only in compliance with these Terms. You may use the Services only if you have the power to form a contract with Spitball and are not barred under any applicable laws from doing so. The Services may continue to change over time as we refine and add more features. We may stop, suspend, or modify the Services at any time without prior notice to you. We may also remove any content from our Services at our discretion.</p>

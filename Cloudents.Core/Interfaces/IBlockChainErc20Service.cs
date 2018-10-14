@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Numerics;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Core.Interfaces
@@ -19,9 +21,12 @@ namespace Cloudents.Core.Interfaces
         Task<string> IncreaseApprovalAsync(string spender, int amount, CancellationToken token);
 
         Task<string> TransferPreSignedAsync(string fromPK, string to, int amount, int fee, CancellationToken token);
+        Task<string> TransferPreSignedAsync(string delegatePK, string fromPK, string to, int amount, int fee, CancellationToken token);
+        //Task<string> TransferPreSignedAsync(string fromPK, string to, int amount, int fee, double gasPrice, BigInteger nonce, CancellationToken token);
         Task<string> ApprovePreSignedAsync(string fromPK, string sender, int amount, int fee, CancellationToken token);
         Task<string> IncreaseApprovalPreSignedAsync(string fromPK, string sender, int amount, int fee, CancellationToken token);
         Task<decimal> GetAllowanceAsync(string ownerAddress, string spenderAddress, CancellationToken token);
 
+        
     }
 }

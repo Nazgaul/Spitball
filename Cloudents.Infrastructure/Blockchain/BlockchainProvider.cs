@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.BlockChain
         protected abstract string Abi { get; }
         protected abstract string ContractAddress { get; }
 
-        private async Task<Contract> GetContractAsync(Web3 web3, CancellationToken token)
+        protected async Task<Contract> GetContractAsync(Web3 web3, CancellationToken token)
         {
             var abi = await ReadAbiAsync(token).ConfigureAwait(false);
             return web3.Eth.GetContract(abi, ContractAddress);
@@ -73,6 +73,12 @@ namespace Cloudents.Infrastructure.BlockChain
         protected async Task<Function> GetFunctionAsync(string name, CancellationToken token)
         {
             var contract = await GetContractAsync(GenerateWeb3Instance(SpitballPrivateKey), token).ConfigureAwait(false);
+            return contract.GetFunction(name);
+        }
+
+        protected async Task<Function> GetFunctionAsync(string name, string PrivateKey, CancellationToken token)
+        {
+            var contract = await GetContractAsync(GenerateWeb3Instance(PrivateKey), token).ConfigureAwait(false);
             return contract.GetFunction(name);
         }
     }
