@@ -5,6 +5,7 @@
             <router-link to="/question/mark">Mark As Correct</router-link> 
             <router-link to="/question/delete">Delete Question</router-link>
             <router-link to="/question/add">Add Question</router-link>
+            <router-link to="/question/addBulk">Add Multiple Questions</router-link>
         </nav> 
         <div class="question-content">
             <router-view></router-view>
