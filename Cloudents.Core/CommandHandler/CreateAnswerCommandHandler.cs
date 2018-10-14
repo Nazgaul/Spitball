@@ -64,15 +64,9 @@ namespace Cloudents.Core.CommandHandler
 
             var id = answer.Id;
 
-            float condition = Math.Max(DateTime.UtcNow.Subtract(question.Created).Seconds, 1);
+            
 
-            const int fraudTime = TimeConst.Minute;
-            if (condition < fraudTime)
-            {
-                var factor = fraudTime / condition;
-                user.FraudScore += (int)factor * 5;
-                await _userRepository.UpdateAsync(user, token);
-            }
+            
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 
             await Task.WhenAll(l/*.Union(new[] { t })*/).ConfigureAwait(true);
