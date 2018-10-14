@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Query
 {
@@ -13,9 +13,9 @@ namespace Cloudents.Core.Query
             CultureInfo = Thread.CurrentThread.CurrentUICulture;
         }
 
-        public CultureInfo CultureInfo { get; private set; }
+        public CultureInfo CultureInfo { get; }
     }
 
 
-    
+
 }
