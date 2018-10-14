@@ -8,9 +8,12 @@
             </div>
             <div slot="step-data" class="limited-width">
                 <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
-                <select v-model="phone.countryCode" class="mb-1">
+                <select v-model="phone.countryCode" :class="['mb-1']">
                     <option value="" disabled hidden v-language:inner>login_select_your_country_code</option>
-                    <option v-for="(item, index) in countryCodesList" :value="item.callingCode" :key="index">{{item.name}}
+                    <option v-for="(item, index) in countryCodesList"
+                            :value="item.callingCode"
+                            :key="index"
+                            :class="[ isRtl ?  'left-to-right' : '']">{{item.name}}
                         ({{item.callingCode}})
                     </option>
                 </select>
@@ -51,7 +54,8 @@
                     confirmPassword: ''
                 },
                 loading: false,
-                bottomError: false
+                bottomError: false,
+                isRtl: global.isRtl
             }
         },
         props: {

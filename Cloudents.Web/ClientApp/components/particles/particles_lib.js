@@ -1525,10 +1525,15 @@ window.particlesJS.load = function(tag_id, path_config_json, callback){
   xhr.onreadystatechange = function (data) {
     if(xhr.readyState == 4){
       if(xhr.status == 200){
+          console.log('Particles111 !!!!Error pJS - XMLHttpRequest status: ');
         var params = JSON.parse(data.currentTarget.response);
         window.particlesJS(tag_id, params);
-        if(callback) callback();
+        if(callback){
+            console.log('Particles222 !!!!Error pJS - XMLHttpRequest status: ');
+          return callback()
+        }
       }else{
+          console.log('Particles333 !!!!Error pJS - XMLHttpRequest status: ');
         console.log('Error pJS - XMLHttpRequest status: '+xhr.status);
         console.log('Error pJS - File config not found');
       }

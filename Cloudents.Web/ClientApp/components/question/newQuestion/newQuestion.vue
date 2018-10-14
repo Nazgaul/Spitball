@@ -64,12 +64,6 @@
                                     <label :for="`${pricey}pts`">{{pricey}} <span
                                             v-language:inner>newQuestion_SBL</span></label>
                                 </div>
-
-
-
-
-
-
                                 <div class="point-btn other inputBorder">
                                     <input type="number" placeholder="newQuestion_otherAmount_placeholder"
                                            v-language:placeholder
