@@ -41,27 +41,27 @@ namespace Cloudents.MailgunFunctions
         }
 
 
-        //[FunctionName("MailGunProcess")]
-        //public static async Task MailGunProcessAsync([TimerTrigger("0 0 * * * *")]TimerInfo myTimer,
-        //    [Inject]IReadRepositoryAsync<IEnumerable<MailGunUniversityDto>> universityRepository,
-        //    [Inject] IReadRepositoryAsync<IEnumerable<MailGunDto>, long> dataRepository,
-        //    [Inject] IMailProvider mailProvider,
-        //    [Inject] ICommandBus bus,
-        //    [Blob(MailGunMailTemplateHtml,Connection = "StorageConnectionString")]
-        //    string blob,
-        //    CancellationToken token,
-        //    TraceWriter log)
-        //{
-        //if (string.IsNullOrEmpty(blob))
-        //{
-        //    log.Error("mailgun - Email template cannot be null");
-        //}
-    //    var university = await universityRepository.GetAsync(token).ConfigureAwait(false);
-    //    await MailGunProcessAsync(university.Select(s => s.Id), dataRepository, mailProvider, bus, blob, token).ConfigureAwait(false);
-    //    log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
-    //}
+        [FunctionName("MailGunProcess")]
+        public static async Task MailGunProcessAsync([TimerTrigger("0 0 * * * *")]TimerInfo myTimer,
+            [Inject]IReadRepositoryAsync<IEnumerable<MailGunUniversityDto>> universityRepository,
+            [Inject] IReadRepositoryAsync<IEnumerable<MailGunDto>, long> dataRepository,
+            [Inject] IMailProvider mailProvider,
+            [Inject] ICommandBus bus,
+            [Blob(MailGunMailTemplateHtml,Connection = "StorageConnectionString")]
+            string blob,
+            CancellationToken token,
+            TraceWriter log)
+        {
+            if (string.IsNullOrEmpty(blob))
+            {
+                log.Error("mailgun - Email template cannot be null");
+            }
+            var university = await universityRepository.GetAsync(token).ConfigureAwait(false);
+            await MailGunProcessAsync(university.Select(s => s.Id), dataRepository, mailProvider, bus, blob, token).ConfigureAwait(false);
+            log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
+        }
 
-    private static async Task MailGunProcessAsync(
+        private static async Task MailGunProcessAsync(
             IEnumerable<int> universities,
             IReadRepositoryAsync<IEnumerable<MailGunDto>, long> dataRepository,
             IMailProvider mailProvider,
