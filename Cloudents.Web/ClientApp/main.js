@@ -266,6 +266,7 @@ function checkUserStatus(to, next) {
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 
 
+console.log("%cGaby please Stop to be תותח!:-))", "color: red; font-family: sans-serif; font-size: 4.5em; font-weight: bolder; text-shadow: #000 1px 1px;");
 initSignalRService();
 
 //app.$mount("#app");
