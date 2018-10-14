@@ -12,7 +12,7 @@ export default {
     },
     created(){
         GetDictionary('termsofservice').then((returned)=>{
-            this.termsHtml = LanguageService.getValueByKey('termsOfService.Terms_page');
+            this.termsHtml = LanguageService.getValueByKey('terms_page');
             this.showPage = true;
         })
     }
