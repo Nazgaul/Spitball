@@ -229,6 +229,10 @@ router.beforeEach((to, from, next) => {
     else {
         intercomSettings.hide_default_launcher = false;
     }
+    //case 10995
+    if (global.appInsights) {
+        appInsights.trackPageView(to.fullPath);
+    }
     store.dispatch('changeLastActiveRoute', from);
     checkUserStatus(to, next);
     

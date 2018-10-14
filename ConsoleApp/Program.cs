@@ -34,7 +34,7 @@ namespace ConsoleApp
             var builder = new ContainerBuilder();
             var keys = new ConfigurationKeys("https://www.spitball.co")
             {
-                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
+                Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString, ConfigurationManager.AppSettings["Redis"]),
                 MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                 Search = new SearchServiceCredentials(
 
@@ -49,6 +49,7 @@ namespace ConsoleApp
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
             builder.RegisterType<PPP>().As<IDataProtect>();
+            builder.RegisterType<CleanUpSearchIndex>().AsSelf();
             builder.RegisterSystemModules(
                 Cloudents.Core.Enum.System.Console,
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -126,11 +127,16 @@ namespace ConsoleApp
 
             
 
-            var b2 = _container.Resolve<IDocumentSearch>();
-            var query = SearchQuery.Document(null, 920, null, null, 0);
+            //var b2 = _container.Resolve<CleanUpSearchIndex>();
+            //await b2.DoCleanUp();
+
+
+            var t = _container.Resolve<IUniversitySearch>();
+            var z = await t.SearchAsync("umich", null, default);
+           // var query = SearchQuery.Document(null, 920, null, null, 0);
            // var query = new CoursesQuery(2343);
             //var query = new QuestionsQuery(null, null, 0, null);
-            var t = await b2.SearchDocumentsAsync(query, default);
+           // var t = await b2.SearchDocumentsAsync(query, default);
 
            
 

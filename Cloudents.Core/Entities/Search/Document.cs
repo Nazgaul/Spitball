@@ -1,8 +1,9 @@
 ﻿using System;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Entities.Search
 {
-    public class Document
+    public class Document : ISearchObject
     {
         public string Id { get; set; }
 

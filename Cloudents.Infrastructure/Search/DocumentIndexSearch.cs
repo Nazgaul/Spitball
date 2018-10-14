@@ -67,7 +67,7 @@ namespace Cloudents.Infrastructure.Search
             }
 
 
-            var searchParameters = new SearchParameters()
+            var searchParameters = new SearchParameters
             {
                 Select = new[]
                     {
