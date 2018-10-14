@@ -169,7 +169,140 @@ namespace ConsoleApp
                 Console.WriteLine($"---------------------------------");
             }
 
+            /* var b1 = t.GetBalanceAsync(metaMaskAddress, default);
+             var b2 = t.GetBalanceAsync(spitballServerAddress, default);
+             var b3 = t.GetBalanceAsync(spitballAddress, default);
+
+
+             await Task.WhenAll(b1, b2, b3).ConfigureAwait(false);
+
+
+             await Task.WhenAll(b1, b2, b3).ConfigureAwait(false);
+             Console.WriteLine($"metaMaskAddress Balance: {b1.Result}");
+             Console.WriteLine($"spitballServerAddress Balance: {b2.Result}");
+             Console.WriteLine($"spitballAddress Balance: {b3.Result}");
+             Console.WriteLine("---------------------------------");
+
+             string res;
+             blockQ.TryDequeue(out res);
+             var TxHash = t.TransferPreSignedAsync(res, metaMaskPK, spitballServerAddress, 2, 1, default); //d = SpitballPrivateKey
+             blockQ.TryDequeue(out res);
+             var TxHash2 = t.TransferPreSignedAsync(res, SpitballPrivateKey, spitballServerAddress, 2, 1, default); // d = metaMaskPK
+
+             var d1 = await t.GetBalanceAsync(metaMaskAddress, default);
+             var d2 = await t.GetBalanceAsync(spitballServerAddress, default);
+             var d3 = await t.GetBalanceAsync(spitballAddress, default);
+
+
+             await Task.WhenAll(TxHash, TxHash2).ConfigureAwait(false);
+
+            // Console.WriteLine($"nonce: {txCount.Value}");
+             Console.WriteLine($"metaMaskAddress Balance: {d1}");
+             Console.WriteLine($"spitballServerAddress Balance: {d2}");
+             Console.WriteLine($"spitballAddress Balance: {d3}");
+             Console.WriteLine("---------------------------------");
+
+             /*
+             Console.WriteLine($"metaMaskAddress balance: {await t.GetBalanceAsync(metaMaskAddress, default)}");
+             Console.WriteLine($"spitballServerAddress balance: {await t.GetBalanceAsync(spitballServerAddress, default)}");
+             Console.WriteLine($"spitballAddress balance:{await t.GetBalanceAsync(spitballAddress, default)}");
+             */
+
+
+
+            /*Account SpitballAccountt = new Account(SpitballPrivateKey);
+            var web3 = new Web3(SpitballAccountt);
             
+            */
+            /* const double GasPrice = 30e9;
+             Account SpitballAccount = new Account(SpitballPrivateKey);
+             var web3 = new Web3(SpitballAccount);
+             */
+            /* var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(t.GetAddress(SpitballPrivateKey));
+
+             Console.WriteLine($"nonce: {txCount.Value}");
+
+             List<string> fromPK = new List<string>();
+             List<string> to = new List<string>();
+             List<int> amount = new List<int>();
+             List<int> fee = new List<int>();
+
+
+             fromPK.Add(spitballServerPK);
+             fromPK.Add(metaMaskPK);
+             to.Add(metaMaskAddress);
+             to.Add(spitballAddress);
+             amount.Add(2);
+             amount.Add(2);
+             fee.Add(1);
+             fee.Add(1);
+
+             /*var b1 = t.GetBalanceAsync(metaMaskAddress, default);
+             var b2 = t.GetBalanceAsync(spitballServerAddress, default);
+             var b3 = t.GetBalanceAsync(spitballAddress, default);
+             */
+
+            /* await Task.WhenAll(b1, b2, b3).ConfigureAwait(false);
+
+             Console.WriteLine($"nonce: {txCount.Value}");
+             Console.WriteLine($"metaMaskAddress Balance: {b1.Result}");
+             Console.WriteLine($"spitballServerAddress Balance: {b2.Result}");
+             Console.WriteLine($"spitballAddress Balance: {b3.Result}");
+             Console.WriteLine("---------------------------------");
+             //var TxHash = await t.TransferPreSignedAsync(spitballServerPK, metaMaskAddress, 2, 1, default);
+              //var v = await t.valueCheck(amount, default);
+             //var TxHash = await t.MultipleTransferPreSignedAsync(fromPK, to, amount, fee, default);
+             //
+             await t.signatureCheck(fromPK, to, amount, fee, default);
+
+              b1 = t.GetBalanceAsync(metaMaskAddress, default);
+              b2 = t.GetBalanceAsync(spitballServerAddress, default);
+              b3 = t.GetBalanceAsync(spitballAddress, default);
+
+
+             await Task.WhenAll(b1, b2, b3).ConfigureAwait(false);
+
+             Console.WriteLine($"nonce: {txCount.Value}");
+             Console.WriteLine($"metaMaskAddress Balance: {b1.Result}");
+             Console.WriteLine($"spitballServerAddress Balance: {b2.Result}");
+             Console.WriteLine($"spitballAddress Balance: {b3.Result}");
+             Console.WriteLine("---------------------------------");
+
+             // var myTest = await t.MultipleTransferPreSignedAsync(fromPK, to, amount, fee, default);
+
+             Console.WriteLine($"nonce: {txCount.Value}");
+             //    Console.WriteLine($"spitballAddress Balance: {b3.Result}");
+             //    Console.WriteLine("---------------------------------");
+             //    Console.WriteLine($"allowance:{a1.Result}");
+             //    Console.WriteLine("---------------------------------");
+             /*for (int i = 0; i < 400; i++)
+             {
+                 txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(t.GetAddress(SpitballPrivateKey));
+
+                 Console.WriteLine(txCount.Value);
+
+                 /* var t1 = Task.Factory.StartNew(async () =>
+                  {
+                      var TxHash = await t.TransferPreSignedAsync(spitballServerPK, metaMaskAddress, 2, 1, default);
+                  });
+
+                  var t2 = Task.Factory.StartNew(async () =>
+                  {
+                      var TxHash = await t.TransferPreSignedAsync(metaMaskPK, spitballAddress, 2, 1, default);
+                      //var approve = await t.IncreaseApprovalPreSignedAsync(spitballServerPK, spitballAddress, 1, 1, default);
+                  });
+
+                  await Task.WhenAll(t1).ConfigureAwait(false);
+                  await Task.WhenAll(t2).ConfigureAwait(false);
+                  */
+
+
+            /* Console.WriteLine($"nonce: {txCount.Value}");
+             Console.WriteLine($"metaMaskAddress Balance: {b1.Result}");
+             Console.WriteLine($"spitballServerAddress Balance: {b2.Result}");
+             Console.WriteLine($"spitballAddress Balance: {b3.Result}");
+
+         }*/
 
 
             Console.WriteLine("done");
@@ -182,15 +315,21 @@ namespace ConsoleApp
 
             
 
-           // var b2 = _container.Resolve<IDocumentSearch>();
-           // var query = SearchQuery.Document(null, 920, null, null, 0);
+<<<<<<< HEAD
+            //var b2 = _container.Resolve<IQueryBus>();
+            //var query = new SyncAzureQuery(1,0);
+            //var d = await b2.QueryAsync< (IEnumerable<CourseSearchDto> update, IEnumerable<long> delete, long version)>(query, default);
+=======
+            var b2 = _container.Resolve<IDocumentSearch>();
+            var query = SearchQuery.Document(null, 920, null, null, 0);
            // var query = new CoursesQuery(2343);
             //var query = new QuestionsQuery(null, null, 0, null);
-            //var t = await b2.SearchDocumentsAsync(query, default);
+            var t = await b2.SearchDocumentsAsync(query, default);
 
            
 
             //var d = await b2.SearchAsync(query, default);
+>>>>>>> 3d6105c09fc78a1147373b4b842a264c1d83551f
             ////var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
             //    new GeoPoint(-74.006f, 40.7128f)
             //    , 0, false, default);

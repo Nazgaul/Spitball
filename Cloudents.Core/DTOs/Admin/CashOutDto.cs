@@ -13,6 +13,7 @@ namespace Cloudents.Core.DTOs.Admin
         //public static decimal AvgFraudScore { get; set; }
 
 
-        public bool IsSuspect => FraudScore > 20 || UserQueryRatio < 0.2M;
+        public bool IsSuspect => FraudScore > 5000 || UserQueryRatio < 0.2M;
+        //public bool IsSuspect => FraudScore > 20 || UserQueryRatio < 0.2M;
     }
 }
