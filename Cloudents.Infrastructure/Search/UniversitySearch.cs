@@ -40,6 +40,7 @@ namespace Cloudents.Infrastructure.Search
             {
                 Select = _listOfSelectParams,
                 Top = 15,
+                //QueryType = QueryType.Full,
                 OrderBy = new List<string> { "search.score() desc", nameof(University.DisplayName) },
                 ScoringProfile = UniversitySearchWrite.ScoringProfile,
                 ScoringParameters = new[]
@@ -51,7 +52,7 @@ namespace Cloudents.Infrastructure.Search
             };
 
             var result = await
-                _client.Documents.SearchAsync<University>(term, searchParameter,
+                _client.Documents.SearchAsync<University>(term/*+"~"*/, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);
             return new UniversitySearchDto(result.Results.Select(s => new UniversityDto(long.Parse(s.Document.Id), s.Document.DisplayName)));
         }
