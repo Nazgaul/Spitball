@@ -12,7 +12,7 @@ export default {
     },
     created(){
         GetDictionary('privacy').then((returned)=>{
-            this.privacyHtml = LanguageService.getValueByKey('privacy.Privacy_page');
+            this.privacyHtml = LanguageService.getValueByKey('privacy_page');
             this.showPage = true;
         })
     }
