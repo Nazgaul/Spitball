@@ -1,6 +1,6 @@
-﻿using Cloudents.Core.Query;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Query.Sync;
 
 namespace Cloudents.Functions.Sync
 {

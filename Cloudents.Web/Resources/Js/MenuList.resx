@@ -165,4 +165,10 @@
   <data name="referral_spitball" xml:space="preserve">
     <value>Refer a friend</value>
   </data>
+  <data name="changeCourse" xml:space="preserve">
+    <value>Change Course</value>
+  </data>
+  <data name="changeUniversity" xml:space="preserve">
+    <value>Change University</value>
+  </data>
 </root>

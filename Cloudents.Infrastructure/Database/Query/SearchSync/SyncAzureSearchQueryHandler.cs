@@ -1,11 +1,11 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Query;
 using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Query.Sync;
 
 namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {
@@ -23,6 +23,9 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
             _session = session.Session;
         }
 
+        /// <summary>
+        /// The page size to query default is 100
+        /// </summary>
         protected virtual int PageSize => 100;
 
 

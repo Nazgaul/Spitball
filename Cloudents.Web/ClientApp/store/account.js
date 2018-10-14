@@ -89,12 +89,25 @@ const getters = {
     isUser: state => state.user !== null,
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
-    accountUser: state => state.user,
+    accountUser: (state) => {
+        console.log(state.user)
+        return state.user
+    },
     lastActiveRoute: state => state.lastActiveRoute,
-    getProfileData: state => state.profileData
+    getProfileData: state => state.profileData,
+    getUniversity: state => {
+        if(!!state.user && !!state.user.universityId){
+            return true;
+        }else{
+            return false;
+        }
+    },
 };
 
 const actions = {
+    getAccount(state){
+                return state.user
+    },
     updateUserProfileData(context, name){
         let currentProfile = profileService.getProfileData(name);
         context.commit("UPDATE_PROFILE_DATA", currentProfile );

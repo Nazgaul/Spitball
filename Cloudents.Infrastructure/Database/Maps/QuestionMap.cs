@@ -33,6 +33,8 @@ namespace Cloudents.Infrastructure.Database.Maps
                 //.Cascade.()
                 .LazyLoad()
                 .Inverse();
+
+            SchemaAction.None();
         }
     }
 }

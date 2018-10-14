@@ -1,19 +1,21 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
 using NHibernate.Criterion;
-using System.Diagnostics.CodeAnalysis;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.EventHandler;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
+
     public class QuestionsQueryHandler : IQueryHandler<QuestionsQuery, IEnumerable<QuestionDto>>
     {
         private readonly ISession _session;
@@ -23,7 +25,7 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.Session;
         }
 
-      //  [Cache(TimeConst.Minute * 5, RemoveQuestionCacheEventHandler.CacheRegion, false)]
+       // [Cache(TimeConst.Minute * 5, RemoveQuestionCacheEventHandler.CacheRegion, false)]
         public async Task<IEnumerable<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
         {
             QuestionDto dto = null;
@@ -52,7 +54,7 @@ namespace Cloudents.Infrastructure.Database.Query
                         .Where(w => w.Question.Id == questionAlias.Id).ToRowCountQuery()).WithAlias(() => dto.Answers)
 
                 )
-                //.Where(w => w.CorrectAnswer == null)
+                .Where(w => w.CorrectAnswer == null)
                 .TransformUsing(new DeepTransformer<QuestionDto>());
             if (query.Source != null)
             {
@@ -66,7 +68,7 @@ namespace Cloudents.Infrastructure.Database.Query
             }
 
 
-            switch (query.Filter)
+            switch (query.Filters.FirstOrDefault())
             {
                 case QuestionFilter.Unanswered:
                     queryOverObj.WithSubquery.WhereNotExists(QueryOver.Of<Answer>()
@@ -86,13 +88,9 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Skip(query.Page * 50)
                 .Take(50);
 
-            //var futureQueryOver = queryOverObj.Future<QuestionDto>();
-
-            //var facetsFuture = QuestionSubjectRepository.GetSubjects(_session.QueryOver<QuestionSubject>()).Select(s => s.Text)
-            //    .Cacheable().CacheMode(CacheMode.Normal)
-            //    .Future<string>();
-
+            
             return await queryOverObj.ListAsync<QuestionDto>(token);
         }
     }
+
 }

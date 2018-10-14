@@ -1,4 +1,5 @@
-﻿
+﻿import {LanguageService} from "../../services/language/languageService";
+
 export const typesPersonalize = {
     university: "univeristy",
     course: "course",
@@ -31,7 +32,7 @@ export let searchObjects = {
     university: {
         id: typesPersonalize.university,
         searchApi: "getUniversities",
-        placeholder: 'Where do you go to school?',
+        placeholder: LanguageService.getValueByKey('result_where_school'),
         closeText: "X",
         click: function (keep = true) {
             if (!keep) {
@@ -48,22 +49,24 @@ export let searchObjects = {
 export let settingMenu = [
     {
         id: typesPersonalize.university,
-        name: "Choose university",
+        name:  LanguageService.getValueByKey("settings_university_choose"),
+       // name: "Choose university",
         click: function () {
             this.showDialog = true;
             this.type = "";
             this.$nextTick(() => this.type = "university");
-            this.keep = true;
+            this.keep = true; //keep dialog open after university select
             this.isSearch = true;
         }
     },
     {
         id: typesPersonalize.course,
-        name: "My courses",
-        click: function (universityExist) {
+        name:  LanguageService.getValueByKey("settings_my_courses"),
+        // name: "My courses",
+        click: function (type) {
             this.showDialog = true;
-            this.type = universityExist ? "course" : "university";
-            this.keep = !universityExist ? true : "";
+            this.type = type;
+            this.keep = true; //only relevant for university select
             this.isSearch = true;
         }
     },
@@ -88,32 +91,37 @@ export let notRegMenu = [
     // },
     {
         id: typesPersonalize.aboutSpitball,
-        title: "About Spitball",
+        title:  LanguageService.getValueByKey("settings_menu_item_about_spitball"),
+        // title: "About Spitball",
         name:"about",
         icon:"sbf-about",
 
     },
     {
         id: typesPersonalize.help,
-        title: "Help",
+        title:  LanguageService.getValueByKey("settings_menu_item_help"),
+        //title: "Help",
         name:"faq",
         icon:"sbf-help"
     },
     {
         id: typesPersonalize.termsService,
-        title: "Terms of Service",
+        title:  LanguageService.getValueByKey("settings_menu_item_terms"),
+        //title: "Terms of Service",
         name:"terms",
         icon:"sbf-terms"
     },
     {
         id: typesPersonalize.privacyPolicy,
-        title: "Privacy Policy",
+        title:  LanguageService.getValueByKey("settings_menu_item_privacy_policy"),
+        //title: "Privacy Policy",
         name:"privacy",
         icon:"sbf-privacy"
     },
     {
         id:typesPersonalize.feedback,
-        title:'Feedback',
+        title:  LanguageService.getValueByKey("settings_menu_item_feedback"),
+        // title:'Feedback',
         name: 'feedback',
         icon:"sbf-feedbackNew",
         click:()=>Intercom('showNewMessage'),

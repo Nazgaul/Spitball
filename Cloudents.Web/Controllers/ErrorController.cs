@@ -15,6 +15,8 @@ namespace Cloudents.Web.Controllers
             return View("NotFound");
         }
 
+        [Route("error/{code:int}")]
+        [Route("error")]
         public ActionResult Index()
         {
             var statusCode = (HttpStatusCode)Response.StatusCode;

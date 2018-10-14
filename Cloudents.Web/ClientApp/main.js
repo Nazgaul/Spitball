@@ -1,5 +1,4 @@
-﻿
-import Vue from "vue";
+﻿import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
 import { Language } from "./services/language/langDirective";
@@ -86,7 +85,7 @@ import { constants } from "./utilities/constants";
 //TODO: server side fix
 WebFont.load({
     google: {
-        families: ["Open+Sans:300,400,600,700"]
+        families: ["Open+Sans:300,400,600,700", "Fira+Sans:300,400,600,700"]
     }
 });
 
@@ -96,11 +95,11 @@ WebFont.load({
 //    attempt: 1
 //});
 //Vue.use(vueSmoothScroll);
+
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
         Scroll,
-
     },
     components: vuetifyComponents
 });
@@ -259,6 +258,8 @@ function checkUserStatus(to, next) {
         next("/signin");
     });
 }
+
+global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 
 initSignalRService();
 

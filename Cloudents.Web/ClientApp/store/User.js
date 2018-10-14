@@ -5,7 +5,7 @@ import * as consts from './constants'
 ﻿
 const state = {
     user: {
-        universityId: null,
+        //universityId: null,
         myCourses: [],
         isFirst: true,
         location: null,
@@ -92,10 +92,10 @@ const getters = {
         state => state.user.showRegistrationBanner,
     // getRegistrationStep:
     //     state => state.user.registrationStep,
-    getUniversity: state => {
-        let obj = state.user.universityId || {};
-        return obj.id;
-    },
+    // getUniversity: state => {
+    //     let obj = state.user.universityId || {};
+    //     return obj.id;
+    // },
     getUniversityName: state => {
         let obj = state.user.universityId || {};
         return obj.name;
@@ -140,7 +140,7 @@ const actions = {
         });
     },
     getCourses(context, { term }) {
-        return settingsService.getCourse({ term, universityId: context.getters.getUniversity });
+        return settingsService.getCourse({ term, university: context.getters.getUniversity });
     },
 
     createCourse(context, { name }) {
@@ -156,6 +156,9 @@ const actions = {
     updateUniversity({ commit }, { id, name, image }) {
         commit(USER.UPDATE_USER, { universityId: { id, name, image } });
         return settingsService.assaignUni(id)
+    },
+    updateCourse(context, courseId){
+        return settingsService.assaignCou(courseId)
     },
     createUniversity({ commit }, universityName){
         return settingsService.createUni(universityName)

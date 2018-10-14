@@ -22,9 +22,12 @@ namespace Cloudents.Infrastructure
     public sealed class RestClient : IRestClient, IDisposable
     {
         private readonly HttpClient _client;
+        private readonly ILogger _logger;
 
-        public RestClient()
+
+        public RestClient(ILogger logger)
         {
+            _logger = logger;
             _client = new HttpClient();
         }
 
@@ -173,6 +176,11 @@ namespace Cloudents.Infrastructure
                 }
 
                 var p = await _client.SendAsync(message, token).ConfigureAwait(false);
+                if (!p.IsSuccessStatusCode)
+                {
+                    var content = await p.Content.ReadAsStringAsync();
+                    _logger.Warning(content);
+                }
                 return p.IsSuccessStatusCode;
             }
         }

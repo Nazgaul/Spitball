@@ -95,15 +95,15 @@ namespace Cloudents.Core.Extension
             //return sb.ToString();
         }
 
-        //public static string CamelCase(this string str)
-        //{
-        //    if (string.IsNullOrEmpty(str))
-        //    {
-        //        return string.Empty;
-        //    }
-        //    // Return char and concat substring.
-        //    return char.ToLowerInvariant(str[0]) + str.Substring(1);
-        //}
+        public static string ToCamelCase(this string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToLowerInvariant(str[0]) + str.Substring(1);
+        }
 
         /// <summary>
         /// Wraps matched strings in HTML span elements styled with a background-color

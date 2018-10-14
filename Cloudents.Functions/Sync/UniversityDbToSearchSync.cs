@@ -1,12 +1,13 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
+using Cloudents.Core.Query.Sync;
+using Cloudents.Infrastructure.Write;
 
 namespace Cloudents.Functions.Sync
 {
@@ -28,20 +29,13 @@ namespace Cloudents.Functions.Sync
 
         public async Task<SyncResponse> DoSyncAsync(SyncAzureQuery query, CancellationToken token)
         {
-            var stopWordsList = new[]{ "university",
-                "of",
-                "college",
-                "school",
-                "the",
-                "a",
-                "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
-            };
+           
             var (update, delete, version) =
                 await _bus.QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<long> delete, long version)>(query, token);
             var result = await _universityServiceWrite.UpdateDataAsync(update.Select(s =>
             {
                 
-                var cleanName = s.Name.RemoveWords(stopWordsList);
+                var cleanName = s.Name.RemoveWords(UniversitySearchWrite.StopWordsList);
 
                 return new University
                 {

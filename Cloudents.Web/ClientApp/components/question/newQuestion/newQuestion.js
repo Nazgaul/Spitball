@@ -110,8 +110,12 @@ export default {
                         function (error) {
                             self.updateLoading(false);
                             console.error(error);
+                            let errorMessage = 'Something went wrong, try again.';
+                            if(error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]){
+                                errorMessage = error.response.data[""][0];
+                            }
                             self.updateToasterParams({
-                                toasterText: `${error.response.data[""][0]}` || '',
+                                toasterText: `${errorMessage}` || '',
                                 showToaster: true,
                             });
                             self.submitForm(false);
@@ -153,7 +157,6 @@ export default {
         },
     },
     created() {
-        console.log('created new question');
         this.$on('colorSelected', (activeColor) => {
             this.selectedColor.name = activeColor.name;
         });

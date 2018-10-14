@@ -2,8 +2,8 @@
 using System.Linq;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Query.Sync;
 
 namespace Cloudents.Infrastructure.Database.Query.SearchSync
 {
@@ -64,5 +64,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
         {
             return result.ToLookup(p => p.SYS_CHANGE_OPERATION == "D" || p.Data.IsDeleted || p.Data.Pending);
         }
+
+        protected override int PageSize => 500;
     }
 }

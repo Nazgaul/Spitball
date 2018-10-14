@@ -11,6 +11,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             Id(x => x.Id).GeneratedBy.Native();
             Map(x => x.TableName).Not.Nullable();
             Map(x => x.NextHi).Not.Nullable();
+
+            SchemaAction.None();
         }
     }
 }

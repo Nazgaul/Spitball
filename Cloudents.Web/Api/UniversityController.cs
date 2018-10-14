@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Command;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Identity;
@@ -52,13 +52,13 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns>list of universities</returns>
         [HttpGet]
-        public async Task<UniversityResponse> GetAsync([FromQuery] UniversityRequest model,
+        public async Task<UniversitySearchDto> GetAsync([FromQuery] UniversityRequest model,
             [Required(ErrorMessage = "NeedCountry"), ClaimModelBinder(AppClaimsPrincipalFactory.Country)] string country,
             CancellationToken token)
         {
             var result = await _universityProvider.SearchAsync(model.Term,
                 country, token).ConfigureAwait(false);
-            return new UniversityResponse(result);
+            return result;
         }
 
         /// <summary>

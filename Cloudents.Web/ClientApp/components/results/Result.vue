@@ -2,6 +2,10 @@
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
         <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main">
+            <!--static cards AB test-->
+            <abTestCard v-if="$route.path.slice(1)==='ask'" class="ab-test-card"
+                        :userName="accountUser ? accountUser.name : 'John Doe123'"></abTestCard>
+            <!--end static cards AB test-->
               <div class="d-flex mobile-filter">
                 <a v-if="$route.path.slice(1)==='ask' "
                    :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "
@@ -15,9 +19,10 @@
                 </v-btn>
             </div>
             <div v-if="filterSelection.length" class="pb-3 hidden-sm-and-down">
+
                 <template v-for="(item, index) in filterSelection">
                     <v-chip label class="filter-chip elevation-1" :key="index">
-                        {{$_showSelectedFilter(item) | capitalize}}
+                      {{item.name | capitalize }}
                         <v-icon right @click="$_removeFilter(item)">sbf-close</v-icon>
                     </v-chip>
                 </template>
@@ -47,11 +52,6 @@
                                                   :placeholder="placeholder.whereSchool" @click="$_openPersonalize"
                                                   v-language:placeholder></v-text-field>
                                 </v-flex>
-
-                                <!--static cards AB test-->
-                                <abTestCard v-if="$route.path.slice(1)==='ask'"
-                                            :userName="accountUser ? accountUser.name : 'John Doe123'"></abTestCard>
-                                <!--end static cards AB test-->
 
                                 <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index"
                                         :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
@@ -91,7 +91,7 @@
                                 <router-link tag="v-flex"
                                              class="result-cell hidden-lg-and-up elevation-1 mb-3 xs-12 order-xs4 "
                                              :to="{path:'/'+currentSuggest,query:{term:this.userText}}">
-                                    :to="{path:'/'+currentSuggest,query:{q:this.userText}}">
+                                    <!--:to="{path:'/'+currentSuggest,query:{q:this.userText}}">-->
                                     <suggest-card :name="currentSuggest"></suggest-card>
                                 </router-link>
                             </slot>

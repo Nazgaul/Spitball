@@ -26,11 +26,15 @@ namespace Cloudents.MailgunFunctions
             [Inject] IReadRepositoryAsync<IEnumerable<MailGunDto>, long> dataRepository,
             [Inject] IMailProvider mailProvider,
             [Inject] ICommandBus bus,
-            [Blob(MailGunMailTemplateHtml)]
+            [Blob(MailGunMailTemplateHtml,Connection = "StorageConnectionString")]
             string blob,
             CancellationToken token,
             TraceWriter log)
         {
+            if (string.IsNullOrEmpty(blob))
+            {
+                log.Error("mailgun - Email template cannot be null");
+            }
             var testUniversities = new[] { 9999 };
             await MailGunProcessAsync(testUniversities, dataRepository, mailProvider, bus, blob, token).ConfigureAwait(false);
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
@@ -43,11 +47,15 @@ namespace Cloudents.MailgunFunctions
             [Inject] IReadRepositoryAsync<IEnumerable<MailGunDto>, long> dataRepository,
             [Inject] IMailProvider mailProvider,
             [Inject] ICommandBus bus,
-            [Blob(MailGunMailTemplateHtml)]
+            [Blob(MailGunMailTemplateHtml,Connection = "StorageConnectionString")]
             string blob,
             CancellationToken token,
             TraceWriter log)
         {
+            if (string.IsNullOrEmpty(blob))
+            {
+                log.Error("mailgun - Email template cannot be null");
+            }
             var university = await universityRepository.GetAsync(token).ConfigureAwait(false);
             await MailGunProcessAsync(university.Select(s => s.Id), dataRepository, mailProvider, bus, blob, token).ConfigureAwait(false);
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");

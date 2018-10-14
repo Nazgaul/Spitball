@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Entities.Search;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
+using Cloudents.Core.Query.Sync;
 
 namespace Cloudents.Functions.Sync
 {

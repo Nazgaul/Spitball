@@ -1,10 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Attributes;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities.Db
 {
-    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global")]
     public class University
     {
@@ -13,7 +12,7 @@ namespace Cloudents.Core.Entities.Db
             Name = name;
             Country = country;
             Pending = true;
-            TimeStamp = new DomainTimeStamp();
+            RowDetail = new RowDetail();
         }
 
         [UsedImplicitly]
@@ -46,6 +45,6 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual bool Pending { get; set; }
 
-        public virtual DomainTimeStamp TimeStamp { get; set; }
+        public virtual RowDetail RowDetail { get; set; }
     }
 }

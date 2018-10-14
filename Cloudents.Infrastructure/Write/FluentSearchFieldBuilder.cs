@@ -119,6 +119,10 @@ namespace Cloudents.Infrastructure.Write
             {
                 return DataType.String;
             }
+            if (propertyType == typeof(string[]))
+            {
+                return DataType.Collection(DataType.String);
+            }
             if (propertyType == typeof(int))
             {
                 return DataType.Int32;

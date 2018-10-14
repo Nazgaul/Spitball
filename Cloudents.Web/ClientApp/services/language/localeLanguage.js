@@ -8,7 +8,7 @@ const languagesLocales = [
 
     },
     {
-        id: "he-IL",
+        id: "he",
         title: "עברית",
         name : "hebrew",
         locale: "he",

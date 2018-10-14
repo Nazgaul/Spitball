@@ -1,44 +1,19 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
-using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Binders
 {
     public class ClaimModelBinder :  IModelBinder
     {
-        private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
-
-        public ClaimModelBinder(IStringLocalizer<DataAnnotationSharedResource> localizer)
-        {
-            _localizer = localizer;
-        }
-
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
-            //var holderType = bindingContext.ModelMetadata.ContainerType;
-            ////var t = bindingContext.ModelMetadata as DefaultModelMetadata
-            //if (holderType == null)
-            //{
-            //   // bindingContext.ModelState.
-            //    bindingContext.Result = ModelBindingResult.Failed();
-            //    return Task.CompletedTask;
-            //    //return FailedRequest(bindingContext);
-            //}
-
-            //var propertyType = holderType.GetProperty(bindingContext.ModelMetadata.PropertyName);
-            //var claimAttr = propertyType?.GetCustomAttribute<ClaimModelBinderAttribute>();
-
             var claim = bindingContext.ModelName;// claimAttr?.Claim;
             if (claim == null)
             {
                 bindingContext.Result = ModelBindingResult.Failed();
                 return Task.CompletedTask;
-                //return FailedRequest(bindingContext);
 
             }
 
@@ -47,14 +22,20 @@ namespace Cloudents.Web.Binders
             if (result == null)
             {
                 bindingContext.Result = ModelBindingResult.Failed();
-
-                //return FailedRequest(bindingContext);
-
             }
             else
             {
-                var val = Convert.ChangeType(result.Value, bindingContext.ModelMetadata.ModelType);
-                bindingContext.Result = ModelBindingResult.Success(val);
+                var nullableType = Nullable.GetUnderlyingType(bindingContext.ModelMetadata.ModelType);
+                if (nullableType != null)
+                {
+                    var val = Convert.ChangeType(result.Value, nullableType);
+                    bindingContext.Result = ModelBindingResult.Success(val);
+                }
+                else
+                {
+                    var val = Convert.ChangeType(result.Value, bindingContext.ModelMetadata.ModelType);
+                    bindingContext.Result = ModelBindingResult.Success(val);
+                }
             }
 
             return Task.CompletedTask;

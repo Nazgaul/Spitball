@@ -12,19 +12,26 @@ export default {
         }
     },
     beforeRouteUpdate(to, from, next) {
-        const toName = to.path.slice(1);
-        let tabs = this.$el.querySelector('.v-tabs__wrapper');
-        let currentItem = this.$el.querySelector(`#${toName}`);
-        if (currentItem)
-            tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
+        //const toName = to.path.slice(1);
+        // let tabs = this.$el.querySelector('.v-tabs__wrapper');
+        // let currentItem = this.$el.querySelector(`#${toName}`);
+        // if (currentItem && !global.isRtl){
+        // tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
+        // }else{
+        // tabs.scrollLeft = 0;
+        // }
 
         next();
     },
     mounted() {
         let tabs = this.$el.querySelector('.v-tabs__wrapper');
         let currentItem = this.$el.querySelector(`#${this.currentSelection}`);
-        if (currentItem)
+        if (currentItem && !global.isRtl){
             tabs.scrollLeft = currentItem.offsetLeft - (tabs.clientWidth / 2);
+        }else{
+            tabs.scrollLeft = 0;
+        }
+
     },
     props: {
         currentSelection: {type: String},

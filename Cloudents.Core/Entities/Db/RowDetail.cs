@@ -7,7 +7,7 @@ namespace Cloudents.Core.Entities.Db
         public RowDetail()
         {
             CreationTime = UpdateTime = DateTime.UtcNow;
-            CreatedUser = UpdatedUser = "sys";
+            CreatedUser = UpdatedUser = "new-sb";
         }
 
         public virtual DateTime CreationTime { get; private set; }

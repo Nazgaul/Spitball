@@ -1,8 +1,10 @@
 ﻿@using Cloudents.Web.Services
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject WebPackChunkName Provider
 @inject IHostingEnvironment Environment
+@inject IViewLocalizer Localizer
 @{
     ViewBag.Title = "Spitball 2.0";
     var main = Provider.GetTag("main");
@@ -10,12 +12,12 @@
 
 
 @*<div id="app" asp-prerender-module="ClientApp/renderOnServer">Loading....</div>*@
-<div id="app">Loading....</div>
+<div id="app">@Localizer["Loading...."]</div>
 <div class="cdn-only2"></div>
 
 
 @section scripts {
-    @await Component.InvokeAsync("Resource")
+    @*@await Component.InvokeAsync("Resource")*@
     <environment include="Development">
         <script src="~/dist/@main.Js"></script>
     </environment>

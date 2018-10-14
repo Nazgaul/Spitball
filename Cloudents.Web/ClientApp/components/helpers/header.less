@@ -6,6 +6,7 @@
   &.v-toolbar {
     background-color: @color-white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+
     .v-toolbar__content {
       //.limited-width();
       padding: 0;
@@ -124,8 +125,43 @@
   }
 
   .settings-wrapper {
+    //TODO AB-Test
+    .static-card-what-is-hw-question {
+      visibility: hidden!important;
+     // display: flex;
+      flex-grow: 1;
+      .ab-test-button {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 8px;
+        max-width: 180px;
+        width: 180px;
+        height: 32px;
+        border-radius: 24px;
+        background-color: @color-AB-test-text;
+        box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.36);
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: -0.4px;
+        color: rgba(255, 255, 255, 0.81);
+        .edit-icon {
+          color: @color-white;
+          font-size: 14px;
+        }
+        &:hover {
+          background: lighten(@color-AB-test-text, 5%);
+        }
+      }
+    }
+    flex: 1 0 auto;
     line-height: 32px;
-    margin-left: 60px;
+    display: flex;
+    //width: 100%;
+    @media (max-width: @screen-xs) {
+      flex: 0 auto;
+    }
+    //margin-left: 60px;
     .v-btn--icon {
       @media (max-width: 959px) {
         margin-right: 0;
@@ -147,6 +183,7 @@
       padding: 0 20px;
       width: 100%;
       min-width: 104px;
+      max-width: 104px;
       @media (max-width: @screen-xs) {
         display: none;
       }
@@ -202,9 +239,9 @@
       height: 32px;
       min-height: 32px;
       max-width: 805px;
-      border-radius: 4px;
-      background-color: @color-light-grey;
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+      border-radius: 24px;
+     // background-color: @color-light-grey;
+     // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
       border: solid 0.5px @color-medium-grey;
       color: #000;
       letter-spacing: -0.4px;
@@ -213,11 +250,20 @@
       .input-group__input {
 
       }
-
-      .sbf-search {
-        min-width: 34px;
+      .v-input__icon {
+        align-items: flex-end;
+        display: inline-flex;
+        height: 24px;
+        flex: 1 0 auto;
+        justify-content: center;
+        min-width: 24px;
+        width: 24px;
+        .sbf-search {
+          min-width: 34px;
+          font-size: 18px;
+          opacity: 0.25;
+        }
       }
-
       .input-group__input {
         padding: 0 8px 0 12px;
 
@@ -249,7 +295,13 @@
 
 .v-navigation-drawer {
   z-index: 102;
+  &.hebrew-drawer{
+    // swap of right and left is going to be done by webpack RTL, so real vals are oposite
+    right: 0;
+    left: unset;
+  }
 }
+
 
 .settings-list .v-list__tile__title, .menu-list .v-list__tile__title {
   text-transform: capitalize;
@@ -279,9 +331,10 @@
 
 .header-wallet {
   flex-direction: column;
+  width: 10px;
   @media (max-width: @screen-sm) {
-
     align-items: start;
+    width: auto;
   }
 
   .v-btn {
@@ -313,10 +366,14 @@
 
 .header-rocket {
   height: 34px;
-  padding-left: 24px;
+  //padding-left: 24px;
   border-left: 1px solid #dddddd;
-  margin-left: 20px;
-
+ // margin-left: 20px;
+  justify-content: flex-end;
+  max-width: 50px;
+  @media (max-width: @screen-xs) {
+    padding-left: 24px;
+  }
   img {
     height: 32px;
     width: 32px;

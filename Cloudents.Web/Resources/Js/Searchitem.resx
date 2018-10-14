@@ -144,4 +144,10 @@
   <data name="dont_see_university" xml:space="preserve">
     <value>Still don't see your university?</value>
   </data>
+  <data name="error_chars" xml:space="preserve">
+    <value>University name must contain at least 10 characters</value>
+  </data>
+  <data name="error_university_create" xml:space="preserve">
+    <value>Failed To create University</value>
+  </data>
 </root>

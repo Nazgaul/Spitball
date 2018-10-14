@@ -1,10 +1,12 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Search;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Write;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -27,14 +29,18 @@ namespace Cloudents.Infrastructure.Search
             _client = client.GetClient(UniversitySearchWrite.IndexName);
         }
 
-        public async Task<IEnumerable<UniversityDto>> SearchAsync(string term, string country,
+        public async Task<UniversitySearchDto> SearchAsync(string term, string country,
             CancellationToken token)
         {
+            if (term.Contains(UniversitySearchWrite.StopWordsList, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return UniversitySearchDto.StopWordResponse();
+            }
             var searchParameter = new SearchParameters
             {
                 Select = _listOfSelectParams,
                 Top = 15,
-                OrderBy = new List<string> {"search.score() desc", nameof(University.DisplayName)},
+                OrderBy = new List<string> { "search.score() desc", nameof(University.DisplayName) },
                 ScoringProfile = UniversitySearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                 {
@@ -47,7 +53,7 @@ namespace Cloudents.Infrastructure.Search
             var result = await
                 _client.Documents.SearchAsync<University>(term, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);
-            return result.Results.Select(s => new UniversityDto(long.Parse(s.Document.Id), s.Document.DisplayName));
+            return new UniversitySearchDto(result.Results.Select(s => new UniversityDto(long.Parse(s.Document.Id), s.Document.DisplayName)));
         }
     }
 }

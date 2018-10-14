@@ -32,6 +32,7 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <param name="courseProvider"></param>
         /// <param name="commandBus"></param>
+        /// <param name="userManager"></param>
         public CourseController(ICourseSearch courseProvider, ICommandBus commandBus, UserManager<User> userManager)
         {
             _courseProvider = courseProvider;

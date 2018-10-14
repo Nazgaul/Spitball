@@ -6,6 +6,7 @@ const searchItemCourse = () => import("./searchItemCourse.vue");
 import { mapGetters, mapMutations, mapActions } from "vuex"
 import CourseAdd from "./courseAdd.vue";
 import PageLayout from "./layout.vue";
+import { LanguageService } from "../../services/language/languageService";
 
 export default {
     watch: {
@@ -49,7 +50,7 @@ export default {
         title() {
             if (this.currentAction) return "Add Class";
             if (this.currentType === "course") return this.getUniversityName;
-            return "Personalize Results";
+            return LanguageService.getValueByKey('resultPersonalize_personalize_results');
         },
         showCreateCourse: function () {
             return this.val.length > 2 && this.currentType === typesPersonalize.course && !this.isLoading;
@@ -76,9 +77,17 @@ export default {
             currentAction: "",
             newCourseName: "",
             newUniversityName: "",
+            universityCreateRequest: false,
+            universityName:{
+                errors:{
+                    minimumsNameLength:false,
+                    failedRequest: false
+                },
+            },
             val: "",
             noResults:false,
-            showAdd:false
+            showAdd:false,
+            stopWord : false
         };
     },
 
@@ -118,20 +127,41 @@ export default {
             this.isLoading = true;
             //    debounce(function (val) {
             this.$store.dispatch(this.currentItem.searchApi, { term: this.val }).then(({ data: body }) => {
-                this.items = body.courses||body.universities;
-                this.noResults= !this.items||!this.items.length;
+                this.items = body.courses || body.universities;
+                this.stopWord = body.stopWord;
+                this.noResults= !this.items || !this.items.length;
                 this.isLoading = false;
             });
             //    }, 500);
             //}
+
+        },
+        resetUniversityErrors(){
+            this.universityName.errors.minimumsNameLength = false;
+            this.universityName.errors.failedRequest = false;
         },
         $_submitAddUniversity(){
-            this.createUniversity(this.newUniversityName);
-            this.newUniversityName = "";
-            this.$el.querySelector('.results-container').scrollTop = 0;
-            this.val="";
-            // go to next Step
-            this.currentType = "course";
+            let universityName = this.newUniversityName.trim();
+            if(universityName.length >= 10){
+                this.universityCreateRequest = true;
+                
+                this.createUniversity(universityName).then(()=>{
+                    this.universityCreateRequest = false;
+                    this.newUniversityName = "";
+                    this.$el.querySelector('.results-container').scrollTop = 0;
+                    this.val="";
+                    // go to next Step
+                    this.currentType = "course";
+                }, (err)=>{
+                    this.universityCreateRequest = false;
+                    console.log(err)
+                    this.universityName.errors.failedRequest = true;
+                });
+                
+            }else{
+                this.universityName.errors.minimumsNameLength = true;
+            }
+            
         },
         $_clearAddUniversity(){
             this.newUniversityName = "";

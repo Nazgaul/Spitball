@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Interfaces;
+using Cloudents.Core.Request;
+using JetBrains.Annotations;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -9,10 +13,6 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Request;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
 
 namespace Cloudents.Infrastructure.Mail
 {
@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure.Mail
 
             using (var body = new FormUrlEncodedContent(serializedParams))
             {
-                await _restClient.Value.PostAsync(uri, body, headers, cancellationToken).ConfigureAwait(false);
+                var result = await _restClient.Value.PostAsync(uri, body, headers, cancellationToken).ConfigureAwait(false);
             }
         }
 

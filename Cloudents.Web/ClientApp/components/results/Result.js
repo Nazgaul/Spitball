@@ -141,13 +141,13 @@ export default {
 
     watch: {
         //update the course list of filters if have in page while the course list changes
-        myCourses(val) {
-            if (this.filterObject) {
-                const courseIndex = this.filterObject.findIndex(item => item.modelId === "course");
-                if (courseIndex > -1)
-                    this.filterObject[courseIndex].data = val;
-            }
-        }
+        // myCourses(val) {
+        //     if (this.filterObject) {
+        //         const courseIndex = this.filterObject.findIndex(item => item.modelId === "course");
+        //         if (courseIndex > -1)
+        //             this.filterObject[courseIndex].data = val;
+        //     }
+        // }
     },
     methods: {
         ...mapActions([
@@ -209,7 +209,7 @@ export default {
 
         //Function for update the filter object(when term or vertical change)
         $_updateFilterObject() {
-            this.filterObject =this.getFilters;
+            this.filterObject = this.getFilters;
         },
 
         //   4-%%%
@@ -228,7 +228,7 @@ export default {
             }
         },
         //removes filter from selected filter
-        $_removeFilter({value, key}) {
+        $_removeFilter({filterId:value, filterType:key}) {
             this.UPDATE_SEARCH_LOADING(true);
             let updatedList = this.query[key];
             updatedList = [].concat(updatedList).filter(i => i.toString() !== value.toString());
@@ -241,7 +241,7 @@ export default {
             if (!this.accountUser) {
                 this.updateLoginDialogState(true);
             }else {
-                this.$root.$emit("personalize", typesPersonalize.course);
+                this.$root.$emit("personalize", typesPersonalize.university);
             }
         },
         //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)

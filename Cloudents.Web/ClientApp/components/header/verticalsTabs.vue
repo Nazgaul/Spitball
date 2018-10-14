@@ -1,8 +1,9 @@
 <template>
-    <v-flex class="line verticals">
-        <v-layout row>
+    <div>
+    <v-flex class="line verticals static-card-what-is-hw-question">
+        <v-layout row >
             <div class="gap ma-0" v-if="$vuetify.breakpoint.mdAndUp"></div>
-            <v-tabs class="verticals-bar" v-model="currentVertical" :value="currentSelection"   :scrollable="false">
+            <v-tabs class="verticals-bar" v-model="currentVertical" :value="currentSelection"   :scrollable="true">
                     <v-tab v-for="tab in verticals" :ripple="false" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click.prevent="$_updateType(tab.id)"
                                  :class="['spitball-text-'+tab.id,tab.id===currentSelection?'v-tabs__item--active':'']"
@@ -13,6 +14,8 @@
             </v-tabs>
         </v-layout>
     </v-flex>
+
+    </div>
 </template>
 
 <script>
@@ -21,15 +24,18 @@
 
     export default {
         name: "verticals-tabs",
-        computed: {
-            ...mapGetters(['getVerticalData']),
 
-        },
         props: {currentSelection: {}},
         data() {
             return {
                 verticals,
                 currentVertical: this.currentSelection
+            }
+        },
+        computed: {
+            ...mapGetters(['getVerticalData', 'accountUser']),
+            isLogedIn(){
+                return this.accountUser
             }
         },
         watch: {
@@ -39,7 +45,7 @@
         },
         methods: {
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
-            ...mapActions(["setCurrentVertical"]),
+            ...mapActions(['setCurrentVertical', 'updateLoginDialogState', 'updateUserProfileData', 'updateNewQuestionDialogState']),
             $_updateType(result) {
                 this.currentVertical = result;
                 this.$ga.event("Vertical_Tab", result);
@@ -63,7 +69,19 @@
                 }
                 this.$router.push({path: '/' + result, query: {}});
                 // this.$router.push({path: '/' + result, query: {...query, q: text, course}});
-            }
+            },
+
+            //TODO ABTEST part of ab test if not used delete from here
+            goToAskQuestion() {
+                // console.log(this.accountUser);
+                if (this.accountUser == null) {
+                    this.updateLoginDialogState(true);
+                    //set user profile
+                    this.updateUserProfileData('profileHWH')
+                } else {
+                    this.updateNewQuestionDialogState(true);
+                }
+            },
         }
     }
 </script>

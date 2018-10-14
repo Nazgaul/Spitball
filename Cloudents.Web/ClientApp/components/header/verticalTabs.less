@@ -1,67 +1,73 @@
 ﻿@import "../../mixin.less";
 
 .verticals.line {
-    .limited-width()!important;
-    @media(max-width: @screen-sm) {
-        align-items: stretch;
-        padding-right: 0px !important;
-        padding-left: 0px !important;
+  .limited-width() !important;
+  @media (max-width: @screen-sm) {
+    align-items: stretch;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+  }
+
+  .v-tabs__container {
+    height: 44px;
+  }
+
+  .v-tabs__item {
+    text-transform: capitalize;
+    //Vuetify 1.1.1
+    padding: 0 !important;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+    opacity: 1;
+    color: rgba(0, 0, 0, 0.54);
+    &.v-tabs__item--active {
+      color: @color-main-purple;
+    }
+  }
+
+  .gap {
+    width: @logoWidth;
+    .flexSameSize();
+  }
+
+  .verticals-bar {
+    padding-left: 4px;
+    @media (max-width: @screen-sm) {
+      padding-left: 8px;
     }
 
-    .v-tabs__container{
-        height:44px;
-    }
+    .v-tabs__bar {
 
-    .v-tabs__item {
-        text-transform: capitalize;
-        //Vuetify 1.1.1
-        padding: 0 !important;
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: -0.2px;
-        opacity: 1;
-        color: #8888d5;
-        &.v-tabs__item--active{
-            color: @color-main-purple;
+      height: 100%;
+      .v-tabs__wrapper {
+        .v-tabs__container {
+          //transform wont fix the problem
+
+          .v-tabs__slider-wrapper {
+            bottom: 4px;
+          }
+          .v-tabs__slider {
+            height: 3px;
+            bottom: 4px;
+          }
         }
-    }
+      }
 
-
-    .gap {
-        width: @logoWidth;
-        .flexSameSize();
-    }
-
-    .verticals-bar {
-        padding-left: 4px;
-        @media(max-width: @screen-sm) {
-            padding-left: 8px;
+      .v-tabs__bar .v-tabs__li {
+        flex-basis: auto;
+        padding-bottom: 14px;
+        @media (max-width: @screen-xs) {
+          margin-right: 16px !important;
+          margin-bottom: 3px;
+          padding-bottom: 0;
         }
-
-        .v-tabs__bar {
-            height: 100%;
-            .v-tabs__slider-wrapper{
-                bottom: 4px;
-            }
-            .v-tabs__slider {
-                height: 3px;
-                bottom: 4px;
-            }
-        }
-
-        .v-tabs__bar .v-tabs__li {
-            flex-basis: auto;
-            padding-bottom: 14px;
-            @media(max-width: @screen-xs){
-                margin-right: 16px !important;
-                margin-bottom: 3px;
-                padding-bottom: 0;
-            }
-        }
+      }
     }
 
     //remove the background added to the button when clicking on it
-    .v-ripple__animation{
-        display: none;
+    .v-ripple__animation {
+      display: none;
     }
+  }
 }
