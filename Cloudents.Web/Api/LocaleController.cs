@@ -60,10 +60,10 @@ namespace Cloudents.Web.Api
         }
 
         /// <summary>
-        /// Get resource 
+        /// Get resource for js files 
         /// </summary>
         /// <param name="resource">The key to the resource</param>
-        /// <remarks>Not please pass the version and also the locale - since the browser caches the data</remarks>
+        /// <remarks>Note please pass the version and also the locale(language) - since the browser caches the data</remarks>
         /// <returns>A key value dictionary</returns>
         [HttpGet]
         [ResponseCache(Duration = TimeConst.Week, VaryByQueryKeys = new[] { "*" })]
