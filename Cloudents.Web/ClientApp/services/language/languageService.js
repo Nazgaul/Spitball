@@ -23,12 +23,12 @@ const LanguageChange = {
 };
 
 const GetDictionary = (type) => {
-    let dictionaryType = '';
+    let dictionaryType = `?v=${global.version}&l=${global.lang}`;
     if(!!type){
         //version is for anti caching ability
-        dictionaryType = `?resource=${type}&v=${global.version}`
+        dictionaryType += `&resource=${type}`
     }else{
-        dictionaryType = '';
+        dictionaryType += '';
     }
     return connectivityModule.http.get(`/Locale${dictionaryType}`).then((dictionary)=>{
         for(let prop in dictionary.data){
