@@ -181,7 +181,7 @@ namespace Cloudents.Web.Api
                 nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
             }
 
-            var values = (QuestionFilter[]) Enum.GetValues(typeof(QuestionFilter));
+            var values = EnumExtension.GetValues<QuestionFilter>();
             var facets = values.Where(w => w.GetAttributeValue<PublicValueAttribute>() != null).ToArray();//.Select(s => s.GetEnumLocalization());
 
                 
