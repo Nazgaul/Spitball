@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
@@ -11,6 +12,7 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -22,13 +24,15 @@ namespace Cloudents.Web.Api
         //internal const string CreateAnswerPurpose = "CreateAnswer";
         private readonly ICommandBus _commandBus;
         private readonly IMapper _mapper;
+        private readonly IStringLocalizer<AnswerController> _localizer;
         private readonly UserManager<User> _userManager;
 
-        public AnswerController(ICommandBus commandBus, IMapper mapper, UserManager<User> userManager)
+        public AnswerController(ICommandBus commandBus, IMapper mapper, UserManager<User> userManager, IStringLocalizer<AnswerController> localizer)
         {
             _commandBus = commandBus;
             _mapper = mapper;
             _userManager = userManager;
+            _localizer = localizer;
         }
 
         [HttpPost]
@@ -51,8 +55,14 @@ namespace Cloudents.Web.Api
                     NextQuestions = t2.Result
                 };
             }
+            catch (QuestionAlreadyAnsweredException)
+            {
+                ModelState.AddModelError(nameof(model.Text),_localizer["This question have correct answer"]);
+                return BadRequest();
+            }
             catch (ArgumentException)
             {
+                ModelState.AddModelError(nameof(model.Text), _localizer["QuestionNotExists"]);
                 return BadRequest();
             }
         }
@@ -71,6 +81,7 @@ namespace Cloudents.Web.Api
             }
             catch (ArgumentException)
             {
+                ModelState.AddModelError(nameof(model.Id), _localizer["Answer does not exists"]);
                 return BadRequest();
             }
         }

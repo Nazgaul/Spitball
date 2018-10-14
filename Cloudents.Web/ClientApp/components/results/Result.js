@@ -241,7 +241,7 @@ export default {
             if (!this.accountUser) {
                 this.updateLoginDialogState(true);
             }else {
-                this.$root.$emit("personalize", typesPersonalize.course);
+                this.$root.$emit("personalize", typesPersonalize.university);
             }
         },
         //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)

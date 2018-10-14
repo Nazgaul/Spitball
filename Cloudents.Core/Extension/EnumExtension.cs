@@ -47,16 +47,21 @@ namespace Cloudents.Core.Extension
         public static IEnumerable<string> GetPublicEnumNames(this Type value)
         {
             var memberInfos = value.GetFields(BindingFlags.Public | BindingFlags.Static);
-            
+
 
             foreach (var memberInfo in memberInfos)
             {
                 if (memberInfo.GetCustomAttribute<PublicValueAttribute>() != null)
                 {
                     yield return memberInfo.Name;
-                    
+
                 }
             }
+        }
+
+        public static IEnumerable<T> GetValues<T>() where T : System.Enum
+        {
+            return (T[])System.Enum.GetValues(typeof(T));
         }
     }
 }
