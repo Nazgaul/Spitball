@@ -69,7 +69,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 .JoinAlias(x => x.User, () => userAlias)
                 .Where(w => w.CorrectAnswer == null)
                 .And(Restrictions.Or(
-                    Restrictions.Where(() => userAlias.Fictive.GetValueOrDefault()),
+                    Restrictions.Where(() => userAlias.Fictive),
                     Restrictions.Where(() => questionAlias.Created < DateTime.UtcNow.AddDays(-5))
                 ))
                 .SelectList(
@@ -87,7 +87,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
                 .JoinAlias(x => x.Question, () => questionAlias)
                 .Where(() => questionAlias.CorrectAnswer == null)
                 .And(Restrictions.Or(
-                    Restrictions.Where(() => userAlias.Fictive.GetValueOrDefault()),
+                    Restrictions.Where(() => userAlias.Fictive),
                     Restrictions.Where(() => questionAlias.Created < DateTime.UtcNow.AddDays(-5))))
                 .SelectList(
                             l =>
