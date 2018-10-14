@@ -121,7 +121,7 @@
     <value>Sign up with your email to get your HW questions answered now.</value>
   </data>
   <data name="login_askQuestion_stepTwo" xml:space="preserve">
-    <value>You're 1 step away from getting free SBLs and getting answers from top students!</value>
+    <value>You're 1 step away from getting free SBLs and getting answers from top students</value>
   </data>
   <data name="login_noCampaign_stepOne" xml:space="preserve">
     <value>Start with your email. We need to know how to contact you.</value>

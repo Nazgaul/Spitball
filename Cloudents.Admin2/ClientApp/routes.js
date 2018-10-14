@@ -4,6 +4,7 @@ import Question from './components/question/question.vue'
 import QMark from './components/question/questionComponents/mark/markQuestion.vue'
 import QDelete from './components/question/questionComponents/delete/deleteQuestion.vue'
 import QAdd from './components/question/questionComponents/add/addQuestion.vue'
+import QAddBulk from './components/question/questionComponents/addBulk/addBulkQuestions.vue'
 
 import User from './components/user/user.vue'
 import UToken from './components/user/token/tokenUser.vue'
@@ -39,6 +40,10 @@ export const routes = [
           {
             path:'add',
             component: QAdd
+          },
+          {
+            path:'addBulk',
+            component: QAddBulk
           },
           {
             path: '*',

@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="free" xml:space="preserve">
-    <value>חינם!</value>
+    <value>חינם</value>
   </data>
   <data name="service" xml:space="preserve">
     <value>הגדר את הטופס בכל שדה,  כידי לשלב את תכונות של שירותים חיצונים.</value>
   </data>
   <data name="spitball_is_a_completely" xml:space="preserve">
-    <value>רוק זה לגמרי!</value>
+    <value>ספיטבול זה לגמרי</value>
   </data>
 </root>

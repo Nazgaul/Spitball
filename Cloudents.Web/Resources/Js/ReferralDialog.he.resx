@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="copy" xml:space="preserve">
-    <value>העתקה</value>
+    <value>העתק</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
-    <value>&lt;b&gt;הזמן חבר&lt;/b&gt; &lt;b&gt;והרוויח&lt;/b&gt; עבור כל &lt;b&gt;אסימוני&lt;/b&gt; הפניה &lt;b&gt;10 SBL.&lt;/b&gt; !</value>
+    <value>&lt;b&gt;הזמן חבר&lt;/b&gt; &lt;b&gt;והרוויח&lt;/b&gt; עבור כל &lt;b&gt;אסימוני&lt;/b&gt; הפניה &lt;b&gt;10 SBL.&lt;/b&gt; </value>
   </data>
   <data name="get_your_homework" xml:space="preserve">
-    <value>קבל את שיעורי הבית שלך שאלות ענה בתוך דקות, ולעשות כסף לענות על שאלות התלמידים האחרים. קבל 100 SBL חינם אם אתה נרשם באמצעות קישור זה :!</value>
+    <value>קבל את שיעורי הבית שלך שאלות ענה בתוך דקות, ולעשות כסף לענות על שאלות התלמידים האחרים. קבל 100 SBL חינם אם אתה נרשם באמצעות קישור זה :</value>
   </data>
   <data name="get_your_homework_twitter" xml:space="preserve">
-    <value>קבל את שיעורי הבית שלך שאלות ענה בתוך דקות, ולעשות כסף לענות על שאלות התלמידים האחרים. קבל 100 SBL חינם אם אתה נרשם באמצעות קישור זה!</value>
+    <value>קבל את שיעורי הבית שלך שאלות ענה בתוך דקות, ולעשות כסף לענות על שאלות התלמידים האחרים. קבל 100 SBL חינם אם אתה נרשם באמצעות קישור זה</value>
   </data>
   <data name="join_me" xml:space="preserve">
-    <value>הצטרף אלי על כדורעף !!</value>
+    <value>הצטרף אלי על כדורעף </value>
   </data>
   <data name="share_with" xml:space="preserve">
-    <value>או לחלוק עם!</value>
+    <value>או לחלוק עם</value>
   </data>
 </root>

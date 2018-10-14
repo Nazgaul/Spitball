@@ -124,16 +124,16 @@
     <value>תשובה</value>
   </data>
   <data name="emptyState_answers_text" xml:space="preserve">
-    <value>לעזור לתלמידים אחרים, להרוויח כסף על ידי מתן תשובות לשאלות.!</value>
+    <value>לעזור לתלמידים אחרים, להרוויח כסף על ידי מתן תשובות לשאלות.</value>
   </data>
   <data name="emptyState_questions_boldText" xml:space="preserve">
-    <value>שים את זה על מכירת...!</value>
+    <value>שים את זה על מכירת...</value>
   </data>
   <data name="emptyState_questions_btnText" xml:space="preserve">
     <value>שאלתך</value>
   </data>
   <data name="emptyState_questions_text" xml:space="preserve">
-    <value>יש לי שאלה על שיעורי הבית שלך?!</value>
+    <value>יש לי שאלה על שיעורי הבית שלך?</value>
   </data>
   <data name="Questions" xml:space="preserve">
     <value>שאלות</value>

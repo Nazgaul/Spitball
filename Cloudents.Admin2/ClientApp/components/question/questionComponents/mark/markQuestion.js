@@ -10,11 +10,14 @@ export default {
             openQuestion(url){
                 window.open(url, "_blank");
             },
-            acceptQuestion(question){
-                acceptAnswer(question.toServer()).then(()=>{
-                    alert(`SUCCESS: question id: ${question.questionId} accepted answer id: ${question.answerId}`)
+            acceptQuestion(question, answer){
+                acceptAnswer(question.toServer(answer.id)).then(()=>{
+                    alert(`SUCCESS: question id: ${question.id} accepted answer id: ${answer.id}`)
+                    //remove the question from the list
+                    let questionIndex = this.questions.indexOf(question)
+                    this.questions.splice(questionIndex, 1);
                 }, ()=>{
-                    alert(`ERROR FAILED TO ACCEPT question id: ${question.questionId} answer id: ${question.answerId}`)
+                    alert(`ERROR FAILED TO ACCEPT question id: ${question.id} answer id: ${answer.id}`)
                 })
             }
         

@@ -247,6 +247,7 @@ const app = new Vue({
 
 
 function checkUserStatus(to, next) {
+
     store.dispatch('userStatus', {
         isRequire: to.meta.requiresAuth,
         to
@@ -262,8 +263,9 @@ function checkUserStatus(to, next) {
     });
 }
 
-// is right to left, to use in css and other stuff is global
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
+
+
 initSignalRService();
 
 //app.$mount("#app");

@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="currency" xml:space="preserve">
-    <value>$!</value>
+    <value>$</value>
   </data>
   <data name="hour" xml:space="preserve">
     <value>לשעה</value>
   </data>
   <data name="online_lessons" xml:space="preserve">
-    <value>מציע שיעורים מקוונים!</value>
+    <value>מציע שיעורים מקוונים</value>
   </data>
 </root>

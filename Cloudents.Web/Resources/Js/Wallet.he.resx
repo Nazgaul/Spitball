@@ -118,28 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Balances" xml:space="preserve">
-    <value>יתרות!</value>
+    <value>יתרות</value>
   </data>
   <data name="Cash_Out" xml:space="preserve">
     <value>מזומן</value>
   </data>
   <data name="currency" xml:space="preserve">
-    <value>$!</value>
+    <value>$</value>
   </data>
   <data name="more_SBL_more_valuable" xml:space="preserve">
-    <value>ככל שיש לך יותר SBL, כך הם יקרים יותר.!</value>
+    <value>ככל שיש לך יותר SBL, כך הם יקרים יותר.</value>
   </data>
   <data name="My_Wallet" xml:space="preserve">
     <value>הקרן שלי</value>
   </data>
   <data name="redeemable_SBL" xml:space="preserve">
-    <value>SBL לפדיון!</value>
+    <value>SBL לפדיון</value>
   </data>
   <data name="SBL" xml:space="preserve">
-    <value>SBL!</value>
+    <value>SBL</value>
   </data>
   <data name="Transaction" xml:space="preserve">
-    <value>סוג הנכס</value>
+    <value>טרנזקציה</value>
   </data>
   <data name="You_have" xml:space="preserve">
     <value>יש לך</value>

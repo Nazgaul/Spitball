@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="questionCard_toasterDeleted_answer" xml:space="preserve">
-    <value>התשובה נמחקה!</value>
+    <value>התשובה נמחקה</value>
   </data>
   <data name="questionCard_toasterDeleted_question" xml:space="preserve">
-    <value>השאלה נמחקה!</value>
+    <value>השאלה נמחקה</value>
   </data>
 </root>

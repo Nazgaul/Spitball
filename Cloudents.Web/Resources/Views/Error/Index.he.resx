@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Oops" xml:space="preserve">
+    <value>אופס</value>
+  </data>
   <data name="Oops!" xml:space="preserve">
     <value>אופס</value>
   </data>
   <data name="Return To home page" xml:space="preserve">
-    <value>תחזור לעמוד הבית</value>
+    <value>לעמוד הבית</value>
+  </data>
+  <data name="Something went wrong" xml:space="preserve">
+    <value>משהו השתבש</value>
   </data>
 </root>
