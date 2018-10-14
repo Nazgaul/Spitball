@@ -206,10 +206,10 @@ You can use these to get help with your own homework questions, or answer other 
     <value>contact you.</value>
   </data>
   <data name="generalProfile_register_stepTwo_heading" xml:space="preserve">
-    <value>We need to know how to contact you</value>
+    <value>We need to know how to &lt;b&gt;contact you&lt;/b&gt;</value>
   </data>
   <data name="generalProfile_register_stepTwo_text" xml:space="preserve">
-    <value>We need to know how to contact you</value>
+    <value>We need to know how to &lt;b&gt;contact you&lt;/b&gt;</value>
   </data>
   <data name="HHP_modal_heading" xml:space="preserve">
     <value>Please&lt;/br&gt; &lt;b&gt;sign up&lt;/b&gt; or
@@ -299,10 +299,10 @@ rewarded with
     <value>contact you.</value>
   </data>
   <data name="HHP_register_stepTwo_heading" xml:space="preserve">
-    <value>We need to know how to contact you</value>
+    <value>We need to know how to&lt;b&gt; contact you&lt;/b&gt;</value>
   </data>
   <data name="HHP_register_stepTwo_text" xml:space="preserve">
-    <value>We need to know how to contact you</value>
+    <value>We need to know how to&lt;b&gt; contact you&lt;/b&gt;</value>
   </data>
   <data name="makeMoneyProfile_modal_heading" xml:space="preserve">
     <value>Please&lt;/br&gt; &lt;b&gt;sign up&lt;/b&gt; or
@@ -397,9 +397,9 @@ their homework.</value>
     <value>contact you.</value>
   </data>
   <data name="makeMoneyProfile_register_stepTwo_heading" xml:space="preserve">
-    <value>We need to know how to contact you</value>
+    <value>We need to know how to &lt;b&gt;contact you&lt;/b&gt;</value>
   </data>
   <data name="makeMoneyProfile_register_stepTwo_text" xml:space="preserve">
-    <value>We need to know how to contact you</value>
+    <value>We need to know how to &lt;b&gt;contact you&lt;/b&gt;</value>
   </data>
 </root>
