@@ -1,13 +1,20 @@
 ﻿<template>
-    <div class="term" v-html="termsHtml"></div>
+    <div class="term" v-if="showPage" v-html="termsHtml"></div>
 </template>
 <script>
-import { LanguageService } from '../../services/language/languageService'
+import { GetDictionary, LanguageService } from '../../services/language/languageService'
 export default {
     data(){
         return {
-            termsHtml: LanguageService.getTermPage()
+            termsHtml: null,
+            showPage: false
         }
+    },
+    created(){
+        GetDictionary('termsofservice').then((returned)=>{
+            this.termsHtml = LanguageService.getValueByKey('termsOfService.Terms_page');
+            this.showPage = true;
+        })
     }
 }
 </script>

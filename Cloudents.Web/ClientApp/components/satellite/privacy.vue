@@ -1,13 +1,20 @@
 ﻿<template>
-    <div class="term" v-html="privacyHtml"></div>
+    <div class="term" v-if="showPage" v-html="privacyHtml"></div>
 </template>
 <script>
-import { LanguageService } from '../../services/language/languageService'
+import { GetDictionary, LanguageService } from '../../services/language/languageService'
 export default {
     data(){
         return {
-            privacyHtml: LanguageService.getPrivacyPage()
+            showPage: null,
+            privacyHtml: null
         }
+    },
+    created(){
+        GetDictionary('privacy').then((returned)=>{
+            this.privacyHtml = LanguageService.getValueByKey('privacy.Privacy_page');
+            this.showPage = true;
+        })
     }
 }
 </script>
