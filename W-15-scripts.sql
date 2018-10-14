@@ -6,6 +6,11 @@ ALTER TABLE zbox.University
 ADD Pending bit;
 insert into sb.HiLoGenerator values ('university',180000)
 
+
+-- FraudScore reset
+update sb.[User] 
+set FraudScore = 0
+
 --Hadar SQL 
 create table sb.PhoneNumberIso (ISO nvarchar(2), CountryCode nvarchar(20))
 
