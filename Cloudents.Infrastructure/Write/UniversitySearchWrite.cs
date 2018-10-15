@@ -29,13 +29,16 @@ namespace Cloudents.Infrastructure.Write
             "school",
             "the",
             "a",
+            "Community",
+            "High",
+            "Uni",
             "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
         };
 
         public override async Task CreateOrUpdateAsync(CancellationToken token)
         {
             // _synonymWrite.CreateEmpty(SynonymName);
-            await Client.Indexes.DeleteAsync(IndexClient.IndexName, cancellationToken: token).ConfigureAwait(false);
+            //await Client.Indexes.DeleteAsync(IndexClient.IndexName, cancellationToken: token).ConfigureAwait(false);
             //var synonymMap = new SynonymMap()
             //{
             //    Name = "university-synonymmap",
