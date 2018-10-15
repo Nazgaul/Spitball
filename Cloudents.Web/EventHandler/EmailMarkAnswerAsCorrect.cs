@@ -6,8 +6,9 @@ using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Services;
 
-namespace Cloudents.Core.EventHandler
+namespace Cloudents.Web.EventHandler
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
     public class EmailMarkAnswerAsCorrect : IEventHandler<MarkAsCorrectEvent>

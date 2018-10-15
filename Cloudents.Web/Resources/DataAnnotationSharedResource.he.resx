@@ -150,9 +150,6 @@
   <data name="Required" xml:space="preserve">
     <value>יש למלא שדה זה.</value>
   </data>
-  <data name="StringLength" xml:space="preserve">
-    <value>השדה {0} חייב להיות מחרוזת עם אורך מינימלי של {1} ואורך מרבי של {2}. &amp;quot;</value>
-  </data>
   <data name="StringLengthMax" xml:space="preserve">
     <value>השדה {0} חייב להיות מחרוזת באורך מרבי של {1}.</value>
   </data>

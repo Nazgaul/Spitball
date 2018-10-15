@@ -57,7 +57,12 @@ namespace Cloudents.Web.Api
             }
             catch (QuestionAlreadyAnsweredException)
             {
-                ModelState.AddModelError(nameof(model.Text),_localizer["This question have correct answer"]);
+                ModelState.AddModelError(nameof(model.Text), _localizer["This question have correct answer"]);
+                return BadRequest();
+            }
+            catch (DuplicateRowException)
+            {
+                ModelState.AddModelError(nameof(model.Text), _localizer["DuplicateAnswer"]);
                 return BadRequest();
             }
             catch (ArgumentException)

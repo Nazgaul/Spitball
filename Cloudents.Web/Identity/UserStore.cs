@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Command;
+﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
-using NHibernate.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Identity
 {
@@ -79,17 +78,14 @@ namespace Cloudents.Web.Identity
                 var command = new UpdateUserCommand(user);
                 await _bus.DispatchAsync(command, cancellationToken).ConfigureAwait(false);
             }
-            catch (GenericADOException ex)
+            catch (DuplicateRowException)
             {
-                if (ex.InnerException is SqlException sql && sql.Number == 2601)
+                return IdentityResult.Failed(new IdentityError
                 {
-                    return IdentityResult.Failed(new IdentityError
-                    {
-                        Description = "Duplicate",
-                        Code = "Duplicate"
-                    });
-                }
-                return IdentityResult.Failed();
+                    Description = "Duplicate",
+                    Code = "Duplicate"
+                });
+
             }
 
             return IdentityResult.Success;
@@ -284,7 +280,7 @@ namespace Cloudents.Web.Identity
 
         public Task<User> FindByLoginAsync(string loginProvider, string providerKey, CancellationToken cancellationToken)
         {
-           
+
             return _queryBus.QueryAsync(new UserLoginQuery(loginProvider, providerKey), cancellationToken);
         }
     }

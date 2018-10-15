@@ -91,7 +91,7 @@ namespace Cloudents.Web.Api
             user.Country = t;
             if (!string.Equals(user.Country, country, StringComparison.OrdinalIgnoreCase))
             {
-                user.FraudScore += 50;
+                user.LockoutEnd = DateTimeOffset.MaxValue;
             }
             var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
 

@@ -15,9 +15,11 @@ namespace Cloudents.Functions
     public static class SyncFunc
     {
 
-        internal static async Task StartSearchSync(DurableOrchestrationClient starter, TraceWriter log, string instanceId)
+        internal static async Task StartSearchSync(DurableOrchestrationClient starter,
+            TraceWriter log,  SyncType syncType)
         {
-            var existingInstance = await starter.GetStatusAsync(instanceId);
+            var model = new SearchSyncInput(syncType);
+            var existingInstance = await starter.GetStatusAsync(model.InstanceId);
             var startNewInstanceEnum = new[]
             {
                 OrchestrationRuntimeStatus.Canceled,
@@ -27,9 +29,9 @@ namespace Cloudents.Functions
             };
             if (existingInstance == null || startNewInstanceEnum.Contains(existingInstance.RuntimeStatus))
             {
-                log.Info($"started {instanceId}");
-                var model = new SearchSyncInput(SyncType.Question);
-                await starter.StartNewAsync("SearchSync", instanceId, model);
+                log.Info($"started {model.InstanceId}");
+               // var model = new SearchSyncInput(SyncType.Question);
+                await starter.StartNewAsync("SearchSync", model.InstanceId, model);
             }
         }
 
