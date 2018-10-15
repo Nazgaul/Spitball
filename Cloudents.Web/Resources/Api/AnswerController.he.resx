@@ -117,10 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>Login</value>
+  <data name="Answer does not exists" xml:space="preserve">
+    <value>לא קיימות תשובות</value>
   </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
+  <data name="QuestionNotExists" xml:space="preserve">
+    <value>לא קיימות שאלות</value>
+  </data>
+  <data name="This question have correct answe" xml:space="preserve">
+    <value>נבחרה תשובה לשאלה</value>
   </data>
 </root>

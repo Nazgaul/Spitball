@@ -184,8 +184,10 @@ const actions = {
 
     
     fetchingData(context, { name, params, page, skipLoad}){
-        let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
-         let paramsList = {...context.state.search,...params, university, page};
+         //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
+        //let paramsList = {...context.state.search, ...params, university, page};
+
+        let paramsList = {...context.state.search, ...params, page};
             //update box terms
             context.dispatch('updateAITerm',{vertical:name,data:{text:paramsList.term}});
             //get location if needed

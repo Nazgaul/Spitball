@@ -59,6 +59,10 @@ namespace Cloudents.Infrastructure.Search
             {
                 listFilterExpression.Add($"({GetFieldName(x => x.UniversityId)} eq '{query.University.Value}')");
             }
+            else
+            {
+                listFilterExpression.Add($"({GetFieldName(x => x.UniversityId)} ne '-1')");
+            }
 
             if (query.Courses != null)
             {

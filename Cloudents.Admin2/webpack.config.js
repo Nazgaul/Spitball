@@ -22,15 +22,23 @@ module.exports = (env) => {
                     options: {
                         loaders:
                             {
-                                js: 'babel-loader',
+                            js: {
+                                use: {
+                                    loader: 'babel-loader'
+                                   
+                                }
+                            },
                                 scss: ['vue-style-loader', 'css-loader', 'sass-loader'],
                                 sass: ['vue-style-loader', 'css-loader', 'sass-loader']
                             }
                     }
                 },
-                { test: /\.js$/, use: 'babel-loader' },
-                { test: /\.scss$/, use: [ 'style-loader', 'css-loader','sass-loader' ]},
-                { test: /\.css$/, use: isDevBuild ? [ 'style-loader', 'css-loader' ] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },
+                {
+                    test: /\.js$/,
+                    loader: 'babel-loader'
+                },
+                { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+                { test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : [MiniCssExtractPlugin.loader, 'css-loader'] },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
             ]
         },
@@ -63,7 +71,10 @@ module.exports = (env) => {
             new UglifyJsPlugin(),
             // Plugins that apply in production builds only
             //new webpack.optimize.UglifyJsPlugin(),
-            new ExtractTextPlugin('site.css')
+                new MiniCssExtractPlugin({
+                    filename: 'site.css'
+                })
+            //new ExtractTextPlugin('site.css')
         ])
     }];
 };

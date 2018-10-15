@@ -3,13 +3,13 @@
         <h1>Questions</h1>
             <div v-show="questions.length > 0" class="questionItem" v-for="(question,index) in questions" :key="index">
                 <div class="question-header">
-                    <span style="flex-grow:5;" title="Question Text">{{question.questionText}}</span>
+                    <span style="flex-grow:5;" title="Question Text">{{question.text}}</span>
                     <span><button class="btn-mark" value="Open" @click="openQuestion(question.url)" title="Open Question">Open</button></span>
                     <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
                 </div>
-                <div class="question-body">
-                    <span class="answer-text" title="Answer Text">{{question.answerText}}</span>
-                    <span style="justify-content: right;text-align: right; min-width: 65px;"><button class="btn-mark" value="Open" @click="acceptQuestion(question)" title="Accept answer">Accept</button></span>
+                <div class="question-body" v-for="answer in question.answers" :key="answer.id">
+                    <span class="answer-text" title="Answer Text">{{answer.text}}</span>
+                    <span style="justify-content: right;text-align: right; min-width: 65px;"><button class="btn-mark" value="Open" @click="acceptQuestion(question, answer)" title="Accept answer">Accept</button></span>
                 </div>
             </div>
             <div v-show="questions.length === 0">Loading question list, please wait...</div>
@@ -38,6 +38,9 @@
             height: 25px;
             color: white;
             font-weight: 600;
+            &:hover{
+               background-color: #9dc08c
+            }
         }
         .question-header{
             display: flex;
@@ -62,6 +65,12 @@
             margin:10px;
             justify-content: left;
             text-align: left;
+            border-bottom: 1px solid #c7c7c7;
+            border-radius: 25px;
+            padding: 7px;
+            &:hover{
+                background-color: #e8e8e8;
+            }
             span{
                 flex-grow: 1;
             }

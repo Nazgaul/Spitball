@@ -122,7 +122,7 @@
 &lt;b&gt;login&lt;/b&gt;&lt;br/&gt;  to continue.</value>
   </data>
   <data name="generalProfile_modal_text" xml:space="preserve">
-    <value>You are only a couple of mouse clicks away from unlocking instant homework help and the ability to make serious money!</value>
+    <value>You are only a couple of mouse clicks away from unlocking instant homework help and the ability to make serious money</value>
   </data>
   <data name="generalProfile_register_stepEight_heading" xml:space="preserve">
     <value>Check your &lt;b&gt;email&lt;/b&gt;</value>
@@ -172,14 +172,14 @@ Answer Questions &amp; make money</value>
     <value>100 SBL</value>
   </data>
   <data name="generalProfile_register_stepSix_heading" xml:space="preserve">
-    <value>CONGRATS!</value>
+    <value>CONGRATS</value>
   </data>
   <data name="generalProfile_register_stepSix_subheading" xml:space="preserve">
-    <value>You're ready to start Spitballing!</value>
+    <value>You're ready to start Spitballing</value>
   </data>
   <data name="generalProfile_register_stepSix_text" xml:space="preserve">
     <value>We’ve awarded you 100 SBL
-You can use these to get help with your own homework questions, or answer other student’s questions to earn SBL that can be redeemed for real money!</value>
+You can use these to get help with your own homework questions, or answer other student’s questions to earn SBL that can be redeemed for real money</value>
   </data>
   <data name="generalProfile_register_stepTen_createbtn" xml:space="preserve">
     <value>Create password</value>
@@ -264,7 +264,7 @@ We need to send you a confirmation code</value>
     <value>100 SBL</value>
   </data>
   <data name="HHP_register_stepSix_heading" xml:space="preserve">
-    <value>CONGRATS!</value>
+    <value>CONGRATS</value>
   </data>
   <data name="HHP_register_stepSix_sub_heading" xml:space="preserve">
     <value>You are
@@ -360,13 +360,13 @@ their homework.</value>
     <value>100 SBL</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_boldTextTwo" xml:space="preserve">
-    <value>making money!</value>
+    <value>making money</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_heading" xml:space="preserve">
-    <value>CONGRATS!</value>
+    <value>CONGRATS</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_sub_heading" xml:space="preserve">
-    <value>You’re ready to start making money!</value>
+    <value>You’re ready to start making money</value>
   </data>
   <data name="makeMoneyProfile_register_stepSix_text" xml:space="preserve">
     <value>We’ve also awarded you 100 SBL

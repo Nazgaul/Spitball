@@ -142,7 +142,7 @@
     <value>Type it in here</value>
   </data>
   <data name="dont_see_university" xml:space="preserve">
-    <value>Still don't see your university?</value>
+    <value>Please make sure you entered your school full name correctly. Still Can’t find your school?</value>
   </data>
   <data name="error_chars" xml:space="preserve">
     <value>University name must contain at least 10 characters</value>

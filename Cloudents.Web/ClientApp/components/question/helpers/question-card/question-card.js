@@ -52,7 +52,8 @@ export default {
             src: '',
             selectedImage: '',
             showDialog: false,
-            isFirefox: false
+            isFirefox: false,
+            isRtl: global.isRtl
         }
     },
     computed: {

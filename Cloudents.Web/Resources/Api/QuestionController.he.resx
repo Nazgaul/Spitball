@@ -121,9 +121,9 @@
     <value>סוג</value>
   </data>
   <data name="QuestionFlood" xml:space="preserve">
-    <value>אתה צריך לחכות לפני לשאול שאלה חדשה!</value>
+    <value>אתה צריך לחכות לפני שתוכל לשאול שאלה נוספת</value>
   </data>
   <data name="SubjectTypeTitle" xml:space="preserve">
-    <value>נושא</value>
+    <value>נושאים</value>
   </data>
 </root>

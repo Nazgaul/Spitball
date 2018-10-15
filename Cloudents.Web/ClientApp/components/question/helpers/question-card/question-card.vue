@@ -20,7 +20,8 @@
                 </user-block>
                 <div v-if="cardData.price">
                     <div class="q-price pr-3">
-                        <span v-show="isSold" style="display:flex;min-width: 90px;"><span v-language:inner>questionCard_Earn</span>&nbsp; ${{cardData.price | dollarVal}}</span>
+                        <span v-show="isSold" style="display:flex;min-width: 90px;">
+                            <span v-language:inner>questionCard_Earn</span>&nbsp; {{cardData.price}} SBL</span>
                         <span v-show="!isSold" class="sold-badge"><span v-language:inner style="margin: 0 auto;">questionCard_Sold</span></span>
                     </div>
                     <!-- <p class="q-category">{{cardData.subject}}</p> -->
@@ -31,7 +32,10 @@
                 {{cardData.text | ellipsis(150, detailedView)}}</p>
             <!-- v-if="cardData.files.length" -->
             <div class="gallery" v-if="gallery&&gallery.length">
-                <v-carousel prev-icon="sbf-arrow-right left" next-icon="sbf-arrow-right right"
+                <v-carousel
+                        :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-right left'"
+                        :next-icon="isRtl ?  'sbf-arrow-right left': 'sbf-arrow-right right'"
+
                             interval="600000" cycle full-screen
                             hide-delimiters :hide-controls="gallery.length===1">
                     <v-carousel-item v-for="(item,i) in gallery" v-bind:src="item" :key="i"
@@ -104,7 +108,8 @@
                         </div>
                     </div>
                     <div class="gallery fixed-margin" v-if="gallery && gallery.length">
-                        <v-carousel prev-icon="sbf-arrow-right left" next-icon="sbf-arrow-right right"
+                        <v-carousel  :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-right left'"
+                                     :next-icon="isRtl ?  'sbf-arrow-right left': 'sbf-arrow-right right'"
                                     interval="600000" cycle full-screen
                                     hide-delimiters :hide-controls="gallery.length===1">
                             <v-carousel-item v-for="(item,i) in gallery" v-bind:src="item" :key="i"

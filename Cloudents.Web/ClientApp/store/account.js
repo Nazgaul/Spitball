@@ -90,7 +90,6 @@ const getters = {
     talkSession: state => state.talkSession,
     chatAccount: state => state.talkMe,
     accountUser: (state) => {
-        console.log(state.user)
         return state.user
     },
     lastActiveRoute: state => state.lastActiveRoute,
@@ -124,9 +123,6 @@ const actions = {
     },
     userStatus({dispatch, commit, getters}, {isRequire, to}) {
         const $this = this;
-        // if (getters.isUser) {
-        //     return Promise.resolve();
-        // }
         if (getters.isUser) {
             return Promise.resolve();
         }

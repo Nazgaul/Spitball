@@ -1,5 +1,3 @@
-import { termHtml } from "./page/term"
-import { privacyHtml } from "./page/privacy"
 import { connectivityModule } from "../connectivity.module";
 
 //global dictionary obj
@@ -15,14 +13,7 @@ const LanguageService = {
             return `###${key}`;
         }
         return locale[key];
-    },
-
-    getTermPage: ()=>{
-        return termHtml;
-    },
-    getPrivacyPage: ()=>{
-        return privacyHtml;
-    }     
+    }    
 };
 
 const LanguageChange = {
@@ -31,17 +22,24 @@ const LanguageChange = {
     },
 };
 
-const GetDictionary = () => {
-    return connectivityModule.http.get("/Locale").then((dictionary)=>{
-        locale = dictionary.data;
+const GetDictionary = (type) => {
+    let dictionaryType = `?v=${global.version}&l=${global.lang}`;
+    if(!!type){
+        //version is for anti caching ability
+        dictionaryType += `&resource=${type}`
+    }else{
+        dictionaryType += '';
+    }
+    return connectivityModule.http.get(`/Locale${dictionaryType}`).then((dictionary)=>{
+        for(let prop in dictionary.data){
+            //add the key to the dictionary
+            locale[prop] = dictionary.data[prop];
+        }
         return Promise.resolve(true);
     }, (err)=>{
         return Promise.reject(err);
     })
 }
-
-    
-
 
 //debug purposes
 global.dictionaryFindKey = function(value){

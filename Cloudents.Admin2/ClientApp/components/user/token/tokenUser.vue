@@ -40,6 +40,8 @@ export default {
             }
             grantTokens(this.userId, this.tokens, this.tokenType).then(()=>{
                 alert(`user id ${this.userId} recived ${this.tokens} tokens`)
+                this.userId= null;
+                this.tokens= null;
             },(err)=>{
                 console.log(err);
                 alert(`Error: couldn't send tokens`)

@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Search" xml:space="preserve">
-    <value>חפש!</value>
+    <value>חפש</value>
   </data>
   <data name="searchText_find" xml:space="preserve">
-    <value>למצוא מסמכים לימוד, ספרי לימוד, מורים פרטיים, עבודות, עסקאות ועוד...!</value>
+    <value>למצוא מסמכים לימוד, ספרי לימוד, מורים פרטיים, עבודות, עסקאות ועוד...</value>
   </data>
   <data name="searchText_find_short" xml:space="preserve">
-    <value>ללמוד מסמכים, ספרי לימוד, מורים...!</value>
+    <value>ללמוד מסמכים, ספרי לימוד, מורים...</value>
   </data>
 </root>

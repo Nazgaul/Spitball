@@ -9,9 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.EventHandler;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -29,15 +26,16 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<IEnumerable<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
         {
             QuestionDto dto = null;
-            QuestionSubject commentAlias = null;
+            //QuestionSubject commentAlias = null;
             Question questionAlias = null;
             User userAlias = null;
 
             var queryOverObj = _session.QueryOver(() => questionAlias)
-                .JoinAlias(x => x.Subject, () => commentAlias)
+                //.JoinAlias(x => x.Subject, () => commentAlias)
                 .JoinAlias(x => x.User, () => userAlias)
                 .SelectList(l => l
-                    .Select(_ => commentAlias.Text).WithAlias(() => dto.Subject)
+                    //.Select(_ => commentAlias.Text).WithAlias(() => dto.Subject)
+                    .Select(s => s.Subject.Id).WithAlias(() => dto.SubjectId)
                     .Select(s => s.Id).WithAlias(() => dto.Id)
                     .Select(s => s.Text).WithAlias(() => dto.Text)
                     .Select(s => s.Price).WithAlias(() => dto.Price)
@@ -58,7 +56,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 .TransformUsing(new DeepTransformer<QuestionDto>());
             if (query.Source != null)
             {
-                queryOverObj.WhereRestrictionOn(() => commentAlias.Text).IsIn(query.Source.ToArray<object>());
+                queryOverObj.WhereRestrictionOn(() => questionAlias.Subject.Id).IsIn(query.Source);
             }
 
             if (!string.IsNullOrEmpty(query.Term))

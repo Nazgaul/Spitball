@@ -127,13 +127,13 @@
     <value>בוצע</value>
   </data>
   <data name="dont_see_class" xml:space="preserve">
-    <value>עדיין לא רואה את הכיתה שלך ?!</value>
+    <value>עדיין לא רואה את הכיתה שלך ?</value>
   </data>
   <data name="dont_see_university" xml:space="preserve">
-    <value>עדיין לא רואה האוניברסיטה שלך?!</value>
+    <value>עדיין לא רואה האוניברסיטה שלך?</value>
   </data>
   <data name="not_selected_courses" xml:space="preserve">
-    <value>לא בחרת קורסים כלשהם!</value>
+    <value>לא בחרת קורסים כלשהם</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>לשמור</value>
@@ -142,6 +142,6 @@
     <value>שמור</value>
   </data>
   <data name="Type_it_in_here" xml:space="preserve">
-    <value>הקלד אותו כאן!</value>
+    <value>הקלד אותו כאן</value>
   </data>
 </root>

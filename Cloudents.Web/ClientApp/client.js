@@ -1,6 +1,7 @@
 ﻿import "./publicPath";
 import {GetDictionary} from './services/language/languageService'
 // get dictionary before we load the website
+global.lang = document.getElementsByTagName("html")[0].getAttribute("lang");
 GetDictionary().then(()=>{
     function getComponent() {
         return import("./main").catch(error => 'An error occurred while loading the component');
