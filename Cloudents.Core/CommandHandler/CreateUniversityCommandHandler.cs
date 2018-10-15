@@ -22,7 +22,6 @@ namespace Cloudents.Core.CommandHandler
 
         public async Task ExecuteAsync(CreateUniversityCommand message, CancellationToken token)
         {
-
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
             var universities = await _universityRepository.GetUniversityByNameAsync(message.Name, user.Country, token);
@@ -37,8 +36,11 @@ namespace Cloudents.Core.CommandHandler
                 await _universityRepository.AddAsync(university, token);
             }
 
-            var assignCommand = new AssignUniversityToUserCommand(message.UserId, university.Id);
-            await _assignUserCommandHandler.ExecuteAsync(assignCommand, token);
+
+            user.University = university;
+            await _userRepository.UpdateAsync(user, token).ConfigureAwait(false);
+            //var assignCommand = new AssignUniversityToUserCommand(message.UserId, university.Id);
+            //await _assignUserCommandHandler.ExecuteAsync(assignCommand, token);
         }
     }
 }
