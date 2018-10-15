@@ -134,7 +134,6 @@ export default {
                         link: url,
                         size: size,
                         type: type
-
                     });
                     this.uploadsPreviewList.push({
                         name: name,
