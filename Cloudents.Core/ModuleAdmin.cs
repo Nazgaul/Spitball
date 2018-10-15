@@ -23,16 +23,6 @@ namespace Cloudents.Core
 
             builder.RegisterType<CommandHandler.MarkAnswerAsCorrectCommandHandler>().As<ICommandHandler<Command.MarkAnswerAsCorrectCommand>>();
             builder.RegisterType<CommandHandler.CreateQuestionCommandHandler>().As<ICommandHandler<Command.CreateQuestionCommand>>();
-
-            //builder.RegisterType<MarkAnswerAsCorrectAdminCommandHandler>().AsImplementedInterfaces();
-            //builder.RegisterType<DeleteQuestionCommandHandler>()
-            //    .Named("handler",typeof(ICommandHandler<>)).AsImplementedInterfaces();
-
-            //builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
-            //    .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)) && i.GetCustomAttribute<AdminCommandHandler>() == null)
-            //    .Select(i => new KeyedService("handler", i)));
-
-
         }
     }
 }

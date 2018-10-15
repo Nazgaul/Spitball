@@ -12,6 +12,8 @@ using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Models;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3.Accounts;
 
@@ -111,8 +113,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var bus = _container.Resolve<IUniversitySearch>();
-            var z = await bus.SearchAsync("מכללה למנהל","IL",default);
+            var bus = _container.Resolve<ITutorSearch>();
+            var z = await bus.SearchAsync(null, new TutorRequestFilter[] {TutorRequestFilter.InPerson,TutorRequestFilter.Online },
+                TutorRequestSort.Relevance,new GeoPoint(34.8516f, 31.0461f), 0, false, default);
         }
 
         private static async Task HadarMethod()

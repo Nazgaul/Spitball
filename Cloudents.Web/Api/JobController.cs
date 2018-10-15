@@ -1,10 +1,11 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -20,15 +21,18 @@ namespace Cloudents.Web.Api
     public class JobController : ControllerBase
     {
         private readonly IJobSearch _jobSearch;
+        private readonly IStringLocalizer<QuestionController> _questionLocalizer;
 
         /// <inheritdoc />
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="jobSearch">job search provider</param>
-        public JobController(IJobSearch jobSearch)
+        /// <param name="questionLocalizer"></param>
+        public JobController(IJobSearch jobSearch, IStringLocalizer<QuestionController> questionLocalizer)
         {
             _jobSearch = jobSearch;
+            _questionLocalizer = questionLocalizer;
         }
 
         /// <summary>
@@ -55,13 +59,10 @@ namespace Cloudents.Web.Api
                 Result = result.Result,
                 Filters = new IFilters[]
                 {
-                    new Filters<string>(nameof(JobRequest.Facet),"Subject", result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
+                    new Filters<string>(nameof(JobRequest.Facet),_questionLocalizer["SubjectTypeTitle"],
+                        result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
-                //Filters = new Dictionary<string, IEnumerable<string>>
-                //{
-                //    ["Subject"] = result.Facet
-                //},
-                Sort = Enum.GetNames(typeof(JobRequestSort)).Select(s=>new KeyValuePair<string, string>(s,s)),
+                Sort = EnumExtension.GetValues<JobRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
                 NextPageLink = nextPageLink
             };
         }
