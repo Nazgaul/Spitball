@@ -51,6 +51,20 @@ namespace Cloudents.Core.Interfaces
 
     }
 
+    public interface IAnswerRepository : IRepository<Answer>
+    {
+        /// <summary>
+        /// Return answer with the exact same text
+        /// </summary>
+        /// <param name="text">the new text to check</param>
+        /// <param name="questionId">question id</param>
+        /// <param name="token"></param>
+        /// <returns>the number of similar answers</returns>
+        Task<int> GetSimilarAnswerInQuestionAsync(string text,long questionId,CancellationToken token);
+        Task<int> GetAnswerOfUserAsync(long userId,long questionId,CancellationToken token);
+
+    }
+
 
 
 

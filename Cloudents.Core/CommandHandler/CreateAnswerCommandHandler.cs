@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using JetBrains.Annotations;
@@ -7,7 +8,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -15,13 +15,13 @@ namespace Cloudents.Core.CommandHandler
     public class CreateAnswerCommandHandler : ICommandHandler<CreateAnswerCommand>
     {
         private readonly IRepository<Question> _questionRepository;
-        private readonly IRepository<Answer> _answerRepository;
+        private readonly IAnswerRepository _answerRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
-            IRepository<Answer> answerRepository, IRepository<User> userRepository,
+            IAnswerRepository answerRepository, IRepository<User> userRepository,
             IBlobProvider<QuestionAnswerContainer> blobProvider)
         {
             _questionRepository = questionRepository;
@@ -54,6 +54,8 @@ namespace Cloudents.Core.CommandHandler
                 throw new InvalidOperationException("fictive user");
             }
 
+
+            //if (await _answerRepository.GetAnswerOfUserAsync(user.Id, question.Id, token) > 0)
             if (question.Answers?.Any(a => a.User.Id == user.Id) == true)
             {
                 throw new InvalidOperationException("user cannot give more the one answer");
@@ -64,9 +66,9 @@ namespace Cloudents.Core.CommandHandler
 
             var id = answer.Id;
 
-            
 
-            
+
+
             var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"question/{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
 
             await Task.WhenAll(l/*.Union(new[] { t })*/).ConfigureAwait(true);

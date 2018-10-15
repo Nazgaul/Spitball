@@ -1,30 +1,17 @@
 ﻿using Autofac;
 using Cloudents.Core;
-using Cloudents.Core.Enum;
+using Cloudents.Core.Command;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
-using System.Net;
 using System.Net.Mail;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Core.Entities.Search;
-using Cloudents.Core.Models;
-using Cloudents.Core.Query;
-using Cloudents.Core.Request;
-using Nethereum.Web3.Accounts;
-using Nethereum.Web3;
-using System.Numerics;
-using System.Collections.Concurrent;
-using Nethereum.Hex.HexTypes;
 
 namespace ConsoleApp
 {
@@ -62,12 +49,77 @@ namespace ConsoleApp
             _container = builder.Build();
 
 
+
+            Console.WriteLine(Environment.UserName);
+            if (Environment.UserName == "Ram")
+            {
+                await RamMethod();
+            }
+            else
+            {
+                await HadarMethod();
+            }
+
+
+            Console.WriteLine("done");
+            Console.Read();
+
+
+            //var u = _container.Resolve<ISearchServiceWrite<University>>();
+            //await u.CreateOrUpdateAsync(default);
+
+
+
+
+            // var b2 = _container.Resolve<IDocumentSearch>();
+            // var query = SearchQuery.Document(null, 920, null, null, 0);
+            // var query = new CoursesQuery(2343);
+            //var query = new QuestionsQuery(null, null, 0, null);
+            //var t = await b2.SearchDocumentsAsync(query, default);
+
+
+
+            //var d = await b2.SearchAsync(query, default);
+            ////var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
+            //    new GeoPoint(-74.006f, 40.7128f)
+            //    , 0, false, default);
+
+
+
+            // QuestionRepository c = new QuestionRepository(b);
+            // Console.WriteLine(c.GetOldQuestionsAsync(default));
+
+
+
+            //await UpdateCreationTimeProductionAsync();
+            //IEventMessage z = new AnswerCreatedEvent(null);
+            //var query = new UserDataByIdQuery(1642);
+            //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
+            //var t = await bus.QueryAsync< ProfileDto>(query, default);
+            //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
+            //var t = await bus.QueryAsync(query, default);
+            //  var bus = _container.Resolve<IQueryBus>();
+            // var z = new NextQuestionQuery(68, 11);
+            // var x = await bus.QueryAsync(z, default);
+
+
+
+
+        }
+
+        private static async Task RamMethod()
+        {
+            var bus = _container.Resolve<ICommandBus>();
+            var command = new CreateAnswerCommand(3751, "nothing happens", 638, null);
+            await bus.DispatchAsync(command, default);
+        }
+
+        private static async Task HadarMethod()
+        {
             var t = _container.Resolve<IBlockChainErc20Service>();
-            var spitballAddress = "0x0356a6cfcf3fd04ea88044a59458abb982aa9d96";
-            string metaMaskAddress = "0x27e739f9dF8135fD1946b0b5584BcE49E22000af";
             string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
-           
+
             string spitballServerPK1 = "53d8ca027b5689e062c0e461b4aee444676fdf21d23ca73b8e1da1bc9b03bedf";
             string spitballServerPK2 = "dc48f1874948869118757457827d7ca4efe8bce63730053f25b25c5b979efbca";
             string spitballServerPK3 = "78cdd8076ccd67e1b64bb46eddad6bb7647da141bf3d870529a1f84169a4dd79";
@@ -119,7 +171,6 @@ namespace ConsoleApp
  */
 
 
-
             var d = await t.GetBalanceAsync(spitballServerAddress, default);
             Console.WriteLine($"spitballServerAddress Balance: {d}");
 
@@ -127,7 +178,6 @@ namespace ConsoleApp
             {
                 ConcurrentQueue<string> staticQ = new ConcurrentQueue<string>();
 
-                
 
                 staticQ.Enqueue(spitballServerPK1);
                 staticQ.Enqueue(spitballServerPK2);
@@ -168,57 +218,9 @@ namespace ConsoleApp
                 Console.WriteLine($"spitballServerAddress Balance: {d}");
                 Console.WriteLine($"---------------------------------");
             }
-
-            
-
-
-            Console.WriteLine("done");
-            Console.Read();
-
-           
-            //var u = _container.Resolve<ISearchServiceWrite<University>>();
-            //await u.CreateOrUpdateAsync(default);
-
-
-            
-
-           // var b2 = _container.Resolve<IDocumentSearch>();
-           // var query = SearchQuery.Document(null, 920, null, null, 0);
-           // var query = new CoursesQuery(2343);
-            //var query = new QuestionsQuery(null, null, 0, null);
-            //var t = await b2.SearchDocumentsAsync(query, default);
-
-           
-
-            //var d = await b2.SearchAsync(query, default);
-            ////var result = await b2.SearchAsync(null, new[] { TutorRequestFilter.InPerson }, TutorRequestSort.Relevance, 
-            //    new GeoPoint(-74.006f, 40.7128f)
-            //    , 0, false, default);
-
-
-
-            // QuestionRepository c = new QuestionRepository(b);
-            // Console.WriteLine(c.GetOldQuestionsAsync(default));
-
-
-
-            //await UpdateCreationTimeProductionAsync();
-            //IEventMessage z = new AnswerCreatedEvent(null);
-            //var query = new UserDataByIdQuery(1642);
-            //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
-            //var t = await bus.QueryAsync< ProfileDto>(query, default);
-            //var query = new FictiveUsersQuestionsWithoutCorrectAnswerQuery();
-            //var t = await bus.QueryAsync(query, default);
-            //  var bus = _container.Resolve<IQueryBus>();
-            // var z = new NextQuestionQuery(68, 11);
-            // var x = await bus.QueryAsync(z, default);
-
-
-
-     
         }
 
-        private static string TTTT(string input,IEnumerable<string> BAD_WORDS)
+        private static string TTTT(string input, IEnumerable<string> BAD_WORDS)
         {
             return string.Join(" ",
                 input.Split(' ').Select(w => BAD_WORDS.Contains(w) ? "" : w));
