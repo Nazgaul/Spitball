@@ -37,7 +37,7 @@ export default {
         togglePreview: function(){this.fullPreview = !this.fullPreview},
         deletePreview: function(index){
             this.counter = this.counter -1;
-            this.previewList.splice(index,1);
+            this.previewList.splice(index, 1);
             this.$emit('removeFile', index);
         },
         updateColor(color){

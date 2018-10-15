@@ -9,9 +9,6 @@ import VueClipboard from 'vue-clipboard2'
 import Scroll from "vuetify/es5/directives/scroll";
 const scrollComponent = () => import("./components/helpers/infinateScroll.vue");
 
-const VueUploadComponent = import('vue-upload-component');
-Vue.component('file-upload', VueUploadComponent);
-
 const GeneralPage = () =>
     import("./components/helpers/generalPage.vue");
 import VueRouter from "vue-router";
@@ -268,8 +265,6 @@ function checkUserStatus(to, next) {
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 
 
-console.log("%cGaby please Stop to be תותח!:-))", "color: red; font-family: sans-serif; font-size: 4.5em; font-weight: bolder; text-shadow: #000 1px 1px;");
-console.log('%c       ', 'font-size: 100px; background: url(https://66.media.tumblr.com/tumblr_lrbu1l9BJk1qgzxcao1_250.gif) no-repeat;');
 
 initSignalRService();
 
