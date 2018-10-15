@@ -9,6 +9,8 @@ import VueClipboard from 'vue-clipboard2'
 import Scroll from "vuetify/es5/directives/scroll";
 const scrollComponent = () => import("./components/helpers/infinateScroll.vue");
 
+const VueUploadComponent = import('vue-upload-component');
+Vue.component('file-upload', VueUploadComponent);
 
 const GeneralPage = () =>
     import("./components/helpers/generalPage.vue");
