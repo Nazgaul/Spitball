@@ -46,7 +46,6 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<WebSearch>();
 
-            builder.RegisterType<DataProtection>().As<IDataProtect>();
 
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
             builder.RegisterType<AzureQuestionSearch>().AsSelf();

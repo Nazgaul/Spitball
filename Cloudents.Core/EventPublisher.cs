@@ -23,13 +23,11 @@ namespace Cloudents.Core
 
 
             var tasks = new List<Task>();
-            
             if (_container.Resolve(handlerCollectionType) is IEnumerable eventHandlers)
                 foreach (dynamic handler in eventHandlers)
                 {
                     var t = handler.HandleAsync((dynamic) eventMessage, token);
                     tasks.Add(t);
-                   // await handler.HandleAsync((dynamic)eventMessage, token);
                 }
 
             await Task.WhenAll(tasks);

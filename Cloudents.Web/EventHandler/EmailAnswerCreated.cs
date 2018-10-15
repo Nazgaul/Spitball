@@ -6,8 +6,9 @@ using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
+using Cloudents.Web.Services;
 
-namespace Cloudents.Core.EventHandler
+namespace Cloudents.Web.EventHandler
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
     public class EmailAnswerCreated : IEventHandler<AnswerCreatedEvent>
@@ -18,7 +19,8 @@ namespace Cloudents.Core.EventHandler
         private readonly IUrlBuilder _urlBuilder;
 
 
-        public EmailAnswerCreated(IServiceBusProvider serviceBusProvider, IDataProtect dataProtect,
+        public EmailAnswerCreated(IServiceBusProvider serviceBusProvider, 
+             IDataProtect dataProtect,
              IUrlBuilder urlBuilder)
         {
             _serviceBusProvider = serviceBusProvider;
@@ -29,8 +31,11 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(AnswerCreatedEvent eventMessage, CancellationToken token)
         {
-            //var question = await _questionRepository.LoadAsync(eventMessage.QuestionId, token);
-            //var answer = await _answerRepository.LoadAsync(eventMessage.AnswerId, token);
+            if (_dataProtect == null)
+            {
+                //This can happen if we not in the scope of the website
+                return;
+            }
             var question = eventMessage.Answer.Question;
             var code = _dataProtect.Protect(CreateAnswer, question.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(2));

@@ -34,6 +34,7 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Core.Storage;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -211,6 +212,8 @@ namespace Cloudents.Web
                 Core.Enum.System.Web, assembliesOfProgram);
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsClosedTypesOf(typeof(IEventHandler<>));
             containerBuilder.RegisterType<Logger>().As<ILogger>();
+            containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
+
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

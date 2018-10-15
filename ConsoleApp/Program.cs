@@ -40,7 +40,7 @@ namespace ConsoleApp
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
-            builder.RegisterType<PPP>().As<IDataProtect>();
+            //builder.RegisterType<PPP>().As<IDataProtect>();
             builder.RegisterSystemModules(
                 Cloudents.Core.Enum.System.Console,
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -320,16 +320,16 @@ namespace ConsoleApp
         }
     }
 
-    public class PPP : IDataProtect
-    {
-        public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
-        {
-            throw new NotImplementedException();
-        }
+    //public class PPP : IDataProtect
+    //{
+    //    public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public string Unprotect(string purpose, string protectedData)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public string Unprotect(string purpose, string protectedData)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }
