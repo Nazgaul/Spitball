@@ -31,6 +31,25 @@ namespace Cloudents.Functions.Sync
             }
         }
 
+        public string InstanceId
+        {
+            get
+            {
+                switch (SyncType)
+                {
+                    case SyncType.University:
+                        return "UniversitySearchSync";
+                    case SyncType.Course:
+                        return "CourseSearchSync";
+                    case SyncType.Question:
+                        return "QuestionSearchSync";
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
         public SyncAzureQuery SyncAzureQuery { get; set; }
 
     }

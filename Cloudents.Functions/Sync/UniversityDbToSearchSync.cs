@@ -35,16 +35,16 @@ namespace Cloudents.Functions.Sync
             var result = await _universityServiceWrite.UpdateDataAsync(update.Select(s =>
             {
                 
-                var cleanName = s.Name.RemoveWords(UniversitySearchWrite.StopWordsList);
+                //var cleanName = s.Name.RemoveWords(UniversitySearchWrite.StopWordsList);
 
                 return new University
                 {
-                    Name = cleanName,
+                    Name = s.Name,
                     Id = s.Id,
                     Country = s.Country,
                     Extra = s.Extra,
                     DisplayName = s.Name,
-                    Prefix = new[] { cleanName, s.Extra}.Where(x => x != null).ToArray(),
+                    Prefix = new[] { s.Name, s.Extra}.Where(x => x != null).ToArray(),
                 };
             }), delete.Select(s => s.ToString()), token);
             return new SyncResponse(version, result);

@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Functions.Sync;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
@@ -15,8 +16,8 @@ namespace Cloudents.Functions
             TraceWriter log,
             CancellationToken token)
         {
-            const string instanceId = "CourseSearchSync";
-            await SyncFunc.StartSearchSync(starter, log, instanceId);
+            //const string instanceId = "CourseSearchSync";
+            await SyncFunc.StartSearchSync(starter, log, SyncType.Course);
             
         }
     }

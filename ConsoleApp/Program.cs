@@ -111,9 +111,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var bus = _container.Resolve<ICommandBus>();
-            var command = new CreateAnswerCommand(3751, "nothing happens", 638, null);
-            await bus.DispatchAsync(command, default);
+            var bus = _container.Resolve<IUniversitySearch>();
+            var z = await bus.SearchAsync("מל\"א","IL",default);
         }
 
         private static async Task HadarMethod()

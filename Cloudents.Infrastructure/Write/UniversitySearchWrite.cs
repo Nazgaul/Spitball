@@ -22,17 +22,7 @@ namespace Cloudents.Infrastructure.Write
         }
 
 
-        public static readonly string[] StopWordsList = { "university",
-            "of",
-            "college",
-            "school",
-            "the",
-            "a",
-            "Community",
-            "High",
-            "Uni",
-            "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
-        };
+      
 
         public override async Task CreateOrUpdateAsync(CancellationToken token)
         {
