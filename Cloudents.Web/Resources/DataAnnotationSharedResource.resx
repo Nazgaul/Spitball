@@ -159,8 +159,8 @@
     <comment>{0} - field name</comment>
   </data>
   <data name="StringLength" xml:space="preserve">
-    <value>The field {0} must be a string with a minimum length of {1} and a maximum length of {2}."</value>
-    <comment>{0} - field name {1} - min length {2} - max length</comment>
+    <value>The field {0} must be a string with a minimum length of {2} and a maximum length of {1}."</value>
+    <comment>{0} - field name {2} - min length {1} - max length</comment>
   </data>
   <data name="StringLengthMax" xml:space="preserve">
     <value>The field {0} must be a string with a maximum length of {1}.</value>

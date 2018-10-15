@@ -1,10 +1,13 @@
-﻿using System;
-using System.Data;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
+using NHibernate.Exceptions;
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database
 {
@@ -28,11 +31,23 @@ namespace Cloudents.Infrastructure.Database
 
         public async Task CommitAsync(CancellationToken token)
         {
-            if (!_transaction.IsActive)
+
+            try
             {
-                throw new InvalidOperationException("No active transaction");
+                if (!_transaction.IsActive)
+                {
+                    throw new InvalidOperationException("No active transaction");
+                }
+                await _transaction.CommitAsync(token).ConfigureAwait(false);
             }
-            await _transaction.CommitAsync(token).ConfigureAwait(false);
+            catch (GenericADOException ex) when (ex.InnerException is SqlException sql && sql.Number == 2601)
+            {
+                //if (ex.InnerException is SqlException sql && sql.Number == 2601)
+                //{
+                throw new DuplicateRowException("Duplicate row", sql);
+                //}
+                //throw;
+            }
             //await PublishEventsAsync(token).ConfigureAwait(false);
         }
 
