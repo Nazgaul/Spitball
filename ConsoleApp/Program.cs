@@ -112,7 +112,7 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             var bus = _container.Resolve<IUniversitySearch>();
-            var z = await bus.SearchAsync("מל\"א","IL",default);
+            var z = await bus.SearchAsync("מכללה למנהל","IL",default);
         }
 
         private static async Task HadarMethod()
