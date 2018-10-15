@@ -1,6 +1,6 @@
 ﻿<template>
     <a class="d-block" :target="($vuetify.breakpoint.xsOnly)?'_self':'_blank'"
-       @click="(isSpitball?$_spitball($event):'')" :href="url" :class="'cell-'+$route.path.slice(1)">
+       @click="(isOurs?$_spitball($event):'')" :href="url" :class="'cell-'+$route.path.slice(1)">
         <v-container class="pa-0"
                      @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
             <v-layout row fluid class="result-cell-content">
@@ -45,11 +45,21 @@
 
         props: {item: {type: Object, required: true}, index: {Number}},
         computed: {
-            isSpitball() {
+            isOurs() {
+                return this.item.source.includes('Cloudents') || this.item.source.includes('Spitball')
+            },
+            isCloudents(){
                 return this.item.source.includes('Cloudents')
             },
+            isSpitball(){
+                return this.item.source.includes('Spitball')
+            },
             url: function () {
-                return this.isSpitball ? this.item.url.split('.co/')[1] : this.item.url
+                if(this.isCloudents){
+                    return this.item.url.split('.co/')[1]
+                }else{
+                    return this.item.url
+                }
             },
 
         },
