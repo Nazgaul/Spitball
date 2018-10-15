@@ -4,7 +4,12 @@ import { signlaREvents } from './signalREventHandler'
 // do not remove this!
 let signalRConnectionPool = [];
 
+var connectionState = {
+    isConnected:false,
+    connectionQue: []
+}
 
+//Signal R Objects ------------------------ start
 export function Notification(eventObj){
     let type = eventObj.type.toLowerCase();
     let action = eventObj.action.toLowerCase();
@@ -13,6 +18,12 @@ export function Notification(eventObj){
     this.action = action;
 }
 
+function ConnectionQue(connection, message, data){
+    this.connection = connection;
+    this.message = message;
+    this.data = data;
+}
+//Signal R Objects ------------------------ end
 
 function messageHandler(message){
     //Todo create Notification Object
@@ -28,10 +39,23 @@ function connectionOn(connection, message, callback){
  }
 
 function startConnection(connection, messageString){
-    connection.start().then(function(){
-        //connection ready register the main Events
-        connectionOn(connection, messageString, messageHandler);
-    });
+    setTimeout(function(){
+        connection.start().then(function(){
+            //connection ready register the main Events
+            connectionOn(connection, messageString, messageHandler);
+            console.log("signal-R Conected");
+            connectionState.isConnected = true;
+            
+            //if we have events that cought in the que, then shift them one by one
+            if(connectionState.connectionQue.length > 0){
+                while(connectionState.connectionQue.length){
+                    let que = connectionState.connectionQue.shift()
+                    NotifyServer(que.connection, que.message, que.data)
+                }
+            }
+        }); 
+    }, 10000)
+       
 }
 
 function createConnection(connString){
@@ -48,11 +72,21 @@ export default function init(connString = '/sbHub'){
     
     //reconnect in case connection closes for some reason
     connection.onclose(function(){
+        console.log("signal-R Disconected");
+        connectionState.isConnected = false;
         connectivityModule.sr.reconnect(connection);
     });
 
     //open the connection and register the events
     startConnection(connection, "Message"); 
+}
+
+export function NotifyServer(connection, message, data){
+    if(connectionState.isConnected){
+        return connectivityModule.sr.invoke(connection, message, data)
+    }else{
+        connectionState.connectionQue.push(new ConnectionQue(connection, message, data))
+    }
 }
 
 function reconnect(err){

@@ -1,16 +1,10 @@
 import { getMainConnection } from './signalrEventService'
-import { connectivityModule } from '../connectivity.module'
-import { Notification } from './signalrEventService'
-
-
-function notifyServer(connection, message, data){
-    return connectivityModule.sr.invoke(connection, message, data)
- }
+import { Notification, NotifyServer } from './signalrEventService'
 
 export const signalRSender = {
     send: function(message, data){
         let mainConnection = getMainConnection();
-        notifyServer(mainConnection, message, data);
+        NotifyServer(mainConnection, message, data);
     }
 }
 
