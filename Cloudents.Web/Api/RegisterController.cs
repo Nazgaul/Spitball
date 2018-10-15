@@ -74,7 +74,6 @@ namespace Cloudents.Web.Api
                     await Task.WhenAll(t1, t2);
                     return new ReturnSignUserResponse(NextStep.VerifyPhone, false);
                 }
-                //TODO: Localize
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
@@ -195,15 +194,13 @@ namespace Cloudents.Web.Api
             var email = TempData.Peek(Email); //?? throw new ArgumentNullException("TempData", "email is empty");
             if (email == null)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "Cannot resend email");
+                ModelState.AddModelError(string.Empty, _localizer["EmailResend"]);
                 return BadRequest(ModelState);
             }
             var user = await _userManager.FindByEmailAsync(email.ToString()).ConfigureAwait(false);
             if (user == null)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "no user");
+                ModelState.AddModelError(string.Empty, _localizer["UserNotExists"]);
                 return BadRequest(ModelState);
             }
 

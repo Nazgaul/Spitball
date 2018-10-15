@@ -5,24 +5,25 @@
             <div class="sort-switch">
                 <template v-for="(singleSort, index) in sortOptions">
                     <input type="radio" :id="`option${index}`"
-                           @click="updateSort(singleSort)"
+                           @click="updateSort(singleSort.key)"
                            :key="`option${index}`"
                            name="switch"
                            :value="singleSort"
-                           :checked="sortVal ? sortVal === singleSort : index===0">
+                           :checked="isRadioChecked(singleSort, index)">
                     <label :for="`option${index}`"
-                           :key="index">{{singleSort}}</label>
+                           :key="index">{{singleSort.value}}</label>
                 </template>
             </div>
         </template>
         <div v-if="filterList && filterList.length">
             <h3 v-language:inner>sortAndFilter_filter</h3>
             <div class="filter-switch">
+
                 <v-expansion-panel expand v-model="panelList">
                     <v-expansion-panel-content v-for="(singleFilter, index) in filterList" :key="index">
                         <v-icon slot="actions" class="hidden-xs-only">sbf-chevron-down</v-icon>
+
                         <template slot="header">
-                            <!--<h3>{{panelList}}</h3>-->
                             <div class="icon-wrapper">
                                 <slot :name="`${singleFilter.title}TitlePrefix`"></slot>
                             </div>
@@ -33,17 +34,19 @@
                         </template>
                         <div :class="['sort-filter']">
                             <div v-for="filterItem in singleFilter.data"
-                                 :key="(filterItem.id ? filterItem.id : filterItem)" class="filter">
-                                <input type="checkbox" :id="(filterItem.id ? filterItem.id : filterItem)"
+                                 :key="(filterItem.key ? filterItem.key : filterItem.value)" class="filter">
+                                <input type="checkbox" :id="(filterItem.key ? filterItem.key : filterItem.value)"
                                        :checked="isChecked(singleFilter, filterItem)"
                                        @change="updateFilter({
                                        id : singleFilter.id,
-                                       val: filterItem,
+                                       val: filterItem.key,
+                                       name: filterItem.value,
                                        event : $event} )"/>
 
-                                <label class="checkmark" :for="(filterItem.id ? filterItem.id : filterItem)"></label>
-                                <label class="title-label" :title="filterItem.name ? filterItem.name : filterItem" :for="(filterItem.id ? filterItem.id : filterItem)">
-                                    {{filterItem.name ? filterItem.name : filterItem | capitalize}}
+                                <label class="checkmark" :for="(filterItem.key ? filterItem.key : filterItem.value)"></label>
+                                <label class="title-label" :title="filterItem.value ? filterItem.value : filterItem.key | capitalize"
+                                       :for="(filterItem.key ? filterItem.key : filterItem.value)">
+                                    {{filterItem.value ? filterItem.value : '' | capitalize}}
                                 </label>
                             </div>
                             <slot :name="`${singleFilter.id}EmptyState`"

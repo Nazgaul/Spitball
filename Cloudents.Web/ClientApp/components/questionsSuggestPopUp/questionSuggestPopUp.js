@@ -17,7 +17,9 @@ export default {
         return {
             showDialog: false,
             interval: 700000,
-            typeAnswer: false
+            typeAnswer: false,
+            isRtl: global.isRtl
+
         }
     },
     beforeRouteLeave(to, from, next) {

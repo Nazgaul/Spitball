@@ -47,7 +47,7 @@ namespace Cloudents.Web
         public static readonly CultureInfo[] SupportedCultures = {
 
             new CultureInfo("en"),
-            new CultureInfo("he-IL"),
+            new CultureInfo("he"),
         };
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
@@ -110,6 +110,7 @@ namespace Cloudents.Web
                 {
                     //TODO: check in source code
                     // o.SuppressBindingUndefinedValueToEnumType
+                    o.Filters.Add<UserLockedExceptionFilter>();
                     o.Filters.Add(new GlobalExceptionFilter());
                     o.Filters.Add(new ResponseCacheAttribute
                     {
@@ -120,7 +121,7 @@ namespace Cloudents.Web
                 }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             if (HostingEnvironment.IsDevelopment())
             {
-                SwaggerInitial(services);
+                Swagger.Startup.SwaggerInitial(services);
             }
 
             services.AddSignalR().AddRedis(Configuration["Redis"]).AddJsonProtocol(o =>
@@ -161,9 +162,19 @@ namespace Cloudents.Web
             
             services.ConfigureApplicationCookie(o =>
             {
-                o.EventsType = typeof(CustomCookieAuthenticationEvents);
-                o.Cookie.Name = "sb3";
+                o.Cookie.Name = "sb4";
                 o.SlidingExpiration = true;
+
+                o.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+                o.Events.OnRedirectToAccessDenied = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
             });
 
 
@@ -171,7 +182,6 @@ namespace Cloudents.Web
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<ApplicationRole>, RoleStore>();
             services.AddTransient<ISmsSender, SmsSender>();
-            services.AddScoped<CustomCookieAuthenticationEvents>();
             var assembliesOfProgram = new[]
             {
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -226,11 +236,13 @@ namespace Cloudents.Web
 
                 configuration.DisableTelemetry = true;
                 app.UseDeveloperExceptionPage();
+                
+
             }
             else
             {
-                app.UseStatusCodePagesWithReExecute("/Error");
-                app.UseExceptionHandler("/Error");
+                //app.UseStatusCodePagesWithReExecute("/Error/{0}");
+                //app.UseExceptionHandler("/Error");
                 app.UseHsts(new HstsOptions
                 {
                     Duration = TimeSpan.FromDays(365),
@@ -238,6 +250,7 @@ namespace Cloudents.Web
                     Preload = true
                 });
             }
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
             var reWriterOptions = new RewriteOptions()
                 .Add(new RemoveTrailingSlash());
             if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
@@ -250,7 +263,7 @@ namespace Cloudents.Web
             app.UseResponseCompression();
             app.UseResponseCaching();
 
-            app.UseStatusCodePages();
+            //app.UseStatusCodePages();
             
 
             app.UseRequestLocalization(o =>

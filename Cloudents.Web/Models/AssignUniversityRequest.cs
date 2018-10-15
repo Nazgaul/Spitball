@@ -2,11 +2,10 @@
 
 namespace Cloudents.Web.Models
 {
-    //TODO:Localize
     public class AssignUniversityRequest
     {
         [Required(ErrorMessage = "Required")]
-        [Range(1,long.MaxValue)]
+        [Range(1,long.MaxValue,ErrorMessage = "Range")]
         public long UniversityId { get; set; }
     }
 }

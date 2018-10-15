@@ -31,7 +31,8 @@ namespace Cloudents.Infrastructure.Database.Query
                     Balance = s.Balance, // s.LastTransaction.Balance,
                     Name = s.Name,
                     Image = s.Image,
-                    Email = s.Email
+                    Email = s.Email,
+                    UniversityId = s.University.Id
                 }).WithOptions(o =>
                 {
                     o.SetCacheable(true)

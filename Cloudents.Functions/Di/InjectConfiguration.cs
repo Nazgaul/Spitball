@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using Cloudents.Core;
@@ -58,6 +59,16 @@ namespace Cloudents.Functions.Di
                 .SingleInstance();
 
             builder.RegisterType<QuestionDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Question);
+            builder.RegisterType<UniversityDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.University);
+            builder.RegisterType<CourseDbToSearchSync>().Keyed<IDbToSearchSync>(SyncType.Course);
+
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+        }
+
+        private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            return AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => a.FullName == args.Name).FirstOrDefault();
         }
 
         public static string GetEnvironmentVariable(string name)

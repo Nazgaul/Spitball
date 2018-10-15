@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
@@ -12,8 +11,6 @@ using Cloudents.Core.Query;
 using Cloudents.Core.Query.Admin;
 using Cloudents.Core.Storage;
 using Cloudents.Core.Storage.Dto;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Admin2.Api

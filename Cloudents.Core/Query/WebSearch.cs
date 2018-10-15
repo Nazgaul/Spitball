@@ -14,29 +14,22 @@ namespace Cloudents.Core.Query
     public class WebSearch : IWebDocumentSearch, IWebFlashcardSearch
     {
         private readonly ISearch _search;
-        private readonly ISearchConvertRepository _searchConvertRepository;
-        private readonly IUniversitySearch _universitySearch;
+        private readonly IQueryBus _queryBus;
         private readonly CustomApiKey _api;
 
-        public WebSearch(ISearch search, ISearchConvertRepository searchConvertRepository, CustomApiKey api, IUniversitySearch universitySearch)
+        public WebSearch(ISearch search,  CustomApiKey api, IQueryBus queryBus)
         {
             _search = search;
-            _searchConvertRepository = searchConvertRepository;
             _api = api;
-            _universitySearch = universitySearch;
+            _queryBus = queryBus;
         }
 
         public async Task<ResultWithFacetDto<SearchResult>> SearchWithUniversityAndCoursesAsync(SearchQuery model, HighlightTextFormat format, CancellationToken token)
         {
-            var university = model.University;
-            if (!model.University.HasValue && model.Point != null)
-            {
-                var p = await _universitySearch.GetApproximateUniversitiesAsync(model.Point, token).ConfigureAwait(false);
-                university = p?.Id;
-            }
-            var (universitySynonym, courses) = await _searchConvertRepository.ParseUniversityAndCoursesAsync(university, model.Courses, token).ConfigureAwait(false);
+            var queryDb = new UniversityCoursesSynonymQuery(model.University, model.Courses);
+            var resultDb = await _queryBus.QueryAsync(queryDb, token);
 
-            var cseModel = new SearchModel(model.Query, BuildSources(model.Source), _api, courses, universitySynonym);
+            var cseModel = new SearchModel(model.Query, BuildSources(model.Source), _api, resultDb.Courses, resultDb.University);
             var result = await _search.SearchAsync(cseModel, model.Page, format, token).ConfigureAwait(false);
             var facets = _api.Priority.Select(s => s.Key).OrderBy(s => s);
             return new ResultWithFacetDto<SearchResult>

@@ -1,5 +1,4 @@
-﻿
-import Vue from "vue";
+﻿import Vue from "vue";
 import App from "./components/app/app.vue";
 import store from "./store";
 import { Language } from "./services/language/langDirective";
@@ -86,7 +85,7 @@ import { constants } from "./utilities/constants";
 //TODO: server side fix
 WebFont.load({
     google: {
-        families: ["Open+Sans:300,400,600,700"]
+        families: ["Open+Sans:300,400,600,700", "Fira+Sans:300,400,600,700"]
     }
 });
 
@@ -96,11 +95,11 @@ WebFont.load({
 //    attempt: 1
 //});
 //Vue.use(vueSmoothScroll);
+
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
     directives: {
         Scroll,
-
     },
     components: vuetifyComponents
 });
@@ -230,6 +229,10 @@ router.beforeEach((to, from, next) => {
     else {
         intercomSettings.hide_default_launcher = false;
     }
+    //case 10995
+    if (global.appInsights) {
+        appInsights.trackPageView(to.fullPath);
+    }
     store.dispatch('changeLastActiveRoute', from);
     checkUserStatus(to, next);
     
@@ -259,6 +262,12 @@ function checkUserStatus(to, next) {
         next("/signin");
     });
 }
+
+global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
+
+
+console.log("%cGaby please Stop to be תותח!:-))", "color: red; font-family: sans-serif; font-size: 4.5em; font-weight: bolder; text-shadow: #000 1px 1px;");
+console.log('%c       ', 'font-size: 100px; background: url(https://66.media.tumblr.com/tumblr_lrbu1l9BJk1qgzxcao1_250.gif) no-repeat;');
 
 initSignalRService();
 

@@ -10,6 +10,8 @@ using NHibernate.Persister.Entity;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
+
+    
     public class FluentQueryBuilder
     {
         private readonly ISessionFactory _sessionFactoryImplementor;
@@ -20,7 +22,8 @@ namespace Cloudents.Infrastructure.Database.Query
         private readonly string _paramPrefix;
 
 
-        protected List<string> SelectList = new List<string>();
+        private readonly List<string> _selectList = new List<string>();
+        private readonly List<string> _whereList = new List<string>();
         private readonly List<char> _abcSeq = Enumerable.Range(97, 26).Select(s => (char)s).ToList();
         private readonly Dictionary<Type, string> _aliasTypes = new Dictionary<Type, string>();
         private string _column;
@@ -41,6 +44,9 @@ namespace Cloudents.Infrastructure.Database.Query
 
         public delegate FluentQueryBuilder Factory(string sqlParam);
 
+
+        
+
         #region Table
 
 
@@ -58,6 +64,8 @@ namespace Cloudents.Infrastructure.Database.Query
             _fromStringBuilder.Append($" {GetAlias<T>()} ");
             return this;
         }
+
+        
 
 
 
@@ -82,7 +90,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
         #endregion
 
-        protected string GetAlias<T>()
+        private string GetAlias<T>()
         {
             if (_aliasTypes.TryGetValue(typeof(T), out var retVal))
             {
@@ -96,10 +104,21 @@ namespace Cloudents.Infrastructure.Database.Query
             return retVal;
         }
 
+        /// <summary>
+        /// Where list - add the statement - the statement add between
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        public FluentQueryBuilder Where(string where)
+        {
+            _whereList.Add(where);
+            return this;
+        }
+
         public FluentQueryBuilder Select<T>(Expression<Func<T, object>> expression)
         {
             var tableAlias = GetAlias<T>();
-            SelectList.Add(Column(tableAlias, expression));
+            _selectList.Add(Column(tableAlias, expression));
             return this;
         }
 
@@ -109,7 +128,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
             var column = Column(tableAlias, expressionIn);
             var asStatement = expressionOut.GetName();
-            SelectList.Add($"{column} as {asStatement}");
+            _selectList.Add($"{column} as {asStatement}");
             return this;
         }
 
@@ -118,13 +137,13 @@ namespace Cloudents.Infrastructure.Database.Query
             var tableAlias = GetAlias<T>();
 
             _column = Column(tableAlias, expression);
-            SelectList.Add($"{_column} as {columnAlias}");
+            _selectList.Add($"{_column} as {columnAlias}");
             return this;
         }
 
         public FluentQueryBuilder Select(string sql)
         {
-            SelectList.Add(sql);
+            _selectList.Add(sql);
             return this;
         }
 
@@ -194,11 +213,19 @@ namespace Cloudents.Infrastructure.Database.Query
                 throw new ArgumentException();
             }
             var select = "*";
-            if (tb.SelectList.Count > 0)
+            if (tb._selectList.Count > 0)
             {
-                select = string.Join(",", tb.SelectList);
+                select = string.Join(",", tb._selectList);
             }
-            return $@"select {select} {tb._fromStringBuilder} {tb._orderBy} {tb._paging}";
+
+            var where = string.Empty;
+            if (tb._whereList.Count > 0)
+            {
+                where += " where ";
+                where += string.Join(" and ", tb._whereList);
+            }
+
+            return $@"select {select} {tb._fromStringBuilder} {where} {tb._orderBy} {tb._paging}";
         }
     }
 }

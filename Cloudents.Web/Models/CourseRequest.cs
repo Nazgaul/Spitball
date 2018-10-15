@@ -1,24 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Models
 {
     /// <summary>
     /// Course request object
     /// </summary>
-
-    //TODO:Localize
     public class CourseRequest
     {
         /// <summary>
         /// User input
         /// </summary>
-        [StringLength(int.MaxValue,MinimumLength = 3)]
-        public string Term { get; set; }
-
-        /// <summary>
-        /// university of the user
-        /// </summary>
+        [StringLength(int.MaxValue, MinimumLength = 3, ErrorMessage = "StringLength")]
         [Required(ErrorMessage = "Required")]
-        public long? UniversityId { get; set; }
+        [FromQuery]
+        public string Term { get; set; }
     }
 }

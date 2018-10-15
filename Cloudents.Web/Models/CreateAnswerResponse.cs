@@ -31,26 +31,6 @@ namespace Cloudents.Web.Models
         public string Code { get; set; }
     }
 
-    public class UniversityResponse
-    {
-        public UniversityResponse(IEnumerable<UniversityDto> universities)
-        {
-            Universities = universities;
-        }
-
-        public IEnumerable<UniversityDto> Universities { get; set; }
-    }
-
-    public class UploadAskFileResponse
-    {
-        public UploadAskFileResponse(IEnumerable<string> files)
-        {
-            Files = files;
-        }
-
-        public IEnumerable<string> Files { get; set; }
-    }
-
     public enum NextStep
     {
         EmailConfirmed,

@@ -65,7 +65,8 @@
                                             v-language:inner>newQuestion_SBL</span></label>
                                 </div>
                                 <div class="point-btn other inputBorder">
-                                    <input type="number" placeholder="Other amount"
+                                    <input type="number" placeholder="newQuestion_otherAmount_placeholder"
+                                           v-language:placeholder
                                            @focus="selectOtherAmount()" step="1"
                                            min="1" max="100"
                                            :class="[price ? 'has-value' : '']"

@@ -1,10 +1,8 @@
 ﻿@using System.Reflection
-@using Cloudents.Web
 @using Cloudents.Web.Extensions
 @using Cloudents.Web.Services
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
-@using Microsoft.AspNetCore.Http.Extensions
 @using Microsoft.Extensions.Configuration
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 @inject IHostingEnvironment Environment
@@ -12,10 +10,6 @@
 @inject IConfiguration Configuration
 
 @{
-
-
-    var version = typeof(Program).Assembly
-        .GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
     var p = Provider.GetTag("vendor");
     var main = Provider.GetTag("main");
     var cdnEndPoint = Constants.GetCdnEndpoint(Environment);
@@ -47,7 +41,7 @@
     </environment>
     @await RenderSectionAsync("styleSection", required: false).ConfigureAwait(false)
     <partial name="_HeaderTags" model="cdnEndPoint" />
-    @Html.Raw(JavaScriptSnippet.FullScript)
+    @*@Html.Raw(JavaScriptSnippet.FullScript)*@
     @Html.Raw(ClickJackingTagHelper.FullScript)
     <style>
         .async-hide {
@@ -138,11 +132,13 @@
         })();
     </script>
     @* End Inspectlet Embed Code *@
-    <script>
-        window.version = '8.9.25.2';  //'@version';
+<script>
+    window.version = '@Assembly.GetExecutingAssembly().GetName().Version.ToString(4)';  
             window.publicPath = '@cdnEndPoint' + '/dist/';
             window.isAuth = @User.Identity.IsAuthenticated.ToString().ToLower();
-            window.talkJsId = '@Configuration["TalkJs"]';
+    window.talkJsId = '@Configuration["TalkJs"]';
+    window.country = '@ViewBag.country';
+    @*window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'*@
     </script>
 
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>

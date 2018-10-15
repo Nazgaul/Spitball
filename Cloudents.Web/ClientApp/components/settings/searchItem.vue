@@ -25,7 +25,7 @@
         <template v-if="showCreateCourse&&isMobile" slot="courseMobileExtraItem">
             <div class="add-course-dialog pt-4 pb-2 my-2 px-3">
                 <form @submit.prevent="$_submitAddCourse">
-                    <div class="form-title" v-language:inner>earchitem_Type_it_in_here:</div>
+                    <div class="form-title" v-language:inner>searchitem_Type_it_in_here:</div>
                     <v-text-field light hide-details v-model="newCourseName" autofocus></v-text-field>
                     <div class="actions text-xs-right">
                         <v-btn class="clear" flat @click="$_clearAddCourse"><span v-language:inner>searchitem_Cancel</span></v-btn>
@@ -53,12 +53,28 @@
             <component :is="'search-item-'+currentType" :item="props.item"></component>
         </v-flex>
         <component slot="actionContent" v-if="currentAction" :is="currentType+'-'+currentAction" @done="$_actionDone"></component>
-        <template slot="universityEmptyState" v-if="noResults">
+
+        <template v-if="noResults && !stopWord" class="university-create" slot="universityEmptyState">
+            <div class="add-course-form mt-3 py-3 px-3">
+                <form @submit.prevent="$_submitAddUniversity">
+                    <div class="form-title" v-language:inner>searchitem_dont_see_university</div>
+                        <v-text-field light @input="resetUniversityErrors" v-model="newUniversityName" placeholder="Type it in here:"></v-text-field>
+                        <div class="university-length-error" v-show="universityName.errors.minimumsNameLength" v-language:inner>searchitem_error_chars</div>
+                        <div class="university-length-error" v-show="universityName.errors.failedRequest" v-language:inner>searchitem_error_university_create</div>
+                    <div class="actions">
+                        <v-btn class="save" :disabled="!newUniversityName || universityCreateRequest" :loading="universityCreateRequest" @click="$_submitAddUniversity"><span v-language:inner>searchitem_save_l</span></v-btn>
+                        <v-btn class="clear" :disabled="!newUniversityName || universityCreateRequest" @click="$_clearAddUniversity"><span v-language:inner>searchitem_clear</span></v-btn>
+                    </div>
+                </form>
+            </div>
+        </template>
+
+        <!-- <template slot="universityEmptyState" v-if="noResults">
             <div class="uni-empty-state">
                 <div>Can't find your school?</div>
                 <div>click <a  onclick="Intercom('showNewMessage')">here</a></div>
             </div>
-        </template>
+        </template> -->
 
         <!--showCreateCourse add to condition to restore-->
         <template slot="courseEmptyState" v-if="!items.length && !myCourses.length && !showCreateCourse">

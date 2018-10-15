@@ -27,7 +27,6 @@ namespace Cloudents.Infrastructure.Database
 
             builder.RegisterType<ReadonlySession>().InstancePerLifetimeScope();
             builder.RegisterType<ReadonlyStatelessSession>().InstancePerLifetimeScope();
-            //builder.RegisterType<DapperReadQuery>().As<IReadQuery>().InstancePerLifetimeScope();
 
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenStatelessSession())
                 .InstancePerLifetimeScope();
@@ -36,6 +35,8 @@ namespace Cloudents.Infrastructure.Database
 
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
+
+            
 
             var assembly = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(NHibernateRepository<>)).AsSelf()

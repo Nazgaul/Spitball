@@ -11,8 +11,6 @@
                 </div>
             </div>
             <div class="btn-container">
-                <!--<router-link  class="login-btns body-1" :to="{ path: '/register', query:{returnUrl : $route.path}}" v-language:inner>loginAnswer_Sign_Up</router-link>-->
-                <!--<router-link  class="login-btns body-1" :to="{ path: '/signin'}" v-language:inner>loginAnswer_login</router-link>-->
                 <a  class="login-btns body-1" @click="goToRegister()" v-language:inner>loginAnswer_Sign_Up</a>
                 <a  class="login-btns body-1" @click= "goToSignIn()" v-language:inner>loginAnswer_login</a>
             </div>

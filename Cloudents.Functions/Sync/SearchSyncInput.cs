@@ -1,5 +1,5 @@
 ﻿using System;
-using Cloudents.Core.Query;
+using Cloudents.Core.Query.Sync;
 
 namespace Cloudents.Functions.Sync
 {
@@ -18,10 +18,10 @@ namespace Cloudents.Functions.Sync
             {
                 switch (SyncType)
                 {
-                    //case SyncType.University:
-                    //    break;
-                    //case SyncType.Course:
-                    //    break;
+                    case SyncType.University:
+                        return "university";
+                    case SyncType.Course:
+                        return "course";
                     case SyncType.Question:
                         return "question";
 

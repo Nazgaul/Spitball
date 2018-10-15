@@ -7,7 +7,7 @@ namespace Cloudents.Core.Entities.Db
         public RowDetail()
         {
             CreationTime = UpdateTime = DateTime.UtcNow;
-            CreatedUser = UpdatedUser = "sys";
+            CreatedUser = UpdatedUser = "new-sb";
         }
 
         public virtual DateTime CreationTime { get; private set; }
@@ -20,5 +20,16 @@ namespace Cloudents.Core.Entities.Db
         //{
         //    UpdateTime = DateTime.UtcNow;
         //}
+    }
+
+    public class DomainTimeStamp
+    {
+        public DomainTimeStamp()
+        {
+            CreationTime = UpdateTime = DateTime.UtcNow;
+        }
+
+        public virtual DateTime CreationTime { get; private set; }
+        public virtual DateTime UpdateTime { get; private set; }
     }
 }

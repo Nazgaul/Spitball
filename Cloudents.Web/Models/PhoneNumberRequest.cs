@@ -29,24 +29,21 @@ namespace Cloudents.Web.Models
 
             sb.Append(PhoneNumber);
             return sb.ToString();
-            //    return $"{nameof(PhoneNumber)}: {PhoneNumber}, {nameof(CountryCode)}: {CountryCode}";
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (!PhoneNumberRegex.IsMatch(ToString()))
+            if (PhoneNumberRegex.IsMatch(ToString())) yield break;
+            var stringLocalizer = validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as IStringLocalizer<DataAnnotationSharedResource>;
+            var errorMessage = "Invalid phone number";
+            if (stringLocalizer != null)
             {
-                var stringLocalizer = validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as IStringLocalizer<DataAnnotationSharedResource>;
-                var errorMessage = "Invalid phone number";
-                if (stringLocalizer != null)
-                {
-                    errorMessage = stringLocalizer["InvalidPhoneNumber"];
-                }
-
-                yield return new ValidationResult(
-                    errorMessage,
-                    new[] { nameof(PhoneNumber) });
+                errorMessage = stringLocalizer["InvalidPhoneNumber"];
             }
+
+            yield return new ValidationResult(
+                errorMessage,
+                new[] { nameof(PhoneNumber) });
         }
     }
 }

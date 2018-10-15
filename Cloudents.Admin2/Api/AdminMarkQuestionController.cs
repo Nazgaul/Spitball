@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
@@ -9,8 +7,6 @@ using Cloudents.Core.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Admin2.Api

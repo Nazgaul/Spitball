@@ -15,6 +15,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Api
 {
@@ -28,10 +29,13 @@ namespace Cloudents.Web.Api
         private readonly ISmsSender _client;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
+        private readonly IStringLocalizer<SmsController> _smsLocalizer;
         private readonly ILogger _logger;
+        
 
         public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
-            ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer, ILogger logger)
+            ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer,
+            ILogger logger, IStringLocalizer<SmsController> smsLocalizer)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -39,10 +43,13 @@ namespace Cloudents.Web.Api
             _commandBus = commandBus;
             _localizer = localizer;
             _logger = logger;
+            _smsLocalizer = smsLocalizer;
         }
 
         [HttpGet("code")]
-        public async Task<CallingCallResponse> GetCountryCallingCodeAsync([FromServices] IIpToLocation service, CancellationToken token)
+        public async Task<CallingCallResponse> GetCountryCallingCodeAsync(
+            
+            [FromServices] IIpToLocation service, CancellationToken token)
         {
             var result = await service.GetAsync(HttpContext.Connection.GetIpAddress(), token).ConfigureAwait(false);
             return new CallingCallResponse(result?.CallingCode);
@@ -50,9 +57,14 @@ namespace Cloudents.Web.Api
 
         [HttpPost]
         public async Task<IActionResult> SetUserPhoneNumber(
-            [FromBody]PhoneNumberRequest model, [FromQuery]LocationQuery location,
+            [ModelBinder(typeof(CountryModelBinder))] string country,
+            [FromBody]PhoneNumberRequest model, 
             CancellationToken token)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Unauthorized();
+            }
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {
@@ -73,7 +85,11 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            if (ValidatePhoneNumberLocationWithIp(location, model))
+           
+            var phoneUtil = PhoneNumberUtil.GetInstance();
+            var t = phoneUtil.GetRegionCodeForCountryCode(model.CountryCode);
+            user.Country = t;
+            if (!string.Equals(user.Country, country, StringComparison.OrdinalIgnoreCase))
             {
                 user.FraudScore += 50;
             }
@@ -87,9 +103,8 @@ namespace Cloudents.Web.Api
 
             if (retVal.Errors.Any(a => a.Code == "Duplicate"))
             {
-                //TODO: Localize
                 _logger.Warning("phone number is duplicate");
-                ModelState.AddModelError(nameof(model.PhoneNumber), "This phone number is linked to another email address");
+                ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["DuplicatePhoneNumber"]);
             }
             else
             {
@@ -100,12 +115,6 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        private static bool ValidatePhoneNumberLocationWithIp(LocationQuery location, PhoneNumberRequest phoneNumber)
-        {
-            var phoneUtil = PhoneNumberUtil.GetInstance();
-            var t = phoneUtil.GetRegionCodeForCountryCode(phoneNumber.CountryCode);
-            return t.Equals(location.Address.CountryCode, StringComparison.OrdinalIgnoreCase);
-        }
 
         [HttpPost("verify")]
         public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model, CancellationToken token)
@@ -149,8 +158,7 @@ namespace Cloudents.Web.Api
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
             {
-                //TODO: Localize
-                ModelState.AddModelError(string.Empty, "We cannot resend sms");
+                ModelState.AddModelError(string.Empty, _smsLocalizer["CannotResendSms"]);
                 return BadRequest(ModelState);
             }
 

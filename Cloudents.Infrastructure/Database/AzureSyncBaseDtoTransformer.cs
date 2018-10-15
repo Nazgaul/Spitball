@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.SearchSync;
 using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Database
@@ -34,6 +34,14 @@ namespace Cloudents.Infrastructure.Database
                 {
                     var e = Enum.Parse(propertyInfo.PropertyType, str, true);
                     propertyInfo.SetValue(x.Data, e);
+                    continue;
+                }
+
+                var nullableType = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
+                if (nullableType != null)
+                {
+                    var y = Convert.ChangeType(value, nullableType);
+                    propertyInfo.SetValue(x.Data, y);
                 }
                 else
                 {

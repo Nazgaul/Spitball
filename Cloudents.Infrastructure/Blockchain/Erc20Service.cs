@@ -9,6 +9,12 @@ using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
 using Nethereum.Signer;
+using System.Collections.Generic;
+using System.Text;
+using Nethereum.Hex.HexTypes;
+using Nethereum.ABI.FunctionEncoding.Attributes;
+using Nethereum.RPC.Eth.DTOs;
+
 
 namespace Cloudents.Infrastructure.Blockchain
 {
@@ -17,9 +23,9 @@ namespace Cloudents.Infrastructure.Blockchain
     {
         protected override string Abi => "TokenAbi";
 
-        protected override string ContractAddress => "0x4848e858f625fa67b8ee765b4d0412587da3dd74";
+        protected override string ContractAddress => "0xb846c81c60980fd151c8c74dc9bf596a25da179e";//"0x045904c2a9d1a54f9d1bda40d4b2551ee3f3d9ff";//"0x4848e858f625fa67b8ee765b4d0412587da3dd74";
 
-        public Erc20Service (IConfigurationKeys configurationKeys) : base(configurationKeys)
+        public Erc20Service(IConfigurationKeys configurationKeys) : base(configurationKeys)
         {
         }
 
@@ -39,10 +45,10 @@ namespace Cloudents.Infrastructure.Blockchain
 
             var publicAddress =
               Web3.GetAddressFromPrivateKey(senderPk);
-            
+
             //var gas = await function.EstimateGasAsync(publicAddress, null, null, toAddress, amount);
 
-            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(senderPk, 4000000, token, toAddress, amountTransformed).ConfigureAwait(false);
+            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(senderPk, MaxGas, token, toAddress, amountTransformed).ConfigureAwait(false);
             return receiptFirstAmountSend.BlockHash;
         }
 
@@ -74,7 +80,7 @@ namespace Cloudents.Infrastructure.Blockchain
             return (privateKey.ToHex(), address);
         }
 
-        public async Task<string> Approve(string spender, int amount, CancellationToken token)
+        public async Task<string> ApproveAsync(string spender, int amount, CancellationToken token)
         {
             var function = await GetFunctionAsync("approve", token).ConfigureAwait(false);
             var amountApproved = new BigInteger(amount * FromWei);
@@ -82,7 +88,39 @@ namespace Cloudents.Infrastructure.Blockchain
             return receiptFirstAmountSend.BlockHash;
         }
 
-        public async Task<string> TransferPreSigned(string fromPK, string to, int amount, int fee, CancellationToken token)
+        public async Task<string> TransferPreSignedAsync(string delegatePK, string fromPK, string to, int amount, int fee, CancellationToken token)
+        {
+            Account delegateAccountt = new Account(delegatePK);
+            var web3 = new Web3(delegateAccountt);
+
+            var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(GetAddress(delegatePK));
+            var nonce = txCount.Value;
+            var amountTransformed = new BigInteger(amount * FromWei);
+            var feeTransformed = new BigInteger(fee * FromWei);
+
+            string str = "48664c16"
+                        + ContractAddress.RemoveHexPrefix()
+                        + to.RemoveHexPrefix()
+                        + amountTransformed.ToString("X64")
+                        + feeTransformed.ToString("X64")
+                        + nonce.ToString("X64");
+
+            var byteStr = HexByteConvertorExtensions.HexToByteArray(str);
+            var sha3 = new Nethereum.Util.Sha3Keccack();
+            var res = sha3.CalculateHash(byteStr);
+            var messageSigner = new MessageSigner();
+            var sig = messageSigner.Sign(res, fromPK).HexToByteArray();
+
+            var function = await GetFunctionAsync("transferPreSigned", delegatePK, token).ConfigureAwait(false);
+            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(delegatePK, MaxGas, token, sig, to, amountTransformed, feeTransformed, nonce).ConfigureAwait(false);
+            var contract = await GetContractAsync(web3, token);
+            var bidAddedEventLog = contract.GetEvent("TransferPreSigned");
+            var filterInput = bidAddedEventLog.CreateFilterInput(new BlockParameter(receiptFirstAmountSend.BlockNumber), BlockParameter.CreateLatest());
+            var logs = await bidAddedEventLog.GetAllChanges<TransferPreSignedDTO>(filterInput);
+            return receiptFirstAmountSend.BlockHash;
+        }
+
+        public async Task<string> TransferPreSignedAsync(string fromPK, string to, int amount, int fee, CancellationToken token)
         {
             Account SpitballAccountt = new Account(SpitballPrivateKey);
             var web3 = new Web3(SpitballAccountt);
@@ -104,14 +142,47 @@ namespace Cloudents.Infrastructure.Blockchain
             var res = sha3.CalculateHash(byteStr);
             var messageSigner = new MessageSigner();
             var sig = messageSigner.Sign(res, fromPK).HexToByteArray();
-           
+
+
             var function = await GetFunctionAsync("transferPreSigned", token).ConfigureAwait(false);
             var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, MaxGas, token, sig, to, amountTransformed, feeTransformed, nonce).ConfigureAwait(false);
+            var contract = await GetContractAsync(web3, token);
+            var bidAddedEventLog = contract.GetEvent("TransferPreSigned");
+            var filterInput =
+               bidAddedEventLog.CreateFilterInput(new BlockParameter(receiptFirstAmountSend.BlockNumber), BlockParameter.CreateLatest());
+            var logs = await bidAddedEventLog.GetAllChanges<TransferPreSignedDTO>(filterInput);
             return receiptFirstAmountSend.BlockHash;
         }
+        /*public async Task<string> TransferPreSignedAsync(string fromPK, string to, int amount, int fee, double gasPrice, BigInteger nonce, CancellationToken token)
+        {
+            Account SpitballAccountt = new Account(SpitballPrivateKey);
+            var web3 = new Web3(SpitballAccountt);
+
+            var amountTransformed = new BigInteger(amount * FromWei);
+            var feeTransformed = new BigInteger(fee * FromWei);
+
+            string str = "48664c16"
+                        + ContractAddress.RemoveHexPrefix()
+                        + to.RemoveHexPrefix()
+                        + amountTransformed.ToString("X64")
+                        + feeTransformed.ToString("X64")
+                        + nonce.ToString("X64");
+
+            var byteStr = HexByteConvertorExtensions.HexToByteArray(str);
+            var sha3 = new Nethereum.Util.Sha3Keccack();
+            var res = sha3.CalculateHash(byteStr);
+            var messageSigner = new MessageSigner();
+            var sig = messageSigner.Sign(res, fromPK).HexToByteArray();
 
 
-        public async Task<string> ApprovePreSigned(string fromPK, string sender, int amount, int fee, CancellationToken token)
+            var function = await GetFunctionAsync("transferPreSigned", token).ConfigureAwait(false);
+            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, MaxGas, gasPrice, token, sig, to, amountTransformed, feeTransformed, nonce).ConfigureAwait(false);
+
+            return receiptFirstAmountSend.BlockHash;
+        }*/
+
+
+        public async Task<string> ApprovePreSignedAsync(string fromPK, string sender, int amount, int fee, CancellationToken token)
         {
             Account SpitballAccountt = new Account(SpitballPrivateKey);
             var web3 = new Web3(SpitballAccountt);
@@ -141,7 +212,7 @@ namespace Cloudents.Infrastructure.Blockchain
             return receiptFirstAmountSend.BlockHash;
         }
 
-        public async Task<decimal> GetAllowanceAsync([NotNull] string ownerAddress,[NotNull] string spenderAddress, CancellationToken token)
+        public async Task<decimal> GetAllowanceAsync([NotNull] string ownerAddress, [NotNull] string spenderAddress, CancellationToken token)
         {
             if (ownerAddress == null) throw new ArgumentNullException(nameof(ownerAddress));
             if (spenderAddress == null) throw new ArgumentNullException(nameof(spenderAddress));
@@ -152,7 +223,7 @@ namespace Cloudents.Infrastructure.Blockchain
             return (decimal)normalAmount;
         }
 
-        public async Task<string> IncreaseApproval(string spender, int amount, CancellationToken token)
+        public async Task<string> IncreaseApprovalAsync(string spender, int amount, CancellationToken token)
         {
 
             var function = await GetFunctionAsync("increaseApproval", token).ConfigureAwait(false);
@@ -161,8 +232,52 @@ namespace Cloudents.Infrastructure.Blockchain
             return receiptFirstAmountSend.BlockHash;
 
         }
+
+        public async Task<string> IncreaseApprovalPreSignedAsync(string fromPK, string sender, int amount, int fee, CancellationToken token)
+        {
+            Account SpitballAccountt = new Account(SpitballPrivateKey);
+            var web3 = new Web3(SpitballAccountt);
+
+            var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(GetAddress(SpitballPrivateKey));
+            var nonce = txCount.Value + 1;
+            var amountApproved = new BigInteger(amount * FromWei);
+            var feeApproved = new BigInteger(fee * FromWei);
+
+
+            string str = "a45f71ff"
+                       + ContractAddress.RemoveHexPrefix()
+                       + sender.RemoveHexPrefix()
+                       + amountApproved.ToString("X64")
+                       + feeApproved.ToString("X64")
+                       + nonce.ToString("X64");
+
+            var byteStr = HexByteConvertorExtensions.HexToByteArray(str);
+            var sha3 = new Nethereum.Util.Sha3Keccack();
+            var res = sha3.CalculateHash(byteStr);
+            var messageSigner = new MessageSigner();
+            var sig = messageSigner.Sign(res, fromPK).HexToByteArray();
+
+
+            var function = await GetFunctionAsync("increaseApprovalPreSigned", token).ConfigureAwait(false);
+            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, MaxGas, GasPrice, token, sig, sender, amountApproved, feeApproved, nonce).ConfigureAwait(false);
+            return receiptFirstAmountSend.BlockHash;
+        }
+       
     }
+
+    public class TransferPreSignedDTO
+    {
+        [Parameter("address", "from", 1, true)]
+        public string from { get; set; }
+        [Parameter("address", "to", 2, true)]
+        public string to { get; set; }
+        [Parameter("address", "delegate", 3, true)]
+        public string delegateAddress { get; set; }
+        [Parameter("uint256", "amount", 4, false)]
+        public BigInteger amount { get; set; }
+        [Parameter("uint256", "fee", 5, false)]
+        public BigInteger fee { get; set; }
+    }
+
+        
 }
-
-
-

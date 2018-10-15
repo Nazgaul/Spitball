@@ -2,7 +2,7 @@
     <div class="actions">
         <v-tooltip bottom v-if="showActions">
             <info-icon slot="activator" class="info-icon ml-4"></info-icon>
-            <span>itemAction_policy</span>
+            <span v-language:inner>itemAction_policy</span>
         </v-tooltip>
         <a target="_blank" :href="$route.path+'/download'" v-if="showActions" class="ml-4">
             <download-icon></download-icon>

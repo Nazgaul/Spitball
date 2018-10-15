@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="agree" xml:space="preserve">
+    <value>אני מסכים ל</value>
+  </data>
+  <data name="already_have_account" xml:space="preserve">
+    <value>יש לך חשבון קיים?</value>
+  </data>
+  <data name="already_have_password" xml:space="preserve">
+    <value>יש לי כבר סיסמה</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>ו-</value>
+  </data>
+  <data name="an_activation_email_has_been_sent_to" xml:space="preserve">
+    <value>בדוק את האימייל שלך</value>
+  </data>
+  <data name="are_you_sure_you_want_to_exit" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך לצאת?</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>החלף</value>
+  </data>
+  <data name="check_your_email" xml:space="preserve">
+    <value>בדוק את הדוא"ל&amp;quot; שלך כדי להפעיל</value>
+  </data>
+  <data name="click_here_to_send" xml:space="preserve">
+    <value>לחץ כאן בכדי לשלוח מחדש.</value>
+  </data>
+  <data name="confirmation_link_expired" xml:space="preserve">
+    <value>קישור האישור שלך פג תוקף</value>
+  </data>
+  <data name="congrats" xml:space="preserve">
+    <value>מזל טוב</value>
+  </data>
+  <data name="continue" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="continue_registration" xml:space="preserve">
+    <value>המשך בתהליך ההרשמה</value>
+  </data>
+  <data name="create_password_button" xml:space="preserve">
+    <value>צור סיסמה</value>
+  </data>
+  <data name="create_password_text" xml:space="preserve">
+    <value>צור את הסיסמה שלך</value>
+  </data>
+  <data name="didnt_get_an_email" xml:space="preserve">
+    <value>לא קיבלת דוא&amp;quot;ל ?</value>
+  </data>
+  <data name="didnt_get_sms" xml:space="preserve">
+    <value>לא קיבלת SMS ?</value>
+  </data>
+  <data name="enter_the_confirm_code" xml:space="preserve">
+    <value>הזן את קוד האישור</value>
+  </data>
+  <data name="enter_your_phone_number" xml:space="preserve">
+    <value>הזן את מספר הטלפון שלך</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>יציאה</value>
+  </data>
+  <data name="exiting_information1" xml:space="preserve">
+    <value>יציאה מתהליך זה תמחק את כל המידע שלך</value>
+  </data>
+  <data name="exiting_information2" xml:space="preserve">
+    <value>התקדמות ומידע</value>
+  </data>
+  <data name="forgot_password_link" xml:space="preserve">
+    <value>שכחתי סיסמא</value>
+  </data>
+  <data name="get_started" xml:space="preserve">
+    <value>בואו נתחיל!</value>
+  </data>
+  <data name="happens_to_best" xml:space="preserve">
+    <value>אל תתבייש. זה קורה לטובים ביותר.</value>
+  </data>
+  <data name="homework_questions" xml:space="preserve">
+    <value>יש לי שאלה</value>
+  </data>
+  <data name="lets_start" xml:space="preserve">
+    <value>בואו נתחיל</value>
+  </data>
+  <data name="login" xml:space="preserve">
+    <value>התחבר</value>
+  </data>
+  <data name="login_click_here_to_send" xml:space="preserve">
+    <value>לחץ כאן כדי לשלוח מחדש.</value>
+  </data>
+  <data name="login_didnt_get_sms" xml:space="preserve">
+    <value>לא קיבלת SMS ?</value>
+  </data>
+  <data name="login_until_activate_account3" xml:space="preserve">
+    <value>עד להפעלת החשבון שלך</value>
+  </data>
+  <data name="need_account_link" xml:space="preserve">
+    <value>הירשמו</value>
+  </data>
+  <data name="need_account_text" xml:space="preserve">
+    <value>צריך חשבון?</value>
+  </data>
+  <data name="need_an_account" xml:space="preserve">
+    <value>צריך חשבון?</value>
+  </data>
+  <data name="not_complete_registration" xml:space="preserve">
+    <value>לא השלמת את תהליך ההרשמה</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>או</value>
+  </data>
+  <data name="passsword_dialog_text_1" xml:space="preserve">
+    <value>הגדרות הפרטיות שלנו השתנה.</value>
+  </data>
+  <data name="passsword_dialog_text_2" xml:space="preserve">
+    <value>אנא התחבר לחשבונך בספיטבול באמצעות סיסמה</value>
+  </data>
+  <data name="passsword_dialog_title" xml:space="preserve">
+    <value>אתם ביקשתם אנחנו ענינו</value>
+  </data>
+  <data name="passsword_dialog_title_boldText" xml:space="preserve">
+    <value>ביקשתי תשובה</value>
+  </data>
+  <data name="password_dialog_action_create_password" xml:space="preserve">
+    <value>צור סיסמה</value>
+  </data>
+  <data name="password_dialog_action_have_password" xml:space="preserve">
+    <value>יש לי סיסמא</value>
+  </data>
+  <data name="password_email_confirmed_resend_action" xml:space="preserve">
+    <value>לחץ כאן כדי לשלוח מחדש</value>
+  </data>
+  <data name="password_email_confirmed_resend_text" xml:space="preserve">
+    <value>לא מקבלים את המייל? בדוק את התיקית דואר ספאם</value>
+  </data>
+  <data name="password_indication_strong" xml:space="preserve">
+    <value>חזק</value>
+  </data>
+  <data name="password_indication_strongest" xml:space="preserve">
+    <value>חזק מאוד</value>
+  </data>
+  <data name="password_indication_weak" xml:space="preserve">
+    <value>חלש</value>
+  </data>
+  <data name="placeholder_choose_password" xml:space="preserve">
+    <value>בחר סיסמה</value>
+  </data>
+  <data name="placeholder_confirm_password" xml:space="preserve">
+    <value>חזור על הסיסמה</value>
+  </data>
+  <data name="placeholder_email" xml:space="preserve">
+    <value>הזן דואר אלקטרוני</value>
+  </data>
+  <data name="placeholder_enter_confirmation_code" xml:space="preserve">
+    <value>הזן את קוד האישור</value>
+  </data>
+  <data name="placeholder_enter_new_password" xml:space="preserve">
+    <value>להזין סיסמא</value>
+  </data>
+  <data name="placeholder_enter_password" xml:space="preserve">
+    <value>להזין סיסמא</value>
+  </data>
+  <data name="placeholder_enter_phone" xml:space="preserve">
+    <value>הקלידו מספר טלפון</value>
+  </data>
+  <data name="please_agree" xml:space="preserve">
+    <value>בבקשה להסכים לתנאים ושירותים כדי להמשיך</value>
+  </data>
+  <data name="please_login" xml:space="preserve">
+    <value>בבקשה להתחבר</value>
+  </data>
+  <data name="privacy_policy" xml:space="preserve">
+    <value>מדיניות פרטיות</value>
+  </data>
+  <data name="register" xml:space="preserve">
+    <value>הירשם</value>
+  </data>
+  <data name="remember_now" xml:space="preserve">
+    <value>אני זוכר עכשיו</value>
+  </data>
+  <data name="reset_password_button" xml:space="preserve">
+    <value>איפוס סיסמה</value>
+  </data>
+  <data name="reset_password_text" xml:space="preserve">
+    <value>אפס את סיסמה שלך</value>
+  </data>
+  <data name="reset_your_password" xml:space="preserve">
+    <value>אפס את סיסמה שלך</value>
+  </data>
+  <data name="sbl" xml:space="preserve">
+    <value>SBL</value>
+  </data>
+  <data name="select_your_country_code" xml:space="preserve">
+    <value>בחר קוד מדינה</value>
+  </data>
+  <data name="sent_code_by_sms" xml:space="preserve">
+    <value>שלחנו את הקוד אליכם ב- SMS</value>
+  </data>
+  <data name="sent_confirmation_code" xml:space="preserve">
+    <value>שלחנו את קוד האימות לטלפון הנייד שלך.</value>
+  </data>
+  <data name="signin_your_email" xml:space="preserve">
+    <value>היכנס באמצעות דוא"ל</value>
+  </data>
+  <data name="signup_your_email" xml:space="preserve">
+    <value>הרשם עם דוא"ל</value>
+  </data>
+  <data name="sign_in" xml:space="preserve">
+    <value>התחבר</value>
+  </data>
+  <data name="sign_in_with_google" xml:space="preserve">
+    <value>התחבר באמצעות GMAIL</value>
+  </data>
+  <data name="sign_up" xml:space="preserve">
+    <value>הירשמו</value>
+  </data>
+  <data name="sign_up_with_google" xml:space="preserve">
+    <value>הרשם עם GMAIL</value>
+  </data>
+  <data name="sure_exit1" xml:space="preserve">
+    <value>האם את/ה:</value>
+  </data>
+  <data name="sure_exit2" xml:space="preserve">
+    <value>בטוח</value>
+  </data>
+  <data name="sure_exit3" xml:space="preserve">
+    <value>שאתה רוצה</value>
+  </data>
+  <data name="sure_exit4" xml:space="preserve">
+    <value>לכבוד</value>
+  </data>
+  <data name="sure_exit5" xml:space="preserve">
+    <value>יציאה</value>
+  </data>
+  <data name="terms_of_services" xml:space="preserve">
+    <value>תנאי שירותי</value>
+  </data>
+  <data name="until_activate_account" xml:space="preserve">
+    <value>לא ניתן יהיה להיכנס כדי Spitball.co עד להפעלת החשבון שלך</value>
+  </data>
+  <data name="until_activate_account1" xml:space="preserve">
+    <value>אתה לא תהיה מסוגל</value>
+  </data>
+  <data name="until_activate_account2" xml:space="preserve">
+    <value>כדי להיכנס Spitball.co</value>
+  </data>
+  <data name="until_activate_account3" xml:space="preserve">
+    <value>עד להפעלת החשבון שלך</value>
+  </data>
+  <data name="welcome_back" xml:space="preserve">
+    <value>ברוכים השבים</value>
+  </data>
+  <data name="Your" xml:space="preserve">
+    <value>שלך</value>
+  </data>
+  <data name="your_account" xml:space="preserve">
+    <value>חשבון שלך</value>
+  </data>
+  <data name="you_are_reward_with" xml:space="preserve">
+    <value>אתה מתוגמל</value>
+  </data>
+  <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
+    <value>אתה יכול לבלות אותם כדי לקבל סיוע שלך</value>
+  </data>
+</root>

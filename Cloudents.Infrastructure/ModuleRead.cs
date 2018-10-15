@@ -13,6 +13,7 @@ using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Book;
 using Cloudents.Infrastructure.Search.Job;
+using Cloudents.Infrastructure.Search.Question;
 using Cloudents.Infrastructure.Search.Tutor;
 using JetBrains.Annotations;
 using BingSearch = Cloudents.Infrastructure.Search.BingSearch;
@@ -48,6 +49,8 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DataProtection>().As<IDataProtect>();
 
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
+            builder.RegisterType<AzureQuestionSearch>().AsSelf();
+            builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
 
             #region Tutor
 
@@ -78,7 +81,6 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
             builder.RegisterType<DocumentIndexSearch>().AsImplementedInterfaces();
-            builder.RegisterType<SearchConvertRepository>().AsImplementedInterfaces();
 
             builder.RegisterType<GoogleAuth>().As<IGoogleAuth>().SingleInstance();
         }

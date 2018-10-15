@@ -120,13 +120,4 @@
   <data name="Spitball" xml:space="preserve">
     <value>Spitball2</value>
   </data>
-  <data name="Spitball1" xml:space="preserve">
-    <value>Spitball2</value>
-  </data>
-  <data name="Spitball2" xml:space="preserve">
-    <value>Spitball2</value>
-  </data>
-  <data name="Spitball3" xml:space="preserve">
-    <value>Spitball2</value>
-  </data>
 </root>

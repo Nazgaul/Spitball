@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -10,12 +10,23 @@ namespace Cloudents.Web.Models
         /// <summary>
         /// the user input
         /// </summary>
+        [Required]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "StringLength")]
         public string Term { get; set; }
 
-        /// <summary>
-        /// the user location
-        /// </summary>
-        [CanBeNull]
-        public GeographicCoordinate Location { get; set; }
+
+
     }
+
+    public class CreateUniversityRequest
+    {
+        [StringLength(100, MinimumLength = 10, ErrorMessage = "StringLength")]
+
+        [Required] public string Name { get; set; }
+    }
+
+    //public class AssignUniversityRequest
+    //{
+    //    [Required] public long Id { get; set; }
+    //}
 }

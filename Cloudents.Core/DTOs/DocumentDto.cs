@@ -18,8 +18,8 @@ namespace Cloudents.Core.DTOs
             set => _date = value;
         }
 
-        [DataMember]
-        public string Owner { get; set; }
+        //[DataMember]
+        //public string Owner { get; set; }
 
         [DataMember]
         public string Blob { get; set; }

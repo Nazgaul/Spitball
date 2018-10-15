@@ -1,27 +1,19 @@
-import { termHtml } from "./page/term"
-import { privacyHtml } from "./page/privacy"
 import { connectivityModule } from "../connectivity.module";
 
 //global dictionary obj
 //global.dictionary = {}
+var locale = {};
 
 const LanguageService = {
     getValueByKey: (key) => {
         if(!key) return key;
-        
-        if(!global.dictionary[key]){
+
+        if(!locale[key]){
             console.error("dictionary couldnot find key: " + key);
             return `###${key}`;
         }
-        return global.dictionary[key];
-    },
-
-    getTermPage: ()=>{
-        return termHtml;
-    },
-    getPrivacyPage: ()=>{
-        return privacyHtml;
-    }     
+        return locale[key];
+    }    
 };
 
 const LanguageChange = {
@@ -30,17 +22,36 @@ const LanguageChange = {
     },
 };
 
+const GetDictionary = (type) => {
+    let dictionaryType = `?v=${global.version}&l=${global.lang}`;
+    if(!!type){
+        //version is for anti caching ability
+        dictionaryType += `&resource=${type}`
+    }else{
+        dictionaryType += '';
+    }
+    return connectivityModule.http.get(`/Locale${dictionaryType}`).then((dictionary)=>{
+        for(let prop in dictionary.data){
+            //add the key to the dictionary
+            locale[prop] = dictionary.data[prop];
+        }
+        return Promise.resolve(true);
+    }, (err)=>{
+        return Promise.reject(err);
+    })
+}
+
 //debug purposes
-global.dictionaryFindKey = function(dict, value){
-    for(let key in dict){
-        if(dict[key] === value){
+global.dictionaryFindKey = function(value){
+    for(let key in locale){
+        if(locale[key] === value){
             console.log(key)
         }
     }
 };
-global.dictionaryContainsKey = function(dict, value){
-    for(let key in dict){
-        if(dict[key].indexOf(value) > -1){
+global.dictionaryContainsKey = function(value){
+    for(let key in locale){
+        if(locale[key].indexOf(value) > -1){
             console.log(key)
         }
     }
@@ -48,5 +59,6 @@ global.dictionaryContainsKey = function(dict, value){
 
 export{
     LanguageService,
-    LanguageChange
+    LanguageChange,
+    GetDictionary
 }

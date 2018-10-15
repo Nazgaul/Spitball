@@ -17,9 +17,17 @@
                                               :submit-route="submitRoute"></search-input>
                                 <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
+                                    <!--TODO AB-Test-->
+                                    <!--<div class="ab-test static-card-what-is-hw-question hidden-sm-and-down" v-show="loggedIn && $route.path.slice(1) === 'ask'">-->
+                                    <div class="ab-test static-card-what-is-hw-question hidden-sm-and-down">
+                                    <button class="ab-test-button" @click="openNewQuestionDialog()">
+                                        <v-icon class="edit-icon">sbf-edit-icon</v-icon>
+                                        <span  v-language:inner>abTest_addQuestion</span>
+                                    </button>
+                                    </div>
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
                                         <span class="bold">{{accountUser.balance | currencyLocalyFilter}} <span v-language:inner>header_sbl</span></span>
-                                        <span>$ {{accountUser.balance | dollarVal}}</span>
+                                        <span>{{accountUser.balance | dollarVal}} $</span>
                                     </router-link>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu bottom left offset-y>
@@ -43,8 +51,6 @@
                                         <menu-list :isAuthUser="loggedIn"
                                                    v-if="$vuetify.breakpoint.smAndUp"></menu-list>
                                     </v-menu>
-
-
                                     <!--<v-menu bottom left offset-y class="gamburger"-->
                                             <!--v-if="!loggedIn && $vuetify.breakpoint.xsOnly">-->
                                         <!--<v-btn icon slot="activator" @click.native="drawer = !drawer">-->
@@ -71,7 +77,9 @@
             <personalize-dialog ref="personalize" :value="clickOnce"></personalize-dialog>
         </v-toolbar>
 
-        <v-navigation-drawer temporary v-model="drawer" light right fixed app v-if=$vuetify.breakpoint.xsOnly
+        <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
+                             fixed app v-if=$vuetify.breakpoint.xsOnly
+                             :class="isRtl ? 'hebrew-drawer' : ''"
                              width="280">
             <menu-list :isAuthUser="loggedIn"></menu-list>
         </v-navigation-drawer>
@@ -112,7 +120,8 @@
                 clickOnce: false,
                 drawer: null,
                 toasterTimeout: 5000,
-                showDialogLogin: false
+                showDialogLogin: false,
+                isRtl: global.isRtl
             }
         },
         props: {
@@ -154,8 +163,11 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'resetData']),
+            ...mapActions(['updateToasterParams', 'resetData', 'updateNewQuestionDialogState']),
 
+            openNewQuestionDialog(){
+                this.updateNewQuestionDialogState(true)
+            },
             //TODO: what is that
             $_currentClick({id, name}) {
                 if (name === 'Feedback') {
@@ -167,6 +179,7 @@
                     })
                 }
             },
+
             resetItems(){
                 if(this.$route.path === '/ask'){
                     if(this.$route.fullPath === '/ask'){

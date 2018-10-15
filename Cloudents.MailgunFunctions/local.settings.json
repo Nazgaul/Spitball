@@ -1,0 +1,11 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsDashboard": "DefaultEndpointsProtocol=https;AccountName=mailgunfunction8495;AccountKey=OpSt6b0iN6cX4SiKlr3DsAYWpWpWCBHak04xwcpQLQe8K6xtV7T3E/aAUvETq49vxhMhHs5jFrNub5vHlcxWXg==",
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=mailgunfunction8495;AccountKey=OpSt6b0iN6cX4SiKlr3DsAYWpWpWCBHak04xwcpQLQe8K6xtV7T3E/aAUvETq49vxhMhHs5jFrNub5vHlcxWXg==",
+    "IsDevelop": true,
+    "MailGunConnectionString": "Server=tcp:on0rodxe8f.database.windows.net,1433;Initial Catalog=spamgun;Persist Security Info=False;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+    "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="
+
+  }
+}

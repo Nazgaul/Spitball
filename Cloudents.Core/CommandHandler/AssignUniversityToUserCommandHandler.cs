@@ -25,7 +25,7 @@ namespace Cloudents.Core.CommandHandler
             var university = await _universityRepository.LoadAsync(message.UniversityId, token).ConfigureAwait(false);
 
             user.University = university;
-            await _userRepository.AddAsync(user, token).ConfigureAwait(false);
+            await _userRepository.UpdateAsync(user, token).ConfigureAwait(false);
         }
     }
 }

@@ -1,18 +1,33 @@
 import {connectivityModule} from '../../../../services/connectivity.module'
 
+function Answer(objInit){
+    this.id = objInit.id;
+    this.text = objInit.text;
+}
+
+function createAnswers(arrobjInit){
+    let answers = [];
+    if(!!arrobjInit && arrobjInit.length > 0){
+        arrobjInit.forEach((answer) => {
+            answers.push(new Answer(answer))
+        })
+    }
+    return answers;
+}
+
 function QuestionItem(objInit){
-    this.questionId = objInit.questionId;
+    this.id = objInit.id;
     this.answerId = objInit.answerId;
-    this.questionText = objInit.questionText;
-    this.answerText = objInit.answerText;
+    this.text = objInit.text;
+    this.answers = createAnswers(objInit.answers);
     this.url = objInit.url;
     this.isFictive = objInit.isFictive;
 }
 
-QuestionItem.prototype.toServer = function(){
+QuestionItem.prototype.toServer = function(answerId){
     let answerToAccept = {
-        questionId: this.questionId,
-        answerId: this.answerId
+        questionId: this.id,
+        answerId: answerId
     }
     return answerToAccept;
 }

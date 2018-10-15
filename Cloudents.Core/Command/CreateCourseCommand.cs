@@ -5,17 +5,14 @@ namespace Cloudents.Core.Command
 {
     public class CreateCourseCommand : ICommand
     {
-        public CreateCourseCommand(string name, long universityId)
+        public CreateCourseCommand(string name,long userId)
         {
             Name = name;
-            UniversityId = universityId;
+            UserId = userId;
         }
 
 
         public string Name { get; }
-
-        public long UniversityId { get; }
-
-        public long Id { get; set; }
+        public long UserId { get; }
     }
 }

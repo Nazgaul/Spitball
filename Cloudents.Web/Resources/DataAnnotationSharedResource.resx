@@ -117,8 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Compare" xml:space="preserve">
+    <value>'{0}' and '{1}' do not match.</value>
+    <comment>{0} - field name 1 - {1} field name 2</comment>
+  </data>
   <data name="EmailAddress" xml:space="preserve">
     <value>The {0} field is not a valid e-mail address.</value>
+    <comment>{0} - field name</comment>
   </data>
   <data name="InvalidCulture" xml:space="preserve">
     <value>This language is not supported</value>
@@ -126,7 +131,38 @@
   <data name="InvalidPhoneNumber" xml:space="preserve">
     <value>Phone number is invalid</value>
   </data>
+  <data name="InvalidRedeemValue" xml:space="preserve">
+    <value>You can only redeem 1000,2000,3000,4000</value>
+    <comment>Should be a better error message</comment>
+  </data>
+  <data name="MaxLength" xml:space="preserve">
+    <value>The field {0} must be a string or array type with a maximum length of '{1}'.</value>
+    <comment>{0} - field name {1} -max length</comment>
+  </data>
+  <data name="MinLength" xml:space="preserve">
+    <value>The field {0} must be a string or array type with a minimum length of '{1}'.</value>
+    <comment>{0} - field name {1} -min length</comment>
+  </data>
+  <data name="NeedCountry" xml:space="preserve">
+    <value>You need to have a country first</value>
+    <comment>should not happen</comment>
+  </data>
+  <data name="NeedUniversity" xml:space="preserve">
+    <value>You need to choose university first</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>The field {0} must be between {1} and {2}.</value>
+    <comment>{0} - field name {1} - min length {2} - max length</comment>
+  </data>
   <data name="Required" xml:space="preserve">
     <value>The {0} field is required.</value>
+    <comment>{0} - field name</comment>
+  </data>
+  <data name="StringLength" xml:space="preserve">
+    <value>The field {0} must be a string with a minimum length of {1} and a maximum length of {2}."</value>
+    <comment>{0} - field name {1} - min length {2} - max length</comment>
+  </data>
+  <data name="StringLengthMax" xml:space="preserve">
+    <value>The field {0} must be a string with a maximum length of {1}.</value>
   </data>
 </root>

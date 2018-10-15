@@ -1,13 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -52,15 +53,15 @@ namespace Cloudents.Web.Api
             return new WebResponseWithFacet<JobDto>
             {
                 Result = result.Result,
-                Filters = new []
+                Filters = new IFilters[]
                 {
-                    new Models.Filters(nameof(JobRequest.Facet),"Subject", result.Facet)
+                    new Filters<string>(nameof(JobRequest.Facet),"Subject", result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
                 },
                 //Filters = new Dictionary<string, IEnumerable<string>>
                 //{
                 //    ["Subject"] = result.Facet
                 //},
-                Sort = Enum.GetNames(typeof(JobRequestSort)),
+                Sort = Enum.GetNames(typeof(JobRequestSort)).Select(s=>new KeyValuePair<string, string>(s,s)),
                 NextPageLink = nextPageLink
             };
         }

@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
-using Cloudents.Core.Entities.Db;
 
 namespace Cloudents.Infrastructure.Data
 {
@@ -17,11 +16,6 @@ namespace Cloudents.Infrastructure.Data
         public DapperRepository(Core.Enum.Database db, DbConnectionStringProvider provider)
         {
             _connectionString = provider.GetConnectionString(db);
-            Dapper.SqlMapper.SetTypeMap(typeof(University), new ColumnAttributeTypeMapper<University>());
-
-            //_connectionString = connectionString;
-
-            Dapper.SqlMapper.SetTypeMap(typeof(University), new ColumnAttributeTypeMapper<University>());
         }
 
         public DapperRepository(DbConnectionStringProvider provider) :

@@ -20,15 +20,16 @@ namespace Cloudents.Core.Entities.Search
         public double Price { get; set; }
         public string Text { get; set; }
 
-        public string Prefix { get; set; }
+        public string[] Prefix { get; set; }
 
-        //public string[] Type { get; set; }
+        public string Country { get; set; }
 
         public QuestionColor Color { get; set; }
 
         public int Subject { get; set; } // facetable
+        public QuestionFilter State { get; set; }
 
-       // public string SubjectText { get; set; } // facetable
+        // public string SubjectText { get; set; } // facetable
 
     }
 }
