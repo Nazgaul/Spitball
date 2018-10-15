@@ -3,6 +3,7 @@ using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Web.Binders;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
@@ -15,7 +16,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Binders;
 
 namespace Cloudents.Web.Api
 {
@@ -31,7 +31,7 @@ namespace Cloudents.Web.Api
         private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
         private readonly IStringLocalizer<SmsController> _smsLocalizer;
         private readonly ILogger _logger;
-        
+
 
         public SmsController(SignInManager<User> signInManager, UserManager<User> userManager,
             ISmsSender client, ICommandBus commandBus, IStringLocalizer<DataAnnotationSharedResource> localizer,
@@ -48,7 +48,7 @@ namespace Cloudents.Web.Api
 
         [HttpGet("code")]
         public async Task<CallingCallResponse> GetCountryCallingCodeAsync(
-            
+
             [FromServices] IIpToLocation service, CancellationToken token)
         {
             var result = await service.GetAsync(HttpContext.Connection.GetIpAddress(), token).ConfigureAwait(false);
@@ -58,7 +58,7 @@ namespace Cloudents.Web.Api
         [HttpPost]
         public async Task<IActionResult> SetUserPhoneNumber(
             [ModelBinder(typeof(CountryModelBinder))] string country,
-            [FromBody]PhoneNumberRequest model, 
+            [FromBody]PhoneNumberRequest model,
             CancellationToken token)
         {
             if (User.Identity.IsAuthenticated)
@@ -85,16 +85,22 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-           
+
             var phoneUtil = PhoneNumberUtil.GetInstance();
             var t = phoneUtil.GetRegionCodeForCountryCode(model.CountryCode);
             user.Country = t;
-            if (!string.Equals(user.Country, country, StringComparison.OrdinalIgnoreCase))
-            {
-                user.LockoutEnd = DateTimeOffset.MaxValue;
-            }
+
             var retVal = await _userManager.SetPhoneNumberAsync(user, phoneNumber).ConfigureAwait(false);
 
+            if (!string.Equals(user.Country, country, StringComparison.OrdinalIgnoreCase))
+            {
+                await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
+                ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["PhoneNumberNotSameCountry"]);
+                await _signInManager.SignOutAsync();
+                return BadRequest(ModelState);
+                //user.LockoutEnd = DateTimeOffset.MaxValue;
+
+            }
             if (retVal.Succeeded)
             {
                 await _client.SendSmsAsync(user, token);
