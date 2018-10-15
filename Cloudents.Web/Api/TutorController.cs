@@ -66,7 +66,7 @@ namespace Cloudents.Web.Api
                 Filters = new IFilters[]
                 {
                     new Filters<string>(nameof(TutorRequest.Filter),_localizer["StatusFilter"],
-                        EnumExtension.GetValues<TutorRequestFilter>()
+                        EnumExtension.GetValues<TutorFilter>()
                             .Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization())))
                 },
                 NextPageLink = nextPageLink
