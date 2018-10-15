@@ -12,6 +12,8 @@ using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
+using Nethereum.Hex.HexTypes;
+using Nethereum.Web3.Accounts;
 
 namespace ConsoleApp
 {
