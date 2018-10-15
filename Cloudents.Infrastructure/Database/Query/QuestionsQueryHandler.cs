@@ -52,7 +52,7 @@ namespace Cloudents.Infrastructure.Database.Query
                         .Where(w => w.Question.Id == questionAlias.Id).ToRowCountQuery()).WithAlias(() => dto.Answers)
 
                 )
-                .Where(w => w.CorrectAnswer == null)
+                //.Where(w => w.CorrectAnswer == null)
                 .TransformUsing(new DeepTransformer<QuestionDto>());
             if (query.Source != null)
             {

@@ -1,9 +1,9 @@
 ﻿using Autofac;
 using Cloudents.Core;
-using Cloudents.Core.Command;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
+using Nethereum.Hex.HexTypes;
+using Nethereum.Web3.Accounts;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,8 +12,6 @@ using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
-using Nethereum.Hex.HexTypes;
-using Nethereum.Web3.Accounts;
 
 namespace ConsoleApp
 {
@@ -112,7 +110,7 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             var bus = _container.Resolve<IUniversitySearch>();
-            var z = await bus.SearchAsync("מל\"א","IL",default);
+            var z = await bus.SearchAsync("מל\"א", "IL", default);
         }
 
         private static async Task HadarMethod()
@@ -131,8 +129,6 @@ namespace ConsoleApp
             string spitballServerPK8 = "31281982d9965bae7597c59404b199a8f4d25b2e8070ef9a79dea8b4c01deb50";
             string spitballServerPK9 = "9438658b938ab1767c3d1577a4999558cd0b34d640b978f4577659383f6c115e";
             string spitballServerPK10 = "26633b6a2bc76ba070c9813edbf721d206da795482d0f26f4c63f7a4212ee456";
-
-            string SbAdd1 = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
             string SbAdd2 = "0xc7fe8b32b435aa2a4a624f8dd84cb39dfafef83d";
             string SbAdd3 = "0xabe6778e3091496628ff39ab206dd84a7fd09141";
             string SbAdd4 = "0xb47b4a77dbfaad4d0b0bdfe6bb7070d27538ff52";
@@ -157,9 +153,9 @@ namespace ConsoleApp
 
             //Task<Task> TxHash;
 
-             var account = new Account(spitballServerPK1);
-             var web3 = new Nethereum.Web3.Web3(account);
-            
+            var account = new Account(spitballServerPK1);
+            var web3 = new Nethereum.Web3.Web3(account);
+
             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd2, new HexBigInteger(10000000000000000000));
             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd3, new HexBigInteger(10000000000000000000));
             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd4, new HexBigInteger(10000000000000000000));
@@ -169,7 +165,7 @@ namespace ConsoleApp
             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd8, new HexBigInteger(10000000000000000000));
             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd9, new HexBigInteger(10000000000000000000));
             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd10, new HexBigInteger(10000000000000000000));
-            
+
             /*
                        var wl1 = await t.WhitelistUserForTransfers(SbAdd1, default);
                        var wl2 = await t.WhitelistUserForTransfers(SbAdd2, default);
@@ -200,7 +196,7 @@ namespace ConsoleApp
 
             for (int i = 0; i < 200; i++)
             {
-               
+
 
                 ConcurrentQueue<string> blockQ = new ConcurrentQueue<string>(staticQ);
 
