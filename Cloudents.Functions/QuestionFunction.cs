@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Functions.Sync;
 
 namespace Cloudents.Functions
 {
@@ -34,9 +35,9 @@ namespace Cloudents.Functions
             TraceWriter log,
             CancellationToken token)
         {
-            const string instanceId = "QuestionSearchSync";
+           // const string instanceId = "QuestionSearchSync";
 
-            await SyncFunc.StartSearchSync(starter, log, instanceId);
+            await SyncFunc.StartSearchSync(starter, log, SyncType.Question);
         }
 
        

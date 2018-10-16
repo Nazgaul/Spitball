@@ -7,7 +7,6 @@ using Cloudents.Infrastructure.Converters;
 using Cloudents.Infrastructure.Search;
 using Cloudents.Infrastructure.Search.Places;
 using Cloudents.Infrastructure.Suggest;
-using Course = Cloudents.Core.Entities.Search.Course;
 using SearchResult = Cloudents.Core.DTOs.SearchResult;
 
 namespace Cloudents.Infrastructure.Mapper
@@ -19,9 +18,6 @@ namespace Cloudents.Infrastructure.Mapper
             CreateMap<GoogleGeoCodeDto, (Address address, GeoPoint point)>().ConvertUsing<GoogleGeoConverter>();
             CreateMap<BingWebPage, SearchResult>().ConvertUsing<BingConverter>();
             CreateMap<BingSuggest.SuggestionsObject, IEnumerable<string>>().ConvertUsing<BingSuggestConverter>();
-
-            CreateMap<Course, CourseDto>();
-            //CreateMap<University, UniversityDto>();
 
             CreateMap<GoogleToken, ExternalAuthDto>().ConvertUsing(o => new ExternalAuthDto
             {

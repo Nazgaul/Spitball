@@ -1,29 +1,31 @@
-﻿using System.Security.Cryptography;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.EventHandler;
+﻿using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
-using Microsoft.AspNetCore.DataProtection;
+using Cloudents.Web.EventHandler;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     public class WalletController : Controller
     {
-        private readonly ITimeLimitedDataProtector _dataProtector;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+
+        private readonly IDataProtect _dataProtect;
         private readonly ILogger _logger;
 
 
-        public WalletController(IDataProtectionProvider dataProtectionProvider, SignInManager<User> signInManager, UserManager<User> userManager, ILogger logger)
+        public WalletController(SignInManager<User> signInManager, UserManager<User> userManager, ILogger logger, IDataProtect dataProtect)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
-            _dataProtector = dataProtectionProvider.CreateProtector(EmailMarkAnswerAsCorrect.ProtectPurpose).ToTimeLimitedDataProtector();
+            _dataProtect = dataProtect;
+            //_dataProtector = dataProtectionProvider.CreateProtector(EmailMarkAnswerAsCorrect.ProtectPurpose).ToTimeLimitedDataProtector();
         }
 
         // GET
@@ -35,19 +37,19 @@ namespace Cloudents.Web.Controllers
             }
 
 
-            await SignInUserAsync(code, _dataProtector, _userManager, _logger, _signInManager);
-             
-            
+            await SignInUserAsync(code, EmailMarkAnswerAsCorrect.ProtectPurpose, _dataProtect, _userManager, _logger, _signInManager);
+
+
             return View();
         }
 
-        public static async Task SignInUserAsync(string code, ITimeLimitedDataProtector dataProtector, UserManager<User> userManager,
-            ILogger logger, SignInManager<User> signInManager )
+        public static async Task SignInUserAsync(string code, string purpose, IDataProtect dataProtector, UserManager<User> userManager,
+            ILogger logger, SignInManager<User> signInManager)
         {
             try
             {
 
-                var userId = dataProtector.Unprotect(code);
+                var userId = dataProtector.Unprotect(purpose, code);
                 var user = await userManager.FindByIdAsync(userId);
                 if (user != null)
                 {

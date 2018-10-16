@@ -29,10 +29,25 @@ namespace Cloudents.Infrastructure.Search
             _client = client.GetClient(UniversitySearchWrite.IndexName);
         }
 
+
+        private static readonly string[] StopWordsList = { "university","university of",
+            //"of",
+            "college",
+            "school",
+            // "the",
+            // "a",
+            "Community",
+            "High",
+            "Uni",
+            "State",
+            "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
+        };
+
+
         public async Task<UniversitySearchDto> SearchAsync(string term, string country,
             CancellationToken token)
         {
-            if (term.Contains(UniversitySearchWrite.StopWordsList, StringComparison.InvariantCultureIgnoreCase))
+            if (term.Contains(StopWordsList, StringComparison.InvariantCultureIgnoreCase))
             {
                 return UniversitySearchDto.StopWordResponse();
             }
@@ -51,6 +66,7 @@ namespace Cloudents.Infrastructure.Search
                 }
             };
 
+            term = term.Replace("\"", "\\");
             var result = await
                 _client.Documents.SearchAsync<University>(term/*+"~"*/, searchParameter,
                     cancellationToken: token).ConfigureAwait(false);

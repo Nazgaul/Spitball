@@ -1,9 +1,9 @@
 ﻿using Autofac;
 using Cloudents.Core;
-using Cloudents.Core.Command;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
+using Nethereum.Hex.HexTypes;
+using Nethereum.Web3.Accounts;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,8 +12,6 @@ using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
-using Nethereum.Hex.HexTypes;
-using Nethereum.Web3.Accounts;
 using System.Threading;
 
 namespace ConsoleApp
@@ -41,7 +39,7 @@ namespace ConsoleApp
             };
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
-            builder.RegisterType<PPP>().As<IDataProtect>();
+            //builder.RegisterType<PPP>().As<IDataProtect>();
             builder.RegisterSystemModules(
                 Cloudents.Core.Enum.System.Console,
                 Assembly.Load("Cloudents.Infrastructure.Framework"),
@@ -112,9 +110,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var bus = _container.Resolve<ICommandBus>();
-            var command = new CreateAnswerCommand(3751, "nothing happens", 638, null);
-            await bus.DispatchAsync(command, default);
+            var bus = _container.Resolve<IUniversitySearch>();
+            var z = await bus.SearchAsync("מל\"א", "IL", default);
         }
 
         private static async Task HadarMethod()
@@ -143,8 +140,6 @@ namespace ConsoleApp
             string spitballServerPK18 = "5be05be0da379bd16f62932a89eba920d7aec0ca5f178919fe08a4f830c079c0";
             string spitballServerPK19 = "707fa6cf9416cf40bfc41bab94cd14b8002046f5c894373867097f4218f0710d";
             string spitballServerPK20 = "58f3e1dcfa9c919c0d1f5aa41f31e96f72324b8adb819ffb500e0bc71cb3d17c";
-
-            string SbAdd1 = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
             string SbAdd2 = "0xc7fe8b32b435aa2a4a624f8dd84cb39dfafef83d";
             string SbAdd3 = "0xabe6778e3091496628ff39ab206dd84a7fd09141";
             string SbAdd4 = "0xb47b4a77dbfaad4d0b0bdfe6bb7070d27538ff52";
@@ -179,7 +174,7 @@ namespace ConsoleApp
             //Task<Task> TxHash;
 
             var account = new Account(spitballServerPK1);
-             var web3 = new Nethereum.Web3.Web3(account);
+            var web3 = new Nethereum.Web3.Web3(account);
 
             /* await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd2, new HexBigInteger(10000000000000000000));
              await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd3, new HexBigInteger(10000000000000000000));
@@ -253,7 +248,7 @@ namespace ConsoleApp
 
             for (int i = 0; i < 200; i++)
             {
-               
+
 
                 ConcurrentQueue<string> blockQ = new ConcurrentQueue<string>(staticQ);
                 
@@ -396,16 +391,16 @@ namespace ConsoleApp
         }
     }
 
-    public class PPP : IDataProtect
-    {
-        public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
-        {
-            throw new NotImplementedException();
-        }
+    //public class PPP : IDataProtect
+    //{
+    //    public string Protect(string purpose, string plaintext, DateTimeOffset expiration)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public string Unprotect(string purpose, string protectedData)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public string Unprotect(string purpose, string protectedData)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }
