@@ -132,4 +132,13 @@
   <data name="SearchRequestSortRelevance" xml:space="preserve">
     <value>רלוונטיות</value>
   </data>
+  <data name="TutorFilterInPerson" xml:space="preserve">
+    <value>InPerson!</value>
+  </data>
+  <data name="TutorFilterOnline" xml:space="preserve">
+    <value>מקוון</value>
+  </data>
+  <data name="TutorSortPrice" xml:space="preserve">
+    <value>מחיר</value>
+  </data>
 </root>
