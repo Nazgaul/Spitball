@@ -2,9 +2,9 @@
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Localization;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Cloudents.Web.Api
@@ -16,7 +16,7 @@ namespace Cloudents.Web.Api
         private readonly SignInManager<User> _signInManager;
         private readonly IStringLocalizer<LogInController> _localizer;
 
-        public LogInController(UserManager<User> userManager, SignInManager<User> signInManager, 
+        public LogInController(UserManager<User> userManager, SignInManager<User> signInManager,
             IStringLocalizer<LogInController> localizer)
         {
             _userManager = userManager;
@@ -42,7 +42,7 @@ namespace Cloudents.Web.Api
                 return Ok();
             }
 
-            
+
             if (result.IsLockedOut)
             {
                 ModelState.AddModelError(nameof(model.Password), _localizer["LockOut"]);
@@ -55,30 +55,29 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
 
             }
-            ModelState.AddModelError(nameof(model.Password),_localizer["BadLogin"]);
+            ModelState.AddModelError(nameof(model.Password), _localizer["BadLogin"]);
             return BadRequest(ModelState);
 
-           
+
         }
 
 
         [HttpPost("ValidateEmail")]
-        public async Task<ActionResult<NextStep>> CheckUserStatus([FromBody] EmailValidateRequest model)
+        public async Task<ActionResult<CheckUserStatusResponse>> CheckUserStatus([FromBody] EmailValidateRequest model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                ModelState.AddModelError(nameof(model.Email), _localizer["BadLogin"]);
+                ModelState.AddModelError(nameof(model.Email), _localizer["EmailNotFound"]);
                 return BadRequest(ModelState);
-
             }
 
             if (user.PasswordHash == null)
             {
-                return NextStep.EmailPassword;
+                return new CheckUserStatusResponse(NextStep.EmailPassword);
             }
 
-            return NextStep.Loginstep;
+            return new CheckUserStatusResponse(NextStep.Loginstep);
         }
     }
 }
