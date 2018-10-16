@@ -9,7 +9,6 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Localization;
 
 namespace Cloudents.Web.Api
 {
@@ -39,9 +38,6 @@ namespace Cloudents.Web.Api
             {
                 regex = new Regex($@"Cloudents.Web.Resources.Js.{location}.([A-Za-z0-9\-]+).resources", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
             }
-
-            var t = regex.Match(resources.First());
-
             foreach (var rawResourceLocation in resources.Where(w => regex.Match(w).Success)) // w.Contains("Cloudents.Web.Resources.Js")))
             {
                 var resourceStr = rawResourceLocation.Substring(0, rawResourceLocation.LastIndexOf('.'));

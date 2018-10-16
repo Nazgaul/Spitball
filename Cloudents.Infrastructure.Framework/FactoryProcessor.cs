@@ -10,14 +10,12 @@ namespace Cloudents.Infrastructure.Framework
 {
     public class FileFactoryProcessor : IFactoryProcessor
     {
-        private readonly IBlobProvider<OldSbFilesContainerName> _blobProvider;
 
         private readonly IEnumerable<Meta<Func<string, IPreviewProvider>>> _providers;
 
-        public FileFactoryProcessor(IBlobProvider<OldSbFilesContainerName> blobProvider,
+        public FileFactoryProcessor(
             IEnumerable<Meta<Func<string, IPreviewProvider>>> providers)
         {
-            _blobProvider = blobProvider;
             _providers = providers;
         }
 
