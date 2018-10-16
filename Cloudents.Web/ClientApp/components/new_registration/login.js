@@ -114,7 +114,7 @@ export default {
                 "emailconfirmedpass": 8,
                 "createpassword": 9,
                 "emailpassword": 10,
-                "checkuserstatus" : 11
+                "validateemail" : 11
             }
         }
     },

@@ -55,7 +55,7 @@
                 <v-btn v-show="isSignIn" class="sign-with-email"
                        value="Login"
                        :loading="loading"
-                       @click="showDialogPass()">
+                       @click="goToValidateEmail()">
                     <span v-language:inner>login_signin_your_email</span>
                 </v-btn>
                 <v-btn v-show="!isSignIn" class="sign-with-email"
@@ -207,8 +207,9 @@
                 this.passDialog = false;
                 this.$parent.$emit('changeStep', 'loginstep');
             },
-            showDialogPass() {
-                this.passDialog = true;
+            goToValidateEmail() {
+                this.$parent.$emit('changeStep', 'validateemail');
+                //this.passDialog = true;
             },
             goToCreatePassword() {
                 this.passDialog = false;

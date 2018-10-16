@@ -8,10 +8,7 @@
                 </div>
             </div>
             <div slot="step-data" class="limited-width">
-                <!--<h1 v-if="!isMobile" class="step-title" v-language:inner>login_welcome_back</h1>-->
                 <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
-                <!--<h1 v-if="!isMobile" class="step-title" v-language:inner>login_please_login</h1>-->
-                <!--<p v-if="!isMobile" class="inline" v-language:inner>login_please_login</p>-->
                 <form @submit.prevent="submit">
                     <sb-input :errorMessage="errorMessage.email" :required="true" class="email-field" type="email"
                               name="email" id="input-url" v-model="userEmail" :bottomError="true"

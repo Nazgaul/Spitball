@@ -61,6 +61,11 @@ const profileData = {
                 resettxt: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_resettxt")
 
             },
+            11: {
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSeven_heading"),
+                subheading: '',
+                text: '',
+            },
         },
         modal: {
             heading : LanguageService.getValueByKey("profileData_generalProfile_modal_heading"),
@@ -127,6 +132,11 @@ const profileData = {
                 resettxt: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepTen_resettxt")
 
             },
+            11: {
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSeven_heading"),
+                subheading: '',
+                text: '',
+            },
         },
         modal: {
             heading :  LanguageService.getValueByKey("profileData_makeMoneyProfile_modal_heading"),
@@ -192,6 +202,11 @@ const profileData = {
                 resetbtn: LanguageService.getValueByKey("profileData_HHP_register_stepTen_resetbtn"),
                 resettxt: LanguageService.getValueByKey("profileData_HHP_register_stepTen_resettxt")
 
+            },
+            11: {
+                heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSeven_heading"),
+                subheading: '',
+                text: '',
             },
         },
         modal: {
