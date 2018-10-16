@@ -60,5 +60,25 @@ namespace Cloudents.Web.Api
 
            
         }
+
+
+        [HttpPost("ValidateEmail")]
+        public async Task<ActionResult<NextStep>> CheckUserStatus([FromBody] EmailValidateRequest model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError(nameof(model.Email), _localizer["BadLogin"]);
+                return BadRequest(ModelState);
+
+            }
+
+            if (user.PasswordHash == null)
+            {
+                return NextStep.EmailPassword;
+            }
+
+            return NextStep.Loginstep;
+        }
     }
 }
