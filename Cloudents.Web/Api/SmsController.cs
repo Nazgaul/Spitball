@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Controllers;
@@ -16,7 +15,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Command.Admin;
 
 namespace Cloudents.Web.Api
 {

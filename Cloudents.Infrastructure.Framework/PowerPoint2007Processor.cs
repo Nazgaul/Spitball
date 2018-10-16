@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using Aspose.Slides;
-using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;

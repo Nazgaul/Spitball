@@ -1,5 +1,4 @@
 ﻿using Cloudents.Infrastructure.Search;
-using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Document = Cloudents.Core.Entities.Search.Document;
 

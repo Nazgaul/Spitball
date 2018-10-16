@@ -10,14 +10,12 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IUniversityRepository _universityRepository;
         private readonly IRepository<User> _userRepository;
-        private readonly ICommandHandler<AssignUniversityToUserCommand> _assignUserCommandHandler;
 
 
-        public CreateUniversityCommandHandler(IUniversityRepository universityRepository, IRepository<User> userRepository, ICommandHandler<AssignUniversityToUserCommand> assignUserCommandHandler)
+        public CreateUniversityCommandHandler(IUniversityRepository universityRepository, IRepository<User> userRepository)
         {
             _universityRepository = universityRepository;
             _userRepository = userRepository;
-            _assignUserCommandHandler = assignUserCommandHandler;
         }
 
         public async Task ExecuteAsync(CreateUniversityCommand message, CancellationToken token)

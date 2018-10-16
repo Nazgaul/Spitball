@@ -1,11 +1,9 @@
 ﻿using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Web.Extensions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Cloudents.Web.Identity;
 
@@ -49,20 +47,6 @@ namespace Cloudents.Web.Binders
                     bindingContext.Result = ModelBindingResult.Failed();
                     return;
                 }
-                var claimsIdentity = (ClaimsIdentity)bindingContext.HttpContext.User.Identity;
-                var identity = new ClaimsIdentity(claimsIdentity);
-
-               
-                //context.Authentication.AuthenticationResponseGrant = new AuthenticationResponseGrant
-                //    (new ClaimsPrincipal(identity), new AuthenticationProperties { IsPersistent = true });
-                //bindingContext.HttpContext.User.
-                //bindingContext.HttpContext.Response.Cookies.Append("country", cookieValue, new CookieOptions()
-                //{
-                //    Expires = DateTimeOffset.UtcNow.AddYears(1),
-                //    HttpOnly = true,
-                //    Secure = true
-                //});
-
             }
             bindingContext.Result = ModelBindingResult.Success(cookieValue);
         }
