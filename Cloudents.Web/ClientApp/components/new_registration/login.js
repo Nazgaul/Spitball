@@ -15,6 +15,8 @@ import step_7 from "./steps/step_7.vue";
 import step_8 from "./steps/step_8.vue";
 import step_9 from "./steps/step_9.vue";
 import step_10 from "./steps/step_10.vue";
+import step_11 from "./steps/step_11.vue";
+
 import { LanguageService } from "../../services/language/languageService";
 
 const defaultSubmitRoute = {path: '/ask'};
@@ -34,7 +36,8 @@ export default {
         step_7,
         step_8,
         step_9,
-        step_10
+        step_10,
+        step_11
     },
     props: {
         default: false,
@@ -110,7 +113,8 @@ export default {
                 "loginstep": 7,
                 "emailconfirmedpass": 8,
                 "createpassword": 9,
-                "emailpassword": 10
+                "emailpassword": 10,
+                "validateemail" : 11
             }
         }
     },

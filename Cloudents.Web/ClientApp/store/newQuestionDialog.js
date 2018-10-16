@@ -13,9 +13,10 @@ const getters = {
 
 };
 const actions = {
-    updateNewQuestionDialogState({commit}, data, from = 0) {
-        //ab testing start
-        if(!!data){
+    updateNewQuestionDialogState({commit}, data) {
+        let status = data.status ? data.status : data;
+        let fromButton = data.from ? data.from : 0;
+        if(!!status){
             let FromTypes = {
                 0: "ORIGINAL",
                 1: "HEADER_BUTTON",
@@ -25,10 +26,10 @@ const actions = {
                 5: "PROFILE_ORIGINAL"
             }
             //fire event only when dialog opens
-            analyticsService.sb_unitedEvent('AB_TESTING', 'ASK_QUESTION_CLICKED', FromTypes[from])
+            analyticsService.sb_unitedEvent('AB_TESTING', 'ASK_QUESTION_CLICKED', FromTypes[fromButton])
         }
         //ab testing end
-        commit('setNewQuestionState', data);
+        commit('setNewQuestionState', status);
     },
 };
 export default {

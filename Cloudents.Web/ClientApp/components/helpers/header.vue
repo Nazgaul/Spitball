@@ -166,7 +166,11 @@
             ...mapActions(['updateToasterParams', 'resetData', 'updateNewQuestionDialogState']),
 
             openNewQuestionDialog(){
-                this.updateNewQuestionDialogState(true, 1)
+                let Obj = {
+                    status:true,
+                    from: 1
+                }
+                this.updateNewQuestionDialogState(Obj)
             },
             //TODO: what is that
             $_currentClick({id, name}) {

@@ -39,7 +39,11 @@ export default {
                 //set user profile
                 this.updateUserProfileData('profileHWH')
             } else {
-                this.updateNewQuestionDialogState(true, from);
+                let Obj = {
+                    status:true,
+                    from: from
+                }
+                this.updateNewQuestionDialogState(Obj);
             }
         },
         hideOnMobileScroll(e) {
