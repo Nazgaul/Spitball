@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Storage
         private const string CdnHostEndpoint = "az32006.vo.msecnd.net";
 
 
-        public BlobProviderContainer( ICloudStorageProvider storageProvider)
+        public BlobProviderContainer(ICloudStorageProvider storageProvider)
         {
             _blobDirectory = storageProvider.GetBlobClient(_container);
         }
@@ -114,6 +114,33 @@ namespace Cloudents.Infrastructure.Storage
             var result = await destinationDirectory.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 1000, null, null, null, token).ConfigureAwait(false);
             return result.Results.Select(s => s.Uri);
 
+        }
+
+        public async Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token)
+        {
+            var blob = GetBlob(blobUrl);
+            var ms = new MemoryStream();
+            await blob.DownloadToStreamAsync(ms).ConfigureAwait(false);
+            ms.Seek(0, SeekOrigin.Begin);
+            return ms;
+        }
+
+        public async Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobUri, CancellationToken token)
+        {
+            var blob = GetBlob(blobUri);// GetFile(blobName);
+            await blob.FetchAttributesAsync().ConfigureAwait(false);
+            return blob.Metadata;
+        }
+
+        public Task SaveMetaDataToBlobAsync(string blobUri, IDictionary<string, string> metadata, CancellationToken token)
+        {
+            if (metadata == null) throw new ArgumentNullException(nameof(metadata));
+            var blob = GetBlob(blobUri);
+            foreach (var item in metadata)
+            {
+                blob.Metadata[item.Key] = item.Value;
+            }
+            return blob.SetMetadataAsync();
         }
     }
 }

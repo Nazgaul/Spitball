@@ -8,7 +8,7 @@ namespace Cloudents.Infrastructure.Database.Maps
         {
             Id(x => x.Id).Column("ItemId").GeneratedBy.Native();
             Map(x => x.Name).Length(4000);
-            //Component(x => x.RowDetail);
+            Component(x => x.RowDetail);
             Map(x => x.BlobName);
             Map(x => x.Content).Length(500);
             Map(x => x.Discriminator).Not.Nullable();

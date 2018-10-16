@@ -9,16 +9,16 @@ namespace Cloudents.Infrastructure.Framework
 {
     public abstract class Processor
     {
-        protected readonly IBlobProvider BlobProvider;
-        protected readonly IBlobProvider<CacheContainer> BlobProviderCache;
-        protected readonly Uri BlobUri;
+        protected readonly IBlobProvider<OldSbFilesContainerName> BlobProvider;
+        protected readonly IBlobProvider<OldCacheContainer> BlobProviderCache;
+        protected readonly string BlobUri;
 
         public const string CacheVersionPrefix = "V";
         protected const string PagesInDocsMetaKey = "pageCount";
         protected const int NumberOfFilesInGroup = 15;
         protected const string DatePattern = "M-d-yy";
 
-        protected Processor(IBlobProvider blobProvider, IBlobProvider<CacheContainer> blobProviderCache, Uri blobUri)
+        protected Processor(IBlobProvider<OldSbFilesContainerName> blobProvider, IBlobProvider<OldCacheContainer> blobProviderCache, string blobUri)
         {
             BlobProvider = blobProvider;
             BlobProviderCache = blobProviderCache;
