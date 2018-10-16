@@ -76,9 +76,9 @@ namespace Cloudents.Infrastructure.BlockChain
             return contract.GetFunction(name);
         }
 
-        protected async Task<Function> GetFunctionAsync(string name, string PrivateKey, CancellationToken token)
+        protected async Task<Function> GetFunctionAsync(string name, string privateKey, CancellationToken token)
         {
-            var contract = await GetContractAsync(GenerateWeb3Instance(PrivateKey), token).ConfigureAwait(false);
+            var contract = await GetContractAsync(GenerateWeb3Instance(privateKey), token).ConfigureAwait(false);
             return contract.GetFunction(name);
         }
     }

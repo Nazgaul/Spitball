@@ -1,7 +1,7 @@
 ﻿namespace Cloudents.Core.Storage
 {
-    public class FilesContainerName : IStorageContainer
+    public class OldSbFilesContainerName : IStorageContainer
     {
-        public StorageContainer Container => StorageContainer.Documents;
+        public StorageContainer Container => StorageContainer.OldDocuments;
     }
 }
