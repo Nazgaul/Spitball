@@ -96,9 +96,12 @@
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading" v-language:inner>menuList_changeUniversity</v-list-tile-title>
                 </v-list-tile-content>
+                <v-list-tile-action>
+                    <v-icon>sbf-edit-icon</v-icon>
+                </v-list-tile-action>
             </v-list-tile>
             <v-list-tile v-if="!!user.universityId" @click="openPersonalizeCourse()">
-                <v-list-tile-action>
+                <v-list-tile-action>Change
                     <v-icon>sbf-classes</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
