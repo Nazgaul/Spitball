@@ -34,13 +34,14 @@ namespace Cloudents.Web.Api
             var tContent = firstTime.GetValueOrDefault() ?
                 _documentSearch.Value.ItemContentAsync(id, token) : Task.FromResult<string>(null);
             await Task.WhenAll(tModel, tContent).ConfigureAwait(false);
-            var preview = _factoryProcessor.PreviewFactory(tModel.Result.Blob);
-            var result = await preview.ConvertFileToWebsitePreviewAsync(0, token).ConfigureAwait(false);
             var model = tModel.Result;
             if (model == null)
             {
                 return NotFound();
             }
+            var preview = _factoryProcessor.PreviewFactory(model.Blob);
+            var result = await preview.ConvertFileToWebsitePreviewAsync(0, token).ConfigureAwait(false);
+            
             return Ok(
                 new
                 {

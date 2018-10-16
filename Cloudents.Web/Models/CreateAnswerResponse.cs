@@ -35,6 +35,9 @@ namespace Cloudents.Web.Models
     {
         EmailConfirmed,
         VerifyPhone,
-        EnterPhone
+        EnterPhone,
+        EmailPassword,
+        // ReSharper disable once IdentifierTypo - this is because client sucks
+        Loginstep
     }
 }

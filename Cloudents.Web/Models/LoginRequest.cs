@@ -10,4 +10,10 @@ namespace Cloudents.Web.Models
         [Required(ErrorMessage = "Required")]
         public string Password { get; set; }
     }
+
+    public class EmailValidateRequest
+    {
+        [EmailAddress(ErrorMessage = "EmailAddress"), Required(ErrorMessage = "Required")]
+        public string Email { get; set; }
+    }
 }

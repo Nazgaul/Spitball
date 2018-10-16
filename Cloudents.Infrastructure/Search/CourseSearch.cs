@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using IMapper = AutoMapper.IMapper;
 
 namespace Cloudents.Infrastructure.Search
 {
@@ -18,7 +17,7 @@ namespace Cloudents.Infrastructure.Search
     {
         private readonly ISearchIndexClient _client;
 
-        public CourseSearch(ISearchService client, IMapper mapper)
+        public CourseSearch(ISearchService client)
         {
             _client = client.GetClient(CourseSearchWrite.IndexName);
         }
@@ -41,9 +40,7 @@ namespace Cloudents.Infrastructure.Search
             {
                 Id = long.Parse(s.Document.Id),
                 Name = s.Document.Name
-            });
-
-            //return _mapper.Map<IEnumerable<Course>, IList<CourseDto>>(tResult.Result.Results.Select(s => s.Document));
+            }).Distinct(new CourseDtoEquality());
         }
     }
 }
