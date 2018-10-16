@@ -50,8 +50,6 @@ namespace Cloudents.Web.Controllers
                     }
 
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
             return View();
         }
