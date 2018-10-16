@@ -4,7 +4,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Admin;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Linq;
 using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
@@ -104,7 +103,7 @@ namespace Cloudents.Infrastructure.Database.Query.Admin
             return t.Select(s =>
             {
                 s.Url = _urlBuilder.BuildQuestionEndPoint(s.Id);
-               // s.Answers = answers[s.Id];
+                s.Answers = answers[s.Id];
                 return s;
             });
         }
