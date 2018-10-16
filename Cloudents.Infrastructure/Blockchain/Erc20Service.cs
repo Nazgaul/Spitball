@@ -94,6 +94,7 @@ namespace Cloudents.Infrastructure.Blockchain
             var web3 = new Web3(delegateAccountt);
 
             var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(GetAddress(delegatePK));
+            
             var nonce = txCount.Value;
             Console.WriteLine($"Address: {GetAddress(delegatePK)}, Nonce: {nonce}");
             var amountTransformed = new BigInteger(amount * FromWei);

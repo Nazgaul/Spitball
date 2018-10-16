@@ -14,6 +14,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3.Accounts;
+using System.Threading;
 
 namespace ConsoleApp
 {
@@ -35,7 +36,7 @@ namespace ConsoleApp
                 Redis = ConfigurationManager.AppSettings["Redis"],
                 Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                 LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                BlockChainNetwork = "http://13.69.54.132:8545",
+                BlockChainNetwork = "http://localhost:8545",
                 ServiceBus = ConfigurationManager.AppSettings["ServiceBus"]
             };
 
@@ -132,6 +133,16 @@ namespace ConsoleApp
             string spitballServerPK8 = "31281982d9965bae7597c59404b199a8f4d25b2e8070ef9a79dea8b4c01deb50";
             string spitballServerPK9 = "9438658b938ab1767c3d1577a4999558cd0b34d640b978f4577659383f6c115e";
             string spitballServerPK10 = "26633b6a2bc76ba070c9813edbf721d206da795482d0f26f4c63f7a4212ee456";
+            string spitballServerPK11 = "c4e6dfbb4ae587042b8f2311148b5b112173093a535ebc83f61cfd242d07c5bb";
+            string spitballServerPK12 = "3ee29eeae187be9ad7120896797e62035169905e27a65af6c3dfc95c3b6ac578";
+            string spitballServerPK13 = "a4312bacc19689368154aef36985218b676264bf0d9a9ba24479c28f7a6cde41";
+            string spitballServerPK14 = "7d2712441d99f21299162afde3c2515674725d4807baa23873b85926a315c6ed";
+            string spitballServerPK15 = "533f69ee5e39af47e3852d4851abfd43b0d162391c6b00124c4f4e0395a49a96";
+            string spitballServerPK16 = "84f5b526b4b82f9a8883d8b0a048925b936a9ce1487835a4d0cc58f325c17403";
+            string spitballServerPK17 = "a034ef0252030f6cf6af8941c03c0414a6766c2cb247e4c2580404ee9f34d620";
+            string spitballServerPK18 = "5be05be0da379bd16f62932a89eba920d7aec0ca5f178919fe08a4f830c079c0";
+            string spitballServerPK19 = "707fa6cf9416cf40bfc41bab94cd14b8002046f5c894373867097f4218f0710d";
+            string spitballServerPK20 = "58f3e1dcfa9c919c0d1f5aa41f31e96f72324b8adb819ffb500e0bc71cb3d17c";
 
             string SbAdd1 = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
             string SbAdd2 = "0xc7fe8b32b435aa2a4a624f8dd84cb39dfafef83d";
@@ -143,7 +154,16 @@ namespace ConsoleApp
             string SbAdd8 = "0xbf74d27e2667ca48d3a82fb525f10001a2fe2b7d";
             string SbAdd9 = "0x68e29eab0092aa2272701f6971ab311ac4618822";
             string SbAdd10 = "0xa130fec27ccc8296a7dcf193a52c31e6e62b886c";
-
+            string SbAdd11 = "0xc111cd3653566d5766f20e45453eeb7a935d4dbe";
+            string SbAdd12 = "0x87b44bc3e4e4a08ee61e637c12fbe762548fa861";
+            string SbAdd13 = "0xd33a0681e1a1a8d9ecb77623cc9f6d92716fa119";
+            string SbAdd14 = "0xc1d65387b8bb6562864eb300b376cd41e7eba5c3";
+            string SbAdd15 = "0x53a25bd100cee10bd27c9427830e49535f66a2f3";
+            string SbAdd16 = "0xe4f05adca00694b52a98edefbab72097659e6009";
+            string SbAdd17 = "0x38f4f82dbfd4fd35dc3f98e3e3e662a22d927c7d";
+            string SbAdd18 = "0x7eda528e3110134f06ac1b1e4ac08b95119793dd";
+            string SbAdd19 = "0xf6bed5cdb4cafebcb75f024c3b44aa126290b1ce";
+            string SbAdd20 = "0x7dec1bb43ccdd782c195ab63b12482bda9663d8d";
 
             /*
             string metaMaskPK = "10f158cd550649e9f99e48a9c7e2547b65f101a2f928c3e0172e425067e51bb4";
@@ -158,36 +178,56 @@ namespace ConsoleApp
 
             //Task<Task> TxHash;
 
-             var account = new Account(spitballServerPK1);
+            var account = new Account(spitballServerPK1);
              var web3 = new Nethereum.Web3.Web3(account);
+
+            /* await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd2, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd3, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd4, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd5, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd6, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd7, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd8, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd9, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd10, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd11, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd12, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd13, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd14, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd15, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd16, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd17, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd18, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd19, new HexBigInteger(10000000000000000000));
+             await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd20, new HexBigInteger(10000000000000000000));
+             */
+
+            /*var wl1 = await t.WhitelistUserForTransfers(SbAdd1, default);
+            var wl2 = await t.WhitelistUserForTransfers(SbAdd2, default);
+            var wl3 = await t.WhitelistUserForTransfers(SbAdd3, default);
+            var wl4 = await t.WhitelistUserForTransfers(SbAdd4, default);
+            var wl5 = await t.WhitelistUserForTransfers(SbAdd5, default);
+            var wl6 = await t.WhitelistUserForTransfers(SbAdd6, default);
+            var wl7 = await t.WhitelistUserForTransfers(SbAdd7, default);
+            var wl8 = await t.WhitelistUserForTransfers(SbAdd8, default);
+            var wl9 = await t.WhitelistUserForTransfers(SbAdd9, default);
+            var wl10 = await t.WhitelistUserForTransfers(SbAdd10, default);
+            var wl11 = await t.WhitelistUserForTransfers(SbAdd11, default);
+            var wl12 = await t.WhitelistUserForTransfers(SbAdd12, default);
+            var wl13 = await t.WhitelistUserForTransfers(SbAdd13, default);
+            var wl14 = await t.WhitelistUserForTransfers(SbAdd14, default);
+            var wl15 = await t.WhitelistUserForTransfers(SbAdd15, default);
+            var wl16 = await t.WhitelistUserForTransfers(SbAdd16, default);
+            var wl17 = await t.WhitelistUserForTransfers(SbAdd17, default);
+            var wl18 = await t.WhitelistUserForTransfers(SbAdd18, default);
+            var wl19 = await t.WhitelistUserForTransfers(SbAdd19, default);
+            var wl20 = await t.WhitelistUserForTransfers(SbAdd20, default);
+            */
             
-            await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd2, new HexBigInteger(10000000000000000000));
-            await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd3, new HexBigInteger(10000000000000000000));
-            await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd4, new HexBigInteger(10000000000000000000));
-            await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd5, new HexBigInteger(10000000000000000000));
-            await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd6, new HexBigInteger(10000000000000000000));
-            await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd7, new HexBigInteger(10000000000000000000));
-            await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd8, new HexBigInteger(10000000000000000000));
-            await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd9, new HexBigInteger(10000000000000000000));
-            await web3.TransactionManager.SendTransactionAsync(spitballServerAddress, SbAdd10, new HexBigInteger(10000000000000000000));
-            
-            /*
-                       var wl1 = await t.WhitelistUserForTransfers(SbAdd1, default);
-                       var wl2 = await t.WhitelistUserForTransfers(SbAdd2, default);
-                       var wl3 = await t.WhitelistUserForTransfers(SbAdd3, default);
-                       var wl4 = await t.WhitelistUserForTransfers(SbAdd4, default);
-                       var wl5 = await t.WhitelistUserForTransfers(SbAdd5, default);
-                       var wl6 = await t.WhitelistUserForTransfers(SbAdd6, default);
-                       var wl7 = await t.WhitelistUserForTransfers(SbAdd7, default);
-                       var wl8 = await t.WhitelistUserForTransfers(SbAdd8, default);
-                       var wl9 = await t.WhitelistUserForTransfers(SbAdd9, default);
-                       var wl10 = await t.WhitelistUserForTransfers(SbAdd10, default);
-           */
             var d = await t.GetBalanceAsync(spitballServerAddress, default);
             Console.WriteLine($"spitballServerAddress Balance: {d}");
             ConcurrentQueue<string> staticQ = new ConcurrentQueue<string>();
-
-
+            
             staticQ.Enqueue(spitballServerPK1);
             staticQ.Enqueue(spitballServerPK2);
             staticQ.Enqueue(spitballServerPK3);
@@ -198,13 +238,25 @@ namespace ConsoleApp
             staticQ.Enqueue(spitballServerPK8);
             staticQ.Enqueue(spitballServerPK9);
             staticQ.Enqueue(spitballServerPK10);
+            staticQ.Enqueue(spitballServerPK11);
+            staticQ.Enqueue(spitballServerPK12);
+            staticQ.Enqueue(spitballServerPK13);
+            staticQ.Enqueue(spitballServerPK14);
+            staticQ.Enqueue(spitballServerPK15);
+            staticQ.Enqueue(spitballServerPK16);
+            staticQ.Enqueue(spitballServerPK17);
+            staticQ.Enqueue(spitballServerPK18);
+            staticQ.Enqueue(spitballServerPK19);
+            staticQ.Enqueue(spitballServerPK20);
+
+            
 
             for (int i = 0; i < 200; i++)
             {
                
 
                 ConcurrentQueue<string> blockQ = new ConcurrentQueue<string>(staticQ);
-
+                
                 string res;
                 blockQ.TryDequeue(out res);
                 var tx1 = t.TransferPreSignedAsync(res, spitballServerPK1, spitballServerAddress, 2, 1, default);
@@ -227,12 +279,36 @@ namespace ConsoleApp
                 blockQ.TryDequeue(out res);
                 var tx10 = t.TransferPreSignedAsync(res, spitballServerPK10, spitballServerAddress, 2, 1, default);
 
-                await Task.WhenAll(tx1, tx2, tx3, tx4, tx5, tx6, tx7, tx8, tx9, tx10).ConfigureAwait(false);
+                blockQ.TryDequeue(out res);
+                var tx11 = t.TransferPreSignedAsync(res, spitballServerPK11, spitballServerAddress, 2, 1, default);
+                blockQ.TryDequeue(out res);
+                var tx12 = t.TransferPreSignedAsync(res, spitballServerPK12, spitballServerAddress, 2, 1, default);
+                blockQ.TryDequeue(out res);
+                var tx13 = t.TransferPreSignedAsync(res, spitballServerPK13, spitballServerAddress, 2, 1, default);
+                blockQ.TryDequeue(out res);
+                var tx14 = t.TransferPreSignedAsync(res, spitballServerPK14, spitballServerAddress, 2, 1, default);
+                blockQ.TryDequeue(out res);
+                var tx15 = t.TransferPreSignedAsync(res, spitballServerPK15, spitballServerAddress, 2, 1, default);
+                blockQ.TryDequeue(out res);
+                var tx16 = t.TransferPreSignedAsync(res, spitballServerPK16, spitballServerAddress, 2, 1, default);
+                blockQ.TryDequeue(out res);
+                var tx17 = t.TransferPreSignedAsync(res, spitballServerPK17, spitballServerAddress, 2, 1, default);
+                blockQ.TryDequeue(out res);
+                var tx18 = t.TransferPreSignedAsync(res, spitballServerPK18, spitballServerAddress, 2, 1, default);
+                blockQ.TryDequeue(out res);
+                var tx19 = t.TransferPreSignedAsync(res, spitballServerPK19, spitballServerAddress, 2, 1, default);
+                blockQ.TryDequeue(out res);
+                var tx20 = t.TransferPreSignedAsync(res, spitballServerPK20, spitballServerAddress, 2, 1, default);
+
+
+                await Task.WhenAll(tx1, tx2, tx3, tx4, tx5, tx6, tx7, tx8, tx9, tx10
+                                    , tx11, tx12, tx13, tx14, tx15, tx16, tx17, tx18, tx19, tx20).ConfigureAwait(false);
 
                 d = await t.GetBalanceAsync(spitballServerAddress, default);
                 Console.WriteLine($"spitballServerAddress Balance: {d}");
                 Console.WriteLine(i);
                 Console.WriteLine($"---------------------------------");
+                Thread.Sleep(3000);
             }
         }
 
