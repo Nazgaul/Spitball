@@ -39,7 +39,6 @@ function connectionOn(connection, message, callback){
  }
 
 function startConnection(connection, messageString){
-    setTimeout(function(){
         connection.start().then(function(){
             //connection ready register the main Events
             connectionOn(connection, messageString, messageHandler);
@@ -54,8 +53,6 @@ function startConnection(connection, messageString){
                 }
             }
         }); 
-    }, 10000)
-       
 }
 
 function createConnection(connString){

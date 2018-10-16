@@ -19,4 +19,14 @@
         public string ReturnUrl { get; set; }
 
     }
+
+    public class CheckUserStatusResponse
+    {
+        public CheckUserStatusResponse(NextStep step)
+        {
+            Step = step;
+        }
+
+        public NextStep Step { get; set; }
+    }
 }
