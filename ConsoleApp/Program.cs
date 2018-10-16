@@ -13,6 +13,7 @@ using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Threading;
+using Cloudents.Core.Command;
 
 namespace ConsoleApp
 {
@@ -110,8 +111,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var bus = _container.Resolve<IUniversitySearch>();
-            var z = await bus.SearchAsync("מל\"א", "IL", default);
+            var bus = _container.Resolve<ICommandBus>();
+            var command = new ReferringUserCommand(638, 715);
+            await bus.DispatchAsync(command, default);
         }
 
         private static async Task HadarMethod()
