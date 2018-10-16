@@ -18,7 +18,7 @@ export const typesPersonalize = {
 export let searchObjects = {
     course: {
         id: typesPersonalize.course,
-        placeholder: 'What class are you taking?',
+        placeholder: LanguageService.getValueByKey('searchitem_class_selection'),
         closeText: "done",
         searchApi: "getCourses",
         defaultFilter: 'all',

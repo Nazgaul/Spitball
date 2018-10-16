@@ -150,4 +150,7 @@
   <data name="error_university_create" xml:space="preserve">
     <value>Failed To create University</value>
   </data>
+  <data name="class_selection" xml:space="preserve">
+    <value>What class are you taking?</value>
+  </data>
 </root>
