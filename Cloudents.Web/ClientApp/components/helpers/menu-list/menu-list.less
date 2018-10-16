@@ -77,9 +77,14 @@
     .v-list__tile{
         height: 48px;
         padding: 0 6px;
-
+        .edit-text{
+        display: none;
+        }
         &:hover{
             background: rgba(0,0,0,0.12)!important;
+            .edit-text{
+                display: flex;
+            }
         }
         .v-list__tile__title{
             font-weight: 600;
@@ -90,10 +95,23 @@
             min-width: 50px;
             justify-content: center;
             margin-right: 6px;
+            .edit-text{
+                 font-size: 11px;
+                 color: rgba(0, 0, 0, 0.24);
+                .edit-after-icon{
+                    font-size: 12px;
+                    height: 12px;
+                    width: 12px;
+                    color: rgba(0, 0, 0, 0.24);
+                    margin-left: 4px;
+                }
+            }
             &.tile-logout{
                 min-width: 39px;
                 width: 30px;
             }
+
+
         }
         .v-list__tile__avatar {
             display: flex;

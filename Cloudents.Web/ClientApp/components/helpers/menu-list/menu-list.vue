@@ -25,7 +25,8 @@
                 </template>
             </user-block>
             <!-- start language swith-->
-            <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)">
+            <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name"
+                         @click="changeLanguage(singleLang.id)">
                 <v-list-tile-action>
                     <v-icon>{{singleLang.icon}}</v-icon>
                 </v-list-tile-action>
@@ -89,7 +90,7 @@
                     <v-list-tile-title class="subheading" v-language:inner>menuList_my_profile</v-list-tile-title>
                 </v-list-tile-content>
             </router-link>
-            <v-list-tile  @click="openPersonalizeUniversity()">
+            <v-list-tile @click="openPersonalizeUniversity()">
                 <v-list-tile-action>
                     <v-icon>sbf-university</v-icon>
                 </v-list-tile-action>
@@ -97,19 +98,29 @@
                     <v-list-tile-title class="subheading" v-language:inner>menuList_changeUniversity</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                    <v-icon>sbf-edit-icon</v-icon>
+                    <span class="edit-text">Change
+                 <v-icon class="edit-after-icon">sbf-edit-icon</v-icon>
+                </span>
+
                 </v-list-tile-action>
             </v-list-tile>
             <v-list-tile v-if="!!user.universityId" @click="openPersonalizeCourse()">
-                <v-list-tile-action>Change
+                <v-list-tile-action>
                     <v-icon>sbf-classes</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title class="subheading" v-language:inner>menuList_changeCourse</v-list-tile-title>
                 </v-list-tile-content>
+                <v-list-tile-action>
+                    <span class="edit-text">Change
+                 <v-icon class="edit-after-icon">sbf-edit-icon</v-icon>
+                </span>
+
+                </v-list-tile-action>
             </v-list-tile>
             <!-- start language swith-->
-            <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)">
+            <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name"
+                         @click="changeLanguage(singleLang.id)">
                 <v-list-tile-action>
                     <v-icon>{{singleLang.icon}}</v-icon>
                 </v-list-tile-action>
@@ -261,17 +272,17 @@
             openReferralDialog() {
                 this.showReferral = true;
             },
-            openPersonalizeUniversity(){
+            openPersonalizeUniversity() {
                 if (!this.isLoggedIn) {
                     this.updateLoginDialogState(true);
-                }else {
-                    this.$root.$emit("personalize",  typesPersonalize.university);
+                } else {
+                    this.$root.$emit("personalize", typesPersonalize.university);
                 }
             },
-            openPersonalizeCourse(){
+            openPersonalizeCourse() {
                 if (!this.isLoggedIn) {
                     this.updateLoginDialogState(true);
-                }else {
+                } else {
                     this.$root.$emit("personalize", typesPersonalize.course,);
                 }
             }
@@ -280,7 +291,7 @@
         created() {
             // filter out cuurent language, to show in menu avaliable
             let currentLocHTML = document.documentElement.lang;
-            this.languageChoisesAval = languagesLocales.filter((lan) =>{
+            this.languageChoisesAval = languagesLocales.filter((lan) => {
                 return lan.locale !== currentLocHTML
             });
             this.$root.$on('closePopUp', (name) => {
