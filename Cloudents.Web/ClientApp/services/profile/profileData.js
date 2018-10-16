@@ -64,6 +64,8 @@ const profileData = {
             11: {
                 heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSeven_heading"),
                 subheading: '',
+                createtxt: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_createtxt"),
+                createbtn: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_createbtn"),
                 text: '',
             },
         },
@@ -135,6 +137,8 @@ const profileData = {
             11: {
                 heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSeven_heading"),
                 subheading: '',
+                createtxt: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_createtxt"),
+                createbtn: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_createbtn"),
                 text: '',
             },
         },
@@ -206,6 +210,8 @@ const profileData = {
             11: {
                 heading: LanguageService.getValueByKey("profileData_makeMoneyProfile_register_stepSeven_heading"),
                 subheading: '',
+                createtxt: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_createtxt"),
+                createbtn: LanguageService.getValueByKey("profileData_generalProfile_register_stepTen_createbtn"),
                 text: '',
             },
         },

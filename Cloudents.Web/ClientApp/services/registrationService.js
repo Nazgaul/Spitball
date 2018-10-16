@@ -19,8 +19,8 @@ export default {
     smsCodeVerification: (data) => {
         return connectivityModule.http.post("/sms/verify", {number: data})
     },
-    signIn: (email, captcha, password) => {
-        return connectivityModule.http.post("LogIn", {email, captcha, password})
+    signIn: (email,  password) => {
+        return connectivityModule.http.post("LogIn", {email,  password})
     },
     resendCode: () => {
         return connectivityModule.http.post("/sms/resend")

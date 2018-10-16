@@ -79,9 +79,10 @@
                     registrationService.validateEmail(self.userEmail)
                         .then((response) => {
                             self.loading = false;
-                            let step = response.step;
+                            let step = response.data.step;
                             analyticsService.sb_unitedEvent('Login Email validation', 'email send');
                             self.$parent.$emit('updateEmail', self.userEmail);
+                            self.$parent.$emit('fromCreate', 'create');
                             self.$parent.$emit('changeStep', `${step}`);
                         }, (error)=> {
                             self.loading = false;

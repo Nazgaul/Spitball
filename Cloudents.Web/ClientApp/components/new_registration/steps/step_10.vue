@@ -51,7 +51,7 @@
                     confirmPassword: '',
                     forgotPass: ''
                 },
-                userEmail: '',
+
                 loading: false,
                 bottomError: false
             }
@@ -74,6 +74,10 @@
                 type: String,
                 default: '',
                 required: false
+            },
+            userEmail: {
+                type: String,
+                default: ''
             },
             meta:{}
         },

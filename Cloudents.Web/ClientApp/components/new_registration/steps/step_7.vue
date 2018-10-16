@@ -17,17 +17,11 @@
                               :type="'password'" :bottomError="true"
                               name="user password"  v-model="password"
                               placeholder="login_placeholder_enter_password" v-language:placeholder></sb-input>
-                    <vue-recaptcha class="recaptcha-wrapper"
-                                   ref="recaptcha"
-                                   :sitekey="siteKey"
-                                   @verify="onVerify"
-                                   @expired="onExpired">
 
-                    </vue-recaptcha>
                     <v-btn class="continue-btn loginBtn"
                            value="Login"
                            :loading="loading"
-                           :disabled="!userEmail || !recaptcha || !password "
+                           :disabled="!userEmail || !password "
                            type="submit"
                     > <span v-language:inner>login_login</span>
                     </v-btn>
@@ -46,13 +40,12 @@
     const defaultSubmitRoute = {path: '/ask'};
 
     import stepTemplate from '../helpers/stepTemplate.vue'
-    import VueRecaptcha from 'vue-recaptcha';
     import analyticsService from '../../../services/analytics.service';
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
     import { mapActions, mapMutations } from 'vuex'
     import registrationService from "../../../services/registrationService";
     export default {
-        components: {stepTemplate, SbInput, VueRecaptcha},
+        components: {stepTemplate, SbInput},
         name: "step_7",
         data() {
             return {
@@ -65,8 +58,6 @@
                 },
                 password: '',
                 loading: false,
-                userEmail: "",
-                recaptcha: '',
                 bottomError: false
             }
         },
@@ -79,21 +70,19 @@
                 type: Boolean,
                 default: false
             },
+            userEmail: {
+                type: String,
+                default : ""
+            },
             meta: {},
             toUrl: {},
             lastActiveRoute: '',
         },
         methods: {
-            onVerify(response) {
-                this.recaptcha = response;
-            },
-            onExpired() {
-                this.recaptcha = "";
-            },
             submit() {
                 let self = this;
                 self.loading = true;
-                registrationService.signIn(this.userEmail, this.recaptcha, this.password)
+                registrationService.signIn(this.userEmail, this.password)
                     .then((response) => {
                         self.loading = false;
                         analyticsService.sb_unitedEvent('Login', 'Start');
@@ -103,7 +92,6 @@
                         //will be always ask cause he came from email
                         self.$router.push({path: `${url.path }`});
                     }, function (error) {
-                        self.$refs.recaptcha.reset();
                         self.loading = false;
                         self.errorMessage.email = error.response.data["Password"] ? error.response.data["Password"][0] : '';
 
