@@ -3,9 +3,9 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Query
 {
-    public class DocumentDataSeoById : IQuery<DocumentSeoDto>
+    public class DocumentById : IQuery<DocumentSeoDto>, IQuery<DocumentDto>
     {
-        public DocumentDataSeoById(long id)
+        public DocumentById(long id)
         {
             Id = id;
         }
