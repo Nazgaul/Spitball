@@ -30,9 +30,9 @@ namespace Cloudents.Infrastructure.Blockchain
             
             using (var tokenSource = CancellationTokenSource.CreateLinkedTokenSource(receiptRequestCancellationToken))
             {
-                var gasE = await function.EstimateGasAsync(publicAddress, gas, null, tokenSource, functionInput);
+                var gasE = await function.EstimateGasAsync(publicAddress, null, null, functionInput);
                 //Console.WriteLine(gasE.Value);
-                return await function.SendTransactionAndWaitForReceiptAsync(publicAddress, gas, null,
+                return await function.SendTransactionAndWaitForReceiptAsync(publicAddress, gasE, null,
                         tokenSource, functionInput).ConfigureAwait(false);
             }
 
