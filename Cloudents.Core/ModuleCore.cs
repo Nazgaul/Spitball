@@ -43,27 +43,20 @@ namespace Cloudents.Core
             builder.RegisterType<DbConnectionStringProvider>().AsSelf();
 
             builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
-                .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)) && i.GetCustomAttribute<AdminCommandHandler>() == null)
+                .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)) 
+
+                            && i.GetCustomAttribute<AdminCommandHandler>() == null
+                            )
                 .Select(i => new KeyedService("handler", i)));
-
-
-            //builder.RegisterAssemblyTypes(assembly).As(o => o.GetInterfaces()
-            //    .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<,>)))
-            //    .Select(i => new KeyedService("handler", i)));
+           
 
             builder.RegisterGenericDecorator(
                 typeof(CommitUnitOfWorkCommandHandlerDecorator<>),
                 typeof(ICommandHandler<>),
                 fromKey: "handler");
-
-
-            //builder.RegisterGenericDecorator(
-            //    typeof(CommitUnitOfWorkCommandHandlerDecorator<,>),
-            //    typeof(ICommandHandler<,>),
-            //    fromKey: "handler");
+           
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IEventHandler<>));
 
-                //builder.RegisterType<EventSubscriptions>().As<ISubscriptionService>();
             builder.RegisterType<EventPublisher>().As<IEventPublisher>();
             builder.RegisterType<Logger>().As<ILogger>();
 

@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using JetBrains.Annotations;
+using System;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities.Db
 {
+    [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "nHibernate Proxy")]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nHibernate Proxy")]
     public class Transaction
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
@@ -48,7 +51,14 @@ namespace Cloudents.Core.Entities.Db
         public static Transaction DistributeTokens(ActionType actionType, TransactionType transactionType, decimal money)
         {
             return new Transaction(actionType, transactionType, money);
+        }
 
+        public static Transaction ReferringUserTransaction(User invitedUser)
+        {
+            return new Transaction(ActionType.ReferringUser, TransactionType.Earned, 10)
+            {
+                InvitedUser = invitedUser
+            };
         }
 
         public static Transaction QuestionDelete(Question question)
@@ -67,22 +77,23 @@ namespace Cloudents.Core.Entities.Db
             return new Transaction(ActionType.CashOut, TransactionType.Earned, price);
         }
 
-        [SuppressMessage("ReSharper", "UnusedMember.Global",Justification = "Nhibernate proxy")]
+        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Nhibernate proxy")]
         protected Transaction()
         {
 
         }
 
-        public virtual Guid Id { get; set; }
+        public virtual Guid Id { get; protected set; }
         public virtual User User { get; set; }
 
-        public virtual DateTime Created { get; set; }
+        public virtual DateTime Created { get; protected set; }
 
-        public virtual ActionType Action { get; set; }
-        public virtual TransactionType Type { get; set; }
-        public virtual decimal Price { get; set; }
+        public virtual ActionType Action { get; protected set; }
+        public virtual TransactionType Type { get; protected set; }
+        public virtual decimal Price { get; protected set; }
 
-        public virtual Question Question { get; set; }
-        public virtual Answer Answer { get; set; }
+        [CanBeNull] public virtual Question Question { get; set; }
+        [CanBeNull] public virtual Answer Answer { get; protected set; }
+        [CanBeNull] public virtual User InvitedUser { get; protected set; }
     }
 }

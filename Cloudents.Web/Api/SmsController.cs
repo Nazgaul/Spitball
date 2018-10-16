@@ -16,6 +16,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Command.Admin;
 
 namespace Cloudents.Web.Api
 {
@@ -149,7 +150,7 @@ namespace Cloudents.Web.Api
             if (TempData[HomeController.Referral] != null)
             {
                 var base62 = new Base62(TempData[HomeController.Referral].ToString());
-                var command = new DistributeTokensCommand(base62.Value, 10, ActionType.ReferringUser, TransactionType.Earned);
+                var command = new ReferringUserCommand(base62.Value,user.Id);
                 await _commandBus.DispatchAsync(command, token);
                 TempData.Remove(HomeController.Referral);
             }
