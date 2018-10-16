@@ -22,7 +22,7 @@
                                     <div class="ab-test static-card-what-is-hw-question hidden-sm-and-down">
                                     <button class="ab-test-button" @click="openNewQuestionDialog()">
                                         <v-icon class="edit-icon">sbf-edit-icon</v-icon>
-                                        <span  v-language:inner>abTest_addQuestion</span>
+                                        <span v-language:inner>abTest_addQuestion</span>
                                     </button>
                                     </div>
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">

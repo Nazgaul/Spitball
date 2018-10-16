@@ -1,3 +1,4 @@
+import analyticsService from '../services/analytics.service'
 
 const state = {
     newQuestionDialog: false,
@@ -13,6 +14,8 @@ const getters = {
 };
 const actions = {
     updateNewQuestionDialogState({commit}, data) {
+        //ab testing
+        analyticsService.sb_unitedEvent('AB_TESTING', 'ASK_QUESTION_CLICKED')
         commit('setNewQuestionState', data);
     },
 };
