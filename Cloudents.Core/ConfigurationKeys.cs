@@ -4,6 +4,7 @@ namespace Cloudents.Core
 {
     public class ConfigurationKeys : IConfigurationKeys
     {
+        private string _prodStorage;
         public ConfigurationKeys(string siteEndPoint)
         {
             SiteEndPoint = siteEndPoint;
@@ -15,6 +16,20 @@ namespace Cloudents.Core
         public SearchServiceCredentials Search { get; set; }
         public string Redis { get; set; }
         public string Storage { get; set; }
+
+        public string ProdStorage
+        {
+            get
+            {
+                if (_prodStorage != null)
+                {
+                    return _prodStorage;
+                }
+
+                return Storage;
+            }
+            set => _prodStorage = value;
+        }
         //public string SystemUrl { get; set; }
 
         public LocalStorageData LocalStorageData { get; set; }

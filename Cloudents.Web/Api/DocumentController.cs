@@ -16,7 +16,9 @@ namespace Cloudents.Web.Api
         private readonly Lazy<IDocumentSearch> _documentSearch;
         private readonly IFactoryProcessor _factoryProcessor;
 
-        public DocumentController(IQueryBus queryBus, Lazy<IDocumentSearch> documentSearch, IFactoryProcessor factoryProcessor)
+        public DocumentController(IQueryBus queryBus,
+            Lazy<IDocumentSearch> documentSearch,
+            IFactoryProcessor factoryProcessor)
         {
             _queryBus = queryBus;
             _documentSearch = documentSearch;

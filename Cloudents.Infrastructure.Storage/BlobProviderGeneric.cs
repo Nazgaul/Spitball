@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Storage
         private const string CdnHostEndpoint = "az32006.vo.msecnd.net";
 
 
-        public BlobProviderContainer( ICloudStorageProvider storageProvider)
+        public BlobProviderContainer(ICloudStorageProvider storageProvider)
         {
             _blobDirectory = storageProvider.GetBlobClient(_container);
         }

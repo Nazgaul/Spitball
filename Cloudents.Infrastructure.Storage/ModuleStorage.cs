@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Storage
@@ -25,7 +26,13 @@ namespace Cloudents.Infrastructure.Storage
             builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
             builder.RegisterGeneric(typeof(BlobProviderContainer<>)).AsImplementedInterfaces();
 
-            
+            builder.Register(c =>
+            {
+                var key = c.Resolve<IConfigurationKeys>().ProdStorage;
+                var storage = new CloudStorageProvider(key);
+                return new BlobProviderContainer<OldSbFilesContainerName>(storage);
+            }).AsImplementedInterfaces();
+
         }
     }
 
