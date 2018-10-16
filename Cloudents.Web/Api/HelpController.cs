@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -23,10 +24,10 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet]
-        [ResponseCache(Duration = TimeConst.Hour)]
+        [ResponseCache(Duration = TimeConst.Hour, VaryByQueryKeys = new[] { "*" })]
         public async Task<IEnumerable<QnA>> GetAsync(CancellationToken token)
         {
-            var uri = new Uri("https://zboxstorage.blob.core.windows.net/zboxhelp/new/help.xml");
+            var uri = new Uri("https://zboxstorage.blob.core.windows.net/zboxhelp/new/help2.xml");
             var t = await _restClient.DownloadStreamAsync(uri, token).ConfigureAwait(false);
 
             using (var stream = t.stream)
@@ -41,7 +42,9 @@ namespace Cloudents.Web.Api
         {
             var data = XDocument.Load(stream);
             return from content in data.Descendants("content")
-                   orderby int.Parse(content.Attribute("order")?.Value ?? "0")
+                where string.Equals((content.Attribute("lang")?.Value ?? "en"),
+                    CultureInfo.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.OrdinalIgnoreCase)
+                orderby int.Parse(content.Attribute("order")?.Value ?? "0")
                    select new QnA
                    {
                        Question = content.Element("question")?.Value.Trim(),

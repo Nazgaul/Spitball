@@ -123,7 +123,7 @@
   <data name="QuestionNotExists" xml:space="preserve">
     <value>לא קיימות שאלות</value>
   </data>
-  <data name="This question have correct answe" xml:space="preserve">
+  <data name="This question have correct answer" xml:space="preserve">
     <value>נבחרה תשובה לשאלה</value>
   </data>
 </root>

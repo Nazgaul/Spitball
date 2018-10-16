@@ -63,7 +63,7 @@ namespace Cloudents.Infrastructure.Search.Tutor
                     nameof(TutorObj.Description),
                     nameof(TutorObj.Source)
                 },
-                Filter = string.Join(" and ", filterQuery),
+                Filter = string.Join(" or ", filterQuery),
                 OrderBy = sortQuery
 
             };

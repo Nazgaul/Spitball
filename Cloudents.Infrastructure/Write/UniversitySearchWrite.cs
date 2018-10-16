@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure.Search;
 using JetBrains.Annotations;
-using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
 namespace Cloudents.Infrastructure.Write
@@ -23,19 +22,12 @@ namespace Cloudents.Infrastructure.Write
         }
 
 
-        public static readonly string[] StopWordsList = { "university",
-            "of",
-            "college",
-            "school",
-            "the",
-            "a",
-            "המכללה","אוניברסיטת","מכללת","האוניברסיטה"
-        };
+      
 
         public override async Task CreateOrUpdateAsync(CancellationToken token)
         {
             // _synonymWrite.CreateEmpty(SynonymName);
-            await Client.Indexes.DeleteAsync(IndexClient.IndexName, cancellationToken: token).ConfigureAwait(false);
+            //await Client.Indexes.DeleteAsync(IndexClient.IndexName, cancellationToken: token).ConfigureAwait(false);
             //var synonymMap = new SynonymMap()
             //{
             //    Name = "university-synonymmap",

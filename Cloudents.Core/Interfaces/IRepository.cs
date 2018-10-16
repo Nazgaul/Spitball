@@ -51,9 +51,6 @@ namespace Cloudents.Core.Interfaces
 
     }
 
-
-
-
     public interface IMailGunStudentRepository : IRepository<MailGunStudent>
     {
     }

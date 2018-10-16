@@ -165,6 +165,8 @@ export default {
         },
         $_clearAddUniversity(){
             this.newUniversityName = "";
+            this.universityName.errors.minimumsNameLength = false;
+            this.universityName.errors.failedRequest = false;
         },
         $_submitAddCourse() {
             this.createCourse({ name: this.newCourseName });
