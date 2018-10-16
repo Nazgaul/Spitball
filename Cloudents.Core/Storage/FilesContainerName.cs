@@ -2,6 +2,6 @@
 {
     public class OldSbFilesContainerName : IStorageContainer
     {
-        public StorageContainer Container => StorageContainer.Documents;
+        public StorageContainer Container => StorageContainer.OldDocuments;
     }
 }

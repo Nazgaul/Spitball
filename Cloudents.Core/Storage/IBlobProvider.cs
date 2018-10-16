@@ -23,13 +23,15 @@ namespace Cloudents.Core.Storage
         Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
 
         Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
+
+        Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token);
+        Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobUri, CancellationToken token);
+       // string GetBlobNameFromUri(Uri uri);
+        Task SaveMetaDataToBlobAsync(string blobUri, IDictionary<string, string> metadata, CancellationToken token);
     }
 
-    public interface IBlobProvider
-    {
-        Task<Stream> DownloadFileAsync(Uri blobUrl, CancellationToken token);
-        Task<IDictionary<string, string>> FetchBlobMetaDataAsync(Uri blobUri, CancellationToken token);
-        string GetBlobNameFromUri(Uri uri);
-        Task SaveMetaDataToBlobAsync(Uri blobUri, IDictionary<string, string> metadata, CancellationToken token);
-    }
+    //public interface IBlobProvider
+    //{
+        
+    //}
 }

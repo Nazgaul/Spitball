@@ -9,9 +9,6 @@ using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
 using Nethereum.Signer;
-using System.Collections.Generic;
-using System.Text;
-using Nethereum.Hex.HexTypes;
 using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.RPC.Eth.DTOs;
 
@@ -43,8 +40,7 @@ namespace Cloudents.Infrastructure.Blockchain
             var function = await GetFunctionAsync("transfer", token).ConfigureAwait(false);
             var amountTransformed = new BigInteger(amount * FromWei);
 
-            var publicAddress =
-              Web3.GetAddressFromPrivateKey(senderPk);
+            //var publicAddress = Web3.GetAddressFromPrivateKey(senderPk);
 
             //var gas = await function.EstimateGasAsync(publicAddress, null, null, toAddress, amount);
 
@@ -74,7 +70,7 @@ namespace Cloudents.Infrastructure.Blockchain
 
         public (string privateKey, string publicAddress) CreateAccount()
         {
-            var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
+            var ecKey = EthECKey.GenerateKey();
             var privateKey = ecKey.GetPrivateKeyAsBytes();
             var address = Web3.GetAddressFromPrivateKey(privateKey.ToHex());
             return (privateKey.ToHex(), address);
@@ -88,14 +84,14 @@ namespace Cloudents.Infrastructure.Blockchain
             return receiptFirstAmountSend.BlockHash;
         }
 
-        public async Task<string> TransferPreSignedAsync(string delegatePK, string fromPK, string to, int amount, int fee, CancellationToken token)
+        public async Task<string> TransferPreSignedAsync(string delegatePk, string fromPk, string to, int amount, int fee, CancellationToken token)
         {
-            Account delegateAccountt = new Account(delegatePK);
+            Account delegateAccountt = new Account(delegatePk);
             var web3 = new Web3(delegateAccountt);
 
-            var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(GetAddress(delegatePK));
+            var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(GetAddress(delegatePk));
             var nonce = txCount.Value;
-            Console.WriteLine($"Address: {GetAddress(delegatePK)}, Nonce: {nonce}");
+            Console.WriteLine($"Address: {GetAddress(delegatePk)}, Nonce: {nonce}");
             var amountTransformed = new BigInteger(amount * FromWei);
             var feeTransformed = new BigInteger(fee * FromWei);
 
@@ -110,15 +106,15 @@ namespace Cloudents.Infrastructure.Blockchain
             var sha3 = new Nethereum.Util.Sha3Keccack();
             var res = sha3.CalculateHash(byteStr);
             var messageSigner = new MessageSigner();
-            var sig = messageSigner.Sign(res, fromPK).HexToByteArray();
+            var sig = messageSigner.Sign(res, fromPk).HexToByteArray();
             
-            var function = await GetFunctionAsync("transferPreSigned", delegatePK, token).ConfigureAwait(false);
+            var function = await GetFunctionAsync("transferPreSigned", delegatePk, token).ConfigureAwait(false);
             
-            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(delegatePK, MaxGas, token, sig, to, amountTransformed, feeTransformed, nonce).ConfigureAwait(false);
+            var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(delegatePk, MaxGas, token, sig, to, amountTransformed, feeTransformed, nonce).ConfigureAwait(false);
             var contract = await GetContractAsync(web3, token);
             var bidAddedEventLog = contract.GetEvent("TransferPreSigned");
             var filterInput = bidAddedEventLog.CreateFilterInput(new BlockParameter(receiptFirstAmountSend.BlockNumber), BlockParameter.CreateLatest());
-            var logs = await bidAddedEventLog.GetAllChanges<TransferPreSignedDTO>(filterInput);
+            await bidAddedEventLog.GetAllChanges<TransferPreSignedDTO>(filterInput);
             return receiptFirstAmountSend.BlockHash;
         }
 
@@ -185,10 +181,10 @@ namespace Cloudents.Infrastructure.Blockchain
         }*/
 
 
-        public async Task<string> ApprovePreSignedAsync(string fromPK, string sender, int amount, int fee, CancellationToken token)
+        public async Task<string> ApprovePreSignedAsync(string fromPk, string sender, int amount, int fee, CancellationToken token)
         {
-            Account SpitballAccountt = new Account(SpitballPrivateKey);
-            var web3 = new Web3(SpitballAccountt);
+            var spitballAccount = new Account(SpitballPrivateKey);
+            var web3 = new Web3(spitballAccount);
 
             var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(GetAddress(SpitballPrivateKey));
             var nonce = txCount.Value;
@@ -207,7 +203,7 @@ namespace Cloudents.Infrastructure.Blockchain
             var sha3 = new Nethereum.Util.Sha3Keccack();
             var res = sha3.CalculateHash(byteStr);
             var messageSigner = new MessageSigner();
-            var sig = messageSigner.Sign(res, fromPK).HexToByteArray();
+            var sig = messageSigner.Sign(res, fromPk).HexToByteArray();
 
 
             var function = await GetFunctionAsync("approvePreSigned", token).ConfigureAwait(false);
@@ -236,10 +232,10 @@ namespace Cloudents.Infrastructure.Blockchain
 
         }
 
-        public async Task<string> IncreaseApprovalPreSignedAsync(string fromPK, string sender, int amount, int fee, CancellationToken token)
+        public async Task<string> IncreaseApprovalPreSignedAsync(string fromPk, string sender, int amount, int fee, CancellationToken token)
         {
-            Account SpitballAccountt = new Account(SpitballPrivateKey);
-            var web3 = new Web3(SpitballAccountt);
+            Account spitballAccountt = new Account(SpitballPrivateKey);
+            var web3 = new Web3(spitballAccountt);
 
             var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(GetAddress(SpitballPrivateKey));
             var nonce = txCount.Value + 1;
@@ -258,7 +254,7 @@ namespace Cloudents.Infrastructure.Blockchain
             var sha3 = new Nethereum.Util.Sha3Keccack();
             var res = sha3.CalculateHash(byteStr);
             var messageSigner = new MessageSigner();
-            var sig = messageSigner.Sign(res, fromPK).HexToByteArray();
+            var sig = messageSigner.Sign(res, fromPk).HexToByteArray();
 
 
             var function = await GetFunctionAsync("increaseApprovalPreSigned", token).ConfigureAwait(false);
@@ -268,8 +264,8 @@ namespace Cloudents.Infrastructure.Blockchain
 
         public async Task<string> WhitelistUserForTransfers(string userAddress, CancellationToken token)
         {
-            Account SpitballAccountt = new Account(SpitballPrivateKey);
-            var web3 = new Web3(SpitballAccountt);
+            //Account spitballAccountt = new Account(SpitballPrivateKey);
+            //var web3 = new Web3(spitballAccountt);
             var function = await GetFunctionAsync("whitelistUserForTransfers", token).ConfigureAwait(false);
             var receiptFirstAmountSend = await function.SendTransactionAndWaitForReceiptAsync(SpitballPrivateKey, MaxGas, GasPrice, token, userAddress).ConfigureAwait(false);
             return receiptFirstAmountSend.BlockHash;

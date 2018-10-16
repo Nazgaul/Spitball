@@ -15,10 +15,9 @@ namespace Cloudents.Infrastructure.Framework
         private const string CacheVersion = CacheVersionPrefix + "6";
 
         public WordProcessor(
-                Uri blobUri,
-                IBlobProvider blobProvider,
-                IBlobProvider<CacheContainer> blobProviderCache)
-            //: base(blobProvider, blobProviderPreview, blobProviderCache)
+                string blobUri,
+                IBlobProvider<OldSbFilesContainerName> blobProvider,
+                IBlobProvider<OldCacheContainer> blobProviderCache)
             : base(blobProvider, blobProviderCache, blobUri)
         {
             SetLicense();
@@ -34,7 +33,7 @@ namespace Cloudents.Infrastructure.Framework
             int indexNum,
             CancellationToken cancelToken)
         {
-            var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
+           // var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
 
             var word = new AsyncLazy<Document>(async () =>
             {
@@ -47,7 +46,7 @@ namespace Cloudents.Infrastructure.Framework
 
             var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
             return UploadPreviewCacheToAzureAsync(indexNum,
-                i => CreateCacheFileName(blobName, i),
+                i => CreateCacheFileName(BlobUri, i),
                 async z =>
                 {
                     svgOptions.PageIndex = z;

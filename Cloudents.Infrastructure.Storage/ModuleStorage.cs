@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure.Storage
                 return new CloudStorageProvider(key);
             }).SingleInstance().AsImplementedInterfaces();
 
-            builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
+           // builder.RegisterType<BlobProvider>().AsImplementedInterfaces();
             builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
             builder.RegisterGeneric(typeof(BlobProviderContainer<>)).AsImplementedInterfaces();
 
@@ -33,6 +33,13 @@ namespace Cloudents.Infrastructure.Storage
                 return new BlobProviderContainer<OldSbFilesContainerName>(storage);
             }).AsImplementedInterfaces();
 
+            builder.Register(c =>
+            {
+                var key = c.Resolve<IConfigurationKeys>().ProdStorage;
+                var storage = new CloudStorageProvider(key);
+                return new BlobProviderContainer<OldCacheContainer>(storage);
+            }).AsImplementedInterfaces();
+            //CacheContainer
         }
     }
 

@@ -9,14 +9,12 @@ namespace Cloudents.Infrastructure.Framework
 {
     public class ImageProcessor : IPreviewProvider
     {
-        private readonly Uri _blobUri;
-        private readonly IBlobProvider _blobProvider;
+        private readonly string _blobUri;
 
 
-        public ImageProcessor(Uri blobUri, IBlobProvider blobProvider)
+        public ImageProcessor(string blobUri)
         {
             _blobUri = blobUri;
-            _blobProvider = blobProvider;
         }
 
         public Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(int indexNum,
@@ -26,7 +24,7 @@ namespace Cloudents.Infrastructure.Framework
             {
                 return Task.FromResult(Enumerable.Empty<string>());
             }
-            var blobName = _blobProvider.GetBlobNameFromUri(_blobUri);
+           // var blobName = _blobProvider.GetBlobNameFromUri(_blobUri);
 
 
             var uriBuilder =
@@ -36,7 +34,7 @@ namespace Cloudents.Infrastructure.Framework
             //{
             //    uriBuilder.Path += m_BlobProviderPreview.RelativePath() + "/";
             //}
-            uriBuilder.Path += $"{blobName}.jpg";
+            uriBuilder.Path += $"{_blobUri}.jpg";
             uriBuilder.Query = "width=1024&height=768";
             var blobsNamesInCache = new List<string>
             {
