@@ -48,6 +48,8 @@ export default {
                 this.pricesList = [10, 20, 40, 80];
                 this.loading = false;
                 this.$root.$emit("colorReset");
+                this.$root.$emit('previewClean', 'true');
+                this.files = [];
             } else {
                 // get subject if questionDialog state is true(happens only if accountUser is true)
                 questionService.getSubjects().then((response) => {
