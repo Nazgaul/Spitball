@@ -34,6 +34,7 @@
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
     import { mapActions, mapMutations } from 'vuex'
     import registrationService from "../../../services/registrationService";
+    import { LanguageService } from "../../../services/language/languageService";
     export default {
         components: {stepTemplate, SbInput},
         name: "step_3",
@@ -68,7 +69,7 @@
                     .then(response => {
                             self.updateLoading(false);
                             self.updateToasterParams({
-                                toasterText: 'Email sent',
+                                toasterText: LanguageService.getValueByKey("login_email_sent"),
                                 showToaster: true,
                             })
                         },

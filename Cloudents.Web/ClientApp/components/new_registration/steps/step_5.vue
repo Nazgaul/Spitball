@@ -44,6 +44,7 @@
     import registrationService from '../../../services/registrationService'
     import analyticsService from '../../../services/analytics.service';
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
+    import {LanguageService} from "../../../services/language/languageService";
 
     const defaultSubmitRoute = {path: '/ask'};
 
@@ -121,7 +122,7 @@
                     .then((success) => {
                             this.updateLoading(false);
                             this.updateToasterParams({
-                                toasterText: 'A verification code was sent to your phone',
+                                toasterText: LanguageService.getValueByKey("login_verification_code_sent_to_phone"),
                                 showToaster: true,
                             });
                         },
