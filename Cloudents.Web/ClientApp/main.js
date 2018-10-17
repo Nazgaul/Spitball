@@ -2,6 +2,8 @@
 import App from "./components/app/app.vue";
 import store from "./store";
 import { Language } from "./services/language/langDirective";
+import {LanguageService} from './services/language/languageService'
+ 
 import initSignalRService from './services/signalR/signalrEventService'
 
 // clip board copy text
@@ -199,14 +201,16 @@ Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
     //return load if no data
     if (!value) {
-        return 'Loading..';
+        return LanguageService.getValueByKey('wallet_Loading');
     }
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 });
 // filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
 Vue.filter('currencyLocalyFilter', function (value) {
     let amount = Number(value);
-    return amount && amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0';
+    let sblCurrency = LanguageService.getValueByKey('wallet_SBL');
+    let result =  amount && amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0';
+    return result + " " + sblCurrency;
 });
 
 Vue.filter('commasFilter', function (value) {
