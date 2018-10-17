@@ -40,6 +40,7 @@
     import registrationService from '../../../services/registrationService'
     import analyticsService from '../../../services/analytics.service';
     import SbInput from "../../question/helpers/sbInput/sbInput.vue";
+    import { LanguageService } from "../../../services/language/languageService";
 
     export default {
         components: {stepTemplate, SbInput},
@@ -95,7 +96,7 @@
                     .then(function (resp) {
                         self.errorMessage.code = '';
                         self.updateToasterParams({
-                            toasterText: 'A verification code was sent to your phone',
+                            toasterText: LanguageService.getValueByKey("login_verification_code_sent_to_phone"),
                             showToaster: true,
                         });
                         self.loading = false;

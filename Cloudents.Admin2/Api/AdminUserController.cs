@@ -1,4 +1,5 @@
 ﻿using Cloudents.Admin2.Models;
+using Cloudents.Core.Command;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
@@ -72,12 +73,21 @@ namespace Cloudents.Admin2.Api
             if (model.DeleteUserQuestions)
             {
 
-                var profile = await _queryBus.QueryAsync<ProfileDto>(userDataByIdQuery, token);
-                foreach (var question in profile.Questions)
+                var AnswersQuery = new UserDataByIdQuery(model.Id);
+                var AnswersInfo = await _queryBus.QueryAsync<SuspendUserDto>(AnswersQuery, token);
+
+                foreach (var question in AnswersInfo.Questions)
                 {
-                    var deleteQuestionCommand = new Core.Command.Admin.DeleteQuestionCommand(question.Id);
+                    var deleteQuestionCommand = new Core.Command.Admin.DeleteQuestionCommand(question);
                     await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
                 }
+
+                foreach (var answer in AnswersInfo.AnswersData)
+                {
+                    var deleteAnswerCommand = new DeleteAnswerCommand(answer, model.Id);
+                    await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
+                }
+
             }
             var command = new SuspendUserCommand(model.Id);
             await commandBus.DispatchAsync(command, token);

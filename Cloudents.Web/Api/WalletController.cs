@@ -34,23 +34,23 @@ namespace Cloudents.Web.Api
 
         // GET
         [HttpGet("balance")]
-        public async Task<IActionResult> GetBalanceAsync(CancellationToken token)
+        public async Task<IEnumerable<BalanceDto>> GetBalanceAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var retVal = await _queryBus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(userId), token).ConfigureAwait(false);
 
-            return Ok(retVal);
+            return retVal;
         }
 
 
         [HttpGet("transaction")]
-        public async Task<IActionResult> GetTransactionAsync(CancellationToken token)
+        public async Task<IEnumerable<TransactionDto>> GetTransactionAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
 
             var retVal = await _queryBus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(userId), token).ConfigureAwait(false);
 
-            return Ok(retVal);
+            return retVal;
         }
 
 
