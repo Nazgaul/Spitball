@@ -84,6 +84,10 @@
                             {{errorSelectPrice}}
                         </div>
 
+                            <div v-else-if="errorWaitTime.length" class="error-message">
+                                {{errorWaitTime}}
+                            </div>
+
                     </v-flex>
 
                     <v-flex xs12 class="last-text-block">
