@@ -126,6 +126,9 @@
   <data name="ActionTypeDeleteQuestion" xml:space="preserve">
     <value>Delete question</value>
   </data>
+  <data name="ActionTypeNone" xml:space="preserve">
+    <value>None</value>
+  </data>
   <data name="ActionTypeQuestion" xml:space="preserve">
     <value>Question</value>
   </data>

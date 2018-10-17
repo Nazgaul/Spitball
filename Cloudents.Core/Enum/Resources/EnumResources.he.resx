@@ -126,6 +126,9 @@
   <data name="ActionTypeDeleteQuestion" xml:space="preserve">
     <value>למחוק שאלה</value>
   </data>
+  <data name="ActionTypeNone" xml:space="preserve">
+    <value>ללא</value>
+  </data>
   <data name="ActionTypeQuestion" xml:space="preserve">
     <value>שאלה</value>
   </data>
