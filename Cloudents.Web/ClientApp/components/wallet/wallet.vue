@@ -24,7 +24,7 @@
                                 <span :class="props.header.text+'-header table-header'">{{ props.header.text }}</span>
                             </template>
                             <template slot="items" slot-scope="props">
-                                <td class="text-xs-left">{{ props.item.type }}</td>
+                                <td class="text-xs-left">{{ props.item.name }}</td>
                                 <td class="text-xs-right" style="direction:ltr;">{{ props.item.points | currencyLocalyFilter}}</td>
                                 <td class="text-xs-right bold"> <span v-language:inner>wallet_currency</span>{{ props.item.value }}</td>
                             </template>
