@@ -22,6 +22,7 @@ export default {
         return {
             textAreaValue: "",
             errorTextArea: {},
+            errorHasAnswer: '',
             answerFiles: [],
             questionData: null,
             cardList: [],
@@ -61,7 +62,8 @@ export default {
                         self.cardList = resp.data;
                         self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                         self.showDialogSuggestQuestion = true; // question suggest popup dialog
-                    }, () => {
+                    }, (error) => {
+                        self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
                         self.submitForm(false);
                         self.updateLoading(true);
                     })
