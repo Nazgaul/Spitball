@@ -14,16 +14,14 @@ namespace Cloudents.Core.CommandHandler
     public class CreateQuestionCommandHandler : ICommandHandler<CreateQuestionCommand>
     {
         private readonly IQuestionRepository _questionRepository;
-        private readonly IRepository<QuestionSubject> _questionSubjectRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IBlobProvider<QuestionAnswerContainer> _blobProvider;
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
-            IRepository<QuestionSubject> questionSubjectRepository, IRepository<User> userRepository,
+             IRepository<User> userRepository,
             IBlobProvider<QuestionAnswerContainer> blobProvider = null)
         {
             _questionRepository = questionRepository;
-            _questionSubjectRepository = questionSubjectRepository;
             _userRepository = userRepository;
             _blobProvider = blobProvider;
         }
@@ -41,8 +39,7 @@ namespace Cloudents.Core.CommandHandler
             }
 
 
-            var subject = await _questionSubjectRepository.LoadAsync(message.SubjectId, token).ConfigureAwait(true);
-            var question = new Question(subject, message.Text, message.Price, message.Files?.Count() ?? 0, user, message.Color);
+            var question = new Question(message.SubjectId, message.Text, message.Price, message.Files?.Count() ?? 0, user, message.Color);
             await _questionRepository.AddAsync(question, token).ConfigureAwait(true);
             var id = question.Id;
 

@@ -144,6 +144,9 @@
   <data name="NeedUniversity" xml:space="preserve">
     <value>צריך לבחור מוסד לימודים</value>
   </data>
+  <data name="PasswordNotMatch" xml:space="preserve">
+    <value>הסיסמה, לאשר את הסיסמה אינה תואמת</value>
+  </data>
   <data name="Range" xml:space="preserve">
     <value>השדה {0} חייב להיות בין {1} לבין {2}.</value>
   </data>

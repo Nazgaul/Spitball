@@ -6,9 +6,10 @@ namespace Cloudents.Core.Command
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "automapper initialize it")]
     public class DeleteQuestionCommand : ICommand
     {
-        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "need for automapper")]
-        public DeleteQuestionCommand()
+        public DeleteQuestionCommand(long id, long userId)
         {
+            Id = id;
+            UserId = userId;
         }
 
         public long Id { get; set; }

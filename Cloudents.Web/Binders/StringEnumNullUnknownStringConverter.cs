@@ -1,4 +1,5 @@
 ﻿using System;
+using Cloudents.Core.Extension;
 using Newtonsoft.Json;
 
 namespace Cloudents.Web.Binders
@@ -20,6 +21,20 @@ namespace Cloudents.Web.Binders
 
                 throw;
             }
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            if (value == null)
+            {
+                writer.WriteNull();
+                return;
+            }
+
+            Enum e = (Enum)value;
+            e.GetEnumLocalization();
+            writer.WriteValue(e.GetEnumLocalization());
+            
         }
     }
 }

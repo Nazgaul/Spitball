@@ -35,8 +35,8 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
 
         private void SimilarQuery(FluentQueryBuilder qb)
         {
-            qb.Join<Question, User>(q => q.User, u => u.Id)
-             .Join<Question, QuestionSubject>(q => q.Subject, qs => qs.Id);
+            qb.Join<Question, User>(q => q.User, u => u.Id);
+             //.Join<Question, QuestionSubject>(q => q.Subject, qs => qs.Id);
             qb.Select<User>(x => x.Id, nameof(QuestionSearchDto.UserId))
                 .Select<User>(x => x.Name, nameof(QuestionSearchDto.UserName))
                 .Select<User>(x => x.Image, nameof(QuestionSearchDto.UserImage))
@@ -52,7 +52,7 @@ namespace Cloudents.Infrastructure.Database.Query.SearchSync
                 .Select<Question>(x => x.Text, nameof(QuestionSearchDto.Text))
                 .Select<Question>(x => x.Color, nameof(QuestionSearchDto.Color))
                 //.Select<QuestionSubject>(x => x.Text, nameof(QuestionSearch.SubjectText))
-                .Select<QuestionSubject>(x => x.Id, nameof(QuestionSearchDto.Subject))
+                .Select<Question>(x => x.Subject, nameof(QuestionSearchDto.Subject))
                 .Select("c.*")
                 .AddOrder<Question>(q => q.Id)
                 .Paging("PageSize", "PageNumber");

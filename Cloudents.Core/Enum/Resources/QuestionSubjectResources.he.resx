@@ -117,55 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Action" xml:space="preserve">
-    <value>פעולה</value>
+  <data name="Accounting" xml:space="preserve">
+    <value>ניהול חשבונות</value>
   </data>
-  <data name="Amount" xml:space="preserve">
-    <value>כמות</value>
+  <data name="Anthropology" xml:space="preserve">
+    <value>אנתרופולוגיה</value>
   </data>
-  <data name="Balance" xml:space="preserve">
-    <value>איזון</value>
+  <data name="Arts" xml:space="preserve">
+    <value>אמנויות</value>
   </data>
-  <data name="Balances" xml:space="preserve">
-    <value>יתרות</value>
+  <data name="Biology" xml:space="preserve">
+    <value>ביולוגיה</value>
   </data>
-  <data name="Cash_Out" xml:space="preserve">
-    <value>מזומן</value>
+  <data name="BlockChain" xml:space="preserve">
+    <value>Blockchain</value>
   </data>
-  <data name="currency" xml:space="preserve">
-    <value>$</value>
+  <data name="Business" xml:space="preserve">
+    <value>עסקים</value>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>תאריך</value>
+  <data name="Chemistry" xml:space="preserve">
+    <value>כימיה</value>
   </data>
-  <data name="Loading" xml:space="preserve">
-    <value>טוען...</value>
+  <data name="Computer Science" xml:space="preserve">
+    <value>מדעי המחשב</value>
   </data>
-  <data name="more_SBL_more_valuable" xml:space="preserve">
-    <value>ככל שיש לך יותר SBL, כך הם יקרים יותר.</value>
+  <data name="Economics" xml:space="preserve">
+    <value>כלכלה</value>
   </data>
-  <data name="My_Wallet" xml:space="preserve">
-    <value>הקרן שלי</value>
+  <data name="Education" xml:space="preserve">
+    <value>חינוך</value>
   </data>
-  <data name="redeemable_SBL" xml:space="preserve">
-    <value>SBL לפדיון</value>
+  <data name="Geography" xml:space="preserve">
+    <value>גאוגרפיה</value>
   </data>
-  <data name="SBL" xml:space="preserve">
-    <value>SBL</value>
+  <data name="Health &amp; Medicine" xml:space="preserve">
+    <value>רפואה בריאות &amp;</value>
   </data>
-  <data name="Tokens" xml:space="preserve">
-    <value>אסימונים</value>
+  <data name="History" xml:space="preserve">
+    <value>היסטוריה</value>
   </data>
-  <data name="Transaction" xml:space="preserve">
-    <value>טרנזקציה</value>
+  <data name="Languages" xml:space="preserve">
+    <value>שפות</value>
   </data>
-  <data name="Type" xml:space="preserve">
-    <value>סוג</value>
+  <data name="Law &amp; Politics" xml:space="preserve">
+    <value>פוליטיקה &amp; החוק</value>
   </data>
-  <data name="Value" xml:space="preserve">
-    <value>‏‏ערך</value>
+  <data name="Literature" xml:space="preserve">
+    <value>ספרות</value>
   </data>
-  <data name="You_have" xml:space="preserve">
-    <value>יש לך</value>
+  <data name="Mathematics" xml:space="preserve">
+    <value>מתמטיקה</value>
+  </data>
+  <data name="Miscellaneous" xml:space="preserve">
+    <value>שונות</value>
+  </data>
+  <data name="Physics" xml:space="preserve">
+    <value>פיזיקה</value>
+  </data>
+  <data name="Psychology" xml:space="preserve">
+    <value>פסיכולוגיה</value>
+  </data>
+  <data name="Religion/Philosophy" xml:space="preserve">
+    <value>דת/פילוסופיה</value>
+  </data>
+  <data name="Social Studies" xml:space="preserve">
+    <value>מדעי החברה</value>
+  </data>
+  <data name="Sports" xml:space="preserve">
+    <value>ספורט</value>
+  </data>
+  <data name="Technology" xml:space="preserve">
+    <value>טכנולוגיה</value>
   </data>
 </root>
