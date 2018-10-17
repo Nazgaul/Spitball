@@ -1,16 +1,14 @@
 <template>
-    <div class="step-email">
+    <div class="step-user-status-email">
         <step-template>
             <div slot="step-text" class="text-block-slot" v-if="isMobile">
                 <div class="text-wrap-top">
-                    <p class="text-block-sub-title" v-html="camefromCreate ? meta.createtxt : meta.resettxt">
-                    </p>
+                    <p class="text-block-sub-title" v-html="meta.heading"></p>
                 </div>
             </div>
             <div slot="step-data" class="limited-width form-wrap">
-                <h1 v-if="!isMobile" class="step-title"  v-html="camefromCreate ? meta.createtxt : meta.resettxt"></h1>
-                <p v-if="!camefromCreate" class="sub-title  mb-3" v-language:inner>login_happens_to_best</p>
-                <form @submit.prevent="emailResetPassword" class="form-one">
+                <h1 v-if="!isMobile" class="step-title" v-html="meta.heading"></h1>
+                <form @submit.prevent="emailValidate()" class="form-one">
                     <sb-input icon="sbf-email" class="email-field" :errorMessage="errorMessage.forgotPass" :bottomError="true"
                               placeholder="login_placeholder_email" v-model="userEmail" name="email" type="email"
                               :autofocus="true" v-language:placeholder></sb-input>
@@ -21,14 +19,14 @@
                            :disabled="!userEmail"
                            type="submit"
                     >
-                        <span>{{ camefromCreate ? meta.createbtn : meta.resetbtn }}</span></v-btn>
+                        <span v-language:inner>login_continue</span></v-btn>
                 </form>
                 <div class="signin-strip">
-                    <p class="click" @click="goToLogin" v-language:inner>{{camefromCreate ? 'login_already_have_password': 'login_remember_now'}}</p>
+                    <!--<p class="click" @click="goToLogin" v-language:inner>{{camefromCreate ? 'login_already_have_password': 'login_remember_now'}}</p>-->
                 </div>
             </div>
             <div slot="step-image">
-                   <img :src="require(`../img/signin.png`)"/>
+                <img :src="require(`../img/signin.png`)"/>
             </div>
         </step-template>
     </div>
@@ -41,7 +39,7 @@
     import registrationService from "../../../services/registrationService";
 
     export default {
-        name: "step_10",
+        name: "step_11",
         components: {stepTemplate, SbInput},
         data() {
             return {
@@ -51,16 +49,12 @@
                     confirmPassword: '',
                     forgotPass: ''
                 },
-
+                userEmail: '',
                 loading: false,
                 bottomError: false
             }
         },
         props: {
-            camefromCreate:{
-                type: Boolean,
-                default: false
-            },
             isMobile: {
                 type: Boolean,
                 default: false
@@ -75,25 +69,24 @@
                 default: '',
                 required: false
             },
-            userEmail: {
-                type: String,
-                default: ''
-            },
             meta:{}
         },
         methods: {
-            emailResetPassword() {
+            emailValidate() {
                 if (!!this.userEmail) {
                     let self = this;
                     self.loading = true;
-                    registrationService.forgotPasswordReset(this.userEmail)
+                    registrationService.validateEmail(self.userEmail)
                         .then((response) => {
                             self.loading = false;
-                            analyticsService.sb_unitedEvent('Forgot Password', 'Reset email send');
-                            self.$parent.$emit('changeStep', 'emailconfirmedPass');
+                            let step = response.data.step;
+                            analyticsService.sb_unitedEvent('Login Email validation', 'email send');
+                            self.$parent.$emit('updateEmail', self.userEmail);
+                            self.$parent.$emit('fromCreate', 'create');
+                            self.$parent.$emit('changeStep', `${step}`);
                         }, (error)=> {
                             self.loading = false;
-                            self.errorMessage.forgotPass = error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : '';
+                            self.errorMessage.forgotPass = error.response.data["Email"] ? error.response.data["Email"][0] : '';
                         });
                 }
             },

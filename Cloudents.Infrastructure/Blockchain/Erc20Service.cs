@@ -115,7 +115,7 @@ namespace Cloudents.Infrastructure.Blockchain
             var contract = await GetContractAsync(web3, token);
             var bidAddedEventLog = contract.GetEvent("TransferPreSigned");
             var filterInput = bidAddedEventLog.CreateFilterInput(new BlockParameter(receiptFirstAmountSend.BlockNumber), BlockParameter.CreateLatest());
-            await bidAddedEventLog.GetAllChanges<TransferPreSignedDTO>(filterInput);
+            await bidAddedEventLog.GetAllChanges<TransferPreSignedDto>(filterInput);
             return receiptFirstAmountSend.BlockHash;
         }
 
@@ -273,7 +273,7 @@ namespace Cloudents.Infrastructure.Blockchain
         }
     }
 
-    public class TransferPreSignedDTO
+    public class TransferPreSignedDto
     {
         [Parameter("address", "from", 1, true)]
         public string from { get; set; }

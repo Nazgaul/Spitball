@@ -1,6 +1,4 @@
 ﻿using System;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.DataProtection;
 
 namespace Cloudents.Web.Services

@@ -86,6 +86,9 @@ export default {
                 id: 0
             }
         });
+        this.$root.$on('previewClean', () => {
+           return this.previewList = [];
+        });
 
     },
 
