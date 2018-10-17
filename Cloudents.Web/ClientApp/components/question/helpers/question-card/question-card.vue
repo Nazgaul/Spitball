@@ -22,7 +22,10 @@
                     <div class="q-price pr-3">
                         <span v-show="isSold" style="display:flex;min-width: 90px;">
                             <span v-language:inner>questionCard_Earn</span>&nbsp; {{cardData.price}} SBL</span>
-                        <span v-show="!isSold" class="sold-badge"><span v-language:inner style="margin: 0 auto;">questionCard_Sold</span></span>
+                        <span v-show="!isSold" class="sold-badge">
+                            <span style="margin: 0 auto;"> <span v-language:inner>questionCard_Sold</span>&nbsp; {{cardData.price}} SBL</span>
+
+                        </span>
                     </div>
                     <!-- <p class="q-category">{{cardData.subject}}</p> -->
                 </div>
