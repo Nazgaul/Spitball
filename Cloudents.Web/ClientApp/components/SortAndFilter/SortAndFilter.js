@@ -57,7 +57,7 @@ export default {
             this.$router.push({query});
         },
         isRadioChecked(singleSort, index){
-           return this.sortVal ? this.sortVal === singleSort.value : index===0
+           return this.sortVal ? this.sortVal === singleSort.key : index===0
         },
 
     },
