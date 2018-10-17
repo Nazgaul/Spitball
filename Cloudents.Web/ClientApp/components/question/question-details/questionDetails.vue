@@ -33,7 +33,7 @@
                             </div>
 
                             <div v-else class="show-form-trigger" @click="showAnswerField()"  key="two">
-                                <div><b v-language:inner>questionDetails_Know_the_answer</b> <span v-language:inner>questionDetails_Add_it_here</span></div>
+                                <div><b v-language:inner>questionDetails_Know_the_answer</b>&nbsp; <span v-language:inner>questionDetails_Add_it_here</span></div>
                             </div>
                         </div>
                         <div slot="currently-watching">
@@ -78,7 +78,7 @@
                                         </v-btn>
                                     </div>
                                     <div v-else class="show-form-trigger" @click="showAnswerField()">
-                                        <div><b v-language:inner>questionDetails_Know_the_answer</b><span v-language:inner>questionDetails_Add_it_here</span></div>
+                                        <div><b v-language:inner>questionDetails_Know_the_answer</b>&nbsp;<span v-language:inner>questionDetails_Add_it_here</span></div>
                                     </div>
                                 </div>
                             </question-thread>

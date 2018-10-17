@@ -178,20 +178,14 @@
                     return this.agreeError = true
                 }
                 this.$router.push({path: '/register'});
-              // global.location.replace(`${global.location.origin}/register` )
             },
             redirectToSignIn(){
                 this.$router.push({path: '/signin'});
-                //global.location.replace(`${global.location.origin}/signin` )
 
             },
-            // goToLogin() {
-            //     this.passDialog = false;
-            //     this.$parent.$emit('changeStep', 'loginstep');
-            // },
+
             goToValidateEmail() {
                 this.$parent.$emit('changeStep', 'validateemail');
-                //this.passDialog = true;
             },
         },
         created() {
