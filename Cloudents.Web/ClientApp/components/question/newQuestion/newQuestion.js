@@ -66,6 +66,7 @@ export default {
 
         submitQuestion() {
             let readyToSend = true;
+            this.textAreaValue = this.textAreaValue.trim();
             //error handling stuff ( redo with newer version to validate with in build validators
             if (!this.selectedPrice && this.price < 1 && !this.selectedPrice || this.price > 100) {
                 readyToSend = false

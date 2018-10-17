@@ -1,11 +1,8 @@
 import walletService from '../../services/walletService';
-import {
-    cashOutCards
-} from './consts'
-import cashOutCard from './cashOutCard/cashOutCard.vue'
-import {
-    mapGetters
-} from 'vuex'
+import { cashOutCards } from './consts';
+import cashOutCard from './cashOutCard/cashOutCard.vue';
+import { mapGetters } from 'vuex';
+import { LanguageService } from "../../services/language/languageService";
 
 export default {
     components: {
@@ -27,35 +24,35 @@ export default {
 
             selected: [],
             allTransactionsHeaders: [{
-                text: 'Date',
+                text: LanguageService.getValueByKey('wallet_Date'),
                 align: 'left',
                 value: 'date',
                 sortable: false,
                 showOnMobile: true
             },
                 {
-                    text: 'Action',
+                    text: LanguageService.getValueByKey('wallet_Action'),
                     align: 'left',
                     value: 'action',
                     sortable: false,
                     showOnMobile: true
                 },
                 {
-                    text: 'Type',
+                    text: LanguageService.getValueByKey('wallet_Type'),
                     align: 'left',
                     value: 'type',
                     sortable: false,
                     showOnMobile: false
                 },
                 {
-                    text: 'Amount',
+                    text: LanguageService.getValueByKey('wallet_Amount'),
                     align: 'right',
                     value: 'amount',
                     sortable: false,
                     showOnMobile: true
                 },
                 {
-                    text: 'Balance',
+                    text: LanguageService.getValueByKey('wallet_Balance'),
                     align: 'right',
                     value: 'balance',
                     sortable: false,
@@ -69,14 +66,14 @@ export default {
                 showOnMobile: true
             },
                 {
-                    text: 'Tokens',
+                    text: LanguageService.getValueByKey('wallet_Tokens'),
                     align: 'left',
                     value: 'points',
                     align: 'right',
                     showOnMobile: true
                 },
                 {
-                    text: 'Value',
+                    text: LanguageService.getValueByKey('wallet_Value'),
                     align: 'left',
                     value: 'value',
                     align: 'right',
