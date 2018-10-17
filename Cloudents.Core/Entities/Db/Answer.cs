@@ -38,7 +38,7 @@ namespace Cloudents.Core.Entities.Db
 
         public virtual DateTime Created { get; set; }
 
-        internal protected virtual Question QuestionAnswer { get; set; }
+        protected internal virtual Question QuestionAnswerCorrect { get; set; }
        
         public virtual IList<IEvent> Events { get; }
     }
