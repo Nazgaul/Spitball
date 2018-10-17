@@ -48,7 +48,7 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<CourseSearch>().As<ICourseSearch>();
             builder.RegisterType<AzureQuestionSearch>().AsSelf();
-            builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
+            //builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
 
             #region Tutor
 

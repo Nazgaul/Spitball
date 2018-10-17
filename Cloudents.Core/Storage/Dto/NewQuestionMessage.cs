@@ -1,4 +1,6 @@
-﻿namespace Cloudents.Core.Storage.Dto
+﻿using Cloudents.Core.Enum;
+
+namespace Cloudents.Core.Storage.Dto
 {
     /// <summary>
     /// New message of to pass to azure function to invoke new create question message.
@@ -7,6 +9,14 @@
     public class NewQuestionMessage
     {
         public NewQuestionMessage(int subjectId, string text, decimal price,long userId)
+        {
+            SubjectId = (QuestionSubject)subjectId;
+            Text = text;
+            Price = price;
+            UserId = userId;
+        }
+
+        public NewQuestionMessage(QuestionSubject subjectId, string text, decimal price, long userId)
         {
             SubjectId = subjectId;
             Text = text;
@@ -19,7 +29,7 @@
             
         }
 
-        public int SubjectId { get; set; }
+        public QuestionSubject SubjectId { get; set; }
         public string Text { get; set; }
 
         public decimal Price { get; set; }

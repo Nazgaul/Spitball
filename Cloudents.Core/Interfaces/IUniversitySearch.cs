@@ -22,8 +22,8 @@ namespace Cloudents.Core.Interfaces
         //    CancellationToken token);
     }
 
-    public interface IQuestionSearch
-    {
-        Task<QuestionWithFacetDto> SearchAsync(QuestionsQuery query, CancellationToken token);
-    }
+    //public interface IQuestionSearch
+    //{
+    //    Task<QuestionWithFacetDto> SearchAsync(QuestionsQuery query, CancellationToken token);
+    //}
 }

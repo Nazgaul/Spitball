@@ -8,7 +8,7 @@ namespace Cloudents.Web.Models
         public string Term { get; set; }
         public int? Page { get; set; }
 
-        public int[] Source { get; set; }
+        public QuestionSubject[] Source { get; set; }
 
         public QuestionFilter?[] Filter { get; set; }
     }

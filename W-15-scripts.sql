@@ -310,3 +310,7 @@ add InvitedUserId [bigint];
 
 ALTER TABLE [sb].[Transaction]  WITH CHECK ADD  CONSTRAINT [Transaction_InvitedUser] FOREIGN KEY([InvitedUserId])
 REFERENCES [sb].[User] ([Id]);
+
+
+ALTER TABLE sb.Question
+DROP CONSTRAINT Question_AskQuestionSubject;   

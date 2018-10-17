@@ -30,7 +30,6 @@ namespace Cloudents.Infrastructure.Database.Query
         {
             //TODO: this is left join query need to fix that
             var questionFuture = _session.Query<Question>().Where(w => w.Id == id)
-                .Fetch(f => f.Subject)
                 .Fetch(f => f.User)
                 .Select(s => new QuestionDetailDto
                 {
@@ -43,7 +42,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Id = s.Id,
                     Create = s.Updated,
                     Price = s.Price,
-                    Subject = s.Subject.Text,
+                    Subject = s.Subject,
                     Text = s.Text,
                     Color = s.Color,
                     CorrectAnswerId = s.CorrectAnswer.Id
@@ -101,7 +100,7 @@ namespace Cloudents.Infrastructure.Database.Query
             return dto;
         }
 
-        public static ILookup<Guid?, Uri> AggregateFiles(IEnumerable<Uri> files)
+        private static ILookup<Guid?, Uri> AggregateFiles(IEnumerable<Uri> files)
         {
             var aggregateFiles = files.ToLookup<Uri, Guid?>(v =>
             {

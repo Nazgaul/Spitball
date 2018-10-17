@@ -10,8 +10,6 @@ namespace Cloudents.Web.Services
     {
         public MapperProfile()
         {
-            CreateMap<CreateQuestionRequest, CreateQuestionCommand>()
-                .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
 
             //CreateMap<CreateAnswerRequest, CreateAnswerCommand>()
             //    .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
@@ -40,8 +38,6 @@ namespace Cloudents.Web.Services
             CreateMap<DeleteAnswerRequest, DeleteAnswerCommand>()
                 .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
 
-            CreateMap<DeleteQuestionRequest, DeleteQuestionCommand>()
-                .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());
 
             CreateMap<CreateRedeemRequest, RedeemTokenCommand>()
                 .ForMember(f => f.UserId, c => c.ResolveUsing<UserIdResolver>());

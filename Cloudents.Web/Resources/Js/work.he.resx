@@ -125,6 +125,9 @@
   <data name="personalization_title" xml:space="preserve">
     <value>פדה יתרות</value>
   </data>
+  <data name="technology_text" xml:space="preserve">
+    <value>QUERY LENGTH LIMIT EXCEDEED. MAX ALLOWED QUERY : 500 CHARS</value>
+  </data>
   <data name="technology_title" xml:space="preserve">
     <value>טכנולוגיה</value>
   </data>

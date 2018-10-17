@@ -38,5 +38,8 @@
     <EmbeddedResource Update="Enum\Resources\EnumResources.resx">
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Enum\Resources\QuestionSubjectResources.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

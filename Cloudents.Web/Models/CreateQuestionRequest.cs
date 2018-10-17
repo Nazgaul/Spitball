@@ -6,7 +6,7 @@ namespace Cloudents.Web.Models
     public class CreateQuestionRequest
     {
         [Required(ErrorMessage = "Required")]
-        public int SubjectId { get; set; }
+        public QuestionSubject? SubjectId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Required")]
         [MinLength(15,ErrorMessage = "MinLength")]

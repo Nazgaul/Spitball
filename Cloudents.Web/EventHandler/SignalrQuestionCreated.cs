@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Event;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Models;
@@ -37,7 +38,7 @@ namespace Cloudents.Web.EventHandler
                 Price = eventMessage.Question.Price,
                 Text = eventMessage.Question.Text,
                 Color = eventMessage.Question.Color,
-                Subject = eventMessage.Question.Subject.Text
+                Subject = eventMessage.Question.Subject
             };
             await _hubContext.Clients.All.SendAsync(SbHub.MethodName, new SignalRTransportType<QuestionDto>("question", SignalRAction.Add, dto), token);
         }
