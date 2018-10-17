@@ -26,8 +26,8 @@
                                     </button>
                                     </div>
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
-                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}} <span v-language:inner>header_sbl</span></span>
-                                        <span>{{accountUser.balance | dollarVal}} $</span>
+                                        <span class="bold" style="direction:ltr;">{{accountUser.balance | currencyLocalyFilter}}</span>
+                                        <span>${{accountUser.balance | dollarVal}}</span>
                                     </router-link>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu bottom left offset-y>

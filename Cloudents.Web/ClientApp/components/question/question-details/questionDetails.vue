@@ -9,19 +9,22 @@
                 <span class="question-category"> <span v-language:inner>questionDetails_question_dash</span>{{questionData.subject}}</span>
             </v-flex>
             <v-layout row>
-                <v-flex class="question-data">
+                <v-flex style="width:inherit;" class="question-data">
                     
                     <question-thread v-if="questionData" :questionData="questionData"
                                      :showDialogSuggestQuestion="showDialogSuggestQuestion"
                                      :hasCorrectAnswer="getCorrectAnswer">
                         
-                        <div v-if="enableAnswer" slot="answer-form" class="mb-3">
-                            <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
+                        <div v-if="enableAnswer" slot="answer-form" class="mb-3" style="width:inherit;">
+                            <div style="position:relative;width:inherit;" v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
                                 <extended-text-area uploadUrl="/api/upload/ask"
                                                     v-model="textAreaValue"
                                                     :error="errorTextArea"
                                                     :isFocused="showForm" @addFile="addFile"
                                                     @removeFile="removeFile"></extended-text-area>
+                                <div class="has-answer-error-wrapper">
+                                    <span v-if="!errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}hgujgyuygtuyutu uty tyutyuyttyu</span>
+                                </div>
                                 <v-btn block color="primary"
                                        @click="submitAnswer()"
                                        :disabled="submitted"
@@ -56,16 +59,19 @@
                     <v-tab :href="'#tab-2'" :key="'2'" v-if="accountUser"><span v-language:inner>questionDetails_Chat</span></v-tab>
 
                 <v-tab-item :key="'1'" :id="'tab-1'" class="tab-padding">
-                        <v-flex xs12 class="question-data">
+                        <v-flex xs12 class="question-data" >
                             <question-thread v-if="questionData" :questionData="questionData"
                                              :hasCorrectAnswer="getCorrectAnswer">
-                                <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer">
+                                <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer" >
                                     <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                         <extended-text-area uploadUrl="/api/upload/ask"
                                                             v-model="textAreaValue"
                                                             :error="errorTextArea"
                                                             :isFocused="showForm" @addFile="addFile"
                                                             @removeFile="removeFile"></extended-text-area>
+                                        <div class="has-answer-error-wrapper">
+                                            <span v-if="!errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
+                                        </div>
                                         <v-btn color="primary" @click="submitAnswer()"
                                                :disabled="submitted"
                                                class="add_answer"><span  v-language:inner>questionDetails_Add_answer</span> 

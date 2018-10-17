@@ -15,11 +15,13 @@
                         </div>
                     </v-flex>
                     <extended-text-area uploadUrl="/api/upload/ask"
-                                        v-model.trim="textAreaValue"
+                                        v-model="textAreaValue"
                                         @addFile="addFile"
                                         :actionType="actionType"
                                         :error="errorTextArea"
-                                        @removeFile="removeFile">
+                                        @removeFile="removeFile"
+
+                    >
                     </extended-text-area>
 
                     <v-flex xs6 :class="{'has-error':!subject && errorMessageSubject}" class="inputBorder">
@@ -81,6 +83,10 @@
                         <div v-if="errorSelectPrice.length && !selectedPrice && !price" class="error-message">
                             {{errorSelectPrice}}
                         </div>
+
+                            <div v-else-if="errorWaitTime.length" class="error-message">
+                                {{errorWaitTime}}
+                            </div>
 
                     </v-flex>
 

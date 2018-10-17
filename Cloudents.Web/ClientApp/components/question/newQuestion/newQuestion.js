@@ -24,6 +24,7 @@ export default {
             pricesList: [10, 20, 40, 80],
             actionType: "question",
             selectedColor: {},
+            errorWaitTime: '',
             loading: false
         }
     },
@@ -48,6 +49,9 @@ export default {
                 this.pricesList = [10, 20, 40, 80];
                 this.loading = false;
                 this.$root.$emit("colorReset");
+                this.$root.$emit('previewClean', 'true');
+                this.files = [];
+                this.errorWaitTime = '';
             } else {
                 // get subject if questionDialog state is true(happens only if accountUser is true)
                 questionService.getSubjects().then((response) => {
@@ -62,6 +66,7 @@ export default {
 
         submitQuestion() {
             let readyToSend = true;
+            this.textAreaValue = this.textAreaValue.trim();
             //error handling stuff ( redo with newer version to validate with in build validators
             if (!this.selectedPrice && this.price < 1 && !this.selectedPrice || this.price > 100) {
                 readyToSend = false
@@ -114,11 +119,10 @@ export default {
                             if(error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]){
                                 errorMessage = error.response.data[""][0];
                             }
-                            self.updateToasterParams({
-                                toasterText: `${errorMessage}` || '',
-                                showToaster: true,
-                            });
+                            self.errorWaitTime = `${errorMessage}` || '';
+                            self.loading = false;
                             self.submitForm(false);
+
                         });
             }
         },

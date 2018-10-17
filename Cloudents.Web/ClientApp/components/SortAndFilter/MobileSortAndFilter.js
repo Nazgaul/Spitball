@@ -103,6 +103,5 @@ export default {
 
     created() {
         this.initFilters( this.filterVal);
-        console.log('type ', this.filterOptions)
     },
 }

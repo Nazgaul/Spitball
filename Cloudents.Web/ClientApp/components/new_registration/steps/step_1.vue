@@ -79,25 +79,7 @@
                 <img :src="require(`../img/registerEmail.png`)"/>
             </div>
         </step-template>
-        <v-dialog v-model="passDialog" max-width="600px" :fullscreen="isMobile" content-class="registration-dialog">
-            <v-card>
-                <button class="close-btn" @click="passDialog = false">
-                    <v-icon>sbf-close</v-icon>
-                </button>
-                <v-card-text class="limited-width">
-                    <h1 v-if="isMobile">
-                        <span v-language:inner >login_passsword_dialog_title</span>
-                    </h1>
-                    <p v-language:inner>login_passsword_dialog_text_1</p>
-                    <p v-language:inner>login_passsword_dialog_text_2</p>
-                    <v-btn  class="continue-registr"
-                            @click="goToCreatePassword()">
-                        <span v-language:inner>login_password_dialog_action_create_password</span>
-                    </v-btn>
-                    <button class="continue-btn" @click="goToLogin()" v-language:inner>login_password_dialog_action_have_password</button>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
+
 
     </div>
     <!--!!!end terms and first screen-->
@@ -203,18 +185,13 @@
                 //global.location.replace(`${global.location.origin}/signin` )
 
             },
-            goToLogin() {
-                this.passDialog = false;
-                this.$parent.$emit('changeStep', 'loginstep');
-            },
+            // goToLogin() {
+            //     this.passDialog = false;
+            //     this.$parent.$emit('changeStep', 'loginstep');
+            // },
             goToValidateEmail() {
                 this.$parent.$emit('changeStep', 'validateemail');
                 //this.passDialog = true;
-            },
-            goToCreatePassword() {
-                this.passDialog = false;
-                this.$parent.$emit('fromCreate', 'create');
-                this.$parent.$emit('changeStep', 'emailpassword');
             },
         },
         created() {
