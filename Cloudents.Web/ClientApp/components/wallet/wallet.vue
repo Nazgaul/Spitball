@@ -56,8 +56,8 @@
                     </v-flex>
                     <div class="bottom-area" v-if="!cashOut">
                         <v-pagination total-visible=7 v-model="pagination.page" :length="pages"
-                                      next-icon="sbf-arrow-right"
-                                      prev-icon="sbf-arrow-right left"></v-pagination>
+                                      :next-icon="`sbf-arrow-right ${ isRtl ? 'left': '' }`"
+                                      :prev-icon="`sbf-arrow-right ${ isRtl ? '': 'left' }`"></v-pagination>
                     </div>
                 </v-tab-item>
 
