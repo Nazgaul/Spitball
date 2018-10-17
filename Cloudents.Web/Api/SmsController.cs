@@ -122,7 +122,10 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("verify")]
-        public async Task<IActionResult> VerifySmsAsync([FromBody]CodeRequest model, CancellationToken token)
+        public async Task<IActionResult> VerifySmsAsync(
+            [FromBody]CodeRequest model,
+            [ModelBinder(typeof(CountryModelBinder))] string country,
+            CancellationToken token)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync().ConfigureAwait(false);
             if (user == null)
@@ -137,23 +140,33 @@ namespace Cloudents.Web.Api
             if (v.Succeeded)
             {
                 //This is the last step of the registration.
-                return await FinishRegistrationAsync(token, user);
+                return await FinishRegistrationAsync(token, user, country);
             }
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
         }
 
-        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, User user)
+        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, User user, string country)
         {
             if (TempData[HomeController.Referral] != null)
             {
-                var base62 = new Base62(TempData[HomeController.Referral].ToString());
-                var command = new ReferringUserCommand(base62.Value,user.Id);
-                await _commandBus.DispatchAsync(command, token);
+                if (Base62.TryParse(TempData[HomeController.Referral].ToString(), out var base62))
+                {
+                    var command = new ReferringUserCommand(base62.Value, user.Id);
+                    await _commandBus.DispatchAsync(command, token);
+                }
+                else
+                {
+                    _logger.Error($"{user.Id} got wrong referring user {TempData[HomeController.Referral]}");
+                }
                 TempData.Remove(HomeController.Referral);
             }
             TempData.Clear();
-            await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
+
+            var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
+            var t1 = _commandBus.DispatchAsync(command2, token);
+            var t2 =  _signInManager.SignInAsync(user, false);
+            await Task.WhenAll(t1, t2);
             return Ok();
         }
 
