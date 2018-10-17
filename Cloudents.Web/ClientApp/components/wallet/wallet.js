@@ -12,6 +12,7 @@ export default {
     data() {
         return {
             activeTab: 1,
+            isRtl: global.isRtl,
             active: null,
             walletData: {},
             cashOut: false,
