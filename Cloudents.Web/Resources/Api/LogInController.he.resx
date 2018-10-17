@@ -120,6 +120,9 @@
   <data name="BadLogin" xml:space="preserve">
     <value>כתובת דוא"ל או סיסמה שגויים</value>
   </data>
+  <data name="EmailNotFound" xml:space="preserve">
+    <value>לא הצלחתי למצוא אותך חשבון רוק!</value>
+  </data>
   <data name="LockOut" xml:space="preserve">
     <value>המשתמש נעול</value>
   </data>
