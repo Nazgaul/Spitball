@@ -7,6 +7,7 @@ using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
+using NHibernate.Criterion;
 using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Database.Query
@@ -79,6 +80,8 @@ namespace Cloudents.Infrastructure.Database.Query
                     }
                 }).ToFuture();
 
+
+   
             var dto = await futureDto.GetValueAsync(token).ConfigureAwait(false);
             if (dto == null)
             {
@@ -87,7 +90,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
             dto.Questions = futureQuestions.GetEnumerable();
             dto.Answers = futureAnswers.GetEnumerable();
-
+            
             return dto;
         }
     }

@@ -9,7 +9,8 @@ namespace Cloudents.Core.DTOs
     {
         public BalanceDto(TransactionType transaction, decimal points)
         {
-            Type = transaction.GetEnumLocalization();
+            Name = transaction;
+            Type = transaction.ToString("G");
             Points = points;
             Value = points / 40;
         }
@@ -22,6 +23,7 @@ namespace Cloudents.Core.DTOs
         //}
 
         public string Type { get; }
+        public TransactionType Name { get; }
         public decimal Points { get; }
 
         public decimal Value { get; }
