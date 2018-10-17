@@ -33,6 +33,7 @@ namespace Cloudents.Core.CommandHandler
             }
 
             answer.Events.Add(new AnswerDeletedEvent(answer));
+            
             await _repository.DeleteAsync(answer, token).ConfigureAwait(false);
         }
     }
