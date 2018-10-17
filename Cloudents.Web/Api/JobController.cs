@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.Documents.SystemFunctions;
 
 namespace Cloudents.Web.Api
 {
@@ -48,23 +49,29 @@ namespace Cloudents.Web.Api
             var result = await _jobSearch.SearchAsync(model.Term,
                 model.Sort.GetValueOrDefault(JobRequestSort.Relevance),
                 model.Facet, model.Location?.ToLocation(), model.Page.GetValueOrDefault(), token).ConfigureAwait(false);
-            string nextPageLink = null;
             result.Result = result.Result?.ToList();
-            if (result.Result?.Any() == true)
-            {
-                nextPageLink = Url.NextPageLink("Job", model);
-            }
-            return new WebResponseWithFacet<JobDto>
+
+            var retVal = new WebResponseWithFacet<JobDto>()
             {
                 Result = result.Result,
-                Filters = new IFilters[]
-                {
-                    new Filters<string>(nameof(JobRequest.Facet),_questionLocalizer["SubjectTypeTitle"],
-                        result.Facet.Select(s=> new KeyValuePair<string, string>(s,s)))
-                },
                 Sort = EnumExtension.GetValues<JobRequestSort>().Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())),
-                NextPageLink = nextPageLink
+
             };
+            if (result.Result?.Any() == true)
+            {
+                retVal.NextPageLink = Url.NextPageLink("Job", model);
+            }
+
+            if (result.Facet != null)
+            {
+                retVal.Filters = new IFilters[]
+                {
+                    new Filters<string>(nameof(JobRequest.Facet), _questionLocalizer["SubjectTypeTitle"],
+                        result.Facet.Select(s => new KeyValuePair<string, string>(s, s)))
+                };
+            }
+
+            return retVal;
         }
     }
 }
