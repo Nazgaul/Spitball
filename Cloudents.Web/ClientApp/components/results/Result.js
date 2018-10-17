@@ -172,6 +172,7 @@ export default {
                 //user profile update
                 this.updateUserProfileData('profileHWH')
             }else{
+                //ab test original do not delete
                  this.updateNewQuestionDialogState(true);
             }
         },

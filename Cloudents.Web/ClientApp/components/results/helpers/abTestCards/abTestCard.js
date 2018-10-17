@@ -32,14 +32,18 @@ export default {
     },
     methods: {
         ...mapActions(["updateLoginDialogState", 'updateUserProfileData', 'updateNewQuestionDialogState']),
-        goToAskQuestion() {
+        goToAskQuestion(from) {
            // console.log(this.accountUser);
             if (this.accountUser == null) {
                 this.updateLoginDialogState(true);
                 //set user profile
                 this.updateUserProfileData('profileHWH')
             } else {
-                this.updateNewQuestionDialogState(true);
+                let Obj = {
+                    status:true,
+                    from: from
+                }
+                this.updateNewQuestionDialogState(Obj);
             }
         },
         hideOnMobileScroll(e) {

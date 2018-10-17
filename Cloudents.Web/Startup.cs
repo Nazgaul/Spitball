@@ -34,7 +34,6 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Core.Storage;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -203,6 +202,7 @@ namespace Cloudents.Web
                     !HostingEnvironment.IsProduction()
                     ),
                 Storage = Configuration["Storage"],
+                ProdStorage = Configuration["ProdStorage"],
                 BlockChainNetwork = Configuration["BlockChainNetwork"],
                 ServiceBus = Configuration["ServiceBus"]
             };

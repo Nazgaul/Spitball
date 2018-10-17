@@ -24,22 +24,22 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<IEnumerable<QuestionDto>> GetAsync(NextQuestionQuery query, CancellationToken token)
         {
             QuestionDto dto = null;
-            QuestionSubject commentAlias = null;
+          //  QuestionSubject commentAlias = null;
             Question questionAlias = null;
             User userAlias = null;
 
-            //var detachSubQuery = DetachedCriteria.For<Question>();
 
             var detachedQuery = QueryOver.Of<Question>()
-                .Select(s => s.Subject.Id)
+                .Select(s => s.Subject)
                 .Where(w => w.Id == query.QuestionId)
                 .Take(1);
 
             return await _session.QueryOver(() => questionAlias)
-                .JoinAlias(x => x.Subject, () => commentAlias)
+                //.JoinAlias(x => x.Subject, () => commentAlias)
                 .JoinAlias(x => x.User, () => userAlias)
                 .SelectList(l => l
-                    .Select(_ => commentAlias.Text).WithAlias(() => dto.Subject)
+                    //.Select(_ => commentAlias.Text).WithAlias(() => dto.Subject)
+                    .Select(s=>s.Subject).WithAlias(()=>dto.Subject)
                     .Select(s => s.Id).WithAlias(() => dto.Id)
                     .Select(s => s.Text).WithAlias(() => dto.Text)
                     .Select(s => s.Price).WithAlias(() => dto.Price)

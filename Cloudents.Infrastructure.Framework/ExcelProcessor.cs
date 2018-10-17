@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using Aspose.Cells;
 using Aspose.Cells.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
@@ -14,9 +13,9 @@ namespace Cloudents.Infrastructure.Framework
     public class ExcelProcessor : Processor, IPreviewProvider
     {
         private const string CacheVersion = CacheVersionPrefix + "5";
-        public ExcelProcessor(Uri blobUri,
-            IBlobProvider blobProvider,
-            IBlobProvider<CacheContainer> blobProviderCache)
+        public ExcelProcessor(string blobUri,
+            IBlobProvider<OldSbFilesContainerName> blobProvider,
+            IBlobProvider<OldCacheContainer> blobProviderCache)
             : base(blobProvider, blobProviderCache, blobUri)
         {
             SetLicense();
@@ -38,7 +37,7 @@ namespace Cloudents.Infrastructure.Framework
 
         public Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(int indexNum, CancellationToken cancelToken)
         {
-            var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
+            //var blobName = BlobProvider.GetBlobNameFromUri(BlobUri);
 
             var excel = new AsyncLazy<Workbook>(async () =>
             {
@@ -50,7 +49,7 @@ namespace Cloudents.Infrastructure.Framework
 
             var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
             return UploadPreviewCacheToAzureAsync(indexNum,
-                i => CreateCacheFileName(blobName, i),
+                i => CreateCacheFileName(BlobUri, i),
                async z =>
                {
                    var p = await excel;

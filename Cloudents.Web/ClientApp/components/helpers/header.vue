@@ -22,12 +22,12 @@
                                     <div class="ab-test static-card-what-is-hw-question hidden-sm-and-down">
                                     <button class="ab-test-button" @click="openNewQuestionDialog()">
                                         <v-icon class="edit-icon">sbf-edit-icon</v-icon>
-                                        <span  v-language:inner>abTest_addQuestion</span>
+                                        <span v-language:inner>abTest_addQuestion</span>
                                     </button>
                                     </div>
                                     <router-link to="/wallet" class="header-wallet" v-if="loggedIn">
-                                        <span class="bold">{{accountUser.balance | currencyLocalyFilter}} <span v-language:inner>header_sbl</span></span>
-                                        <span>{{accountUser.balance | dollarVal}} $</span>
+                                        <span class="bold" style="direction:ltr;">{{accountUser.balance | currencyLocalyFilter}}</span>
+                                        <span>${{accountUser.balance | dollarVal}}</span>
                                     </router-link>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu bottom left offset-y>
@@ -166,7 +166,11 @@
             ...mapActions(['updateToasterParams', 'resetData', 'updateNewQuestionDialogState']),
 
             openNewQuestionDialog(){
-                this.updateNewQuestionDialogState(true)
+                let Obj = {
+                    status:true,
+                    from: 1
+                }
+                this.updateNewQuestionDialogState(Obj)
             },
             //TODO: what is that
             $_currentClick({id, name}) {

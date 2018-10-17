@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Controllers;
@@ -149,7 +148,7 @@ namespace Cloudents.Web.Api
             if (TempData[HomeController.Referral] != null)
             {
                 var base62 = new Base62(TempData[HomeController.Referral].ToString());
-                var command = new DistributeTokensCommand(base62.Value, 10, ActionType.ReferringUser, TransactionType.Earned);
+                var command = new ReferringUserCommand(base62.Value,user.Id);
                 await _commandBus.DispatchAsync(command, token);
                 TempData.Remove(HomeController.Referral);
             }

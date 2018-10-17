@@ -110,10 +110,10 @@
                             let url = this.toUrl || defaultSubmitRoute;
                             //will be always ask cause he came from email
                             this.$router.push({path: `${url.path }`});
-                        }, (reason) => {
+                        }, (error) => {
                             this.loading = false;
-                            self.errorMessage.confirmPassword = error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '';
-                            self.errorMessage.password = error.response.data["Password"] ? error.response.data["Password"][0] : '';
+                            this.errorMessage.confirmPassword = error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '';
+                            this.errorMessage.password = error.response.data["Password"] ? error.response.data["Password"][0] : '';
                         });
 
                 }

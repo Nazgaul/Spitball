@@ -4,7 +4,9 @@
     {
         public virtual long Id { get; set; }
         public virtual string Name { get; set; }
-        //public virtual RowDetail RowDetail { get; protected set; }
+
+
+        public virtual RowDetail RowDetail { get; protected set; }
         public virtual string BlobName { get; protected set; }
         
 

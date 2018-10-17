@@ -4,14 +4,13 @@ using Cloudents.Core.Enum.Resources;
 
 namespace Cloudents.Core.Enum
 {
+    //TODO: why to we need TutorFilter and TutorRequestFilter
     [Flags]
     public enum TutorFilter
     {
         None = 0,
-        [ResourceDescription(typeof(EnumResources), "TutorFilterOnline")]
 
         Online = 1,
-        [ResourceDescription(typeof(EnumResources), "TutorFilterInPerson")]
 
         InPerson = 2,
     }

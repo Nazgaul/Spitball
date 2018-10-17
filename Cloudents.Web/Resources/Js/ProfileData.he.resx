@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="generalProfile_modal_heading" xml:space="preserve">
-    <value>בבקשה&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;הרשמה&amp;lt;/b&amp;gt; או &amp;lt;b&amp;gt;כניסה&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;כדי להמשיך.</value>
+    <value>בבקשה&lt;br&gt;&lt;b&gt;הרשמה&lt;/b&gt; או &lt;b&gt;כניסה&lt;/b&gt;&lt;br&gt;כדי להמשיך.</value>
   </data>
   <data name="generalProfile_modal_text" xml:space="preserve">
     <value>. אתה רק מספר לחיצות על העכבר פותח עזרה מיידית את שיעורי הבית ואת היכולת לעשות כסף רציני</value>
@@ -206,10 +206,10 @@
     <value>אנחנו צריכים לדעת איך ליצור איתך קשר</value>
   </data>
   <data name="HHP_modal_heading" xml:space="preserve">
-    <value>בבקשה&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;הרשמה&amp;lt;/b&amp;gt; או &amp;lt;b&amp;gt;כניסה&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;כדי להמשיך.</value>
+    <value>בבקשה&lt;br&gt;&lt;b&gt;הרשמה&lt;/b&gt; או &lt;b&gt;כניסה&lt;/b&gt;&lt;br&gt;כדי להמשיך.</value>
   </data>
   <data name="HHP_modal_text" xml:space="preserve">
-    <value>. אתה רק מספר לחיצות עכבר בלבד מיידית לעזור שיעורי הבית, &amp;lt;b&amp;gt;ובינונית ליצירת בחינם.&amp;lt;/b&amp;gt;</value>
+    <value>. אתה רק מספר לחיצות עכבר בלבד מיידית לעזור שיעורי הבית, &lt;b&gt;ובינונית ליצירת בחינם.&lt;/b&gt;</value>
   </data>
   <data name="HHP_register_stepEight_boldText" xml:space="preserve">
     <value>דוא"ל</value>
@@ -263,7 +263,7 @@
     <value>אתה יכול  להשתמש בהם כדי לקבל עזרה בשיעורי הבית.</value>
   </data>
   <data name="HHP_register_stepTen_createbtn" xml:space="preserve">
-    <value>יצירת &amp;lt;b&amp;gt;סיסמה&amp;lt;/b&amp;gt;</value>
+    <value>יצירת &lt;b&gt;סיסמה&lt;/b&gt;</value>
   </data>
   <data name="HHP_register_stepTen_createtxt" xml:space="preserve">
     <value>צור את הסיסמה שלך</value>
@@ -293,7 +293,7 @@
     <value>אנחנו צריכים לדעת איך ליצור איתך קשר</value>
   </data>
   <data name="makeMoneyProfile_modal_heading" xml:space="preserve">
-    <value>בבקשה&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;הרשמה&amp;lt;/b&amp;gt; או &amp;lt;b&amp;gt;כניסה&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;כדי להמשיך.</value>
+    <value>בבקשה&lt;br&gt;&lt;b&gt;הרשמה&lt;/b&gt; או &lt;b&gt;כניסה&lt;/b&gt;&lt;br&gt;כדי להמשיך.</value>
   </data>
   <data name="makeMoneyProfile_modal_text" xml:space="preserve">
     <value>אתה מספר לחיצות עכבר בלבד ללא גישה עושים כסף רציני..</value>

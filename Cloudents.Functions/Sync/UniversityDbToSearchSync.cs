@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Query.Sync;
-using Cloudents.Infrastructure.Write;
 
 namespace Cloudents.Functions.Sync
 {

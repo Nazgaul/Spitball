@@ -120,6 +120,9 @@
   <data name="Answer does not exists" xml:space="preserve">
     <value>לא קיימות תשובות</value>
   </data>
+  <data name="DuplicateAnswer" xml:space="preserve">
+    <value>שאלה זו כבר יש את התשובה!</value>
+  </data>
   <data name="QuestionNotExists" xml:space="preserve">
     <value>לא קיימות שאלות</value>
   </data>

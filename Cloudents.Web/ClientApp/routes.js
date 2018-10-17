@@ -120,29 +120,7 @@ let routes2 = [
         components: {default: showFlashcard, header: previewHeader},
         props: {default: (route) => ({id: route.params.id})}
     },
-    // TODO new question in v-dialog
-    // {
-    //     path: "/newquestion",
-    //     beforeEnter: (to, from, next) => {
-    //         //prevent entering if loged in
-    //         console.log('store routtes',storeQuestion)
-    //         if(storeQuestion.getters.newQuestionDialogSate === true){
-    //             next()
-    //         }else{
-    //             storeQuestion.actions.updateNewQuestionDialogState(true);
-    //             next()
-    //         }
-    //     },
-    //     // components: {
-    //     //     default: newQuestion,
-    //     //     header: pageHeader,
-    //     // },
-    //     name: "newQuestion",
-    //     meta: {
-    //         requiresAuth: true
-    //     }
-    // },
-    {
+     {
         path: "/question/:id",
         components: {
             default: viewQuestion,

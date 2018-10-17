@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 using Cloudents.Functions.Sync;
 
 namespace Cloudents.Functions
@@ -32,11 +33,8 @@ namespace Cloudents.Functions
         [FunctionName("QuestionSearchSync")]
         public static async Task RunQuestionSearchAsync([TimerTrigger("0 */30 * * * *", RunOnStartup = true)] TimerInfo myTimer,
             [OrchestrationClient] DurableOrchestrationClient starter,
-            TraceWriter log,
-            CancellationToken token)
+            TraceWriter log)
         {
-           // const string instanceId = "QuestionSearchSync";
-
             await SyncFunc.StartSearchSync(starter, log, SyncType.Question);
         }
 
@@ -57,13 +55,12 @@ namespace Cloudents.Functions
             }
 
             var answerMessage = JsonConvert.DeserializeObject<NewQuestionMessage>(msg.AsString);
-            var command = new CreateQuestionCommand
-            {
-                Price = answerMessage.Price,
-                SubjectId = answerMessage.SubjectId,
-                Text = answerMessage.Text,
-                UserId = answerMessage.UserId
-            };
+            var command = new CreateQuestionCommand(
+                answerMessage.SubjectId,
+                answerMessage.Text,
+                answerMessage.Price,
+                answerMessage.UserId, null, 
+                QuestionColor.Default);
             await commandBus.DispatchAsync(command, token);
             await queue.DeleteMessageAsync(msg, token);
             log.Info($"QuestionPopulate function executed at: {DateTime.Now}");

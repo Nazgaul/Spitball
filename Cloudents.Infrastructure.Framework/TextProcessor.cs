@@ -12,14 +12,14 @@ namespace Cloudents.Infrastructure.Framework
     public class TextProcessor : IPreviewProvider
     {
         //private const string CacheVersion = Processor.CacheVersionPrefix + "1";
-        private readonly IBlobProvider _blobProvider;
-        private readonly Uri _blobUri;
-        private readonly IBlobProvider<CacheContainer> _blobProviderCache;
+        private readonly IBlobProvider<OldSbFilesContainerName> _blobProvider;
+        private readonly string _blobUri;
+        private readonly IBlobProvider<OldCacheContainer> _blobProviderCache;
 
 
-        public TextProcessor(IBlobProvider blobProvider, 
-            Uri blobUri,
-            IBlobProvider<CacheContainer> blobProviderCache)
+        public TextProcessor(IBlobProvider<OldSbFilesContainerName> blobProvider, 
+            string blobUri,
+            IBlobProvider<OldCacheContainer> blobProviderCache)
         {
             _blobProvider = blobProvider;
             _blobUri = blobUri;
@@ -41,7 +41,7 @@ namespace Cloudents.Infrastructure.Framework
         public async Task<IEnumerable<string>> ConvertFileToWebsitePreviewAsync(
             int indexNum, CancellationToken cancelToken)
         {
-            var blobName = _blobProvider.GetBlobNameFromUri(_blobUri);
+            //var blobName = _blobProvider.GetBlobNameFromUri(_blobUri);
 
             if (indexNum > 0)
             {
@@ -49,7 +49,7 @@ namespace Cloudents.Infrastructure.Framework
             }
             var blobsNamesInCache = new List<string>();
 
-            var cacheFileName = CreateCacheFileName(blobName);
+            var cacheFileName = CreateCacheFileName(_blobUri);
 
             if (await _blobProviderCache.ExistsAsync(cacheFileName, cancelToken).ConfigureAwait(false))
             {

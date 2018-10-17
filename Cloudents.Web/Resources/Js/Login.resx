@@ -225,24 +225,6 @@
   <data name="or" xml:space="preserve">
     <value>or</value>
   </data>
-  <data name="passsword_dialog_text_1" xml:space="preserve">
-    <value>Our Privacy Settings has changed.</value>
-  </data>
-  <data name="passsword_dialog_text_2" xml:space="preserve">
-    <value>Please login to your Spitball account using a password</value>
-  </data>
-  <data name="passsword_dialog_title" xml:space="preserve">
-    <value>You Asked We Answer</value>
-  </data>
-  <data name="passsword_dialog_title_boldText" xml:space="preserve">
-    <value>Asked Answer</value>
-  </data>
-  <data name="password_dialog_action_create_password" xml:space="preserve">
-    <value>Create a password</value>
-  </data>
-  <data name="password_dialog_action_have_password" xml:space="preserve">
-    <value>I have a password</value>
-  </data>
   <data name="password_email_confirmed_resend_action" xml:space="preserve">
     <value>Click here to resend</value>
   </data>

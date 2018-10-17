@@ -56,13 +56,13 @@ namespace Cloudents.Infrastructure.Mail
 
             using (var body = new FormUrlEncodedContent(serializedParams))
             {
-                var result = await _restClient.Value.PostAsync(uri, body, headers, cancellationToken).ConfigureAwait(false);
+                await _restClient.Value.PostAsync(uri, body, headers, cancellationToken).ConfigureAwait(false);
             }
         }
 
         public async Task<bool> ValidateEmailAsync(string email, CancellationToken token)
         {
-            var uri = new Uri($"https://api.mailgun.net/v3/address/validate");
+            var uri = new Uri("https://api.mailgun.net/v3/address/validate");
             var nvc = new NameValueCollection()
             {
                 ["address"] = email,

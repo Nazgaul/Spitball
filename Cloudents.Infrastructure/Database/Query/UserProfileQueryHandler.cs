@@ -39,7 +39,6 @@ namespace Cloudents.Infrastructure.Database.Query
                  })
                  .ToFutureValue();
             var futureQuestions = _session.Query<Question>()
-                .Fetch(f => f.Subject)
                 .Where(w => w.User.Id == query.Id)
                 .OrderByDescending(o => o.Id)
                 .Select(s => new QuestionDto
@@ -50,7 +49,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Files = s.Attachments,
                     Price = s.Price,
                     Id = s.Id,
-                    Subject = s.Subject.Text,
+                    Subject = s.Subject,
                     Color = s.Color,
                     HasCorrectAnswer = s.CorrectAnswer != null
                 }).ToFuture();
@@ -58,7 +57,6 @@ namespace Cloudents.Infrastructure.Database.Query
             var answerQuery = _session.Query<Answer>()
                 .Fetch(f => f.Question);
 
-            answerQuery.ThenFetch(f => f.Subject);
             answerQuery.ThenFetch(f => f.User);
 
             var futureAnswers = answerQuery.Where(w => w.User.Id == query.Id)
@@ -71,7 +69,7 @@ namespace Cloudents.Infrastructure.Database.Query
                     Files = s.Question.Attachments,
                     Price = s.Question.Price,
                     Id = s.Question.Id,
-                    Subject = s.Question.Subject.Text,
+                    Subject = s.Question.Subject,
                     Color = s.Question.Color,
                     HasCorrectAnswer = s.Question.CorrectAnswer != null,
                     User = new UserDto

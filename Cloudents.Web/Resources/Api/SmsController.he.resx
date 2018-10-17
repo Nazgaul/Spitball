@@ -123,4 +123,7 @@
   <data name="DuplicatePhoneNumber" xml:space="preserve">
     <value>מספר הטלפון הזה מקושר לכתובת דוא"ל &amp;quot;ל אחרת</value>
   </data>
+  <data name="PhoneNumberNotSameCountry" xml:space="preserve">
+    <value>לחשבון שלך יש להיות מושעה. אנא צור קשר תמיכה לפרטים נוספים!</value>
+  </data>
 </root>

@@ -7,10 +7,12 @@ function Answer(objInit){
 
 function createAnswers(arrobjInit){
     let answers = [];
-    if(!!arrobjInit && arrobjInit.length > 0){
+    if (!!arrobjInit && arrobjInit.length > 0) {
         arrobjInit.forEach((answer) => {
             answers.push(new Answer(answer))
         })
+    } else {
+        console.error("Question without answers Detected - Notify Ram");
     }
     return answers;
 }

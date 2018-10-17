@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 .JoinAlias(x => x.User, () => userAlias)
                 .SelectList(l => l
                     //.Select(_ => commentAlias.Text).WithAlias(() => dto.Subject)
-                    .Select(s => s.Subject.Id).WithAlias(() => dto.SubjectId)
+                    .Select(s => s.Subject).WithAlias(() => dto.Subject)
                     .Select(s => s.Id).WithAlias(() => dto.Id)
                     .Select(s => s.Text).WithAlias(() => dto.Text)
                     .Select(s => s.Price).WithAlias(() => dto.Price)
@@ -56,7 +56,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 .TransformUsing(new DeepTransformer<QuestionDto>());
             if (query.Source != null)
             {
-                queryOverObj.WhereRestrictionOn(() => questionAlias.Subject.Id).IsIn(query.Source);
+                queryOverObj.WhereRestrictionOn(() => questionAlias.Subject).IsIn(query.Source);
             }
 
             if (!string.IsNullOrEmpty(query.Term))

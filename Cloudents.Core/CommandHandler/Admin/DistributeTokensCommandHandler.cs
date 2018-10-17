@@ -1,13 +1,15 @@
-﻿using Cloudents.Core.Command;
-using Cloudents.Core.Entities.Db;
-using Cloudents.Core.Interfaces;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Command.Admin;
+using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Core.CommandHandler
+namespace Cloudents.Core.CommandHandler.Admin
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
+    [AdminCommandHandler]
     public class DistributeTokensCommandHandler : ICommandHandler<DistributeTokensCommand>
     {
 

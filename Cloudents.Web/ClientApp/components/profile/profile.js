@@ -66,7 +66,11 @@ export default {
                 boldText: LanguageService.getValueByKey("profile_emptyState_questions_boldText"),
                 btnText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
                 btnUrl:  ()=> {
-                    this.updateNewQuestionDialogState(true)
+                    let Obj = {
+                        status:true,
+                        from: 5
+                    }
+                    this.updateNewQuestionDialogState(Obj)
                 }
             };
             var answers = {

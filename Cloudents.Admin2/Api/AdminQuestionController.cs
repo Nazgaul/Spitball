@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
 using Cloudents.Core;
 using Cloudents.Core.Command.Admin;
-using Cloudents.Core.DTOs;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
 using Cloudents.Core.Query.Admin;
 using Cloudents.Core.Storage;
 using Cloudents.Core.Storage.Dto;
@@ -48,16 +49,14 @@ namespace Cloudents.Admin2.Api
         /// <summary>
         /// Get a list of question subject for ui
         /// </summary>
-        /// <param name="queryBus"></param>
-        /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("subject")]
         [ResponseCache(Duration = TimeConst.Day)]
-        public async Task<IEnumerable<QuestionSubjectDto>> GetSubjectsAsync([FromServices] IQueryBus queryBus, CancellationToken token)
+        public IEnumerable<QuestionSubjectResponse> GetSubjectsAsync()
         {
-            var query = new QuestionSubjectQuery();
-            var result = await queryBus.QueryAsync(query, token).ConfigureAwait(false);
-            return result;
+            var values = EnumExtension.GetValues<QuestionSubject>();
+
+            return values.Select(s => new QuestionSubjectResponse((int) s, s.ToString("G")));
         }
 
         /// <summary>

@@ -117,8 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="personalization_text" xml:space="preserve">
+    <value>. אה, הדברים הטובים. אז אתה רוצה לעשות כסף? אין בעיה רק ללכת הארנק שלך (ודא כי ברשותך מספיק ובינונית ליצירת לפדיון), ללחוץ על הכסף החוצה ולבחור את הפרס שלך. את הקופון אמזון שלך תישלח לכתובת הדוא ל שלך בתוך 24 שעות.
+
+             טיפ קל קלי קלות: אנחנו מעודדים תלמידים כדי להציל כמה. אסימונים ובינונית ליצירת כדי לשאול שאלות על שיעורי בית קשה בעתיד.!</value>
+  </data>
   <data name="personalization_title" xml:space="preserve">
     <value>פדה יתרות</value>
+  </data>
+  <data name="technology_text" xml:space="preserve">
+    <value>QUERY LENGTH LIMIT EXCEDEED. MAX ALLOWED QUERY : 500 CHARS</value>
+  </data>
+  <data name="technology_title" xml:space="preserve">
+    <value>טכנולוגיה</value>
+  </data>
+  <data name="whatIsSpitabll_text" xml:space="preserve">
+    <value>שיעורי הבית שלנו עזרה מציע לתלמידים דרך מהירה ופשוטה לשאול ולענות על שאלות שיעורים מסובכים. כדורעף מעודד תלמידים בעלי ידע לתמוך זה בזה למטרות רווח, ומביא תלמידים מכל רחבי העולם יחד לעזור זה לזה להצליח בבית הספר. שאל את השאלה שלך או לענות על מישהו אחר, win-win!</value>
   </data>
   <data name="whatIsSpitabll_title" xml:space="preserve">
     <value>איך ספיטבול עובד</value>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
@@ -24,7 +23,6 @@ namespace Cloudents.Web.Controllers
         // GET
         [Route("register", Name = RegisterRouteName)]
         [Route("signin", Name = Signin)]
-        [Route("resetPassword", Name = "ResetPassword")]
         public async Task<IActionResult> Index(NextStep? step)
         {
             if (User.Identity.IsAuthenticated)
@@ -32,29 +30,25 @@ namespace Cloudents.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            if (step.HasValue)
+            if (!step.HasValue) return View();
+            switch (step.Value)
             {
-                switch (step.Value)
-                {
-                    case NextStep.EmailConfirmed:
-                        var val = TempData.Peek(Api.RegisterController.Email);
-                        if (val == null)
-                        {
-                            return RedirectToRoute(RegisterRouteName);
-                        }
-                            break;
-                    case NextStep.VerifyPhone:
-                    case NextStep.EnterPhone:
-                        var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-                        if (user == null)
-                        {
-                            return RedirectToRoute(RegisterRouteName);
-                        }
+                case NextStep.EmailConfirmed:
+                    var val = TempData.Peek(Api.RegisterController.Email);
+                    if (val == null)
+                    {
+                        return RedirectToRoute(RegisterRouteName);
+                    }
+                    break;
+                case NextStep.VerifyPhone:
+                case NextStep.EnterPhone:
+                    var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+                    if (user == null)
+                    {
+                        return RedirectToRoute(RegisterRouteName);
+                    }
 
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                    break;
             }
             return View();
         }

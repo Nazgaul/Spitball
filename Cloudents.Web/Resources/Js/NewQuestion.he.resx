@@ -132,6 +132,9 @@
   <data name="min_SBL" xml:space="preserve">
     <value>הגבלת מספר ובינונית ליצירת הוא 1 לכל שאלה</value>
   </data>
+  <data name="otherAmount_placeholder" xml:space="preserve">
+    <value>סכום אחרת</value>
+  </data>
   <data name="Pick_a_subject" xml:space="preserve">
     <value>בחרי נושא</value>
   </data>

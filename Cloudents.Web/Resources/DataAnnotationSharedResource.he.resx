@@ -144,11 +144,17 @@
   <data name="NeedUniversity" xml:space="preserve">
     <value>צריך לבחור מוסד לימודים</value>
   </data>
+  <data name="PasswordNotMatch" xml:space="preserve">
+    <value>הסיסמה, לאשר את הסיסמה אינה תואמת</value>
+  </data>
   <data name="Range" xml:space="preserve">
     <value>השדה {0} חייב להיות בין {1} לבין {2}.</value>
   </data>
   <data name="Required" xml:space="preserve">
     <value>יש למלא שדה זה.</value>
+  </data>
+  <data name="StringLength" xml:space="preserve">
+    <value>השדה {0} חייב להיות מחרוזת עם אורך מינימלי של {2} ואורך מרבי של {1}.</value>
   </data>
   <data name="StringLengthMax" xml:space="preserve">
     <value>השדה {0} חייב להיות מחרוזת באורך מרבי של {1}.</value>

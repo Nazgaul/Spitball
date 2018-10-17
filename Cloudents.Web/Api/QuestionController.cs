@@ -15,11 +15,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
-using Org.BouncyCastle.Bcpg;
 
 namespace Cloudents.Web.Api
 {
@@ -30,17 +30,14 @@ namespace Cloudents.Web.Api
     {
         private readonly Lazy<ICommandBus> _commandBus;
         private readonly UserManager<User> _userManager;
-        private readonly IMapper _mapper;
         private readonly IStringLocalizer<QuestionController> _localizer;
-        private readonly IQuestionSearch _questionSearch;
 
-        public QuestionController(Lazy<ICommandBus> commandBus, IMapper mapper, UserManager<User> userManager, IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch)
+        public QuestionController(Lazy<ICommandBus> commandBus, UserManager<User> userManager, 
+            IStringLocalizer<QuestionController> localizer)
         {
             _commandBus = commandBus;
-            _mapper = mapper;
             _userManager = userManager;
             _localizer = localizer;
-            _questionSearch = questionSearch;
         }
 
         [HttpPost]
@@ -50,7 +47,8 @@ namespace Cloudents.Web.Api
         {
             try
             {
-                var command = _mapper.Map<CreateQuestionCommand>(model);
+                Debug.Assert(model.SubjectId != null, "model.SubjectId != null");
+                var command = new CreateQuestionCommand(model.SubjectId.Value,model.Text,model.Price, _userManager.GetLongUserId(User), model.Files,model.Color.GetValueOrDefault());
                 await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
 
                 return CreatedAtAction(nameof(GetQuestionAsync), new { id = command.Id });
@@ -64,10 +62,11 @@ namespace Cloudents.Web.Api
 
         [HttpGet("subject")]
         [ResponseCache(Duration = TimeConst.Day)]
-        public async Task<IEnumerable<QuestionSubjectDto>> GetSubjectsAsync([FromServices] IQueryBus queryBus, CancellationToken token)
+        public IEnumerable<QuestionSubjectResponse> GetSubjectsAsync()
         {
-            var query = new QuestionSubjectQuery();
-            return await queryBus.QueryAsync(query, token).ConfigureAwait(false);
+            var values = EnumExtension.GetValues<QuestionSubject>();
+
+            return values.Select(s => new QuestionSubjectResponse((int)s, s.GetEnumLocalization()));
         }
 
         [HttpPut("correct")]
@@ -102,7 +101,7 @@ namespace Cloudents.Web.Api
         {
             try
             {
-                var command = _mapper.Map<DeleteQuestionCommand>(model);
+                var command = new DeleteQuestionCommand(model.Id, _userManager.GetLongUserId(User));
                 await _commandBus.Value.DispatchAsync(command, token).ConfigureAwait(false);
                 return Ok();
             }
@@ -168,18 +167,18 @@ namespace Cloudents.Web.Api
                 resultTask.Add(t);
             }
 
-            var querySubject = new QuestionSubjectQuery();
-            var subjects = await queryBus.QueryAsync(querySubject, token).ConfigureAwait(false);
+            //var querySubject = new QuestionSubjectQuery();
+            //var subjects = await queryBus.QueryAsync(querySubject, token).ConfigureAwait(false);
 
             var results = await Task.WhenAll(resultTask);
 
             var result = results.SelectMany(s => s)
                 .Distinct(new QuestionDtoEqualityComparer())
-                .Select(s=>
-                {
-                    s.Subject = subjects.FirstOrDefault(w=>w.Id ==s.SubjectId)?.Subject;
-                    return s;
-                })
+                //.Select(s=>
+                //{
+                //    s.Subject = subjects.FirstOrDefault(w=>w.Id ==s.SubjectId)?.Subject;
+                //    return s;
+                //})
                 .OrderByDescending(o => o.DateTime).ToList();
 
             string nextPageLink = null;
@@ -200,7 +199,9 @@ namespace Cloudents.Web.Api
                    new Filters<string>(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"],
                        facets.Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization()))),
 
-                   new Filters<int>(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"], subjects.Select(s=> new KeyValuePair<int, string>(s.Id,s.Subject)))
+                   new Filters<string>(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"],
+                       EnumExtension.GetValues<QuestionSubject>()
+                           .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
                     //new Models.Filters(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"], EnumExtension.GetPublicEnumNames(typeof(QuestionFilter))),
                     //new Models.Filters(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"], subjects.Select(s=>s.Subject))
                 },

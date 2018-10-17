@@ -70,18 +70,6 @@
                 this.$router.push({path: '/' + result, query: {}});
                 // this.$router.push({path: '/' + result, query: {...query, q: text, course}});
             },
-
-            //TODO ABTEST part of ab test if not used delete from here
-            goToAskQuestion() {
-                // console.log(this.accountUser);
-                if (this.accountUser == null) {
-                    this.updateLoginDialogState(true);
-                    //set user profile
-                    this.updateUserProfileData('profileHWH')
-                } else {
-                    this.updateNewQuestionDialogState(true);
-                }
-            },
         }
     }
 </script>

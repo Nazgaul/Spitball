@@ -25,7 +25,7 @@
                             </template>
                             <template slot="items" slot-scope="props">
                                 <td class="text-xs-left">{{ props.item.type }}</td>
-                                <td class="text-xs-right">{{ props.item.points | currencyLocalyFilter}} <span v-language:inner>wallet_SBL</span></td>
+                                <td class="text-xs-right" style="direction:ltr;">{{ props.item.points | currencyLocalyFilter}}</td>
                                 <td class="text-xs-right bold"> <span v-language:inner>wallet_currency</span>{{ props.item.value }}</td>
                             </template>
                         </v-data-table>
@@ -49,17 +49,15 @@
                                 <td class="text-xs-left">{{ props.item.action }}</td>
                                 <td class="text-xs-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}
                                 </td>
-                                <td class="text-xs-right">{{ props.item.amount}}<span v-language:inner>wallet_SBL</span></td>
-                                <td class="text-xs-right bold" v-if="!$vuetify.breakpoint.xsOnly">{{
-                                    props.item.balance }}<span v-language:inner>wallet_SBL</span>
-                                </td>
+                                <td class="text-xs-right" style="direction:ltr;">{{ props.item.amount | currencyLocalyFilter}}</td>
+                                <td class="text-xs-right bold" style="direction:ltr;" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.balance | currencyLocalyFilter }}</td>
                             </template>
                         </v-data-table>
                     </v-flex>
                     <div class="bottom-area" v-if="!cashOut">
                         <v-pagination total-visible=7 v-model="pagination.page" :length="pages"
-                                      next-icon="sbf-arrow-right"
-                                      prev-icon="sbf-arrow-right left"></v-pagination>
+                                      :next-icon="`sbf-arrow-right ${ isRtl ? 'left': '' }`"
+                                      :prev-icon="`sbf-arrow-right ${ isRtl ? '': 'left' }`"></v-pagination>
                     </div>
                 </v-tab-item>
 
@@ -67,7 +65,7 @@
                     <div class="cash-out-wrapper">
                         <div class="text-wrap">
                             <div class="main-text" v-language:inner>wallet_more_SBL_more_valuable</div>
-                            <div class="points-text"><span v-language:inner>wallet_You_have</span>&nbsp;<span>{{ earnedPoints | currencyLocalyFilter}}</span>&nbsp;<span v-language:inner>wallet_redeemable_SBL</span>
+                            <div class="points-text"><span v-language:inner>wallet_You_have</span>&nbsp;<span>{{ earnedPoints.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0' }}</span>&nbsp;<span v-language:inner>wallet_redeemable_SBL</span>
                             </div>
                         </div>
                         <cash-out-card class="cash-out-option" v-for="(cashOutOption,index) in cashOutOptions"

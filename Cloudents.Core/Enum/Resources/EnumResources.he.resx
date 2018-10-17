@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActionTypeAnswerCorrect" xml:space="preserve">
+    <value>התשובה הנכונה</value>
+  </data>
+  <data name="ActionTypeCashOut" xml:space="preserve">
+    <value>לעשות כסף</value>
+  </data>
+  <data name="ActionTypeDeleteQuestion" xml:space="preserve">
+    <value>למחוק שאלה</value>
+  </data>
+  <data name="ActionTypeQuestion" xml:space="preserve">
+    <value>שאלה</value>
+  </data>
+  <data name="ActionTypeReferringUser" xml:space="preserve">
+    <value>בהתייחס משתמש</value>
+  </data>
+  <data name="ActionTypeSignUp" xml:space="preserve">
+    <value>הירשמו</value>
+  </data>
   <data name="QuestionFilterAnswered" xml:space="preserve">
     <value>עם תשובות</value>
   </data>
@@ -131,5 +149,26 @@
   </data>
   <data name="SearchRequestSortRelevance" xml:space="preserve">
     <value>רלוונטיות</value>
+  </data>
+  <data name="TransactionTypeAwarded" xml:space="preserve">
+    <value>הוענק</value>
+  </data>
+  <data name="TransactionTypeEarned" xml:space="preserve">
+    <value>מזוכה</value>
+  </data>
+  <data name="TransactionTypeSpent" xml:space="preserve">
+    <value>בילה</value>
+  </data>
+  <data name="TransactionTypeStake" xml:space="preserve">
+    <value>היתד</value>
+  </data>
+  <data name="TutorFilterInPerson" xml:space="preserve">
+    <value>InPerson!</value>
+  </data>
+  <data name="TutorFilterOnline" xml:space="preserve">
+    <value>מקוון</value>
+  </data>
+  <data name="TutorSortPrice" xml:space="preserve">
+    <value>מחיר</value>
   </data>
 </root>

@@ -11,7 +11,7 @@ using NHibernate.Transform;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
-    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Ioc inject")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class UserTransactionQueryHandler : IQueryHandler<UserDataByIdQuery, IEnumerable<TransactionDto>>
     {
         private readonly IStatelessSession _session;
@@ -36,9 +36,13 @@ select {_queryBuilder.BuildProperty<Transaction>(x => x.Id)} as id,
 {_queryBuilder.BuildProperty<Transaction>(x => x.Price)} as price 
 from {_queryBuilder.BuildTable<Transaction>()} 
 where {_queryBuilder.BuildProperty<Transaction>(x => x.User)} = :userId
-) select Created as date,  action,type,price as amount,( select
+) select Created as {nameof(TransactionDto.Date)},
+action as {nameof(TransactionDto.Action)},
+type as {nameof(TransactionDto.Type)},
+price as {nameof(TransactionDto.Amount)},
+( select
 SUM(price) as balance from cte  
- where id<=c.id) as balance
+ where id<=c.id) as {nameof(TransactionDto.Balance)}
 from cte c
 order by id desc";
             var sqlQuery = _session.CreateSQLQuery(sqlQueryStr);

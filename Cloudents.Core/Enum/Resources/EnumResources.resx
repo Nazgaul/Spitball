@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActionTypeAnswerCorrect" xml:space="preserve">
+    <value>Answer correct</value>
+  </data>
+  <data name="ActionTypeCashOut" xml:space="preserve">
+    <value>Cash out</value>
+  </data>
+  <data name="ActionTypeDeleteQuestion" xml:space="preserve">
+    <value>Delete question</value>
+  </data>
+  <data name="ActionTypeQuestion" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="ActionTypeReferringUser" xml:space="preserve">
+    <value>Referring user</value>
+  </data>
+  <data name="ActionTypeSignUp" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
   <data name="QuestionFilterAnswered" xml:space="preserve">
     <value>Answered</value>
   </data>
@@ -131,6 +149,18 @@
   </data>
   <data name="SearchRequestSortRelevance" xml:space="preserve">
     <value>Relevance</value>
+  </data>
+  <data name="TransactionTypeAwarded" xml:space="preserve">
+    <value>Awarded</value>
+  </data>
+  <data name="TransactionTypeEarned" xml:space="preserve">
+    <value>Earned</value>
+  </data>
+  <data name="TransactionTypeSpent" xml:space="preserve">
+    <value>Spent</value>
+  </data>
+  <data name="TransactionTypeStake" xml:space="preserve">
+    <value>Stake</value>
   </data>
   <data name="TutorFilterInPerson" xml:space="preserve">
     <value>InPerson</value>

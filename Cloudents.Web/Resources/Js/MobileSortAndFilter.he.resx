@@ -117,7 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="applyFilterBtn" xml:space="preserve">
+    <value>החל מסננים</value>
+  </data>
+  <data name="clearAll" xml:space="preserve">
+    <value>נקה הכל</value>
+  </data>
   <data name="filter" xml:space="preserve">
+    <value>פילטר</value>
+  </data>
+  <data name="filterBy" xml:space="preserve">
+    <value>סנן לפי</value>
+  </data>
+  <data name="sortBy" xml:space="preserve">
+    <value>‏‏מיין לפי</value>
+  </data>
+  <data name="toolbarTitle" xml:space="preserve">
     <value>פילטר</value>
   </data>
 </root>

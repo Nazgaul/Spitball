@@ -120,6 +120,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>
+  <data name="class_selection" xml:space="preserve">
+    <value>? למי אתה לוקח?</value>
+  </data>
   <data name="clear" xml:space="preserve">
     <value>נקה</value>
   </data>
@@ -131,6 +134,12 @@
   </data>
   <data name="dont_see_university" xml:space="preserve">
     <value>עדיין לא רואה האוניברסיטה שלך?</value>
+  </data>
+  <data name="error_chars" xml:space="preserve">
+    <value>שם האוניברסיטה להכיל תווים לפחות 10!</value>
+  </data>
+  <data name="error_university_create" xml:space="preserve">
+    <value>נכשל כדי ליצור האוניברסיטה!</value>
   </data>
   <data name="not_selected_courses" xml:space="preserve">
     <value>לא בחרת קורסים כלשהם</value>
