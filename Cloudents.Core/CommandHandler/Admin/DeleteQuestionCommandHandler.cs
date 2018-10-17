@@ -1,12 +1,13 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Core.CommandHandler.Admin
 {
@@ -34,7 +35,12 @@ namespace Cloudents.Core.CommandHandler.Admin
 
             question.Events.Add(new QuestionDeletedEvent(question));
             var userId = question.User.Id;
-            var users = question.Answers.Select(s => s.User.Id).Union(new[] {userId});
+            var correctAnswerUserId = question.CorrectAnswer?.User.Id;
+            IList<long> users = new[] { userId };
+            if (correctAnswerUserId != null)
+            {
+                users.Add(correctAnswerUserId.Value);
+            }
             question.Events.Add(new QuestionDeletedAdminEvent(users));
             await _questionRepository.DeleteAsync(question, token);
         }
