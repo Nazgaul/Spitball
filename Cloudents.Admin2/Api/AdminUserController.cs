@@ -73,16 +73,16 @@ namespace Cloudents.Admin2.Api
             if (model.DeleteUserQuestions)
             {
 
-                var AnswersQuery = new UserDataByIdQuery(model.Id);
-                var AnswersInfo = await _queryBus.QueryAsync<SuspendUserDto>(AnswersQuery, token);
+                var answersQuery = new UserDataByIdQuery(model.Id);
+                var answersInfo = await _queryBus.QueryAsync<SuspendUserDto>(answersQuery, token);
 
-                foreach (var question in AnswersInfo.Questions)
+                foreach (var question in answersInfo.Questions)
                 {
                     var deleteQuestionCommand = new Core.Command.Admin.DeleteQuestionCommand(question);
                     await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
                 }
 
-                foreach (var answer in AnswersInfo.AnswersData)
+                foreach (var answer in answersInfo.AnswersData)
                 {
                     var deleteAnswerCommand = new DeleteAnswerCommand(answer, model.Id);
                     await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);

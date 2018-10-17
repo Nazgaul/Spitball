@@ -120,6 +120,9 @@
   <data name="about_spitball" xml:space="preserve">
     <value>על ספיטבול</value>
   </data>
+  <data name="Change" xml:space="preserve">
+    <value>שנה</value>
+  </data>
   <data name="changeCourse" xml:space="preserve">
     <value>מחלקות</value>
   </data>

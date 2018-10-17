@@ -225,24 +225,6 @@
   <data name="or" xml:space="preserve">
     <value>או</value>
   </data>
-  <data name="passsword_dialog_text_1" xml:space="preserve">
-    <value>הגדרות הפרטיות שלנו השתנה.</value>
-  </data>
-  <data name="passsword_dialog_text_2" xml:space="preserve">
-    <value>אנא התחבר לחשבונך בספיטבול באמצעות סיסמה</value>
-  </data>
-  <data name="passsword_dialog_title" xml:space="preserve">
-    <value>אתם ביקשתם אנחנו ענינו</value>
-  </data>
-  <data name="passsword_dialog_title_boldText" xml:space="preserve">
-    <value>ביקשתי תשובה</value>
-  </data>
-  <data name="password_dialog_action_create_password" xml:space="preserve">
-    <value>צור סיסמה</value>
-  </data>
-  <data name="password_dialog_action_have_password" xml:space="preserve">
-    <value>יש לי סיסמא</value>
-  </data>
   <data name="password_email_confirmed_resend_action" xml:space="preserve">
     <value>לחץ כאן כדי לשלוח מחדש</value>
   </data>
