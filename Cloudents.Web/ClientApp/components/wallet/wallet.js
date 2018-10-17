@@ -109,7 +109,7 @@ export default {
                         let earnedVal;
                         const total = {
                             points: 0,
-                            type: "total",
+                            type: LanguageService.getValueByKey("wallet_Total"),
                             value: 0
                         };
                         this.items = response.data;
