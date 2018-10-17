@@ -150,6 +150,9 @@
   <data name="NeedUniversity" xml:space="preserve">
     <value>You need to choose university first</value>
   </data>
+  <data name="PasswordNotMatch" xml:space="preserve">
+    <value>Password and confirm password does not match</value>
+  </data>
   <data name="Range" xml:space="preserve">
     <value>The field {0} must be between {1} and {2}.</value>
     <comment>{0} - field name {1} - min length {2} - max length</comment>

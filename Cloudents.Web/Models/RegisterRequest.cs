@@ -13,7 +13,7 @@ namespace Cloudents.Web.Models
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Required")]
-        [Compare("Password", ErrorMessage = "Compare")]
+        [Compare("Password", ErrorMessage = "PasswordNotMatch")]
         public string ConfirmPassword { get; set; }
     }
 }

@@ -13,8 +13,7 @@ namespace Cloudents.Web.Controllers
         [Route("book")]
         [Route("job")]
         public IActionResult Index(
-            [ModelBinder(typeof(CountryModelBinder))] string country
-            )
+            [ModelBinder(typeof(CountryModelBinder))] string country)
         {
             if (string.Equals(country, "il", StringComparison.OrdinalIgnoreCase))
             {
