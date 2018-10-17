@@ -24,6 +24,7 @@ export default {
             pricesList: [10, 20, 40, 80],
             actionType: "question",
             selectedColor: {},
+            errorWaitTime: '',
             loading: false
         }
     },
@@ -50,6 +51,7 @@ export default {
                 this.$root.$emit("colorReset");
                 this.$root.$emit('previewClean', 'true');
                 this.files = [];
+                this.errorWaitTime = '';
             } else {
                 // get subject if questionDialog state is true(happens only if accountUser is true)
                 questionService.getSubjects().then((response) => {
@@ -116,11 +118,10 @@ export default {
                             if(error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]){
                                 errorMessage = error.response.data[""][0];
                             }
-                            self.updateToasterParams({
-                                toasterText: `${errorMessage}` || '',
-                                showToaster: true,
-                            });
+                            self.errorWaitTime = `${errorMessage}` || '';
+                            self.loading = false;
                             self.submitForm(false);
+
                         });
             }
         },

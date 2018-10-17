@@ -75,7 +75,7 @@ export default {
             } else if (this.$route.name === 'bookDetails') {
             //we need to create the filters according to the query string
                 Object.entries(this.query).forEach(([key, vals]) => {
-                    if(!filters.filterChunkDictionary[key] || key === 'sort') return;
+                    if(!filters || !filters.filterChunkDictionary || !filters.filterChunkDictionary[key] || key === 'sort') return;
                     let filterIds = vals; //could be a string not only array (e.g: sort)
                     if (typeof filterIds === 'object') { // TODO sort could be alos an object
                         if (filterIds.length === 0) {
