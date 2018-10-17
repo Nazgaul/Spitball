@@ -208,7 +208,9 @@ Vue.filter('dateFromISO', function (value) {
 // filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
 Vue.filter('currencyLocalyFilter', function (value) {
     let amount = Number(value);
-    return amount && amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0';
+    let sblCurrency = LanguageService.getValueByKey('wallet_SBL');
+    let result =  amount && amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0';
+    return result + " " + sblCurrency;
 });
 
 Vue.filter('commasFilter', function (value) {
