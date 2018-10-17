@@ -360,4 +360,10 @@
   <data name="you_can_spend_them_to_get_help_with_your" xml:space="preserve">
     <value>You can spend them to get help with your</value>
   </data>
+  <data name="email_sent" xml:space="preserve">
+    <value>Email sent</value>
+  </data>
+  <data name="verification_code_sent_to_phone" xml:space="preserve">
+    <value>A verification code was sent to your phone</value>
+  </data>
 </root>
