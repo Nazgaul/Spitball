@@ -2,6 +2,8 @@
 import App from "./components/app/app.vue";
 import store from "./store";
 import { Language } from "./services/language/langDirective";
+import {LanguageService} from './services/language/languageService'
+ 
 import initSignalRService from './services/signalR/signalrEventService'
 
 // clip board copy text
@@ -199,7 +201,7 @@ Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
     //return load if no data
     if (!value) {
-        return 'Loading..';
+        return LanguageService.getValueByKey('wallet_Loading');
     }
     return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 });
