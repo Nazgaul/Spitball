@@ -171,10 +171,11 @@
     .header-login {
       height: 32px;
       //width: 104px;
+      font-weight: 400;
       margin-right: 10px;
-      border-radius: 26.5px;
+      border-radius: 26px;
       border: solid 1px @color-main-purple;
-      font-size: 16px !important;
+      font-size: 16px;
       outline: none;
       display: flex;
       align-items: center;
@@ -182,9 +183,7 @@
       color: @color-main-purple;
       letter-spacing: -0.5px;
       padding: 0 20px;
-      width: 100%;
-      min-width: 104px;
-      max-width: 104px;
+      .widthMinMax(100%, 104px, 104px);
       @media (max-width: @screen-xs) {
         display: none;
       }

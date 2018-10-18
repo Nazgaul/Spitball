@@ -92,6 +92,13 @@
   -ms-text-overflow: ellipsis;	/* required for IE8, allegedly */
 }
 
+.widthMinMax(@width, @minWidth: @width, @maxWidth: @width){
+  width: @width;
+  min-width: @minWidth;
+  max-width: @maxWidth;
+}
+
+
 .giveMeEllipsis(@lines, @line-height) {
   overflow: hidden;
   text-overflow: ellipsis;
