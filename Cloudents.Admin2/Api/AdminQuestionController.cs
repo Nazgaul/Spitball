@@ -54,7 +54,7 @@ namespace Cloudents.Admin2.Api
         [ResponseCache(Duration = TimeConst.Day)]
         public IEnumerable<QuestionSubjectResponse> GetSubjectsAsync()
         {
-            var values = EnumExtension.GetValues<QuestionSubject>();
+            var values = QuestionSubjectMethod.GetValues();
 
             return values.Select(s => new QuestionSubjectResponse((int) s, s.ToString("G")));
         }
