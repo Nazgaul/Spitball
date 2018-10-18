@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace Cloudents.Core.Message
 {
+    /// <summary>
+    /// This is the email template from the ico site
+    /// </summary>
     [Serializable]
     public class ContactUsEmail : BaseEmail
     {
         public ContactUsEmail(string name, string email, string text)
-            : base("support@spitball.co", null, $"Contact us Ico {email}", "SendGrid", "Email", "ContactUs")
+            : base("support@spitball.co", $"Contact us Ico {email}", null)
         {
             Name = name;
             Email = email;
@@ -14,7 +19,7 @@ namespace Cloudents.Core.Message
         }
 
         public ContactUsEmail(string email)
-            : base("support@spitball.co", null, $"Subscribe Ico {email}", "SendGrid", "Email", "ContactUs")
+            : base("support@spitball.co", $"Subscribe Ico {email}", null)
         {
             Email = email;
         }
@@ -31,22 +36,8 @@ namespace Cloudents.Core.Message
             return $"Contact us name: {Name}, email: {Email}, Text: {Text} ";
 
         }
+
+        public override string Campaign => "ContactUs";
+        protected override IDictionary<CultureInfo, string> Templates => null;
     }
-
-    //[Serializable]
-    //public class ReportEmail : BaseEmail
-    //{
-    //    public ReportEmail(string subject, string message)
-    //        : base("ram@cloudents.com", null, subject, "SendGrid", "Email", "Report")
-    //    {
-    //        Message = message;
-    //    }
-
-    //    public string Message { get; private set; }
-
-    //    public override string ToString()
-    //    {
-    //        return $"{nameof(Message)}: {Message}";
-    //    }
-    //}
 }
