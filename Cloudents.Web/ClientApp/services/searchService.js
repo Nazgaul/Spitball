@@ -53,7 +53,7 @@ function QuestionItem(objInit) {
     this.answers = objInit.answers;
     this.user = objInit.user;
     this.dateTime = objInit.dateTime;
-    this.color = !!objInit.color ? objInit.color : undefined;
+    this.color = !!objInit.color ? objInit.color.toLowerCase() : undefined;
     this.hasCorrectAnswer = objInit.hasCorrectAnswer;
     this.template = objInit.template;
     this.template = "ask";
