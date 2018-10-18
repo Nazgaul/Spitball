@@ -1,15 +1,15 @@
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Framework;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.ServiceBus.Messaging;
-using Microsoft.WindowsAzure.Storage.Blob;
 using SendGrid.Helpers.Mail;
+using System;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
 using Twilio;
 
 namespace Cloudents.Functions
@@ -74,60 +74,44 @@ namespace Cloudents.Functions
         {
             var message = new Mail
             {
-                TrackingSettings = new TrackingSettings { Ganalytics = new Ganalytics { Enable = true } }
+                TrackingSettings = new TrackingSettings { Ganalytics = new Ganalytics() }
+            };
+            var personalization = new Personalization();
+            personalization.AddTo(new Email(topicMessage.To));
+            message.Asm = new ASM
+            {
+                GroupId = 10926
             };
 
-            void TextEmail()
+            if (topicMessage.TemplateId != null)
             {
-                message.AddContent(new Content("text/plain", topicMessage.ToString()));
+
+                message.TemplateId = topicMessage.TemplateId;
                 message.Subject = topicMessage.Subject;
-
-                log.Warning("error with template name" + topicMessage.Template);
-            }
-
-            if (topicMessage.Template != null)
-            {
-                var dynamicBlobAttribute =
-                    new BlobAttribute($"mailcontainer/Spitball/{topicMessage.Template}-mail.html");
-
-                var blob = await binder.BindAsync<CloudBlockBlob>(dynamicBlobAttribute, token).ConfigureAwait(false);
-                if (await blob.ExistsAsync(token).ConfigureAwait(false))
+                if (topicMessage.Campaign != null)
                 {
-                    var htmlTemplate = await blob.DownloadTextAsync(token).ConfigureAwait(false);
-
-                    if (!blob.Metadata.TryGetValue("subject", out var subject))
-                    {
-                        subject = topicMessage.Subject;
-                    }
-
-                    message.Subject = subject;
                     message.AddCategory(topicMessage.Campaign);
-
                     message.TrackingSettings.Ganalytics.UtmCampaign = topicMessage.Campaign;
-                    message.TrackingSettings.Ganalytics.UtmSource = topicMessage.Source;
-                    message.TrackingSettings.Ganalytics.UtmMedium = topicMessage.Medium;
-                    if (htmlTemplate != null)
-                    {
-                        var content = htmlTemplate.Inject(topicMessage);
-                        message.AddContent(new Content("text/html", content));
-                    }
-                    else
-                    {
-                        TextEmail();
-                    }
+                    message.TrackingSettings.Ganalytics.UtmSource = "SendGrid";
+                    message.TrackingSettings.Ganalytics.UtmMedium = "Email";
+                    message.TrackingSettings.Ganalytics.Enable = true;
                 }
-                else
+
+                foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(topicMessage))
                 {
-                    TextEmail();
+                    var p = prop.GetValue(topicMessage);
+                    personalization.AddSubstitution($"-{prop.Name}-", p?.ToString() ?? string.Empty);
                 }
             }
             else
             {
-                TextEmail();
+                message.AddContent(new Content("text/plain", topicMessage.ToString()));
+                message.Subject = topicMessage.Subject;
+
+                log.Warning("error with template name" + topicMessage.TemplateId);
             }
 
-            var personalization = new Personalization();
-            personalization.AddTo(new Email(topicMessage.To));
+
             message.AddPersonalization(personalization);
 
             await emailProvider.AddAsync(message, token).ConfigureAwait(false);

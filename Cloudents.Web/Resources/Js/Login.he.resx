@@ -168,6 +168,9 @@
   <data name="didnt_get_sms" xml:space="preserve">
     <value>לא קיבלת SMS ?</value>
   </data>
+  <data name="email_sent" xml:space="preserve">
+    <value>אימייל נשלח</value>
+  </data>
   <data name="enter_the_confirm_code" xml:space="preserve">
     <value>הזן את קוד האישור</value>
   </data>
@@ -344,6 +347,9 @@
   </data>
   <data name="until_activate_account3" xml:space="preserve">
     <value>עד להפעלת החשבון שלך</value>
+  </data>
+  <data name="verification_code_sent_to_phone" xml:space="preserve">
+    <value>נשלח קוד אימות לטלפון שלך</value>
   </data>
   <data name="welcome_back" xml:space="preserve">
     <value>ברוכים השבים</value>

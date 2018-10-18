@@ -1,6 +1,8 @@
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Message;
 using Cloudents.Functions.Sync;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
@@ -23,26 +25,36 @@ namespace Cloudents.Functions
             
         }
 
-        [FunctionName("Test")]
-        public static async Task Run2Async(
-            [TimerTrigger("0 */1 * * * *", RunOnStartup = true)] TimerInfo myTimer,
-            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<Mail> emailProvider)
-        {
-            //string template = @"Hello World @Model.Name. Time is: @DateTime.Now";
-            //var host = new RazorEngine();
-            //string result = host.RenderTemplate(template, new { Name = "Joe Doe" });
+        //[FunctionName("Test")]
+        //public static async Task Run2Async(
+        //    [TimerTrigger("0 */1 * * * *", RunOnStartup = true)] TimerInfo myTimer,
+        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<Mail> emailProvider)
+        //{
+        //    //string template = @"Hello World @Model.Name. Time is: @DateTime.Now";
+        //    //var host = new RazorEngine();
+        //    //string result = host.RenderTemplate(template, new { Name = "Joe Doe" });
+        //    BaseEmail password = new RegistrationEmail("ram@cloudents.com", "https://www.spitball.co");
 
-            var message = new Mail();
-            var personalization = new Personalization();
-            personalization.AddTo(new Email("ram@cloudents.com"));
-            personalization.AddSubstitution("-FirstName-","Beny");
-            message.AddPersonalization(personalization);
+           
+        //    var message = new Mail();
+        //    var personalization = new Personalization();
+        //    personalization.AddTo(new Email("ram@cloudents.com"));
+        //    foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(password))
+        //    {
+        //        var p = prop.GetValue(password);
+        //        personalization.AddSubstitution($"-{prop.Name}-", p?.ToString() ?? string.Empty);
+        //    }
+        //    //personalization.AddSubstitution("-xxx-", "{unsubscribeUrl}");
+        //    message.Asm = new ASM()
+        //    {
+        //        GroupId = 10926
+        //    };
+        //    message.AddPersonalization(personalization);
+        //    message.Subject = " this is a test";
+        //    message.TemplateId = "e4334fe9-b71d-466f-80ea-737bf16d9c81";
 
-            message.Subject = " this is a test";
-            message.TemplateId = "4f915763-1f9e-4b81-9ed7-09c1201c677b";
+        //    await emailProvider.AddAsync(message).ConfigureAwait(false);
 
-            await emailProvider.AddAsync(message).ConfigureAwait(false);
-
-        }
+        //}
     }
 }

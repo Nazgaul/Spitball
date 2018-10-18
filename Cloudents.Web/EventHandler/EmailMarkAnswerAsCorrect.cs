@@ -1,12 +1,12 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Event;
+﻿using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Cloudents.Web.Services;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.EventHandler
 {
@@ -19,7 +19,7 @@ namespace Cloudents.Web.EventHandler
         private readonly IUrlBuilder _urlBuilder;
 
 
-        public EmailMarkAnswerAsCorrect(IServiceBusProvider serviceBusProvider, IDataProtect dataProtect,IUrlBuilder urlBuilder)
+        public EmailMarkAnswerAsCorrect(IServiceBusProvider serviceBusProvider, IDataProtect dataProtect, IUrlBuilder urlBuilder)
         {
             _serviceBusProvider = serviceBusProvider;
             _dataProtect = dataProtect;
@@ -35,7 +35,9 @@ namespace Cloudents.Web.EventHandler
                 DateTimeOffset.UtcNow.AddDays(5));
             var link = _urlBuilder.BuildWalletEndPoint(new { code });
             await _serviceBusProvider.InsertMessageAsync(
-                new AnswerCorrectEmail(answer.User.Email, answer.Question.Text, answer.Text, link, answer.Question.Price), token).ConfigureAwait(false);
+                new AnswerCorrectEmail(answer.User.Email, answer.Question.Text,
+                    answer.Text, link,
+                    answer.Question.Price, answer.User.Culture), token).ConfigureAwait(false);
         }
     }
 }
