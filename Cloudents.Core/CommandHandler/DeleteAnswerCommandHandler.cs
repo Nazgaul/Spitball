@@ -27,14 +27,15 @@ namespace Cloudents.Core.CommandHandler
                 throw new ArgumentException("answer doesn't exits");
             }
 
-            if (answer.QuestionAnswerCorrect == null)
-            {
-                throw new ArgumentException("this is answer is correct answer");
-            }
+          
 
             if (answer.User.Id != message.UserId)
             {
                 throw new InvalidOperationException("user is not the one who wrote the answer");
+            }
+            if (answer.Question.CorrectAnswer.Id == message.Id)
+            {
+                throw new ArgumentException("this is answer is correct answer");
             }
 
             answer.Events.Add(new AnswerDeletedEvent(answer));

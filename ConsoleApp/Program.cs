@@ -59,7 +59,8 @@ namespace ConsoleApp
             }
             else
             {
-                await HadarMethod();
+                await RamMethod();
+               // await HadarMethod();
             }
 
 
@@ -112,7 +113,7 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             var bus = _container.Resolve<ICommandBus>();
-            var command = new ReferringUserCommand(638, 715);
+            var command = new Cloudents.Core.Command.Admin.DeleteAnswerCommand(Guid.Parse("B6B6920B-BE00-4212-8056-A97D007FC73F"));
             await bus.DispatchAsync(command, default);
         }
 
@@ -351,20 +352,20 @@ namespace ConsoleApp
             }
         }
 
-        private static async Task PopulateSheetOfQuestion()
-        {
-            string spreadsheetId = "1A2O_jASZuWlI_jIX8a1eiZb61C5RDF9KQ2i7CQzGU30";
-            string range = "All!B:D";
+        //private static async Task PopulateSheetOfQuestion()
+        //{
+        //    string spreadsheetId = "1A2O_jASZuWlI_jIX8a1eiZb61C5RDF9KQ2i7CQzGU30";
+        //    string range = "All!B:D";
 
 
-            //var subjectList = new List<CreateQuestionCommand>();
-            var subjectList = GoogleSheets.GetData(spreadsheetId, range);
-            foreach (var question in GoogleSheets.GetData(spreadsheetId, range))
-            {
-                var commandBus = _container.Resolve<ICommandBus>();
-                // await commandBus.DispatchAsync(question, default);
-            }
-        }
+        //    //var subjectList = new List<CreateQuestionCommand>();
+        //    var subjectList = GoogleSheets.GetData(spreadsheetId, range);
+        //    foreach (var question in GoogleSheets.GetData(spreadsheetId, range))
+        //    {
+        //        var commandBus = _container.Resolve<ICommandBus>();
+        //        // await commandBus.DispatchAsync(question, default);
+        //    }
+        //}
 
 
         public static async Task UpdateCreationTimeProductionAsync()
