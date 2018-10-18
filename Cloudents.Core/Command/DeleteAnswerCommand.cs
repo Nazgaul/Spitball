@@ -13,11 +13,6 @@ namespace Cloudents.Core.Command
             UserId = userId;
         }
 
-        
-        public DeleteAnswerCommand()
-        {
-        }
-
         public Guid Id { get; set; }
         public long UserId { get; set; }
     }

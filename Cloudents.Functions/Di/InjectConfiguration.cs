@@ -67,8 +67,8 @@ namespace Cloudents.Functions.Di
 
         private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            return AppDomain.CurrentDomain.GetAssemblies()
-                .Where(a => a.FullName == args.Name).FirstOrDefault();
+            return AppDomain.CurrentDomain
+                .GetAssemblies().FirstOrDefault(a => a.FullName == args.Name);
         }
 
         public static string GetEnvironmentVariable(string name)
