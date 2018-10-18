@@ -28,7 +28,7 @@
                 </template>
             </div>
             <v-snackbar v-if="$route.path.slice(1)==='ask'" class="question-toaster" @click="loadNewQuestions()"
-                        :top="true" :timeout="5000" :value="showQuestionToaster">
+                        :top="true" :timeout="0" :value="showQuestionToaster">
                 <div class="text-wrap">
                     <v-icon class="refresh-style">sbf-refresh</v-icon> &nbsp; <span v-language:inner>result_new_questions</span>
                 </div>

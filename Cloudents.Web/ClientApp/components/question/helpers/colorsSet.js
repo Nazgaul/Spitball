@@ -34,9 +34,9 @@ const colorsSet = {
         name: "turquoise",
         active: false,
     },
-    lightBlue: {
+    lightblue: {
         id: 7,
-        name: "lightBlue",
+        name: "lightblue",
         active: false,
     },
     grey: {
