@@ -52,11 +52,10 @@ namespace Cloudents.Infrastructure.Database
                 .ToFuture();
 
             var dto = new SuspendUserDto();
-         
-            dto.AnswersData = futureAnswersData.GetEnumerable();
-            dto.Questions = futureQuestionsData.GetEnumerable();
-            dto.QuestionsAnsweredData = futureQuestionsAnsweredData.GetEnumerable();
 
+            dto.Answers = await futureAnswersData.GetEnumerableAsync();
+            dto.Questions = await futureQuestionsData.GetEnumerableAsync();
+            
             return dto;
         }
     }

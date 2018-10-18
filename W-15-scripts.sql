@@ -313,4 +313,26 @@ REFERENCES [sb].[User] ([Id]);
 
 
 ALTER TABLE sb.Question
-DROP CONSTRAINT Question_AskQuestionSubject;   
+DROP CONSTRAINT Question_AskQuestionSubject;  
+
+
+CREATE TABLE [sb].[UserLocation](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Ip] [nvarchar](255) NULL,
+	[Country] [nvarchar](10) NULL,
+	[UserId] [bigint] NULL,
+	[CreationTime] [datetime2](7) NULL,
+	[UpdateTime] [datetime2](7) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [sb].[UserLocation]  WITH CHECK ADD  CONSTRAINT [UserLocation_User] FOREIGN KEY([UserId])
+REFERENCES [sb].[User] ([Id])
+GO
+
+ALTER TABLE [sb].[UserLocation] CHECK CONSTRAINT [UserLocation_User]
+GO

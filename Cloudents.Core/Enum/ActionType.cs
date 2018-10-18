@@ -5,6 +5,7 @@ namespace Cloudents.Core.Enum
 {
     public enum ActionType
     {
+        [ResourceDescription(typeof(EnumResources), "ActionTypeNone")]
         None,
         [ResourceDescription(typeof(EnumResources), "ActionTypeSignUp")]
         SignUp,

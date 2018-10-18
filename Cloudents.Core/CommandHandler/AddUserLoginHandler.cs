@@ -1,9 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Command;
+﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
 using Cloudents.Core.Interfaces;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -12,7 +12,7 @@ namespace Cloudents.Core.CommandHandler
     {
         private readonly IRepository<UserLogin> _repository;
 
-        public AddUserLoginHandler( IRepository<UserLogin> repository)
+        public AddUserLoginHandler(IRepository<UserLogin> repository)
         {
             _repository = repository;
         }
