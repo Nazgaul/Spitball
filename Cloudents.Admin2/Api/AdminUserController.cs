@@ -1,5 +1,4 @@
 ﻿using Cloudents.Admin2.Models;
-using Cloudents.Core.Command;
 using Cloudents.Core.Command.Admin;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
@@ -78,13 +77,13 @@ namespace Cloudents.Admin2.Api
 
                 foreach (var question in answersInfo.Questions)
                 {
-                    var deleteQuestionCommand = new Core.Command.Admin.DeleteQuestionCommand(question);
+                    var deleteQuestionCommand = new DeleteQuestionCommand(question);
                     await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
                 }
 
                 foreach (var answer in answersInfo.Answers)
                 {
-                    var deleteAnswerCommand = new DeleteAnswerCommand(answer, model.Id);
+                    var deleteAnswerCommand = new DeleteAnswerCommand(answer);
                     await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);
                 }
 
