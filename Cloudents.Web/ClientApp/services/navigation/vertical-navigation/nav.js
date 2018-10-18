@@ -106,6 +106,7 @@ export let verticalsNavbar = [];
 export let verticalsName = [];
 for (let i in nav) {
     let item = nav[i].data;
+    if(!item.visible) continue;
     verticalsName.push(i);
     names.push({'id': item.id, 'name': item.name});
 if(!!item.visible){
