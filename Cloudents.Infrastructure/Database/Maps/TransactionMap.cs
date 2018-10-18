@@ -3,7 +3,7 @@ using Cloudents.Core.Entities.Db;
 
 namespace Cloudents.Infrastructure.Database.Maps
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "assmbly loader inject")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "assembly loader inject")]
     public class TransactionMap : SpitballClassMap<Transaction>
     {
         public TransactionMap()
