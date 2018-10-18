@@ -23,7 +23,7 @@
                                                     :isFocused="showForm" @addFile="addFile"
                                                     @removeFile="removeFile"></extended-text-area>
                                 <div class="has-answer-error-wrapper">
-                                    <span v-if="!errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
+                                    <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
                                 </div>
                                 <v-btn block color="primary"
                                        @click="submitAnswer()"
@@ -70,7 +70,7 @@
                                                             :isFocused="showForm" @addFile="addFile"
                                                             @removeFile="removeFile"></extended-text-area>
                                         <div class="has-answer-error-wrapper">
-                                            <span v-if="!errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
+                                            <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
                                         </div>
                                         <v-btn color="primary" @click="submitAnswer()"
                                                :disabled="submitted"
