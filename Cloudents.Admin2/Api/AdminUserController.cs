@@ -82,7 +82,7 @@ namespace Cloudents.Admin2.Api
                     await commandBus.DispatchAsync(deleteQuestionCommand, token).ConfigureAwait(false);
                 }
 
-                foreach (var answer in answersInfo.AnswersData)
+                foreach (var answer in answersInfo.Answers)
                 {
                     var deleteAnswerCommand = new DeleteAnswerCommand(answer, model.Id);
                     await commandBus.DispatchAsync(deleteAnswerCommand, token).ConfigureAwait(false);

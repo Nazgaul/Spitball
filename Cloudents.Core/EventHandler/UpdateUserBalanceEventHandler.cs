@@ -8,7 +8,7 @@ using Cloudents.Core.Interfaces;
 namespace Cloudents.Core.EventHandler
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
-    public class UpdateUserBalanceEventHandler : IEventHandler<QuestionDeletedAdminEvent>
+    public class UpdateUserBalanceEventHandler : IEventHandler<QuestionDeletedAdminEvent>, IEventHandler<AnswerDeletedAdminEvent>
     {
         private readonly ICommandBus _commandBus;
 
@@ -20,6 +20,12 @@ namespace Cloudents.Core.EventHandler
         public async Task HandleAsync(QuestionDeletedAdminEvent eventMessage, CancellationToken token)
         {
             var command = new UpdateUserBalanceCommand(eventMessage.UserIds);
+            await _commandBus.DispatchAsync(command, token);
+        }
+
+        public async Task HandleAsync(AnswerDeletedAdminEvent answerEventMessage, CancellationToken token)
+        {
+            var command = new UpdateUserBalanceCommand(answerEventMessage.UserIds);
             await _commandBus.DispatchAsync(command, token);
         }
     }

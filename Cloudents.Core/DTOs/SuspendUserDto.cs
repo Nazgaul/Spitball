@@ -8,9 +8,8 @@ namespace Cloudents.Core.DTOs
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto")]
     public class SuspendUserDto
     {
-       
         public IEnumerable<long> Questions { get; set; }
-        public IEnumerable<Guid> AnswersData { get; set; }
-        public IEnumerable<long>  QuestionsAnsweredData { get; set; }
+        public IEnumerable<Guid> Answers{ get; set; }
+      
     }
 }
