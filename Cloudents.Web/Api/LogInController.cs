@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Command;
+using Cloudents.Core.Interfaces;
+using Cloudents.Web.Binders;
+using Cloudents.Web.Extensions;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Cloudents.Web.Api
@@ -14,19 +18,24 @@ namespace Cloudents.Web.Api
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<LogInController> _localizer;
 
         public LogInController(UserManager<User> userManager, SignInManager<User> signInManager,
-            IStringLocalizer<LogInController> localizer)
+            IStringLocalizer<LogInController> localizer, ICommandBus commandBus)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _localizer = localizer;
+            _commandBus = commandBus;
         }
 
         // GET
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody]LoginRequest model, CancellationToken token)
+        public async Task<ActionResult> Post(
+            [ModelBinder(typeof(CountryModelBinder))] string country,
+            [FromBody]LoginRequest model,
+            CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
@@ -35,7 +44,12 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
 
             }
-            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
+
+            var command = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
+            var t1 = _commandBus.DispatchAsync(command, token);
+            var t2 = _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
+            await Task.WhenAll(t1, t2);
+            var result = t2.Result;
             if (result == SignInResult.Success)
             {
                 await _signInManager.SignInAsync(user, false);

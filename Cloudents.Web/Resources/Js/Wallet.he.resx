@@ -156,6 +156,9 @@
   <data name="Tokens" xml:space="preserve">
     <value>אסימונים</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>סה"כ</value>
+  </data>
   <data name="Transaction" xml:space="preserve">
     <value>טרנזקציה</value>
   </data>

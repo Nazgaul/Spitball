@@ -109,16 +109,17 @@ export default {
                         let earnedVal;
                         const total = {
                             points: 0,
-                            type: LanguageService.getValueByKey("wallet_Total"),
-                            value: 0
+                            type: 'total',
+                            value: 0,
+                            name: LanguageService.getValueByKey("wallet_Total")
                         };
                         this.items = response.data;
                         this.items = this.items.map((item) => {
                             item.value = item.value.toFixed(2);
-                            if (item.type !== 'pending') {
+                            if (item.type.toLowerCase() !== 'pending') {
                                 parseFloat(item.value);
                                 this.cash += parseFloat(item.value);
-                                if (item.type === 'Earned') {
+                                if (item.type.toLowerCase() === 'earned') {
                                     earnedVal = parseFloat(item.value)
                                     this.earnedPoints = parseFloat(item.points)
                                 }

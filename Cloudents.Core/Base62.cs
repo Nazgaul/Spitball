@@ -49,6 +49,20 @@ namespace Cloudents.Core
             _stringValue = value;
         }
 
+        public static bool TryParse(string s, out Base62 val)
+        {
+            try
+            {
+                val = new Base62(s);
+                return true;
+            }
+            catch
+            {
+                val = null;
+                return false;
+            }
+        }
+
         public Base62(long value)
         {
             Value = value;
