@@ -175,7 +175,7 @@
     <value>שאלות בנושא שיעורי בית.</value>
   </data>
   <data name="lets_start" xml:space="preserve">
-    <value>הבה נתחיל</value>
+    <value>בואו נתחיל</value>
   </data>
   <data name="login" xml:space="preserve">
     <value>כניסה</value>
@@ -184,7 +184,7 @@
     <value>לחץ כאן כדי לשלוח שוב.</value>
   </data>
   <data name="login_didnt_get_sms" xml:space="preserve">
-    <value>לא קיבלת SMS?</value>
+    <value>לא קיבלת סמס?</value>
   </data>
   <data name="login_until_activate_account3" xml:space="preserve">
     <value>עד שתפעיל את חשבונך</value>
@@ -199,7 +199,7 @@
     <value>או</value>
   </data>
   <data name="please_agree" xml:space="preserve">
-    <value>כדי להמשיך, ציין את הסכמתך לאמור בתנאים ובהתניות</value>
+    <value>כדי להמשיך, אנא הסכם לתנאים וההתניות</value>
   </data>
   <data name="please_login" xml:space="preserve">
     <value>התחבר למערכת</value>
@@ -211,13 +211,13 @@
     <value>הירשם</value>
   </data>
   <data name="sbl" xml:space="preserve">
-    <value>נקודות SBL</value>
+    <value> SBL</value>
   </data>
   <data name="select_your_country_code" xml:space="preserve">
     <value>בחר קוד מדינה</value>
   </data>
   <data name="sent_code_by_sms" xml:space="preserve">
-    <value>שלחנו לך את הקוד ב-SMS</value>
+    <value>שלחנו לך את הקוד בסמס</value>
   </data>
   <data name="sent_confirmation_code" xml:space="preserve">
     <value>שלחנו קוד אישור אל הטלפון הנייד שלך.</value>
