@@ -39,14 +39,14 @@ export default {
                     deleteQuestion(numberArr)
                     .then(resp=>{
                      
-                        alert(`Questions were deleted: ${this.questionsIdString}`);
+                        this.$toaster.success(`Questions were deleted: ${this.questionsIdString}`);
                             this.questionsIdString= '';
                             this.questionsIds = [];
                            
 
                     },
                     (error)=>{
-                             alert('Something went wrong');
+                             this.$toaster.error('Something went wrong');
                             console.log('component delete error', error)
                     }
                     )
