@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Core.DTOs
 {
@@ -12,12 +13,12 @@ namespace Cloudents.Core.DTOs
     {
         public bool Equals(CourseDto x, CourseDto y)
         {
-            return x?.Id == y?.Id;
+            return string.Equals(x?.Name, y?.Name, StringComparison.OrdinalIgnoreCase);
         }
 
         public int GetHashCode(CourseDto obj)
         {
-            return obj.Id.GetHashCode();
+            return obj.Name.GetHashCode();
         }
     }
 }

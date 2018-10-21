@@ -21,14 +21,13 @@ namespace Cloudents.Functions
         public static async Task EmailFunctionAsync(
             [ServiceBusTrigger(TopicSubscription.Communication, nameof(TopicSubscription.Email), AccessRights.Listen)]BrokeredMessage brokeredMessage,
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<Mail> emailProvider,
-            IBinder binder,
             TraceWriter log,
             CancellationToken token)
         {
             if (brokeredMessage.DeliveryCount > 1)
             {
-                log.Warning("invoking message from queue");
-                await brokeredMessage.DeadLetterAsync();
+                //log.Warning("invoking message from queue");
+                //await brokeredMessage.DeadLetterAsync();
                 return;
             }
 
@@ -42,7 +41,7 @@ namespace Cloudents.Functions
                     return;
                 }
 
-                await ProcessEmail(emailProvider, binder, log, topicMessage, token);
+                await ProcessEmail(emailProvider,  log, topicMessage, token);
 
                 log.Info("finish sending email");
             }
@@ -69,7 +68,7 @@ namespace Cloudents.Functions
         //    await ProcessEmail(emailProvider, binder, log, topicMessage, token);
         //}
 
-        private static async Task ProcessEmail(IAsyncCollector<Mail> emailProvider, IBinder binder, TraceWriter log,
+        private static async Task ProcessEmail(IAsyncCollector<Mail> emailProvider, TraceWriter log,
             BaseEmail topicMessage, CancellationToken token)
         {
             var message = new Mail

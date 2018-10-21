@@ -336,3 +336,6 @@ GO
 
 ALTER TABLE [sb].[UserLocation] CHECK CONSTRAINT [UserLocation_User]
 GO
+
+alter table sb.question
+add State nvarchar(255);
