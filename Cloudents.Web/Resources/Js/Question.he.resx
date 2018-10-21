@@ -121,12 +121,12 @@
     <value>לפחות 15 תווים</value>
   </data>
   <data name="newQuestion_error_minSum" xml:space="preserve">
-    <value>בחר סכום שאתה רוצה לשלם</value>
+    <value>בחר את הסכום שברצונך לשלם</value>
   </data>
   <data name="newQuestion_error_pickSubject" xml:space="preserve">
-    <value>בחרי נושא</value>
+    <value>בחר נושא</value>
   </data>
   <data name="newQuestion_toasterPostedText" xml:space="preserve">
-    <value>שאלה פורסם, המוחות הטובים ביותר עובדים על זה עכשיו</value>
+    <value>השאלה נשלחה ומיטב המוחות שוקדים עליה ברגע זה</value>
   </data>
 </root>

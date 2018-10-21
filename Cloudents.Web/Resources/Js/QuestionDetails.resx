@@ -121,7 +121,7 @@
     <value>Add your answer</value>
   </data>
   <data name="Add_it_here" xml:space="preserve">
-    <value>Add it here</value>
+    <value>Add it here!</value>
   </data>
   <data name="Ask_question" xml:space="preserve">
     <value>Ask a question</value>
@@ -142,6 +142,6 @@
     <value>Question</value>
   </data>
   <data name="question_dash" xml:space="preserve">
-    <value>/ Questions /</value>
+    <value>/  Questions  /</value>
   </data>
 </root>

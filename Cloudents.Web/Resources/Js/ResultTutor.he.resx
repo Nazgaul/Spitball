@@ -121,7 +121,7 @@
     <value>$</value>
   </data>
   <data name="hour" xml:space="preserve">
-    <value>לשעה</value>
+    <value>/ שעה</value>
   </data>
   <data name="online_lessons" xml:space="preserve">
     <value>מציע שיעורים מקוונים</value>

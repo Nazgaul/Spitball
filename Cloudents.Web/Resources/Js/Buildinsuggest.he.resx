@@ -118,57 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ask_logarithms" xml:space="preserve">
-    <value>איך לפתור משוואות לוגריתמים</value>
+    <value>איך ליצור דאטה בייס/ מסד נתונים</value>
   </data>
   <data name="ask_plate" xml:space="preserve">
-    <value>טקטוניקת</value>
+    <value>סוגיות מרכזיות בדיני חוזים</value>
   </data>
   <data name="ask_triassic" xml:space="preserve">
-    <value>עובדות על אודות תקופת triassic</value>
+    <value>עובדות על היסטוריה במזרח התיכון</value>
   </data>
   <data name="book_biology" xml:space="preserve">
-    <value>ביולוגיה: הליבה מהדורה שניה</value>
+    <value>ביולוגיה – The Core מהדורה 2</value>
   </data>
   <data name="book_gregory" xml:space="preserve">
-    <value>ספרי לימוד של גרגורי</value>
+    <value>גרגורי מנקיב – ספר לימוד</value>
   </data>
   <data name="flashcard_calculus" xml:space="preserve">
-    <value>חשבון אינפיניטסימלי 2 סקירה סט</value>
+    <value>עקרונות כלכלה מיקרו</value>
   </data>
   <data name="flashcard_physics_study" xml:space="preserve">
-    <value>פיזיקה ללמוד סט</value>
+    <value>הכרת מערכות מידע</value>
   </data>
   <data name="flashcard_spanish" xml:space="preserve">
-    <value>ביניים האוצר ספרדי המילים שלך</value>
+    <value>החדרת שינוי ארגוני</value>
   </data>
   <data name="home_flashcards" xml:space="preserve">
-    <value>כרטיסיות עבור חשבונאות</value>
+    <value>כרטיסיות לימוד עבור ניהול חשבונות</value>
   </data>
   <data name="job_ambassador" xml:space="preserve">
-    <value>המותג השגריר משרות</value>
+    <value>שגרירי מותגים – משרות</value>
   </data>
   <data name="job_design" xml:space="preserve">
-    <value>עיצוב ממשק משתמש</value>
+    <value>תכנון חווית משתמש/ממשק משתמש</value>
   </data>
   <data name="job_internship" xml:space="preserve">
-    <value>התלמדות</value>
+    <value>התמחות לסטודנטים</value>
   </data>
   <data name="note_electrical" xml:space="preserve">
-    <value>הנדסת חשמל</value>
+    <value>ממ"ן 13 דני תאגידים</value>
   </data>
   <data name="note_microeconomics" xml:space="preserve">
-    <value>מיקרו-כלכלה לנדסברגר</value>
+    <value>סיכומים במדעי המחשב</value>
   </data>
   <data name="note_pastExams" xml:space="preserve">
-    <value>מעבר הבחינות ביו 101</value>
+    <value>אלגברה לניארית</value>
   </data>
   <data name="tutorphysics_esl" xml:space="preserve">
-    <value>חונכות אנגלית כשפה שנייה</value>
+    <value>esl – מורים פרטיים</value>
   </data>
   <data name="tutor_accounting" xml:space="preserve">
-    <value>חשבונאות עזרה שיעורי בית</value>
+    <value>ניהול חשבונות – עזרה בשיעורי בית</value>
   </data>
   <data name="tutor_biology" xml:space="preserve">
-    <value>עזרה ביולוגיה</value>
+    <value>ביולוגיה – עזרה</value>
   </data>
 </root>

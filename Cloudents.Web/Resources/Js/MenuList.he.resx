@@ -118,16 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="about_spitball" xml:space="preserve">
-    <value>על ספיטבול</value>
-  </data>
-  <data name="Change" xml:space="preserve">
-    <value>שנה</value>
-  </data>
-  <data name="changeCourse" xml:space="preserve">
-    <value>מחלקות</value>
-  </data>
-  <data name="changeUniversity" xml:space="preserve">
-    <value>אוניברסיטה</value>
+    <value>אודות ספיטבול</value>
   </data>
   <data name="feedback" xml:space="preserve">
     <value>משוב</value>
@@ -136,42 +127,39 @@
     <value>עזרה</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>התחבר</value>
+    <value>כניסה</value>
   </data>
   <data name="login_l" xml:space="preserve">
-    <value>התחברות</value>
+    <value>כניסה</value>
   </data>
   <data name="logout" xml:space="preserve">
-    <value>התנתק</value>
+    <value>התנתק מהמערכת</value>
   </data>
   <data name="messages" xml:space="preserve">
     <value>הודעות</value>
   </data>
   <data name="my_profile" xml:space="preserve">
-    <value>ראשי</value>
+    <value>הפרופיל שלי</value>
   </data>
   <data name="my_wallet" xml:space="preserve">
-    <value>הקרן שלי</value>
+    <value>הארנק שלי</value>
   </data>
   <data name="or" xml:space="preserve">
     <value>או</value>
   </data>
   <data name="Please" xml:space="preserve">
-    <value>בבקשה</value>
+    <value>אנא</value>
   </data>
   <data name="privacy_policy" xml:space="preserve">
-    <value>מדיניות פרטיות</value>
-  </data>
-  <data name="referral_spitball" xml:space="preserve">
-    <value>המלצה לחבר</value>
+    <value>מדיניות הפרטיות</value>
   </data>
   <data name="Sign_up" xml:space="preserve">
-    <value>הירשמו</value>
+    <value>הרשמה</value>
   </data>
   <data name="sign_up_l" xml:space="preserve">
-    <value>הירשמו</value>
+    <value>הרשמה</value>
   </data>
   <data name="terms_of_service" xml:space="preserve">
-    <value>תקנון וחוזה שרות</value>
+    <value>תנאי שירות</value>
   </data>
 </root>

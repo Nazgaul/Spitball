@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="login_askQuestion_stepOne" xml:space="preserve">
-    <value>הירשם עם הדוא"ל שלך כדי לקבל תשובות מידיות לשעורי הבית שלך.</value>
+    <value>הירשם עם כתובת הדוא"ל שלך כדי לקבל עכשיו תשובות על שאלות בשיעורי הבית.</value>
   </data>
   <data name="login_askQuestion_stepTwo" xml:space="preserve">
-    <value>אתה במרחק צעד אחד מקבלת SBL בחינם וקבלת עזרה בשעורי בית מסטודנטים מובילים</value>
+    <value>עוד שלב אחד ותוכל לצבור נקודות SBL ולקבל תשובות מתלמידים מצטיינים!</value>
   </data>
   <data name="login_noCampaign_stepOne" xml:space="preserve">
-    <value>התחל עם דוא"ל, אנחנו צריכים לדעת איך ליצור איתך קשר.</value>
+    <value>התחל בציון כתובת הדוא"ל שלך. אנחנו צריכים אותו כדי ליצור איתך קשר.</value>
   </data>
   <data name="login_noCampaign_stepTwo" xml:space="preserve">
-    <value>אנחנו צריכים לשלוח לך קוד אישור</value>
+    <value>עלינו לשלוח אליך קוד אישור</value>
   </data>
 </root>
