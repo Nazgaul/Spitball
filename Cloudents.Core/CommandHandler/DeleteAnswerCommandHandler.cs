@@ -33,7 +33,7 @@ namespace Cloudents.Core.CommandHandler
             {
                 throw new InvalidOperationException("user is not the one who wrote the answer");
             }
-            if (answer.Question.CorrectAnswer.Id == message.Id)
+            if (answer.Question.CorrectAnswer?.Id == message.Id)
             {
                 throw new ArgumentException("this is answer is correct answer");
             }

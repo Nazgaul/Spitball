@@ -62,7 +62,7 @@ namespace Cloudents.Web.Api
         {
             try
             {
-                var command = mapper.Map<RedeemTokenCommand>(model);
+                var command = new RedeemTokenCommand(_userManager.GetLongUserId(User), model.Amount);
                 await commandBus.DispatchAsync(command, token).ConfigureAwait(false);
                 return Ok();
             }
