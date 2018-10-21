@@ -16,6 +16,7 @@ namespace Cloudents.Infrastructure.Database.Maps
             Map(x => x.Created).Not.Nullable().Not.Update();
             Map(x => x.Updated).Not.Nullable();
             Map(x => x.Color);
+            Map(x => x.State);
             //References(x => x.Subject).ForeignKey("Question_AskQuestionSubject").Not.Nullable();
             Map(x => x.Subject).Column("Subject_id").CustomType<int>();
 
