@@ -68,6 +68,9 @@ export default {
         updateSort(val) {
             this.sortVal = val;
             this.$_changeTab(val);
+        },
+        onLoaded(event){
+            console.log('!!!Image loaded', event.target.value)
         }
     },
     created() {

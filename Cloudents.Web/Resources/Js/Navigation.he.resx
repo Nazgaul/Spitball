@@ -118,141 +118,138 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="campaign_askaquestion_ask_banner_boldText" xml:space="preserve">
-    <value>הרשם עכשיו</value>
+    <value>הירשם עכשיו!</value>
   </data>
   <data name="campaign_askaquestion_ask_banner_textMain" xml:space="preserve">
-    <value>הרשם עכשיו</value>
+    <value>הירשם עכשיו!</value>
   </data>
   <data name="campaign_askaquestion_ask_banner_title" xml:space="preserve">
-    <value>קבל תשובות מידיות על שעורי הבית שלך מתלמידים מצטיינים </value>
+    <value>הצג עכשיו שאלה משיעורי הבית וקבל במהירות תשובות מתלמידים מצטיינים.</value>
   </data>
   <data name="campaign_askaquestion_flashcard_banner_boldText" xml:space="preserve">
-    <value>בית הספר שלך, שיעורים והעדפות</value>
+    <value>בית הספר, השיעורים וההעדפות שלך</value>
   </data>
   <data name="campaign_askaquestion_flashcard_banner_textMain" xml:space="preserve">
-    <value>מסונן על ידי בית הספר שלך, שיעורים והעדפות. חוסך לך זמן </value>
+    <value>סינון לפי בית הספר, השיעורים וההעדפות שלך. חיסכון בזמן!</value>
   </data>
   <data name="campaign_askaquestion_flashcard_banner_title" xml:space="preserve">
-    <value>מחקר ממיליונים של קבוצות flashcard כדי לשפר את הציונים שלך</value>
+    <value>אפשר ללמוד ממיליוני סטים של כרטיסיות לימוד כדי לשפר ציונים.</value>
   </data>
   <data name="campaign_askaquestion_note_banner_boldText" xml:space="preserve">
-    <value>בית הספר שלך, שיעורים והעדפות</value>
+    <value>בית הספר, השיעורים וההעדפות שלך</value>
   </data>
   <data name="campaign_askaquestion_note_banner_textMain" xml:space="preserve">
-    <value>מסונן על ידי בית הספר שלך, שיעורים והעדפות. חוסך לך זמן </value>
+    <value>סינון לפי בית הספר, השיעורים וההעדפות שלך. חיסכון בזמן!</value>
   </data>
   <data name="campaign_askaquestion_note_banner_title" xml:space="preserve">
-    <value>הערות, מדריכי לימוד, בחינות ועוד מן האתרים הטובים ביותר.</value>
+    <value>רשימות, מדריכי לימוד, בחינות ועוד – ממיטב האתרים.</value>
   </data>
   <data name="campaign_book_askaquestion_banner_boldText" xml:space="preserve">
-    <value>מאות אתרים בו זמנית.</value>
+    <value>מאות אתרים – במקביל.</value>
   </data>
   <data name="campaign_book_askaquestion_banner_textMain" xml:space="preserve">
-    <value>תצוגה מקדימה של ציטוטים ממאות אתרים בו זמנית.</value>
+    <value>הצג הצעות ממאות אתרים – במקביל.</value>
   </data>
   <data name="campaign_book_askaquestion_banner_title" xml:space="preserve">
-    <value>השווה את המחירים הטובים ביותר לקנות, להשכיר או למכור את ספרי הלימוד שלך</value>
+    <value>השווה את המחירים הטובים ביותר לקנייה, השכרה או מכירה של ספרי לימוד.</value>
   </data>
   <data name="campaign_book_default_banner_boldText" xml:space="preserve">
-    <value>מאות אתרים בו זמנית.</value>
+    <value>מאות אתרים – במקביל.</value>
   </data>
   <data name="campaign_book_default_banner_textMain" xml:space="preserve">
-    <value>תצוגה מקדימה של ציטוטים ממאות אתרים בו זמנית.</value>
+    <value>הצג הצעות ממאות אתרים – במקביל.</value>
   </data>
   <data name="campaign_book_default_banner_title" xml:space="preserve">
-    <value>השווה את המחירים הטובים ביותר לקנות, להשכיר או למכור את ספרי הלימוד שלך</value>
+    <value>השווה את המחירים הטובים ביותר לקנייה, השכרה או מכירה של ספרי לימוד.</value>
   </data>
   <data name="campaign_default_ask_banner_boldText" xml:space="preserve">
-    <value>במזומן החוצה קופונים אמזון</value>
+    <value>החלף נקודות בקופונים של אמאזון</value>
   </data>
   <data name="campaign_default_ask_banner_textMain" xml:space="preserve">
-    <value>סטודנטים מרווחים כסף </value>
+    <value>השב על שאלות של שיעורי בית ופדה נקודות בקופונים של אמאזון. אין שום עוקץ!</value>
   </data>
   <data name="campaign_default_ask_banner_title" xml:space="preserve">
-    <value>עזור לסטודנטים אחרים עם שעורי הבית וקבל קופונים שווי כסף לאמזון</value>
+    <value>אפשר להרוויח כסף מעזרה עם שיעורי בית לאחרים.</value>
   </data>
   <data name="campaign_default_flashcard_banner_boldText" xml:space="preserve">
-    <value>בית הספר שלך, שיעורים והעדפות</value>
+    <value>בית הספר, השיעורים וההעדפות שלך</value>
   </data>
   <data name="campaign_default_flashcard_banner_textMain" xml:space="preserve">
-    <value>מסונן על ידי בית הספר שלך, שיעורים והעדפות. חוסך לך זמן </value>
+    <value>סינון לפי בית הספר, השיעורים וההעדפות שלך. חיסכון בזמן!</value>
   </data>
   <data name="campaign_default_flashcard_banner_title" xml:space="preserve">
-    <value>מחקר ממיליונים של קבוצות flashcard כדי לשפר את הציונים שלך</value>
+    <value>אפשר ללמוד ממיליוני סטים של כרטיסיות לימוד כדי לשפר ציונים.</value>
   </data>
   <data name="campaign_default_note_banner_textMain" xml:space="preserve">
-    <value>מסונן על ידי בית הספר שלך, שיעורים והעדפות. חוסך לך זמן </value>
+    <value>סינון לפי בית הספר, השיעורים וההעדפות שלך. חיסכון בזמן!</value>
   </data>
   <data name="campaign_default_note_banner_title" xml:space="preserve">
-    <value>הערות, מדריכי לימוד, בחינות ועוד מן האתרים הטובים ביותר.</value>
+    <value>רשימות, מדריכי לימוד, בחינות ועוד – ממיטב האתרים.</value>
   </data>
   <data name="campaign_default_note_banner__boldText" xml:space="preserve">
-    <value>בית הספר שלך, שיעורים והעדפות</value>
+    <value>בית הספר, השיעורים וההעדפות שלך</value>
   </data>
   <data name="campaign_job_askaquestion_banner_boldText" xml:space="preserve">
     <value>ניסיון והעדפות מיקום.</value>
   </data>
   <data name="campaign_job_askaquestion_banner_textMain" xml:space="preserve">
-    <value>מסונן על ידי הניסיון שלך ואת העדפת המיקום.</value>
+    <value>סינון לפי הניסיון והעדפות המיקום שלך.</value>
   </data>
   <data name="campaign_job_askaquestion_banner_title" xml:space="preserve">
-    <value>מצא משרות והתמחויות מותאמות במיוחד לסטודנטים.</value>
+    <value>אתר משרות והתמחויות שמתאימות ספציפית לסטודנטים.</value>
   </data>
   <data name="campaign_job_default_banner_boldText" xml:space="preserve">
     <value>ניסיון והעדפות מיקום.</value>
   </data>
   <data name="campaign_job_default_banner_textMain" xml:space="preserve">
-    <value>מסונן על ידי הניסיון שלך ואת העדפת המיקום.</value>
+    <value>סינון לפי הניסיון והעדפות המיקום שלך.</value>
   </data>
   <data name="campaign_job_default_banner_title" xml:space="preserve">
-    <value>מצא משרות והתמחויות מותאמות במיוחד לסטודנטים.</value>
-  </data>
-  <data name="campaign_referral_ask_banner_title" xml:space="preserve">
-    <value>לקבל עזרה עם החומרה שלך התלמידים המצטיינים ולהתחיל להרוויח כסף על ידי עזרה לזולת</value>
+    <value>אתר משרות והתמחויות שמתאימות ספציפית לסטודנטים.</value>
   </data>
   <data name="campaign_tutor_askaquestion_banner_boldText" xml:space="preserve">
-    <value>כאן כדי לעזור לך להצליח.</value>
+    <value>כאן כדי לסייע לך להצליח.</value>
   </data>
   <data name="campaign_tutor_askaquestion_banner_textMain" xml:space="preserve">
-    <value>לא משנה את הנושא, מורה הוא כאן כדי לעזור לך להצליח.</value>
+    <value>בכל נושא אפשרי – כאן תמצא מורה פרטי שיעזור לך להצליח.</value>
   </data>
   <data name="campaign_tutor_askaquestion_banner_title" xml:space="preserve">
-    <value>מצא מומחה כדי לעזור לך אס הכיתות שלך באופן אישי או באינטרנט.</value>
+    <value>אתר מומחה שיסייע לך לעבור שיעורים בקלות – פנים אל פנים או דרך האינטרנט.</value>
   </data>
   <data name="campaign_tutor_default_banner_boldText" xml:space="preserve">
-    <value>כאן כדי לעזור לך להצליח.</value>
+    <value>כאן כדי לסייע לך להצליח.</value>
   </data>
   <data name="campaign_tutor_default_banner_textMain" xml:space="preserve">
-    <value>לא משנה את הנושא, מורה הוא כאן כדי לעזור לך להצליח.</value>
+    <value>בכל נושא אפשרי – כאן תמצא מורה פרטי שיעזור לך להצליח.</value>
   </data>
   <data name="campaign_tutor_default_banner_title" xml:space="preserve">
-    <value>מצא מומחה כדי לעזור לך אס הכיתות שלך באופן אישי או באינטרנט.</value>
+    <value>אתר מומחה שיסייע לך לעבור שיעורים בקלות – פנים אל פנים או דרך האינטרנט.</value>
   </data>
   <data name="nav_bookDetails_filter_new" xml:space="preserve">
     <value>חדש</value>
   </data>
   <data name="nav_bookDetails_filter_rental" xml:space="preserve">
-    <value>שכירות</value>
+    <value>להשכרה</value>
   </data>
   <data name="nav_bookDetails_filter_used" xml:space="preserve">
-    <value>בשימוש</value>
+    <value>משומש</value>
   </data>
   <data name="nav_name_ask" xml:space="preserve">
-    <value>שיעורי בית</value>
+    <value>עזרה בשיעורי בית</value>
   </data>
   <data name="nav_name_book" xml:space="preserve">
-    <value>ספר לימוד</value>
+    <value>ספרי לימוד</value>
   </data>
   <data name="nav_name_flashcards" xml:space="preserve">
-    <value>כרטיסיות</value>
+    <value>כרטיסיות לימוד</value>
   </data>
   <data name="nav_name_job" xml:space="preserve">
     <value>משרות</value>
   </data>
   <data name="nav_name_note" xml:space="preserve">
-    <value>מסמכי לימוד</value>
+    <value>מסמכי לימודים</value>
   </data>
   <data name="nav_name_tutor" xml:space="preserve">
-    <value>מדריכים</value>
+    <value>מורים פרטיים</value>
   </data>
 </root>

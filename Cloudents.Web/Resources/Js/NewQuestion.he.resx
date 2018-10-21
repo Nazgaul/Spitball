@@ -118,34 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Ask" xml:space="preserve">
-    <value>שאל עכשיו</value>
+    <value>שאל/בקש</value>
   </data>
   <data name="fair_prise" xml:space="preserve">
-    <value>מחיר הוגן יעשה את המכירה</value>
+    <value>מחיר הוגן יבטיח לך מכירה</value>
   </data>
   <data name="Get_Your_Question_Answered" xml:space="preserve">
-    <value>לקבל תשובה לשאלה שלך</value>
+    <value>קבל תשובות על השאלה שלך</value>
   </data>
   <data name="max_SBL" xml:space="preserve">
-    <value>מקס. מספר ובינונית ליצירת הוא 100 לכל שאלה</value>
+    <value>מספר המרבי של נק' SBL הוא 100 לשאלה</value>
   </data>
   <data name="min_SBL" xml:space="preserve">
-    <value>הגבלת מספר ובינונית ליצירת הוא 1 לכל שאלה</value>
-  </data>
-  <data name="otherAmount_placeholder" xml:space="preserve">
-    <value>סכום אחרת</value>
+    <value>המספר המינימלי של נק' SBL הוא 1 לשאלה</value>
   </data>
   <data name="Pick_a_subject" xml:space="preserve">
-    <value>בחרי נושא</value>
+    <value>בחר נושא</value>
   </data>
   <data name="SBL" xml:space="preserve">
-    <value>SBL</value>
+    <value>נקודות SBL</value>
   </data>
   <data name="sufficient_SBL" xml:space="preserve">
-    <value>אין לך מספיק ובינונית ליצירת</value>
+    <value>אין לך מספיק נקודות SBL</value>
   </data>
   <data name="Tip" xml:space="preserve">
-    <value>טיפ</value>
+    <value>עצה:</value>
   </data>
   <data name="You_have" xml:space="preserve">
     <value>יש לך</value>

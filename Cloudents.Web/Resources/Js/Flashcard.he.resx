@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="B" xml:space="preserve">
-    <value>B</value>
+    <value>נ</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>חזרה</value>
   </data>
   <data name="Both" xml:space="preserve">
-    <value>שניהם</value>
+    <value>גם וגם</value>
   </data>
   <data name="both_l" xml:space="preserve">
-    <value>שניהם</value>
+    <value>גם וגם</value>
   </data>
   <data name="Cards" xml:space="preserve">
-    <value>כרטיסים</value>
+    <value>קלפים</value>
   </data>
   <data name="F" xml:space="preserve">
-    <value>F</value>
+    <value>כ</value>
   </data>
   <data name="flashcard_pin_l" xml:space="preserve">
-    <value>נעץ</value>
+    <value>הצמד</value>
   </data>
   <data name="flipdown" xml:space="preserve">
-    <value>FlipDown</value>
+    <value>הפוך מטה</value>
   </data>
   <data name="flipup" xml:space="preserve">
-    <value>FlipUp</value>
+    <value>הפוך מעלה</value>
   </data>
   <data name="Front" xml:space="preserve">
     <value>קדמי</value>
@@ -151,13 +151,13 @@
     <value>קדמי</value>
   </data>
   <data name="K" xml:space="preserve">
-    <value>K</value>
+    <value>ל</value>
   </data>
   <data name="next" xml:space="preserve">
     <value>הבא</value>
   </data>
   <data name="P" xml:space="preserve">
-    <value>P</value>
+    <value>פ</value>
   </data>
   <data name="Pin" xml:space="preserve">
     <value>נעץ</value>
@@ -169,12 +169,12 @@
     <value>S</value>
   </data>
   <data name="shuffle" xml:space="preserve">
-    <value>ערבב</value>
+    <value>ערבוב</value>
   </data>
   <data name="shuffle_cards" xml:space="preserve">
-    <value>ערבב את הקלפים</value>
+    <value>ערבוב קלפים</value>
   </data>
   <data name="Study" xml:space="preserve">
-    <value>למד</value>
+    <value>לימוד</value>
   </data>
 </root>

@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Accept" xml:space="preserve">
-    <value>אישור</value>
+    <value>קבל</value>
   </data>
   <data name="Answer" xml:space="preserve">
     <value>תשובה</value>
   </data>
   <data name="Answer_dot" xml:space="preserve">
-    <value>תשובה</value>
+    <value>השב ·</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>מחק</value>
   </data>
   <data name="Earn" xml:space="preserve">
-    <value>להרוויח</value>
+    <value>בוא להרוויח</value>
   </data>
   <data name="Sold" xml:space="preserve">
     <value>נמכר</value>

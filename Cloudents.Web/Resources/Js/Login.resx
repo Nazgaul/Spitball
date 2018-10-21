@@ -148,7 +148,7 @@
     <value>Your confirmation link has expired</value>
   </data>
   <data name="congrats" xml:space="preserve">
-    <value>CONGRATS</value>
+    <value>CONGRATS!</value>
   </data>
   <data name="continue" xml:space="preserve">
     <value>Continue</value>
@@ -298,7 +298,7 @@
     <value>We sent a confirmation code to your mobile phone.</value>
   </data>
   <data name="signin_your_email" xml:space="preserve">
-    <value>Sign In with Email</value>
+    <value>Sign up with Email</value>
   </data>
   <data name="signup_your_email" xml:space="preserve">
     <value>Sign Up with Email</value>
