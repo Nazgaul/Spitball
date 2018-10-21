@@ -73,7 +73,7 @@ namespace Cloudents.MailgunFunctions
            
             const int limitPerIp = 1000;
 
-            int[] limitPerSession = new int[] { 5, 5, 50, 50 };
+            var limitPerSession = new[] { 5, 5, 50, 50 };
 
             var universityAsList = universities.ToList();
             for (var j = 0; j < limitPerSession.Length; j++)
