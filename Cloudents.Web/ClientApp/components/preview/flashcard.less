@@ -623,9 +623,6 @@
                     .text-container p {
                         padding: 0;
                     }
-                    //.img-container + .text-container {
-                    //    height:50%;
-                    //}
                 }
             }
 
@@ -697,11 +694,7 @@
                     }
 
                     .img-container {
-                        /*.displayFlex;
-                        .align-items(center);
-                        .justifyContet(center);*/
-                        position: relative;
-
+                      position: relative;
                         img {
                             position: absolute;
                             max-width: 100%;
@@ -722,7 +715,6 @@
                         p {
                             font-size: 48px;
                             overflow: auto;
-                            //height: 100%; // IE will fuck up if you change this // Irena - i changed it - IE fucks up when it comes to resizing - lets see if it will keep happenning with vue resizing library...
                             margin: 0 auto;
 
                             &.lessText {
@@ -786,8 +778,6 @@
             .flip {
                 color: @color-medium-grey;
                 position: absolute;
-                right: 10px;
-                bottom: 10px;
                 font-size: 10px;
                 right: 11px;
                 bottom: 7px;
