@@ -35,7 +35,6 @@ export default {
             return this.filterVal.find((item) => {
                 //trying to fix bug of hebrew
                 // return item.filterType === singleFilter.id && item.name === (filterItem.value ? filterItem.value.toString() : '')
-
                 return item.filterType === singleFilter.id && item.filterId === (filterItem.key ? filterItem.key.toString() : '')
             });
         },
