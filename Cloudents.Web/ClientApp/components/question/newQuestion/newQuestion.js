@@ -48,6 +48,9 @@ export default {
                 this.errorSelectPrice = '';
                 this.pricesList = [10, 20, 40, 80];
                 this.loading = false;
+                this.selectedColor = {
+                    name: 'default'
+                };
                 this.$root.$emit("colorReset");
                 this.$root.$emit('previewClean', 'true');
                 this.files = [];

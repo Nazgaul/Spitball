@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace Cloudents.Core.Message
 {
     [Serializable]
-    public class SupportRedeemEmail: BaseEmail
+    public class SupportRedeemEmail : BaseEmail
     {
-        public SupportRedeemEmail(decimal amount, long userId) 
-            : base("support@spitball.co", null, $"Redeem Email {userId}", campaign: "SupportRedeem")
+        public SupportRedeemEmail(decimal amount, long userId)
+            : base("support@spitball.co", $"Redeem Email {userId}", null)
         {
             Amount = amount;
             UserId = userId;
@@ -19,5 +21,8 @@ namespace Cloudents.Core.Message
         {
             return $"User id: {UserId} want to redeem {Amount}";
         }
+
+        public override string Campaign => null;
+        protected override IDictionary<CultureInfo, string> Templates => null;
     }
 }

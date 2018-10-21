@@ -63,8 +63,7 @@ namespace Cloudents.Web.Api
         [ResponseCache(Duration = TimeConst.Day)]
         public IEnumerable<QuestionSubjectResponse> GetSubjectsAsync()
         {
-            var values = EnumExtension.GetValues<QuestionSubject>();
-
+            var values = QuestionSubjectMethod.GetValues();
             return values.Select(s => new QuestionSubjectResponse((int)s, s.GetEnumLocalization()));
         }
 
@@ -199,7 +198,7 @@ namespace Cloudents.Web.Api
                        facets.Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization()))),
 
                    new Filters<string>(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"],
-                       EnumExtension.GetValues<QuestionSubject>()
+                       QuestionSubjectMethod.GetValues()
                            .Select(s => new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())))
                     //new Models.Filters(nameof(GetQuestionsRequest.Filter),_localizer["FilterTypeTitle"], EnumExtension.GetPublicEnumNames(typeof(QuestionFilter))),
                     //new Models.Filters(nameof(GetQuestionsRequest.Source),_localizer["SubjectTypeTitle"], subjects.Select(s=>s.Subject))
