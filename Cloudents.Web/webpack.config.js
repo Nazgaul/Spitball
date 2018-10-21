@@ -78,38 +78,38 @@ module.exports = (env) => {
                     options: {
                         preserveWhitespace: isDevBuild ? true : false,
                         loaders: {
-                            css: isDevBuild
-                                ? "vue-style-loader!css-loader"
-                                : ExtractTextPlugin.extract({
-                                    use: "css-loader?minimize",
-                                    fallback: "vue-style-loader"
-                                }),
-                            less: isDevBuild
-                                ? "vue-style-loader!css-loader!less-loader"
-                                : ExtractTextPlugin.extract({
-                                    use: "css-loader?minimize!less-loader",
-                                    fallback: "vue-style-loader"
-                                }),
-                            scss: isDevBuild
-                                ? "vue-style-loader!css-loader!sass-loader"
-                                : ExtractTextPlugin.extract({
-                                    use: "css-loader?minimize!sass-loader",
-                                    fallback: "vue-style-loader"
-                                })
-
-                            //RTL support
-                            //css: ExtractTextPlugin.extract({
+                            //css: isDevBuild
+                            //    ? "vue-style-loader!css-loader"
+                            //    : ExtractTextPlugin.extract({
                             //        use: "css-loader?minimize",
                             //        fallback: "vue-style-loader"
                             //    }),
-                            //less: ExtractTextPlugin.extract({
+                            //less: isDevBuild
+                            //    ? "vue-style-loader!css-loader!less-loader"
+                            //    : ExtractTextPlugin.extract({
                             //        use: "css-loader?minimize!less-loader",
                             //        fallback: "vue-style-loader"
                             //    }),
-                            //scss: ExtractTextPlugin.extract({
+                            //scss: isDevBuild
+                            //    ? "vue-style-loader!css-loader!sass-loader"
+                            //    : ExtractTextPlugin.extract({
                             //        use: "css-loader?minimize!sass-loader",
                             //        fallback: "vue-style-loader"
                             //    })
+
+                            //RTL support
+                            css: ExtractTextPlugin.extract({
+                                    use: "css-loader?minimize",
+                                    fallback: "vue-style-loader"
+                                }),
+                            less: ExtractTextPlugin.extract({
+                                    use: "css-loader?minimize!less-loader",
+                                    fallback: "vue-style-loader"
+                                }),
+                            scss: ExtractTextPlugin.extract({
+                                    use: "css-loader?minimize!sass-loader",
+                                    fallback: "vue-style-loader"
+                                })
                         }
                     }
                 },
