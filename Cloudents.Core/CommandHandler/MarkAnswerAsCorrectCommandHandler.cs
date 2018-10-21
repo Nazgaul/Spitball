@@ -49,7 +49,10 @@ namespace Cloudents.Core.CommandHandler
             {
                 var factor = fraudTime / condition;
                 question.User.FraudScore += (int)factor * 5;
+                answer.User.FraudScore += (int) factor * 5;
+                
                 await _userRepository.UpdateAsync(question.User, token);
+                await _userRepository.UpdateAsync(answer.User, token);
             }
 
             //TODO: this is no good - we need to figure out how to change its location - this command handler should handle also user lock out
@@ -57,8 +60,11 @@ namespace Cloudents.Core.CommandHandler
                 && question.Price == 100)
             {
                 question.User.LockoutEnd = DateTimeOffset.MaxValue;
+                answer.User.LockoutEnd = DateTimeOffset.MaxValue;
                 question.State = QuestionState.Suspended;
                 await _userRepository.UpdateAsync(question.User, token);
+                await _userRepository.UpdateAsync(answer.User, token);
+
             }
 
             await _questionRepository.UpdateAsync(question, token);
