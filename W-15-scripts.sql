@@ -339,3 +339,7 @@ GO
 
 alter table sb.question
 add State nvarchar(255);
+
+
+---V7
+-- need to create signalr service
