@@ -22,7 +22,7 @@ namespace Cloudents.Infrastructure.Database.Query
             _session = session.Session;
         }
 
-       // [Cache(TimeConst.Minute * 5, RemoveQuestionCacheEventHandler.CacheRegion, false)]
+        // [Cache(TimeConst.Minute * 5, RemoveQuestionCacheEventHandler.CacheRegion, false)]
         public async Task<IEnumerable<QuestionDto>> GetAsync(QuestionsQuery query, CancellationToken token)
         {
             QuestionDto dto = null;
@@ -33,6 +33,7 @@ namespace Cloudents.Infrastructure.Database.Query
             var queryOverObj = _session.QueryOver(() => questionAlias)
                 //.JoinAlias(x => x.Subject, () => commentAlias)
                 .JoinAlias(x => x.User, () => userAlias)
+                .Where(w => w.State == null || w.State == QuestionState.Ok)
                 .SelectList(l => l
                     //.Select(_ => commentAlias.Text).WithAlias(() => dto.Subject)
                     .Select(s => s.Subject).WithAlias(() => dto.Subject)
@@ -86,7 +87,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 .Skip(query.Page * 50)
                 .Take(50);
 
-            
+
             return await queryOverObj.ListAsync<QuestionDto>(token);
         }
     }

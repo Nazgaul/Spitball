@@ -27,7 +27,7 @@ namespace Cloudents.Core.Message
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
             { Language.Hebrew.Culture,"e4334fe9-b71d-466f-80ea-737bf16d9c81"},
-            {Language.English.Culture ,"4f915763-1f9e-4b81-9ed7-09c1201c677b" }
+            {Language.English.Culture ,"4c4fcea0-3c7c-403b-8593-67c580b3133b" }
         };
     }
 }

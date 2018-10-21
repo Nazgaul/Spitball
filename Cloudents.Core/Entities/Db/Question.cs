@@ -69,6 +69,7 @@ namespace Cloudents.Core.Entities.Db
         protected internal virtual IList<Transaction> Transactions { get; set; }
 
         public virtual QuestionColor? Color { get; set; }
+        public virtual QuestionState? State { get; set; }
 
 
         public virtual void QuestionCreateTransaction()

@@ -32,13 +32,15 @@
                             </v-layout>
                         </v-layout>
                         <div class="filter-list">
+
                             <v-btn-toggle  v-model="filtersSelected" multiple>
                                 <v-btn v-for="filterOption in singleFilter.data"
                                        :key="(filterOption.key ? filterOption.key : '')"
                                        :active="filterOption.value"
                                        :id="filterOption.key"
-                                       :value="`${filterOption.key}_${filterOption.value}_${singleFilter.id}`">
+                                       :value="`${filterOption.key}_${filterOption.key}_${singleFilter.id}`">
                                     {{filterOption.value ? filterOption.value : '' | capitalize}}
+
                                 </v-btn>
                             </v-btn-toggle>
                             <slot :name="`${singleFilter.modelId}EmptyState`" v-if="singleFilter.data && singleFilter.data.length===0"></slot>
