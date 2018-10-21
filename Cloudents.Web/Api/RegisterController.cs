@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
@@ -185,7 +186,7 @@ namespace Cloudents.Web.Api
 
             var link = Url.Link("ConfirmEmail", new { user.Id, code, returnUrl = url, referral = TempData[HomeController.Referral] });
             TempData[Email] = user.Email;
-            var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link));
+            var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link),CultureInfo.CurrentUICulture);
             await _queueProvider.InsertMessageAsync(message, token).ConfigureAwait(false);
         }
 

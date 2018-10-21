@@ -1,10 +1,12 @@
 ﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.CommandHandler
 {
@@ -14,6 +16,7 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
         private readonly IRepository<User> _userRepository;
+        
 
         public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
             IRepository<Answer> answerRepository, IRepository<User> userRepository)
@@ -39,18 +42,34 @@ namespace Cloudents.Core.CommandHandler
 
             float condition = Math.Max(DateTime.UtcNow.Subtract(answer.Created).Seconds, 1);
 
+            
+            //TODO: this is no good - we need to figure out how to change its location - this command handler should handle the fraud score
             const int fraudTime = TimeConst.Minute * 8;
             if (condition < fraudTime)
             {
                 var factor = fraudTime / condition;
-
                 question.User.FraudScore += (int)factor * 5;
-
+                answer.User.FraudScore += (int) factor * 5;
+                
                 await _userRepository.UpdateAsync(question.User, token);
+                await _userRepository.UpdateAsync(answer.User, token);
             }
 
-            var t1 = _questionRepository.UpdateAsync(question, token);
-            await Task.WhenAll(t1/*, t2*/).ConfigureAwait(true);
+            //TODO: this is no good - we need to figure out how to change its location - this command handler should handle also user lock out
+            if (DateTime.UtcNow.Subtract(question.User.Created) < TimeSpan.FromMinutes(15) 
+                && question.Price == 100)
+            {
+                question.User.LockoutEnd = DateTimeOffset.MaxValue;
+                answer.User.LockoutEnd = DateTimeOffset.MaxValue;
+                question.State = QuestionState.Suspended;
+                await _userRepository.UpdateAsync(question.User, token);
+                await _userRepository.UpdateAsync(answer.User, token);
+
+            }
+
+            await _questionRepository.UpdateAsync(question, token);
+         
         }
     }
+
 }

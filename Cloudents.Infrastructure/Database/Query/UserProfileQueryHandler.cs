@@ -1,14 +1,14 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using NHibernate;
-using NHibernate.Criterion;
 using NHibernate.Linq;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Database.Query
 {
@@ -40,6 +40,7 @@ namespace Cloudents.Infrastructure.Database.Query
                  .ToFutureValue();
             var futureQuestions = _session.Query<Question>()
                 .Where(w => w.User.Id == query.Id)
+                .Where(w => w.State == null || w.State == QuestionState.Ok)
                 .OrderByDescending(o => o.Id)
                 .Select(s => new QuestionDto
                 {
@@ -81,7 +82,7 @@ namespace Cloudents.Infrastructure.Database.Query
                 }).ToFuture();
 
 
-   
+
             var dto = await futureDto.GetValueAsync(token).ConfigureAwait(false);
             if (dto == null)
             {
@@ -90,7 +91,7 @@ namespace Cloudents.Infrastructure.Database.Query
 
             dto.Questions = futureQuestions.GetEnumerable();
             dto.Answers = futureAnswers.GetEnumerable();
-            
+
             return dto;
         }
     }

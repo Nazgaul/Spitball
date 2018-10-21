@@ -1,14 +1,12 @@
 ﻿@import "../../mixin.less";
 
 .header {
-  //background-image: linear-gradient(276deg, @Spitball-Main-color, #3023ae);
   z-index: 102;
   &.v-toolbar {
     background-color: @color-white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 
     .v-toolbar__content {
-      //.limited-width();
       padding: 0;
     }
   }
@@ -16,7 +14,6 @@
   .v-toolbar__items {
     flex-grow: 1;
     display: flex;
-    //justify-content: space-between;
     justify-content: flex-start;
     align-items: center;
     @media (min-width: @screen-xs) {
@@ -32,7 +29,6 @@
     .inTheMiddle();
     margin: 0;
     @media (max-width: (@screen-sm)) {
-      //margin-left: 41px;
       margin-right: 14px;
       &.auth-user {
         margin-left: 66px;
@@ -42,7 +38,6 @@
   }
 
   .logo-link {
-    //.inTheMiddle();
     display: flex;
     align-items: center;
     z-index:10;
@@ -83,7 +78,6 @@
   }
 
   .line {
-    //.limited-width();
     .responsive-property(max-height, 60px, 60px, 64px);
     @media (max-width: @screen-xs) {
       padding-top: 8px;
@@ -128,7 +122,6 @@
     //TODO AB-Test
     .static-card-what-is-hw-question {
       visibility: hidden!important;
-     // display: flex;
       flex-grow: 1;
       .ab-test-button {
         display: flex;
@@ -158,11 +151,9 @@
     flex: 1 0 auto;
     line-height: 32px;
     display: flex;
-    //width: 100%;
     @media (max-width: @screen-xs) {
       flex: 0 auto;
     }
-    //margin-left: 60px;
     .v-btn--icon {
       @media (max-width: 959px) {
         margin-right: 0;
@@ -171,10 +162,11 @@
     .header-login {
       height: 32px;
       //width: 104px;
+      font-weight: 400;
       margin-right: 10px;
-      border-radius: 26.5px;
+      border-radius: 26px;
       border: solid 1px @color-main-purple;
-      font-size: 16px !important;
+      font-size: 16px;
       outline: none;
       display: flex;
       align-items: center;
@@ -182,9 +174,7 @@
       color: @color-main-purple;
       letter-spacing: -0.5px;
       padding: 0 20px;
-      width: 100%;
-      min-width: 104px;
-      max-width: 104px;
+      .widthMinMax(100%, 104px, 104px);
       @media (max-width: @screen-xs) {
         display: none;
       }
@@ -204,7 +194,6 @@
           background: darken(@color-white, 10%);
         }
       }
-
     }
   }
 

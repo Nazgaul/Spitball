@@ -23,14 +23,12 @@ namespace Cloudents.Web.Api
     {
         //internal const string CreateAnswerPurpose = "CreateAnswer";
         private readonly ICommandBus _commandBus;
-        private readonly IMapper _mapper;
         private readonly IStringLocalizer<AnswerController> _localizer;
         private readonly UserManager<User> _userManager;
 
-        public AnswerController(ICommandBus commandBus, IMapper mapper, UserManager<User> userManager, IStringLocalizer<AnswerController> localizer)
+        public AnswerController(ICommandBus commandBus, UserManager<User> userManager, IStringLocalizer<AnswerController> localizer)
         {
             _commandBus = commandBus;
-            _mapper = mapper;
             _userManager = userManager;
             _localizer = localizer;
         }
@@ -80,7 +78,7 @@ namespace Cloudents.Web.Api
         {
             try
             {
-                var command = _mapper.Map<DeleteAnswerCommand>(model);
+                var command = new DeleteAnswerCommand(model.Id, _userManager.GetLongUserId(User));
                 await _commandBus.DispatchAsync(command, token).ConfigureAwait(false);
                 return Ok();
             }

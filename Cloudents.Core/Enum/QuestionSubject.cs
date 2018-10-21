@@ -1,5 +1,8 @@
-﻿using Cloudents.Core.Attributes;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Enum.Resources;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.Enum
 {
@@ -35,7 +38,7 @@ namespace Cloudents.Core.Enum
         Languages = 14,
         [ResourceDescription(typeof(QuestionSubjectResources), "Psychology")]
         Psychology = 15,
-        [ResourceDescription(typeof(QuestionSubjectResources), "Miscellaneous")]
+        [ResourceDescription(typeof(QuestionSubjectResources), "Miscellaneous"), OrderValue(1)]
         Miscellaneous = 16,
         [ResourceDescription(typeof(QuestionSubjectResources), "Religion/Philosophy")]
         ReligionPhilosophy = 17,
@@ -53,5 +56,18 @@ namespace Cloudents.Core.Enum
         Sports = 23,
         [ResourceDescription(typeof(QuestionSubjectResources), "Anthropology")]
         Anthropology
+
+
+        
+    }
+
+    public static class QuestionSubjectMethod
+    {
+        public static IEnumerable<QuestionSubject> GetValues()
+        {
+            var values = EnumExtension.GetValues<QuestionSubject>();
+            return values.OrderBy(o => o.GetAttributeValue<OrderValueAttribute>()?.Order ?? 0)
+                .ThenBy(o => o.GetEnumLocalization());
+        }
     }
 }
