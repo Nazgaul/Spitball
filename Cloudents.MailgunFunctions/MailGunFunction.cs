@@ -9,6 +9,7 @@ using Cloudents.Core.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 using Cloudents.Core.Request;
 using Cloudents.MailGunFunctions.Di;
 using Microsoft.Azure.WebJobs;
@@ -23,7 +24,7 @@ namespace Cloudents.MailgunFunctions
 
         [FunctionName("MailGunTest")]
         public static async Task MailGunTestAsync([TimerTrigger("0 * * * * *")]TimerInfo myTimer,
-            [Inject] IReadRepositoryAsync<IEnumerable<MailGunDto>, long> dataRepository,
+            [Inject] IReadRepositoryAsync<IEnumerable<MailGunDto>, MailGunQuery> dataRepository,
             [Inject] IMailProvider mailProvider,
             [Inject] ICommandBus bus,
             [Blob(MailGunMailTemplateHtml,Connection = "StorageConnectionString")]
@@ -44,7 +45,7 @@ namespace Cloudents.MailgunFunctions
         [FunctionName("MailGunProcess")]
         public static async Task MailGunProcessAsync([TimerTrigger("0 0 * * * *")]TimerInfo myTimer,
             [Inject]IReadRepositoryAsync<IEnumerable<MailGunUniversityDto>> universityRepository,
-            [Inject] IReadRepositoryAsync<IEnumerable<MailGunDto>, long> dataRepository,
+            [Inject] IReadRepositoryAsync<IEnumerable<MailGunDto>, MailGunQuery> dataRepository,
             [Inject] IMailProvider mailProvider,
             [Inject] ICommandBus bus,
             [Blob(MailGunMailTemplateHtml,Connection = "StorageConnectionString")]
@@ -63,16 +64,19 @@ namespace Cloudents.MailgunFunctions
 
         private static async Task MailGunProcessAsync(
             IEnumerable<int> universities,
-            IReadRepositoryAsync<IEnumerable<MailGunDto>, long> dataRepository,
+            IReadRepositoryAsync<IEnumerable<MailGunDto>, MailGunQuery> dataRepository,
             IMailProvider mailProvider,
             ICommandBus bus,
             string htmlBody,
             CancellationToken token)
         {
-            const int numberOfIps = 4;
+           
             const int limitPerIp = 1000;
+
+            int[] limitPerSession = new int[] { 5, 5, 50, 50 };
+
             var universityAsList = universities.ToList();
-            for (var j = 0; j < numberOfIps; j++)
+            for (var j = 0; j < limitPerSession.Length; j++)
             {
                 var counter = 0;
                 foreach (var universityId in universityAsList)
@@ -86,7 +90,8 @@ namespace Cloudents.MailgunFunctions
                         continue;
                     }
 
-                    var emails = await dataRepository.GetAsync(universityId, token).ConfigureAwait(false);
+                    var query = new MailGunQuery( universityId, limitPerSession[j] );
+                    var emails = await dataRepository.GetAsync(query, token).ConfigureAwait(false);
 
                     var emailsTask = new List<Task>();
                     var k = 0;

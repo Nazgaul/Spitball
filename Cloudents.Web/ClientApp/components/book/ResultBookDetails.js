@@ -41,7 +41,7 @@ export default {
                     return this.pageData.data;
                 } else {
                    return this.pageData.data.filter((item) => {
-                            return [].concat(this.query.filter).includes(item.condition)
+                            return [].concat(this.query.filter).includes(item.condition.toLowerCase())
                         }
                     );
                 }
