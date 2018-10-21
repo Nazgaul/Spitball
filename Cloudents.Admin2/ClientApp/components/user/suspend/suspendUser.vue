@@ -31,15 +31,15 @@ export default {
     methods:{
         banUser:function(){
             if(!this.userId){
-                alert("Please Insert A user ID")
+                this.$toaster.error("Please Insert A user ID")
                 return;
             }
             suspendUser(this.userId, this.deleteUserQuestions).then((email)=>{
-                alert(`userId ${this.userId} got suspended, email is: ${email}`)
+                this.$toaster.success(`userId ${this.userId} got suspended, email is: ${email}`)
                 this.showSuspendedDetails = true;
                 this.suspendedMail = email;
             }, (err)=>{
-                alert(`ERROR: failed to suspend user`);
+                this.$toaster.error(`ERROR: failed to suspend user`);
                 console.log(err)
             })
         }

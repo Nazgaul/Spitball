@@ -161,7 +161,7 @@ export default {
                     ['לפני שנה', 'בעוד שנה'],
                     ['לפני %s שנים', 'בעוד %s שנים']
                 ][index];
-            }
+            };
             timeago.register('he', hebrewLang);
             let timeAgoRef = timeago();
             let locale = (global.isRtl && (global.country.toLowerCase() === 'il')) ? 'he' : '';
