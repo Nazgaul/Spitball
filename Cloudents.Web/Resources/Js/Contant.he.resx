@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="address" xml:space="preserve">
-    <value>שדרות מדיסון 79, ניו יורק ניו יורק</value>
+    <value>79 Madison Ave, New York, New York, 10016</value>
   </data>
 </root>
