@@ -81,7 +81,7 @@ const nav = {
             filter: [],
             sort: [],
             icon: "sbf-job",
-            visible: global.country.toUpperCase() !== 'IL'
+            visible: !global.country.toUpperCase() !== 'IL'
         }
     }
 };
