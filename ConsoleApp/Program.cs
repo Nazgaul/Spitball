@@ -59,8 +59,8 @@ namespace ConsoleApp
             }
             else
             {
-                await RamMethod();
-               // await HadarMethod();
+                
+               await HadarMethod();
             }
 
 
@@ -119,6 +119,10 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
+            var bus = _container.Resolve<ICommandBus>();
+            var command = new Cloudents.Core.Command.MarkAnswerAsCorrectCommand(Guid.Parse("EB558BF9-75C1-4953-B005-A97D00E21611"), 3982);
+            await bus.DispatchAsync(command, default);
+
             var t = _container.Resolve<IBlockChainErc20Service>();
             string spitballServerAddress = "0xc416bd3bebe2a6b0fea5d5045adf9cb60e0ff906";
 
