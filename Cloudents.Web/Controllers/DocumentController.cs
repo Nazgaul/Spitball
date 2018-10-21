@@ -36,7 +36,6 @@ namespace Cloudents.Web.Controllers
         [Route("item/{universityName}/{boxId:long}/{boxName}/{id:long}/{name}", Name = SeoTypeString.Item)]
         [ActionName("Index")]
         public async Task<IActionResult> IndexAsync(long id,
-            [FromQuery] bool? isNew,
             CancellationToken token)
         {
             var query = new DocumentById(id);
@@ -46,15 +45,6 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (string.Equals(model.Country, "il", StringComparison.InvariantCultureIgnoreCase))
-            {
-                if (!isNew.GetValueOrDefault(false))
-                {
-                    return this.RedirectToOldSite();
-                }
-
-            }
-
             if (!model.Discriminator.Equals("file", StringComparison.OrdinalIgnoreCase))
             {
                 return View();
@@ -62,11 +52,8 @@ namespace Cloudents.Web.Controllers
             ViewBag.imageSrc = ViewBag.fbImage = "https://az779114.vo.msecnd.net/preview/" + model.ImageUrl +
                                                  ".jpg?width=1200&height=630&mode=crop";
             if (string.IsNullOrEmpty(model.Country)) return View();
-
-
-            //var culture = Languages.GetCultureBaseOnCountry(model.Country);
-            //_localizer.WithCulture()
-            //SeoBaseUniversityResources.Culture = culture;
+            
+            //TODO: need to be university culture
             ViewBag.title =
                 $"{model.CourseName} - {model.Name} | {_sharedLocalizer["Spitball"]}";
 
