@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Command;
 using Cloudents.Core.Entities.Db;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
@@ -14,6 +15,7 @@ namespace Cloudents.Core.CommandHandler
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Answer> _answerRepository;
         private readonly IRepository<User> _userRepository;
+        
 
         public MarkAnswerAsCorrectCommandHandler(IRepository<Question> questionRepository,
             IRepository<Answer> answerRepository, IRepository<User> userRepository)
@@ -27,10 +29,11 @@ namespace Cloudents.Core.CommandHandler
         {
             var answer = await _answerRepository.LoadAsync(message.AnswerId, token).ConfigureAwait(true); //false will raise an exception
             var question = answer.Question;
-            if (question.User.Id != message.QuestionUserId)
-            {
-                throw new InvalidOperationException("only owner can perform this task");
-            }
+            // NEED TO TAKE IT BACK ONLY FOR CHECK
+            //if (question.User.Id != message.QuestionUserId)
+            //{
+            //    throw new InvalidOperationException("only owner can perform this task");
+           // }
             if (answer.Question.Id != question.Id)
             {
                 throw new InvalidOperationException("answer is not connected to question");
@@ -43,14 +46,20 @@ namespace Cloudents.Core.CommandHandler
             if (condition < fraudTime)
             {
                 var factor = fraudTime / condition;
-
                 question.User.FraudScore += (int)factor * 5;
+                await _userRepository.UpdateAsync(question.User, token);
+            }
 
+            if ((DateTime.UtcNow.Subtract(question.User.Created) < TimeSpan.FromMinutes(150) && question.Price == 100))
+            {
+                question.User.LockoutEnd = DateTimeOffset.MaxValue;
                 await _userRepository.UpdateAsync(question.User, token);
             }
 
             var t1 = _questionRepository.UpdateAsync(question, token);
             await Task.WhenAll(t1/*, t2*/).ConfigureAwait(true);
+         
         }
     }
+
 }
