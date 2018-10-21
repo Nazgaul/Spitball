@@ -124,7 +124,7 @@ namespace Cloudents.Web
                 Swagger.Startup.SwaggerInitial(services);
             }
 
-            services.AddSignalR().AddRedis(Configuration["Redis"]).AddJsonProtocol(o =>
+            services.AddSignalR().AddAzureSignalR().AddJsonProtocol(o =>
                 {
                     o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
@@ -299,7 +299,7 @@ namespace Cloudents.Web
 
             app.UseAuthentication();
             
-            app.UseSignalR(routes =>
+            app.UseAzureSignalR(routes =>
             {
                 routes.MapHub<SbHub>("/SbHub");
             });
