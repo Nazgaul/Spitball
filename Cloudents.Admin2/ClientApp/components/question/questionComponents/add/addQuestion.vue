@@ -47,18 +47,18 @@ export default {
         },
         addQ: function(){
             if(this.questionPrice < 1){
-                alert("Error: Price must be above 1");
+                this.$toaster.error("Error: Price must be above 1");
                 return;
             }
             if(this.subjectContent === ''){
-                alert("Error: No Content");
+                this.$toaster.error("Error: No Content");
                 return;
             }
             addQuestion(this.selectedSubject, this.subjectContent, this.questionPrice).then(()=>{
-                alert("Success on Adding Question");
+                this.$toaster.success("Success on Adding Question");
             }, (err)=>{
                 console.log(err);
-                alert("Error: Failed to Add question");
+                this.$toaster.error("Error: Failed to Add question");
             })
         }
     },

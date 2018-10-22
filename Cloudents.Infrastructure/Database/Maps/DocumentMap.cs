@@ -16,6 +16,8 @@ namespace Cloudents.Infrastructure.Database.Maps
             References(e => e.Course).Column("BoxId").Not.Nullable();//.Index("iBoxIsDeleted");
             Table("Item");
             Schema("Zbox");
+
+            SchemaAction.None();
         }
     }
 }

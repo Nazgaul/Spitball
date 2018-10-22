@@ -10,23 +10,28 @@ namespace Cloudents.Core.CommandHandler
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
     public class AssignCourseToUserCommandHandler : ICommandHandler<AssignCourseToUserCommand>
     {
-        private readonly IRepository<User> _userRepository;
         private readonly IRepository<Course> _courseRepository;
-        private readonly IRepository<UserCourseRelationship> _userCourseRelationshipRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public AssignCourseToUserCommandHandler(IRepository<User> userRepository, IRepository<Course> courseRepository, IRepository<UserCourseRelationship> userCourseRelationshipRepository)
+        public AssignCourseToUserCommandHandler(IRepository<Course> courseRepository, IRepository<User> userRepository)
         {
-            _userRepository = userRepository;
             _courseRepository = courseRepository;
-            _userCourseRelationshipRepository = userCourseRelationshipRepository;
+            _userRepository = userRepository;
         }
+
 
         public async Task ExecuteAsync(AssignCourseToUserCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            var course = await _courseRepository.LoadAsync(message.CourseId, token);
-            var relationship = new UserCourseRelationship(user, course);
-            await _userCourseRelationshipRepository.AddAsync(relationship, token);
+            var course = await _courseRepository.GetAsync(message.Name, token);
+
+            if (course == null)
+            {
+                course = new Course(message.Name);
+                await _courseRepository.AddAsync(course, token).ConfigureAwait(true);
+            }
+            user.Courses.Add(course);
+            await _userRepository.UpdateAsync(user, token);
         }
     }
 }

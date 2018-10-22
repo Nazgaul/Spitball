@@ -29,6 +29,7 @@ namespace Cloudents.Core.Interfaces
         Task<User> GetRandomFictiveUserAsync(CancellationToken token);
         
         Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
+        Task<User> LoadAsync(object id, bool checkUserLocked, CancellationToken token);
     }
 
     public interface IQuestionRepository : IRepository<Question>
@@ -38,10 +39,7 @@ namespace Cloudents.Core.Interfaces
         Task<Question> GetUserLastQuestionAsync(long userId, CancellationToken token);
     }
 
-    public interface ICourseRepository : IRepository<Course>
-    {
-        Task<Course> GetCourseAsync(long universityId, string courseName, CancellationToken token);
-    }
+   
 
     public interface IUniversityRepository : IRepository<University>
     {

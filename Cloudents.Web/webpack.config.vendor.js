@@ -96,35 +96,8 @@ module.exports = (env) => {
             }),
 
             new WebpackRTLPlugin({
-                filename: '[name].[contenthash].rtl.css'
-                //options: {
-                //    'clean': true,
-                //    'stringMap': [
-                //        {
-                //            'name': 'left-right',
-                //            'priority': 100,
-                //            'search': ['left', 'Left', 'LEFT'],
-                //            'replace': ['right', 'Right', 'RIGHT'],
-                //            'options': {
-                //                'scope': '*',
-                //                'ignoreCase': false
-                //            }
-                //        },
-                //        {
-                //            'name': 'ltr-rtl',
-                //            'priority': 100,
-                //            'search': ['ltr', 'Ltr', 'LTR'],
-                //            'replace': ['rtl', 'Rtl', 'RTL'],
-                //            'options': {
-                //                'scope': '*',
-                //                'ignoreCase': false
-                //            }
-                //        }
-                //    ]
-                //},
-               // plugins: [],
-               // diffOnly: false,
-                //minify: false,
+                filename: '[name].[contenthash].rtl.css',
+                minify: false
             }),
             //new PurifyCSSPlugin({
             //    // Give paths to parse for rules. These should be absolute!

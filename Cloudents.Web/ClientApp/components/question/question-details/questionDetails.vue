@@ -91,7 +91,7 @@
                 </v-tab-item>
             </v-tabs>
         </div>
-        <sb-dialog :showDialog="showDialogSuggestQuestion" :popUpType="'suggestions'" :content-class="'question-suggest'">
+        <sb-dialog :showDialog="showDialogSuggestQuestion" :popUpType="'suggestions'"  :content-class="'question-suggest'">
                 <question-suggest-pop-up  :user="questionData.user" :cardList="cardList.nextQuestions"></question-suggest-pop-up>
 
         </sb-dialog>

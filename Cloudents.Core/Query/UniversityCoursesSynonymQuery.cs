@@ -7,16 +7,16 @@ namespace Cloudents.Core.Query
 {
     public class UniversityCoursesSynonymQuery : IQuery<UniversityCoursesSynonymDto>
     {
-        public UniversityCoursesSynonymQuery(long? universityId, IList<long> coursesIds)
+        public UniversityCoursesSynonymQuery(long? universityId, IList<string> courses)
         {
             UniversityId = universityId;
-            CoursesIds = coursesIds;
+            Courses = courses;
         }
 
         [CanBeNull]
         public long? UniversityId { get;  }
 
         [CanBeNull]
-        public IList<long> CoursesIds { get; private set; }
+        public IList<string> Courses { get; private set; }
     }
 }

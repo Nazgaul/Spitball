@@ -36,7 +36,7 @@ namespace Cloudents.Infrastructure.Database.Query
         public async Task<UniversityCoursesSynonymDto> GetAsync(UniversityCoursesSynonymQuery query, CancellationToken token)
         {
             IFutureValue<UniversityResult> universityFuture = null;
-            IFutureEnumerable<string> coursesFuture = null;
+            //IFutureEnumerable<string> coursesFuture = null;
             if (query.UniversityId.HasValue)
             {
                 universityFuture = _readonlySession.Session.Query<University>()
@@ -44,12 +44,12 @@ namespace Cloudents.Infrastructure.Database.Query
                     .ToFutureValue();
             }
 
-            if (query.CoursesIds?.Any() == true)
-            {
-                coursesFuture = _readonlySession.Session.Query<Course>()
-                    .Where(w => query.CoursesIds.Contains(w.Id))
-                    .Select(s => s.Name).ToFuture();
-            }
+            //if (query.CoursesIds?.Any() == true)
+            //{
+            //    coursesFuture = _readonlySession.Session.Query<Course>()
+            //        .Where(w => query.CoursesIds.Contains(w.Id))
+            //        .Select(s => s.Name).ToFuture();
+            //}
 
             var retVal = new UniversityCoursesSynonymDto();
             if (universityFuture != null)
@@ -58,10 +58,8 @@ namespace Cloudents.Infrastructure.Database.Query
                 var resultUniversity = university.ExtraSearch?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Union(new[] { university.Name });
                 retVal.University = resultUniversity;
             }
-            if (coursesFuture != null)
-            {
-                retVal.Courses = await coursesFuture.GetEnumerableAsync(token);
-            }
+
+            retVal.Courses = query.Courses;
 
             return retVal;
         }

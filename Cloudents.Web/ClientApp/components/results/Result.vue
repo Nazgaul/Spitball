@@ -1,5 +1,6 @@
 ﻿<template>
     <general-page :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
+        <uni-select slot="uniSelect"></uni-select>
         <signup-banner slot="signupBanner" v-if="!accountUser && showRegistrationBanner"></signup-banner>
         <div slot="main">
             <!--static cards AB test-->

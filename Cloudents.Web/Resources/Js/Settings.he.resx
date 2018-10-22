@@ -120,6 +120,24 @@
   <data name="images_png_jpg" xml:space="preserve">
     <value>ניתן להעלות רק תמונות בתבנית PNG או JPG, בגודל של פחות מ-5MB</value>
   </data>
+  <data name="menu_item_about_spitball" xml:space="preserve">
+    <value>אודות ספיטבול</value>
+  </data>
+  <data name="menu_item_feedback" xml:space="preserve">
+    <value>משוב</value>
+  </data>
+  <data name="menu_item_help" xml:space="preserve">
+    <value>עזרה</value>
+  </data>
+  <data name="menu_item_privacy_policy" xml:space="preserve">
+    <value>מדיניות פרטיות</value>
+  </data>
+  <data name="menu_item_terms" xml:space="preserve">
+    <value>תנאי שירות</value>
+  </data>
+  <data name="my_courses" xml:space="preserve">
+    <value>הקורסים שלי</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>שמור</value>
   </data>
@@ -128,5 +146,8 @@
   </data>
   <data name="tap_to_cange" xml:space="preserve">
     <value>הקש על התמונה כדי להחליף אותה</value>
+  </data>
+  <data name="university_choose" xml:space="preserve">
+    <value>בחר אוניברסיטה</value>
   </data>
 </root>

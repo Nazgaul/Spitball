@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Write
     [UsedImplicitly]
     public class CourseSearchWrite : SearchServiceWrite<Core.Entities.Search.Course>
     {
-        public const string IndexName = "course2";
+        public const string IndexName = "course3";
         public const string ScoringProfile = "course-default";
 
         public CourseSearchWrite(SearchService client) : base(client, client.GetClient(IndexName))
@@ -39,10 +39,10 @@ namespace Cloudents.Infrastructure.Write
                         IsSortable = true,
                         //SearchAnalyzer = AnalyzerName.StandardLucene,
                     },
-                    new Field(nameof(Core.Entities.Search.Course.Code), DataType.String)
+                    new Field(nameof(Core.Entities.Search.Course.Extra), DataType.Collection(DataType.String))
                     {
                         IsSearchable = true,
-                        IsSortable = true,
+                        //IsSortable = true,
                         //SearchAnalyzer = AnalyzerName.StandardLucene,
                     },
                     new Field(nameof(Core.Entities.Search.Course.Prefix), DataType.Collection(DataType.String))
@@ -51,12 +51,7 @@ namespace Cloudents.Infrastructure.Write
                         SearchAnalyzer = AnalyzerName.StandardLucene,
                         IndexAnalyzer = AnalyzerName.Create("prefix"),
                     },
-                    new Field(nameof(Core.Entities.Search.Course.UniversityId), DataType.Int64)
-                    {
-                        //SearchAnalyzer = AnalyzerName.StandardLucene,
-                        //IndexAnalyzer =  AnalyzerName.Create("stopWords")
-                        IsFilterable = true
-                    }
+                   
                 },
                 Analyzers = new List<Analyzer>
                 {
@@ -76,7 +71,7 @@ namespace Cloudents.Infrastructure.Write
                     {
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
-                            [nameof(Core.Entities.Search.Course.Code)] = 3,
+                            [nameof(Core.Entities.Search.Course.Extra)] = 3,
                             [nameof(Core.Entities.Search.Course.Name)] = 2,
                             [nameof(Core.Entities.Search.Course.Prefix)] = 1,
 
@@ -84,13 +79,13 @@ namespace Cloudents.Infrastructure.Write
 
                         FunctionAggregation = ScoringFunctionAggregation.Sum
                     }
+                },
+                Suggesters = new List<Suggester>
+                {
+                    new Suggester("sg",
+                        nameof(Core.Entities.Search.Course.Extra),
+                        nameof(Core.Entities.Search.Course.Name))
                 }
-                //Suggesters = new List<Suggester>
-                //{
-                //    new Suggester("sg",
-                //        nameof(Core.Entities.Search.Course.Extra),
-                //        nameof(Core.Entities.Search.Course.Name))
-                //}
             };
         }
     }

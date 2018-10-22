@@ -41,7 +41,7 @@ export default {
                     return this.pageData.data;
                 } else {
                    return this.pageData.data.filter((item) => {
-                            return [].concat(this.query.filter).includes(item.condition)
+                            return [].concat(this.query.filter).includes(item.condition.toLowerCase())
                         }
                     );
                 }
@@ -68,6 +68,9 @@ export default {
         updateSort(val) {
             this.sortVal = val;
             this.$_changeTab(val);
+        },
+        onLoaded(event){
+            console.log('!!!Image loaded', event.target.value)
         }
     },
     created() {

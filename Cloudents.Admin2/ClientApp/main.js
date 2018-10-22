@@ -2,10 +2,12 @@
 import VueRouter from "vue-router"
 import App from './App.vue'
 import { routes } from './routes'
+import Toaster from 'v-toaster'
+import 'v-toaster/dist/v-toaster.css'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
-
+Vue.use(Toaster, {timeout: 5000})
 console.log(routes);
 
 const router = new VueRouter({

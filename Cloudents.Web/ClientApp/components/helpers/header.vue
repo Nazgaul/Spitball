@@ -163,14 +163,22 @@
 
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'resetData', 'updateNewQuestionDialogState']),
-
+            ...mapActions(['updateToasterParams', 'resetData', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData']),
             openNewQuestionDialog(){
-                let Obj = {
-                    status:true,
-                    from: 1
-                }
-                this.updateNewQuestionDialogState(Obj)
+                    if(this.accountUser == null){
+                        this.updateLoginDialogState(true);
+                        //set user profile
+                        this.updateUserProfileData('profileHWH')
+                    }else{
+                        //ab test original do not delete
+                        let Obj = {
+                            status:true,
+                            from: 1
+                        };
+                        this.updateNewQuestionDialogState(Obj)
+                    }
+
+
             },
             //TODO: what is that
             $_currentClick({id, name}) {

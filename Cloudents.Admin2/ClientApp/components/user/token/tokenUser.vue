@@ -31,20 +31,20 @@ export default {
     methods:{
         sendTokens: function(){
             if(!this.userId){
-                alert("you must provide a UserId")
+                this.$toaster.error("you must provide a UserId")
                 return;
             }
             if(!this.tokens){
-                alert("you must provide tokens")
+                this.$toaster.error("you must provide tokens")
                 return;
             }
             grantTokens(this.userId, this.tokens, this.tokenType).then(()=>{
-                alert(`user id ${this.userId} recived ${this.tokens} tokens`)
+                this.$toaster.error(`user id ${this.userId} recived ${this.tokens} tokens`)
                 this.userId= null;
                 this.tokens= null;
             },(err)=>{
                 console.log(err);
-                alert(`Error: couldn't send tokens`)
+                this.$toaster.error(`Error: couldn't send tokens`)
             })
             
         }

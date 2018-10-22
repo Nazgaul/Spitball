@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Message;
-using Cloudents.Core.Request;
 
 namespace Cloudents.Core.Storage
 {
@@ -10,7 +9,7 @@ namespace Cloudents.Core.Storage
         Task InsertMessageAsync(BaseEmail message, CancellationToken token);
         //Task InsertMessageAsync(BlockChainInitialBalance message, CancellationToken token);
 
-        Task InsertMessageAsync(BlockChainQnaSubmit message, CancellationToken token);
+        //Task InsertMessageAsync(BlockChainQnaSubmit message, CancellationToken token);
         Task InsertMessageAsync(UrlRedirectQueueMessage message, CancellationToken token);
         Task InsertMessageAsync(SmsMessage2 message, CancellationToken token);
 

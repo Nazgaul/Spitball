@@ -5,6 +5,7 @@ import SuggestCard from './suggestCard.vue'
 import emptyState from "./svg/no-match-icon.svg";
 import { typesPersonalize } from "../settings/consts.js";
 import signupBanner from './../helpers/signup-banner/signup-banner.vue'
+import uniSelect from './../helpers/uni-select/uniSelect.vue'
 import QuestionCard from "../question/helpers/question-card/question-card";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue';
@@ -55,7 +56,8 @@ export default {
         QuestionCard,
         sbDialog,
         loginToAnswer,
-        notificationCenter
+        notificationCenter,
+        uniSelect
     },
 
     //use basic sort and filter functionality( same for book details and result page)

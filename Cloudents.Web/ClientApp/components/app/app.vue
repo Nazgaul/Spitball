@@ -10,7 +10,7 @@
               <span style="text-align:left;" v-language:inner>app_cookie_toaster_text</span> &nbsp;
               <span class="cookie-approve"><button @click="removeCookiesPopup()" style="outline:none;" v-language:inner>app_cookie_toaster_action</button></span>
             </div>
-            <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'" :content-class="'login-popup'">
+            <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">
                 <login-to-answer></login-to-answer>
             </sb-dialog>
             <sb-dialog :showDialog="newQuestionDialogSate" :popUpType="'newQuestion'" :content-class="'newQuestionDialog'">

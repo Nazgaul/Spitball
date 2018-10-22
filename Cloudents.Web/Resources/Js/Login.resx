@@ -298,7 +298,7 @@
     <value>We sent a confirmation code to your mobile phone.</value>
   </data>
   <data name="signin_your_email" xml:space="preserve">
-    <value>Sign up with Email</value>
+    <value>Sign In with Email</value>
   </data>
   <data name="signup_your_email" xml:space="preserve">
     <value>Sign Up with Email</value>

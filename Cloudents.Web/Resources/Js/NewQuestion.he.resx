@@ -127,19 +127,22 @@
     <value>קבל תשובות על השאלה שלך</value>
   </data>
   <data name="max_SBL" xml:space="preserve">
-    <value>מספר המרבי של נק' SBL הוא 100 לשאלה</value>
+    <value>הסכום המרבי לשאלה הוא 100 SBL</value>
   </data>
   <data name="min_SBL" xml:space="preserve">
-    <value>המספר המינימלי של נק' SBL הוא 1 לשאלה</value>
+    <value>הסכום המינימלי לשאלה הוא SBL 1</value>
+  </data>
+  <data name="otherAmount_placeholder" xml:space="preserve">
+    <value>סכום אחר</value>
   </data>
   <data name="Pick_a_subject" xml:space="preserve">
     <value>בחר נושא</value>
   </data>
   <data name="SBL" xml:space="preserve">
-    <value>נקודות SBL</value>
+    <value> SBL</value>
   </data>
   <data name="sufficient_SBL" xml:space="preserve">
-    <value>אין לך מספיק נקודות SBL</value>
+    <value>אין לך מספיק  SBL</value>
   </data>
   <data name="Tip" xml:space="preserve">
     <value>עצה:</value>

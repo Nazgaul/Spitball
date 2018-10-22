@@ -32,9 +32,8 @@ export default {
             this.$root.$emit('closePopUp', 'suggestions')
         },
         answerMore(id) {
-            this.$router.push({path: `/question/${id}`},
-                function(success){console.log("success: " + success)},
-                function(abort){console.log("abort: " + abort)} );
+            this.$router.push({path: `/question/${id}`}) ;
+            //this.$router.push({name: 'question', params: {id: `${id}`}});
             this.requestDialogClose();
         }
     },

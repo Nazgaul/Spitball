@@ -22,13 +22,15 @@ namespace Cloudents.Infrastructure.Database.Query
 
         public async Task<IEnumerable<CourseDto>> GetAsync(CoursesQuery query, CancellationToken token)
         {
-           return await _session.Query<UserCourseRelationship>()
-                .Fetch(f => f.Course)
-                .Where(w=>w.User.Id == query.UserId)
+            //V7 - need to check
+           return await _session.Query<User>()
+                .Fetch(f => f.Courses)
+               
+                .Where(w=>w.Id == query.UserId)
+               .SelectMany(s => s.Courses)
                 .Select(s=> new CourseDto
                 {
-                    Id = s.Course.Id,
-                    Name = s.Course.Name
+                    Name = s.Name
                 }).ToListAsync(token);
         }
     }
