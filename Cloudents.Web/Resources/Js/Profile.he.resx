@@ -127,10 +127,10 @@
     <value>סייע לתלמידים אחרים להרוויח כסף על ידי העלאת תשובות על שאלות.</value>
   </data>
   <data name="emptyState_questions_boldText" xml:space="preserve">
-    <value>הצג את השאלה שלך</value>
+    <value>שאל שאלה</value>
   </data>
   <data name="emptyState_questions_btnText" xml:space="preserve">
-    <value>הצג את השאלה שלך</value>
+    <value>שאל שאלה</value>
   </data>
   <data name="emptyState_questions_text" xml:space="preserve">
     <value>יש לך שאלה לגבי שיעורי הבית?</value>
