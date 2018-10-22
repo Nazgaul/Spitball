@@ -2,7 +2,6 @@ using Cloudents.Core.Message;
 using Cloudents.Core.Storage;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;

@@ -4,7 +4,6 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs.Host;
 using System.Linq;
 using Cloudents.Core.Query.Sync;
 using Cloudents.FunctionsV2.Sync;

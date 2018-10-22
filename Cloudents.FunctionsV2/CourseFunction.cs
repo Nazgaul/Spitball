@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.FunctionsV2.Sync;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 
 namespace Cloudents.FunctionsV2

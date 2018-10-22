@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Message;
-using Cloudents.Core.Request;
 using Cloudents.Core.Storage;
 using Microsoft.Azure.ServiceBus;
 using Newtonsoft.Json;
